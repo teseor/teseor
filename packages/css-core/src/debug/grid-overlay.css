@@ -33,13 +33,11 @@
   outline: var(--border-width-sm) solid hsl(var(--hue-danger) 80% 50% / 0.5);
 }
 
-/* Larger debug grid - shows 20px grid instead of 8px for easier visualization */
-.debug-grid-lg {
-  --debug-color: hsl(var(--hue-primary) 80% 50% / 0.2);
-  --debug-grid-size: 1.25rem; /* 20px */
+/* Scale up base unit - makes all elements bigger for grid alignment visualization */
+.debug-scale-2x {
+  --unit: 1rem; /* 16px instead of 8px - 2x scale */
+}
 
-  background-image: linear-gradient(to right, var(--debug-color) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--debug-color) 1px, transparent 1px);
-  background-size: var(--debug-grid-size) var(--debug-grid-size);
-  background-position: 0 0;
+.debug-scale-3x {
+  --unit: 1.5rem; /* 24px instead of 8px - 3x scale */
 }
