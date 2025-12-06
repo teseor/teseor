@@ -1,0 +1,27 @@
+{
+  "name": "button",
+  "baseClass": "button",
+  "element": "button",
+  "description": "Button heights align to grid rows.",
+  "modifiers": {
+    "size": {
+      "values": ["sm", "lg"],
+      "default": null,
+      "description": "Size variant. Default (no modifier) is 32px / 2 rows."
+    },
+    "variant": {
+      "values": ["secondary", "ghost", "danger"],
+      "default": null,
+      "description": "Visual style. Default (no modifier) is primary."
+    },
+    "block": {
+      "type": "boolean",
+      "description": "Full width button."
+    },
+    "icon": {
+      "type": "boolean",
+      "description": "Icon-only button with square dimensions."
+    }
+  },
+  "states": ["hover", "focus", "active", "disabled"]
+}

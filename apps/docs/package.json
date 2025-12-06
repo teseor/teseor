@@ -4,18 +4,17 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "build-docs": "node scripts/build-docs.js",
+    "validate-docs": "node scripts/validate-docs.js",
     "dev": "vite",
-    "build": "vite build",
+    "build": "node scripts/validate-docs.js && node scripts/build-docs.js && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@ui-lib/css-components": "workspace:*",
-    "@ui-lib/css-core": "workspace:*",
-    "@alicerce/fonts": "workspace:*",
+    "@ui-lib/css": "workspace:*",
     "@ui-lib/tokens": "workspace:*"
   },
   "devDependencies": {
-    "vite": "^6.0.3",
-    "vite-plugin-pug-transformer": "^1.0.8"
+    "vite": "^6.0.3"
   }
 }

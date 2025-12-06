@@ -1,0 +1,76 @@
+{
+  "api": "./button.api.json",
+  "sections": [
+    {
+      "title": "Sizes",
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            { "tag": "button", "class": "ui-button ui-button--sm", "text": "Small (24px)" },
+            { "tag": "button", "class": "ui-button", "text": "Default (32px)" },
+            { "tag": "button", "class": "ui-button ui-button--lg", "text": "Large (40px)" }
+          ],
+          "code": "<button class=\"ui-button ui-button--sm\">Small</button>\n<button class=\"ui-button\">Default</button>\n<button class=\"ui-button ui-button--lg\">Large</button>"
+        }
+      ]
+    },
+    {
+      "title": "Variants",
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            { "tag": "button", "class": "ui-button", "text": "Primary" },
+            { "tag": "button", "class": "ui-button ui-button--secondary", "text": "Secondary" },
+            { "tag": "button", "class": "ui-button ui-button--ghost", "text": "Ghost" },
+            { "tag": "button", "class": "ui-button ui-button--danger", "text": "Danger" }
+          ],
+          "code": "<button class=\"ui-button\">Primary</button>\n<button class=\"ui-button ui-button--secondary\">Secondary</button>\n<button class=\"ui-button ui-button--ghost\">Ghost</button>\n<button class=\"ui-button ui-button--danger\">Danger</button>"
+        }
+      ]
+    },
+    {
+      "title": "States",
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            { "tag": "button", "class": "ui-button", "text": "Normal" },
+            {
+              "tag": "button",
+              "class": "ui-button",
+              "text": "Disabled",
+              "attrs": { "disabled": "" }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Full Width",
+      "examples": [
+        {
+          "items": [
+            { "tag": "button", "class": "ui-button ui-button--block", "text": "Full Width Button" }
+          ],
+          "code": "<button class=\"ui-button ui-button--block\">Full Width</button>"
+        }
+      ]
+    },
+    {
+      "title": "Icon Button",
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            { "tag": "button", "class": "ui-button ui-button--icon ui-button--sm", "text": "X" },
+            { "tag": "button", "class": "ui-button ui-button--icon", "text": "+" },
+            { "tag": "button", "class": "ui-button ui-button--icon ui-button--lg", "text": "?" }
+          ],
+          "code": "<button class=\"ui-button ui-button--icon\">+</button>"
+        }
+      ]
+    }
+  ]
+}
