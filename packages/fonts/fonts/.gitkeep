@@ -1,0 +1,9 @@
+# Place WOFF2 font files here for self-hosted option
+# Download from: https://fonts.google.com/noto/specimen/Noto+Sans
+#
+# Required files:
+# - NotoSans-Regular.woff2
+# - NotoSans-Medium.woff2
+# - NotoSans-Bold.woff2
+# - NotoSansMono-Regular.woff2
+# - NotoSansMono-Medium.woff2

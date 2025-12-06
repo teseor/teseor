@@ -1,0 +1,19 @@
+/*
+ * Alicerce Fonts
+ *
+ * Choose ONE of the following imports based on your needs:
+ *
+ * Option 1: Google Fonts CDN (recommended for most cases)
+ * @import "@alicerce/fonts/src/google-fonts.css";
+ *
+ * Option 2: Self-hosted (requires WOFF2 files in fonts/ directory)
+ * @import "@alicerce/fonts/src/local-fonts.css";
+ *
+ * To override the default font family in your app:
+ * :root {
+ *   --font-sans: "Your Font", var(--font-sans);
+ * }
+ */
+
+/* Default: Use Google Fonts */
+@import "./google-fonts.css";

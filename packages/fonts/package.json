@@ -1,0 +1,10 @@
+{
+  "name": "@alicerce/fonts",
+  "version": "0.0.1",
+  "description": "Noto Sans font files and imports for Alicerce UI",
+  "main": "src/index.css",
+  "files": ["src", "fonts"],
+  "keywords": ["fonts", "noto-sans", "css"],
+  "author": "",
+  "license": "MIT"
+}
