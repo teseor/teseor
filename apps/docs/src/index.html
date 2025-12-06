@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI Lib - Living Documentation</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="docs-container">
+    <header class="docs-section">
+      <h1 class="docs-title">UI Lib</h1>
+      <p>CSS-first component library with grid rhythm system.</p>
+      <p>Base unit: <code>--unit: 0.5rem (8px)</code> | Row: <code>--row: 1rem (16px)</code></p>
+    </header>
+
+    <!-- TOKENS -->
+    <section class="docs-section">
+      <h2 class="docs-subtitle">Grid System</h2>
+      <p>All spacing and heights align to the 8px grid.</p>
+      <div class="docs-example docs-grid-overlay" style="height: var(--row-6);">
+        <div style="background: var(--color-primary); height: var(--row-1); margin-bottom: var(--space-1);">row-1 (16px)</div>
+        <div style="background: var(--color-primary); height: var(--row-2);">row-2 (32px)</div>
+      </div>
+    </section>
+
+    <!-- SPACING -->
+    <section class="docs-section">
+      <h2 class="docs-subtitle">Spacing</h2>
+      <div class="docs-example">
+        <div class="cluster">
+          <div style="width: var(--space-1); height: var(--space-4); background: var(--color-primary);" title="space-1"></div>
+          <div style="width: var(--space-2); height: var(--space-4); background: var(--color-primary);" title="space-2"></div>
+          <div style="width: var(--space-3); height: var(--space-4); background: var(--color-primary);" title="space-3"></div>
+          <div style="width: var(--space-4); height: var(--space-4); background: var(--color-primary);" title="space-4"></div>
+          <div style="width: var(--space-6); height: var(--space-4); background: var(--color-primary);" title="space-6"></div>
+          <div style="width: var(--space-8); height: var(--space-4); background: var(--color-primary);" title="space-8"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLORS -->
+    <section class="docs-section">
+      <h2 class="docs-subtitle">Colors</h2>
+      <div class="docs-example">
+        <div class="cluster">
+          <div style="width: var(--space-8); height: var(--space-4); background: var(--color-primary);" title="primary"></div>
+          <div style="width: var(--space-8); height: var(--space-4); background: var(--color-primary-light);" title="primary-light"></div>
+          <div style="width: var(--space-8); height: var(--space-4); background: var(--color-primary-dark);" title="primary-dark"></div>
+        </div>
+        <div class="cluster" style="margin-top: var(--space-2);">
+          <div style="width: var(--space-8); height: var(--space-4); background: var(--color-success);" title="success"></div>
+          <div style="width: var(--space-8); height: var(--space-4); background: var(--color-warning);" title="warning"></div>
+          <div style="width: var(--space-8); height: var(--space-4); background: var(--color-danger);" title="danger"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRIMITIVES: STACK -->
+    <section class="docs-section">
+      <h2 class="docs-subtitle">Primitive: Stack</h2>
+      <p>Vertical layout with consistent gap.</p>
+      <div class="docs-example">
+        <div class="stack stack--sm">
+          <div style="background: var(--color-bg-muted); padding: var(--space-2);">Item 1</div>
+          <div style="background: var(--color-bg-muted); padding: var(--space-2);">Item 2</div>
+          <div style="background: var(--color-bg-muted); padding: var(--space-2);">Item 3</div>
+        </div>
+      </div>
+      <pre><code>&lt;div class="stack stack--sm"&gt;
+  &lt;div&gt;Item 1&lt;/div&gt;
+  &lt;div&gt;Item 2&lt;/div&gt;
+  &lt;div&gt;Item 3&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </section>
+
+    <!-- PRIMITIVES: CLUSTER -->
+    <section class="docs-section">
+      <h2 class="docs-subtitle">Primitive: Cluster</h2>
+      <p>Horizontal layout with wrapping.</p>
+      <div class="docs-example">
+        <div class="cluster cluster--md">
+          <div style="background: var(--color-bg-muted); padding: var(--space-2);">Tag 1</div>
+          <div style="background: var(--color-bg-muted); padding: var(--space-2);">Tag 2</div>
+          <div style="background: var(--color-bg-muted); padding: var(--space-2);">Tag 3</div>
+          <div style="background: var(--color-bg-muted); padding: var(--space-2);">Tag 4</div>
+        </div>
+      </div>
+      <pre><code>&lt;div class="cluster cluster--md"&gt;
+  &lt;div&gt;Tag 1&lt;/div&gt;
+  &lt;div&gt;Tag 2&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </section>
+
+    <!-- PRIMITIVES: CENTER -->
+    <section class="docs-section">
+      <h2 class="docs-subtitle">Primitive: Center</h2>
+      <div class="docs-example">
+        <div class="center" style="height: var(--row-4); background: var(--color-bg-muted);">
+          <span>Centered content</span>
+        </div>
+      </div>
+      <pre><code>&lt;div class="center"&gt;
+  &lt;span&gt;Centered content&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+    </section>
+
+    <!-- PRIMITIVES: GRID -->
+    <section class="docs-section">
+      <h2 class="docs-subtitle">Primitive: Grid</h2>
+      <div class="docs-example">
+        <div class="grid grid--3">
+          <div style="background: var(--color-bg-muted); padding: var(--space-2);">1</div>
+          <div style="background: var(--color-bg-muted); padding: var(--space-2);">2</div>
+          <div style="background: var(--color-bg-muted); padding: var(--space-2);">3</div>
+        </div>
+      </div>
+      <pre><code>&lt;div class="grid grid--3"&gt;
+  &lt;div&gt;1&lt;/div&gt;
+  &lt;div&gt;2&lt;/div&gt;
+  &lt;div&gt;3&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </section>
+
+  </div>
+</body>
+</html>
