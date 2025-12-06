@@ -1,0 +1,6 @@
+:root {
+  /* Border widths - derived from unit */
+  --border-width-sm: 1px;
+  --border-width-md: 2px;
+  --border-width-lg: calc(var(--unit) * 0.5);
+}
