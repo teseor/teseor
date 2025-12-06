@@ -203,7 +203,7 @@ test.describe('${api.name} visual regression', () => {
 </html>\`;
 
     await page.setContent(html);
-    await expect(page.locator('body')).toHaveScreenshot('${api.name}-all-variations.png');
+    await expect(page.locator('body')).toHaveScreenshot('${api.name}-preview.png');
   });
 });
 `;

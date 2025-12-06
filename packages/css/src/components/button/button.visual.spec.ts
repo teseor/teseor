@@ -1425,6 +1425,6 @@ test.describe('button visual regression', () => {
 </html>`;
 
     await page.setContent(html);
-    await expect(page.locator('body')).toHaveScreenshot('button-all-variations.png');
+    await expect(page.locator('body')).toHaveScreenshot('button-preview.png');
   });
 });

@@ -4,7 +4,7 @@ export default defineConfig({
   testDir: './packages/css/src',
   testMatch: '**/*.visual.spec.ts',
 
-  snapshotPathTemplate: '{testDir}/{testFileDir}/__snapshots__/{testName}-{projectName}{ext}',
+  snapshotPathTemplate: '{testDir}/{testFileDir}/{arg}{ext}',
 
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
