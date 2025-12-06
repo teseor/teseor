@@ -1,0 +1,25 @@
+#!/bin/sh
+
+commit_msg_file=$1
+commit_msg=$(cat "$commit_msg_file")
+
+# Block Claude/AI references
+if echo "$commit_msg" | grep -iE "(claude|anthropic|co-authored-by.*claude|generated with|AI|GPT)" > /dev/null; then
+  echo "Error: Commit message contains AI/Claude references."
+  echo "Remove any mentions of Claude, Anthropic, AI, or Co-Authored-By AI."
+  exit 1
+fi
+
+# Block multi-line commits (only first line allowed)
+line_count=$(echo "$commit_msg" | wc -l | tr -d ' ')
+if [ "$line_count" -gt 1 ]; then
+  # Allow trailing newline but not actual multi-line content
+  non_empty_lines=$(echo "$commit_msg" | grep -c '.')
+  if [ "$non_empty_lines" -gt 1 ]; then
+    echo "Error: Multi-line commit messages are not allowed."
+    echo "Use a single-line commit message. Details go in PR, not commit."
+    exit 1
+  fi
+fi
+
+exit 0
