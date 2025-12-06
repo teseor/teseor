@@ -1,0 +1,53 @@
+{
+  "id": "grid",
+  "type": "token",
+  "title": "Grid System",
+  "description": "All spacing and heights align to the 8px grid.",
+  "sections": [
+    {
+      "examples": [
+        {
+          "layout": "stack",
+          "items": [
+            {
+              "tag": "div",
+              "text": "row-1 (16px)",
+              "style": {
+                "background": "var(--ui-color-primary)",
+                "color": "var(--ui-color-text-inverse)",
+                "height": "var(--ui-row-1)",
+                "display": "flex",
+                "align-items": "center",
+                "padding": "0 var(--ui-space-2)"
+              }
+            },
+            {
+              "tag": "div",
+              "text": "row-2 (32px)",
+              "style": {
+                "background": "var(--ui-color-primary)",
+                "color": "var(--ui-color-text-inverse)",
+                "height": "var(--ui-row-2)",
+                "display": "flex",
+                "align-items": "center",
+                "padding": "0 var(--ui-space-2)"
+              }
+            },
+            {
+              "tag": "div",
+              "text": "row-3 (48px)",
+              "style": {
+                "background": "var(--ui-color-primary)",
+                "color": "var(--ui-color-text-inverse)",
+                "height": "var(--ui-row-3)",
+                "display": "flex",
+                "align-items": "center",
+                "padding": "0 var(--ui-space-2)"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

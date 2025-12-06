@@ -1,0 +1,27 @@
+{
+  "id": "display-utils",
+  "type": "utility",
+  "title": "Display",
+  "description": "Flexbox and display utilities.",
+  "sections": [
+    {
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-flex ui-justify-between ui-items-center ui-gap-2 ui-p-2",
+              "style": { "background": "var(--ui-color-bg-muted)" },
+              "children": [
+                { "tag": "span", "text": "Start" },
+                { "tag": "span", "text": "Center (items-center)" },
+                { "tag": "span", "text": "End" }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-flex ui-justify-between ui-items-center ui-gap-2\">\n  <span>Start</span>\n  <span>Center</span>\n  <span>End</span>\n</div>"
+        }
+      ]
+    }
+  ]
+}

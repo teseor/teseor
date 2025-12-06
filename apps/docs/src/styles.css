@@ -1,10 +1,6 @@
-/* Import fonts (Google Fonts CDN) */
-@import "../../../packages/fonts/src/google-fonts.css";
-
 /* Import our CSS library (from compiled dist) */
 @import "../../../packages/tokens/dist/index.css";
-@import "../../../packages/css-core/dist/index.css";
-@import "../../../packages/css-components/dist/index.css";
+@import "../../../packages/css/dist/index.css";
 
 /* Docs-specific styles - layout uses primitives (.app-shell, .sidebar, .main, .container) */
 @layer base {

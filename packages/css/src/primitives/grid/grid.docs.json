@@ -1,0 +1,47 @@
+{
+  "id": "grid-primitive",
+  "type": "primitive",
+  "title": "Grid",
+  "description": "CSS Grid with column variants.",
+  "sections": [
+    {
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-grid ui-grid--3",
+              "children": [
+                {
+                  "tag": "div",
+                  "text": "1",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-2)"
+                  }
+                },
+                {
+                  "tag": "div",
+                  "text": "2",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-2)"
+                  }
+                },
+                {
+                  "tag": "div",
+                  "text": "3",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-2)"
+                  }
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-grid ui-grid--3\">\n  <div>1</div>\n  <div>2</div>\n  <div>3</div>\n</div>"
+        }
+      ]
+    }
+  ]
+}

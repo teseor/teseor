@@ -1,0 +1,24 @@
+{
+  "id": "typography",
+  "type": "token",
+  "title": "Typography",
+  "description": "All line-heights snap to the 8px grid. Toggle the baseline grid to verify.",
+  "sections": [
+    {
+      "examples": [
+        {
+          "items": [
+            { "tag": "h1", "text": "Heading 1" },
+            { "tag": "h2", "text": "Heading 2" },
+            { "tag": "h3", "text": "Heading 3" },
+            { "tag": "h4", "text": "Heading 4" },
+            { "tag": "h5", "text": "Heading 5" }
+          ]
+        },
+        {
+          "html": "<p>Body text at 16px with 24px line-height. The <strong>bold text</strong> and <code>inline code</code> maintain the same rhythm.</p>\n<p><small>Small text at 14px with 16px line-height.</small></p>"
+        }
+      ]
+    }
+  ]
+}

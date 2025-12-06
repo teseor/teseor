@@ -1,0 +1,118 @@
+{
+  "id": "layout",
+  "type": "primitive",
+  "title": "Layout",
+  "description": "Layout primitives for app shells with sidebars and content containers.",
+  "sections": [
+    {
+      "title": "App Shell + Sidebar + Main",
+      "description": "This page uses the layout primitives:",
+      "examples": [
+        {
+          "code": "<body class=\"ui-app-shell\">\n  <aside class=\"ui-sidebar\">\n    <!-- sidebar content -->\n  </aside>\n  <main class=\"ui-main\">\n    <div class=\"ui-container\">\n      <!-- page content -->\n    </div>\n  </main>\n</body>"
+        }
+      ]
+    },
+    {
+      "title": "Sidebar Widths",
+      "examples": [
+        {
+          "layout": "stack",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-cluster ui-cluster--sm",
+              "children": [
+                { "tag": "code", "text": ".ui-sidebar--sm" },
+                { "tag": "span", "text": "192px (24 units)" }
+              ]
+            },
+            {
+              "tag": "div",
+              "class": "ui-cluster ui-cluster--sm",
+              "children": [
+                { "tag": "code", "text": ".ui-sidebar--md" },
+                { "tag": "span", "text": "240px (30 units) - default" }
+              ]
+            },
+            {
+              "tag": "div",
+              "class": "ui-cluster ui-cluster--sm",
+              "children": [
+                { "tag": "code", "text": ".ui-sidebar--lg" },
+                { "tag": "span", "text": "320px (40 units)" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sidebar Position",
+      "description": "By default, sidebar is on the start (left in LTR). Use .ui-sidebar--end for right-side:",
+      "examples": [
+        {
+          "code": "<aside class=\"ui-sidebar ui-sidebar--end\">...</aside>\n<main class=\"ui-main ui-main--sidebar-end\">...</main>"
+        }
+      ]
+    },
+    {
+      "title": "Container Widths",
+      "examples": [
+        {
+          "layout": "stack",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-cluster ui-cluster--sm",
+              "children": [
+                { "tag": "code", "text": ".ui-container--sm" },
+                { "tag": "span", "text": "640px (80 units)" }
+              ]
+            },
+            {
+              "tag": "div",
+              "class": "ui-cluster ui-cluster--sm",
+              "children": [
+                { "tag": "code", "text": ".ui-container--md" },
+                { "tag": "span", "text": "800px (100 units)" }
+              ]
+            },
+            {
+              "tag": "div",
+              "class": "ui-cluster ui-cluster--sm",
+              "children": [
+                { "tag": "code", "text": ".ui-container--lg" },
+                { "tag": "span", "text": "960px (120 units) - default" }
+              ]
+            },
+            {
+              "tag": "div",
+              "class": "ui-cluster ui-cluster--sm",
+              "children": [
+                { "tag": "code", "text": ".ui-container--xl" },
+                { "tag": "span", "text": "1280px (160 units)" }
+              ]
+            },
+            {
+              "tag": "div",
+              "class": "ui-cluster ui-cluster--sm",
+              "children": [
+                { "tag": "code", "text": ".ui-container--full" },
+                { "tag": "span", "text": "No max width" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Centered Container",
+      "examples": [
+        {
+          "code": "<div class=\"ui-container ui-container--center\">\n  <!-- centered content with max-width -->\n</div>"
+        }
+      ]
+    }
+  ]
+}

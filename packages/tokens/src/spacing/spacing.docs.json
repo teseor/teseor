@@ -1,0 +1,113 @@
+{
+  "id": "spacing",
+  "type": "token",
+  "title": "Spacing",
+  "description": "Spacing tokens based on the 8px unit.",
+  "sections": [
+    {
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-stack ui-stack--xs",
+              "style": { "align-items": "center" },
+              "children": [
+                {
+                  "tag": "div",
+                  "style": {
+                    "width": "var(--ui-space-1)",
+                    "height": "var(--ui-space-4)",
+                    "background": "var(--ui-color-primary)"
+                  }
+                },
+                { "tag": "small", "text": "space-1" }
+              ]
+            },
+            {
+              "tag": "div",
+              "class": "ui-stack ui-stack--xs",
+              "style": { "align-items": "center" },
+              "children": [
+                {
+                  "tag": "div",
+                  "style": {
+                    "width": "var(--ui-space-2)",
+                    "height": "var(--ui-space-4)",
+                    "background": "var(--ui-color-primary)"
+                  }
+                },
+                { "tag": "small", "text": "space-2" }
+              ]
+            },
+            {
+              "tag": "div",
+              "class": "ui-stack ui-stack--xs",
+              "style": { "align-items": "center" },
+              "children": [
+                {
+                  "tag": "div",
+                  "style": {
+                    "width": "var(--ui-space-3)",
+                    "height": "var(--ui-space-4)",
+                    "background": "var(--ui-color-primary)"
+                  }
+                },
+                { "tag": "small", "text": "space-3" }
+              ]
+            },
+            {
+              "tag": "div",
+              "class": "ui-stack ui-stack--xs",
+              "style": { "align-items": "center" },
+              "children": [
+                {
+                  "tag": "div",
+                  "style": {
+                    "width": "var(--ui-space-4)",
+                    "height": "var(--ui-space-4)",
+                    "background": "var(--ui-color-primary)"
+                  }
+                },
+                { "tag": "small", "text": "space-4" }
+              ]
+            },
+            {
+              "tag": "div",
+              "class": "ui-stack ui-stack--xs",
+              "style": { "align-items": "center" },
+              "children": [
+                {
+                  "tag": "div",
+                  "style": {
+                    "width": "var(--ui-space-6)",
+                    "height": "var(--ui-space-4)",
+                    "background": "var(--ui-color-primary)"
+                  }
+                },
+                { "tag": "small", "text": "space-6" }
+              ]
+            },
+            {
+              "tag": "div",
+              "class": "ui-stack ui-stack--xs",
+              "style": { "align-items": "center" },
+              "children": [
+                {
+                  "tag": "div",
+                  "style": {
+                    "width": "var(--ui-space-8)",
+                    "height": "var(--ui-space-4)",
+                    "background": "var(--ui-color-primary)"
+                  }
+                },
+                { "tag": "small", "text": "space-8" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

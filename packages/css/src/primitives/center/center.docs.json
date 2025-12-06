@@ -1,0 +1,23 @@
+{
+  "id": "center",
+  "type": "primitive",
+  "title": "Center",
+  "description": "Centers content horizontally and vertically.",
+  "sections": [
+    {
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-center",
+              "style": { "height": "var(--ui-row-4)", "background": "var(--ui-color-bg-muted)" },
+              "children": [{ "tag": "span", "text": "Centered content" }]
+            }
+          ],
+          "code": "<div class=\"ui-center\">Centered content</div>"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "id": "spacing-utils",
+  "type": "utility",
+  "title": "Spacing",
+  "description": "Margin and padding utilities aligned to 8px grid.",
+  "sections": [
+    {
+      "examples": [
+        {
+          "layout": "stack",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-p-1",
+              "text": "p-1 (8px padding)",
+              "style": { "background": "var(--ui-color-bg-muted)" }
+            },
+            {
+              "tag": "div",
+              "class": "ui-p-2",
+              "text": "p-2 (16px padding)",
+              "style": { "background": "var(--ui-color-bg-muted)" }
+            },
+            {
+              "tag": "div",
+              "class": "ui-p-4",
+              "text": "p-4 (32px padding)",
+              "style": { "background": "var(--ui-color-bg-muted)" }
+            },
+            {
+              "tag": "div",
+              "class": "ui-px-4 ui-py-2",
+              "text": "px-4 py-2 (horizontal 32px, vertical 16px)",
+              "style": { "background": "var(--ui-color-bg-muted)" }
+            }
+          ],
+          "code": "<div class=\"ui-p-2\">...</div>\n<div class=\"ui-px-4 ui-py-2\">...</div>\n<div class=\"ui-mt-4 ui-mb-2\">...</div>"
+        }
+      ]
+    }
+  ]
+}
