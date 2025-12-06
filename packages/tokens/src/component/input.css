@@ -1,5 +1,5 @@
 :root {
-  --input-height: calc(var(--row) * 2);
+  --input-height: var(--row-2);
   --input-padding-x: var(--space-2);
   --input-padding-y: var(--space-1);
 

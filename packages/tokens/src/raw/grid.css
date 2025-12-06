@@ -1,4 +1,11 @@
 :root {
   --unit: 0.5rem;
   --row: calc(var(--unit) * 2);
+
+  --row-1: var(--row);
+  --row-2: calc(var(--row) * 2);
+  --row-3: calc(var(--row) * 3);
+  --row-4: calc(var(--row) * 4);
+  --row-5: calc(var(--row) * 5);
+  --row-6: calc(var(--row) * 6);
 }
