@@ -32,12 +32,3 @@
 .debug-outline * {
   outline: var(--border-width-sm) solid hsl(var(--hue-danger) 80% 50% / 0.5);
 }
-
-/* Scale up base unit - makes all elements bigger for grid alignment visualization */
-.debug-scale-2x {
-  --unit: 1rem; /* 16px instead of 8px - 2x scale */
-}
-
-.debug-scale-3x {
-  --unit: 1.5rem; /* 24px instead of 8px - 3x scale */
-}
