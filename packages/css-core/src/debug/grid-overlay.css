@@ -27,3 +27,8 @@
   background-image: linear-gradient(to bottom, var(--debug-color) 1px, transparent 1px);
   background-size: 100% var(--unit);
 }
+
+/* Element boundaries outline */
+.debug-outline * {
+  outline: var(--border-width-sm) solid hsl(var(--hue-danger) 80% 50% / 0.5);
+}
