@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 
 /**
  * Visual regression tests for button
- * Auto-generated from button.api.json
+ * Auto-generated from button.api.json and button.docs.json
  */
 
 const tokensCss = `:root {
@@ -1201,76 +1201,226 @@ const componentCss = `
 }
 `;
 
+const sections = [
+  {
+    title: 'Sizes',
+    examples: [
+      {
+        layout: 'cluster',
+        items: [
+          {
+            tag: 'button',
+            class: 'ui-button ui-button--sm',
+            text: 'Small (24px)',
+          },
+          {
+            tag: 'button',
+            class: 'ui-button',
+            text: 'Default (32px)',
+          },
+          {
+            tag: 'button',
+            class: 'ui-button ui-button--lg',
+            text: 'Large (40px)',
+          },
+        ],
+        code: '<button class="ui-button ui-button--sm">Small</button>\n<button class="ui-button">Default</button>\n<button class="ui-button ui-button--lg">Large</button>',
+      },
+    ],
+  },
+  {
+    title: 'Variants',
+    examples: [
+      {
+        layout: 'cluster',
+        items: [
+          {
+            tag: 'button',
+            class: 'ui-button',
+            text: 'Primary',
+          },
+          {
+            tag: 'button',
+            class: 'ui-button ui-button--secondary',
+            text: 'Secondary',
+          },
+          {
+            tag: 'button',
+            class: 'ui-button ui-button--ghost',
+            text: 'Ghost',
+          },
+          {
+            tag: 'button',
+            class: 'ui-button ui-button--danger',
+            text: 'Danger',
+          },
+        ],
+        code: '<button class="ui-button">Primary</button>\n<button class="ui-button ui-button--secondary">Secondary</button>\n<button class="ui-button ui-button--ghost">Ghost</button>\n<button class="ui-button ui-button--danger">Danger</button>',
+      },
+    ],
+  },
+  {
+    title: 'States',
+    examples: [
+      {
+        layout: 'cluster',
+        items: [
+          {
+            tag: 'button',
+            class: 'ui-button',
+            text: 'Normal',
+          },
+          {
+            tag: 'button',
+            class: 'ui-button',
+            text: 'Disabled',
+            attrs: {
+              disabled: '',
+            },
+          },
+        ],
+      },
+    ],
+  },
+  {
+    title: 'Full Width',
+    examples: [
+      {
+        items: [
+          {
+            tag: 'button',
+            class: 'ui-button ui-button--block',
+            text: 'Full Width Button',
+          },
+        ],
+        code: '<button class="ui-button ui-button--block">Full Width</button>',
+      },
+    ],
+  },
+  {
+    title: 'Icon Button',
+    examples: [
+      {
+        layout: 'cluster',
+        items: [
+          {
+            tag: 'button',
+            class: 'ui-button ui-button--icon ui-button--sm',
+            text: 'X',
+          },
+          {
+            tag: 'button',
+            class: 'ui-button ui-button--icon',
+            text: '+',
+          },
+          {
+            tag: 'button',
+            class: 'ui-button ui-button--icon ui-button--lg',
+            text: '?',
+          },
+        ],
+        code: '<button class="ui-button ui-button--icon">+</button>',
+      },
+    ],
+  },
+];
+
 test.describe('button visual regression', () => {
   test('all variations', async ({ page }) => {
-    const variations = [
-      {
-        name: 'default',
-        classes: ['ui-button'],
-        label: 'Default',
-      },
-      {
-        name: 'sm',
-        classes: ['ui-button', 'ui-button--sm'],
-        label: 'sm',
-      },
-      {
-        name: 'lg',
-        classes: ['ui-button', 'ui-button--lg'],
-        label: 'lg',
-      },
-      {
-        name: 'secondary',
-        classes: ['ui-button', 'ui-button--secondary'],
-        label: 'secondary',
-      },
-      {
-        name: 'ghost',
-        classes: ['ui-button', 'ui-button--ghost'],
-        label: 'ghost',
-      },
-      {
-        name: 'danger',
-        classes: ['ui-button', 'ui-button--danger'],
-        label: 'danger',
-      },
-      {
-        name: 'block',
-        classes: ['ui-button', 'ui-button--block'],
-        label: 'block',
-      },
-      {
-        name: 'icon',
-        classes: ['ui-button', 'ui-button--icon'],
-        label: 'icon',
-      },
-      {
-        name: 'disabled',
-        classes: ['ui-button'],
-        label: 'Disabled',
-        disabled: true,
-      },
-    ];
-
     const html = `<!DOCTYPE html>
 <html>
 <head>
   <style>${tokensCss}</style>
   <style>${componentCss}</style>
+  <style>
+    body {
+      margin: 0;
+      padding: 48px;
+      background-color: #fff;
+      background-image:
+        linear-gradient(45deg, #f0f0f0 25%, transparent 25%),
+        linear-gradient(-45deg, #f0f0f0 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #f0f0f0 75%),
+        linear-gradient(-45deg, transparent 75%, #f0f0f0 75%);
+      background-size: 16px 16px;
+      background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+      font-family: var(--ui-font-sans);
+    }
+    .doc-title {
+      font-size: 32px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--ui-color-text);
+    }
+    .doc-description {
+      font-size: 14px;
+      color: var(--ui-color-text-muted);
+      margin-bottom: 40px;
+    }
+    .doc-section {
+      margin-bottom: 32px;
+    }
+    .doc-section-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ui-color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+    }
+    .doc-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+    }
+    .doc-item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 120px;
+    }
+    .doc-label {
+      font-size: 12px;
+      color: var(--ui-color-text-muted);
+    }
+  </style>
 </head>
-<body style="margin: 0; padding: 48px; background: #fff;">
-  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 32px;">
-    ${variations
-      .map(
-        (v) => `
-      <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 8px;">
-        <span style="font-size: 12px; color: #666;">${v.label}</span>
-        <button class="${v.classes.join(' ')}" ${v.disabled ? 'disabled' : ''}>${v.label}</button>
-      </div>
-    `,
-      )
-      .join('')}
-  </div>
+<body>
+  <h1 class="doc-title">Button</h1>
+  <p class="doc-description">Button heights align to grid rows.</p>
+
+  ${sections
+    .map(
+      (section) => `
+    <div class="doc-section">
+      <h2 class="doc-section-title">${section.title}</h2>
+      ${
+        section.examples
+          ? section.examples
+              .map(
+                (example) => `
+        <div class="doc-row">
+          ${example.items
+            .map(
+              (item) => `
+            <${item.tag || 'button'}
+              class="${item.class || ''}"
+              ${item.attrs?.disabled !== undefined ? 'disabled' : ''}
+            >${item.text}</button>
+          `,
+            )
+            .join('')}
+        </div>
+      `,
+              )
+              .join('')
+          : ''
+      }
+    </div>
+  `,
+    )
+    .join('')}
 </body>
 </html>`;
 
