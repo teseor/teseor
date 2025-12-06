@@ -27,7 +27,7 @@ importers:
         specifier: ^20.2.3
         version: 20.8.3(@babel/traverse@7.28.5)(@swc/core@1.15.3(@swc/helpers@0.5.17))(nx@20.8.3(@swc/core@1.15.3(@swc/helpers@0.5.17)))(typescript@5.9.3)(vite@6.4.1(@types/node@24.10.1)(sass@1.94.2)(yaml@2.8.2))(vitest@2.1.9(@types/node@24.10.1)(sass@1.94.2))
       '@playwright/test':
-        specifier: ^1.49.1
+        specifier: ^1.57.0
         version: 1.57.0
       '@storybook/addon-essentials':
         specifier: ^8.4.7
