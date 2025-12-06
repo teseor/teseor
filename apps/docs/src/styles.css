@@ -3,6 +3,7 @@
 @import "../../../packages/css-core/src/layers/layers.css";
 @import "../../../packages/css-core/src/reset/index.css";
 @import "../../../packages/css-core/src/primitives/index.css";
+@import "../../../packages/css-core/src/base/index.css";
 
 /* Docs-specific styles */
 @layer base {
