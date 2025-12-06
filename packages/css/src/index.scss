@@ -1,32 +1,30 @@
 /**
  * CSS Library - Main Entry Point
  *
- * Import order matters due to CSS cascade and layer definitions.
+ * Import order follows numbered folder structure for cascade control.
  */
 
-/* 1. Layer definitions (must be first for CSS) */
-@use './layers/layers' as *;
+/* 00. Config: Layer definitions + Design tokens */
+@use './00-config/layers/layers' as *;
+@use './00-config/tokens/index' as *;
 
-/* 2. Reset styles */
-@use './reset/index' as *;
+/* 01. Reset styles */
+@use './01-reset/index' as *;
 
-/* 3. Base styles (typography, etc.) */
-@use './base/index' as *;
+/* 02. Base styles (typography, etc.) */
+@use './02-base/index' as *;
 
-/* 4. Layout primitives */
-@use './primitives/index' as *;
+/* 03. Layout primitives */
+@use './03-layout/index' as *;
 
-/* 5. Component tokens */
-@use './tokens/index' as *;
+/* 04. Components */
+@use './04-components/index' as *;
 
-/* 6. Components */
-@use './components/index' as *;
+/* 05. Utilities (high specificity, load last) */
+@use './05-utilities/index' as *;
 
-/* 7. Utilities (high specificity, load last) */
-@use './utilities/index' as *;
+/* 99. Debug tools (dev only) */
+@use './99-debug/index' as *;
 
-/* 8. Debug tools (optional) */
-@use './debug/index' as *;
-
-/* 9. Fonts (Google Fonts CDN) */
+/* Fonts (Google Fonts CDN) */
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&family=Noto+Sans+Mono:wght@400;500&display=swap");

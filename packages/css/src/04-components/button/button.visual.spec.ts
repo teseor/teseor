@@ -134,11 +134,35 @@ const componentCss = `
 /**
  * CSS Library - Main Entry Point
  *
- * Import order matters due to CSS cascade and layer definitions.
+ * Import order follows numbered folder structure for cascade control.
  */
-/* 1. Layer definitions (must be first for CSS) */
-/* 9. Fonts (Google Fonts CDN) */
-/* 2. Reset styles */
+/* 00. Config: Layer definitions + Design tokens */
+/* Fonts (Google Fonts CDN) */
+:root {
+  --ui-button-height-sm: var(--ui-space-3);
+  --ui-button-height-md: var(--ui-row-2);
+  --ui-button-height-lg: var(--ui-row-3);
+  --ui-button-padding-x: var(--ui-space-2);
+  --ui-button-padding-y: var(--ui-space-1);
+  --ui-button-radius: var(--ui-radius-md);
+  --ui-button-font-weight: var(--ui-weight-medium);
+  --ui-button-bg: var(--ui-color-interactive);
+  --ui-button-bg-hover: var(--ui-color-interactive-hover);
+  --ui-button-text: var(--ui-color-text-inverse);
+}
+:root {
+  --ui-input-height: var(--ui-row-2);
+  --ui-input-padding-x: var(--ui-space-2);
+  --ui-input-padding-y: var(--ui-space-1);
+  --ui-input-radius: var(--ui-radius-md);
+  --ui-input-border-width: var(--ui-border-width-sm);
+  --ui-input-bg: var(--ui-color-bg);
+  --ui-input-border: var(--ui-color-border);
+  --ui-input-border-focus: var(--ui-color-interactive);
+  --ui-input-text: var(--ui-color-text);
+  --ui-input-placeholder: var(--ui-color-text-muted);
+}
+/* 01. Reset styles */
 @layer reset {
   *,
   *::before,
@@ -194,7 +218,7 @@ const componentCss = `
     cursor: pointer;
   }
 }
-/* 3. Base styles (typography, etc.) */
+/* 02. Base styles (typography, etc.) */
 @layer base {
   h1 {
     font-size: var(--ui-size-3xl);
@@ -268,7 +292,7 @@ const componentCss = `
     padding: 0;
   }
 }
-/* 4. Layout primitives */
+/* 03. Layout primitives */
 @layer primitives {
   .ui-stack {
     display: flex;
@@ -428,32 +452,7 @@ const componentCss = `
     max-inline-size: none;
   }
 }
-/* 5. Component tokens */
-:root {
-  --ui-button-height-sm: var(--ui-space-3);
-  --ui-button-height-md: var(--ui-row-2);
-  --ui-button-height-lg: var(--ui-row-3);
-  --ui-button-padding-x: var(--ui-space-2);
-  --ui-button-padding-y: var(--ui-space-1);
-  --ui-button-radius: var(--ui-radius-md);
-  --ui-button-font-weight: var(--ui-weight-medium);
-  --ui-button-bg: var(--ui-color-interactive);
-  --ui-button-bg-hover: var(--ui-color-interactive-hover);
-  --ui-button-text: var(--ui-color-text-inverse);
-}
-:root {
-  --ui-input-height: var(--ui-row-2);
-  --ui-input-padding-x: var(--ui-space-2);
-  --ui-input-padding-y: var(--ui-space-1);
-  --ui-input-radius: var(--ui-radius-md);
-  --ui-input-border-width: var(--ui-border-width-sm);
-  --ui-input-bg: var(--ui-color-bg);
-  --ui-input-border: var(--ui-color-border);
-  --ui-input-border-focus: var(--ui-color-interactive);
-  --ui-input-text: var(--ui-color-text);
-  --ui-input-placeholder: var(--ui-color-text-muted);
-}
-/* 6. Components */
+/* 04. Components */
 /* Button component - heights align to grid rows */
 @layer components {
   .ui-button {
@@ -557,7 +556,7 @@ const componentCss = `
     inline-size: 100%;
   }
 }
-/* 7. Utilities (high specificity, load last) */
+/* 05. Utilities (high specificity, load last) */
 /* Spacing utilities - all values align to 8px grid */
 /* Uses logical properties for international/RTL support */
 @layer utilities {
@@ -1126,7 +1125,7 @@ const componentCss = `
     white-space: pre-wrap;
   }
 }
-/* 8. Debug tools (optional) */
+/* 99. Debug tools (dev only) */
 /* Debug grid overlay - add class="debug-grid" to body or any container */
 .ui-debug-grid,
 .ui-debug-grid-rows,
