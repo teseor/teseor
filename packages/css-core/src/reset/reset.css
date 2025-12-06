@@ -16,9 +16,9 @@
 
   body {
     min-height: 100vh;
-    line-height: var(--leading-base);
+    line-height: var(--leading-md);
     font-family: var(--font-sans);
-    font-size: var(--text-base);
+    font-size: var(--size-md);
     color: var(--color-text);
     background: var(--color-bg);
   }
