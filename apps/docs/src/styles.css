@@ -4,12 +4,13 @@
 @import "../../../packages/css-core/src/reset/index.css";
 @import "../../../packages/css-core/src/primitives/index.css";
 @import "../../../packages/css-core/src/base/index.css";
+@import "../../../packages/css-core/src/utilities/index.css";
 @import "../../../packages/css-core/src/debug/index.css";
 
-/* Docs-specific styles */
+/* Docs layout - uses only our tokens */
 @layer base {
   .docs-container {
-    max-width: 64rem;
+    max-width: calc(var(--unit) * 160);
     margin: 0 auto;
     padding: var(--space-4);
   }
@@ -20,20 +21,6 @@
     border-bottom: 1px solid var(--color-border);
   }
 
-  .docs-title {
-    font-size: var(--size-3xl);
-    line-height: var(--leading-3xl);
-    font-weight: var(--weight-bold);
-    margin-bottom: var(--space-4);
-  }
-
-  .docs-subtitle {
-    font-size: var(--size-xl);
-    line-height: var(--leading-xl);
-    font-weight: var(--weight-medium);
-    margin-bottom: var(--space-2);
-  }
-
   .docs-example {
     padding: var(--space-4);
     background: var(--color-bg-subtle);
@@ -41,13 +28,7 @@
     margin-bottom: var(--space-2);
   }
 
-  .docs-grid-overlay {
-    background-image: linear-gradient(
-      to bottom,
-      transparent calc(var(--row) - 1px),
-      var(--color-border) calc(var(--row) - 1px),
-      var(--color-border) var(--row)
-    );
-    background-size: 100% var(--row);
+  .docs-code {
+    margin-top: var(--space-2);
   }
 }
