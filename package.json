@@ -1,0 +1,52 @@
+{
+  "name": "@ui-lib/source",
+  "version": "0.0.0",
+  "private": true,
+  "description": "CSS-first UI library with grid rhythm system",
+  "license": "MIT",
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "scripts": {
+    "dev": "nx run-many -t dev",
+    "build": "nx run-many -t build",
+    "build:affected": "nx affected -t build",
+    "test": "nx run-many -t test",
+    "test:affected": "nx affected -t test",
+    "test:e2e": "nx run docs:test-storybook",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "typecheck": "nx run-many -t typecheck",
+    "storybook": "nx run docs:storybook",
+    "storybook:build": "nx run docs:build-storybook",
+    "changeset": "changeset",
+    "changeset:version": "changeset version",
+    "changeset:publish": "pnpm build && changeset publish",
+    "prepare": "husky",
+    "clean": "nx reset && pnpm -r exec rm -rf dist node_modules",
+    "graph": "nx graph"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@changesets/cli": "^2.27.10",
+    "@nx/js": "^20.2.3",
+    "@nx/playwright": "^20.2.3",
+    "@nx/storybook": "^20.2.3",
+    "@nx/vite": "^20.2.3",
+    "@playwright/test": "^1.49.1",
+    "@storybook/addon-essentials": "^8.4.7",
+    "@storybook/addon-links": "^8.4.7",
+    "@storybook/html": "^8.4.7",
+    "@storybook/html-vite": "^8.4.7",
+    "@storybook/test-runner": "^0.21.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.11",
+    "nx": "^20.2.3",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.3",
+    "vitest": "^2.1.8"
+  }
+}

@@ -1,0 +1,47 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Build outputs
+dist
+build
+out
+storybook-static
+
+# NX
+.nx
+
+# Testing
+coverage
+test-results
+playwright-report
+
+# Environment
+.env
+.env.local
+.env.*.local
+*.local*
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Temporary
+tmp
+temp
+*.tmp
+*.log
+
+# Docs
+CLAUDE.md
+.docs.local
+
+# Changesets
+.changeset/*.md
+!.changeset/README.md
+!.changeset/config.json

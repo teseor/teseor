@@ -1,0 +1,43 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "defaultBase": "main",
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"],
+      "cache": true,
+      "inputs": ["production", "^production"],
+      "outputs": ["{projectRoot}/dist"]
+    },
+    "lint": {
+      "cache": true,
+      "inputs": ["default", "{workspaceRoot}/biome.json"]
+    },
+    "typecheck": {
+      "cache": true,
+      "inputs": ["default", "^production"]
+    },
+    "storybook": {
+      "cache": false
+    },
+    "build-storybook": {
+      "dependsOn": ["^build"],
+      "cache": true,
+      "inputs": ["default", "^production"],
+      "outputs": ["{projectRoot}/storybook-static"]
+    }
+  },
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "production": [
+      "default",
+      "!{projectRoot}/**/*.md"
+    ],
+    "sharedGlobals": [
+      "{workspaceRoot}/biome.json",
+      "{workspaceRoot}/tsconfig.base.json"
+    ]
+  },
+  "affected": {
+    "defaultBase": "main"
+  }
+}
