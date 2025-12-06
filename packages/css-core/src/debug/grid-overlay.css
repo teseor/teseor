@@ -33,7 +33,13 @@
   outline: var(--border-width-sm) solid hsl(var(--hue-danger) 80% 50% / 0.5);
 }
 
-/* Zoom grid - increase base unit for easier visualization */
-.debug-zoom {
-  --unit: 1.25rem; /* 20px instead of 8px */
+/* Larger debug grid - shows 20px grid instead of 8px for easier visualization */
+.debug-grid-lg {
+  --debug-color: hsl(var(--hue-primary) 80% 50% / 0.2);
+  --debug-grid-size: 1.25rem; /* 20px */
+
+  background-image: linear-gradient(to right, var(--debug-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--debug-color) 1px, transparent 1px);
+  background-size: var(--debug-grid-size) var(--debug-grid-size);
+  background-position: 0 0;
 }
