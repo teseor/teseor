@@ -4,6 +4,7 @@
 @import "../../../packages/css-core/src/reset/index.css";
 @import "../../../packages/css-core/src/primitives/index.css";
 @import "../../../packages/css-core/src/base/index.css";
+@import "../../../packages/css-core/src/debug/index.css";
 
 /* Docs-specific styles */
 @layer base {

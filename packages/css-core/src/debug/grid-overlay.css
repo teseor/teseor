@@ -1,0 +1,29 @@
+/* Debug grid overlay - add class="debug-grid" to body or any container */
+.debug-grid {
+  --debug-color: hsl(var(--hue-primary) 80% 50% / 0.15);
+
+  background-image: linear-gradient(to right, var(--debug-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--debug-color) 1px, transparent 1px);
+  background-size: var(--unit) var(--unit);
+  background-position: 0 0;
+}
+
+/* Stronger grid at row intervals (16px) */
+.debug-grid-rows {
+  --debug-color: hsl(var(--hue-primary) 80% 50% / 0.1);
+  --debug-color-strong: hsl(var(--hue-primary) 80% 50% / 0.25);
+
+  background-image: linear-gradient(to right, var(--debug-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--debug-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--debug-color-strong) 1px, transparent 1px);
+  background-size: var(--unit) var(--unit), var(--unit) var(--unit), var(--unit) var(--row);
+  background-position: 0 0;
+}
+
+/* Baseline grid only (horizontal lines) */
+.debug-baseline {
+  --debug-color: hsl(var(--hue-danger) 80% 50% / 0.2);
+
+  background-image: linear-gradient(to bottom, var(--debug-color) 1px, transparent 1px);
+  background-size: 100% var(--unit);
+}
