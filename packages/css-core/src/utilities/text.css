@@ -1,0 +1,127 @@
+/* Text utilities */
+/* Uses logical properties for international/RTL support */
+@layer utilities {
+  /* Text alignment - use start/end for RTL support */
+  .text-start {
+    text-align: start;
+  }
+  .text-center {
+    text-align: center;
+  }
+  .text-end {
+    text-align: end;
+  }
+  .text-justify {
+    text-align: justify;
+  }
+
+  /* Font weight */
+  .font-normal {
+    font-weight: var(--weight-normal);
+  }
+  .font-medium {
+    font-weight: var(--weight-medium);
+  }
+  .font-bold {
+    font-weight: var(--weight-bold);
+  }
+
+  /* Font size (uses consistent --size-* scale derived from --unit) */
+  .text-xs {
+    font-size: var(--size-xs);
+    line-height: var(--leading-xs);
+  }
+  .text-sm {
+    font-size: var(--size-sm);
+    line-height: var(--leading-sm);
+  }
+  .text-md {
+    font-size: var(--size-md);
+    line-height: var(--leading-md);
+  }
+  .text-lg {
+    font-size: var(--size-lg);
+    line-height: var(--leading-lg);
+  }
+  .text-xl {
+    font-size: var(--size-xl);
+    line-height: var(--leading-xl);
+  }
+  .text-2xl {
+    font-size: var(--size-2xl);
+    line-height: var(--leading-2xl);
+  }
+  .text-3xl {
+    font-size: var(--size-3xl);
+    line-height: var(--leading-3xl);
+  }
+
+  /* Font family */
+  .font-sans {
+    font-family: var(--font-sans);
+  }
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+
+  /* Text decoration */
+  .underline {
+    text-decoration: underline;
+  }
+  .line-through {
+    text-decoration: line-through;
+  }
+  .no-underline {
+    text-decoration: none;
+  }
+
+  /* Text transform */
+  .uppercase {
+    text-transform: uppercase;
+  }
+  .lowercase {
+    text-transform: lowercase;
+  }
+  .capitalize {
+    text-transform: capitalize;
+  }
+  .normal-case {
+    text-transform: none;
+  }
+
+  /* Text color */
+  .text-primary {
+    color: var(--color-primary);
+  }
+  .text-muted {
+    color: var(--color-text-muted);
+  }
+  .text-success {
+    color: var(--color-success);
+  }
+  .text-warning {
+    color: var(--color-warning);
+  }
+  .text-danger {
+    color: var(--color-danger);
+  }
+
+  /* Text wrapping */
+  .truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .whitespace-normal {
+    white-space: normal;
+  }
+  .whitespace-nowrap {
+    white-space: nowrap;
+  }
+  .whitespace-pre {
+    white-space: pre;
+  }
+  .whitespace-pre-wrap {
+    white-space: pre-wrap;
+  }
+}
