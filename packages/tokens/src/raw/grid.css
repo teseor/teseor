@@ -1,0 +1,4 @@
+:root {
+  --unit: 0.5rem;
+  --row: calc(var(--unit) * 2);
+}

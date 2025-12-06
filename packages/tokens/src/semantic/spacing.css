@@ -1,0 +1,10 @@
+:root {
+  --spacing-xs: var(--space-1);
+  --spacing-sm: var(--space-2);
+  --spacing-md: var(--space-4);
+  --spacing-lg: var(--space-6);
+  --spacing-xl: var(--space-8);
+
+  --spacing-gutter: var(--space-4);
+  --spacing-section: var(--space-8);
+}

@@ -1,0 +1,14 @@
+:root {
+  --input-height: calc(var(--row) * 2);
+  --input-padding-x: var(--space-2);
+  --input-padding-y: var(--space-1);
+
+  --input-radius: var(--radius-md);
+  --input-border-width: 1px;
+
+  --input-bg: var(--color-bg);
+  --input-border: var(--color-border);
+  --input-border-focus: var(--color-interactive);
+  --input-text: var(--color-text);
+  --input-placeholder: var(--color-text-muted);
+}
