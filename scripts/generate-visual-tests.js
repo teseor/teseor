@@ -2,10 +2,11 @@
 /**
  * Generate Visual Tests
  * Creates Playwright visual test files from component API definitions
+ * Tests load CSS directly without needing a dev server
  */
 
 import { readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
-import { basename, dirname, join, relative } from 'node:path';
+import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -72,9 +73,17 @@ function generateVariations(api) {
 
 /**
  * Generate test file content - single snapshot with all variations
+ * CSS is embedded at generation time (no runtime file reads)
  */
 function generateTestFile(api) {
   const variations = generateVariations(api);
+
+  // Read CSS at generation time and embed in test
+  const tokensCss = readFileSync(join(ROOT, 'packages/tokens/dist/index.css'), 'utf-8');
+  const componentCss = readFileSync(join(ROOT, 'packages/css/dist/index.css'), 'utf-8');
+
+  // Escape backticks and ${} in CSS for template literal
+  const escapeCss = (css) => css.replace(/`/g, '\\`').replace(/\$\{/g, '\\${');
 
   const testContent = `import { test, expect } from '@playwright/test';
 
@@ -83,33 +92,33 @@ function generateTestFile(api) {
  * Auto-generated from ${api.name}.api.json
  */
 
+const tokensCss = \`${escapeCss(tokensCss)}\`;
+const componentCss = \`${escapeCss(componentCss)}\`;
+
 test.describe('${api.name} visual regression', () => {
   test('all variations', async ({ page }) => {
-    // Navigate to docs to get CSS loaded
-    await page.goto('/v2/');
-
-    // Build HTML for all variations in a grid
     const variations = ${JSON.stringify(variations, null, 6)};
 
-    const html = \`
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 32px; padding: 48px; background: #fff;">
-        \${variations.map(v => \`
-          <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 8px;">
-            <span style="font-size: 12px; color: #666;">\${v.label}</span>
-            <${api.element} class="\${v.classes.join(' ')}" \${v.disabled ? 'disabled' : ''}>\${v.label}</${api.element}>
-          </div>
-        \`).join('')}
+    const html = \`<!DOCTYPE html>
+<html>
+<head>
+  <style>\${tokensCss}</style>
+  <style>\${componentCss}</style>
+</head>
+<body style="margin: 0; padding: 48px; background: #fff;">
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 32px;">
+    \${variations.map(v => \`
+      <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 8px;">
+        <span style="font-size: 12px; color: #666;">\${v.label}</span>
+        <${api.element} class="\${v.classes.join(' ')}" \${v.disabled ? 'disabled' : ''}>\${v.label}</${api.element}>
       </div>
-    \`;
+    \`).join('')}
+  </div>
+</body>
+</html>\`;
 
-    // Replace page content but keep CSS
-    await page.evaluate((content) => {
-      document.body.innerHTML = content;
-    }, html);
-
-    // Screenshot the body
-    const body = page.locator('body > div');
-    await expect(body).toHaveScreenshot('${api.name}-all-variations.png');
+    await page.setContent(html);
+    await expect(page.locator('body')).toHaveScreenshot('${api.name}-all-variations.png');
   });
 });
 `;
