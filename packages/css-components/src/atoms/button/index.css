@@ -36,8 +36,8 @@
   }
 
   .button:focus-visible {
-    outline: 2px solid var(--color-focus);
-    outline-offset: 2px;
+    outline: var(--border-width-md) solid var(--color-focus);
+    outline-offset: var(--border-width-md);
   }
 
   .button:active {
