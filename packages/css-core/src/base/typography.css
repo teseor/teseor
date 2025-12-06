@@ -1,27 +1,27 @@
 @layer base {
   h1 {
-    font-size: var(--text-3xl);
+    font-size: var(--size-3xl);
     line-height: var(--leading-3xl);
     font-weight: var(--weight-bold);
     margin-bottom: var(--space-4);
   }
 
   h2 {
-    font-size: var(--text-2xl);
+    font-size: var(--size-2xl);
     line-height: var(--leading-2xl);
     font-weight: var(--weight-bold);
     margin-bottom: var(--space-3);
   }
 
   h3 {
-    font-size: var(--text-xl);
+    font-size: var(--size-xl);
     line-height: var(--leading-xl);
     font-weight: var(--weight-medium);
     margin-bottom: var(--space-2);
   }
 
   h4 {
-    font-size: var(--text-lg);
+    font-size: var(--size-lg);
     line-height: var(--leading-lg);
     font-weight: var(--weight-medium);
     margin-bottom: var(--space-2);
@@ -29,8 +29,8 @@
 
   h5,
   h6 {
-    font-size: var(--text-base);
-    line-height: var(--leading-base);
+    font-size: var(--size-md);
+    line-height: var(--leading-md);
     font-weight: var(--weight-medium);
     margin-bottom: var(--space-1);
   }
@@ -49,7 +49,7 @@
   }
 
   small {
-    font-size: var(--text-sm);
+    font-size: var(--size-sm);
     line-height: var(--leading-sm);
   }
 
@@ -63,7 +63,7 @@
 
   pre {
     font-family: var(--font-mono);
-    font-size: var(--text-sm);
+    font-size: var(--size-sm);
     line-height: var(--leading-sm);
     background: var(--color-bg-muted);
     padding: var(--space-2);

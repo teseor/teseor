@@ -1,21 +1,23 @@
 :root {
   --font-sans: system-ui, -apple-system, sans-serif;
-  --font-mono: ui-monospace, 'Cascadia Code', monospace;
+  --font-mono: ui-monospace, "Cascadia Code", monospace;
 
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
-  --text-base: 1rem;
-  --text-lg: 1.125rem;
-  --text-xl: 1.25rem;
-  --text-2xl: 1.5rem;
-  --text-3xl: 2rem;
+  /* Size scale: xs, sm, md, lg, xl, 2xl, 3xl */
+  --size-xs: 0.75rem;
+  --size-sm: 0.875rem;
+  --size-md: 1rem;
+  --size-lg: 1.125rem;
+  --size-xl: 1.25rem;
+  --size-2xl: 1.5rem;
+  --size-3xl: 2rem;
 
-  --leading-xs: calc(var(--unit) * 2);
-  --leading-sm: calc(var(--unit) * 2);
-  --leading-base: calc(var(--unit) * 3);
+  /* Line-heights snap to grid */
+  --leading-xs: var(--row-1);
+  --leading-sm: var(--row-1);
+  --leading-md: calc(var(--unit) * 3);
   --leading-lg: calc(var(--unit) * 3);
-  --leading-xl: calc(var(--unit) * 4);
-  --leading-2xl: calc(var(--unit) * 4);
+  --leading-xl: var(--row-2);
+  --leading-2xl: var(--row-2);
   --leading-3xl: calc(var(--unit) * 5);
 
   --weight-normal: 400;

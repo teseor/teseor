@@ -20,14 +20,14 @@
   }
 
   .docs-title {
-    font-size: var(--text-3xl);
+    font-size: var(--size-3xl);
     line-height: var(--leading-3xl);
     font-weight: var(--weight-bold);
     margin-bottom: var(--space-4);
   }
 
   .docs-subtitle {
-    font-size: var(--text-xl);
+    font-size: var(--size-xl);
     line-height: var(--leading-xl);
     font-weight: var(--weight-medium);
     margin-bottom: var(--space-2);
