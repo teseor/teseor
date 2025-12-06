@@ -28,14 +28,8 @@
   },
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
-    "production": [
-      "default",
-      "!{projectRoot}/**/*.md"
-    ],
-    "sharedGlobals": [
-      "{workspaceRoot}/biome.json",
-      "{workspaceRoot}/tsconfig.base.json"
-    ]
+    "production": ["default", "!{projectRoot}/**/*.md"],
+    "sharedGlobals": ["{workspaceRoot}/biome.json", "{workspaceRoot}/tsconfig.base.json"]
   },
   "affected": {
     "defaultBase": "main"
