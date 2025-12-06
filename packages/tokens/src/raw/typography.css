@@ -2,14 +2,14 @@
   --font-sans: system-ui, -apple-system, sans-serif;
   --font-mono: ui-monospace, "Cascadia Code", monospace;
 
-  /* Size scale: xs, sm, md, lg, xl, 2xl, 3xl */
-  --size-xs: 0.75rem;
-  --size-sm: 0.875rem;
-  --size-md: 1rem;
-  --size-lg: 1.125rem;
-  --size-xl: 1.25rem;
-  --size-2xl: 1.5rem;
-  --size-3xl: 2rem;
+  /* Size scale: xs, sm, md, lg, xl, 2xl, 3xl - all derived from --unit */
+  --size-xs: calc(var(--unit) * 1.5); /* 12px */
+  --size-sm: calc(var(--unit) * 1.75); /* 14px */
+  --size-md: calc(var(--unit) * 2); /* 16px */
+  --size-lg: calc(var(--unit) * 2.25); /* 18px */
+  --size-xl: calc(var(--unit) * 2.5); /* 20px */
+  --size-2xl: calc(var(--unit) * 3); /* 24px */
+  --size-3xl: calc(var(--unit) * 4); /* 32px */
 
   /* Line-heights snap to grid */
   --leading-xs: var(--row-1);
