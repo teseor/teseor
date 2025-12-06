@@ -1,7 +1,7 @@
 {
-  "name": "css-core",
+  "name": "css",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/css-core/src",
+  "sourceRoot": "packages/css/src",
   "projectType": "library",
   "targets": {
     "build": {
@@ -9,9 +9,9 @@
       "outputs": ["{projectRoot}/dist"],
       "options": {
         "commands": [
-          "mkdir -p packages/css-core/dist",
-          "sass packages/css-core/src/index.scss packages/css-core/dist/compiled.css --no-source-map",
-          "postcss packages/css-core/dist/compiled.css -o packages/css-core/dist/index.css"
+          "mkdir -p packages/css/dist",
+          "sass packages/css/src/index.scss packages/css/dist/compiled.css --no-source-map",
+          "postcss packages/css/dist/compiled.css -o packages/css/dist/index.css"
         ],
         "parallel": false
       },
@@ -20,15 +20,15 @@
     "watch": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "sass --watch packages/css-core/src/index.scss:packages/css-core/dist/index.css"
+        "command": "sass --watch packages/css/src/index.scss:packages/css/dist/index.css"
       }
     },
     "clean": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "rm -rf packages/css-core/dist"
+        "command": "rm -rf packages/css/dist"
       }
     }
   },
-  "tags": ["type:css", "scope:core"]
+  "tags": ["type:css", "scope:library"]
 }

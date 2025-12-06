@@ -1,0 +1,32 @@
+/**
+ * CSS Library - Main Entry Point
+ *
+ * Import order matters due to CSS cascade and layer definitions.
+ */
+
+/* 1. Layer definitions (must be first for CSS) */
+@use './layers/layers' as *;
+
+/* 2. Reset styles */
+@use './reset/index' as *;
+
+/* 3. Base styles (typography, etc.) */
+@use './base/index' as *;
+
+/* 4. Layout primitives */
+@use './primitives/index' as *;
+
+/* 5. Component tokens */
+@use './tokens/index' as *;
+
+/* 6. Components */
+@use './components/index' as *;
+
+/* 7. Utilities (high specificity, load last) */
+@use './utilities/index' as *;
+
+/* 8. Debug tools (optional) */
+@use './debug/index' as *;
+
+/* 9. Fonts (Google Fonts CDN) */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&family=Noto+Sans+Mono:wght@400;500&display=swap");

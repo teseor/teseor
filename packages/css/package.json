@@ -1,0 +1,15 @@
+{
+  "name": "@ui-lib/css",
+  "version": "0.1.0",
+  "description": "CSS library - reset, primitives, components, utilities",
+  "main": "dist/index.css",
+  "exports": {
+    ".": "./dist/index.css",
+    "./fonts/*": "./src/fonts/*",
+    "./dist/*": "./dist/*"
+  },
+  "files": ["dist", "src", "fonts"],
+  "peerDependencies": {
+    "@ui-lib/tokens": "workspace:*"
+  }
+}

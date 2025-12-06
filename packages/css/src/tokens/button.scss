@@ -1,0 +1,15 @@
+:root {
+  --button-height-sm: var(--space-3);
+  --button-height-md: var(--row-2);
+  --button-height-lg: var(--row-3);
+
+  --button-padding-x: var(--space-2);
+  --button-padding-y: var(--space-1);
+
+  --button-radius: var(--radius-md);
+  --button-font-weight: var(--weight-medium);
+
+  --button-bg: var(--color-interactive);
+  --button-bg-hover: var(--color-interactive-hover);
+  --button-text: var(--color-text-inverse);
+}
