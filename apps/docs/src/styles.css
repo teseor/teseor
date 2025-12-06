@@ -1,44 +1,32 @@
-/* Import our CSS library */
-@import "../../../packages/tokens/src/index.css";
-@import "../../../packages/css-core/src/layers/layers.css";
-@import "../../../packages/css-core/src/reset/index.css";
-@import "../../../packages/css-core/src/primitives/index.css";
-@import "../../../packages/css-core/src/base/index.css";
-@import "../../../packages/css-core/src/utilities/index.css";
-@import "../../../packages/css-components/src/index.css";
-@import "../../../packages/css-core/src/debug/index.css";
+/* Import fonts (Google Fonts CDN) */
+@import "../../../packages/fonts/src/google-fonts.css";
 
-/* Docs layout - uses only our tokens */
+/* Import our CSS library (from compiled dist) */
+@import "../../../packages/tokens/dist/index.css";
+@import "../../../packages/css-core/dist/index.css";
+@import "../../../packages/css-components/dist/index.css";
+
+/* Docs-specific styles - layout uses primitives (.app-shell, .sidebar, .main, .container) */
 @layer base {
-  .docs-layout {
-    display: grid;
-    grid-template-columns: calc(var(--unit) * 30) 1fr;
-    min-block-size: 100vh;
-  }
-
-  .docs-sidebar {
-    position: sticky;
-    inset-block-start: 0;
-    block-size: 100vh;
-    overflow-y: auto;
-    background: var(--color-bg-subtle);
-    box-shadow: inset calc(var(--border-width-sm) * -1) 0 0 0 var(--color-border);
-    display: flex;
-    flex-direction: column;
-  }
-
-  .docs-sidebar__header {
+  /* Sidebar sections */
+  .sidebar__header {
     padding: var(--space-4);
     box-shadow: inset 0 calc(var(--border-width-sm) * -1) 0 0 var(--color-border);
   }
 
-  .docs-nav {
+  .sidebar__nav {
     flex: 1;
     padding: var(--space-4);
     overflow-y: auto;
   }
 
-  .docs-nav__link {
+  .sidebar__footer {
+    padding: var(--space-4);
+    box-shadow: inset 0 var(--border-width-sm) 0 0 var(--color-border);
+  }
+
+  /* Nav links */
+  .nav-link {
     display: block;
     padding: var(--space-1) var(--space-2);
     color: var(--color-text);
@@ -47,20 +35,11 @@
     font-size: var(--size-sm);
   }
 
-  .docs-nav__link:hover {
+  .nav-link:hover {
     background: var(--color-bg-muted);
   }
 
-  .docs-sidebar__footer {
-    padding: var(--space-4);
-    box-shadow: inset 0 var(--border-width-sm) 0 0 var(--color-border);
-  }
-
-  .docs-main {
-    padding: var(--space-4);
-    max-inline-size: calc(var(--unit) * 120);
-  }
-
+  /* Docs page sections */
   .docs-header {
     margin-block-end: var(--space-4);
     padding-block-end: var(--space-2);
@@ -84,5 +63,10 @@
 
   .docs-code {
     margin-block-start: var(--space-2);
+  }
+
+  /* Demo for custom font override */
+  .custom-font-demo {
+    font-family: var(--font-sans);
   }
 }

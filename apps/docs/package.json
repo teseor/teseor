@@ -8,7 +8,14 @@
     "build": "vite build",
     "preview": "vite preview"
   },
+  "dependencies": {
+    "@ui-lib/css-components": "workspace:*",
+    "@ui-lib/css-core": "workspace:*",
+    "@alicerce/fonts": "workspace:*",
+    "@ui-lib/tokens": "workspace:*"
+  },
   "devDependencies": {
-    "vite": "^6.0.3"
+    "vite": "^6.0.3",
+    "vite-plugin-pug-transformer": "^1.0.8"
   }
 }

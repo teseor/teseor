@@ -6,312 +6,40 @@
   <title>UI Lib - Living Documentation</title>
   <link rel="stylesheet" href="./styles.css">
 </head>
-<body>
-  <div class="docs-layout">
-    <aside class="docs-sidebar">
-      <div class="docs-sidebar__header">
-        <h1 class="text-xl font-bold">UI Lib</h1>
-        <p class="text-sm text-muted">CSS-first components</p>
-      </div>
+<body class="ui-app-shell">
+  <template data-type="pug" data-src="./index.pug"></template>
+  <script src="./debug-grid.js"></script>
+  <script>
+    const DEBUG_CLASSES = ['ui-debug-grid', 'ui-debug-grid-rows', 'ui-debug-baseline', 'ui-debug-outline'];
 
-      <nav class="docs-nav stack stack--xs">
-        <h2 class="text-xs font-bold uppercase text-muted">Tokens</h2>
-        <a href="#grid" class="docs-nav__link">Grid System</a>
-        <a href="#spacing" class="docs-nav__link">Spacing</a>
-        <a href="#colors" class="docs-nav__link">Colors</a>
-        <a href="#typography" class="docs-nav__link">Typography</a>
+    function getDebugParams() {
+      return new URLSearchParams(window.location.search);
+    }
 
-        <h2 class="text-xs font-bold uppercase text-muted mt-4">Primitives</h2>
-        <a href="#stack" class="docs-nav__link">Stack</a>
-        <a href="#cluster" class="docs-nav__link">Cluster</a>
-        <a href="#center" class="docs-nav__link">Center</a>
-        <a href="#grid-primitive" class="docs-nav__link">Grid</a>
+    function updateUrl(params) {
+      const newUrl = params.toString()
+        ? `${window.location.pathname}?${params}${window.location.hash}`
+        : `${window.location.pathname}${window.location.hash}`;
+      window.history.replaceState({}, '', newUrl);
+    }
 
-        <h2 class="text-xs font-bold uppercase text-muted mt-4">Utilities</h2>
-        <a href="#spacing-utils" class="docs-nav__link">Spacing</a>
-        <a href="#display-utils" class="docs-nav__link">Display</a>
-        <a href="#text-utils" class="docs-nav__link">Text</a>
+    function toggleDebug(className) {
+      document.body.classList.toggle(className);
+      const params = getDebugParams();
+      if (document.body.classList.contains(className)) {
+        params.set(className, '1');
+      } else {
+        params.delete(className);
+      }
+      updateUrl(params);
+    }
 
-        <h2 class="text-xs font-bold uppercase text-muted mt-4">Components</h2>
-        <a href="#button" class="docs-nav__link">Button</a>
-      </nav>
-
-      <div class="docs-sidebar__footer">
-        <div class="stack stack--xs">
-          <button class="button button--sm button--secondary button--block" onclick="document.body.classList.toggle('debug-grid')">Toggle 8px Grid</button>
-          <button class="button button--sm button--secondary button--block" onclick="document.body.classList.toggle('debug-grid-rows')">Toggle Row Grid</button>
-          <button class="button button--sm button--secondary button--block" onclick="document.body.classList.toggle('debug-baseline')">Toggle Baseline</button>
-          <button class="button button--sm button--secondary button--block" onclick="document.body.classList.toggle('debug-outline')">Toggle Outlines</button>
-        </div>
-      </div>
-    </aside>
-
-    <main class="docs-main">
-      <header class="docs-header">
-        <p>Base unit: <code>--unit: 0.5rem (8px)</code> | Row: <code>--row: 1rem (16px)</code></p>
-      </header>
-
-      <!-- GRID SYSTEM -->
-      <section id="grid" class="docs-section">
-        <h2>Grid System</h2>
-        <p>All spacing and heights align to the 8px grid.</p>
-        <div class="docs-example">
-          <div class="stack stack--sm">
-            <div style="background: var(--color-primary); color: var(--color-text-inverse); height: var(--row-1); display: flex; align-items: center; padding: 0 var(--space-2);">row-1 (16px)</div>
-            <div style="background: var(--color-primary); color: var(--color-text-inverse); height: var(--row-2); display: flex; align-items: center; padding: 0 var(--space-2);">row-2 (32px)</div>
-            <div style="background: var(--color-primary); color: var(--color-text-inverse); height: var(--row-3); display: flex; align-items: center; padding: 0 var(--space-2);">row-3 (48px)</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SPACING -->
-      <section id="spacing" class="docs-section">
-        <h2>Spacing</h2>
-        <p>Spacing tokens based on the 8px unit.</p>
-        <div class="docs-example">
-          <div class="cluster cluster--md">
-            <div class="stack stack--xs" style="align-items: center;">
-              <div style="width: var(--space-1); height: var(--space-4); background: var(--color-primary);"></div>
-              <small>space-1</small>
-            </div>
-            <div class="stack stack--xs" style="align-items: center;">
-              <div style="width: var(--space-2); height: var(--space-4); background: var(--color-primary);"></div>
-              <small>space-2</small>
-            </div>
-            <div class="stack stack--xs" style="align-items: center;">
-              <div style="width: var(--space-3); height: var(--space-4); background: var(--color-primary);"></div>
-              <small>space-3</small>
-            </div>
-            <div class="stack stack--xs" style="align-items: center;">
-              <div style="width: var(--space-4); height: var(--space-4); background: var(--color-primary);"></div>
-              <small>space-4</small>
-            </div>
-            <div class="stack stack--xs" style="align-items: center;">
-              <div style="width: var(--space-6); height: var(--space-4); background: var(--color-primary);"></div>
-              <small>space-6</small>
-            </div>
-            <div class="stack stack--xs" style="align-items: center;">
-              <div style="width: var(--space-8); height: var(--space-4); background: var(--color-primary);"></div>
-              <small>space-8</small>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- COLORS -->
-      <section id="colors" class="docs-section">
-        <h2>Colors</h2>
-        <p>HSL-based colors derived from hue tokens.</p>
-        <div class="docs-example">
-          <div class="stack stack--sm">
-            <div class="cluster cluster--sm">
-              <div style="width: var(--space-8); height: var(--row-2); background: var(--color-primary); border-radius: var(--radius-sm);"></div>
-              <div style="width: var(--space-8); height: var(--row-2); background: var(--color-primary-light); border-radius: var(--radius-sm);"></div>
-              <div style="width: var(--space-8); height: var(--row-2); background: var(--color-primary-dark); border-radius: var(--radius-sm);"></div>
-              <span>Primary</span>
-            </div>
-            <div class="cluster cluster--sm">
-              <div style="width: var(--space-8); height: var(--row-2); background: var(--color-success); border-radius: var(--radius-sm);"></div>
-              <div style="width: var(--space-8); height: var(--row-2); background: var(--color-warning); border-radius: var(--radius-sm);"></div>
-              <div style="width: var(--space-8); height: var(--row-2); background: var(--color-danger); border-radius: var(--radius-sm);"></div>
-              <span>Status</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- TYPOGRAPHY -->
-      <section id="typography" class="docs-section">
-        <h2>Typography</h2>
-        <p>All line-heights snap to the 8px grid. Toggle the baseline grid to verify.</p>
-        <div class="docs-example">
-          <h1>Heading 1</h1>
-          <h2>Heading 2</h2>
-          <h3>Heading 3</h3>
-          <h4>Heading 4</h4>
-          <h5>Heading 5</h5>
-          <p>Body text at 16px with 24px line-height. The <strong>bold text</strong> and <code>inline code</code> maintain the same rhythm.</p>
-          <p><small>Small text at 14px with 16px line-height.</small></p>
-        </div>
-      </section>
-
-      <!-- PRIMITIVES: STACK -->
-      <section id="stack" class="docs-section">
-        <h2>Primitive: Stack</h2>
-        <p>Vertical layout with consistent gap.</p>
-        <div class="docs-example">
-          <div class="stack stack--sm">
-            <div style="background: var(--color-bg-muted); padding: var(--space-2);">Item 1</div>
-            <div style="background: var(--color-bg-muted); padding: var(--space-2);">Item 2</div>
-            <div style="background: var(--color-bg-muted); padding: var(--space-2);">Item 3</div>
-          </div>
-        </div>
-        <pre class="docs-code"><code>&lt;div class="stack stack--sm"&gt;
-  &lt;div&gt;Item 1&lt;/div&gt;
-  &lt;div&gt;Item 2&lt;/div&gt;
-  &lt;div&gt;Item 3&lt;/div&gt;
-&lt;/div&gt;</code></pre>
-      </section>
-
-      <!-- PRIMITIVES: CLUSTER -->
-      <section id="cluster" class="docs-section">
-        <h2>Primitive: Cluster</h2>
-        <p>Horizontal layout with wrapping.</p>
-        <div class="docs-example">
-          <div class="cluster cluster--md">
-            <div style="background: var(--color-bg-muted); padding: var(--space-2);">Tag 1</div>
-            <div style="background: var(--color-bg-muted); padding: var(--space-2);">Tag 2</div>
-            <div style="background: var(--color-bg-muted); padding: var(--space-2);">Tag 3</div>
-            <div style="background: var(--color-bg-muted); padding: var(--space-2);">Tag 4</div>
-          </div>
-        </div>
-        <pre class="docs-code"><code>&lt;div class="cluster cluster--md"&gt;
-  &lt;div&gt;Tag 1&lt;/div&gt;
-  &lt;div&gt;Tag 2&lt;/div&gt;
-&lt;/div&gt;</code></pre>
-      </section>
-
-      <!-- PRIMITIVES: CENTER -->
-      <section id="center" class="docs-section">
-        <h2>Primitive: Center</h2>
-        <p>Centers content horizontally and vertically.</p>
-        <div class="docs-example">
-          <div class="center" style="height: var(--row-4); background: var(--color-bg-muted);">
-            <span>Centered content</span>
-          </div>
-        </div>
-        <pre class="docs-code"><code>&lt;div class="center"&gt;Centered content&lt;/div&gt;</code></pre>
-      </section>
-
-      <!-- PRIMITIVES: GRID -->
-      <section id="grid-primitive" class="docs-section">
-        <h2>Primitive: Grid</h2>
-        <p>CSS Grid with column variants.</p>
-        <div class="docs-example">
-          <div class="grid grid--3">
-            <div style="background: var(--color-bg-muted); padding: var(--space-2);">1</div>
-            <div style="background: var(--color-bg-muted); padding: var(--space-2);">2</div>
-            <div style="background: var(--color-bg-muted); padding: var(--space-2);">3</div>
-          </div>
-        </div>
-        <pre class="docs-code"><code>&lt;div class="grid grid--3"&gt;
-  &lt;div&gt;1&lt;/div&gt;
-  &lt;div&gt;2&lt;/div&gt;
-  &lt;div&gt;3&lt;/div&gt;
-&lt;/div&gt;</code></pre>
-      </section>
-
-      <!-- UTILITIES: SPACING -->
-      <section id="spacing-utils" class="docs-section">
-        <h2>Utility: Spacing</h2>
-        <p>Margin and padding utilities aligned to 8px grid.</p>
-        <div class="docs-example">
-          <div class="stack stack--sm">
-            <div class="p-1" style="background: var(--color-bg-muted);">p-1 (8px padding)</div>
-            <div class="p-2" style="background: var(--color-bg-muted);">p-2 (16px padding)</div>
-            <div class="p-4" style="background: var(--color-bg-muted);">p-4 (32px padding)</div>
-            <div class="px-4 py-2" style="background: var(--color-bg-muted);">px-4 py-2 (horizontal 32px, vertical 16px)</div>
-          </div>
-        </div>
-        <pre class="docs-code"><code>&lt;div class="p-2"&gt;...&lt;/div&gt;
-&lt;div class="px-4 py-2"&gt;...&lt;/div&gt;
-&lt;div class="mt-4 mb-2"&gt;...&lt;/div&gt;</code></pre>
-      </section>
-
-      <!-- UTILITIES: DISPLAY -->
-      <section id="display-utils" class="docs-section">
-        <h2>Utility: Display</h2>
-        <p>Flexbox and display utilities.</p>
-        <div class="docs-example">
-          <div class="flex justify-between items-center gap-2 p-2" style="background: var(--color-bg-muted);">
-            <span>Start</span>
-            <span>Center (items-center)</span>
-            <span>End</span>
-          </div>
-        </div>
-        <pre class="docs-code"><code>&lt;div class="flex justify-between items-center gap-2"&gt;
-  &lt;span&gt;Start&lt;/span&gt;
-  &lt;span&gt;Center&lt;/span&gt;
-  &lt;span&gt;End&lt;/span&gt;
-&lt;/div&gt;</code></pre>
-      </section>
-
-      <!-- UTILITIES: TEXT -->
-      <section id="text-utils" class="docs-section">
-        <h2>Utility: Text</h2>
-        <p>Typography and text utilities.</p>
-        <div class="docs-example">
-          <div class="stack stack--sm">
-            <p class="text-xs">text-xs: 12px (1.5 units)</p>
-            <p class="text-sm">text-sm: 14px (1.75 units)</p>
-            <p class="text-md">text-md: 16px (2 units)</p>
-            <p class="text-lg">text-lg: 18px (2.25 units)</p>
-            <p class="text-xl">text-xl: 20px (2.5 units)</p>
-            <p class="text-2xl">text-2xl: 24px (3 units)</p>
-            <p class="text-3xl">text-3xl: 32px (4 units)</p>
-          </div>
-        </div>
-        <div class="docs-example">
-          <div class="stack stack--sm">
-            <p class="text-primary">text-primary</p>
-            <p class="text-muted">text-muted</p>
-            <p class="text-success">text-success</p>
-            <p class="text-warning">text-warning</p>
-            <p class="text-danger">text-danger</p>
-          </div>
-        </div>
-        <pre class="docs-code"><code>&lt;p class="text-lg font-bold"&gt;...&lt;/p&gt;
-&lt;p class="text-sm text-muted"&gt;...&lt;/p&gt;
-&lt;p class="text-center uppercase"&gt;...&lt;/p&gt;</code></pre>
-      </section>
-
-      <!-- COMPONENTS: BUTTON -->
-      <section id="button" class="docs-section">
-        <h2>Component: Button</h2>
-        <p>Button heights align to grid rows. Toggle the grid to verify alignment.</p>
-
-        <h3>Sizes</h3>
-        <div class="docs-example">
-          <div class="cluster cluster--md items-center">
-            <button class="button button--sm">Small (24px)</button>
-            <button class="button">Default (32px)</button>
-            <button class="button button--lg">Large (40px)</button>
-          </div>
-        </div>
-        <pre class="docs-code"><code>&lt;button class="button button--sm"&gt;Small&lt;/button&gt;
-&lt;button class="button"&gt;Default&lt;/button&gt;
-&lt;button class="button button--lg"&gt;Large&lt;/button&gt;</code></pre>
-
-        <h3>Variants</h3>
-        <div class="docs-example">
-          <div class="cluster cluster--md">
-            <button class="button">Primary</button>
-            <button class="button button--secondary">Secondary</button>
-            <button class="button button--ghost">Ghost</button>
-            <button class="button button--danger">Danger</button>
-          </div>
-        </div>
-        <pre class="docs-code"><code>&lt;button class="button"&gt;Primary&lt;/button&gt;
-&lt;button class="button button--secondary"&gt;Secondary&lt;/button&gt;
-&lt;button class="button button--ghost"&gt;Ghost&lt;/button&gt;
-&lt;button class="button button--danger"&gt;Danger&lt;/button&gt;</code></pre>
-
-        <h3>States</h3>
-        <div class="docs-example">
-          <div class="cluster cluster--md">
-            <button class="button">Normal</button>
-            <button class="button" disabled>Disabled</button>
-          </div>
-        </div>
-
-        <h3>Full Width</h3>
-        <div class="docs-example">
-          <button class="button button--block">Full Width Button</button>
-        </div>
-        <pre class="docs-code"><code>&lt;button class="button button--block"&gt;Full Width&lt;/button&gt;</code></pre>
-      </section>
-
-    </main>
-  </div>
+    const params = getDebugParams();
+    DEBUG_CLASSES.forEach(className => {
+      if (params.get(className) === '1') {
+        document.body.classList.add(className);
+      }
+    });
+  </script>
 </body>
 </html>
