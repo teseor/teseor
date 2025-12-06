@@ -10,9 +10,16 @@
       "options": {
         "commands": [
           "mkdir -p packages/tokens/dist",
-          "cp -r packages/tokens/src/* packages/tokens/dist/"
+          "sass packages/tokens/src/index.scss packages/tokens/dist/compiled.css --no-source-map",
+          "postcss packages/tokens/dist/compiled.css -o packages/tokens/dist/index.css"
         ],
         "parallel": false
+      }
+    },
+    "watch": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "sass --watch packages/tokens/src/index.scss:packages/tokens/dist/index.css"
       }
     },
     "clean": {
