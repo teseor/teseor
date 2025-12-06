@@ -1,0 +1,27 @@
+@layer primitives {
+  .sidebar {
+    position: fixed;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    inline-size: var(--sidebar-width, calc(var(--unit) * 30));
+    block-size: 100vh;
+    overflow-y: auto;
+    background: var(--color-bg-subtle);
+    box-shadow: inset calc(var(--border-width-sm) * -1) 0 0 0 var(--color-border);
+    display: flex;
+    flex-direction: column;
+    z-index: var(--z-sticky);
+  }
+
+  /* Width modifiers */
+  .sidebar--sm { --sidebar-width: calc(var(--unit) * 24); }
+  .sidebar--md { --sidebar-width: calc(var(--unit) * 30); }
+  .sidebar--lg { --sidebar-width: calc(var(--unit) * 40); }
+
+  /* Position modifier - sidebar on end (right in LTR) */
+  .sidebar--end {
+    inset-inline-start: auto;
+    inset-inline-end: 0;
+    box-shadow: inset var(--border-width-sm) 0 0 0 var(--color-border);
+  }
+}

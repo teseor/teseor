@@ -10,6 +10,7 @@
   }
 
   html {
+    font-size: 16px; /* Ensures 1rem = 16px, so --unit: 0.5rem = 8px exactly */
     -webkit-text-size-adjust: none;
     text-size-adjust: none;
   }

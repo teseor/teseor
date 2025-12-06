@@ -3,28 +3,28 @@
     font-size: var(--size-3xl);
     line-height: var(--leading-3xl);
     font-weight: var(--weight-bold);
-    margin-bottom: var(--space-4);
+    margin-block-end: var(--space-4);
   }
 
   h2 {
     font-size: var(--size-2xl);
     line-height: var(--leading-2xl);
     font-weight: var(--weight-bold);
-    margin-bottom: var(--space-3);
+    margin-block-end: var(--space-3);
   }
 
   h3 {
     font-size: var(--size-xl);
     line-height: var(--leading-xl);
     font-weight: var(--weight-medium);
-    margin-bottom: var(--space-2);
+    margin-block-end: var(--space-2);
   }
 
   h4 {
     font-size: var(--size-lg);
     line-height: var(--leading-lg);
     font-weight: var(--weight-medium);
-    margin-bottom: var(--space-2);
+    margin-block-end: var(--space-2);
   }
 
   h5,
@@ -32,30 +32,35 @@
     font-size: var(--size-md);
     line-height: var(--leading-md);
     font-weight: var(--weight-medium);
-    margin-bottom: var(--space-1);
+    margin-block-end: var(--space-1);
   }
 
   p {
-    margin-bottom: var(--space-2);
+    font-size: var(--size-md);
+    line-height: var(--leading-md);
+    margin-block-end: var(--space-2);
   }
 
   p:last-child {
-    margin-bottom: 0;
+    margin-block-end: 0;
   }
 
   strong,
   b {
     font-weight: var(--weight-bold);
+    line-height: 0;
   }
 
   small {
     font-size: var(--size-sm);
-    line-height: var(--leading-sm);
+    line-height: 0;
   }
 
   code {
     font-family: var(--font-mono);
     font-size: var(--size-sm);
+    line-height: 0;
+    vertical-align: baseline;
     background: var(--color-bg-muted);
     padding: 0 var(--space-1);
     border-radius: var(--radius-sm);
@@ -69,7 +74,7 @@
     padding: var(--space-2);
     border-radius: var(--radius-md);
     overflow-x: auto;
-    margin-bottom: var(--space-2);
+    margin-block-end: var(--space-2);
   }
 
   pre code {

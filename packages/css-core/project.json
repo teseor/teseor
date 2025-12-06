@@ -10,9 +10,17 @@
       "options": {
         "commands": [
           "mkdir -p packages/css-core/dist",
-          "cp -r packages/css-core/src/* packages/css-core/dist/"
+          "sass packages/css-core/src/index.scss packages/css-core/dist/compiled.css --no-source-map",
+          "postcss packages/css-core/dist/compiled.css -o packages/css-core/dist/index.css"
         ],
         "parallel": false
+      },
+      "dependsOn": ["^build"]
+    },
+    "watch": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "sass --watch packages/css-core/src/index.scss:packages/css-core/dist/index.css"
       }
     },
     "clean": {

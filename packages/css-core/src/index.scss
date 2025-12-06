@@ -1,0 +1,24 @@
+/**
+ * CSS Core - Main Entry Point
+ *
+ * This file bundles all CSS core modules.
+ * Import order matters due to CSS cascade and layer definitions.
+ */
+
+/* 1. Layer definitions (must be first) */
+@use './layers/layers' as *;
+
+/* 2. Reset styles */
+@use './reset/index' as *;
+
+/* 3. Base styles (typography, etc.) */
+@use './base/index' as *;
+
+/* 4. Primitives (layout components) */
+@use './primitives/index' as *;
+
+/* 5. Utilities (spacing, display, text) */
+@use './utilities/index' as *;
+
+/* 6. Debug tools (optional, can be tree-shaken) */
+@use './debug/index' as *;
