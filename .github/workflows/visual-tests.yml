@@ -11,14 +11,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 9
+      - uses: pnpm/action-setup@v4
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'pnpm'
+          node-version: 22
+          cache: pnpm
 
       - name: Install dependencies
         run: pnpm install
@@ -33,6 +31,7 @@ jobs:
         run: pnpm nx test css
 
       - name: Upload to Lost Pixel
+        if: ${{ secrets.LOST_PIXEL_API_KEY != '' }}
         uses: lost-pixel/lost-pixel@v3.22.0
         env:
           LOST_PIXEL_PROJECT_ID: ${{ secrets.LOST_PIXEL_PROJECT_ID }}
