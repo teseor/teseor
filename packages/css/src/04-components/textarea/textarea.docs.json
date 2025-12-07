@@ -1,0 +1,127 @@
+{
+  "id": "textarea",
+  "type": "component",
+  "title": "Textarea",
+  "description": "Multi-line text input for longer content like comments or descriptions.",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "html": "<textarea class=\"ui-textarea\" placeholder=\"Enter your message...\"></textarea>"
+        }
+      ]
+    },
+    {
+      "title": "Sizes",
+      "examples": [
+        {
+          "layout": "stack",
+          "items": [
+            {
+              "tag": "textarea",
+              "class": "ui-textarea ui-textarea--sm",
+              "attrs": { "placeholder": "Small (3 rows)" }
+            },
+            {
+              "tag": "textarea",
+              "class": "ui-textarea",
+              "attrs": { "placeholder": "Default (4 rows)" }
+            },
+            {
+              "tag": "textarea",
+              "class": "ui-textarea ui-textarea--lg",
+              "attrs": { "placeholder": "Large (6 rows)" }
+            }
+          ],
+          "code": "<textarea class=\"ui-textarea ui-textarea--sm\"></textarea>\n<textarea class=\"ui-textarea\"></textarea>\n<textarea class=\"ui-textarea ui-textarea--lg\"></textarea>"
+        }
+      ]
+    },
+    {
+      "title": "Variants",
+      "examples": [
+        {
+          "layout": "stack",
+          "items": [
+            {
+              "tag": "textarea",
+              "class": "ui-textarea",
+              "attrs": { "placeholder": "Outline (default)" }
+            },
+            {
+              "tag": "textarea",
+              "class": "ui-textarea ui-textarea--filled",
+              "attrs": { "placeholder": "Filled" }
+            },
+            {
+              "tag": "textarea",
+              "class": "ui-textarea ui-textarea--ghost",
+              "attrs": { "placeholder": "Ghost" }
+            }
+          ],
+          "code": "<textarea class=\"ui-textarea\"></textarea>\n<textarea class=\"ui-textarea ui-textarea--filled\"></textarea>\n<textarea class=\"ui-textarea ui-textarea--ghost\"></textarea>"
+        }
+      ]
+    },
+    {
+      "title": "States",
+      "examples": [
+        {
+          "layout": "stack",
+          "items": [
+            {
+              "tag": "textarea",
+              "class": "ui-textarea ui-textarea--error",
+              "text": "Invalid content"
+            },
+            {
+              "tag": "textarea",
+              "class": "ui-textarea ui-textarea--success",
+              "text": "Valid content"
+            },
+            {
+              "tag": "textarea",
+              "class": "ui-textarea",
+              "attrs": { "disabled": "", "placeholder": "Disabled" }
+            },
+            {
+              "tag": "textarea",
+              "class": "ui-textarea",
+              "attrs": { "readonly": "" },
+              "text": "Read only content"
+            }
+          ],
+          "code": "<textarea class=\"ui-textarea ui-textarea--error\">Invalid</textarea>\n<textarea class=\"ui-textarea ui-textarea--success\">Valid</textarea>\n<textarea class=\"ui-textarea\" disabled></textarea>\n<textarea class=\"ui-textarea\" readonly>Read only</textarea>"
+        }
+      ]
+    },
+    {
+      "title": "Resize Options",
+      "description": "Control how users can resize the textarea.",
+      "examples": [
+        {
+          "layout": "stack",
+          "items": [
+            {
+              "tag": "textarea",
+              "class": "ui-textarea",
+              "attrs": { "placeholder": "Vertical resize (default)" }
+            },
+            {
+              "tag": "textarea",
+              "class": "ui-textarea ui-textarea--resize-none",
+              "attrs": { "placeholder": "No resize" }
+            },
+            {
+              "tag": "textarea",
+              "class": "ui-textarea ui-textarea--resize-both",
+              "attrs": { "placeholder": "Resize both directions" }
+            }
+          ],
+          "code": "<textarea class=\"ui-textarea\">Vertical (default)</textarea>\n<textarea class=\"ui-textarea ui-textarea--resize-none\">No resize</textarea>\n<textarea class=\"ui-textarea ui-textarea--resize-both\">Both directions</textarea>"
+        }
+      ]
+    }
+  ]
+}
