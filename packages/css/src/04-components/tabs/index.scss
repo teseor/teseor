@@ -43,7 +43,9 @@
     border-block-end: var(--ui-border-width-md, #{t.$border-width-md}) solid transparent;
     cursor: pointer;
 
-    transition: color 0.15s, border-color 0.15s;
+    transition:
+      color var(--ui-duration-base) var(--ui-ease-default),
+      border-color var(--ui-duration-base) var(--ui-ease-default);
 
     &:hover {
       color: var(--ui-color-text, #{t.$color-text});

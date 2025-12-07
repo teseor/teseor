@@ -82,7 +82,9 @@
     cursor: pointer;
 
     // Transitions
-    transition: background-color 0.15s ease, transform 0.1s ease;
+    transition:
+      background-color var(--ui-duration-base) var(--ui-ease-default),
+      transform var(--ui-duration-fast) var(--ui-ease-default);
 
     // States - modifiers mirror pseudo-classes for testing/docs
     &:hover,

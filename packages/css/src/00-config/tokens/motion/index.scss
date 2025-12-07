@@ -1,0 +1,25 @@
+@layer tokens {
+  :root {
+    // Duration scale
+    --ui-duration-instant: 50ms;
+    --ui-duration-fast: 100ms;
+    --ui-duration-base: 150ms;
+    --ui-duration-slow: 250ms;
+    --ui-duration-slower: 400ms;
+
+    // Easing functions
+    --ui-ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+    --ui-ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --ui-ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ui-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+    // Prefers reduced motion
+    @media (prefers-reduced-motion: reduce) {
+      --ui-duration-instant: 0ms;
+      --ui-duration-fast: 0ms;
+      --ui-duration-base: 0ms;
+      --ui-duration-slow: 0ms;
+      --ui-duration-slower: 0ms;
+    }
+  }
+}
