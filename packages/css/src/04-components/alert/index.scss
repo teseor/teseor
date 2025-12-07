@@ -1,0 +1,100 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Alert component - informational banners
+// Variants for different message types
+
+@layer components.tokens {
+  .alert {
+    --_padding: var(--ui-alert-padding, var(--ui-space-2, #{t.$space-2}));
+    --_gap: var(--ui-alert-gap, var(--ui-space-1, #{t.$space-1}));
+    --_radius: var(--ui-alert-radius, var(--ui-radius-md, #{t.$radius-md}));
+    --_bg: var(--ui-alert-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
+    --_border-color: var(--ui-alert-border-color, var(--ui-color-border, #{t.$color-border}));
+    --_color: var(--ui-alert-color, var(--ui-color-text, #{t.$color-text}));
+    --_icon-color: var(--ui-alert-icon-color, currentcolor);
+  }
+
+  .alert--info {
+    --_bg: var(--ui-alert-info-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
+    --_border-color: var(--ui-alert-info-border, var(--ui-color-primary, #{t.$color-primary}));
+    --_icon-color: var(--ui-alert-info-icon, var(--ui-color-primary, #{t.$color-primary}));
+  }
+
+  .alert--success {
+    --_bg: var(--ui-alert-success-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
+    --_border-color: var(--ui-alert-success-border, var(--ui-color-success, #{t.$color-success}));
+    --_icon-color: var(--ui-alert-success-icon, var(--ui-color-success, #{t.$color-success}));
+  }
+
+  .alert--warning {
+    --_bg: var(--ui-alert-warning-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
+    --_border-color: var(--ui-alert-warning-border, var(--ui-color-warning, #{t.$color-warning}));
+    --_icon-color: var(--ui-alert-warning-icon, var(--ui-color-warning, #{t.$color-warning}));
+  }
+
+  .alert--danger {
+    --_bg: var(--ui-alert-danger-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
+    --_border-color: var(--ui-alert-danger-border, var(--ui-color-danger, #{t.$color-danger}));
+    --_icon-color: var(--ui-alert-danger-icon, var(--ui-color-danger, #{t.$color-danger}));
+  }
+}
+
+@layer components.styles {
+  .alert {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--_gap);
+
+    padding: var(--_padding);
+
+    color: var(--_color);
+
+    background: var(--_bg);
+    border: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_border-color);
+    border-radius: var(--_radius);
+    border-inline-start-width: calc(#{t.$unit} * 0.5);
+  }
+
+  .alert__icon {
+    flex-shrink: 0;
+
+    color: var(--_icon-color);
+  }
+
+  .alert__content {
+    flex: 1;
+
+    min-inline-size: 0;
+  }
+
+  .alert__title {
+    margin: 0;
+
+    font-weight: var(--ui-weight-medium, #{t.$weight-medium});
+  }
+
+  .alert__description {
+    margin: 0;
+    margin-block-start: calc(#{t.$unit} * 0.5);
+
+    font-size: var(--ui-size-sm, #{t.$size-sm});
+    color: var(--ui-color-text-muted, #{t.$color-text-muted});
+  }
+
+  .alert__close {
+    flex-shrink: 0;
+    align-self: flex-start;
+
+    padding: 0;
+
+    color: var(--ui-color-text-muted, #{t.$color-text-muted});
+
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--ui-color-text, #{t.$color-text});
+    }
+  }
+}

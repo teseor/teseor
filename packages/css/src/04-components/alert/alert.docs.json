@@ -1,0 +1,44 @@
+{
+  "id": "alert",
+  "type": "component",
+  "title": "Alert",
+  "description": "Informational banner for important messages. Use variants for different message types.",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "html": "<div class=\"ui-alert\"><div class=\"ui-alert__content\"><p class=\"ui-alert__title\">Note</p><p class=\"ui-alert__description\">This is a default alert message.</p></div></div>",
+          "code": "<div class=\"ui-alert\">\n  <div class=\"ui-alert__content\">\n    <p class=\"ui-alert__title\">Note</p>\n    <p class=\"ui-alert__description\">This is a default alert.</p>\n  </div>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "Variants",
+      "examples": [
+        {
+          "html": "<div class=\"ui-stack\" style=\"--stack-gap: var(--ui-space-2);\"><div class=\"ui-alert ui-alert--info\"><div class=\"ui-alert__content\"><p class=\"ui-alert__title\">Info</p><p class=\"ui-alert__description\">Informational message for the user.</p></div></div><div class=\"ui-alert ui-alert--success\"><div class=\"ui-alert__content\"><p class=\"ui-alert__title\">Success</p><p class=\"ui-alert__description\">Your action was completed successfully.</p></div></div><div class=\"ui-alert ui-alert--warning\"><div class=\"ui-alert__content\"><p class=\"ui-alert__title\">Warning</p><p class=\"ui-alert__description\">Please review before continuing.</p></div></div><div class=\"ui-alert ui-alert--danger\"><div class=\"ui-alert__content\"><p class=\"ui-alert__title\">Error</p><p class=\"ui-alert__description\">Something went wrong. Please try again.</p></div></div></div>",
+          "code": "<div class=\"ui-alert ui-alert--info\">...</div>\n<div class=\"ui-alert ui-alert--success\">...</div>\n<div class=\"ui-alert ui-alert--warning\">...</div>\n<div class=\"ui-alert ui-alert--danger\">...</div>"
+        }
+      ]
+    },
+    {
+      "title": "With Icon",
+      "examples": [
+        {
+          "html": "<div class=\"ui-alert ui-alert--info\"><svg class=\"ui-icon ui-icon--sm ui-alert__icon\" viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"12\" r=\"10\"></circle><path d=\"M12 16v-4\"></path><path d=\"M12 8h.01\"></path></svg><div class=\"ui-alert__content\"><p class=\"ui-alert__description\">Your session will expire in 5 minutes.</p></div></div>",
+          "code": "<div class=\"ui-alert ui-alert--info\">\n  <svg class=\"ui-icon ui-alert__icon\">...</svg>\n  <div class=\"ui-alert__content\">\n    <p class=\"ui-alert__description\">Your session will expire.</p>\n  </div>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "Description Only",
+      "examples": [
+        {
+          "html": "<div class=\"ui-alert ui-alert--success\"><div class=\"ui-alert__content\"><p class=\"ui-alert__description\">File uploaded successfully.</p></div></div>",
+          "code": "<div class=\"ui-alert ui-alert--success\">\n  <div class=\"ui-alert__content\">\n    <p class=\"ui-alert__description\">File uploaded.</p>\n  </div>\n</div>"
+        }
+      ]
+    }
+  ]
+}
