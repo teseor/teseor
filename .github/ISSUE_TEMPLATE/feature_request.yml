@@ -1,0 +1,61 @@
+name: Feature Request
+description: Suggest a new feature or component
+labels: ["type: feature", "status: triage"]
+body:
+  - type: dropdown
+    id: package
+    attributes:
+      label: Package
+      description: Which package should this be added to?
+      options:
+        - "@ui-lib/css"
+        - "@ui-lib/react (planned)"
+        - "@ui-lib/svelte (planned)"
+        - "docs"
+        - "tooling"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      description: What kind of feature?
+      options:
+        - "New component"
+        - "Component variant/modifier"
+        - "New token"
+        - "Utility class"
+        - "Documentation"
+        - "Other"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the feature
+      placeholder: What should it do? Why is it needed?
+    validations:
+      required: true
+
+  - type: textarea
+    id: api
+    attributes:
+      label: Proposed API
+      description: How should it be used?
+      placeholder: |
+        ```html
+        <button class="ui-button ui-button--new-variant">Click</button>
+        ```
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Other approaches you considered
+    validations:
+      required: false
