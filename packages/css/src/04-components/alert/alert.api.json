@@ -1,0 +1,41 @@
+{
+  "name": "alert",
+  "baseClass": "alert",
+  "element": "div",
+  "description": "Informational banner for important messages",
+  "modifiers": {
+    "variant": {
+      "values": ["info", "success", "warning", "danger"],
+      "default": null,
+      "description": "Visual variant indicating message type"
+    }
+  },
+  "elements": {
+    "icon": {
+      "class": "alert__icon",
+      "element": "svg",
+      "description": "Optional status icon"
+    },
+    "content": {
+      "class": "alert__content",
+      "element": "div",
+      "description": "Main content container"
+    },
+    "title": {
+      "class": "alert__title",
+      "element": "p",
+      "description": "Optional title text"
+    },
+    "description": {
+      "class": "alert__description",
+      "element": "p",
+      "description": "Description text"
+    },
+    "close": {
+      "class": "alert__close",
+      "element": "button",
+      "description": "Optional dismiss button"
+    }
+  },
+  "states": []
+}
