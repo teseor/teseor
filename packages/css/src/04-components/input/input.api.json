@@ -1,0 +1,52 @@
+{
+  "name": "input",
+  "baseClass": "input",
+  "element": "input",
+  "description": "Text input field with support for prefix/suffix slots",
+  "modifiers": {
+    "size": {
+      "values": ["sm", "lg"],
+      "default": null,
+      "description": "Size variant. Default is 32px / 2 rows."
+    },
+    "variant": {
+      "values": ["filled", "ghost"],
+      "default": null,
+      "description": "Visual style. Default is outline with border."
+    },
+    "state": {
+      "values": ["error", "success"],
+      "default": null,
+      "description": "Validation state styling."
+    },
+    "block": {
+      "type": "boolean",
+      "description": "Full width input."
+    }
+  },
+  "states": ["hover", "focus", "disabled", "readonly"],
+  "elements": {
+    "group": {
+      "class": "input-group",
+      "description": "Wrapper for input with prefix/suffix addons",
+      "modifiers": {
+        "has-prefix": { "type": "boolean" },
+        "has-suffix": { "type": "boolean" }
+      }
+    },
+    "addon": {
+      "class": "input-group__addon",
+      "description": "Prefix or suffix container",
+      "modifiers": {
+        "position": {
+          "values": ["start", "end"],
+          "description": "Addon position"
+        },
+        "interactive": {
+          "type": "boolean",
+          "description": "Enable pointer events for buttons"
+        }
+      }
+    }
+  }
+}

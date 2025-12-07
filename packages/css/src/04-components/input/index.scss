@@ -1,0 +1,154 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Input component - text input field
+// Heights align to grid rows
+
+@layer components.tokens {
+  .input {
+    --_height: var(--ui-input-height, var(--ui-row-2, #{t.$row-2}));
+    --_padding-x: var(--ui-input-padding-x, var(--ui-space-1, #{t.$space-1}));
+    --_font-size: var(--ui-input-font-size, var(--ui-size-sm, #{t.$size-sm}));
+    --_radius: var(--ui-input-radius, var(--ui-radius-md, #{t.$radius-md}));
+    --_bg: var(--ui-input-bg, var(--ui-color-bg, #{t.$color-bg}));
+    --_border-color: var(--ui-input-border-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
+    --_border-color-focus: var(--ui-input-border-color-focus, var(--ui-color-primary, #{t.$color-primary}));
+    --_text: var(--ui-input-text, var(--ui-color-text, #{t.$color-text}));
+    --_placeholder: var(--ui-input-placeholder, var(--ui-color-text-muted, #{t.$color-text-muted}));
+  }
+
+  // Size variants
+  .input--sm {
+    --_height: var(--ui-input-height-sm, calc(#{t.$row} * 1.5));
+    --_font-size: var(--ui-input-font-size-sm, var(--ui-size-xs, #{t.$size-xs}));
+  }
+
+  .input--lg {
+    --_height: var(--ui-input-height-lg, calc(#{t.$row} * 2.5));
+    --_padding-x: var(--ui-input-padding-x-lg, var(--ui-space-2, #{t.$space-2}));
+    --_font-size: var(--ui-input-font-size-lg, var(--ui-size-md, #{t.$size-md}));
+  }
+
+  // Style variants
+  .input--filled {
+    --_bg: var(--ui-input-filled-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+    --_border-color: transparent;
+  }
+
+  .input--ghost {
+    --_bg: transparent;
+    --_border-color: transparent;
+  }
+
+  // State variants
+  .input--error {
+    --_border-color: var(--ui-input-error-border, var(--ui-color-danger, #{t.$color-danger}));
+    --_border-color-focus: var(--ui-input-error-border, var(--ui-color-danger, #{t.$color-danger}));
+  }
+
+  .input--success {
+    --_border-color: var(--ui-input-success-border, var(--ui-color-success, #{t.$color-success}));
+    --_border-color-focus: var(--ui-input-success-border, var(--ui-color-success, #{t.$color-success}));
+  }
+}
+
+@layer components.styles {
+  .input {
+    display: inline-flex;
+    align-items: center;
+
+    block-size: var(--_height);
+    padding-inline: var(--_padding-x);
+
+    font-family: inherit;
+    font-size: var(--_font-size);
+    line-height: 1;
+    color: var(--_text);
+
+    background: var(--_bg);
+    border: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_border-color);
+    border-radius: var(--_radius);
+
+    transition:
+      border-color var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease),
+      box-shadow var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease);
+
+    &::placeholder {
+      color: var(--_placeholder);
+    }
+
+    &:hover:not(:disabled, :focus) {
+      border-color: var(--ui-color-border-strong, #{t.$color-border-strong});
+    }
+
+    &:focus,
+    &--focus {
+      border-color: var(--_border-color-focus);
+      outline: none;
+      box-shadow: 0 0 0 var(--ui-border-width-md, #{t.$border-width-md}) var(--ui-color-focus, #{t.$color-focus});
+    }
+
+    &:disabled,
+    &--disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &:read-only {
+      background: var(--ui-color-bg-subtle, #{t.$color-bg-subtle});
+    }
+
+    // Full width
+    &--block {
+      inline-size: 100%;
+    }
+  }
+
+  // Input wrapper for prefix/suffix
+  .input-group {
+    display: inline-flex;
+    align-items: stretch;
+    position: relative;
+
+    .input {
+      flex: 1;
+    }
+
+    // With prefix
+    &--has-prefix .input {
+      padding-inline-start: calc(var(--_height) + var(--ui-space-half, #{t.$space-0}));
+    }
+
+    // With suffix
+    &--has-suffix .input {
+      padding-inline-end: calc(var(--_height) + var(--ui-space-half, #{t.$space-0}));
+    }
+  }
+
+  .input-group__addon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    inset-block: 0;
+
+    inline-size: var(--_height, #{t.$row-2});
+
+    color: var(--ui-color-text-muted, #{t.$color-text-muted});
+
+    pointer-events: none;
+
+    &--start {
+      inset-inline-start: 0;
+    }
+
+    &--end {
+      inset-inline-end: 0;
+    }
+
+    // Interactive addon (buttons)
+    &--interactive {
+      cursor: pointer;
+      pointer-events: auto;
+    }
+  }
+}
