@@ -112,7 +112,12 @@ function build() {
       const doc = JSON.parse(content);
       const resolved = resolveDoc(doc, file);
       const html = renderDoc(resolved);
-      renderedDocs.push({ id: resolved.id, type: resolved.type, html });
+      renderedDocs.push({
+        id: resolved.id,
+        type: resolved.type,
+        title: resolved.title,
+        html,
+      });
     } catch (err) {
       console.error(`    Error: ${err.message}`);
     }
@@ -133,24 +138,44 @@ function build() {
 
   for (const doc of renderedDocs) {
     if (byType[doc.type]) {
-      byType[doc.type].push(doc.html);
+      byType[doc.type].push(doc);
     }
   }
 
   // Build docs content HTML
   const docsContent = [
     '<!-- Tokens -->',
-    ...byType.token,
+    ...byType.token.map((d) => d.html),
     '',
     '<!-- Primitives -->',
-    ...byType.primitive,
+    ...byType.primitive.map((d) => d.html),
     '',
     '<!-- Components -->',
-    ...byType.component,
+    ...byType.component.map((d) => d.html),
     '',
     '<!-- Utilities -->',
-    ...byType.utility,
+    ...byType.utility.map((d) => d.html),
   ].join('\n');
+
+  // Build navigation HTML
+  const navGroups = [
+    { label: 'Tokens', items: byType.token },
+    { label: 'Primitives', items: byType.primitive },
+    { label: 'Components', items: byType.component },
+    { label: 'Utilities', items: byType.utility },
+  ];
+
+  const navHtml = navGroups
+    .filter((group) => group.items.length > 0)
+    .map((group, idx) => {
+      const heading = `<h2 class="ui-text-xs ui-font-bold ui-uppercase ui-text-muted${idx > 0 ? ' ui-mt-4' : ''}">${group.label}</h2>`;
+      const links = group.items
+        .sort((a, b) => a.title.localeCompare(b.title))
+        .map((doc) => `      <a class="ui-nav-link" href="#${doc.id}">${doc.title}</a>`)
+        .join('\n');
+      return `${idx > 0 ? '\n      ' : ''}${heading}\n${links}`;
+    })
+    .join('\n');
 
   // Write standalone docs-content.html (for reference)
   const contentFile = join(OUTPUT_DIR, 'docs-content.html');
@@ -160,7 +185,9 @@ function build() {
   // Read template and inject content
   const templateFile = join(SRC_DIR, 'index.template.html');
   const template = readFileSync(templateFile, 'utf-8');
-  const indexHtml = template.replace('<!-- DOCS_CONTENT -->', docsContent);
+  const indexHtml = template
+    .replace('<!-- DOCS_NAV -->', navHtml)
+    .replace('<!-- DOCS_CONTENT -->', docsContent);
 
   // Write index.html
   const indexFile = join(SRC_DIR, 'index.html');
