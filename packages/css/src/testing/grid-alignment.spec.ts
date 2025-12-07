@@ -1,5 +1,8 @@
 import { expect, test } from '@playwright/test';
 
+// Skip in CI - needs docs server running
+test.skip(!!process.env.CI, 'Grid alignment test requires docs server');
+
 // Elements that THEMSELVES don't follow grid (fluid page containers only)
 const SKIP_SELF_SELECTORS = [
   // Page structure - fluid by nature (viewport-dependent)
