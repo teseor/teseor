@@ -58,6 +58,8 @@ function resolveDoc(doc, docsFilePath) {
       title: doc.title,
       description: doc.description,
       sections: doc.sections,
+      vars: null,
+      componentName: null,
     };
   }
 
@@ -77,6 +79,8 @@ function resolveDoc(doc, docsFilePath) {
     title: doc.title || capitalize(api.name),
     description: doc.description || api.description,
     sections: doc.sections,
+    vars: api.vars || null,
+    componentName: api.name,
   };
 }
 

@@ -2,15 +2,51 @@
  * Grid Alignment Checker
  * Run in browser console to find elements not aligned to the grid
  *
+ * Checks:
+ *   - Size: element heights should be multiples of the grid unit
+ *
  * Usage:
  *   checkGridAlignment()                    // Check all elements
  *   checkGridAlignment({ color: 'blue' })   // Custom highlight color
  *   checkGridAlignment({ selector: 'main' }) // Check only within main
  *   clearGridHighlights()                   // Remove highlights
+ *
+ * Returns: [...] array of misaligned elements
  */
 
 (() => {
   const HIGHLIGHT_ATTR = 'data-grid-misaligned';
+
+  // Elements that don't follow grid (fluid page containers)
+  const SKIP_SELF_SELECTORS = [
+    'html',
+    'body',
+    'main',
+    'aside',
+    '.ui-sidebar',
+    '.ui-main',
+    '.ui-app-shell',
+  ];
+
+  // Inline elements to skip (they don't affect block layout)
+  const INLINE_TAGS = [
+    'STRONG',
+    'B',
+    'EM',
+    'I',
+    'SMALL',
+    'SPAN',
+    'A',
+    'CODE',
+    'ABBR',
+    'CITE',
+    'Q',
+    'SUB',
+    'SUP',
+    'MARK',
+    'BR',
+    'WBR',
+  ];
 
   window.checkGridAlignment = (options = {}) => {
     const {
@@ -19,10 +55,22 @@
       unit = null, // auto-detect from CSS if not provided
     } = options;
 
-    // Get the base unit from CSS custom property
-    const root = document.documentElement;
-    const computedUnit =
-      unit || Number.parseFloat(getComputedStyle(root).getPropertyValue('--unit')) || 8;
+    // Get the base unit from CSS custom property (compute actual px value)
+    let computedUnit = unit;
+
+    if (!computedUnit) {
+      // Create a temp element to compute the actual pixel value of --unit
+      const temp = document.createElement('div');
+      temp.style.position = 'absolute';
+      temp.style.visibility = 'hidden';
+      temp.style.width = 'var(--unit, 0.5rem)';
+      document.body.appendChild(temp);
+      computedUnit = temp.getBoundingClientRect().width;
+      document.body.removeChild(temp);
+    }
+
+    // Fallback to 8px if detection failed
+    if (!computedUnit || computedUnit === 0) computedUnit = 8;
 
     console.log('%c Grid Alignment Check', 'font-size: 16px; font-weight: bold;');
     console.log(`Base unit: ${computedUnit}px`);
@@ -37,52 +85,41 @@
     const allElements = container.querySelectorAll('*');
     const misaligned = [];
 
-    // Inline elements to skip (they don't affect block layout)
-    const INLINE_TAGS = [
-      'STRONG',
-      'B',
-      'EM',
-      'I',
-      'SMALL',
-      'SPAN',
-      'A',
-      'CODE',
-      'ABBR',
-      'CITE',
-      'Q',
-      'SUB',
-      'SUP',
-      'MARK',
-    ];
-
     // Clear previous highlights
     clearGridHighlights();
 
     for (const el of allElements) {
-      // Skip script, style, hidden, and inline elements
-      if (el.tagName === 'SCRIPT' || el.tagName === 'STYLE' || el.tagName === 'LINK') continue;
-      if (INLINE_TAGS.includes(el.tagName)) continue;
+      const tagName = el.tagName;
 
-      const rect = el.getBoundingClientRect();
-      const height = rect.height;
+      // Skip script, style, link, meta, etc.
+      if (['SCRIPT', 'STYLE', 'LINK', 'META', 'TITLE', 'HEAD'].includes(tagName)) continue;
+
+      // Skip inline elements
+      if (INLINE_TAGS.includes(tagName)) continue;
+
+      // Skip fluid containers (but check their children)
+      if (SKIP_SELF_SELECTORS.some((sel) => el.matches(sel))) continue;
+
+      const height = el.getBoundingClientRect().height;
 
       // Skip zero-height elements
       if (height === 0) continue;
 
-      const remainder = height % computedUnit;
-      const isAligned = remainder < 0.5 || remainder > computedUnit - 0.5; // Allow 0.5px tolerance
+      // Check height alignment
+      const heightRemainder = height % computedUnit;
+      const isHeightAligned = heightRemainder < 0.5 || heightRemainder > computedUnit - 0.5;
 
-      if (!isAligned) {
+      if (!isHeightAligned) {
         el.setAttribute(HIGHLIGHT_ATTR, 'true');
         el.style.setProperty('--grid-debug-color', color);
         el.style.boxShadow = `inset 0 0 0 2px var(--grid-debug-color, ${color})`;
 
         misaligned.push({
           element: el,
-          tag: el.tagName.toLowerCase(),
+          tag: tagName.toLowerCase(),
           classes: el.className,
           height: height,
-          remainder: remainder,
+          remainder: heightRemainder,
           expected: Math.round(height / computedUnit) * computedUnit,
         });
       }
@@ -90,13 +127,9 @@
 
     // Output results
     if (misaligned.length === 0) {
-      console.log('%c✓ All elements are grid-aligned!', 'color: green; font-weight: bold;');
+      console.log('%c All elements on grid!', 'color: green; font-weight: bold;');
     } else {
-      console.log(
-        `%c✗ Found ${misaligned.length} misaligned elements:`,
-        'color: red; font-weight: bold;',
-      );
-      console.log('');
+      console.log(`%c ${misaligned.length} misaligned elements:`, 'color: red; font-weight: bold;');
 
       // Group by tag
       const byTag = {};
@@ -119,19 +152,10 @@
         }
         console.groupEnd();
       }
-
-      console.log('');
-      console.log('─'.repeat(50));
-      console.table(
-        misaligned.map((m) => ({
-          tag: m.tag,
-          class: m.classes.toString().slice(0, 30) || '(none)',
-          height: `${m.height.toFixed(1)}px`,
-          'off by': `${m.remainder.toFixed(1)}px`,
-          expected: `${m.expected}px`,
-        })),
-      );
     }
+
+    console.log('');
+    console.log('─'.repeat(50));
 
     return misaligned;
   };

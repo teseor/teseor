@@ -2,7 +2,7 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './packages/css/src',
-  testMatch: '**/*.visual.spec.ts',
+  testMatch: ['**/*.visual.spec.ts', '**/grid-alignment.spec.ts'],
 
   snapshotPathTemplate: '{testDir}/{testFileDir}/{arg}{ext}',
 
@@ -14,7 +14,7 @@ export default defineConfig({
   reporter: 'html',
 
   use: {
-    baseURL: 'http://localhost:5173',
+    baseURL: 'http://localhost:3000',
     trace: 'on-first-retry',
   },
 

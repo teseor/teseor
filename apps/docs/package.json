@@ -6,7 +6,9 @@
   "scripts": {
     "build-docs": "node scripts/build-docs.js",
     "validate-docs": "node scripts/validate-docs.js",
-    "dev": "vite",
+    "watch-docs": "nodemon --watch ../../packages --watch src/index.template.html --ext json,html --exec 'node scripts/build-docs.js'",
+    "watch-scss": "nodemon --watch ../../packages/tokens/src --watch ../../packages/css/src --ext scss --exec 'pnpm nx run-many -t build --projects=tokens,css'",
+    "dev": "pnpm build-docs && concurrently 'pnpm watch-docs' 'pnpm watch-scss' 'vite'",
     "build": "node scripts/validate-docs.js && node scripts/build-docs.js && vite build",
     "preview": "vite preview"
   },
@@ -15,6 +17,8 @@
     "@ui-lib/tokens": "workspace:*"
   },
   "devDependencies": {
+    "concurrently": "^9.2.1",
+    "nodemon": "^3.1.11",
     "vite": "^6.0.3"
   }
 }

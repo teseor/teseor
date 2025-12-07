@@ -12,10 +12,13 @@ const LAYOUT_CLASSES = {
 /**
  * Renders an Example to HTML string
  * @param {import('../src/types/docs-schema').Example} example
+ * @param {object} [options]
+ * @param {string} [options.themingHtml] - Optional theming HTML to add as third tab
  * @returns {string}
  */
-export function renderExample(example) {
+export function renderExample(example, options = {}) {
   const { layout, items, html, code } = example;
+  const { themingHtml } = options;
 
   let previewHtml = '';
 
@@ -38,10 +41,26 @@ export function renderExample(example) {
   const codeSnippet = code || (items ? generateCode(items) : html || '');
   const escapedCode = escapeHtml(codeSnippet);
 
-  return `<div class="ui-docs-example">
-  ${previewHtml}
-</div>
-<pre class="ui-docs-code"><code>${escapedCode}</code></pre>`;
+  // Build tabs - optionally include Theming tab
+  const themingTab = themingHtml ? '<button class="ui-tabs__tab">Theming</button>' : '';
+  const themingPanel = themingHtml
+    ? `<div class="ui-tabs__panel">\n    ${themingHtml}\n  </div>`
+    : '';
+
+  return `<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    ${themingTab}
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    ${previewHtml}
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>${escapedCode}</code></pre>
+  </div>
+  ${themingPanel}
+</div>`;
 }
 
 /**
