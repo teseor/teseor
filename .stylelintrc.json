@@ -252,7 +252,10 @@
 
   "overrides": [
     {
-      "files": ["packages/tokens/**/*.scss", "packages/css/src/99-debug/**/*.scss"],
+      "files": [
+        "packages/css/src/00-config/tokens/**/*.scss",
+        "packages/css/src/99-debug/**/*.scss"
+      ],
       "rules": {
         "unit-disallowed-list": null,
         "declaration-property-value-disallowed-list": null

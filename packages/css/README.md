@@ -5,7 +5,7 @@ CSS components library with design tokens and standalone support.
 ## Installation
 
 ```bash
-npm install @ui-lib/css @ui-lib/tokens
+npm install @ui-lib/css
 ```
 
 ## Usage
@@ -18,23 +18,7 @@ Import everything - tokens, reset, base styles, components, and utilities:
 @import '@ui-lib/css/dist/index.css';
 ```
 
-### Option 2: Modular
-
-Import tokens first, then pick the components you need:
-
-```css
-/* Required: design tokens */
-@import '@ui-lib/tokens/dist/index.css';
-
-/* Optional: reset and base styles */
-@import '@ui-lib/css/dist/reset.css';
-@import '@ui-lib/css/dist/base.css';
-
-/* Pick components */
-@import '@ui-lib/css/dist/components/button.css';
-```
-
-### Option 3: Standalone Component
+### Option 2: Standalone Component
 
 Components include SCSS fallbacks and work without tokens:
 

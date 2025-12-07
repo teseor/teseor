@@ -107,9 +107,6 @@ importers:
       '@ui-lib/css':
         specifier: workspace:*
         version: link:../../packages/css
-      '@ui-lib/tokens':
-        specifier: workspace:*
-        version: link:../../packages/tokens
       nunjucks:
         specifier: ^3.2.4
         version: 3.2.4(chokidar@3.6.0)
@@ -124,13 +121,7 @@ importers:
         specifier: ^6.0.3
         version: 6.4.1(@types/node@24.10.1)(sass@1.94.2)(yaml@2.8.2)
 
-  packages/css:
-    dependencies:
-      '@ui-lib/tokens':
-        specifier: workspace:*
-        version: link:../tokens
-
-  packages/tokens: {}
+  packages/css: {}
 
 packages:
 

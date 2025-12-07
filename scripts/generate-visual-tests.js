@@ -76,7 +76,6 @@ function generateVariations(api) {
  */
 function generateTestFile(api, docsPath) {
   // Read CSS at generation time and embed in test
-  const tokensCss = readFileSync(join(ROOT, 'packages/tokens/dist/index.css'), 'utf-8');
   const componentCss = readFileSync(join(ROOT, 'packages/css/dist/index.css'), 'utf-8');
 
   // Read docs.json for structured sections
@@ -114,7 +113,6 @@ function generateTestFile(api, docsPath) {
  * Auto-generated from ${api.name}.api.json and ${api.name}.docs.json
  */
 
-const tokensCss = \`${escapeCss(tokensCss)}\`;
 const componentCss = \`${escapeCss(componentCss)}\`;
 
 const sections = ${JSON.stringify(sections, null, 2)};
@@ -124,7 +122,6 @@ test.describe('${api.name} visual regression', () => {
     const html = \`<!DOCTYPE html>
 <html>
 <head>
-  <style>\${tokensCss}</style>
   <style>\${componentCss}</style>
   <style>
     body {

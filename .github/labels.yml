@@ -2,9 +2,6 @@
 - name: "pkg: css"
   color: "C4B5FD"
   description: Changes in packages/css
-- name: "pkg: tokens"
-  color: "DDD6FE"
-  description: Changes in packages/tokens
 - name: "pkg: docs"
   color: "BFDBFE"
   description: Changes in apps/docs

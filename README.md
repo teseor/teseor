@@ -15,8 +15,7 @@ Open http://localhost:3000 for live docs.
 
 | Package | Description |
 |---------|-------------|
-| `@ui-lib/tokens` | Design tokens (colors, spacing, typography, grid) |
-| `@ui-lib/css` | CSS components and utilities |
+| `@ui-lib/css` | CSS library with design tokens, components, and utilities |
 
 ## Usage
 
@@ -61,9 +60,8 @@ pnpm test         # Run tests
 
 ```
 packages/
-  tokens/         # Design tokens (CSS custom properties)
   css/            # Components organized by ITCSS layers
-    00-config/    # Layer definitions, global tokens
+    00-config/    # Layer definitions, design tokens
     01-reset/     # CSS reset
     02-base/      # Base element styles
     03-layout/    # Layout primitives (stack, grid, center)

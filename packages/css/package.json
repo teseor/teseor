@@ -12,8 +12,5 @@
   "scripts": {
     "test:grid": "playwright test --config=playwright.config.ts src/testing/grid-alignment.spec.ts",
     "test:visual": "playwright test --config=playwright.config.ts src/**/*.visual.spec.ts"
-  },
-  "peerDependencies": {
-    "@ui-lib/tokens": "workspace:*"
   }
 }

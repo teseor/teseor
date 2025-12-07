@@ -3,11 +3,6 @@
       - any-glob-to-any-file:
           - packages/css/**
 
-"pkg: tokens":
-  - changed-files:
-      - any-glob-to-any-file:
-          - packages/tokens/**
-
 "pkg: docs":
   - changed-files:
       - any-glob-to-any-file:
