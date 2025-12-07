@@ -1,0 +1,14 @@
+{
+  "name": "spinner",
+  "baseClass": "spinner",
+  "element": "div",
+  "description": "Loading indicator with pure CSS animation",
+  "modifiers": {
+    "size": {
+      "values": ["xs", "sm", "lg", "xl"],
+      "default": null,
+      "description": "Size variant. Default is 24px."
+    }
+  },
+  "states": []
+}

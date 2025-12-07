@@ -1,0 +1,52 @@
+{
+  "id": "spinner",
+  "type": "component",
+  "title": "Spinner",
+  "description": "Loading indicator with pure CSS animation. Inherits color from parent.",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [{ "tag": "div", "class": "ui-spinner" }],
+          "code": "<div class=\"ui-spinner\"></div>"
+        }
+      ]
+    },
+    {
+      "title": "Sizes",
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            { "tag": "div", "class": "ui-spinner ui-spinner--xs" },
+            { "tag": "div", "class": "ui-spinner ui-spinner--sm" },
+            { "tag": "div", "class": "ui-spinner" },
+            { "tag": "div", "class": "ui-spinner ui-spinner--lg" },
+            { "tag": "div", "class": "ui-spinner ui-spinner--xl" }
+          ],
+          "code": "<div class=\"ui-spinner ui-spinner--xs\"></div>\n<div class=\"ui-spinner ui-spinner--sm\"></div>\n<div class=\"ui-spinner\"></div>\n<div class=\"ui-spinner ui-spinner--lg\"></div>\n<div class=\"ui-spinner ui-spinner--xl\"></div>"
+        }
+      ]
+    },
+    {
+      "title": "Color Inheritance",
+      "examples": [
+        {
+          "html": "<div class=\"ui-cluster\" style=\"gap: var(--ui-space-2);\"><div style=\"color: var(--ui-color-primary);\"><div class=\"ui-spinner\"></div></div><div style=\"color: var(--ui-color-danger);\"><div class=\"ui-spinner\"></div></div><div style=\"color: var(--ui-color-success);\"><div class=\"ui-spinner\"></div></div></div>",
+          "code": "<div style=\"color: var(--ui-color-primary);\">\n  <div class=\"ui-spinner\"></div>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "In Button",
+      "examples": [
+        {
+          "html": "<button class=\"ui-button ui-button--primary\" disabled style=\"opacity: 0.7;\"><div class=\"ui-spinner ui-spinner--xs\"></div><span>Loading...</span></button>",
+          "code": "<button class=\"ui-button\" disabled>\n  <div class=\"ui-spinner ui-spinner--xs\"></div>\n  <span>Loading...</span>\n</button>"
+        }
+      ]
+    }
+  ]
+}
