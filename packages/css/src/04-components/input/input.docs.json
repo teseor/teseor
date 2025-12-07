@@ -1,0 +1,139 @@
+{
+  "id": "input",
+  "type": "component",
+  "title": "Input",
+  "description": "Text input field for user data entry. Heights align to grid rows.",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "html": "<input class=\"ui-input\" type=\"text\" placeholder=\"Enter text...\">"
+        }
+      ]
+    },
+    {
+      "title": "Sizes",
+      "examples": [
+        {
+          "layout": "stack",
+          "items": [
+            {
+              "tag": "input",
+              "class": "ui-input ui-input--sm",
+              "attrs": { "type": "text", "placeholder": "Small (1.5 rows)" }
+            },
+            {
+              "tag": "input",
+              "class": "ui-input",
+              "attrs": { "type": "text", "placeholder": "Default (2 rows)" }
+            },
+            {
+              "tag": "input",
+              "class": "ui-input ui-input--lg",
+              "attrs": { "type": "text", "placeholder": "Large (2.5 rows)" }
+            }
+          ],
+          "code": "<input class=\"ui-input ui-input--sm\" placeholder=\"Small\">\n<input class=\"ui-input\" placeholder=\"Default\">\n<input class=\"ui-input ui-input--lg\" placeholder=\"Large\">"
+        }
+      ]
+    },
+    {
+      "title": "Variants",
+      "examples": [
+        {
+          "layout": "stack",
+          "items": [
+            {
+              "tag": "input",
+              "class": "ui-input",
+              "attrs": { "type": "text", "placeholder": "Outline (default)" }
+            },
+            {
+              "tag": "input",
+              "class": "ui-input ui-input--filled",
+              "attrs": { "type": "text", "placeholder": "Filled" }
+            },
+            {
+              "tag": "input",
+              "class": "ui-input ui-input--ghost",
+              "attrs": { "type": "text", "placeholder": "Ghost" }
+            }
+          ],
+          "code": "<input class=\"ui-input\" placeholder=\"Outline\">\n<input class=\"ui-input ui-input--filled\" placeholder=\"Filled\">\n<input class=\"ui-input ui-input--ghost\" placeholder=\"Ghost\">"
+        }
+      ]
+    },
+    {
+      "title": "States",
+      "examples": [
+        {
+          "layout": "stack",
+          "items": [
+            {
+              "tag": "input",
+              "class": "ui-input",
+              "attrs": { "type": "text", "placeholder": "Default" }
+            },
+            {
+              "tag": "input",
+              "class": "ui-input ui-input--error",
+              "attrs": { "type": "text", "value": "Invalid input" }
+            },
+            {
+              "tag": "input",
+              "class": "ui-input ui-input--success",
+              "attrs": { "type": "text", "value": "Valid input" }
+            },
+            {
+              "tag": "input",
+              "class": "ui-input",
+              "attrs": { "type": "text", "placeholder": "Disabled", "disabled": "" }
+            },
+            {
+              "tag": "input",
+              "class": "ui-input",
+              "attrs": { "type": "text", "value": "Read only", "readonly": "" }
+            }
+          ],
+          "code": "<input class=\"ui-input\" placeholder=\"Default\">\n<input class=\"ui-input ui-input--error\" value=\"Invalid\">\n<input class=\"ui-input ui-input--success\" value=\"Valid\">\n<input class=\"ui-input\" disabled placeholder=\"Disabled\">\n<input class=\"ui-input\" readonly value=\"Read only\">"
+        }
+      ]
+    },
+    {
+      "title": "Full Width",
+      "examples": [
+        {
+          "html": "<input class=\"ui-input ui-input--block\" type=\"text\" placeholder=\"Full width input\">"
+        }
+      ]
+    },
+    {
+      "title": "With Prefix Icon",
+      "examples": [
+        {
+          "html": "<div class=\"ui-input-group ui-input-group--has-prefix\"><span class=\"ui-input-group__addon ui-input-group__addon--start\"><svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg></span><input class=\"ui-input ui-input--block\" type=\"search\" placeholder=\"Search...\"></div>",
+          "code": "<div class=\"ui-input-group ui-input-group--has-prefix\">\n  <span class=\"ui-input-group__addon ui-input-group__addon--start\">\n    <svg class=\"ui-icon\"><!-- search icon --></svg>\n  </span>\n  <input class=\"ui-input ui-input--block\" type=\"search\" placeholder=\"Search...\">\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "With Suffix Icon",
+      "examples": [
+        {
+          "html": "<div class=\"ui-input-group ui-input-group--has-suffix\"><input class=\"ui-input ui-input--block\" type=\"email\" placeholder=\"Email address\"><span class=\"ui-input-group__addon ui-input-group__addon--end\"><svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><rect width=\"20\" height=\"16\" x=\"2\" y=\"4\" rx=\"2\"/><path d=\"m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7\"/></svg></span></div>",
+          "code": "<div class=\"ui-input-group ui-input-group--has-suffix\">\n  <input class=\"ui-input ui-input--block\" type=\"email\" placeholder=\"Email\">\n  <span class=\"ui-input-group__addon ui-input-group__addon--end\">\n    <svg class=\"ui-icon\"><!-- mail icon --></svg>\n  </span>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "With Both Addons",
+      "examples": [
+        {
+          "html": "<div class=\"ui-input-group ui-input-group--has-prefix ui-input-group--has-suffix\"><span class=\"ui-input-group__addon ui-input-group__addon--start\"><svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2\"/><circle cx=\"12\" cy=\"7\" r=\"4\"/></svg></span><input class=\"ui-input ui-input--block\" type=\"text\" placeholder=\"Username\"><span class=\"ui-input-group__addon ui-input-group__addon--end ui-input-group__addon--interactive\"><svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M18 6 6 18\"/><path d=\"m6 6 12 12\"/></svg></span></div>",
+          "code": "<div class=\"ui-input-group ui-input-group--has-prefix ui-input-group--has-suffix\">\n  <span class=\"ui-input-group__addon ui-input-group__addon--start\">...</span>\n  <input class=\"ui-input ui-input--block\" placeholder=\"Username\">\n  <span class=\"ui-input-group__addon ui-input-group__addon--end ui-input-group__addon--interactive\">...</span>\n</div>"
+        }
+      ]
+    }
+  ]
+}
