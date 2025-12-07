@@ -10,11 +10,16 @@
     },
     "lint": {
       "cache": true,
-      "inputs": ["default", "{workspaceRoot}/biome.json"]
+      "inputs": ["default", "{workspaceRoot}/biome.json", "{workspaceRoot}/.stylelintrc.json"]
     },
     "typecheck": {
       "cache": true,
       "inputs": ["default", "^production"]
+    },
+    "test": {
+      "cache": true,
+      "inputs": ["default", "^production"],
+      "outputs": ["{projectRoot}/coverage", "{projectRoot}/test-results"]
     },
     "storybook": {
       "cache": false

@@ -7,6 +7,7 @@
     "build": {
       "executor": "nx:run-commands",
       "outputs": ["{projectRoot}/dist"],
+      "inputs": ["{projectRoot}/src/**/*.scss", "{workspaceRoot}/postcss.config.js"],
       "options": {
         "commands": [
           "mkdir -p packages/css/dist",
@@ -14,8 +15,21 @@
           "postcss packages/css/dist/compiled.css -o packages/css/dist/index.css"
         ],
         "parallel": false
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "stylelint 'packages/css/src/**/*.scss'"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "outputs": ["{projectRoot}/test-results"],
+      "options": {
+        "commands": ["playwright test --config=packages/css/playwright.config.ts"]
       },
-      "dependsOn": ["^build"]
+      "dependsOn": ["build"]
     },
     "watch": {
       "executor": "nx:run-commands",

@@ -8,6 +8,30 @@
       "executor": "nx:run-commands",
       "options": {
         "command": "pnpm --filter docs dev"
+      },
+      "dependsOn": ["css:build"]
+    },
+    "validate": {
+      "executor": "nx:run-commands",
+      "inputs": [
+        "{projectRoot}/scripts/**/*.js",
+        "{workspaceRoot}/packages/css/src/**/*.docs.json",
+        "{workspaceRoot}/packages/css/src/**/*.api.json"
+      ],
+      "options": {
+        "command": "node apps/docs/scripts/validate-docs.js"
+      }
+    },
+    "build-docs": {
+      "executor": "nx:run-commands",
+      "inputs": [
+        "{projectRoot}/scripts/**/*.js",
+        "{projectRoot}/src/index.template.html",
+        "{workspaceRoot}/packages/css/src/**/*.docs.json"
+      ],
+      "outputs": ["{projectRoot}/src/index.html", "{projectRoot}/src/generated"],
+      "options": {
+        "command": "node apps/docs/scripts/build-docs.js"
       }
     },
     "build": {
@@ -15,6 +39,13 @@
       "outputs": ["{projectRoot}/dist"],
       "options": {
         "command": "pnpm --filter docs build"
+      },
+      "dependsOn": ["css:build", "validate", "build-docs"]
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "biome check apps/docs"
       }
     }
   },
