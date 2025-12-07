@@ -1,0 +1,96 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Tag component - keyword labels for categorization
+// Sizes align to grid
+
+@layer components.tokens {
+  .tag {
+    --_height: var(--ui-tag-height, calc(#{t.$unit} * 3));
+    --_padding-x: var(--ui-tag-padding-x, var(--ui-space-1, #{t.$space-1}));
+    --_gap: var(--ui-tag-gap, calc(#{t.$unit} * 0.5));
+    --_radius: var(--ui-tag-radius, var(--ui-radius-full, #{t.$radius-full}));
+    --_font-size: var(--ui-tag-font-size, var(--ui-size-sm, #{t.$size-sm}));
+    --_bg: var(--ui-tag-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+    --_color: var(--ui-tag-color, var(--ui-color-text, #{t.$color-text}));
+  }
+
+  .tag--sm {
+    --_height: var(--ui-tag-height-sm, calc(#{t.$unit} * 2.5));
+    --_padding-x: var(--ui-tag-padding-x-sm, calc(#{t.$unit} * 1));
+    --_font-size: var(--ui-tag-font-size-sm, var(--ui-size-xs, #{t.$size-xs}));
+  }
+
+  .tag--primary {
+    --_bg: var(--ui-tag-primary-bg, var(--ui-color-primary, #{t.$color-primary}));
+    --_color: var(--ui-tag-primary-color, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
+  }
+
+  .tag--success {
+    --_bg: var(--ui-tag-success-bg, var(--ui-color-success, #{t.$color-success}));
+    --_color: var(--ui-tag-success-color, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
+  }
+
+  .tag--warning {
+    --_bg: var(--ui-tag-warning-bg, var(--ui-color-warning, #{t.$color-warning}));
+    --_color: var(--ui-tag-warning-color, var(--ui-color-text, #{t.$color-text}));
+  }
+
+  .tag--danger {
+    --_bg: var(--ui-tag-danger-bg, var(--ui-color-danger, #{t.$color-danger}));
+    --_color: var(--ui-tag-danger-color, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
+  }
+}
+
+@layer components.styles {
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--_gap);
+
+    block-size: var(--_height);
+    padding-inline: var(--_padding-x);
+
+    font-size: var(--_font-size);
+    font-weight: var(--ui-weight-medium, #{t.$weight-medium});
+    line-height: 1;
+    white-space: nowrap;
+    color: var(--_color);
+
+    background: var(--_bg);
+    border-radius: var(--_radius);
+
+    &:disabled,
+    &[aria-disabled='true'] {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  .tag__remove {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+    margin-inline-start: calc(var(--_gap) * -0.5);
+
+    color: currentcolor;
+
+    background: none;
+    border: none;
+    opacity: 0.7;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  // Tag group for multiple tags
+  .tag-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(#{t.$unit} * 0.5);
+  }
+}

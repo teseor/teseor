@@ -1,0 +1,31 @@
+{
+  "name": "tag",
+  "baseClass": "tag",
+  "element": "span",
+  "description": "Keyword label for categorization and filtering",
+  "modifiers": {
+    "size": {
+      "values": ["sm"],
+      "default": null,
+      "description": "Small size variant"
+    },
+    "variant": {
+      "values": ["primary", "success", "warning", "danger"],
+      "default": null,
+      "description": "Color variant"
+    }
+  },
+  "elements": {
+    "remove": {
+      "class": "tag__remove",
+      "element": "button",
+      "description": "Remove button for dismissible tags"
+    }
+  },
+  "related": {
+    "tag-group": {
+      "description": "Container for multiple tags"
+    }
+  },
+  "states": ["disabled"]
+}
