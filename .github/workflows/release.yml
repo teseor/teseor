@@ -44,3 +44,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub Releases
+        if: steps.changesets.outputs.published == 'true'
+        run: |
+          for pkg in $(echo '${{ steps.changesets.outputs.publishedPackages }}' | jq -r '.[] | @base64'); do
+            name=$(echo $pkg | base64 -d | jq -r '.name')
+            version=$(echo $pkg | base64 -d | jq -r '.version')
+            gh release create "${name}@${version}" \
+              --title "${name}@${version}" \
+              --notes "See CHANGELOG.md for details" \
+              --target main
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
