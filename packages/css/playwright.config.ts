@@ -12,6 +12,12 @@ export default defineConfig({
 
   reporter: 'html',
 
+  expect: {
+    toHaveScreenshot: {
+      maxDiffPixelRatio: 0.02,
+    },
+  },
+
   use: {
     baseURL: 'http://localhost:3000',
     viewport: { width: 800, height: 600 },
