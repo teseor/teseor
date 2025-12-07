@@ -5,7 +5,7 @@
     position: fixed;
     inset-block-start: 0;
     inset-inline-start: 0;
-    z-index: var(--z-sticky);
+    z-index: var(--ui-z-sticky);
 
     block-size: 100vh;
     inline-size: var(--sidebar-width, calc(var(--unit) * 30));

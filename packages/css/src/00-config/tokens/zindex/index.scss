@@ -1,0 +1,14 @@
+@layer tokens {
+  :root {
+    // Z-index scale (gaps allow insertion)
+    --ui-z-base: 0;
+    --ui-z-sticky: 100;
+    --ui-z-dropdown: 200;
+    --ui-z-overlay: 300;
+    --ui-z-modal: 400;
+    --ui-z-popover: 500;
+    --ui-z-tooltip: 600;
+    --ui-z-toast: 700;
+    --ui-z-debug: 9999;
+  }
+}
