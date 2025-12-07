@@ -1,0 +1,54 @@
+{
+  "id": "badge",
+  "type": "component",
+  "title": "Badge",
+  "description": "Inline labels for status indicators, counts, and categories",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "html": "<span class=\"ui-badge\">Default</span>"
+        }
+      ]
+    },
+    {
+      "title": "Variants",
+      "examples": [
+        {
+          "items": [
+            { "tag": "span", "class": "ui-badge", "text": "Default" },
+            { "tag": "span", "class": "ui-badge ui-badge--primary", "text": "Primary" },
+            { "tag": "span", "class": "ui-badge ui-badge--success", "text": "Success" },
+            { "tag": "span", "class": "ui-badge ui-badge--warning", "text": "Warning" },
+            { "tag": "span", "class": "ui-badge ui-badge--danger", "text": "Danger" }
+          ],
+          "layout": "cluster"
+        }
+      ]
+    },
+    {
+      "title": "Sizes",
+      "examples": [
+        {
+          "items": [
+            { "tag": "span", "class": "ui-badge ui-badge--sm", "text": "Small" },
+            { "tag": "span", "class": "ui-badge", "text": "Default" }
+          ],
+          "layout": "cluster"
+        }
+      ]
+    },
+    {
+      "title": "Use Cases",
+      "examples": [
+        {
+          "html": "<div class=\"ui-cluster\"><span>Notifications</span><span class=\"ui-badge ui-badge--primary\">5</span></div>"
+        },
+        {
+          "html": "<div class=\"ui-cluster\"><span class=\"ui-badge ui-badge--success\">Published</span><span class=\"ui-badge ui-badge--warning\">Draft</span><span class=\"ui-badge ui-badge--danger\">Archived</span></div>"
+        }
+      ]
+    }
+  ]
+}
