@@ -164,10 +164,10 @@
     // Link variant underline
     &--link {
       text-decoration: underline;
-      text-underline-offset: 0.125rem;
+      text-underline-offset: var(--ui-space-quarter);
 
       &:hover {
-        text-decoration-thickness: 0.125rem;
+        text-decoration-thickness: var(--ui-space-quarter);
       }
     }
 

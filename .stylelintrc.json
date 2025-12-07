@@ -207,8 +207,9 @@
     ],
 
     "declaration-property-value-disallowed-list": {
-      "/^margin|padding|gap|inset/": ["/^\\d+px$/"],
-      "/^(block|inline)-size/": ["/^\\d+px$/"],
+      "/^margin|padding|gap|inset/": ["/^\\d+(\\.\\d+)?px$/", "/^\\d+(\\.\\d+)?rem$/"],
+      "/^(block|inline)-size/": ["/^\\d+(\\.\\d+)?px$/", "/^\\d+(\\.\\d+)?rem$/"],
+      "/text-underline-offset|text-decoration-thickness/": ["/^\\d+(\\.\\d+)?rem$/"],
       "left": ["/.*/"],
       "right": ["/.*/"],
       "top": ["/.*/"],
@@ -265,7 +266,7 @@
       "files": ["packages/css/src/05-utilities/**/*.scss"],
       "rules": {
         "declaration-property-value-disallowed-list": {
-          "/^margin|padding|gap|inset/": ["/^\\d+px$/"],
+          "/^margin|padding|gap|inset/": ["/^\\d+(\\.\\d+)?px$/", "/^\\d+(\\.\\d+)?rem$/"],
           "left": ["/.*/"],
           "right": ["/.*/"],
           "top": ["/.*/"],
