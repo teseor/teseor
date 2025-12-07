@@ -1,0 +1,151 @@
+{
+  "id": "avatar",
+  "type": "component",
+  "title": "Avatar",
+  "description": "User or entity thumbnail representation. Supports image with fallback to initials.",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-avatar",
+              "children": [{ "tag": "span", "class": "ui-avatar__fallback", "text": "JD" }]
+            },
+            {
+              "tag": "div",
+              "class": "ui-avatar",
+              "children": [
+                {
+                  "tag": "img",
+                  "class": "ui-avatar__image",
+                  "attrs": { "src": "https://i.pravatar.cc/80?u=1", "alt": "User" }
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-avatar\">\n  <span class=\"ui-avatar__fallback\">JD</span>\n</div>\n\n<div class=\"ui-avatar\">\n  <img class=\"ui-avatar__image\" src=\"...\" alt=\"User\">\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "Sizes",
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-avatar ui-avatar--xs",
+              "children": [{ "tag": "span", "class": "ui-avatar__fallback", "text": "XS" }]
+            },
+            {
+              "tag": "div",
+              "class": "ui-avatar ui-avatar--sm",
+              "children": [{ "tag": "span", "class": "ui-avatar__fallback", "text": "SM" }]
+            },
+            {
+              "tag": "div",
+              "class": "ui-avatar",
+              "children": [{ "tag": "span", "class": "ui-avatar__fallback", "text": "MD" }]
+            },
+            {
+              "tag": "div",
+              "class": "ui-avatar ui-avatar--lg",
+              "children": [{ "tag": "span", "class": "ui-avatar__fallback", "text": "LG" }]
+            },
+            {
+              "tag": "div",
+              "class": "ui-avatar ui-avatar--xl",
+              "children": [{ "tag": "span", "class": "ui-avatar__fallback", "text": "XL" }]
+            }
+          ],
+          "code": "<div class=\"ui-avatar ui-avatar--xs\"><span class=\"ui-avatar__fallback\">XS</span></div>\n<div class=\"ui-avatar ui-avatar--sm\"><span class=\"ui-avatar__fallback\">SM</span></div>\n<div class=\"ui-avatar\"><span class=\"ui-avatar__fallback\">MD</span></div>\n<div class=\"ui-avatar ui-avatar--lg\"><span class=\"ui-avatar__fallback\">LG</span></div>\n<div class=\"ui-avatar ui-avatar--xl\"><span class=\"ui-avatar__fallback\">XL</span></div>"
+        }
+      ]
+    },
+    {
+      "title": "Square Shape",
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-avatar ui-avatar--square",
+              "children": [{ "tag": "span", "class": "ui-avatar__fallback", "text": "ORG" }]
+            },
+            {
+              "tag": "div",
+              "class": "ui-avatar ui-avatar--square",
+              "children": [
+                {
+                  "tag": "img",
+                  "class": "ui-avatar__image",
+                  "attrs": { "src": "https://i.pravatar.cc/80?u=org", "alt": "Org" }
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-avatar ui-avatar--square\">\n  <span class=\"ui-avatar__fallback\">ORG</span>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "With Images",
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-avatar ui-avatar--sm",
+              "children": [
+                {
+                  "tag": "img",
+                  "class": "ui-avatar__image",
+                  "attrs": { "src": "https://i.pravatar.cc/64?u=a", "alt": "User A" }
+                }
+              ]
+            },
+            {
+              "tag": "div",
+              "class": "ui-avatar",
+              "children": [
+                {
+                  "tag": "img",
+                  "class": "ui-avatar__image",
+                  "attrs": { "src": "https://i.pravatar.cc/80?u=b", "alt": "User B" }
+                }
+              ]
+            },
+            {
+              "tag": "div",
+              "class": "ui-avatar ui-avatar--lg",
+              "children": [
+                {
+                  "tag": "img",
+                  "class": "ui-avatar__image",
+                  "attrs": { "src": "https://i.pravatar.cc/96?u=c", "alt": "User C" }
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-avatar\">\n  <img class=\"ui-avatar__image\" src=\"...\" alt=\"User\">\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "Avatar Group",
+      "examples": [
+        {
+          "html": "<div class=\"ui-avatar-group\"><div class=\"ui-avatar\"><img class=\"ui-avatar__image\" src=\"https://i.pravatar.cc/80?u=g1\" alt=\"\"></div><div class=\"ui-avatar\"><img class=\"ui-avatar__image\" src=\"https://i.pravatar.cc/80?u=g2\" alt=\"\"></div><div class=\"ui-avatar\"><img class=\"ui-avatar__image\" src=\"https://i.pravatar.cc/80?u=g3\" alt=\"\"></div><div class=\"ui-avatar\"><span class=\"ui-avatar__fallback\">+5</span></div></div>",
+          "code": "<div class=\"ui-avatar-group\">\n  <div class=\"ui-avatar\">\n    <img class=\"ui-avatar__image\" src=\"...\" alt=\"\">\n  </div>\n  <div class=\"ui-avatar\">\n    <img class=\"ui-avatar__image\" src=\"...\" alt=\"\">\n  </div>\n  <div class=\"ui-avatar\">\n    <span class=\"ui-avatar__fallback\">+5</span>\n  </div>\n</div>"
+        }
+      ]
+    }
+  ]
+}

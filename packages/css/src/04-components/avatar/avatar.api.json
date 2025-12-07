@@ -1,0 +1,35 @@
+{
+  "name": "avatar",
+  "baseClass": "avatar",
+  "element": "div",
+  "description": "User or entity thumbnail with image and fallback support",
+  "modifiers": {
+    "size": {
+      "values": ["xs", "sm", "lg", "xl"],
+      "default": null,
+      "description": "Size variant. Default is 40px."
+    },
+    "shape": {
+      "values": ["square"],
+      "default": null,
+      "description": "Square shape for organizations. Default is circle."
+    }
+  },
+  "elements": {
+    "image": {
+      "class": "avatar__image",
+      "element": "img",
+      "description": "User image that covers the avatar"
+    },
+    "fallback": {
+      "class": "avatar__fallback",
+      "element": "span",
+      "description": "Fallback content (initials or icon)"
+    }
+  },
+  "related": {
+    "avatar-group": {
+      "description": "Container for overlapping avatars"
+    }
+  }
+}
