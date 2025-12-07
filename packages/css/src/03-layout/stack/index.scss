@@ -2,12 +2,12 @@
   .stack {
     display: flex;
     flex-direction: column;
-    gap: var(--stack-gap, var(--space-2));
+    gap: var(--stack-gap, var(--ui-space-2));
   }
 
-  .stack--xs { --stack-gap: var(--space-1); }
-  .stack--sm { --stack-gap: var(--space-2); }
-  .stack--md { --stack-gap: var(--space-4); }
-  .stack--lg { --stack-gap: var(--space-6); }
-  .stack--xl { --stack-gap: var(--space-8); }
+  .stack--xs { --stack-gap: var(--ui-space-1); }
+  .stack--sm { --stack-gap: var(--ui-space-2); }
+  .stack--md { --stack-gap: var(--ui-space-4); }
+  .stack--lg { --stack-gap: var(--ui-space-6); }
+  .stack--xl { --stack-gap: var(--ui-space-8); }
 }

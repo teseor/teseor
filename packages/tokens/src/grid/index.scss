@@ -1,11 +1,11 @@
 :root {
-  --unit: 0.5rem; /* 8px */
-  --row: calc(var(--unit) * 2);
+  --unit: 8px; /* 8px */
+  --ui-row: calc(var(--unit) * 2);
 
-  --row-1: var(--row);
-  --row-2: calc(var(--row) * 2);
-  --row-3: calc(var(--row) * 3);
-  --row-4: calc(var(--row) * 4);
-  --row-5: calc(var(--row) * 5);
-  --row-6: calc(var(--row) * 6);
+  --ui-row-1: var(--ui-row);
+  --ui-row-2: calc(var(--ui-row) * 2);
+  --ui-row-3: calc(var(--ui-row) * 3);
+  --ui-row-4: calc(var(--ui-row) * 4);
+  --ui-row-5: calc(var(--ui-row) * 5);
+  --ui-row-6: calc(var(--ui-row) * 6);
 }

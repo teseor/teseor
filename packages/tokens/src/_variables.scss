@@ -1,0 +1,92 @@
+// SCSS Variables - Source of truth for fallback values
+// These are the computed values that CSS custom properties resolve to.
+// Import this file in components that need standalone fallbacks.
+
+// Grid - all derived from $unit
+$unit: 0.5rem; // 8px
+$row: $unit * 2; // 16px
+$row-1: $row;
+$row-2: $row * 2; // 32px
+$row-3: $row * 3; // 48px
+$row-4: $row * 4;
+$row-5: $row * 5;
+$row-6: $row * 6;
+
+// Spacing - derived from $unit
+$space-0: $unit * 0.5; // 4px
+$space-1: $unit; // 8px
+$space-2: $unit * 2; // 16px
+$space-3: $unit * 3; // 24px
+$space-4: $unit * 4;
+$space-6: $unit * 6;
+$space-8: $unit * 8;
+
+// Typography
+$font-sans: "Noto Sans", system-ui, -apple-system, sans-serif;
+$font-mono: "Noto Sans Mono", ui-monospace, "Cascadia Code", monospace;
+
+$size-xs: 0.75rem; // 12px
+$size-sm: 0.875rem; // 14px
+$size-md: 1rem; // 16px
+$size-lg: 1.125rem; // 18px
+$size-xl: 1.25rem; // 20px
+$size-2xl: 1.5rem; // 24px
+$size-3xl: 2rem; // 32px
+
+$weight-normal: 400;
+$weight-medium: 500;
+$weight-bold: 700;
+
+// Radius - derived from $unit (0.5rem = 8px)
+$radius-sm: $unit * 0.5; // 4px
+$radius-md: $unit; // 8px
+$radius-lg: $unit * 2; // 16px
+$radius-full: 9999px;
+
+// Borders - derived from $unit (0.5rem = 8px)
+$border-width-sm: $unit * 0.125; // 1px
+$border-width-md: $unit * 0.25; // 2px
+$border-width-lg: $unit * 0.5; // 4px
+
+// Color primitives
+$hue-primary: 220;
+$hue-success: 142;
+$hue-warning: 38;
+$hue-danger: 0;
+
+$color-neutral-50: hsl($hue-primary 10% 98%);
+$color-neutral-100: hsl($hue-primary 10% 96%);
+$color-neutral-200: hsl($hue-primary 10% 90%);
+$color-neutral-300: hsl($hue-primary 10% 80%);
+$color-neutral-400: hsl($hue-primary 10% 60%);
+$color-neutral-500: hsl($hue-primary 10% 45%);
+$color-neutral-600: hsl($hue-primary 10% 35%);
+$color-neutral-700: hsl($hue-primary 10% 25%);
+$color-neutral-800: hsl($hue-primary 10% 15%);
+$color-neutral-900: hsl($hue-primary 10% 10%);
+
+$color-primary-light: hsl($hue-primary 85% 65%);
+$color-primary: hsl($hue-primary 85% 50%);
+$color-primary-dark: hsl($hue-primary 85% 40%);
+
+$color-success: hsl($hue-success 70% 45%);
+$color-warning: hsl($hue-warning 90% 50%);
+$color-danger: hsl($hue-danger 70% 50%);
+$color-danger-dark: hsl($hue-danger 70% 40%);
+
+// Semantic colors (light theme defaults)
+$color-text: $color-neutral-900;
+$color-text-muted: $color-neutral-500;
+$color-text-inverse: $color-neutral-50;
+
+$color-bg: $color-neutral-50;
+$color-bg-subtle: $color-neutral-100;
+$color-bg-muted: $color-neutral-200;
+
+$color-border: $color-neutral-200;
+$color-border-strong: $color-neutral-300;
+
+$color-interactive: $color-primary;
+$color-interactive-hover: $color-primary-dark;
+
+$color-focus: $color-primary-light;

@@ -1,6 +1,6 @@
 :root {
-  /* Border widths - derived from unit */
-  --border-width-sm: 1px;
-  --border-width-md: 2px;
-  --border-width-lg: calc(var(--unit) * 0.5);
+  // Border widths - derived from unit (8px)
+  --ui-border-width-sm: calc(var(--unit) * 0.125); // 1px
+  --ui-border-width-md: calc(var(--unit) * 0.25); // 2px
+  --ui-border-width-lg: calc(var(--unit) * 0.5); // 4px
 }

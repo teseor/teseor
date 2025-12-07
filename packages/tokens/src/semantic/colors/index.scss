@@ -1,30 +1,30 @@
 :root {
-  --color-text: var(--color-neutral-900);
-  --color-text-muted: var(--color-neutral-500);
-  --color-text-inverse: var(--color-neutral-50);
+  --ui-color-text: var(--ui-color-neutral-900);
+  --ui-color-text-muted: var(--ui-color-neutral-500);
+  --ui-color-text-inverse: var(--ui-color-neutral-50);
 
-  --color-bg: var(--color-neutral-50);
-  --color-bg-subtle: var(--color-neutral-100);
-  --color-bg-muted: var(--color-neutral-200);
+  --ui-color-bg: var(--ui-color-neutral-50);
+  --ui-color-bg-subtle: var(--ui-color-neutral-100);
+  --ui-color-bg-muted: var(--ui-color-neutral-200);
 
-  --color-border: var(--color-neutral-200);
-  --color-border-strong: var(--color-neutral-300);
+  --ui-color-border: var(--ui-color-neutral-200);
+  --ui-color-border-strong: var(--ui-color-neutral-300);
 
-  --color-interactive: var(--color-primary);
-  --color-interactive-hover: var(--color-primary-dark);
+  --ui-color-interactive: var(--ui-color-primary);
+  --ui-color-interactive-hover: var(--ui-color-primary-dark);
 
-  --color-focus: var(--color-primary-light);
+  --ui-color-focus: var(--ui-color-primary-light);
 }
 
 [data-theme="dark"] {
-  --color-text: var(--color-neutral-100);
-  --color-text-muted: var(--color-neutral-400);
-  --color-text-inverse: var(--color-neutral-900);
+  --ui-color-text: var(--ui-color-neutral-100);
+  --ui-color-text-muted: var(--ui-color-neutral-400);
+  --ui-color-text-inverse: var(--ui-color-neutral-900);
 
-  --color-bg: var(--color-neutral-900);
-  --color-bg-subtle: var(--color-neutral-800);
-  --color-bg-muted: var(--color-neutral-700);
+  --ui-color-bg: var(--ui-color-neutral-900);
+  --ui-color-bg-subtle: var(--ui-color-neutral-800);
+  --ui-color-bg-muted: var(--ui-color-neutral-700);
 
-  --color-border: var(--color-neutral-700);
-  --color-border-strong: var(--color-neutral-600);
+  --ui-color-border: var(--ui-color-neutral-700);
+  --ui-color-border-strong: var(--ui-color-neutral-600);
 }

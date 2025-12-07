@@ -1,0 +1,21 @@
+@use '../../00-config/mixins/border' as *;
+
+// Border utilities - uses same mixins as components
+@layer utilities {
+  // Border
+  .border { @include border; }
+  .border-0 { border: none; }
+
+  // Radius
+  .rounded { @include rounded; }
+  .rounded-none { border-radius: 0; }
+  .rounded-sm { @include rounded(var(--ui-radius-sm)); }
+  .rounded-lg { @include rounded(var(--ui-radius-lg)); }
+  .rounded-full { @include rounded(var(--ui-radius-full)); }
+
+  // Background
+  .bg { @include surface; }
+  .bg-subtle { @include surface(var(--ui-color-bg-subtle)); }
+  .bg-muted { @include surface(var(--ui-color-bg-muted)); }
+  .bg-transparent { background: transparent; }
+}

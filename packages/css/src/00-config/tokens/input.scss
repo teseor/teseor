@@ -1,14 +1,14 @@
 :root {
-  --input-height: var(--row-2);
-  --input-padding-x: var(--space-2);
-  --input-padding-y: var(--space-1);
+  --ui-input-height: var(--ui-row-2);
+  --ui-input-padding-x: var(--ui-space-2);
+  --ui-input-padding-y: var(--ui-space-1);
 
-  --input-radius: var(--radius-md);
-  --input-border-width: var(--border-width-sm);
+  --ui-input-radius: var(--ui-radius-md);
+  --ui-input-border-width: var(--ui-border-width-sm);
 
-  --input-bg: var(--color-bg);
-  --input-border: var(--color-border);
-  --input-border-focus: var(--color-interactive);
-  --input-text: var(--color-text);
-  --input-placeholder: var(--color-text-muted);
+  --ui-input-bg: var(--ui-color-bg);
+  --ui-input-border: var(--ui-color-border);
+  --ui-input-border-focus: var(--ui-color-interactive);
+  --ui-input-text: var(--ui-color-text);
+  --ui-input-placeholder: var(--ui-color-text-muted);
 }

@@ -1,16 +1,18 @@
 @layer primitives {
   .sidebar {
+    display: flex;
+    flex-direction: column;
     position: fixed;
     inset-block-start: 0;
     inset-inline-start: 0;
-    inline-size: var(--sidebar-width, calc(var(--unit) * 30));
-    block-size: 100vh;
-    overflow-y: auto;
-    background: var(--color-bg-subtle);
-    box-shadow: inset calc(var(--border-width-sm) * -1) 0 0 0 var(--color-border);
-    display: flex;
-    flex-direction: column;
     z-index: var(--z-sticky);
+
+    block-size: 100vh;
+    inline-size: var(--sidebar-width, calc(var(--unit) * 30));
+    overflow-y: auto;
+
+    background: var(--ui-color-bg-subtle);
+    box-shadow: inset calc(var(--ui-border-width-sm) * -1) 0 0 0 var(--ui-color-border);
   }
 
   /* Width modifiers */
@@ -22,6 +24,7 @@
   .sidebar--end {
     inset-inline-start: auto;
     inset-inline-end: 0;
-    box-shadow: inset var(--border-width-sm) 0 0 0 var(--color-border);
+
+    box-shadow: inset var(--ui-border-width-sm) 0 0 0 var(--ui-color-border);
   }
 }

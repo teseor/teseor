@@ -1,0 +1,12 @@
+@use '../../../../tokens/src/variables' as t;
+
+@layer base {
+  .root {
+    font-family: var(--ui-font-sans, #{t.$font-sans});
+    font-size: var(--ui-size-md, #{t.$size-md});
+    line-height: var(--ui-leading-md, calc(#{t.$unit} * 3));
+    color: var(--ui-color-text, #{t.$color-text});
+
+    background: var(--ui-color-bg, #{t.$color-bg});
+  }
+}

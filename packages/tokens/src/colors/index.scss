@@ -1,25 +1,25 @@
 :root {
-  --hue-primary: 220;
-  --hue-success: 142;
-  --hue-warning: 38;
-  --hue-danger: 0;
+  --ui-hue-primary: 220;
+  --ui-hue-success: 142;
+  --ui-hue-warning: 38;
+  --ui-hue-danger: 0;
 
-  --color-neutral-50: hsl(var(--hue-primary) 10% 98%);
-  --color-neutral-100: hsl(var(--hue-primary) 10% 96%);
-  --color-neutral-200: hsl(var(--hue-primary) 10% 90%);
-  --color-neutral-300: hsl(var(--hue-primary) 10% 80%);
-  --color-neutral-400: hsl(var(--hue-primary) 10% 60%);
-  --color-neutral-500: hsl(var(--hue-primary) 10% 45%);
-  --color-neutral-600: hsl(var(--hue-primary) 10% 35%);
-  --color-neutral-700: hsl(var(--hue-primary) 10% 25%);
-  --color-neutral-800: hsl(var(--hue-primary) 10% 15%);
-  --color-neutral-900: hsl(var(--hue-primary) 10% 10%);
+  --ui-color-neutral-50: hsl(var(--ui-hue-primary) 10% 98%);
+  --ui-color-neutral-100: hsl(var(--ui-hue-primary) 10% 96%);
+  --ui-color-neutral-200: hsl(var(--ui-hue-primary) 10% 90%);
+  --ui-color-neutral-300: hsl(var(--ui-hue-primary) 10% 80%);
+  --ui-color-neutral-400: hsl(var(--ui-hue-primary) 10% 60%);
+  --ui-color-neutral-500: hsl(var(--ui-hue-primary) 10% 45%);
+  --ui-color-neutral-600: hsl(var(--ui-hue-primary) 10% 35%);
+  --ui-color-neutral-700: hsl(var(--ui-hue-primary) 10% 25%);
+  --ui-color-neutral-800: hsl(var(--ui-hue-primary) 10% 15%);
+  --ui-color-neutral-900: hsl(var(--ui-hue-primary) 10% 10%);
 
-  --color-primary-light: hsl(var(--hue-primary) 85% 65%);
-  --color-primary: hsl(var(--hue-primary) 85% 50%);
-  --color-primary-dark: hsl(var(--hue-primary) 85% 40%);
+  --ui-color-primary-light: hsl(var(--ui-hue-primary) 85% 65%);
+  --ui-color-primary: hsl(var(--ui-hue-primary) 85% 50%);
+  --ui-color-primary-dark: hsl(var(--ui-hue-primary) 85% 40%);
 
-  --color-success: hsl(var(--hue-success) 70% 45%);
-  --color-warning: hsl(var(--hue-warning) 90% 50%);
-  --color-danger: hsl(var(--hue-danger) 70% 50%);
+  --ui-color-success: hsl(var(--ui-hue-success) 70% 45%);
+  --ui-color-warning: hsl(var(--ui-hue-warning) 90% 50%);
+  --ui-color-danger: hsl(var(--ui-hue-danger) 70% 50%);
 }
