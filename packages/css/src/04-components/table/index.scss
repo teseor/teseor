@@ -11,7 +11,7 @@
   }
 
   .table--compact {
-    --_cell-padding-y: var(--ui-space-0, 0.25rem);
+    --_cell-padding-y: var(--ui-space-0, #{t.$space-0});
     --_cell-padding-x: var(--ui-space-1, #{t.$space-1});
     --_font-size: var(--ui-size-xs, #{t.$size-xs});
   }

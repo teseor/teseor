@@ -7,7 +7,7 @@
     --_font-size: var(--ui-code-font-size, var(--ui-size-sm, #{t.$size-sm}));
     --_bg: var(--ui-code-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
     --_padding-x: var(--ui-code-padding-x, var(--ui-space-1, #{t.$space-1}));
-    --_padding-y: var(--ui-code-padding-y, var(--ui-space-0, 0.25rem));
+    --_padding-y: var(--ui-code-padding-y, var(--ui-space-0, #{t.$space-0}));
     --_radius: var(--ui-code-radius, var(--ui-radius-sm, #{t.$radius-sm}));
   }
 

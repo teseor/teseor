@@ -26,11 +26,11 @@
       "title": "Sizes",
       "data": {
         "sizes": [
-          { "mod": "xs", "label": "12px" },
-          { "mod": "sm", "label": "16px" },
-          { "mod": "md", "label": "20px" },
-          { "mod": "lg", "label": "24px" },
-          { "mod": "xl", "label": "32px" }
+          { "mod": "xs", "label": "1.5u" },
+          { "mod": "sm", "label": "2u" },
+          { "mod": "md", "label": "2.5u" },
+          { "mod": "lg", "label": "3u" },
+          { "mod": "xl", "label": "4u" }
         ]
       },
       "examples": [
