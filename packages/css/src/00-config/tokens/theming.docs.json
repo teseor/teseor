@@ -1,0 +1,76 @@
+{
+  "id": "theming",
+  "type": "guide",
+  "title": "Theming",
+  "description": "Customize the design system with CSS custom properties",
+  "sections": [
+    {
+      "title": "Brand Colors",
+      "description": "Change the entire color palette by adjusting hue values",
+      "examples": [
+        {
+          "title": "Default (Blue)",
+          "html": "<div class=\"theme-demo\"><button class=\"ui-button\">Primary</button><button class=\"ui-button ui-button--secondary\">Secondary</button><button class=\"ui-button ui-button--danger\">Danger</button></div>",
+          "code": ":root {\n  --ui-hue-primary: 220; /* Blue */\n}"
+        },
+        {
+          "title": "Purple Theme",
+          "html": "<div class=\"theme-demo theme-purple\"><button class=\"ui-button\">Primary</button><button class=\"ui-button ui-button--secondary\">Secondary</button><button class=\"ui-button ui-button--danger\">Danger</button></div>",
+          "code": ".theme-purple {\n  --ui-hue-primary: 270; /* Purple */\n}"
+        },
+        {
+          "title": "Teal Theme",
+          "html": "<div class=\"theme-demo theme-teal\"><button class=\"ui-button\">Primary</button><button class=\"ui-button ui-button--secondary\">Secondary</button><button class=\"ui-button ui-button--danger\">Danger</button></div>",
+          "code": ".theme-teal {\n  --ui-hue-primary: 180; /* Teal */\n}"
+        },
+        {
+          "title": "Orange Theme",
+          "html": "<div class=\"theme-demo theme-orange\"><button class=\"ui-button\">Primary</button><button class=\"ui-button ui-button--secondary\">Secondary</button><button class=\"ui-button ui-button--danger\">Danger</button></div>",
+          "code": ".theme-orange {\n  --ui-hue-primary: 25; /* Orange */\n}"
+        }
+      ]
+    },
+    {
+      "title": "Dark Mode",
+      "description": "Toggle dark mode with data-theme attribute",
+      "examples": [
+        {
+          "title": "Light Mode",
+          "html": "<div class=\"theme-demo\"><div class=\"ui-card\"><p>Light mode card</p></div></div>",
+          "code": "<html>\n  <!-- Light mode (default) -->\n</html>"
+        },
+        {
+          "title": "Dark Mode",
+          "html": "<div class=\"theme-demo\" data-theme=\"dark\"><div class=\"ui-card\"><p>Dark mode card</p></div></div>",
+          "code": "<html data-theme=\"dark\">\n  <!-- Dark mode enabled -->\n</html>"
+        }
+      ]
+    },
+    {
+      "title": "Component Overrides",
+      "description": "Override specific component tokens",
+      "examples": [
+        {
+          "title": "Custom Button Height",
+          "html": "<div class=\"theme-demo custom-buttons\"><button class=\"ui-button ui-button--sm\">Small</button><button class=\"ui-button\">Default</button><button class=\"ui-button ui-button--lg\">Large</button></div>",
+          "code": ".custom-buttons {\n  --ui-button-height-sm: 24px;\n  --ui-button-height: 40px;\n  --ui-button-height-lg: 56px;\n}"
+        },
+        {
+          "title": "Custom Card Padding",
+          "html": "<div class=\"theme-demo custom-cards\"><div class=\"ui-card\"><p>Card with custom padding</p></div></div>",
+          "code": ".custom-cards {\n  --ui-card-padding: var(--ui-space-4);\n}"
+        }
+      ]
+    },
+    {
+      "title": "Full Theme Example",
+      "description": "Complete theme customization",
+      "examples": [
+        {
+          "html": "<div class=\"theme-demo theme-corporate\"><button class=\"ui-button\">Action</button><div class=\"ui-card\"><p>Corporate theme with teal accent and sharp corners</p></div></div>",
+          "code": ".theme-corporate {\n  /* Brand hue */\n  --ui-hue-primary: 180;\n\n  /* Sharper corners */\n  --ui-radius-sm: 2px;\n  --ui-radius-md: 4px;\n  --ui-radius-lg: 6px;\n\n  /* Tighter spacing */\n  --ui-space-1: 12px;\n  --ui-space-2: 24px;\n}"
+        }
+      ]
+    }
+  ]
+}

@@ -58,4 +58,46 @@
   .custom-font-demo {
     font-family: var(--font-sans);
   }
+
+  /* Theme demo container */
+  .theme-demo {
+    padding: var(--ui-space-2);
+    border-radius: var(--ui-radius-md);
+    background: var(--ui-color-bg);
+    display: flex;
+    gap: var(--ui-space-1);
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  /* Theme variants */
+  .theme-purple {
+    --ui-hue-primary: 270;
+  }
+
+  .theme-teal {
+    --ui-hue-primary: 180;
+  }
+
+  .theme-orange {
+    --ui-hue-primary: 25;
+  }
+
+  .theme-corporate {
+    --ui-hue-primary: 180;
+    --ui-radius-sm: 2px;
+    --ui-radius-md: 4px;
+    --ui-radius-lg: 6px;
+  }
+
+  /* Custom component overrides demo */
+  .custom-buttons {
+    --ui-button-height-sm: 24px;
+    --ui-button-height: 40px;
+    --ui-button-height-lg: 56px;
+  }
+
+  .custom-cards {
+    --ui-card-padding: var(--ui-space-4);
+  }
 }
