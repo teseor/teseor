@@ -1,0 +1,38 @@
+@use '../../00-config/mixins/border' as *;
+
+// Card component - bordered surface with padding
+
+// Token definitions
+@layer components.tokens {
+  .card {
+    --_padding: var(--ui-card-padding, var(--ui-space-4));
+    --_border-width: var(--ui-card-border-width, var(--ui-border-width-sm));
+    --_bg: var(--ui-card-bg, var(--ui-color-bg));
+    --_border-color: var(--ui-card-border-color, var(--ui-color-border));
+    --_radius: var(--ui-card-radius, var(--ui-radius-md));
+  }
+
+  // Background variants
+  .card--subtle { --_bg: var(--ui-card-bg-subtle, var(--ui-color-bg-subtle)); }
+  .card--muted { --_bg: var(--ui-card-bg-muted, var(--ui-color-bg-muted)); }
+
+  // Padding variants
+  .card--sm { --_padding: var(--ui-card-padding-sm, var(--ui-space-2)); }
+  .card--lg { --_padding: var(--ui-card-padding-lg, var(--ui-space-6)); }
+
+  .card--flush {
+    --_padding: 0;
+    --_border-width: 0;
+  }
+}
+
+// Implementation
+@layer components.styles {
+  .card {
+    @include border(var(--_border-width), var(--_border-color));
+    @include rounded(var(--_radius));
+    @include surface(var(--_bg));
+    // Subtract border from padding to keep total on grid
+    padding: calc(var(--_padding) - var(--_border-width));
+  }
+}

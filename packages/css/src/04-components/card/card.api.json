@@ -1,0 +1,34 @@
+{
+  "name": "card",
+  "baseClass": "card",
+  "element": "div",
+  "description": "Bordered surface with padding for grouping content.",
+  "modifiers": {
+    "background": {
+      "values": ["subtle", "muted"],
+      "default": null,
+      "description": "Background color variant."
+    },
+    "padding": {
+      "values": ["sm", "lg", "flush"],
+      "default": null,
+      "description": "Padding size. Default is space-4."
+    }
+  },
+  "vars": {
+    "base": {
+      "padding": "--space-4",
+      "bg": "--color-bg",
+      "border-color": "--color-border",
+      "radius": "--radius-md"
+    },
+    "background": {
+      "subtle": { "bg": "--color-bg-subtle" },
+      "muted": { "bg": "--color-bg-muted" }
+    },
+    "padding": {
+      "sm": { "padding": "--space-2" },
+      "lg": { "padding": "--space-6" }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "id": "code",
+  "type": "component",
+  "title": "Code",
+  "description": "Inline code and code blocks with monospace font.",
+  "api": "./code.api.json",
+  "componentName": "code",
+  "sections": [
+    {
+      "title": "Inline code",
+      "examples": [
+        {
+          "title": "Default",
+          "html": "<p>Use the <code class=\"ui-code\">--space-2</code> token for padding.</p>"
+        },
+        {
+          "title": "Small (for tables)",
+          "html": "<code class=\"ui-code ui-code--sm\">--button-height</code>"
+        }
+      ]
+    },
+    {
+      "title": "Code block",
+      "examples": [
+        {
+          "title": "Default",
+          "html": "<pre class=\"ui-code-block\"><code>.button {\n  display: inline-flex;\n  align-items: center;\n}</code></pre>"
+        }
+      ]
+    }
+  ]
+}

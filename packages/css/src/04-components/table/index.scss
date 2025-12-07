@@ -1,0 +1,60 @@
+@use '../../../../tokens/src/variables' as t;
+
+// Token definitions
+@layer components.tokens {
+  .table {
+    --_font-size: var(--ui-table-font-size, var(--ui-size-sm, #{t.$size-sm}));
+    --_border-color: var(--ui-table-border-color, var(--ui-color-border, #{t.$color-border}));
+    --_header-bg: var(--ui-table-header-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
+    --_cell-padding-x: var(--ui-table-cell-padding-x, var(--ui-space-2, #{t.$space-2}));
+    --_cell-padding-y: var(--ui-table-cell-padding-y, var(--ui-space-1, #{t.$space-1}));
+  }
+
+  .table--compact {
+    --_cell-padding-y: var(--ui-space-0, 0.25rem);
+    --_cell-padding-x: var(--ui-space-1, #{t.$space-1});
+    --_font-size: var(--ui-size-xs, #{t.$size-xs});
+  }
+}
+
+// Implementation
+@layer components.styles {
+  .table {
+    inline-size: 100%;
+
+    font-size: var(--_font-size);
+    // Use separate to avoid sub-pixel border issues
+    border-collapse: separate;
+    border-spacing: 0;
+
+    th,
+    td {
+      // Subtract border from bottom padding to keep row on grid
+      padding-block-start: var(--_cell-padding-y);
+      padding-block-end: calc(var(--_cell-padding-y) - var(--ui-border-width-sm, #{t.$border-width-sm}));
+      padding-inline: var(--_cell-padding-x);
+      // Grid-aligned line-height (3 units = 24px at 8px unit)
+      line-height: calc(var(--unit, #{t.$unit}) * 3);
+      text-align: start;
+
+      border-block-end: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_border-color);
+    }
+
+    th {
+      font-weight: var(--ui-weight-medium, #{t.$weight-medium});
+
+      background: var(--_header-bg);
+    }
+
+    // Striped variant
+    &--striped {
+      tbody tr:nth-child(odd) {
+        background: var(--ui-color-bg-subtle, #{t.$color-bg-subtle});
+      }
+
+      th {
+        background: var(--ui-color-bg-muted, #{t.$color-bg-muted});
+      }
+    }
+  }
+}

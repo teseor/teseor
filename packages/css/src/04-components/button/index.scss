@@ -1,127 +1,124 @@
-/* Button component - heights align to grid rows */
-@layer components {
+@use '../../../../tokens/src/variables' as t;
+
+// Button component - heights align to grid rows
+
+// Token definitions - what makes each variant
+@layer components.tokens {
   .button {
-    /* Layout */
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-1);
-
-    /* Size: default = 2 rows (32px) */
-    block-size: var(--row-2);
-    padding-inline: var(--space-2);
-
-    /* Typography */
-    font-family: var(--font-sans);
-    font-size: var(--size-sm);
-    font-weight: var(--weight-medium);
-    line-height: 1;
-    text-decoration: none;
-    white-space: nowrap;
-
-    /* Visual */
-    background: var(--color-primary);
-    color: var(--color-text-inverse);
-    border: none;
-    border-radius: var(--radius-md);
-    cursor: pointer;
-
-    /* Transitions */
-    transition: background-color 0.15s ease, transform 0.1s ease;
+    --_height: var(--ui-button-height, var(--ui-row-2, #{t.$row-2}));
+    --_padding-x: var(--ui-button-padding-x, var(--ui-space-2, #{t.$space-2}));
+    --_font-size: var(--ui-button-font-size, var(--ui-size-sm, #{t.$size-sm}));
+    --_font-weight: var(--ui-button-font-weight, var(--ui-weight-medium, #{t.$weight-medium}));
+    --_radius: var(--ui-button-radius, var(--ui-radius-md, #{t.$radius-md}));
+    --_bg: var(--ui-button-bg, var(--ui-color-primary, #{t.$color-primary}));
+    --_bg-hover: var(--ui-button-bg-hover, var(--ui-color-primary-dark, #{t.$color-primary-dark}));
+    --_text: var(--ui-button-text, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
   }
 
-  /* States */
-  .button:hover {
-    background: var(--color-primary-dark);
-  }
-
-  .button:focus-visible {
-    outline: var(--border-width-md) solid var(--color-focus);
-    outline-offset: var(--border-width-md);
-  }
-
-  .button:active {
-    transform: scale(0.98);
-  }
-
-  .button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  .button:disabled:hover {
-    background: var(--color-primary);
-    transform: none;
-  }
-
-  /* Size variants - all align to grid rows */
+  // Size variants
   .button--sm {
-    block-size: calc(var(--row) * 1.5); /* 24px = 1.5 rows */
-    padding-inline: var(--space-2);
-    font-size: var(--size-xs);
+    --_height: var(--ui-button-height-sm, calc(var(--row, #{t.$row}) * 1.5));
+    --_font-size: var(--ui-button-font-size-sm, var(--ui-size-xs, #{t.$size-xs}));
   }
 
   .button--lg {
-    block-size: calc(var(--row) * 2.5); /* 40px = 2.5 rows */
-    padding-inline: var(--space-3);
-    font-size: var(--size-md);
+    --_height: var(--ui-button-height-lg, calc(var(--row, #{t.$row}) * 2.5));
+    --_padding-x: var(--ui-button-padding-x-lg, var(--ui-space-3, #{t.$space-3}));
+    --_font-size: var(--ui-button-font-size-lg, var(--ui-size-md, #{t.$size-md}));
   }
 
-  /* Style variants */
+  // Style variants
   .button--secondary {
-    background: var(--color-bg-muted);
-    color: var(--color-text);
-  }
-
-  .button--secondary:hover {
-    background: var(--color-border-strong);
-  }
-
-  .button--secondary:disabled:hover {
-    background: var(--color-bg-muted);
+    --_bg: var(--ui-button-secondary-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+    --_bg-hover: var(--ui-button-secondary-bg-hover, var(--ui-color-border-strong, #{t.$color-border-strong}));
+    --_text: var(--ui-button-secondary-text, var(--ui-color-text, #{t.$color-text}));
   }
 
   .button--ghost {
-    background: transparent;
-    color: var(--color-primary);
-  }
-
-  .button--ghost:hover {
-    background: var(--color-bg-subtle);
-  }
-
-  .button--ghost:disabled:hover {
-    background: transparent;
+    --_bg: var(--ui-button-ghost-bg, transparent);
+    --_bg-hover: var(--ui-button-ghost-bg-hover, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
+    --_text: var(--ui-button-ghost-text, var(--ui-color-primary, #{t.$color-primary}));
   }
 
   .button--danger {
-    background: var(--color-danger);
+    --_bg: var(--ui-button-danger-bg, var(--ui-color-danger, #{t.$color-danger}));
+    --_bg-hover: var(--ui-button-danger-bg-hover, #{t.$color-danger-dark});
   }
 
-  .button--danger:hover {
-    background: hsl(var(--hue-danger) 70% 40%);
-  }
-
-  .button--danger:disabled:hover {
-    background: var(--color-danger);
-  }
-
-  /* Icon-only button */
+  // Icon-only button
   .button--icon {
-    padding-inline: 0;
-    inline-size: var(--row-2);
+    --_padding-x: 0;
   }
+}
 
-  .button--icon.button--sm {
-    inline-size: calc(var(--row) * 1.5);
-  }
+// Implementation - structural styles
+@layer components.styles {
+  .button {
+    // Layout
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--ui-space-1, #{t.$space-1});
 
-  .button--icon.button--lg {
-    inline-size: calc(var(--row) * 2.5);
-  }
+    // Size
+    block-size: var(--_height);
+    padding-inline: var(--_padding-x);
 
-  /* Full width */
-  .button--block {
-    inline-size: 100%;
+    // Visual
+    margin: 0;
+
+    // Typography
+    font-family: var(--ui-font-sans, #{t.$font-sans});
+    font-size: var(--_font-size);
+    font-weight: var(--_font-weight);
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    color: var(--_text);
+
+    background: var(--_bg);
+    border: none;
+    border-radius: var(--_radius);
+    cursor: pointer;
+
+    // Transitions
+    transition: background-color 0.15s ease, transform 0.1s ease;
+
+    // States - modifiers mirror pseudo-classes for testing/docs
+    &:hover,
+    &--hover {
+      background: var(--_bg-hover);
+    }
+
+    &:focus-visible,
+    &--focus {
+      outline: var(--ui-border-width-md, #{t.$border-width-md}) solid var(--ui-color-focus, #{t.$color-focus});
+      outline-offset: var(--ui-border-width-md, #{t.$border-width-md});
+    }
+
+    &:active,
+    &--active {
+      transform: scale(0.98);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+
+      &:hover {
+        background: var(--_bg);
+        transform: none;
+      }
+    }
+
+    // Icon-only button
+    &--icon {
+      inline-size: var(--_height);
+    }
+
+    // Full width
+    &--block {
+      inline-size: 100%;
+    }
   }
 }

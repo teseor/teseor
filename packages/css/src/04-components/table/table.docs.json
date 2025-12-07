@@ -1,0 +1,32 @@
+{
+  "id": "table",
+  "type": "component",
+  "title": "Table",
+  "description": "Styled table with header formatting and optional variants.",
+  "api": "./table.api.json",
+  "componentName": "table",
+  "sections": [
+    {
+      "title": "Basic table",
+      "examples": [
+        {
+          "title": "Default",
+          "html": "<table class=\"ui-table\"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>Alpha</td><td>100</td></tr><tr><td>Beta</td><td>200</td></tr></tbody></table>"
+        }
+      ]
+    },
+    {
+      "title": "Variants",
+      "examples": [
+        {
+          "title": "Compact",
+          "html": "<table class=\"ui-table ui-table--compact\"><thead><tr><th>Token</th><th>Value</th></tr></thead><tbody><tr><td><code class=\"ui-code ui-code--sm\">--space-1</code></td><td>0.5rem</td></tr><tr><td><code class=\"ui-code ui-code--sm\">--space-2</code></td><td>1rem</td></tr></tbody></table>"
+        },
+        {
+          "title": "Striped",
+          "html": "<table class=\"ui-table ui-table--striped\"><thead><tr><th>Item</th><th>Status</th></tr></thead><tbody><tr><td>Task 1</td><td>Done</td></tr><tr><td>Task 2</td><td>Pending</td></tr><tr><td>Task 3</td><td>Done</td></tr></tbody></table>"
+        }
+      ]
+    }
+  ]
+}

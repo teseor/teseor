@@ -1,0 +1,25 @@
+{
+  "name": "table",
+  "baseClass": "table",
+  "element": "table",
+  "description": "Styled table with header and cell formatting.",
+  "modifiers": {
+    "compact": {
+      "type": "boolean",
+      "description": "Smaller padding and font size."
+    },
+    "striped": {
+      "type": "boolean",
+      "description": "Alternating row backgrounds."
+    }
+  },
+  "vars": {
+    "base": {
+      "font-size": "--size-sm",
+      "border-color": "--color-border",
+      "header-bg": "--color-bg-subtle",
+      "cell-padding-x": "--space-2",
+      "cell-padding-y": "--space-1"
+    }
+  }
+}

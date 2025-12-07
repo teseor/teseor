@@ -1,0 +1,45 @@
+{
+  "api": "./card.api.json",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "items": [
+            { "tag": "div", "class": "ui-card", "text": "Default card with padding and border" }
+          ],
+          "code": "<div class=\"ui-card\">Content</div>"
+        }
+      ]
+    },
+    {
+      "title": "Background Variants",
+      "examples": [
+        {
+          "layout": "stack",
+          "items": [
+            { "tag": "div", "class": "ui-card", "text": "Default background" },
+            { "tag": "div", "class": "ui-card ui-card--subtle", "text": "Subtle background" },
+            { "tag": "div", "class": "ui-card ui-card--muted", "text": "Muted background" }
+          ],
+          "code": "<div class=\"ui-card\">Default</div>\n<div class=\"ui-card ui-card--subtle\">Subtle</div>\n<div class=\"ui-card ui-card--muted\">Muted</div>"
+        }
+      ]
+    },
+    {
+      "title": "Padding Variants",
+      "examples": [
+        {
+          "layout": "stack",
+          "items": [
+            { "tag": "div", "class": "ui-card ui-card--sm", "text": "Small padding" },
+            { "tag": "div", "class": "ui-card", "text": "Default padding" },
+            { "tag": "div", "class": "ui-card ui-card--lg", "text": "Large padding" },
+            { "tag": "div", "class": "ui-card ui-card--flush", "text": "No padding (flush)" }
+          ],
+          "code": "<div class=\"ui-card ui-card--sm\">Small</div>\n<div class=\"ui-card\">Default</div>\n<div class=\"ui-card ui-card--lg\">Large</div>\n<div class=\"ui-card ui-card--flush\">Flush</div>"
+        }
+      ]
+    }
+  ]
+}

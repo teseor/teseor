@@ -1,0 +1,62 @@
+@use '../../../../tokens/src/variables' as t;
+
+// Token definitions
+@layer components.tokens {
+  // Inline code
+  .code {
+    --_font-size: var(--ui-code-font-size, var(--ui-size-sm, #{t.$size-sm}));
+    --_bg: var(--ui-code-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+    --_padding-x: var(--ui-code-padding-x, var(--ui-space-1, #{t.$space-1}));
+    --_padding-y: var(--ui-code-padding-y, var(--ui-space-0, 0.25rem));
+    --_radius: var(--ui-code-radius, var(--ui-radius-sm, #{t.$radius-sm}));
+  }
+
+  .code--sm {
+    --_font-size: var(--ui-size-xs, #{t.$size-xs});
+  }
+
+  // Code block
+  .code-block {
+    --_font-size: var(--ui-code-font-size-block, var(--ui-size-sm, #{t.$size-sm}));
+    --_bg: var(--ui-code-bg-block, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+    --_padding: var(--ui-code-padding-block, var(--ui-space-3, #{t.$space-3}));
+    --_radius: var(--ui-code-radius-block, var(--ui-radius-md, #{t.$radius-md}));
+    --_border-color: var(--ui-code-border-color-block, var(--ui-color-border, #{t.$color-border}));
+  }
+}
+
+// Implementation
+@layer components.styles {
+  .code {
+    padding: var(--_padding-y) var(--_padding-x);
+
+    font-family: var(--ui-font-mono, #{t.$font-mono});
+    font-size: var(--_font-size);
+
+    background: var(--_bg);
+    border-radius: var(--_radius);
+  }
+
+  .code-block {
+    display: block;
+    // Subtract border from padding to keep total on grid
+    padding: calc(var(--_padding) - var(--ui-border-width-sm, #{t.$border-width-sm}));
+    overflow-x: auto;
+
+    font-family: var(--ui-font-mono, #{t.$font-mono});
+    font-size: var(--_font-size);
+    white-space: pre;
+
+    background: var(--_bg);
+    border: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_border-color);
+    border-radius: var(--_radius);
+
+    code {
+      padding: 0;
+
+      font-size: inherit;
+
+      background: none;
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "code",
+  "baseClass": "code",
+  "element": "code",
+  "description": "Inline code with monospace font and subtle background. Use .code-block for multi-line code.",
+  "modifiers": {
+    "sm": {
+      "type": "boolean",
+      "description": "Smaller font size for use in tables."
+    }
+  },
+  "vars": {
+    "base": {
+      "font-size": "--size-sm",
+      "bg": "--color-bg-muted",
+      "padding-x": "--space-1",
+      "padding-y": "--space-0",
+      "radius": "--radius-sm",
+      "font-size-block": "--size-sm",
+      "bg-block": "--color-bg-muted",
+      "padding-block": "--space-3",
+      "radius-block": "--radius-md",
+      "border-color-block": "--color-border"
+    }
+  }
+}
