@@ -1,0 +1,274 @@
+{
+  "extends": ["stylelint-config-standard-scss"],
+  "plugins": ["stylelint-order"],
+  "rules": {
+    "order/properties-order": [
+      {
+        "groupName": "custom-properties",
+        "noEmptyLineBetween": true,
+        "properties": ["/^--/"]
+      },
+      {
+        "groupName": "layout",
+        "noEmptyLineBetween": true,
+        "emptyLineBefore": "threshold",
+        "properties": [
+          "content",
+          "display",
+          "flex",
+          "flex-direction",
+          "flex-wrap",
+          "flex-grow",
+          "flex-shrink",
+          "flex-basis",
+          "align-items",
+          "align-self",
+          "justify-content",
+          "gap",
+          "grid",
+          "grid-template",
+          "grid-template-columns",
+          "grid-template-rows",
+          "grid-auto-flow",
+          "grid-column",
+          "grid-row",
+          "place-items",
+          "place-content",
+          "position",
+          "inset",
+          "inset-block",
+          "inset-block-start",
+          "inset-block-end",
+          "inset-inline",
+          "inset-inline-start",
+          "inset-inline-end",
+          "z-index"
+        ]
+      },
+      {
+        "groupName": "box-model",
+        "noEmptyLineBetween": true,
+        "emptyLineBefore": "threshold",
+        "properties": [
+          "box-sizing",
+          "block-size",
+          "inline-size",
+          "min-block-size",
+          "min-inline-size",
+          "max-block-size",
+          "max-inline-size",
+          "padding",
+          "padding-block",
+          "padding-block-start",
+          "padding-block-end",
+          "padding-inline",
+          "padding-inline-start",
+          "padding-inline-end",
+          "margin",
+          "margin-block",
+          "margin-block-start",
+          "margin-block-end",
+          "margin-inline",
+          "margin-inline-start",
+          "margin-inline-end",
+          "overflow",
+          "overflow-x",
+          "overflow-y"
+        ]
+      },
+      {
+        "groupName": "typography",
+        "noEmptyLineBetween": true,
+        "emptyLineBefore": "threshold",
+        "properties": [
+          "font",
+          "font-family",
+          "font-size",
+          "font-weight",
+          "font-style",
+          "line-height",
+          "letter-spacing",
+          "text-align",
+          "text-decoration",
+          "text-transform",
+          "text-overflow",
+          "white-space",
+          "word-break",
+          "vertical-align",
+          "color"
+        ]
+      },
+      {
+        "groupName": "visual",
+        "noEmptyLineBetween": true,
+        "emptyLineBefore": "threshold",
+        "properties": [
+          "background",
+          "background-color",
+          "background-image",
+          "border",
+          "border-width",
+          "border-style",
+          "border-color",
+          "border-block",
+          "border-block-start",
+          "border-block-end",
+          "border-inline",
+          "border-inline-start",
+          "border-inline-end",
+          "border-radius",
+          "border-collapse",
+          "border-spacing",
+          "outline",
+          "box-shadow",
+          "opacity",
+          "visibility",
+          "cursor",
+          "pointer-events",
+          "user-select",
+          "appearance"
+        ]
+      },
+      {
+        "groupName": "animation",
+        "noEmptyLineBetween": true,
+        "emptyLineBefore": "threshold",
+        "properties": [
+          "transition",
+          "transition-property",
+          "transition-duration",
+          "transition-timing-function",
+          "animation",
+          "animation-name",
+          "animation-duration"
+        ]
+      }
+    ],
+    "order/properties-alphabetical-order": null,
+
+    "custom-property-pattern": [
+      "^(_|ui-)?[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+      {
+        "message": "Custom properties should use kebab-case: --name, --_name (internal), or --ui-name (public)"
+      }
+    ],
+
+    "selector-class-pattern": [
+      "^(ui-)?[a-z][a-z0-9]*(-[a-z0-9]+)*(__[a-z0-9]+(-[a-z0-9]+)*)?(--[a-z0-9]+(-[a-z0-9]+)*)?$",
+      {
+        "message": "Class names should follow BEM pattern with optional ui- prefix"
+      }
+    ],
+
+    "property-no-vendor-prefix": true,
+    "selector-no-vendor-prefix": true,
+    "value-no-vendor-prefix": true,
+    "media-feature-name-no-vendor-prefix": true,
+    "at-rule-no-vendor-prefix": true,
+
+    "declaration-block-no-redundant-longhand-properties": null,
+    "shorthand-property-no-redundant-values": true,
+    "no-descending-specificity": null,
+    "no-duplicate-selectors": true,
+    "declaration-block-no-duplicate-properties": true,
+
+    "scss/at-rule-no-unknown": true,
+    "scss/dollar-variable-pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+    "scss/dollar-variable-empty-line-before": null,
+    "scss/double-slash-comment-empty-line-before": null,
+
+    "custom-property-empty-line-before": null,
+    "declaration-empty-line-before": null,
+
+    "alpha-value-notation": "number",
+    "hue-degree-notation": "number",
+    "color-function-notation": "modern",
+    "import-notation": "string",
+
+    "length-zero-no-unit": true,
+    "number-max-precision": 4,
+
+    "font-family-name-quotes": "always-where-recommended",
+    "function-url-quotes": "always",
+    "selector-attribute-quotes": "always",
+
+    "unit-disallowed-list": [
+      ["px"],
+      {
+        "ignoreFunctions": ["var", "linear-gradient", "repeating-linear-gradient"],
+        "ignoreMediaFeatureNames": {
+          "px": ["min-width", "max-width", "min-height", "max-height"]
+        },
+        "ignoreProperties": {
+          "px": ["/^border/", "outline", "box-shadow", "text-shadow", "clip", "clip-path"]
+        },
+        "message": "Use rem for sizing, px only allowed for borders/shadows/gradients"
+      }
+    ],
+
+    "declaration-property-value-disallowed-list": {
+      "/^margin|padding|gap|inset/": ["/^\\d+px$/"],
+      "/^(block|inline)-size/": ["/^\\d+px$/"],
+      "left": ["/.*/"],
+      "right": ["/.*/"],
+      "top": ["/.*/"],
+      "bottom": ["/.*/"]
+    },
+
+    "property-disallowed-list": ["float", "clear"],
+
+    "selector-max-id": 0,
+    "selector-max-type": [2, { "ignoreTypes": ["html", "body"] }],
+    "selector-max-universal": 1,
+    "selector-max-compound-selectors": 4,
+    "selector-max-specificity": "0,4,2",
+
+    "max-nesting-depth": [
+      3,
+      {
+        "ignore": ["blockless-at-rules", "pseudo-classes"]
+      }
+    ],
+
+    "rule-empty-line-before": [
+      "always-multi-line",
+      {
+        "except": ["first-nested"],
+        "ignore": ["after-comment"]
+      }
+    ],
+
+    "at-rule-empty-line-before": [
+      "always",
+      {
+        "except": ["blockless-after-same-name-blockless", "first-nested"],
+        "ignore": ["after-comment"],
+        "ignoreAtRules": ["else", "include", "use", "forward"]
+      }
+    ],
+
+    "property-no-deprecated": [true, { "severity": "warning" }]
+  },
+
+  "overrides": [
+    {
+      "files": ["packages/tokens/**/*.scss", "packages/css/src/99-debug/**/*.scss"],
+      "rules": {
+        "unit-disallowed-list": null,
+        "declaration-property-value-disallowed-list": null
+      }
+    },
+    {
+      "files": ["packages/css/src/05-utilities/**/*.scss"],
+      "rules": {
+        "declaration-property-value-disallowed-list": {
+          "/^margin|padding|gap|inset/": ["/^\\d+px$/"],
+          "left": ["/.*/"],
+          "right": ["/.*/"],
+          "top": ["/.*/"],
+          "bottom": ["/.*/"]
+        }
+      }
+    }
+  ]
+}
