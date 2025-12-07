@@ -1,0 +1,102 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Avatar component - user/entity thumbnail representation
+// Sizes align to grid
+
+@layer components.tokens {
+  .avatar {
+    --_size: var(--ui-avatar-size, calc(#{t.$unit} * 5));
+    --_bg: var(--ui-avatar-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
+    --_color: var(--ui-avatar-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    --_font-size: var(--ui-avatar-font-size, var(--ui-size-sm, #{t.$size-sm}));
+    --_radius: var(--ui-avatar-radius, 50%);
+  }
+
+  .avatar--xs {
+    --_size: var(--ui-avatar-size-xs, calc(#{t.$unit} * 3));
+    --_font-size: var(--ui-avatar-font-size-xs, var(--ui-size-xs, #{t.$size-xs}));
+  }
+
+  .avatar--sm {
+    --_size: var(--ui-avatar-size-sm, calc(#{t.$unit} * 4));
+    --_font-size: var(--ui-avatar-font-size-sm, var(--ui-size-xs, #{t.$size-xs}));
+  }
+
+  .avatar--lg {
+    --_size: var(--ui-avatar-size-lg, calc(#{t.$unit} * 6));
+    --_font-size: var(--ui-avatar-font-size-lg, var(--ui-size-md, #{t.$size-md}));
+  }
+
+  .avatar--xl {
+    --_size: var(--ui-avatar-size-xl, calc(#{t.$unit} * 8));
+    --_font-size: var(--ui-avatar-font-size-xl, var(--ui-size-lg, #{t.$size-lg}));
+  }
+
+  .avatar--square {
+    --_radius: var(--ui-avatar-radius-square, var(--ui-radius-md, #{t.$radius-md}));
+  }
+}
+
+@layer components.styles {
+  .avatar {
+
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    block-size: var(--_size);
+    inline-size: var(--_size);
+    overflow: hidden;
+
+    font-size: var(--_font-size);
+    font-weight: var(--ui-weight-medium, #{t.$weight-medium});
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--_color);
+
+    background: var(--_bg);
+    border-radius: var(--_radius);
+  }
+
+  .avatar__image {
+    position: absolute;
+    inset: 0;
+
+    block-size: 100%;
+    inline-size: 100%;
+
+    object-fit: cover;
+
+    border-radius: inherit;
+  }
+
+  .avatar__fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    block-size: 100%;
+    inline-size: 100%;
+
+    user-select: none;
+  }
+
+  // Group avatars with overlap
+  .avatar-group {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+
+    > .avatar {
+      margin-inline-start: calc(var(--_size) * -0.25);
+
+      border: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--ui-color-bg, #{t.$color-bg});
+
+      &:last-child {
+        margin-inline-start: 0;
+      }
+    }
+  }
+}
