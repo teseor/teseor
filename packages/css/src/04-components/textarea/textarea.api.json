@@ -1,0 +1,29 @@
+{
+  "name": "textarea",
+  "baseClass": "textarea",
+  "element": "textarea",
+  "description": "Multi-line text input field",
+  "modifiers": {
+    "size": {
+      "values": ["sm", "lg"],
+      "default": null,
+      "description": "Size variant. Default is 4 rows height."
+    },
+    "variant": {
+      "values": ["filled", "ghost"],
+      "default": null,
+      "description": "Visual style. Default is outline with border."
+    },
+    "state": {
+      "values": ["error", "success"],
+      "default": null,
+      "description": "Validation state styling."
+    },
+    "resize": {
+      "values": ["none", "horizontal", "both"],
+      "default": null,
+      "description": "Resize behavior. Default is vertical only."
+    }
+  },
+  "states": ["hover", "focus", "disabled", "readonly"]
+}
