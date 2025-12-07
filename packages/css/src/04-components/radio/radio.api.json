@@ -1,0 +1,19 @@
+{
+  "name": "radio",
+  "baseClass": "radio",
+  "element": "input[type=radio]",
+  "description": "Native radio button with custom styling",
+  "modifiers": {
+    "size": {
+      "values": ["sm", "lg"],
+      "default": null,
+      "description": "Size variant. Default is 20px."
+    },
+    "state": {
+      "values": ["error"],
+      "default": null,
+      "description": "Error state styling."
+    }
+  },
+  "states": ["hover", "focus", "checked", "disabled"]
+}

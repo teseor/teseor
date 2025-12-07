@@ -1,0 +1,121 @@
+{
+  "id": "radio",
+  "type": "component",
+  "title": "Radio",
+  "description": "Native radio button with custom styling. Use for mutually exclusive options within a group.",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            { "tag": "input", "class": "ui-radio", "attrs": { "type": "radio", "name": "demo1" } },
+            {
+              "tag": "input",
+              "class": "ui-radio",
+              "attrs": { "type": "radio", "name": "demo1", "checked": "" }
+            }
+          ],
+          "code": "<input type=\"radio\" class=\"ui-radio\" name=\"group1\">\n<input type=\"radio\" class=\"ui-radio\" name=\"group1\" checked>"
+        }
+      ]
+    },
+    {
+      "title": "Sizes",
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            {
+              "tag": "input",
+              "class": "ui-radio ui-radio--sm",
+              "attrs": { "type": "radio", "name": "sizes", "checked": "" }
+            },
+            {
+              "tag": "input",
+              "class": "ui-radio",
+              "attrs": { "type": "radio", "name": "sizes2", "checked": "" }
+            },
+            {
+              "tag": "input",
+              "class": "ui-radio ui-radio--lg",
+              "attrs": { "type": "radio", "name": "sizes3", "checked": "" }
+            }
+          ],
+          "code": "<input type=\"radio\" class=\"ui-radio ui-radio--sm\" checked>\n<input type=\"radio\" class=\"ui-radio\" checked>\n<input type=\"radio\" class=\"ui-radio ui-radio--lg\" checked>"
+        }
+      ]
+    },
+    {
+      "title": "States",
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            {
+              "tag": "input",
+              "class": "ui-radio",
+              "attrs": { "type": "radio", "name": "states1" }
+            },
+            {
+              "tag": "input",
+              "class": "ui-radio",
+              "attrs": { "type": "radio", "name": "states2", "checked": "" }
+            },
+            {
+              "tag": "input",
+              "class": "ui-radio",
+              "attrs": { "type": "radio", "name": "states3", "disabled": "" }
+            },
+            {
+              "tag": "input",
+              "class": "ui-radio",
+              "attrs": { "type": "radio", "name": "states4", "checked": "", "disabled": "" }
+            }
+          ],
+          "code": "<input type=\"radio\" class=\"ui-radio\">\n<input type=\"radio\" class=\"ui-radio\" checked>\n<input type=\"radio\" class=\"ui-radio\" disabled>\n<input type=\"radio\" class=\"ui-radio\" checked disabled>"
+        }
+      ]
+    },
+    {
+      "title": "Error State",
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            {
+              "tag": "input",
+              "class": "ui-radio ui-radio--error",
+              "attrs": { "type": "radio", "name": "error1" }
+            },
+            {
+              "tag": "input",
+              "class": "ui-radio ui-radio--error",
+              "attrs": { "type": "radio", "name": "error2", "checked": "" }
+            }
+          ],
+          "code": "<input type=\"radio\" class=\"ui-radio ui-radio--error\">\n<input type=\"radio\" class=\"ui-radio ui-radio--error\" checked>"
+        }
+      ]
+    },
+    {
+      "title": "With Label",
+      "examples": [
+        {
+          "html": "<label class=\"ui-cluster\" style=\"gap: var(--ui-space-1); cursor: pointer;\"><input type=\"radio\" class=\"ui-radio\" name=\"labeled\"><span>Option one</span></label>",
+          "code": "<label class=\"ui-cluster\">\n  <input type=\"radio\" class=\"ui-radio\" name=\"group\">\n  <span>Option one</span>\n</label>"
+        }
+      ]
+    },
+    {
+      "title": "Radio Group",
+      "examples": [
+        {
+          "html": "<fieldset style=\"border: none; padding: 0; margin: 0;\"><legend style=\"font-weight: 600; margin-block-end: var(--ui-space-1);\">Choose an option</legend><div class=\"ui-stack\" style=\"--stack-gap: var(--ui-space-1);\"><label class=\"ui-cluster\" style=\"gap: var(--ui-space-1); cursor: pointer;\"><input type=\"radio\" class=\"ui-radio\" name=\"group-demo\" checked><span>Option A</span></label><label class=\"ui-cluster\" style=\"gap: var(--ui-space-1); cursor: pointer;\"><input type=\"radio\" class=\"ui-radio\" name=\"group-demo\"><span>Option B</span></label><label class=\"ui-cluster\" style=\"gap: var(--ui-space-1); cursor: pointer;\"><input type=\"radio\" class=\"ui-radio\" name=\"group-demo\"><span>Option C</span></label></div></fieldset>",
+          "code": "<fieldset>\n  <legend>Choose an option</legend>\n  <div class=\"ui-stack\">\n    <label class=\"ui-cluster\">\n      <input type=\"radio\" class=\"ui-radio\" name=\"group\" checked>\n      <span>Option A</span>\n    </label>\n    <label class=\"ui-cluster\">\n      <input type=\"radio\" class=\"ui-radio\" name=\"group\">\n      <span>Option B</span>\n    </label>\n  </div>\n</fieldset>"
+        }
+      ]
+    }
+  ]
+}
