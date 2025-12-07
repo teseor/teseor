@@ -622,15 +622,19 @@
     <div class="ui-cluster ui-cluster--md">
     <button class="ui-button">Primary</button>
     <button class="ui-button ui-button--secondary">Secondary</button>
+    <button class="ui-button ui-button--outline">Outline</button>
     <button class="ui-button ui-button--ghost">Ghost</button>
     <button class="ui-button ui-button--danger">Danger</button>
+    <button class="ui-button ui-button--link">Link</button>
   </div>
   </div>
   <div class="ui-tabs__panel">
     <pre class="ui-code-block"><code>&lt;button class="ui-button"&gt;Primary&lt;/button&gt;
 &lt;button class="ui-button ui-button--secondary"&gt;Secondary&lt;/button&gt;
+&lt;button class="ui-button ui-button--outline"&gt;Outline&lt;/button&gt;
 &lt;button class="ui-button ui-button--ghost"&gt;Ghost&lt;/button&gt;
 &lt;button class="ui-button ui-button--danger"&gt;Danger&lt;/button&gt;
+&lt;button class="ui-button ui-button--link"&gt;Link&lt;/button&gt;
 </code></pre>
   </div>
   <div class="ui-tabs__panel">
@@ -652,6 +656,37 @@
       <td><code>--button-secondary-text</code></td>
       <td><code>--color-text</code></td>
       <td><code>$color-neutral-900</code></td>
+    </tr>
+  </tbody>
+</table>
+<h5>outline</h5>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Variable</th><th>Default</th><th>Value</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>--button-outline-bg</code></td>
+      <td><code>transparent</code></td>
+      <td><code>transparent</code></td>
+    </tr>
+    <tr>
+      <td><code>--button-outline-bg-hover</code></td>
+      <td><code>--color-primary</code></td>
+      <td><code>hsl($hue-primary 85% 50%)</code></td>
+    </tr>
+    <tr>
+      <td><code>--button-outline-text</code></td>
+      <td><code>--color-primary</code></td>
+      <td><code>hsl($hue-primary 85% 50%)</code></td>
+    </tr>
+    <tr>
+      <td><code>--button-outline-text-hover</code></td>
+      <td><code>--color-text-inverse</code></td>
+      <td><code>$color-neutral-50</code></td>
+    </tr>
+    <tr>
+      <td><code>--button-outline-border</code></td>
+      <td><code>1px solid currentColor</code></td>
+      <td><code>1px solid currentColor</code></td>
     </tr>
   </tbody>
 </table>
@@ -692,6 +727,27 @@
     </tr>
   </tbody>
 </table>
+<h5>link</h5>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Variable</th><th>Default</th><th>Value</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>--button-link-bg</code></td>
+      <td><code>transparent</code></td>
+      <td><code>transparent</code></td>
+    </tr>
+    <tr>
+      <td><code>--button-link-text</code></td>
+      <td><code>--color-primary</code></td>
+      <td><code>hsl($hue-primary 85% 50%)</code></td>
+    </tr>
+    <tr>
+      <td><code>--button-link-text-hover</code></td>
+      <td><code>--color-primary-dark</code></td>
+      <td><code>hsl($hue-primary 85% 40%)</code></td>
+    </tr>
+  </tbody>
+</table>
   </div>
 </div>
 
@@ -706,11 +762,13 @@
     <div class="ui-cluster ui-cluster--md">
     <button class="ui-button">Normal</button>
     <button class="ui-button" disabled>Disabled</button>
+    <button class="ui-button ui-button--loading">Loading</button>
   </div>
   </div>
   <div class="ui-tabs__panel">
     <pre class="ui-code-block"><code>&lt;button class="ui-button"&gt;Normal&lt;/button&gt;
-&lt;button class="ui-button" disabled&gt;Disabled&lt;/button&gt;</code></pre>
+&lt;button class="ui-button" disabled&gt;Disabled&lt;/button&gt;
+&lt;button class="ui-button ui-button--loading"&gt;Loading&lt;/button&gt;</code></pre>
   </div>
   
 </div>
@@ -749,6 +807,59 @@
     <pre class="ui-code-block"><code>&lt;button class="ui-button ui-button--icon ui-button--sm"&gt;X&lt;/button&gt;
 &lt;button class="ui-button ui-button--icon"&gt;+&lt;/button&gt;
 &lt;button class="ui-button ui-button--icon ui-button--lg"&gt;?&lt;/button&gt;
+</code></pre>
+  </div>
+  
+</div>
+
+<h3>With Icon</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-cluster ui-cluster--md">
+    <button class="ui-button"></button>
+    <button class="ui-button ui-button--secondary"></button>
+  </div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;button class="ui-button"&gt;
+  &lt;span class="ui-button__icon ui-button__icon--start"&gt;+&lt;/span&gt;
+  Add Item
+&lt;/button&gt;
+&lt;button class="ui-button ui-button--secondary"&gt;
+  Next
+  &lt;span class="ui-button__icon ui-button__icon--end"&gt;-&gt;&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Radius</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-cluster ui-cluster--md">
+    <button class="ui-button ui-button--radius-none">None</button>
+    <button class="ui-button ui-button--radius-sm">Small</button>
+    <button class="ui-button">Default</button>
+    <button class="ui-button ui-button--radius-lg">Large</button>
+    <button class="ui-button ui-button--radius-full">Pill</button>
+  </div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;button class="ui-button ui-button--radius-none"&gt;None&lt;/button&gt;
+&lt;button class="ui-button ui-button--radius-sm"&gt;Small&lt;/button&gt;
+&lt;button class="ui-button"&gt;Default&lt;/button&gt;
+&lt;button class="ui-button ui-button--radius-lg"&gt;Large&lt;/button&gt;
+&lt;button class="ui-button ui-button--radius-full"&gt;Pill&lt;/button&gt;
 </code></pre>
   </div>
   

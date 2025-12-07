@@ -37,8 +37,10 @@
         "variants": [
           { "mod": "", "label": "Primary" },
           { "mod": "secondary", "label": "Secondary" },
+          { "mod": "outline", "label": "Outline" },
           { "mod": "ghost", "label": "Ghost" },
-          { "mod": "danger", "label": "Danger" }
+          { "mod": "danger", "label": "Danger" },
+          { "mod": "link", "label": "Link" }
         ]
       },
       "examples": [
@@ -47,8 +49,10 @@
           "items": [
             { "tag": "button", "class": "ui-button", "text": "Primary" },
             { "tag": "button", "class": "ui-button ui-button--secondary", "text": "Secondary" },
+            { "tag": "button", "class": "ui-button ui-button--outline", "text": "Outline" },
             { "tag": "button", "class": "ui-button ui-button--ghost", "text": "Ghost" },
-            { "tag": "button", "class": "ui-button ui-button--danger", "text": "Danger" }
+            { "tag": "button", "class": "ui-button ui-button--danger", "text": "Danger" },
+            { "tag": "button", "class": "ui-button ui-button--link", "text": "Link" }
           ],
           "code": "{% for v in variants %}<button class=\"ui-button{% if v.mod %} ui-button--{{ v.mod }}{% endif %}\">{{ v.label }}</button>\n{% endfor %}"
         }
@@ -66,9 +70,10 @@
               "class": "ui-button",
               "text": "Disabled",
               "attrs": { "disabled": "" }
-            }
+            },
+            { "tag": "button", "class": "ui-button ui-button--loading", "text": "Loading" }
           ],
-          "code": "<button class=\"ui-button\">Normal</button>\n<button class=\"ui-button\" disabled>Disabled</button>"
+          "code": "<button class=\"ui-button\">Normal</button>\n<button class=\"ui-button\" disabled>Disabled</button>\n<button class=\"ui-button ui-button--loading\">Loading</button>"
         }
       ]
     },
@@ -101,6 +106,52 @@
             { "tag": "button", "class": "ui-button ui-button--icon ui-button--lg", "text": "?" }
           ],
           "code": "{% for i in icons %}<button class=\"ui-button ui-button--icon{% if i.mod %} ui-button--{{ i.mod }}{% endif %}\">{{ i.text }}</button>\n{% endfor %}"
+        }
+      ]
+    },
+    {
+      "title": "With Icon",
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            {
+              "tag": "button",
+              "class": "ui-button",
+              "html": "<span class=\"ui-button__icon ui-button__icon--start\">+</span> Add Item"
+            },
+            {
+              "tag": "button",
+              "class": "ui-button ui-button--secondary",
+              "html": "Next <span class=\"ui-button__icon ui-button__icon--end\">-></span>"
+            }
+          ],
+          "code": "<button class=\"ui-button\">\n  <span class=\"ui-button__icon ui-button__icon--start\">+</span>\n  Add Item\n</button>\n<button class=\"ui-button ui-button--secondary\">\n  Next\n  <span class=\"ui-button__icon ui-button__icon--end\">-></span>\n</button>"
+        }
+      ]
+    },
+    {
+      "title": "Radius",
+      "data": {
+        "radii": [
+          { "mod": "radius-none", "label": "None" },
+          { "mod": "radius-sm", "label": "Small" },
+          { "mod": "", "label": "Default" },
+          { "mod": "radius-lg", "label": "Large" },
+          { "mod": "radius-full", "label": "Pill" }
+        ]
+      },
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            { "tag": "button", "class": "ui-button ui-button--radius-none", "text": "None" },
+            { "tag": "button", "class": "ui-button ui-button--radius-sm", "text": "Small" },
+            { "tag": "button", "class": "ui-button", "text": "Default" },
+            { "tag": "button", "class": "ui-button ui-button--radius-lg", "text": "Large" },
+            { "tag": "button", "class": "ui-button ui-button--radius-full", "text": "Pill" }
+          ],
+          "code": "{% for r in radii %}<button class=\"ui-button{% if r.mod %} ui-button--{{ r.mod }}{% endif %}\">{{ r.label }}</button>\n{% endfor %}"
         }
       ]
     }
