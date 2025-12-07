@@ -1,0 +1,108 @@
+{
+  "id": "select",
+  "type": "component",
+  "title": "Select",
+  "description": "Native select dropdown with custom styling. Dropdown options use browser default styles.",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "html": "<select class=\"ui-select\"><option value=\"\" disabled selected>Choose option...</option><option value=\"1\">Option 1</option><option value=\"2\">Option 2</option><option value=\"3\">Option 3</option></select>"
+        }
+      ]
+    },
+    {
+      "title": "Sizes",
+      "examples": [
+        {
+          "layout": "stack",
+          "items": [
+            {
+              "tag": "select",
+              "class": "ui-select ui-select--sm",
+              "html": "<option>Small</option><option>Option 2</option>"
+            },
+            {
+              "tag": "select",
+              "class": "ui-select",
+              "html": "<option>Default</option><option>Option 2</option>"
+            },
+            {
+              "tag": "select",
+              "class": "ui-select ui-select--lg",
+              "html": "<option>Large</option><option>Option 2</option>"
+            }
+          ],
+          "code": "<select class=\"ui-select ui-select--sm\">...</select>\n<select class=\"ui-select\">...</select>\n<select class=\"ui-select ui-select--lg\">...</select>"
+        }
+      ]
+    },
+    {
+      "title": "Variants",
+      "examples": [
+        {
+          "layout": "stack",
+          "items": [
+            { "tag": "select", "class": "ui-select", "html": "<option>Outline (default)</option>" },
+            {
+              "tag": "select",
+              "class": "ui-select ui-select--filled",
+              "html": "<option>Filled</option>"
+            },
+            {
+              "tag": "select",
+              "class": "ui-select ui-select--ghost",
+              "html": "<option>Ghost</option>"
+            }
+          ],
+          "code": "<select class=\"ui-select\">...</select>\n<select class=\"ui-select ui-select--filled\">...</select>\n<select class=\"ui-select ui-select--ghost\">...</select>"
+        }
+      ]
+    },
+    {
+      "title": "States",
+      "examples": [
+        {
+          "layout": "stack",
+          "items": [
+            {
+              "tag": "select",
+              "class": "ui-select ui-select--error",
+              "html": "<option>Error state</option>"
+            },
+            {
+              "tag": "select",
+              "class": "ui-select ui-select--success",
+              "html": "<option>Success state</option>"
+            },
+            {
+              "tag": "select",
+              "class": "ui-select",
+              "attrs": { "disabled": "" },
+              "html": "<option>Disabled</option>"
+            }
+          ],
+          "code": "<select class=\"ui-select ui-select--error\">...</select>\n<select class=\"ui-select ui-select--success\">...</select>\n<select class=\"ui-select\" disabled>...</select>"
+        }
+      ]
+    },
+    {
+      "title": "Full Width",
+      "examples": [
+        {
+          "html": "<select class=\"ui-select ui-select--block\"><option value=\"\">Full width select...</option><option value=\"1\">Option 1</option></select>"
+        }
+      ]
+    },
+    {
+      "title": "With Option Groups",
+      "examples": [
+        {
+          "html": "<select class=\"ui-select ui-select--block\"><option value=\"\" disabled selected>Choose a fruit...</option><optgroup label=\"Citrus\"><option value=\"orange\">Orange</option><option value=\"lemon\">Lemon</option></optgroup><optgroup label=\"Berries\"><option value=\"strawberry\">Strawberry</option><option value=\"blueberry\">Blueberry</option></optgroup></select>",
+          "code": "<select class=\"ui-select\">\n  <optgroup label=\"Citrus\">\n    <option>Orange</option>\n    <option>Lemon</option>\n  </optgroup>\n  <optgroup label=\"Berries\">\n    <option>Strawberry</option>\n  </optgroup>\n</select>"
+        }
+      ]
+    }
+  ]
+}

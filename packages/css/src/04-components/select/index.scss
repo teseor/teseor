@@ -1,0 +1,113 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Select component - native select with custom styling
+// Heights align to grid rows, consistent with Input
+
+@layer components.tokens {
+  .select {
+    --_height: var(--ui-select-height, var(--ui-row-2, #{t.$row-2}));
+    --_padding-x: var(--ui-select-padding-x, var(--ui-space-1, #{t.$space-1}));
+    --_font-size: var(--ui-select-font-size, var(--ui-size-sm, #{t.$size-sm}));
+    --_radius: var(--ui-select-radius, var(--ui-radius-md, #{t.$radius-md}));
+    --_bg: var(--ui-select-bg, var(--ui-color-bg, #{t.$color-bg}));
+    --_border-color: var(--ui-select-border-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
+    --_border-color-focus: var(--ui-select-border-color-focus, var(--ui-color-primary, #{t.$color-primary}));
+    --_text: var(--ui-select-text, var(--ui-color-text, #{t.$color-text}));
+    --_icon-color: var(--ui-select-icon-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+  }
+
+  // Size variants
+  .select--sm {
+    --_height: var(--ui-select-height-sm, calc(#{t.$row} * 1.5));
+    --_font-size: var(--ui-select-font-size-sm, var(--ui-size-xs, #{t.$size-xs}));
+  }
+
+  .select--lg {
+    --_height: var(--ui-select-height-lg, calc(#{t.$row} * 2.5));
+    --_padding-x: var(--ui-select-padding-x-lg, var(--ui-space-2, #{t.$space-2}));
+    --_font-size: var(--ui-select-font-size-lg, var(--ui-size-md, #{t.$size-md}));
+  }
+
+  // Style variants
+  .select--filled {
+    --_bg: var(--ui-select-filled-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+    --_border-color: transparent;
+  }
+
+  .select--ghost {
+    --_bg: transparent;
+    --_border-color: transparent;
+  }
+
+  // State variants
+  .select--error {
+    --_border-color: var(--ui-select-error-border, var(--ui-color-danger, #{t.$color-danger}));
+    --_border-color-focus: var(--ui-select-error-border, var(--ui-color-danger, #{t.$color-danger}));
+  }
+
+  .select--success {
+    --_border-color: var(--ui-select-success-border, var(--ui-color-success, #{t.$color-success}));
+    --_border-color-focus: var(--ui-select-success-border, var(--ui-color-success, #{t.$color-success}));
+  }
+}
+
+@layer components.styles {
+  .select {
+
+    display: inline-block;
+
+    block-size: var(--_height);
+    // Extra padding for arrow
+    padding-inline-start: var(--_padding-x);
+    padding-inline-end: calc(var(--_height) - var(--ui-space-half, #{t.$space-0}));
+
+    font-family: inherit;
+    font-size: var(--_font-size);
+    line-height: 1;
+    color: var(--_text);
+
+    background-color: var(--_bg);
+    // Chevron down arrow
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    border: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_border-color);
+    border-radius: var(--_radius);
+    cursor: pointer;
+    // Reset native select
+    appearance: none;
+
+    transition:
+      border-color var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease),
+      box-shadow var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease);
+    background-repeat: no-repeat;
+    background-position: right var(--ui-space-half, #{t.$space-0}) center;
+    background-size: calc(var(--_height) * 0.5);
+
+    &:hover:not(:disabled, :focus) {
+      border-color: var(--ui-color-border-strong, #{t.$color-border-strong});
+    }
+
+    &:focus,
+    &--focus {
+      border-color: var(--_border-color-focus);
+      outline: none;
+      box-shadow: 0 0 0 var(--ui-border-width-md, #{t.$border-width-md}) var(--ui-color-focus, #{t.$color-focus});
+    }
+
+    &:disabled,
+    &--disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    // Full width
+    &--block {
+      inline-size: 100%;
+    }
+
+    // Placeholder option styling
+    &:invalid,
+    &--placeholder {
+      color: var(--ui-color-text-muted, #{t.$color-text-muted});
+    }
+  }
+}
