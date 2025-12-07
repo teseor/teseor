@@ -31,7 +31,7 @@ jobs:
         run: pnpm install
 
       - name: Build packages
-        run: pnpm nx run-many -t build --projects=tokens,css
+        run: pnpm nx build css
 
       - name: Build docs
         run: pnpm --filter docs build
