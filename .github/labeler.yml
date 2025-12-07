@@ -1,0 +1,40 @@
+"pkg: css":
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/css/**
+
+"pkg: tokens":
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/tokens/**
+
+"pkg: docs":
+  - changed-files:
+      - any-glob-to-any-file:
+          - apps/docs/**
+
+"type: ci":
+  - changed-files:
+      - any-glob-to-any-file:
+          - .github/**
+
+"type: docs":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "**/*.md"
+          - apps/docs/**
+
+"component: button":
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/css/src/04-components/button/**
+
+"component: card":
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/css/src/04-components/card/**
+
+"component: layout":
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/css/src/03-layout/**

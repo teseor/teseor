@@ -1,0 +1,85 @@
+# Package scope (auto-labeled)
+- name: "pkg: css"
+  color: "C4B5FD"
+  description: Changes in packages/css
+- name: "pkg: tokens"
+  color: "DDD6FE"
+  description: Changes in packages/tokens
+- name: "pkg: docs"
+  color: "BFDBFE"
+  description: Changes in apps/docs
+
+# Type
+- name: "type: feature"
+  color: "A7F3D0"
+  description: New feature or enhancement
+- name: "type: bug"
+  color: "FCA5A5"
+  description: Bug fix
+- name: "type: docs"
+  color: "99F6E4"
+  description: Documentation only
+- name: "type: refactor"
+  color: "E5E7EB"
+  description: Code refactoring
+- name: "type: test"
+  color: "FDE68A"
+  description: Tests only
+- name: "type: ci"
+  color: "F3F4F6"
+  description: CI/CD changes
+
+# Component
+- name: "component: button"
+  color: "E9D5FF"
+  description: Button component
+- name: "component: card"
+  color: "F3E8FF"
+  description: Card component
+- name: "component: layout"
+  color: "FCE7F3"
+  description: Layout primitives
+
+# Status
+- name: "status: wip"
+  color: "FEF3C7"
+  description: Work in progress
+- name: "status: blocked"
+  color: "FED7D7"
+  description: Blocked
+- name: "status: needs-review"
+  color: "C6F6D5"
+  description: Ready for review
+
+# Priority
+- name: "priority: high"
+  color: "FED7AA"
+  description: High priority
+- name: "priority: low"
+  color: "E5E7EB"
+  description: Low priority
+
+# Good for contributors
+- name: "good first issue"
+  color: "7DD3FC"
+  description: Good for newcomers
+- name: "help wanted"
+  color: "67E8F9"
+  description: Extra attention needed
+
+# Meta
+- name: "breaking change"
+  color: "F87171"
+  description: Breaking change
+- name: "dependencies"
+  color: "BFDBFE"
+  description: Dependency updates
+- name: "duplicate"
+  color: "D1D5DB"
+  description: Duplicate issue
+- name: "invalid"
+  color: "E5E7EB"
+  description: Invalid issue
+- name: "wontfix"
+  color: "F3F4F6"
+  description: Will not fix
