@@ -1,0 +1,108 @@
+{
+  "id": "checkbox",
+  "type": "component",
+  "title": "Checkbox",
+  "description": "Native checkbox input with custom styling. Supports checked, indeterminate, and disabled states.",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            { "tag": "input", "class": "ui-checkbox", "attrs": { "type": "checkbox" } },
+            {
+              "tag": "input",
+              "class": "ui-checkbox",
+              "attrs": { "type": "checkbox", "checked": "" }
+            }
+          ],
+          "code": "<input type=\"checkbox\" class=\"ui-checkbox\">\n<input type=\"checkbox\" class=\"ui-checkbox\" checked>"
+        }
+      ]
+    },
+    {
+      "title": "Sizes",
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            {
+              "tag": "input",
+              "class": "ui-checkbox ui-checkbox--sm",
+              "attrs": { "type": "checkbox", "checked": "" }
+            },
+            {
+              "tag": "input",
+              "class": "ui-checkbox",
+              "attrs": { "type": "checkbox", "checked": "" }
+            },
+            {
+              "tag": "input",
+              "class": "ui-checkbox ui-checkbox--lg",
+              "attrs": { "type": "checkbox", "checked": "" }
+            }
+          ],
+          "code": "<input type=\"checkbox\" class=\"ui-checkbox ui-checkbox--sm\" checked>\n<input type=\"checkbox\" class=\"ui-checkbox\" checked>\n<input type=\"checkbox\" class=\"ui-checkbox ui-checkbox--lg\" checked>"
+        }
+      ]
+    },
+    {
+      "title": "States",
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            { "tag": "input", "class": "ui-checkbox", "attrs": { "type": "checkbox" } },
+            {
+              "tag": "input",
+              "class": "ui-checkbox",
+              "attrs": { "type": "checkbox", "checked": "" }
+            },
+            {
+              "tag": "input",
+              "class": "ui-checkbox",
+              "attrs": { "type": "checkbox", "disabled": "" }
+            },
+            {
+              "tag": "input",
+              "class": "ui-checkbox",
+              "attrs": { "type": "checkbox", "checked": "", "disabled": "" }
+            }
+          ],
+          "code": "<input type=\"checkbox\" class=\"ui-checkbox\">\n<input type=\"checkbox\" class=\"ui-checkbox\" checked>\n<input type=\"checkbox\" class=\"ui-checkbox\" disabled>\n<input type=\"checkbox\" class=\"ui-checkbox\" checked disabled>"
+        }
+      ]
+    },
+    {
+      "title": "Error State",
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            {
+              "tag": "input",
+              "class": "ui-checkbox ui-checkbox--error",
+              "attrs": { "type": "checkbox" }
+            },
+            {
+              "tag": "input",
+              "class": "ui-checkbox ui-checkbox--error",
+              "attrs": { "type": "checkbox", "checked": "" }
+            }
+          ],
+          "code": "<input type=\"checkbox\" class=\"ui-checkbox ui-checkbox--error\">\n<input type=\"checkbox\" class=\"ui-checkbox ui-checkbox--error\" checked>"
+        }
+      ]
+    },
+    {
+      "title": "With Label",
+      "examples": [
+        {
+          "html": "<label class=\"ui-cluster\" style=\"gap: var(--ui-space-1); cursor: pointer;\"><input type=\"checkbox\" class=\"ui-checkbox\"><span>Accept terms and conditions</span></label>",
+          "code": "<label class=\"ui-cluster\">\n  <input type=\"checkbox\" class=\"ui-checkbox\">\n  <span>Accept terms</span>\n</label>"
+        }
+      ]
+    }
+  ]
+}
