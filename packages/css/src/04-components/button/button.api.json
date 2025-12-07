@@ -10,9 +10,18 @@
       "description": "Size variant. Default (no modifier) is 32px / 2 rows."
     },
     "variant": {
-      "values": ["secondary", "ghost", "danger"],
+      "values": ["secondary", "outline", "ghost", "danger", "link"],
       "default": null,
       "description": "Visual style. Default (no modifier) is primary."
+    },
+    "radius": {
+      "values": ["none", "sm", "lg", "full"],
+      "default": null,
+      "description": "Border radius override. Default is medium."
+    },
+    "loading": {
+      "type": "boolean",
+      "description": "Loading state with spinner animation."
     },
     "block": {
       "type": "boolean",
@@ -45,8 +54,31 @@
         "bg-hover": "--color-border-strong",
         "text": "--color-text"
       },
+      "outline": {
+        "bg": "transparent",
+        "bg-hover": "--color-primary",
+        "text": "--color-primary",
+        "text-hover": "--color-text-inverse",
+        "border": "1px solid currentColor"
+      },
       "ghost": { "bg": "transparent", "bg-hover": "--color-bg-subtle", "text": "--color-primary" },
-      "danger": { "bg": "--color-danger", "bg-hover": "--color-danger-dark" }
+      "danger": { "bg": "--color-danger", "bg-hover": "--color-danger-dark" },
+      "link": {
+        "bg": "transparent",
+        "text": "--color-primary",
+        "text-hover": "--color-primary-dark"
+      }
+    }
+  },
+  "elements": {
+    "icon": {
+      "description": "Icon element inside button",
+      "modifiers": {
+        "position": {
+          "values": ["start", "end"],
+          "description": "Icon position relative to text"
+        }
+      }
     }
   }
 }
