@@ -5,6 +5,9 @@
   "description": "Vertical layout with consistent gap.",
   "sections": [
     {
+      "data": {
+        "items": ["Item 1", "Item 2", "Item 3"]
+      },
       "examples": [
         {
           "items": [
@@ -39,7 +42,7 @@
               ]
             }
           ],
-          "code": "<div class=\"ui-stack ui-stack--sm\">\n  <div>Item 1</div>\n  <div>Item 2</div>\n  <div>Item 3</div>\n</div>"
+          "code": "<div class=\"ui-stack ui-stack--sm\">\n{% for item in items %}  <div>{{ item }}</div>\n{% endfor %}</div>"
         }
       ]
     }

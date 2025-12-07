@@ -5,6 +5,10 @@
   "description": "CSS Grid with column variants.",
   "sections": [
     {
+      "data": {
+        "cols": 3,
+        "items": [1, 2, 3]
+      },
       "examples": [
         {
           "items": [
@@ -39,7 +43,7 @@
               ]
             }
           ],
-          "code": "<div class=\"ui-grid ui-grid--3\">\n  <div>1</div>\n  <div>2</div>\n  <div>3</div>\n</div>"
+          "code": "<div class=\"ui-grid ui-grid--{{ cols }}\">\n{% for n in items %}  <div>{{ n }}</div>\n{% endfor %}</div>"
         }
       ]
     }

@@ -3,19 +3,29 @@
   "sections": [
     {
       "title": "Default",
+      "data": {
+        "tabs": [
+          { "label": "Tab 1", "active": true, "content": "Panel 1 content" },
+          { "label": "Tab 2", "active": false, "content": "Panel 2 content" },
+          { "label": "Tab 3", "active": false, "content": "Panel 3 content" }
+        ]
+      },
       "examples": [
         {
           "html": "<div class=\"ui-tabs\"><div class=\"ui-tabs__list\"><button class=\"ui-tabs__tab ui-tabs__tab--active\">Tab 1</button><button class=\"ui-tabs__tab\">Tab 2</button><button class=\"ui-tabs__tab\">Tab 3</button></div><div class=\"ui-tabs__panel ui-tabs__panel--active\">Panel 1 content</div><div class=\"ui-tabs__panel\">Panel 2 content</div><div class=\"ui-tabs__panel\">Panel 3 content</div></div>",
-          "code": "<div class=\"ui-tabs\">\n  <div class=\"ui-tabs__list\">\n    <button class=\"ui-tabs__tab ui-tabs__tab--active\">Tab 1</button>\n    <button class=\"ui-tabs__tab\">Tab 2</button>\n    <button class=\"ui-tabs__tab\">Tab 3</button>\n  </div>\n  <div class=\"ui-tabs__panel ui-tabs__panel--active\">Panel 1 content</div>\n  <div class=\"ui-tabs__panel\">Panel 2 content</div>\n  <div class=\"ui-tabs__panel\">Panel 3 content</div>\n</div>"
+          "code": "<div class=\"ui-tabs\">\n  <div class=\"ui-tabs__list\">\n{% for t in tabs %}    <button class=\"ui-tabs__tab{% if t.active %} ui-tabs__tab--active{% endif %}\">{{ t.label }}</button>\n{% endfor %}  </div>\n{% for t in tabs %}  <div class=\"ui-tabs__panel{% if t.active %} ui-tabs__panel--active{% endif %}\">{{ t.content }}</div>\n{% endfor %}</div>"
         }
       ]
     },
     {
       "title": "Two Tabs",
+      "data": {
+        "tabs": [{ "label": "Preview", "active": true }, { "label": "Code", "active": false }]
+      },
       "examples": [
         {
           "html": "<div class=\"ui-tabs\"><div class=\"ui-tabs__list\"><button class=\"ui-tabs__tab ui-tabs__tab--active\">Preview</button><button class=\"ui-tabs__tab\">Code</button></div><div class=\"ui-tabs__panel ui-tabs__panel--active\"><div class=\"ui-card\">Preview content goes here</div></div><div class=\"ui-tabs__panel\"><pre class=\"ui-code-block\"><code>&lt;div&gt;Code snippet&lt;/div&gt;</code></pre></div></div>",
-          "code": "<div class=\"ui-tabs\">\n  <div class=\"ui-tabs__list\">\n    <button class=\"ui-tabs__tab ui-tabs__tab--active\">Preview</button>\n    <button class=\"ui-tabs__tab\">Code</button>\n  </div>\n  <div class=\"ui-tabs__panel ui-tabs__panel--active\">\n    <div class=\"ui-card\">Preview content</div>\n  </div>\n  <div class=\"ui-tabs__panel\">\n    <pre class=\"ui-code-block\"><code>...</code></pre>\n  </div>\n</div>"
+          "code": "<div class=\"ui-tabs\">\n  <div class=\"ui-tabs__list\">\n{% for t in tabs %}    <button class=\"ui-tabs__tab{% if t.active %} ui-tabs__tab--active{% endif %}\">{{ t.label }}</button>\n{% endfor %}  </div>\n  <div class=\"ui-tabs__panel ui-tabs__panel--active\">...</div>\n  <div class=\"ui-tabs__panel\">...</div>\n</div>"
         }
       ]
     }

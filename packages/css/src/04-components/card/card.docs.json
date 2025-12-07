@@ -14,6 +14,13 @@
     },
     {
       "title": "Background Variants",
+      "data": {
+        "variants": [
+          { "mod": "", "label": "Default background" },
+          { "mod": "subtle", "label": "Subtle background" },
+          { "mod": "muted", "label": "Muted background" }
+        ]
+      },
       "examples": [
         {
           "layout": "stack",
@@ -22,12 +29,20 @@
             { "tag": "div", "class": "ui-card ui-card--subtle", "text": "Subtle background" },
             { "tag": "div", "class": "ui-card ui-card--muted", "text": "Muted background" }
           ],
-          "code": "<div class=\"ui-card\">Default</div>\n<div class=\"ui-card ui-card--subtle\">Subtle</div>\n<div class=\"ui-card ui-card--muted\">Muted</div>"
+          "code": "{% for v in variants %}<div class=\"ui-card{% if v.mod %} ui-card--{{ v.mod }}{% endif %}\">{{ v.label }}</div>\n{% endfor %}"
         }
       ]
     },
     {
       "title": "Padding Variants",
+      "data": {
+        "sizes": [
+          { "mod": "sm", "label": "Small padding" },
+          { "mod": "", "label": "Default padding" },
+          { "mod": "lg", "label": "Large padding" },
+          { "mod": "flush", "label": "No padding (flush)" }
+        ]
+      },
       "examples": [
         {
           "layout": "stack",
@@ -37,7 +52,7 @@
             { "tag": "div", "class": "ui-card ui-card--lg", "text": "Large padding" },
             { "tag": "div", "class": "ui-card ui-card--flush", "text": "No padding (flush)" }
           ],
-          "code": "<div class=\"ui-card ui-card--sm\">Small</div>\n<div class=\"ui-card\">Default</div>\n<div class=\"ui-card ui-card--lg\">Large</div>\n<div class=\"ui-card ui-card--flush\">Flush</div>"
+          "code": "{% for s in sizes %}<div class=\"ui-card{% if s.mod %} ui-card--{{ s.mod }}{% endif %}\">{{ s.label }}</div>\n{% endfor %}"
         }
       ]
     }
