@@ -16,6 +16,7 @@ storybook-static
 coverage
 test-results
 playwright-report
+.lostpixel
 
 # Environment
 .env

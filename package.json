@@ -47,6 +47,7 @@
     "@vituum/vite-plugin-pug": "^1.1.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.2.11",
+    "lost-pixel": "^3.22.0",
     "nx": "^20.2.3",
     "playwright": "^1.57.0",
     "postcss": "^8.5.6",

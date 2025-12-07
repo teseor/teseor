@@ -1,6 +1,8 @@
-import { readFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import type { Page } from '@playwright/test';
+
+const LOSTPIXEL_DIR = resolve(__dirname, '../../.lostpixel');
 import type { ComponentAPI } from './api-types';
 import { generateVariationsHtml } from './html-generator';
 import { scaffoldCss } from './scaffold';
@@ -45,4 +47,10 @@ export async function setupVisualTestFromApi(page: Page, apiPath: string): Promi
   const api = loadComponentApi(apiPath);
   const html = generateVariationsHtml(api);
   await setupVisualTest(page, { html });
+}
+
+export async function saveForLostPixel(page: Page, name: string): Promise<void> {
+  mkdirSync(LOSTPIXEL_DIR, { recursive: true });
+  const screenshot = await page.screenshot({ fullPage: true });
+  writeFileSync(resolve(LOSTPIXEL_DIR, `${name}.png`), screenshot);
 }
