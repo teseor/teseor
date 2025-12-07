@@ -1,0 +1,28 @@
+{
+  "name": "select",
+  "baseClass": "select",
+  "element": "select",
+  "description": "Native select dropdown with custom styling",
+  "modifiers": {
+    "size": {
+      "values": ["sm", "lg"],
+      "default": null,
+      "description": "Size variant. Default is 32px / 2 rows."
+    },
+    "variant": {
+      "values": ["filled", "ghost"],
+      "default": null,
+      "description": "Visual style. Default is outline with border."
+    },
+    "state": {
+      "values": ["error", "success"],
+      "default": null,
+      "description": "Validation state styling."
+    },
+    "block": {
+      "type": "boolean",
+      "description": "Full width select."
+    }
+  },
+  "states": ["hover", "focus", "disabled"]
+}
