@@ -55,6 +55,7 @@ jobs:
           cache: pnpm
 
       - run: pnpm install
+      - run: npx playwright install chromium
       - run: pnpm nx build css
       - run: pnpm test
 
