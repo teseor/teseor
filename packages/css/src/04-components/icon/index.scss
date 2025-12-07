@@ -10,23 +10,23 @@
   }
 
   .icon--xs {
-    --_size: var(--ui-icon-size-xs, calc(#{t.$unit} * 1.5));
+    --_size: var(--ui-icon-size-xs, calc(#{t.$unit} * 2));
   }
 
   .icon--sm {
-    --_size: var(--ui-icon-size-sm, calc(#{t.$unit} * 2));
+    --_size: var(--ui-icon-size-sm, calc(#{t.$unit} * 3));
   }
 
   .icon--md {
-    --_size: var(--ui-icon-size-md, calc(#{t.$unit} * 2.5));
+    --_size: var(--ui-icon-size-md, calc(#{t.$unit} * 4));
   }
 
   .icon--lg {
-    --_size: var(--ui-icon-size-lg, calc(#{t.$unit} * 3));
+    --_size: var(--ui-icon-size-lg, calc(#{t.$unit} * 5));
   }
 
   .icon--xl {
-    --_size: var(--ui-icon-size-xl, calc(#{t.$unit} * 4));
+    --_size: var(--ui-icon-size-xl, calc(#{t.$unit} * 6));
   }
 
   // Stroke width variants (for stroke-based icons like Lucide)
