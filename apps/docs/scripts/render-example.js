@@ -1,4 +1,5 @@
 import { generateCode, renderItem } from './render-item.js';
+import { processTemplate } from './template-processor.js';
 
 /**
  * Layout class mapping
@@ -14,11 +15,12 @@ const LAYOUT_CLASSES = {
  * @param {import('../src/types/docs-schema').Example} example
  * @param {object} [options]
  * @param {string} [options.themingHtml] - Optional theming HTML to add as third tab
+ * @param {object} [options.data] - Template data for code examples
  * @returns {string}
  */
 export function renderExample(example, options = {}) {
   const { layout, items, html, code } = example;
-  const { themingHtml } = options;
+  const { themingHtml, data } = options;
 
   let previewHtml = '';
 
@@ -37,8 +39,11 @@ export function renderExample(example, options = {}) {
     previewHtml = html;
   }
 
-  // Generate code snippet
-  const codeSnippet = code || (items ? generateCode(items) : html || '');
+  // Generate code snippet - process templates if data provided
+  let codeSnippet = code || (items ? generateCode(items) : html || '');
+  if (data && Object.keys(data).length > 0) {
+    codeSnippet = processTemplate(codeSnippet, data);
+  }
   const escapedCode = escapeHtml(codeSnippet);
 
   // Build tabs - optionally include Theming tab

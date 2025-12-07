@@ -12,6 +12,13 @@
     },
     {
       "title": "Sizes",
+      "data": {
+        "sizes": [
+          { "mod": "sm", "label": "Small (24px)" },
+          { "mod": "", "label": "Default (32px)" },
+          { "mod": "lg", "label": "Large (40px)" }
+        ]
+      },
       "examples": [
         {
           "layout": "cluster",
@@ -20,12 +27,20 @@
             { "tag": "button", "class": "ui-button", "text": "Default (32px)" },
             { "tag": "button", "class": "ui-button ui-button--lg", "text": "Large (40px)" }
           ],
-          "code": "<button class=\"ui-button ui-button--sm\">Small</button>\n<button class=\"ui-button\">Default</button>\n<button class=\"ui-button ui-button--lg\">Large</button>"
+          "code": "{% for s in sizes %}<button class=\"ui-button{% if s.mod %} ui-button--{{ s.mod }}{% endif %}\">{{ s.label }}</button>\n{% endfor %}"
         }
       ]
     },
     {
       "title": "Variants",
+      "data": {
+        "variants": [
+          { "mod": "", "label": "Primary" },
+          { "mod": "secondary", "label": "Secondary" },
+          { "mod": "ghost", "label": "Ghost" },
+          { "mod": "danger", "label": "Danger" }
+        ]
+      },
       "examples": [
         {
           "layout": "cluster",
@@ -35,7 +50,7 @@
             { "tag": "button", "class": "ui-button ui-button--ghost", "text": "Ghost" },
             { "tag": "button", "class": "ui-button ui-button--danger", "text": "Danger" }
           ],
-          "code": "<button class=\"ui-button\">Primary</button>\n<button class=\"ui-button ui-button--secondary\">Secondary</button>\n<button class=\"ui-button ui-button--ghost\">Ghost</button>\n<button class=\"ui-button ui-button--danger\">Danger</button>"
+          "code": "{% for v in variants %}<button class=\"ui-button{% if v.mod %} ui-button--{{ v.mod }}{% endif %}\">{{ v.label }}</button>\n{% endfor %}"
         }
       ]
     },
@@ -52,7 +67,8 @@
               "text": "Disabled",
               "attrs": { "disabled": "" }
             }
-          ]
+          ],
+          "code": "<button class=\"ui-button\">Normal</button>\n<button class=\"ui-button\" disabled>Disabled</button>"
         }
       ]
     },
@@ -69,6 +85,13 @@
     },
     {
       "title": "Icon Button",
+      "data": {
+        "icons": [
+          { "mod": "sm", "text": "X" },
+          { "mod": "", "text": "+" },
+          { "mod": "lg", "text": "?" }
+        ]
+      },
       "examples": [
         {
           "layout": "cluster",
@@ -77,7 +100,7 @@
             { "tag": "button", "class": "ui-button ui-button--icon", "text": "+" },
             { "tag": "button", "class": "ui-button ui-button--icon ui-button--lg", "text": "?" }
           ],
-          "code": "<button class=\"ui-button ui-button--icon\">+</button>"
+          "code": "{% for i in icons %}<button class=\"ui-button ui-button--icon{% if i.mod %} ui-button--{{ i.mod }}{% endif %}\">{{ i.text }}</button>\n{% endfor %}"
         }
       ]
     }

@@ -36,6 +36,8 @@ export interface Section {
   title?: string;
   /** Section description */
   description?: string;
+  /** Template data for code examples (Nunjucks) */
+  data?: Record<string, unknown>;
   /** Examples to render */
   examples: Example[];
 }

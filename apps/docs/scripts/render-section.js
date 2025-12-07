@@ -127,7 +127,7 @@ function renderVarsGroup(groupName, groupVars, componentName, tokens) {
  * @returns {string}
  */
 export function renderSection(section, options = {}) {
-  const { title, description, examples } = section;
+  const { title, description, examples, data } = section;
   const { vars, componentName, isFirstSection } = options;
 
   const parts = [];
@@ -155,13 +155,13 @@ export function renderSection(section, options = {}) {
     );
   }
 
-  // Render examples - first example gets theming tab
+  // Render examples - first example gets theming tab, all get data
   examples.forEach((example, index) => {
+    const exampleOptions = { data };
     if (index === 0 && themingHtml) {
-      parts.push(renderExample(example, { themingHtml }));
-    } else {
-      parts.push(renderExample(example));
+      exampleOptions.themingHtml = themingHtml;
     }
+    parts.push(renderExample(example, exampleOptions));
   });
 
   return parts.join('\n');

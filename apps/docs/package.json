@@ -14,7 +14,8 @@
   },
   "dependencies": {
     "@ui-lib/css": "workspace:*",
-    "@ui-lib/tokens": "workspace:*"
+    "@ui-lib/tokens": "workspace:*",
+    "nunjucks": "^3.2.4"
   },
   "devDependencies": {
     "concurrently": "^9.2.1",
