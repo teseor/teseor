@@ -1,0 +1,13 @@
+// Border and surface mixins - shared by components and utilities
+
+@mixin border($width: var(--ui-border-width-sm), $color: var(--ui-color-border)) {
+  border: $width solid $color;
+}
+
+@mixin rounded($size: var(--ui-radius-md)) {
+  border-radius: $size;
+}
+
+@mixin surface($bg: var(--ui-color-bg)) {
+  background: $bg;
+}

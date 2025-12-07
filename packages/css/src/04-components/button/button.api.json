@@ -23,5 +23,30 @@
       "description": "Icon-only button with square dimensions."
     }
   },
-  "states": ["hover", "focus", "active", "disabled"]
+  "states": ["hover", "focus", "active", "disabled"],
+  "vars": {
+    "base": {
+      "height": "--row-2",
+      "padding-x": "--space-2",
+      "font-size": "--size-sm",
+      "font-weight": "--weight-medium",
+      "radius": "--radius-md",
+      "bg": "--color-primary",
+      "bg-hover": "--color-primary-dark",
+      "text": "--color-text-inverse"
+    },
+    "size": {
+      "sm": { "height": "calc(--row * 1.5)", "font-size": "--size-xs" },
+      "lg": { "height": "calc(--row * 2.5)", "padding-x": "--space-3", "font-size": "--size-md" }
+    },
+    "variant": {
+      "secondary": {
+        "bg": "--color-bg-muted",
+        "bg-hover": "--color-border-strong",
+        "text": "--color-text"
+      },
+      "ghost": { "bg": "transparent", "bg-hover": "--color-bg-subtle", "text": "--color-primary" },
+      "danger": { "bg": "--color-danger", "bg-hover": "--color-danger-dark" }
+    }
+  }
 }

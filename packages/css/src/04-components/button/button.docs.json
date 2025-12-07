@@ -2,6 +2,15 @@
   "api": "./button.api.json",
   "sections": [
     {
+      "title": "Default",
+      "examples": [
+        {
+          "items": [{ "tag": "button", "class": "ui-button", "text": "Primary Button" }],
+          "code": "<button class=\"ui-button\">Primary Button</button>"
+        }
+      ]
+    },
+    {
       "title": "Sizes",
       "examples": [
         {
