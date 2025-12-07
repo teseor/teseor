@@ -1,0 +1,75 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Icon component - SVG icon sizing and styling
+// Works with any SVG icon set (Lucide, Heroicons, etc.)
+
+@layer components.tokens {
+  .icon {
+    --_size: var(--ui-icon-size, 1em);
+    --_stroke: var(--ui-icon-stroke, 2);
+  }
+
+  .icon--xs {
+    --_size: var(--ui-icon-size-xs, calc(#{t.$unit} * 1.5));
+  }
+
+  .icon--sm {
+    --_size: var(--ui-icon-size-sm, calc(#{t.$unit} * 2));
+  }
+
+  .icon--md {
+    --_size: var(--ui-icon-size-md, calc(#{t.$unit} * 2.5));
+  }
+
+  .icon--lg {
+    --_size: var(--ui-icon-size-lg, calc(#{t.$unit} * 3));
+  }
+
+  .icon--xl {
+    --_size: var(--ui-icon-size-xl, calc(#{t.$unit} * 4));
+  }
+
+  // Stroke width variants (for stroke-based icons like Lucide)
+  .icon--stroke-thin {
+    --_stroke: var(--ui-icon-stroke-thin, 1);
+  }
+
+  .icon--stroke-thick {
+    --_stroke: var(--ui-icon-stroke-thick, 2.5);
+  }
+}
+
+@layer components.styles {
+  .icon {
+    display: inline-block;
+    flex-shrink: 0;
+
+    block-size: var(--_size);
+    inline-size: var(--_size);
+
+    vertical-align: middle;
+    color: currentcolor;
+    fill: none;
+    stroke: currentcolor;
+    stroke-width: var(--_stroke);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    // For filled icons
+    &--filled {
+      fill: currentcolor;
+      stroke: none;
+    }
+
+    // Spin animation for loading states
+    &--spin {
+      animation: icon-spin 1s linear infinite;
+    }
+  }
+
+  @keyframes icon-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}

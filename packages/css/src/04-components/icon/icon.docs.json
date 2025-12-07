@@ -1,0 +1,113 @@
+{
+  "id": "icon",
+  "type": "component",
+  "title": "Icon",
+  "description": "CSS classes for sizing and styling SVG icons. Works with any stroke-based icon set like Lucide, Heroicons, or Feather.",
+  "sections": [
+    {
+      "title": "Basic Usage",
+      "description": "Add the `ui-icon` class to any SVG. Icons inherit color from their parent via `currentColor`.",
+      "examples": [
+        {
+          "html": "<svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M12 5v14M5 12h14\"/></svg>"
+        }
+      ]
+    },
+    {
+      "title": "With Lucide Icons",
+      "description": "Recommended icon set. Copy SVG from lucide.dev and add the ui-icon class.",
+      "examples": [
+        {
+          "html": "<div class=\"ui-cluster ui-cluster--gap-2\"><svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/><polyline points=\"9 22 9 12 15 12 15 22\"/></svg><svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg><svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9\"/><path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\"/></svg><svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2\"/><circle cx=\"12\" cy=\"7\" r=\"4\"/></svg></div>"
+        }
+      ]
+    },
+    {
+      "title": "Sizes",
+      "data": {
+        "sizes": [
+          { "mod": "xs", "label": "1.5u" },
+          { "mod": "sm", "label": "2u" },
+          { "mod": "md", "label": "2.5u" },
+          { "mod": "lg", "label": "3u" },
+          { "mod": "xl", "label": "4u" }
+        ]
+      },
+      "examples": [
+        {
+          "html": "<div class=\"ui-cluster ui-cluster--gap-2\" style=\"align-items: center\">{% for s in sizes %}<div class=\"ui-stack ui-stack--gap-half\" style=\"align-items: center\"><svg class=\"ui-icon ui-icon--{{ s.mod }}\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg><small>{{ s.label }}</small></div>{% endfor %}</div>"
+        }
+      ]
+    },
+    {
+      "title": "Stroke Width",
+      "description": "Adjust stroke thickness for visual weight.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "svg",
+              "class": "ui-icon ui-icon--lg ui-icon--stroke-thin",
+              "attrs": { "xmlns": "http://www.w3.org/2000/svg", "viewBox": "0 0 24 24" },
+              "innerHTML": "<circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/>"
+            },
+            {
+              "tag": "svg",
+              "class": "ui-icon ui-icon--lg",
+              "attrs": { "xmlns": "http://www.w3.org/2000/svg", "viewBox": "0 0 24 24" },
+              "innerHTML": "<circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/>"
+            },
+            {
+              "tag": "svg",
+              "class": "ui-icon ui-icon--lg ui-icon--stroke-thick",
+              "attrs": { "xmlns": "http://www.w3.org/2000/svg", "viewBox": "0 0 24 24" },
+              "innerHTML": "<circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/>"
+            }
+          ],
+          "layout": "cluster"
+        }
+      ]
+    },
+    {
+      "title": "Filled Icons",
+      "description": "For solid icons, use the `--filled` modifier.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "svg",
+              "class": "ui-icon ui-icon--lg",
+              "attrs": { "xmlns": "http://www.w3.org/2000/svg", "viewBox": "0 0 24 24" },
+              "innerHTML": "<path d=\"M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z\"/>"
+            },
+            {
+              "tag": "svg",
+              "class": "ui-icon ui-icon--lg ui-icon--filled",
+              "attrs": { "xmlns": "http://www.w3.org/2000/svg", "viewBox": "0 0 24 24" },
+              "innerHTML": "<path d=\"M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z\"/>"
+            }
+          ],
+          "layout": "cluster"
+        }
+      ]
+    },
+    {
+      "title": "Spin Animation",
+      "description": "Use `--spin` for loading indicators.",
+      "examples": [
+        {
+          "html": "<svg class=\"ui-icon ui-icon--lg ui-icon--spin\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M21 12a9 9 0 1 1-6.219-8.56\"/></svg>"
+        }
+      ]
+    },
+    {
+      "title": "Color Inheritance",
+      "description": "Icons inherit color from parent text color.",
+      "examples": [
+        {
+          "html": "<div class=\"ui-cluster ui-cluster--gap-2\"><span style=\"color: var(--ui-color-primary)\"><svg class=\"ui-icon ui-icon--lg\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg></span><span style=\"color: var(--ui-color-success)\"><svg class=\"ui-icon ui-icon--lg\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg></span><span style=\"color: var(--ui-color-danger)\"><svg class=\"ui-icon ui-icon--lg\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg></span></div>"
+        }
+      ]
+    }
+  ]
+}

@@ -210,6 +210,7 @@
       "/^margin|padding|gap|inset/": ["/^\\d+(\\.\\d+)?px$/", "/^\\d+(\\.\\d+)?rem$/"],
       "/^(block|inline)-size/": ["/^\\d+(\\.\\d+)?px$/", "/^\\d+(\\.\\d+)?rem$/"],
       "/text-underline-offset|text-decoration-thickness/": ["/^\\d+(\\.\\d+)?rem$/"],
+      "/^--_/": ["/,\\s*\\d+(\\.\\d+)?rem\\)/"],
       "left": ["/.*/"],
       "right": ["/.*/"],
       "top": ["/.*/"],

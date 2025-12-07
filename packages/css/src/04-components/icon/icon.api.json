@@ -1,0 +1,20 @@
+{
+  "name": "icon",
+  "baseClass": "icon",
+  "element": "svg",
+  "description": "SVG icon sizing and styling for stroke-based icon sets like Lucide",
+  "modifiers": {
+    "size": {
+      "values": ["xs", "sm", "md", "lg", "xl"],
+      "default": null
+    },
+    "stroke": {
+      "values": ["thin", "thick"],
+      "default": null
+    },
+    "style": {
+      "values": ["filled", "spin"],
+      "default": null
+    }
+  }
+}
