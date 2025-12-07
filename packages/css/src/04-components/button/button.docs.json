@@ -90,27 +90,70 @@
     },
     {
       "title": "Icon Button",
-      "data": {
-        "icons": [
-          { "mod": "sm", "text": "X" },
-          { "mod": "", "text": "+" },
-          { "mod": "lg", "text": "?" }
-        ]
-      },
+      "description": "Square icon-only buttons. Use with SVG icons from Lucide or similar sets.",
       "examples": [
         {
           "layout": "cluster",
           "items": [
-            { "tag": "button", "class": "ui-button ui-button--icon ui-button--sm", "text": "X" },
-            { "tag": "button", "class": "ui-button ui-button--icon", "text": "+" },
-            { "tag": "button", "class": "ui-button ui-button--icon ui-button--lg", "text": "?" }
+            {
+              "tag": "button",
+              "class": "ui-button ui-button--icon ui-button--sm",
+              "html": "<svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M18 6 6 18\"/><path d=\"m6 6 12 12\"/></svg>"
+            },
+            {
+              "tag": "button",
+              "class": "ui-button ui-button--icon",
+              "html": "<svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M5 12h14\"/><path d=\"M12 5v14\"/></svg>"
+            },
+            {
+              "tag": "button",
+              "class": "ui-button ui-button--icon ui-button--lg",
+              "html": "<svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg>"
+            }
           ],
-          "code": "{% for i in icons %}<button class=\"ui-button ui-button--icon{% if i.mod %} ui-button--{{ i.mod }}{% endif %}\">{{ i.text }}</button>\n{% endfor %}"
+          "code": "<button class=\"ui-button ui-button--icon ui-button--sm\">\n  <svg class=\"ui-icon\"><!-- x icon --></svg>\n</button>\n<button class=\"ui-button ui-button--icon\">\n  <svg class=\"ui-icon\"><!-- plus icon --></svg>\n</button>\n<button class=\"ui-button ui-button--icon ui-button--lg\">\n  <svg class=\"ui-icon\"><!-- search icon --></svg>\n</button>"
+        }
+      ]
+    },
+    {
+      "title": "Icon Button Variants",
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            {
+              "tag": "button",
+              "class": "ui-button ui-button--icon",
+              "html": "<svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/><polyline points=\"9 22 9 12 15 12 15 22\"/></svg>"
+            },
+            {
+              "tag": "button",
+              "class": "ui-button ui-button--icon ui-button--secondary",
+              "html": "<svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/><polyline points=\"9 22 9 12 15 12 15 22\"/></svg>"
+            },
+            {
+              "tag": "button",
+              "class": "ui-button ui-button--icon ui-button--outline",
+              "html": "<svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/><polyline points=\"9 22 9 12 15 12 15 22\"/></svg>"
+            },
+            {
+              "tag": "button",
+              "class": "ui-button ui-button--icon ui-button--ghost",
+              "html": "<svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/><polyline points=\"9 22 9 12 15 12 15 22\"/></svg>"
+            },
+            {
+              "tag": "button",
+              "class": "ui-button ui-button--icon ui-button--danger",
+              "html": "<svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M3 6h18\"/><path d=\"M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6\"/><path d=\"M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2\"/></svg>"
+            }
+          ],
+          "code": "<button class=\"ui-button ui-button--icon\">...</button>\n<button class=\"ui-button ui-button--icon ui-button--secondary\">...</button>\n<button class=\"ui-button ui-button--icon ui-button--outline\">...</button>\n<button class=\"ui-button ui-button--icon ui-button--ghost\">...</button>\n<button class=\"ui-button ui-button--icon ui-button--danger\">...</button>"
         }
       ]
     },
     {
       "title": "With Icon",
+      "description": "Buttons with icon and text. Use ui-button__icon element with --start or --end modifier.",
       "examples": [
         {
           "layout": "cluster",
@@ -118,15 +161,15 @@
             {
               "tag": "button",
               "class": "ui-button",
-              "html": "<span class=\"ui-button__icon ui-button__icon--start\">+</span> Add Item"
+              "html": "<svg class=\"ui-icon ui-button__icon ui-button__icon--start\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M5 12h14\"/><path d=\"M12 5v14\"/></svg> Add Item"
             },
             {
               "tag": "button",
               "class": "ui-button ui-button--secondary",
-              "html": "Next <span class=\"ui-button__icon ui-button__icon--end\">-></span>"
+              "html": "Next <svg class=\"ui-icon ui-button__icon ui-button__icon--end\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"m9 18 6-6-6-6\"/></svg>"
             }
           ],
-          "code": "<button class=\"ui-button\">\n  <span class=\"ui-button__icon ui-button__icon--start\">+</span>\n  Add Item\n</button>\n<button class=\"ui-button ui-button--secondary\">\n  Next\n  <span class=\"ui-button__icon ui-button__icon--end\">-></span>\n</button>"
+          "code": "<button class=\"ui-button\">\n  <svg class=\"ui-icon ui-button__icon ui-button__icon--start\"><!-- plus --></svg>\n  Add Item\n</button>\n<button class=\"ui-button ui-button--secondary\">\n  Next\n  <svg class=\"ui-icon ui-button__icon ui-button__icon--end\"><!-- chevron-right --></svg>\n</button>"
         }
       ]
     },
