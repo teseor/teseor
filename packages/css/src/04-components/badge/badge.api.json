@@ -1,0 +1,16 @@
+{
+  "name": "badge",
+  "baseClass": "badge",
+  "element": "span",
+  "description": "Inline labels and status indicators",
+  "modifiers": {
+    "size": {
+      "values": ["sm"],
+      "default": null
+    },
+    "variant": {
+      "values": ["primary", "success", "warning", "danger"],
+      "default": null
+    }
+  }
+}

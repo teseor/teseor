@@ -28,6 +28,7 @@
       <a class="ui-nav-link" href="#stack">Stack</a>
 
       <h2 class="ui-text-xs ui-font-bold ui-uppercase ui-text-muted ui-mt-4">Components</h2>
+      <a class="ui-nav-link" href="#badge">Badge</a>
       <a class="ui-nav-link" href="#button">Button</a>
       <a class="ui-nav-link" href="#card">Card</a>
       <a class="ui-nav-link" href="#code">Code</a>
@@ -42,6 +43,7 @@
 
     <div class="ui-sidebar__footer">
       <div class="ui-stack ui-stack--xs">
+        <button class="ui-button ui-button--sm ui-button--block" onclick="toggleTheme()" id="theme-toggle">Dark Mode</button>
         <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug('ui-debug-grid')">Toggle Grid</button>
         <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug('ui-debug-grid-rows')">Toggle Row Grid</button>
         <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug('ui-debug-baseline')">Toggle Baseline</button>
@@ -386,6 +388,102 @@
 </section>
 
 <!-- Components -->
+<section id="badge" class="ui-docs-section" data-type="component">
+  <h2>Badge</h2>
+  <p>Inline labels for status indicators, counts, and categories</p>
+
+  <h3>Default</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <span class="ui-badge">Default</span>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;span class="ui-badge"&gt;Default&lt;/span&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Variants</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-cluster ui-cluster--md">
+    <span class="ui-badge">Default</span>
+    <span class="ui-badge ui-badge--primary">Primary</span>
+    <span class="ui-badge ui-badge--success">Success</span>
+    <span class="ui-badge ui-badge--warning">Warning</span>
+    <span class="ui-badge ui-badge--danger">Danger</span>
+  </div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;span class="ui-badge"&gt;Default&lt;/span&gt;
+&lt;span class="ui-badge ui-badge--primary"&gt;Primary&lt;/span&gt;
+&lt;span class="ui-badge ui-badge--success"&gt;Success&lt;/span&gt;
+&lt;span class="ui-badge ui-badge--warning"&gt;Warning&lt;/span&gt;
+&lt;span class="ui-badge ui-badge--danger"&gt;Danger&lt;/span&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Sizes</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-cluster ui-cluster--md">
+    <span class="ui-badge ui-badge--sm">Small</span>
+    <span class="ui-badge">Default</span>
+  </div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;span class="ui-badge ui-badge--sm"&gt;Small&lt;/span&gt;
+&lt;span class="ui-badge"&gt;Default&lt;/span&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Use Cases</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-cluster"><span>Notifications</span><span class="ui-badge ui-badge--primary">5</span></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-cluster"&gt;&lt;span&gt;Notifications&lt;/span&gt;&lt;span class="ui-badge ui-badge--primary"&gt;5&lt;/span&gt;&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-cluster"><span class="ui-badge ui-badge--success">Published</span><span class="ui-badge ui-badge--warning">Draft</span><span class="ui-badge ui-badge--danger">Archived</span></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-cluster"&gt;&lt;span class="ui-badge ui-badge--success"&gt;Published&lt;/span&gt;&lt;span class="ui-badge ui-badge--warning"&gt;Draft&lt;/span&gt;&lt;span class="ui-badge ui-badge--danger"&gt;Archived&lt;/span&gt;&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+</section>
 <section id="button" class="ui-docs-section" data-type="component">
   <h2>Button</h2>
   <p>Button heights align to grid rows.</p>
@@ -1176,6 +1274,27 @@
         document.body.classList.add(className);
       }
     });
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const btn = document.getElementById('theme-toggle');
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        html.removeAttribute('data-theme');
+        btn.textContent = 'Dark Mode';
+        localStorage.removeItem('theme');
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        btn.textContent = 'Light Mode';
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+
+    // Apply saved theme
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      document.getElementById('theme-toggle').textContent = 'Light Mode';
+    }
   </script>
 </body>
 </html>

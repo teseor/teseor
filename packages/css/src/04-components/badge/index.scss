@@ -1,0 +1,63 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Badge component - inline labels and status indicators
+
+@layer components.tokens {
+  .badge {
+    --_height: var(--ui-badge-height, calc(var(--ui-row, #{t.$row}) * 1.25));
+    --_padding-x: var(--ui-badge-padding-x, var(--ui-space-1, #{t.$space-1}));
+    --_font-size: var(--ui-badge-font-size, var(--ui-size-xs, #{t.$size-xs}));
+    --_font-weight: var(--ui-badge-font-weight, var(--ui-weight-medium, #{t.$weight-medium}));
+    --_radius: var(--ui-badge-radius, var(--ui-radius-full, #{t.$radius-full}));
+    --_bg: var(--ui-badge-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+    --_text: var(--ui-badge-text, var(--ui-color-text, #{t.$color-text}));
+  }
+
+  // Size variants
+  .badge--sm {
+    --_height: var(--ui-badge-height-sm, var(--ui-row, #{t.$row}));
+    --_padding-x: var(--ui-badge-padding-x-sm, var(--ui-space-0, #{t.$space-0}));
+    --_font-size: var(--ui-badge-font-size-sm, calc(var(--ui-size-xs, #{t.$size-xs}) * 0.85));
+  }
+
+  // Color variants
+  .badge--primary {
+    --_bg: var(--ui-badge-primary-bg, var(--ui-color-primary, #{t.$color-primary}));
+    --_text: var(--ui-badge-primary-text, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
+  }
+
+  .badge--success {
+    --_bg: var(--ui-badge-success-bg, var(--ui-color-success, #{t.$color-success}));
+    --_text: var(--ui-badge-success-text, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
+  }
+
+  .badge--warning {
+    --_bg: var(--ui-badge-warning-bg, var(--ui-color-warning, #{t.$color-warning}));
+    --_text: var(--ui-badge-warning-text, var(--ui-color-text, #{t.$color-text}));
+  }
+
+  .badge--danger {
+    --_bg: var(--ui-badge-danger-bg, var(--ui-color-danger, #{t.$color-danger}));
+    --_text: var(--ui-badge-danger-text, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
+  }
+}
+
+@layer components.styles {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    block-size: var(--_height);
+    padding-inline: var(--_padding-x);
+
+    font-size: var(--_font-size);
+    font-weight: var(--_font-weight);
+    line-height: 1;
+    white-space: nowrap;
+    color: var(--_text);
+
+    background: var(--_bg);
+    border-radius: var(--_radius);
+  }
+}
