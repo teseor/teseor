@@ -1,0 +1,19 @@
+{
+  "name": "overlay",
+  "baseClass": "overlay",
+  "element": "div",
+  "description": "Full viewport backdrop for modals, dialogs, and drawers",
+  "modifiers": {
+    "variant": {
+      "values": ["light", "blur"],
+      "default": null,
+      "description": "Visual variant. Light for light backgrounds, blur for frosted glass effect."
+    },
+    "state": {
+      "values": ["visible", "hidden", "entering", "exiting", "animate"],
+      "default": null,
+      "description": "Animation states controlled via JS"
+    }
+  },
+  "states": []
+}

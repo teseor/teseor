@@ -1,0 +1,49 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Overlay - backdrop for modals, dialogs, drawers
+// Full viewport coverage with semi-transparent background
+
+@layer components.tokens {
+  .overlay {
+    --_bg: var(--ui-overlay-bg, rgb(0 0 0 / 0.5));
+    --_z: var(--ui-overlay-z, var(--ui-z-overlay, 300));
+  }
+
+  .overlay--light {
+    --_bg: var(--ui-overlay-bg-light, rgb(255 255 255 / 0.7));
+  }
+
+  .overlay--blur {
+    --_bg: var(--ui-overlay-bg-blur, rgb(0 0 0 / 0.3));
+  }
+}
+
+@layer components.styles {
+  .overlay {
+    position: fixed;
+    inset: 0;
+    z-index: var(--_z);
+
+    background: var(--_bg);
+  }
+
+  .overlay--blur {
+    backdrop-filter: blur(calc(#{t.$unit} * 0.5));
+  }
+
+  // Animation states (controlled via JS)
+  .overlay--entering,
+  .overlay--visible {
+    opacity: 1;
+  }
+
+  .overlay--exiting,
+  .overlay--hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .overlay--animate {
+    transition: opacity var(--ui-duration-normal, 200ms) var(--ui-ease-default, ease);
+  }
+}
