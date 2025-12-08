@@ -1,0 +1,53 @@
+{
+  "id": "divider",
+  "type": "component",
+  "title": "Divider",
+  "description": "Visual separator between content sections. Supports horizontal/vertical orientation and optional text label.",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "html": "<div class=\"ui-divider\" role=\"separator\"></div>",
+          "code": "<div class=\"ui-divider\" role=\"separator\"></div>"
+        }
+      ]
+    },
+    {
+      "title": "With Label",
+      "examples": [
+        {
+          "html": "<div class=\"ui-divider\" role=\"separator\">OR</div>",
+          "code": "<div class=\"ui-divider\" role=\"separator\">OR</div>"
+        }
+      ]
+    },
+    {
+      "title": "Label Alignment",
+      "examples": [
+        {
+          "html": "<div class=\"ui-divider ui-divider--start\" role=\"separator\">Start</div><div class=\"ui-divider\" role=\"separator\">Center</div><div class=\"ui-divider ui-divider--end\" role=\"separator\">End</div>",
+          "code": "<div class=\"ui-divider ui-divider--start\">Start</div>\n<div class=\"ui-divider\">Center</div>\n<div class=\"ui-divider ui-divider--end\">End</div>"
+        }
+      ]
+    },
+    {
+      "title": "Dashed",
+      "examples": [
+        {
+          "html": "<div class=\"ui-divider ui-divider--dashed\" role=\"separator\"></div>",
+          "code": "<div class=\"ui-divider ui-divider--dashed\"></div>"
+        }
+      ]
+    },
+    {
+      "title": "Vertical",
+      "examples": [
+        {
+          "html": "<div style=\"display: flex; height: 60px; align-items: center;\"><span>Left</span><div class=\"ui-divider ui-divider--vertical\" role=\"separator\"></div><span>Right</span></div>",
+          "code": "<div style=\"display: flex;\">\n  <span>Left</span>\n  <div class=\"ui-divider ui-divider--vertical\"></div>\n  <span>Right</span>\n</div>"
+        }
+      ]
+    }
+  ]
+}
