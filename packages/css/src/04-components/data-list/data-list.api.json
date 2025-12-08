@@ -1,0 +1,34 @@
+{
+  "name": "data-list",
+  "baseClass": "data-list",
+  "element": "dl",
+  "description": "Display structured key-value pairs",
+  "modifiers": {
+    "layout": {
+      "values": ["horizontal"],
+      "default": null
+    },
+    "size": {
+      "values": ["sm", "lg"],
+      "default": null
+    },
+    "style": {
+      "values": ["divided", "striped"],
+      "default": null
+    }
+  },
+  "elements": {
+    "item": {
+      "element": "div",
+      "description": "Container for label-value pair"
+    },
+    "label": {
+      "element": "dt",
+      "description": "Key/label text"
+    },
+    "value": {
+      "element": "dd",
+      "description": "Value text"
+    }
+  }
+}

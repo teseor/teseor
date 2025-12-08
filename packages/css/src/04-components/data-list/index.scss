@@ -1,0 +1,94 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Data-List - key-value pairs
+// Display structured data with labels and values
+
+@layer components.tokens {
+  .data-list {
+    --_gap: var(--ui-data-list-gap, calc(#{t.$unit} * 1.5));
+    --_item-gap: var(--ui-data-list-item-gap, calc(#{t.$unit} * 0.5));
+    --_label-color: var(--ui-data-list-label-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    --_value-color: var(--ui-data-list-value-color, var(--ui-color-text, #{t.$color-text}));
+  }
+}
+
+@layer components.styles {
+  .data-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--_gap);
+
+    margin: 0;
+  }
+
+  .data-list__item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--_item-gap);
+  }
+
+  .data-list__label {
+    font-size: var(--ui-size-sm, #{t.$size-sm});
+    font-weight: var(--ui-weight-medium, #{t.$weight-medium});
+    color: var(--_label-color);
+  }
+
+  .data-list__value {
+    margin: 0;
+
+    color: var(--_value-color);
+  }
+
+  // Horizontal layout (side-by-side)
+  .data-list--horizontal .data-list__item {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: calc(#{t.$unit} * 2);
+  }
+
+  .data-list--horizontal .data-list__label {
+    flex-shrink: 0;
+  }
+
+  .data-list--horizontal .data-list__value {
+    text-align: end;
+  }
+
+  // With dividers
+  .data-list--divided .data-list__item {
+    padding-block-end: var(--_gap);
+
+    border-block-end: 1px solid var(--ui-color-border, #{t.$color-border});
+  }
+
+  .data-list--divided .data-list__item:last-child {
+    padding-block-end: 0;
+
+    border-block-end: none;
+  }
+
+  // Striped variant
+  .data-list--striped .data-list__item:nth-child(odd) {
+    padding: calc(#{t.$unit} * 1);
+
+    background: var(--ui-color-bg-subtle, #{t.$color-bg-subtle});
+    border-radius: var(--ui-radius-sm, #{t.$radius-sm});
+  }
+
+  // Compact size
+  .data-list--sm {
+    --_gap: calc(#{t.$unit} * 1);
+    --_item-gap: calc(#{t.$unit} * 0.25);
+
+    font-size: var(--ui-size-sm, #{t.$size-sm});
+  }
+
+  // Large size
+  .data-list--lg {
+    --_gap: calc(#{t.$unit} * 2);
+    --_item-gap: calc(#{t.$unit} * 0.75);
+
+    font-size: var(--ui-size-lg, #{t.$size-lg});
+  }
+}
