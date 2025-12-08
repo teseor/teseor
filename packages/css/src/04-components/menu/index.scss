@@ -11,7 +11,7 @@
     --_radius: var(--ui-menu-radius, var(--ui-radius-md, #{t.$radius-md}));
     --_bg: var(--ui-menu-bg, var(--ui-color-bg, #{t.$color-bg}));
     --_border-color: var(--ui-menu-border-color, var(--ui-color-border, #{t.$color-border}));
-    --_shadow: var(--ui-menu-shadow, var(--ui-shadow-lg, #{t.$shadow-lg}));
+    --_shadow: var(--ui-menu-shadow, var(--shadow-lg));
     --_item-padding: var(--ui-menu-item-padding, calc(#{t.$unit} * 1) calc(#{t.$unit} * 1.5));
     --_item-radius: var(--ui-menu-item-radius, var(--ui-radius-sm, #{t.$radius-sm}));
     --_item-bg-hover: var(--ui-menu-item-bg-hover, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
