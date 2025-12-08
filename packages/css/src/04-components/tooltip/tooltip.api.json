@@ -1,0 +1,19 @@
+{
+  "name": "tooltip",
+  "baseClass": "tooltip",
+  "element": "div",
+  "description": "Small informational popup that appears on hover/focus",
+  "modifiers": {
+    "position": {
+      "values": ["top", "bottom", "start", "end"],
+      "default": null,
+      "description": "Arrow position indicating tooltip placement relative to trigger"
+    },
+    "state": {
+      "values": ["visible", "hidden", "animate"],
+      "default": null,
+      "description": "Visibility states controlled via JS"
+    }
+  },
+  "states": []
+}

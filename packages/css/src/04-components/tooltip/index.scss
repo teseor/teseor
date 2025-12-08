@@ -1,0 +1,102 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Tooltip - small informational popup
+// Appears on hover/focus to provide additional context
+
+@layer components.tokens {
+  .tooltip {
+    --_bg: var(--ui-tooltip-bg, var(--ui-color-text, #1a1a1a));
+    --_color: var(--ui-tooltip-color, var(--ui-color-bg, white));
+    --_radius: var(--ui-tooltip-radius, var(--ui-radius-sm, calc(#{t.$unit} / 2)));
+    --_padding-x: var(--ui-tooltip-padding-x, calc(#{t.$unit} * 1));
+    --_padding-y: var(--ui-tooltip-padding-y, calc(#{t.$unit} / 2));
+    --_size: var(--ui-tooltip-size, var(--ui-size-sm, #{t.$size-sm}));
+    --_z: var(--ui-tooltip-z, var(--ui-z-tooltip, 500));
+    --_arrow-size: var(--ui-tooltip-arrow-size, calc(#{t.$unit} / 2));
+  }
+}
+
+@layer components.styles {
+  .tooltip {
+    position: absolute;
+    z-index: var(--_z);
+
+    max-inline-size: calc(#{t.$unit} * 25);
+    padding: var(--_padding-y) var(--_padding-x);
+
+    font-size: var(--_size);
+    line-height: calc(#{t.$unit} * 2);
+    text-align: center;
+    white-space: nowrap;
+    color: var(--_color);
+
+    background: var(--_bg);
+    border-radius: var(--_radius);
+  }
+
+  // Arrow pointing down (tooltip above trigger)
+  .tooltip--top::after {
+
+    content: "";
+    position: absolute;
+    inset-block-start: 100%;
+    inset-inline-start: 50%;
+
+    border: var(--_arrow-size) solid transparent;
+    border-block-start-color: var(--_bg);
+    transform: translateX(-50%);
+  }
+
+  // Arrow pointing up (tooltip below trigger)
+  .tooltip--bottom::after {
+
+    content: "";
+    position: absolute;
+    inset-block-end: 100%;
+    inset-inline-start: 50%;
+
+    border: var(--_arrow-size) solid transparent;
+    border-block-end-color: var(--_bg);
+    transform: translateX(-50%);
+  }
+
+  // Arrow pointing right (tooltip left of trigger)
+  .tooltip--start::after {
+
+    content: "";
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 100%;
+
+    border: var(--_arrow-size) solid transparent;
+    border-inline-start-color: var(--_bg);
+    transform: translateY(-50%);
+  }
+
+  // Arrow pointing left (tooltip right of trigger)
+  .tooltip--end::after {
+
+    content: "";
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-end: 100%;
+
+    border: var(--_arrow-size) solid transparent;
+    border-inline-end-color: var(--_bg);
+    transform: translateY(-50%);
+  }
+
+  // Animation states
+  .tooltip--visible {
+    opacity: 1;
+  }
+
+  .tooltip--hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .tooltip--animate {
+    transition: opacity var(--ui-duration-fast, 100ms) var(--ui-ease-default, ease);
+  }
+}

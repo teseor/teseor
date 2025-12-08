@@ -1,0 +1,35 @@
+{
+  "id": "popover",
+  "type": "component",
+  "title": "Popover",
+  "description": "Floating panel for additional content. Larger than tooltip, can contain structured content.",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "html": "<div class=\"ui-popover\" style=\"position: relative;\"><p>Popover content goes here. Can contain multiple paragraphs and other elements.</p></div>",
+          "code": "<div class=\"ui-popover\">\n  <p>Popover content goes here.</p>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "With Header",
+      "examples": [
+        {
+          "html": "<div class=\"ui-popover\" style=\"position: relative;\"><header class=\"ui-popover__header\"><h3 class=\"ui-popover__title\">Popover Title</h3></header><p>Content with a header section.</p></div>",
+          "code": "<div class=\"ui-popover\">\n  <header class=\"ui-popover__header\">\n    <h3 class=\"ui-popover__title\">Popover Title</h3>\n  </header>\n  <p>Content with a header section.</p>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "With Arrow",
+      "examples": [
+        {
+          "html": "<div style=\"padding: var(--ui-space-4);\"><div class=\"ui-popover ui-popover--top\" style=\"position: relative;\"><p>Popover with arrow pointing down</p></div></div>",
+          "code": "<div class=\"ui-popover ui-popover--top\">\n  <p>Popover with arrow pointing down</p>\n</div>"
+        }
+      ]
+    }
+  ]
+}

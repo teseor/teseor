@@ -1,0 +1,111 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Popover - floating panel for additional content
+// Larger than tooltip, can contain structured content
+
+@layer components.tokens {
+  .popover {
+    --_bg: var(--ui-popover-bg, var(--ui-color-bg, white));
+    --_border-color: var(--ui-popover-border-color, var(--ui-color-border, rgb(0 0 0 / 0.1)));
+    --_radius: var(--ui-popover-radius, var(--ui-radius-md, calc(#{t.$unit} * 1)));
+    --_shadow: var(--ui-popover-shadow, 0 calc(#{t.$unit} / 2) calc(#{t.$unit} * 2) rgb(0 0 0 / 0.15));
+    --_padding: var(--ui-popover-padding, calc(#{t.$unit} * 2));
+    --_max-width: var(--ui-popover-max-width, calc(#{t.$unit} * 40));
+    --_z: var(--ui-popover-z, var(--ui-z-popover, 500));
+    --_arrow-size: var(--ui-popover-arrow-size, calc(#{t.$unit}));
+  }
+}
+
+@layer components.styles {
+  .popover {
+    position: absolute;
+    z-index: var(--_z);
+
+    max-inline-size: var(--_max-width);
+    padding: var(--_padding);
+
+    background: var(--_bg);
+    border: 1px solid var(--_border-color);
+    border-radius: var(--_radius);
+    box-shadow: var(--_shadow);
+  }
+
+  // Header section
+  .popover__header {
+    padding-block-end: calc(#{t.$unit} * 1.5);
+    margin-block-end: calc(#{t.$unit} * 1.5);
+
+    border-block-end: 1px solid var(--_border-color);
+  }
+
+  .popover__title {
+    margin: 0;
+
+    font-size: var(--ui-size-md, #{t.$size-md});
+    font-weight: var(--ui-weight-semibold, 600);
+  }
+
+  // Arrow pointing down (popover above trigger)
+  .popover--top::after {
+
+    content: "";
+    position: absolute;
+    inset-block-start: 100%;
+    inset-inline-start: 50%;
+
+    border: var(--_arrow-size) solid transparent;
+    border-block-start-color: var(--_bg);
+    transform: translateX(-50%);
+  }
+
+  .popover--top::before {
+
+    content: "";
+    position: absolute;
+    inset-block-start: 100%;
+    inset-inline-start: 50%;
+
+    border: calc(var(--_arrow-size) + 1px) solid transparent;
+    border-block-start-color: var(--_border-color);
+    transform: translateX(-50%);
+  }
+
+  // Arrow pointing up (popover below trigger)
+  .popover--bottom::after {
+
+    content: "";
+    position: absolute;
+    inset-block-end: 100%;
+    inset-inline-start: 50%;
+
+    border: var(--_arrow-size) solid transparent;
+    border-block-end-color: var(--_bg);
+    transform: translateX(-50%);
+  }
+
+  .popover--bottom::before {
+
+    content: "";
+    position: absolute;
+    inset-block-end: 100%;
+    inset-inline-start: 50%;
+
+    border: calc(var(--_arrow-size) + 1px) solid transparent;
+    border-block-end-color: var(--_border-color);
+    transform: translateX(-50%);
+  }
+
+  // Animation states
+  .popover--visible {
+    opacity: 1;
+  }
+
+  .popover--hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .popover--animate {
+    transition: opacity var(--ui-duration-fast, 100ms) var(--ui-ease-default, ease);
+  }
+}
