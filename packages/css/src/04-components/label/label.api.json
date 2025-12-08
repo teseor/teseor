@@ -1,0 +1,26 @@
+{
+  "name": "label",
+  "baseClass": "label",
+  "element": "label",
+  "description": "Form control label with optional required indicator",
+  "modifiers": {
+    "size": {
+      "values": ["lg"],
+      "default": null,
+      "description": "Large size variant"
+    }
+  },
+  "elements": {
+    "required": {
+      "class": "label__required",
+      "element": "span",
+      "description": "Required field indicator (asterisk)"
+    },
+    "optional": {
+      "class": "label__optional",
+      "element": "span",
+      "description": "Optional field indicator"
+    }
+  },
+  "states": ["disabled"]
+}

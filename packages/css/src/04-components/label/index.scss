@@ -1,0 +1,45 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Label component - form control labels
+// Associates text with form inputs
+
+@layer components.tokens {
+  .label {
+    --_font-size: var(--ui-label-font-size, var(--ui-size-sm, #{t.$size-sm}));
+    --_color: var(--ui-label-color, var(--ui-color-text, #{t.$color-text}));
+    --_required-color: var(--ui-label-required-color, var(--ui-color-danger, #{t.$color-danger}));
+  }
+
+  .label--lg {
+    --_font-size: var(--ui-label-font-size-lg, var(--ui-size-md, #{t.$size-md}));
+  }
+}
+
+@layer components.styles {
+  .label {
+    display: inline-flex;
+    align-items: baseline;
+    gap: calc(#{t.$unit} * 0.25);
+
+    font-size: var(--_font-size);
+    font-weight: var(--ui-weight-medium, #{t.$weight-medium});
+    line-height: var(--ui-leading-sm, calc(#{t.$unit} * 2));
+    color: var(--_color);
+
+    cursor: pointer;
+
+    &[aria-disabled='true'] {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  .label__required {
+    color: var(--_required-color);
+  }
+
+  .label__optional {
+    font-weight: var(--ui-weight-normal, #{t.$weight-normal});
+    color: var(--ui-color-text-muted, #{t.$color-text-muted});
+  }
+}
