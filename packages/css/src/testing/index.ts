@@ -1,6 +1,8 @@
 export type { ComponentAPI } from './api-types';
+export type { RhythmViolation } from './rhythm';
 export { scaffoldCss } from './scaffold';
 export { generateVariationsHtml } from './html-generator';
+export { validateGridRhythm, assertGridRhythm } from './rhythm';
 export {
   loadCss,
   loadComponentApi,
