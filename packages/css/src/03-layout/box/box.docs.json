@@ -1,0 +1,56 @@
+{
+  "id": "box",
+  "type": "primitive",
+  "title": "Box",
+  "description": "Base container with style props. Foundation for layout primitives.",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "html": "<div class=\"ui-box\">Content</div>",
+          "code": "<div class=\"ui-box\">Content</div>"
+        }
+      ]
+    },
+    {
+      "title": "Padding",
+      "examples": [
+        {
+          "layout": "stack",
+          "html": "<div class=\"ui-box ui-box--p-1 ui-box--bg-subtle\">Padding 1</div><div class=\"ui-box ui-box--p-2 ui-box--bg-subtle\">Padding 2</div><div class=\"ui-box ui-box--p-3 ui-box--bg-subtle\">Padding 3</div><div class=\"ui-box ui-box--p-4 ui-box--bg-subtle\">Padding 4</div>",
+          "code": "<div class=\"ui-box ui-box--p-1\">...</div>\n<div class=\"ui-box ui-box--p-2\">...</div>\n<div class=\"ui-box ui-box--p-3\">...</div>\n<div class=\"ui-box ui-box--p-4\">...</div>"
+        }
+      ]
+    },
+    {
+      "title": "Background",
+      "examples": [
+        {
+          "layout": "stack",
+          "html": "<div class=\"ui-box ui-box--p-2 ui-box--bg-subtle\">Subtle background</div><div class=\"ui-box ui-box--p-2 ui-box--bg-muted\">Muted background</div>",
+          "code": "<div class=\"ui-box ui-box--bg-subtle\">...</div>\n<div class=\"ui-box ui-box--bg-muted\">...</div>"
+        }
+      ]
+    },
+    {
+      "title": "Rounded",
+      "examples": [
+        {
+          "layout": "cluster",
+          "html": "<div class=\"ui-box ui-box--p-3 ui-box--bg-subtle ui-box--rounded\">Rounded</div><div class=\"ui-box ui-box--p-3 ui-box--bg-subtle ui-box--rounded-lg\">Rounded lg</div>",
+          "code": "<div class=\"ui-box ui-box--rounded\">...</div>\n<div class=\"ui-box ui-box--rounded-lg\">...</div>"
+        }
+      ]
+    },
+    {
+      "title": "Custom via CSS Variables",
+      "examples": [
+        {
+          "html": "<div class=\"ui-box\" style=\"--box-padding: var(--ui-space-3); --box-bg: var(--ui-color-primary); --box-color: white; --box-radius: var(--ui-radius-lg);\">Custom box</div>",
+          "code": "<div class=\"ui-box\" style=\"--box-padding: ...; --box-bg: ...;\">...</div>"
+        }
+      ]
+    }
+  ]
+}
