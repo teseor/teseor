@@ -1,0 +1,96 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Disclosure - expandable/collapsible content section
+// Uses native details/summary for no-JS accessibility
+
+@layer components.tokens {
+  .disclosure {
+    --_border-color: var(--ui-disclosure-border-color, var(--ui-color-border, rgb(0 0 0 / 0.1)));
+    --_radius: var(--ui-disclosure-radius, var(--ui-radius-md, calc(#{t.$unit} * 1)));
+    --_padding: var(--ui-disclosure-padding, calc(#{t.$unit} * 2));
+  }
+}
+
+@layer components.styles {
+  .disclosure {
+    border: 1px solid var(--_border-color);
+    border-radius: var(--_radius);
+  }
+
+  .disclosure__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc(#{t.$unit} * 2);
+
+    inline-size: 100%;
+    padding: var(--_padding);
+
+    font-weight: var(--ui-weight-medium, 500);
+    text-align: start;
+
+    cursor: pointer;
+    list-style: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::marker {
+      display: none;
+    }
+  }
+
+  // Trigger hover state
+  .disclosure__trigger:hover {
+    background: var(--ui-color-bg-subtle, rgb(0 0 0 / 0.02));
+  }
+
+  // Icon that rotates when open
+  .disclosure__icon {
+    flex-shrink: 0;
+
+    transition: transform var(--ui-duration-fast, 100ms) var(--ui-ease-default, ease);
+  }
+
+  .disclosure[open] .disclosure__icon {
+    transform: rotate(180deg);
+  }
+
+  // Content panel
+  .disclosure__content {
+    padding: 0 var(--_padding) var(--_padding);
+  }
+
+  // Animation for content
+  .disclosure--animate .disclosure__content {
+    animation: disclosure-open var(--ui-duration-normal, 200ms) var(--ui-ease-default, ease);
+  }
+
+  @keyframes disclosure-open {
+    from {
+      opacity: 0;
+      transform: translateY(calc(#{t.$unit} * -1));
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  // Borderless variant
+  .disclosure--borderless {
+    border: none;
+    border-radius: 0;
+  }
+
+  // Flush variant (no padding on trigger)
+  .disclosure--flush .disclosure__trigger {
+    padding: calc(#{t.$unit} * 1.5) 0;
+  }
+
+  .disclosure--flush .disclosure__content {
+    padding: 0 0 calc(#{t.$unit} * 1.5);
+  }
+}

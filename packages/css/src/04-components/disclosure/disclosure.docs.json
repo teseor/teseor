@@ -1,0 +1,44 @@
+{
+  "id": "disclosure",
+  "type": "component",
+  "title": "Disclosure",
+  "description": "Expandable/collapsible content section. Uses native details/summary for accessibility without JS.",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "html": "<details class=\"ui-disclosure\"><summary class=\"ui-disclosure__trigger\">Click to expand<span class=\"ui-disclosure__icon\">&#9662;</span></summary><div class=\"ui-disclosure__content\"><p>Hidden content that expands when clicked.</p></div></details>",
+          "code": "<details class=\"ui-disclosure\">\n  <summary class=\"ui-disclosure__trigger\">\n    Click to expand\n    <span class=\"ui-disclosure__icon\">&#9662;</span>\n  </summary>\n  <div class=\"ui-disclosure__content\">\n    <p>Hidden content that expands when clicked.</p>\n  </div>\n</details>"
+        }
+      ]
+    },
+    {
+      "title": "Open by Default",
+      "examples": [
+        {
+          "html": "<details class=\"ui-disclosure\" open><summary class=\"ui-disclosure__trigger\">Already expanded<span class=\"ui-disclosure__icon\">&#9662;</span></summary><div class=\"ui-disclosure__content\"><p>This content is visible by default.</p></div></details>",
+          "code": "<details class=\"ui-disclosure\" open>\n  <summary class=\"ui-disclosure__trigger\">Already expanded</summary>\n  <div class=\"ui-disclosure__content\">...</div>\n</details>"
+        }
+      ]
+    },
+    {
+      "title": "Borderless",
+      "examples": [
+        {
+          "html": "<details class=\"ui-disclosure ui-disclosure--borderless\"><summary class=\"ui-disclosure__trigger\">Borderless disclosure<span class=\"ui-disclosure__icon\">&#9662;</span></summary><div class=\"ui-disclosure__content\"><p>No border around the disclosure.</p></div></details>",
+          "code": "<details class=\"ui-disclosure ui-disclosure--borderless\">\n  ...\n</details>"
+        }
+      ]
+    },
+    {
+      "title": "Animated",
+      "examples": [
+        {
+          "html": "<details class=\"ui-disclosure ui-disclosure--animate\"><summary class=\"ui-disclosure__trigger\">Animated expansion<span class=\"ui-disclosure__icon\">&#9662;</span></summary><div class=\"ui-disclosure__content\"><p>Content animates in when opened.</p></div></details>",
+          "code": "<details class=\"ui-disclosure ui-disclosure--animate\">\n  ...\n</details>"
+        }
+      ]
+    }
+  ]
+}

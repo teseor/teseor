@@ -1,0 +1,36 @@
+{
+  "id": "accordion",
+  "type": "component",
+  "title": "Accordion",
+  "description": "Container for grouped expandable sections. Use with disclosure components.",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "html": "<div class=\"ui-accordion\"><details class=\"ui-disclosure\"><summary class=\"ui-disclosure__trigger\">Section 1<span class=\"ui-disclosure__icon\">&#9662;</span></summary><div class=\"ui-disclosure__content\"><p>Content for section 1</p></div></details><details class=\"ui-disclosure\"><summary class=\"ui-disclosure__trigger\">Section 2<span class=\"ui-disclosure__icon\">&#9662;</span></summary><div class=\"ui-disclosure__content\"><p>Content for section 2</p></div></details><details class=\"ui-disclosure\"><summary class=\"ui-disclosure__trigger\">Section 3<span class=\"ui-disclosure__icon\">&#9662;</span></summary><div class=\"ui-disclosure__content\"><p>Content for section 3</p></div></details></div>",
+          "code": "<div class=\"ui-accordion\">\n  <details class=\"ui-disclosure\">\n    <summary class=\"ui-disclosure__trigger\">Section 1</summary>\n    <div class=\"ui-disclosure__content\">...</div>\n  </details>\n  <details class=\"ui-disclosure\">\n    <summary class=\"ui-disclosure__trigger\">Section 2</summary>\n    <div class=\"ui-disclosure__content\">...</div>\n  </details>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "Separated",
+      "description": "Gap between accordion items",
+      "examples": [
+        {
+          "html": "<div class=\"ui-accordion ui-accordion--separated\"><details class=\"ui-disclosure\"><summary class=\"ui-disclosure__trigger\">Section 1<span class=\"ui-disclosure__icon\">&#9662;</span></summary><div class=\"ui-disclosure__content\"><p>Content for section 1</p></div></details><details class=\"ui-disclosure\"><summary class=\"ui-disclosure__trigger\">Section 2<span class=\"ui-disclosure__icon\">&#9662;</span></summary><div class=\"ui-disclosure__content\"><p>Content for section 2</p></div></details></div>",
+          "code": "<div class=\"ui-accordion ui-accordion--separated\">\n  ...\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "With One Open",
+      "examples": [
+        {
+          "html": "<div class=\"ui-accordion\"><details class=\"ui-disclosure\" open><summary class=\"ui-disclosure__trigger\">Open Section<span class=\"ui-disclosure__icon\">&#9662;</span></summary><div class=\"ui-disclosure__content\"><p>This section starts open</p></div></details><details class=\"ui-disclosure\"><summary class=\"ui-disclosure__trigger\">Closed Section<span class=\"ui-disclosure__icon\">&#9662;</span></summary><div class=\"ui-disclosure__content\"><p>Click to open</p></div></details></div>",
+          "code": "<div class=\"ui-accordion\">\n  <details class=\"ui-disclosure\" open>\n    <summary class=\"ui-disclosure__trigger\">Open Section</summary>\n    <div class=\"ui-disclosure__content\">...</div>\n  </details>\n  <details class=\"ui-disclosure\">\n    ...\n  </details>\n</div>"
+        }
+      ]
+    }
+  ]
+}
