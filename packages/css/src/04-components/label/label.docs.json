@@ -1,0 +1,54 @@
+{
+  "id": "label",
+  "type": "component",
+  "title": "Label",
+  "description": "Form control labels. Associates text with inputs via htmlFor or wrapping.",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "html": "<label class=\"ui-label\" for=\"input1\">Email address</label>",
+          "code": "<label class=\"ui-label\" for=\"input\">Email address</label>"
+        }
+      ]
+    },
+    {
+      "title": "Required",
+      "examples": [
+        {
+          "html": "<label class=\"ui-label\" for=\"input2\">Email address<span class=\"ui-label__required\">*</span></label>",
+          "code": "<label class=\"ui-label\" for=\"input\">\n  Email address\n  <span class=\"ui-label__required\">*</span>\n</label>"
+        }
+      ]
+    },
+    {
+      "title": "Optional",
+      "examples": [
+        {
+          "html": "<label class=\"ui-label\" for=\"input3\">Phone number<span class=\"ui-label__optional\">(optional)</span></label>",
+          "code": "<label class=\"ui-label\" for=\"input\">\n  Phone number\n  <span class=\"ui-label__optional\">(optional)</span>\n</label>"
+        }
+      ]
+    },
+    {
+      "title": "Sizes",
+      "examples": [
+        {
+          "layout": "stack",
+          "html": "<label class=\"ui-label\">Default size</label><label class=\"ui-label ui-label--lg\">Large size</label>",
+          "code": "<label class=\"ui-label\">Default</label>\n<label class=\"ui-label ui-label--lg\">Large</label>"
+        }
+      ]
+    },
+    {
+      "title": "Disabled",
+      "examples": [
+        {
+          "html": "<label class=\"ui-label\" aria-disabled=\"true\">Disabled label</label>",
+          "code": "<label class=\"ui-label\" aria-disabled=\"true\">Disabled</label>"
+        }
+      ]
+    }
+  ]
+}
