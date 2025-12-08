@@ -1,0 +1,17 @@
+{
+  "id": "form-helper",
+  "type": "component",
+  "title": "Form Helper",
+  "description": "Helper text for form fields. Provides additional context or instructions.",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "html": "<span class=\"ui-form-helper\">Must be at least 8 characters</span>",
+          "code": "<span class=\"ui-form-helper\">Must be at least 8 characters</span>"
+        }
+      ]
+    }
+  ]
+}

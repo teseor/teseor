@@ -1,0 +1,8 @@
+{
+  "name": "form-error",
+  "baseClass": "form-error",
+  "element": "span",
+  "description": "Validation error message for form fields",
+  "modifiers": {},
+  "states": []
+}

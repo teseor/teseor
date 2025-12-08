@@ -1,0 +1,31 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Form Error - validation error message for form fields
+// Displays error text with danger color
+
+@layer components.tokens {
+  .form-error {
+    --_color: var(--ui-form-error-color, var(--ui-color-danger));
+    --_size: var(--ui-form-error-size, var(--ui-size-sm, #{t.$size-sm}));
+    --_gap: var(--ui-form-error-gap, calc(#{t.$unit} / 2));
+  }
+}
+
+@layer components.styles {
+  .form-error {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--_gap);
+
+    margin-block-start: var(--_gap);
+
+    font-size: var(--_size);
+    line-height: var(--ui-leading-sm, calc(#{t.$unit} * 2));
+    color: var(--_color);
+  }
+
+  // Icon slot
+  .form-error__icon {
+    flex-shrink: 0;
+  }
+}

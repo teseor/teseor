@@ -1,0 +1,24 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Form Helper - helper text for form fields
+// Displays muted text below form controls
+
+@layer components.tokens {
+  .form-helper {
+    --_color: var(--ui-form-helper-color, var(--ui-color-text-muted));
+    --_size: var(--ui-form-helper-size, var(--ui-size-sm, #{t.$size-sm}));
+    --_gap: var(--ui-form-helper-gap, calc(#{t.$unit} / 2));
+  }
+}
+
+@layer components.styles {
+  .form-helper {
+    display: block;
+
+    margin-block-start: var(--_gap);
+
+    font-size: var(--_size);
+    line-height: var(--ui-leading-sm, calc(#{t.$unit} * 2));
+    color: var(--_color);
+  }
+}

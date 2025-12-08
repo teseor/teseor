@@ -1545,6 +1545,178 @@
   
 </div>
 </section>
+<section id="field" class="ui-docs-section" data-type="component">
+  <h2>Field</h2>
+  <p>Form field wrapper that combines label, control, helper text, and error message.</p>
+
+  <h3>Default</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-field"><label class="ui-label" for="email">Email</label><div class="ui-field__control"><input type="email" id="email" class="ui-input" placeholder="Enter email"></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-field"&gt;
+  &lt;label class="ui-label" for="email"&gt;Email&lt;/label&gt;
+  &lt;div class="ui-field__control"&gt;
+    &lt;input type="email" id="email" class="ui-input"&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>With Helper Text</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-field"><label class="ui-label" for="password">Password</label><div class="ui-field__control"><input type="password" id="password" class="ui-input"><span class="ui-form-helper">Must be at least 8 characters</span></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-field"&gt;
+  &lt;label class="ui-label" for="password"&gt;Password&lt;/label&gt;
+  &lt;div class="ui-field__control"&gt;
+    &lt;input type="password" id="password" class="ui-input"&gt;
+    &lt;span class="ui-form-helper"&gt;Must be at least 8 characters&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>With Error</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-field"><label class="ui-label" for="username">Username</label><div class="ui-field__control"><input type="text" id="username" class="ui-input ui-input--error" value="ab"><span class="ui-form-error">Username must be at least 3 characters</span></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-field"&gt;
+  &lt;label class="ui-label" for="username"&gt;Username&lt;/label&gt;
+  &lt;div class="ui-field__control"&gt;
+    &lt;input type="text" id="username" class="ui-input ui-input--error"&gt;
+    &lt;span class="ui-form-error"&gt;Username must be at least 3 characters&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Horizontal Layout</h3>
+<p>Label beside control for wider forms</p>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-field ui-field--horizontal"><label class="ui-label ui-field__label" for="name">Full Name</label><div class="ui-field__control"><input type="text" id="name" class="ui-input"><span class="ui-form-helper">As it appears on your ID</span></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-field ui-field--horizontal"&gt;
+  &lt;label class="ui-label ui-field__label" for="name"&gt;Full Name&lt;/label&gt;
+  &lt;div class="ui-field__control"&gt;
+    &lt;input type="text" id="name" class="ui-input"&gt;
+    &lt;span class="ui-form-helper"&gt;As it appears on your ID&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Required Field</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-field"><label class="ui-label ui-label--required" for="req">Required Field</label><div class="ui-field__control"><input type="text" id="req" class="ui-input" required></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-field"&gt;
+  &lt;label class="ui-label ui-label--required" for="req"&gt;Required Field&lt;/label&gt;
+  &lt;div class="ui-field__control"&gt;
+    &lt;input type="text" id="req" class="ui-input" required&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+</section>
+<section id="form-error" class="ui-docs-section" data-type="component">
+  <h2>Form Error</h2>
+  <p>Validation error message for form fields. Displays in danger color.</p>
+
+  <h3>Default</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <span class="ui-form-error">This field is required</span>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;span class="ui-form-error"&gt;This field is required&lt;/span&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>With Icon</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <span class="ui-form-error"><svg class="ui-form-error__icon ui-icon ui-icon--sm" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>Please enter a valid email</span>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;span class="ui-form-error"&gt;
+  &lt;svg class="ui-form-error__icon ui-icon ui-icon--sm"&gt;...&lt;/svg&gt;
+  Please enter a valid email
+&lt;/span&gt;</code></pre>
+  </div>
+  
+</div>
+</section>
+<section id="form-helper" class="ui-docs-section" data-type="component">
+  <h2>Form Helper</h2>
+  <p>Helper text for form fields. Provides additional context or instructions.</p>
+
+  <h3>Default</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <span class="ui-form-helper">Must be at least 8 characters</span>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;span class="ui-form-helper"&gt;Must be at least 8 characters&lt;/span&gt;</code></pre>
+  </div>
+  
+</div>
+</section>
 <section id="heading" class="ui-docs-section" data-type="component">
   <h2>Heading</h2>
   <p>Semantic headings with visual size control. Use semantic level (h1-h6) for structure, size modifier for visual styling.</p>
