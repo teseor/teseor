@@ -6,15 +6,26 @@
 @layer components.tokens {
   .disclosure {
     --_border-color: var(--ui-disclosure-border-color, var(--ui-color-border, rgb(0 0 0 / 0.1)));
+    --_border-width: var(--ui-disclosure-border-width, 1px);
     --_radius: var(--ui-disclosure-radius, var(--ui-radius-md, calc(#{t.$unit} * 1)));
-    --_padding: var(--ui-disclosure-padding, calc(#{t.$unit} * 2));
+    --_trigger-height: var(--ui-disclosure-trigger-height, var(--ui-row-3, calc(#{t.$row} * 3)));
+    --_padding-x: var(--ui-disclosure-padding-x, calc(#{t.$unit} * 2));
+    --_padding-y: var(--ui-disclosure-padding-y, calc(#{t.$unit} * 2));
   }
 }
 
 @layer components.styles {
   .disclosure {
-    border: 1px solid var(--_border-color);
+    box-sizing: border-box;
+
     border-radius: var(--_radius);
+    outline: var(--_border-width) solid var(--_border-color);
+    outline-offset: calc(var(--_border-width) * -1);
+  }
+
+  // When closed, set explicit height for grid rhythm
+  .disclosure:not([open]) {
+    block-size: var(--_trigger-height);
   }
 
   .disclosure__trigger {
@@ -23,10 +34,12 @@
     justify-content: space-between;
     gap: calc(#{t.$unit} * 2);
 
+    block-size: var(--_trigger-height);
     inline-size: 100%;
-    padding: var(--_padding);
+    padding-inline: var(--_padding-x);
 
     font-weight: var(--ui-weight-medium, 500);
+    line-height: 1;
     text-align: start;
 
     cursor: pointer;
@@ -59,7 +72,7 @@
 
   // Content panel
   .disclosure__content {
-    padding: 0 var(--_padding) var(--_padding);
+    padding: 0 var(--_padding-x) var(--_padding-y);
   }
 
   // Animation for content
@@ -81,16 +94,18 @@
 
   // Borderless variant
   .disclosure--borderless {
+    --_border-width: 0;
+
     border: none;
     border-radius: 0;
   }
 
-  // Flush variant (no padding on trigger)
+  // Flush variant (no horizontal padding)
   .disclosure--flush .disclosure__trigger {
-    padding: calc(#{t.$unit} * 1.5) 0;
+    padding-inline: 0;
   }
 
   .disclosure--flush .disclosure__content {
-    padding: 0 0 calc(#{t.$unit} * 1.5);
+    padding-inline: 0;
   }
 }

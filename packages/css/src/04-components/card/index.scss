@@ -34,5 +34,7 @@
     @include surface(var(--_bg));
     // Subtract border from padding to keep total on grid
     padding: calc(var(--_padding) - var(--_border-width));
+    // Grid-aligned line-height for text content
+    line-height: var(--ui-row-1);
   }
 }

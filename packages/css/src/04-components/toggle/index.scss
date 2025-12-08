@@ -51,6 +51,11 @@
   // Hidden checkbox input
   .toggle__input {
     position: absolute;
+    inset: 0;
+
+    block-size: 100%;
+    inline-size: 100%;
+    margin: 0;
 
     opacity: 0;
     cursor: pointer;

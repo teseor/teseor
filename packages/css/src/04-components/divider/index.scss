@@ -6,7 +6,8 @@
 @layer components.tokens {
   .divider {
     --_color: var(--ui-divider-color, var(--ui-color-border, rgb(0 0 0 / 0.1)));
-    --_size: var(--ui-divider-size, 1px);
+    --_line-size: var(--ui-divider-line-size, 1px);
+    --_height: var(--ui-divider-height, #{t.$unit});
     --_gap: var(--ui-divider-gap, calc(#{t.$unit} * 2));
   }
 }
@@ -16,9 +17,11 @@
     display: flex;
     align-items: center;
 
+    block-size: var(--_height);
     margin: var(--_gap) 0;
 
     font-size: var(--ui-size-sm, #{t.$size-sm});
+    line-height: 1;
     color: var(--ui-color-text-muted);
   }
 
@@ -29,12 +32,16 @@
     content: "";
     flex: 1;
 
-    block-size: var(--_size);
+    block-size: var(--_line-size);
 
     background: var(--_color);
   }
 
-  // With text label
+  // With text label - taller to accommodate text
+  .divider:not(:empty) {
+    --_height: var(--ui-row-1, #{t.$row});
+  }
+
   .divider:not(:empty)::before {
     margin-inline-end: calc(#{t.$unit} * 2);
   }

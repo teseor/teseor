@@ -5,6 +5,7 @@
 
 @layer components.tokens {
   .breadcrumb {
+    --_height: var(--ui-breadcrumb-height, var(--ui-row-1, #{t.$row}));
     --_gap: var(--ui-breadcrumb-gap, calc(#{t.$unit} * 1));
     --_separator-color: var(--ui-breadcrumb-separator-color, var(--ui-color-text-muted));
     --_link-color: var(--ui-breadcrumb-link-color, var(--ui-color-text-muted));
@@ -19,10 +20,12 @@
     align-items: center;
     gap: var(--_gap);
 
+    block-size: var(--_height);
     padding: 0;
     margin: 0;
 
     font-size: var(--ui-size-sm, #{t.$size-sm});
+    line-height: 1;
 
     list-style: none;
   }
@@ -31,6 +34,8 @@
     display: flex;
     align-items: center;
     gap: var(--_gap);
+
+    block-size: var(--_height);
   }
 
   // Separator after each item except last

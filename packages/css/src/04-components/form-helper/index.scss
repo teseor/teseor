@@ -7,7 +7,7 @@
   .form-helper {
     --_color: var(--ui-form-helper-color, var(--ui-color-text-muted));
     --_size: var(--ui-form-helper-size, var(--ui-size-sm, #{t.$size-sm}));
-    --_gap: var(--ui-form-helper-gap, calc(#{t.$unit} / 2));
+    --_gap: var(--ui-form-helper-gap, 0);
   }
 }
 

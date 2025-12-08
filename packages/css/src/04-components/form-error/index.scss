@@ -7,7 +7,7 @@
   .form-error {
     --_color: var(--ui-form-error-color, var(--ui-color-danger));
     --_size: var(--ui-form-error-size, var(--ui-size-sm, #{t.$size-sm}));
-    --_gap: var(--ui-form-error-gap, calc(#{t.$unit} / 2));
+    --_gap: var(--ui-form-error-gap, 0);
   }
 }
 

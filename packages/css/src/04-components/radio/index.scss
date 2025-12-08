@@ -5,16 +5,12 @@
 
 @layer components.tokens {
   .radio {
-    --_size: var(--ui-radio-size, calc(#{t.$unit} * 2.5));
+    --_size: var(--ui-radio-size, calc(#{t.$unit} * 2));
     --_bg: var(--ui-radio-bg, var(--ui-color-bg, #{t.$color-bg}));
     --_bg-checked: var(--ui-radio-bg-checked, var(--ui-color-primary, #{t.$color-primary}));
     --_border-color: var(--ui-radio-border-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
     --_border-color-focus: var(--ui-radio-border-color-focus, var(--ui-color-primary, #{t.$color-primary}));
     --_dot-color: var(--ui-radio-dot-color, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
-  }
-
-  .radio--sm {
-    --_size: var(--ui-radio-size-sm, calc(#{t.$unit} * 2));
   }
 
   .radio--lg {

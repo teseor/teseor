@@ -79,7 +79,7 @@
     inline-size: var(--_size);
     max-inline-size: var(--_max-size);
 
-    border-inline-start: 1px solid var(--_border-color);
+    box-shadow: calc(var(--ui-border-width-sm, 1px) * -1) 0 0 var(--_border-color);
   }
 
   .drawer--start {
@@ -89,7 +89,7 @@
     inline-size: var(--_size);
     max-inline-size: var(--_max-size);
 
-    border-inline-end: 1px solid var(--_border-color);
+    box-shadow: var(--ui-border-width-sm, 1px) 0 0 var(--_border-color);
   }
 
   .drawer--top {
@@ -99,7 +99,7 @@
     block-size: var(--_size);
     max-block-size: var(--_max-size);
 
-    border-block-end: 1px solid var(--_border-color);
+    box-shadow: 0 var(--ui-border-width-sm, 1px) 0 var(--_border-color);
   }
 
   .drawer--bottom {
@@ -109,7 +109,7 @@
     block-size: var(--_size);
     max-block-size: var(--_max-size);
 
-    border-block-start: 1px solid var(--_border-color);
+    box-shadow: 0 calc(var(--ui-border-width-sm, 1px) * -1) 0 var(--_border-color);
   }
 
   // Animation states
@@ -203,7 +203,7 @@
 
     padding: var(--_header-padding);
 
-    border-block-end: 1px solid var(--_border-color);
+    box-shadow: inset 0 calc(var(--ui-border-width-sm, 1px) * -1) 0 var(--_border-color);
   }
 
   .drawer__title {
@@ -211,13 +211,14 @@
 
     font-size: var(--ui-size-lg, #{t.$size-lg});
     font-weight: var(--ui-weight-semibold, 600);
+    line-height: var(--ui-row-1, #{t.$row});
   }
 
   .drawer__description {
     margin: 0;
-    margin-block-start: calc(#{t.$unit} * 0.5);
 
     font-size: var(--ui-size-sm, #{t.$size-sm});
+    line-height: var(--ui-row-1, #{t.$row});
     color: var(--ui-color-text-muted, #{t.$color-text-muted});
   }
 
@@ -232,6 +233,8 @@
 
     padding: var(--_body-padding);
     overflow-y: auto;
+
+    line-height: var(--ui-row-1, #{t.$row});
   }
 
   .drawer__footer {
@@ -239,10 +242,10 @@
     flex-shrink: 0;
     align-items: center;
     justify-content: flex-end;
-    gap: calc(#{t.$unit} * 1.5);
+    gap: calc(#{t.$unit} * 2);
 
     padding: var(--_footer-padding);
 
-    border-block-start: 1px solid var(--_border-color);
+    box-shadow: inset 0 var(--ui-border-width-sm, 1px) 0 var(--_border-color);
   }
 }

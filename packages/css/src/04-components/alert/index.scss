@@ -6,6 +6,7 @@
 @layer components.tokens {
   .alert {
     --_padding: var(--ui-alert-padding, var(--ui-space-2, #{t.$space-2}));
+    --_border-width: var(--ui-alert-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
     --_gap: var(--ui-alert-gap, var(--ui-space-1, #{t.$space-1}));
     --_radius: var(--ui-alert-radius, var(--ui-radius-md, #{t.$radius-md}));
     --_bg: var(--ui-alert-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
@@ -45,12 +46,14 @@
     align-items: flex-start;
     gap: var(--_gap);
 
-    padding: var(--_padding);
+    // Subtract border from padding to maintain grid rhythm
+    padding: calc(var(--_padding) - var(--_border-width));
+    padding-inline: var(--_padding);
 
     color: var(--_color);
 
     background: var(--_bg);
-    border: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_border-color);
+    border: var(--_border-width) solid var(--_border-color);
     border-radius: var(--_radius);
     border-inline-start-width: calc(#{t.$unit} * 0.5);
   }
@@ -71,13 +74,17 @@
     margin: 0;
 
     font-weight: var(--ui-weight-medium, #{t.$weight-medium});
+    // Line-height aligned to grid (24px = 3 units)
+    line-height: var(--ui-row-1, #{t.$row});
   }
 
   .alert__description {
     margin: 0;
-    margin-block-start: calc(#{t.$unit} * 0.5);
+    margin-block-start: calc(#{t.$unit} * 1);
 
     font-size: var(--ui-size-sm, #{t.$size-sm});
+    // Line-height aligned to grid (16px = 2 units for smaller text)
+    line-height: var(--ui-row-1, #{t.$row});
     color: var(--ui-color-text-muted, #{t.$color-text-muted});
   }
 

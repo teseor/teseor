@@ -12,7 +12,7 @@
 
   .toast {
     --_padding: var(--ui-toast-padding, calc(#{t.$unit} * 2));
-    --_gap: var(--ui-toast-gap, calc(#{t.$unit} * 1.5));
+    --_gap: var(--ui-toast-gap, calc(#{t.$unit} * 1));
     --_radius: var(--ui-toast-radius, var(--ui-radius-md, #{t.$radius-md}));
     --_bg: var(--ui-toast-bg, var(--ui-color-bg, #{t.$color-bg}));
     --_border-color: var(--ui-toast-border-color, var(--ui-color-border, #{t.$color-border}));
@@ -98,10 +98,11 @@
     padding: var(--_padding);
 
     background: var(--_bg);
-    border: 1px solid var(--_border-color);
     border-radius: var(--_radius);
+    outline: var(--ui-border-width-sm, 0.0625rem) solid var(--_border-color);
     box-shadow: var(--_shadow);
     pointer-events: auto;
+    outline-offset: calc(var(--ui-border-width-sm, 0.0625rem) * -1);
   }
 
   .toast__icon {
@@ -118,13 +119,14 @@
     margin: 0;
 
     font-weight: var(--ui-weight-medium, #{t.$weight-medium});
+    line-height: var(--ui-row-1, #{t.$row});
   }
 
   .toast__description {
     margin: 0;
-    margin-block-start: calc(#{t.$unit} * 0.5);
 
     font-size: var(--ui-size-sm, #{t.$size-sm});
+    line-height: var(--ui-row-1, #{t.$row});
     color: var(--ui-color-text-muted, #{t.$color-text-muted});
   }
 
@@ -133,8 +135,13 @@
   }
 
   .toast__close {
+    display: inline-flex;
     flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
 
+    block-size: var(--ui-row-1, #{t.$row});
+    inline-size: var(--ui-row-1, #{t.$row});
     padding: 0;
 
     color: var(--ui-color-text-muted, #{t.$color-text-muted});

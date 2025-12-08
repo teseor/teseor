@@ -57,6 +57,7 @@
   .textarea {
     display: block;
 
+    box-sizing: border-box;
     inline-size: 100%;
     min-block-size: var(--_min-height);
     padding-block: var(--_padding-y);
@@ -64,16 +65,18 @@
 
     font-family: inherit;
     font-size: var(--_font-size);
-    line-height: var(--ui-line-height-normal, 1.5);
+    line-height: var(--ui-row-1, #{t.$row});
     color: var(--_text);
 
     background: var(--_bg);
-    border: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_border-color);
+    border: none;
     border-radius: var(--_radius);
+    outline: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_border-color);
 
     transition:
       border-color var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease),
       box-shadow var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease);
+    outline-offset: calc(var(--ui-border-width-sm, #{t.$border-width-sm}) * -1);
 
     // Default resize behavior
     resize: vertical;
@@ -83,13 +86,13 @@
     }
 
     &:hover:not(:disabled, :focus) {
-      border-color: var(--ui-color-border-strong, #{t.$color-border-strong});
+      outline-color: var(--ui-color-border-strong, #{t.$color-border-strong});
     }
 
     &:focus,
     &--focus {
-      border-color: var(--_border-color-focus);
-      outline: none;
+      outline-color: var(--_border-color-focus);
+
       box-shadow: 0 0 0 var(--ui-border-width-md, #{t.$border-width-md}) var(--ui-color-focus, #{t.$color-focus});
     }
 

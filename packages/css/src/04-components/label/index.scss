@@ -19,7 +19,7 @@
   .label {
     display: inline-flex;
     align-items: baseline;
-    gap: calc(#{t.$unit} * 0.25);
+    gap: 0;
 
     font-size: var(--_font-size);
     font-weight: var(--ui-weight-medium, #{t.$weight-medium});

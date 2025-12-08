@@ -5,29 +5,31 @@
 
 @layer components.tokens {
   .spinner {
-    --_size: var(--ui-spinner-size, calc(#{t.$unit} * 3));
-    --_border-width: var(--ui-spinner-border-width, var(--ui-border-width-md, #{t.$border-width-md}));
+    --_size: var(--ui-spinner-size, calc(var(--unit) * 4));
+    --_border-width: var(--ui-spinner-border-width, var(--ui-border-width-md));
     --_color: var(--ui-spinner-color, currentcolor);
     --_track-color: var(--ui-spinner-track-color, transparent);
     --_duration: var(--ui-spinner-duration, 750ms);
   }
 
   .spinner--xs {
-    --_size: var(--ui-spinner-size-xs, calc(#{t.$unit} * 2));
-    --_border-width: var(--ui-spinner-border-width-xs, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    --_size: var(--ui-spinner-size-xs, calc(var(--unit) * 2));
+    --_border-width: var(--ui-spinner-border-width-xs, var(--ui-border-width-sm));
   }
 
   .spinner--sm {
-    --_size: var(--ui-spinner-size-sm, calc(#{t.$unit} * 2.5));
+    --_size: var(--ui-spinner-size-sm, calc(var(--unit) * 3));
+    --_border-width: var(--ui-spinner-border-width-sm, var(--ui-border-width-md));
   }
 
   .spinner--lg {
-    --_size: var(--ui-spinner-size-lg, calc(#{t.$unit} * 4));
+    --_size: var(--ui-spinner-size-lg, calc(var(--unit) * 5));
+    --_border-width: var(--ui-spinner-border-width-lg, var(--ui-border-width-md));
   }
 
   .spinner--xl {
-    --_size: var(--ui-spinner-size-xl, calc(#{t.$unit} * 5));
-    --_border-width: var(--ui-spinner-border-width-xl, calc(#{t.$unit} * 0.375));
+    --_size: var(--ui-spinner-size-xl, calc(var(--unit) * 6));
+    --_border-width: var(--ui-spinner-border-width-xl, var(--ui-border-width-lg));
   }
 }
 
@@ -36,6 +38,7 @@
     display: inline-block;
     flex-shrink: 0;
 
+    box-sizing: border-box;
     block-size: var(--_size);
     inline-size: var(--_size);
 

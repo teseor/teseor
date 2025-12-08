@@ -5,17 +5,13 @@
 
 @layer components.tokens {
   .checkbox {
-    --_size: var(--ui-checkbox-size, calc(#{t.$unit} * 2.5));
+    --_size: var(--ui-checkbox-size, calc(#{t.$unit} * 2));
     --_radius: var(--ui-checkbox-radius, var(--ui-radius-sm, #{t.$radius-sm}));
     --_bg: var(--ui-checkbox-bg, var(--ui-color-bg, #{t.$color-bg}));
     --_bg-checked: var(--ui-checkbox-bg-checked, var(--ui-color-primary, #{t.$color-primary}));
     --_border-color: var(--ui-checkbox-border-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
     --_border-color-focus: var(--ui-checkbox-border-color-focus, var(--ui-color-primary, #{t.$color-primary}));
     --_check-color: var(--ui-checkbox-check-color, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
-  }
-
-  .checkbox--sm {
-    --_size: var(--ui-checkbox-size-sm, calc(#{t.$unit} * 2));
   }
 
   .checkbox--lg {

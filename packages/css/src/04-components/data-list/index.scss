@@ -5,8 +5,8 @@
 
 @layer components.tokens {
   .data-list {
-    --_gap: var(--ui-data-list-gap, calc(#{t.$unit} * 1.5));
-    --_item-gap: var(--ui-data-list-item-gap, calc(#{t.$unit} * 0.5));
+    --_gap: var(--ui-data-list-gap, calc(#{t.$unit} * 2));
+    --_item-gap: var(--ui-data-list-item-gap, calc(#{t.$unit} * 1));
     --_label-color: var(--ui-data-list-label-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
     --_value-color: var(--ui-data-list-value-color, var(--ui-color-text, #{t.$color-text}));
   }
@@ -19,6 +19,8 @@
     gap: var(--_gap);
 
     margin: 0;
+
+    line-height: var(--ui-row-1, #{t.$row});
   }
 
   .data-list__item {
@@ -30,12 +32,14 @@
   .data-list__label {
     font-size: var(--ui-size-sm, #{t.$size-sm});
     font-weight: var(--ui-weight-medium, #{t.$weight-medium});
+    line-height: var(--ui-row-1, #{t.$row});
     color: var(--_label-color);
   }
 
   .data-list__value {
     margin: 0;
 
+    line-height: var(--ui-row-1, #{t.$row});
     color: var(--_value-color);
   }
 
@@ -79,15 +83,15 @@
   // Compact size
   .data-list--sm {
     --_gap: calc(#{t.$unit} * 1);
-    --_item-gap: calc(#{t.$unit} * 0.25);
+    --_item-gap: 0;
 
     font-size: var(--ui-size-sm, #{t.$size-sm});
   }
 
   // Large size
   .data-list--lg {
-    --_gap: calc(#{t.$unit} * 2);
-    --_item-gap: calc(#{t.$unit} * 0.75);
+    --_gap: calc(#{t.$unit} * 3);
+    --_item-gap: calc(#{t.$unit} * 1);
 
     font-size: var(--ui-size-lg, #{t.$size-lg});
   }
