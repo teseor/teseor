@@ -1,0 +1,173 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Toast - notification messages
+// Appears in viewport corner with auto-dismiss
+
+@layer components.tokens {
+  .toast-viewport {
+    --_gap: var(--ui-toast-viewport-gap, calc(#{t.$unit} * 1));
+    --_padding: var(--ui-toast-viewport-padding, calc(#{t.$unit} * 2));
+    --_max-width: var(--ui-toast-viewport-max-width, 420px);
+  }
+
+  .toast {
+    --_padding: var(--ui-toast-padding, calc(#{t.$unit} * 2));
+    --_gap: var(--ui-toast-gap, calc(#{t.$unit} * 1.5));
+    --_radius: var(--ui-toast-radius, var(--ui-radius-md, #{t.$radius-md}));
+    --_bg: var(--ui-toast-bg, var(--ui-color-bg, #{t.$color-bg}));
+    --_border-color: var(--ui-toast-border-color, var(--ui-color-border, #{t.$color-border}));
+    --_shadow: var(--ui-toast-shadow, var(--ui-shadow-lg, #{t.$shadow-lg}));
+  }
+
+  .toast--success {
+    --_border-color: var(--ui-color-success);
+  }
+
+  .toast--warning {
+    --_border-color: var(--ui-color-warning);
+  }
+
+  .toast--danger {
+    --_border-color: var(--ui-color-danger);
+  }
+
+  .toast--info {
+    --_border-color: var(--ui-color-primary);
+  }
+}
+
+@layer components.styles {
+  // Viewport - fixed container for all toasts
+  .toast-viewport {
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--_gap);
+    position: fixed;
+    z-index: var(--ui-z-toast, 1000);
+
+    max-inline-size: var(--_max-width);
+    padding: var(--_padding);
+
+    pointer-events: none;
+
+    list-style: none;
+  }
+
+  // Position modifiers
+  .toast-viewport--top-end {
+    inset-block-start: 0;
+    inset-inline-end: 0;
+  }
+
+  .toast-viewport--top-start {
+    inset-block-start: 0;
+    inset-inline-start: 0;
+  }
+
+  .toast-viewport--bottom-end {
+    inset-block-end: 0;
+    inset-inline-end: 0;
+  }
+
+  .toast-viewport--bottom-start {
+    inset-block-end: 0;
+    inset-inline-start: 0;
+  }
+
+  .toast-viewport--top-center {
+    inset-block-start: 0;
+    inset-inline-start: 50%;
+
+    transform: translateX(-50%);
+  }
+
+  .toast-viewport--bottom-center {
+    inset-block-end: 0;
+    inset-inline-start: 50%;
+
+    transform: translateX(-50%);
+  }
+
+  // Individual toast
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--_gap);
+
+    padding: var(--_padding);
+
+    background: var(--_bg);
+    border: 1px solid var(--_border-color);
+    border-radius: var(--_radius);
+    box-shadow: var(--_shadow);
+    pointer-events: auto;
+  }
+
+  .toast__icon {
+    flex-shrink: 0;
+  }
+
+  .toast__content {
+    flex: 1;
+
+    min-inline-size: 0;
+  }
+
+  .toast__title {
+    margin: 0;
+
+    font-weight: var(--ui-weight-medium, #{t.$weight-medium});
+  }
+
+  .toast__description {
+    margin: 0;
+    margin-block-start: calc(#{t.$unit} * 0.5);
+
+    font-size: var(--ui-size-sm, #{t.$size-sm});
+    color: var(--ui-color-text-muted, #{t.$color-text-muted});
+  }
+
+  .toast__action {
+    flex-shrink: 0;
+  }
+
+  .toast__close {
+    flex-shrink: 0;
+
+    padding: 0;
+
+    color: var(--ui-color-text-muted, #{t.$color-text-muted});
+
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--ui-color-text, #{t.$color-text});
+    }
+  }
+
+  // Animation states
+  .toast[data-state="open"] {
+    animation: toast-slide-in var(--ui-duration-normal, 200ms) var(--ui-ease-out, ease-out);
+  }
+
+  .toast[data-state="closed"] {
+    animation: toast-slide-out var(--ui-duration-fast, 100ms) var(--ui-ease-in, ease-in);
+  }
+
+  @keyframes toast-slide-in {
+    from {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes toast-slide-out {
+    to {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+  }
+}

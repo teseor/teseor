@@ -1,0 +1,39 @@
+{
+  "name": "toast",
+  "baseClass": "toast",
+  "element": "div",
+  "description": "Notification messages with auto-dismiss",
+  "modifiers": {
+    "variant": {
+      "values": ["success", "warning", "danger", "info"],
+      "default": null
+    }
+  },
+  "elements": {
+    "icon": {
+      "element": "span",
+      "description": "Status icon"
+    },
+    "content": {
+      "element": "div",
+      "description": "Text content container"
+    },
+    "title": {
+      "element": "p",
+      "description": "Toast title"
+    },
+    "description": {
+      "element": "p",
+      "description": "Toast description"
+    },
+    "action": {
+      "element": "button",
+      "description": "Optional action button"
+    },
+    "close": {
+      "element": "button",
+      "description": "Close button"
+    }
+  },
+  "related": ["toast-viewport"]
+}

@@ -1,0 +1,56 @@
+{
+  "api": "./toast.api.json",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "html": "<div class=\"ui-toast\"><div class=\"ui-toast__content\"><p class=\"ui-toast__title\">Notification</p><p class=\"ui-toast__description\">Your changes have been saved.</p></div><button class=\"ui-toast__close\">X</button></div>"
+        }
+      ]
+    },
+    {
+      "title": "Variants",
+      "examples": [
+        {
+          "html": "<div class=\"ui-toast ui-toast--success\"><div class=\"ui-toast__content\"><p class=\"ui-toast__title\">Success</p><p class=\"ui-toast__description\">Operation completed successfully.</p></div></div>",
+          "layout": "stack"
+        },
+        {
+          "html": "<div class=\"ui-toast ui-toast--warning\"><div class=\"ui-toast__content\"><p class=\"ui-toast__title\">Warning</p><p class=\"ui-toast__description\">Please review before continuing.</p></div></div>",
+          "layout": "stack"
+        },
+        {
+          "html": "<div class=\"ui-toast ui-toast--danger\"><div class=\"ui-toast__content\"><p class=\"ui-toast__title\">Error</p><p class=\"ui-toast__description\">Something went wrong.</p></div></div>",
+          "layout": "stack"
+        },
+        {
+          "html": "<div class=\"ui-toast ui-toast--info\"><div class=\"ui-toast__content\"><p class=\"ui-toast__title\">Info</p><p class=\"ui-toast__description\">New updates available.</p></div></div>",
+          "layout": "stack"
+        }
+      ]
+    },
+    {
+      "title": "With Action",
+      "examples": [
+        {
+          "html": "<div class=\"ui-toast\"><div class=\"ui-toast__content\"><p class=\"ui-toast__title\">File deleted</p><p class=\"ui-toast__description\">document.pdf was moved to trash.</p></div><button class=\"ui-toast__action ui-button ui-button--sm ui-button--secondary\">Undo</button><button class=\"ui-toast__close\">X</button></div>"
+        }
+      ]
+    },
+    {
+      "title": "Viewport Positions",
+      "description": "Container positions for toast placement",
+      "examples": [
+        {
+          "html": "<div style=\"position:relative;height:200px;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)\"><div class=\"ui-toast-viewport ui-toast-viewport--top-end\" style=\"position:absolute\"><div class=\"ui-toast\"><div class=\"ui-toast__content\"><p class=\"ui-toast__title\">Top End</p></div></div></div></div>",
+          "layout": "stack"
+        },
+        {
+          "html": "<div style=\"position:relative;height:200px;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)\"><div class=\"ui-toast-viewport ui-toast-viewport--bottom-end\" style=\"position:absolute\"><div class=\"ui-toast\"><div class=\"ui-toast__content\"><p class=\"ui-toast__title\">Bottom End</p></div></div></div></div>",
+          "layout": "stack"
+        }
+      ]
+    }
+  ]
+}
