@@ -1,0 +1,42 @@
+{
+  "id": "modal",
+  "type": "component",
+  "title": "Modal",
+  "description": "Container for modal dialogs. Use with overlay for backdrop effect.",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "html": "<div style=\"position: relative; height: 200px; background: var(--ui-color-bg-subtle);\"><div class=\"ui-modal ui-modal--visible\" style=\"position: absolute;\"><div class=\"ui-modal__content\"><p>Modal content goes here</p></div></div></div>",
+          "code": "<div class=\"ui-overlay\"></div>\n<div class=\"ui-modal\">\n  <div class=\"ui-modal__content\">\n    <p>Modal content goes here</p>\n  </div>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "Sizes",
+      "data": {
+        "sizes": [
+          { "mod": "sm", "label": "Small" },
+          { "mod": "", "label": "Default" },
+          { "mod": "lg", "label": "Large" }
+        ]
+      },
+      "examples": [
+        {
+          "html": "<div style=\"position: relative; height: 120px; background: var(--ui-color-bg-subtle);\"><div class=\"ui-modal ui-modal--sm ui-modal--visible\" style=\"position: absolute;\"><div class=\"ui-modal__content\"><p>Small modal</p></div></div></div>",
+          "code": "<div class=\"ui-modal ui-modal--sm\">\n  <div class=\"ui-modal__content\">Small modal</div>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "With Scrollable Content",
+      "examples": [
+        {
+          "html": "<div style=\"position: relative; height: 200px; background: var(--ui-color-bg-subtle);\"><div class=\"ui-modal ui-modal--visible\" style=\"position: absolute;\"><div class=\"ui-modal__content\" style=\"max-height: 150px;\"><div class=\"ui-modal__body\"><p>Line 1</p><p>Line 2</p><p>Line 3</p><p>Line 4</p><p>Line 5</p><p>Line 6</p></div></div></div></div>",
+          "code": "<div class=\"ui-modal\">\n  <div class=\"ui-modal__content\">\n    <div class=\"ui-modal__body\">\n      <!-- Scrollable content -->\n    </div>\n  </div>\n</div>"
+        }
+      ]
+    }
+  ]
+}
