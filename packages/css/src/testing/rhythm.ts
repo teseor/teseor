@@ -101,19 +101,10 @@ export async function validateGridRhythm(
   if (violations.length > 0) {
     console.log(`Grid rhythm violations in ${componentName}:`);
     console.table(violations);
-  }
-
-  return violations;
-}
-
-/**
- * Assert that component follows grid rhythm (throws on failure)
- */
-export async function assertGridRhythm(page: Page, componentName: string): Promise<void> {
-  const violations = await validateGridRhythm(page, componentName);
-  if (violations.length > 0) {
     throw new Error(
       `Grid rhythm violations in ${componentName}:\n${JSON.stringify(violations, null, 2)}`,
     );
   }
+
+  return violations;
 }
