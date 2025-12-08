@@ -1,0 +1,72 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Link - styled anchor element
+// Provides consistent styling for text links
+
+@layer components.tokens {
+  .link {
+    --_color: var(--ui-link-color, var(--ui-color-primary));
+    --_color-hover: var(--ui-link-color-hover, var(--ui-color-primary-hover, color-mix(in srgb, var(--_color) 85%, black)));
+    --_color-visited: var(--ui-link-color-visited, var(--_color));
+    --_decoration: var(--ui-link-decoration, underline);
+    --_decoration-hover: var(--ui-link-decoration-hover, underline);
+  }
+
+  .link--muted {
+    --_color: var(--ui-link-color-muted, var(--ui-color-text-muted));
+    --_color-hover: var(--ui-link-color-muted-hover, var(--ui-color-text));
+  }
+
+  .link--subtle {
+    --_decoration: none;
+    --_decoration-hover: underline;
+  }
+}
+
+@layer components.styles {
+  .link {
+    text-decoration: var(--_decoration);
+    color: var(--_color);
+
+    cursor: pointer;
+
+    transition: color var(--ui-duration-fast, 100ms) var(--ui-ease-default, ease);
+    text-underline-offset: calc(#{t.$unit} / 4);
+
+    &:hover {
+      text-decoration: var(--_decoration-hover);
+      color: var(--_color-hover);
+    }
+
+    &:focus-visible {
+      border-radius: calc(#{t.$unit} / 4);
+      outline: 2px solid var(--ui-color-focus, var(--ui-color-primary));
+      outline-offset: calc(#{t.$unit} / 4);
+    }
+
+    &:visited {
+      color: var(--_color-visited);
+    }
+  }
+
+  // Disabled link
+  .link--disabled,
+  .link[aria-disabled="true"] {
+    color: var(--ui-color-text-muted);
+
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  // External link indicator
+  .link--external::after {
+
+    content: "\2197"; // ↗
+    display: inline-block;
+
+    margin-inline-start: calc(#{t.$unit} / 4);
+
+    font-size: 0.75em;
+  }
+}
