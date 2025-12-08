@@ -1,0 +1,38 @@
+{
+  "id": "heading",
+  "type": "component",
+  "title": "Heading",
+  "description": "Semantic headings with visual size control. Use semantic level (h1-h6) for structure, size modifier for visual styling.",
+  "sections": [
+    {
+      "title": "Sizes",
+      "examples": [
+        {
+          "layout": "stack",
+          "html": "<h1 class=\"ui-heading ui-heading--3xl\">Heading 3xl</h1><h2 class=\"ui-heading ui-heading--2xl\">Heading 2xl</h2><h3 class=\"ui-heading ui-heading--xl\">Heading xl</h3><h4 class=\"ui-heading ui-heading--lg\">Heading lg</h4><h5 class=\"ui-heading ui-heading--md\">Heading md</h5><h6 class=\"ui-heading ui-heading--sm\">Heading sm</h6>",
+          "code": "<h1 class=\"ui-heading ui-heading--3xl\">3xl</h1>\n<h2 class=\"ui-heading ui-heading--2xl\">2xl</h2>\n<h3 class=\"ui-heading ui-heading--xl\">xl</h3>\n<h4 class=\"ui-heading ui-heading--lg\">lg</h4>\n<h5 class=\"ui-heading ui-heading--md\">md</h5>\n<h6 class=\"ui-heading ui-heading--sm\">sm</h6>"
+        }
+      ]
+    },
+    {
+      "title": "Decoupled Sizing",
+      "description": "Use any size with any semantic level",
+      "examples": [
+        {
+          "layout": "stack",
+          "html": "<h2 class=\"ui-heading ui-heading--3xl\">h2 styled as 3xl</h2><h1 class=\"ui-heading ui-heading--lg\">h1 styled as lg</h1>",
+          "code": "<h2 class=\"ui-heading ui-heading--3xl\">h2 styled as 3xl</h2>\n<h1 class=\"ui-heading ui-heading--lg\">h1 styled as lg</h1>"
+        }
+      ]
+    },
+    {
+      "title": "Muted",
+      "examples": [
+        {
+          "html": "<h2 class=\"ui-heading ui-heading--2xl ui-heading--muted\">Muted heading</h2>",
+          "code": "<h2 class=\"ui-heading ui-heading--muted\">Muted</h2>"
+        }
+      ]
+    }
+  ]
+}
