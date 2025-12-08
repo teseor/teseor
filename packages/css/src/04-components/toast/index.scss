@@ -16,7 +16,7 @@
     --_radius: var(--ui-toast-radius, var(--ui-radius-md, #{t.$radius-md}));
     --_bg: var(--ui-toast-bg, var(--ui-color-bg, #{t.$color-bg}));
     --_border-color: var(--ui-toast-border-color, var(--ui-color-border, #{t.$color-border}));
-    --_shadow: var(--ui-toast-shadow, var(--ui-shadow-lg, #{t.$shadow-lg}));
+    --_shadow: var(--ui-toast-shadow, var(--shadow-lg));
   }
 
   .toast--success {
