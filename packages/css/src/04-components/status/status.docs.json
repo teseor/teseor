@@ -1,0 +1,45 @@
+{
+  "id": "status",
+  "type": "component",
+  "title": "Status",
+  "description": "Visual status indicator with colored dot to show state.",
+  "sections": [
+    {
+      "title": "Variants",
+      "examples": [
+        {
+          "html": "<div style=\"display: flex; flex-direction: column; gap: var(--ui-space-2);\"><span class=\"ui-status\"><span class=\"ui-status__dot\"></span>Default</span><span class=\"ui-status ui-status--success\"><span class=\"ui-status__dot\"></span>Online</span><span class=\"ui-status ui-status--warning\"><span class=\"ui-status__dot\"></span>Away</span><span class=\"ui-status ui-status--danger\"><span class=\"ui-status__dot\"></span>Busy</span><span class=\"ui-status ui-status--info\"><span class=\"ui-status__dot\"></span>In a meeting</span></div>",
+          "code": "<span class=\"ui-status ui-status--success\">\n  <span class=\"ui-status__dot\"></span>\n  Online\n</span>"
+        }
+      ]
+    },
+    {
+      "title": "Sizes",
+      "examples": [
+        {
+          "html": "<div style=\"display: flex; gap: var(--ui-space-4); align-items: center;\"><span class=\"ui-status ui-status--success ui-status--sm\"><span class=\"ui-status__dot\"></span>Small</span><span class=\"ui-status ui-status--success\"><span class=\"ui-status__dot\"></span>Default</span><span class=\"ui-status ui-status--success ui-status--lg\"><span class=\"ui-status__dot\"></span>Large</span></div>",
+          "code": "<span class=\"ui-status ui-status--sm\">...</span>\n<span class=\"ui-status\">...</span>\n<span class=\"ui-status ui-status--lg\">...</span>"
+        }
+      ]
+    },
+    {
+      "title": "Pulse Animation",
+      "description": "For live or active indicators",
+      "examples": [
+        {
+          "html": "<span class=\"ui-status ui-status--success ui-status--pulse\"><span class=\"ui-status__dot\"></span>Live</span>",
+          "code": "<span class=\"ui-status ui-status--success ui-status--pulse\">\n  <span class=\"ui-status__dot\"></span>\n  Live\n</span>"
+        }
+      ]
+    },
+    {
+      "title": "Dot Only",
+      "examples": [
+        {
+          "html": "<div style=\"display: flex; gap: var(--ui-space-2);\"><span class=\"ui-status ui-status--success\"><span class=\"ui-status__dot\"></span></span><span class=\"ui-status ui-status--warning\"><span class=\"ui-status__dot\"></span></span><span class=\"ui-status ui-status--danger\"><span class=\"ui-status__dot\"></span></span></div>",
+          "code": "<span class=\"ui-status ui-status--success\">\n  <span class=\"ui-status__dot\"></span>\n</span>"
+        }
+      ]
+    }
+  ]
+}

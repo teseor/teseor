@@ -1,0 +1,24 @@
+{
+  "name": "status",
+  "baseClass": "status",
+  "element": "span",
+  "description": "Visual status indicator with colored dot",
+  "modifiers": {
+    "variant": {
+      "values": ["success", "warning", "danger", "info"],
+      "default": null,
+      "description": "Color variant indicating status type"
+    },
+    "size": {
+      "values": ["sm", "lg"],
+      "default": null,
+      "description": "Size variant"
+    },
+    "animation": {
+      "values": ["pulse"],
+      "default": null,
+      "description": "Pulse animation for active/live status"
+    }
+  },
+  "states": []
+}

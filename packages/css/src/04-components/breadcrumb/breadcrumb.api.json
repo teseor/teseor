@@ -1,0 +1,14 @@
+{
+  "name": "breadcrumb",
+  "baseClass": "breadcrumb",
+  "element": "nav",
+  "description": "Navigation hierarchy showing current page location",
+  "modifiers": {
+    "variant": {
+      "values": ["collapsed"],
+      "default": null,
+      "description": "Shows ellipsis for long breadcrumb trails"
+    }
+  },
+  "states": []
+}
