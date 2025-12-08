@@ -1,0 +1,93 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Modal - container for modal dialogs
+// Centered container with backdrop that appears over page content
+
+@layer components.tokens {
+  .modal {
+    --_bg: var(--ui-modal-bg, var(--ui-color-bg, white));
+    --_radius: var(--ui-modal-radius, var(--ui-radius-lg, calc(#{t.$unit} * 1.5)));
+    --_shadow: var(--ui-modal-shadow, 0 calc(#{t.$unit} * 3) calc(#{t.$unit} * 6) rgb(0 0 0 / 0.25));
+    --_padding: var(--ui-modal-padding, calc(#{t.$unit} * 3));
+    --_max-width: var(--ui-modal-max-width, calc(#{t.$unit} * 60));
+    --_max-height: var(--ui-modal-max-height, calc(100vh - #{t.$unit} * 8));
+    --_z: var(--ui-modal-z, var(--ui-z-modal, 400));
+  }
+
+  .modal--sm {
+    --_max-width: var(--ui-modal-max-width-sm, calc(#{t.$unit} * 40));
+  }
+
+  .modal--lg {
+    --_max-width: var(--ui-modal-max-width-lg, calc(#{t.$unit} * 80));
+  }
+
+  .modal--full {
+    --_max-width: calc(100vw - #{t.$unit} * 4);
+    --_max-height: calc(100vh - #{t.$unit} * 4);
+    --_radius: 0;
+  }
+}
+
+@layer components.styles {
+  .modal {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    inset: 0;
+    z-index: var(--_z);
+
+    padding: calc(#{t.$unit} * 2);
+  }
+
+  .modal__content {
+
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    inline-size: 100%;
+    max-block-size: var(--_max-height);
+    max-inline-size: var(--_max-width);
+    padding: var(--_padding);
+    overflow: hidden;
+
+    background: var(--_bg);
+    border-radius: var(--_radius);
+    box-shadow: var(--_shadow);
+  }
+
+  // Scrollable body
+  .modal__body {
+    flex: 1 1 auto;
+
+    overflow-y: auto;
+  }
+
+  // Animation states
+  .modal--entering .modal__content,
+  .modal--visible .modal__content {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .modal--exiting .modal__content,
+  .modal--hidden .modal__content {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  .modal--animate .modal__content {
+    transition:
+      opacity var(--ui-duration-normal, 200ms) var(--ui-ease-default, ease),
+      transform var(--ui-duration-normal, 200ms) var(--ui-ease-default, ease);
+  }
+
+  // Hidden state hides entire modal
+  .modal--hidden {
+    visibility: hidden;
+    pointer-events: none;
+  }
+}

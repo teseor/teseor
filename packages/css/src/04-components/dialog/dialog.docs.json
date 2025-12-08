@@ -1,0 +1,35 @@
+{
+  "id": "dialog",
+  "type": "component",
+  "title": "Dialog",
+  "description": "Structured modal with header, body, and footer sections. Use with modal component for positioning.",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "html": "<div style=\"position: relative; height: 240px; background: var(--ui-color-bg-subtle);\"><div class=\"ui-modal ui-modal--visible\" style=\"position: absolute;\"><div class=\"ui-modal__content ui-dialog\" style=\"max-height: 200px;\"><header class=\"ui-dialog__header\"><h2 class=\"ui-dialog__title\">Dialog Title</h2><button class=\"ui-button ui-button--ghost ui-button--sm ui-dialog__close\">X</button></header><div class=\"ui-dialog__body\"><p>Dialog content goes here.</p></div><footer class=\"ui-dialog__footer\"><button class=\"ui-button ui-button--ghost\">Cancel</button><button class=\"ui-button\">Confirm</button></footer></div></div></div>",
+          "code": "<div class=\"ui-modal\">\n  <div class=\"ui-modal__content ui-dialog\">\n    <header class=\"ui-dialog__header\">\n      <h2 class=\"ui-dialog__title\">Dialog Title</h2>\n      <button class=\"ui-button ui-button--ghost ui-dialog__close\">X</button>\n    </header>\n    <div class=\"ui-dialog__body\">\n      <p>Dialog content goes here.</p>\n    </div>\n    <footer class=\"ui-dialog__footer\">\n      <button class=\"ui-button ui-button--ghost\">Cancel</button>\n      <button class=\"ui-button\">Confirm</button>\n    </footer>\n  </div>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "Borderless",
+      "examples": [
+        {
+          "html": "<div style=\"position: relative; height: 200px; background: var(--ui-color-bg-subtle);\"><div class=\"ui-modal ui-modal--visible\" style=\"position: absolute;\"><div class=\"ui-modal__content ui-dialog ui-dialog--borderless\" style=\"max-height: 180px;\"><header class=\"ui-dialog__header\"><h2 class=\"ui-dialog__title\">Simple Dialog</h2></header><div class=\"ui-dialog__body\"><p>Content without borders.</p></div><footer class=\"ui-dialog__footer\"><button class=\"ui-button\">OK</button></footer></div></div></div>",
+          "code": "<div class=\"ui-modal\">\n  <div class=\"ui-modal__content ui-dialog ui-dialog--borderless\">\n    ...\n  </div>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "Confirmation Dialog",
+      "examples": [
+        {
+          "html": "<div style=\"position: relative; height: 200px; background: var(--ui-color-bg-subtle);\"><div class=\"ui-modal ui-modal--sm ui-modal--visible\" style=\"position: absolute;\"><div class=\"ui-modal__content ui-dialog\"><header class=\"ui-dialog__header\"><h2 class=\"ui-dialog__title\">Delete Item?</h2></header><div class=\"ui-dialog__body\"><p>This action cannot be undone.</p></div><footer class=\"ui-dialog__footer\"><button class=\"ui-button ui-button--ghost\">Cancel</button><button class=\"ui-button ui-button--danger\">Delete</button></footer></div></div></div>",
+          "code": "<div class=\"ui-modal ui-modal--sm\">\n  <div class=\"ui-modal__content ui-dialog\">\n    <header class=\"ui-dialog__header\">\n      <h2 class=\"ui-dialog__title\">Delete Item?</h2>\n    </header>\n    <div class=\"ui-dialog__body\">\n      <p>This action cannot be undone.</p>\n    </div>\n    <footer class=\"ui-dialog__footer\">\n      <button class=\"ui-button ui-button--ghost\">Cancel</button>\n      <button class=\"ui-button ui-button--danger\">Delete</button>\n    </footer>\n  </div>\n</div>"
+        }
+      ]
+    }
+  ]
+}

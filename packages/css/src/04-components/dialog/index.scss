@@ -1,0 +1,74 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Dialog - structured modal with header, body, footer
+// Extends modal with semantic sections
+
+@layer components.tokens {
+  .dialog {
+    --_header-padding: var(--ui-dialog-header-padding, calc(#{t.$unit} * 2) calc(#{t.$unit} * 3));
+    --_body-padding: var(--ui-dialog-body-padding, calc(#{t.$unit} * 3));
+    --_footer-padding: var(--ui-dialog-footer-padding, calc(#{t.$unit} * 2) calc(#{t.$unit} * 3));
+    --_border-color: var(--ui-dialog-border-color, var(--ui-color-border, rgb(0 0 0 / 0.1)));
+  }
+}
+
+@layer components.styles {
+  // Dialog content extends modal content but removes default padding
+  .dialog .modal__content {
+    padding: 0;
+  }
+
+  .dialog__header {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc(#{t.$unit} * 2);
+
+    padding: var(--_header-padding);
+
+    border-block-end: 1px solid var(--_border-color);
+  }
+
+  .dialog__title {
+    margin: 0;
+
+    font-size: var(--ui-size-lg, #{t.$size-lg});
+    font-weight: var(--ui-weight-semibold, 600);
+    line-height: calc(#{t.$unit} * 3);
+  }
+
+  .dialog__close {
+    flex-shrink: 0;
+
+    margin-inline-start: auto;
+  }
+
+  .dialog__body {
+    flex: 1 1 auto;
+
+    padding: var(--_body-padding);
+    overflow-y: auto;
+  }
+
+  .dialog__footer {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: flex-end;
+    gap: calc(#{t.$unit} * 1.5);
+
+    padding: var(--_footer-padding);
+
+    border-block-start: 1px solid var(--_border-color);
+  }
+
+  // Variant without borders
+  .dialog--borderless .dialog__header {
+    border-block-end: none;
+  }
+
+  .dialog--borderless .dialog__footer {
+    border-block-start: none;
+  }
+}

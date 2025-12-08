@@ -37,6 +37,7 @@
       <a class="ui-nav-link" href="#card">Card</a>
       <a class="ui-nav-link" href="#checkbox">Checkbox</a>
       <a class="ui-nav-link" href="#code">Code</a>
+      <a class="ui-nav-link" href="#dialog">Dialog</a>
       <a class="ui-nav-link" href="#field">Field</a>
       <a class="ui-nav-link" href="#form-error">Form Error</a>
       <a class="ui-nav-link" href="#form-helper">Form Helper</a>
@@ -45,6 +46,7 @@
       <a class="ui-nav-link" href="#input">Input</a>
       <a class="ui-nav-link" href="#label">Label</a>
       <a class="ui-nav-link" href="#link">Link</a>
+      <a class="ui-nav-link" href="#modal">Modal</a>
       <a class="ui-nav-link" href="#overlay">Overlay</a>
       <a class="ui-nav-link" href="#radio">Radio</a>
       <a class="ui-nav-link" href="#select">Select</a>
@@ -1623,6 +1625,89 @@
   
 </div>
 </section>
+<section id="dialog" class="ui-docs-section" data-type="component">
+  <h2>Dialog</h2>
+  <p>Structured modal with header, body, and footer sections. Use with modal component for positioning.</p>
+
+  <h3>Default</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div style="position: relative; height: 240px; background: var(--ui-color-bg-subtle);"><div class="ui-modal ui-modal--visible" style="position: absolute;"><div class="ui-modal__content ui-dialog" style="max-height: 200px;"><header class="ui-dialog__header"><h2 class="ui-dialog__title">Dialog Title</h2><button class="ui-button ui-button--ghost ui-button--sm ui-dialog__close">X</button></header><div class="ui-dialog__body"><p>Dialog content goes here.</p></div><footer class="ui-dialog__footer"><button class="ui-button ui-button--ghost">Cancel</button><button class="ui-button">Confirm</button></footer></div></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-modal"&gt;
+  &lt;div class="ui-modal__content ui-dialog"&gt;
+    &lt;header class="ui-dialog__header"&gt;
+      &lt;h2 class="ui-dialog__title"&gt;Dialog Title&lt;/h2&gt;
+      &lt;button class="ui-button ui-button--ghost ui-dialog__close"&gt;X&lt;/button&gt;
+    &lt;/header&gt;
+    &lt;div class="ui-dialog__body"&gt;
+      &lt;p&gt;Dialog content goes here.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;footer class="ui-dialog__footer"&gt;
+      &lt;button class="ui-button ui-button--ghost"&gt;Cancel&lt;/button&gt;
+      &lt;button class="ui-button"&gt;Confirm&lt;/button&gt;
+    &lt;/footer&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Borderless</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div style="position: relative; height: 200px; background: var(--ui-color-bg-subtle);"><div class="ui-modal ui-modal--visible" style="position: absolute;"><div class="ui-modal__content ui-dialog ui-dialog--borderless" style="max-height: 180px;"><header class="ui-dialog__header"><h2 class="ui-dialog__title">Simple Dialog</h2></header><div class="ui-dialog__body"><p>Content without borders.</p></div><footer class="ui-dialog__footer"><button class="ui-button">OK</button></footer></div></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-modal"&gt;
+  &lt;div class="ui-modal__content ui-dialog ui-dialog--borderless"&gt;
+    ...
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Confirmation Dialog</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div style="position: relative; height: 200px; background: var(--ui-color-bg-subtle);"><div class="ui-modal ui-modal--sm ui-modal--visible" style="position: absolute;"><div class="ui-modal__content ui-dialog"><header class="ui-dialog__header"><h2 class="ui-dialog__title">Delete Item?</h2></header><div class="ui-dialog__body"><p>This action cannot be undone.</p></div><footer class="ui-dialog__footer"><button class="ui-button ui-button--ghost">Cancel</button><button class="ui-button ui-button--danger">Delete</button></footer></div></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-modal ui-modal--sm"&gt;
+  &lt;div class="ui-modal__content ui-dialog"&gt;
+    &lt;header class="ui-dialog__header"&gt;
+      &lt;h2 class="ui-dialog__title"&gt;Delete Item?&lt;/h2&gt;
+    &lt;/header&gt;
+    &lt;div class="ui-dialog__body"&gt;
+      &lt;p&gt;This action cannot be undone.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;footer class="ui-dialog__footer"&gt;
+      &lt;button class="ui-button ui-button--ghost"&gt;Cancel&lt;/button&gt;
+      &lt;button class="ui-button ui-button--danger"&gt;Delete&lt;/button&gt;
+    &lt;/footer&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+</section>
 <section id="field" class="ui-docs-section" data-type="component">
   <h2>Field</h2>
   <p>Form field wrapper that combines label, control, helper text, and error message.</p>
@@ -2350,6 +2435,71 @@
   Read our &lt;a href="#" class="ui-link"&gt;privacy policy&lt;/a&gt;
   for more information.
 &lt;/p&gt;</code></pre>
+  </div>
+  
+</div>
+</section>
+<section id="modal" class="ui-docs-section" data-type="component">
+  <h2>Modal</h2>
+  <p>Container for modal dialogs. Use with overlay for backdrop effect.</p>
+
+  <h3>Default</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div style="position: relative; height: 200px; background: var(--ui-color-bg-subtle);"><div class="ui-modal ui-modal--visible" style="position: absolute;"><div class="ui-modal__content"><p>Modal content goes here</p></div></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-overlay"&gt;&lt;/div&gt;
+&lt;div class="ui-modal"&gt;
+  &lt;div class="ui-modal__content"&gt;
+    &lt;p&gt;Modal content goes here&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Sizes</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div style="position: relative; height: 120px; background: var(--ui-color-bg-subtle);"><div class="ui-modal ui-modal--sm ui-modal--visible" style="position: absolute;"><div class="ui-modal__content"><p>Small modal</p></div></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-modal ui-modal--sm"&gt;
+  &lt;div class="ui-modal__content"&gt;Small modal&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>With Scrollable Content</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div style="position: relative; height: 200px; background: var(--ui-color-bg-subtle);"><div class="ui-modal ui-modal--visible" style="position: absolute;"><div class="ui-modal__content" style="max-height: 150px;"><div class="ui-modal__body"><p>Line 1</p><p>Line 2</p><p>Line 3</p><p>Line 4</p><p>Line 5</p><p>Line 6</p></div></div></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-modal"&gt;
+  &lt;div class="ui-modal__content"&gt;
+    &lt;div class="ui-modal__body"&gt;
+      &lt;!-- Scrollable content --&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
   </div>
   
 </div>

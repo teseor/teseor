@@ -1,0 +1,14 @@
+{
+  "name": "dialog",
+  "baseClass": "dialog",
+  "element": "div",
+  "description": "Structured modal with header, body, and footer sections",
+  "modifiers": {
+    "variant": {
+      "values": ["borderless"],
+      "default": null,
+      "description": "Visual variant. Borderless removes header/footer borders."
+    }
+  },
+  "states": []
+}

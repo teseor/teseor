@@ -1,0 +1,19 @@
+{
+  "name": "modal",
+  "baseClass": "modal",
+  "element": "div",
+  "description": "Container for modal dialogs that appears centered over page content",
+  "modifiers": {
+    "size": {
+      "values": ["sm", "lg", "full"],
+      "default": null,
+      "description": "Size variant. Controls max-width of modal content."
+    },
+    "state": {
+      "values": ["visible", "hidden", "entering", "exiting", "animate"],
+      "default": null,
+      "description": "Animation states controlled via JS"
+    }
+  },
+  "states": []
+}
