@@ -30,6 +30,7 @@
       <a class="ui-nav-link" href="#stack">Stack</a>
 
       <h2 class="ui-text-xs ui-font-bold ui-uppercase ui-text-muted ui-mt-4">Components</h2>
+      <a class="ui-nav-link" href="#accordion">Accordion</a>
       <a class="ui-nav-link" href="#alert">Alert</a>
       <a class="ui-nav-link" href="#avatar">Avatar</a>
       <a class="ui-nav-link" href="#badge">Badge</a>
@@ -38,6 +39,7 @@
       <a class="ui-nav-link" href="#checkbox">Checkbox</a>
       <a class="ui-nav-link" href="#code">Code</a>
       <a class="ui-nav-link" href="#dialog">Dialog</a>
+      <a class="ui-nav-link" href="#disclosure">Disclosure</a>
       <a class="ui-nav-link" href="#field">Field</a>
       <a class="ui-nav-link" href="#form-error">Form Error</a>
       <a class="ui-nav-link" href="#form-helper">Form Helper</a>
@@ -593,6 +595,78 @@
 </section>
 
 <!-- Components -->
+<section id="accordion" class="ui-docs-section" data-type="component">
+  <h2>Accordion</h2>
+  <p>Container for grouped expandable sections. Use with disclosure components.</p>
+
+  <h3>Default</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-accordion"><details class="ui-disclosure"><summary class="ui-disclosure__trigger">Section 1<span class="ui-disclosure__icon">&#9662;</span></summary><div class="ui-disclosure__content"><p>Content for section 1</p></div></details><details class="ui-disclosure"><summary class="ui-disclosure__trigger">Section 2<span class="ui-disclosure__icon">&#9662;</span></summary><div class="ui-disclosure__content"><p>Content for section 2</p></div></details><details class="ui-disclosure"><summary class="ui-disclosure__trigger">Section 3<span class="ui-disclosure__icon">&#9662;</span></summary><div class="ui-disclosure__content"><p>Content for section 3</p></div></details></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-accordion"&gt;
+  &lt;details class="ui-disclosure"&gt;
+    &lt;summary class="ui-disclosure__trigger"&gt;Section 1&lt;/summary&gt;
+    &lt;div class="ui-disclosure__content"&gt;...&lt;/div&gt;
+  &lt;/details&gt;
+  &lt;details class="ui-disclosure"&gt;
+    &lt;summary class="ui-disclosure__trigger"&gt;Section 2&lt;/summary&gt;
+    &lt;div class="ui-disclosure__content"&gt;...&lt;/div&gt;
+  &lt;/details&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Separated</h3>
+<p>Gap between accordion items</p>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-accordion ui-accordion--separated"><details class="ui-disclosure"><summary class="ui-disclosure__trigger">Section 1<span class="ui-disclosure__icon">&#9662;</span></summary><div class="ui-disclosure__content"><p>Content for section 1</p></div></details><details class="ui-disclosure"><summary class="ui-disclosure__trigger">Section 2<span class="ui-disclosure__icon">&#9662;</span></summary><div class="ui-disclosure__content"><p>Content for section 2</p></div></details></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-accordion ui-accordion--separated"&gt;
+  ...
+&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>With One Open</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-accordion"><details class="ui-disclosure" open><summary class="ui-disclosure__trigger">Open Section<span class="ui-disclosure__icon">&#9662;</span></summary><div class="ui-disclosure__content"><p>This section starts open</p></div></details><details class="ui-disclosure"><summary class="ui-disclosure__trigger">Closed Section<span class="ui-disclosure__icon">&#9662;</span></summary><div class="ui-disclosure__content"><p>Click to open</p></div></details></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-accordion"&gt;
+  &lt;details class="ui-disclosure" open&gt;
+    &lt;summary class="ui-disclosure__trigger"&gt;Open Section&lt;/summary&gt;
+    &lt;div class="ui-disclosure__content"&gt;...&lt;/div&gt;
+  &lt;/details&gt;
+  &lt;details class="ui-disclosure"&gt;
+    ...
+  &lt;/details&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+</section>
 <section id="alert" class="ui-docs-section" data-type="component">
   <h2>Alert</h2>
   <p>Informational banner for important messages. Use variants for different message types.</p>
@@ -1706,6 +1780,89 @@
     &lt;/footer&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+</section>
+<section id="disclosure" class="ui-docs-section" data-type="component">
+  <h2>Disclosure</h2>
+  <p>Expandable/collapsible content section. Uses native details/summary for accessibility without JS.</p>
+
+  <h3>Default</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <details class="ui-disclosure"><summary class="ui-disclosure__trigger">Click to expand<span class="ui-disclosure__icon">&#9662;</span></summary><div class="ui-disclosure__content"><p>Hidden content that expands when clicked.</p></div></details>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;details class="ui-disclosure"&gt;
+  &lt;summary class="ui-disclosure__trigger"&gt;
+    Click to expand
+    &lt;span class="ui-disclosure__icon"&gt;&amp;#9662;&lt;/span&gt;
+  &lt;/summary&gt;
+  &lt;div class="ui-disclosure__content"&gt;
+    &lt;p&gt;Hidden content that expands when clicked.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/details&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Open by Default</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <details class="ui-disclosure" open><summary class="ui-disclosure__trigger">Already expanded<span class="ui-disclosure__icon">&#9662;</span></summary><div class="ui-disclosure__content"><p>This content is visible by default.</p></div></details>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;details class="ui-disclosure" open&gt;
+  &lt;summary class="ui-disclosure__trigger"&gt;Already expanded&lt;/summary&gt;
+  &lt;div class="ui-disclosure__content"&gt;...&lt;/div&gt;
+&lt;/details&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Borderless</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <details class="ui-disclosure ui-disclosure--borderless"><summary class="ui-disclosure__trigger">Borderless disclosure<span class="ui-disclosure__icon">&#9662;</span></summary><div class="ui-disclosure__content"><p>No border around the disclosure.</p></div></details>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;details class="ui-disclosure ui-disclosure--borderless"&gt;
+  ...
+&lt;/details&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Animated</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <details class="ui-disclosure ui-disclosure--animate"><summary class="ui-disclosure__trigger">Animated expansion<span class="ui-disclosure__icon">&#9662;</span></summary><div class="ui-disclosure__content"><p>Content animates in when opened.</p></div></details>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;details class="ui-disclosure ui-disclosure--animate"&gt;
+  ...
+&lt;/details&gt;</code></pre>
   </div>
   
 </div>

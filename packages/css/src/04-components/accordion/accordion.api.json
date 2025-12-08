@@ -1,0 +1,14 @@
+{
+  "name": "accordion",
+  "baseClass": "accordion",
+  "element": "div",
+  "description": "Container for grouped expandable disclosure sections",
+  "modifiers": {
+    "variant": {
+      "values": ["borderless", "separated"],
+      "default": null,
+      "description": "Visual variants. Borderless removes outer border, separated adds gap between items."
+    }
+  },
+  "states": []
+}

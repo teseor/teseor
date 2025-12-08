@@ -1,0 +1,14 @@
+{
+  "name": "disclosure",
+  "baseClass": "disclosure",
+  "element": "details",
+  "description": "Expandable/collapsible content section using native details/summary",
+  "modifiers": {
+    "variant": {
+      "values": ["borderless", "flush", "animate"],
+      "default": null,
+      "description": "Visual variants. Borderless removes border, flush removes padding, animate adds enter animation."
+    }
+  },
+  "states": ["open"]
+}

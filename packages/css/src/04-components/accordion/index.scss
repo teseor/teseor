@@ -1,0 +1,73 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Accordion - grouped expandable sections
+// Container for multiple disclosure items
+
+@layer components.tokens {
+  .accordion {
+    --_border-color: var(--ui-accordion-border-color, var(--ui-color-border, rgb(0 0 0 / 0.1)));
+    --_radius: var(--ui-accordion-radius, var(--ui-radius-md, calc(#{t.$unit} * 1)));
+  }
+}
+
+@layer components.styles {
+  .accordion {
+    border: 1px solid var(--_border-color);
+    border-radius: var(--_radius);
+  }
+
+  // Remove individual borders from nested disclosures
+  .accordion > .disclosure {
+    border: none;
+    border-radius: 0;
+  }
+
+  // Add dividers between items
+  .accordion > .disclosure + .disclosure {
+    border-block-start: 1px solid var(--_border-color);
+  }
+
+  // Round first and last items
+  .accordion > .disclosure:first-child .disclosure__trigger {
+    border-start-start-radius: var(--_radius);
+    border-start-end-radius: var(--_radius);
+  }
+
+  .accordion > .disclosure:last-child .disclosure__trigger {
+    border-end-start-radius: var(--_radius);
+    border-end-end-radius: var(--_radius);
+  }
+
+  // When last item is open, content needs rounding
+  .accordion > .disclosure:last-child .disclosure__content {
+    border-end-start-radius: var(--_radius);
+    border-end-end-radius: var(--_radius);
+  }
+
+  // Borderless variant
+  .accordion--borderless {
+    border: none;
+  }
+
+  .accordion--borderless > .disclosure + .disclosure {
+    border-block-start: none;
+  }
+
+  // Separated variant - gap between items
+  .accordion--separated {
+    display: flex;
+    flex-direction: column;
+    gap: calc(#{t.$unit} * 1);
+
+    border: none;
+  }
+
+  .accordion--separated > .disclosure {
+    border: 1px solid var(--_border-color);
+    border-radius: var(--_radius);
+  }
+
+  .accordion--separated > .disclosure + .disclosure {
+    border-block-start: 1px solid var(--_border-color);
+  }
+}
