@@ -26,7 +26,45 @@
     box-shadow: inset 0 var(--border-width-sm) 0 0 var(--color-border);
   }
 
+  /* Nav headings */
+  .ui-nav-heading {
+    margin: 0;
+    padding: var(--ui-space-1) var(--ui-space-2);
+    font-size: var(--ui-size-xs);
+    font-weight: var(--ui-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ui-color-text-muted);
+  }
+
+  .ui-nav-subheading {
+    margin: 0;
+    margin-block-start: var(--ui-space-2);
+    padding: var(--ui-space-1) var(--ui-space-2);
+    font-size: var(--ui-size-xs);
+    font-weight: var(--ui-weight-medium);
+    color: var(--ui-color-text-muted);
+  }
+
   /* Nav links */
+  .ui-nav-link {
+    display: block;
+    padding: var(--ui-space-1) var(--ui-space-2);
+    color: var(--ui-color-text);
+    text-decoration: none;
+    border-radius: var(--ui-radius-sm);
+    font-size: var(--ui-size-sm);
+  }
+
+  .ui-nav-link:hover {
+    background: var(--ui-color-bg-muted);
+  }
+
+  .ui-nav-link--nested {
+    padding-inline-start: var(--ui-space-4);
+  }
+
+  /* Legacy support */
   .nav-link {
     display: block;
     padding: var(--space-1) var(--space-2);

@@ -5,6 +5,17 @@
 
 export type DocType = 'token' | 'primitive' | 'component' | 'utility';
 
+export type ComponentGroup =
+  | 'actions'
+  | 'typography'
+  | 'forms'
+  | 'data-display'
+  | 'feedback'
+  | 'overlays'
+  | 'disclosure'
+  | 'navigation'
+  | 'layout';
+
 export interface ExampleItem {
   /** HTML tag name */
   tag: string;
@@ -52,6 +63,8 @@ export interface ComponentDoc {
   id?: string;
   /** Documentation type (optional if api provided, defaults to 'component') */
   type?: DocType;
+  /** Component group for navigation hierarchy (only for type='component') */
+  group?: ComponentGroup;
   /** Display title (optional if api provided) */
   title?: string;
   /** Component description (optional if api provided) */
@@ -66,6 +79,7 @@ export interface ComponentDoc {
 export interface ResolvedComponentDoc {
   id: string;
   type: DocType;
+  group?: ComponentGroup;
   title: string;
   description: string;
   sections: Section[];

@@ -9,6 +9,62 @@ import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { renderDoc } from './render-section.js';
 
+/**
+ * Component groups with their members
+ * Order determines nav display order
+ */
+const COMPONENT_GROUPS = [
+  { id: 'actions', label: 'Actions', components: ['button', 'button-group'] },
+  { id: 'typography', label: 'Typography', components: ['heading', 'link', 'code'] },
+  {
+    id: 'forms',
+    label: 'Forms',
+    components: [
+      'label',
+      'input',
+      'textarea',
+      'select',
+      'checkbox',
+      'radio',
+      'toggle',
+      'field',
+      'form-helper',
+      'form-error',
+    ],
+  },
+  {
+    id: 'data-display',
+    label: 'Data Display',
+    components: ['avatar', 'badge', 'icon', 'tag', 'status', 'card', 'table', 'data-list'],
+  },
+  {
+    id: 'feedback',
+    label: 'Feedback',
+    components: ['alert', 'spinner', 'progress', 'skeleton', 'toast'],
+  },
+  {
+    id: 'overlays',
+    label: 'Overlays',
+    components: ['overlay', 'tooltip', 'popover', 'modal', 'dialog', 'drawer'],
+  },
+  { id: 'disclosure', label: 'Disclosure', components: ['disclosure', 'accordion'] },
+  {
+    id: 'navigation',
+    label: 'Navigation',
+    components: ['tabs', 'breadcrumb', 'menu', 'pagination'],
+  },
+  { id: 'layout', label: 'Layout', components: ['divider'] },
+];
+
+function getGroupForComponent(componentId) {
+  for (const group of COMPONENT_GROUPS) {
+    if (group.components.includes(componentId)) {
+      return group.id;
+    }
+  }
+  return null;
+}
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '../../..');
 const SRC_DIR = join(__dirname, '../src');
@@ -52,9 +108,12 @@ function capitalize(str) {
 function resolveDoc(doc, docsFilePath) {
   // If no api field, doc must have all required fields
   if (!doc.api) {
+    const id = doc.id;
+    const type = doc.type;
     return {
-      id: doc.id,
-      type: doc.type,
+      id,
+      type,
+      group: type === 'component' ? doc.group || getGroupForComponent(id) : null,
       title: doc.title,
       description: doc.description,
       sections: doc.sections,
@@ -73,9 +132,12 @@ function resolveDoc(doc, docsFilePath) {
   }
 
   // Merge: doc fields override api fields
+  const id = doc.id || api.name;
+  const type = doc.type || 'component';
   return {
-    id: doc.id || api.name,
-    type: doc.type || 'component',
+    id,
+    type,
+    group: type === 'component' ? doc.group || getGroupForComponent(id) : null,
     title: doc.title || capitalize(api.name),
     description: doc.description || api.description,
     sections: doc.sections,
@@ -115,6 +177,7 @@ function build() {
       renderedDocs.push({
         id: resolved.id,
         type: resolved.type,
+        group: resolved.group,
         title: resolved.title,
         html,
       });
@@ -157,25 +220,66 @@ function build() {
     ...byType.utility.map((d) => d.html),
   ].join('\n');
 
-  // Build navigation HTML
-  const navGroups = [
-    { label: 'Tokens', items: byType.token },
-    { label: 'Primitives', items: byType.primitive },
-    { label: 'Components', items: byType.component },
-    { label: 'Utilities', items: byType.utility },
-  ];
+  // Build navigation HTML with nested component groups
+  function buildNavSection(label, items, isFirst) {
+    if (items.length === 0) return '';
+    const heading = `<h2 class="ui-nav-heading${isFirst ? '' : ' ui-mt-4'}">${label}</h2>`;
+    const links = items
+      .sort((a, b) => a.title.localeCompare(b.title))
+      .map((doc) => `      <a class="ui-nav-link" href="#${doc.id}">${doc.title}</a>`)
+      .join('\n');
+    return `${isFirst ? '' : '\n      '}${heading}\n${links}`;
+  }
 
-  const navHtml = navGroups
-    .filter((group) => group.items.length > 0)
-    .map((group, idx) => {
-      const heading = `<h2 class="ui-text-xs ui-font-bold ui-uppercase ui-text-muted${idx > 0 ? ' ui-mt-4' : ''}">${group.label}</h2>`;
-      const links = group.items
+  function buildComponentsNav(components) {
+    if (components.length === 0) return '';
+
+    const sections = [];
+    sections.push('<h2 class="ui-nav-heading ui-mt-4">Components</h2>');
+
+    for (const groupConfig of COMPONENT_GROUPS) {
+      const groupItems = components.filter((c) => c.group === groupConfig.id);
+      if (groupItems.length === 0) continue;
+
+      const groupHeading = `      <h3 class="ui-nav-subheading">${groupConfig.label}</h3>`;
+      const links = groupItems
+        .sort((a, b) => a.title.localeCompare(b.title))
+        .map(
+          (doc) =>
+            `        <a class="ui-nav-link ui-nav-link--nested" href="#${doc.id}">${doc.title}</a>`,
+        )
+        .join('\n');
+      sections.push(`${groupHeading}\n${links}`);
+    }
+
+    // Handle ungrouped components
+    const ungrouped = components.filter((c) => !c.group);
+    if (ungrouped.length > 0) {
+      const links = ungrouped
         .sort((a, b) => a.title.localeCompare(b.title))
         .map((doc) => `      <a class="ui-nav-link" href="#${doc.id}">${doc.title}</a>`)
         .join('\n');
-      return `${idx > 0 ? '\n      ' : ''}${heading}\n${links}`;
-    })
-    .join('\n');
+      sections.push(links);
+    }
+
+    return sections.join('\n');
+  }
+
+  const navParts = [];
+  if (byType.token.length > 0) {
+    navParts.push(buildNavSection('Tokens', byType.token, navParts.length === 0));
+  }
+  if (byType.primitive.length > 0) {
+    navParts.push(buildNavSection('Primitives', byType.primitive, navParts.length === 0));
+  }
+  if (byType.component.length > 0) {
+    navParts.push(buildComponentsNav(byType.component));
+  }
+  if (byType.utility.length > 0) {
+    navParts.push(buildNavSection('Utilities', byType.utility, navParts.length === 0));
+  }
+
+  const navHtml = navParts.join('\n');
 
   // Write standalone docs-content.html (for reference)
   const contentFile = join(OUTPUT_DIR, 'docs-content.html');
