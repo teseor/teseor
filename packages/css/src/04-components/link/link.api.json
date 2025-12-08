@@ -1,0 +1,19 @@
+{
+  "name": "link",
+  "baseClass": "link",
+  "element": "a",
+  "description": "Styled anchor element for text links",
+  "modifiers": {
+    "variant": {
+      "values": ["muted", "subtle"],
+      "default": null,
+      "description": "Visual variant. Muted for secondary links, subtle for no-underline style."
+    },
+    "state": {
+      "values": ["disabled", "external"],
+      "default": null,
+      "description": "Link states. External adds arrow indicator."
+    }
+  },
+  "states": ["hover", "focus", "visited", "disabled"]
+}

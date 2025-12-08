@@ -1,0 +1,66 @@
+{
+  "id": "link",
+  "type": "component",
+  "title": "Link",
+  "description": "Styled anchor element for text links with consistent hover and focus states.",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "html": "<a href=\"#\" class=\"ui-link\">Default link</a>",
+          "code": "<a href=\"#\" class=\"ui-link\">Default link</a>"
+        }
+      ]
+    },
+    {
+      "title": "Muted Variant",
+      "description": "For secondary or less prominent links",
+      "examples": [
+        {
+          "html": "<a href=\"#\" class=\"ui-link ui-link--muted\">Muted link</a>",
+          "code": "<a href=\"#\" class=\"ui-link ui-link--muted\">Muted link</a>"
+        }
+      ]
+    },
+    {
+      "title": "Subtle Variant",
+      "description": "No underline by default, shows on hover",
+      "examples": [
+        {
+          "html": "<a href=\"#\" class=\"ui-link ui-link--subtle\">Subtle link</a>",
+          "code": "<a href=\"#\" class=\"ui-link ui-link--subtle\">Subtle link</a>"
+        }
+      ]
+    },
+    {
+      "title": "External Link",
+      "description": "Adds arrow indicator for external links",
+      "examples": [
+        {
+          "html": "<a href=\"#\" class=\"ui-link ui-link--external\">External link</a>",
+          "code": "<a href=\"#\" class=\"ui-link ui-link--external\">External link</a>"
+        }
+      ]
+    },
+    {
+      "title": "Disabled",
+      "examples": [
+        {
+          "html": "<a href=\"#\" class=\"ui-link ui-link--disabled\" aria-disabled=\"true\">Disabled link</a>",
+          "code": "<a href=\"#\" class=\"ui-link ui-link--disabled\" aria-disabled=\"true\">\n  Disabled link\n</a>"
+        }
+      ]
+    },
+    {
+      "title": "In Context",
+      "description": "Links inherit text size from context",
+      "examples": [
+        {
+          "html": "<p style=\"font-size: var(--ui-size-sm);\">Read our <a href=\"#\" class=\"ui-link\">privacy policy</a> for more information.</p>",
+          "code": "<p>\n  Read our <a href=\"#\" class=\"ui-link\">privacy policy</a>\n  for more information.\n</p>"
+        }
+      ]
+    }
+  ]
+}
