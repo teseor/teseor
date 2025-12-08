@@ -1,0 +1,46 @@
+{
+  "api": "./pagination.api.json",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "html": "<nav class=\"ui-pagination\"><a class=\"ui-pagination__link ui-pagination__prev\" href=\"#\">Prev</a><ul class=\"ui-pagination__list\"><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link\" href=\"#\">1</a></li><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link ui-pagination__link--active\" aria-current=\"page\" href=\"#\">2</a></li><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link\" href=\"#\">3</a></li><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link\" href=\"#\">4</a></li><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link\" href=\"#\">5</a></li></ul><a class=\"ui-pagination__link ui-pagination__next\" href=\"#\">Next</a></nav>"
+        }
+      ]
+    },
+    {
+      "title": "With Ellipsis",
+      "examples": [
+        {
+          "html": "<nav class=\"ui-pagination\"><a class=\"ui-pagination__link ui-pagination__prev\" href=\"#\">Prev</a><ul class=\"ui-pagination__list\"><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link\" href=\"#\">1</a></li><li class=\"ui-pagination__item\"><span class=\"ui-pagination__ellipsis\">...</span></li><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link\" href=\"#\">4</a></li><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link ui-pagination__link--active\" aria-current=\"page\" href=\"#\">5</a></li><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link\" href=\"#\">6</a></li><li class=\"ui-pagination__item\"><span class=\"ui-pagination__ellipsis\">...</span></li><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link\" href=\"#\">20</a></li></ul><a class=\"ui-pagination__link ui-pagination__next\" href=\"#\">Next</a></nav>"
+        }
+      ]
+    },
+    {
+      "title": "Disabled States",
+      "examples": [
+        {
+          "html": "<nav class=\"ui-pagination\"><a class=\"ui-pagination__link ui-pagination__prev ui-pagination__link--disabled\" aria-disabled=\"true\">Prev</a><ul class=\"ui-pagination__list\"><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link ui-pagination__link--active\" aria-current=\"page\" href=\"#\">1</a></li><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link\" href=\"#\">2</a></li><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link\" href=\"#\">3</a></li></ul><a class=\"ui-pagination__link ui-pagination__next\" href=\"#\">Next</a></nav>"
+        }
+      ]
+    },
+    {
+      "title": "Sizes",
+      "examples": [
+        {
+          "html": "<nav class=\"ui-pagination ui-pagination--sm\"><ul class=\"ui-pagination__list\"><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link\" href=\"#\">1</a></li><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link ui-pagination__link--active\" aria-current=\"page\" href=\"#\">2</a></li><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link\" href=\"#\">3</a></li></ul></nav>",
+          "layout": "stack"
+        },
+        {
+          "html": "<nav class=\"ui-pagination\"><ul class=\"ui-pagination__list\"><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link\" href=\"#\">1</a></li><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link ui-pagination__link--active\" aria-current=\"page\" href=\"#\">2</a></li><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link\" href=\"#\">3</a></li></ul></nav>",
+          "layout": "stack"
+        },
+        {
+          "html": "<nav class=\"ui-pagination ui-pagination--lg\"><ul class=\"ui-pagination__list\"><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link\" href=\"#\">1</a></li><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link ui-pagination__link--active\" aria-current=\"page\" href=\"#\">2</a></li><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link\" href=\"#\">3</a></li></ul></nav>",
+          "layout": "stack"
+        }
+      ]
+    }
+  ]
+}

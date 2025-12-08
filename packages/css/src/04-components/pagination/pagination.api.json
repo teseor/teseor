@@ -1,0 +1,44 @@
+{
+  "name": "pagination",
+  "baseClass": "pagination",
+  "element": "nav",
+  "description": "Navigate through paginated content",
+  "modifiers": {
+    "size": {
+      "values": ["sm", "lg"],
+      "default": null
+    }
+  },
+  "elements": {
+    "list": {
+      "element": "ul",
+      "description": "Container for page links"
+    },
+    "item": {
+      "element": "li",
+      "description": "Page item wrapper"
+    },
+    "link": {
+      "element": "a",
+      "description": "Page link",
+      "modifiers": {
+        "state": {
+          "values": ["active", "disabled"],
+          "default": null
+        }
+      }
+    },
+    "prev": {
+      "element": "a",
+      "description": "Previous page link"
+    },
+    "next": {
+      "element": "a",
+      "description": "Next page link"
+    },
+    "ellipsis": {
+      "element": "span",
+      "description": "Ellipsis for skipped pages"
+    }
+  }
+}
