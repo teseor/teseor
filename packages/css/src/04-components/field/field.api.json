@@ -1,0 +1,14 @@
+{
+  "name": "field",
+  "baseClass": "field",
+  "element": "div",
+  "description": "Form field wrapper combining label, control, helper, and error",
+  "modifiers": {
+    "layout": {
+      "values": ["horizontal"],
+      "default": null,
+      "description": "Layout variant. Horizontal places label beside control."
+    }
+  },
+  "states": []
+}

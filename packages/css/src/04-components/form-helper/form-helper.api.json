@@ -1,0 +1,8 @@
+{
+  "name": "form-helper",
+  "baseClass": "form-helper",
+  "element": "span",
+  "description": "Helper text for form fields",
+  "modifiers": {},
+  "states": []
+}

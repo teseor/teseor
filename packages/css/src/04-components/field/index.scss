@@ -1,0 +1,44 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Field - form field wrapper
+// Combines label, control, helper text, and error message
+
+@layer components.tokens {
+  .field {
+    --_gap: var(--ui-field-gap, calc(#{t.$unit} / 2));
+  }
+}
+
+@layer components.styles {
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--_gap);
+  }
+
+  // Control wrapper for input + addons
+  .field__control {
+    display: flex;
+    flex-direction: column;
+  }
+
+  // Horizontal layout variant
+  .field--horizontal {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .field--horizontal > .field__label {
+    flex: 0 0 auto;
+
+    min-inline-size: calc(#{t.$unit} * 15);
+    padding-block-start: calc(#{t.$unit} * 0.75);
+  }
+
+  .field--horizontal > .field__control {
+    flex: 1 1 0;
+
+    min-inline-size: calc(#{t.$unit} * 20);
+  }
+}
