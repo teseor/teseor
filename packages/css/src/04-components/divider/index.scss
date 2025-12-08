@@ -1,0 +1,108 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Divider - visual separator between content sections
+// Supports horizontal/vertical orientation and optional label
+
+@layer components.tokens {
+  .divider {
+    --_color: var(--ui-divider-color, var(--ui-color-border, rgb(0 0 0 / 0.1)));
+    --_size: var(--ui-divider-size, 1px);
+    --_gap: var(--ui-divider-gap, calc(#{t.$unit} * 2));
+  }
+}
+
+@layer components.styles {
+  .divider {
+    display: flex;
+    align-items: center;
+
+    margin: var(--_gap) 0;
+
+    font-size: var(--ui-size-sm, #{t.$size-sm});
+    color: var(--ui-color-text-muted);
+  }
+
+  // Horizontal line (default)
+  .divider::before,
+  .divider::after {
+
+    content: "";
+    flex: 1;
+
+    block-size: var(--_size);
+
+    background: var(--_color);
+  }
+
+  // With text label
+  .divider:not(:empty)::before {
+    margin-inline-end: calc(#{t.$unit} * 2);
+  }
+
+  .divider:not(:empty)::after {
+    margin-inline-start: calc(#{t.$unit} * 2);
+  }
+
+  // Without text - single line
+  .divider:empty::after {
+    display: none;
+  }
+
+  // Vertical orientation
+  .divider--vertical {
+    flex-direction: column;
+    align-self: stretch;
+
+    margin: 0 var(--_gap);
+
+    writing-mode: vertical-rl;
+  }
+
+  .divider--vertical::before,
+  .divider--vertical::after {
+    flex: 1;
+
+    block-size: auto;
+    inline-size: var(--_size);
+  }
+
+  // Text alignment variants
+  .divider--start::before {
+    display: none;
+  }
+
+  .divider--start:not(:empty)::after {
+    margin-inline-start: calc(#{t.$unit} * 2);
+  }
+
+  .divider--end::after {
+    display: none;
+  }
+
+  .divider--end:not(:empty)::before {
+    margin-inline-end: calc(#{t.$unit} * 2);
+  }
+
+  // Dashed style
+  .divider--dashed::before,
+  .divider--dashed::after {
+    background: repeating-linear-gradient(
+      90deg,
+      var(--_color) 0,
+      var(--_color) calc(#{t.$unit} / 2),
+      transparent calc(#{t.$unit} / 2),
+      transparent #{t.$unit}
+    );
+  }
+
+  .divider--vertical.divider--dashed::before,
+  .divider--vertical.divider--dashed::after {
+    background: repeating-linear-gradient(
+      180deg,
+      var(--_color) 0,
+      var(--_color) calc(#{t.$unit} / 2),
+      transparent calc(#{t.$unit} / 2),
+      transparent #{t.$unit}
+    );
+  }
+}

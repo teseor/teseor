@@ -1,0 +1,78 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Button Group - container for grouped buttons
+// Joins buttons together with shared borders
+
+@layer components.tokens {
+  .button-group {
+    --_radius: var(--ui-button-group-radius, var(--ui-radius-md, calc(#{t.$unit} / 2)));
+  }
+}
+
+@layer components.styles {
+  .button-group {
+    display: inline-flex;
+  }
+
+  // Remove intermediate borders and radii
+  .button-group > .button:not(:first-child, :last-child) {
+    border-radius: 0;
+  }
+
+  .button-group > .button:first-child:not(:last-child) {
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+  }
+
+  .button-group > .button:last-child:not(:first-child) {
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+  }
+
+  // Prevent double borders
+  .button-group > .button + .button {
+    margin-inline-start: calc(#{t.$unit} / -8);
+  }
+
+  // Ensure focused button is on top
+  .button-group > .button:focus-visible {
+    z-index: 1;
+  }
+
+  // Vertical orientation
+  .button-group--vertical {
+    flex-direction: column;
+  }
+
+  .button-group--vertical > .button:not(:first-child, :last-child) {
+    border-radius: 0;
+  }
+
+  .button-group--vertical > .button:first-child:not(:last-child) {
+    border-end-start-radius: 0;
+    border-end-end-radius: 0;
+  }
+
+  .button-group--vertical > .button:last-child:not(:first-child) {
+    border-start-start-radius: 0;
+    border-start-end-radius: 0;
+  }
+
+  .button-group--vertical > .button + .button {
+    margin-block-start: calc(#{t.$unit} / -8);
+    margin-inline-start: 0;
+  }
+
+  // Attached variant (no gap)
+  .button-group--attached > .button {
+    border-inline-end-width: 0;
+  }
+
+  .button-group--attached > .button:last-child {
+    border-inline-end-width: 1px;
+  }
+
+  .button-group--attached > .button + .button {
+    margin-inline-start: 0;
+  }
+}

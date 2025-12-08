@@ -1,0 +1,14 @@
+{
+  "name": "toggle",
+  "baseClass": "toggle",
+  "element": "label",
+  "description": "Switch control for boolean states with sliding thumb indicator",
+  "modifiers": {
+    "size": {
+      "values": ["sm", "lg"],
+      "default": null,
+      "description": "Size variant"
+    }
+  },
+  "states": ["checked", "disabled", "focus"]
+}

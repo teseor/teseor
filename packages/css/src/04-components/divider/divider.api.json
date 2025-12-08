@@ -1,0 +1,24 @@
+{
+  "name": "divider",
+  "baseClass": "divider",
+  "element": "div",
+  "description": "Visual separator between content sections with optional label",
+  "modifiers": {
+    "orientation": {
+      "values": ["vertical"],
+      "default": null,
+      "description": "Orientation. Default is horizontal."
+    },
+    "align": {
+      "values": ["start", "end"],
+      "default": null,
+      "description": "Label position. Default is center."
+    },
+    "style": {
+      "values": ["dashed"],
+      "default": null,
+      "description": "Line style variant."
+    }
+  },
+  "states": []
+}

@@ -1,0 +1,53 @@
+{
+  "id": "toggle",
+  "type": "component",
+  "title": "Toggle",
+  "description": "Switch control for boolean states. Uses checkbox semantics with role=switch for accessibility.",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "html": "<label class=\"ui-toggle\"><input type=\"checkbox\" class=\"ui-toggle__input\" role=\"switch\"><span class=\"ui-toggle__track\"></span><span class=\"ui-toggle__thumb\"></span></label>",
+          "code": "<label class=\"ui-toggle\">\n  <input type=\"checkbox\" class=\"ui-toggle__input\" role=\"switch\">\n  <span class=\"ui-toggle__track\"></span>\n  <span class=\"ui-toggle__thumb\"></span>\n</label>"
+        }
+      ]
+    },
+    {
+      "title": "Checked",
+      "examples": [
+        {
+          "html": "<label class=\"ui-toggle\"><input type=\"checkbox\" class=\"ui-toggle__input\" role=\"switch\" checked><span class=\"ui-toggle__track\"></span><span class=\"ui-toggle__thumb\"></span></label>",
+          "code": "<label class=\"ui-toggle\">\n  <input type=\"checkbox\" class=\"ui-toggle__input\" role=\"switch\" checked>\n  ...\n</label>"
+        }
+      ]
+    },
+    {
+      "title": "Sizes",
+      "examples": [
+        {
+          "html": "<div style=\"display: flex; gap: var(--ui-space-2); align-items: center;\"><label class=\"ui-toggle ui-toggle--sm\"><input type=\"checkbox\" class=\"ui-toggle__input\" role=\"switch\"><span class=\"ui-toggle__track\"></span><span class=\"ui-toggle__thumb\"></span></label><label class=\"ui-toggle\"><input type=\"checkbox\" class=\"ui-toggle__input\" role=\"switch\" checked><span class=\"ui-toggle__track\"></span><span class=\"ui-toggle__thumb\"></span></label><label class=\"ui-toggle ui-toggle--lg\"><input type=\"checkbox\" class=\"ui-toggle__input\" role=\"switch\"><span class=\"ui-toggle__track\"></span><span class=\"ui-toggle__thumb\"></span></label></div>",
+          "code": "<label class=\"ui-toggle ui-toggle--sm\">...</label>\n<label class=\"ui-toggle\">...</label>\n<label class=\"ui-toggle ui-toggle--lg\">...</label>"
+        }
+      ]
+    },
+    {
+      "title": "Disabled",
+      "examples": [
+        {
+          "html": "<div style=\"display: flex; gap: var(--ui-space-2);\"><label class=\"ui-toggle\"><input type=\"checkbox\" class=\"ui-toggle__input\" role=\"switch\" disabled><span class=\"ui-toggle__track\"></span><span class=\"ui-toggle__thumb\"></span></label><label class=\"ui-toggle\"><input type=\"checkbox\" class=\"ui-toggle__input\" role=\"switch\" checked disabled><span class=\"ui-toggle__track\"></span><span class=\"ui-toggle__thumb\"></span></label></div>",
+          "code": "<label class=\"ui-toggle\">\n  <input type=\"checkbox\" ... disabled>\n  ...\n</label>"
+        }
+      ]
+    },
+    {
+      "title": "With Label",
+      "examples": [
+        {
+          "html": "<div style=\"display: flex; align-items: center; gap: var(--ui-space-2);\"><label class=\"ui-toggle\"><input type=\"checkbox\" class=\"ui-toggle__input\" role=\"switch\" id=\"notifications\"><span class=\"ui-toggle__track\"></span><span class=\"ui-toggle__thumb\"></span></label><label for=\"notifications\">Enable notifications</label></div>",
+          "code": "<div style=\"display: flex; align-items: center; gap: var(--ui-space-2);\">\n  <label class=\"ui-toggle\">\n    <input type=\"checkbox\" ... id=\"notifications\">\n    ...\n  </label>\n  <label for=\"notifications\">Enable notifications</label>\n</div>"
+        }
+      ]
+    }
+  ]
+}
