@@ -1,0 +1,102 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Progress - progress bar indicator
+// Shows completion status of a task
+
+@layer components.tokens {
+  .progress {
+    --_height: var(--ui-progress-height, calc(#{t.$unit} * 1));
+    --_bg: var(--ui-progress-bg, var(--ui-color-bg-subtle, rgb(0 0 0 / 0.1)));
+    --_fill: var(--ui-progress-fill, var(--ui-color-primary));
+    --_radius: var(--ui-progress-radius, var(--ui-radius-full, 9999px));
+  }
+
+  .progress--sm {
+    --_height: calc(#{t.$unit} / 2);
+  }
+
+  .progress--lg {
+    --_height: calc(#{t.$unit} * 1.5);
+  }
+}
+
+@layer components.styles {
+  .progress {
+    position: relative;
+
+    block-size: var(--_height);
+    overflow: hidden;
+
+    background: var(--_bg);
+    border-radius: var(--_radius);
+  }
+
+  .progress__bar {
+    block-size: 100%;
+
+    background: var(--_fill);
+    border-radius: var(--_radius);
+
+    transition: inline-size var(--ui-duration-normal, 200ms) var(--ui-ease-default, ease);
+  }
+
+  // Indeterminate state - animated stripe
+  .progress--indeterminate .progress__bar {
+    inline-size: 30%;
+
+    animation: progress-indeterminate 1.5s infinite ease-in-out;
+  }
+
+  @keyframes progress-indeterminate {
+    0% {
+      transform: translateX(-100%);
+    }
+
+    100% {
+      transform: translateX(400%);
+    }
+  }
+
+  // Striped variant
+  .progress--striped .progress__bar {
+    background-image: linear-gradient(
+      45deg,
+      rgb(255 255 255 / 0.15) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgb(255 255 255 / 0.15) 50%,
+      rgb(255 255 255 / 0.15) 75%,
+      transparent 75%,
+      transparent
+    );
+    background-size: #{t.$unit} #{t.$unit};
+  }
+
+  // Animated stripes
+  .progress--animated .progress__bar {
+    animation: progress-stripes 1s linear infinite;
+  }
+
+  @keyframes progress-stripes {
+    from {
+      background-position: #{t.$unit} 0;
+    }
+
+    to {
+      background-position: 0 0;
+    }
+  }
+
+  // Color variants
+  .progress--success {
+    --_fill: var(--ui-color-success);
+  }
+
+  .progress--warning {
+    --_fill: var(--ui-color-warning);
+  }
+
+  .progress--danger {
+    --_fill: var(--ui-color-danger);
+  }
+}

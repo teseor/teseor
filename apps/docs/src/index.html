@@ -34,6 +34,7 @@
       <a class="ui-nav-link" href="#alert">Alert</a>
       <a class="ui-nav-link" href="#avatar">Avatar</a>
       <a class="ui-nav-link" href="#badge">Badge</a>
+      <a class="ui-nav-link" href="#breadcrumb">Breadcrumb</a>
       <a class="ui-nav-link" href="#button">Button</a>
       <a class="ui-nav-link" href="#button-group">Button Group</a>
       <a class="ui-nav-link" href="#card">Card</a>
@@ -53,9 +54,12 @@
       <a class="ui-nav-link" href="#modal">Modal</a>
       <a class="ui-nav-link" href="#overlay">Overlay</a>
       <a class="ui-nav-link" href="#popover">Popover</a>
+      <a class="ui-nav-link" href="#progress">Progress</a>
       <a class="ui-nav-link" href="#radio">Radio</a>
       <a class="ui-nav-link" href="#select">Select</a>
+      <a class="ui-nav-link" href="#skeleton">Skeleton</a>
       <a class="ui-nav-link" href="#spinner">Spinner</a>
+      <a class="ui-nav-link" href="#status">Status</a>
       <a class="ui-nav-link" href="#table">Table</a>
       <a class="ui-nav-link" href="#tabs">Tabs</a>
       <a class="ui-nav-link" href="#tag">Tag</a>
@@ -971,6 +975,61 @@
   </div>
   <div class="ui-tabs__panel">
     <pre class="ui-code-block"><code>&lt;div class="ui-cluster"&gt;&lt;span class="ui-badge ui-badge--success"&gt;Published&lt;/span&gt;&lt;span class="ui-badge ui-badge--warning"&gt;Draft&lt;/span&gt;&lt;span class="ui-badge ui-badge--danger"&gt;Archived&lt;/span&gt;&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+</section>
+<section id="breadcrumb" class="ui-docs-section" data-type="component">
+  <h2>Breadcrumb</h2>
+  <p>Navigation hierarchy showing current page location in site structure.</p>
+
+  <h3>Default</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <nav class="ui-breadcrumb" aria-label="Breadcrumb"><ol class="ui-breadcrumb"><li class="ui-breadcrumb__item"><a href="#" class="ui-breadcrumb__link">Home</a></li><li class="ui-breadcrumb__item"><a href="#" class="ui-breadcrumb__link">Products</a></li><li class="ui-breadcrumb__item"><span class="ui-breadcrumb__current" aria-current="page">Shoes</span></li></ol></nav>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;nav aria-label="Breadcrumb"&gt;
+  &lt;ol class="ui-breadcrumb"&gt;
+    &lt;li class="ui-breadcrumb__item"&gt;
+      &lt;a href="#" class="ui-breadcrumb__link"&gt;Home&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li class="ui-breadcrumb__item"&gt;
+      &lt;a href="#" class="ui-breadcrumb__link"&gt;Products&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li class="ui-breadcrumb__item"&gt;
+      &lt;span aria-current="page"&gt;Shoes&lt;/span&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/nav&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>With Icons</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <nav aria-label="Breadcrumb"><ol class="ui-breadcrumb"><li class="ui-breadcrumb__item"><a href="#" class="ui-breadcrumb__link"><svg class="ui-icon ui-icon--sm" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></a></li><li class="ui-breadcrumb__item"><a href="#" class="ui-breadcrumb__link">Settings</a></li><li class="ui-breadcrumb__item"><span class="ui-breadcrumb__current" aria-current="page">Profile</span></li></ol></nav>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;ol class="ui-breadcrumb"&gt;
+  &lt;li class="ui-breadcrumb__item"&gt;
+    &lt;a href="#" class="ui-breadcrumb__link"&gt;
+      &lt;svg class="ui-icon"&gt;...&lt;/svg&gt;
+    &lt;/a&gt;
+  &lt;/li&gt;
+  ...
+&lt;/ol&gt;</code></pre>
   </div>
   
 </div>
@@ -2969,6 +3028,121 @@
   
 </div>
 </section>
+<section id="progress" class="ui-docs-section" data-type="component">
+  <h2>Progress</h2>
+  <p>Progress bar indicator showing completion status. Use aria-valuenow for accessibility.</p>
+
+  <h3>Default</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-progress" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="Loading"><div class="ui-progress__bar" style="width: 60%;"></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-progress" role="progressbar"
+     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"&gt;
+  &lt;div class="ui-progress__bar" style="width: 60%;"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Sizes</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div style="display: flex; flex-direction: column; gap: var(--ui-space-2);"><div class="ui-progress ui-progress--sm" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"><div class="ui-progress__bar" style="width: 40%;"></div></div><div class="ui-progress" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"><div class="ui-progress__bar" style="width: 60%;"></div></div><div class="ui-progress ui-progress--lg" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"><div class="ui-progress__bar" style="width: 80%;"></div></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-progress ui-progress--sm"&gt;...&lt;/div&gt;
+&lt;div class="ui-progress"&gt;...&lt;/div&gt;
+&lt;div class="ui-progress ui-progress--lg"&gt;...&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Colors</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div style="display: flex; flex-direction: column; gap: var(--ui-space-2);"><div class="ui-progress ui-progress--success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"><div class="ui-progress__bar" style="width: 100%;"></div></div><div class="ui-progress ui-progress--warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"><div class="ui-progress__bar" style="width: 60%;"></div></div><div class="ui-progress ui-progress--danger" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><div class="ui-progress__bar" style="width: 25%;"></div></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-progress ui-progress--success"&gt;...&lt;/div&gt;
+&lt;div class="ui-progress ui-progress--warning"&gt;...&lt;/div&gt;
+&lt;div class="ui-progress ui-progress--danger"&gt;...&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Striped</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-progress ui-progress--striped" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"><div class="ui-progress__bar" style="width: 70%;"></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-progress ui-progress--striped"&gt;
+  &lt;div class="ui-progress__bar" style="width: 70%;"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Animated Stripes</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-progress ui-progress--striped ui-progress--animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"><div class="ui-progress__bar" style="width: 50%;"></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-progress ui-progress--striped ui-progress--animated"&gt;
+  &lt;div class="ui-progress__bar" style="width: 50%;"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Indeterminate</h3>
+<p>For unknown progress duration</p>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-progress ui-progress--indeterminate" role="progressbar" aria-label="Loading"><div class="ui-progress__bar"></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-progress ui-progress--indeterminate"
+     role="progressbar" aria-label="Loading"&gt;
+  &lt;div class="ui-progress__bar"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+</section>
 <section id="radio" class="ui-docs-section" data-type="component">
   <h2>Radio</h2>
   <p>Native radio button with custom styling. Use for mutually exclusive options within a group.</p>
@@ -3232,6 +3406,82 @@
   
 </div>
 </section>
+<section id="skeleton" class="ui-docs-section" data-type="component">
+  <h2>Skeleton</h2>
+  <p>Loading placeholder with shimmer animation for content loading states.</p>
+
+  <h3>Text Lines</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div style="display: flex; flex-direction: column; gap: var(--ui-space-1);"><div class="ui-skeleton ui-skeleton--text"></div><div class="ui-skeleton ui-skeleton--text" style="width: 80%;"></div><div class="ui-skeleton ui-skeleton--text" style="width: 60%;"></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-skeleton ui-skeleton--text"&gt;&lt;/div&gt;
+&lt;div class="ui-skeleton ui-skeleton--text" style="width: 80%;"&gt;&lt;/div&gt;
+&lt;div class="ui-skeleton ui-skeleton--text" style="width: 60%;"&gt;&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Shapes</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div style="display: flex; gap: var(--ui-space-2); align-items: flex-start;"><div class="ui-skeleton ui-skeleton--circle"></div><div style="flex: 1; display: flex; flex-direction: column; gap: var(--ui-space-1);"><div class="ui-skeleton ui-skeleton--heading"></div><div class="ui-skeleton ui-skeleton--text"></div></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-skeleton ui-skeleton--circle"&gt;&lt;/div&gt;
+&lt;div class="ui-skeleton ui-skeleton--heading"&gt;&lt;/div&gt;
+&lt;div class="ui-skeleton ui-skeleton--text"&gt;&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Card Skeleton</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-card" style="width: 300px;"><div class="ui-skeleton ui-skeleton--rect"></div><div style="padding: var(--ui-space-2); display: flex; flex-direction: column; gap: var(--ui-space-1);"><div class="ui-skeleton ui-skeleton--heading"></div><div class="ui-skeleton ui-skeleton--text"></div><div class="ui-skeleton ui-skeleton--text" style="width: 70%;"></div></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-card"&gt;
+  &lt;div class="ui-skeleton ui-skeleton--rect"&gt;&lt;/div&gt;
+  &lt;div class="ui-skeleton ui-skeleton--heading"&gt;&lt;/div&gt;
+  &lt;div class="ui-skeleton ui-skeleton--text"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Pulse Animation</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-skeleton ui-skeleton--text ui-skeleton--pulse"></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-skeleton ui-skeleton--text ui-skeleton--pulse"&gt;&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+</section>
 <section id="spinner" class="ui-docs-section" data-type="component">
   <h2>Spinner</h2>
   <p>Loading indicator with pure CSS animation. Inherits color from parent.</p>
@@ -3313,6 +3563,85 @@
   &lt;div class="ui-spinner ui-spinner--xs"&gt;&lt;/div&gt;
   &lt;span&gt;Loading...&lt;/span&gt;
 &lt;/button&gt;</code></pre>
+  </div>
+  
+</div>
+</section>
+<section id="status" class="ui-docs-section" data-type="component">
+  <h2>Status</h2>
+  <p>Visual status indicator with colored dot to show state.</p>
+
+  <h3>Variants</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div style="display: flex; flex-direction: column; gap: var(--ui-space-2);"><span class="ui-status"><span class="ui-status__dot"></span>Default</span><span class="ui-status ui-status--success"><span class="ui-status__dot"></span>Online</span><span class="ui-status ui-status--warning"><span class="ui-status__dot"></span>Away</span><span class="ui-status ui-status--danger"><span class="ui-status__dot"></span>Busy</span><span class="ui-status ui-status--info"><span class="ui-status__dot"></span>In a meeting</span></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;span class="ui-status ui-status--success"&gt;
+  &lt;span class="ui-status__dot"&gt;&lt;/span&gt;
+  Online
+&lt;/span&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Sizes</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div style="display: flex; gap: var(--ui-space-4); align-items: center;"><span class="ui-status ui-status--success ui-status--sm"><span class="ui-status__dot"></span>Small</span><span class="ui-status ui-status--success"><span class="ui-status__dot"></span>Default</span><span class="ui-status ui-status--success ui-status--lg"><span class="ui-status__dot"></span>Large</span></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;span class="ui-status ui-status--sm"&gt;...&lt;/span&gt;
+&lt;span class="ui-status"&gt;...&lt;/span&gt;
+&lt;span class="ui-status ui-status--lg"&gt;...&lt;/span&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Pulse Animation</h3>
+<p>For live or active indicators</p>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <span class="ui-status ui-status--success ui-status--pulse"><span class="ui-status__dot"></span>Live</span>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;span class="ui-status ui-status--success ui-status--pulse"&gt;
+  &lt;span class="ui-status__dot"&gt;&lt;/span&gt;
+  Live
+&lt;/span&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Dot Only</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div style="display: flex; gap: var(--ui-space-2);"><span class="ui-status ui-status--success"><span class="ui-status__dot"></span></span><span class="ui-status ui-status--warning"><span class="ui-status__dot"></span></span><span class="ui-status ui-status--danger"><span class="ui-status__dot"></span></span></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;span class="ui-status ui-status--success"&gt;
+  &lt;span class="ui-status__dot"&gt;&lt;/span&gt;
+&lt;/span&gt;</code></pre>
   </div>
   
 </div>

@@ -1,0 +1,72 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Breadcrumb - navigation hierarchy
+// Shows current page location in site structure
+
+@layer components.tokens {
+  .breadcrumb {
+    --_gap: var(--ui-breadcrumb-gap, calc(#{t.$unit} * 1));
+    --_separator-color: var(--ui-breadcrumb-separator-color, var(--ui-color-text-muted));
+    --_link-color: var(--ui-breadcrumb-link-color, var(--ui-color-text-muted));
+    --_current-color: var(--ui-breadcrumb-current-color, var(--ui-color-text));
+  }
+}
+
+@layer components.styles {
+  .breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--_gap);
+
+    padding: 0;
+    margin: 0;
+
+    font-size: var(--ui-size-sm, #{t.$size-sm});
+
+    list-style: none;
+  }
+
+  .breadcrumb__item {
+    display: flex;
+    align-items: center;
+    gap: var(--_gap);
+  }
+
+  // Separator after each item except last
+  .breadcrumb__item:not(:last-child)::after {
+
+    content: var(--ui-breadcrumb-separator, "/");
+
+    color: var(--_separator-color);
+  }
+
+  .breadcrumb__link {
+    text-decoration: none;
+    color: var(--_link-color);
+
+    transition: color var(--ui-duration-fast, 100ms) var(--ui-ease-default, ease);
+
+    &:hover {
+      text-decoration: underline;
+      color: var(--ui-color-primary);
+    }
+  }
+
+  // Current page (last item)
+  .breadcrumb__item:last-child .breadcrumb__link,
+  .breadcrumb__current {
+    color: var(--_current-color);
+
+    pointer-events: none;
+  }
+
+  // Collapsed state - use data attribute on items to hide
+  .breadcrumb__item--hidden {
+    display: none;
+  }
+
+  .breadcrumb__ellipsis {
+    color: var(--_separator-color);
+  }
+}

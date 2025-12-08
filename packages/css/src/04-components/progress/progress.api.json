@@ -1,0 +1,19 @@
+{
+  "name": "progress",
+  "baseClass": "progress",
+  "element": "div",
+  "description": "Progress bar indicator showing completion status",
+  "modifiers": {
+    "size": {
+      "values": ["sm", "lg"],
+      "default": null,
+      "description": "Size variant"
+    },
+    "variant": {
+      "values": ["success", "warning", "danger", "striped", "animated", "indeterminate"],
+      "default": null,
+      "description": "Visual and behavior variants"
+    }
+  },
+  "states": []
+}

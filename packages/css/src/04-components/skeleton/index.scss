@@ -1,0 +1,99 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Skeleton - loading placeholder
+// Animated shimmer effect for content loading states
+
+@layer components.tokens {
+  .skeleton {
+    --_bg: var(--ui-skeleton-bg, var(--ui-color-bg-subtle, rgb(0 0 0 / 0.1)));
+    --_shimmer: var(--ui-skeleton-shimmer, rgb(255 255 255 / 0.5));
+    --_radius: var(--ui-skeleton-radius, var(--ui-radius-sm, calc(#{t.$unit} / 2)));
+  }
+}
+
+@layer components.styles {
+  .skeleton {
+
+    display: block;
+    position: relative;
+
+    overflow: hidden;
+
+    background: var(--_bg);
+    border-radius: var(--_radius);
+  }
+
+  // Shimmer animation
+  .skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--_shimmer) 50%,
+      transparent 100%
+    );
+
+    animation: skeleton-shimmer 1.5s infinite;
+    transform: translateX(-100%);
+  }
+
+  @keyframes skeleton-shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  // Text line variant
+  .skeleton--text {
+    block-size: calc(#{t.$unit} * 2);
+    inline-size: 100%;
+  }
+
+  // Heading variant
+  .skeleton--heading {
+    block-size: calc(#{t.$unit} * 3);
+    inline-size: 60%;
+  }
+
+  // Avatar/circle variant
+  .skeleton--circle {
+    block-size: calc(#{t.$unit} * 5);
+    inline-size: calc(#{t.$unit} * 5);
+
+    border-radius: 50%;
+  }
+
+  // Image/rectangle variant
+  .skeleton--rect {
+    block-size: calc(#{t.$unit} * 20);
+    inline-size: 100%;
+  }
+
+  // No animation variant
+  .skeleton--static::after {
+    animation: none;
+  }
+
+  // Pulse animation alternative
+  .skeleton--pulse {
+    animation: skeleton-pulse 1.5s infinite ease-in-out;
+  }
+
+  .skeleton--pulse::after {
+    display: none;
+  }
+
+  @keyframes skeleton-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.5;
+    }
+  }
+}

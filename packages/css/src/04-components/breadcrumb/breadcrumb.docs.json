@@ -1,0 +1,26 @@
+{
+  "id": "breadcrumb",
+  "type": "component",
+  "title": "Breadcrumb",
+  "description": "Navigation hierarchy showing current page location in site structure.",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "html": "<nav class=\"ui-breadcrumb\" aria-label=\"Breadcrumb\"><ol class=\"ui-breadcrumb\"><li class=\"ui-breadcrumb__item\"><a href=\"#\" class=\"ui-breadcrumb__link\">Home</a></li><li class=\"ui-breadcrumb__item\"><a href=\"#\" class=\"ui-breadcrumb__link\">Products</a></li><li class=\"ui-breadcrumb__item\"><span class=\"ui-breadcrumb__current\" aria-current=\"page\">Shoes</span></li></ol></nav>",
+          "code": "<nav aria-label=\"Breadcrumb\">\n  <ol class=\"ui-breadcrumb\">\n    <li class=\"ui-breadcrumb__item\">\n      <a href=\"#\" class=\"ui-breadcrumb__link\">Home</a>\n    </li>\n    <li class=\"ui-breadcrumb__item\">\n      <a href=\"#\" class=\"ui-breadcrumb__link\">Products</a>\n    </li>\n    <li class=\"ui-breadcrumb__item\">\n      <span aria-current=\"page\">Shoes</span>\n    </li>\n  </ol>\n</nav>"
+        }
+      ]
+    },
+    {
+      "title": "With Icons",
+      "examples": [
+        {
+          "html": "<nav aria-label=\"Breadcrumb\"><ol class=\"ui-breadcrumb\"><li class=\"ui-breadcrumb__item\"><a href=\"#\" class=\"ui-breadcrumb__link\"><svg class=\"ui-icon ui-icon--sm\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z\"/></svg></a></li><li class=\"ui-breadcrumb__item\"><a href=\"#\" class=\"ui-breadcrumb__link\">Settings</a></li><li class=\"ui-breadcrumb__item\"><span class=\"ui-breadcrumb__current\" aria-current=\"page\">Profile</span></li></ol></nav>",
+          "code": "<ol class=\"ui-breadcrumb\">\n  <li class=\"ui-breadcrumb__item\">\n    <a href=\"#\" class=\"ui-breadcrumb__link\">\n      <svg class=\"ui-icon\">...</svg>\n    </a>\n  </li>\n  ...\n</ol>"
+        }
+      ]
+    }
+  ]
+}

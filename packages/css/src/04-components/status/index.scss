@@ -1,0 +1,85 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Status - visual status indicator
+// Small dot or badge to show state
+
+@layer components.tokens {
+  .status {
+    --_size: var(--ui-status-size, calc(#{t.$unit} * 1));
+    --_color: var(--ui-status-color, var(--ui-color-text-muted));
+    --_gap: var(--ui-status-gap, calc(#{t.$unit} * 1));
+  }
+
+  .status--success {
+    --_color: var(--ui-color-success);
+  }
+
+  .status--warning {
+    --_color: var(--ui-color-warning);
+  }
+
+  .status--danger {
+    --_color: var(--ui-color-danger);
+  }
+
+  .status--info {
+    --_color: var(--ui-color-primary);
+  }
+}
+
+@layer components.styles {
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--_gap);
+  }
+
+  .status__dot {
+    flex-shrink: 0;
+
+    block-size: var(--_size);
+    inline-size: var(--_size);
+
+    background: var(--_color);
+    border-radius: 50%;
+  }
+
+  // Pulse animation for active status
+  .status--pulse .status__dot {
+    position: relative;
+  }
+
+  .status--pulse .status__dot::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: var(--_color);
+    border-radius: 50%;
+
+    animation: status-pulse 2s infinite;
+  }
+
+  @keyframes status-pulse {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    100% {
+      opacity: 0;
+      transform: scale(2.5);
+    }
+  }
+
+  // Size variants
+  .status--sm {
+    --_size: calc(#{t.$unit} * 0.75);
+    --_gap: calc(#{t.$unit} * 0.75);
+  }
+
+  .status--lg {
+    --_size: calc(#{t.$unit} * 1.5);
+    --_gap: calc(#{t.$unit} * 1.5);
+  }
+}

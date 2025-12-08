@@ -1,0 +1,63 @@
+{
+  "id": "progress",
+  "type": "component",
+  "title": "Progress",
+  "description": "Progress bar indicator showing completion status. Use aria-valuenow for accessibility.",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "html": "<div class=\"ui-progress\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"Loading\"><div class=\"ui-progress__bar\" style=\"width: 60%;\"></div></div>",
+          "code": "<div class=\"ui-progress\" role=\"progressbar\"\n     aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\">\n  <div class=\"ui-progress__bar\" style=\"width: 60%;\"></div>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "Sizes",
+      "examples": [
+        {
+          "html": "<div style=\"display: flex; flex-direction: column; gap: var(--ui-space-2);\"><div class=\"ui-progress ui-progress--sm\" role=\"progressbar\" aria-valuenow=\"40\" aria-valuemin=\"0\" aria-valuemax=\"100\"><div class=\"ui-progress__bar\" style=\"width: 40%;\"></div></div><div class=\"ui-progress\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\"><div class=\"ui-progress__bar\" style=\"width: 60%;\"></div></div><div class=\"ui-progress ui-progress--lg\" role=\"progressbar\" aria-valuenow=\"80\" aria-valuemin=\"0\" aria-valuemax=\"100\"><div class=\"ui-progress__bar\" style=\"width: 80%;\"></div></div></div>",
+          "code": "<div class=\"ui-progress ui-progress--sm\">...</div>\n<div class=\"ui-progress\">...</div>\n<div class=\"ui-progress ui-progress--lg\">...</div>"
+        }
+      ]
+    },
+    {
+      "title": "Colors",
+      "examples": [
+        {
+          "html": "<div style=\"display: flex; flex-direction: column; gap: var(--ui-space-2);\"><div class=\"ui-progress ui-progress--success\" role=\"progressbar\" aria-valuenow=\"100\" aria-valuemin=\"0\" aria-valuemax=\"100\"><div class=\"ui-progress__bar\" style=\"width: 100%;\"></div></div><div class=\"ui-progress ui-progress--warning\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\"><div class=\"ui-progress__bar\" style=\"width: 60%;\"></div></div><div class=\"ui-progress ui-progress--danger\" role=\"progressbar\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"><div class=\"ui-progress__bar\" style=\"width: 25%;\"></div></div></div>",
+          "code": "<div class=\"ui-progress ui-progress--success\">...</div>\n<div class=\"ui-progress ui-progress--warning\">...</div>\n<div class=\"ui-progress ui-progress--danger\">...</div>"
+        }
+      ]
+    },
+    {
+      "title": "Striped",
+      "examples": [
+        {
+          "html": "<div class=\"ui-progress ui-progress--striped\" role=\"progressbar\" aria-valuenow=\"70\" aria-valuemin=\"0\" aria-valuemax=\"100\"><div class=\"ui-progress__bar\" style=\"width: 70%;\"></div></div>",
+          "code": "<div class=\"ui-progress ui-progress--striped\">\n  <div class=\"ui-progress__bar\" style=\"width: 70%;\"></div>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "Animated Stripes",
+      "examples": [
+        {
+          "html": "<div class=\"ui-progress ui-progress--striped ui-progress--animated\" role=\"progressbar\" aria-valuenow=\"50\" aria-valuemin=\"0\" aria-valuemax=\"100\"><div class=\"ui-progress__bar\" style=\"width: 50%;\"></div></div>",
+          "code": "<div class=\"ui-progress ui-progress--striped ui-progress--animated\">\n  <div class=\"ui-progress__bar\" style=\"width: 50%;\"></div>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "Indeterminate",
+      "description": "For unknown progress duration",
+      "examples": [
+        {
+          "html": "<div class=\"ui-progress ui-progress--indeterminate\" role=\"progressbar\" aria-label=\"Loading\"><div class=\"ui-progress__bar\"></div></div>",
+          "code": "<div class=\"ui-progress ui-progress--indeterminate\"\n     role=\"progressbar\" aria-label=\"Loading\">\n  <div class=\"ui-progress__bar\"></div>\n</div>"
+        }
+      ]
+    }
+  ]
+}
