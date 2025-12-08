@@ -1,0 +1,45 @@
+{
+  "api": "./menu.api.json",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "html": "<div class=\"ui-menu\"><ul class=\"ui-menu__group\"><li><button class=\"ui-menu__item\">Edit</button></li><li><button class=\"ui-menu__item\">Duplicate</button></li><li><button class=\"ui-menu__item\">Archive</button></li></ul></div>"
+        }
+      ]
+    },
+    {
+      "title": "With Icons and Shortcuts",
+      "examples": [
+        {
+          "html": "<div class=\"ui-menu\"><ul class=\"ui-menu__group\"><li><button class=\"ui-menu__item\"><span class=\"ui-menu__item-icon\">+</span>New File<span class=\"ui-menu__item-shortcut\">Cmd+N</span></button></li><li><button class=\"ui-menu__item\"><span class=\"ui-menu__item-icon\">O</span>Open<span class=\"ui-menu__item-shortcut\">Cmd+O</span></button></li><li><button class=\"ui-menu__item\"><span class=\"ui-menu__item-icon\">S</span>Save<span class=\"ui-menu__item-shortcut\">Cmd+S</span></button></li></ul></div>"
+        }
+      ]
+    },
+    {
+      "title": "Groups with Labels",
+      "examples": [
+        {
+          "html": "<div class=\"ui-menu\"><div class=\"ui-menu__label\">Edit</div><ul class=\"ui-menu__group\"><li><button class=\"ui-menu__item\">Cut</button></li><li><button class=\"ui-menu__item\">Copy</button></li><li><button class=\"ui-menu__item\">Paste</button></li></ul><div class=\"ui-menu__separator\"></div><div class=\"ui-menu__label\">View</div><ul class=\"ui-menu__group\"><li><button class=\"ui-menu__item\">Zoom In</button></li><li><button class=\"ui-menu__item\">Zoom Out</button></li></ul></div>"
+        }
+      ]
+    },
+    {
+      "title": "States",
+      "examples": [
+        {
+          "html": "<div class=\"ui-menu\"><ul class=\"ui-menu__group\"><li><button class=\"ui-menu__item\">Normal Item</button></li><li><button class=\"ui-menu__item ui-menu__item--disabled\" aria-disabled=\"true\">Disabled Item</button></li><li><button class=\"ui-menu__item ui-menu__item--danger\">Delete</button></li></ul></div>"
+        }
+      ]
+    },
+    {
+      "title": "Checkable Items",
+      "examples": [
+        {
+          "html": "<div class=\"ui-menu\"><ul class=\"ui-menu__group\"><li><button class=\"ui-menu__item ui-menu__item--check\"><span class=\"ui-menu__item-indicator\">&#10003;</span>Show Toolbar</button></li><li><button class=\"ui-menu__item ui-menu__item--check\"><span class=\"ui-menu__item-indicator\"></span>Show Sidebar</button></li></ul><div class=\"ui-menu__separator\"></div><ul class=\"ui-menu__group\"><li><button class=\"ui-menu__item ui-menu__item--radio\"><span class=\"ui-menu__item-indicator\">&#8226;</span>List View</button></li><li><button class=\"ui-menu__item ui-menu__item--radio\"><span class=\"ui-menu__item-indicator\"></span>Grid View</button></li></ul></div>"
+        }
+      ]
+    }
+  ]
+}
