@@ -1755,6 +1755,121 @@
   
 </div>
 </section>
+<section id="data-list" class="ui-docs-section" data-type="component">
+  <h2>Data-list</h2>
+  <p>Display structured key-value pairs</p>
+
+  <h3>Default</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <dl class="ui-data-list"><div class="ui-data-list__item"><dt class="ui-data-list__label">Name</dt><dd class="ui-data-list__value">John Doe</dd></div><div class="ui-data-list__item"><dt class="ui-data-list__label">Email</dt><dd class="ui-data-list__value">john@example.com</dd></div><div class="ui-data-list__item"><dt class="ui-data-list__label">Role</dt><dd class="ui-data-list__value">Administrator</dd></div></dl>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;dl class="ui-data-list"&gt;&lt;div class="ui-data-list__item"&gt;&lt;dt class="ui-data-list__label"&gt;Name&lt;/dt&gt;&lt;dd class="ui-data-list__value"&gt;John Doe&lt;/dd&gt;&lt;/div&gt;&lt;div class="ui-data-list__item"&gt;&lt;dt class="ui-data-list__label"&gt;Email&lt;/dt&gt;&lt;dd class="ui-data-list__value"&gt;john@example.com&lt;/dd&gt;&lt;/div&gt;&lt;div class="ui-data-list__item"&gt;&lt;dt class="ui-data-list__label"&gt;Role&lt;/dt&gt;&lt;dd class="ui-data-list__value"&gt;Administrator&lt;/dd&gt;&lt;/div&gt;&lt;/dl&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Horizontal Layout</h3>
+<p>Side-by-side label and value</p>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <dl class="ui-data-list ui-data-list--horizontal"><div class="ui-data-list__item"><dt class="ui-data-list__label">Status</dt><dd class="ui-data-list__value">Active</dd></div><div class="ui-data-list__item"><dt class="ui-data-list__label">Created</dt><dd class="ui-data-list__value">Dec 8, 2025</dd></div><div class="ui-data-list__item"><dt class="ui-data-list__label">Updated</dt><dd class="ui-data-list__value">Dec 8, 2025</dd></div></dl>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;dl class="ui-data-list ui-data-list--horizontal"&gt;&lt;div class="ui-data-list__item"&gt;&lt;dt class="ui-data-list__label"&gt;Status&lt;/dt&gt;&lt;dd class="ui-data-list__value"&gt;Active&lt;/dd&gt;&lt;/div&gt;&lt;div class="ui-data-list__item"&gt;&lt;dt class="ui-data-list__label"&gt;Created&lt;/dt&gt;&lt;dd class="ui-data-list__value"&gt;Dec 8, 2025&lt;/dd&gt;&lt;/div&gt;&lt;div class="ui-data-list__item"&gt;&lt;dt class="ui-data-list__label"&gt;Updated&lt;/dt&gt;&lt;dd class="ui-data-list__value"&gt;Dec 8, 2025&lt;/dd&gt;&lt;/div&gt;&lt;/dl&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Divided</h3>
+<p>With separator lines between items</p>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <dl class="ui-data-list ui-data-list--divided"><div class="ui-data-list__item"><dt class="ui-data-list__label">Order ID</dt><dd class="ui-data-list__value">#12345</dd></div><div class="ui-data-list__item"><dt class="ui-data-list__label">Total</dt><dd class="ui-data-list__value">$99.00</dd></div><div class="ui-data-list__item"><dt class="ui-data-list__label">Payment</dt><dd class="ui-data-list__value">Credit Card</dd></div></dl>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;dl class="ui-data-list ui-data-list--divided"&gt;&lt;div class="ui-data-list__item"&gt;&lt;dt class="ui-data-list__label"&gt;Order ID&lt;/dt&gt;&lt;dd class="ui-data-list__value"&gt;#12345&lt;/dd&gt;&lt;/div&gt;&lt;div class="ui-data-list__item"&gt;&lt;dt class="ui-data-list__label"&gt;Total&lt;/dt&gt;&lt;dd class="ui-data-list__value"&gt;$99.00&lt;/dd&gt;&lt;/div&gt;&lt;div class="ui-data-list__item"&gt;&lt;dt class="ui-data-list__label"&gt;Payment&lt;/dt&gt;&lt;dd class="ui-data-list__value"&gt;Credit Card&lt;/dd&gt;&lt;/div&gt;&lt;/dl&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Striped</h3>
+<p>Alternating background for readability</p>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <dl class="ui-data-list ui-data-list--striped"><div class="ui-data-list__item"><dt class="ui-data-list__label">CPU</dt><dd class="ui-data-list__value">Intel i7</dd></div><div class="ui-data-list__item"><dt class="ui-data-list__label">Memory</dt><dd class="ui-data-list__value">16 GB</dd></div><div class="ui-data-list__item"><dt class="ui-data-list__label">Storage</dt><dd class="ui-data-list__value">512 GB SSD</dd></div><div class="ui-data-list__item"><dt class="ui-data-list__label">Display</dt><dd class="ui-data-list__value">14" Retina</dd></div></dl>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;dl class="ui-data-list ui-data-list--striped"&gt;&lt;div class="ui-data-list__item"&gt;&lt;dt class="ui-data-list__label"&gt;CPU&lt;/dt&gt;&lt;dd class="ui-data-list__value"&gt;Intel i7&lt;/dd&gt;&lt;/div&gt;&lt;div class="ui-data-list__item"&gt;&lt;dt class="ui-data-list__label"&gt;Memory&lt;/dt&gt;&lt;dd class="ui-data-list__value"&gt;16 GB&lt;/dd&gt;&lt;/div&gt;&lt;div class="ui-data-list__item"&gt;&lt;dt class="ui-data-list__label"&gt;Storage&lt;/dt&gt;&lt;dd class="ui-data-list__value"&gt;512 GB SSD&lt;/dd&gt;&lt;/div&gt;&lt;div class="ui-data-list__item"&gt;&lt;dt class="ui-data-list__label"&gt;Display&lt;/dt&gt;&lt;dd class="ui-data-list__value"&gt;14" Retina&lt;/dd&gt;&lt;/div&gt;&lt;/dl&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Sizes</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <dl class="ui-data-list ui-data-list--sm"><div class="ui-data-list__item"><dt class="ui-data-list__label">Small</dt><dd class="ui-data-list__value">Compact display</dd></div></dl>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;dl class="ui-data-list ui-data-list--sm"&gt;&lt;div class="ui-data-list__item"&gt;&lt;dt class="ui-data-list__label"&gt;Small&lt;/dt&gt;&lt;dd class="ui-data-list__value"&gt;Compact display&lt;/dd&gt;&lt;/div&gt;&lt;/dl&gt;</code></pre>
+  </div>
+  
+</div>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <dl class="ui-data-list"><div class="ui-data-list__item"><dt class="ui-data-list__label">Default</dt><dd class="ui-data-list__value">Standard display</dd></div></dl>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;dl class="ui-data-list"&gt;&lt;div class="ui-data-list__item"&gt;&lt;dt class="ui-data-list__label"&gt;Default&lt;/dt&gt;&lt;dd class="ui-data-list__value"&gt;Standard display&lt;/dd&gt;&lt;/div&gt;&lt;/dl&gt;</code></pre>
+  </div>
+  
+</div>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <dl class="ui-data-list ui-data-list--lg"><div class="ui-data-list__item"><dt class="ui-data-list__label">Large</dt><dd class="ui-data-list__value">Spacious display</dd></div></dl>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;dl class="ui-data-list ui-data-list--lg"&gt;&lt;div class="ui-data-list__item"&gt;&lt;dt class="ui-data-list__label"&gt;Large&lt;/dt&gt;&lt;dd class="ui-data-list__value"&gt;Spacious display&lt;/dd&gt;&lt;/div&gt;&lt;/dl&gt;</code></pre>
+  </div>
+  
+</div>
+</section>
 <section id="dialog" class="ui-docs-section" data-type="component">
   <h2>Dialog</h2>
   <p>Structured modal with header, body, and footer sections. Use with modal component for positioning.</p>
@@ -2007,6 +2122,115 @@
   &lt;div class="ui-divider ui-divider--vertical"&gt;&lt;/div&gt;
   &lt;span&gt;Right&lt;/span&gt;
 &lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+</section>
+<section id="drawer" class="ui-docs-section" data-type="component">
+  <h2>Drawer</h2>
+  <p>Slide-out panel from screen edge</p>
+
+  <h3>Default (End)</h3>
+<p>Slides in from the end (right in LTR)</p>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div style="position:relative;height:300px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)"><div class="ui-drawer-overlay" style="position:absolute"></div><div class="ui-drawer ui-drawer--end" style="position:absolute" data-state="open"><div class="ui-drawer__header"><div><h2 class="ui-drawer__title">Drawer Title</h2><p class="ui-drawer__description">Optional description text</p></div><button class="ui-drawer__close ui-button ui-button--ghost ui-button--icon">X</button></div><div class="ui-drawer__body"><p>Drawer content goes here.</p></div><div class="ui-drawer__footer"><button class="ui-button ui-button--secondary">Cancel</button><button class="ui-button">Save</button></div></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div style="position:relative;height:300px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)"&gt;&lt;div class="ui-drawer-overlay" style="position:absolute"&gt;&lt;/div&gt;&lt;div class="ui-drawer ui-drawer--end" style="position:absolute" data-state="open"&gt;&lt;div class="ui-drawer__header"&gt;&lt;div&gt;&lt;h2 class="ui-drawer__title"&gt;Drawer Title&lt;/h2&gt;&lt;p class="ui-drawer__description"&gt;Optional description text&lt;/p&gt;&lt;/div&gt;&lt;button class="ui-drawer__close ui-button ui-button--ghost ui-button--icon"&gt;X&lt;/button&gt;&lt;/div&gt;&lt;div class="ui-drawer__body"&gt;&lt;p&gt;Drawer content goes here.&lt;/p&gt;&lt;/div&gt;&lt;div class="ui-drawer__footer"&gt;&lt;button class="ui-button ui-button--secondary"&gt;Cancel&lt;/button&gt;&lt;button class="ui-button"&gt;Save&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Positions</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div style="position:relative;height:200px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)"><div class="ui-drawer ui-drawer--start ui-drawer--sm" style="position:absolute" data-state="open"><div class="ui-drawer__header"><h2 class="ui-drawer__title">Start</h2></div><div class="ui-drawer__body"><p>From start edge</p></div></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div style="position:relative;height:200px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)"&gt;&lt;div class="ui-drawer ui-drawer--start ui-drawer--sm" style="position:absolute" data-state="open"&gt;&lt;div class="ui-drawer__header"&gt;&lt;h2 class="ui-drawer__title"&gt;Start&lt;/h2&gt;&lt;/div&gt;&lt;div class="ui-drawer__body"&gt;&lt;p&gt;From start edge&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div style="position:relative;height:200px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)"><div class="ui-drawer ui-drawer--top" style="position:absolute" data-state="open"><div class="ui-drawer__header"><h2 class="ui-drawer__title">Top</h2></div><div class="ui-drawer__body"><p>From top edge</p></div></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div style="position:relative;height:200px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)"&gt;&lt;div class="ui-drawer ui-drawer--top" style="position:absolute" data-state="open"&gt;&lt;div class="ui-drawer__header"&gt;&lt;h2 class="ui-drawer__title"&gt;Top&lt;/h2&gt;&lt;/div&gt;&lt;div class="ui-drawer__body"&gt;&lt;p&gt;From top edge&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div style="position:relative;height:200px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)"><div class="ui-drawer ui-drawer--bottom" style="position:absolute" data-state="open"><div class="ui-drawer__header"><h2 class="ui-drawer__title">Bottom</h2></div><div class="ui-drawer__body"><p>From bottom edge</p></div></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div style="position:relative;height:200px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)"&gt;&lt;div class="ui-drawer ui-drawer--bottom" style="position:absolute" data-state="open"&gt;&lt;div class="ui-drawer__header"&gt;&lt;h2 class="ui-drawer__title"&gt;Bottom&lt;/h2&gt;&lt;/div&gt;&lt;div class="ui-drawer__body"&gt;&lt;p&gt;From bottom edge&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Sizes</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div style="position:relative;height:150px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)"><div class="ui-drawer ui-drawer--end ui-drawer--sm" style="position:absolute" data-state="open"><div class="ui-drawer__body"><p>Small drawer</p></div></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div style="position:relative;height:150px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)"&gt;&lt;div class="ui-drawer ui-drawer--end ui-drawer--sm" style="position:absolute" data-state="open"&gt;&lt;div class="ui-drawer__body"&gt;&lt;p&gt;Small drawer&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div style="position:relative;height:150px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)"><div class="ui-drawer ui-drawer--end" style="position:absolute" data-state="open"><div class="ui-drawer__body"><p>Default drawer</p></div></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div style="position:relative;height:150px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)"&gt;&lt;div class="ui-drawer ui-drawer--end" style="position:absolute" data-state="open"&gt;&lt;div class="ui-drawer__body"&gt;&lt;p&gt;Default drawer&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div style="position:relative;height:150px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)"><div class="ui-drawer ui-drawer--end ui-drawer--lg" style="position:absolute" data-state="open"><div class="ui-drawer__body"><p>Large drawer</p></div></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div style="position:relative;height:150px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)"&gt;&lt;div class="ui-drawer ui-drawer--end ui-drawer--lg" style="position:absolute" data-state="open"&gt;&lt;div class="ui-drawer__body"&gt;&lt;p&gt;Large drawer&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</code></pre>
   </div>
   
 </div>
@@ -2742,6 +2966,90 @@
   
 </div>
 </section>
+<section id="menu" class="ui-docs-section" data-type="component">
+  <h2>Menu</h2>
+  <p>Dropdown list of actions or options</p>
+
+  <h3>Default</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-menu"><ul class="ui-menu__group"><li><button class="ui-menu__item">Edit</button></li><li><button class="ui-menu__item">Duplicate</button></li><li><button class="ui-menu__item">Archive</button></li></ul></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-menu"&gt;&lt;ul class="ui-menu__group"&gt;&lt;li&gt;&lt;button class="ui-menu__item"&gt;Edit&lt;/button&gt;&lt;/li&gt;&lt;li&gt;&lt;button class="ui-menu__item"&gt;Duplicate&lt;/button&gt;&lt;/li&gt;&lt;li&gt;&lt;button class="ui-menu__item"&gt;Archive&lt;/button&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>With Icons and Shortcuts</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-menu"><ul class="ui-menu__group"><li><button class="ui-menu__item"><span class="ui-menu__item-icon">+</span>New File<span class="ui-menu__item-shortcut">Cmd+N</span></button></li><li><button class="ui-menu__item"><span class="ui-menu__item-icon">O</span>Open<span class="ui-menu__item-shortcut">Cmd+O</span></button></li><li><button class="ui-menu__item"><span class="ui-menu__item-icon">S</span>Save<span class="ui-menu__item-shortcut">Cmd+S</span></button></li></ul></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-menu"&gt;&lt;ul class="ui-menu__group"&gt;&lt;li&gt;&lt;button class="ui-menu__item"&gt;&lt;span class="ui-menu__item-icon"&gt;+&lt;/span&gt;New File&lt;span class="ui-menu__item-shortcut"&gt;Cmd+N&lt;/span&gt;&lt;/button&gt;&lt;/li&gt;&lt;li&gt;&lt;button class="ui-menu__item"&gt;&lt;span class="ui-menu__item-icon"&gt;O&lt;/span&gt;Open&lt;span class="ui-menu__item-shortcut"&gt;Cmd+O&lt;/span&gt;&lt;/button&gt;&lt;/li&gt;&lt;li&gt;&lt;button class="ui-menu__item"&gt;&lt;span class="ui-menu__item-icon"&gt;S&lt;/span&gt;Save&lt;span class="ui-menu__item-shortcut"&gt;Cmd+S&lt;/span&gt;&lt;/button&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Groups with Labels</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-menu"><div class="ui-menu__label">Edit</div><ul class="ui-menu__group"><li><button class="ui-menu__item">Cut</button></li><li><button class="ui-menu__item">Copy</button></li><li><button class="ui-menu__item">Paste</button></li></ul><div class="ui-menu__separator"></div><div class="ui-menu__label">View</div><ul class="ui-menu__group"><li><button class="ui-menu__item">Zoom In</button></li><li><button class="ui-menu__item">Zoom Out</button></li></ul></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-menu"&gt;&lt;div class="ui-menu__label"&gt;Edit&lt;/div&gt;&lt;ul class="ui-menu__group"&gt;&lt;li&gt;&lt;button class="ui-menu__item"&gt;Cut&lt;/button&gt;&lt;/li&gt;&lt;li&gt;&lt;button class="ui-menu__item"&gt;Copy&lt;/button&gt;&lt;/li&gt;&lt;li&gt;&lt;button class="ui-menu__item"&gt;Paste&lt;/button&gt;&lt;/li&gt;&lt;/ul&gt;&lt;div class="ui-menu__separator"&gt;&lt;/div&gt;&lt;div class="ui-menu__label"&gt;View&lt;/div&gt;&lt;ul class="ui-menu__group"&gt;&lt;li&gt;&lt;button class="ui-menu__item"&gt;Zoom In&lt;/button&gt;&lt;/li&gt;&lt;li&gt;&lt;button class="ui-menu__item"&gt;Zoom Out&lt;/button&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>States</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-menu"><ul class="ui-menu__group"><li><button class="ui-menu__item">Normal Item</button></li><li><button class="ui-menu__item ui-menu__item--disabled" aria-disabled="true">Disabled Item</button></li><li><button class="ui-menu__item ui-menu__item--danger">Delete</button></li></ul></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-menu"&gt;&lt;ul class="ui-menu__group"&gt;&lt;li&gt;&lt;button class="ui-menu__item"&gt;Normal Item&lt;/button&gt;&lt;/li&gt;&lt;li&gt;&lt;button class="ui-menu__item ui-menu__item--disabled" aria-disabled="true"&gt;Disabled Item&lt;/button&gt;&lt;/li&gt;&lt;li&gt;&lt;button class="ui-menu__item ui-menu__item--danger"&gt;Delete&lt;/button&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Checkable Items</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-menu"><ul class="ui-menu__group"><li><button class="ui-menu__item ui-menu__item--check"><span class="ui-menu__item-indicator">&#10003;</span>Show Toolbar</button></li><li><button class="ui-menu__item ui-menu__item--check"><span class="ui-menu__item-indicator"></span>Show Sidebar</button></li></ul><div class="ui-menu__separator"></div><ul class="ui-menu__group"><li><button class="ui-menu__item ui-menu__item--radio"><span class="ui-menu__item-indicator">&#8226;</span>List View</button></li><li><button class="ui-menu__item ui-menu__item--radio"><span class="ui-menu__item-indicator"></span>Grid View</button></li></ul></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-menu"&gt;&lt;ul class="ui-menu__group"&gt;&lt;li&gt;&lt;button class="ui-menu__item ui-menu__item--check"&gt;&lt;span class="ui-menu__item-indicator"&gt;&amp;#10003;&lt;/span&gt;Show Toolbar&lt;/button&gt;&lt;/li&gt;&lt;li&gt;&lt;button class="ui-menu__item ui-menu__item--check"&gt;&lt;span class="ui-menu__item-indicator"&gt;&lt;/span&gt;Show Sidebar&lt;/button&gt;&lt;/li&gt;&lt;/ul&gt;&lt;div class="ui-menu__separator"&gt;&lt;/div&gt;&lt;ul class="ui-menu__group"&gt;&lt;li&gt;&lt;button class="ui-menu__item ui-menu__item--radio"&gt;&lt;span class="ui-menu__item-indicator"&gt;&amp;#8226;&lt;/span&gt;List View&lt;/button&gt;&lt;/li&gt;&lt;li&gt;&lt;button class="ui-menu__item ui-menu__item--radio"&gt;&lt;span class="ui-menu__item-indicator"&gt;&lt;/span&gt;Grid View&lt;/button&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+</section>
 <section id="modal" class="ui-docs-section" data-type="component">
   <h2>Modal</h2>
   <p>Container for modal dialogs. Use with overlay for backdrop effect.</p>
@@ -2872,6 +3180,102 @@
   <div class="ui-tabs__panel">
     <pre class="ui-code-block"><code>&lt;div class="ui-overlay ui-overlay--animate ui-overlay--visible"&gt;&lt;/div&gt;
 &lt;!-- JS toggles between --visible and --hidden --&gt;</code></pre>
+  </div>
+  
+</div>
+</section>
+<section id="pagination" class="ui-docs-section" data-type="component">
+  <h2>Pagination</h2>
+  <p>Navigate through paginated content</p>
+
+  <h3>Default</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <nav class="ui-pagination"><a class="ui-pagination__link ui-pagination__prev" href="#">Prev</a><ul class="ui-pagination__list"><li class="ui-pagination__item"><a class="ui-pagination__link" href="#">1</a></li><li class="ui-pagination__item"><a class="ui-pagination__link ui-pagination__link--active" aria-current="page" href="#">2</a></li><li class="ui-pagination__item"><a class="ui-pagination__link" href="#">3</a></li><li class="ui-pagination__item"><a class="ui-pagination__link" href="#">4</a></li><li class="ui-pagination__item"><a class="ui-pagination__link" href="#">5</a></li></ul><a class="ui-pagination__link ui-pagination__next" href="#">Next</a></nav>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;nav class="ui-pagination"&gt;&lt;a class="ui-pagination__link ui-pagination__prev" href="#"&gt;Prev&lt;/a&gt;&lt;ul class="ui-pagination__list"&gt;&lt;li class="ui-pagination__item"&gt;&lt;a class="ui-pagination__link" href="#"&gt;1&lt;/a&gt;&lt;/li&gt;&lt;li class="ui-pagination__item"&gt;&lt;a class="ui-pagination__link ui-pagination__link--active" aria-current="page" href="#"&gt;2&lt;/a&gt;&lt;/li&gt;&lt;li class="ui-pagination__item"&gt;&lt;a class="ui-pagination__link" href="#"&gt;3&lt;/a&gt;&lt;/li&gt;&lt;li class="ui-pagination__item"&gt;&lt;a class="ui-pagination__link" href="#"&gt;4&lt;/a&gt;&lt;/li&gt;&lt;li class="ui-pagination__item"&gt;&lt;a class="ui-pagination__link" href="#"&gt;5&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;a class="ui-pagination__link ui-pagination__next" href="#"&gt;Next&lt;/a&gt;&lt;/nav&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>With Ellipsis</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <nav class="ui-pagination"><a class="ui-pagination__link ui-pagination__prev" href="#">Prev</a><ul class="ui-pagination__list"><li class="ui-pagination__item"><a class="ui-pagination__link" href="#">1</a></li><li class="ui-pagination__item"><span class="ui-pagination__ellipsis">...</span></li><li class="ui-pagination__item"><a class="ui-pagination__link" href="#">4</a></li><li class="ui-pagination__item"><a class="ui-pagination__link ui-pagination__link--active" aria-current="page" href="#">5</a></li><li class="ui-pagination__item"><a class="ui-pagination__link" href="#">6</a></li><li class="ui-pagination__item"><span class="ui-pagination__ellipsis">...</span></li><li class="ui-pagination__item"><a class="ui-pagination__link" href="#">20</a></li></ul><a class="ui-pagination__link ui-pagination__next" href="#">Next</a></nav>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;nav class="ui-pagination"&gt;&lt;a class="ui-pagination__link ui-pagination__prev" href="#"&gt;Prev&lt;/a&gt;&lt;ul class="ui-pagination__list"&gt;&lt;li class="ui-pagination__item"&gt;&lt;a class="ui-pagination__link" href="#"&gt;1&lt;/a&gt;&lt;/li&gt;&lt;li class="ui-pagination__item"&gt;&lt;span class="ui-pagination__ellipsis"&gt;...&lt;/span&gt;&lt;/li&gt;&lt;li class="ui-pagination__item"&gt;&lt;a class="ui-pagination__link" href="#"&gt;4&lt;/a&gt;&lt;/li&gt;&lt;li class="ui-pagination__item"&gt;&lt;a class="ui-pagination__link ui-pagination__link--active" aria-current="page" href="#"&gt;5&lt;/a&gt;&lt;/li&gt;&lt;li class="ui-pagination__item"&gt;&lt;a class="ui-pagination__link" href="#"&gt;6&lt;/a&gt;&lt;/li&gt;&lt;li class="ui-pagination__item"&gt;&lt;span class="ui-pagination__ellipsis"&gt;...&lt;/span&gt;&lt;/li&gt;&lt;li class="ui-pagination__item"&gt;&lt;a class="ui-pagination__link" href="#"&gt;20&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;a class="ui-pagination__link ui-pagination__next" href="#"&gt;Next&lt;/a&gt;&lt;/nav&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Disabled States</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <nav class="ui-pagination"><a class="ui-pagination__link ui-pagination__prev ui-pagination__link--disabled" aria-disabled="true">Prev</a><ul class="ui-pagination__list"><li class="ui-pagination__item"><a class="ui-pagination__link ui-pagination__link--active" aria-current="page" href="#">1</a></li><li class="ui-pagination__item"><a class="ui-pagination__link" href="#">2</a></li><li class="ui-pagination__item"><a class="ui-pagination__link" href="#">3</a></li></ul><a class="ui-pagination__link ui-pagination__next" href="#">Next</a></nav>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;nav class="ui-pagination"&gt;&lt;a class="ui-pagination__link ui-pagination__prev ui-pagination__link--disabled" aria-disabled="true"&gt;Prev&lt;/a&gt;&lt;ul class="ui-pagination__list"&gt;&lt;li class="ui-pagination__item"&gt;&lt;a class="ui-pagination__link ui-pagination__link--active" aria-current="page" href="#"&gt;1&lt;/a&gt;&lt;/li&gt;&lt;li class="ui-pagination__item"&gt;&lt;a class="ui-pagination__link" href="#"&gt;2&lt;/a&gt;&lt;/li&gt;&lt;li class="ui-pagination__item"&gt;&lt;a class="ui-pagination__link" href="#"&gt;3&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;a class="ui-pagination__link ui-pagination__next" href="#"&gt;Next&lt;/a&gt;&lt;/nav&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Sizes</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <nav class="ui-pagination ui-pagination--sm"><ul class="ui-pagination__list"><li class="ui-pagination__item"><a class="ui-pagination__link" href="#">1</a></li><li class="ui-pagination__item"><a class="ui-pagination__link ui-pagination__link--active" aria-current="page" href="#">2</a></li><li class="ui-pagination__item"><a class="ui-pagination__link" href="#">3</a></li></ul></nav>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;nav class="ui-pagination ui-pagination--sm"&gt;&lt;ul class="ui-pagination__list"&gt;&lt;li class="ui-pagination__item"&gt;&lt;a class="ui-pagination__link" href="#"&gt;1&lt;/a&gt;&lt;/li&gt;&lt;li class="ui-pagination__item"&gt;&lt;a class="ui-pagination__link ui-pagination__link--active" aria-current="page" href="#"&gt;2&lt;/a&gt;&lt;/li&gt;&lt;li class="ui-pagination__item"&gt;&lt;a class="ui-pagination__link" href="#"&gt;3&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/nav&gt;</code></pre>
+  </div>
+  
+</div>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <nav class="ui-pagination"><ul class="ui-pagination__list"><li class="ui-pagination__item"><a class="ui-pagination__link" href="#">1</a></li><li class="ui-pagination__item"><a class="ui-pagination__link ui-pagination__link--active" aria-current="page" href="#">2</a></li><li class="ui-pagination__item"><a class="ui-pagination__link" href="#">3</a></li></ul></nav>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;nav class="ui-pagination"&gt;&lt;ul class="ui-pagination__list"&gt;&lt;li class="ui-pagination__item"&gt;&lt;a class="ui-pagination__link" href="#"&gt;1&lt;/a&gt;&lt;/li&gt;&lt;li class="ui-pagination__item"&gt;&lt;a class="ui-pagination__link ui-pagination__link--active" aria-current="page" href="#"&gt;2&lt;/a&gt;&lt;/li&gt;&lt;li class="ui-pagination__item"&gt;&lt;a class="ui-pagination__link" href="#"&gt;3&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/nav&gt;</code></pre>
+  </div>
+  
+</div>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <nav class="ui-pagination ui-pagination--lg"><ul class="ui-pagination__list"><li class="ui-pagination__item"><a class="ui-pagination__link" href="#">1</a></li><li class="ui-pagination__item"><a class="ui-pagination__link ui-pagination__link--active" aria-current="page" href="#">2</a></li><li class="ui-pagination__item"><a class="ui-pagination__link" href="#">3</a></li></ul></nav>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;nav class="ui-pagination ui-pagination--lg"&gt;&lt;ul class="ui-pagination__list"&gt;&lt;li class="ui-pagination__item"&gt;&lt;a class="ui-pagination__link" href="#"&gt;1&lt;/a&gt;&lt;/li&gt;&lt;li class="ui-pagination__item"&gt;&lt;a class="ui-pagination__link ui-pagination__link--active" aria-current="page" href="#"&gt;2&lt;/a&gt;&lt;/li&gt;&lt;li class="ui-pagination__item"&gt;&lt;a class="ui-pagination__link" href="#"&gt;3&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/nav&gt;</code></pre>
   </div>
   
 </div>
@@ -3942,6 +4346,131 @@
     <pre class="ui-code-block"><code>&lt;textarea class="ui-textarea"&gt;Vertical (default)&lt;/textarea&gt;
 &lt;textarea class="ui-textarea ui-textarea--resize-none"&gt;No resize&lt;/textarea&gt;
 &lt;textarea class="ui-textarea ui-textarea--resize-both"&gt;Both directions&lt;/textarea&gt;</code></pre>
+  </div>
+  
+</div>
+</section>
+<section id="toast" class="ui-docs-section" data-type="component">
+  <h2>Toast</h2>
+  <p>Notification messages with auto-dismiss</p>
+
+  <h3>Default</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-toast"><div class="ui-toast__content"><p class="ui-toast__title">Notification</p><p class="ui-toast__description">Your changes have been saved.</p></div><button class="ui-toast__close">X</button></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-toast"&gt;&lt;div class="ui-toast__content"&gt;&lt;p class="ui-toast__title"&gt;Notification&lt;/p&gt;&lt;p class="ui-toast__description"&gt;Your changes have been saved.&lt;/p&gt;&lt;/div&gt;&lt;button class="ui-toast__close"&gt;X&lt;/button&gt;&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Variants</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-toast ui-toast--success"><div class="ui-toast__content"><p class="ui-toast__title">Success</p><p class="ui-toast__description">Operation completed successfully.</p></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-toast ui-toast--success"&gt;&lt;div class="ui-toast__content"&gt;&lt;p class="ui-toast__title"&gt;Success&lt;/p&gt;&lt;p class="ui-toast__description"&gt;Operation completed successfully.&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-toast ui-toast--warning"><div class="ui-toast__content"><p class="ui-toast__title">Warning</p><p class="ui-toast__description">Please review before continuing.</p></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-toast ui-toast--warning"&gt;&lt;div class="ui-toast__content"&gt;&lt;p class="ui-toast__title"&gt;Warning&lt;/p&gt;&lt;p class="ui-toast__description"&gt;Please review before continuing.&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-toast ui-toast--danger"><div class="ui-toast__content"><p class="ui-toast__title">Error</p><p class="ui-toast__description">Something went wrong.</p></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-toast ui-toast--danger"&gt;&lt;div class="ui-toast__content"&gt;&lt;p class="ui-toast__title"&gt;Error&lt;/p&gt;&lt;p class="ui-toast__description"&gt;Something went wrong.&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-toast ui-toast--info"><div class="ui-toast__content"><p class="ui-toast__title">Info</p><p class="ui-toast__description">New updates available.</p></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-toast ui-toast--info"&gt;&lt;div class="ui-toast__content"&gt;&lt;p class="ui-toast__title"&gt;Info&lt;/p&gt;&lt;p class="ui-toast__description"&gt;New updates available.&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>With Action</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-toast"><div class="ui-toast__content"><p class="ui-toast__title">File deleted</p><p class="ui-toast__description">document.pdf was moved to trash.</p></div><button class="ui-toast__action ui-button ui-button--sm ui-button--secondary">Undo</button><button class="ui-toast__close">X</button></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-toast"&gt;&lt;div class="ui-toast__content"&gt;&lt;p class="ui-toast__title"&gt;File deleted&lt;/p&gt;&lt;p class="ui-toast__description"&gt;document.pdf was moved to trash.&lt;/p&gt;&lt;/div&gt;&lt;button class="ui-toast__action ui-button ui-button--sm ui-button--secondary"&gt;Undo&lt;/button&gt;&lt;button class="ui-toast__close"&gt;X&lt;/button&gt;&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Viewport Positions</h3>
+<p>Container positions for toast placement</p>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div style="position:relative;height:200px;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)"><div class="ui-toast-viewport ui-toast-viewport--top-end" style="position:absolute"><div class="ui-toast"><div class="ui-toast__content"><p class="ui-toast__title">Top End</p></div></div></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div style="position:relative;height:200px;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)"&gt;&lt;div class="ui-toast-viewport ui-toast-viewport--top-end" style="position:absolute"&gt;&lt;div class="ui-toast"&gt;&lt;div class="ui-toast__content"&gt;&lt;p class="ui-toast__title"&gt;Top End&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div style="position:relative;height:200px;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)"><div class="ui-toast-viewport ui-toast-viewport--bottom-end" style="position:absolute"><div class="ui-toast"><div class="ui-toast__content"><p class="ui-toast__title">Bottom End</p></div></div></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div style="position:relative;height:200px;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)"&gt;&lt;div class="ui-toast-viewport ui-toast-viewport--bottom-end" style="position:absolute"&gt;&lt;div class="ui-toast"&gt;&lt;div class="ui-toast__content"&gt;&lt;p class="ui-toast__title"&gt;Bottom End&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</code></pre>
   </div>
   
 </div>
