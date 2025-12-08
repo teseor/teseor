@@ -1,0 +1,19 @@
+{
+  "name": "popover",
+  "baseClass": "popover",
+  "element": "div",
+  "description": "Floating panel for additional content, larger than tooltip",
+  "modifiers": {
+    "position": {
+      "values": ["top", "bottom"],
+      "default": null,
+      "description": "Arrow position indicating popover placement relative to trigger"
+    },
+    "state": {
+      "values": ["visible", "hidden", "animate"],
+      "default": null,
+      "description": "Visibility states controlled via JS"
+    }
+  },
+  "states": []
+}

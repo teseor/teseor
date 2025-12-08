@@ -1,0 +1,27 @@
+{
+  "id": "tooltip",
+  "type": "component",
+  "title": "Tooltip",
+  "description": "Small informational popup for additional context. Position via JS.",
+  "sections": [
+    {
+      "title": "Positions",
+      "description": "Arrow indicates where tooltip is relative to trigger",
+      "examples": [
+        {
+          "html": "<div style=\"display: flex; gap: var(--ui-space-4); padding: var(--ui-space-4);\"><div style=\"position: relative;\"><span class=\"ui-tooltip ui-tooltip--top\" style=\"position: relative;\">Top tooltip</span></div><div style=\"position: relative;\"><span class=\"ui-tooltip ui-tooltip--bottom\" style=\"position: relative;\">Bottom tooltip</span></div></div>",
+          "code": "<span class=\"ui-tooltip ui-tooltip--top\">Top tooltip</span>\n<span class=\"ui-tooltip ui-tooltip--bottom\">Bottom tooltip</span>\n<span class=\"ui-tooltip ui-tooltip--start\">Start tooltip</span>\n<span class=\"ui-tooltip ui-tooltip--end\">End tooltip</span>"
+        }
+      ]
+    },
+    {
+      "title": "With Animation",
+      "examples": [
+        {
+          "html": "<span class=\"ui-tooltip ui-tooltip--top ui-tooltip--animate ui-tooltip--visible\" style=\"position: relative;\">Animated tooltip</span>",
+          "code": "<span class=\"ui-tooltip ui-tooltip--top ui-tooltip--animate ui-tooltip--visible\">\n  Animated tooltip\n</span>"
+        }
+      ]
+    }
+  ]
+}

@@ -2493,6 +2493,67 @@
   
 </div>
 </section>
+<section id="popover" class="ui-docs-section" data-type="component">
+  <h2>Popover</h2>
+  <p>Floating panel for additional content. Larger than tooltip, can contain structured content.</p>
+
+  <h3>Default</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-popover" style="position: relative;"><p>Popover content goes here. Can contain multiple paragraphs and other elements.</p></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-popover"&gt;
+  &lt;p&gt;Popover content goes here.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>With Header</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-popover" style="position: relative;"><header class="ui-popover__header"><h3 class="ui-popover__title">Popover Title</h3></header><p>Content with a header section.</p></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-popover"&gt;
+  &lt;header class="ui-popover__header"&gt;
+    &lt;h3 class="ui-popover__title"&gt;Popover Title&lt;/h3&gt;
+  &lt;/header&gt;
+  &lt;p&gt;Content with a header section.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>With Arrow</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div style="padding: var(--ui-space-4);"><div class="ui-popover ui-popover--top" style="position: relative;"><p>Popover with arrow pointing down</p></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-popover ui-popover--top"&gt;
+  &lt;p&gt;Popover with arrow pointing down&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+</section>
 <section id="radio" class="ui-docs-section" data-type="component">
   <h2>Radio</h2>
   <p>Native radio button with custom styling. Use for mutually exclusive options within a group.</p>
@@ -3228,6 +3289,48 @@
     <pre class="ui-code-block"><code>&lt;textarea class="ui-textarea"&gt;Vertical (default)&lt;/textarea&gt;
 &lt;textarea class="ui-textarea ui-textarea--resize-none"&gt;No resize&lt;/textarea&gt;
 &lt;textarea class="ui-textarea ui-textarea--resize-both"&gt;Both directions&lt;/textarea&gt;</code></pre>
+  </div>
+  
+</div>
+</section>
+<section id="tooltip" class="ui-docs-section" data-type="component">
+  <h2>Tooltip</h2>
+  <p>Small informational popup for additional context. Position via JS.</p>
+
+  <h3>Positions</h3>
+<p>Arrow indicates where tooltip is relative to trigger</p>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div style="display: flex; gap: var(--ui-space-4); padding: var(--ui-space-4);"><div style="position: relative;"><span class="ui-tooltip ui-tooltip--top" style="position: relative;">Top tooltip</span></div><div style="position: relative;"><span class="ui-tooltip ui-tooltip--bottom" style="position: relative;">Bottom tooltip</span></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;span class="ui-tooltip ui-tooltip--top"&gt;Top tooltip&lt;/span&gt;
+&lt;span class="ui-tooltip ui-tooltip--bottom"&gt;Bottom tooltip&lt;/span&gt;
+&lt;span class="ui-tooltip ui-tooltip--start"&gt;Start tooltip&lt;/span&gt;
+&lt;span class="ui-tooltip ui-tooltip--end"&gt;End tooltip&lt;/span&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>With Animation</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <span class="ui-tooltip ui-tooltip--top ui-tooltip--animate ui-tooltip--visible" style="position: relative;">Animated tooltip</span>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;span class="ui-tooltip ui-tooltip--top ui-tooltip--animate ui-tooltip--visible"&gt;
+  Animated tooltip
+&lt;/span&gt;</code></pre>
   </div>
   
 </div>
