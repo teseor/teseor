@@ -8,7 +8,7 @@
     --_size: var(--ui-drawer-size, calc(#{t.$unit} * 40));
     --_max-size: var(--ui-drawer-max-size, 90%);
     --_bg: var(--ui-drawer-bg, var(--ui-color-bg, #{t.$color-bg}));
-    --_shadow: var(--ui-drawer-shadow, var(--ui-shadow-xl, #{t.$shadow-xl}));
+    --_shadow: var(--ui-drawer-shadow, var(--shadow-lg));
     --_header-padding: var(--ui-drawer-header-padding, calc(#{t.$unit} * 2) calc(#{t.$unit} * 3));
     --_body-padding: var(--ui-drawer-body-padding, calc(#{t.$unit} * 3));
     --_footer-padding: var(--ui-drawer-footer-padding, calc(#{t.$unit} * 2) calc(#{t.$unit} * 3));
