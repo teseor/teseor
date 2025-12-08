@@ -1,0 +1,48 @@
+{
+  "api": "./drawer.api.json",
+  "sections": [
+    {
+      "title": "Default (End)",
+      "description": "Slides in from the end (right in LTR)",
+      "examples": [
+        {
+          "html": "<div style=\"position:relative;height:300px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)\"><div class=\"ui-drawer-overlay\" style=\"position:absolute\"></div><div class=\"ui-drawer ui-drawer--end\" style=\"position:absolute\" data-state=\"open\"><div class=\"ui-drawer__header\"><div><h2 class=\"ui-drawer__title\">Drawer Title</h2><p class=\"ui-drawer__description\">Optional description text</p></div><button class=\"ui-drawer__close ui-button ui-button--ghost ui-button--icon\">X</button></div><div class=\"ui-drawer__body\"><p>Drawer content goes here.</p></div><div class=\"ui-drawer__footer\"><button class=\"ui-button ui-button--secondary\">Cancel</button><button class=\"ui-button\">Save</button></div></div></div>"
+        }
+      ]
+    },
+    {
+      "title": "Positions",
+      "examples": [
+        {
+          "html": "<div style=\"position:relative;height:200px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)\"><div class=\"ui-drawer ui-drawer--start ui-drawer--sm\" style=\"position:absolute\" data-state=\"open\"><div class=\"ui-drawer__header\"><h2 class=\"ui-drawer__title\">Start</h2></div><div class=\"ui-drawer__body\"><p>From start edge</p></div></div></div>",
+          "layout": "stack"
+        },
+        {
+          "html": "<div style=\"position:relative;height:200px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)\"><div class=\"ui-drawer ui-drawer--top\" style=\"position:absolute\" data-state=\"open\"><div class=\"ui-drawer__header\"><h2 class=\"ui-drawer__title\">Top</h2></div><div class=\"ui-drawer__body\"><p>From top edge</p></div></div></div>",
+          "layout": "stack"
+        },
+        {
+          "html": "<div style=\"position:relative;height:200px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)\"><div class=\"ui-drawer ui-drawer--bottom\" style=\"position:absolute\" data-state=\"open\"><div class=\"ui-drawer__header\"><h2 class=\"ui-drawer__title\">Bottom</h2></div><div class=\"ui-drawer__body\"><p>From bottom edge</p></div></div></div>",
+          "layout": "stack"
+        }
+      ]
+    },
+    {
+      "title": "Sizes",
+      "examples": [
+        {
+          "html": "<div style=\"position:relative;height:150px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)\"><div class=\"ui-drawer ui-drawer--end ui-drawer--sm\" style=\"position:absolute\" data-state=\"open\"><div class=\"ui-drawer__body\"><p>Small drawer</p></div></div></div>",
+          "layout": "stack"
+        },
+        {
+          "html": "<div style=\"position:relative;height:150px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)\"><div class=\"ui-drawer ui-drawer--end\" style=\"position:absolute\" data-state=\"open\"><div class=\"ui-drawer__body\"><p>Default drawer</p></div></div></div>",
+          "layout": "stack"
+        },
+        {
+          "html": "<div style=\"position:relative;height:150px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)\"><div class=\"ui-drawer ui-drawer--end ui-drawer--lg\" style=\"position:absolute\" data-state=\"open\"><div class=\"ui-drawer__body\"><p>Large drawer</p></div></div></div>",
+          "layout": "stack"
+        }
+      ]
+    }
+  ]
+}
