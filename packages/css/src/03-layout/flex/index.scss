@@ -1,0 +1,51 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Flex - flexbox layout container
+// Generic flexbox with direction, wrap, gap, alignment
+
+@layer primitives {
+  .flex {
+    --_gap: var(--flex-gap, var(--ui-space-2, #{t.$space-2}));
+    --_direction: var(--flex-direction, row);
+    --_wrap: var(--flex-wrap, nowrap);
+    --_align: var(--flex-align, stretch);
+    --_justify: var(--flex-justify, flex-start);
+
+    display: flex;
+    flex-direction: var(--_direction);
+    flex-wrap: var(--_wrap);
+    align-items: var(--_align);
+    justify-content: var(--_justify);
+    gap: var(--_gap);
+  }
+
+  // Direction modifiers
+  .flex--row { --_direction: row; }
+  .flex--col { --_direction: column; }
+  .flex--row-reverse { --_direction: row-reverse; }
+  .flex--col-reverse { --_direction: column-reverse; }
+
+  // Wrap modifiers
+  .flex--wrap { --_wrap: wrap; }
+  .flex--nowrap { --_wrap: nowrap; }
+
+  // Alignment modifiers
+  .flex--items-start { --_align: flex-start; }
+  .flex--items-center { --_align: center; }
+  .flex--items-end { --_align: flex-end; }
+  .flex--items-baseline { --_align: baseline; }
+
+  // Justify modifiers
+  .flex--justify-start { --_justify: flex-start; }
+  .flex--justify-center { --_justify: center; }
+  .flex--justify-end { --_justify: flex-end; }
+  .flex--justify-between { --_justify: space-between; }
+  .flex--justify-around { --_justify: space-around; }
+
+  // Gap modifiers
+  .flex--gap-0 { --_gap: 0; }
+  .flex--gap-1 { --_gap: var(--ui-space-1, #{t.$space-1}); }
+  .flex--gap-2 { --_gap: var(--ui-space-2, #{t.$space-2}); }
+  .flex--gap-3 { --_gap: var(--ui-space-3, #{t.$space-3}); }
+  .flex--gap-4 { --_gap: var(--ui-space-4, #{t.$space-4}); }
+}

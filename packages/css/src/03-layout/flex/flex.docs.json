@@ -1,0 +1,55 @@
+{
+  "id": "flex",
+  "type": "primitive",
+  "title": "Flex",
+  "description": "Flexbox layout container with direction, wrap, gap, and alignment controls.",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "html": "<div class=\"ui-flex\"><div class=\"ui-box ui-box--p-2 ui-box--bg-subtle\">A</div><div class=\"ui-box ui-box--p-2 ui-box--bg-subtle\">B</div><div class=\"ui-box ui-box--p-2 ui-box--bg-subtle\">C</div></div>",
+          "code": "<div class=\"ui-flex\">\n  <div>A</div>\n  <div>B</div>\n  <div>C</div>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "Direction",
+      "examples": [
+        {
+          "layout": "stack",
+          "html": "<div class=\"ui-flex ui-flex--row\"><div class=\"ui-box ui-box--p-2 ui-box--bg-subtle\">Row</div><div class=\"ui-box ui-box--p-2 ui-box--bg-subtle\">Row</div></div><div class=\"ui-flex ui-flex--col\"><div class=\"ui-box ui-box--p-2 ui-box--bg-subtle\">Column</div><div class=\"ui-box ui-box--p-2 ui-box--bg-subtle\">Column</div></div>",
+          "code": "<div class=\"ui-flex ui-flex--row\">...</div>\n<div class=\"ui-flex ui-flex--col\">...</div>"
+        }
+      ]
+    },
+    {
+      "title": "Alignment",
+      "examples": [
+        {
+          "html": "<div class=\"ui-flex ui-flex--items-center ui-flex--justify-between\" style=\"min-height: 80px; background: var(--ui-color-bg-subtle);\"><div class=\"ui-box ui-box--p-2 ui-box--bg-muted\">Start</div><div class=\"ui-box ui-box--p-2 ui-box--bg-muted\">Center</div><div class=\"ui-box ui-box--p-2 ui-box--bg-muted\">End</div></div>",
+          "code": "<div class=\"ui-flex ui-flex--items-center ui-flex--justify-between\">\n  ...\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "Gap",
+      "examples": [
+        {
+          "layout": "stack",
+          "html": "<div class=\"ui-flex ui-flex--gap-1\"><div class=\"ui-box ui-box--p-2 ui-box--bg-subtle\">Gap 1</div><div class=\"ui-box ui-box--p-2 ui-box--bg-subtle\">Gap 1</div></div><div class=\"ui-flex ui-flex--gap-4\"><div class=\"ui-box ui-box--p-2 ui-box--bg-subtle\">Gap 4</div><div class=\"ui-box ui-box--p-2 ui-box--bg-subtle\">Gap 4</div></div>",
+          "code": "<div class=\"ui-flex ui-flex--gap-1\">...</div>\n<div class=\"ui-flex ui-flex--gap-4\">...</div>"
+        }
+      ]
+    },
+    {
+      "title": "Wrap",
+      "examples": [
+        {
+          "html": "<div class=\"ui-flex ui-flex--wrap ui-flex--gap-2\" style=\"max-width: 200px;\"><div class=\"ui-box ui-box--p-2 ui-box--bg-subtle\">Wrap</div><div class=\"ui-box ui-box--p-2 ui-box--bg-subtle\">Wrap</div><div class=\"ui-box ui-box--p-2 ui-box--bg-subtle\">Wrap</div><div class=\"ui-box ui-box--p-2 ui-box--bg-subtle\">Wrap</div></div>",
+          "code": "<div class=\"ui-flex ui-flex--wrap\">...</div>"
+        }
+      ]
+    }
+  ]
+}
