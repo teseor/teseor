@@ -1,6 +1,7 @@
 @use '../../00-config/tokens/variables' as t;
 
-// Badge component - inline labels and status indicators
+// @component badge
+// @element span
 
 @layer components.tokens {
   .badge {
@@ -13,14 +14,14 @@
     --_text: var(--ui-badge-text, var(--ui-color-text, #{t.$color-text}));
   }
 
-  // Size variants
+  // @modifier size
   .badge--sm {
     --_height: var(--ui-badge-height-sm, var(--ui-row, #{t.$row}));
     --_padding-x: var(--ui-badge-padding-x-sm, var(--ui-space-0, #{t.$space-0}));
     --_font-size: var(--ui-badge-font-size-sm, calc(var(--ui-font-size-xs, #{t.$font-size-xs}) * 0.85));
   }
 
-  // Color variants
+  // @modifier variant
   .badge--primary {
     --_bg: var(--ui-badge-primary-bg, var(--ui-color-primary, #{t.$color-primary}));
     --_text: var(--ui-badge-primary-text, var(--ui-color-text-inverse, #{t.$color-text-inverse}));

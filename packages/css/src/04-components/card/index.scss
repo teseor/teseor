@@ -1,8 +1,8 @@
 @use '../../00-config/mixins/border' as *;
 
-// Card component - bordered surface with padding
+// @component card
+// @element div
 
-// Token definitions
 @layer components.tokens {
   .card {
     --_padding: var(--ui-card-padding, var(--ui-space-4));
@@ -12,14 +12,15 @@
     --_radius: var(--ui-card-radius, var(--ui-radius-md));
   }
 
-  // Background variants
+  // @modifier variant
   .card--subtle { --_bg: var(--ui-card-bg-subtle, var(--ui-color-bg-subtle)); }
   .card--muted { --_bg: var(--ui-card-bg-muted, var(--ui-color-bg-muted)); }
 
-  // Padding variants
+  // @modifier size
   .card--sm { --_padding: var(--ui-card-padding-sm, var(--ui-space-2)); }
   .card--lg { --_padding: var(--ui-card-padding-lg, var(--ui-space-6)); }
 
+  // @modifier boolean flush
   .card--flush {
     --_padding: 0;
     --_border-width: 0;

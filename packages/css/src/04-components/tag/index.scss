@@ -1,7 +1,7 @@
 @use '../../00-config/tokens/variables' as t;
 
-// Tag component - keyword labels for categorization
-// Sizes align to grid
+// @component tag
+// @element span
 
 @layer components.tokens {
   .tag {
@@ -14,12 +14,14 @@
     --_color: var(--ui-tag-color, var(--ui-color-text, #{t.$color-text}));
   }
 
+  // @modifier size
   .tag--sm {
     --_height: var(--ui-tag-height-sm, calc(#{t.$unit} * 2.5));
     --_padding-x: var(--ui-tag-padding-x-sm, calc(#{t.$unit} * 1));
     --_font-size: var(--ui-tag-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
   }
 
+  // @modifier variant
   .tag--primary {
     --_bg: var(--ui-tag-primary-bg, var(--ui-color-primary, #{t.$color-primary}));
     --_color: var(--ui-tag-primary-color, var(--ui-color-text-inverse, #{t.$color-text-inverse}));

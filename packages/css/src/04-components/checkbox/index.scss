@@ -1,7 +1,7 @@
 @use '../../00-config/tokens/variables' as t;
 
-// Checkbox component - native checkbox with custom styling
-// Sizes align to grid
+// @component checkbox
+// @element input
 
 @layer components.tokens {
   .checkbox {
@@ -14,10 +14,12 @@
     --_check-color: var(--ui-checkbox-check-color, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
   }
 
+  // @modifier size
   .checkbox--lg {
     --_size: var(--ui-checkbox-size-lg, calc(#{t.$unit} * 3));
   }
 
+  // @modifier boolean error
   .checkbox--error {
     --_border-color: var(--ui-checkbox-error-border, var(--ui-color-danger, #{t.$color-danger}));
     --_border-color-focus: var(--ui-checkbox-error-border, var(--ui-color-danger, #{t.$color-danger}));

@@ -1,7 +1,7 @@
 @use '../../00-config/tokens/variables' as t;
 
-// Label component - form control labels
-// Associates text with form inputs
+// @component label
+// @element label
 
 @layer components.tokens {
   .label {
@@ -10,6 +10,7 @@
     --_required-color: var(--ui-label-required-color, var(--ui-color-danger, #{t.$color-danger}));
   }
 
+  // @modifier size
   .label--lg {
     --_font-size: var(--ui-label-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
   }

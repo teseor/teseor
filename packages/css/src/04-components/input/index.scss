@@ -1,7 +1,7 @@
 @use '../../00-config/tokens/variables' as t;
 
-// Input component - text input field
-// Heights align to grid rows
+// @component input
+// @element input
 
 @layer components.tokens {
   .input {
@@ -16,7 +16,7 @@
     --_placeholder: var(--ui-input-placeholder, var(--ui-color-text-muted, #{t.$color-text-muted}));
   }
 
-  // Size variants
+  // @modifier size
   .input--sm {
     --_height: var(--ui-input-height-sm, calc(#{t.$row} * 1.5));
     --_font-size: var(--ui-input-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
@@ -28,7 +28,7 @@
     --_font-size: var(--ui-input-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
   }
 
-  // Style variants
+  // @modifier variant
   .input--filled {
     --_bg: var(--ui-input-filled-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
     --_border-color: transparent;
@@ -39,7 +39,7 @@
     --_border-color: transparent;
   }
 
-  // State variants
+  // @modifier state
   .input--error {
     --_border-color: var(--ui-input-error-border, var(--ui-color-danger, #{t.$color-danger}));
     --_border-color-focus: var(--ui-input-error-border, var(--ui-color-danger, #{t.$color-danger}));

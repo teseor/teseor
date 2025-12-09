@@ -1,7 +1,7 @@
 @use '../../00-config/tokens/variables' as t;
 
-// Alert component - informational banners
-// Variants for different message types
+// @component alert
+// @element div
 
 @layer components.tokens {
   .alert {
@@ -15,6 +15,7 @@
     --_icon-color: var(--ui-alert-icon-color, currentcolor);
   }
 
+  // @modifier variant
   .alert--info {
     --_bg: var(--ui-alert-info-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
     --_border-color: var(--ui-alert-info-border, var(--ui-color-primary, #{t.$color-primary}));

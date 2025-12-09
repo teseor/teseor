@@ -1,7 +1,7 @@
 @use '../../00-config/tokens/variables' as t;
 
-// Avatar component - user/entity thumbnail representation
-// Sizes align to grid
+// @component avatar
+// @element div
 
 @layer components.tokens {
   .avatar {
@@ -12,6 +12,7 @@
     --_radius: var(--ui-avatar-radius, 50%);
   }
 
+  // @modifier size
   .avatar--xs {
     --_size: var(--ui-avatar-size-xs, calc(#{t.$unit} * 3));
     --_font-size: var(--ui-avatar-font-size-xs, var(--ui-font-size-xs, #{t.$font-size-xs}));
@@ -32,6 +33,7 @@
     --_font-size: var(--ui-avatar-font-size-xl, var(--ui-font-size-lg, #{t.$font-size-lg}));
   }
 
+  // @modifier boolean square
   .avatar--square {
     --_radius: var(--ui-avatar-radius-square, var(--ui-radius-md, #{t.$radius-md}));
   }

@@ -1,7 +1,7 @@
 @use '../../00-config/tokens/variables' as t;
 
-// Heading component - semantic headings with visual size control
-// Sizes align to typography scale
+// @component heading
+// @element h2
 
 @layer components.tokens {
   .heading {
@@ -11,7 +11,7 @@
     --_color: var(--ui-heading-color, var(--ui-color-text, #{t.$color-text}));
   }
 
-  // Visual size modifiers (decouple from semantic level)
+  // @modifier size
   .heading--4xl {
     --_font-size: var(--ui-heading-font-size-4xl, var(--ui-font-size-4xl, #{t.$font-size-4xl}));
     --_line-height: var(--ui-heading-line-height-4xl, var(--ui-leading-4xl, #{t.$leading-4xl}));

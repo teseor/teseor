@@ -1,7 +1,7 @@
 @use '../../00-config/tokens/variables' as t;
 
-// Select component - native select with custom styling
-// Heights align to grid rows, consistent with Input
+// @component select
+// @element select
 
 @layer components.tokens {
   .select {
@@ -16,7 +16,7 @@
     --_icon-color: var(--ui-select-icon-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
   }
 
-  // Size variants
+  // @modifier size
   .select--sm {
     --_height: var(--ui-select-height-sm, calc(#{t.$row} * 1.5));
     --_font-size: var(--ui-select-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
@@ -28,7 +28,7 @@
     --_font-size: var(--ui-select-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
   }
 
-  // Style variants
+  // @modifier variant
   .select--filled {
     --_bg: var(--ui-select-filled-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
     --_border-color: transparent;
@@ -39,7 +39,7 @@
     --_border-color: transparent;
   }
 
-  // State variants
+  // @modifier state
   .select--error {
     --_border-color: var(--ui-select-error-border, var(--ui-color-danger, #{t.$color-danger}));
     --_border-color-focus: var(--ui-select-error-border, var(--ui-color-danger, #{t.$color-danger}));

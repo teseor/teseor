@@ -1,7 +1,7 @@
 @use '../../00-config/tokens/variables' as t;
 
-// Link - styled anchor element
-// Provides consistent styling for text links
+// @component link
+// @element a
 
 @layer components.tokens {
   .link {
@@ -12,6 +12,7 @@
     --_decoration-hover: var(--ui-link-decoration-hover, underline);
   }
 
+  // @modifier variant
   .link--muted {
     --_color: var(--ui-link-color-muted, var(--ui-color-text-muted));
     --_color-hover: var(--ui-link-color-muted-hover, var(--ui-color-text));

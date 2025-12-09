@@ -1,7 +1,7 @@
 @use '../../00-config/tokens/variables' as t;
 
-// Divider - visual separator between content sections
-// Supports horizontal/vertical orientation and optional label
+// @component divider
+// @element div
 
 @layer components.tokens {
   .divider {
@@ -55,7 +55,7 @@
     display: none;
   }
 
-  // Vertical orientation
+  // @modifier boolean vertical
   .divider--vertical {
     flex-direction: column;
     align-self: stretch;
@@ -73,7 +73,7 @@
     inline-size: var(--_size);
   }
 
-  // Text alignment variants
+  // @modifier align
   .divider--start::before {
     display: none;
   }
@@ -90,7 +90,7 @@
     margin-inline-end: calc(#{t.$unit} * 2);
   }
 
-  // Dashed style
+  // @modifier boolean dashed
   .divider--dashed::before,
   .divider--dashed::after {
     background: repeating-linear-gradient(

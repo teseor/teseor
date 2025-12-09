@@ -1,7 +1,7 @@
 @use '../../00-config/tokens/variables' as t;
 
-// Spinner component - loading indicator
-// Pure CSS animation, sizes align to grid
+// @component spinner
+// @element div
 
 @layer components.tokens {
   .spinner {
@@ -12,6 +12,7 @@
     --_duration: var(--ui-spinner-duration, 750ms);
   }
 
+  // @modifier size
   .spinner--xs {
     --_size: var(--ui-spinner-size-xs, calc(var(--unit) * 2));
     --_border-width: var(--ui-spinner-border-width-xs, var(--ui-border-width-sm));

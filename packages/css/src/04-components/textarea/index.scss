@@ -1,7 +1,7 @@
 @use '../../00-config/tokens/variables' as t;
 
-// Textarea component - multi-line text input
-// Shares token patterns with Input
+// @component textarea
+// @element textarea
 
 @layer components.tokens {
   .textarea {
@@ -17,7 +17,7 @@
     --_placeholder: var(--ui-textarea-placeholder, var(--ui-color-text-muted, #{t.$color-text-muted}));
   }
 
-  // Size variants
+  // @modifier size
   .textarea--sm {
     --_min-height: var(--ui-textarea-min-height-sm, calc(#{t.$row} * 3));
     --_font-size: var(--ui-textarea-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
@@ -30,7 +30,7 @@
     --_font-size: var(--ui-textarea-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
   }
 
-  // Style variants
+  // @modifier variant
   .textarea--filled {
     --_bg: var(--ui-textarea-filled-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
     --_border-color: transparent;
@@ -41,7 +41,7 @@
     --_border-color: transparent;
   }
 
-  // State variants
+  // @modifier state
   .textarea--error {
     --_border-color: var(--ui-textarea-error-border, var(--ui-color-danger, #{t.$color-danger}));
     --_border-color-focus: var(--ui-textarea-error-border, var(--ui-color-danger, #{t.$color-danger}));

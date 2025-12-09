@@ -1,7 +1,7 @@
 @use '../../00-config/tokens/variables' as t;
 
-// Radio component - native radio input with custom styling
-// Sizes align to grid
+// @component radio
+// @element input
 
 @layer components.tokens {
   .radio {
@@ -13,10 +13,12 @@
     --_dot-color: var(--ui-radio-dot-color, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
   }
 
+  // @modifier size
   .radio--lg {
     --_size: var(--ui-radio-size-lg, calc(#{t.$unit} * 3));
   }
 
+  // @modifier boolean error
   .radio--error {
     --_border-color: var(--ui-radio-error-border, var(--ui-color-danger, #{t.$color-danger}));
     --_border-color-focus: var(--ui-radio-error-border, var(--ui-color-danger, #{t.$color-danger}));
