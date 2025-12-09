@@ -1,7 +1,4 @@
 pnpm lint && pnpm typecheck
 
-# Visual tests (skip with SKIP_VISUAL_TESTS=1)
-if [ -z "$SKIP_VISUAL_TESTS" ]; then
-  echo "Running visual tests... (skip with SKIP_VISUAL_TESTS=1)"
-  pnpm --filter @ui-lib/css test:visual
-fi
+# Visual tests run in CI only (Docker QEMU has slight rendering differences)
+# Run locally with: pnpm test:visual
