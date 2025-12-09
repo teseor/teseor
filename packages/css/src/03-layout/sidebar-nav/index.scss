@@ -12,8 +12,10 @@
     // Styles
     display: flex;
     flex-direction: column;
-    inline-size: var(--_width);
+
     block-size: 100%;
+    inline-size: var(--_width);
+
     background: var(--_bg);
   }
 
@@ -22,13 +24,16 @@
     --_padding: var(--ui-sidebar-nav-header-padding, var(--ui-space-2));
 
     flex-shrink: 0;
+
     padding: var(--_padding);
+
     box-shadow: inset 0 calc(var(--ui-border-width-sm) * -1) 0 0 var(--_border-color);
   }
 
   // Content - scrollable
   .sidebar-nav__content {
     flex: 1;
+
     padding: var(--_padding);
     overflow-y: auto;
   }
@@ -38,7 +43,9 @@
     --_padding: var(--ui-sidebar-nav-footer-padding, var(--ui-space-2));
 
     flex-shrink: 0;
+
     padding: var(--_padding);
+
     box-shadow: inset 0 var(--ui-border-width-sm) 0 0 var(--_border-color);
   }
 
@@ -54,13 +61,15 @@
     --_weight: var(--ui-sidebar-nav-group-label-weight, var(--ui-weight-bold));
 
     display: block;
+
     padding: var(--ui-space-1) var(--ui-space-2);
     margin: 0;
+
     font-size: var(--_font-size);
     font-weight: var(--_weight);
-    color: var(--_color);
-    text-transform: uppercase;
     letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--_color);
   }
 
   // Group items container
@@ -68,17 +77,20 @@
     display: flex;
     flex-direction: column;
     gap: var(--ui-space-half);
-    margin: 0;
+
     padding: 0;
+    margin: 0;
     list-style: none;
   }
 
   // Subgroup label (nested section)
   .sidebar-nav__subgroup-label {
     display: block;
+
     padding: var(--ui-space-1) var(--ui-space-2);
     margin: 0;
     margin-block-start: var(--ui-space-1);
+
     font-size: var(--ui-size-xs);
     font-weight: var(--ui-weight-medium);
     color: var(--ui-color-text-muted);
@@ -96,15 +108,19 @@
     display: flex;
     align-items: center;
     gap: var(--ui-space-1);
+
     min-block-size: var(--_height);
     padding-inline: var(--_padding-inline);
+
     font-size: var(--_font-size);
     font-weight: var(--_weight, normal);
-    color: var(--_color);
     text-decoration: none;
+    color: var(--_color);
+
     background: var(--_bg);
     border-radius: var(--_radius);
     cursor: pointer;
+
     transition:
       background var(--ui-duration-fast) var(--ui-easing-default),
       color var(--ui-duration-fast) var(--ui-easing-default);
@@ -142,19 +158,22 @@
 
   // Icon container
   .sidebar-nav__icon {
-    flex-shrink: 0;
     display: flex;
+    flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    inline-size: var(--ui-size-md);
+
     block-size: var(--ui-size-md);
+    inline-size: var(--ui-size-md);
   }
 
   // Label text
   .sidebar-nav__label {
     flex: 1;
+
     min-inline-size: 0;
     overflow: hidden;
+
     text-overflow: ellipsis;
     white-space: nowrap;
   }
@@ -162,6 +181,7 @@
   // Badge (counts, status)
   .sidebar-nav__badge {
     flex-shrink: 0;
+
     margin-inline-start: auto;
   }
 
@@ -178,6 +198,7 @@
 
     .sidebar-nav__item {
       justify-content: center;
+
       padding-inline: var(--ui-space-1);
     }
   }
