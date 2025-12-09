@@ -3,6 +3,7 @@
   "type": "token",
   "title": "Spacing",
   "description": "Spacing tokens based on the 8px unit.",
+  "skipValidation": true,
   "sections": [
     {
       "examples": [

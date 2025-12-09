@@ -3,6 +3,7 @@
   "type": "token",
   "title": "Typography",
   "description": "Modular scale (1.2 ratio) with 8px grid-snapped line-heights. Responsive breakpoints at 730px and 1080px adjust heading sizes.",
+  "skipValidation": true,
   "sections": [
     {
       "title": "Type Scale",

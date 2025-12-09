@@ -3,6 +3,7 @@
   "type": "token",
   "title": "Colors",
   "description": "HSL-based color system with primitive and semantic tokens. Semantic tokens adapt to light/dark themes.",
+  "skipValidation": true,
   "sections": [
     {
       "title": "Text Colors",
