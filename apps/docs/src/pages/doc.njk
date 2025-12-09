@@ -31,8 +31,13 @@ eleventyComputed:
         {% set previewHtml = example.html %}
       {% endif %}
 
-      {# Build code snippet #}
-      {% set codeSnippet = example.code or example.html or '' %}
+      {# Build code snippet - auto-generate from items if not provided #}
+      {% set codeSnippet = example.code or '' %}
+      {% if not codeSnippet and example.items %}
+        {% set codeSnippet = example.items | generateCode({ layout: example.layout }) %}
+      {% elif not codeSnippet and example.html %}
+        {% set codeSnippet = example.html %}
+      {% endif %}
       {% if section.data %}
         {% set codeSnippet = codeSnippet | processTemplate(section.data) %}
       {% endif %}

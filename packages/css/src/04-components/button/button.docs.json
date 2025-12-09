@@ -5,8 +5,7 @@
       "title": "Default",
       "examples": [
         {
-          "items": [{ "tag": "button", "class": "ui-button", "text": "Primary Button" }],
-          "code": "<button class=\"ui-button\">Primary Button</button>"
+          "items": [{ "tag": "button", "class": "ui-button", "text": "Primary Button" }]
         }
       ]
     },
@@ -72,8 +71,7 @@
               "attrs": { "disabled": "" }
             },
             { "tag": "button", "class": "ui-button ui-button--loading", "text": "Loading" }
-          ],
-          "code": "<button class=\"ui-button\">Normal</button>\n<button class=\"ui-button\" disabled>Disabled</button>\n<button class=\"ui-button ui-button--loading\">Loading</button>"
+          ]
         }
       ]
     },
@@ -83,8 +81,7 @@
         {
           "items": [
             { "tag": "button", "class": "ui-button ui-button--block", "text": "Full Width Button" }
-          ],
-          "code": "<button class=\"ui-button ui-button--block\">Full Width</button>"
+          ]
         }
       ]
     },

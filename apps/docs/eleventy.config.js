@@ -164,16 +164,41 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addFilter('processTemplate', (template, data) => processTemplate(template, data));
 
-  eleventyConfig.addFilter('generateCode', (items) => {
+  eleventyConfig.addFilter('generateCode', (items, options = {}) => {
     if (!items) return '';
-    return items
-      .map((item) => {
-        const tag = item.tag || 'div';
-        const classes = item.class || '';
-        const text = item.text || '';
-        return `<${tag} class="${classes}">${text}</${tag}>`;
-      })
-      .join('\n');
+    const { layout } = options;
+
+    const lines = items.map((item) => {
+      const tag = item.tag || 'div';
+      const classes = item.class || '';
+      const text = item.text || '';
+      const html = item.html || text;
+
+      // Build attributes
+      let attrs = classes ? ` class="${classes}"` : '';
+      if (item.attrs) {
+        for (const [k, v] of Object.entries(item.attrs)) {
+          attrs += v === '' ? ` ${k}` : ` ${k}="${v}"`;
+        }
+      }
+
+      return `<${tag}${attrs}>${html}</${tag}>`;
+    });
+
+    // Wrap in layout container if specified
+    if (layout) {
+      const layoutClass =
+        layout === 'cluster'
+          ? 'ui-cluster ui-cluster--md'
+          : layout === 'stack'
+            ? 'ui-stack ui-stack--sm'
+            : '';
+      if (layoutClass) {
+        return `<div class="${layoutClass}">\n  ${lines.join('\n  ')}\n</div>`;
+      }
+    }
+
+    return lines.join('\n');
   });
 
   // Shortcodes for rendering
