@@ -3,24 +3,84 @@
 
 /* Docs-specific styles */
 @layer base {
-  /* App-level - just margin reset, ui-root handles the rest */
+  /* App-level - compact sizing for docs */
   body {
     margin: 0;
     min-height: 100vh;
+
+    /* Narrower sidebar */
+    --ui-sidebar-nav-width: 220px;
+    --ui-sidebar-nav-padding: var(--ui-space-1);
+
+    /* Smaller nav items */
+    --ui-sidebar-nav-item-height: 28px;
+    --ui-sidebar-nav-item-size: var(--ui-font-size-sm);
+    --ui-sidebar-nav-group-label-size: 10px;
+  }
+
+  /* Tighter container for docs */
+  .ui-container {
+    padding-inline: var(--ui-space-3);
+  }
+
+  /* Main content max-width for readability */
+  .ui-main {
+    max-inline-size: 900px;
+  }
+
+  /* Smaller headings for docs */
+  h2 {
+    font-size: var(--ui-font-size-xl);
+    margin-block: var(--ui-space-2) var(--ui-space-1);
+  }
+
+  h3 {
+    font-size: var(--ui-font-size-lg);
+    margin-block: var(--ui-space-2) var(--ui-space-1);
+  }
+
+  h4 {
+    font-size: var(--ui-font-size-md);
+    margin-block: var(--ui-space-1) var(--ui-space-half);
+  }
+
+  p {
+    margin-block: var(--ui-space-1);
   }
 
   /* Docs page sections */
-  .ui-docs-header {
+  .ui-docs-section {
     margin-block-end: var(--ui-space-4);
     padding-block-end: var(--ui-space-2);
     box-shadow: inset 0 calc(var(--ui-border-width-sm) * -1) 0 0 var(--ui-color-border);
+    scroll-margin-block-start: var(--ui-space-2);
   }
 
-  .ui-docs-section {
-    margin-block-end: var(--ui-space-8);
-    padding-block-end: var(--ui-space-4);
-    box-shadow: inset 0 calc(var(--ui-border-width-sm) * -1) 0 0 var(--ui-color-border);
-    scroll-margin-block-start: var(--ui-space-4);
+  /* Compact tabs for docs */
+  .ui-tabs {
+    --ui-tabs-panel-padding: var(--ui-space-2);
+  }
+
+  .ui-tabs__tab {
+    padding-inline: var(--ui-space-2);
+    font-size: var(--ui-font-size-sm);
+  }
+
+  /* Compact tables */
+  .ui-table {
+    font-size: var(--ui-font-size-sm);
+  }
+
+  .ui-table--compact th,
+  .ui-table--compact td {
+    padding: var(--ui-space-1);
+  }
+
+  /* Code blocks */
+  .ui-code-block {
+    padding: var(--ui-space-2);
+    font-size: var(--ui-font-size-sm);
+    overflow-x: auto;
   }
 
   /* Demo for custom font override */
