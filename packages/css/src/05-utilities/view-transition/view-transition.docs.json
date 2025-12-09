@@ -1,0 +1,54 @@
+{
+  "id": "view-transition-utils",
+  "type": "utility",
+  "title": "View Transition",
+  "description": "CSS View Transitions API utilities for smooth page navigation. Enabled by default; unsupported browsers work normally.",
+  "api": "view-transition.api.json",
+  "sections": [
+    {
+      "title": "Static elements",
+      "description": "Elements that persist without animation. Sidebar and header stay fixed during page transitions.",
+      "examples": [
+        {
+          "code": "<header class=\"ui-transition-name-header\">...</header>\n<nav class=\"ui-transition-name-sidebar\">...</nav>"
+        }
+      ]
+    },
+    {
+      "title": "Slide animations",
+      "description": "Content slides in/out in different directions.",
+      "examples": [
+        {
+          "code": "<main class=\"ui-transition-name-main\">Slides up</main>\n<main class=\"ui-transition-name-slide-up\">Slides up</main>\n<main class=\"ui-transition-name-slide-down\">Slides down</main>\n<main class=\"ui-transition-name-slide-start\">Slides from left</main>\n<main class=\"ui-transition-name-slide-end\">Slides from right</main>"
+        }
+      ]
+    },
+    {
+      "title": "Scale and fade",
+      "description": "Scale effect for modals/cards, fade for subtle transitions.",
+      "examples": [
+        {
+          "code": "<div class=\"ui-transition-name-scale\">Scales in/out</div>\n<div class=\"ui-transition-name-card\">Card scales</div>\n<div class=\"ui-transition-name-modal\">Modal scales</div>\n<div class=\"ui-transition-name-fade\">Fades in/out</div>"
+        }
+      ]
+    },
+    {
+      "title": "Hero morph",
+      "description": "Same element on both pages morphs (position/size interpolates). Use same class on source and target.",
+      "examples": [
+        {
+          "code": "<!-- Page 1: thumbnail -->\n<img class=\"ui-transition-name-hero\" src=\"product.jpg\">\n\n<!-- Page 2: full image -->\n<img class=\"ui-transition-name-hero\" src=\"product.jpg\">"
+        }
+      ]
+    },
+    {
+      "title": "Disable",
+      "description": "Exclude an element from view transitions.",
+      "examples": [
+        {
+          "code": "<div class=\"ui-transition-name-none\">No transition</div>"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,198 @@
+// Enable cross-document view transitions for same-origin navigation
+@view-transition {
+  navigation: auto;
+}
+
+@layer utilities {
+  // Animation keyframes
+  @keyframes vt-fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  @keyframes vt-fade-out {
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes vt-slide-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(1.25rem);
+    }
+  }
+
+  @keyframes vt-slide-out-up {
+    to {
+      opacity: 0;
+      transform: translateY(-1.25rem);
+    }
+  }
+
+  @keyframes vt-slide-in-down {
+    from {
+      opacity: 0;
+      transform: translateY(-1.25rem);
+    }
+  }
+
+  @keyframes vt-slide-out-down {
+    to {
+      opacity: 0;
+      transform: translateY(1.25rem);
+    }
+  }
+
+  @keyframes vt-slide-in-start {
+    from {
+      opacity: 0;
+      transform: translateX(-1.25rem);
+    }
+  }
+
+  @keyframes vt-slide-out-start {
+    to {
+      opacity: 0;
+      transform: translateX(-1.25rem);
+    }
+  }
+
+  @keyframes vt-slide-in-end {
+    from {
+      opacity: 0;
+      transform: translateX(1.25rem);
+    }
+  }
+
+  @keyframes vt-slide-out-end {
+    to {
+      opacity: 0;
+      transform: translateX(1.25rem);
+    }
+  }
+
+  @keyframes vt-scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+  }
+
+  @keyframes vt-scale-out {
+    to {
+      opacity: 0;
+      transform: scale(1.05);
+    }
+  }
+
+  // Named element utilities
+  .transition-name-sidebar { view-transition-name: sidebar; }
+  .transition-name-main { view-transition-name: main; }
+  .transition-name-header { view-transition-name: header; }
+  .transition-name-hero { view-transition-name: hero; }
+  .transition-name-card { view-transition-name: card; }
+  .transition-name-modal { view-transition-name: modal; }
+
+  // Animation presets
+  .transition-name-slide-up { view-transition-name: slide-up; }
+  .transition-name-slide-down { view-transition-name: slide-down; }
+  .transition-name-slide-start { view-transition-name: slide-start; }
+  .transition-name-slide-end { view-transition-name: slide-end; }
+  .transition-name-scale { view-transition-name: scale; }
+  .transition-name-fade { view-transition-name: fade; }
+
+  // Disable transition for specific element
+  .transition-name-none { view-transition-name: none; }
+
+  // Static elements (no animation, just persist)
+  ::view-transition-old(sidebar),
+  ::view-transition-new(sidebar),
+  ::view-transition-old(header),
+  ::view-transition-new(header) {
+    animation: none;
+  }
+
+  // Default crossfade timing
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: var(--ui-duration-base);
+    animation-timing-function: var(--ui-ease-default);
+  }
+
+  // Fade animation
+  ::view-transition-old(fade) {
+    animation: vt-fade-out var(--ui-duration-base) var(--ui-ease-out);
+  }
+
+  ::view-transition-new(fade) {
+    animation: vt-fade-in var(--ui-duration-base) var(--ui-ease-out);
+  }
+
+  // Slide up animation
+  ::view-transition-old(slide-up),
+  ::view-transition-old(main) {
+    animation: vt-slide-out-up var(--ui-duration-base) var(--ui-ease-out);
+  }
+
+  ::view-transition-new(slide-up),
+  ::view-transition-new(main) {
+    animation: vt-slide-in-up var(--ui-duration-base) var(--ui-ease-out);
+  }
+
+  // Slide down animation
+  ::view-transition-old(slide-down) {
+    animation: vt-slide-out-down var(--ui-duration-base) var(--ui-ease-out);
+  }
+
+  ::view-transition-new(slide-down) {
+    animation: vt-slide-in-down var(--ui-duration-base) var(--ui-ease-out);
+  }
+
+  // Slide start (left in LTR) animation
+  ::view-transition-old(slide-start) {
+    animation: vt-slide-out-start var(--ui-duration-base) var(--ui-ease-out);
+  }
+
+  ::view-transition-new(slide-start) {
+    animation: vt-slide-in-start var(--ui-duration-base) var(--ui-ease-out);
+  }
+
+  // Slide end (right in LTR) animation
+  ::view-transition-old(slide-end) {
+    animation: vt-slide-out-end var(--ui-duration-base) var(--ui-ease-out);
+  }
+
+  ::view-transition-new(slide-end) {
+    animation: vt-slide-in-end var(--ui-duration-base) var(--ui-ease-out);
+  }
+
+  // Scale animation
+  ::view-transition-old(scale),
+  ::view-transition-old(modal),
+  ::view-transition-old(card) {
+    animation: vt-scale-out var(--ui-duration-base) var(--ui-ease-out);
+  }
+
+  ::view-transition-new(scale),
+  ::view-transition-new(modal),
+  ::view-transition-new(card) {
+    animation: vt-scale-in var(--ui-duration-base) var(--ui-ease-out);
+  }
+
+  // Hero morphs automatically (browser interpolates position/size)
+  ::view-transition-group(hero) {
+    animation-duration: var(--ui-duration-slow);
+    animation-timing-function: var(--ui-ease-in-out);
+  }
+
+  // Accessibility: disable animations for reduced motion
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(*),
+    ::view-transition-new(*),
+    ::view-transition-group(*) {
+      animation-duration: 0s !important;
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "view-transition",
+  "type": "utility",
+  "description": "CSS View Transitions API utilities for smooth page navigation animations",
+  "utilities": [
+    "transition-name-sidebar",
+    "transition-name-main",
+    "transition-name-header",
+    "transition-name-hero",
+    "transition-name-card",
+    "transition-name-modal",
+    "transition-name-slide-up",
+    "transition-name-slide-down",
+    "transition-name-slide-start",
+    "transition-name-slide-end",
+    "transition-name-scale",
+    "transition-name-fade",
+    "transition-name-none"
+  ],
+  "cssVars": []
+}
