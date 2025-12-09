@@ -6,20 +6,47 @@
   "api": "view-transition.api.json",
   "sections": [
     {
-      "title": "Named elements",
-      "description": "Elements with view-transition-name persist across page navigations. The sidebar stays static while content crossfades.",
+      "title": "Static elements",
+      "description": "Elements that persist without animation. Sidebar and header stay fixed during page transitions.",
       "examples": [
         {
-          "code": "<header class=\"ui-transition-name-header\">...</header>\n\n<nav class=\"ui-sidebar-nav ui-transition-name-sidebar\">...</nav>\n\n<main class=\"ui-transition-name-main\">...</main>\n\n<section class=\"ui-transition-name-hero\">...</section>"
+          "code": "<header class=\"ui-transition-name-header\">...</header>\n<nav class=\"ui-transition-name-sidebar\">...</nav>"
         }
       ]
     },
     {
-      "title": "Disable for element",
+      "title": "Slide animations",
+      "description": "Content slides in/out in different directions.",
+      "examples": [
+        {
+          "code": "<main class=\"ui-transition-name-main\">Slides up</main>\n<main class=\"ui-transition-name-slide-up\">Slides up</main>\n<main class=\"ui-transition-name-slide-down\">Slides down</main>\n<main class=\"ui-transition-name-slide-start\">Slides from left</main>\n<main class=\"ui-transition-name-slide-end\">Slides from right</main>"
+        }
+      ]
+    },
+    {
+      "title": "Scale and fade",
+      "description": "Scale effect for modals/cards, fade for subtle transitions.",
+      "examples": [
+        {
+          "code": "<div class=\"ui-transition-name-scale\">Scales in/out</div>\n<div class=\"ui-transition-name-card\">Card scales</div>\n<div class=\"ui-transition-name-modal\">Modal scales</div>\n<div class=\"ui-transition-name-fade\">Fades in/out</div>"
+        }
+      ]
+    },
+    {
+      "title": "Hero morph",
+      "description": "Same element on both pages morphs (position/size interpolates). Use same class on source and target.",
+      "examples": [
+        {
+          "code": "<!-- Page 1: thumbnail -->\n<img class=\"ui-transition-name-hero\" src=\"product.jpg\">\n\n<!-- Page 2: full image -->\n<img class=\"ui-transition-name-hero\" src=\"product.jpg\">"
+        }
+      ]
+    },
+    {
+      "title": "Disable",
       "description": "Exclude an element from view transitions.",
       "examples": [
         {
-          "code": "<div class=\"ui-transition-name-none\">\n  This element won't participate in transitions\n</div>"
+          "code": "<div class=\"ui-transition-name-none\">No transition</div>"
         }
       ]
     }
