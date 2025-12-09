@@ -25,13 +25,14 @@
     "build-docs": {
       "executor": "nx:run-commands",
       "inputs": [
-        "{projectRoot}/scripts/**/*.js",
-        "{projectRoot}/src/index.template.html",
-        "{workspaceRoot}/packages/css/src/**/*.docs.json"
+        "{projectRoot}/eleventy.config.js",
+        "{projectRoot}/src/**/*",
+        "{workspaceRoot}/packages/css/src/**/*.docs.json",
+        "{workspaceRoot}/packages/css/src/**/*.api.json"
       ],
-      "outputs": ["{projectRoot}/src/index.html", "{projectRoot}/src/generated"],
+      "outputs": ["{projectRoot}/dist"],
       "options": {
-        "command": "node apps/docs/scripts/build-docs.js"
+        "command": "pnpm --filter docs build-docs"
       }
     },
     "build": {
