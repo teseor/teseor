@@ -71,7 +71,7 @@ function extractClassesFromDocs(doc) {
  */
 function getExpectedClasses(api) {
   const classes = new Set();
-  const base = `${PREFIX}${api.baseClass}`;
+  const base = `${PREFIX}${api.name}`;
   classes.add(base);
 
   for (const [name, mod] of Object.entries(api.modifiers || {})) {
@@ -110,7 +110,7 @@ function validateDoc(docsPath) {
 
   const missing = [...expectedClasses].filter((c) => !docsClasses.has(c));
   const extra = [...docsClasses].filter(
-    (c) => c.startsWith(`${PREFIX}${api.baseClass}`) && !expectedClasses.has(c),
+    (c) => c.startsWith(`${PREFIX}${api.name}`) && !expectedClasses.has(c),
   );
 
   return {
