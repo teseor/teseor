@@ -1,6 +1,7 @@
 @use '../../00-config/tokens/variables' as t;
 
-// Button component - heights align to grid rows
+// @component button
+// @element button
 
 // Token definitions - what makes each variant
 @layer components.tokens {
@@ -15,7 +16,7 @@
     --_text: var(--ui-button-text, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
   }
 
-  // Size variants
+  // @modifier size
   .button--sm {
     --_height: var(--ui-button-height-sm, calc(var(--row, #{t.$row}) * 1.5));
     --_font-size: var(--ui-button-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
@@ -27,7 +28,7 @@
     --_font-size: var(--ui-button-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
   }
 
-  // Style variants
+  // @modifier variant
   .button--secondary {
     --_bg: var(--ui-button-secondary-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
     --_bg-hover: var(--ui-button-secondary-bg-hover, var(--ui-color-border-strong, #{t.$color-border-strong}));
@@ -63,12 +64,12 @@
     --_radius: 0;
   }
 
-  // Icon-only button
+  // @modifier boolean icon
   .button--icon {
     --_padding-x: 0;
   }
 
-  // Radius variants
+  // @modifier radius
   .button--radius-none {
     --_radius: 0;
   }
@@ -84,6 +85,9 @@
   .button--radius-full {
     --_radius: 624.9375rem; // large value for pill shape
   }
+
+  // @modifier boolean block
+  // @modifier boolean loading
 }
 
 // Implementation - structural styles
