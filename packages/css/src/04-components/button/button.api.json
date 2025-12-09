@@ -1,84 +1,138 @@
 {
   "name": "button",
-  "baseClass": "button",
   "element": "button",
-  "description": "Button heights align to grid rows.",
   "modifiers": {
     "size": {
-      "values": ["sm", "lg"],
-      "default": null,
-      "description": "Size variant. Default (no modifier) is 32px / 2 rows."
+      "values": ["sm", "lg"]
     },
     "variant": {
-      "values": ["secondary", "outline", "ghost", "danger", "link"],
-      "default": null,
-      "description": "Visual style. Default (no modifier) is primary."
+      "values": ["secondary", "ghost", "outline", "danger", "link"]
+    },
+    "icon": {
+      "type": "boolean"
     },
     "radius": {
-      "values": ["none", "sm", "lg", "full"],
-      "default": null,
-      "description": "Border radius override. Default is medium."
-    },
-    "loading": {
-      "type": "boolean",
-      "description": "Loading state with spinner animation."
+      "values": ["radius-none", "radius-sm", "radius-lg", "radius-full"]
     },
     "block": {
-      "type": "boolean",
-      "description": "Full width button."
+      "type": "boolean"
     },
-    "icon": {
-      "type": "boolean",
-      "description": "Icon-only button with square dimensions."
+    "loading": {
+      "type": "boolean"
     }
   },
-  "states": ["hover", "focus", "active", "disabled"],
-  "vars": {
-    "base": {
-      "height": "--row-2",
-      "padding-x": "--space-2",
-      "font-size": "--size-sm",
-      "font-weight": "--weight-medium",
-      "radius": "--radius-md",
-      "bg": "--color-primary",
-      "bg-hover": "--color-primary-dark",
-      "text": "--color-text-inverse"
+  "cssVars": [
+    {
+      "name": "--ui-button-height",
+      "default": "var(--ui-row-2)"
     },
-    "size": {
-      "sm": { "height": "calc(--row * 1.5)", "font-size": "--size-xs" },
-      "lg": { "height": "calc(--row * 2.5)", "padding-x": "--space-3", "font-size": "--size-md" }
+    {
+      "name": "--ui-button-padding-x",
+      "default": "var(--ui-space-2)"
     },
-    "variant": {
-      "secondary": {
-        "bg": "--color-bg-muted",
-        "bg-hover": "--color-border-strong",
-        "text": "--color-text"
-      },
-      "outline": {
-        "bg": "transparent",
-        "bg-hover": "--color-primary",
-        "text": "--color-primary",
-        "text-hover": "--color-text-inverse",
-        "border": "1px solid currentColor"
-      },
-      "ghost": { "bg": "transparent", "bg-hover": "--color-bg-subtle", "text": "--color-primary" },
-      "danger": { "bg": "--color-danger", "bg-hover": "--color-danger-dark" },
-      "link": {
-        "bg": "transparent",
-        "text": "--color-primary",
-        "text-hover": "--color-primary-dark"
-      }
+    {
+      "name": "--ui-button-font-size",
+      "default": "var(--ui-font-size-sm)"
+    },
+    {
+      "name": "--ui-button-font-weight",
+      "default": "var(--ui-weight-medium)"
+    },
+    {
+      "name": "--ui-button-radius",
+      "default": "var(--ui-radius-md)"
+    },
+    {
+      "name": "--ui-button-bg",
+      "default": "var(--ui-color-primary)"
+    },
+    {
+      "name": "--ui-button-bg-hover",
+      "default": "var(--ui-color-primary-dark)"
+    },
+    {
+      "name": "--ui-button-text",
+      "default": "var(--ui-color-text-inverse)"
+    },
+    {
+      "name": "--ui-button-height-sm",
+      "default": "var(--row)"
+    },
+    {
+      "name": "--ui-button-font-size-sm",
+      "default": "var(--ui-font-size-xs)"
+    },
+    {
+      "name": "--ui-button-height-lg",
+      "default": "var(--row)"
+    },
+    {
+      "name": "--ui-button-padding-x-lg",
+      "default": "var(--ui-space-3)"
+    },
+    {
+      "name": "--ui-button-font-size-lg",
+      "default": "var(--ui-font-size-md)"
+    },
+    {
+      "name": "--ui-button-secondary-bg",
+      "default": "var(--ui-color-bg-muted)"
+    },
+    {
+      "name": "--ui-button-secondary-bg-hover",
+      "default": "var(--ui-color-border-strong)"
+    },
+    {
+      "name": "--ui-button-secondary-text",
+      "default": "var(--ui-color-text)"
+    },
+    {
+      "name": "--ui-button-ghost-bg",
+      "default": "transparent"
+    },
+    {
+      "name": "--ui-button-ghost-bg-hover",
+      "default": "var(--ui-color-bg-subtle)"
+    },
+    {
+      "name": "--ui-button-ghost-text",
+      "default": "var(--ui-color-primary)"
+    },
+    {
+      "name": "--ui-button-outline-bg",
+      "default": "transparent"
+    },
+    {
+      "name": "--ui-button-outline-bg-hover",
+      "default": "var(--ui-color-primary)"
+    },
+    {
+      "name": "--ui-button-outline-text",
+      "default": "var(--ui-color-primary)"
+    },
+    {
+      "name": "--ui-button-outline-text-hover",
+      "default": "var(--ui-color-text-inverse)"
+    },
+    {
+      "name": "--ui-button-outline-border",
+      "default": "var(--ui-border-width-sm)"
+    },
+    {
+      "name": "--ui-button-danger-bg",
+      "default": "var(--ui-color-danger)"
+    },
+    {
+      "name": "--ui-button-danger-bg-hover",
+      "default": "#{t.$color-danger-dark}"
+    },
+    {
+      "name": "--ui-button-link-text",
+      "default": "var(--ui-color-primary)"
+    },
+    {
+      "name": "--ui-button-link-text-hover",
+      "default": "var(--ui-color-primary-dark)"
     }
-  },
-  "elements": {
-    "icon": {
-      "description": "Icon element inside button",
-      "modifiers": {
-        "position": {
-          "values": ["start", "end"],
-          "description": "Icon position relative to text"
-        }
-      }
-    }
-  }
+  ]
 }
