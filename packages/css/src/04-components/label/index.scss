@@ -5,13 +5,13 @@
 
 @layer components.tokens {
   .label {
-    --_font-size: var(--ui-label-font-size, var(--ui-size-sm, #{t.$size-sm}));
+    --_font-size: var(--ui-label-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     --_color: var(--ui-label-color, var(--ui-color-text, #{t.$color-text}));
     --_required-color: var(--ui-label-required-color, var(--ui-color-danger, #{t.$color-danger}));
   }
 
   .label--lg {
-    --_font-size: var(--ui-label-font-size-lg, var(--ui-size-md, #{t.$size-md}));
+    --_font-size: var(--ui-label-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
   }
 }
 
@@ -23,7 +23,7 @@
 
     font-size: var(--_font-size);
     font-weight: var(--ui-weight-medium, #{t.$weight-medium});
-    line-height: var(--ui-leading-sm, calc(#{t.$unit} * 2));
+    line-height: var(--ui-leading-tight-sm, var(--ui-row-1));
     color: var(--_color);
 
     cursor: pointer;

@@ -44,7 +44,7 @@
   .popover__title {
     margin: 0;
 
-    font-size: var(--ui-size-md, #{t.$size-md});
+    font-size: var(--ui-font-size-md, #{t.$font-size-md});
     font-weight: var(--ui-weight-semibold, 600);
   }
 

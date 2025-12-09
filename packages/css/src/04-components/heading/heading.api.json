@@ -5,14 +5,9 @@
   "description": "Semantic headings with visual size control",
   "modifiers": {
     "size": {
-      "values": ["3xl", "2xl", "xl", "lg", "md", "sm"],
+      "values": ["4xl", "3xl", "2xl", "xl", "lg", "md", "sm"],
       "default": null,
       "description": "Visual size (decoupled from semantic level)"
-    },
-    "variant": {
-      "values": ["muted"],
-      "default": null,
-      "description": "Muted color variant"
     }
   },
   "states": []

@@ -6,7 +6,7 @@
 @layer components.tokens {
   .form-error {
     --_color: var(--ui-form-error-color, var(--ui-color-danger));
-    --_size: var(--ui-form-error-size, var(--ui-size-sm, #{t.$size-sm}));
+    --_size: var(--ui-form-error-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     --_gap: var(--ui-form-error-gap, 0);
   }
 }
@@ -20,7 +20,7 @@
     margin-block-start: var(--_gap);
 
     font-size: var(--_size);
-    line-height: var(--ui-leading-sm, calc(#{t.$unit} * 2));
+    line-height: var(--ui-leading-tight-sm, var(--ui-row-1));
     color: var(--_color);
   }
 

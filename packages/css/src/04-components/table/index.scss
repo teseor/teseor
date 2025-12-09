@@ -3,7 +3,7 @@
 // Token definitions
 @layer components.tokens {
   .table {
-    --_font-size: var(--ui-table-font-size, var(--ui-size-sm, #{t.$size-sm}));
+    --_font-size: var(--ui-table-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     --_border-color: var(--ui-table-border-color, var(--ui-color-border, #{t.$color-border}));
     --_header-bg: var(--ui-table-header-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
     --_cell-padding-x: var(--ui-table-cell-padding-x, var(--ui-space-2, #{t.$space-2}));
@@ -13,7 +13,7 @@
   .table--compact {
     --_cell-padding-y: var(--ui-space-0, #{t.$space-0});
     --_cell-padding-x: var(--ui-space-1, #{t.$space-1});
-    --_font-size: var(--ui-size-xs, #{t.$size-xs});
+    --_font-size: var(--ui-font-size-xs, #{t.$font-size-xs});
   }
 }
 

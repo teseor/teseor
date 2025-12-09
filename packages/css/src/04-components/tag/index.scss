@@ -9,7 +9,7 @@
     --_padding-x: var(--ui-tag-padding-x, var(--ui-space-1, #{t.$space-1}));
     --_gap: var(--ui-tag-gap, calc(#{t.$unit} * 0.5));
     --_radius: var(--ui-tag-radius, var(--ui-radius-full, #{t.$radius-full}));
-    --_font-size: var(--ui-tag-font-size, var(--ui-size-sm, #{t.$size-sm}));
+    --_font-size: var(--ui-tag-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     --_bg: var(--ui-tag-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
     --_color: var(--ui-tag-color, var(--ui-color-text, #{t.$color-text}));
   }
@@ -17,7 +17,7 @@
   .tag--sm {
     --_height: var(--ui-tag-height-sm, calc(#{t.$unit} * 2.5));
     --_padding-x: var(--ui-tag-padding-x-sm, calc(#{t.$unit} * 1));
-    --_font-size: var(--ui-tag-font-size-sm, var(--ui-size-xs, #{t.$size-xs}));
+    --_font-size: var(--ui-tag-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
   }
 
   .tag--primary {

@@ -42,7 +42,7 @@
   .menu__label {
     padding: var(--_item-padding);
 
-    font-size: var(--ui-size-xs, #{t.$size-xs});
+    font-size: var(--ui-font-size-xs, #{t.$font-size-xs});
     font-weight: var(--ui-weight-medium, #{t.$weight-medium});
     line-height: var(--ui-row-1, #{t.$row});
     letter-spacing: 0.05em;
@@ -57,7 +57,7 @@
 
     padding: var(--_item-padding);
 
-    font-size: var(--ui-size-sm, #{t.$size-sm});
+    font-size: var(--ui-font-size-sm, #{t.$font-size-sm});
     line-height: var(--ui-row-1, #{t.$row});
     text-decoration: none;
     color: var(--ui-color-text, #{t.$color-text});
@@ -101,7 +101,7 @@
   .menu__item-shortcut {
     margin-inline-start: auto;
 
-    font-size: var(--ui-size-xs, #{t.$size-xs});
+    font-size: var(--ui-font-size-xs, #{t.$font-size-xs});
     color: var(--ui-color-text-muted, #{t.$color-text-muted});
   }
 

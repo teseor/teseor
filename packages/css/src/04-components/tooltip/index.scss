@@ -10,7 +10,7 @@
     --_radius: var(--ui-tooltip-radius, var(--ui-radius-sm, calc(#{t.$unit} / 2)));
     --_padding-x: var(--ui-tooltip-padding-x, calc(#{t.$unit} * 1));
     --_padding-y: var(--ui-tooltip-padding-y, calc(#{t.$unit} / 2));
-    --_size: var(--ui-tooltip-size, var(--ui-size-sm, #{t.$size-sm}));
+    --_size: var(--ui-tooltip-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     --_z: var(--ui-tooltip-z, var(--ui-z-tooltip, 500));
     --_arrow-size: var(--ui-tooltip-arrow-size, calc(#{t.$unit} / 2));
   }

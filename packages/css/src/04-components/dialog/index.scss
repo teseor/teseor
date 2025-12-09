@@ -33,7 +33,7 @@
   .dialog__title {
     margin: 0;
 
-    font-size: var(--ui-size-lg, #{t.$size-lg});
+    font-size: var(--ui-font-size-lg, #{t.$font-size-lg});
     font-weight: var(--ui-weight-semibold, 600);
     line-height: calc(#{t.$unit} * 3);
   }

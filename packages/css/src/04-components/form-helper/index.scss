@@ -6,7 +6,7 @@
 @layer components.tokens {
   .form-helper {
     --_color: var(--ui-form-helper-color, var(--ui-color-text-muted));
-    --_size: var(--ui-form-helper-size, var(--ui-size-sm, #{t.$size-sm}));
+    --_size: var(--ui-form-helper-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     --_gap: var(--ui-form-helper-gap, 0);
   }
 }
@@ -18,7 +18,7 @@
     margin-block-start: var(--_gap);
 
     font-size: var(--_size);
-    line-height: var(--ui-leading-sm, calc(#{t.$unit} * 2));
+    line-height: var(--ui-leading-tight-sm, var(--ui-row-1));
     color: var(--_color);
   }
 }

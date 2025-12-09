@@ -125,7 +125,7 @@
   .toast__description {
     margin: 0;
 
-    font-size: var(--ui-size-sm, #{t.$size-sm});
+    font-size: var(--ui-font-size-sm, #{t.$font-size-sm});
     line-height: var(--ui-row-1, #{t.$row});
     color: var(--ui-color-text-muted, #{t.$color-text-muted});
   }

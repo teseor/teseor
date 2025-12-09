@@ -5,46 +5,48 @@
 
 @layer components.tokens {
   .heading {
-    --_font-size: var(--ui-heading-font-size, var(--ui-size-xl, #{t.$size-xl}));
-    --_line-height: var(--ui-heading-line-height, var(--ui-leading-xl, calc(#{t.$unit} * 4)));
+    --_font-size: var(--ui-heading-font-size, var(--ui-font-size-xl, #{t.$font-size-xl}));
+    --_line-height: var(--ui-heading-line-height, var(--ui-leading-xl, #{t.$leading-xl}));
     --_weight: var(--ui-heading-weight, var(--ui-weight-bold, #{t.$weight-bold}));
     --_color: var(--ui-heading-color, var(--ui-color-text, #{t.$color-text}));
   }
 
   // Visual size modifiers (decouple from semantic level)
+  .heading--4xl {
+    --_font-size: var(--ui-heading-font-size-4xl, var(--ui-font-size-4xl, #{t.$font-size-4xl}));
+    --_line-height: var(--ui-heading-line-height-4xl, var(--ui-leading-4xl, #{t.$leading-4xl}));
+  }
+
   .heading--3xl {
-    --_font-size: var(--ui-heading-font-size-3xl, var(--ui-size-3xl, #{t.$size-3xl}));
-    --_line-height: var(--ui-heading-line-height-3xl, var(--ui-leading-3xl, calc(#{t.$unit} * 5)));
+    --_font-size: var(--ui-heading-font-size-3xl, var(--ui-font-size-3xl, #{t.$font-size-3xl}));
+    --_line-height: var(--ui-heading-line-height-3xl, var(--ui-leading-3xl, #{t.$leading-3xl}));
   }
 
   .heading--2xl {
-    --_font-size: var(--ui-heading-font-size-2xl, var(--ui-size-2xl, #{t.$size-2xl}));
-    --_line-height: var(--ui-heading-line-height-2xl, var(--ui-leading-2xl, calc(#{t.$unit} * 4)));
+    --_font-size: var(--ui-heading-font-size-2xl, var(--ui-font-size-2xl, #{t.$font-size-2xl}));
+    --_line-height: var(--ui-heading-line-height-2xl, var(--ui-leading-2xl, #{t.$leading-2xl}));
   }
 
   .heading--xl {
-    --_font-size: var(--ui-heading-font-size-xl, var(--ui-size-xl, #{t.$size-xl}));
-    --_line-height: var(--ui-heading-line-height-xl, var(--ui-leading-xl, calc(#{t.$unit} * 4)));
+    --_font-size: var(--ui-heading-font-size-xl, var(--ui-font-size-xl, #{t.$font-size-xl}));
+    --_line-height: var(--ui-heading-line-height-xl, var(--ui-leading-xl, #{t.$leading-xl}));
   }
 
   .heading--lg {
-    --_font-size: var(--ui-heading-font-size-lg, var(--ui-size-lg, #{t.$size-lg}));
-    --_line-height: var(--ui-heading-line-height-lg, var(--ui-leading-lg, calc(#{t.$unit} * 3)));
+    --_font-size: var(--ui-heading-font-size-lg, var(--ui-font-size-lg, #{t.$font-size-lg}));
+    --_line-height: var(--ui-heading-line-height-lg, var(--ui-leading-lg, #{t.$leading-lg}));
   }
 
   .heading--md {
-    --_font-size: var(--ui-heading-font-size-md, var(--ui-size-md, #{t.$size-md}));
-    --_line-height: var(--ui-heading-line-height-md, var(--ui-leading-md, calc(#{t.$unit} * 3)));
+    --_font-size: var(--ui-heading-font-size-md, var(--ui-font-size-md, #{t.$font-size-md}));
+    --_line-height: var(--ui-heading-line-height-md, var(--ui-leading-tight-md, #{t.$leading-tight-md}));
   }
 
   .heading--sm {
-    --_font-size: var(--ui-heading-font-size-sm, var(--ui-size-sm, #{t.$size-sm}));
-    --_line-height: var(--ui-heading-line-height-sm, var(--ui-leading-sm, calc(#{t.$unit} * 2)));
+    --_font-size: var(--ui-heading-font-size-sm, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    --_line-height: var(--ui-heading-line-height-sm, var(--ui-leading-tight-sm, #{t.$leading-tight-sm}));
   }
 
-  .heading--muted {
-    --_color: var(--ui-heading-color-muted, var(--ui-color-text-muted, #{t.$color-text-muted}));
-  }
 }
 
 @layer components.styles {

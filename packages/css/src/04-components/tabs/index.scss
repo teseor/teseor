@@ -36,7 +36,7 @@
     margin: 0;
 
     font-family: var(--ui-font-sans, #{t.$font-sans});
-    font-size: var(--ui-size-sm, #{t.$size-sm});
+    font-size: var(--ui-font-size-sm, #{t.$font-size-sm});
     font-weight: var(--ui-weight-medium, #{t.$weight-medium});
     line-height: 1;
     color: var(--ui-color-text-muted, #{t.$color-text-muted});

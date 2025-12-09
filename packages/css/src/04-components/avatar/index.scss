@@ -8,28 +8,28 @@
     --_size: var(--ui-avatar-size, calc(#{t.$unit} * 5));
     --_bg: var(--ui-avatar-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
     --_color: var(--ui-avatar-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
-    --_font-size: var(--ui-avatar-font-size, var(--ui-size-sm, #{t.$size-sm}));
+    --_font-size: var(--ui-avatar-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     --_radius: var(--ui-avatar-radius, 50%);
   }
 
   .avatar--xs {
     --_size: var(--ui-avatar-size-xs, calc(#{t.$unit} * 3));
-    --_font-size: var(--ui-avatar-font-size-xs, var(--ui-size-xs, #{t.$size-xs}));
+    --_font-size: var(--ui-avatar-font-size-xs, var(--ui-font-size-xs, #{t.$font-size-xs}));
   }
 
   .avatar--sm {
     --_size: var(--ui-avatar-size-sm, calc(#{t.$unit} * 4));
-    --_font-size: var(--ui-avatar-font-size-sm, var(--ui-size-xs, #{t.$size-xs}));
+    --_font-size: var(--ui-avatar-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
   }
 
   .avatar--lg {
     --_size: var(--ui-avatar-size-lg, calc(#{t.$unit} * 6));
-    --_font-size: var(--ui-avatar-font-size-lg, var(--ui-size-md, #{t.$size-md}));
+    --_font-size: var(--ui-avatar-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
   }
 
   .avatar--xl {
     --_size: var(--ui-avatar-size-xl, calc(#{t.$unit} * 8));
-    --_font-size: var(--ui-avatar-font-size-xl, var(--ui-size-lg, #{t.$size-lg}));
+    --_font-size: var(--ui-avatar-font-size-xl, var(--ui-font-size-lg, #{t.$font-size-lg}));
   }
 
   .avatar--square {

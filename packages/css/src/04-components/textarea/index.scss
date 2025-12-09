@@ -8,7 +8,7 @@
     --_min-height: var(--ui-textarea-min-height, calc(#{t.$row} * 4));
     --_padding-x: var(--ui-textarea-padding-x, var(--ui-space-1, #{t.$space-1}));
     --_padding-y: var(--ui-textarea-padding-y, var(--ui-space-1, #{t.$space-1}));
-    --_font-size: var(--ui-textarea-font-size, var(--ui-size-sm, #{t.$size-sm}));
+    --_font-size: var(--ui-textarea-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     --_radius: var(--ui-textarea-radius, var(--ui-radius-md, #{t.$radius-md}));
     --_bg: var(--ui-textarea-bg, var(--ui-color-bg, #{t.$color-bg}));
     --_border-color: var(--ui-textarea-border-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
@@ -20,14 +20,14 @@
   // Size variants
   .textarea--sm {
     --_min-height: var(--ui-textarea-min-height-sm, calc(#{t.$row} * 3));
-    --_font-size: var(--ui-textarea-font-size-sm, var(--ui-size-xs, #{t.$size-xs}));
+    --_font-size: var(--ui-textarea-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
   }
 
   .textarea--lg {
     --_min-height: var(--ui-textarea-min-height-lg, calc(#{t.$row} * 6));
     --_padding-x: var(--ui-textarea-padding-x-lg, var(--ui-space-2, #{t.$space-2}));
     --_padding-y: var(--ui-textarea-padding-y-lg, var(--ui-space-2, #{t.$space-2}));
-    --_font-size: var(--ui-textarea-font-size-lg, var(--ui-size-md, #{t.$size-md}));
+    --_font-size: var(--ui-textarea-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
   }
 
   // Style variants
