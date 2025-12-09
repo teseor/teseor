@@ -1,53 +1,77 @@
 {# Home link #}
-<a class="ui-nav-link{% if page.url == '/' %} ui-nav-link--active{% endif %}" href="/"{% if page.url == '/' %} aria-current="page"{% endif %}>Home</a>
+<div class="ui-sidebar-nav__group">
+  <ul class="ui-sidebar-nav__group-items">
+    <li><a class="ui-sidebar-nav__item{% if page.url == '/' %} ui-sidebar-nav__item--active{% endif %}" href="/"{% if page.url == '/' %} aria-current="page"{% endif %}><span class="ui-sidebar-nav__label">Home</span></a></li>
+  </ul>
+</div>
 
 {# Tokens #}
 {% set tokens = docs | byType('token') | sortByTitle %}
 {% if tokens.length > 0 %}
-<h2 class="ui-nav-heading ui-mt-4">Tokens</h2>
-{% for doc in tokens %}
-<a class="ui-nav-link{% if page.url == doc.permalink %} ui-nav-link--active{% endif %}" href="{{ doc.permalink }}"{% if page.url == doc.permalink %} aria-current="page"{% endif %}>{{ doc.title }}</a>
-{% endfor %}
+<div class="ui-sidebar-nav__group">
+  <span class="ui-sidebar-nav__group-label">Tokens</span>
+  <ul class="ui-sidebar-nav__group-items">
+    {% for doc in tokens %}
+    <li><a class="ui-sidebar-nav__item{% if page.url == doc.permalink %} ui-sidebar-nav__item--active{% endif %}" href="{{ doc.permalink }}"{% if page.url == doc.permalink %} aria-current="page"{% endif %}><span class="ui-sidebar-nav__label">{{ doc.title }}</span></a></li>
+    {% endfor %}
+  </ul>
+</div>
 {% endif %}
 
 {# Primitives #}
 {% set primitives = docs | byType('primitive') | sortByTitle %}
 {% if primitives.length > 0 %}
-<h2 class="ui-nav-heading ui-mt-4">Primitives</h2>
-{% for doc in primitives %}
-<a class="ui-nav-link{% if page.url == doc.permalink %} ui-nav-link--active{% endif %}" href="{{ doc.permalink }}"{% if page.url == doc.permalink %} aria-current="page"{% endif %}>{{ doc.title }}</a>
-{% endfor %}
+<div class="ui-sidebar-nav__group">
+  <span class="ui-sidebar-nav__group-label">Primitives</span>
+  <ul class="ui-sidebar-nav__group-items">
+    {% for doc in primitives %}
+    <li><a class="ui-sidebar-nav__item{% if page.url == doc.permalink %} ui-sidebar-nav__item--active{% endif %}" href="{{ doc.permalink }}"{% if page.url == doc.permalink %} aria-current="page"{% endif %}><span class="ui-sidebar-nav__label">{{ doc.title }}</span></a></li>
+    {% endfor %}
+  </ul>
+</div>
 {% endif %}
 
 {# Components (grouped) #}
 {% set components = docs | byType('component') %}
 {% if components.length > 0 %}
-<h2 class="ui-nav-heading ui-mt-4">Components</h2>
-{% for group in componentGroups %}
-  {% set groupDocs = components | byGroup(group.id) | sortByTitle %}
-  {% if groupDocs.length > 0 %}
-  <h3 class="ui-nav-subheading">{{ group.label }}</h3>
-  {% for doc in groupDocs %}
-  <a class="ui-nav-link ui-nav-link--nested{% if page.url == doc.permalink %} ui-nav-link--active{% endif %}" href="{{ doc.permalink }}"{% if page.url == doc.permalink %} aria-current="page"{% endif %}>{{ doc.title }}</a>
-  {% endfor %}
-  {% endif %}
-{% endfor %}
+<div class="ui-sidebar-nav__group">
+  <span class="ui-sidebar-nav__group-label">Components</span>
+  <ul class="ui-sidebar-nav__group-items">
+    {% for group in componentGroups %}
+      {% set groupDocs = components | byGroup(group.id) | sortByTitle %}
+      {% if groupDocs.length > 0 %}
+      <li><span class="ui-sidebar-nav__subgroup-label">{{ group.label }}</span></li>
+      {% for doc in groupDocs %}
+      <li><a class="ui-sidebar-nav__item ui-sidebar-nav__item--nested{% if page.url == doc.permalink %} ui-sidebar-nav__item--active{% endif %}" href="{{ doc.permalink }}"{% if page.url == doc.permalink %} aria-current="page"{% endif %}><span class="ui-sidebar-nav__label">{{ doc.title }}</span></a></li>
+      {% endfor %}
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>
 {% endif %}
 
 {# Utilities #}
 {% set utilities = docs | byType('utility') | sortByTitle %}
 {% if utilities.length > 0 %}
-<h2 class="ui-nav-heading ui-mt-4">Utilities</h2>
-{% for doc in utilities %}
-<a class="ui-nav-link{% if page.url == doc.permalink %} ui-nav-link--active{% endif %}" href="{{ doc.permalink }}"{% if page.url == doc.permalink %} aria-current="page"{% endif %}>{{ doc.title }}</a>
-{% endfor %}
+<div class="ui-sidebar-nav__group">
+  <span class="ui-sidebar-nav__group-label">Utilities</span>
+  <ul class="ui-sidebar-nav__group-items">
+    {% for doc in utilities %}
+    <li><a class="ui-sidebar-nav__item{% if page.url == doc.permalink %} ui-sidebar-nav__item--active{% endif %}" href="{{ doc.permalink }}"{% if page.url == doc.permalink %} aria-current="page"{% endif %}><span class="ui-sidebar-nav__label">{{ doc.title }}</span></a></li>
+    {% endfor %}
+  </ul>
+</div>
 {% endif %}
 
 {# Guides #}
 {% set guides = docs | byType('guide') | sortByTitle %}
 {% if guides.length > 0 %}
-<h2 class="ui-nav-heading ui-mt-4">Guides</h2>
-{% for doc in guides %}
-<a class="ui-nav-link{% if page.url == doc.permalink %} ui-nav-link--active{% endif %}" href="{{ doc.permalink }}"{% if page.url == doc.permalink %} aria-current="page"{% endif %}>{{ doc.title }}</a>
-{% endfor %}
+<div class="ui-sidebar-nav__group">
+  <span class="ui-sidebar-nav__group-label">Guides</span>
+  <ul class="ui-sidebar-nav__group-items">
+    {% for doc in guides %}
+    <li><a class="ui-sidebar-nav__item{% if page.url == doc.permalink %} ui-sidebar-nav__item--active{% endif %}" href="{{ doc.permalink }}"{% if page.url == doc.permalink %} aria-current="page"{% endif %}><span class="ui-sidebar-nav__label">{{ doc.title }}</span></a></li>
+    {% endfor %}
+  </ul>
+</div>
 {% endif %}

@@ -8,26 +8,28 @@
 </head>
 <body class="ui-root ui-app-shell">
   <aside class="ui-sidebar">
-    <div class="ui-sidebar__header">
-      <a href="/" class="ui-sidebar__logo">
-        <h1 class="ui-text-xl ui-font-bold">UI Lib</h1>
-      </a>
-      <p class="ui-text-sm ui-text-muted">CSS-first components</p>
-    </div>
-
-    <nav class="ui-sidebar__nav ui-stack ui-stack--xs">
-      {% include "partials/nav.njk" %}
-    </nav>
-
-    <div class="ui-sidebar__footer">
-      <div class="ui-stack ui-stack--xs">
-        <button class="ui-button ui-button--sm ui-button--block" onclick="toggleTheme()" id="theme-toggle">Dark Mode</button>
-        <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug('ui-debug-grid')">Toggle Grid</button>
-        <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug('ui-debug-grid-rows')">Toggle Row Grid</button>
-        <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug('ui-debug-baseline')">Toggle Baseline</button>
-        <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug('ui-debug-outline')">Toggle Outlines</button>
+    <nav class="ui-sidebar-nav" aria-label="Main navigation">
+      <div class="ui-sidebar-nav__header">
+        <a href="/">
+          <strong class="ui-text-xl">UI Lib</strong>
+        </a>
+        <p class="ui-text-sm ui-text-muted">CSS-first components</p>
       </div>
-    </div>
+
+      <div class="ui-sidebar-nav__content">
+        {% include "partials/nav.njk" %}
+      </div>
+
+      <div class="ui-sidebar-nav__footer">
+        <div class="ui-stack ui-stack--xs">
+          <button class="ui-button ui-button--sm ui-button--block" onclick="toggleTheme()" id="theme-toggle">Dark Mode</button>
+          <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug('ui-debug-grid')">Toggle Grid</button>
+          <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug('ui-debug-grid-rows')">Toggle Row Grid</button>
+          <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug('ui-debug-baseline')">Toggle Baseline</button>
+          <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug('ui-debug-outline')">Toggle Outlines</button>
+        </div>
+      </div>
+    </nav>
   </aside>
 
   <main class="ui-main">
