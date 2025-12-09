@@ -1,0 +1,6 @@
+{
+  "name": "spacing",
+  "type": "utility",
+  "utilities": ["p-1", "p-2", "p-4", "px-4", "py-2"],
+  "cssVars": []
+}

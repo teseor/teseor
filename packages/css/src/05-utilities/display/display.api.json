@@ -1,0 +1,6 @@
+{
+  "name": "display",
+  "type": "utility",
+  "utilities": ["flex", "justify-between", "items-center", "gap-2", "p-2"],
+  "cssVars": []
+}
