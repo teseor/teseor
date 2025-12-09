@@ -1,11 +1,9 @@
-@layer utilities {
-  // Opt-in: add .view-transition to <html> to enable cross-document transitions
-  .view-transition {
-    @view-transition {
-      navigation: auto;
-    }
-  }
+// Enable cross-document view transitions for same-origin navigation
+@view-transition {
+  navigation: auto;
+}
 
+@layer utilities {
   // Named element utilities (elements persist across page transitions)
   .transition-name-sidebar { view-transition-name: sidebar; }
   .transition-name-main { view-transition-name: main; }

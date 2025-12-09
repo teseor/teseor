@@ -2,18 +2,9 @@
   "id": "view-transition-utils",
   "type": "utility",
   "title": "View Transition",
-  "description": "CSS View Transitions API utilities for smooth page navigation animations. Progressive enhancement: unsupported browsers work normally.",
+  "description": "CSS View Transitions API utilities for smooth page navigation. Enabled by default; unsupported browsers work normally.",
   "api": "view-transition.api.json",
   "sections": [
-    {
-      "title": "Enable transitions",
-      "description": "Add .ui-view-transition to <html> to opt-in to cross-document transitions.",
-      "examples": [
-        {
-          "code": "<html class=\"ui-view-transition\">\n  ...\n</html>"
-        }
-      ]
-    },
     {
       "title": "Named elements",
       "description": "Elements with view-transition-name persist across page navigations. The sidebar stays static while content crossfades.",
