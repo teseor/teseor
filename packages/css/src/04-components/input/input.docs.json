@@ -3,6 +3,7 @@
   "type": "component",
   "title": "Input",
   "description": "Text input field for user data entry. Heights align to grid rows.",
+  "api": "./input.api.json",
   "sections": [
     {
       "title": "Default",
@@ -134,6 +135,55 @@
           "code": "<div class=\"ui-input-group ui-input-group--has-prefix ui-input-group--has-suffix\">\n  <span class=\"ui-input-group__addon ui-input-group__addon--start\">...</span>\n  <input class=\"ui-input ui-input--block\" placeholder=\"Username\">\n  <span class=\"ui-input-group__addon ui-input-group__addon--end ui-input-group__addon--interactive\">...</span>\n</div>"
         }
       ]
+    }
+  ],
+  "customization": [
+    { "token": "--ui-input-height", "default": "var(--ui-row-2)", "description": "Default height" },
+    {
+      "token": "--ui-input-height-sm",
+      "default": "calc(var(--row) * 1.5)",
+      "description": "Small height"
+    },
+    {
+      "token": "--ui-input-height-lg",
+      "default": "calc(var(--row) * 2.5)",
+      "description": "Large height"
+    },
+    {
+      "token": "--ui-input-padding-x",
+      "default": "var(--ui-space-1)",
+      "description": "Horizontal padding"
+    },
+    {
+      "token": "--ui-input-font-size",
+      "default": "var(--ui-font-size-sm)",
+      "description": "Font size"
+    },
+    {
+      "token": "--ui-input-radius",
+      "default": "var(--ui-radius-md)",
+      "description": "Border radius"
+    },
+    {
+      "token": "--ui-input-bg",
+      "default": "var(--ui-color-bg)",
+      "description": "Background color"
+    },
+    {
+      "token": "--ui-input-border-color",
+      "default": "var(--ui-color-border-strong)",
+      "description": "Border color"
+    },
+    {
+      "token": "--ui-input-border-color-focus",
+      "default": "var(--ui-color-primary)",
+      "description": "Focus border color"
+    },
+    { "token": "--ui-input-text", "default": "var(--ui-color-text)", "description": "Text color" },
+    {
+      "token": "--ui-input-placeholder",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Placeholder color"
     }
   ]
 }

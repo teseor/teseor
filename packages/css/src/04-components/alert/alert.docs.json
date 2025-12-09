@@ -3,6 +3,7 @@
   "type": "component",
   "title": "Alert",
   "description": "Informational banner for important messages. Use variants for different message types.",
+  "api": "./alert.api.json",
   "sections": [
     {
       "title": "Default",
@@ -40,5 +41,39 @@
         }
       ]
     }
+  ],
+  "customization": [
+    {
+      "token": "--ui-alert-padding",
+      "default": "var(--ui-space-2)",
+      "description": "Inner padding"
+    },
+    {
+      "token": "--ui-alert-gap",
+      "default": "var(--ui-space-1)",
+      "description": "Gap between icon and content"
+    },
+    {
+      "token": "--ui-alert-radius",
+      "default": "var(--ui-radius-md)",
+      "description": "Border radius"
+    },
+    {
+      "token": "--ui-alert-border-width",
+      "default": "var(--ui-border-width-sm)",
+      "description": "Border width"
+    },
+    {
+      "token": "--ui-alert-bg",
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Background color"
+    },
+    {
+      "token": "--ui-alert-border-color",
+      "default": "var(--ui-color-border)",
+      "description": "Border color"
+    },
+    { "token": "--ui-alert-color", "default": "var(--ui-color-text)", "description": "Text color" },
+    { "token": "--ui-alert-icon-color", "default": "currentcolor", "description": "Icon color" }
   ]
 }

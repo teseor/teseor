@@ -1,19 +1,39 @@
 {
   "name": "link",
-  "baseClass": "link",
   "element": "a",
-  "description": "Styled anchor element for text links",
   "modifiers": {
     "variant": {
-      "values": ["muted", "subtle"],
-      "default": null,
-      "description": "Visual variant. Muted for secondary links, subtle for no-underline style."
-    },
-    "state": {
-      "values": ["disabled", "external"],
-      "default": null,
-      "description": "Link states. External adds arrow indicator."
+      "values": ["muted", "subtle"]
     }
   },
-  "states": ["hover", "focus", "visited", "disabled"]
+  "cssVars": [
+    {
+      "name": "--ui-link-color",
+      "default": "var(--ui-color-primary)"
+    },
+    {
+      "name": "--ui-link-color-hover",
+      "default": "var(--ui-color-primary-hover)"
+    },
+    {
+      "name": "--ui-link-color-visited",
+      "default": "var(--_color)"
+    },
+    {
+      "name": "--ui-link-decoration",
+      "default": "underline"
+    },
+    {
+      "name": "--ui-link-decoration-hover",
+      "default": "underline"
+    },
+    {
+      "name": "--ui-link-color-muted",
+      "default": "var(--ui-color-text-muted)"
+    },
+    {
+      "name": "--ui-link-color-muted-hover",
+      "default": "var(--ui-color-text)"
+    }
+  ]
 }

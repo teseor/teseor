@@ -1,14 +1,14 @@
 @use '../../00-config/tokens/variables' as t;
 
-// Textarea component - multi-line text input
-// Shares token patterns with Input
+// @component textarea
+// @element textarea
 
 @layer components.tokens {
   .textarea {
     --_min-height: var(--ui-textarea-min-height, calc(#{t.$row} * 4));
     --_padding-x: var(--ui-textarea-padding-x, var(--ui-space-1, #{t.$space-1}));
     --_padding-y: var(--ui-textarea-padding-y, var(--ui-space-1, #{t.$space-1}));
-    --_font-size: var(--ui-textarea-font-size, var(--ui-size-sm, #{t.$size-sm}));
+    --_font-size: var(--ui-textarea-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     --_radius: var(--ui-textarea-radius, var(--ui-radius-md, #{t.$radius-md}));
     --_bg: var(--ui-textarea-bg, var(--ui-color-bg, #{t.$color-bg}));
     --_border-color: var(--ui-textarea-border-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
@@ -17,20 +17,20 @@
     --_placeholder: var(--ui-textarea-placeholder, var(--ui-color-text-muted, #{t.$color-text-muted}));
   }
 
-  // Size variants
+  // @modifier size
   .textarea--sm {
     --_min-height: var(--ui-textarea-min-height-sm, calc(#{t.$row} * 3));
-    --_font-size: var(--ui-textarea-font-size-sm, var(--ui-size-xs, #{t.$size-xs}));
+    --_font-size: var(--ui-textarea-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
   }
 
   .textarea--lg {
     --_min-height: var(--ui-textarea-min-height-lg, calc(#{t.$row} * 6));
     --_padding-x: var(--ui-textarea-padding-x-lg, var(--ui-space-2, #{t.$space-2}));
     --_padding-y: var(--ui-textarea-padding-y-lg, var(--ui-space-2, #{t.$space-2}));
-    --_font-size: var(--ui-textarea-font-size-lg, var(--ui-size-md, #{t.$size-md}));
+    --_font-size: var(--ui-textarea-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
   }
 
-  // Style variants
+  // @modifier variant
   .textarea--filled {
     --_bg: var(--ui-textarea-filled-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
     --_border-color: transparent;
@@ -41,7 +41,7 @@
     --_border-color: transparent;
   }
 
-  // State variants
+  // @modifier state
   .textarea--error {
     --_border-color: var(--ui-textarea-error-border, var(--ui-color-danger, #{t.$color-danger}));
     --_border-color-focus: var(--ui-textarea-error-border, var(--ui-color-danger, #{t.$color-danger}));
@@ -57,6 +57,7 @@
   .textarea {
     display: block;
 
+    box-sizing: border-box;
     inline-size: 100%;
     min-block-size: var(--_min-height);
     padding-block: var(--_padding-y);
@@ -64,16 +65,18 @@
 
     font-family: inherit;
     font-size: var(--_font-size);
-    line-height: var(--ui-line-height-normal, 1.5);
+    line-height: var(--ui-row-1, #{t.$row});
     color: var(--_text);
 
     background: var(--_bg);
-    border: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_border-color);
+    border: none;
     border-radius: var(--_radius);
+    outline: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_border-color);
 
     transition:
       border-color var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease),
       box-shadow var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease);
+    outline-offset: calc(var(--ui-border-width-sm, #{t.$border-width-sm}) * -1);
 
     // Default resize behavior
     resize: vertical;
@@ -83,13 +86,13 @@
     }
 
     &:hover:not(:disabled, :focus) {
-      border-color: var(--ui-color-border-strong, #{t.$color-border-strong});
+      outline-color: var(--ui-color-border-strong, #{t.$color-border-strong});
     }
 
     &:focus,
     &--focus {
-      border-color: var(--_border-color-focus);
-      outline: none;
+      outline-color: var(--_border-color-focus);
+
       box-shadow: 0 0 0 var(--ui-border-width-md, #{t.$border-width-md}) var(--ui-color-focus, #{t.$color-focus});
     }
 

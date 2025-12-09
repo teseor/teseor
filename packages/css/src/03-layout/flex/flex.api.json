@@ -1,0 +1,15 @@
+{
+  "name": "flex",
+  "element": "div",
+  "modifiers": {
+    "row": { "type": "boolean" },
+    "col": { "type": "boolean" },
+    "wrap": { "type": "boolean" },
+    "items-center": { "type": "boolean" },
+    "justify-between": { "type": "boolean" },
+    "gap-1": { "type": "boolean" },
+    "gap-2": { "type": "boolean" },
+    "gap-4": { "type": "boolean" }
+  },
+  "cssVars": []
+}

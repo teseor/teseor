@@ -3,6 +3,7 @@
   "type": "component",
   "title": "Checkbox",
   "description": "Native checkbox input with custom styling. Supports checked, indeterminate, and disabled states.",
+  "api": "./checkbox.api.json",
   "sections": [
     {
       "title": "Default",
@@ -103,6 +104,48 @@
           "code": "<label class=\"ui-cluster\">\n  <input type=\"checkbox\" class=\"ui-checkbox\">\n  <span>Accept terms</span>\n</label>"
         }
       ]
+    }
+  ],
+  "customization": [
+    {
+      "token": "--ui-checkbox-size",
+      "default": "calc(var(--unit) * 2)",
+      "description": "Default size"
+    },
+    {
+      "token": "--ui-checkbox-size-lg",
+      "default": "calc(var(--unit) * 3)",
+      "description": "Large size"
+    },
+    {
+      "token": "--ui-checkbox-radius",
+      "default": "var(--ui-radius-sm)",
+      "description": "Border radius"
+    },
+    {
+      "token": "--ui-checkbox-bg",
+      "default": "var(--ui-color-bg)",
+      "description": "Background (unchecked)"
+    },
+    {
+      "token": "--ui-checkbox-bg-checked",
+      "default": "var(--ui-color-primary)",
+      "description": "Background (checked)"
+    },
+    {
+      "token": "--ui-checkbox-border-color",
+      "default": "var(--ui-color-border-strong)",
+      "description": "Border color"
+    },
+    {
+      "token": "--ui-checkbox-border-color-focus",
+      "default": "var(--ui-color-primary)",
+      "description": "Focus border color"
+    },
+    {
+      "token": "--ui-checkbox-check-color",
+      "default": "var(--ui-color-text-inverse)",
+      "description": "Checkmark color"
     }
   ]
 }

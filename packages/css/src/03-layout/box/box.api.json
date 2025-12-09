@@ -1,0 +1,15 @@
+{
+  "name": "box",
+  "element": "div",
+  "modifiers": {
+    "p-1": { "type": "boolean" },
+    "p-2": { "type": "boolean" },
+    "p-3": { "type": "boolean" },
+    "p-4": { "type": "boolean" },
+    "bg-subtle": { "type": "boolean" },
+    "bg-muted": { "type": "boolean" },
+    "rounded": { "type": "boolean" },
+    "rounded-lg": { "type": "boolean" }
+  },
+  "cssVars": []
+}

@@ -1,14 +1,31 @@
 {
   "name": "breadcrumb",
-  "baseClass": "breadcrumb",
-  "element": "nav",
-  "description": "Navigation hierarchy showing current page location",
-  "modifiers": {
-    "variant": {
-      "values": ["collapsed"],
-      "default": null,
-      "description": "Shows ellipsis for long breadcrumb trails"
+  "element": "div",
+  "modifiers": {},
+  "cssVars": [
+    {
+      "name": "--ui-breadcrumb-height",
+      "default": "var(--ui-row-1)"
+    },
+    {
+      "name": "--ui-breadcrumb-gap",
+      "default": "calc(#{t.$unit} * 1"
+    },
+    {
+      "name": "--ui-breadcrumb-separator-color",
+      "default": "var(--ui-color-text-muted)"
+    },
+    {
+      "name": "--ui-breadcrumb-link-color",
+      "default": "var(--ui-color-text-muted)"
+    },
+    {
+      "name": "--ui-breadcrumb-current-color",
+      "default": "var(--ui-color-text)"
+    },
+    {
+      "name": "--ui-breadcrumb-separator",
+      "default": "\"/\""
     }
-  },
-  "states": []
+  ]
 }

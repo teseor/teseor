@@ -3,6 +3,7 @@
   "type": "guide",
   "title": "Theming",
   "description": "Customize the design system with CSS custom properties",
+  "skipValidation": true,
   "sections": [
     {
       "title": "Brand Colors",

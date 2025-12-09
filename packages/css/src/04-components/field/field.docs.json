@@ -3,6 +3,7 @@
   "type": "component",
   "title": "Field",
   "description": "Form field wrapper that combines label, control, helper text, and error message.",
+  "api": "./field.api.json",
   "sections": [
     {
       "title": "Default",
@@ -34,6 +35,7 @@
     {
       "title": "Horizontal Layout",
       "description": "Label beside control for wider forms",
+      "api": "./field.api.json",
       "examples": [
         {
           "html": "<div class=\"ui-field ui-field--horizontal\"><label class=\"ui-label ui-field__label\" for=\"name\">Full Name</label><div class=\"ui-field__control\"><input type=\"text\" id=\"name\" class=\"ui-input\"><span class=\"ui-form-helper\">As it appears on your ID</span></div></div>",
@@ -50,5 +52,8 @@
         }
       ]
     }
+  ],
+  "customization": [
+    { "token": "--ui-field-gap", "default": "0", "description": "Gap between field elements" }
   ]
 }

@@ -1,13 +1,13 @@
 @use '../../00-config/tokens/variables' as t;
 
-// Select component - native select with custom styling
-// Heights align to grid rows, consistent with Input
+// @component select
+// @element select
 
 @layer components.tokens {
   .select {
     --_height: var(--ui-select-height, var(--ui-row-2, #{t.$row-2}));
     --_padding-x: var(--ui-select-padding-x, var(--ui-space-1, #{t.$space-1}));
-    --_font-size: var(--ui-select-font-size, var(--ui-size-sm, #{t.$size-sm}));
+    --_font-size: var(--ui-select-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     --_radius: var(--ui-select-radius, var(--ui-radius-md, #{t.$radius-md}));
     --_bg: var(--ui-select-bg, var(--ui-color-bg, #{t.$color-bg}));
     --_border-color: var(--ui-select-border-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
@@ -16,19 +16,19 @@
     --_icon-color: var(--ui-select-icon-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
   }
 
-  // Size variants
+  // @modifier size
   .select--sm {
     --_height: var(--ui-select-height-sm, calc(#{t.$row} * 1.5));
-    --_font-size: var(--ui-select-font-size-sm, var(--ui-size-xs, #{t.$size-xs}));
+    --_font-size: var(--ui-select-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
   }
 
   .select--lg {
     --_height: var(--ui-select-height-lg, calc(#{t.$row} * 2.5));
     --_padding-x: var(--ui-select-padding-x-lg, var(--ui-space-2, #{t.$space-2}));
-    --_font-size: var(--ui-select-font-size-lg, var(--ui-size-md, #{t.$size-md}));
+    --_font-size: var(--ui-select-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
   }
 
-  // Style variants
+  // @modifier variant
   .select--filled {
     --_bg: var(--ui-select-filled-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
     --_border-color: transparent;
@@ -39,7 +39,7 @@
     --_border-color: transparent;
   }
 
-  // State variants
+  // @modifier state
   .select--error {
     --_border-color: var(--ui-select-error-border, var(--ui-color-danger, #{t.$color-danger}));
     --_border-color-focus: var(--ui-select-error-border, var(--ui-color-danger, #{t.$color-danger}));

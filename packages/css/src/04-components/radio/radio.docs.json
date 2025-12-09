@@ -3,6 +3,7 @@
   "type": "component",
   "title": "Radio",
   "description": "Native radio button with custom styling. Use for mutually exclusive options within a group.",
+  "api": "./radio.api.json",
   "sections": [
     {
       "title": "Default",
@@ -116,6 +117,43 @@
           "code": "<fieldset>\n  <legend>Choose an option</legend>\n  <div class=\"ui-stack\">\n    <label class=\"ui-cluster\">\n      <input type=\"radio\" class=\"ui-radio\" name=\"group\" checked>\n      <span>Option A</span>\n    </label>\n    <label class=\"ui-cluster\">\n      <input type=\"radio\" class=\"ui-radio\" name=\"group\">\n      <span>Option B</span>\n    </label>\n  </div>\n</fieldset>"
         }
       ]
+    }
+  ],
+  "customization": [
+    {
+      "token": "--ui-radio-size",
+      "default": "calc(var(--unit) * 2)",
+      "description": "Default size"
+    },
+    {
+      "token": "--ui-radio-size-lg",
+      "default": "calc(var(--unit) * 3)",
+      "description": "Large size"
+    },
+    {
+      "token": "--ui-radio-bg",
+      "default": "var(--ui-color-bg)",
+      "description": "Background (unchecked)"
+    },
+    {
+      "token": "--ui-radio-bg-checked",
+      "default": "var(--ui-color-primary)",
+      "description": "Background (checked)"
+    },
+    {
+      "token": "--ui-radio-border-color",
+      "default": "var(--ui-color-border-strong)",
+      "description": "Border color"
+    },
+    {
+      "token": "--ui-radio-border-color-focus",
+      "default": "var(--ui-color-primary)",
+      "description": "Focus border color"
+    },
+    {
+      "token": "--ui-radio-dot-color",
+      "default": "var(--ui-color-text-inverse)",
+      "description": "Inner dot color"
     }
   ]
 }

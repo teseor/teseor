@@ -1,24 +1,19 @@
 {
   "name": "status",
-  "baseClass": "status",
-  "element": "span",
-  "description": "Visual status indicator with colored dot",
-  "modifiers": {
-    "variant": {
-      "values": ["success", "warning", "danger", "info"],
-      "default": null,
-      "description": "Color variant indicating status type"
+  "element": "div",
+  "modifiers": {},
+  "cssVars": [
+    {
+      "name": "--ui-status-size",
+      "default": "calc(#{t.$unit} * 1"
     },
-    "size": {
-      "values": ["sm", "lg"],
-      "default": null,
-      "description": "Size variant"
+    {
+      "name": "--ui-status-color",
+      "default": "var(--ui-color-text-muted)"
     },
-    "animation": {
-      "values": ["pulse"],
-      "default": null,
-      "description": "Pulse animation for active/live status"
+    {
+      "name": "--ui-status-gap",
+      "default": "calc(#{t.$unit} * 1"
     }
-  },
-  "states": []
+  ]
 }

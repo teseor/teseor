@@ -1,0 +1,23 @@
+{
+  "name": "data-list",
+  "element": "div",
+  "modifiers": {},
+  "cssVars": [
+    {
+      "name": "--ui-data-list-gap",
+      "default": "calc(#{t.$unit} * 2"
+    },
+    {
+      "name": "--ui-data-list-item-gap",
+      "default": "calc(#{t.$unit} * 1"
+    },
+    {
+      "name": "--ui-data-list-label-color",
+      "default": "var(--ui-color-text-muted)"
+    },
+    {
+      "name": "--ui-data-list-value-color",
+      "default": "var(--ui-color-text)"
+    }
+  ]
+}

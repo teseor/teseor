@@ -1,17 +1,18 @@
 @use '../../00-config/tokens/variables' as t;
 
-// Label component - form control labels
-// Associates text with form inputs
+// @component label
+// @element label
 
 @layer components.tokens {
   .label {
-    --_font-size: var(--ui-label-font-size, var(--ui-size-sm, #{t.$size-sm}));
+    --_font-size: var(--ui-label-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     --_color: var(--ui-label-color, var(--ui-color-text, #{t.$color-text}));
     --_required-color: var(--ui-label-required-color, var(--ui-color-danger, #{t.$color-danger}));
   }
 
+  // @modifier size
   .label--lg {
-    --_font-size: var(--ui-label-font-size-lg, var(--ui-size-md, #{t.$size-md}));
+    --_font-size: var(--ui-label-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
   }
 }
 
@@ -19,11 +20,11 @@
   .label {
     display: inline-flex;
     align-items: baseline;
-    gap: calc(#{t.$unit} * 0.25);
+    gap: 0;
 
     font-size: var(--_font-size);
     font-weight: var(--ui-weight-medium, #{t.$weight-medium});
-    line-height: var(--ui-leading-sm, calc(#{t.$unit} * 2));
+    line-height: var(--ui-leading-tight-sm, var(--ui-row-1));
     color: var(--_color);
 
     cursor: pointer;

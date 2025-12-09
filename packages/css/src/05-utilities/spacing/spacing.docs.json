@@ -3,6 +3,7 @@
   "type": "utility",
   "title": "Spacing",
   "description": "Margin and padding utilities aligned to 8px grid.",
+  "api": "spacing.api.json",
   "sections": [
     {
       "examples": [

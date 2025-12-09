@@ -1,19 +1,43 @@
 {
   "name": "modal",
-  "baseClass": "modal",
   "element": "div",
-  "description": "Container for modal dialogs that appears centered over page content",
-  "modifiers": {
-    "size": {
-      "values": ["sm", "lg", "full"],
-      "default": null,
-      "description": "Size variant. Controls max-width of modal content."
+  "modifiers": {},
+  "cssVars": [
+    {
+      "name": "--ui-modal-bg",
+      "default": "var(--ui-color-bg)"
     },
-    "state": {
-      "values": ["visible", "hidden", "entering", "exiting", "animate"],
-      "default": null,
-      "description": "Animation states controlled via JS"
+    {
+      "name": "--ui-modal-radius",
+      "default": "var(--ui-radius-lg)"
+    },
+    {
+      "name": "--ui-modal-shadow",
+      "default": "0 calc(#{t.$unit} * 3"
+    },
+    {
+      "name": "--ui-modal-padding",
+      "default": "calc(#{t.$unit} * 3"
+    },
+    {
+      "name": "--ui-modal-max-width",
+      "default": "calc(#{t.$unit} * 60"
+    },
+    {
+      "name": "--ui-modal-max-height",
+      "default": "calc(100vh - #{t.$unit} * 8"
+    },
+    {
+      "name": "--ui-modal-z",
+      "default": "var(--ui-z-modal)"
+    },
+    {
+      "name": "--ui-modal-max-width-sm",
+      "default": "calc(#{t.$unit} * 40"
+    },
+    {
+      "name": "--ui-modal-max-width-lg",
+      "default": "calc(#{t.$unit} * 80"
     }
-  },
-  "states": []
+  ]
 }

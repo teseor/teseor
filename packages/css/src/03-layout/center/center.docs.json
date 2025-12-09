@@ -3,8 +3,10 @@
   "type": "primitive",
   "title": "Center",
   "description": "Centers content horizontally and vertically.",
+  "api": "center.api.json",
   "sections": [
     {
+      "title": "Basic",
       "examples": [
         {
           "items": [
@@ -14,8 +16,7 @@
               "style": { "height": "var(--ui-row-4)", "background": "var(--ui-color-bg-muted)" },
               "children": [{ "tag": "span", "text": "Centered content" }]
             }
-          ],
-          "code": "<div class=\"ui-center\">Centered content</div>"
+          ]
         }
       ]
     }

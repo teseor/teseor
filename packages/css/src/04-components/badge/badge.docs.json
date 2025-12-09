@@ -3,6 +3,7 @@
   "type": "component",
   "title": "Badge",
   "description": "Inline labels for status indicators, counts, and categories",
+  "api": "./badge.api.json",
   "sections": [
     {
       "title": "Default",
@@ -50,5 +51,39 @@
         }
       ]
     }
+  ],
+  "customization": [
+    {
+      "token": "--ui-badge-height",
+      "default": "calc(var(--ui-row) * 1.25)",
+      "description": "Default height"
+    },
+    { "token": "--ui-badge-height-sm", "default": "var(--ui-row)", "description": "Small height" },
+    {
+      "token": "--ui-badge-padding-x",
+      "default": "var(--ui-space-1)",
+      "description": "Horizontal padding"
+    },
+    {
+      "token": "--ui-badge-font-size",
+      "default": "var(--ui-font-size-xs)",
+      "description": "Font size"
+    },
+    {
+      "token": "--ui-badge-font-weight",
+      "default": "var(--ui-weight-medium)",
+      "description": "Font weight"
+    },
+    {
+      "token": "--ui-badge-radius",
+      "default": "var(--ui-radius-full)",
+      "description": "Border radius"
+    },
+    {
+      "token": "--ui-badge-bg",
+      "default": "var(--ui-color-bg-muted)",
+      "description": "Background color"
+    },
+    { "token": "--ui-badge-text", "default": "var(--ui-color-text)", "description": "Text color" }
   ]
 }

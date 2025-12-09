@@ -12,11 +12,11 @@
   }
 
   .progress--sm {
-    --_height: calc(#{t.$unit} / 2);
+    --_height: calc(#{t.$unit} * 1);
   }
 
   .progress--lg {
-    --_height: calc(#{t.$unit} * 1.5);
+    --_height: calc(#{t.$unit} * 2);
   }
 }
 

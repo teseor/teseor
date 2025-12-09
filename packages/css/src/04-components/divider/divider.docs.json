@@ -3,6 +3,7 @@
   "type": "component",
   "title": "Divider",
   "description": "Visual separator between content sections. Supports horizontal/vertical orientation and optional text label.",
+  "api": "./divider.api.json",
   "sections": [
     {
       "title": "Default",
@@ -44,10 +45,24 @@
       "title": "Vertical",
       "examples": [
         {
-          "html": "<div style=\"display: flex; height: 60px; align-items: center;\"><span>Left</span><div class=\"ui-divider ui-divider--vertical\" role=\"separator\"></div><span>Right</span></div>",
+          "html": "<div style=\"display: flex; height: 64px; align-items: center;\"><span>Left</span><div class=\"ui-divider ui-divider--vertical\" role=\"separator\"></div><span>Right</span></div>",
           "code": "<div style=\"display: flex;\">\n  <span>Left</span>\n  <div class=\"ui-divider ui-divider--vertical\"></div>\n  <span>Right</span>\n</div>"
         }
       ]
+    }
+  ],
+  "customization": [
+    {
+      "token": "--ui-divider-color",
+      "default": "var(--ui-color-border)",
+      "description": "Line color"
+    },
+    { "token": "--ui-divider-line-size", "default": "1px", "description": "Line thickness" },
+    { "token": "--ui-divider-height", "default": "var(--unit)", "description": "Container height" },
+    {
+      "token": "--ui-divider-gap",
+      "default": "calc(var(--unit) * 2)",
+      "description": "Vertical margin"
     }
   ]
 }

@@ -1,19 +1,39 @@
 {
   "name": "popover",
-  "baseClass": "popover",
   "element": "div",
-  "description": "Floating panel for additional content, larger than tooltip",
-  "modifiers": {
-    "position": {
-      "values": ["top", "bottom"],
-      "default": null,
-      "description": "Arrow position indicating popover placement relative to trigger"
+  "modifiers": {},
+  "cssVars": [
+    {
+      "name": "--ui-popover-bg",
+      "default": "var(--ui-color-bg)"
     },
-    "state": {
-      "values": ["visible", "hidden", "animate"],
-      "default": null,
-      "description": "Visibility states controlled via JS"
+    {
+      "name": "--ui-popover-border-color",
+      "default": "var(--ui-color-border)"
+    },
+    {
+      "name": "--ui-popover-radius",
+      "default": "var(--ui-radius-md)"
+    },
+    {
+      "name": "--ui-popover-shadow",
+      "default": "0 calc(#{t.$unit} / 2"
+    },
+    {
+      "name": "--ui-popover-padding",
+      "default": "calc(#{t.$unit} * 2"
+    },
+    {
+      "name": "--ui-popover-max-width",
+      "default": "calc(#{t.$unit} * 40"
+    },
+    {
+      "name": "--ui-popover-z",
+      "default": "var(--ui-z-popover)"
+    },
+    {
+      "name": "--ui-popover-arrow-size",
+      "default": "calc(#{t.$unit}"
     }
-  },
-  "states": []
+  ]
 }

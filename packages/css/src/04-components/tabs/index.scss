@@ -18,34 +18,38 @@
     display: flex;
     align-items: stretch;
     gap: var(--ui-space-1, #{t.$space-1});
-    // With border-box, block-size includes border
+
+    box-sizing: border-box;
     block-size: var(--ui-row-2, #{t.$row-2});
 
-    border-block-end: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_border-color);
+    // Use box-shadow instead of border to avoid affecting height
+    box-shadow: inset 0 calc(var(--ui-border-width-sm, #{t.$border-width-sm}) * -1) 0 var(--_border-color);
   }
 
   .tabs__tab {
     display: inline-flex;
     align-items: center;
-    // With border-box, block-size includes border
+
+    box-sizing: border-box;
     block-size: var(--ui-row-2, #{t.$row-2});
     padding-inline: var(--_tab-padding-x);
     margin: 0;
 
     font-family: var(--ui-font-sans, #{t.$font-sans});
-    font-size: var(--ui-size-sm, #{t.$size-sm});
+    font-size: var(--ui-font-size-sm, #{t.$font-size-sm});
     font-weight: var(--ui-weight-medium, #{t.$weight-medium});
     line-height: 1;
     color: var(--ui-color-text-muted, #{t.$color-text-muted});
 
     background: var(--_tab-bg);
     border: none;
-    border-block-end: var(--ui-border-width-md, #{t.$border-width-md}) solid transparent;
+    // Use box-shadow for indicator to avoid affecting height
+    box-shadow: inset 0 calc(var(--ui-border-width-md, #{t.$border-width-md}) * -1) 0 transparent;
     cursor: pointer;
 
     transition:
       color var(--ui-duration-base) var(--ui-ease-default),
-      border-color var(--ui-duration-base) var(--ui-ease-default);
+      box-shadow var(--ui-duration-base) var(--ui-ease-default);
 
     &:hover {
       color: var(--ui-color-text, #{t.$color-text});
@@ -53,9 +57,9 @@
 
     &--active {
       color: var(--ui-color-primary, #{t.$color-primary});
-      border-block-end-color: var(--ui-color-primary, #{t.$color-primary});
 
       background: var(--_tab-bg-active);
+      box-shadow: inset 0 calc(var(--ui-border-width-md, #{t.$border-width-md}) * -1) 0 var(--ui-color-primary, #{t.$color-primary});
     }
   }
 
@@ -63,6 +67,8 @@
     display: none;
 
     padding: var(--_panel-padding);
+
+    line-height: var(--ui-row-1, #{t.$row});
 
     &--active {
       display: block;

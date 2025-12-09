@@ -1,0 +1,100 @@
+{
+  "id": "sidebar-nav",
+  "type": "primitive",
+  "title": "Sidebar Nav",
+  "description": "Navigation component for sidebars with support for groups, nested items, icons, and badges.",
+  "api": "./sidebar-nav.api.json",
+  "customization": [
+    {
+      "token": "--ui-sidebar-nav-width",
+      "default": "calc(var(--ui-unit) * 30)",
+      "description": "Default sidebar width"
+    },
+    {
+      "token": "--ui-sidebar-nav-width-collapsed",
+      "default": "var(--ui-row-3)",
+      "description": "Width in collapsed mode"
+    },
+    {
+      "token": "--ui-sidebar-nav-bg",
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Background color"
+    },
+    {
+      "token": "--ui-sidebar-nav-item-height",
+      "default": "var(--ui-row-2)",
+      "description": "Nav item height"
+    },
+    {
+      "token": "--ui-sidebar-nav-item-hover-bg",
+      "default": "var(--ui-color-bg-muted)",
+      "description": "Item hover background"
+    },
+    {
+      "token": "--ui-sidebar-nav-item-active-bg",
+      "default": "var(--ui-color-primary-subtle)",
+      "description": "Active item background"
+    },
+    {
+      "token": "--ui-sidebar-nav-item-active-color",
+      "default": "var(--ui-color-primary)",
+      "description": "Active item text color"
+    }
+  ],
+  "sections": [
+    {
+      "title": "Basic",
+      "description": "Simple navigation with grouped items.",
+      "examples": [
+        {
+          "html": "<nav class=\"ui-sidebar-nav\" aria-label=\"Main navigation\" style=\"block-size: 400px;\">\n  <div class=\"ui-sidebar-nav__header\">\n    <strong>App Name</strong>\n  </div>\n  <div class=\"ui-sidebar-nav__content\">\n    <div class=\"ui-sidebar-nav__group\">\n      <span class=\"ui-sidebar-nav__group-label\">Main</span>\n      <ul class=\"ui-sidebar-nav__group-items\">\n        <li><a href=\"#\" class=\"ui-sidebar-nav__item ui-sidebar-nav__item--active\" aria-current=\"page\"><span class=\"ui-sidebar-nav__label\">Dashboard</span></a></li>\n        <li><a href=\"#\" class=\"ui-sidebar-nav__item\"><span class=\"ui-sidebar-nav__label\">Projects</span></a></li>\n        <li><a href=\"#\" class=\"ui-sidebar-nav__item\"><span class=\"ui-sidebar-nav__label\">Tasks</span></a></li>\n      </ul>\n    </div>\n    <div class=\"ui-sidebar-nav__group\">\n      <span class=\"ui-sidebar-nav__group-label\">Settings</span>\n      <ul class=\"ui-sidebar-nav__group-items\">\n        <li><a href=\"#\" class=\"ui-sidebar-nav__item\"><span class=\"ui-sidebar-nav__label\">Profile</span></a></li>\n        <li><a href=\"#\" class=\"ui-sidebar-nav__item\"><span class=\"ui-sidebar-nav__label\">Preferences</span></a></li>\n      </ul>\n    </div>\n  </div>\n  <div class=\"ui-sidebar-nav__footer\">\n    <a href=\"#\" class=\"ui-sidebar-nav__item\"><span class=\"ui-sidebar-nav__label\">Logout</span></a>\n  </div>\n</nav>"
+        }
+      ]
+    },
+    {
+      "title": "With Icons",
+      "description": "Navigation items with icons for visual clarity.",
+      "examples": [
+        {
+          "html": "<nav class=\"ui-sidebar-nav\" aria-label=\"Navigation\" style=\"block-size: 300px;\">\n  <div class=\"ui-sidebar-nav__content\">\n    <ul class=\"ui-sidebar-nav__group-items\">\n      <li><a href=\"#\" class=\"ui-sidebar-nav__item ui-sidebar-nav__item--active\" aria-current=\"page\">\n        <span class=\"ui-sidebar-nav__icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/></svg></span>\n        <span class=\"ui-sidebar-nav__label\">Home</span>\n      </a></li>\n      <li><a href=\"#\" class=\"ui-sidebar-nav__item\">\n        <span class=\"ui-sidebar-nav__icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2\"/><circle cx=\"9\" cy=\"7\" r=\"4\"/></svg></span>\n        <span class=\"ui-sidebar-nav__label\">Users</span>\n      </a></li>\n      <li><a href=\"#\" class=\"ui-sidebar-nav__item\">\n        <span class=\"ui-sidebar-nav__icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z\"/></svg></span>\n        <span class=\"ui-sidebar-nav__label\">Settings</span>\n      </a></li>\n    </ul>\n  </div>\n</nav>"
+        }
+      ]
+    },
+    {
+      "title": "With Badges",
+      "description": "Navigation items with badges for counts or status indicators.",
+      "examples": [
+        {
+          "html": "<nav class=\"ui-sidebar-nav\" aria-label=\"Navigation\" style=\"block-size: 200px;\">\n  <div class=\"ui-sidebar-nav__content\">\n    <ul class=\"ui-sidebar-nav__group-items\">\n      <li><a href=\"#\" class=\"ui-sidebar-nav__item\">\n        <span class=\"ui-sidebar-nav__label\">Inbox</span>\n        <span class=\"ui-sidebar-nav__badge\"><span class=\"ui-badge ui-badge--primary\">12</span></span>\n      </a></li>\n      <li><a href=\"#\" class=\"ui-sidebar-nav__item\">\n        <span class=\"ui-sidebar-nav__label\">Notifications</span>\n        <span class=\"ui-sidebar-nav__badge\"><span class=\"ui-badge ui-badge--danger\">3</span></span>\n      </a></li>\n      <li><a href=\"#\" class=\"ui-sidebar-nav__item\">\n        <span class=\"ui-sidebar-nav__label\">Updates</span>\n        <span class=\"ui-sidebar-nav__badge\"><span class=\"ui-status ui-status--success\"></span></span>\n      </a></li>\n    </ul>\n  </div>\n</nav>"
+        }
+      ]
+    },
+    {
+      "title": "Nested Items",
+      "description": "Navigation with nested/indented items for sub-sections.",
+      "examples": [
+        {
+          "html": "<nav class=\"ui-sidebar-nav\" aria-label=\"Navigation\" style=\"block-size: 280px;\">\n  <div class=\"ui-sidebar-nav__content\">\n    <div class=\"ui-sidebar-nav__group\">\n      <span class=\"ui-sidebar-nav__group-label\">Components</span>\n      <ul class=\"ui-sidebar-nav__group-items\">\n        <li><span class=\"ui-sidebar-nav__subgroup-label\">Actions</span></li>\n        <li><a href=\"#\" class=\"ui-sidebar-nav__item ui-sidebar-nav__item--nested\"><span class=\"ui-sidebar-nav__label\">Button</span></a></li>\n        <li><a href=\"#\" class=\"ui-sidebar-nav__item ui-sidebar-nav__item--nested ui-sidebar-nav__item--active\" aria-current=\"page\"><span class=\"ui-sidebar-nav__label\">Button Group</span></a></li>\n        <li><span class=\"ui-sidebar-nav__subgroup-label\">Forms</span></li>\n        <li><a href=\"#\" class=\"ui-sidebar-nav__item ui-sidebar-nav__item--nested\"><span class=\"ui-sidebar-nav__label\">Input</span></a></li>\n        <li><a href=\"#\" class=\"ui-sidebar-nav__item ui-sidebar-nav__item--nested\"><span class=\"ui-sidebar-nav__label\">Select</span></a></li>\n      </ul>\n    </div>\n  </div>\n</nav>"
+        }
+      ]
+    },
+    {
+      "title": "Collapsed",
+      "description": "Icon-only mode for compact sidebars.",
+      "examples": [
+        {
+          "html": "<nav class=\"ui-sidebar-nav ui-sidebar-nav--collapsed\" aria-label=\"Navigation\" style=\"block-size: 200px;\">\n  <div class=\"ui-sidebar-nav__content\">\n    <ul class=\"ui-sidebar-nav__group-items\">\n      <li><a href=\"#\" class=\"ui-sidebar-nav__item ui-sidebar-nav__item--active\" aria-current=\"page\" aria-label=\"Home\">\n        <span class=\"ui-sidebar-nav__icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/></svg></span>\n        <span class=\"ui-sidebar-nav__label\">Home</span>\n      </a></li>\n      <li><a href=\"#\" class=\"ui-sidebar-nav__item\" aria-label=\"Users\">\n        <span class=\"ui-sidebar-nav__icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2\"/><circle cx=\"9\" cy=\"7\" r=\"4\"/></svg></span>\n        <span class=\"ui-sidebar-nav__label\">Users</span>\n      </a></li>\n      <li><a href=\"#\" class=\"ui-sidebar-nav__item\" aria-label=\"Settings\">\n        <span class=\"ui-sidebar-nav__icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"3\"/></svg></span>\n        <span class=\"ui-sidebar-nav__label\">Settings</span>\n      </a></li>\n    </ul>\n  </div>\n</nav>"
+        }
+      ]
+    },
+    {
+      "title": "Disabled Items",
+      "description": "Non-interactive navigation items.",
+      "examples": [
+        {
+          "html": "<nav class=\"ui-sidebar-nav\" aria-label=\"Navigation\" style=\"block-size: 180px;\">\n  <div class=\"ui-sidebar-nav__content\">\n    <ul class=\"ui-sidebar-nav__group-items\">\n      <li><a href=\"#\" class=\"ui-sidebar-nav__item\"><span class=\"ui-sidebar-nav__label\">Active Link</span></a></li>\n      <li><span class=\"ui-sidebar-nav__item ui-sidebar-nav__item--disabled\"><span class=\"ui-sidebar-nav__label\">Disabled Link</span></span></li>\n      <li><a href=\"#\" class=\"ui-sidebar-nav__item\"><span class=\"ui-sidebar-nav__label\">Another Link</span></a></li>\n    </ul>\n  </div>\n</nav>"
+        }
+      ]
+    }
+  ]
+}

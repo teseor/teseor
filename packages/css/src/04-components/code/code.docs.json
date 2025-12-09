@@ -28,5 +28,57 @@
         }
       ]
     }
+  ],
+  "customization": [
+    {
+      "token": "--ui-code-font-size",
+      "default": "var(--ui-font-size-sm)",
+      "description": "Inline code font size"
+    },
+    {
+      "token": "--ui-code-bg",
+      "default": "var(--ui-color-bg-muted)",
+      "description": "Inline code background"
+    },
+    {
+      "token": "--ui-code-padding-x",
+      "default": "var(--ui-space-1)",
+      "description": "Inline code horizontal padding"
+    },
+    {
+      "token": "--ui-code-padding-y",
+      "default": "var(--ui-space-0)",
+      "description": "Inline code vertical padding"
+    },
+    {
+      "token": "--ui-code-radius",
+      "default": "var(--ui-radius-sm)",
+      "description": "Inline code border radius"
+    },
+    {
+      "token": "--ui-code-font-size-block",
+      "default": "var(--ui-font-size-sm)",
+      "description": "Code block font size"
+    },
+    {
+      "token": "--ui-code-bg-block",
+      "default": "var(--ui-color-bg-muted)",
+      "description": "Code block background"
+    },
+    {
+      "token": "--ui-code-padding-block",
+      "default": "var(--ui-space-3)",
+      "description": "Code block padding"
+    },
+    {
+      "token": "--ui-code-radius-block",
+      "default": "var(--ui-radius-md)",
+      "description": "Code block border radius"
+    },
+    {
+      "token": "--ui-code-border-color-block",
+      "default": "var(--ui-color-border)",
+      "description": "Code block border color"
+    }
   ]
 }

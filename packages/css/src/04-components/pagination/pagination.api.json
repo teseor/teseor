@@ -1,0 +1,39 @@
+{
+  "name": "pagination",
+  "element": "div",
+  "modifiers": {},
+  "cssVars": [
+    {
+      "name": "--ui-pagination-gap",
+      "default": "calc(#{t.$unit} * 0.5"
+    },
+    {
+      "name": "--ui-pagination-item-size",
+      "default": "calc(#{t.$unit} * 4"
+    },
+    {
+      "name": "--ui-pagination-item-radius",
+      "default": "var(--ui-radius-sm)"
+    },
+    {
+      "name": "--ui-pagination-item-bg",
+      "default": "transparent"
+    },
+    {
+      "name": "--ui-pagination-item-bg-hover",
+      "default": "var(--ui-color-bg-subtle)"
+    },
+    {
+      "name": "--ui-pagination-item-bg-active",
+      "default": "var(--ui-color-primary)"
+    },
+    {
+      "name": "--ui-pagination-item-color",
+      "default": "var(--ui-color-text)"
+    },
+    {
+      "name": "--ui-pagination-item-color-active",
+      "default": "var(--ui-color-text-inverse)"
+    }
+  ]
+}

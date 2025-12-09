@@ -3,6 +3,7 @@
   "type": "component",
   "title": "Select",
   "description": "Native select dropdown with custom styling. Dropdown options use browser default styles.",
+  "api": "./select.api.json",
   "sections": [
     {
       "title": "Default",
@@ -103,6 +104,59 @@
           "code": "<select class=\"ui-select\">\n  <optgroup label=\"Citrus\">\n    <option>Orange</option>\n    <option>Lemon</option>\n  </optgroup>\n  <optgroup label=\"Berries\">\n    <option>Strawberry</option>\n  </optgroup>\n</select>"
         }
       ]
+    }
+  ],
+  "customization": [
+    {
+      "token": "--ui-select-height",
+      "default": "var(--ui-row-2)",
+      "description": "Default height"
+    },
+    {
+      "token": "--ui-select-height-sm",
+      "default": "calc(var(--row) * 1.5)",
+      "description": "Small height"
+    },
+    {
+      "token": "--ui-select-height-lg",
+      "default": "calc(var(--row) * 2.5)",
+      "description": "Large height"
+    },
+    {
+      "token": "--ui-select-padding-x",
+      "default": "var(--ui-space-1)",
+      "description": "Horizontal padding"
+    },
+    {
+      "token": "--ui-select-font-size",
+      "default": "var(--ui-font-size-sm)",
+      "description": "Font size"
+    },
+    {
+      "token": "--ui-select-radius",
+      "default": "var(--ui-radius-md)",
+      "description": "Border radius"
+    },
+    {
+      "token": "--ui-select-bg",
+      "default": "var(--ui-color-bg)",
+      "description": "Background color"
+    },
+    {
+      "token": "--ui-select-border-color",
+      "default": "var(--ui-color-border-strong)",
+      "description": "Border color"
+    },
+    {
+      "token": "--ui-select-border-color-focus",
+      "default": "var(--ui-color-primary)",
+      "description": "Focus border color"
+    },
+    { "token": "--ui-select-text", "default": "var(--ui-color-text)", "description": "Text color" },
+    {
+      "token": "--ui-select-icon-color",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Arrow icon color"
     }
   ]
 }

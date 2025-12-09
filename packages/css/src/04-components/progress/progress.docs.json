@@ -3,6 +3,7 @@
   "type": "component",
   "title": "Progress",
   "description": "Progress bar indicator showing completion status. Use aria-valuenow for accessibility.",
+  "api": "./progress.api.json",
   "sections": [
     {
       "title": "Default",
@@ -52,12 +53,35 @@
     {
       "title": "Indeterminate",
       "description": "For unknown progress duration",
+      "api": "./progress.api.json",
       "examples": [
         {
           "html": "<div class=\"ui-progress ui-progress--indeterminate\" role=\"progressbar\" aria-label=\"Loading\"><div class=\"ui-progress__bar\"></div></div>",
           "code": "<div class=\"ui-progress ui-progress--indeterminate\"\n     role=\"progressbar\" aria-label=\"Loading\">\n  <div class=\"ui-progress__bar\"></div>\n</div>"
         }
       ]
+    }
+  ],
+  "customization": [
+    {
+      "token": "--ui-progress-height",
+      "default": "calc(var(--unit) * 1)",
+      "description": "Bar height"
+    },
+    {
+      "token": "--ui-progress-bg",
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Track background"
+    },
+    {
+      "token": "--ui-progress-fill",
+      "default": "var(--ui-color-primary)",
+      "description": "Fill color"
+    },
+    {
+      "token": "--ui-progress-radius",
+      "default": "var(--ui-radius-full)",
+      "description": "Border radius"
     }
   ]
 }

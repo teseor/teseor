@@ -1,0 +1,45 @@
+---
+layout: layouts/base.njk
+---
+<section id="{{ doc.id }}" class="ui-docs-section" data-type="{{ doc.type }}">
+  <h2>{{ doc.title }}</h2>
+  <p>{{ doc.description }}</p>
+
+  {# Prepare CSS props HTML if API exists #}
+  {% set cssPropsHtml %}
+    {% if doc.api %}
+      {% include "partials/css-props.njk" %}
+    {% endif %}
+  {% endset %}
+
+  {# Prepare customization HTML #}
+  {% set customizationHtml %}
+    {% if doc.customization %}
+      {% set tokens = doc.customization %}
+      {% include "partials/customization.njk" %}
+    {% endif %}
+  {% endset %}
+
+  {% for section in doc.sections %}
+    {% if section.title %}
+    <h3>{{ section.title }}</h3>
+    {% endif %}
+
+    {% if section.description %}
+    <p>{{ section.description }}</p>
+    {% endif %}
+
+    {% for example in section.examples %}
+      {# First example of first section gets CSS props and customization tabs #}
+      {% if loop.first and loop.parent.first %}
+        {% set exampleCssProps = cssPropsHtml | trim %}
+        {% set exampleCustomization = customizationHtml | trim %}
+      {% else %}
+        {% set exampleCssProps = '' %}
+        {% set exampleCustomization = '' %}
+      {% endif %}
+
+      {% include "partials/example.njk" %}
+    {% endfor %}
+  {% endfor %}
+</section>

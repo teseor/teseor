@@ -1,8 +1,19 @@
 {
   "name": "form-error",
-  "baseClass": "form-error",
-  "element": "span",
-  "description": "Validation error message for form fields",
+  "element": "div",
   "modifiers": {},
-  "states": []
+  "cssVars": [
+    {
+      "name": "--ui-form-error-color",
+      "default": "var(--ui-color-danger)"
+    },
+    {
+      "name": "--ui-form-error-size",
+      "default": "var(--ui-font-size-sm)"
+    },
+    {
+      "name": "--ui-form-error-gap",
+      "default": "0"
+    }
+  ]
 }

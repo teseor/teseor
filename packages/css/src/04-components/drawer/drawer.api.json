@@ -1,0 +1,39 @@
+{
+  "name": "drawer",
+  "element": "div",
+  "modifiers": {},
+  "cssVars": [
+    {
+      "name": "--ui-drawer-size",
+      "default": "calc(#{t.$unit} * 40"
+    },
+    {
+      "name": "--ui-drawer-max-size",
+      "default": "90%"
+    },
+    {
+      "name": "--ui-drawer-bg",
+      "default": "var(--ui-color-bg)"
+    },
+    {
+      "name": "--ui-drawer-shadow",
+      "default": "var(--shadow-lg)"
+    },
+    {
+      "name": "--ui-drawer-header-padding",
+      "default": "calc(#{t.$unit} * 2"
+    },
+    {
+      "name": "--ui-drawer-body-padding",
+      "default": "calc(#{t.$unit} * 3"
+    },
+    {
+      "name": "--ui-drawer-footer-padding",
+      "default": "calc(#{t.$unit} * 2"
+    },
+    {
+      "name": "--ui-drawer-border-color",
+      "default": "var(--ui-color-border)"
+    }
+  ]
+}

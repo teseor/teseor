@@ -41,6 +41,7 @@ temp
 # Docs
 CLAUDE.md
 .docs.local
+apps/docs/src/generated
 
 # Changesets
 .changeset/*.md

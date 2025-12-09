@@ -1,0 +1,251 @@
+@use '../../00-config/tokens/variables' as t;
+
+// Drawer - slide-out panel
+// Side panel that slides in from edge
+
+@layer components.tokens {
+  .drawer {
+    --_size: var(--ui-drawer-size, calc(#{t.$unit} * 40));
+    --_max-size: var(--ui-drawer-max-size, 90%);
+    --_bg: var(--ui-drawer-bg, var(--ui-color-bg, #{t.$color-bg}));
+    --_shadow: var(--ui-drawer-shadow, var(--shadow-lg));
+    --_header-padding: var(--ui-drawer-header-padding, calc(#{t.$unit} * 2) calc(#{t.$unit} * 3));
+    --_body-padding: var(--ui-drawer-body-padding, calc(#{t.$unit} * 3));
+    --_footer-padding: var(--ui-drawer-footer-padding, calc(#{t.$unit} * 2) calc(#{t.$unit} * 3));
+    --_border-color: var(--ui-drawer-border-color, var(--ui-color-border, #{t.$color-border}));
+  }
+
+  .drawer--sm {
+    --_size: calc(#{t.$unit} * 30);
+  }
+
+  .drawer--lg {
+    --_size: calc(#{t.$unit} * 50);
+  }
+
+  .drawer--full {
+    --_size: 100%;
+    --_max-size: 100%;
+  }
+}
+
+@layer components.styles {
+  // Overlay/backdrop
+  .drawer-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: var(--ui-z-drawer, 900);
+
+    background: var(--ui-overlay-bg, rgb(0 0 0 / 0.5));
+  }
+
+  .drawer-overlay[data-state="open"] {
+    animation: drawer-overlay-in var(--ui-duration-normal, 200ms) var(--ui-ease-out, ease-out);
+  }
+
+  .drawer-overlay[data-state="closed"] {
+    animation: drawer-overlay-out var(--ui-duration-fast, 100ms) var(--ui-ease-in, ease-in);
+  }
+
+  @keyframes drawer-overlay-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  @keyframes drawer-overlay-out {
+    to {
+      opacity: 0;
+    }
+  }
+
+  // Content panel
+  .drawer {
+
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    z-index: var(--ui-z-drawer, 900);
+
+    background: var(--_bg);
+    box-shadow: var(--_shadow);
+  }
+
+  // Direction variants
+  .drawer--end {
+    inset-block: 0;
+    inset-inline-end: 0;
+
+    inline-size: var(--_size);
+    max-inline-size: var(--_max-size);
+
+    box-shadow: calc(var(--ui-border-width-sm, 1px) * -1) 0 0 var(--_border-color);
+  }
+
+  .drawer--start {
+    inset-block: 0;
+    inset-inline-start: 0;
+
+    inline-size: var(--_size);
+    max-inline-size: var(--_max-size);
+
+    box-shadow: var(--ui-border-width-sm, 1px) 0 0 var(--_border-color);
+  }
+
+  .drawer--top {
+    inset-block-start: 0;
+    inset-inline: 0;
+
+    block-size: var(--_size);
+    max-block-size: var(--_max-size);
+
+    box-shadow: 0 var(--ui-border-width-sm, 1px) 0 var(--_border-color);
+  }
+
+  .drawer--bottom {
+    inset-block-end: 0;
+    inset-inline: 0;
+
+    block-size: var(--_size);
+    max-block-size: var(--_max-size);
+
+    box-shadow: 0 calc(var(--ui-border-width-sm, 1px) * -1) 0 var(--_border-color);
+  }
+
+  // Animation states
+  .drawer--end[data-state="open"] {
+    animation: drawer-slide-in-end var(--ui-duration-normal, 200ms) var(--ui-ease-out, ease-out);
+  }
+
+  .drawer--end[data-state="closed"] {
+    animation: drawer-slide-out-end var(--ui-duration-fast, 100ms) var(--ui-ease-in, ease-in);
+  }
+
+  .drawer--start[data-state="open"] {
+    animation: drawer-slide-in-start var(--ui-duration-normal, 200ms) var(--ui-ease-out, ease-out);
+  }
+
+  .drawer--start[data-state="closed"] {
+    animation: drawer-slide-out-start var(--ui-duration-fast, 100ms) var(--ui-ease-in, ease-in);
+  }
+
+  .drawer--top[data-state="open"] {
+    animation: drawer-slide-in-top var(--ui-duration-normal, 200ms) var(--ui-ease-out, ease-out);
+  }
+
+  .drawer--top[data-state="closed"] {
+    animation: drawer-slide-out-top var(--ui-duration-fast, 100ms) var(--ui-ease-in, ease-in);
+  }
+
+  .drawer--bottom[data-state="open"] {
+    animation: drawer-slide-in-bottom var(--ui-duration-normal, 200ms) var(--ui-ease-out, ease-out);
+  }
+
+  .drawer--bottom[data-state="closed"] {
+    animation: drawer-slide-out-bottom var(--ui-duration-fast, 100ms) var(--ui-ease-in, ease-in);
+  }
+
+  @keyframes drawer-slide-in-end {
+    from {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes drawer-slide-out-end {
+    to {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes drawer-slide-in-start {
+    from {
+      transform: translateX(-100%);
+    }
+  }
+
+  @keyframes drawer-slide-out-start {
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  @keyframes drawer-slide-in-top {
+    from {
+      transform: translateY(-100%);
+    }
+  }
+
+  @keyframes drawer-slide-out-top {
+    to {
+      transform: translateY(-100%);
+    }
+  }
+
+  @keyframes drawer-slide-in-bottom {
+    from {
+      transform: translateY(100%);
+    }
+  }
+
+  @keyframes drawer-slide-out-bottom {
+    to {
+      transform: translateY(100%);
+    }
+  }
+
+  // Structure
+  .drawer__header {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc(#{t.$unit} * 2);
+
+    padding: var(--_header-padding);
+
+    box-shadow: inset 0 calc(var(--ui-border-width-sm, 1px) * -1) 0 var(--_border-color);
+  }
+
+  .drawer__title {
+    margin: 0;
+
+    font-size: var(--ui-font-size-lg, #{t.$font-size-lg});
+    font-weight: var(--ui-weight-semibold, 600);
+    line-height: var(--ui-row-1, #{t.$row});
+  }
+
+  .drawer__description {
+    margin: 0;
+
+    font-size: var(--ui-font-size-sm, #{t.$font-size-sm});
+    line-height: var(--ui-row-1, #{t.$row});
+    color: var(--ui-color-text-muted, #{t.$color-text-muted});
+  }
+
+  .drawer__close {
+    flex-shrink: 0;
+
+    margin-inline-start: auto;
+  }
+
+  .drawer__body {
+    flex: 1 1 auto;
+
+    padding: var(--_body-padding);
+    overflow-y: auto;
+
+    line-height: var(--ui-row-1, #{t.$row});
+  }
+
+  .drawer__footer {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: flex-end;
+    gap: calc(#{t.$unit} * 2);
+
+    padding: var(--_footer-padding);
+
+    box-shadow: inset 0 var(--ui-border-width-sm, 1px) 0 var(--_border-color);
+  }
+}

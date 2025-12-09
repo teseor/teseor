@@ -1,0 +1,209 @@
+// Sidebar Navigation
+// Primary navigation for sidebar with groups, items, and nested levels
+
+@layer primitives {
+  .sidebar-nav {
+    // Tokens
+    --_width: var(--ui-sidebar-nav-width, calc(var(--ui-unit) * 30));
+    --_bg: var(--ui-sidebar-nav-bg, var(--ui-color-bg-subtle));
+    --_border-color: var(--ui-sidebar-nav-border-color, var(--ui-color-border));
+    --_padding: var(--ui-sidebar-nav-padding, var(--ui-space-2));
+
+    // Styles
+    display: flex;
+    flex-direction: column;
+
+    block-size: 100%;
+    inline-size: var(--_width);
+
+    background: var(--_bg);
+  }
+
+  // Header - sticky at top
+  .sidebar-nav__header {
+    --_padding: var(--ui-sidebar-nav-header-padding, var(--ui-space-2));
+
+    flex-shrink: 0;
+
+    padding: var(--_padding);
+
+    box-shadow: inset 0 calc(var(--ui-border-width-sm) * -1) 0 0 var(--_border-color);
+  }
+
+  // Content - scrollable
+  .sidebar-nav__content {
+    flex: 1;
+
+    padding: var(--_padding);
+    overflow-y: auto;
+  }
+
+  // Footer - sticky at bottom
+  .sidebar-nav__footer {
+    --_padding: var(--ui-sidebar-nav-footer-padding, var(--ui-space-2));
+
+    flex-shrink: 0;
+
+    padding: var(--_padding);
+
+    box-shadow: inset 0 var(--ui-border-width-sm) 0 0 var(--_border-color);
+  }
+
+  // Group container
+  .sidebar-nav__group {
+    margin-block-end: var(--ui-space-2);
+  }
+
+  // Group label (section heading)
+  .sidebar-nav__group-label {
+    --_font-size: var(--ui-sidebar-nav-group-label-size, var(--ui-size-xs));
+    --_color: var(--ui-sidebar-nav-group-label-color, var(--ui-color-text-muted));
+    --_weight: var(--ui-sidebar-nav-group-label-weight, var(--ui-weight-bold));
+
+    display: block;
+
+    padding: var(--ui-space-1) var(--ui-space-2);
+    margin: 0;
+
+    font-size: var(--_font-size);
+    font-weight: var(--_weight);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--_color);
+  }
+
+  // Group items container
+  .sidebar-nav__group-items {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ui-space-half);
+
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  // Subgroup label (nested section)
+  .sidebar-nav__subgroup-label {
+    display: block;
+
+    padding: var(--ui-space-1) var(--ui-space-2);
+    margin: 0;
+    margin-block-start: var(--ui-space-1);
+
+    font-size: var(--ui-size-xs);
+    font-weight: var(--ui-weight-medium);
+    color: var(--ui-color-text-muted);
+  }
+
+  // Nav item (link wrapper)
+  .sidebar-nav__item {
+    --_height: var(--ui-sidebar-nav-item-height, var(--ui-row-2));
+    --_padding-inline: var(--ui-sidebar-nav-item-padding-inline, var(--ui-space-2));
+    --_font-size: var(--ui-sidebar-nav-item-size, var(--ui-size-sm));
+    --_color: var(--ui-sidebar-nav-item-color, var(--ui-color-text));
+    --_bg: var(--ui-sidebar-nav-item-bg, transparent);
+    --_radius: var(--ui-sidebar-nav-item-radius, var(--ui-radius-sm));
+
+    display: flex;
+    align-items: center;
+    gap: var(--ui-space-1);
+
+    min-block-size: var(--_height);
+    padding-inline: var(--_padding-inline);
+
+    font-size: var(--_font-size);
+    font-weight: var(--_weight, normal);
+    text-decoration: none;
+    color: var(--_color);
+
+    background: var(--_bg);
+    border-radius: var(--_radius);
+    cursor: pointer;
+
+    transition:
+      background var(--ui-duration-fast) var(--ui-easing-default),
+      color var(--ui-duration-fast) var(--ui-easing-default);
+  }
+
+  .sidebar-nav__item:hover {
+    --_bg: var(--ui-sidebar-nav-item-hover-bg, var(--ui-color-bg-muted));
+  }
+
+  .sidebar-nav__item:visited {
+    color: var(--_color);
+  }
+
+  .sidebar-nav__item:focus-visible {
+    outline: 2px solid var(--ui-color-focus);
+    outline-offset: -2px;
+  }
+
+  // Active state
+  .sidebar-nav__item--active {
+    --_bg: var(--ui-sidebar-nav-item-active-bg, var(--ui-color-primary-subtle));
+    --_color: var(--ui-sidebar-nav-item-active-color, var(--ui-color-primary));
+    --_weight: var(--ui-sidebar-nav-item-active-weight, var(--ui-weight-medium));
+  }
+
+  // Nested item indent
+  .sidebar-nav__item--nested {
+    --_padding-inline-start: var(--ui-sidebar-nav-item-nested-indent, var(--ui-space-4));
+
+    padding-inline-start: var(--_padding-inline-start);
+  }
+
+  // Disabled state
+  .sidebar-nav__item--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  // Icon container
+  .sidebar-nav__icon {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+
+    block-size: var(--ui-size-md);
+    inline-size: var(--ui-size-md);
+  }
+
+  // Label text
+  .sidebar-nav__label {
+    flex: 1;
+
+    min-inline-size: 0;
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  // Badge (counts, status)
+  .sidebar-nav__badge {
+    flex-shrink: 0;
+
+    margin-inline-start: auto;
+  }
+
+  // Collapsed mode - icon only
+  .sidebar-nav--collapsed {
+    --_width: var(--ui-sidebar-nav-width-collapsed, var(--ui-row-3));
+
+    .sidebar-nav__label,
+    .sidebar-nav__badge,
+    .sidebar-nav__group-label,
+    .sidebar-nav__subgroup-label {
+      display: none;
+    }
+
+    .sidebar-nav__item {
+      justify-content: center;
+
+      padding-inline: var(--ui-space-1);
+    }
+  }
+}

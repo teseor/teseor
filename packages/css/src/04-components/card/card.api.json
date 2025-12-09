@@ -1,34 +1,53 @@
 {
   "name": "card",
-  "baseClass": "card",
   "element": "div",
-  "description": "Bordered surface with padding for grouping content.",
   "modifiers": {
-    "background": {
-      "values": ["subtle", "muted"],
-      "default": null,
-      "description": "Background color variant."
+    "variant": {
+      "values": ["subtle", "muted"]
     },
-    "padding": {
-      "values": ["sm", "lg", "flush"],
-      "default": null,
-      "description": "Padding size. Default is space-4."
+    "size": {
+      "values": ["sm", "lg"]
+    },
+    "flush": {
+      "type": "boolean"
     }
   },
-  "vars": {
-    "base": {
-      "padding": "--space-4",
-      "bg": "--color-bg",
-      "border-color": "--color-border",
-      "radius": "--radius-md"
+  "cssVars": [
+    {
+      "name": "--ui-card-padding",
+      "default": "var(--ui-space-4)"
     },
-    "background": {
-      "subtle": { "bg": "--color-bg-subtle" },
-      "muted": { "bg": "--color-bg-muted" }
+    {
+      "name": "--ui-card-border-width",
+      "default": "var(--ui-border-width-sm)"
     },
-    "padding": {
-      "sm": { "padding": "--space-2" },
-      "lg": { "padding": "--space-6" }
+    {
+      "name": "--ui-card-bg",
+      "default": "var(--ui-color-bg)"
+    },
+    {
+      "name": "--ui-card-border-color",
+      "default": "var(--ui-color-border)"
+    },
+    {
+      "name": "--ui-card-radius",
+      "default": "var(--ui-radius-md)"
+    },
+    {
+      "name": "--ui-card-bg-subtle",
+      "default": "var(--ui-color-bg-subtle)"
+    },
+    {
+      "name": "--ui-card-bg-muted",
+      "default": "var(--ui-color-bg-muted)"
+    },
+    {
+      "name": "--ui-card-padding-sm",
+      "default": "var(--ui-space-2)"
+    },
+    {
+      "name": "--ui-card-padding-lg",
+      "default": "var(--ui-space-6)"
     }
-  }
+  ]
 }

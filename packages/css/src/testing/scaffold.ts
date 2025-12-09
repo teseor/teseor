@@ -1,4 +1,7 @@
 export const scaffoldCss = `
+  html {
+    font-size: 16px;
+  }
   body {
     background-image:
       linear-gradient(45deg, #f0f0f0 25%, transparent 25%),

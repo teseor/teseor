@@ -3,6 +3,7 @@
   "type": "component",
   "title": "Link",
   "description": "Styled anchor element for text links with consistent hover and focus states.",
+  "api": "./link.api.json",
   "sections": [
     {
       "title": "Default",
@@ -16,6 +17,7 @@
     {
       "title": "Muted Variant",
       "description": "For secondary or less prominent links",
+      "api": "./link.api.json",
       "examples": [
         {
           "html": "<a href=\"#\" class=\"ui-link ui-link--muted\">Muted link</a>",
@@ -26,6 +28,7 @@
     {
       "title": "Subtle Variant",
       "description": "No underline by default, shows on hover",
+      "api": "./link.api.json",
       "examples": [
         {
           "html": "<a href=\"#\" class=\"ui-link ui-link--subtle\">Subtle link</a>",
@@ -36,6 +39,7 @@
     {
       "title": "External Link",
       "description": "Adds arrow indicator for external links",
+      "api": "./link.api.json",
       "examples": [
         {
           "html": "<a href=\"#\" class=\"ui-link ui-link--external\">External link</a>",
@@ -55,12 +59,46 @@
     {
       "title": "In Context",
       "description": "Links inherit text size from context",
+      "api": "./link.api.json",
       "examples": [
         {
           "html": "<p style=\"font-size: var(--ui-size-sm);\">Read our <a href=\"#\" class=\"ui-link\">privacy policy</a> for more information.</p>",
           "code": "<p>\n  Read our <a href=\"#\" class=\"ui-link\">privacy policy</a>\n  for more information.\n</p>"
         }
       ]
+    }
+  ],
+  "customization": [
+    {
+      "token": "--ui-link-color",
+      "default": "var(--ui-color-primary)",
+      "description": "Default link color"
+    },
+    {
+      "token": "--ui-link-color-hover",
+      "default": "var(--ui-color-primary-hover)",
+      "description": "Hover color"
+    },
+    {
+      "token": "--ui-link-color-visited",
+      "default": "var(--ui-link-color)",
+      "description": "Visited link color"
+    },
+    { "token": "--ui-link-decoration", "default": "underline", "description": "Text decoration" },
+    {
+      "token": "--ui-link-decoration-hover",
+      "default": "underline",
+      "description": "Hover text decoration"
+    },
+    {
+      "token": "--ui-link-color-muted",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Muted variant color"
+    },
+    {
+      "token": "--ui-link-color-muted-hover",
+      "default": "var(--ui-color-text)",
+      "description": "Muted variant hover color"
     }
   ]
 }

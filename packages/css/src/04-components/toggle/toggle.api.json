@@ -1,14 +1,43 @@
 {
   "name": "toggle",
-  "baseClass": "toggle",
-  "element": "label",
-  "description": "Switch control for boolean states with sliding thumb indicator",
+  "element": "div",
   "modifiers": {
     "size": {
-      "values": ["sm", "lg"],
-      "default": null,
-      "description": "Size variant"
+      "values": ["sm", "lg"]
     }
   },
-  "states": ["checked", "disabled", "focus"]
+  "cssVars": [
+    {
+      "name": "--ui-toggle-track-width",
+      "default": "calc(#{t.$unit} * 5"
+    },
+    {
+      "name": "--ui-toggle-track-height",
+      "default": "calc(#{t.$unit} * 3"
+    },
+    {
+      "name": "--ui-toggle-track-bg",
+      "default": "var(--ui-color-bg-subtle)"
+    },
+    {
+      "name": "--ui-toggle-track-bg-checked",
+      "default": "var(--ui-color-primary)"
+    },
+    {
+      "name": "--ui-toggle-track-radius",
+      "default": "calc(#{t.$unit} * 1.5"
+    },
+    {
+      "name": "--ui-toggle-thumb-size",
+      "default": "calc(#{t.$unit} * 2.5"
+    },
+    {
+      "name": "--ui-toggle-thumb-bg",
+      "default": "white"
+    },
+    {
+      "name": "--ui-toggle-thumb-offset",
+      "default": "calc(#{t.$unit} / 4"
+    }
+  ]
 }

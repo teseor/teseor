@@ -1,14 +1,23 @@
 {
   "name": "dialog",
-  "baseClass": "dialog",
   "element": "div",
-  "description": "Structured modal with header, body, and footer sections",
-  "modifiers": {
-    "variant": {
-      "values": ["borderless"],
-      "default": null,
-      "description": "Visual variant. Borderless removes header/footer borders."
+  "modifiers": {},
+  "cssVars": [
+    {
+      "name": "--ui-dialog-header-padding",
+      "default": "calc(#{t.$unit} * 2"
+    },
+    {
+      "name": "--ui-dialog-body-padding",
+      "default": "calc(#{t.$unit} * 3"
+    },
+    {
+      "name": "--ui-dialog-footer-padding",
+      "default": "calc(#{t.$unit} * 2"
+    },
+    {
+      "name": "--ui-dialog-border-color",
+      "default": "var(--ui-color-border)"
     }
-  },
-  "states": []
+  ]
 }

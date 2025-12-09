@@ -4,7 +4,7 @@
 @layer components.tokens {
   // Inline code
   .code {
-    --_font-size: var(--ui-code-font-size, var(--ui-size-sm, #{t.$size-sm}));
+    --_font-size: var(--ui-code-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     --_bg: var(--ui-code-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
     --_padding-x: var(--ui-code-padding-x, var(--ui-space-1, #{t.$space-1}));
     --_padding-y: var(--ui-code-padding-y, var(--ui-space-0, #{t.$space-0}));
@@ -12,12 +12,12 @@
   }
 
   .code--sm {
-    --_font-size: var(--ui-size-xs, #{t.$size-xs});
+    --_font-size: var(--ui-font-size-xs, #{t.$font-size-xs});
   }
 
   // Code block
   .code-block {
-    --_font-size: var(--ui-code-font-size-block, var(--ui-size-sm, #{t.$size-sm}));
+    --_font-size: var(--ui-code-font-size-block, var(--ui-font-size-sm, #{t.$font-size-sm}));
     --_bg: var(--ui-code-bg-block, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
     --_padding: var(--ui-code-padding-block, var(--ui-space-3, #{t.$space-3}));
     --_radius: var(--ui-code-radius-block, var(--ui-radius-md, #{t.$radius-md}));
@@ -32,6 +32,7 @@
 
     font-family: var(--ui-font-mono, #{t.$font-mono});
     font-size: var(--_font-size);
+    line-height: var(--ui-leading-tight-sm, #{t.$leading-tight-sm});
 
     background: var(--_bg);
     border-radius: var(--_radius);
@@ -45,6 +46,7 @@
 
     font-family: var(--ui-font-mono, #{t.$font-mono});
     font-size: var(--_font-size);
+    line-height: var(--ui-leading-tight-sm, #{t.$leading-tight-sm});
     white-space: pre;
 
     background: var(--_bg);

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }} - UI Lib</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="ui-root ui-app-shell">
+  <aside class="ui-sidebar">
+    <nav class="ui-sidebar-nav" aria-label="Main navigation">
+      <div class="ui-sidebar-nav__header">
+        <a href="/">
+          <strong class="ui-text-xl">UI Lib</strong>
+        </a>
+        <p class="ui-text-sm ui-text-muted">CSS-first components</p>
+      </div>
+
+      <div class="ui-sidebar-nav__content">
+        {% include "partials/nav.njk" %}
+      </div>
+
+      <div class="ui-sidebar-nav__footer">
+        <div class="ui-stack ui-stack--xs">
+          <button class="ui-button ui-button--sm ui-button--block" onclick="toggleTheme()" id="theme-toggle">Dark Mode</button>
+          <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug('ui-debug-grid')">Toggle Grid</button>
+          <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug('ui-debug-grid-rows')">Toggle Row Grid</button>
+          <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug('ui-debug-baseline')">Toggle Baseline</button>
+          <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug('ui-debug-outline')">Toggle Outlines</button>
+        </div>
+      </div>
+    </nav>
+  </aside>
+
+  <main class="ui-main">
+    <div class="ui-container">
+      {% block content %}{{ content | safe }}{% endblock %}
+    </div>
+  </main>
+
+  <script src="/debug-grid.js"></script>
+  <script src="/tabs.js"></script>
+  <script>
+    const DEBUG_CLASSES = ['ui-debug-grid', 'ui-debug-grid-rows', 'ui-debug-baseline', 'ui-debug-outline'];
+
+    function getDebugParams() {
+      return new URLSearchParams(window.location.search);
+    }
+
+    function updateUrl(params) {
+      const newUrl = params.toString()
+        ? `${window.location.pathname}?${params}`
+        : window.location.pathname;
+      window.history.replaceState({}, '', newUrl);
+    }
+
+    function toggleDebug(className) {
+      document.body.classList.toggle(className);
+      const params = getDebugParams();
+      if (document.body.classList.contains(className)) {
+        params.set(className, '1');
+      } else {
+        params.delete(className);
+      }
+      updateUrl(params);
+    }
+
+    const params = getDebugParams();
+    DEBUG_CLASSES.forEach(className => {
+      if (params.get(className) === '1') {
+        document.body.classList.add(className);
+      }
+    });
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const btn = document.getElementById('theme-toggle');
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        html.removeAttribute('data-theme');
+        btn.textContent = 'Dark Mode';
+        localStorage.removeItem('theme');
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        btn.textContent = 'Light Mode';
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      document.getElementById('theme-toggle').textContent = 'Light Mode';
+    }
+  </script>
+</body>
+</html>

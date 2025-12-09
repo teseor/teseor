@@ -1,0 +1,13 @@
+{
+  "name": "main",
+  "element": "main",
+  "modifiers": {
+    "sidebar-end": {
+      "type": "boolean"
+    },
+    "full": {
+      "type": "boolean"
+    }
+  },
+  "cssVars": []
+}

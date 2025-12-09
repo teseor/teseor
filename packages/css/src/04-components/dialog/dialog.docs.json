@@ -3,6 +3,7 @@
   "type": "component",
   "title": "Dialog",
   "description": "Structured modal with header, body, and footer sections. Use with modal component for positioning.",
+  "api": "./dialog.api.json",
   "sections": [
     {
       "title": "Default",
@@ -30,6 +31,28 @@
           "code": "<div class=\"ui-modal ui-modal--sm\">\n  <div class=\"ui-modal__content ui-dialog\">\n    <header class=\"ui-dialog__header\">\n      <h2 class=\"ui-dialog__title\">Delete Item?</h2>\n    </header>\n    <div class=\"ui-dialog__body\">\n      <p>This action cannot be undone.</p>\n    </div>\n    <footer class=\"ui-dialog__footer\">\n      <button class=\"ui-button ui-button--ghost\">Cancel</button>\n      <button class=\"ui-button ui-button--danger\">Delete</button>\n    </footer>\n  </div>\n</div>"
         }
       ]
+    }
+  ],
+  "customization": [
+    {
+      "token": "--ui-dialog-header-padding",
+      "default": "calc(var(--unit) * 2) calc(var(--unit) * 3)",
+      "description": "Header padding"
+    },
+    {
+      "token": "--ui-dialog-body-padding",
+      "default": "calc(var(--unit) * 3)",
+      "description": "Body padding"
+    },
+    {
+      "token": "--ui-dialog-footer-padding",
+      "default": "calc(var(--unit) * 2) calc(var(--unit) * 3)",
+      "description": "Footer padding"
+    },
+    {
+      "token": "--ui-dialog-border-color",
+      "default": "var(--ui-color-border)",
+      "description": "Section border color"
     }
   ]
 }

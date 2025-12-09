@@ -1,0 +1,79 @@
+{
+  "api": "./data-list.api.json",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "html": "<dl class=\"ui-data-list\"><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Name</dt><dd class=\"ui-data-list__value\">John Doe</dd></div><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Email</dt><dd class=\"ui-data-list__value\">john@example.com</dd></div><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Role</dt><dd class=\"ui-data-list__value\">Administrator</dd></div></dl>"
+        }
+      ]
+    },
+    {
+      "title": "Horizontal Layout",
+      "description": "Side-by-side label and value",
+      "examples": [
+        {
+          "html": "<dl class=\"ui-data-list ui-data-list--horizontal\"><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Status</dt><dd class=\"ui-data-list__value\">Active</dd></div><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Created</dt><dd class=\"ui-data-list__value\">Dec 8, 2025</dd></div><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Updated</dt><dd class=\"ui-data-list__value\">Dec 8, 2025</dd></div></dl>"
+        }
+      ]
+    },
+    {
+      "title": "Divided",
+      "description": "With separator lines between items",
+      "examples": [
+        {
+          "html": "<dl class=\"ui-data-list ui-data-list--divided\"><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Order ID</dt><dd class=\"ui-data-list__value\">#12345</dd></div><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Total</dt><dd class=\"ui-data-list__value\">$99.00</dd></div><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Payment</dt><dd class=\"ui-data-list__value\">Credit Card</dd></div></dl>"
+        }
+      ]
+    },
+    {
+      "title": "Striped",
+      "description": "Alternating background for readability",
+      "examples": [
+        {
+          "html": "<dl class=\"ui-data-list ui-data-list--striped\"><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">CPU</dt><dd class=\"ui-data-list__value\">Intel i7</dd></div><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Memory</dt><dd class=\"ui-data-list__value\">16 GB</dd></div><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Storage</dt><dd class=\"ui-data-list__value\">512 GB SSD</dd></div><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Display</dt><dd class=\"ui-data-list__value\">14\" Retina</dd></div></dl>"
+        }
+      ]
+    },
+    {
+      "title": "Sizes",
+      "examples": [
+        {
+          "html": "<dl class=\"ui-data-list ui-data-list--sm\"><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Small</dt><dd class=\"ui-data-list__value\">Compact display</dd></div></dl>",
+          "layout": "stack"
+        },
+        {
+          "html": "<dl class=\"ui-data-list\"><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Default</dt><dd class=\"ui-data-list__value\">Standard display</dd></div></dl>",
+          "layout": "stack"
+        },
+        {
+          "html": "<dl class=\"ui-data-list ui-data-list--lg\"><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Large</dt><dd class=\"ui-data-list__value\">Spacious display</dd></div></dl>",
+          "layout": "stack"
+        }
+      ]
+    }
+  ],
+  "customization": [
+    {
+      "token": "--ui-data-list-gap",
+      "default": "calc(var(--unit) * 2)",
+      "description": "Gap between items"
+    },
+    {
+      "token": "--ui-data-list-item-gap",
+      "default": "var(--unit)",
+      "description": "Gap between label and value"
+    },
+    {
+      "token": "--ui-data-list-label-color",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Label color"
+    },
+    {
+      "token": "--ui-data-list-value-color",
+      "default": "var(--ui-color-text)",
+      "description": "Value color"
+    }
+  ]
+}

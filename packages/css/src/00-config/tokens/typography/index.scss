@@ -1,27 +1,119 @@
 :root {
-  /* Noto Sans first for multilingual consistency, system fonts as fallback */
+  // Font families
   --ui-font-sans: "Noto Sans", system-ui, -apple-system, sans-serif;
   --ui-font-mono: "Noto Sans Mono", ui-monospace, "Cascadia Code", monospace;
 
-  /* Size scale: xs, sm, md, lg, xl, 2xl, 3xl - all derived from --unit */
-  --ui-size-xs: calc(var(--unit) * 1.5); /* 12px */
-  --ui-size-sm: calc(var(--unit) * 1.75); /* 14px */
-  --ui-size-md: calc(var(--unit) * 2); /* 16px */
-  --ui-size-lg: calc(var(--unit) * 2.25); /* 18px */
-  --ui-size-xl: calc(var(--unit) * 2.5); /* 20px */
-  --ui-size-2xl: calc(var(--unit) * 3); /* 24px */
-  --ui-size-3xl: calc(var(--unit) * 4); /* 32px */
+  // ==========================================================================
+  // PRIMITIVE TOKENS - Font Size Scale
+  // Modular scale: 1.2 ratio (Minor Third), base 16px
+  // ==========================================================================
+  --ui-font-size-xs: 0.75rem;
+  --ui-font-size-sm: 0.875rem;
+  --ui-font-size-md: 1rem;
+  --ui-font-size-lg: 1.25rem;
+  --ui-font-size-xl: 1.5rem;
+  --ui-font-size-2xl: 1.75rem;
+  --ui-font-size-3xl: 2rem;
+  --ui-font-size-4xl: 2.5rem;
 
-  /* Line-heights snap to grid */
+  // ==========================================================================
+  // PRIMITIVE TOKENS - Line Heights (8px grid-snap)
+  // Two modes: normal (for body text) and tight (for UI/forms)
+  // ==========================================================================
+
+  // Tight line-heights for compact UI elements
+  --ui-leading-tight-xs: var(--ui-row-1);
+  --ui-leading-tight-sm: var(--ui-row-1);
+  --ui-leading-tight-md: calc(var(--unit) * 3);
+  --ui-leading-tight-lg: calc(var(--unit) * 3);
+
+  // Normal line-heights for readable body text
   --ui-leading-xs: var(--ui-row-1);
-  --ui-leading-sm: var(--ui-row-1);
+  --ui-leading-sm: calc(var(--unit) * 3);
   --ui-leading-md: calc(var(--unit) * 3);
-  --ui-leading-lg: calc(var(--unit) * 3);
+  --ui-leading-lg: var(--ui-row-2);
   --ui-leading-xl: var(--ui-row-2);
   --ui-leading-2xl: var(--ui-row-2);
   --ui-leading-3xl: calc(var(--unit) * 5);
+  --ui-leading-4xl: calc(var(--unit) * 6);
 
+  // ==========================================================================
+  // PRIMITIVE TOKENS - Font Weights
+  // ==========================================================================
   --ui-weight-normal: 400;
   --ui-weight-medium: 500;
+  --ui-weight-semibold: 600;
   --ui-weight-bold: 700;
+
+  // ==========================================================================
+  // PRIMITIVE TOKENS - Letter Spacing
+  // ==========================================================================
+  --ui-tracking-display: -0.02em;
+  --ui-tracking-body: 0;
+  --ui-tracking-caps: 0.08em;
+
+  // ==========================================================================
+  // SEMANTIC TOKENS - Text Roles
+  // ==========================================================================
+
+  // Heading 1
+  --ui-heading-1-size: var(--ui-font-size-4xl);
+  --ui-heading-1-line-height: var(--ui-leading-4xl);
+  --ui-heading-1-weight: var(--ui-weight-bold);
+  --ui-heading-1-tracking: var(--ui-tracking-display);
+
+  // Heading 2
+  --ui-heading-2-size: var(--ui-font-size-3xl);
+  --ui-heading-2-line-height: var(--ui-leading-3xl);
+  --ui-heading-2-weight: var(--ui-weight-bold);
+  --ui-heading-2-tracking: -0.01em;
+
+  // Heading 3
+  --ui-heading-3-size: var(--ui-font-size-2xl);
+  --ui-heading-3-line-height: var(--ui-leading-2xl);
+  --ui-heading-3-weight: var(--ui-weight-semibold);
+  --ui-heading-3-tracking: var(--ui-tracking-body);
+
+  // Heading 4
+  --ui-heading-4-size: var(--ui-font-size-xl);
+  --ui-heading-4-line-height: var(--ui-leading-xl);
+  --ui-heading-4-weight: var(--ui-weight-semibold);
+  --ui-heading-4-tracking: var(--ui-tracking-body);
+
+  // Heading 5
+  --ui-heading-5-size: var(--ui-font-size-lg);
+  --ui-heading-5-line-height: var(--ui-leading-sm);
+  --ui-heading-5-weight: var(--ui-weight-medium);
+  --ui-heading-5-tracking: var(--ui-tracking-body);
+
+  // Body
+  --ui-body-size: var(--ui-font-size-md);
+  --ui-body-line-height: var(--ui-leading-md);
+  --ui-body-weight: var(--ui-weight-normal);
+  --ui-body-tracking: var(--ui-tracking-body);
+
+  // Body Small
+  --ui-body-sm-size: var(--ui-font-size-sm);
+  --ui-body-sm-line-height: var(--ui-leading-sm);
+  --ui-body-sm-weight: var(--ui-weight-normal);
+  --ui-body-sm-tracking: var(--ui-tracking-body);
+
+  // Caption
+  --ui-caption-size: var(--ui-font-size-xs);
+  --ui-caption-line-height: var(--ui-leading-xs);
+  --ui-caption-weight: var(--ui-weight-normal);
+  --ui-caption-tracking: 0.01em;
+
+  // Lead
+  --ui-lead-size: var(--ui-font-size-lg);
+  --ui-lead-line-height: var(--ui-leading-lg);
+  --ui-lead-weight: var(--ui-weight-normal);
+  --ui-lead-tracking: var(--ui-tracking-body);
+
+  // Eyebrow
+  --ui-eyebrow-size: var(--ui-font-size-xs);
+  --ui-eyebrow-line-height: var(--ui-leading-xs);
+  --ui-eyebrow-weight: var(--ui-weight-semibold);
+  --ui-eyebrow-tracking: var(--ui-tracking-caps);
+
 }

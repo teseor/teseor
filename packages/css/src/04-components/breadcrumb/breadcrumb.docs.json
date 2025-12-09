@@ -3,6 +3,7 @@
   "type": "component",
   "title": "Breadcrumb",
   "description": "Navigation hierarchy showing current page location in site structure.",
+  "api": "./breadcrumb.api.json",
   "sections": [
     {
       "title": "Default",
@@ -21,6 +22,38 @@
           "code": "<ol class=\"ui-breadcrumb\">\n  <li class=\"ui-breadcrumb__item\">\n    <a href=\"#\" class=\"ui-breadcrumb__link\">\n      <svg class=\"ui-icon\">...</svg>\n    </a>\n  </li>\n  ...\n</ol>"
         }
       ]
+    }
+  ],
+  "customization": [
+    {
+      "token": "--ui-breadcrumb-height",
+      "default": "var(--ui-row-1)",
+      "description": "Container height"
+    },
+    {
+      "token": "--ui-breadcrumb-gap",
+      "default": "var(--unit)",
+      "description": "Gap between items"
+    },
+    {
+      "token": "--ui-breadcrumb-separator",
+      "default": "\"/\"",
+      "description": "Separator character"
+    },
+    {
+      "token": "--ui-breadcrumb-separator-color",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Separator color"
+    },
+    {
+      "token": "--ui-breadcrumb-link-color",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Link color"
+    },
+    {
+      "token": "--ui-breadcrumb-current-color",
+      "default": "var(--ui-color-text)",
+      "description": "Current page color"
     }
   ]
 }

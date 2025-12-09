@@ -1,24 +1,30 @@
 {
   "name": "divider",
-  "baseClass": "divider",
   "element": "div",
-  "description": "Visual separator between content sections with optional label",
   "modifiers": {
-    "orientation": {
-      "values": ["vertical"],
-      "default": null,
-      "description": "Orientation. Default is horizontal."
+    "vertical": {
+      "type": "boolean"
     },
-    "align": {
-      "values": ["start", "end"],
-      "default": null,
-      "description": "Label position. Default is center."
-    },
-    "style": {
-      "values": ["dashed"],
-      "default": null,
-      "description": "Line style variant."
+    "dashed": {
+      "type": "boolean"
     }
   },
-  "states": []
+  "cssVars": [
+    {
+      "name": "--ui-divider-color",
+      "default": "var(--ui-color-border)"
+    },
+    {
+      "name": "--ui-divider-line-size",
+      "default": "1px"
+    },
+    {
+      "name": "--ui-divider-height",
+      "default": "#{t.$unit}"
+    },
+    {
+      "name": "--ui-divider-gap",
+      "default": "calc(#{t.$unit} * 2"
+    }
+  ]
 }

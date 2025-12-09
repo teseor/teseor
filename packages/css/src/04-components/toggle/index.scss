@@ -1,7 +1,7 @@
 @use '../../00-config/tokens/variables' as t;
 
-// Toggle - switch control for boolean states
-// Styled checkbox with switch appearance
+// @component toggle
+// @element div
 
 @layer components.tokens {
   .toggle {
@@ -15,6 +15,7 @@
     --_thumb-offset: var(--ui-toggle-thumb-offset, calc(#{t.$unit} / 4));
   }
 
+  // @modifier size
   .toggle--sm {
     --_track-width: calc(#{t.$unit} * 4);
     --_track-height: calc(#{t.$unit} * 2);
@@ -51,6 +52,11 @@
   // Hidden checkbox input
   .toggle__input {
     position: absolute;
+    inset: 0;
+
+    block-size: 100%;
+    inline-size: 100%;
+    margin: 0;
 
     opacity: 0;
     cursor: pointer;

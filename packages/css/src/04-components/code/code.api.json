@@ -1,26 +1,47 @@
 {
   "name": "code",
-  "baseClass": "code",
-  "element": "code",
-  "description": "Inline code with monospace font and subtle background. Use .code-block for multi-line code.",
-  "modifiers": {
-    "sm": {
-      "type": "boolean",
-      "description": "Smaller font size for use in tables."
+  "element": "div",
+  "modifiers": {},
+  "cssVars": [
+    {
+      "name": "--ui-code-font-size",
+      "default": "var(--ui-font-size-sm)"
+    },
+    {
+      "name": "--ui-code-bg",
+      "default": "var(--ui-color-bg-muted)"
+    },
+    {
+      "name": "--ui-code-padding-x",
+      "default": "var(--ui-space-1)"
+    },
+    {
+      "name": "--ui-code-padding-y",
+      "default": "var(--ui-space-0)"
+    },
+    {
+      "name": "--ui-code-radius",
+      "default": "var(--ui-radius-sm)"
+    },
+    {
+      "name": "--ui-code-font-size-block",
+      "default": "var(--ui-font-size-sm)"
+    },
+    {
+      "name": "--ui-code-bg-block",
+      "default": "var(--ui-color-bg-muted)"
+    },
+    {
+      "name": "--ui-code-padding-block",
+      "default": "var(--ui-space-3)"
+    },
+    {
+      "name": "--ui-code-radius-block",
+      "default": "var(--ui-radius-md)"
+    },
+    {
+      "name": "--ui-code-border-color-block",
+      "default": "var(--ui-color-border)"
     }
-  },
-  "vars": {
-    "base": {
-      "font-size": "--size-sm",
-      "bg": "--color-bg-muted",
-      "padding-x": "--space-1",
-      "padding-y": "--space-0",
-      "radius": "--radius-sm",
-      "font-size-block": "--size-sm",
-      "bg-block": "--color-bg-muted",
-      "padding-block": "--space-3",
-      "radius-block": "--radius-md",
-      "border-color-block": "--color-border"
-    }
-  }
+  ]
 }

@@ -1,93 +1,27 @@
 {
   "api": "./button.api.json",
+  "description": "Buttons trigger actions. Use primary for main CTA, secondary for less important actions.",
+  "modifiers": {
+    "size": {
+      "usage": "Default is 32px (2 rows). Use small for dense UIs, large for prominent CTAs."
+    },
+    "variant": {
+      "usage": "Primary for main actions. Secondary for less important. Outline for subtle. Ghost for toolbar. Danger for destructive. Link for inline."
+    },
+    "icon": {
+      "usage": "Square icon-only buttons. Always add aria-label for accessibility."
+    },
+    "radius": {
+      "usage": "Override border radius. Use radius-full for pill-shaped buttons."
+    },
+    "block": {
+      "usage": "Full width button. Use for mobile or form submit."
+    },
+    "loading": {
+      "usage": "Shows spinner animation. Button becomes non-interactive."
+    }
+  },
   "sections": [
-    {
-      "title": "Default",
-      "examples": [
-        {
-          "items": [{ "tag": "button", "class": "ui-button", "text": "Primary Button" }],
-          "code": "<button class=\"ui-button\">Primary Button</button>"
-        }
-      ]
-    },
-    {
-      "title": "Sizes",
-      "data": {
-        "sizes": [
-          { "mod": "sm", "label": "Small (24px)" },
-          { "mod": "", "label": "Default (32px)" },
-          { "mod": "lg", "label": "Large (40px)" }
-        ]
-      },
-      "examples": [
-        {
-          "layout": "cluster",
-          "items": [
-            { "tag": "button", "class": "ui-button ui-button--sm", "text": "Small (24px)" },
-            { "tag": "button", "class": "ui-button", "text": "Default (32px)" },
-            { "tag": "button", "class": "ui-button ui-button--lg", "text": "Large (40px)" }
-          ],
-          "code": "{% for s in sizes %}<button class=\"ui-button{% if s.mod %} ui-button--{{ s.mod }}{% endif %}\">{{ s.label }}</button>\n{% endfor %}"
-        }
-      ]
-    },
-    {
-      "title": "Variants",
-      "data": {
-        "variants": [
-          { "mod": "", "label": "Primary" },
-          { "mod": "secondary", "label": "Secondary" },
-          { "mod": "outline", "label": "Outline" },
-          { "mod": "ghost", "label": "Ghost" },
-          { "mod": "danger", "label": "Danger" },
-          { "mod": "link", "label": "Link" }
-        ]
-      },
-      "examples": [
-        {
-          "layout": "cluster",
-          "items": [
-            { "tag": "button", "class": "ui-button", "text": "Primary" },
-            { "tag": "button", "class": "ui-button ui-button--secondary", "text": "Secondary" },
-            { "tag": "button", "class": "ui-button ui-button--outline", "text": "Outline" },
-            { "tag": "button", "class": "ui-button ui-button--ghost", "text": "Ghost" },
-            { "tag": "button", "class": "ui-button ui-button--danger", "text": "Danger" },
-            { "tag": "button", "class": "ui-button ui-button--link", "text": "Link" }
-          ],
-          "code": "{% for v in variants %}<button class=\"ui-button{% if v.mod %} ui-button--{{ v.mod }}{% endif %}\">{{ v.label }}</button>\n{% endfor %}"
-        }
-      ]
-    },
-    {
-      "title": "States",
-      "examples": [
-        {
-          "layout": "cluster",
-          "items": [
-            { "tag": "button", "class": "ui-button", "text": "Normal" },
-            {
-              "tag": "button",
-              "class": "ui-button",
-              "text": "Disabled",
-              "attrs": { "disabled": "" }
-            },
-            { "tag": "button", "class": "ui-button ui-button--loading", "text": "Loading" }
-          ],
-          "code": "<button class=\"ui-button\">Normal</button>\n<button class=\"ui-button\" disabled>Disabled</button>\n<button class=\"ui-button ui-button--loading\">Loading</button>"
-        }
-      ]
-    },
-    {
-      "title": "Full Width",
-      "examples": [
-        {
-          "items": [
-            { "tag": "button", "class": "ui-button ui-button--block", "text": "Full Width Button" }
-          ],
-          "code": "<button class=\"ui-button ui-button--block\">Full Width</button>"
-        }
-      ]
-    },
     {
       "title": "Icon Button",
       "description": "Square icon-only buttons. Use with SVG icons from Lucide or similar sets.",
@@ -116,42 +50,6 @@
       ]
     },
     {
-      "title": "Icon Button Variants",
-      "examples": [
-        {
-          "layout": "cluster",
-          "items": [
-            {
-              "tag": "button",
-              "class": "ui-button ui-button--icon",
-              "html": "<svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/><polyline points=\"9 22 9 12 15 12 15 22\"/></svg>"
-            },
-            {
-              "tag": "button",
-              "class": "ui-button ui-button--icon ui-button--secondary",
-              "html": "<svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/><polyline points=\"9 22 9 12 15 12 15 22\"/></svg>"
-            },
-            {
-              "tag": "button",
-              "class": "ui-button ui-button--icon ui-button--outline",
-              "html": "<svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/><polyline points=\"9 22 9 12 15 12 15 22\"/></svg>"
-            },
-            {
-              "tag": "button",
-              "class": "ui-button ui-button--icon ui-button--ghost",
-              "html": "<svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/><polyline points=\"9 22 9 12 15 12 15 22\"/></svg>"
-            },
-            {
-              "tag": "button",
-              "class": "ui-button ui-button--icon ui-button--danger",
-              "html": "<svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M3 6h18\"/><path d=\"M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6\"/><path d=\"M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2\"/></svg>"
-            }
-          ],
-          "code": "<button class=\"ui-button ui-button--icon\">...</button>\n<button class=\"ui-button ui-button--icon ui-button--secondary\">...</button>\n<button class=\"ui-button ui-button--icon ui-button--outline\">...</button>\n<button class=\"ui-button ui-button--icon ui-button--ghost\">...</button>\n<button class=\"ui-button ui-button--icon ui-button--danger\">...</button>"
-        }
-      ]
-    },
-    {
       "title": "With Icon",
       "description": "Buttons with icon and text. Use ui-button__icon element with --start or --end modifier.",
       "examples": [
@@ -170,31 +68,6 @@
             }
           ],
           "code": "<button class=\"ui-button\">\n  <svg class=\"ui-icon ui-button__icon ui-button__icon--start\"><!-- plus --></svg>\n  Add Item\n</button>\n<button class=\"ui-button ui-button--secondary\">\n  Next\n  <svg class=\"ui-icon ui-button__icon ui-button__icon--end\"><!-- chevron-right --></svg>\n</button>"
-        }
-      ]
-    },
-    {
-      "title": "Radius",
-      "data": {
-        "radii": [
-          { "mod": "radius-none", "label": "None" },
-          { "mod": "radius-sm", "label": "Small" },
-          { "mod": "", "label": "Default" },
-          { "mod": "radius-lg", "label": "Large" },
-          { "mod": "radius-full", "label": "Pill" }
-        ]
-      },
-      "examples": [
-        {
-          "layout": "cluster",
-          "items": [
-            { "tag": "button", "class": "ui-button ui-button--radius-none", "text": "None" },
-            { "tag": "button", "class": "ui-button ui-button--radius-sm", "text": "Small" },
-            { "tag": "button", "class": "ui-button", "text": "Default" },
-            { "tag": "button", "class": "ui-button ui-button--radius-lg", "text": "Large" },
-            { "tag": "button", "class": "ui-button ui-button--radius-full", "text": "Pill" }
-          ],
-          "code": "{% for r in radii %}<button class=\"ui-button{% if r.mod %} ui-button--{{ r.mod }}{% endif %}\">{{ r.label }}</button>\n{% endfor %}"
         }
       ]
     }

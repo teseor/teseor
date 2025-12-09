@@ -1,13 +1,13 @@
 @use '../../00-config/tokens/variables' as t;
 
-// Input component - text input field
-// Heights align to grid rows
+// @component input
+// @element input
 
 @layer components.tokens {
   .input {
     --_height: var(--ui-input-height, var(--ui-row-2, #{t.$row-2}));
     --_padding-x: var(--ui-input-padding-x, var(--ui-space-1, #{t.$space-1}));
-    --_font-size: var(--ui-input-font-size, var(--ui-size-sm, #{t.$size-sm}));
+    --_font-size: var(--ui-input-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     --_radius: var(--ui-input-radius, var(--ui-radius-md, #{t.$radius-md}));
     --_bg: var(--ui-input-bg, var(--ui-color-bg, #{t.$color-bg}));
     --_border-color: var(--ui-input-border-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
@@ -16,19 +16,19 @@
     --_placeholder: var(--ui-input-placeholder, var(--ui-color-text-muted, #{t.$color-text-muted}));
   }
 
-  // Size variants
+  // @modifier size
   .input--sm {
     --_height: var(--ui-input-height-sm, calc(#{t.$row} * 1.5));
-    --_font-size: var(--ui-input-font-size-sm, var(--ui-size-xs, #{t.$size-xs}));
+    --_font-size: var(--ui-input-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
   }
 
   .input--lg {
     --_height: var(--ui-input-height-lg, calc(#{t.$row} * 2.5));
     --_padding-x: var(--ui-input-padding-x-lg, var(--ui-space-2, #{t.$space-2}));
-    --_font-size: var(--ui-input-font-size-lg, var(--ui-size-md, #{t.$size-md}));
+    --_font-size: var(--ui-input-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
   }
 
-  // Style variants
+  // @modifier variant
   .input--filled {
     --_bg: var(--ui-input-filled-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
     --_border-color: transparent;
@@ -39,7 +39,7 @@
     --_border-color: transparent;
   }
 
-  // State variants
+  // @modifier state
   .input--error {
     --_border-color: var(--ui-input-error-border, var(--ui-color-danger, #{t.$color-danger}));
     --_border-color-focus: var(--ui-input-error-border, var(--ui-color-danger, #{t.$color-danger}));

@@ -3,7 +3,7 @@
 @layer base {
   .root {
     font-family: var(--ui-font-sans, #{t.$font-sans});
-    font-size: var(--ui-size-md, #{t.$size-md});
+    font-size: var(--ui-font-size-md, #{t.$font-size-md});
     line-height: var(--ui-leading-md, calc(#{t.$unit} * 3));
     color: var(--ui-color-text, #{t.$color-text});
 

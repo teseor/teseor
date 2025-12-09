@@ -1,19 +1,23 @@
 {
   "name": "progress",
-  "baseClass": "progress",
   "element": "div",
-  "description": "Progress bar indicator showing completion status",
-  "modifiers": {
-    "size": {
-      "values": ["sm", "lg"],
-      "default": null,
-      "description": "Size variant"
+  "modifiers": {},
+  "cssVars": [
+    {
+      "name": "--ui-progress-height",
+      "default": "calc(#{t.$unit} * 1"
     },
-    "variant": {
-      "values": ["success", "warning", "danger", "striped", "animated", "indeterminate"],
-      "default": null,
-      "description": "Visual and behavior variants"
+    {
+      "name": "--ui-progress-bg",
+      "default": "var(--ui-color-bg-subtle)"
+    },
+    {
+      "name": "--ui-progress-fill",
+      "default": "var(--ui-color-primary)"
+    },
+    {
+      "name": "--ui-progress-radius",
+      "default": "var(--ui-radius-full)"
     }
-  },
-  "states": []
+  ]
 }

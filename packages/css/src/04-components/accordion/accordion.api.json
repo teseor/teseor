@@ -1,14 +1,19 @@
 {
   "name": "accordion",
-  "baseClass": "accordion",
   "element": "div",
-  "description": "Container for grouped expandable disclosure sections",
-  "modifiers": {
-    "variant": {
-      "values": ["borderless", "separated"],
-      "default": null,
-      "description": "Visual variants. Borderless removes outer border, separated adds gap between items."
+  "modifiers": {},
+  "cssVars": [
+    {
+      "name": "--ui-accordion-border-color",
+      "default": "var(--ui-color-border)"
+    },
+    {
+      "name": "--ui-accordion-border-width",
+      "default": "1px"
+    },
+    {
+      "name": "--ui-accordion-radius",
+      "default": "var(--ui-radius-md)"
     }
-  },
-  "states": []
+  ]
 }

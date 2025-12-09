@@ -2,82 +2,165 @@
   "id": "colors",
   "type": "token",
   "title": "Colors",
-  "description": "HSL-based colors derived from hue tokens.",
+  "description": "HSL-based color system with primitive and semantic tokens. Semantic tokens adapt to light/dark themes.",
+  "skipValidation": true,
   "sections": [
     {
+      "title": "Text Colors",
+      "description": "Use for typography and icons.",
+      "examples": [
+        {
+          "layout": "stack",
+          "items": [
+            {
+              "tag": "p",
+              "style": { "color": "var(--ui-color-text)" },
+              "text": "--ui-color-text: Default text"
+            },
+            {
+              "tag": "p",
+              "style": { "color": "var(--ui-color-text-muted)" },
+              "text": "--ui-color-text-muted: Secondary text, captions"
+            },
+            {
+              "tag": "p",
+              "class": "ui-p-1",
+              "style": {
+                "color": "var(--ui-color-text-inverse)",
+                "background": "var(--ui-color-neutral-900)",
+                "border-radius": "var(--ui-radius-sm)"
+              },
+              "text": "--ui-color-text-inverse: Text on dark backgrounds"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Background Colors",
+      "description": "Use for surfaces, cards, and containers.",
       "examples": [
         {
           "layout": "stack",
           "items": [
             {
               "tag": "div",
-              "class": "ui-cluster ui-cluster--sm",
-              "children": [
-                {
-                  "tag": "div",
-                  "style": {
-                    "width": "var(--ui-space-8)",
-                    "height": "var(--ui-row-2)",
-                    "background": "var(--ui-color-primary)",
-                    "border-radius": "var(--ui-radius-sm)"
-                  }
-                },
-                {
-                  "tag": "div",
-                  "style": {
-                    "width": "var(--ui-space-8)",
-                    "height": "var(--ui-row-2)",
-                    "background": "var(--ui-color-primary-light)",
-                    "border-radius": "var(--ui-radius-sm)"
-                  }
-                },
-                {
-                  "tag": "div",
-                  "style": {
-                    "width": "var(--ui-space-8)",
-                    "height": "var(--ui-row-2)",
-                    "background": "var(--ui-color-primary-dark)",
-                    "border-radius": "var(--ui-radius-sm)"
-                  }
-                },
-                { "tag": "span", "text": "Primary" }
-              ]
+              "class": "ui-p-2",
+              "style": {
+                "background": "var(--ui-color-bg)",
+                "border": "1px solid var(--ui-color-border)",
+                "border-radius": "var(--ui-radius-md)"
+              },
+              "text": "--ui-color-bg: Base background"
             },
             {
               "tag": "div",
-              "class": "ui-cluster ui-cluster--sm",
-              "children": [
-                {
-                  "tag": "div",
-                  "style": {
-                    "width": "var(--ui-space-8)",
-                    "height": "var(--ui-row-2)",
-                    "background": "var(--ui-color-success)",
-                    "border-radius": "var(--ui-radius-sm)"
-                  }
-                },
-                {
-                  "tag": "div",
-                  "style": {
-                    "width": "var(--ui-space-8)",
-                    "height": "var(--ui-row-2)",
-                    "background": "var(--ui-color-warning)",
-                    "border-radius": "var(--ui-radius-sm)"
-                  }
-                },
-                {
-                  "tag": "div",
-                  "style": {
-                    "width": "var(--ui-space-8)",
-                    "height": "var(--ui-row-2)",
-                    "background": "var(--ui-color-danger)",
-                    "border-radius": "var(--ui-radius-sm)"
-                  }
-                },
-                { "tag": "span", "text": "Status" }
-              ]
+              "class": "ui-p-2",
+              "style": {
+                "background": "var(--ui-color-bg-subtle)",
+                "border-radius": "var(--ui-radius-md)"
+              },
+              "text": "--ui-color-bg-subtle: Subtle emphasis"
+            },
+            {
+              "tag": "div",
+              "class": "ui-p-2",
+              "style": {
+                "background": "var(--ui-color-bg-muted)",
+                "border-radius": "var(--ui-radius-md)"
+              },
+              "text": "--ui-color-bg-muted: Stronger emphasis, code blocks"
             }
           ]
+        }
+      ]
+    },
+    {
+      "title": "Border Colors",
+      "description": "Use for dividers, inputs, and card borders.",
+      "examples": [
+        {
+          "layout": "stack",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-p-2",
+              "style": {
+                "border": "2px solid var(--ui-color-border)",
+                "border-radius": "var(--ui-radius-md)"
+              },
+              "text": "--ui-color-border: Default borders"
+            },
+            {
+              "tag": "div",
+              "class": "ui-p-2",
+              "style": {
+                "border": "2px solid var(--ui-color-border-strong)",
+                "border-radius": "var(--ui-radius-md)"
+              },
+              "text": "--ui-color-border-strong: Emphasized borders"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Interactive Colors",
+      "description": "Use for links, buttons, and interactive elements.",
+      "examples": [
+        {
+          "layout": "stack",
+          "items": [
+            {
+              "tag": "p",
+              "style": { "color": "var(--ui-color-interactive)" },
+              "text": "--ui-color-interactive: Links, primary actions"
+            },
+            {
+              "tag": "p",
+              "style": { "color": "var(--ui-color-interactive-hover)" },
+              "text": "--ui-color-interactive-hover: Hover state"
+            },
+            {
+              "tag": "div",
+              "class": "ui-p-1",
+              "style": {
+                "display": "inline-block",
+                "outline": "3px solid var(--ui-color-focus)",
+                "outline-offset": "2px",
+                "border-radius": "var(--ui-radius-sm)"
+              },
+              "text": "--ui-color-focus: Focus rings"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Status Colors",
+      "description": "Use for feedback, alerts, and validation.",
+      "examples": [
+        {
+          "html": "<div class=\"ui-cluster ui-cluster--sm\"><div style=\"width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-success); border-radius: var(--ui-radius-sm)\"></div><span>--ui-color-success</span></div><div class=\"ui-cluster ui-cluster--sm\"><div style=\"width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-warning); border-radius: var(--ui-radius-sm)\"></div><span>--ui-color-warning</span></div><div class=\"ui-cluster ui-cluster--sm\"><div style=\"width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-danger); border-radius: var(--ui-radius-sm)\"></div><span>--ui-color-danger</span></div>"
+        }
+      ]
+    },
+    {
+      "title": "Primary Scale",
+      "description": "Brand color with light and dark variants.",
+      "examples": [
+        {
+          "html": "<div class=\"ui-cluster ui-cluster--sm\"><div style=\"width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-primary-light); border-radius: var(--ui-radius-sm)\"></div><span>--ui-color-primary-light</span></div><div class=\"ui-cluster ui-cluster--sm\"><div style=\"width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-primary); border-radius: var(--ui-radius-sm)\"></div><span>--ui-color-primary</span></div><div class=\"ui-cluster ui-cluster--sm\"><div style=\"width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-primary-dark); border-radius: var(--ui-radius-sm)\"></div><span>--ui-color-primary-dark</span></div>"
+        }
+      ]
+    },
+    {
+      "title": "Neutral Scale",
+      "description": "Gray scale for text, backgrounds, and borders. Derived from primary hue for subtle warmth.",
+      "examples": [
+        {
+          "html": "<div class=\"ui-cluster ui-cluster--sm\" style=\"flex-wrap: wrap\"><div style=\"width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-neutral-50); border: 1px solid var(--ui-color-border); border-radius: var(--ui-radius-sm)\"></div><div style=\"width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-neutral-100); border-radius: var(--ui-radius-sm)\"></div><div style=\"width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-neutral-200); border-radius: var(--ui-radius-sm)\"></div><div style=\"width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-neutral-300); border-radius: var(--ui-radius-sm)\"></div><div style=\"width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-neutral-400); border-radius: var(--ui-radius-sm)\"></div><div style=\"width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-neutral-500); border-radius: var(--ui-radius-sm)\"></div><div style=\"width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-neutral-600); border-radius: var(--ui-radius-sm)\"></div><div style=\"width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-neutral-700); border-radius: var(--ui-radius-sm)\"></div><div style=\"width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-neutral-800); border-radius: var(--ui-radius-sm)\"></div><div style=\"width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-neutral-900); border-radius: var(--ui-radius-sm)\"></div></div>",
+          "code": "50 → 100 → 200 → 300 → 400 → 500 → 600 → 700 → 800 → 900"
         }
       ]
     }

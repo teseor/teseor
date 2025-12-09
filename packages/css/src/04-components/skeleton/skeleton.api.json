@@ -1,19 +1,19 @@
 {
   "name": "skeleton",
-  "baseClass": "skeleton",
   "element": "div",
-  "description": "Loading placeholder with shimmer animation",
-  "modifiers": {
-    "shape": {
-      "values": ["text", "heading", "circle", "rect"],
-      "default": null,
-      "description": "Preset shapes for common use cases"
+  "modifiers": {},
+  "cssVars": [
+    {
+      "name": "--ui-skeleton-bg",
+      "default": "var(--ui-color-bg-subtle)"
     },
-    "animation": {
-      "values": ["static", "pulse"],
-      "default": null,
-      "description": "Animation variants. Default is shimmer, pulse for fade effect."
+    {
+      "name": "--ui-skeleton-shimmer",
+      "default": "rgb(255 255 255 / 0.5"
+    },
+    {
+      "name": "--ui-skeleton-radius",
+      "default": "var(--ui-radius-sm)"
     }
-  },
-  "states": []
+  ]
 }

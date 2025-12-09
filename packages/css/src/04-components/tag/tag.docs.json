@@ -3,6 +3,7 @@
   "type": "component",
   "title": "Tag",
   "description": "Keyword labels for categorization. Use for filtering, attributes, or status indicators.",
+  "api": "./tag.api.json",
   "sections": [
     {
       "title": "Default",
@@ -65,5 +66,43 @@
         }
       ]
     }
+  ],
+  "customization": [
+    {
+      "token": "--ui-tag-height",
+      "default": "calc(var(--unit) * 3)",
+      "description": "Default height"
+    },
+    {
+      "token": "--ui-tag-height-sm",
+      "default": "calc(var(--unit) * 2.5)",
+      "description": "Small height"
+    },
+    {
+      "token": "--ui-tag-padding-x",
+      "default": "var(--ui-space-1)",
+      "description": "Horizontal padding"
+    },
+    {
+      "token": "--ui-tag-gap",
+      "default": "calc(var(--unit) * 0.5)",
+      "description": "Gap between content and remove button"
+    },
+    {
+      "token": "--ui-tag-radius",
+      "default": "var(--ui-radius-full)",
+      "description": "Border radius"
+    },
+    {
+      "token": "--ui-tag-font-size",
+      "default": "var(--ui-font-size-sm)",
+      "description": "Font size"
+    },
+    {
+      "token": "--ui-tag-bg",
+      "default": "var(--ui-color-bg-muted)",
+      "description": "Background color"
+    },
+    { "token": "--ui-tag-color", "default": "var(--ui-color-text)", "description": "Text color" }
   ]
 }

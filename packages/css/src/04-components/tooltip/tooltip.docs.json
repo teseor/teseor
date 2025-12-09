@@ -3,10 +3,12 @@
   "type": "component",
   "title": "Tooltip",
   "description": "Small informational popup for additional context. Position via JS.",
+  "api": "./tooltip.api.json",
   "sections": [
     {
       "title": "Positions",
       "description": "Arrow indicates where tooltip is relative to trigger",
+      "api": "./tooltip.api.json",
       "examples": [
         {
           "html": "<div style=\"display: flex; gap: var(--ui-space-4); padding: var(--ui-space-4);\"><div style=\"position: relative;\"><span class=\"ui-tooltip ui-tooltip--top\" style=\"position: relative;\">Top tooltip</span></div><div style=\"position: relative;\"><span class=\"ui-tooltip ui-tooltip--bottom\" style=\"position: relative;\">Bottom tooltip</span></div></div>",
@@ -23,5 +25,39 @@
         }
       ]
     }
+  ],
+  "customization": [
+    {
+      "token": "--ui-tooltip-bg",
+      "default": "var(--ui-color-text)",
+      "description": "Background color"
+    },
+    { "token": "--ui-tooltip-color", "default": "var(--ui-color-bg)", "description": "Text color" },
+    {
+      "token": "--ui-tooltip-radius",
+      "default": "var(--ui-radius-sm)",
+      "description": "Border radius"
+    },
+    {
+      "token": "--ui-tooltip-padding-x",
+      "default": "calc(var(--unit) * 1)",
+      "description": "Horizontal padding"
+    },
+    {
+      "token": "--ui-tooltip-padding-y",
+      "default": "calc(var(--unit) / 2)",
+      "description": "Vertical padding"
+    },
+    {
+      "token": "--ui-tooltip-size",
+      "default": "var(--ui-font-size-sm)",
+      "description": "Font size"
+    },
+    {
+      "token": "--ui-tooltip-arrow-size",
+      "default": "calc(var(--unit) / 2)",
+      "description": "Arrow size"
+    },
+    { "token": "--ui-tooltip-z", "default": "var(--ui-z-tooltip)", "description": "Z-index" }
   ]
 }

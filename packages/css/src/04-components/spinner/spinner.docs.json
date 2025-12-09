@@ -3,6 +3,7 @@
   "type": "component",
   "title": "Spinner",
   "description": "Loading indicator with pure CSS animation. Inherits color from parent.",
+  "api": "./spinner.api.json",
   "sections": [
     {
       "title": "Default",
@@ -48,5 +49,40 @@
         }
       ]
     }
+  ],
+  "customization": [
+    {
+      "token": "--ui-spinner-size",
+      "default": "calc(var(--unit) * 4)",
+      "description": "Default size"
+    },
+    {
+      "token": "--ui-spinner-size-xs",
+      "default": "calc(var(--unit) * 2)",
+      "description": "Extra small size"
+    },
+    {
+      "token": "--ui-spinner-size-sm",
+      "default": "calc(var(--unit) * 3)",
+      "description": "Small size"
+    },
+    {
+      "token": "--ui-spinner-size-lg",
+      "default": "calc(var(--unit) * 5)",
+      "description": "Large size"
+    },
+    {
+      "token": "--ui-spinner-size-xl",
+      "default": "calc(var(--unit) * 6)",
+      "description": "Extra large size"
+    },
+    {
+      "token": "--ui-spinner-border-width",
+      "default": "var(--ui-border-width-md)",
+      "description": "Border width"
+    },
+    { "token": "--ui-spinner-color", "default": "currentcolor", "description": "Spinner color" },
+    { "token": "--ui-spinner-track-color", "default": "transparent", "description": "Track color" },
+    { "token": "--ui-spinner-duration", "default": "750ms", "description": "Animation duration" }
   ]
 }

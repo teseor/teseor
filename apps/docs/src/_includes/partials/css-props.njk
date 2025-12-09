@@ -1,0 +1,39 @@
+{#
+  Renders CSS props table from API (grouped by modifier type)
+  Parameters:
+    - api: Component API definition { name, modifiers }
+#}
+{% if api and api.name %}
+<h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-{{ api.name }}</code></td><td>Base class</td></tr></tbody>
+</table>
+
+{% if api.modifiers %}
+  {% for groupName, def in api.modifiers %}
+    {% set heading = groupName | capitalize %}
+
+    {% if def.values %}
+      {# Array modifiers: size, variant #}
+      <h4>{{ heading }}</h4>
+      {% if def.description %}<p>{{ def.description }}</p>{% endif %}
+      <table class="ui-table ui-table--compact">
+        <thead><tr><th>Class</th><th>Value</th></tr></thead>
+        <tbody>
+          {% for val in def.values %}
+          <tr><td><code>.ui-{{ api.name }}--{{ val }}</code></td><td>{{ val }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% elif def.type == 'boolean' %}
+      {# Boolean modifiers: loading, disabled #}
+      <h4>{{ heading }}</h4>
+      <table class="ui-table ui-table--compact">
+        <thead><tr><th>Class</th><th>Description</th></tr></thead>
+        <tbody><tr><td><code>.ui-{{ api.name }}--{{ groupName }}</code></td><td>{{ def.description or groupName }}</td></tr></tbody>
+      </table>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+{% endif %}

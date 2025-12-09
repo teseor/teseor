@@ -3,6 +3,7 @@
   "type": "utility",
   "title": "Visually Hidden",
   "description": "Hides content visually while keeping it accessible to screen readers. Use for skip links and accessible labels.",
+  "api": "visually-hidden.api.json",
   "sections": [
     {
       "title": "Default",

@@ -3,6 +3,7 @@
   "type": "component",
   "title": "Skeleton",
   "description": "Loading placeholder with shimmer animation for content loading states.",
+  "api": "./skeleton.api.json",
   "sections": [
     {
       "title": "Text Lines",
@@ -39,6 +40,23 @@
           "code": "<div class=\"ui-skeleton ui-skeleton--text ui-skeleton--pulse\"></div>"
         }
       ]
+    }
+  ],
+  "customization": [
+    {
+      "token": "--ui-skeleton-bg",
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Background color"
+    },
+    {
+      "token": "--ui-skeleton-shimmer",
+      "default": "rgb(255 255 255 / 0.5)",
+      "description": "Shimmer highlight color"
+    },
+    {
+      "token": "--ui-skeleton-radius",
+      "default": "var(--ui-radius-sm)",
+      "description": "Border radius"
     }
   ]
 }

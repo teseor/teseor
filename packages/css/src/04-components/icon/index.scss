@@ -1,7 +1,7 @@
 @use '../../00-config/tokens/variables' as t;
 
-// Icon component - SVG icon sizing and styling
-// Works with any SVG icon set (Lucide, Heroicons, etc.)
+// @component icon
+// @element svg
 
 @layer components.tokens {
   .icon {
@@ -9,6 +9,7 @@
     --_stroke: var(--ui-icon-stroke, 2);
   }
 
+  // @modifier size
   .icon--xs {
     --_size: var(--ui-icon-size-xs, calc(#{t.$unit} * 2));
   }
@@ -29,7 +30,7 @@
     --_size: var(--ui-icon-size-xl, calc(#{t.$unit} * 6));
   }
 
-  // Stroke width variants (for stroke-based icons like Lucide)
+  // @modifier stroke
   .icon--stroke-thin {
     --_stroke: var(--ui-icon-stroke-thin, 1);
   }
@@ -37,6 +38,9 @@
   .icon--stroke-thick {
     --_stroke: var(--ui-icon-stroke-thick, 2.5);
   }
+
+  // @modifier boolean filled
+  // @modifier boolean spin
 }
 
 @layer components.styles {

@@ -1,0 +1,8 @@
+{
+  "name": "visually-hidden",
+  "element": "span",
+  "modifiers": {
+    "focusable": { "type": "boolean" }
+  },
+  "cssVars": []
+}

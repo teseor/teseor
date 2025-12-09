@@ -5,6 +5,17 @@
 
 export type DocType = 'token' | 'primitive' | 'component' | 'utility';
 
+export type ComponentGroup =
+  | 'actions'
+  | 'typography'
+  | 'forms'
+  | 'data-display'
+  | 'feedback'
+  | 'overlays'
+  | 'disclosure'
+  | 'navigation'
+  | 'layout';
+
 export interface ExampleItem {
   /** HTML tag name */
   tag: string;
@@ -42,6 +53,15 @@ export interface Section {
   examples: Example[];
 }
 
+export interface CustomizationToken {
+  /** CSS custom property name (e.g., "--ui-button-height") */
+  token: string;
+  /** Default value (e.g., "var(--ui-row-2)") */
+  default: string;
+  /** Description of what this token controls */
+  description: string;
+}
+
 /**
  * Component documentation - can inherit from API or define directly
  */
@@ -52,12 +72,16 @@ export interface ComponentDoc {
   id?: string;
   /** Documentation type (optional if api provided, defaults to 'component') */
   type?: DocType;
+  /** Component group for navigation hierarchy (only for type='component') */
+  group?: ComponentGroup;
   /** Display title (optional if api provided) */
   title?: string;
   /** Component description (optional if api provided) */
   description?: string;
   /** Documentation sections */
   sections: Section[];
+  /** CSS custom properties for customization */
+  customization?: CustomizationToken[];
 }
 
 /**
@@ -66,7 +90,9 @@ export interface ComponentDoc {
 export interface ResolvedComponentDoc {
   id: string;
   type: DocType;
+  group?: ComponentGroup;
   title: string;
   description: string;
   sections: Section[];
+  customization?: CustomizationToken[];
 }

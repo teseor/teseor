@@ -3,6 +3,7 @@
   "type": "token",
   "title": "Grid System",
   "description": "All spacing and heights align to the 8px grid.",
+  "skipValidation": true,
   "sections": [
     {
       "examples": [

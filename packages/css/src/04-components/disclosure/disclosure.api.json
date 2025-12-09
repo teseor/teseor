@@ -1,14 +1,31 @@
 {
   "name": "disclosure",
-  "baseClass": "disclosure",
-  "element": "details",
-  "description": "Expandable/collapsible content section using native details/summary",
-  "modifiers": {
-    "variant": {
-      "values": ["borderless", "flush", "animate"],
-      "default": null,
-      "description": "Visual variants. Borderless removes border, flush removes padding, animate adds enter animation."
+  "element": "div",
+  "modifiers": {},
+  "cssVars": [
+    {
+      "name": "--ui-disclosure-border-color",
+      "default": "var(--ui-color-border)"
+    },
+    {
+      "name": "--ui-disclosure-border-width",
+      "default": "1px"
+    },
+    {
+      "name": "--ui-disclosure-radius",
+      "default": "var(--ui-radius-md)"
+    },
+    {
+      "name": "--ui-disclosure-trigger-height",
+      "default": "var(--ui-row-3)"
+    },
+    {
+      "name": "--ui-disclosure-padding-x",
+      "default": "calc(#{t.$unit} * 2"
+    },
+    {
+      "name": "--ui-disclosure-padding-y",
+      "default": "calc(#{t.$unit} * 2"
     }
-  },
-  "states": ["open"]
+  ]
 }

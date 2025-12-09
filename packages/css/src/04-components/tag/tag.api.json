@@ -1,31 +1,86 @@
 {
   "name": "tag",
-  "baseClass": "tag",
   "element": "span",
-  "description": "Keyword label for categorization and filtering",
   "modifiers": {
     "size": {
-      "values": ["sm"],
-      "default": null,
-      "description": "Small size variant"
+      "values": ["sm"]
     },
     "variant": {
-      "values": ["primary", "success", "warning", "danger"],
-      "default": null,
-      "description": "Color variant"
+      "values": ["primary", "success", "warning", "danger"]
     }
   },
-  "elements": {
-    "remove": {
-      "class": "tag__remove",
-      "element": "button",
-      "description": "Remove button for dismissible tags"
+  "cssVars": [
+    {
+      "name": "--ui-tag-height",
+      "default": "calc(#{t.$unit} * 3"
+    },
+    {
+      "name": "--ui-tag-padding-x",
+      "default": "var(--ui-space-1)"
+    },
+    {
+      "name": "--ui-tag-gap",
+      "default": "calc(#{t.$unit} * 0.5"
+    },
+    {
+      "name": "--ui-tag-radius",
+      "default": "var(--ui-radius-full)"
+    },
+    {
+      "name": "--ui-tag-font-size",
+      "default": "var(--ui-font-size-sm)"
+    },
+    {
+      "name": "--ui-tag-bg",
+      "default": "var(--ui-color-bg-muted)"
+    },
+    {
+      "name": "--ui-tag-color",
+      "default": "var(--ui-color-text)"
+    },
+    {
+      "name": "--ui-tag-height-sm",
+      "default": "calc(#{t.$unit} * 2.5"
+    },
+    {
+      "name": "--ui-tag-padding-x-sm",
+      "default": "calc(#{t.$unit} * 1"
+    },
+    {
+      "name": "--ui-tag-font-size-sm",
+      "default": "var(--ui-font-size-xs)"
+    },
+    {
+      "name": "--ui-tag-primary-bg",
+      "default": "var(--ui-color-primary)"
+    },
+    {
+      "name": "--ui-tag-primary-color",
+      "default": "var(--ui-color-text-inverse)"
+    },
+    {
+      "name": "--ui-tag-success-bg",
+      "default": "var(--ui-color-success)"
+    },
+    {
+      "name": "--ui-tag-success-color",
+      "default": "var(--ui-color-text-inverse)"
+    },
+    {
+      "name": "--ui-tag-warning-bg",
+      "default": "var(--ui-color-warning)"
+    },
+    {
+      "name": "--ui-tag-warning-color",
+      "default": "var(--ui-color-text)"
+    },
+    {
+      "name": "--ui-tag-danger-bg",
+      "default": "var(--ui-color-danger)"
+    },
+    {
+      "name": "--ui-tag-danger-color",
+      "default": "var(--ui-color-text-inverse)"
     }
-  },
-  "related": {
-    "tag-group": {
-      "description": "Container for multiple tags"
-    }
-  },
-  "states": ["disabled"]
+  ]
 }

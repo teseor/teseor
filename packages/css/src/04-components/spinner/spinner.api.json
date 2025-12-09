@@ -1,14 +1,63 @@
 {
   "name": "spinner",
-  "baseClass": "spinner",
   "element": "div",
-  "description": "Loading indicator with pure CSS animation",
   "modifiers": {
     "size": {
-      "values": ["xs", "sm", "lg", "xl"],
-      "default": null,
-      "description": "Size variant. Default is 24px."
+      "values": ["xs", "sm", "lg", "xl"]
     }
   },
-  "states": []
+  "cssVars": [
+    {
+      "name": "--ui-spinner-size",
+      "default": "var(--unit)"
+    },
+    {
+      "name": "--ui-spinner-border-width",
+      "default": "var(--ui-border-width-md)"
+    },
+    {
+      "name": "--ui-spinner-color",
+      "default": "currentcolor"
+    },
+    {
+      "name": "--ui-spinner-track-color",
+      "default": "transparent"
+    },
+    {
+      "name": "--ui-spinner-duration",
+      "default": "750ms"
+    },
+    {
+      "name": "--ui-spinner-size-xs",
+      "default": "var(--unit)"
+    },
+    {
+      "name": "--ui-spinner-border-width-xs",
+      "default": "var(--ui-border-width-sm)"
+    },
+    {
+      "name": "--ui-spinner-size-sm",
+      "default": "var(--unit)"
+    },
+    {
+      "name": "--ui-spinner-border-width-sm",
+      "default": "var(--ui-border-width-md)"
+    },
+    {
+      "name": "--ui-spinner-size-lg",
+      "default": "var(--unit)"
+    },
+    {
+      "name": "--ui-spinner-border-width-lg",
+      "default": "var(--ui-border-width-md)"
+    },
+    {
+      "name": "--ui-spinner-size-xl",
+      "default": "var(--unit)"
+    },
+    {
+      "name": "--ui-spinner-border-width-xl",
+      "default": "var(--ui-border-width-lg)"
+    }
+  ]
 }

@@ -1,0 +1,47 @@
+{
+  "name": "menu",
+  "element": "div",
+  "modifiers": {},
+  "cssVars": [
+    {
+      "name": "--ui-menu-min-width",
+      "default": "calc(#{t.$unit} * 16"
+    },
+    {
+      "name": "--ui-menu-max-height",
+      "default": "calc(#{t.$unit} * 40"
+    },
+    {
+      "name": "--ui-menu-padding",
+      "default": "calc(#{t.$unit} * 1"
+    },
+    {
+      "name": "--ui-menu-radius",
+      "default": "var(--ui-radius-md)"
+    },
+    {
+      "name": "--ui-menu-bg",
+      "default": "var(--ui-color-bg)"
+    },
+    {
+      "name": "--ui-menu-border-color",
+      "default": "var(--ui-color-border)"
+    },
+    {
+      "name": "--ui-menu-shadow",
+      "default": "var(--shadow-lg)"
+    },
+    {
+      "name": "--ui-menu-item-padding",
+      "default": "calc(#{t.$unit} * 1"
+    },
+    {
+      "name": "--ui-menu-item-radius",
+      "default": "var(--ui-radius-sm)"
+    },
+    {
+      "name": "--ui-menu-item-bg-hover",
+      "default": "var(--ui-color-bg-subtle)"
+    }
+  ]
+}

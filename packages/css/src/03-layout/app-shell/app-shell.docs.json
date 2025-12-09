@@ -3,6 +3,7 @@
   "type": "primitive",
   "title": "Layout",
   "description": "Layout primitives for app shells with sidebars and content containers.",
+  "api": "app-shell.api.json",
   "sections": [
     {
       "title": "App Shell + Sidebar + Main",

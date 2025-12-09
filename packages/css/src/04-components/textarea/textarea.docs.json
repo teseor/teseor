@@ -3,6 +3,7 @@
   "type": "component",
   "title": "Textarea",
   "description": "Multi-line text input for longer content like comments or descriptions.",
+  "api": "./textarea.api.json",
   "sections": [
     {
       "title": "Default",
@@ -99,6 +100,7 @@
     {
       "title": "Resize Options",
       "description": "Control how users can resize the textarea.",
+      "api": "./textarea.api.json",
       "examples": [
         {
           "layout": "stack",
@@ -122,6 +124,68 @@
           "code": "<textarea class=\"ui-textarea\">Vertical (default)</textarea>\n<textarea class=\"ui-textarea ui-textarea--resize-none\">No resize</textarea>\n<textarea class=\"ui-textarea ui-textarea--resize-both\">Both directions</textarea>"
         }
       ]
+    }
+  ],
+  "customization": [
+    {
+      "token": "--ui-textarea-min-height",
+      "default": "calc(var(--row) * 4)",
+      "description": "Default minimum height"
+    },
+    {
+      "token": "--ui-textarea-min-height-sm",
+      "default": "calc(var(--row) * 3)",
+      "description": "Small minimum height"
+    },
+    {
+      "token": "--ui-textarea-min-height-lg",
+      "default": "calc(var(--row) * 6)",
+      "description": "Large minimum height"
+    },
+    {
+      "token": "--ui-textarea-padding-x",
+      "default": "var(--ui-space-1)",
+      "description": "Horizontal padding"
+    },
+    {
+      "token": "--ui-textarea-padding-y",
+      "default": "var(--ui-space-1)",
+      "description": "Vertical padding"
+    },
+    {
+      "token": "--ui-textarea-font-size",
+      "default": "var(--ui-font-size-sm)",
+      "description": "Font size"
+    },
+    {
+      "token": "--ui-textarea-radius",
+      "default": "var(--ui-radius-md)",
+      "description": "Border radius"
+    },
+    {
+      "token": "--ui-textarea-bg",
+      "default": "var(--ui-color-bg)",
+      "description": "Background color"
+    },
+    {
+      "token": "--ui-textarea-border-color",
+      "default": "var(--ui-color-border-strong)",
+      "description": "Border color"
+    },
+    {
+      "token": "--ui-textarea-border-color-focus",
+      "default": "var(--ui-color-primary)",
+      "description": "Focus border color"
+    },
+    {
+      "token": "--ui-textarea-text",
+      "default": "var(--ui-color-text)",
+      "description": "Text color"
+    },
+    {
+      "token": "--ui-textarea-placeholder",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Placeholder color"
     }
   ]
 }

@@ -1,16 +1,86 @@
 {
   "name": "badge",
-  "baseClass": "badge",
   "element": "span",
-  "description": "Inline labels and status indicators",
   "modifiers": {
     "size": {
-      "values": ["sm"],
-      "default": null
+      "values": ["sm"]
     },
     "variant": {
-      "values": ["primary", "success", "warning", "danger"],
-      "default": null
+      "values": ["primary", "success", "warning", "danger"]
     }
-  }
+  },
+  "cssVars": [
+    {
+      "name": "--ui-badge-height",
+      "default": "var(--ui-row)"
+    },
+    {
+      "name": "--ui-badge-padding-x",
+      "default": "var(--ui-space-1)"
+    },
+    {
+      "name": "--ui-badge-font-size",
+      "default": "var(--ui-font-size-xs)"
+    },
+    {
+      "name": "--ui-badge-font-weight",
+      "default": "var(--ui-weight-medium)"
+    },
+    {
+      "name": "--ui-badge-radius",
+      "default": "var(--ui-radius-full)"
+    },
+    {
+      "name": "--ui-badge-bg",
+      "default": "var(--ui-color-bg-muted)"
+    },
+    {
+      "name": "--ui-badge-text",
+      "default": "var(--ui-color-text)"
+    },
+    {
+      "name": "--ui-badge-height-sm",
+      "default": "var(--ui-row)"
+    },
+    {
+      "name": "--ui-badge-padding-x-sm",
+      "default": "var(--ui-space-0)"
+    },
+    {
+      "name": "--ui-badge-font-size-sm",
+      "default": "var(--ui-font-size-xs)"
+    },
+    {
+      "name": "--ui-badge-primary-bg",
+      "default": "var(--ui-color-primary)"
+    },
+    {
+      "name": "--ui-badge-primary-text",
+      "default": "var(--ui-color-text-inverse)"
+    },
+    {
+      "name": "--ui-badge-success-bg",
+      "default": "var(--ui-color-success)"
+    },
+    {
+      "name": "--ui-badge-success-text",
+      "default": "var(--ui-color-text-inverse)"
+    },
+    {
+      "name": "--ui-badge-warning-bg",
+      "default": "var(--ui-color-warning)"
+    },
+    {
+      "name": "--ui-badge-warning-text",
+      "default": "var(--ui-color-text)"
+    },
+    {
+      "name": "--ui-badge-danger-bg",
+      "default": "var(--ui-color-danger)"
+    },
+    {
+      "name": "--ui-badge-danger-text",
+      "default": "var(--ui-color-text-inverse)"
+    }
+  ]
 }

@@ -6,18 +6,23 @@
 @layer components.tokens {
   .accordion {
     --_border-color: var(--ui-accordion-border-color, var(--ui-color-border, rgb(0 0 0 / 0.1)));
+    --_border-width: var(--ui-accordion-border-width, 1px);
     --_radius: var(--ui-accordion-radius, var(--ui-radius-md, calc(#{t.$unit} * 1)));
   }
 }
 
 @layer components.styles {
   .accordion {
-    border: 1px solid var(--_border-color);
     border-radius: var(--_radius);
+    // Use outline instead of border - doesn't affect box dimensions
+    outline: var(--_border-width) solid var(--_border-color);
+    outline-offset: calc(var(--_border-width) * -1);
   }
 
   // Remove individual borders from nested disclosures
   .accordion > .disclosure {
+    // Reset disclosure's border-width token so its height calculation is correct
+    --_border-width: 0;
     border: none;
     border-radius: 0;
   }

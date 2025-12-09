@@ -28,5 +28,32 @@
         }
       ]
     }
+  ],
+  "customization": [
+    {
+      "token": "--ui-table-font-size",
+      "default": "var(--ui-font-size-sm)",
+      "description": "Table font size"
+    },
+    {
+      "token": "--ui-table-border-color",
+      "default": "var(--ui-color-border)",
+      "description": "Border color"
+    },
+    {
+      "token": "--ui-table-header-bg",
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Header background"
+    },
+    {
+      "token": "--ui-table-cell-padding-x",
+      "default": "var(--ui-space-2)",
+      "description": "Cell horizontal padding"
+    },
+    {
+      "token": "--ui-table-cell-padding-y",
+      "default": "var(--ui-space-1)",
+      "description": "Cell vertical padding"
+    }
   ]
 }

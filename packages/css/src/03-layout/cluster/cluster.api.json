@@ -1,0 +1,10 @@
+{
+  "name": "cluster",
+  "element": "div",
+  "modifiers": {
+    "size": {
+      "values": ["xs", "md", "lg"]
+    }
+  },
+  "cssVars": []
+}

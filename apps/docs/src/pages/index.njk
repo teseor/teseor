@@ -1,0 +1,59 @@
+---
+layout: layouts/base.njk
+title: Home
+permalink: /
+---
+<section class="ui-docs-section">
+  <h2>Welcome to UI Lib</h2>
+  <p>A CSS-first component library with design tokens, layout primitives, and UI components.</p>
+
+  <div class="ui-stack ui-stack--lg ui-mt-4">
+    {% set tokens = docs | byType('token') | sortByTitle %}
+    {% if tokens.length > 0 %}
+    <div>
+      <h3>Tokens ({{ tokens.length }})</h3>
+      <ul class="ui-stack ui-stack--xs">
+        {% for doc in tokens %}
+        <li><a href="{{ doc.permalink }}">{{ doc.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    {% set primitives = docs | byType('primitive') | sortByTitle %}
+    {% if primitives.length > 0 %}
+    <div>
+      <h3>Primitives ({{ primitives.length }})</h3>
+      <ul class="ui-stack ui-stack--xs">
+        {% for doc in primitives %}
+        <li><a href="{{ doc.permalink }}">{{ doc.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    {% set components = docs | byType('component') | sortByTitle %}
+    {% if components.length > 0 %}
+    <div>
+      <h3>Components ({{ components.length }})</h3>
+      <ul class="ui-stack ui-stack--xs">
+        {% for doc in components %}
+        <li><a href="{{ doc.permalink }}">{{ doc.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    {% set utilities = docs | byType('utility') | sortByTitle %}
+    {% if utilities.length > 0 %}
+    <div>
+      <h3>Utilities ({{ utilities.length }})</h3>
+      <ul class="ui-stack ui-stack--xs">
+        {% for doc in utilities %}
+        <li><a href="{{ doc.permalink }}">{{ doc.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+</section>

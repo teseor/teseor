@@ -43,7 +43,7 @@ function extractClassesFromDocs(doc) {
   function extractFromItem(item) {
     if (item.class) {
       for (const c of item.class.split(' ')) {
-        classes.add(c.trim());
+        if (c.trim()) classes.add(c.trim());
       }
     }
     if (item.children) {
@@ -53,12 +53,33 @@ function extractClassesFromDocs(doc) {
     }
   }
 
+  function extractFromHtml(html) {
+    const regex = /class="([^"]+)"/g;
+    let match = regex.exec(html);
+    while (match !== null) {
+      for (const c of match[1].split(' ')) {
+        const cls = c.trim();
+        // Skip Nunjucks template syntax
+        if (cls && !cls.includes('{%') && !cls.includes('{{')) {
+          classes.add(cls);
+        }
+      }
+      match = regex.exec(html);
+    }
+  }
+
   for (const section of doc.sections || []) {
     for (const example of section.examples || []) {
       if (example.items) {
         for (const item of example.items) {
           extractFromItem(item);
         }
+      }
+      if (example.html) {
+        extractFromHtml(example.html);
+      }
+      if (example.code) {
+        extractFromHtml(example.code);
       }
     }
   }
@@ -71,15 +92,74 @@ function extractClassesFromDocs(doc) {
  */
 function getExpectedClasses(api) {
   const classes = new Set();
-  const base = `${PREFIX}${api.baseClass}`;
+
+  // Handle utility type (standalone classes)
+  if (api.type === 'utility' && api.utilities) {
+    for (const util of api.utilities) {
+      classes.add(`${PREFIX}${util}`);
+    }
+    return classes;
+  }
+
+  const base = `${PREFIX}${api.name}`;
   classes.add(base);
 
+  // Add block-level modifiers
   for (const [name, mod] of Object.entries(api.modifiers || {})) {
     if (mod.type === 'boolean') {
       classes.add(`${base}--${name}`);
     } else if (mod.values) {
       for (const value of mod.values) {
         classes.add(`${base}--${value}`);
+      }
+    }
+  }
+
+  // Add elements and their modifiers
+  for (const [elementName, element] of Object.entries(api.elements || {})) {
+    classes.add(`${base}__${elementName}`);
+    // Element modifiers
+    for (const [modName, mod] of Object.entries(element.modifiers || {})) {
+      if (mod.type === 'boolean') {
+        classes.add(`${base}__${elementName}--${modName}`);
+      } else if (mod.values) {
+        for (const value of mod.values) {
+          classes.add(`${base}__${elementName}--${value}`);
+        }
+      }
+    }
+  }
+
+  // Add related components (e.g., avatar-group for avatar)
+  for (const related of api.relatedComponents || []) {
+    if (typeof related === 'string') {
+      classes.add(`${PREFIX}${related}`);
+    } else if (related.name) {
+      // Complex related component with its own modifiers/elements
+      const relatedBase = `${PREFIX}${related.name}`;
+      classes.add(relatedBase);
+      // Related component modifiers
+      for (const [modName, mod] of Object.entries(related.modifiers || {})) {
+        if (mod.type === 'boolean') {
+          classes.add(`${relatedBase}--${modName}`);
+        } else if (mod.values) {
+          for (const value of mod.values) {
+            classes.add(`${relatedBase}--${value}`);
+          }
+        }
+      }
+      // Related component elements
+      for (const [elemName, elem] of Object.entries(related.elements || {})) {
+        classes.add(`${relatedBase}__${elemName}`);
+        for (const [elemModName, elemMod] of Object.entries(elem.modifiers || {})) {
+          if (elemMod.type === 'boolean') {
+            classes.add(`${relatedBase}__${elemName}--${elemModName}`);
+          } else if (elemMod.values) {
+            for (const value of elemMod.values) {
+              classes.add(`${relatedBase}__${elemName}--${value}`);
+            }
+          }
+        }
       }
     }
   }
@@ -92,6 +172,10 @@ function getExpectedClasses(api) {
  */
 function validateDoc(docsPath) {
   const doc = JSON.parse(readFileSync(docsPath, 'utf-8'));
+
+  if (doc.skipValidation) {
+    return { path: docsPath, skipped: true, reason: 'skipValidation flag' };
+  }
 
   if (!doc.api) {
     return { path: docsPath, skipped: true, reason: 'No API reference' };
@@ -109,9 +193,17 @@ function validateDoc(docsPath) {
   const expectedClasses = getExpectedClasses(api);
 
   const missing = [...expectedClasses].filter((c) => !docsClasses.has(c));
-  const extra = [...docsClasses].filter(
-    (c) => c.startsWith(`${PREFIX}${api.baseClass}`) && !expectedClasses.has(c),
-  );
+
+  // For utilities, only report extras that are in the expected set
+  // For components, report extras that start with the component prefix
+  let extra;
+  if (api.type === 'utility' && api.utilities) {
+    extra = [];
+  } else {
+    extra = [...docsClasses].filter(
+      (c) => c.startsWith(`${PREFIX}${api.name}`) && !expectedClasses.has(c),
+    );
+  }
 
   return {
     path: docsPath,
@@ -141,6 +233,7 @@ function validate() {
 
     if (result.skipped) {
       skipped++;
+      console.log(`[SKIP] ${relativePath} (${result.reason})`);
       continue;
     }
 

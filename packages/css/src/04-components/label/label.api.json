@@ -1,26 +1,27 @@
 {
   "name": "label",
-  "baseClass": "label",
   "element": "label",
-  "description": "Form control label with optional required indicator",
   "modifiers": {
     "size": {
-      "values": ["lg"],
-      "default": null,
-      "description": "Large size variant"
+      "values": ["lg"]
     }
   },
-  "elements": {
-    "required": {
-      "class": "label__required",
-      "element": "span",
-      "description": "Required field indicator (asterisk)"
+  "cssVars": [
+    {
+      "name": "--ui-label-font-size",
+      "default": "var(--ui-font-size-sm)"
     },
-    "optional": {
-      "class": "label__optional",
-      "element": "span",
-      "description": "Optional field indicator"
+    {
+      "name": "--ui-label-color",
+      "default": "var(--ui-color-text)"
+    },
+    {
+      "name": "--ui-label-required-color",
+      "default": "var(--ui-color-danger)"
+    },
+    {
+      "name": "--ui-label-font-size-lg",
+      "default": "var(--ui-font-size-md)"
     }
-  },
-  "states": ["disabled"]
+  ]
 }

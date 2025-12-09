@@ -1,0 +1,10 @@
+{
+  "name": "grid",
+  "element": "div",
+  "modifiers": {
+    "columns": {
+      "values": ["2", "3", "4"]
+    }
+  },
+  "cssVars": []
+}

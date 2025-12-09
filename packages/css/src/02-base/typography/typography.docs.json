@@ -2,21 +2,91 @@
   "id": "typography",
   "type": "token",
   "title": "Typography",
-  "description": "All line-heights snap to the 8px grid. Toggle the baseline grid to verify.",
+  "description": "Modular scale (1.2 ratio) with 8px grid-snapped line-heights. Responsive breakpoints at 730px and 1080px adjust heading sizes.",
+  "skipValidation": true,
   "sections": [
     {
+      "title": "Type Scale",
+      "description": "Font sizes follow a 1.2 (Minor Third) modular scale from 12px to 40px. All line-heights snap to 8px multiples.",
+      "examples": [
+        {
+          "html": "<table class=\"ui-table\"><thead><tr><th>Token</th><th>Size</th><th>Line-height</th></tr></thead><tbody><tr><td><code>--ui-font-size-xs</code></td><td>12px</td><td>16px</td></tr><tr><td><code>--ui-font-size-sm</code></td><td>14px</td><td>24px</td></tr><tr><td><code>--ui-font-size-md</code></td><td>16px</td><td>24px</td></tr><tr><td><code>--ui-font-size-lg</code></td><td>20px</td><td>32px</td></tr><tr><td><code>--ui-font-size-xl</code></td><td>24px</td><td>32px</td></tr><tr><td><code>--ui-font-size-2xl</code></td><td>28px</td><td>32px</td></tr><tr><td><code>--ui-font-size-3xl</code></td><td>32px</td><td>40px</td></tr><tr><td><code>--ui-font-size-4xl</code></td><td>40px</td><td>48px</td></tr></tbody></table>"
+        }
+      ]
+    },
+    {
+      "title": "Headings",
+      "description": "Headings use semantic tokens and adjust size at breakpoints.",
       "examples": [
         {
           "items": [
-            { "tag": "h1", "text": "Heading 1" },
-            { "tag": "h2", "text": "Heading 2" },
-            { "tag": "h3", "text": "Heading 3" },
-            { "tag": "h4", "text": "Heading 4" },
-            { "tag": "h5", "text": "Heading 5" }
+            { "tag": "h1", "text": "Heading 1 - 40px / 48px" },
+            { "tag": "h2", "text": "Heading 2 - 32px / 40px" },
+            { "tag": "h3", "text": "Heading 3 - 28px / 32px" },
+            { "tag": "h4", "text": "Heading 4 - 24px / 32px" },
+            { "tag": "h5", "text": "Heading 5 - 20px / 24px" }
           ]
+        }
+      ]
+    },
+    {
+      "title": "Body Text",
+      "description": "Default body text at 16px with 24px line-height (1.5x ratio).",
+      "examples": [
+        {
+          "html": "<p>Body text at 16px with 24px line-height. The <strong>bold text</strong> and <code>inline code</code> maintain the same rhythm.</p>\n<p class=\"ui-text-body-sm\">Body small at 14px with 24px line-height for secondary text.</p>"
+        }
+      ]
+    },
+    {
+      "title": "Text Roles",
+      "description": "Semantic text styles for specific use cases.",
+      "examples": [
+        {
+          "html": "<p class=\"ui-text-lead\">Lead paragraph - 20px / 32px. Use for opening paragraphs or article intros.</p>"
         },
         {
-          "html": "<p>Body text at 16px with 24px line-height. The <strong>bold text</strong> and <code>inline code</code> maintain the same rhythm.</p>\n<p><small>Small text at 14px with 16px line-height.</small></p>"
+          "html": "<p class=\"ui-text-eyebrow\">Eyebrow text</p>\n<h2>Related Heading</h2>",
+          "description": "Eyebrow - 12px uppercase with wide tracking. Use above headings for categorization."
+        },
+        {
+          "html": "<p class=\"ui-text-caption\">Caption text - 12px / 16px. Use for labels, hints, and metadata.</p>"
+        }
+      ]
+    },
+    {
+      "title": "Font Weights",
+      "description": "Four weight levels for hierarchy.",
+      "examples": [
+        {
+          "html": "<p class=\"ui-font-normal\">Normal (400) - Body text</p>\n<p class=\"ui-font-medium\">Medium (500) - Labels, small headings</p>\n<p class=\"ui-font-semibold\">Semibold (600) - Subheadings</p>\n<p class=\"ui-font-bold\">Bold (700) - Headlines, emphasis</p>"
+        }
+      ]
+    },
+    {
+      "title": "Letter Spacing",
+      "description": "Three tracking options based on use case.",
+      "examples": [
+        {
+          "html": "<p class=\"ui-text-3xl ui-tracking-display\">Display tracking (-0.02em)</p>\n<p>Body tracking (0) - default</p>\n<p class=\"ui-text-eyebrow\">Caps tracking (+0.08em)</p>"
+        }
+      ]
+    },
+    {
+      "title": "Line Length",
+      "description": "Constrain text width for optimal readability (45-75 characters).",
+      "examples": [
+        {
+          "html": "<div class=\"ui-prose\"><p>This paragraph is constrained to 65ch max-width for optimal reading comfort. Long lines of text are harder to read because the eye has difficulty tracking back to the start of the next line.</p></div>"
+        }
+      ]
+    },
+    {
+      "title": "Responsive Behavior",
+      "description": "Headings scale down on mobile (<730px) and up on desktop (>1080px).",
+      "examples": [
+        {
+          "html": "<table class=\"ui-table\"><thead><tr><th>Heading</th><th>Mobile</th><th>Default</th><th>Desktop</th></tr></thead><tbody><tr><td>h1</td><td>28px</td><td>40px</td><td>48px</td></tr><tr><td>h2</td><td>24px</td><td>32px</td><td>40px</td></tr><tr><td>h3</td><td>20px</td><td>28px</td><td>28px</td></tr><tr><td>h4</td><td>18px</td><td>24px</td><td>24px</td></tr></tbody></table>"
         }
       ]
     }

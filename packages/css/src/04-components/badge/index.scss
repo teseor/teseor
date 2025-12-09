@@ -1,26 +1,27 @@
 @use '../../00-config/tokens/variables' as t;
 
-// Badge component - inline labels and status indicators
+// @component badge
+// @element span
 
 @layer components.tokens {
   .badge {
     --_height: var(--ui-badge-height, calc(var(--ui-row, #{t.$row}) * 1.25));
     --_padding-x: var(--ui-badge-padding-x, var(--ui-space-1, #{t.$space-1}));
-    --_font-size: var(--ui-badge-font-size, var(--ui-size-xs, #{t.$size-xs}));
+    --_font-size: var(--ui-badge-font-size, var(--ui-font-size-xs, #{t.$font-size-xs}));
     --_font-weight: var(--ui-badge-font-weight, var(--ui-weight-medium, #{t.$weight-medium}));
     --_radius: var(--ui-badge-radius, var(--ui-radius-full, #{t.$radius-full}));
     --_bg: var(--ui-badge-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
     --_text: var(--ui-badge-text, var(--ui-color-text, #{t.$color-text}));
   }
 
-  // Size variants
+  // @modifier size
   .badge--sm {
     --_height: var(--ui-badge-height-sm, var(--ui-row, #{t.$row}));
     --_padding-x: var(--ui-badge-padding-x-sm, var(--ui-space-0, #{t.$space-0}));
-    --_font-size: var(--ui-badge-font-size-sm, calc(var(--ui-size-xs, #{t.$size-xs}) * 0.85));
+    --_font-size: var(--ui-badge-font-size-sm, calc(var(--ui-font-size-xs, #{t.$font-size-xs}) * 0.85));
   }
 
-  // Color variants
+  // @modifier variant
   .badge--primary {
     --_bg: var(--ui-badge-primary-bg, var(--ui-color-primary, #{t.$color-primary}));
     --_text: var(--ui-badge-primary-text, var(--ui-color-text-inverse, #{t.$color-text-inverse}));

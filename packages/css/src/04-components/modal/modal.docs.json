@@ -3,6 +3,7 @@
   "type": "component",
   "title": "Modal",
   "description": "Container for modal dialogs. Use with overlay for backdrop effect.",
+  "api": "./modal.api.json",
   "sections": [
     {
       "title": "Default",
@@ -38,5 +39,48 @@
         }
       ]
     }
+  ],
+  "customization": [
+    {
+      "token": "--ui-modal-bg",
+      "default": "var(--ui-color-bg)",
+      "description": "Background color"
+    },
+    {
+      "token": "--ui-modal-radius",
+      "default": "var(--ui-radius-lg)",
+      "description": "Border radius"
+    },
+    {
+      "token": "--ui-modal-shadow",
+      "default": "0 24px 48px rgb(0 0 0 / 0.25)",
+      "description": "Box shadow"
+    },
+    {
+      "token": "--ui-modal-padding",
+      "default": "calc(var(--unit) * 3)",
+      "description": "Content padding"
+    },
+    {
+      "token": "--ui-modal-max-width",
+      "default": "calc(var(--unit) * 60)",
+      "description": "Max width (default)"
+    },
+    {
+      "token": "--ui-modal-max-width-sm",
+      "default": "calc(var(--unit) * 40)",
+      "description": "Max width (small)"
+    },
+    {
+      "token": "--ui-modal-max-width-lg",
+      "default": "calc(var(--unit) * 80)",
+      "description": "Max width (large)"
+    },
+    {
+      "token": "--ui-modal-max-height",
+      "default": "calc(100vh - var(--unit) * 8)",
+      "description": "Max height"
+    },
+    { "token": "--ui-modal-z", "default": "var(--ui-z-modal)", "description": "Z-index" }
   ]
 }
