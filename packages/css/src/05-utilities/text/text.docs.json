@@ -2,21 +2,99 @@
   "id": "text-utils",
   "type": "utility",
   "title": "Text",
-  "description": "Typography and text utilities.",
+  "description": "Typography and text utilities. Font sizes follow a 1.2 modular scale.",
   "sections": [
     {
       "title": "Sizes",
+      "description": "Font size utilities with 8px grid-snapped line-heights.",
       "examples": [
         {
           "layout": "stack",
           "items": [
-            { "tag": "p", "class": "ui-text-xs", "text": "text-xs: 12px (1.5 units)" },
-            { "tag": "p", "class": "ui-text-sm", "text": "text-sm: 14px (1.75 units)" },
-            { "tag": "p", "class": "ui-text-md", "text": "text-md: 16px (2 units)" },
-            { "tag": "p", "class": "ui-text-lg", "text": "text-lg: 18px (2.25 units)" },
-            { "tag": "p", "class": "ui-text-xl", "text": "text-xl: 20px (2.5 units)" },
-            { "tag": "p", "class": "ui-text-2xl", "text": "text-2xl: 24px (3 units)" },
-            { "tag": "p", "class": "ui-text-3xl", "text": "text-3xl: 32px (4 units)" }
+            { "tag": "p", "class": "ui-text-xs", "text": "text-xs: 12px / 16px line-height" },
+            { "tag": "p", "class": "ui-text-sm", "text": "text-sm: 14px / 24px line-height" },
+            { "tag": "p", "class": "ui-text-md", "text": "text-md: 16px / 24px line-height" },
+            { "tag": "p", "class": "ui-text-lg", "text": "text-lg: 20px / 32px line-height" },
+            { "tag": "p", "class": "ui-text-xl", "text": "text-xl: 24px / 32px line-height" },
+            { "tag": "p", "class": "ui-text-2xl", "text": "text-2xl: 28px / 32px line-height" },
+            { "tag": "p", "class": "ui-text-3xl", "text": "text-3xl: 32px / 40px line-height" },
+            { "tag": "p", "class": "ui-text-4xl", "text": "text-4xl: 40px / 48px line-height" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Text Roles",
+      "description": "Semantic text styles for specific use cases.",
+      "examples": [
+        {
+          "layout": "stack",
+          "items": [
+            {
+              "tag": "p",
+              "class": "ui-text-lead",
+              "text": "Lead: Opening paragraph style (20px / 32px)"
+            },
+            { "tag": "p", "class": "ui-text-eyebrow", "text": "Eyebrow: Small caps label" },
+            {
+              "tag": "p",
+              "class": "ui-text-caption",
+              "text": "Caption: Labels and hints (12px / 16px)"
+            },
+            {
+              "tag": "p",
+              "class": "ui-text-body-sm",
+              "text": "Body small: Secondary text (14px / 24px)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Weights",
+      "examples": [
+        {
+          "layout": "stack",
+          "items": [
+            { "tag": "p", "class": "ui-font-normal", "text": "font-normal (400)" },
+            { "tag": "p", "class": "ui-font-medium", "text": "font-medium (500)" },
+            { "tag": "p", "class": "ui-font-semibold", "text": "font-semibold (600)" },
+            { "tag": "p", "class": "ui-font-bold", "text": "font-bold (700)" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Letter Spacing",
+      "examples": [
+        {
+          "layout": "stack",
+          "items": [
+            {
+              "tag": "p",
+              "class": "ui-text-2xl ui-tracking-display",
+              "text": "tracking-display: Tight (-0.02em)"
+            },
+            { "tag": "p", "class": "ui-tracking-body", "text": "tracking-body: Default (0)" },
+            {
+              "tag": "p",
+              "class": "ui-tracking-caps ui-uppercase",
+              "text": "tracking-caps: Wide (+0.08em)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Line Length",
+      "description": "Constrain text width for optimal readability.",
+      "examples": [
+        {
+          "layout": "stack",
+          "items": [
+            { "tag": "p", "class": "ui-prose-sm", "text": "prose-sm: 45ch max-width" },
+            { "tag": "p", "class": "ui-prose", "text": "prose: 65ch max-width (recommended)" },
+            { "tag": "p", "class": "ui-prose-lg", "text": "prose-lg: 75ch max-width" }
           ]
         }
       ]
@@ -32,8 +110,20 @@
             { "tag": "p", "class": "ui-text-success", "text": "text-success" },
             { "tag": "p", "class": "ui-text-warning", "text": "text-warning" },
             { "tag": "p", "class": "ui-text-danger", "text": "text-danger" }
-          ],
-          "code": "<p class=\"ui-text-lg ui-font-bold\">...</p>\n<p class=\"ui-text-sm ui-text-muted\">...</p>\n<p class=\"ui-text-center ui-uppercase\">...</p>"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Alignment",
+      "examples": [
+        {
+          "layout": "stack",
+          "items": [
+            { "tag": "p", "class": "ui-text-start", "text": "text-start (default)" },
+            { "tag": "p", "class": "ui-text-center", "text": "text-center" },
+            { "tag": "p", "class": "ui-text-end", "text": "text-end" }
+          ]
         }
       ]
     }

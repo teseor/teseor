@@ -1,8 +1,10 @@
-/* Text utilities */
+// Text utilities
 
-/* Uses logical properties for international/RTL support */
+// Uses logical properties for international/RTL support
 @layer utilities {
-  /* Text alignment - use start/end for RTL support */
+  // ==========================================================================
+  // TEXT ALIGNMENT - use start/end for RTL support
+  // ==========================================================================
   .text-start {
     text-align: start;
   }
@@ -19,7 +21,9 @@
     text-align: justify;
   }
 
-  /* Font weight */
+  // ==========================================================================
+  // FONT WEIGHT
+  // ==========================================================================
   .font-normal {
     font-weight: var(--ui-weight-normal);
   }
@@ -28,47 +32,97 @@
     font-weight: var(--ui-weight-medium);
   }
 
+  .font-semibold {
+    font-weight: var(--ui-weight-semibold);
+  }
+
   .font-bold {
     font-weight: var(--ui-weight-bold);
   }
 
-  /* Font size (uses consistent --size-* scale derived from --unit) */
+  // ==========================================================================
+  // FONT SIZE - uses modular scale tokens
+  // ==========================================================================
   .text-xs {
-    font-size: var(--ui-size-xs);
+    font-size: var(--ui-font-size-xs);
     line-height: var(--ui-leading-xs);
   }
 
   .text-sm {
-    font-size: var(--ui-size-sm);
+    font-size: var(--ui-font-size-sm);
     line-height: var(--ui-leading-sm);
   }
 
   .text-md {
-    font-size: var(--ui-size-md);
+    font-size: var(--ui-font-size-md);
     line-height: var(--ui-leading-md);
   }
 
   .text-lg {
-    font-size: var(--ui-size-lg);
+    font-size: var(--ui-font-size-lg);
     line-height: var(--ui-leading-lg);
   }
 
   .text-xl {
-    font-size: var(--ui-size-xl);
+    font-size: var(--ui-font-size-xl);
     line-height: var(--ui-leading-xl);
   }
 
   .text-2xl {
-    font-size: var(--ui-size-2xl);
+    font-size: var(--ui-font-size-2xl);
     line-height: var(--ui-leading-2xl);
   }
 
   .text-3xl {
-    font-size: var(--ui-size-3xl);
+    font-size: var(--ui-font-size-3xl);
     line-height: var(--ui-leading-3xl);
   }
 
-  /* Font family */
+  .text-4xl {
+    font-size: var(--ui-font-size-4xl);
+    line-height: var(--ui-leading-4xl);
+  }
+
+  // ==========================================================================
+  // SEMANTIC TEXT ROLES
+  // ==========================================================================
+
+  // Lead - Opening paragraph style
+  .text-lead {
+    font-size: var(--ui-lead-size);
+    font-weight: var(--ui-lead-weight);
+    line-height: var(--ui-lead-line-height);
+    letter-spacing: var(--ui-lead-tracking);
+  }
+
+  // Eyebrow - Small caps label above headings
+  .text-eyebrow {
+    font-size: var(--ui-eyebrow-size);
+    font-weight: var(--ui-eyebrow-weight);
+    line-height: var(--ui-eyebrow-line-height);
+    letter-spacing: var(--ui-eyebrow-tracking);
+    text-transform: uppercase;
+  }
+
+  // Caption - Labels, hints, metadata
+  .text-caption {
+    font-size: var(--ui-caption-size);
+    font-weight: var(--ui-caption-weight);
+    line-height: var(--ui-caption-line-height);
+    letter-spacing: var(--ui-caption-tracking);
+  }
+
+  // Body small - Secondary text
+  .text-body-sm {
+    font-size: var(--ui-body-sm-size);
+    font-weight: var(--ui-body-sm-weight);
+    line-height: var(--ui-body-sm-line-height);
+    letter-spacing: var(--ui-body-sm-tracking);
+  }
+
+  // ==========================================================================
+  // FONT FAMILY
+  // ==========================================================================
   .font-sans {
     font-family: var(--ui-font-sans);
   }
@@ -77,7 +131,9 @@
     font-family: var(--ui-font-mono);
   }
 
-  /* Text decoration */
+  // ==========================================================================
+  // TEXT DECORATION
+  // ==========================================================================
   .underline {
     text-decoration: underline;
   }
@@ -90,7 +146,9 @@
     text-decoration: none;
   }
 
-  /* Text transform */
+  // ==========================================================================
+  // TEXT TRANSFORM
+  // ==========================================================================
   .uppercase {
     text-transform: uppercase;
   }
@@ -107,7 +165,9 @@
     text-transform: none;
   }
 
-  /* Text color */
+  // ==========================================================================
+  // TEXT COLOR
+  // ==========================================================================
   .text-primary {
     color: var(--ui-color-primary);
   }
@@ -128,7 +188,9 @@
     color: var(--ui-color-danger);
   }
 
-  /* Text wrapping */
+  // ==========================================================================
+  // TEXT WRAPPING
+  // ==========================================================================
   .truncate {
     overflow: hidden;
 
@@ -150,5 +212,35 @@
 
   .whitespace-pre-wrap {
     white-space: pre-wrap;
+  }
+
+  // ==========================================================================
+  // LINE LENGTH (for readable text)
+  // ==========================================================================
+  .prose {
+    max-inline-size: 65ch;
+  }
+
+  .prose-sm {
+    max-inline-size: 45ch;
+  }
+
+  .prose-lg {
+    max-inline-size: 75ch;
+  }
+
+  // ==========================================================================
+  // LETTER SPACING
+  // ==========================================================================
+  .tracking-display {
+    letter-spacing: var(--ui-tracking-display);
+  }
+
+  .tracking-body {
+    letter-spacing: var(--ui-tracking-body);
+  }
+
+  .tracking-caps {
+    letter-spacing: var(--ui-tracking-caps);
   }
 }

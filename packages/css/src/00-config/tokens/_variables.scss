@@ -23,21 +23,47 @@ $space-4: $unit * 4;
 $space-6: $unit * 6;
 $space-8: $unit * 8;
 
-// Typography
+// Typography - Font families
 $font-sans: "Noto Sans", system-ui, -apple-system, sans-serif;
 $font-mono: "Noto Sans Mono", ui-monospace, "Cascadia Code", monospace;
 
-$size-xs: 0.75rem; // 12px
-$size-sm: 0.875rem; // 14px
-$size-md: 1rem; // 16px
-$size-lg: 1.125rem; // 18px
-$size-xl: 1.25rem; // 20px
-$size-2xl: 1.5rem; // 24px
-$size-3xl: 2rem; // 32px
+// Typography - Font sizes (1.2 modular scale)
+$font-size-xs: 0.75rem; // 12px
+$font-size-sm: 0.875rem; // 14px
+$font-size-md: 1rem; // 16px (base)
+$font-size-lg: 1.25rem; // 20px
+$font-size-xl: 1.5rem; // 24px
+$font-size-2xl: 1.75rem; // 28px
+$font-size-3xl: 2rem; // 32px
+$font-size-4xl: 2.5rem; // 40px
 
+// Typography - Tight line heights (for compact UI elements)
+$leading-tight-xs: $row;
+$leading-tight-sm: $row;
+$leading-tight-md: $unit * 3;
+$leading-tight-lg: $unit * 3;
+
+// Typography - Line heights (for body text)
+$leading-xs: $row;
+$leading-sm: $unit * 3;
+$leading-md: $unit * 3;
+$leading-lg: $row-2;
+$leading-xl: $row-2;
+$leading-2xl: $row-2;
+$leading-3xl: $unit * 5;
+$leading-4xl: $unit * 6;
+
+// Typography - Font weights
 $weight-normal: 400;
 $weight-medium: 500;
+$weight-semibold: 600;
 $weight-bold: 700;
+
+// Typography - Letter spacing
+$tracking-display: -0.02em;
+$tracking-body: 0;
+$tracking-caps: 0.08em;
+
 
 // Radius - derived from $unit (0.5rem = 8px)
 $radius-sm: $unit * 0.5; // 4px
