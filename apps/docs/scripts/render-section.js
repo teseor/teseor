@@ -124,11 +124,13 @@ function renderVarsGroup(groupName, groupVars, componentName, tokens) {
  * @param {object} [options.vars] - All vars from API
  * @param {string} [options.componentName] - Component name
  * @param {boolean} [options.isFirstSection] - Whether this is the first section
+ * @param {string} [options.customizationHtml] - HTML for customization tab (first section only)
+ * @param {string} [options.cssPropsHtml] - HTML for CSS props tab (first section only)
  * @returns {string}
  */
 export function renderSection(section, options = {}) {
   const { title, description, examples, data } = section;
-  const { vars, componentName, isFirstSection } = options;
+  const { vars, componentName, isFirstSection, customizationHtml, cssPropsHtml } = options;
 
   const parts = [];
 
@@ -155,11 +157,12 @@ export function renderSection(section, options = {}) {
     );
   }
 
-  // Render examples - first example gets theming tab, all get data
+  // Render examples - first example gets CSS props and customization tabs, all get data
   examples.forEach((example, index) => {
     const exampleOptions = { data };
-    if (index === 0 && themingHtml) {
-      exampleOptions.themingHtml = themingHtml;
+    if (index === 0) {
+      if (customizationHtml) exampleOptions.customizationHtml = customizationHtml;
+      if (cssPropsHtml) exampleOptions.cssPropsHtml = cssPropsHtml;
     }
     parts.push(renderExample(example, exampleOptions));
   });
@@ -168,12 +171,44 @@ export function renderSection(section, options = {}) {
 }
 
 /**
+ * Render customization tokens as a table (for tab content, no heading)
+ * @param {import('../src/types/docs-schema').CustomizationToken[]} tokens
+ * @returns {string}
+ */
+export function renderCustomization(tokens) {
+  if (!tokens || tokens.length === 0) return '';
+
+  const rows = tokens
+    .map(
+      (t) =>
+        `<tr><td><code>${escapeHtml(t.token)}</code></td><td><code>${escapeHtml(t.default)}</code></td><td>${escapeHtml(t.description)}</td></tr>`,
+    )
+    .join('\n      ');
+
+  return `<p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      ${rows}
+    </tbody>
+  </table>`;
+}
+
+/**
  * Renders a full ComponentDoc to HTML string
  * @param {import('../src/types/docs-schema').ComponentDoc} doc
  * @returns {string}
  */
 export function renderDoc(doc) {
-  const { id, type, title, description, sections, vars, componentName } = doc;
+  const { id, type, title, description, sections, vars, componentName, customization, api } = doc;
+
+  // Pre-render customization HTML for passing to first section
+  const customizationHtml = renderCustomization(customization);
+
+  // Pre-render CSS props table from API
+  const cssPropsHtml = renderCssPropsTable(api);
 
   const sectionHtml = sections
     .map((section, index) =>
@@ -181,6 +216,8 @@ export function renderDoc(doc) {
         vars,
         componentName,
         isFirstSection: index === 0,
+        customizationHtml: index === 0 ? customizationHtml : null,
+        cssPropsHtml: index === 0 ? cssPropsHtml : null,
       }),
     )
     .join('\n\n');
@@ -200,6 +237,57 @@ export function renderDoc(doc) {
  */
 function escapeHtml(str) {
   return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+/**
+ * Render CSS props table from API (grouped by modifier type)
+ * @param {object} api - Component API definition
+ * @returns {string}
+ */
+export function renderCssPropsTable(api) {
+  if (!api?.name) return '';
+  const sections = [];
+  const name = api.name;
+
+  // Base class section
+  sections.push(`<h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-${name}</code></td><td>Base class</td></tr></tbody>
+</table>`);
+
+  // Modifier groups
+  if (api.modifiers) {
+    for (const [groupName, def] of Object.entries(api.modifiers)) {
+      const heading = groupName.charAt(0).toUpperCase() + groupName.slice(1);
+
+      if (def.values) {
+        // Array modifiers: size, variant
+        const rows = def.values
+          .map(
+            (val) =>
+              `<tr><td><code>.ui-${name}--${val}</code></td><td>${escapeHtml(val)}</td></tr>`,
+          )
+          .join('');
+
+        sections.push(`<h4>${escapeHtml(heading)}</h4>
+${def.description ? `<p>${escapeHtml(def.description)}</p>` : ''}
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody>${rows}</tbody>
+</table>`);
+      } else if (def.type === 'boolean') {
+        // Boolean modifiers: loading, disabled
+        sections.push(`<h4>${escapeHtml(heading)}</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-${name}--${groupName}</code></td><td>${escapeHtml(def.description || groupName)}</td></tr></tbody>
+</table>`);
+      }
+    }
+  }
+
+  return sections.join('\n');
 }
 
 /**

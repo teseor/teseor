@@ -53,6 +53,15 @@ export interface Section {
   examples: Example[];
 }
 
+export interface CustomizationToken {
+  /** CSS custom property name (e.g., "--ui-button-height") */
+  token: string;
+  /** Default value (e.g., "var(--ui-row-2)") */
+  default: string;
+  /** Description of what this token controls */
+  description: string;
+}
+
 /**
  * Component documentation - can inherit from API or define directly
  */
@@ -71,6 +80,8 @@ export interface ComponentDoc {
   description?: string;
   /** Documentation sections */
   sections: Section[];
+  /** CSS custom properties for customization */
+  customization?: CustomizationToken[];
 }
 
 /**
@@ -83,4 +94,5 @@ export interface ResolvedComponentDoc {
   title: string;
   description: string;
   sections: Section[];
+  customization?: CustomizationToken[];
 }

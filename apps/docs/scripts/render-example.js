@@ -14,13 +14,14 @@ const LAYOUT_CLASSES = {
  * Renders an Example to HTML string
  * @param {import('../src/types/docs-schema').Example} example
  * @param {object} [options]
- * @param {string} [options.themingHtml] - Optional theming HTML to add as third tab
+ * @param {string} [options.customizationHtml] - Optional customization HTML to add as tab
+ * @param {string} [options.cssPropsHtml] - Optional CSS props HTML to replace HTML tab
  * @param {object} [options.data] - Template data for code examples
  * @returns {string}
  */
 export function renderExample(example, options = {}) {
   const { layout, items, html, code } = example;
-  const { themingHtml, data } = options;
+  const { customizationHtml, cssPropsHtml, data } = options;
 
   let previewHtml = '';
 
@@ -46,25 +47,31 @@ export function renderExample(example, options = {}) {
   }
   const escapedCode = escapeHtml(codeSnippet);
 
-  // Build tabs - optionally include Theming tab
-  const themingTab = themingHtml ? '<button class="ui-tabs__tab">Theming</button>' : '';
-  const themingPanel = themingHtml
-    ? `<div class="ui-tabs__panel">\n    ${themingHtml}\n  </div>`
+  // Build tabs - CSS tab (props if available, else code), optional Customization
+  const cssTabLabel = cssPropsHtml ? 'CSS' : 'HTML';
+  const cssTabContent =
+    cssPropsHtml || `<pre class="ui-code-block"><code>${escapedCode}</code></pre>`;
+
+  const customizationTab = customizationHtml
+    ? '<button class="ui-tabs__tab">Customization</button>'
+    : '';
+  const customizationPanel = customizationHtml
+    ? `<div class="ui-tabs__panel">\n    ${customizationHtml}\n  </div>`
     : '';
 
   return `<div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    ${themingTab}
+    <button class="ui-tabs__tab">${cssTabLabel}</button>
+    ${customizationTab}
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     ${previewHtml}
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>${escapedCode}</code></pre>
+    ${cssTabContent}
   </div>
-  ${themingPanel}
+  ${customizationPanel}
 </div>`;
 }
 

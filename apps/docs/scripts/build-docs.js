@@ -119,6 +119,7 @@ function resolveDoc(doc, docsFilePath) {
       sections: doc.sections,
       vars: null,
       componentName: null,
+      customization: doc.customization || null,
     };
   }
 
@@ -143,6 +144,8 @@ function resolveDoc(doc, docsFilePath) {
     sections: doc.sections,
     vars: api.vars || null,
     componentName: api.name,
+    customization: doc.customization || null,
+    api,
   };
 }
 
