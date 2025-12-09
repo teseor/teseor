@@ -130,6 +130,10 @@
     --_bg: var(--ui-sidebar-nav-item-hover-bg, var(--ui-color-bg-muted));
   }
 
+  .sidebar-nav__item:visited {
+    color: var(--_color);
+  }
+
   .sidebar-nav__item:focus-visible {
     outline: 2px solid var(--ui-color-focus);
     outline-offset: -2px;
