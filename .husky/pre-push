@@ -1,7 +1,8 @@
 pnpm lint && pnpm typecheck
 
 # Visual tests (skip with SKIP_VISUAL_TESTS=1)
+# Uses Docker for Linux parity with CI
 if [ -z "$SKIP_VISUAL_TESTS" ]; then
-  echo "Running visual tests... (skip with SKIP_VISUAL_TESTS=1)"
-  pnpm --filter @ui-lib/css test:visual
+  echo "Running visual tests in Docker... (skip with SKIP_VISUAL_TESTS=1)"
+  pnpm test:visual
 fi
