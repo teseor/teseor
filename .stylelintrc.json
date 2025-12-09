@@ -200,7 +200,7 @@
           "px": ["min-width", "max-width", "min-height", "max-height"]
         },
         "ignoreProperties": {
-          "px": ["/^border/", "outline", "box-shadow", "text-shadow", "clip", "clip-path"]
+          "px": ["/^border/", "/^outline/", "box-shadow", "text-shadow", "clip", "clip-path"]
         },
         "message": "Use rem for sizing, px only allowed for borders/shadows/gradients"
       }
