@@ -43,35 +43,27 @@
   <script src="/tabs.js"></script>
   <script>
     const DEBUG_CLASSES = ['ui-debug-grid', 'ui-debug-grid-rows', 'ui-debug-baseline', 'ui-debug-outline'];
+    const DEBUG_KEY = 'debug-classes';
 
-    function getDebugParams() {
-      return new URLSearchParams(window.location.search);
+    function getDebugState() {
+      const saved = sessionStorage.getItem(DEBUG_KEY);
+      return saved ? JSON.parse(saved) : [];
     }
 
-    function updateUrl(params) {
-      const newUrl = params.toString()
-        ? `${window.location.pathname}?${params}`
-        : window.location.pathname;
-      window.history.replaceState({}, '', newUrl);
+    function saveDebugState() {
+      const active = DEBUG_CLASSES.filter(c => document.body.classList.contains(c));
+      sessionStorage.setItem(DEBUG_KEY, JSON.stringify(active));
     }
 
     function toggleDebug(className) {
       document.body.classList.toggle(className);
-      const params = getDebugParams();
-      if (document.body.classList.contains(className)) {
-        params.set(className, '1');
-      } else {
-        params.delete(className);
-      }
-      updateUrl(params);
+      saveDebugState();
     }
 
-    const params = getDebugParams();
-    DEBUG_CLASSES.forEach(className => {
-      if (params.get(className) === '1') {
-        document.body.classList.add(className);
-      }
-    });
+    // Restore debug state on load
+    for (const c of getDebugState()) {
+      document.body.classList.add(c);
+    }
 
     function toggleTheme() {
       const html = document.documentElement;
