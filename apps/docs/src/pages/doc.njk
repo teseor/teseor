@@ -26,10 +26,12 @@ eleventyComputed:
     {% endif %}
 
     {% for example in section.examples %}
-      {# Build preview HTML #}
+      {# Build preview HTML - from html string or items array #}
       {% set previewHtml = '' %}
       {% if example.html %}
         {% set previewHtml = example.html %}
+      {% elif example.items %}
+        {% set previewHtml = example.items | renderItems(example.layout) %}
       {% endif %}
 
       {# Build code snippet - auto-generate from items if not provided #}

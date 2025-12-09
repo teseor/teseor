@@ -197,6 +197,57 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addFilter('processTemplate', (template, data) => processTemplate(template, data));
 
+  // Recursive item renderer - handles nested children
+  function renderItemToHtml(item) {
+    const tag = item.tag || 'div';
+    const classes = item.class || '';
+    const text = item.text || '';
+
+    // Build style attribute
+    const style = item.style
+      ? Object.entries(item.style)
+          .map(([k, v]) => `${k}: ${v}`)
+          .join('; ')
+      : '';
+
+    // Build attributes
+    let attrs = classes ? ` class="${classes}"` : '';
+    if (style) attrs += ` style="${style}"`;
+    if (item.attrs) {
+      for (const [k, v] of Object.entries(item.attrs)) {
+        attrs += v === '' ? ` ${k}` : ` ${k}="${v}"`;
+      }
+    }
+
+    // Content: children (recursive) or text
+    let content = text;
+    if (item.children && item.children.length > 0) {
+      content = item.children.map((child) => renderItemToHtml(child)).join('');
+    }
+
+    return `<${tag}${attrs}>${content}</${tag}>`;
+  }
+
+  // Filter to render items array to HTML (for preview)
+  eleventyConfig.addFilter('renderItems', (items, layout) => {
+    if (!items || items.length === 0) return '';
+
+    const html = items.map((item) => renderItemToHtml(item)).join('\n');
+
+    if (layout) {
+      const layoutClass =
+        layout === 'cluster'
+          ? 'ui-cluster ui-cluster--md'
+          : layout === 'stack'
+            ? 'ui-stack ui-stack--sm'
+            : '';
+      if (layoutClass) {
+        return `<div class="${layoutClass}">${html}</div>`;
+      }
+    }
+    return html;
+  });
+
   eleventyConfig.addFilter('generateCode', (items, options = {}) => {
     if (!items) return '';
     const { layout } = options;
@@ -232,37 +283,6 @@ export default function (eleventyConfig) {
     }
 
     return lines.join('\n');
-  });
-
-  // Shortcodes for rendering
-  eleventyConfig.addShortcode('renderItems', (items, layout) => {
-    if (!items || items.length === 0) return '';
-
-    const layoutClasses = {
-      inline: '',
-      stack: 'ui-stack ui-stack--sm',
-      cluster: 'ui-cluster ui-cluster--md',
-    };
-
-    const itemsHtml = items
-      .map((item) => {
-        const tag = item.tag || 'div';
-        const classes = item.class || '';
-        const text = item.text || '';
-        const style = item.style
-          ? Object.entries(item.style)
-              .map(([k, v]) => `${k}: ${v}`)
-              .join('; ')
-          : '';
-        const styleAttr = style ? ` style="${style}"` : '';
-        return `<${tag} class="${classes}"${styleAttr}>${text}</${tag}>`;
-      })
-      .join('\n    ');
-
-    if (layout && layoutClasses[layout]) {
-      return `<div class="${layoutClasses[layout]}">\n    ${itemsHtml}\n  </div>`;
-    }
-    return itemsHtml;
   });
 
   // Watch for changes in packages
