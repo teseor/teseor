@@ -1,0 +1,115 @@
+{
+  "name": "sidebar-nav",
+  "baseClass": "sidebar-nav",
+  "element": "nav",
+  "description": "Navigation component for sidebars with support for groups, nested items, icons, and badges",
+  "modifiers": {
+    "collapsed": {
+      "type": "boolean",
+      "description": "Icon-only mode, hides labels and badges"
+    }
+  },
+  "elements": {
+    "header": {
+      "element": "div",
+      "description": "Sticky header section"
+    },
+    "content": {
+      "element": "div",
+      "description": "Scrollable content area"
+    },
+    "footer": {
+      "element": "div",
+      "description": "Sticky footer section"
+    },
+    "group": {
+      "element": "div",
+      "description": "Navigation group container"
+    },
+    "group-label": {
+      "element": "span",
+      "description": "Group section heading"
+    },
+    "group-items": {
+      "element": "ul",
+      "description": "List of nav items in a group"
+    },
+    "subgroup-label": {
+      "element": "span",
+      "description": "Nested subgroup heading"
+    },
+    "item": {
+      "element": "a",
+      "description": "Navigation link",
+      "modifiers": {
+        "active": {
+          "type": "boolean",
+          "description": "Current/active page state"
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "Non-interactive item"
+        },
+        "nested": {
+          "type": "boolean",
+          "description": "Indented nested item"
+        }
+      }
+    },
+    "icon": {
+      "element": "span",
+      "description": "Icon container"
+    },
+    "label": {
+      "element": "span",
+      "description": "Text label"
+    },
+    "badge": {
+      "element": "span",
+      "description": "Badge or count indicator"
+    }
+  },
+  "accessibility": {
+    "role": "navigation",
+    "aria-label": "Required - descriptive label for the navigation",
+    "aria-current": "Use 'page' on active item link",
+    "keyboard": "Tab navigation between focusable items"
+  },
+  "customization": [
+    {
+      "token": "--ui-sidebar-nav-width",
+      "default": "calc(var(--ui-unit) * 30)",
+      "description": "Default sidebar width"
+    },
+    {
+      "token": "--ui-sidebar-nav-width-collapsed",
+      "default": "var(--ui-row-3)",
+      "description": "Width in collapsed/icon-only mode"
+    },
+    {
+      "token": "--ui-sidebar-nav-bg",
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Background color"
+    },
+    {
+      "token": "--ui-sidebar-nav-item-height",
+      "default": "var(--ui-row-2)",
+      "description": "Nav item height"
+    },
+    {
+      "token": "--ui-sidebar-nav-item-hover-bg",
+      "default": "var(--ui-color-bg-muted)",
+      "description": "Item hover background"
+    },
+    {
+      "token": "--ui-sidebar-nav-item-active-bg",
+      "default": "var(--ui-color-primary-subtle)",
+      "description": "Active item background"
+    },
+    {
+      "token": "--ui-sidebar-nav-item-active-color",
+      "default": "var(--ui-color-primary)",
+      "description": "Active item text color"
+    }
+  ]
+}
