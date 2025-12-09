@@ -8,6 +8,8 @@ on:
 jobs:
   visual-test:
     runs-on: ubuntu-latest
+    env:
+      LOST_PIXEL_API_KEY: ${{ secrets.LOST_PIXEL_API_KEY }}
     steps:
       - uses: actions/checkout@v4
 
@@ -31,7 +33,7 @@ jobs:
         run: pnpm nx test css
 
       - name: Upload to Lost Pixel
-        if: ${{ secrets.LOST_PIXEL_API_KEY != '' }}
+        if: env.LOST_PIXEL_API_KEY != ''
         uses: lost-pixel/lost-pixel@v3.22.0
         env:
           LOST_PIXEL_PROJECT_ID: ${{ secrets.LOST_PIXEL_PROJECT_ID }}
