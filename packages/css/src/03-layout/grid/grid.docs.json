@@ -5,11 +5,34 @@
   "description": "CSS Grid with column variants.",
   "sections": [
     {
-      "data": {
-        "cols": 3,
-        "items": [1, 2, 3]
-      },
+      "title": "Columns",
       "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-grid ui-grid--2",
+              "children": [
+                {
+                  "tag": "div",
+                  "text": "1",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-2)"
+                  }
+                },
+                {
+                  "tag": "div",
+                  "text": "2",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-2)"
+                  }
+                }
+              ]
+            }
+          ]
+        },
         {
           "items": [
             {
@@ -42,8 +65,49 @@
                 }
               ]
             }
-          ],
-          "code": "<div class=\"ui-grid ui-grid--{{ cols }}\">\n{% for n in items %}  <div>{{ n }}</div>\n{% endfor %}</div>"
+          ]
+        },
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-grid ui-grid--4",
+              "children": [
+                {
+                  "tag": "div",
+                  "text": "1",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-2)"
+                  }
+                },
+                {
+                  "tag": "div",
+                  "text": "2",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-2)"
+                  }
+                },
+                {
+                  "tag": "div",
+                  "text": "3",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-2)"
+                  }
+                },
+                {
+                  "tag": "div",
+                  "text": "4",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-2)"
+                  }
+                }
+              ]
+            }
+          ]
         }
       ]
     }

@@ -5,9 +5,7 @@
   "description": "Vertical layout with consistent gap.",
   "sections": [
     {
-      "data": {
-        "items": ["Item 1", "Item 2", "Item 3"]
-      },
+      "title": "Basic",
       "examples": [
         {
           "items": [
@@ -41,8 +39,90 @@
                 }
               ]
             }
-          ],
-          "code": "<div class=\"ui-stack ui-stack--sm\">\n{% for item in items %}  <div>{{ item }}</div>\n{% endfor %}</div>"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sizes",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-stack ui-stack--xs",
+              "children": [
+                {
+                  "tag": "div",
+                  "text": "xs gap",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-1)"
+                  }
+                },
+                {
+                  "tag": "div",
+                  "text": "xs gap",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-1)"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-stack ui-stack--md",
+              "children": [
+                {
+                  "tag": "div",
+                  "text": "md gap",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-1)"
+                  }
+                },
+                {
+                  "tag": "div",
+                  "text": "md gap",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-1)"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-stack ui-stack--lg",
+              "children": [
+                {
+                  "tag": "div",
+                  "text": "lg gap",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-1)"
+                  }
+                },
+                {
+                  "tag": "div",
+                  "text": "lg gap",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-1)"
+                  }
+                }
+              ]
+            }
+          ]
         }
       ]
     }

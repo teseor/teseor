@@ -5,9 +5,7 @@
   "description": "Horizontal layout with wrapping.",
   "sections": [
     {
-      "data": {
-        "items": ["Tag 1", "Tag 2", "Tag 3", "Tag 4"]
-      },
+      "title": "Basic",
       "examples": [
         {
           "items": [
@@ -49,8 +47,80 @@
                 }
               ]
             }
-          ],
-          "code": "<div class=\"ui-cluster ui-cluster--md\">\n{% for item in items %}  <div>{{ item }}</div>\n{% endfor %}</div>"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sizes",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-cluster ui-cluster--xs",
+              "children": [
+                {
+                  "tag": "div",
+                  "text": "xs",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-1)"
+                  }
+                },
+                {
+                  "tag": "div",
+                  "text": "xs",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-1)"
+                  }
+                },
+                {
+                  "tag": "div",
+                  "text": "xs",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-1)"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-cluster ui-cluster--lg",
+              "children": [
+                {
+                  "tag": "div",
+                  "text": "lg",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-1)"
+                  }
+                },
+                {
+                  "tag": "div",
+                  "text": "lg",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-1)"
+                  }
+                },
+                {
+                  "tag": "div",
+                  "text": "lg",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-1)"
+                  }
+                }
+              ]
+            }
+          ]
         }
       ]
     }
