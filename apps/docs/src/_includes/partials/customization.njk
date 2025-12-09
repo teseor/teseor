@@ -1,0 +1,22 @@
+{#
+  Renders customization tokens table
+  Parameters:
+    - tokens: Array of { token, default, description }
+#}
+{% if tokens and tokens.length > 0 %}
+<p>Override these CSS custom properties to customize the component.</p>
+<table class="ui-table">
+  <thead>
+    <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+  </thead>
+  <tbody>
+    {% for t in tokens %}
+    <tr>
+      <td><code>{{ t.token }}</code></td>
+      <td><code>{{ t.default }}</code></td>
+      <td>{{ t.description }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}

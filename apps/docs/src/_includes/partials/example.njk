@@ -1,0 +1,52 @@
+{#
+  Renders an example with Preview/CSS/Customization tabs
+  Parameters:
+    - example: { layout, items, html, code }
+    - data: template data for code processing
+    - cssPropsHtml: HTML for CSS props tab (optional)
+    - customizationHtml: HTML for customization tab (optional)
+#}
+{% set previewHtml = '' %}
+
+{# Generate preview HTML #}
+{% if example.items and example.items.length > 0 %}
+  {% set previewHtml = renderItems(example.items, example.layout) %}
+{% elif example.html %}
+  {% set previewHtml = example.html %}
+{% endif %}
+
+{# Generate code snippet #}
+{% set codeSnippet = example.code or '' %}
+{% if not codeSnippet and example.items %}
+  {% set codeSnippet = example.items | generateCode %}
+{% elif not codeSnippet and example.html %}
+  {% set codeSnippet = example.html %}
+{% endif %}
+{% if data %}
+  {% set codeSnippet = codeSnippet | processTemplate(data) %}
+{% endif %}
+
+{# Determine tab labels #}
+{% set cssTabLabel = 'CSS' if cssPropsHtml else 'HTML' %}
+{% set cssTabContent = cssPropsHtml if cssPropsHtml else '<pre class="ui-code-block"><code>' + (codeSnippet | escape) + '</code></pre>' %}
+
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">{{ cssTabLabel }}</button>
+    {% if customizationHtml %}
+    <button class="ui-tabs__tab">Customization</button>
+    {% endif %}
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    {{ previewHtml | safe }}
+  </div>
+  <div class="ui-tabs__panel">
+    {{ cssTabContent | safe }}
+  </div>
+  {% if customizationHtml %}
+  <div class="ui-tabs__panel">
+    {{ customizationHtml | safe }}
+  </div>
+  {% endif %}
+</div>
