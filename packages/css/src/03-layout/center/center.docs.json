@@ -3,6 +3,7 @@
   "type": "primitive",
   "title": "Center",
   "description": "Centers content horizontally and vertically.",
+  "api": "center.api.json",
   "sections": [
     {
       "title": "Basic",

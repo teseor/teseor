@@ -3,6 +3,7 @@
   "type": "primitive",
   "title": "Cluster",
   "description": "Horizontal layout with wrapping.",
+  "api": "cluster.api.json",
   "sections": [
     {
       "title": "Basic",

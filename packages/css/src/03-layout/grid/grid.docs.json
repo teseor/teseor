@@ -3,6 +3,7 @@
   "type": "primitive",
   "title": "Grid",
   "description": "CSS Grid with column variants.",
+  "api": "grid.api.json",
   "sections": [
     {
       "title": "Columns",

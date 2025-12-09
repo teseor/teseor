@@ -3,6 +3,7 @@
   "type": "utility",
   "title": "Display",
   "description": "Flexbox and display utilities.",
+  "api": "display.api.json",
   "sections": [
     {
       "examples": [

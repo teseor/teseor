@@ -3,6 +3,7 @@
   "type": "primitive",
   "title": "Stack",
   "description": "Vertical layout with consistent gap.",
+  "api": "stack.api.json",
   "sections": [
     {
       "title": "Basic",

@@ -3,6 +3,7 @@
   "type": "primitive",
   "title": "Flex",
   "description": "Flexbox layout container with direction, wrap, gap, and alignment controls.",
+  "api": "flex.api.json",
   "sections": [
     {
       "title": "Default",
