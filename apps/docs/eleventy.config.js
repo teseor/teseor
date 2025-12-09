@@ -1,0 +1,224 @@
+import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import nunjucks from 'nunjucks';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const ROOT = join(__dirname, '../..');
+const PACKAGES_DIR = join(ROOT, 'packages');
+
+const TYPE_PATHS = {
+  token: 'tokens',
+  primitive: 'primitives',
+  component: 'components',
+  utility: 'utilities',
+  guide: 'guides',
+};
+
+const COMPONENT_GROUPS = [
+  { id: 'actions', label: 'Actions', components: ['button', 'button-group'] },
+  { id: 'typography', label: 'Typography', components: ['heading', 'link', 'code'] },
+  {
+    id: 'forms',
+    label: 'Forms',
+    components: [
+      'label',
+      'input',
+      'textarea',
+      'select',
+      'checkbox',
+      'radio',
+      'toggle',
+      'field',
+      'form-helper',
+      'form-error',
+    ],
+  },
+  {
+    id: 'data-display',
+    label: 'Data Display',
+    components: ['avatar', 'badge', 'icon', 'tag', 'status', 'card', 'table', 'data-list'],
+  },
+  {
+    id: 'feedback',
+    label: 'Feedback',
+    components: ['alert', 'spinner', 'progress', 'skeleton', 'toast'],
+  },
+  {
+    id: 'overlays',
+    label: 'Overlays',
+    components: ['overlay', 'tooltip', 'popover', 'modal', 'dialog', 'drawer'],
+  },
+  { id: 'disclosure', label: 'Disclosure', components: ['disclosure', 'accordion'] },
+  {
+    id: 'navigation',
+    label: 'Navigation',
+    components: ['tabs', 'breadcrumb', 'menu', 'pagination'],
+  },
+  { id: 'layout', label: 'Layout', components: ['divider'] },
+];
+
+function getGroupForComponent(componentId) {
+  for (const group of COMPONENT_GROUPS) {
+    if (group.components.includes(componentId)) {
+      return group;
+    }
+  }
+  return null;
+}
+
+function findDocsFiles(dir, files = []) {
+  const entries = readdirSync(dir);
+  for (const entry of entries) {
+    const fullPath = join(dir, entry);
+    const stat = statSync(fullPath);
+    if (
+      stat.isDirectory() &&
+      !entry.startsWith('.') &&
+      entry !== 'node_modules' &&
+      entry !== 'dist'
+    ) {
+      findDocsFiles(fullPath, files);
+    } else if (entry.endsWith('.docs.json')) {
+      files.push(fullPath);
+    }
+  }
+  return files;
+}
+
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function loadApi(doc, docsFilePath) {
+  if (!doc.api) return null;
+  const apiPath = join(dirname(docsFilePath), doc.api);
+  try {
+    return JSON.parse(readFileSync(apiPath, 'utf-8'));
+  } catch {
+    return null;
+  }
+}
+
+function resolveDoc(doc, docsFilePath) {
+  const api = loadApi(doc, docsFilePath);
+  const id = doc.id || api?.name;
+  const type = doc.type || 'component';
+  const group = type === 'component' ? getGroupForComponent(id) : null;
+
+  return {
+    id,
+    type,
+    typePath: TYPE_PATHS[type] || type,
+    group: group?.id || null,
+    groupLabel: group?.label || null,
+    title: doc.title || (api ? capitalize(api.name) : id),
+    description: doc.description || api?.description || '',
+    sections: doc.sections || [],
+    customization: doc.customization || null,
+    api: api || null,
+    permalink: `/${TYPE_PATHS[type] || type}/${id}/`,
+  };
+}
+
+function loadAllDocs() {
+  const docsFiles = findDocsFiles(PACKAGES_DIR);
+  const docs = [];
+
+  for (const file of docsFiles) {
+    try {
+      const content = readFileSync(file, 'utf-8');
+      const doc = JSON.parse(content);
+      docs.push(resolveDoc(doc, file));
+    } catch (err) {
+      console.error(`Error loading ${file}: ${err.message}`);
+    }
+  }
+
+  return docs;
+}
+
+function processTemplate(template, data) {
+  if (!data || Object.keys(data).length === 0) return template;
+  const env = nunjucks.configure({ autoescape: false });
+  return env.renderString(template, data);
+}
+
+export default function (eleventyConfig) {
+  // Add global data
+  eleventyConfig.addGlobalData('docs', () => loadAllDocs());
+  eleventyConfig.addGlobalData('componentGroups', COMPONENT_GROUPS);
+
+  // Passthrough copy for static assets
+  eleventyConfig.addPassthroughCopy({ 'src/public': '.' });
+  eleventyConfig.addPassthroughCopy('src/styles.css');
+
+  // Custom filters
+  eleventyConfig.addFilter('byType', (docs, type) => docs.filter((d) => d.type === type));
+
+  eleventyConfig.addFilter('byGroup', (docs, groupId) => docs.filter((d) => d.group === groupId));
+
+  eleventyConfig.addFilter('sortByTitle', (docs) =>
+    [...docs].sort((a, b) => a.title.localeCompare(b.title)),
+  );
+
+  eleventyConfig.addFilter('processTemplate', (template, data) => processTemplate(template, data));
+
+  eleventyConfig.addFilter('generateCode', (items) => {
+    if (!items) return '';
+    return items
+      .map((item) => {
+        const tag = item.tag || 'div';
+        const classes = item.class || '';
+        const text = item.text || '';
+        return `<${tag} class="${classes}">${text}</${tag}>`;
+      })
+      .join('\n');
+  });
+
+  // Shortcodes for rendering
+  eleventyConfig.addShortcode('renderItems', (items, layout) => {
+    if (!items || items.length === 0) return '';
+
+    const layoutClasses = {
+      inline: '',
+      stack: 'ui-stack ui-stack--sm',
+      cluster: 'ui-cluster ui-cluster--md',
+    };
+
+    const itemsHtml = items
+      .map((item) => {
+        const tag = item.tag || 'div';
+        const classes = item.class || '';
+        const text = item.text || '';
+        const style = item.style
+          ? Object.entries(item.style)
+              .map(([k, v]) => `${k}: ${v}`)
+              .join('; ')
+          : '';
+        const styleAttr = style ? ` style="${style}"` : '';
+        return `<${tag} class="${classes}"${styleAttr}>${text}</${tag}>`;
+      })
+      .join('\n    ');
+
+    if (layout && layoutClasses[layout]) {
+      return `<div class="${layoutClasses[layout]}">\n    ${itemsHtml}\n  </div>`;
+    }
+    return itemsHtml;
+  });
+
+  // Watch for changes in packages
+  eleventyConfig.addWatchTarget(join(ROOT, 'packages/**/*.docs.json'));
+  eleventyConfig.addWatchTarget(join(ROOT, 'packages/**/*.api.json'));
+
+  return {
+    dir: {
+      input: 'src',
+      output: 'dist',
+      includes: '_includes',
+      data: '_data',
+    },
+    templateFormats: ['njk', 'html', 'md'],
+    htmlTemplateEngine: 'njk',
+  };
+}
