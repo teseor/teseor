@@ -107,9 +107,11 @@
       <!-- Tokens -->
 <section id="colors" class="ui-docs-section" data-type="token">
   <h2>Colors</h2>
-  <p>HSL-based colors derived from hue tokens.</p>
+  <p>HSL-based color system with primitive and semantic tokens. Semantic tokens adapt to light/dark themes.</p>
 
-  <div class="ui-tabs ui-mb-2">
+  <h3>Text Colors</h3>
+<p>Use for typography and icons.</p>
+<div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
     <button class="ui-tabs__tab">HTML</button>
@@ -117,13 +119,133 @@
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <div class="ui-stack ui-stack--sm">
-    <div class="ui-cluster ui-cluster--sm"><div style="width: var(--ui-space-8); height: var(--ui-row-2); background: var(--ui-color-primary); border-radius: var(--ui-radius-sm)"></div><div style="width: var(--ui-space-8); height: var(--ui-row-2); background: var(--ui-color-primary-light); border-radius: var(--ui-radius-sm)"></div><div style="width: var(--ui-space-8); height: var(--ui-row-2); background: var(--ui-color-primary-dark); border-radius: var(--ui-radius-sm)"></div><span>Primary</span></div>
-    <div class="ui-cluster ui-cluster--sm"><div style="width: var(--ui-space-8); height: var(--ui-row-2); background: var(--ui-color-success); border-radius: var(--ui-radius-sm)"></div><div style="width: var(--ui-space-8); height: var(--ui-row-2); background: var(--ui-color-warning); border-radius: var(--ui-radius-sm)"></div><div style="width: var(--ui-space-8); height: var(--ui-row-2); background: var(--ui-color-danger); border-radius: var(--ui-radius-sm)"></div><span>Status</span></div>
+    <p style="color: var(--ui-color-text)">--ui-color-text: Default text</p>
+    <p style="color: var(--ui-color-text-muted)">--ui-color-text-muted: Secondary text, captions</p>
+    <p class="ui-p-1" style="color: var(--ui-color-text-inverse); background: var(--ui-color-neutral-900); border-radius: var(--ui-radius-sm)">--ui-color-text-inverse: Text on dark backgrounds</p>
   </div>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;div class="ui-cluster ui-cluster--sm"&gt;&lt;div style="width: var(--ui-space-8); height: var(--ui-row-2); background: var(--ui-color-primary); border-radius: var(--ui-radius-sm)"&gt;&lt;/div&gt;&lt;div style="width: var(--ui-space-8); height: var(--ui-row-2); background: var(--ui-color-primary-light); border-radius: var(--ui-radius-sm)"&gt;&lt;/div&gt;&lt;div style="width: var(--ui-space-8); height: var(--ui-row-2); background: var(--ui-color-primary-dark); border-radius: var(--ui-radius-sm)"&gt;&lt;/div&gt;&lt;span&gt;Primary&lt;/span&gt;&lt;/div&gt;
-&lt;div class="ui-cluster ui-cluster--sm"&gt;&lt;div style="width: var(--ui-space-8); height: var(--ui-row-2); background: var(--ui-color-success); border-radius: var(--ui-radius-sm)"&gt;&lt;/div&gt;&lt;div style="width: var(--ui-space-8); height: var(--ui-row-2); background: var(--ui-color-warning); border-radius: var(--ui-radius-sm)"&gt;&lt;/div&gt;&lt;div style="width: var(--ui-space-8); height: var(--ui-row-2); background: var(--ui-color-danger); border-radius: var(--ui-radius-sm)"&gt;&lt;/div&gt;&lt;span&gt;Status&lt;/span&gt;&lt;/div&gt;</code></pre>
+    <pre class="ui-code-block"><code>&lt;p style="color: var(--ui-color-text)"&gt;--ui-color-text: Default text&lt;/p&gt;
+&lt;p style="color: var(--ui-color-text-muted)"&gt;--ui-color-text-muted: Secondary text, captions&lt;/p&gt;
+&lt;p class="ui-p-1" style="color: var(--ui-color-text-inverse); background: var(--ui-color-neutral-900); border-radius: var(--ui-radius-sm)"&gt;--ui-color-text-inverse: Text on dark backgrounds&lt;/p&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Background Colors</h3>
+<p>Use for surfaces, cards, and containers.</p>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-stack ui-stack--sm">
+    <div class="ui-p-2" style="background: var(--ui-color-bg); border: 1px solid var(--ui-color-border); border-radius: var(--ui-radius-md)">--ui-color-bg: Base background</div>
+    <div class="ui-p-2" style="background: var(--ui-color-bg-subtle); border-radius: var(--ui-radius-md)">--ui-color-bg-subtle: Subtle emphasis</div>
+    <div class="ui-p-2" style="background: var(--ui-color-bg-muted); border-radius: var(--ui-radius-md)">--ui-color-bg-muted: Stronger emphasis, code blocks</div>
+  </div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-p-2" style="background: var(--ui-color-bg); border: 1px solid var(--ui-color-border); border-radius: var(--ui-radius-md)"&gt;--ui-color-bg: Base background&lt;/div&gt;
+&lt;div class="ui-p-2" style="background: var(--ui-color-bg-subtle); border-radius: var(--ui-radius-md)"&gt;--ui-color-bg-subtle: Subtle emphasis&lt;/div&gt;
+&lt;div class="ui-p-2" style="background: var(--ui-color-bg-muted); border-radius: var(--ui-radius-md)"&gt;--ui-color-bg-muted: Stronger emphasis, code blocks&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Border Colors</h3>
+<p>Use for dividers, inputs, and card borders.</p>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-stack ui-stack--sm">
+    <div class="ui-p-2" style="border: 2px solid var(--ui-color-border); border-radius: var(--ui-radius-md)">--ui-color-border: Default borders</div>
+    <div class="ui-p-2" style="border: 2px solid var(--ui-color-border-strong); border-radius: var(--ui-radius-md)">--ui-color-border-strong: Emphasized borders</div>
+  </div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-p-2" style="border: 2px solid var(--ui-color-border); border-radius: var(--ui-radius-md)"&gt;--ui-color-border: Default borders&lt;/div&gt;
+&lt;div class="ui-p-2" style="border: 2px solid var(--ui-color-border-strong); border-radius: var(--ui-radius-md)"&gt;--ui-color-border-strong: Emphasized borders&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Interactive Colors</h3>
+<p>Use for links, buttons, and interactive elements.</p>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-stack ui-stack--sm">
+    <p style="color: var(--ui-color-interactive)">--ui-color-interactive: Links, primary actions</p>
+    <p style="color: var(--ui-color-interactive-hover)">--ui-color-interactive-hover: Hover state</p>
+    <div class="ui-p-1" style="display: inline-block; outline: 3px solid var(--ui-color-focus); outline-offset: 2px; border-radius: var(--ui-radius-sm)">--ui-color-focus: Focus rings</div>
+  </div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;p style="color: var(--ui-color-interactive)"&gt;--ui-color-interactive: Links, primary actions&lt;/p&gt;
+&lt;p style="color: var(--ui-color-interactive-hover)"&gt;--ui-color-interactive-hover: Hover state&lt;/p&gt;
+&lt;div class="ui-p-1" style="display: inline-block; outline: 3px solid var(--ui-color-focus); outline-offset: 2px; border-radius: var(--ui-radius-sm)"&gt;--ui-color-focus: Focus rings&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Status Colors</h3>
+<p>Use for feedback, alerts, and validation.</p>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-cluster ui-cluster--sm"><div style="width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-success); border-radius: var(--ui-radius-sm)"></div><span>--ui-color-success</span></div><div class="ui-cluster ui-cluster--sm"><div style="width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-warning); border-radius: var(--ui-radius-sm)"></div><span>--ui-color-warning</span></div><div class="ui-cluster ui-cluster--sm"><div style="width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-danger); border-radius: var(--ui-radius-sm)"></div><span>--ui-color-danger</span></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-cluster ui-cluster--sm"&gt;&lt;div style="width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-success); border-radius: var(--ui-radius-sm)"&gt;&lt;/div&gt;&lt;span&gt;--ui-color-success&lt;/span&gt;&lt;/div&gt;&lt;div class="ui-cluster ui-cluster--sm"&gt;&lt;div style="width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-warning); border-radius: var(--ui-radius-sm)"&gt;&lt;/div&gt;&lt;span&gt;--ui-color-warning&lt;/span&gt;&lt;/div&gt;&lt;div class="ui-cluster ui-cluster--sm"&gt;&lt;div style="width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-danger); border-radius: var(--ui-radius-sm)"&gt;&lt;/div&gt;&lt;span&gt;--ui-color-danger&lt;/span&gt;&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Primary Scale</h3>
+<p>Brand color with light and dark variants.</p>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-cluster ui-cluster--sm"><div style="width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-primary-light); border-radius: var(--ui-radius-sm)"></div><span>--ui-color-primary-light</span></div><div class="ui-cluster ui-cluster--sm"><div style="width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-primary); border-radius: var(--ui-radius-sm)"></div><span>--ui-color-primary</span></div><div class="ui-cluster ui-cluster--sm"><div style="width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-primary-dark); border-radius: var(--ui-radius-sm)"></div><span>--ui-color-primary-dark</span></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-cluster ui-cluster--sm"&gt;&lt;div style="width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-primary-light); border-radius: var(--ui-radius-sm)"&gt;&lt;/div&gt;&lt;span&gt;--ui-color-primary-light&lt;/span&gt;&lt;/div&gt;&lt;div class="ui-cluster ui-cluster--sm"&gt;&lt;div style="width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-primary); border-radius: var(--ui-radius-sm)"&gt;&lt;/div&gt;&lt;span&gt;--ui-color-primary&lt;/span&gt;&lt;/div&gt;&lt;div class="ui-cluster ui-cluster--sm"&gt;&lt;div style="width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-primary-dark); border-radius: var(--ui-radius-sm)"&gt;&lt;/div&gt;&lt;span&gt;--ui-color-primary-dark&lt;/span&gt;&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Neutral Scale</h3>
+<p>Gray scale for text, backgrounds, and borders. Derived from primary hue for subtle warmth.</p>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-cluster ui-cluster--sm" style="flex-wrap: wrap"><div style="width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-neutral-50); border: 1px solid var(--ui-color-border); border-radius: var(--ui-radius-sm)"></div><div style="width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-neutral-100); border-radius: var(--ui-radius-sm)"></div><div style="width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-neutral-200); border-radius: var(--ui-radius-sm)"></div><div style="width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-neutral-300); border-radius: var(--ui-radius-sm)"></div><div style="width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-neutral-400); border-radius: var(--ui-radius-sm)"></div><div style="width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-neutral-500); border-radius: var(--ui-radius-sm)"></div><div style="width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-neutral-600); border-radius: var(--ui-radius-sm)"></div><div style="width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-neutral-700); border-radius: var(--ui-radius-sm)"></div><div style="width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-neutral-800); border-radius: var(--ui-radius-sm)"></div><div style="width: var(--ui-space-4); height: var(--ui-row-2); background: var(--ui-color-neutral-900); border-radius: var(--ui-radius-sm)"></div></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>50 → 100 → 200 → 300 → 400 → 500 → 600 → 700 → 800 → 900</code></pre>
   </div>
   
 </div>
@@ -186,27 +308,82 @@
 </section>
 <section id="typography" class="ui-docs-section" data-type="token">
   <h2>Typography</h2>
-  <p>All line-heights snap to the 8px grid. Toggle the baseline grid to verify.</p>
+  <p>Modular scale (1.2 ratio) with 8px grid-snapped line-heights. Responsive breakpoints at 730px and 1080px adjust heading sizes.</p>
 
-  <div class="ui-tabs ui-mb-2">
+  <h3>Type Scale</h3>
+<p>Font sizes follow a 1.2 (Minor Third) modular scale from 12px to 40px. All line-heights snap to 8px multiples.</p>
+<div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
     <button class="ui-tabs__tab">HTML</button>
     
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
-    <h1>Heading 1</h1>
-    <h2>Heading 2</h2>
-    <h3>Heading 3</h3>
-    <h4>Heading 4</h4>
-    <h5>Heading 5</h5>
+    <table class="ui-table"><thead><tr><th>Token</th><th>Size</th><th>Line-height</th></tr></thead><tbody><tr><td><code>--ui-font-size-xs</code></td><td>12px</td><td>16px</td></tr><tr><td><code>--ui-font-size-sm</code></td><td>14px</td><td>24px</td></tr><tr><td><code>--ui-font-size-md</code></td><td>16px</td><td>24px</td></tr><tr><td><code>--ui-font-size-lg</code></td><td>20px</td><td>32px</td></tr><tr><td><code>--ui-font-size-xl</code></td><td>24px</td><td>32px</td></tr><tr><td><code>--ui-font-size-2xl</code></td><td>28px</td><td>32px</td></tr><tr><td><code>--ui-font-size-3xl</code></td><td>32px</td><td>40px</td></tr><tr><td><code>--ui-font-size-4xl</code></td><td>40px</td><td>48px</td></tr></tbody></table>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;h1&gt;Heading 1&lt;/h1&gt;
-&lt;h2&gt;Heading 2&lt;/h2&gt;
-&lt;h3&gt;Heading 3&lt;/h3&gt;
-&lt;h4&gt;Heading 4&lt;/h4&gt;
-&lt;h5&gt;Heading 5&lt;/h5&gt;</code></pre>
+    <pre class="ui-code-block"><code>&lt;table class="ui-table"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Token&lt;/th&gt;&lt;th&gt;Size&lt;/th&gt;&lt;th&gt;Line-height&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;--ui-font-size-xs&lt;/code&gt;&lt;/td&gt;&lt;td&gt;12px&lt;/td&gt;&lt;td&gt;16px&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;--ui-font-size-sm&lt;/code&gt;&lt;/td&gt;&lt;td&gt;14px&lt;/td&gt;&lt;td&gt;24px&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;--ui-font-size-md&lt;/code&gt;&lt;/td&gt;&lt;td&gt;16px&lt;/td&gt;&lt;td&gt;24px&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;--ui-font-size-lg&lt;/code&gt;&lt;/td&gt;&lt;td&gt;20px&lt;/td&gt;&lt;td&gt;32px&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;--ui-font-size-xl&lt;/code&gt;&lt;/td&gt;&lt;td&gt;24px&lt;/td&gt;&lt;td&gt;32px&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;--ui-font-size-2xl&lt;/code&gt;&lt;/td&gt;&lt;td&gt;28px&lt;/td&gt;&lt;td&gt;32px&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;--ui-font-size-3xl&lt;/code&gt;&lt;/td&gt;&lt;td&gt;32px&lt;/td&gt;&lt;td&gt;40px&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;--ui-font-size-4xl&lt;/code&gt;&lt;/td&gt;&lt;td&gt;40px&lt;/td&gt;&lt;td&gt;48px&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Headings</h3>
+<p>Headings use semantic tokens and adjust size at breakpoints.</p>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <h1>Heading 1 - 40px / 48px</h1>
+    <h2>Heading 2 - 32px / 40px</h2>
+    <h3>Heading 3 - 28px / 32px</h3>
+    <h4>Heading 4 - 24px / 32px</h4>
+    <h5>Heading 5 - 20px / 24px</h5>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;h1&gt;Heading 1 - 40px / 48px&lt;/h1&gt;
+&lt;h2&gt;Heading 2 - 32px / 40px&lt;/h2&gt;
+&lt;h3&gt;Heading 3 - 28px / 32px&lt;/h3&gt;
+&lt;h4&gt;Heading 4 - 24px / 32px&lt;/h4&gt;
+&lt;h5&gt;Heading 5 - 20px / 24px&lt;/h5&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Body Text</h3>
+<p>Default body text at 16px with 24px line-height (1.5x ratio).</p>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <p>Body text at 16px with 24px line-height. The <strong>bold text</strong> and <code>inline code</code> maintain the same rhythm.</p>
+<p class="ui-text-body-sm">Body small at 14px with 24px line-height for secondary text.</p>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;p&gt;Body text at 16px with 24px line-height. The &lt;strong&gt;bold text&lt;/strong&gt; and &lt;code&gt;inline code&lt;/code&gt; maintain the same rhythm.&lt;/p&gt;
+&lt;p class="ui-text-body-sm"&gt;Body small at 14px with 24px line-height for secondary text.&lt;/p&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Text Roles</h3>
+<p>Semantic text styles for specific use cases.</p>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <p class="ui-text-lead">Lead paragraph - 20px / 32px. Use for opening paragraphs or article intros.</p>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;p class="ui-text-lead"&gt;Lead paragraph - 20px / 32px. Use for opening paragraphs or article intros.&lt;/p&gt;</code></pre>
   </div>
   
 </div>
@@ -217,12 +394,104 @@
     
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
-    <p>Body text at 16px with 24px line-height. The <strong>bold text</strong> and <code>inline code</code> maintain the same rhythm.</p>
-<p><small>Small text at 14px with 16px line-height.</small></p>
+    <p class="ui-text-eyebrow">Eyebrow text</p>
+<h2>Related Heading</h2>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;p&gt;Body text at 16px with 24px line-height. The &lt;strong&gt;bold text&lt;/strong&gt; and &lt;code&gt;inline code&lt;/code&gt; maintain the same rhythm.&lt;/p&gt;
-&lt;p&gt;&lt;small&gt;Small text at 14px with 16px line-height.&lt;/small&gt;&lt;/p&gt;</code></pre>
+    <pre class="ui-code-block"><code>&lt;p class="ui-text-eyebrow"&gt;Eyebrow text&lt;/p&gt;
+&lt;h2&gt;Related Heading&lt;/h2&gt;</code></pre>
+  </div>
+  
+</div>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <p class="ui-text-caption">Caption text - 12px / 16px. Use for labels, hints, and metadata.</p>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;p class="ui-text-caption"&gt;Caption text - 12px / 16px. Use for labels, hints, and metadata.&lt;/p&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Font Weights</h3>
+<p>Four weight levels for hierarchy.</p>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <p class="ui-font-normal">Normal (400) - Body text</p>
+<p class="ui-font-medium">Medium (500) - Labels, small headings</p>
+<p class="ui-font-semibold">Semibold (600) - Subheadings</p>
+<p class="ui-font-bold">Bold (700) - Headlines, emphasis</p>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;p class="ui-font-normal"&gt;Normal (400) - Body text&lt;/p&gt;
+&lt;p class="ui-font-medium"&gt;Medium (500) - Labels, small headings&lt;/p&gt;
+&lt;p class="ui-font-semibold"&gt;Semibold (600) - Subheadings&lt;/p&gt;
+&lt;p class="ui-font-bold"&gt;Bold (700) - Headlines, emphasis&lt;/p&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Letter Spacing</h3>
+<p>Three tracking options based on use case.</p>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <p class="ui-text-3xl ui-tracking-display">Display tracking (-0.02em)</p>
+<p>Body tracking (0) - default</p>
+<p class="ui-text-eyebrow">Caps tracking (+0.08em)</p>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;p class="ui-text-3xl ui-tracking-display"&gt;Display tracking (-0.02em)&lt;/p&gt;
+&lt;p&gt;Body tracking (0) - default&lt;/p&gt;
+&lt;p class="ui-text-eyebrow"&gt;Caps tracking (+0.08em)&lt;/p&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Line Length</h3>
+<p>Constrain text width for optimal readability (45-75 characters).</p>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-prose"><p>This paragraph is constrained to 65ch max-width for optimal reading comfort. Long lines of text are harder to read because the eye has difficulty tracking back to the start of the next line.</p></div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;div class="ui-prose"&gt;&lt;p&gt;This paragraph is constrained to 65ch max-width for optimal reading comfort. Long lines of text are harder to read because the eye has difficulty tracking back to the start of the next line.&lt;/p&gt;&lt;/div&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Responsive Behavior</h3>
+<p>Headings scale down on mobile (&lt;730px) and up on desktop (&gt;1080px).</p>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <table class="ui-table"><thead><tr><th>Heading</th><th>Mobile</th><th>Default</th><th>Desktop</th></tr></thead><tbody><tr><td>h1</td><td>28px</td><td>40px</td><td>48px</td></tr><tr><td>h2</td><td>24px</td><td>32px</td><td>40px</td></tr><tr><td>h3</td><td>20px</td><td>28px</td><td>28px</td></tr><tr><td>h4</td><td>18px</td><td>24px</td><td>24px</td></tr></tbody></table>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;table class="ui-table"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Heading&lt;/th&gt;&lt;th&gt;Mobile&lt;/th&gt;&lt;th&gt;Default&lt;/th&gt;&lt;th&gt;Desktop&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;h1&lt;/td&gt;&lt;td&gt;28px&lt;/td&gt;&lt;td&gt;40px&lt;/td&gt;&lt;td&gt;48px&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;h2&lt;/td&gt;&lt;td&gt;24px&lt;/td&gt;&lt;td&gt;32px&lt;/td&gt;&lt;td&gt;40px&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;h3&lt;/td&gt;&lt;td&gt;20px&lt;/td&gt;&lt;td&gt;28px&lt;/td&gt;&lt;td&gt;28px&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;h4&lt;/td&gt;&lt;td&gt;18px&lt;/td&gt;&lt;td&gt;24px&lt;/td&gt;&lt;td&gt;24px&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;</code></pre>
   </div>
   
 </div>
@@ -623,25 +892,38 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <div class="ui-accordion"><details class="ui-disclosure"><summary class="ui-disclosure__trigger">Section 1<span class="ui-disclosure__icon">&#9662;</span></summary><div class="ui-disclosure__content"><p>Content for section 1</p></div></details><details class="ui-disclosure"><summary class="ui-disclosure__trigger">Section 2<span class="ui-disclosure__icon">&#9662;</span></summary><div class="ui-disclosure__content"><p>Content for section 2</p></div></details><details class="ui-disclosure"><summary class="ui-disclosure__trigger">Section 3<span class="ui-disclosure__icon">&#9662;</span></summary><div class="ui-disclosure__content"><p>Content for section 3</p></div></details></div>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;div class="ui-accordion"&gt;
-  &lt;details class="ui-disclosure"&gt;
-    &lt;summary class="ui-disclosure__trigger"&gt;Section 1&lt;/summary&gt;
-    &lt;div class="ui-disclosure__content"&gt;...&lt;/div&gt;
-  &lt;/details&gt;
-  &lt;details class="ui-disclosure"&gt;
-    &lt;summary class="ui-disclosure__trigger"&gt;Section 2&lt;/summary&gt;
-    &lt;div class="ui-disclosure__content"&gt;...&lt;/div&gt;
-  &lt;/details&gt;
-&lt;/div&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-accordion</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Variant</h4>
+<p>Visual variants. Borderless removes outer border, separated adds gap between items.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-accordion--borderless</code></td><td>borderless</td></tr><tr><td><code>.ui-accordion--separated</code></td><td>separated</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-accordion-border-color</code></td><td><code>var(--ui-color-border)</code></td><td>Border color</td></tr>
+      <tr><td><code>--ui-accordion-border-width</code></td><td><code>1px</code></td><td>Border width</td></tr>
+      <tr><td><code>--ui-accordion-radius</code></td><td><code>var(--ui-radius-md)</code></td><td>Border radius</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>Separated</h3>
@@ -695,21 +977,43 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <div class="ui-alert"><div class="ui-alert__content"><p class="ui-alert__title">Note</p><p class="ui-alert__description">This is a default alert message.</p></div></div>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;div class="ui-alert"&gt;
-  &lt;div class="ui-alert__content"&gt;
-    &lt;p class="ui-alert__title"&gt;Note&lt;/p&gt;
-    &lt;p class="ui-alert__description"&gt;This is a default alert.&lt;/p&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-alert</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Variant</h4>
+<p>Visual variant indicating message type</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-alert--info</code></td><td>info</td></tr><tr><td><code>.ui-alert--success</code></td><td>success</td></tr><tr><td><code>.ui-alert--warning</code></td><td>warning</td></tr><tr><td><code>.ui-alert--danger</code></td><td>danger</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-alert-padding</code></td><td><code>var(--ui-space-2)</code></td><td>Inner padding</td></tr>
+      <tr><td><code>--ui-alert-gap</code></td><td><code>var(--ui-space-1)</code></td><td>Gap between icon and content</td></tr>
+      <tr><td><code>--ui-alert-radius</code></td><td><code>var(--ui-radius-md)</code></td><td>Border radius</td></tr>
+      <tr><td><code>--ui-alert-border-width</code></td><td><code>var(--ui-border-width-sm)</code></td><td>Border width</td></tr>
+      <tr><td><code>--ui-alert-bg</code></td><td><code>var(--ui-color-bg-subtle)</code></td><td>Background color</td></tr>
+      <tr><td><code>--ui-alert-border-color</code></td><td><code>var(--ui-color-border)</code></td><td>Border color</td></tr>
+      <tr><td><code>--ui-alert-color</code></td><td><code>var(--ui-color-text)</code></td><td>Text color</td></tr>
+      <tr><td><code>--ui-alert-icon-color</code></td><td><code>currentcolor</code></td><td>Icon color</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>Variants</h3>
@@ -780,8 +1084,8 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <div class="ui-cluster ui-cluster--md">
@@ -790,15 +1094,44 @@
   </div>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;div class="ui-avatar"&gt;
-  &lt;span class="ui-avatar__fallback"&gt;JD&lt;/span&gt;
-&lt;/div&gt;
-
-&lt;div class="ui-avatar"&gt;
-  &lt;img class="ui-avatar__image" src="..." alt="User"&gt;
-&lt;/div&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-avatar</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Size</h4>
+<p>Size variant. Default is 40px.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-avatar--xs</code></td><td>xs</td></tr><tr><td><code>.ui-avatar--sm</code></td><td>sm</td></tr><tr><td><code>.ui-avatar--lg</code></td><td>lg</td></tr><tr><td><code>.ui-avatar--xl</code></td><td>xl</td></tr></tbody>
+</table>
+<h4>Shape</h4>
+<p>Square shape for organizations. Default is circle.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-avatar--square</code></td><td>square</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-avatar-size</code></td><td><code>calc(var(--unit) * 5)</code></td><td>Default size</td></tr>
+      <tr><td><code>--ui-avatar-size-xs</code></td><td><code>calc(var(--unit) * 3)</code></td><td>Extra small size</td></tr>
+      <tr><td><code>--ui-avatar-size-sm</code></td><td><code>calc(var(--unit) * 4)</code></td><td>Small size</td></tr>
+      <tr><td><code>--ui-avatar-size-lg</code></td><td><code>calc(var(--unit) * 6)</code></td><td>Large size</td></tr>
+      <tr><td><code>--ui-avatar-size-xl</code></td><td><code>calc(var(--unit) * 8)</code></td><td>Extra large size</td></tr>
+      <tr><td><code>--ui-avatar-bg</code></td><td><code>var(--ui-color-bg-subtle)</code></td><td>Background color</td></tr>
+      <tr><td><code>--ui-avatar-color</code></td><td><code>var(--ui-color-text-muted)</code></td><td>Text color</td></tr>
+      <tr><td><code>--ui-avatar-font-size</code></td><td><code>var(--ui-font-size-sm)</code></td><td>Font size</td></tr>
+      <tr><td><code>--ui-avatar-radius</code></td><td><code>50%</code></td><td>Border radius</td></tr>
+      <tr><td><code>--ui-avatar-radius-square</code></td><td><code>var(--ui-radius-md)</code></td><td>Square variant radius</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>Sizes</h3>
@@ -904,16 +1237,49 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <span class="ui-badge">Default</span>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;span class="ui-badge"&gt;Default&lt;/span&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-badge</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Size</h4>
+
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-badge--sm</code></td><td>sm</td></tr></tbody>
+</table>
+<h4>Variant</h4>
+
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-badge--primary</code></td><td>primary</td></tr><tr><td><code>.ui-badge--success</code></td><td>success</td></tr><tr><td><code>.ui-badge--warning</code></td><td>warning</td></tr><tr><td><code>.ui-badge--danger</code></td><td>danger</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-badge-height</code></td><td><code>calc(var(--ui-row) * 1.25)</code></td><td>Default height</td></tr>
+      <tr><td><code>--ui-badge-height-sm</code></td><td><code>var(--ui-row)</code></td><td>Small height</td></tr>
+      <tr><td><code>--ui-badge-padding-x</code></td><td><code>var(--ui-space-1)</code></td><td>Horizontal padding</td></tr>
+      <tr><td><code>--ui-badge-font-size</code></td><td><code>var(--ui-font-size-xs)</code></td><td>Font size</td></tr>
+      <tr><td><code>--ui-badge-font-weight</code></td><td><code>var(--ui-weight-medium)</code></td><td>Font weight</td></tr>
+      <tr><td><code>--ui-badge-radius</code></td><td><code>var(--ui-radius-full)</code></td><td>Border radius</td></tr>
+      <tr><td><code>--ui-badge-bg</code></td><td><code>var(--ui-color-bg-muted)</code></td><td>Background color</td></tr>
+      <tr><td><code>--ui-badge-text</code></td><td><code>var(--ui-color-text)</code></td><td>Text color</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>Variants</h3>
@@ -1000,28 +1366,41 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <nav class="ui-breadcrumb" aria-label="Breadcrumb"><ol class="ui-breadcrumb"><li class="ui-breadcrumb__item"><a href="#" class="ui-breadcrumb__link">Home</a></li><li class="ui-breadcrumb__item"><a href="#" class="ui-breadcrumb__link">Products</a></li><li class="ui-breadcrumb__item"><span class="ui-breadcrumb__current" aria-current="page">Shoes</span></li></ol></nav>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;nav aria-label="Breadcrumb"&gt;
-  &lt;ol class="ui-breadcrumb"&gt;
-    &lt;li class="ui-breadcrumb__item"&gt;
-      &lt;a href="#" class="ui-breadcrumb__link"&gt;Home&lt;/a&gt;
-    &lt;/li&gt;
-    &lt;li class="ui-breadcrumb__item"&gt;
-      &lt;a href="#" class="ui-breadcrumb__link"&gt;Products&lt;/a&gt;
-    &lt;/li&gt;
-    &lt;li class="ui-breadcrumb__item"&gt;
-      &lt;span aria-current="page"&gt;Shoes&lt;/span&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/nav&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-breadcrumb</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Variant</h4>
+<p>Shows ellipsis for long breadcrumb trails</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-breadcrumb--collapsed</code></td><td>collapsed</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-breadcrumb-height</code></td><td><code>var(--ui-row-1)</code></td><td>Container height</td></tr>
+      <tr><td><code>--ui-breadcrumb-gap</code></td><td><code>var(--unit)</code></td><td>Gap between items</td></tr>
+      <tr><td><code>--ui-breadcrumb-separator</code></td><td><code>"/"</code></td><td>Separator character</td></tr>
+      <tr><td><code>--ui-breadcrumb-separator-color</code></td><td><code>var(--ui-color-text-muted)</code></td><td>Separator color</td></tr>
+      <tr><td><code>--ui-breadcrumb-link-color</code></td><td><code>var(--ui-color-text-muted)</code></td><td>Link color</td></tr>
+      <tr><td><code>--ui-breadcrumb-current-color</code></td><td><code>var(--ui-color-text)</code></td><td>Current page color</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>With Icons</h3>
@@ -1055,61 +1434,74 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    <button class="ui-tabs__tab">Theming</button>
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <button class="ui-button">Primary Button</button>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;button class="ui-button"&gt;Primary Button&lt;/button&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-button</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Size</h4>
+<p>Size variant. Default (no modifier) is 32px / 2 rows.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-button--sm</code></td><td>sm</td></tr><tr><td><code>.ui-button--lg</code></td><td>lg</td></tr></tbody>
+</table>
+<h4>Variant</h4>
+<p>Visual style. Default (no modifier) is primary.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-button--secondary</code></td><td>secondary</td></tr><tr><td><code>.ui-button--outline</code></td><td>outline</td></tr><tr><td><code>.ui-button--ghost</code></td><td>ghost</td></tr><tr><td><code>.ui-button--danger</code></td><td>danger</td></tr><tr><td><code>.ui-button--link</code></td><td>link</td></tr></tbody>
+</table>
+<h4>Radius</h4>
+<p>Border radius override. Default is medium.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-button--none</code></td><td>none</td></tr><tr><td><code>.ui-button--sm</code></td><td>sm</td></tr><tr><td><code>.ui-button--lg</code></td><td>lg</td></tr><tr><td><code>.ui-button--full</code></td><td>full</td></tr></tbody>
+</table>
+<h4>Loading</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-button--loading</code></td><td>Loading state with spinner animation.</td></tr></tbody>
+</table>
+<h4>Block</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-button--block</code></td><td>Full width button.</td></tr></tbody>
+</table>
+<h4>Icon</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-button--icon</code></td><td>Icon-only button with square dimensions.</td></tr></tbody>
+</table>
   </div>
   <div class="ui-tabs__panel">
-    <table class="ui-table ui-table--compact">
-  <thead><tr><th>Variable</th><th>Default</th><th>Value</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><code>--button-height</code></td>
-      <td><code>--row-2</code></td>
-      <td><code>$row * 2</code></td>
-    </tr>
-    <tr>
-      <td><code>--button-padding-x</code></td>
-      <td><code>--space-2</code></td>
-      <td><code>$unit * 2</code></td>
-    </tr>
-    <tr>
-      <td><code>--button-font-size</code></td>
-      <td><code>--size-sm</code></td>
-      <td><code>0.875rem</code></td>
-    </tr>
-    <tr>
-      <td><code>--button-font-weight</code></td>
-      <td><code>--weight-medium</code></td>
-      <td><code>500</code></td>
-    </tr>
-    <tr>
-      <td><code>--button-radius</code></td>
-      <td><code>--radius-md</code></td>
-      <td><code>$unit</code></td>
-    </tr>
-    <tr>
-      <td><code>--button-bg</code></td>
-      <td><code>--color-primary</code></td>
-      <td><code>hsl($hue-primary 85% 50%)</code></td>
-    </tr>
-    <tr>
-      <td><code>--button-bg-hover</code></td>
-      <td><code>--color-primary-dark</code></td>
-      <td><code>hsl($hue-primary 85% 40%)</code></td>
-    </tr>
-    <tr>
-      <td><code>--button-text</code></td>
-      <td><code>--color-text-inverse</code></td>
-      <td><code>$color-neutral-50</code></td>
-    </tr>
-  </tbody>
-</table>
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-button-height</code></td><td><code>var(--ui-row-2)</code></td><td>Default height</td></tr>
+      <tr><td><code>--ui-button-height-sm</code></td><td><code>calc(var(--row) * 1.5)</code></td><td>Small height</td></tr>
+      <tr><td><code>--ui-button-height-lg</code></td><td><code>calc(var(--row) * 2.5)</code></td><td>Large height</td></tr>
+      <tr><td><code>--ui-button-padding-x</code></td><td><code>var(--ui-space-2)</code></td><td>Horizontal padding</td></tr>
+      <tr><td><code>--ui-button-padding-x-lg</code></td><td><code>var(--ui-space-3)</code></td><td>Large horizontal padding</td></tr>
+      <tr><td><code>--ui-button-font-size</code></td><td><code>var(--ui-font-size-sm)</code></td><td>Font size</td></tr>
+      <tr><td><code>--ui-button-font-size-sm</code></td><td><code>var(--ui-font-size-xs)</code></td><td>Small font size</td></tr>
+      <tr><td><code>--ui-button-font-size-lg</code></td><td><code>var(--ui-font-size-md)</code></td><td>Large font size</td></tr>
+      <tr><td><code>--ui-button-font-weight</code></td><td><code>var(--ui-weight-medium)</code></td><td>Font weight</td></tr>
+      <tr><td><code>--ui-button-radius</code></td><td><code>var(--ui-radius-md)</code></td><td>Border radius</td></tr>
+      <tr><td><code>--ui-button-bg</code></td><td><code>var(--ui-color-primary)</code></td><td>Background color</td></tr>
+      <tr><td><code>--ui-button-bg-hover</code></td><td><code>var(--ui-color-primary-dark)</code></td><td>Hover background</td></tr>
+      <tr><td><code>--ui-button-text</code></td><td><code>var(--ui-color-text-inverse)</code></td><td>Text color</td></tr>
+    </tbody>
+  </table>
   </div>
 </div>
 
@@ -1118,7 +1510,7 @@
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
     <button class="ui-tabs__tab">HTML</button>
-    <button class="ui-tabs__tab">Theming</button>
+    
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <div class="ui-cluster ui-cluster--md">
@@ -1133,45 +1525,7 @@
 &lt;button class="ui-button ui-button--lg"&gt;Large (40px)&lt;/button&gt;
 </code></pre>
   </div>
-  <div class="ui-tabs__panel">
-    <h5>sm</h5>
-<table class="ui-table ui-table--compact">
-  <thead><tr><th>Variable</th><th>Default</th><th>Value</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><code>--button-height-sm</code></td>
-      <td><code>calc(--row * 1.5)</code></td>
-      <td><code>calc(--row * 1.5)</code></td>
-    </tr>
-    <tr>
-      <td><code>--button-font-size-sm</code></td>
-      <td><code>--size-xs</code></td>
-      <td><code>0.75rem</code></td>
-    </tr>
-  </tbody>
-</table>
-<h5>lg</h5>
-<table class="ui-table ui-table--compact">
-  <thead><tr><th>Variable</th><th>Default</th><th>Value</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><code>--button-height-lg</code></td>
-      <td><code>calc(--row * 2.5)</code></td>
-      <td><code>calc(--row * 2.5)</code></td>
-    </tr>
-    <tr>
-      <td><code>--button-padding-x-lg</code></td>
-      <td><code>--space-3</code></td>
-      <td><code>$unit * 3</code></td>
-    </tr>
-    <tr>
-      <td><code>--button-font-size-lg</code></td>
-      <td><code>--size-md</code></td>
-      <td><code>1rem</code></td>
-    </tr>
-  </tbody>
-</table>
-  </div>
+  
 </div>
 
 <h3>Variants</h3>
@@ -1179,7 +1533,7 @@
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
     <button class="ui-tabs__tab">HTML</button>
-    <button class="ui-tabs__tab">Theming</button>
+    
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <div class="ui-cluster ui-cluster--md">
@@ -1200,118 +1554,7 @@
 &lt;button class="ui-button ui-button--link"&gt;Link&lt;/button&gt;
 </code></pre>
   </div>
-  <div class="ui-tabs__panel">
-    <h5>secondary</h5>
-<table class="ui-table ui-table--compact">
-  <thead><tr><th>Variable</th><th>Default</th><th>Value</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><code>--button-secondary-bg</code></td>
-      <td><code>--color-bg-muted</code></td>
-      <td><code>$color-neutral-200</code></td>
-    </tr>
-    <tr>
-      <td><code>--button-secondary-bg-hover</code></td>
-      <td><code>--color-border-strong</code></td>
-      <td><code>$color-neutral-300</code></td>
-    </tr>
-    <tr>
-      <td><code>--button-secondary-text</code></td>
-      <td><code>--color-text</code></td>
-      <td><code>$color-neutral-900</code></td>
-    </tr>
-  </tbody>
-</table>
-<h5>outline</h5>
-<table class="ui-table ui-table--compact">
-  <thead><tr><th>Variable</th><th>Default</th><th>Value</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><code>--button-outline-bg</code></td>
-      <td><code>transparent</code></td>
-      <td><code>transparent</code></td>
-    </tr>
-    <tr>
-      <td><code>--button-outline-bg-hover</code></td>
-      <td><code>--color-primary</code></td>
-      <td><code>hsl($hue-primary 85% 50%)</code></td>
-    </tr>
-    <tr>
-      <td><code>--button-outline-text</code></td>
-      <td><code>--color-primary</code></td>
-      <td><code>hsl($hue-primary 85% 50%)</code></td>
-    </tr>
-    <tr>
-      <td><code>--button-outline-text-hover</code></td>
-      <td><code>--color-text-inverse</code></td>
-      <td><code>$color-neutral-50</code></td>
-    </tr>
-    <tr>
-      <td><code>--button-outline-border</code></td>
-      <td><code>1px solid currentColor</code></td>
-      <td><code>1px solid currentColor</code></td>
-    </tr>
-  </tbody>
-</table>
-<h5>ghost</h5>
-<table class="ui-table ui-table--compact">
-  <thead><tr><th>Variable</th><th>Default</th><th>Value</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><code>--button-ghost-bg</code></td>
-      <td><code>transparent</code></td>
-      <td><code>transparent</code></td>
-    </tr>
-    <tr>
-      <td><code>--button-ghost-bg-hover</code></td>
-      <td><code>--color-bg-subtle</code></td>
-      <td><code>$color-neutral-100</code></td>
-    </tr>
-    <tr>
-      <td><code>--button-ghost-text</code></td>
-      <td><code>--color-primary</code></td>
-      <td><code>hsl($hue-primary 85% 50%)</code></td>
-    </tr>
-  </tbody>
-</table>
-<h5>danger</h5>
-<table class="ui-table ui-table--compact">
-  <thead><tr><th>Variable</th><th>Default</th><th>Value</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><code>--button-danger-bg</code></td>
-      <td><code>--color-danger</code></td>
-      <td><code>hsl($hue-danger 70% 50%)</code></td>
-    </tr>
-    <tr>
-      <td><code>--button-danger-bg-hover</code></td>
-      <td><code>--color-danger-dark</code></td>
-      <td><code>hsl($hue-danger 70% 40%)</code></td>
-    </tr>
-  </tbody>
-</table>
-<h5>link</h5>
-<table class="ui-table ui-table--compact">
-  <thead><tr><th>Variable</th><th>Default</th><th>Value</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><code>--button-link-bg</code></td>
-      <td><code>transparent</code></td>
-      <td><code>transparent</code></td>
-    </tr>
-    <tr>
-      <td><code>--button-link-text</code></td>
-      <td><code>--color-primary</code></td>
-      <td><code>hsl($hue-primary 85% 50%)</code></td>
-    </tr>
-    <tr>
-      <td><code>--button-link-text-hover</code></td>
-      <td><code>--color-primary-dark</code></td>
-      <td><code>hsl($hue-primary 85% 40%)</code></td>
-    </tr>
-  </tbody>
-</table>
-  </div>
+  
 </div>
 
 <h3>States</h3>
@@ -1469,20 +1712,42 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <div class="ui-button-group" role="group"><button class="ui-button ui-button--outline">Left</button><button class="ui-button ui-button--outline">Middle</button><button class="ui-button ui-button--outline">Right</button></div>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;div class="ui-button-group" role="group"&gt;
-  &lt;button class="ui-button ui-button--outline"&gt;Left&lt;/button&gt;
-  &lt;button class="ui-button ui-button--outline"&gt;Middle&lt;/button&gt;
-  &lt;button class="ui-button ui-button--outline"&gt;Right&lt;/button&gt;
-&lt;/div&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-button-group</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Orientation</h4>
+<p>Stack buttons vertically</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-button-group--vertical</code></td><td>vertical</td></tr></tbody>
+</table>
+<h4>Variant</h4>
+<p>Remove gaps between buttons</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-button-group--attached</code></td><td>attached</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-button-group-radius</code></td><td><code>var(--ui-radius-md)</code></td><td>Border radius for first and last buttons</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>Primary Buttons</h3>
@@ -1552,41 +1817,49 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    <button class="ui-tabs__tab">Theming</button>
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <div class="ui-card">Default card with padding and border</div>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;div class="ui-card"&gt;Content&lt;/div&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-card</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Background</h4>
+<p>Background color variant.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-card--subtle</code></td><td>subtle</td></tr><tr><td><code>.ui-card--muted</code></td><td>muted</td></tr></tbody>
+</table>
+<h4>Padding</h4>
+<p>Padding size. Default is space-4.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-card--sm</code></td><td>sm</td></tr><tr><td><code>.ui-card--lg</code></td><td>lg</td></tr><tr><td><code>.ui-card--flush</code></td><td>flush</td></tr></tbody>
+</table>
   </div>
   <div class="ui-tabs__panel">
-    <table class="ui-table ui-table--compact">
-  <thead><tr><th>Variable</th><th>Default</th><th>Value</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><code>--card-padding</code></td>
-      <td><code>--space-4</code></td>
-      <td><code>$unit * 4</code></td>
-    </tr>
-    <tr>
-      <td><code>--card-bg</code></td>
-      <td><code>--color-bg</code></td>
-      <td><code>$color-neutral-50</code></td>
-    </tr>
-    <tr>
-      <td><code>--card-border-color</code></td>
-      <td><code>--color-border</code></td>
-      <td><code>$color-neutral-200</code></td>
-    </tr>
-    <tr>
-      <td><code>--card-radius</code></td>
-      <td><code>--radius-md</code></td>
-      <td><code>$unit</code></td>
-    </tr>
-  </tbody>
-</table>
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-card-padding</code></td><td><code>var(--ui-space-4)</code></td><td>Default padding</td></tr>
+      <tr><td><code>--ui-card-padding-sm</code></td><td><code>var(--ui-space-2)</code></td><td>Small padding</td></tr>
+      <tr><td><code>--ui-card-padding-lg</code></td><td><code>var(--ui-space-6)</code></td><td>Large padding</td></tr>
+      <tr><td><code>--ui-card-border-width</code></td><td><code>var(--ui-border-width-sm)</code></td><td>Border width</td></tr>
+      <tr><td><code>--ui-card-border-color</code></td><td><code>var(--ui-color-border)</code></td><td>Border color</td></tr>
+      <tr><td><code>--ui-card-bg</code></td><td><code>var(--ui-color-bg)</code></td><td>Background color</td></tr>
+      <tr><td><code>--ui-card-bg-subtle</code></td><td><code>var(--ui-color-bg-subtle)</code></td><td>Subtle background</td></tr>
+      <tr><td><code>--ui-card-bg-muted</code></td><td><code>var(--ui-color-bg-muted)</code></td><td>Muted background</td></tr>
+      <tr><td><code>--ui-card-radius</code></td><td><code>var(--ui-radius-md)</code></td><td>Border radius</td></tr>
+    </tbody>
+  </table>
   </div>
 </div>
 
@@ -1646,8 +1919,8 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <div class="ui-cluster ui-cluster--md">
@@ -1656,10 +1929,42 @@
   </div>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;input type="checkbox" class="ui-checkbox"&gt;
-&lt;input type="checkbox" class="ui-checkbox" checked&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-checkbox</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Size</h4>
+<p>Size variant. Default is 20px.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-checkbox--sm</code></td><td>sm</td></tr><tr><td><code>.ui-checkbox--lg</code></td><td>lg</td></tr></tbody>
+</table>
+<h4>State</h4>
+<p>Error state styling.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-checkbox--error</code></td><td>error</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-checkbox-size</code></td><td><code>calc(var(--unit) * 2)</code></td><td>Default size</td></tr>
+      <tr><td><code>--ui-checkbox-size-lg</code></td><td><code>calc(var(--unit) * 3)</code></td><td>Large size</td></tr>
+      <tr><td><code>--ui-checkbox-radius</code></td><td><code>var(--ui-radius-sm)</code></td><td>Border radius</td></tr>
+      <tr><td><code>--ui-checkbox-bg</code></td><td><code>var(--ui-color-bg)</code></td><td>Background (unchecked)</td></tr>
+      <tr><td><code>--ui-checkbox-bg-checked</code></td><td><code>var(--ui-color-primary)</code></td><td>Background (checked)</td></tr>
+      <tr><td><code>--ui-checkbox-border-color</code></td><td><code>var(--ui-color-border-strong)</code></td><td>Border color</td></tr>
+      <tr><td><code>--ui-checkbox-border-color-focus</code></td><td><code>var(--ui-color-primary)</code></td><td>Focus border color</td></tr>
+      <tr><td><code>--ui-checkbox-check-color</code></td><td><code>var(--ui-color-text-inverse)</code></td><td>Checkmark color</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>Sizes</h3>
@@ -1755,71 +2060,43 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    <button class="ui-tabs__tab">Theming</button>
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <p>Use the <code class="ui-code">--space-2</code> token for padding.</p>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;p&gt;Use the &lt;code class="ui-code"&gt;--space-2&lt;/code&gt; token for padding.&lt;/p&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-code</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Sm</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-code--sm</code></td><td>Smaller font size for use in tables.</td></tr></tbody>
+</table>
   </div>
   <div class="ui-tabs__panel">
-    <table class="ui-table ui-table--compact">
-  <thead><tr><th>Variable</th><th>Default</th><th>Value</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><code>--code-font-size</code></td>
-      <td><code>--size-sm</code></td>
-      <td><code>0.875rem</code></td>
-    </tr>
-    <tr>
-      <td><code>--code-bg</code></td>
-      <td><code>--color-bg-muted</code></td>
-      <td><code>$color-neutral-200</code></td>
-    </tr>
-    <tr>
-      <td><code>--code-padding-x</code></td>
-      <td><code>--space-1</code></td>
-      <td><code>$unit</code></td>
-    </tr>
-    <tr>
-      <td><code>--code-padding-y</code></td>
-      <td><code>--space-0</code></td>
-      <td><code>$unit * 0.5</code></td>
-    </tr>
-    <tr>
-      <td><code>--code-radius</code></td>
-      <td><code>--radius-sm</code></td>
-      <td><code>$unit * 0.5</code></td>
-    </tr>
-    <tr>
-      <td><code>--code-font-size-block</code></td>
-      <td><code>--size-sm</code></td>
-      <td><code>0.875rem</code></td>
-    </tr>
-    <tr>
-      <td><code>--code-bg-block</code></td>
-      <td><code>--color-bg-muted</code></td>
-      <td><code>$color-neutral-200</code></td>
-    </tr>
-    <tr>
-      <td><code>--code-padding-block</code></td>
-      <td><code>--space-3</code></td>
-      <td><code>$unit * 3</code></td>
-    </tr>
-    <tr>
-      <td><code>--code-radius-block</code></td>
-      <td><code>--radius-md</code></td>
-      <td><code>$unit</code></td>
-    </tr>
-    <tr>
-      <td><code>--code-border-color-block</code></td>
-      <td><code>--color-border</code></td>
-      <td><code>$color-neutral-200</code></td>
-    </tr>
-  </tbody>
-</table>
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-code-font-size</code></td><td><code>var(--ui-font-size-sm)</code></td><td>Inline code font size</td></tr>
+      <tr><td><code>--ui-code-bg</code></td><td><code>var(--ui-color-bg-muted)</code></td><td>Inline code background</td></tr>
+      <tr><td><code>--ui-code-padding-x</code></td><td><code>var(--ui-space-1)</code></td><td>Inline code horizontal padding</td></tr>
+      <tr><td><code>--ui-code-padding-y</code></td><td><code>var(--ui-space-0)</code></td><td>Inline code vertical padding</td></tr>
+      <tr><td><code>--ui-code-radius</code></td><td><code>var(--ui-radius-sm)</code></td><td>Inline code border radius</td></tr>
+      <tr><td><code>--ui-code-font-size-block</code></td><td><code>var(--ui-font-size-sm)</code></td><td>Code block font size</td></tr>
+      <tr><td><code>--ui-code-bg-block</code></td><td><code>var(--ui-color-bg-muted)</code></td><td>Code block background</td></tr>
+      <tr><td><code>--ui-code-padding-block</code></td><td><code>var(--ui-space-3)</code></td><td>Code block padding</td></tr>
+      <tr><td><code>--ui-code-radius-block</code></td><td><code>var(--ui-radius-md)</code></td><td>Code block border radius</td></tr>
+      <tr><td><code>--ui-code-border-color-block</code></td><td><code>var(--ui-color-border)</code></td><td>Code block border color</td></tr>
+    </tbody>
+  </table>
   </div>
 </div>
 <div class="ui-tabs ui-mb-2">
@@ -1867,16 +2144,51 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <dl class="ui-data-list"><div class="ui-data-list__item"><dt class="ui-data-list__label">Name</dt><dd class="ui-data-list__value">John Doe</dd></div><div class="ui-data-list__item"><dt class="ui-data-list__label">Email</dt><dd class="ui-data-list__value">john@example.com</dd></div><div class="ui-data-list__item"><dt class="ui-data-list__label">Role</dt><dd class="ui-data-list__value">Administrator</dd></div></dl>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;dl class="ui-data-list"&gt;&lt;div class="ui-data-list__item"&gt;&lt;dt class="ui-data-list__label"&gt;Name&lt;/dt&gt;&lt;dd class="ui-data-list__value"&gt;John Doe&lt;/dd&gt;&lt;/div&gt;&lt;div class="ui-data-list__item"&gt;&lt;dt class="ui-data-list__label"&gt;Email&lt;/dt&gt;&lt;dd class="ui-data-list__value"&gt;john@example.com&lt;/dd&gt;&lt;/div&gt;&lt;div class="ui-data-list__item"&gt;&lt;dt class="ui-data-list__label"&gt;Role&lt;/dt&gt;&lt;dd class="ui-data-list__value"&gt;Administrator&lt;/dd&gt;&lt;/div&gt;&lt;/dl&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-data-list</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Layout</h4>
+
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-data-list--horizontal</code></td><td>horizontal</td></tr></tbody>
+</table>
+<h4>Size</h4>
+
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-data-list--sm</code></td><td>sm</td></tr><tr><td><code>.ui-data-list--lg</code></td><td>lg</td></tr></tbody>
+</table>
+<h4>Style</h4>
+
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-data-list--divided</code></td><td>divided</td></tr><tr><td><code>.ui-data-list--striped</code></td><td>striped</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-data-list-gap</code></td><td><code>calc(var(--unit) * 2)</code></td><td>Gap between items</td></tr>
+      <tr><td><code>--ui-data-list-item-gap</code></td><td><code>var(--unit)</code></td><td>Gap between label and value</td></tr>
+      <tr><td><code>--ui-data-list-label-color</code></td><td><code>var(--ui-color-text-muted)</code></td><td>Label color</td></tr>
+      <tr><td><code>--ui-data-list-value-color</code></td><td><code>var(--ui-color-text)</code></td><td>Value color</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>Horizontal Layout</h3>
@@ -1982,30 +2294,39 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <div style="position: relative; height: 240px; background: var(--ui-color-bg-subtle);"><div class="ui-modal ui-modal--visible" style="position: absolute;"><div class="ui-modal__content ui-dialog" style="max-height: 200px;"><header class="ui-dialog__header"><h2 class="ui-dialog__title">Dialog Title</h2><button class="ui-button ui-button--ghost ui-button--sm ui-dialog__close">X</button></header><div class="ui-dialog__body"><p>Dialog content goes here.</p></div><footer class="ui-dialog__footer"><button class="ui-button ui-button--ghost">Cancel</button><button class="ui-button">Confirm</button></footer></div></div></div>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;div class="ui-modal"&gt;
-  &lt;div class="ui-modal__content ui-dialog"&gt;
-    &lt;header class="ui-dialog__header"&gt;
-      &lt;h2 class="ui-dialog__title"&gt;Dialog Title&lt;/h2&gt;
-      &lt;button class="ui-button ui-button--ghost ui-dialog__close"&gt;X&lt;/button&gt;
-    &lt;/header&gt;
-    &lt;div class="ui-dialog__body"&gt;
-      &lt;p&gt;Dialog content goes here.&lt;/p&gt;
-    &lt;/div&gt;
-    &lt;footer class="ui-dialog__footer"&gt;
-      &lt;button class="ui-button ui-button--ghost"&gt;Cancel&lt;/button&gt;
-      &lt;button class="ui-button"&gt;Confirm&lt;/button&gt;
-    &lt;/footer&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-dialog</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Variant</h4>
+<p>Visual variant. Borderless removes header/footer borders.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-dialog--borderless</code></td><td>borderless</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-dialog-header-padding</code></td><td><code>calc(var(--unit) * 2) calc(var(--unit) * 3)</code></td><td>Header padding</td></tr>
+      <tr><td><code>--ui-dialog-body-padding</code></td><td><code>calc(var(--unit) * 3)</code></td><td>Body padding</td></tr>
+      <tr><td><code>--ui-dialog-footer-padding</code></td><td><code>calc(var(--unit) * 2) calc(var(--unit) * 3)</code></td><td>Footer padding</td></tr>
+      <tr><td><code>--ui-dialog-border-color</code></td><td><code>var(--ui-color-border)</code></td><td>Section border color</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>Borderless</h3>
@@ -2065,24 +2386,41 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <details class="ui-disclosure"><summary class="ui-disclosure__trigger">Click to expand<span class="ui-disclosure__icon">&#9662;</span></summary><div class="ui-disclosure__content"><p>Hidden content that expands when clicked.</p></div></details>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;details class="ui-disclosure"&gt;
-  &lt;summary class="ui-disclosure__trigger"&gt;
-    Click to expand
-    &lt;span class="ui-disclosure__icon"&gt;&amp;#9662;&lt;/span&gt;
-  &lt;/summary&gt;
-  &lt;div class="ui-disclosure__content"&gt;
-    &lt;p&gt;Hidden content that expands when clicked.&lt;/p&gt;
-  &lt;/div&gt;
-&lt;/details&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-disclosure</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Variant</h4>
+<p>Visual variants. Borderless removes border, flush removes padding, animate adds enter animation.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-disclosure--borderless</code></td><td>borderless</td></tr><tr><td><code>.ui-disclosure--flush</code></td><td>flush</td></tr><tr><td><code>.ui-disclosure--animate</code></td><td>animate</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-disclosure-border-color</code></td><td><code>var(--ui-color-border)</code></td><td>Border color</td></tr>
+      <tr><td><code>--ui-disclosure-border-width</code></td><td><code>1px</code></td><td>Border width</td></tr>
+      <tr><td><code>--ui-disclosure-radius</code></td><td><code>var(--ui-radius-md)</code></td><td>Border radius</td></tr>
+      <tr><td><code>--ui-disclosure-trigger-height</code></td><td><code>var(--ui-row-3)</code></td><td>Trigger button height</td></tr>
+      <tr><td><code>--ui-disclosure-padding-x</code></td><td><code>calc(var(--unit) * 2)</code></td><td>Horizontal padding</td></tr>
+      <tr><td><code>--ui-disclosure-padding-y</code></td><td><code>calc(var(--unit) * 2)</code></td><td>Content vertical padding</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>Open by Default</h3>
@@ -2148,16 +2486,51 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <div class="ui-divider" role="separator"></div>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;div class="ui-divider" role="separator"&gt;&lt;/div&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-divider</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Orientation</h4>
+<p>Orientation. Default is horizontal.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-divider--vertical</code></td><td>vertical</td></tr></tbody>
+</table>
+<h4>Align</h4>
+<p>Label position. Default is center.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-divider--start</code></td><td>start</td></tr><tr><td><code>.ui-divider--end</code></td><td>end</td></tr></tbody>
+</table>
+<h4>Style</h4>
+<p>Line style variant.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-divider--dashed</code></td><td>dashed</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-divider-color</code></td><td><code>var(--ui-color-border)</code></td><td>Line color</td></tr>
+      <tr><td><code>--ui-divider-line-size</code></td><td><code>1px</code></td><td>Line thickness</td></tr>
+      <tr><td><code>--ui-divider-height</code></td><td><code>var(--unit)</code></td><td>Container height</td></tr>
+      <tr><td><code>--ui-divider-gap</code></td><td><code>calc(var(--unit) * 2)</code></td><td>Vertical margin</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>With Label</h3>
@@ -2239,16 +2612,49 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <div style="position:relative;height:300px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)"><div class="ui-drawer-overlay" style="position:absolute"></div><div class="ui-drawer ui-drawer--end" style="position:absolute" data-state="open"><div class="ui-drawer__header"><div><h2 class="ui-drawer__title">Drawer Title</h2><p class="ui-drawer__description">Optional description text</p></div><button class="ui-drawer__close ui-button ui-button--ghost ui-button--icon">X</button></div><div class="ui-drawer__body"><p>Drawer content goes here.</p></div><div class="ui-drawer__footer"><button class="ui-button ui-button--secondary">Cancel</button><button class="ui-button">Save</button></div></div></div>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;div style="position:relative;height:300px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)"&gt;&lt;div class="ui-drawer-overlay" style="position:absolute"&gt;&lt;/div&gt;&lt;div class="ui-drawer ui-drawer--end" style="position:absolute" data-state="open"&gt;&lt;div class="ui-drawer__header"&gt;&lt;div&gt;&lt;h2 class="ui-drawer__title"&gt;Drawer Title&lt;/h2&gt;&lt;p class="ui-drawer__description"&gt;Optional description text&lt;/p&gt;&lt;/div&gt;&lt;button class="ui-drawer__close ui-button ui-button--ghost ui-button--icon"&gt;X&lt;/button&gt;&lt;/div&gt;&lt;div class="ui-drawer__body"&gt;&lt;p&gt;Drawer content goes here.&lt;/p&gt;&lt;/div&gt;&lt;div class="ui-drawer__footer"&gt;&lt;button class="ui-button ui-button--secondary"&gt;Cancel&lt;/button&gt;&lt;button class="ui-button"&gt;Save&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-drawer</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Position</h4>
+
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-drawer--start</code></td><td>start</td></tr><tr><td><code>.ui-drawer--end</code></td><td>end</td></tr><tr><td><code>.ui-drawer--top</code></td><td>top</td></tr><tr><td><code>.ui-drawer--bottom</code></td><td>bottom</td></tr></tbody>
+</table>
+<h4>Size</h4>
+
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-drawer--sm</code></td><td>sm</td></tr><tr><td><code>.ui-drawer--lg</code></td><td>lg</td></tr><tr><td><code>.ui-drawer--full</code></td><td>full</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-drawer-size</code></td><td><code>calc(var(--unit) * 40)</code></td><td>Default width/height</td></tr>
+      <tr><td><code>--ui-drawer-max-size</code></td><td><code>90%</code></td><td>Maximum size</td></tr>
+      <tr><td><code>--ui-drawer-bg</code></td><td><code>var(--ui-color-bg)</code></td><td>Background color</td></tr>
+      <tr><td><code>--ui-drawer-shadow</code></td><td><code>var(--shadow-lg)</code></td><td>Box shadow</td></tr>
+      <tr><td><code>--ui-drawer-header-padding</code></td><td><code>16px 24px</code></td><td>Header padding</td></tr>
+      <tr><td><code>--ui-drawer-body-padding</code></td><td><code>24px</code></td><td>Body padding</td></tr>
+      <tr><td><code>--ui-drawer-footer-padding</code></td><td><code>16px 24px</code></td><td>Footer padding</td></tr>
+      <tr><td><code>--ui-drawer-border-color</code></td><td><code>var(--ui-color-border)</code></td><td>Border color</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>Positions</h3>
@@ -2347,21 +2753,36 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <div class="ui-field"><label class="ui-label" for="email">Email</label><div class="ui-field__control"><input type="email" id="email" class="ui-input" placeholder="Enter email"></div></div>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;div class="ui-field"&gt;
-  &lt;label class="ui-label" for="email"&gt;Email&lt;/label&gt;
-  &lt;div class="ui-field__control"&gt;
-    &lt;input type="email" id="email" class="ui-input"&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-field</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Layout</h4>
+<p>Layout variant. Horizontal places label beside control.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-field--horizontal</code></td><td>horizontal</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-field-gap</code></td><td><code>0</code></td><td>Gap between field elements</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>With Helper Text</h3>
@@ -2460,16 +2881,32 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <span class="ui-form-error">This field is required</span>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;span class="ui-form-error"&gt;This field is required&lt;/span&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-form-error</code></td><td>Base class</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-form-error-color</code></td><td><code>var(--ui-color-danger)</code></td><td>Error text color</td></tr>
+      <tr><td><code>--ui-form-error-size</code></td><td><code>var(--ui-font-size-sm)</code></td><td>Font size</td></tr>
+      <tr><td><code>--ui-form-error-gap</code></td><td><code>0</code></td><td>Gap between icon and text</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>With Icon</h3>
@@ -2499,16 +2936,32 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <span class="ui-form-helper">Must be at least 8 characters</span>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;span class="ui-form-helper"&gt;Must be at least 8 characters&lt;/span&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-form-helper</code></td><td>Base class</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-form-helper-color</code></td><td><code>var(--ui-color-text-muted)</code></td><td>Text color</td></tr>
+      <tr><td><code>--ui-form-helper-size</code></td><td><code>var(--ui-font-size-sm)</code></td><td>Font size</td></tr>
+      <tr><td><code>--ui-form-helper-gap</code></td><td><code>0</code></td><td>Top margin spacing</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 </section>
 <section id="heading" class="ui-docs-section" data-type="component">
@@ -2519,25 +2972,50 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
-    <h1 class="ui-heading ui-heading--3xl">Heading 3xl</h1><h2 class="ui-heading ui-heading--2xl">Heading 2xl</h2><h3 class="ui-heading ui-heading--xl">Heading xl</h3><h4 class="ui-heading ui-heading--lg">Heading lg</h4><h5 class="ui-heading ui-heading--md">Heading md</h5><h6 class="ui-heading ui-heading--sm">Heading sm</h6>
+    <h1 class="ui-heading ui-heading--4xl">Heading 4xl</h1><h2 class="ui-heading ui-heading--3xl">Heading 3xl</h2><h3 class="ui-heading ui-heading--2xl">Heading 2xl</h3><h4 class="ui-heading ui-heading--xl">Heading xl</h4><h5 class="ui-heading ui-heading--lg">Heading lg</h5><h6 class="ui-heading ui-heading--md">Heading md</h6><p class="ui-heading ui-heading--sm">Heading sm</p>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;h1 class="ui-heading ui-heading--3xl"&gt;3xl&lt;/h1&gt;
-&lt;h2 class="ui-heading ui-heading--2xl"&gt;2xl&lt;/h2&gt;
-&lt;h3 class="ui-heading ui-heading--xl"&gt;xl&lt;/h3&gt;
-&lt;h4 class="ui-heading ui-heading--lg"&gt;lg&lt;/h4&gt;
-&lt;h5 class="ui-heading ui-heading--md"&gt;md&lt;/h5&gt;
-&lt;h6 class="ui-heading ui-heading--sm"&gt;sm&lt;/h6&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-heading</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Size</h4>
+<p>Visual size (decoupled from semantic level)</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-heading--4xl</code></td><td>4xl</td></tr><tr><td><code>.ui-heading--3xl</code></td><td>3xl</td></tr><tr><td><code>.ui-heading--2xl</code></td><td>2xl</td></tr><tr><td><code>.ui-heading--xl</code></td><td>xl</td></tr><tr><td><code>.ui-heading--lg</code></td><td>lg</td></tr><tr><td><code>.ui-heading--md</code></td><td>md</td></tr><tr><td><code>.ui-heading--sm</code></td><td>sm</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-heading-font-size</code></td><td><code>var(--ui-font-size-xl)</code></td><td>Default font size</td></tr>
+      <tr><td><code>--ui-heading-line-height</code></td><td><code>var(--ui-leading-xl)</code></td><td>Default line height</td></tr>
+      <tr><td><code>--ui-heading-weight</code></td><td><code>var(--ui-weight-bold)</code></td><td>Font weight</td></tr>
+      <tr><td><code>--ui-heading-color</code></td><td><code>var(--ui-color-text)</code></td><td>Text color</td></tr>
+      <tr><td><code>--ui-heading-font-size-4xl</code></td><td><code>var(--ui-font-size-4xl)</code></td><td>4xl size</td></tr>
+      <tr><td><code>--ui-heading-font-size-3xl</code></td><td><code>var(--ui-font-size-3xl)</code></td><td>3xl size</td></tr>
+      <tr><td><code>--ui-heading-font-size-2xl</code></td><td><code>var(--ui-font-size-2xl)</code></td><td>2xl size</td></tr>
+      <tr><td><code>--ui-heading-font-size-xl</code></td><td><code>var(--ui-font-size-xl)</code></td><td>xl size</td></tr>
+      <tr><td><code>--ui-heading-font-size-lg</code></td><td><code>var(--ui-font-size-lg)</code></td><td>lg size</td></tr>
+      <tr><td><code>--ui-heading-font-size-md</code></td><td><code>var(--ui-font-size-md)</code></td><td>md size</td></tr>
+      <tr><td><code>--ui-heading-font-size-sm</code></td><td><code>var(--ui-font-size-sm)</code></td><td>sm size</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>Decoupled Sizing</h3>
-<p>Use any size with any semantic level</p>
+<p>Use any size with any semantic level.</p>
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
@@ -2548,13 +3026,14 @@
     <h2 class="ui-heading ui-heading--3xl">h2 styled as 3xl</h2><h1 class="ui-heading ui-heading--lg">h1 styled as lg</h1>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;h2 class="ui-heading ui-heading--3xl"&gt;h2 styled as 3xl&lt;/h2&gt;
-&lt;h1 class="ui-heading ui-heading--lg"&gt;h1 styled as lg&lt;/h1&gt;</code></pre>
+    <pre class="ui-code-block"><code>&lt;h2 class="ui-heading ui-heading--3xl"&gt;h2 as 3xl&lt;/h2&gt;
+&lt;h1 class="ui-heading ui-heading--lg"&gt;h1 as lg&lt;/h1&gt;</code></pre>
   </div>
   
 </div>
 
-<h3>Muted</h3>
+<h3>With Text Utilities</h3>
+<p>Combine with text utilities for color and other styles.</p>
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
@@ -2562,10 +3041,11 @@
     
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
-    <h2 class="ui-heading ui-heading--2xl ui-heading--muted">Muted heading</h2>
+    <h2 class="ui-heading ui-heading--2xl ui-text-muted">Muted heading</h2><h2 class="ui-heading ui-heading--2xl ui-text-primary">Primary heading</h2>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;h2 class="ui-heading ui-heading--muted"&gt;Muted&lt;/h2&gt;</code></pre>
+    <pre class="ui-code-block"><code>&lt;h2 class="ui-heading ui-text-muted"&gt;Muted&lt;/h2&gt;
+&lt;h2 class="ui-heading ui-text-primary"&gt;Primary&lt;/h2&gt;</code></pre>
   </div>
   
 </div>
@@ -2579,16 +3059,56 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <svg class="ui-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;svg class="ui-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"&gt;&lt;path d="M12 5v14M5 12h14"/&gt;&lt;/svg&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-icon</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Size</h4>
+
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-icon--xs</code></td><td>xs</td></tr><tr><td><code>.ui-icon--sm</code></td><td>sm</td></tr><tr><td><code>.ui-icon--md</code></td><td>md</td></tr><tr><td><code>.ui-icon--lg</code></td><td>lg</td></tr><tr><td><code>.ui-icon--xl</code></td><td>xl</td></tr></tbody>
+</table>
+<h4>Stroke</h4>
+
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-icon--thin</code></td><td>thin</td></tr><tr><td><code>.ui-icon--thick</code></td><td>thick</td></tr></tbody>
+</table>
+<h4>Style</h4>
+
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-icon--filled</code></td><td>filled</td></tr><tr><td><code>.ui-icon--spin</code></td><td>spin</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-icon-size</code></td><td><code>1em</code></td><td>Default size (inherits from font)</td></tr>
+      <tr><td><code>--ui-icon-size-xs</code></td><td><code>calc(var(--unit) * 2)</code></td><td>Extra small size (16px)</td></tr>
+      <tr><td><code>--ui-icon-size-sm</code></td><td><code>calc(var(--unit) * 3)</code></td><td>Small size (24px)</td></tr>
+      <tr><td><code>--ui-icon-size-md</code></td><td><code>calc(var(--unit) * 4)</code></td><td>Medium size (32px)</td></tr>
+      <tr><td><code>--ui-icon-size-lg</code></td><td><code>calc(var(--unit) * 5)</code></td><td>Large size (40px)</td></tr>
+      <tr><td><code>--ui-icon-size-xl</code></td><td><code>calc(var(--unit) * 6)</code></td><td>Extra large size (48px)</td></tr>
+      <tr><td><code>--ui-icon-stroke</code></td><td><code>2</code></td><td>Default stroke width</td></tr>
+      <tr><td><code>--ui-icon-stroke-thin</code></td><td><code>1</code></td><td>Thin stroke width</td></tr>
+      <tr><td><code>--ui-icon-stroke-thick</code></td><td><code>2.5</code></td><td>Thick stroke width</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>With Lucide Icons</h3>
@@ -2710,16 +3230,63 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <input class="ui-input" type="text" placeholder="Enter text...">
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;input class="ui-input" type="text" placeholder="Enter text..."&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-input</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Size</h4>
+<p>Size variant. Default is 32px / 2 rows.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-input--sm</code></td><td>sm</td></tr><tr><td><code>.ui-input--lg</code></td><td>lg</td></tr></tbody>
+</table>
+<h4>Variant</h4>
+<p>Visual style. Default is outline with border.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-input--filled</code></td><td>filled</td></tr><tr><td><code>.ui-input--ghost</code></td><td>ghost</td></tr></tbody>
+</table>
+<h4>State</h4>
+<p>Validation state styling.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-input--error</code></td><td>error</td></tr><tr><td><code>.ui-input--success</code></td><td>success</td></tr></tbody>
+</table>
+<h4>Block</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-input--block</code></td><td>Full width input.</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-input-height</code></td><td><code>var(--ui-row-2)</code></td><td>Default height</td></tr>
+      <tr><td><code>--ui-input-height-sm</code></td><td><code>calc(var(--row) * 1.5)</code></td><td>Small height</td></tr>
+      <tr><td><code>--ui-input-height-lg</code></td><td><code>calc(var(--row) * 2.5)</code></td><td>Large height</td></tr>
+      <tr><td><code>--ui-input-padding-x</code></td><td><code>var(--ui-space-1)</code></td><td>Horizontal padding</td></tr>
+      <tr><td><code>--ui-input-font-size</code></td><td><code>var(--ui-font-size-sm)</code></td><td>Font size</td></tr>
+      <tr><td><code>--ui-input-radius</code></td><td><code>var(--ui-radius-md)</code></td><td>Border radius</td></tr>
+      <tr><td><code>--ui-input-bg</code></td><td><code>var(--ui-color-bg)</code></td><td>Background color</td></tr>
+      <tr><td><code>--ui-input-border-color</code></td><td><code>var(--ui-color-border-strong)</code></td><td>Border color</td></tr>
+      <tr><td><code>--ui-input-border-color-focus</code></td><td><code>var(--ui-color-primary)</code></td><td>Focus border color</td></tr>
+      <tr><td><code>--ui-input-text</code></td><td><code>var(--ui-color-text)</code></td><td>Text color</td></tr>
+      <tr><td><code>--ui-input-placeholder</code></td><td><code>var(--ui-color-text-muted)</code></td><td>Placeholder color</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>Sizes</h3>
@@ -2878,16 +3445,39 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <label class="ui-label" for="input1">Email address</label>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;label class="ui-label" for="input"&gt;Email address&lt;/label&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-label</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Size</h4>
+<p>Large size variant</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-label--lg</code></td><td>lg</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-label-font-size</code></td><td><code>var(--ui-font-size-sm)</code></td><td>Default font size</td></tr>
+      <tr><td><code>--ui-label-font-size-lg</code></td><td><code>var(--ui-font-size-md)</code></td><td>Large font size</td></tr>
+      <tr><td><code>--ui-label-color</code></td><td><code>var(--ui-color-text)</code></td><td>Text color</td></tr>
+      <tr><td><code>--ui-label-required-color</code></td><td><code>var(--ui-color-danger)</code></td><td>Required indicator color</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>Required</h3>
@@ -2969,16 +3559,48 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <a href="#" class="ui-link">Default link</a>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;a href="#" class="ui-link"&gt;Default link&lt;/a&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-link</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Variant</h4>
+<p>Visual variant. Muted for secondary links, subtle for no-underline style.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-link--muted</code></td><td>muted</td></tr><tr><td><code>.ui-link--subtle</code></td><td>subtle</td></tr></tbody>
+</table>
+<h4>State</h4>
+<p>Link states. External adds arrow indicator.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-link--disabled</code></td><td>disabled</td></tr><tr><td><code>.ui-link--external</code></td><td>external</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-link-color</code></td><td><code>var(--ui-color-primary)</code></td><td>Default link color</td></tr>
+      <tr><td><code>--ui-link-color-hover</code></td><td><code>var(--ui-color-primary-hover)</code></td><td>Hover color</td></tr>
+      <tr><td><code>--ui-link-color-visited</code></td><td><code>var(--ui-link-color)</code></td><td>Visited link color</td></tr>
+      <tr><td><code>--ui-link-decoration</code></td><td><code>underline</code></td><td>Text decoration</td></tr>
+      <tr><td><code>--ui-link-decoration-hover</code></td><td><code>underline</code></td><td>Hover text decoration</td></tr>
+      <tr><td><code>--ui-link-color-muted</code></td><td><code>var(--ui-color-text-muted)</code></td><td>Muted variant color</td></tr>
+      <tr><td><code>--ui-link-color-muted-hover</code></td><td><code>var(--ui-color-text)</code></td><td>Muted variant hover color</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>Muted Variant</h3>
@@ -3078,16 +3700,39 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <div class="ui-menu"><ul class="ui-menu__group"><li><button class="ui-menu__item">Edit</button></li><li><button class="ui-menu__item">Duplicate</button></li><li><button class="ui-menu__item">Archive</button></li></ul></div>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;div class="ui-menu"&gt;&lt;ul class="ui-menu__group"&gt;&lt;li&gt;&lt;button class="ui-menu__item"&gt;Edit&lt;/button&gt;&lt;/li&gt;&lt;li&gt;&lt;button class="ui-menu__item"&gt;Duplicate&lt;/button&gt;&lt;/li&gt;&lt;li&gt;&lt;button class="ui-menu__item"&gt;Archive&lt;/button&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-menu</code></td><td>Base class</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-menu-min-width</code></td><td><code>calc(var(--unit) * 16)</code></td><td>Minimum width</td></tr>
+      <tr><td><code>--ui-menu-max-height</code></td><td><code>calc(var(--unit) * 40)</code></td><td>Maximum height</td></tr>
+      <tr><td><code>--ui-menu-padding</code></td><td><code>var(--unit)</code></td><td>Container padding</td></tr>
+      <tr><td><code>--ui-menu-radius</code></td><td><code>var(--ui-radius-md)</code></td><td>Border radius</td></tr>
+      <tr><td><code>--ui-menu-bg</code></td><td><code>var(--ui-color-bg)</code></td><td>Background color</td></tr>
+      <tr><td><code>--ui-menu-border-color</code></td><td><code>var(--ui-color-border)</code></td><td>Border color</td></tr>
+      <tr><td><code>--ui-menu-shadow</code></td><td><code>var(--shadow-lg)</code></td><td>Box shadow</td></tr>
+      <tr><td><code>--ui-menu-item-padding</code></td><td><code>8px 16px</code></td><td>Item padding</td></tr>
+      <tr><td><code>--ui-menu-item-radius</code></td><td><code>var(--ui-radius-sm)</code></td><td>Item border radius</td></tr>
+      <tr><td><code>--ui-menu-item-bg-hover</code></td><td><code>var(--ui-color-bg-subtle)</code></td><td>Item hover background</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>With Icons and Shortcuts</h3>
@@ -3162,21 +3807,50 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <div style="position: relative; height: 200px; background: var(--ui-color-bg-subtle);"><div class="ui-modal ui-modal--visible" style="position: absolute;"><div class="ui-modal__content"><p>Modal content goes here</p></div></div></div>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;div class="ui-overlay"&gt;&lt;/div&gt;
-&lt;div class="ui-modal"&gt;
-  &lt;div class="ui-modal__content"&gt;
-    &lt;p&gt;Modal content goes here&lt;/p&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-modal</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Size</h4>
+<p>Size variant. Controls max-width of modal content.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-modal--sm</code></td><td>sm</td></tr><tr><td><code>.ui-modal--lg</code></td><td>lg</td></tr><tr><td><code>.ui-modal--full</code></td><td>full</td></tr></tbody>
+</table>
+<h4>State</h4>
+<p>Animation states controlled via JS</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-modal--visible</code></td><td>visible</td></tr><tr><td><code>.ui-modal--hidden</code></td><td>hidden</td></tr><tr><td><code>.ui-modal--entering</code></td><td>entering</td></tr><tr><td><code>.ui-modal--exiting</code></td><td>exiting</td></tr><tr><td><code>.ui-modal--animate</code></td><td>animate</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-modal-bg</code></td><td><code>var(--ui-color-bg)</code></td><td>Background color</td></tr>
+      <tr><td><code>--ui-modal-radius</code></td><td><code>var(--ui-radius-lg)</code></td><td>Border radius</td></tr>
+      <tr><td><code>--ui-modal-shadow</code></td><td><code>0 24px 48px rgb(0 0 0 / 0.25)</code></td><td>Box shadow</td></tr>
+      <tr><td><code>--ui-modal-padding</code></td><td><code>calc(var(--unit) * 3)</code></td><td>Content padding</td></tr>
+      <tr><td><code>--ui-modal-max-width</code></td><td><code>calc(var(--unit) * 60)</code></td><td>Max width (default)</td></tr>
+      <tr><td><code>--ui-modal-max-width-sm</code></td><td><code>calc(var(--unit) * 40)</code></td><td>Max width (small)</td></tr>
+      <tr><td><code>--ui-modal-max-width-lg</code></td><td><code>calc(var(--unit) * 80)</code></td><td>Max width (large)</td></tr>
+      <tr><td><code>--ui-modal-max-height</code></td><td><code>calc(100vh - var(--unit) * 8)</code></td><td>Max height</td></tr>
+      <tr><td><code>--ui-modal-z</code></td><td><code>var(--ui-z-modal)</code></td><td>Z-index</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>Sizes</h3>
@@ -3227,16 +3901,45 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <div style="position: relative; height: 120px; background: var(--ui-color-bg-subtle);"><div class="ui-overlay" style="position: absolute;"></div><p style="position: relative; padding: var(--ui-space-2);">Content behind overlay</p></div>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;div class="ui-overlay"&gt;&lt;/div&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-overlay</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Variant</h4>
+<p>Visual variant. Light for light backgrounds, blur for frosted glass effect.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-overlay--light</code></td><td>light</td></tr><tr><td><code>.ui-overlay--blur</code></td><td>blur</td></tr></tbody>
+</table>
+<h4>State</h4>
+<p>Animation states controlled via JS</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-overlay--visible</code></td><td>visible</td></tr><tr><td><code>.ui-overlay--hidden</code></td><td>hidden</td></tr><tr><td><code>.ui-overlay--entering</code></td><td>entering</td></tr><tr><td><code>.ui-overlay--exiting</code></td><td>exiting</td></tr><tr><td><code>.ui-overlay--animate</code></td><td>animate</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-overlay-bg</code></td><td><code>rgb(0 0 0 / 0.5)</code></td><td>Default backdrop color</td></tr>
+      <tr><td><code>--ui-overlay-bg-light</code></td><td><code>rgb(255 255 255 / 0.7)</code></td><td>Light variant backdrop color</td></tr>
+      <tr><td><code>--ui-overlay-bg-blur</code></td><td><code>rgb(0 0 0 / 0.3)</code></td><td>Blur variant backdrop color</td></tr>
+      <tr><td><code>--ui-overlay-z</code></td><td><code>var(--ui-z-overlay)</code></td><td>Z-index layer</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>Light Variant</h3>
@@ -3296,16 +3999,43 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <nav class="ui-pagination"><a class="ui-pagination__link ui-pagination__prev" href="#">Prev</a><ul class="ui-pagination__list"><li class="ui-pagination__item"><a class="ui-pagination__link" href="#">1</a></li><li class="ui-pagination__item"><a class="ui-pagination__link ui-pagination__link--active" aria-current="page" href="#">2</a></li><li class="ui-pagination__item"><a class="ui-pagination__link" href="#">3</a></li><li class="ui-pagination__item"><a class="ui-pagination__link" href="#">4</a></li><li class="ui-pagination__item"><a class="ui-pagination__link" href="#">5</a></li></ul><a class="ui-pagination__link ui-pagination__next" href="#">Next</a></nav>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;nav class="ui-pagination"&gt;&lt;a class="ui-pagination__link ui-pagination__prev" href="#"&gt;Prev&lt;/a&gt;&lt;ul class="ui-pagination__list"&gt;&lt;li class="ui-pagination__item"&gt;&lt;a class="ui-pagination__link" href="#"&gt;1&lt;/a&gt;&lt;/li&gt;&lt;li class="ui-pagination__item"&gt;&lt;a class="ui-pagination__link ui-pagination__link--active" aria-current="page" href="#"&gt;2&lt;/a&gt;&lt;/li&gt;&lt;li class="ui-pagination__item"&gt;&lt;a class="ui-pagination__link" href="#"&gt;3&lt;/a&gt;&lt;/li&gt;&lt;li class="ui-pagination__item"&gt;&lt;a class="ui-pagination__link" href="#"&gt;4&lt;/a&gt;&lt;/li&gt;&lt;li class="ui-pagination__item"&gt;&lt;a class="ui-pagination__link" href="#"&gt;5&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;a class="ui-pagination__link ui-pagination__next" href="#"&gt;Next&lt;/a&gt;&lt;/nav&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-pagination</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Size</h4>
+
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-pagination--sm</code></td><td>sm</td></tr><tr><td><code>.ui-pagination--lg</code></td><td>lg</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-pagination-gap</code></td><td><code>calc(var(--unit) * 0.5)</code></td><td>Gap between items</td></tr>
+      <tr><td><code>--ui-pagination-item-size</code></td><td><code>calc(var(--unit) * 4)</code></td><td>Item size</td></tr>
+      <tr><td><code>--ui-pagination-item-radius</code></td><td><code>var(--ui-radius-sm)</code></td><td>Item border radius</td></tr>
+      <tr><td><code>--ui-pagination-item-bg</code></td><td><code>transparent</code></td><td>Item background</td></tr>
+      <tr><td><code>--ui-pagination-item-bg-hover</code></td><td><code>var(--ui-color-bg-subtle)</code></td><td>Item hover background</td></tr>
+      <tr><td><code>--ui-pagination-item-bg-active</code></td><td><code>var(--ui-color-primary)</code></td><td>Active item background</td></tr>
+      <tr><td><code>--ui-pagination-item-color</code></td><td><code>var(--ui-color-text)</code></td><td>Item text color</td></tr>
+      <tr><td><code>--ui-pagination-item-color-active</code></td><td><code>var(--ui-color-text-inverse)</code></td><td>Active item text color</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>With Ellipsis</h3>
@@ -3392,18 +4122,49 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <div class="ui-popover" style="position: relative;"><p>Popover content goes here. Can contain multiple paragraphs and other elements.</p></div>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;div class="ui-popover"&gt;
-  &lt;p&gt;Popover content goes here.&lt;/p&gt;
-&lt;/div&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-popover</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Position</h4>
+<p>Arrow position indicating popover placement relative to trigger</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-popover--top</code></td><td>top</td></tr><tr><td><code>.ui-popover--bottom</code></td><td>bottom</td></tr></tbody>
+</table>
+<h4>State</h4>
+<p>Visibility states controlled via JS</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-popover--visible</code></td><td>visible</td></tr><tr><td><code>.ui-popover--hidden</code></td><td>hidden</td></tr><tr><td><code>.ui-popover--animate</code></td><td>animate</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-popover-bg</code></td><td><code>var(--ui-color-bg)</code></td><td>Background color</td></tr>
+      <tr><td><code>--ui-popover-border-color</code></td><td><code>var(--ui-color-border)</code></td><td>Border color</td></tr>
+      <tr><td><code>--ui-popover-radius</code></td><td><code>var(--ui-radius-md)</code></td><td>Border radius</td></tr>
+      <tr><td><code>--ui-popover-shadow</code></td><td><code>0 4px 16px rgb(0 0 0 / 0.15)</code></td><td>Box shadow</td></tr>
+      <tr><td><code>--ui-popover-padding</code></td><td><code>calc(var(--unit) * 2)</code></td><td>Content padding</td></tr>
+      <tr><td><code>--ui-popover-max-width</code></td><td><code>calc(var(--unit) * 40)</code></td><td>Maximum width</td></tr>
+      <tr><td><code>--ui-popover-z</code></td><td><code>var(--ui-z-popover)</code></td><td>Z-index layer</td></tr>
+      <tr><td><code>--ui-popover-arrow-size</code></td><td><code>var(--unit)</code></td><td>Arrow size</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>With Header</h3>
@@ -3453,19 +4214,45 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <div class="ui-progress" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="Loading"><div class="ui-progress__bar" style="width: 60%;"></div></div>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;div class="ui-progress" role="progressbar"
-     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"&gt;
-  &lt;div class="ui-progress__bar" style="width: 60%;"&gt;&lt;/div&gt;
-&lt;/div&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-progress</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Size</h4>
+<p>Size variant</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-progress--sm</code></td><td>sm</td></tr><tr><td><code>.ui-progress--lg</code></td><td>lg</td></tr></tbody>
+</table>
+<h4>Variant</h4>
+<p>Visual and behavior variants</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-progress--success</code></td><td>success</td></tr><tr><td><code>.ui-progress--warning</code></td><td>warning</td></tr><tr><td><code>.ui-progress--danger</code></td><td>danger</td></tr><tr><td><code>.ui-progress--striped</code></td><td>striped</td></tr><tr><td><code>.ui-progress--animated</code></td><td>animated</td></tr><tr><td><code>.ui-progress--indeterminate</code></td><td>indeterminate</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-progress-height</code></td><td><code>calc(var(--unit) * 1)</code></td><td>Bar height</td></tr>
+      <tr><td><code>--ui-progress-bg</code></td><td><code>var(--ui-color-bg-subtle)</code></td><td>Track background</td></tr>
+      <tr><td><code>--ui-progress-fill</code></td><td><code>var(--ui-color-primary)</code></td><td>Fill color</td></tr>
+      <tr><td><code>--ui-progress-radius</code></td><td><code>var(--ui-radius-full)</code></td><td>Border radius</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>Sizes</h3>
@@ -3568,8 +4355,8 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <div class="ui-cluster ui-cluster--md">
@@ -3578,10 +4365,41 @@
   </div>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;input type="radio" class="ui-radio" name="group1"&gt;
-&lt;input type="radio" class="ui-radio" name="group1" checked&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-radio</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Size</h4>
+<p>Size variant. Default is 20px.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-radio--sm</code></td><td>sm</td></tr><tr><td><code>.ui-radio--lg</code></td><td>lg</td></tr></tbody>
+</table>
+<h4>State</h4>
+<p>Error state styling.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-radio--error</code></td><td>error</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-radio-size</code></td><td><code>calc(var(--unit) * 2)</code></td><td>Default size</td></tr>
+      <tr><td><code>--ui-radio-size-lg</code></td><td><code>calc(var(--unit) * 3)</code></td><td>Large size</td></tr>
+      <tr><td><code>--ui-radio-bg</code></td><td><code>var(--ui-color-bg)</code></td><td>Background (unchecked)</td></tr>
+      <tr><td><code>--ui-radio-bg-checked</code></td><td><code>var(--ui-color-primary)</code></td><td>Background (checked)</td></tr>
+      <tr><td><code>--ui-radio-border-color</code></td><td><code>var(--ui-color-border-strong)</code></td><td>Border color</td></tr>
+      <tr><td><code>--ui-radio-border-color-focus</code></td><td><code>var(--ui-color-primary)</code></td><td>Focus border color</td></tr>
+      <tr><td><code>--ui-radio-dot-color</code></td><td><code>var(--ui-color-text-inverse)</code></td><td>Inner dot color</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>Sizes</h3>
@@ -3705,16 +4523,63 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <select class="ui-select"><option value="" disabled selected>Choose option...</option><option value="1">Option 1</option><option value="2">Option 2</option><option value="3">Option 3</option></select>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;select class="ui-select"&gt;&lt;option value="" disabled selected&gt;Choose option...&lt;/option&gt;&lt;option value="1"&gt;Option 1&lt;/option&gt;&lt;option value="2"&gt;Option 2&lt;/option&gt;&lt;option value="3"&gt;Option 3&lt;/option&gt;&lt;/select&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-select</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Size</h4>
+<p>Size variant. Default is 32px / 2 rows.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-select--sm</code></td><td>sm</td></tr><tr><td><code>.ui-select--lg</code></td><td>lg</td></tr></tbody>
+</table>
+<h4>Variant</h4>
+<p>Visual style. Default is outline with border.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-select--filled</code></td><td>filled</td></tr><tr><td><code>.ui-select--ghost</code></td><td>ghost</td></tr></tbody>
+</table>
+<h4>State</h4>
+<p>Validation state styling.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-select--error</code></td><td>error</td></tr><tr><td><code>.ui-select--success</code></td><td>success</td></tr></tbody>
+</table>
+<h4>Block</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-select--block</code></td><td>Full width select.</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-select-height</code></td><td><code>var(--ui-row-2)</code></td><td>Default height</td></tr>
+      <tr><td><code>--ui-select-height-sm</code></td><td><code>calc(var(--row) * 1.5)</code></td><td>Small height</td></tr>
+      <tr><td><code>--ui-select-height-lg</code></td><td><code>calc(var(--row) * 2.5)</code></td><td>Large height</td></tr>
+      <tr><td><code>--ui-select-padding-x</code></td><td><code>var(--ui-space-1)</code></td><td>Horizontal padding</td></tr>
+      <tr><td><code>--ui-select-font-size</code></td><td><code>var(--ui-font-size-sm)</code></td><td>Font size</td></tr>
+      <tr><td><code>--ui-select-radius</code></td><td><code>var(--ui-radius-md)</code></td><td>Border radius</td></tr>
+      <tr><td><code>--ui-select-bg</code></td><td><code>var(--ui-color-bg)</code></td><td>Background color</td></tr>
+      <tr><td><code>--ui-select-border-color</code></td><td><code>var(--ui-color-border-strong)</code></td><td>Border color</td></tr>
+      <tr><td><code>--ui-select-border-color-focus</code></td><td><code>var(--ui-color-primary)</code></td><td>Focus border color</td></tr>
+      <tr><td><code>--ui-select-text</code></td><td><code>var(--ui-color-text)</code></td><td>Text color</td></tr>
+      <tr><td><code>--ui-select-icon-color</code></td><td><code>var(--ui-color-text-muted)</code></td><td>Arrow icon color</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>Sizes</h3>
@@ -3831,18 +4696,44 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <div style="display: flex; flex-direction: column; gap: var(--ui-space-1);"><div class="ui-skeleton ui-skeleton--text"></div><div class="ui-skeleton ui-skeleton--text" style="width: 80%;"></div><div class="ui-skeleton ui-skeleton--text" style="width: 60%;"></div></div>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;div class="ui-skeleton ui-skeleton--text"&gt;&lt;/div&gt;
-&lt;div class="ui-skeleton ui-skeleton--text" style="width: 80%;"&gt;&lt;/div&gt;
-&lt;div class="ui-skeleton ui-skeleton--text" style="width: 60%;"&gt;&lt;/div&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-skeleton</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Shape</h4>
+<p>Preset shapes for common use cases</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-skeleton--text</code></td><td>text</td></tr><tr><td><code>.ui-skeleton--heading</code></td><td>heading</td></tr><tr><td><code>.ui-skeleton--circle</code></td><td>circle</td></tr><tr><td><code>.ui-skeleton--rect</code></td><td>rect</td></tr></tbody>
+</table>
+<h4>Animation</h4>
+<p>Animation variants. Default is shimmer, pulse for fade effect.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-skeleton--static</code></td><td>static</td></tr><tr><td><code>.ui-skeleton--pulse</code></td><td>pulse</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-skeleton-bg</code></td><td><code>var(--ui-color-bg-subtle)</code></td><td>Background color</td></tr>
+      <tr><td><code>--ui-skeleton-shimmer</code></td><td><code>rgb(255 255 255 / 0.5)</code></td><td>Shimmer highlight color</td></tr>
+      <tr><td><code>--ui-skeleton-radius</code></td><td><code>var(--ui-radius-sm)</code></td><td>Border radius</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>Shapes</h3>
@@ -3907,8 +4798,8 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <div class="ui-cluster ui-cluster--md">
@@ -3916,9 +4807,37 @@
   </div>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;div class="ui-spinner"&gt;&lt;/div&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-spinner</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Size</h4>
+<p>Size variant. Default is 24px.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-spinner--xs</code></td><td>xs</td></tr><tr><td><code>.ui-spinner--sm</code></td><td>sm</td></tr><tr><td><code>.ui-spinner--lg</code></td><td>lg</td></tr><tr><td><code>.ui-spinner--xl</code></td><td>xl</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-spinner-size</code></td><td><code>calc(var(--unit) * 4)</code></td><td>Default size</td></tr>
+      <tr><td><code>--ui-spinner-size-xs</code></td><td><code>calc(var(--unit) * 2)</code></td><td>Extra small size</td></tr>
+      <tr><td><code>--ui-spinner-size-sm</code></td><td><code>calc(var(--unit) * 3)</code></td><td>Small size</td></tr>
+      <tr><td><code>--ui-spinner-size-lg</code></td><td><code>calc(var(--unit) * 5)</code></td><td>Large size</td></tr>
+      <tr><td><code>--ui-spinner-size-xl</code></td><td><code>calc(var(--unit) * 6)</code></td><td>Extra large size</td></tr>
+      <tr><td><code>--ui-spinner-border-width</code></td><td><code>var(--ui-border-width-md)</code></td><td>Border width</td></tr>
+      <tr><td><code>--ui-spinner-color</code></td><td><code>currentcolor</code></td><td>Spinner color</td></tr>
+      <tr><td><code>--ui-spinner-track-color</code></td><td><code>transparent</code></td><td>Track color</td></tr>
+      <tr><td><code>--ui-spinner-duration</code></td><td><code>750ms</code></td><td>Animation duration</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>Sizes</h3>
@@ -3992,19 +4911,50 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <div style="display: flex; flex-direction: column; gap: var(--ui-space-2);"><span class="ui-status"><span class="ui-status__dot"></span>Default</span><span class="ui-status ui-status--success"><span class="ui-status__dot"></span>Online</span><span class="ui-status ui-status--warning"><span class="ui-status__dot"></span>Away</span><span class="ui-status ui-status--danger"><span class="ui-status__dot"></span>Busy</span><span class="ui-status ui-status--info"><span class="ui-status__dot"></span>In a meeting</span></div>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;span class="ui-status ui-status--success"&gt;
-  &lt;span class="ui-status__dot"&gt;&lt;/span&gt;
-  Online
-&lt;/span&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-status</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Variant</h4>
+<p>Color variant indicating status type</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-status--success</code></td><td>success</td></tr><tr><td><code>.ui-status--warning</code></td><td>warning</td></tr><tr><td><code>.ui-status--danger</code></td><td>danger</td></tr><tr><td><code>.ui-status--info</code></td><td>info</td></tr></tbody>
+</table>
+<h4>Size</h4>
+<p>Size variant</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-status--sm</code></td><td>sm</td></tr><tr><td><code>.ui-status--lg</code></td><td>lg</td></tr></tbody>
+</table>
+<h4>Animation</h4>
+<p>Pulse animation for active/live status</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-status--pulse</code></td><td>pulse</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-status-size</code></td><td><code>var(--unit)</code></td><td>Dot size</td></tr>
+      <tr><td><code>--ui-status-color</code></td><td><code>var(--ui-color-text-muted)</code></td><td>Default dot color</td></tr>
+      <tr><td><code>--ui-status-gap</code></td><td><code>var(--unit)</code></td><td>Gap between dot and text</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>Sizes</h3>
@@ -4071,46 +5021,43 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    <button class="ui-tabs__tab">Theming</button>
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <table class="ui-table"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>Alpha</td><td>100</td></tr><tr><td>Beta</td><td>200</td></tr></tbody></table>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;table class="ui-table"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Alpha&lt;/td&gt;&lt;td&gt;100&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Beta&lt;/td&gt;&lt;td&gt;200&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-table</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Compact</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-table--compact</code></td><td>Smaller padding and font size.</td></tr></tbody>
+</table>
+<h4>Striped</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-table--striped</code></td><td>Alternating row backgrounds.</td></tr></tbody>
+</table>
   </div>
   <div class="ui-tabs__panel">
-    <table class="ui-table ui-table--compact">
-  <thead><tr><th>Variable</th><th>Default</th><th>Value</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><code>--table-font-size</code></td>
-      <td><code>--size-sm</code></td>
-      <td><code>0.875rem</code></td>
-    </tr>
-    <tr>
-      <td><code>--table-border-color</code></td>
-      <td><code>--color-border</code></td>
-      <td><code>$color-neutral-200</code></td>
-    </tr>
-    <tr>
-      <td><code>--table-header-bg</code></td>
-      <td><code>--color-bg-subtle</code></td>
-      <td><code>$color-neutral-100</code></td>
-    </tr>
-    <tr>
-      <td><code>--table-cell-padding-x</code></td>
-      <td><code>--space-2</code></td>
-      <td><code>$unit * 2</code></td>
-    </tr>
-    <tr>
-      <td><code>--table-cell-padding-y</code></td>
-      <td><code>--space-1</code></td>
-      <td><code>$unit</code></td>
-    </tr>
-  </tbody>
-</table>
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-table-font-size</code></td><td><code>var(--ui-font-size-sm)</code></td><td>Table font size</td></tr>
+      <tr><td><code>--ui-table-border-color</code></td><td><code>var(--ui-color-border)</code></td><td>Border color</td></tr>
+      <tr><td><code>--ui-table-header-bg</code></td><td><code>var(--ui-color-bg-subtle)</code></td><td>Header background</td></tr>
+      <tr><td><code>--ui-table-cell-padding-x</code></td><td><code>var(--ui-space-2)</code></td><td>Cell horizontal padding</td></tr>
+      <tr><td><code>--ui-table-cell-padding-y</code></td><td><code>var(--ui-space-1)</code></td><td>Cell vertical padding</td></tr>
+    </tbody>
+  </table>
   </div>
 </div>
 
@@ -4152,60 +5099,34 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    <button class="ui-tabs__tab">Theming</button>
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <div class="ui-tabs"><div class="ui-tabs__list"><button class="ui-tabs__tab ui-tabs__tab--active">Tab 1</button><button class="ui-tabs__tab">Tab 2</button><button class="ui-tabs__tab">Tab 3</button></div><div class="ui-tabs__panel ui-tabs__panel--active">Panel 1 content</div><div class="ui-tabs__panel">Panel 2 content</div><div class="ui-tabs__panel">Panel 3 content</div></div>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;div class="ui-tabs"&gt;
-  &lt;div class="ui-tabs__list"&gt;
-    &lt;button class="ui-tabs__tab ui-tabs__tab--active"&gt;Tab 1&lt;/button&gt;
-    &lt;button class="ui-tabs__tab"&gt;Tab 2&lt;/button&gt;
-    &lt;button class="ui-tabs__tab"&gt;Tab 3&lt;/button&gt;
-  &lt;/div&gt;
-  &lt;div class="ui-tabs__panel ui-tabs__panel--active"&gt;Panel 1 content&lt;/div&gt;
-  &lt;div class="ui-tabs__panel"&gt;Panel 2 content&lt;/div&gt;
-  &lt;div class="ui-tabs__panel"&gt;Panel 3 content&lt;/div&gt;
-&lt;/div&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-tabs</code></td><td>Base class</td></tr></tbody>
+</table>
   </div>
   <div class="ui-tabs__panel">
-    <table class="ui-table ui-table--compact">
-  <thead><tr><th>Variable</th><th>Default</th><th>Value</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><code>--tabs-border-color</code></td>
-      <td><code>--color-border</code></td>
-      <td><code>$color-neutral-200</code></td>
-    </tr>
-    <tr>
-      <td><code>--tabs-tab-padding-x</code></td>
-      <td><code>--space-2</code></td>
-      <td><code>$unit * 2</code></td>
-    </tr>
-    <tr>
-      <td><code>--tabs-tab-padding-y</code></td>
-      <td><code>--space-1</code></td>
-      <td><code>$unit</code></td>
-    </tr>
-    <tr>
-      <td><code>--tabs-tab-bg</code></td>
-      <td><code>transparent</code></td>
-      <td><code>transparent</code></td>
-    </tr>
-    <tr>
-      <td><code>--tabs-tab-bg-active</code></td>
-      <td><code>--color-bg</code></td>
-      <td><code>$color-neutral-50</code></td>
-    </tr>
-    <tr>
-      <td><code>--tabs-panel-padding</code></td>
-      <td><code>--space-3</code></td>
-      <td><code>$unit * 3</code></td>
-    </tr>
-  </tbody>
-</table>
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-tabs-border-color</code></td><td><code>var(--ui-color-border)</code></td><td>Tab list border color</td></tr>
+      <tr><td><code>--ui-tabs-tab-padding-x</code></td><td><code>var(--ui-space-2)</code></td><td>Tab horizontal padding</td></tr>
+      <tr><td><code>--ui-tabs-tab-padding-y</code></td><td><code>var(--ui-space-1)</code></td><td>Tab vertical padding</td></tr>
+      <tr><td><code>--ui-tabs-tab-bg</code></td><td><code>transparent</code></td><td>Tab background</td></tr>
+      <tr><td><code>--ui-tabs-tab-bg-active</code></td><td><code>var(--ui-color-bg)</code></td><td>Active tab background</td></tr>
+      <tr><td><code>--ui-tabs-panel-padding</code></td><td><code>var(--ui-space-3)</code></td><td>Panel padding</td></tr>
+    </tbody>
+  </table>
   </div>
 </div>
 
@@ -4240,8 +5161,8 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <div class="ui-cluster ui-cluster--md">
@@ -4251,9 +5172,42 @@
   </div>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;span class="ui-tag"&gt;Tag&lt;/span&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-tag</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Size</h4>
+<p>Small size variant</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-tag--sm</code></td><td>sm</td></tr></tbody>
+</table>
+<h4>Variant</h4>
+<p>Color variant</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-tag--primary</code></td><td>primary</td></tr><tr><td><code>.ui-tag--success</code></td><td>success</td></tr><tr><td><code>.ui-tag--warning</code></td><td>warning</td></tr><tr><td><code>.ui-tag--danger</code></td><td>danger</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-tag-height</code></td><td><code>calc(var(--unit) * 3)</code></td><td>Default height</td></tr>
+      <tr><td><code>--ui-tag-height-sm</code></td><td><code>calc(var(--unit) * 2.5)</code></td><td>Small height</td></tr>
+      <tr><td><code>--ui-tag-padding-x</code></td><td><code>var(--ui-space-1)</code></td><td>Horizontal padding</td></tr>
+      <tr><td><code>--ui-tag-gap</code></td><td><code>calc(var(--unit) * 0.5)</code></td><td>Gap between content and remove button</td></tr>
+      <tr><td><code>--ui-tag-radius</code></td><td><code>var(--ui-radius-full)</code></td><td>Border radius</td></tr>
+      <tr><td><code>--ui-tag-font-size</code></td><td><code>var(--ui-font-size-sm)</code></td><td>Font size</td></tr>
+      <tr><td><code>--ui-tag-bg</code></td><td><code>var(--ui-color-bg-muted)</code></td><td>Background color</td></tr>
+      <tr><td><code>--ui-tag-color</code></td><td><code>var(--ui-color-text)</code></td><td>Text color</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>Sizes</h3>
@@ -4351,16 +5305,65 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <textarea class="ui-textarea" placeholder="Enter your message..."></textarea>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;textarea class="ui-textarea" placeholder="Enter your message..."&gt;&lt;/textarea&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-textarea</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Size</h4>
+<p>Size variant. Default is 4 rows height.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-textarea--sm</code></td><td>sm</td></tr><tr><td><code>.ui-textarea--lg</code></td><td>lg</td></tr></tbody>
+</table>
+<h4>Variant</h4>
+<p>Visual style. Default is outline with border.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-textarea--filled</code></td><td>filled</td></tr><tr><td><code>.ui-textarea--ghost</code></td><td>ghost</td></tr></tbody>
+</table>
+<h4>State</h4>
+<p>Validation state styling.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-textarea--error</code></td><td>error</td></tr><tr><td><code>.ui-textarea--success</code></td><td>success</td></tr></tbody>
+</table>
+<h4>Resize</h4>
+<p>Resize behavior. Default is vertical only.</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-textarea--none</code></td><td>none</td></tr><tr><td><code>.ui-textarea--horizontal</code></td><td>horizontal</td></tr><tr><td><code>.ui-textarea--both</code></td><td>both</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-textarea-min-height</code></td><td><code>calc(var(--row) * 4)</code></td><td>Default minimum height</td></tr>
+      <tr><td><code>--ui-textarea-min-height-sm</code></td><td><code>calc(var(--row) * 3)</code></td><td>Small minimum height</td></tr>
+      <tr><td><code>--ui-textarea-min-height-lg</code></td><td><code>calc(var(--row) * 6)</code></td><td>Large minimum height</td></tr>
+      <tr><td><code>--ui-textarea-padding-x</code></td><td><code>var(--ui-space-1)</code></td><td>Horizontal padding</td></tr>
+      <tr><td><code>--ui-textarea-padding-y</code></td><td><code>var(--ui-space-1)</code></td><td>Vertical padding</td></tr>
+      <tr><td><code>--ui-textarea-font-size</code></td><td><code>var(--ui-font-size-sm)</code></td><td>Font size</td></tr>
+      <tr><td><code>--ui-textarea-radius</code></td><td><code>var(--ui-radius-md)</code></td><td>Border radius</td></tr>
+      <tr><td><code>--ui-textarea-bg</code></td><td><code>var(--ui-color-bg)</code></td><td>Background color</td></tr>
+      <tr><td><code>--ui-textarea-border-color</code></td><td><code>var(--ui-color-border-strong)</code></td><td>Border color</td></tr>
+      <tr><td><code>--ui-textarea-border-color-focus</code></td><td><code>var(--ui-color-primary)</code></td><td>Focus border color</td></tr>
+      <tr><td><code>--ui-textarea-text</code></td><td><code>var(--ui-color-text)</code></td><td>Text color</td></tr>
+      <tr><td><code>--ui-textarea-placeholder</code></td><td><code>var(--ui-color-text-muted)</code></td><td>Placeholder color</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>Sizes</h3>
@@ -4462,16 +5465,44 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <div class="ui-toast"><div class="ui-toast__content"><p class="ui-toast__title">Notification</p><p class="ui-toast__description">Your changes have been saved.</p></div><button class="ui-toast__close">X</button></div>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;div class="ui-toast"&gt;&lt;div class="ui-toast__content"&gt;&lt;p class="ui-toast__title"&gt;Notification&lt;/p&gt;&lt;p class="ui-toast__description"&gt;Your changes have been saved.&lt;/p&gt;&lt;/div&gt;&lt;button class="ui-toast__close"&gt;X&lt;/button&gt;&lt;/div&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-toast</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Variant</h4>
+
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-toast--success</code></td><td>success</td></tr><tr><td><code>.ui-toast--warning</code></td><td>warning</td></tr><tr><td><code>.ui-toast--danger</code></td><td>danger</td></tr><tr><td><code>.ui-toast--info</code></td><td>info</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-toast-viewport-gap</code></td><td><code>var(--unit)</code></td><td>Gap between toasts in viewport</td></tr>
+      <tr><td><code>--ui-toast-viewport-padding</code></td><td><code>calc(var(--unit) * 2)</code></td><td>Viewport padding from edges</td></tr>
+      <tr><td><code>--ui-toast-viewport-max-width</code></td><td><code>420px</code></td><td>Maximum toast width</td></tr>
+      <tr><td><code>--ui-toast-padding</code></td><td><code>calc(var(--unit) * 2)</code></td><td>Toast padding</td></tr>
+      <tr><td><code>--ui-toast-gap</code></td><td><code>var(--unit)</code></td><td>Gap between toast elements</td></tr>
+      <tr><td><code>--ui-toast-radius</code></td><td><code>var(--ui-radius-md)</code></td><td>Border radius</td></tr>
+      <tr><td><code>--ui-toast-bg</code></td><td><code>var(--ui-color-bg)</code></td><td>Background color</td></tr>
+      <tr><td><code>--ui-toast-border-color</code></td><td><code>var(--ui-color-border)</code></td><td>Border color</td></tr>
+      <tr><td><code>--ui-toast-shadow</code></td><td><code>var(--shadow-lg)</code></td><td>Box shadow</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>Variants</h3>
@@ -4587,20 +5618,43 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <label class="ui-toggle"><input type="checkbox" class="ui-toggle__input" role="switch"><span class="ui-toggle__track"></span><span class="ui-toggle__thumb"></span></label>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;label class="ui-toggle"&gt;
-  &lt;input type="checkbox" class="ui-toggle__input" role="switch"&gt;
-  &lt;span class="ui-toggle__track"&gt;&lt;/span&gt;
-  &lt;span class="ui-toggle__thumb"&gt;&lt;/span&gt;
-&lt;/label&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-toggle</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Size</h4>
+<p>Size variant</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-toggle--sm</code></td><td>sm</td></tr><tr><td><code>.ui-toggle--lg</code></td><td>lg</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-toggle-track-width</code></td><td><code>calc(var(--unit) * 5)</code></td><td>Track width</td></tr>
+      <tr><td><code>--ui-toggle-track-height</code></td><td><code>calc(var(--unit) * 3)</code></td><td>Track height</td></tr>
+      <tr><td><code>--ui-toggle-track-bg</code></td><td><code>var(--ui-color-bg-subtle)</code></td><td>Track background (unchecked)</td></tr>
+      <tr><td><code>--ui-toggle-track-bg-checked</code></td><td><code>var(--ui-color-primary)</code></td><td>Track background (checked)</td></tr>
+      <tr><td><code>--ui-toggle-track-radius</code></td><td><code>calc(var(--unit) * 1.5)</code></td><td>Track border radius</td></tr>
+      <tr><td><code>--ui-toggle-thumb-size</code></td><td><code>calc(var(--unit) * 2.5)</code></td><td>Thumb size</td></tr>
+      <tr><td><code>--ui-toggle-thumb-bg</code></td><td><code>white</code></td><td>Thumb background</td></tr>
+      <tr><td><code>--ui-toggle-thumb-offset</code></td><td><code>calc(var(--unit) / 4)</code></td><td>Thumb offset from edge</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>Checked</h3>
@@ -4690,19 +5744,49 @@
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-    <button class="ui-tabs__tab">HTML</button>
-    
+    <button class="ui-tabs__tab">CSS</button>
+    <button class="ui-tabs__tab">Customization</button>
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <div style="display: flex; gap: var(--ui-space-4); padding: var(--ui-space-4);"><div style="position: relative;"><span class="ui-tooltip ui-tooltip--top" style="position: relative;">Top tooltip</span></div><div style="position: relative;"><span class="ui-tooltip ui-tooltip--bottom" style="position: relative;">Bottom tooltip</span></div></div>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;span class="ui-tooltip ui-tooltip--top"&gt;Top tooltip&lt;/span&gt;
-&lt;span class="ui-tooltip ui-tooltip--bottom"&gt;Bottom tooltip&lt;/span&gt;
-&lt;span class="ui-tooltip ui-tooltip--start"&gt;Start tooltip&lt;/span&gt;
-&lt;span class="ui-tooltip ui-tooltip--end"&gt;End tooltip&lt;/span&gt;</code></pre>
+    <h4>Base</h4>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+  <tbody><tr><td><code>.ui-tooltip</code></td><td>Base class</td></tr></tbody>
+</table>
+<h4>Position</h4>
+<p>Arrow position indicating tooltip placement relative to trigger</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-tooltip--top</code></td><td>top</td></tr><tr><td><code>.ui-tooltip--bottom</code></td><td>bottom</td></tr><tr><td><code>.ui-tooltip--start</code></td><td>start</td></tr><tr><td><code>.ui-tooltip--end</code></td><td>end</td></tr></tbody>
+</table>
+<h4>State</h4>
+<p>Visibility states controlled via JS</p>
+<table class="ui-table ui-table--compact">
+  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+  <tbody><tr><td><code>.ui-tooltip--visible</code></td><td>visible</td></tr><tr><td><code>.ui-tooltip--hidden</code></td><td>hidden</td></tr><tr><td><code>.ui-tooltip--animate</code></td><td>animate</td></tr></tbody>
+</table>
   </div>
-  
+  <div class="ui-tabs__panel">
+    <p>Override these CSS custom properties to customize the component.</p>
+  <table class="ui-table">
+    <thead>
+      <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--ui-tooltip-bg</code></td><td><code>var(--ui-color-text)</code></td><td>Background color</td></tr>
+      <tr><td><code>--ui-tooltip-color</code></td><td><code>var(--ui-color-bg)</code></td><td>Text color</td></tr>
+      <tr><td><code>--ui-tooltip-radius</code></td><td><code>var(--ui-radius-sm)</code></td><td>Border radius</td></tr>
+      <tr><td><code>--ui-tooltip-padding-x</code></td><td><code>calc(var(--unit) * 1)</code></td><td>Horizontal padding</td></tr>
+      <tr><td><code>--ui-tooltip-padding-y</code></td><td><code>calc(var(--unit) / 2)</code></td><td>Vertical padding</td></tr>
+      <tr><td><code>--ui-tooltip-size</code></td><td><code>var(--ui-font-size-sm)</code></td><td>Font size</td></tr>
+      <tr><td><code>--ui-tooltip-arrow-size</code></td><td><code>calc(var(--unit) / 2)</code></td><td>Arrow size</td></tr>
+      <tr><td><code>--ui-tooltip-z</code></td><td><code>var(--ui-z-tooltip)</code></td><td>Z-index</td></tr>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <h3>With Animation</h3>
@@ -4776,9 +5860,10 @@
 </section>
 <section id="text-utils" class="ui-docs-section" data-type="utility">
   <h2>Text</h2>
-  <p>Typography and text utilities.</p>
+  <p>Typography and text utilities. Font sizes follow a 1.2 modular scale.</p>
 
   <h3>Sizes</h3>
+<p>Font size utilities with 8px grid-snapped line-heights.</p>
 <div class="ui-tabs ui-mb-2">
   <div class="ui-tabs__list">
     <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
@@ -4787,23 +5872,119 @@
   </div>
   <div class="ui-tabs__panel ui-tabs__panel--active">
     <div class="ui-stack ui-stack--sm">
-    <p class="ui-text-xs">text-xs: 12px (1.5 units)</p>
-    <p class="ui-text-sm">text-sm: 14px (1.75 units)</p>
-    <p class="ui-text-md">text-md: 16px (2 units)</p>
-    <p class="ui-text-lg">text-lg: 18px (2.25 units)</p>
-    <p class="ui-text-xl">text-xl: 20px (2.5 units)</p>
-    <p class="ui-text-2xl">text-2xl: 24px (3 units)</p>
-    <p class="ui-text-3xl">text-3xl: 32px (4 units)</p>
+    <p class="ui-text-xs">text-xs: 12px / 16px line-height</p>
+    <p class="ui-text-sm">text-sm: 14px / 24px line-height</p>
+    <p class="ui-text-md">text-md: 16px / 24px line-height</p>
+    <p class="ui-text-lg">text-lg: 20px / 32px line-height</p>
+    <p class="ui-text-xl">text-xl: 24px / 32px line-height</p>
+    <p class="ui-text-2xl">text-2xl: 28px / 32px line-height</p>
+    <p class="ui-text-3xl">text-3xl: 32px / 40px line-height</p>
+    <p class="ui-text-4xl">text-4xl: 40px / 48px line-height</p>
   </div>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;p class="ui-text-xs"&gt;text-xs: 12px (1.5 units)&lt;/p&gt;
-&lt;p class="ui-text-sm"&gt;text-sm: 14px (1.75 units)&lt;/p&gt;
-&lt;p class="ui-text-md"&gt;text-md: 16px (2 units)&lt;/p&gt;
-&lt;p class="ui-text-lg"&gt;text-lg: 18px (2.25 units)&lt;/p&gt;
-&lt;p class="ui-text-xl"&gt;text-xl: 20px (2.5 units)&lt;/p&gt;
-&lt;p class="ui-text-2xl"&gt;text-2xl: 24px (3 units)&lt;/p&gt;
-&lt;p class="ui-text-3xl"&gt;text-3xl: 32px (4 units)&lt;/p&gt;</code></pre>
+    <pre class="ui-code-block"><code>&lt;p class="ui-text-xs"&gt;text-xs: 12px / 16px line-height&lt;/p&gt;
+&lt;p class="ui-text-sm"&gt;text-sm: 14px / 24px line-height&lt;/p&gt;
+&lt;p class="ui-text-md"&gt;text-md: 16px / 24px line-height&lt;/p&gt;
+&lt;p class="ui-text-lg"&gt;text-lg: 20px / 32px line-height&lt;/p&gt;
+&lt;p class="ui-text-xl"&gt;text-xl: 24px / 32px line-height&lt;/p&gt;
+&lt;p class="ui-text-2xl"&gt;text-2xl: 28px / 32px line-height&lt;/p&gt;
+&lt;p class="ui-text-3xl"&gt;text-3xl: 32px / 40px line-height&lt;/p&gt;
+&lt;p class="ui-text-4xl"&gt;text-4xl: 40px / 48px line-height&lt;/p&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Text Roles</h3>
+<p>Semantic text styles for specific use cases.</p>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-stack ui-stack--sm">
+    <p class="ui-text-lead">Lead: Opening paragraph style (20px / 32px)</p>
+    <p class="ui-text-eyebrow">Eyebrow: Small caps label</p>
+    <p class="ui-text-caption">Caption: Labels and hints (12px / 16px)</p>
+    <p class="ui-text-body-sm">Body small: Secondary text (14px / 24px)</p>
+  </div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;p class="ui-text-lead"&gt;Lead: Opening paragraph style (20px / 32px)&lt;/p&gt;
+&lt;p class="ui-text-eyebrow"&gt;Eyebrow: Small caps label&lt;/p&gt;
+&lt;p class="ui-text-caption"&gt;Caption: Labels and hints (12px / 16px)&lt;/p&gt;
+&lt;p class="ui-text-body-sm"&gt;Body small: Secondary text (14px / 24px)&lt;/p&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Weights</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-stack ui-stack--sm">
+    <p class="ui-font-normal">font-normal (400)</p>
+    <p class="ui-font-medium">font-medium (500)</p>
+    <p class="ui-font-semibold">font-semibold (600)</p>
+    <p class="ui-font-bold">font-bold (700)</p>
+  </div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;p class="ui-font-normal"&gt;font-normal (400)&lt;/p&gt;
+&lt;p class="ui-font-medium"&gt;font-medium (500)&lt;/p&gt;
+&lt;p class="ui-font-semibold"&gt;font-semibold (600)&lt;/p&gt;
+&lt;p class="ui-font-bold"&gt;font-bold (700)&lt;/p&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Letter Spacing</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-stack ui-stack--sm">
+    <p class="ui-text-2xl ui-tracking-display">tracking-display: Tight (-0.02em)</p>
+    <p class="ui-tracking-body">tracking-body: Default (0)</p>
+    <p class="ui-tracking-caps ui-uppercase">tracking-caps: Wide (+0.08em)</p>
+  </div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;p class="ui-text-2xl ui-tracking-display"&gt;tracking-display: Tight (-0.02em)&lt;/p&gt;
+&lt;p class="ui-tracking-body"&gt;tracking-body: Default (0)&lt;/p&gt;
+&lt;p class="ui-tracking-caps ui-uppercase"&gt;tracking-caps: Wide (+0.08em)&lt;/p&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Line Length</h3>
+<p>Constrain text width for optimal readability.</p>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-stack ui-stack--sm">
+    <p class="ui-prose-sm">prose-sm: 45ch max-width</p>
+    <p class="ui-prose">prose: 65ch max-width (recommended)</p>
+    <p class="ui-prose-lg">prose-lg: 75ch max-width</p>
+  </div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;p class="ui-prose-sm"&gt;prose-sm: 45ch max-width&lt;/p&gt;
+&lt;p class="ui-prose"&gt;prose: 65ch max-width (recommended)&lt;/p&gt;
+&lt;p class="ui-prose-lg"&gt;prose-lg: 75ch max-width&lt;/p&gt;</code></pre>
   </div>
   
 </div>
@@ -4825,9 +6006,33 @@
   </div>
   </div>
   <div class="ui-tabs__panel">
-    <pre class="ui-code-block"><code>&lt;p class="ui-text-lg ui-font-bold"&gt;...&lt;/p&gt;
-&lt;p class="ui-text-sm ui-text-muted"&gt;...&lt;/p&gt;
-&lt;p class="ui-text-center ui-uppercase"&gt;...&lt;/p&gt;</code></pre>
+    <pre class="ui-code-block"><code>&lt;p class="ui-text-primary"&gt;text-primary&lt;/p&gt;
+&lt;p class="ui-text-muted"&gt;text-muted&lt;/p&gt;
+&lt;p class="ui-text-success"&gt;text-success&lt;/p&gt;
+&lt;p class="ui-text-warning"&gt;text-warning&lt;/p&gt;
+&lt;p class="ui-text-danger"&gt;text-danger&lt;/p&gt;</code></pre>
+  </div>
+  
+</div>
+
+<h3>Alignment</h3>
+<div class="ui-tabs ui-mb-2">
+  <div class="ui-tabs__list">
+    <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+    <button class="ui-tabs__tab">HTML</button>
+    
+  </div>
+  <div class="ui-tabs__panel ui-tabs__panel--active">
+    <div class="ui-stack ui-stack--sm">
+    <p class="ui-text-start">text-start (default)</p>
+    <p class="ui-text-center">text-center</p>
+    <p class="ui-text-end">text-end</p>
+  </div>
+  </div>
+  <div class="ui-tabs__panel">
+    <pre class="ui-code-block"><code>&lt;p class="ui-text-start"&gt;text-start (default)&lt;/p&gt;
+&lt;p class="ui-text-center"&gt;text-center&lt;/p&gt;
+&lt;p class="ui-text-end"&gt;text-end&lt;/p&gt;</code></pre>
   </div>
   
 </div>
