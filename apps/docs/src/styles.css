@@ -1,5 +1,5 @@
-/* Import our CSS library (from compiled dist) */
-@import "../../../packages/css/dist/index.css";
+/* Import our CSS library (copied to /css/index.css by Eleventy) */
+@import "/css/index.css";
 
 /* Docs-specific styles */
 @layer base {

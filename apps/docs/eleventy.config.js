@@ -181,6 +181,10 @@ export default function (eleventyConfig) {
   // Passthrough copy for static assets
   eleventyConfig.addPassthroughCopy({ 'src/public': '.' });
   eleventyConfig.addPassthroughCopy('src/styles.css');
+  // Copy compiled CSS library
+  eleventyConfig.addPassthroughCopy({
+    '../../packages/css/dist/index.css': 'css/index.css',
+  });
 
   // Custom filters
   eleventyConfig.addFilter('byType', (docs, type) => docs.filter((d) => d.type === type));
