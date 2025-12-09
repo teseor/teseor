@@ -106,6 +106,18 @@ function resolveDoc(doc, docsFilePath) {
   const type = doc.type || 'component';
   const group = type === 'component' ? getGroupForComponent(id) : null;
 
+  // Merge modifier usage from docs into API
+  const mergedApi = api ? mergeApiWithDocs(api, doc) : null;
+
+  // Use cssVars from API for customization, fall back to doc.customization
+  const customization = api?.cssVars?.length
+    ? api.cssVars.map((v) => ({
+        token: v.name,
+        default: v.default,
+        description: v.description || '',
+      }))
+    : doc.customization || null;
+
   return {
     id,
     type,
@@ -115,10 +127,27 @@ function resolveDoc(doc, docsFilePath) {
     title: doc.title || (api ? capitalize(api.name) : id),
     description: doc.description || api?.description || '',
     sections: doc.sections || [],
-    customization: doc.customization || null,
-    api: api || null,
+    customization,
+    api: mergedApi,
     permalink: `/${TYPE_PATHS[type] || type}/${id}/`,
   };
+}
+
+function mergeApiWithDocs(api, doc) {
+  if (!doc.modifiers) return api;
+
+  const merged = { ...api, modifiers: { ...api.modifiers } };
+
+  for (const [name, docMod] of Object.entries(doc.modifiers)) {
+    if (merged.modifiers[name]) {
+      merged.modifiers[name] = {
+        ...merged.modifiers[name],
+        usage: docMod.usage || '',
+      };
+    }
+  }
+
+  return merged;
 }
 
 function loadAllDocs() {
@@ -159,7 +188,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter('byGroup', (docs, groupId) => docs.filter((d) => d.group === groupId));
 
   eleventyConfig.addFilter('sortByTitle', (docs) =>
-    [...docs].sort((a, b) => a.title.localeCompare(b.title)),
+    [...docs].sort((a, b) => (a.title || '').localeCompare(b.title || '')),
   );
 
   eleventyConfig.addFilter('processTemplate', (template, data) => processTemplate(template, data));

@@ -16,6 +16,7 @@ eleventyComputed:
   <p>{{ doc.description }}</p>
 
   {% for section in doc.sections %}
+    {% set isFirstSection = loop.first %}
     {% if section.title %}
     <h3>{{ section.title }}</h3>
     {% endif %}
@@ -43,8 +44,8 @@ eleventyComputed:
       {% endif %}
 
       {# First example of first section gets CSS props and customization tabs #}
-      {% set showCssProps = loop.first and loop.parent.first and doc.api %}
-      {% set showCustomization = loop.first and loop.parent.first and doc.customization %}
+      {% set showCssProps = loop.first and isFirstSection and doc.api %}
+      {% set showCustomization = loop.first and isFirstSection and doc.customization %}
 
       <div class="ui-tabs ui-mb-2">
         <div class="ui-tabs__list">
@@ -70,7 +71,7 @@ eleventyComputed:
                 {% set heading = groupName | capitalize %}
                 {% if def.values %}
                 <h4>{{ heading }}</h4>
-                {% if def.description %}<p>{{ def.description }}</p>{% endif %}
+                {% if def.usage %}<p>{{ def.usage }}</p>{% endif %}
                 <table class="ui-table ui-table--compact">
                   <thead><tr><th>Class</th><th>Value</th></tr></thead>
                   <tbody>
@@ -81,9 +82,10 @@ eleventyComputed:
                 </table>
                 {% elif def.type == 'boolean' %}
                 <h4>{{ heading }}</h4>
+                {% if def.usage %}<p>{{ def.usage }}</p>{% endif %}
                 <table class="ui-table ui-table--compact">
                   <thead><tr><th>Class</th><th>Description</th></tr></thead>
-                  <tbody><tr><td><code>.ui-{{ doc.api.name }}--{{ groupName }}</code></td><td>{{ def.description or groupName }}</td></tr></tbody>
+                  <tbody><tr><td><code>.ui-{{ doc.api.name }}--{{ groupName }}</code></td><td>{{ def.usage or groupName }}</td></tr></tbody>
                 </table>
                 {% endif %}
               {% endfor %}
