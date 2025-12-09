@@ -1,0 +1,113 @@
+---
+pagination:
+  data: docs
+  size: 1
+  alias: doc
+permalink: "{{ doc.permalink }}"
+eleventyComputed:
+  title: "{{ doc.title }}"
+  api: "{{ doc.api }}"
+---
+{% extends "layouts/base.njk" %}
+
+{% block content %}
+<section id="{{ doc.id }}" class="ui-docs-section" data-type="{{ doc.type }}">
+  <h2>{{ doc.title }}</h2>
+  <p>{{ doc.description }}</p>
+
+  {% for section in doc.sections %}
+    {% if section.title %}
+    <h3>{{ section.title }}</h3>
+    {% endif %}
+
+    {% if section.description %}
+    <p>{{ section.description }}</p>
+    {% endif %}
+
+    {% for example in section.examples %}
+      {# Build preview HTML #}
+      {% set previewHtml = '' %}
+      {% if example.html %}
+        {% set previewHtml = example.html %}
+      {% endif %}
+
+      {# Build code snippet #}
+      {% set codeSnippet = example.code or example.html or '' %}
+      {% if section.data %}
+        {% set codeSnippet = codeSnippet | processTemplate(section.data) %}
+      {% endif %}
+
+      {# First example of first section gets CSS props and customization tabs #}
+      {% set showCssProps = loop.first and loop.parent.first and doc.api %}
+      {% set showCustomization = loop.first and loop.parent.first and doc.customization %}
+
+      <div class="ui-tabs ui-mb-2">
+        <div class="ui-tabs__list">
+          <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
+          <button class="ui-tabs__tab">{% if showCssProps %}CSS{% else %}HTML{% endif %}</button>
+          {% if showCustomization %}
+          <button class="ui-tabs__tab">Customization</button>
+          {% endif %}
+        </div>
+        <div class="ui-tabs__panel ui-tabs__panel--active">
+          {{ previewHtml | safe }}
+        </div>
+        <div class="ui-tabs__panel">
+          {% if showCssProps %}
+            {# CSS Props Table #}
+            <h4>Base</h4>
+            <table class="ui-table ui-table--compact">
+              <thead><tr><th>Class</th><th>Description</th></tr></thead>
+              <tbody><tr><td><code>.ui-{{ doc.api.name }}</code></td><td>Base class</td></tr></tbody>
+            </table>
+            {% if doc.api.modifiers %}
+              {% for groupName, def in doc.api.modifiers %}
+                {% set heading = groupName | capitalize %}
+                {% if def.values %}
+                <h4>{{ heading }}</h4>
+                {% if def.description %}<p>{{ def.description }}</p>{% endif %}
+                <table class="ui-table ui-table--compact">
+                  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+                  <tbody>
+                    {% for val in def.values %}
+                    <tr><td><code>.ui-{{ doc.api.name }}--{{ val }}</code></td><td>{{ val }}</td></tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                {% elif def.type == 'boolean' %}
+                <h4>{{ heading }}</h4>
+                <table class="ui-table ui-table--compact">
+                  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+                  <tbody><tr><td><code>.ui-{{ doc.api.name }}--{{ groupName }}</code></td><td>{{ def.description or groupName }}</td></tr></tbody>
+                </table>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          {% else %}
+            <pre class="ui-code-block"><code>{{ codeSnippet | escape }}</code></pre>
+          {% endif %}
+        </div>
+        {% if showCustomization %}
+        <div class="ui-tabs__panel">
+          <p>Override these CSS custom properties to customize the component.</p>
+          <table class="ui-table">
+            <thead>
+              <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+              {% for t in doc.customization %}
+              <tr>
+                <td><code>{{ t.token }}</code></td>
+                <td><code>{{ t.default }}</code></td>
+                <td>{{ t.description }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  {% endfor %}
+</section>
+{% endblock %}
