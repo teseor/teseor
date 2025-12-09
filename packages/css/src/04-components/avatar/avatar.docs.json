@@ -3,6 +3,7 @@
   "type": "component",
   "title": "Avatar",
   "description": "User or entity thumbnail representation. Supports image with fallback to initials.",
+  "api": "./avatar.api.json",
   "sections": [
     {
       "title": "Default",
@@ -146,6 +147,54 @@
           "code": "<div class=\"ui-avatar-group\">\n  <div class=\"ui-avatar\">\n    <img class=\"ui-avatar__image\" src=\"...\" alt=\"\">\n  </div>\n  <div class=\"ui-avatar\">\n    <img class=\"ui-avatar__image\" src=\"...\" alt=\"\">\n  </div>\n  <div class=\"ui-avatar\">\n    <span class=\"ui-avatar__fallback\">+5</span>\n  </div>\n</div>"
         }
       ]
+    }
+  ],
+  "customization": [
+    {
+      "token": "--ui-avatar-size",
+      "default": "calc(var(--unit) * 5)",
+      "description": "Default size"
+    },
+    {
+      "token": "--ui-avatar-size-xs",
+      "default": "calc(var(--unit) * 3)",
+      "description": "Extra small size"
+    },
+    {
+      "token": "--ui-avatar-size-sm",
+      "default": "calc(var(--unit) * 4)",
+      "description": "Small size"
+    },
+    {
+      "token": "--ui-avatar-size-lg",
+      "default": "calc(var(--unit) * 6)",
+      "description": "Large size"
+    },
+    {
+      "token": "--ui-avatar-size-xl",
+      "default": "calc(var(--unit) * 8)",
+      "description": "Extra large size"
+    },
+    {
+      "token": "--ui-avatar-bg",
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Background color"
+    },
+    {
+      "token": "--ui-avatar-color",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Text color"
+    },
+    {
+      "token": "--ui-avatar-font-size",
+      "default": "var(--ui-font-size-sm)",
+      "description": "Font size"
+    },
+    { "token": "--ui-avatar-radius", "default": "50%", "description": "Border radius" },
+    {
+      "token": "--ui-avatar-radius-square",
+      "default": "var(--ui-radius-md)",
+      "description": "Square variant radius"
     }
   ]
 }

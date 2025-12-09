@@ -3,6 +3,7 @@
   "type": "component",
   "title": "Toggle",
   "description": "Switch control for boolean states. Uses checkbox semantics with role=switch for accessibility.",
+  "api": "./toggle.api.json",
   "sections": [
     {
       "title": "Default",
@@ -48,6 +49,44 @@
           "code": "<div style=\"display: flex; align-items: center; gap: var(--ui-space-2);\">\n  <label class=\"ui-toggle\">\n    <input type=\"checkbox\" ... id=\"notifications\">\n    ...\n  </label>\n  <label for=\"notifications\">Enable notifications</label>\n</div>"
         }
       ]
+    }
+  ],
+  "customization": [
+    {
+      "token": "--ui-toggle-track-width",
+      "default": "calc(var(--unit) * 5)",
+      "description": "Track width"
+    },
+    {
+      "token": "--ui-toggle-track-height",
+      "default": "calc(var(--unit) * 3)",
+      "description": "Track height"
+    },
+    {
+      "token": "--ui-toggle-track-bg",
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Track background (unchecked)"
+    },
+    {
+      "token": "--ui-toggle-track-bg-checked",
+      "default": "var(--ui-color-primary)",
+      "description": "Track background (checked)"
+    },
+    {
+      "token": "--ui-toggle-track-radius",
+      "default": "calc(var(--unit) * 1.5)",
+      "description": "Track border radius"
+    },
+    {
+      "token": "--ui-toggle-thumb-size",
+      "default": "calc(var(--unit) * 2.5)",
+      "description": "Thumb size"
+    },
+    { "token": "--ui-toggle-thumb-bg", "default": "white", "description": "Thumb background" },
+    {
+      "token": "--ui-toggle-thumb-offset",
+      "default": "calc(var(--unit) / 4)",
+      "description": "Thumb offset from edge"
     }
   ]
 }

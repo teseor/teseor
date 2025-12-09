@@ -42,5 +42,47 @@
         }
       ]
     }
+  ],
+  "customization": [
+    {
+      "token": "--ui-pagination-gap",
+      "default": "calc(var(--unit) * 0.5)",
+      "description": "Gap between items"
+    },
+    {
+      "token": "--ui-pagination-item-size",
+      "default": "calc(var(--unit) * 4)",
+      "description": "Item size"
+    },
+    {
+      "token": "--ui-pagination-item-radius",
+      "default": "var(--ui-radius-sm)",
+      "description": "Item border radius"
+    },
+    {
+      "token": "--ui-pagination-item-bg",
+      "default": "transparent",
+      "description": "Item background"
+    },
+    {
+      "token": "--ui-pagination-item-bg-hover",
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Item hover background"
+    },
+    {
+      "token": "--ui-pagination-item-bg-active",
+      "default": "var(--ui-color-primary)",
+      "description": "Active item background"
+    },
+    {
+      "token": "--ui-pagination-item-color",
+      "default": "var(--ui-color-text)",
+      "description": "Item text color"
+    },
+    {
+      "token": "--ui-pagination-item-color-active",
+      "default": "var(--ui-color-text-inverse)",
+      "description": "Active item text color"
+    }
   ]
 }

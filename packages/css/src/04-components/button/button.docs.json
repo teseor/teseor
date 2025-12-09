@@ -198,5 +198,72 @@
         }
       ]
     }
+  ],
+  "customization": [
+    {
+      "token": "--ui-button-height",
+      "default": "var(--ui-row-2)",
+      "description": "Default height"
+    },
+    {
+      "token": "--ui-button-height-sm",
+      "default": "calc(var(--row) * 1.5)",
+      "description": "Small height"
+    },
+    {
+      "token": "--ui-button-height-lg",
+      "default": "calc(var(--row) * 2.5)",
+      "description": "Large height"
+    },
+    {
+      "token": "--ui-button-padding-x",
+      "default": "var(--ui-space-2)",
+      "description": "Horizontal padding"
+    },
+    {
+      "token": "--ui-button-padding-x-lg",
+      "default": "var(--ui-space-3)",
+      "description": "Large horizontal padding"
+    },
+    {
+      "token": "--ui-button-font-size",
+      "default": "var(--ui-font-size-sm)",
+      "description": "Font size"
+    },
+    {
+      "token": "--ui-button-font-size-sm",
+      "default": "var(--ui-font-size-xs)",
+      "description": "Small font size"
+    },
+    {
+      "token": "--ui-button-font-size-lg",
+      "default": "var(--ui-font-size-md)",
+      "description": "Large font size"
+    },
+    {
+      "token": "--ui-button-font-weight",
+      "default": "var(--ui-weight-medium)",
+      "description": "Font weight"
+    },
+    {
+      "token": "--ui-button-radius",
+      "default": "var(--ui-radius-md)",
+      "description": "Border radius"
+    },
+    {
+      "token": "--ui-button-bg",
+      "default": "var(--ui-color-primary)",
+      "description": "Background color"
+    },
+    {
+      "token": "--ui-button-bg-hover",
+      "default": "var(--ui-color-primary-dark)",
+      "description": "Hover background"
+    },
+    {
+      "token": "--ui-button-text",
+      "default": "var(--ui-color-text-inverse)",
+      "description": "Text color"
+    }
   ]
 }

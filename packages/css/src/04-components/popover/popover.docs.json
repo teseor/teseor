@@ -3,6 +3,7 @@
   "type": "component",
   "title": "Popover",
   "description": "Floating panel for additional content. Larger than tooltip, can contain structured content.",
+  "api": "./popover.api.json",
   "sections": [
     {
       "title": "Default",
@@ -31,5 +32,39 @@
         }
       ]
     }
+  ],
+  "customization": [
+    {
+      "token": "--ui-popover-bg",
+      "default": "var(--ui-color-bg)",
+      "description": "Background color"
+    },
+    {
+      "token": "--ui-popover-border-color",
+      "default": "var(--ui-color-border)",
+      "description": "Border color"
+    },
+    {
+      "token": "--ui-popover-radius",
+      "default": "var(--ui-radius-md)",
+      "description": "Border radius"
+    },
+    {
+      "token": "--ui-popover-shadow",
+      "default": "0 4px 16px rgb(0 0 0 / 0.15)",
+      "description": "Box shadow"
+    },
+    {
+      "token": "--ui-popover-padding",
+      "default": "calc(var(--unit) * 2)",
+      "description": "Content padding"
+    },
+    {
+      "token": "--ui-popover-max-width",
+      "default": "calc(var(--unit) * 40)",
+      "description": "Maximum width"
+    },
+    { "token": "--ui-popover-z", "default": "var(--ui-z-popover)", "description": "Z-index layer" },
+    { "token": "--ui-popover-arrow-size", "default": "var(--unit)", "description": "Arrow size" }
   ]
 }

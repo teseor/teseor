@@ -53,5 +53,27 @@
         }
       ]
     }
+  ],
+  "customization": [
+    {
+      "token": "--ui-data-list-gap",
+      "default": "calc(var(--unit) * 2)",
+      "description": "Gap between items"
+    },
+    {
+      "token": "--ui-data-list-item-gap",
+      "default": "var(--unit)",
+      "description": "Gap between label and value"
+    },
+    {
+      "token": "--ui-data-list-label-color",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Label color"
+    },
+    {
+      "token": "--ui-data-list-value-color",
+      "default": "var(--ui-color-text)",
+      "description": "Value color"
+    }
   ]
 }

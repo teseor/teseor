@@ -3,6 +3,7 @@
   "type": "component",
   "title": "Form Helper",
   "description": "Helper text for form fields. Provides additional context or instructions.",
+  "api": "./form-helper.api.json",
   "sections": [
     {
       "title": "Default",
@@ -13,5 +14,18 @@
         }
       ]
     }
+  ],
+  "customization": [
+    {
+      "token": "--ui-form-helper-color",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Text color"
+    },
+    {
+      "token": "--ui-form-helper-size",
+      "default": "var(--ui-font-size-sm)",
+      "description": "Font size"
+    },
+    { "token": "--ui-form-helper-gap", "default": "0", "description": "Top margin spacing" }
   ]
 }

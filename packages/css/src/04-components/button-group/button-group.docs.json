@@ -3,6 +3,7 @@
   "type": "component",
   "title": "Button Group",
   "description": "Container for grouped buttons that share borders and have connected appearance.",
+  "api": "./button-group.api.json",
   "sections": [
     {
       "title": "Default",
@@ -39,6 +40,13 @@
           "code": "<div class=\"ui-button-group\" role=\"group\" aria-label=\"Text formatting\">\n  <button class=\"ui-button ui-button--outline ui-button--icon\" aria-label=\"Bold\">...</button>\n  <button class=\"ui-button ui-button--outline ui-button--icon\" aria-label=\"Italic\">...</button>\n  <button class=\"ui-button ui-button--outline ui-button--icon\" aria-label=\"Underline\">...</button>\n</div>"
         }
       ]
+    }
+  ],
+  "customization": [
+    {
+      "token": "--ui-button-group-radius",
+      "default": "var(--ui-radius-md)",
+      "description": "Border radius for first and last buttons"
     }
   ]
 }

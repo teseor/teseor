@@ -3,6 +3,7 @@
   "type": "component",
   "title": "Form Error",
   "description": "Validation error message for form fields. Displays in danger color.",
+  "api": "./form-error.api.json",
   "sections": [
     {
       "title": "Default",
@@ -22,5 +23,18 @@
         }
       ]
     }
+  ],
+  "customization": [
+    {
+      "token": "--ui-form-error-color",
+      "default": "var(--ui-color-danger)",
+      "description": "Error text color"
+    },
+    {
+      "token": "--ui-form-error-size",
+      "default": "var(--ui-font-size-sm)",
+      "description": "Font size"
+    },
+    { "token": "--ui-form-error-gap", "default": "0", "description": "Gap between icon and text" }
   ]
 }

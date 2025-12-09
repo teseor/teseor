@@ -41,5 +41,41 @@
         }
       ]
     }
+  ],
+  "customization": [
+    {
+      "token": "--ui-menu-min-width",
+      "default": "calc(var(--unit) * 16)",
+      "description": "Minimum width"
+    },
+    {
+      "token": "--ui-menu-max-height",
+      "default": "calc(var(--unit) * 40)",
+      "description": "Maximum height"
+    },
+    { "token": "--ui-menu-padding", "default": "var(--unit)", "description": "Container padding" },
+    {
+      "token": "--ui-menu-radius",
+      "default": "var(--ui-radius-md)",
+      "description": "Border radius"
+    },
+    { "token": "--ui-menu-bg", "default": "var(--ui-color-bg)", "description": "Background color" },
+    {
+      "token": "--ui-menu-border-color",
+      "default": "var(--ui-color-border)",
+      "description": "Border color"
+    },
+    { "token": "--ui-menu-shadow", "default": "var(--shadow-lg)", "description": "Box shadow" },
+    { "token": "--ui-menu-item-padding", "default": "8px 16px", "description": "Item padding" },
+    {
+      "token": "--ui-menu-item-radius",
+      "default": "var(--ui-radius-sm)",
+      "description": "Item border radius"
+    },
+    {
+      "token": "--ui-menu-item-bg-hover",
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Item hover background"
+    }
   ]
 }

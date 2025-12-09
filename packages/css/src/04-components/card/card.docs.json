@@ -56,5 +56,48 @@
         }
       ]
     }
+  ],
+  "customization": [
+    {
+      "token": "--ui-card-padding",
+      "default": "var(--ui-space-4)",
+      "description": "Default padding"
+    },
+    {
+      "token": "--ui-card-padding-sm",
+      "default": "var(--ui-space-2)",
+      "description": "Small padding"
+    },
+    {
+      "token": "--ui-card-padding-lg",
+      "default": "var(--ui-space-6)",
+      "description": "Large padding"
+    },
+    {
+      "token": "--ui-card-border-width",
+      "default": "var(--ui-border-width-sm)",
+      "description": "Border width"
+    },
+    {
+      "token": "--ui-card-border-color",
+      "default": "var(--ui-color-border)",
+      "description": "Border color"
+    },
+    { "token": "--ui-card-bg", "default": "var(--ui-color-bg)", "description": "Background color" },
+    {
+      "token": "--ui-card-bg-subtle",
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Subtle background"
+    },
+    {
+      "token": "--ui-card-bg-muted",
+      "default": "var(--ui-color-bg-muted)",
+      "description": "Muted background"
+    },
+    {
+      "token": "--ui-card-radius",
+      "default": "var(--ui-radius-md)",
+      "description": "Border radius"
+    }
   ]
 }

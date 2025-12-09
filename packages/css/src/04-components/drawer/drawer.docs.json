@@ -44,5 +44,35 @@
         }
       ]
     }
+  ],
+  "customization": [
+    {
+      "token": "--ui-drawer-size",
+      "default": "calc(var(--unit) * 40)",
+      "description": "Default width/height"
+    },
+    { "token": "--ui-drawer-max-size", "default": "90%", "description": "Maximum size" },
+    {
+      "token": "--ui-drawer-bg",
+      "default": "var(--ui-color-bg)",
+      "description": "Background color"
+    },
+    { "token": "--ui-drawer-shadow", "default": "var(--shadow-lg)", "description": "Box shadow" },
+    {
+      "token": "--ui-drawer-header-padding",
+      "default": "16px 24px",
+      "description": "Header padding"
+    },
+    { "token": "--ui-drawer-body-padding", "default": "24px", "description": "Body padding" },
+    {
+      "token": "--ui-drawer-footer-padding",
+      "default": "16px 24px",
+      "description": "Footer padding"
+    },
+    {
+      "token": "--ui-drawer-border-color",
+      "default": "var(--ui-color-border)",
+      "description": "Border color"
+    }
   ]
 }

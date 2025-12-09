@@ -3,6 +3,7 @@
   "type": "component",
   "title": "Overlay",
   "description": "Full viewport backdrop for modals, dialogs, and drawers. Controls visibility via state modifiers.",
+  "api": "./overlay.api.json",
   "sections": [
     {
       "title": "Default",
@@ -40,5 +41,23 @@
         }
       ]
     }
+  ],
+  "customization": [
+    {
+      "token": "--ui-overlay-bg",
+      "default": "rgb(0 0 0 / 0.5)",
+      "description": "Default backdrop color"
+    },
+    {
+      "token": "--ui-overlay-bg-light",
+      "default": "rgb(255 255 255 / 0.7)",
+      "description": "Light variant backdrop color"
+    },
+    {
+      "token": "--ui-overlay-bg-blur",
+      "default": "rgb(0 0 0 / 0.3)",
+      "description": "Blur variant backdrop color"
+    },
+    { "token": "--ui-overlay-z", "default": "var(--ui-z-overlay)", "description": "Z-index layer" }
   ]
 }

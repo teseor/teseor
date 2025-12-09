@@ -3,10 +3,12 @@
   "type": "component",
   "title": "Icon",
   "description": "CSS classes for sizing and styling SVG icons. Works with any stroke-based icon set like Lucide, Heroicons, or Feather.",
+  "api": "./icon.api.json",
   "sections": [
     {
       "title": "Basic Usage",
       "description": "Add the `ui-icon` class to any SVG. Icons inherit color from their parent via `currentColor`.",
+      "api": "./icon.api.json",
       "examples": [
         {
           "html": "<svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M12 5v14M5 12h14\"/></svg>"
@@ -16,6 +18,7 @@
     {
       "title": "With Lucide Icons",
       "description": "Recommended icon set. Copy SVG from lucide.dev and add the ui-icon class.",
+      "api": "./icon.api.json",
       "examples": [
         {
           "html": "<div class=\"ui-cluster ui-cluster--gap-2\"><svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/><polyline points=\"9 22 9 12 15 12 15 22\"/></svg><svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg><svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9\"/><path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\"/></svg><svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2\"/><circle cx=\"12\" cy=\"7\" r=\"4\"/></svg></div>"
@@ -42,6 +45,7 @@
     {
       "title": "Stroke Width",
       "description": "Adjust stroke thickness for visual weight.",
+      "api": "./icon.api.json",
       "examples": [
         {
           "items": [
@@ -71,6 +75,7 @@
     {
       "title": "Filled Icons",
       "description": "For solid icons, use the `--filled` modifier.",
+      "api": "./icon.api.json",
       "examples": [
         {
           "items": [
@@ -94,6 +99,7 @@
     {
       "title": "Spin Animation",
       "description": "Use `--spin` for loading indicators.",
+      "api": "./icon.api.json",
       "examples": [
         {
           "html": "<svg class=\"ui-icon ui-icon--lg ui-icon--spin\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M21 12a9 9 0 1 1-6.219-8.56\"/></svg>"
@@ -103,11 +109,47 @@
     {
       "title": "Color Inheritance",
       "description": "Icons inherit color from parent text color.",
+      "api": "./icon.api.json",
       "examples": [
         {
           "html": "<div class=\"ui-cluster ui-cluster--gap-2\"><span style=\"color: var(--ui-color-primary)\"><svg class=\"ui-icon ui-icon--lg\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg></span><span style=\"color: var(--ui-color-success)\"><svg class=\"ui-icon ui-icon--lg\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg></span><span style=\"color: var(--ui-color-danger)\"><svg class=\"ui-icon ui-icon--lg\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg></span></div>"
         }
       ]
     }
+  ],
+  "customization": [
+    {
+      "token": "--ui-icon-size",
+      "default": "1em",
+      "description": "Default size (inherits from font)"
+    },
+    {
+      "token": "--ui-icon-size-xs",
+      "default": "calc(var(--unit) * 2)",
+      "description": "Extra small size (16px)"
+    },
+    {
+      "token": "--ui-icon-size-sm",
+      "default": "calc(var(--unit) * 3)",
+      "description": "Small size (24px)"
+    },
+    {
+      "token": "--ui-icon-size-md",
+      "default": "calc(var(--unit) * 4)",
+      "description": "Medium size (32px)"
+    },
+    {
+      "token": "--ui-icon-size-lg",
+      "default": "calc(var(--unit) * 5)",
+      "description": "Large size (40px)"
+    },
+    {
+      "token": "--ui-icon-size-xl",
+      "default": "calc(var(--unit) * 6)",
+      "description": "Extra large size (48px)"
+    },
+    { "token": "--ui-icon-stroke", "default": "2", "description": "Default stroke width" },
+    { "token": "--ui-icon-stroke-thin", "default": "1", "description": "Thin stroke width" },
+    { "token": "--ui-icon-stroke-thick", "default": "2.5", "description": "Thick stroke width" }
   ]
 }

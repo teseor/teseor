@@ -3,6 +3,7 @@
   "type": "component",
   "title": "Accordion",
   "description": "Container for grouped expandable sections. Use with disclosure components.",
+  "api": "./accordion.api.json",
   "sections": [
     {
       "title": "Default",
@@ -16,6 +17,7 @@
     {
       "title": "Separated",
       "description": "Gap between accordion items",
+      "api": "./accordion.api.json",
       "examples": [
         {
           "html": "<div class=\"ui-accordion ui-accordion--separated\"><details class=\"ui-disclosure\"><summary class=\"ui-disclosure__trigger\">Section 1<span class=\"ui-disclosure__icon\">&#9662;</span></summary><div class=\"ui-disclosure__content\"><p>Content for section 1</p></div></details><details class=\"ui-disclosure\"><summary class=\"ui-disclosure__trigger\">Section 2<span class=\"ui-disclosure__icon\">&#9662;</span></summary><div class=\"ui-disclosure__content\"><p>Content for section 2</p></div></details></div>",
@@ -31,6 +33,19 @@
           "code": "<div class=\"ui-accordion\">\n  <details class=\"ui-disclosure\" open>\n    <summary class=\"ui-disclosure__trigger\">Open Section</summary>\n    <div class=\"ui-disclosure__content\">...</div>\n  </details>\n  <details class=\"ui-disclosure\">\n    ...\n  </details>\n</div>"
         }
       ]
+    }
+  ],
+  "customization": [
+    {
+      "token": "--ui-accordion-border-color",
+      "default": "var(--ui-color-border)",
+      "description": "Border color"
+    },
+    { "token": "--ui-accordion-border-width", "default": "1px", "description": "Border width" },
+    {
+      "token": "--ui-accordion-radius",
+      "default": "var(--ui-radius-md)",
+      "description": "Border radius"
     }
   ]
 }

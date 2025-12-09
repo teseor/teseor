@@ -29,5 +29,33 @@
         }
       ]
     }
+  ],
+  "customization": [
+    {
+      "token": "--ui-tabs-border-color",
+      "default": "var(--ui-color-border)",
+      "description": "Tab list border color"
+    },
+    {
+      "token": "--ui-tabs-tab-padding-x",
+      "default": "var(--ui-space-2)",
+      "description": "Tab horizontal padding"
+    },
+    {
+      "token": "--ui-tabs-tab-padding-y",
+      "default": "var(--ui-space-1)",
+      "description": "Tab vertical padding"
+    },
+    { "token": "--ui-tabs-tab-bg", "default": "transparent", "description": "Tab background" },
+    {
+      "token": "--ui-tabs-tab-bg-active",
+      "default": "var(--ui-color-bg)",
+      "description": "Active tab background"
+    },
+    {
+      "token": "--ui-tabs-panel-padding",
+      "default": "var(--ui-space-3)",
+      "description": "Panel padding"
+    }
   ]
 }

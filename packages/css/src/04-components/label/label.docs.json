@@ -3,6 +3,7 @@
   "type": "component",
   "title": "Label",
   "description": "Form control labels. Associates text with inputs via htmlFor or wrapping.",
+  "api": "./label.api.json",
   "sections": [
     {
       "title": "Default",
@@ -49,6 +50,24 @@
           "code": "<label class=\"ui-label\" aria-disabled=\"true\">Disabled</label>"
         }
       ]
+    }
+  ],
+  "customization": [
+    {
+      "token": "--ui-label-font-size",
+      "default": "var(--ui-font-size-sm)",
+      "description": "Default font size"
+    },
+    {
+      "token": "--ui-label-font-size-lg",
+      "default": "var(--ui-font-size-md)",
+      "description": "Large font size"
+    },
+    { "token": "--ui-label-color", "default": "var(--ui-color-text)", "description": "Text color" },
+    {
+      "token": "--ui-label-required-color",
+      "default": "var(--ui-color-danger)",
+      "description": "Required indicator color"
     }
   ]
 }

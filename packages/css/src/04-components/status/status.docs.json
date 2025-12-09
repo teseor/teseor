@@ -3,6 +3,7 @@
   "type": "component",
   "title": "Status",
   "description": "Visual status indicator with colored dot to show state.",
+  "api": "./status.api.json",
   "sections": [
     {
       "title": "Variants",
@@ -25,6 +26,7 @@
     {
       "title": "Pulse Animation",
       "description": "For live or active indicators",
+      "api": "./status.api.json",
       "examples": [
         {
           "html": "<span class=\"ui-status ui-status--success ui-status--pulse\"><span class=\"ui-status__dot\"></span>Live</span>",
@@ -40,6 +42,19 @@
           "code": "<span class=\"ui-status ui-status--success\">\n  <span class=\"ui-status__dot\"></span>\n</span>"
         }
       ]
+    }
+  ],
+  "customization": [
+    { "token": "--ui-status-size", "default": "var(--unit)", "description": "Dot size" },
+    {
+      "token": "--ui-status-color",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Default dot color"
+    },
+    {
+      "token": "--ui-status-gap",
+      "default": "var(--unit)",
+      "description": "Gap between dot and text"
     }
   ]
 }

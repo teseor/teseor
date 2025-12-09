@@ -3,6 +3,7 @@
   "type": "component",
   "title": "Disclosure",
   "description": "Expandable/collapsible content section. Uses native details/summary for accessibility without JS.",
+  "api": "./disclosure.api.json",
   "sections": [
     {
       "title": "Default",
@@ -39,6 +40,34 @@
           "code": "<details class=\"ui-disclosure ui-disclosure--animate\">\n  ...\n</details>"
         }
       ]
+    }
+  ],
+  "customization": [
+    {
+      "token": "--ui-disclosure-border-color",
+      "default": "var(--ui-color-border)",
+      "description": "Border color"
+    },
+    { "token": "--ui-disclosure-border-width", "default": "1px", "description": "Border width" },
+    {
+      "token": "--ui-disclosure-radius",
+      "default": "var(--ui-radius-md)",
+      "description": "Border radius"
+    },
+    {
+      "token": "--ui-disclosure-trigger-height",
+      "default": "var(--ui-row-3)",
+      "description": "Trigger button height"
+    },
+    {
+      "token": "--ui-disclosure-padding-x",
+      "default": "calc(var(--unit) * 2)",
+      "description": "Horizontal padding"
+    },
+    {
+      "token": "--ui-disclosure-padding-y",
+      "default": "calc(var(--unit) * 2)",
+      "description": "Content vertical padding"
     }
   ]
 }
