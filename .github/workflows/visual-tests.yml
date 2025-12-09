@@ -30,7 +30,28 @@ jobs:
         run: npx playwright install chromium
 
       - name: Run visual tests
+        id: visual-tests
+        continue-on-error: true
         run: pnpm nx test css
+
+      - name: Update snapshots on failure
+        if: steps.visual-tests.outcome == 'failure'
+        run: npx playwright test --config=packages/css/playwright.config.ts --update-snapshots
+
+      - name: Upload updated snapshots
+        if: steps.visual-tests.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: updated-snapshots
+          path: packages/css/src/**/*-visual.png
+          retention-days: 7
+
+      - name: Fail if tests failed
+        if: steps.visual-tests.outcome == 'failure'
+        run: |
+          echo "Visual tests failed. Updated snapshots are available as artifacts."
+          echo "Download them and commit to fix the tests."
+          exit 1
 
       - name: Upload to Lost Pixel
         if: env.LOST_PIXEL_API_KEY != ''
