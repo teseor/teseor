@@ -1,52 +1,85 @@
 {
   "name": "input",
-  "baseClass": "input",
   "element": "input",
-  "description": "Text input field with support for prefix/suffix slots",
   "modifiers": {
     "size": {
-      "values": ["sm", "lg"],
-      "default": null,
-      "description": "Size variant. Default is 32px / 2 rows."
+      "values": ["sm", "lg"]
     },
     "variant": {
-      "values": ["filled", "ghost"],
-      "default": null,
-      "description": "Visual style. Default is outline with border."
+      "values": ["filled", "ghost"]
     },
     "state": {
-      "values": ["error", "success"],
-      "default": null,
-      "description": "Validation state styling."
-    },
-    "block": {
-      "type": "boolean",
-      "description": "Full width input."
+      "values": ["error", "success"]
     }
   },
-  "states": ["hover", "focus", "disabled", "readonly"],
-  "elements": {
-    "group": {
-      "class": "input-group",
-      "description": "Wrapper for input with prefix/suffix addons",
-      "modifiers": {
-        "has-prefix": { "type": "boolean" },
-        "has-suffix": { "type": "boolean" }
-      }
+  "cssVars": [
+    {
+      "name": "--ui-input-height",
+      "default": "var(--ui-row-2)"
     },
-    "addon": {
-      "class": "input-group__addon",
-      "description": "Prefix or suffix container",
-      "modifiers": {
-        "position": {
-          "values": ["start", "end"],
-          "description": "Addon position"
-        },
-        "interactive": {
-          "type": "boolean",
-          "description": "Enable pointer events for buttons"
-        }
-      }
+    {
+      "name": "--ui-input-padding-x",
+      "default": "var(--ui-space-1)"
+    },
+    {
+      "name": "--ui-input-font-size",
+      "default": "var(--ui-font-size-sm)"
+    },
+    {
+      "name": "--ui-input-radius",
+      "default": "var(--ui-radius-md)"
+    },
+    {
+      "name": "--ui-input-bg",
+      "default": "var(--ui-color-bg)"
+    },
+    {
+      "name": "--ui-input-border-color",
+      "default": "var(--ui-color-border-strong)"
+    },
+    {
+      "name": "--ui-input-border-color-focus",
+      "default": "var(--ui-color-primary)"
+    },
+    {
+      "name": "--ui-input-text",
+      "default": "var(--ui-color-text)"
+    },
+    {
+      "name": "--ui-input-placeholder",
+      "default": "var(--ui-color-text-muted)"
+    },
+    {
+      "name": "--ui-input-height-sm",
+      "default": "calc(#{t.$row} * 1.5"
+    },
+    {
+      "name": "--ui-input-font-size-sm",
+      "default": "var(--ui-font-size-xs)"
+    },
+    {
+      "name": "--ui-input-height-lg",
+      "default": "calc(#{t.$row} * 2.5"
+    },
+    {
+      "name": "--ui-input-padding-x-lg",
+      "default": "var(--ui-space-2)"
+    },
+    {
+      "name": "--ui-input-font-size-lg",
+      "default": "var(--ui-font-size-md)"
+    },
+    {
+      "name": "--ui-input-filled-bg",
+      "default": "var(--ui-color-bg-muted)"
+    },
+    {
+      "name": "--ui-input-error-border",
+      "default": "var(--ui-color-danger)"
+    },
+    {
+      "name": "--ui-input-success-border",
+      "default": "var(--ui-color-success)"
     }
-  }
+  ]
 }

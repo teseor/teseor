@@ -1,19 +1,46 @@
 {
   "name": "radio",
-  "baseClass": "radio",
-  "element": "input[type=radio]",
-  "description": "Native radio button with custom styling",
+  "element": "input",
   "modifiers": {
     "size": {
-      "values": ["sm", "lg"],
-      "default": null,
-      "description": "Size variant. Default is 20px."
+      "values": ["lg"]
     },
-    "state": {
-      "values": ["error"],
-      "default": null,
-      "description": "Error state styling."
+    "error": {
+      "type": "boolean"
     }
   },
-  "states": ["hover", "focus", "checked", "disabled"]
+  "cssVars": [
+    {
+      "name": "--ui-radio-size",
+      "default": "calc(#{t.$unit} * 2"
+    },
+    {
+      "name": "--ui-radio-bg",
+      "default": "var(--ui-color-bg)"
+    },
+    {
+      "name": "--ui-radio-bg-checked",
+      "default": "var(--ui-color-primary)"
+    },
+    {
+      "name": "--ui-radio-border-color",
+      "default": "var(--ui-color-border-strong)"
+    },
+    {
+      "name": "--ui-radio-border-color-focus",
+      "default": "var(--ui-color-primary)"
+    },
+    {
+      "name": "--ui-radio-dot-color",
+      "default": "var(--ui-color-text-inverse)"
+    },
+    {
+      "name": "--ui-radio-size-lg",
+      "default": "calc(#{t.$unit} * 3"
+    },
+    {
+      "name": "--ui-radio-error-border",
+      "default": "var(--ui-color-danger)"
+    }
+  ]
 }

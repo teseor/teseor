@@ -1,17 +1,31 @@
 {
   "name": "tabs",
-  "baseClass": "tabs",
   "element": "div",
-  "description": "Tabbed interface with tab list and panels. Requires JS for interaction.",
   "modifiers": {},
-  "vars": {
-    "base": {
-      "border-color": "--color-border",
-      "tab-padding-x": "--space-2",
-      "tab-padding-y": "--space-1",
-      "tab-bg": "transparent",
-      "tab-bg-active": "--color-bg",
-      "panel-padding": "--space-3"
+  "cssVars": [
+    {
+      "name": "--ui-tabs-border-color",
+      "default": "var(--ui-color-border)"
+    },
+    {
+      "name": "--ui-tabs-tab-padding-x",
+      "default": "var(--ui-space-2)"
+    },
+    {
+      "name": "--ui-tabs-tab-padding-y",
+      "default": "var(--ui-space-1)"
+    },
+    {
+      "name": "--ui-tabs-tab-bg",
+      "default": "transparent"
+    },
+    {
+      "name": "--ui-tabs-tab-bg-active",
+      "default": "var(--ui-color-bg)"
+    },
+    {
+      "name": "--ui-tabs-panel-padding",
+      "default": "var(--ui-space-3)"
     }
-  }
+  ]
 }

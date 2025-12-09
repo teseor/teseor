@@ -1,19 +1,11 @@
 {
   "name": "button-group",
-  "baseClass": "button-group",
   "element": "div",
-  "description": "Container for grouped buttons with joined borders",
-  "modifiers": {
-    "orientation": {
-      "values": ["vertical"],
-      "default": null,
-      "description": "Stack buttons vertically"
-    },
-    "variant": {
-      "values": ["attached"],
-      "default": null,
-      "description": "Remove gaps between buttons"
+  "modifiers": {},
+  "cssVars": [
+    {
+      "name": "--ui-button-group-radius",
+      "default": "var(--ui-radius-md)"
     }
-  },
-  "states": []
+  ]
 }

@@ -1,34 +1,23 @@
 {
   "name": "data-list",
-  "baseClass": "data-list",
-  "element": "dl",
-  "description": "Display structured key-value pairs",
-  "modifiers": {
-    "layout": {
-      "values": ["horizontal"],
-      "default": null
+  "element": "div",
+  "modifiers": {},
+  "cssVars": [
+    {
+      "name": "--ui-data-list-gap",
+      "default": "calc(#{t.$unit} * 2"
     },
-    "size": {
-      "values": ["sm", "lg"],
-      "default": null
+    {
+      "name": "--ui-data-list-item-gap",
+      "default": "calc(#{t.$unit} * 1"
     },
-    "style": {
-      "values": ["divided", "striped"],
-      "default": null
+    {
+      "name": "--ui-data-list-label-color",
+      "default": "var(--ui-color-text-muted)"
+    },
+    {
+      "name": "--ui-data-list-value-color",
+      "default": "var(--ui-color-text)"
     }
-  },
-  "elements": {
-    "item": {
-      "element": "div",
-      "description": "Container for label-value pair"
-    },
-    "label": {
-      "element": "dt",
-      "description": "Key/label text"
-    },
-    "value": {
-      "element": "dd",
-      "description": "Value text"
-    }
-  }
+  ]
 }

@@ -1,43 +1,39 @@
 {
   "name": "drawer",
-  "baseClass": "drawer",
   "element": "div",
-  "description": "Slide-out panel from screen edge",
-  "modifiers": {
-    "position": {
-      "values": ["start", "end", "top", "bottom"],
-      "default": "end"
+  "modifiers": {},
+  "cssVars": [
+    {
+      "name": "--ui-drawer-size",
+      "default": "calc(#{t.$unit} * 40"
     },
-    "size": {
-      "values": ["sm", "lg", "full"],
-      "default": null
+    {
+      "name": "--ui-drawer-max-size",
+      "default": "90%"
+    },
+    {
+      "name": "--ui-drawer-bg",
+      "default": "var(--ui-color-bg)"
+    },
+    {
+      "name": "--ui-drawer-shadow",
+      "default": "var(--shadow-lg)"
+    },
+    {
+      "name": "--ui-drawer-header-padding",
+      "default": "calc(#{t.$unit} * 2"
+    },
+    {
+      "name": "--ui-drawer-body-padding",
+      "default": "calc(#{t.$unit} * 3"
+    },
+    {
+      "name": "--ui-drawer-footer-padding",
+      "default": "calc(#{t.$unit} * 2"
+    },
+    {
+      "name": "--ui-drawer-border-color",
+      "default": "var(--ui-color-border)"
     }
-  },
-  "elements": {
-    "header": {
-      "element": "div",
-      "description": "Drawer header with title and close button"
-    },
-    "title": {
-      "element": "h2",
-      "description": "Drawer title text"
-    },
-    "description": {
-      "element": "p",
-      "description": "Optional description below title"
-    },
-    "close": {
-      "element": "button",
-      "description": "Close button"
-    },
-    "body": {
-      "element": "div",
-      "description": "Scrollable content area"
-    },
-    "footer": {
-      "element": "div",
-      "description": "Footer with actions"
-    }
-  },
-  "related": ["drawer-overlay"]
+  ]
 }

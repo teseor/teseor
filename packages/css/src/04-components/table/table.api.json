@@ -1,25 +1,27 @@
 {
   "name": "table",
-  "baseClass": "table",
-  "element": "table",
-  "description": "Styled table with header and cell formatting.",
-  "modifiers": {
-    "compact": {
-      "type": "boolean",
-      "description": "Smaller padding and font size."
+  "element": "div",
+  "modifiers": {},
+  "cssVars": [
+    {
+      "name": "--ui-table-font-size",
+      "default": "var(--ui-font-size-sm)"
     },
-    "striped": {
-      "type": "boolean",
-      "description": "Alternating row backgrounds."
+    {
+      "name": "--ui-table-border-color",
+      "default": "var(--ui-color-border)"
+    },
+    {
+      "name": "--ui-table-header-bg",
+      "default": "var(--ui-color-bg-subtle)"
+    },
+    {
+      "name": "--ui-table-cell-padding-x",
+      "default": "var(--ui-space-2)"
+    },
+    {
+      "name": "--ui-table-cell-padding-y",
+      "default": "var(--ui-space-1)"
     }
-  },
-  "vars": {
-    "base": {
-      "font-size": "--size-sm",
-      "border-color": "--color-border",
-      "header-bg": "--color-bg-subtle",
-      "cell-padding-x": "--space-2",
-      "cell-padding-y": "--space-1"
-    }
-  }
+  ]
 }

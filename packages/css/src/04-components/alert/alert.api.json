@@ -1,41 +1,91 @@
 {
   "name": "alert",
-  "baseClass": "alert",
   "element": "div",
-  "description": "Informational banner for important messages",
   "modifiers": {
     "variant": {
-      "values": ["info", "success", "warning", "danger"],
-      "default": null,
-      "description": "Visual variant indicating message type"
+      "values": ["info", "success", "warning", "danger"]
     }
   },
-  "elements": {
-    "icon": {
-      "class": "alert__icon",
-      "element": "svg",
-      "description": "Optional status icon"
+  "cssVars": [
+    {
+      "name": "--ui-alert-padding",
+      "default": "var(--ui-space-2)"
     },
-    "content": {
-      "class": "alert__content",
-      "element": "div",
-      "description": "Main content container"
+    {
+      "name": "--ui-alert-border-width",
+      "default": "var(--ui-border-width-sm)"
     },
-    "title": {
-      "class": "alert__title",
-      "element": "p",
-      "description": "Optional title text"
+    {
+      "name": "--ui-alert-gap",
+      "default": "var(--ui-space-1)"
     },
-    "description": {
-      "class": "alert__description",
-      "element": "p",
-      "description": "Description text"
+    {
+      "name": "--ui-alert-radius",
+      "default": "var(--ui-radius-md)"
     },
-    "close": {
-      "class": "alert__close",
-      "element": "button",
-      "description": "Optional dismiss button"
+    {
+      "name": "--ui-alert-bg",
+      "default": "var(--ui-color-bg-subtle)"
+    },
+    {
+      "name": "--ui-alert-border-color",
+      "default": "var(--ui-color-border)"
+    },
+    {
+      "name": "--ui-alert-color",
+      "default": "var(--ui-color-text)"
+    },
+    {
+      "name": "--ui-alert-icon-color",
+      "default": "currentcolor"
+    },
+    {
+      "name": "--ui-alert-info-bg",
+      "default": "var(--ui-color-bg-subtle)"
+    },
+    {
+      "name": "--ui-alert-info-border",
+      "default": "var(--ui-color-primary)"
+    },
+    {
+      "name": "--ui-alert-info-icon",
+      "default": "var(--ui-color-primary)"
+    },
+    {
+      "name": "--ui-alert-success-bg",
+      "default": "var(--ui-color-bg-subtle)"
+    },
+    {
+      "name": "--ui-alert-success-border",
+      "default": "var(--ui-color-success)"
+    },
+    {
+      "name": "--ui-alert-success-icon",
+      "default": "var(--ui-color-success)"
+    },
+    {
+      "name": "--ui-alert-warning-bg",
+      "default": "var(--ui-color-bg-subtle)"
+    },
+    {
+      "name": "--ui-alert-warning-border",
+      "default": "var(--ui-color-warning)"
+    },
+    {
+      "name": "--ui-alert-warning-icon",
+      "default": "var(--ui-color-warning)"
+    },
+    {
+      "name": "--ui-alert-danger-bg",
+      "default": "var(--ui-color-bg-subtle)"
+    },
+    {
+      "name": "--ui-alert-danger-border",
+      "default": "var(--ui-color-danger)"
+    },
+    {
+      "name": "--ui-alert-danger-icon",
+      "default": "var(--ui-color-danger)"
     }
-  },
-  "states": []
+  ]
 }

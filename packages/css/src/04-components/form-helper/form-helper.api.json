@@ -1,8 +1,19 @@
 {
   "name": "form-helper",
-  "baseClass": "form-helper",
-  "element": "span",
-  "description": "Helper text for form fields",
+  "element": "div",
   "modifiers": {},
-  "states": []
+  "cssVars": [
+    {
+      "name": "--ui-form-helper-color",
+      "default": "var(--ui-color-text-muted)"
+    },
+    {
+      "name": "--ui-form-helper-size",
+      "default": "var(--ui-font-size-sm)"
+    },
+    {
+      "name": "--ui-form-helper-gap",
+      "default": "0"
+    }
+  ]
 }

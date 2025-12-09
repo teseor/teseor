@@ -1,20 +1,56 @@
 {
   "name": "icon",
-  "baseClass": "icon",
   "element": "svg",
-  "description": "SVG icon sizing and styling for stroke-based icon sets like Lucide",
   "modifiers": {
     "size": {
-      "values": ["xs", "sm", "md", "lg", "xl"],
-      "default": null
+      "values": ["xs", "sm", "md", "lg", "xl"]
     },
     "stroke": {
-      "values": ["thin", "thick"],
-      "default": null
+      "values": ["stroke-thin", "stroke-thick"]
     },
-    "style": {
-      "values": ["filled", "spin"],
-      "default": null
+    "filled": {
+      "type": "boolean"
+    },
+    "spin": {
+      "type": "boolean"
     }
-  }
+  },
+  "cssVars": [
+    {
+      "name": "--ui-icon-size",
+      "default": "1em"
+    },
+    {
+      "name": "--ui-icon-stroke",
+      "default": "2"
+    },
+    {
+      "name": "--ui-icon-size-xs",
+      "default": "calc(#{t.$unit} * 2"
+    },
+    {
+      "name": "--ui-icon-size-sm",
+      "default": "calc(#{t.$unit} * 3"
+    },
+    {
+      "name": "--ui-icon-size-md",
+      "default": "calc(#{t.$unit} * 4"
+    },
+    {
+      "name": "--ui-icon-size-lg",
+      "default": "calc(#{t.$unit} * 5"
+    },
+    {
+      "name": "--ui-icon-size-xl",
+      "default": "calc(#{t.$unit} * 6"
+    },
+    {
+      "name": "--ui-icon-stroke-thin",
+      "default": "1"
+    },
+    {
+      "name": "--ui-icon-stroke-thick",
+      "default": "2.5"
+    }
+  ]
 }

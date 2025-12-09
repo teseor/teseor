@@ -1,46 +1,47 @@
 {
   "name": "menu",
-  "baseClass": "menu",
   "element": "div",
-  "description": "Dropdown list of actions or options",
-  "elements": {
-    "group": {
-      "element": "ul",
-      "description": "Group of menu items"
+  "modifiers": {},
+  "cssVars": [
+    {
+      "name": "--ui-menu-min-width",
+      "default": "calc(#{t.$unit} * 16"
     },
-    "label": {
-      "element": "div",
-      "description": "Group label/header"
+    {
+      "name": "--ui-menu-max-height",
+      "default": "calc(#{t.$unit} * 40"
     },
-    "item": {
-      "element": "button",
-      "description": "Clickable menu item",
-      "modifiers": {
-        "variant": {
-          "values": ["danger"],
-          "default": null
-        },
-        "state": {
-          "values": ["disabled", "check", "radio"],
-          "default": null
-        }
-      }
+    {
+      "name": "--ui-menu-padding",
+      "default": "calc(#{t.$unit} * 1"
     },
-    "item-icon": {
-      "element": "span",
-      "description": "Icon within menu item"
+    {
+      "name": "--ui-menu-radius",
+      "default": "var(--ui-radius-md)"
     },
-    "item-shortcut": {
-      "element": "span",
-      "description": "Keyboard shortcut text"
+    {
+      "name": "--ui-menu-bg",
+      "default": "var(--ui-color-bg)"
     },
-    "item-indicator": {
-      "element": "span",
-      "description": "Check/radio indicator"
+    {
+      "name": "--ui-menu-border-color",
+      "default": "var(--ui-color-border)"
     },
-    "separator": {
-      "element": "div",
-      "description": "Visual divider between items"
+    {
+      "name": "--ui-menu-shadow",
+      "default": "var(--shadow-lg)"
+    },
+    {
+      "name": "--ui-menu-item-padding",
+      "default": "calc(#{t.$unit} * 1"
+    },
+    {
+      "name": "--ui-menu-item-radius",
+      "default": "var(--ui-radius-sm)"
+    },
+    {
+      "name": "--ui-menu-item-bg-hover",
+      "default": "var(--ui-color-bg-subtle)"
     }
-  }
+  ]
 }

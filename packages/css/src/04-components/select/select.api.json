@@ -1,28 +1,85 @@
 {
   "name": "select",
-  "baseClass": "select",
   "element": "select",
-  "description": "Native select dropdown with custom styling",
   "modifiers": {
     "size": {
-      "values": ["sm", "lg"],
-      "default": null,
-      "description": "Size variant. Default is 32px / 2 rows."
+      "values": ["sm", "lg"]
     },
     "variant": {
-      "values": ["filled", "ghost"],
-      "default": null,
-      "description": "Visual style. Default is outline with border."
+      "values": ["filled", "ghost"]
     },
     "state": {
-      "values": ["error", "success"],
-      "default": null,
-      "description": "Validation state styling."
-    },
-    "block": {
-      "type": "boolean",
-      "description": "Full width select."
+      "values": ["error", "success"]
     }
   },
-  "states": ["hover", "focus", "disabled"]
+  "cssVars": [
+    {
+      "name": "--ui-select-height",
+      "default": "var(--ui-row-2)"
+    },
+    {
+      "name": "--ui-select-padding-x",
+      "default": "var(--ui-space-1)"
+    },
+    {
+      "name": "--ui-select-font-size",
+      "default": "var(--ui-font-size-sm)"
+    },
+    {
+      "name": "--ui-select-radius",
+      "default": "var(--ui-radius-md)"
+    },
+    {
+      "name": "--ui-select-bg",
+      "default": "var(--ui-color-bg)"
+    },
+    {
+      "name": "--ui-select-border-color",
+      "default": "var(--ui-color-border-strong)"
+    },
+    {
+      "name": "--ui-select-border-color-focus",
+      "default": "var(--ui-color-primary)"
+    },
+    {
+      "name": "--ui-select-text",
+      "default": "var(--ui-color-text)"
+    },
+    {
+      "name": "--ui-select-icon-color",
+      "default": "var(--ui-color-text-muted)"
+    },
+    {
+      "name": "--ui-select-height-sm",
+      "default": "calc(#{t.$row} * 1.5"
+    },
+    {
+      "name": "--ui-select-font-size-sm",
+      "default": "var(--ui-font-size-xs)"
+    },
+    {
+      "name": "--ui-select-height-lg",
+      "default": "calc(#{t.$row} * 2.5"
+    },
+    {
+      "name": "--ui-select-padding-x-lg",
+      "default": "var(--ui-space-2)"
+    },
+    {
+      "name": "--ui-select-font-size-lg",
+      "default": "var(--ui-font-size-md)"
+    },
+    {
+      "name": "--ui-select-filled-bg",
+      "default": "var(--ui-color-bg-muted)"
+    },
+    {
+      "name": "--ui-select-error-border",
+      "default": "var(--ui-color-danger)"
+    },
+    {
+      "name": "--ui-select-success-border",
+      "default": "var(--ui-color-success)"
+    }
+  ]
 }

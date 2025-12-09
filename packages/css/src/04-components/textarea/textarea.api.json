@@ -1,29 +1,93 @@
 {
   "name": "textarea",
-  "baseClass": "textarea",
   "element": "textarea",
-  "description": "Multi-line text input field",
   "modifiers": {
     "size": {
-      "values": ["sm", "lg"],
-      "default": null,
-      "description": "Size variant. Default is 4 rows height."
+      "values": ["sm", "lg"]
     },
     "variant": {
-      "values": ["filled", "ghost"],
-      "default": null,
-      "description": "Visual style. Default is outline with border."
+      "values": ["filled", "ghost"]
     },
     "state": {
-      "values": ["error", "success"],
-      "default": null,
-      "description": "Validation state styling."
-    },
-    "resize": {
-      "values": ["none", "horizontal", "both"],
-      "default": null,
-      "description": "Resize behavior. Default is vertical only."
+      "values": ["error", "success"]
     }
   },
-  "states": ["hover", "focus", "disabled", "readonly"]
+  "cssVars": [
+    {
+      "name": "--ui-textarea-min-height",
+      "default": "calc(#{t.$row} * 4"
+    },
+    {
+      "name": "--ui-textarea-padding-x",
+      "default": "var(--ui-space-1)"
+    },
+    {
+      "name": "--ui-textarea-padding-y",
+      "default": "var(--ui-space-1)"
+    },
+    {
+      "name": "--ui-textarea-font-size",
+      "default": "var(--ui-font-size-sm)"
+    },
+    {
+      "name": "--ui-textarea-radius",
+      "default": "var(--ui-radius-md)"
+    },
+    {
+      "name": "--ui-textarea-bg",
+      "default": "var(--ui-color-bg)"
+    },
+    {
+      "name": "--ui-textarea-border-color",
+      "default": "var(--ui-color-border-strong)"
+    },
+    {
+      "name": "--ui-textarea-border-color-focus",
+      "default": "var(--ui-color-primary)"
+    },
+    {
+      "name": "--ui-textarea-text",
+      "default": "var(--ui-color-text)"
+    },
+    {
+      "name": "--ui-textarea-placeholder",
+      "default": "var(--ui-color-text-muted)"
+    },
+    {
+      "name": "--ui-textarea-min-height-sm",
+      "default": "calc(#{t.$row} * 3"
+    },
+    {
+      "name": "--ui-textarea-font-size-sm",
+      "default": "var(--ui-font-size-xs)"
+    },
+    {
+      "name": "--ui-textarea-min-height-lg",
+      "default": "calc(#{t.$row} * 6"
+    },
+    {
+      "name": "--ui-textarea-padding-x-lg",
+      "default": "var(--ui-space-2)"
+    },
+    {
+      "name": "--ui-textarea-padding-y-lg",
+      "default": "var(--ui-space-2)"
+    },
+    {
+      "name": "--ui-textarea-font-size-lg",
+      "default": "var(--ui-font-size-md)"
+    },
+    {
+      "name": "--ui-textarea-filled-bg",
+      "default": "var(--ui-color-bg-muted)"
+    },
+    {
+      "name": "--ui-textarea-error-border",
+      "default": "var(--ui-color-danger)"
+    },
+    {
+      "name": "--ui-textarea-success-border",
+      "default": "var(--ui-color-success)"
+    }
+  ]
 }

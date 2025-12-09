@@ -1,19 +1,50 @@
 {
   "name": "checkbox",
-  "baseClass": "checkbox",
-  "element": "input[type=checkbox]",
-  "description": "Native checkbox with custom styling",
+  "element": "input",
   "modifiers": {
     "size": {
-      "values": ["sm", "lg"],
-      "default": null,
-      "description": "Size variant. Default is 20px."
+      "values": ["lg"]
     },
-    "state": {
-      "values": ["error"],
-      "default": null,
-      "description": "Error state styling."
+    "error": {
+      "type": "boolean"
     }
   },
-  "states": ["hover", "focus", "checked", "indeterminate", "disabled"]
+  "cssVars": [
+    {
+      "name": "--ui-checkbox-size",
+      "default": "calc(#{t.$unit} * 2"
+    },
+    {
+      "name": "--ui-checkbox-radius",
+      "default": "var(--ui-radius-sm)"
+    },
+    {
+      "name": "--ui-checkbox-bg",
+      "default": "var(--ui-color-bg)"
+    },
+    {
+      "name": "--ui-checkbox-bg-checked",
+      "default": "var(--ui-color-primary)"
+    },
+    {
+      "name": "--ui-checkbox-border-color",
+      "default": "var(--ui-color-border-strong)"
+    },
+    {
+      "name": "--ui-checkbox-border-color-focus",
+      "default": "var(--ui-color-primary)"
+    },
+    {
+      "name": "--ui-checkbox-check-color",
+      "default": "var(--ui-color-text-inverse)"
+    },
+    {
+      "name": "--ui-checkbox-size-lg",
+      "default": "calc(#{t.$unit} * 3"
+    },
+    {
+      "name": "--ui-checkbox-error-border",
+      "default": "var(--ui-color-danger)"
+    }
+  ]
 }
