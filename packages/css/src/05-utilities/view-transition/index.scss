@@ -1,0 +1,38 @@
+@layer utilities {
+  // Opt-in: add .view-transition to <html> to enable cross-document transitions
+  .view-transition {
+    @view-transition {
+      navigation: auto;
+    }
+  }
+
+  // Named element utilities (elements persist across page transitions)
+  .transition-name-sidebar { view-transition-name: sidebar; }
+  .transition-name-main { view-transition-name: main; }
+  .transition-name-header { view-transition-name: header; }
+  .transition-name-hero { view-transition-name: hero; }
+
+  // Disable transition for specific element
+  .transition-name-none { view-transition-name: none; }
+
+  // Keep sidebar static during transitions (no animation)
+  ::view-transition-old(sidebar),
+  ::view-transition-new(sidebar) {
+    animation: none;
+  }
+
+  // Default crossfade timing (uses motion tokens)
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: var(--ui-duration-base);
+    animation-timing-function: var(--ui-ease-default);
+  }
+
+  // Accessibility: disable animations for reduced motion
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+      animation-duration: 0s !important;
+    }
+  }
+}
