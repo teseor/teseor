@@ -1,0 +1,13 @@
+{
+  "name": "container",
+  "element": "div",
+  "modifiers": {
+    "size": {
+      "values": ["sm", "md", "lg", "xl", "full"]
+    },
+    "center": {
+      "type": "boolean"
+    }
+  },
+  "cssVars": []
+}

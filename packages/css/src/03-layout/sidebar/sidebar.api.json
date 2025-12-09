@@ -1,0 +1,13 @@
+{
+  "name": "sidebar",
+  "element": "aside",
+  "modifiers": {
+    "size": {
+      "values": ["sm", "md", "lg"]
+    },
+    "end": {
+      "type": "boolean"
+    }
+  },
+  "cssVars": []
+}

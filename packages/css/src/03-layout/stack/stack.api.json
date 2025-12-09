@@ -1,0 +1,10 @@
+{
+  "name": "stack",
+  "element": "div",
+  "modifiers": {
+    "size": {
+      "values": ["xs", "sm", "md", "lg"]
+    }
+  },
+  "cssVars": []
+}

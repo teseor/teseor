@@ -1,0 +1,26 @@
+{
+  "name": "app-shell",
+  "element": "body",
+  "modifiers": {},
+  "relatedComponents": [
+    {
+      "name": "sidebar",
+      "modifiers": {
+        "end": { "type": "boolean" }
+      }
+    },
+    {
+      "name": "main",
+      "modifiers": {
+        "sidebar-end": { "type": "boolean" }
+      }
+    },
+    {
+      "name": "container",
+      "modifiers": {
+        "center": { "type": "boolean" }
+      }
+    }
+  ],
+  "cssVars": []
+}
