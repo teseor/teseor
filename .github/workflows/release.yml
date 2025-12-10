@@ -55,7 +55,7 @@ jobs:
             gh release create "${name}@${version}" \
               --title "${name}@${version}" \
               --notes "See CHANGELOG.md for details" \
-              --target main
+              --target main || echo "Release ${name}@${version} already exists"
           done
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
