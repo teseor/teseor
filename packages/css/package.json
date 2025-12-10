@@ -1,6 +1,6 @@
 {
   "name": "@teseor/css",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "CSS library - reset, primitives, components, utilities",
   "license": "MIT",
   "author": "letanure",
