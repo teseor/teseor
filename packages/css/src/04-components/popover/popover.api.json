@@ -1,7 +1,15 @@
 {
   "name": "popover",
   "element": "div",
-  "modifiers": {},
+  "modifiers": {
+    "position": {
+      "values": ["top"]
+    }
+  },
+  "elements": {
+    "header": {},
+    "title": {}
+  },
   "cssVars": [
     {
       "name": "--ui-popover-bg",

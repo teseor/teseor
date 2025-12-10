@@ -1,7 +1,17 @@
 {
   "name": "tooltip",
   "element": "div",
-  "modifiers": {},
+  "modifiers": {
+    "position": {
+      "values": ["top", "bottom", "start", "end"]
+    },
+    "animate": {
+      "type": "boolean"
+    },
+    "visible": {
+      "type": "boolean"
+    }
+  },
   "cssVars": [
     {
       "name": "--ui-tooltip-bg",

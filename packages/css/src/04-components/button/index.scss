@@ -6,13 +6,16 @@
 // Token definitions - what makes each variant
 @layer components.tokens {
   .button {
+    // Single accent color - all shades derived via color-mix
+    --_accent: var(--ui-button-accent, var(--ui-color-primary, #{t.$color-primary}));
+
     --_height: var(--ui-button-height, var(--ui-row-2, #{t.$row-2}));
     --_padding-x: var(--ui-button-padding-x, var(--ui-space-2, #{t.$space-2}));
     --_font-size: var(--ui-button-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     --_font-weight: var(--ui-button-font-weight, var(--ui-weight-medium, #{t.$weight-medium}));
     --_radius: var(--ui-button-radius, var(--ui-radius-md, #{t.$radius-md}));
-    --_bg: var(--ui-button-bg, var(--ui-color-primary, #{t.$color-primary}));
-    --_bg-hover: var(--ui-button-bg-hover, var(--ui-color-primary-dark, #{t.$color-primary-dark}));
+    --_bg: var(--_accent);
+    --_bg-hover: color-mix(in oklch, var(--_accent) 80%, black);
     --_text: var(--ui-button-text, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
   }
 
@@ -30,35 +33,34 @@
 
   // @modifier variant
   .button--secondary {
-    --_bg: var(--ui-button-secondary-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
-    --_bg-hover: var(--ui-button-secondary-bg-hover, var(--ui-color-border-strong, #{t.$color-border-strong}));
-    --_text: var(--ui-button-secondary-text, var(--ui-color-text, #{t.$color-text}));
+    --_bg: var(--ui-color-bg-muted, #{t.$color-bg-muted});
+    --_bg-hover: var(--ui-color-border-strong, #{t.$color-border-strong});
+    --_text: var(--ui-color-text, #{t.$color-text});
   }
 
   .button--ghost {
-    --_bg: var(--ui-button-ghost-bg, transparent);
-    --_bg-hover: var(--ui-button-ghost-bg-hover, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
-    --_text: var(--ui-button-ghost-text, var(--ui-color-primary, #{t.$color-primary}));
+    --_bg: transparent;
+    --_bg-hover: color-mix(in oklch, var(--_accent) 10%, transparent);
+    --_text: var(--_accent);
   }
 
   .button--outline {
-    --_bg: var(--ui-button-outline-bg, transparent);
-    --_bg-hover: var(--ui-button-outline-bg-hover, var(--ui-color-primary, #{t.$color-primary}));
-    --_text: var(--ui-button-outline-text, var(--ui-color-primary, #{t.$color-primary}));
-    --_text-hover: var(--ui-button-outline-text-hover, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
-    --_border: var(--ui-button-outline-border, var(--ui-border-width-sm, #{t.$border-width-sm}) solid currentColor);
+    --_bg: transparent;
+    --_bg-hover: var(--_accent);
+    --_text: var(--_accent);
+    --_text-hover: var(--ui-color-text-inverse, #{t.$color-text-inverse});
+    --_border: var(--ui-border-width-sm, #{t.$border-width-sm}) solid currentColor;
   }
 
   .button--danger {
-    --_bg: var(--ui-button-danger-bg, var(--ui-color-danger, #{t.$color-danger}));
-    --_bg-hover: var(--ui-button-danger-bg-hover, #{t.$color-danger-dark});
+    --_accent: var(--ui-color-danger, #{t.$color-danger});
   }
 
   .button--link {
     --_bg: transparent;
     --_bg-hover: transparent;
-    --_text: var(--ui-button-link-text, var(--ui-color-primary, #{t.$color-primary}));
-    --_text-hover: var(--ui-button-link-text-hover, var(--ui-color-primary-dark, #{t.$color-primary-dark}));
+    --_text: var(--_accent);
+    --_text-hover: color-mix(in oklch, var(--_accent) 70%, black);
     --_height: auto;
     --_padding-x: 0;
     --_radius: 0;

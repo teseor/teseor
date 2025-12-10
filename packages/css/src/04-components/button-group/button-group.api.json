@@ -1,7 +1,11 @@
 {
   "name": "button-group",
   "element": "div",
-  "modifiers": {},
+  "modifiers": {
+    "vertical": {
+      "type": "boolean"
+    }
+  },
   "cssVars": [
     {
       "name": "--ui-button-group-radius",

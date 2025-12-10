@@ -10,6 +10,9 @@
     },
     "state": {
       "values": ["error", "success"]
+    },
+    "block": {
+      "type": "boolean"
     }
   },
   "cssVars": [

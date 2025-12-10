@@ -1,7 +1,14 @@
 {
   "name": "table",
   "element": "div",
-  "modifiers": {},
+  "modifiers": {
+    "compact": {
+      "type": "boolean"
+    },
+    "striped": {
+      "type": "boolean"
+    }
+  },
   "cssVars": [
     {
       "name": "--ui-table-font-size",

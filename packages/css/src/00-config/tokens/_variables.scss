@@ -76,31 +76,29 @@ $border-width-sm: $unit * 0.125; // 1px
 $border-width-md: $unit * 0.25; // 2px
 $border-width-lg: $unit * 0.5; // 4px
 
-// Color primitives
-$hue-primary: 220;
-$hue-success: 142;
-$hue-warning: 38;
-$hue-danger: 0;
+// Base colors - OKLCH for perceptual uniformity
+// These are fallback values; CSS custom properties take precedence
+$color-primary: oklch(55% 0.22 250);
+$color-success: oklch(60% 0.18 145);
+$color-warning: oklch(75% 0.18 70);
+$color-danger: oklch(60% 0.22 25);
+$color-neutral: oklch(50% 0.02 250);
 
-$color-neutral-50: hsl($hue-primary 10% 98%);
-$color-neutral-100: hsl($hue-primary 10% 96%);
-$color-neutral-200: hsl($hue-primary 10% 90%);
-$color-neutral-300: hsl($hue-primary 10% 80%);
-$color-neutral-400: hsl($hue-primary 10% 60%);
-$color-neutral-500: hsl($hue-primary 10% 45%);
-$color-neutral-600: hsl($hue-primary 10% 35%);
-$color-neutral-700: hsl($hue-primary 10% 25%);
-$color-neutral-800: hsl($hue-primary 10% 15%);
-$color-neutral-900: hsl($hue-primary 10% 10%);
+// Neutral scale - approximated from color-mix in oklch
+$color-neutral-50: hsl(220 10% 98%);
+$color-neutral-100: hsl(220 10% 96%);
+$color-neutral-200: hsl(220 10% 90%);
+$color-neutral-300: hsl(220 10% 80%);
+$color-neutral-400: hsl(220 10% 60%);
+$color-neutral-500: hsl(220 10% 45%);
+$color-neutral-600: hsl(220 10% 35%);
+$color-neutral-700: hsl(220 10% 25%);
+$color-neutral-800: hsl(220 10% 15%);
+$color-neutral-900: hsl(220 10% 10%);
 
-$color-primary-light: hsl($hue-primary 85% 65%);
-$color-primary: hsl($hue-primary 85% 50%);
-$color-primary-dark: hsl($hue-primary 85% 40%);
-
-$color-success: hsl($hue-success 70% 45%);
-$color-warning: hsl($hue-warning 90% 50%);
-$color-danger: hsl($hue-danger 70% 50%);
-$color-danger-dark: hsl($hue-danger 70% 40%);
+// Primary shades - fallbacks (CSS uses color-mix)
+$color-primary-light: oklch(75% 0.15 250);
+$color-primary-dark: oklch(40% 0.18 250);
 
 // Semantic colors (light theme defaults)
 $color-text: $color-neutral-900;

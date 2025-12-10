@@ -27,18 +27,82 @@
     },
     {
       "title": "Sizes",
-      "data": {
-        "sizes": [
-          { "mod": "xs", "label": "2u" },
-          { "mod": "sm", "label": "3u" },
-          { "mod": "md", "label": "4u" },
-          { "mod": "lg", "label": "5u" },
-          { "mod": "xl", "label": "6u" }
-        ]
-      },
+      "description": "Scale icons from extra small to extra large.",
       "examples": [
         {
-          "html": "<div class=\"ui-cluster ui-cluster--gap-2\" style=\"align-items: center\">{% for s in sizes %}<div class=\"ui-stack ui-stack--gap-half\" style=\"align-items: center\"><svg class=\"ui-icon ui-icon--{{ s.mod }}\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg><small>{{ s.label }}</small></div>{% endfor %}</div>"
+          "layout": "cluster",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-stack",
+              "style": { "align-items": "center", "gap": "var(--ui-space-1)" },
+              "children": [
+                {
+                  "tag": "svg",
+                  "class": "ui-icon ui-icon--xs",
+                  "attrs": { "xmlns": "http://www.w3.org/2000/svg", "viewBox": "0 0 24 24" },
+                  "html": "<circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/>"
+                },
+                { "tag": "small", "text": "xs" }
+              ]
+            },
+            {
+              "tag": "div",
+              "class": "ui-stack",
+              "style": { "align-items": "center", "gap": "var(--ui-space-1)" },
+              "children": [
+                {
+                  "tag": "svg",
+                  "class": "ui-icon ui-icon--sm",
+                  "attrs": { "xmlns": "http://www.w3.org/2000/svg", "viewBox": "0 0 24 24" },
+                  "html": "<circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/>"
+                },
+                { "tag": "small", "text": "sm" }
+              ]
+            },
+            {
+              "tag": "div",
+              "class": "ui-stack",
+              "style": { "align-items": "center", "gap": "var(--ui-space-1)" },
+              "children": [
+                {
+                  "tag": "svg",
+                  "class": "ui-icon ui-icon--md",
+                  "attrs": { "xmlns": "http://www.w3.org/2000/svg", "viewBox": "0 0 24 24" },
+                  "html": "<circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/>"
+                },
+                { "tag": "small", "text": "md" }
+              ]
+            },
+            {
+              "tag": "div",
+              "class": "ui-stack",
+              "style": { "align-items": "center", "gap": "var(--ui-space-1)" },
+              "children": [
+                {
+                  "tag": "svg",
+                  "class": "ui-icon ui-icon--lg",
+                  "attrs": { "xmlns": "http://www.w3.org/2000/svg", "viewBox": "0 0 24 24" },
+                  "html": "<circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/>"
+                },
+                { "tag": "small", "text": "lg" }
+              ]
+            },
+            {
+              "tag": "div",
+              "class": "ui-stack",
+              "style": { "align-items": "center", "gap": "var(--ui-space-1)" },
+              "children": [
+                {
+                  "tag": "svg",
+                  "class": "ui-icon ui-icon--xl",
+                  "attrs": { "xmlns": "http://www.w3.org/2000/svg", "viewBox": "0 0 24 24" },
+                  "html": "<circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/>"
+                },
+                { "tag": "small", "text": "xl" }
+              ]
+            }
+          ]
         }
       ]
     },

@@ -1,7 +1,18 @@
 {
   "name": "modal",
   "element": "div",
-  "modifiers": {},
+  "modifiers": {
+    "visible": {
+      "type": "boolean"
+    },
+    "size": {
+      "values": ["sm"]
+    }
+  },
+  "elements": {
+    "content": {},
+    "body": {}
+  },
   "cssVars": [
     {
       "name": "--ui-modal-bg",

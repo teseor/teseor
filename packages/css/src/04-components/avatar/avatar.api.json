@@ -9,6 +9,11 @@
       "type": "boolean"
     }
   },
+  "elements": {
+    "fallback": {},
+    "image": {}
+  },
+  "relatedComponents": ["avatar-group"],
   "cssVars": [
     {
       "name": "--ui-avatar-size",
