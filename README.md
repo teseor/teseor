@@ -1,4 +1,4 @@
-# UI Lib
+# Teseor
 
 CSS-first UI library with grid rhythm system. Framework-agnostic components built on design tokens.
 
@@ -15,12 +15,12 @@ Open http://localhost:3000 for live docs.
 
 | Package | Description |
 |---------|-------------|
-| `@ui-lib/css` | CSS library with design tokens, components, and utilities |
+| `@teseor/css` | CSS library with design tokens, components, and utilities |
 
 ## Usage
 
 ```html
-<link rel="stylesheet" href="@ui-lib/css/dist/index.css">
+<link rel="stylesheet" href="@teseor/css/dist/index.css">
 
 <button class="ui-button ui-button--primary">Primary</button>
 <button class="ui-button ui-button--secondary ui-button--sm">Small Secondary</button>

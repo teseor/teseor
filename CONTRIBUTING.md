@@ -1,11 +1,11 @@
-# Contributing to ui-lib
+# Contributing to Teseor
 
 ## Development Setup
 
 ```bash
 # Clone and install
-git clone https://github.com/letanure/ui-lib.git
-cd ui-lib
+git clone https://github.com/teseor/teseor.git
+cd teseor
 pnpm install
 
 # Build CSS package
@@ -70,7 +70,7 @@ The release workflow automatically:
 
 ```
 packages/
-  css/                 # @ui-lib/css - Core CSS library
+  css/                 # @teseor/css - Core CSS library
     src/
       00-config/       # Tokens, layers
       01-reset/        # CSS reset

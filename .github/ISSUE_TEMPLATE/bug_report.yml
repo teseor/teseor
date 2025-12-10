@@ -1,5 +1,5 @@
 name: Bug Report
-description: Report a bug in ui-lib
+description: Report a bug in Teseor
 labels: ["type: bug", "status: triage"]
 body:
   - type: dropdown
@@ -8,9 +8,9 @@ body:
       label: Package
       description: Which package is affected?
       options:
-        - "@ui-lib/css"
-        - "@ui-lib/react (planned)"
-        - "@ui-lib/svelte (planned)"
+        - "@teseor/css"
+        - "@teseor/react (planned)"
+        - "@teseor/svelte (planned)"
         - "docs"
         - "other"
     validations:
@@ -64,6 +64,6 @@ body:
       placeholder: |
         - Browser: Chrome 120
         - OS: macOS 14
-        - Version: @ui-lib/css@0.1.0
+        - Version: @teseor/css@1.0.0
     validations:
       required: false

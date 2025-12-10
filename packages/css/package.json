@@ -1,5 +1,5 @@
 {
-  "name": "@ui-lib/css",
+  "name": "@teseor/css",
   "version": "0.1.0",
   "description": "CSS library - reset, primitives, components, utilities",
   "main": "dist/index.css",
@@ -10,7 +10,7 @@
   },
   "files": ["dist", "src", "fonts"],
   "scripts": {
-    "build": "pnpm --filter @ui-lib/source sync:components && sass src/index.scss dist/index.css --style=compressed",
+    "build": "pnpm --filter @teseor/source sync:components && sass src/index.scss dist/index.css --style=compressed",
     "test:grid": "playwright test --config=playwright.config.ts src/testing/grid-alignment.spec.ts",
     "test:visual": "playwright test --config=playwright.config.ts --grep visual"
   }

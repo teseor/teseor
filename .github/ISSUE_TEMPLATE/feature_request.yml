@@ -8,9 +8,9 @@ body:
       label: Package
       description: Which package should this be added to?
       options:
-        - "@ui-lib/css"
-        - "@ui-lib/react (planned)"
-        - "@ui-lib/svelte (planned)"
+        - "@teseor/css"
+        - "@teseor/react (planned)"
+        - "@teseor/svelte (planned)"
         - "docs"
         - "tooling"
     validations:

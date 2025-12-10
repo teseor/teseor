@@ -1,6 +1,6 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@3.0.0/schema.json",
-  "changelog": ["@changesets/changelog-github", { "repo": "letanure/ui-lib" }],
+  "changelog": ["@changesets/changelog-github", { "repo": "teseor/teseor" }],
   "commit": false,
   "fixed": [],
   "linked": [],
