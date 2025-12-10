@@ -21,7 +21,24 @@
       "type": "boolean"
     }
   },
+  "elements": {
+    "icon": {
+      "modifiers": {
+        "start": {
+          "type": "boolean"
+        },
+        "end": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
   "cssVars": [
+    {
+      "name": "--ui-button-accent",
+      "description": "Primary accent color. All shades auto-generated via color-mix.",
+      "default": "var(--ui-color-primary)"
+    },
     {
       "name": "--ui-button-height",
       "default": "var(--ui-row-2)"
@@ -41,14 +58,6 @@
     {
       "name": "--ui-button-radius",
       "default": "var(--ui-radius-md)"
-    },
-    {
-      "name": "--ui-button-bg",
-      "default": "var(--ui-color-primary)"
-    },
-    {
-      "name": "--ui-button-bg-hover",
-      "default": "var(--ui-color-primary-dark)"
     },
     {
       "name": "--ui-button-text",
@@ -87,52 +96,9 @@
       "default": "var(--ui-color-text)"
     },
     {
-      "name": "--ui-button-ghost-bg",
-      "default": "transparent"
-    },
-    {
-      "name": "--ui-button-ghost-bg-hover",
-      "default": "var(--ui-color-bg-subtle)"
-    },
-    {
-      "name": "--ui-button-ghost-text",
-      "default": "var(--ui-color-primary)"
-    },
-    {
-      "name": "--ui-button-outline-bg",
-      "default": "transparent"
-    },
-    {
-      "name": "--ui-button-outline-bg-hover",
-      "default": "var(--ui-color-primary)"
-    },
-    {
-      "name": "--ui-button-outline-text",
-      "default": "var(--ui-color-primary)"
-    },
-    {
-      "name": "--ui-button-outline-text-hover",
-      "default": "var(--ui-color-text-inverse)"
-    },
-    {
-      "name": "--ui-button-outline-border",
-      "default": "var(--ui-border-width-sm)"
-    },
-    {
-      "name": "--ui-button-danger-bg",
+      "name": "--ui-color-danger",
+      "description": "Used by --danger variant as accent color",
       "default": "var(--ui-color-danger)"
-    },
-    {
-      "name": "--ui-button-danger-bg-hover",
-      "default": "#{t.$color-danger-dark}"
-    },
-    {
-      "name": "--ui-button-link-text",
-      "default": "var(--ui-color-primary)"
-    },
-    {
-      "name": "--ui-button-link-text-hover",
-      "default": "var(--ui-color-primary-dark)"
     }
   ]
 }

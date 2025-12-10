@@ -1,25 +1,26 @@
 :root {
-  --ui-hue-primary: 220;
-  --ui-hue-success: 142;
-  --ui-hue-warning: 38;
-  --ui-hue-danger: 0;
+  // Base colors - override these to customize the design system
+  --ui-color-primary: oklch(55% 0.22 250);
+  --ui-color-success: oklch(60% 0.18 145);
+  --ui-color-warning: oklch(75% 0.18 70);
+  --ui-color-danger: oklch(60% 0.22 25);
+  --ui-color-neutral: oklch(50% 0.02 250);
 
-  --ui-color-neutral-50: hsl(var(--ui-hue-primary) 10% 98%);
-  --ui-color-neutral-100: hsl(var(--ui-hue-primary) 10% 96%);
-  --ui-color-neutral-200: hsl(var(--ui-hue-primary) 10% 90%);
-  --ui-color-neutral-300: hsl(var(--ui-hue-primary) 10% 80%);
-  --ui-color-neutral-400: hsl(var(--ui-hue-primary) 10% 60%);
-  --ui-color-neutral-500: hsl(var(--ui-hue-primary) 10% 45%);
-  --ui-color-neutral-600: hsl(var(--ui-hue-primary) 10% 35%);
-  --ui-color-neutral-700: hsl(var(--ui-hue-primary) 10% 25%);
-  --ui-color-neutral-800: hsl(var(--ui-hue-primary) 10% 15%);
-  --ui-color-neutral-900: hsl(var(--ui-hue-primary) 10% 10%);
+  // Primary shades - auto-generated via color-mix
+  --ui-color-primary-light: color-mix(in oklch, var(--ui-color-primary) 50%, white);
+  --ui-color-primary-dark: color-mix(in oklch, var(--ui-color-primary) 75%, black);
+  --ui-color-primary-subtle: color-mix(in oklch, var(--ui-color-primary) 12%, white);
+  --ui-color-primary-hover: color-mix(in oklch, var(--ui-color-primary) 85%, black);
 
-  --ui-color-primary-light: hsl(var(--ui-hue-primary) 85% 65%);
-  --ui-color-primary: hsl(var(--ui-hue-primary) 85% 50%);
-  --ui-color-primary-dark: hsl(var(--ui-hue-primary) 85% 40%);
-
-  --ui-color-success: hsl(var(--ui-hue-success) 70% 45%);
-  --ui-color-warning: hsl(var(--ui-hue-warning) 90% 50%);
-  --ui-color-danger: hsl(var(--ui-hue-danger) 70% 50%);
+  // Neutral scale - auto-generated via color-mix
+  --ui-color-neutral-50: color-mix(in oklch, var(--ui-color-neutral) 3%, white);
+  --ui-color-neutral-100: color-mix(in oklch, var(--ui-color-neutral) 6%, white);
+  --ui-color-neutral-200: color-mix(in oklch, var(--ui-color-neutral) 12%, white);
+  --ui-color-neutral-300: color-mix(in oklch, var(--ui-color-neutral) 25%, white);
+  --ui-color-neutral-400: color-mix(in oklch, var(--ui-color-neutral) 50%, white);
+  --ui-color-neutral-500: var(--ui-color-neutral);
+  --ui-color-neutral-600: color-mix(in oklch, var(--ui-color-neutral) 85%, black);
+  --ui-color-neutral-700: color-mix(in oklch, var(--ui-color-neutral) 70%, black);
+  --ui-color-neutral-800: color-mix(in oklch, var(--ui-color-neutral) 50%, black);
+  --ui-color-neutral-900: color-mix(in oklch, var(--ui-color-neutral) 35%, black);
 }
