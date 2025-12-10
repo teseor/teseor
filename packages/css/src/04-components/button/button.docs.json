@@ -23,6 +23,81 @@
   },
   "sections": [
     {
+      "title": "Variants",
+      "description": "Button styles for different purposes and emphasis levels.",
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            { "tag": "button", "class": "ui-button", "text": "Primary" },
+            { "tag": "button", "class": "ui-button ui-button--secondary", "text": "Secondary" },
+            { "tag": "button", "class": "ui-button ui-button--outline", "text": "Outline" },
+            { "tag": "button", "class": "ui-button ui-button--ghost", "text": "Ghost" },
+            { "tag": "button", "class": "ui-button ui-button--danger", "text": "Danger" },
+            { "tag": "button", "class": "ui-button ui-button--link", "text": "Link" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sizes",
+      "description": "Small for dense UIs, default for most cases, large for prominent CTAs.",
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            { "tag": "button", "class": "ui-button ui-button--sm", "text": "Small" },
+            { "tag": "button", "class": "ui-button", "text": "Default" },
+            { "tag": "button", "class": "ui-button ui-button--lg", "text": "Large" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Radius",
+      "description": "Override border radius. Use radius-full for pill-shaped buttons.",
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            { "tag": "button", "class": "ui-button ui-button--radius-none", "text": "None" },
+            { "tag": "button", "class": "ui-button ui-button--radius-sm", "text": "Small" },
+            { "tag": "button", "class": "ui-button", "text": "Default" },
+            { "tag": "button", "class": "ui-button ui-button--radius-lg", "text": "Large" },
+            { "tag": "button", "class": "ui-button ui-button--radius-full", "text": "Full" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Block",
+      "description": "Full width button for mobile or form submit.",
+      "examples": [
+        {
+          "items": [
+            { "tag": "button", "class": "ui-button ui-button--block", "text": "Block Button" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Loading",
+      "description": "Shows spinner animation. Button becomes non-interactive.",
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            { "tag": "button", "class": "ui-button ui-button--loading", "text": "Loading" },
+            {
+              "tag": "button",
+              "class": "ui-button ui-button--secondary ui-button--loading",
+              "text": "Loading"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "title": "Icon Button",
       "description": "Square icon-only buttons. Use with SVG icons from Lucide or similar sets.",
       "examples": [
