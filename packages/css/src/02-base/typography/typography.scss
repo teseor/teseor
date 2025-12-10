@@ -103,6 +103,22 @@
     background: none;
   }
 
+  // Links - inherit design system colors
+  a {
+    text-decoration: underline;
+    color: var(--ui-color-primary);
+
+    transition: color var(--ui-duration-fast) var(--ui-ease-default);
+
+    &:hover {
+      color: var(--ui-color-primary-hover);
+    }
+
+    &:visited {
+      color: var(--ui-color-primary);
+    }
+  }
+
   // ==========================================================================
   // RESPONSIVE BREAKPOINTS
   // ==========================================================================
