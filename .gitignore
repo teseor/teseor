@@ -43,7 +43,5 @@ CLAUDE.md
 .docs.local
 apps/docs/src/generated
 
-# Changesets
-.changeset/*.md
-!.changeset/README.md
-!.changeset/config.json
+# Changesets - keep generated changeset files
+# (they're needed for version bumps)
