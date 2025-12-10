@@ -113,7 +113,7 @@ importers:
 
   apps/docs:
     dependencies:
-      '@ui-lib/css':
+      '@teseor/css':
         specifier: workspace:*
         version: link:../../packages/css
       nunjucks:

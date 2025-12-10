@@ -1,11 +1,11 @@
-# @ui-lib/css
+# @teseor/css
 
 CSS components library with design tokens and standalone support.
 
 ## Installation
 
 ```bash
-npm install @ui-lib/css
+npm install @teseor/css
 ```
 
 ## Usage
@@ -15,7 +15,7 @@ npm install @ui-lib/css
 Import everything - tokens, reset, base styles, components, and utilities:
 
 ```css
-@import '@ui-lib/css/dist/index.css';
+@import '@teseor/css/dist/index.css';
 ```
 
 ### Option 2: Standalone Component
@@ -24,7 +24,7 @@ Components include SCSS fallbacks and work without tokens:
 
 ```css
 /* Works standalone - uses hardcoded fallback values */
-@import '@ui-lib/css/dist/components/button.css';
+@import '@teseor/css/dist/components/button.css';
 ```
 
 Note: Without tokens, theming via CSS custom properties won't work.

@@ -11,7 +11,7 @@
     "preview": "eleventy --serve"
   },
   "dependencies": {
-    "@ui-lib/css": "workspace:*",
+    "@teseor/css": "workspace:*",
     "nunjucks": "^3.2.4"
   },
   "devDependencies": {

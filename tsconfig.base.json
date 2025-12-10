@@ -21,7 +21,7 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "@ui-lib/css": ["packages/css/dist/index.css"]
+      "@teseor/css": ["packages/css/dist/index.css"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

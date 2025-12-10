@@ -13,7 +13,7 @@
 
 ## Package(s) affected
 
-- [ ] `@ui-lib/css`
+- [ ] `@teseor/css`
 - [ ] `docs`
 - [ ] Other: ___
 
