@@ -1,5 +1,11 @@
 # @teseor/css
 
+## 1.1.0
+
+### Minor Changes
+
+- [`59cc32f`](https://github.com/teseor/teseor/commit/59cc32fa3a36c936f19ef68eef0ee0edce048085) Thanks [@letanure](https://github.com/letanure)! - Add progress, skeleton, breadcrumb, status components
+
 ## 1.0.0
 
 ### Major Changes
