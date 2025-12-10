@@ -1,7 +1,28 @@
 {
   "name": "toast",
   "element": "div",
-  "modifiers": {},
+  "modifiers": {
+    "variant": {
+      "values": ["success", "warning", "danger", "info"]
+    }
+  },
+  "elements": {
+    "content": {},
+    "title": {},
+    "description": {},
+    "close": {},
+    "action": {}
+  },
+  "relatedComponents": [
+    {
+      "name": "toast-viewport",
+      "modifiers": {
+        "position": {
+          "values": ["top-end", "bottom-end"]
+        }
+      }
+    }
+  ],
   "cssVars": [
     {
       "name": "--ui-toast-viewport-gap",

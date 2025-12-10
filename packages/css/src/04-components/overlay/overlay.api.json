@@ -1,7 +1,20 @@
 {
   "name": "overlay",
   "element": "div",
-  "modifiers": {},
+  "modifiers": {
+    "light": {
+      "type": "boolean"
+    },
+    "blur": {
+      "type": "boolean"
+    },
+    "animate": {
+      "type": "boolean"
+    },
+    "visible": {
+      "type": "boolean"
+    }
+  },
   "cssVars": [
     {
       "name": "--ui-overlay-bg",

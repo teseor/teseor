@@ -1,7 +1,20 @@
 {
   "name": "status",
   "element": "div",
-  "modifiers": {},
+  "modifiers": {
+    "variant": {
+      "values": ["success", "warning", "danger", "info"]
+    },
+    "size": {
+      "values": ["sm", "lg"]
+    },
+    "pulse": {
+      "type": "boolean"
+    }
+  },
+  "elements": {
+    "dot": {}
+  },
   "cssVars": [
     {
       "name": "--ui-status-size",

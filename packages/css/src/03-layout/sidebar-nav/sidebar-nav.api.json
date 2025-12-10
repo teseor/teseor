@@ -1,115 +1,64 @@
 {
   "name": "sidebar-nav",
-  "baseClass": "sidebar-nav",
   "element": "nav",
-  "description": "Navigation component for sidebars with support for groups, nested items, icons, and badges",
   "modifiers": {
     "collapsed": {
-      "type": "boolean",
-      "description": "Icon-only mode, hides labels and badges"
+      "type": "boolean"
     }
   },
   "elements": {
-    "header": {
-      "element": "div",
-      "description": "Sticky header section"
-    },
-    "content": {
-      "element": "div",
-      "description": "Scrollable content area"
-    },
-    "footer": {
-      "element": "div",
-      "description": "Sticky footer section"
-    },
-    "group": {
-      "element": "div",
-      "description": "Navigation group container"
-    },
-    "group-label": {
-      "element": "span",
-      "description": "Group section heading"
-    },
-    "group-items": {
-      "element": "ul",
-      "description": "List of nav items in a group"
-    },
-    "subgroup-label": {
-      "element": "span",
-      "description": "Nested subgroup heading"
-    },
+    "header": {},
+    "content": {},
+    "footer": {},
+    "group": {},
+    "group-label": {},
+    "group-items": {},
+    "subgroup-label": {},
     "item": {
-      "element": "a",
-      "description": "Navigation link",
       "modifiers": {
         "active": {
-          "type": "boolean",
-          "description": "Current/active page state"
+          "type": "boolean"
         },
         "disabled": {
-          "type": "boolean",
-          "description": "Non-interactive item"
+          "type": "boolean"
         },
         "nested": {
-          "type": "boolean",
-          "description": "Indented nested item"
+          "type": "boolean"
         }
       }
     },
-    "icon": {
-      "element": "span",
-      "description": "Icon container"
-    },
-    "label": {
-      "element": "span",
-      "description": "Text label"
-    },
-    "badge": {
-      "element": "span",
-      "description": "Badge or count indicator"
-    }
+    "icon": {},
+    "label": {},
+    "badge": {}
   },
-  "accessibility": {
-    "role": "navigation",
-    "aria-label": "Required - descriptive label for the navigation",
-    "aria-current": "Use 'page' on active item link",
-    "keyboard": "Tab navigation between focusable items"
-  },
-  "customization": [
+  "cssVars": [
     {
-      "token": "--ui-sidebar-nav-width",
-      "default": "calc(var(--ui-unit) * 30)",
-      "description": "Default sidebar width"
+      "name": "--ui-sidebar-nav-width",
+      "default": "calc(var(--ui-unit) * 30)"
     },
     {
-      "token": "--ui-sidebar-nav-width-collapsed",
-      "default": "var(--ui-row-3)",
-      "description": "Width in collapsed/icon-only mode"
+      "name": "--ui-sidebar-nav-width-collapsed",
+      "default": "var(--ui-row-3)"
     },
     {
-      "token": "--ui-sidebar-nav-bg",
-      "default": "var(--ui-color-bg-subtle)",
-      "description": "Background color"
+      "name": "--ui-sidebar-nav-bg",
+      "default": "var(--ui-color-bg-subtle)"
     },
     {
-      "token": "--ui-sidebar-nav-item-height",
-      "default": "var(--ui-row-2)",
-      "description": "Nav item height"
+      "name": "--ui-sidebar-nav-item-height",
+      "default": "var(--ui-row-2)"
     },
     {
-      "token": "--ui-sidebar-nav-item-hover-bg",
-      "default": "var(--ui-color-bg-muted)",
-      "description": "Item hover background"
+      "name": "--ui-sidebar-nav-item-hover-bg",
+      "default": "var(--ui-color-bg-muted)"
     },
     {
-      "token": "--ui-sidebar-nav-item-active-bg",
-      "default": "var(--ui-color-primary-subtle)",
-      "description": "Active item background"
+      "name": "--ui-sidebar-nav-item-active-bg",
+      "default": "var(--ui-color-primary-subtle)"
     },
     {
-      "token": "--ui-sidebar-nav-item-active-color",
-      "default": "var(--ui-color-primary)",
-      "description": "Active item text color"
+      "name": "--ui-sidebar-nav-item-active-color",
+      "default": "var(--ui-color-primary)"
     }
   ]
 }

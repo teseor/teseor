@@ -3,7 +3,7 @@
   "element": "input",
   "modifiers": {
     "size": {
-      "values": ["lg"]
+      "values": ["sm", "lg"]
     },
     "error": {
       "type": "boolean"

@@ -1,7 +1,26 @@
 {
   "name": "progress",
   "element": "div",
-  "modifiers": {},
+  "modifiers": {
+    "size": {
+      "values": ["sm", "lg"]
+    },
+    "variant": {
+      "values": ["success", "warning", "danger"]
+    },
+    "striped": {
+      "type": "boolean"
+    },
+    "animated": {
+      "type": "boolean"
+    },
+    "indeterminate": {
+      "type": "boolean"
+    }
+  },
+  "elements": {
+    "bar": {}
+  },
   "cssVars": [
     {
       "name": "--ui-progress-height",

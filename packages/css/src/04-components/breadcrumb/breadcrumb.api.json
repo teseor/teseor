@@ -2,6 +2,11 @@
   "name": "breadcrumb",
   "element": "div",
   "modifiers": {},
+  "elements": {
+    "item": {},
+    "link": {},
+    "current": {}
+  },
   "cssVars": [
     {
       "name": "--ui-breadcrumb-height",
