@@ -49,6 +49,15 @@
           "code": "<div class=\"ui-transition-name-none\">No transition</div>"
         }
       ]
+    },
+    {
+      "title": "Preserving scroll position",
+      "description": "View transitions snapshot elements, resetting scroll. Use `pagereveal` event to restore scroll before paint.",
+      "examples": [
+        {
+          "code": "// Save scroll on navigation\nlink.addEventListener('click', () => {\n  sessionStorage.setItem('scroll', sidebar.scrollTop);\n});\n\n// Restore before page reveals\nwindow.addEventListener('pagereveal', () => {\n  const saved = sessionStorage.getItem('scroll');\n  if (saved) sidebar.scrollTop = parseInt(saved, 10);\n});"
+        }
+      ]
     }
   ]
 }
