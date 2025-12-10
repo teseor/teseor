@@ -1,7 +1,4 @@
-/* Import our CSS library (copied to /css/index.css by Eleventy) */
-@import "/css/index.css";
-
-/* Docs-specific styles */
+/* Docs-specific styles - CSS library loaded via link tag in HTML */
 @layer base {
   /* App-level - compact sizing for docs */
   body {
