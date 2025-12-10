@@ -2,6 +2,16 @@
   "name": "@teseor/css",
   "version": "0.1.0",
   "description": "CSS library - reset, primitives, components, utilities",
+  "license": "MIT",
+  "author": "letanure",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/teseor/teseor.git",
+    "directory": "packages/css"
+  },
+  "homepage": "https://teseor.com",
+  "bugs": "https://github.com/teseor/teseor/issues",
+  "keywords": ["css", "components", "design-system", "ui", "tokens", "utilities"],
   "main": "dist/index.css",
   "exports": {
     ".": "./dist/index.css",
