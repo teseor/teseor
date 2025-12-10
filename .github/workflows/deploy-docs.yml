@@ -35,6 +35,8 @@ jobs:
 
       - name: Build docs
         run: pnpm --filter docs build
+        env:
+          ELEVENTY_PATH_PREFIX: /teseor/
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

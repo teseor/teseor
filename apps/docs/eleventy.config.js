@@ -296,6 +296,7 @@ export default function (eleventyConfig) {
       includes: '_includes',
       data: '_data',
     },
+    pathPrefix: process.env.ELEVENTY_PATH_PREFIX || '/',
     templateFormats: ['njk', 'html', 'md'],
     htmlTemplateEngine: 'njk',
   };

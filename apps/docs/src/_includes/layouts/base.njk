@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="view-transition" content="same-origin">
   <title>{{ title }} - UI Lib</title>
-  <link rel="stylesheet" href="/styles.css">
-  <script src="/sidebar-scroll.js" defer></script>
+  <link rel="stylesheet" href="{{ '/styles.css' | url }}">
+  <script src="{{ '/sidebar-scroll.js' | url }}" defer></script>
 </head>
 <body class="ui-root ui-app-shell">
   <aside class="ui-sidebar">
@@ -40,8 +40,8 @@
     </div>
   </main>
 
-  <script src="/debug-grid.js"></script>
-  <script src="/tabs.js"></script>
+  <script src="{{ '/debug-grid.js' | url }}"></script>
+  <script src="{{ '/tabs.js' | url }}"></script>
   <script>
     const DEBUG_CLASSES = ['ui-debug-grid', 'ui-debug-grid-rows', 'ui-debug-baseline', 'ui-debug-outline'];
     const DEBUG_KEY = 'debug-classes';
