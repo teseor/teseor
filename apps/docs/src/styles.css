@@ -126,4 +126,11 @@
   .custom-cards {
     --ui-card-padding: var(--ui-space-4);
   }
+
+  /* Sidebar toggle buttons - pressed state */
+  .ui-sidebar-nav__footer button[aria-pressed="true"] {
+    background: var(--ui-color-primary);
+    color: var(--ui-color-on-primary);
+    border-color: var(--ui-color-primary);
+  }
 }
