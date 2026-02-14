@@ -38,14 +38,19 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
+            const branch = context.payload.pull_request.head.ref;
+            const updateUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/workflows/update-snapshots.yml`;
             const body = [
               '### Visual tests failed',
               '',
-              'Snapshots need updating. Run locally:',
+              'Snapshots need updating.',
+              '',
+              `**[Update snapshots from CI](${updateUrl})** (enter branch: \`${branch}\`)`,
+              '',
+              'Or run locally:',
               '```bash',
               './scripts/visual-test-docker.sh --update',
               '```',
-              'Then commit and push the updated `.png` files.',
             ].join('\n');
             const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
