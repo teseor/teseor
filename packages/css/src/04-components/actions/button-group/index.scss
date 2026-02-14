@@ -59,7 +59,9 @@
   }
 
   .button-group--vertical > .button + .button {
-    margin-block-start: calc(#{t.$unit} / -8);
+    // Remove top border instead of negative margin to stay on 8px grid
+    border-block-start-width: 0;
+
     margin-inline-start: 0;
   }
 
