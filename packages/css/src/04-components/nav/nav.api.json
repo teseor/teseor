@@ -1,0 +1,55 @@
+{
+  "name": "nav",
+  "element": "nav",
+  "modifiers": {
+    "pills": {
+      "type": "boolean"
+    },
+    "vertical": {
+      "type": "boolean"
+    }
+  },
+  "elements": {
+    "list": {},
+    "item": {
+      "modifiers": {
+        "active": {
+          "type": "boolean"
+        },
+        "disabled": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "cssVars": [
+    {
+      "name": "--ui-nav-gap",
+      "default": "var(--ui-space-1)"
+    },
+    {
+      "name": "--ui-nav-item-height",
+      "default": "var(--ui-row-2)"
+    },
+    {
+      "name": "--ui-nav-item-padding-x",
+      "default": "var(--ui-space-2)"
+    },
+    {
+      "name": "--ui-nav-item-font-size",
+      "default": "var(--ui-font-size-sm)"
+    },
+    {
+      "name": "--ui-nav-item-color",
+      "default": "var(--ui-color-text-muted)"
+    },
+    {
+      "name": "--ui-nav-item-color-active",
+      "default": "var(--ui-color-primary)"
+    },
+    {
+      "name": "--ui-nav-border-color",
+      "default": "var(--ui-color-border)"
+    }
+  ]
+}
