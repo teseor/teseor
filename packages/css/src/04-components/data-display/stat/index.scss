@@ -1,0 +1,47 @@
+@use '../../../00-config/tokens/variables' as t;
+
+@layer components.tokens {
+  .stat {
+    --_gap: var(--ui-stat-gap, var(--ui-space-1, #{t.$space-1}));
+  }
+
+  .stat__value {
+    --_font-size: var(--ui-stat-value-font-size, var(--ui-font-size-3xl, #{t.$font-size-3xl}));
+    --_font-weight: var(--ui-stat-value-font-weight, var(--ui-weight-bold, #{t.$weight-bold}));
+    --_line-height: var(--ui-stat-value-line-height, var(--ui-leading-3xl, #{t.$leading-3xl}));
+    --_color: var(--ui-stat-value-color, var(--ui-color-text, #{t.$color-text}));
+  }
+
+  .stat__label {
+    --_font-size: var(--ui-stat-label-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    --_color: var(--ui-stat-label-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    --_line-height: var(--ui-stat-label-line-height, var(--ui-leading-sm, #{t.$leading-sm}));
+  }
+
+  .stat--sm .stat__value {
+    --_font-size: var(--ui-font-size-xl, #{t.$font-size-xl});
+    --_line-height: var(--ui-leading-xl, #{t.$leading-xl});
+  }
+}
+
+@layer components.styles {
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--_gap);
+  }
+
+  .stat__value {
+    font-size: var(--_font-size);
+    font-weight: var(--_font-weight);
+    line-height: var(--_line-height);
+    letter-spacing: var(--ui-tracking-display, #{t.$tracking-display});
+    color: var(--_color);
+  }
+
+  .stat__label {
+    font-size: var(--_font-size);
+    line-height: var(--_line-height);
+    color: var(--_color);
+  }
+}
