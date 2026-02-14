@@ -5,29 +5,16 @@
 
 @layer components.tokens {
   .icon {
-    --_size: var(--ui-icon-size, 1em);
+    // 3-tier inheritance: global > context > default
+    --_size: var(--ui-icon-size, var(--ui-ctx-size, #{t.size(md)}));
     --_stroke: var(--ui-icon-stroke, 2);
   }
 
   // @modifier size
-  .icon--xs {
-    --_size: var(--ui-icon-size-xs, calc(#{t.$unit} * 2));
-  }
-
-  .icon--sm {
-    --_size: var(--ui-icon-size-sm, calc(#{t.$unit} * 3));
-  }
-
-  .icon--md {
-    --_size: var(--ui-icon-size-md, calc(#{t.$unit} * 4));
-  }
-
-  .icon--lg {
-    --_size: var(--ui-icon-size-lg, calc(#{t.$unit} * 5));
-  }
-
-  .icon--xl {
-    --_size: var(--ui-icon-size-xl, calc(#{t.$unit} * 6));
+  @each $name, $value in t.$sizes {
+    .icon--#{$name} {
+      --_size: var(--ui-icon-size-#{$name}, var(--ui-size-#{$name}, #{$value}));
+    }
   }
 
   // @modifier stroke

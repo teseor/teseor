@@ -18,7 +18,8 @@
   "cssVars": [
     {
       "name": "--ui-icon-size",
-      "default": "1em"
+      "default": "var(--ui-ctx-size, 1rem)",
+      "description": "3-tier: global > context > default"
     },
     {
       "name": "--ui-icon-stroke",
@@ -26,23 +27,23 @@
     },
     {
       "name": "--ui-icon-size-xs",
-      "default": "calc(#{t.$unit} * 2"
+      "default": "0.5rem (8px)"
     },
     {
       "name": "--ui-icon-size-sm",
-      "default": "calc(#{t.$unit} * 3"
+      "default": "0.75rem (12px)"
     },
     {
       "name": "--ui-icon-size-md",
-      "default": "calc(#{t.$unit} * 4"
+      "default": "1rem (16px)"
     },
     {
       "name": "--ui-icon-size-lg",
-      "default": "calc(#{t.$unit} * 5"
+      "default": "1.25rem (20px)"
     },
     {
       "name": "--ui-icon-size-xl",
-      "default": "calc(#{t.$unit} * 6"
+      "default": "1.5rem (24px)"
     },
     {
       "name": "--ui-icon-stroke-thin",
