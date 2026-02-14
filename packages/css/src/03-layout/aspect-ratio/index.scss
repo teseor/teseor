@@ -1,6 +1,7 @@
 @layer primitives {
   .aspect-ratio {
     aspect-ratio: var(--aspect-ratio, 1 / 1);
+
     overflow: hidden;
   }
 
@@ -8,8 +9,8 @@
   .aspect-ratio > img,
   .aspect-ratio > video,
   .aspect-ratio > iframe {
-    inline-size: 100%;
     block-size: 100%;
+    inline-size: 100%;
     object-fit: cover;
   }
 
