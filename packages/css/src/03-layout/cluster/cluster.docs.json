@@ -9,46 +9,7 @@
       "title": "Basic",
       "examples": [
         {
-          "items": [
-            {
-              "tag": "div",
-              "class": "ui-cluster ui-cluster--md",
-              "children": [
-                {
-                  "tag": "div",
-                  "text": "Tag 1",
-                  "style": {
-                    "background": "var(--ui-color-bg-muted)",
-                    "padding": "var(--ui-space-2)"
-                  }
-                },
-                {
-                  "tag": "div",
-                  "text": "Tag 2",
-                  "style": {
-                    "background": "var(--ui-color-bg-muted)",
-                    "padding": "var(--ui-space-2)"
-                  }
-                },
-                {
-                  "tag": "div",
-                  "text": "Tag 3",
-                  "style": {
-                    "background": "var(--ui-color-bg-muted)",
-                    "padding": "var(--ui-space-2)"
-                  }
-                },
-                {
-                  "tag": "div",
-                  "text": "Tag 4",
-                  "style": {
-                    "background": "var(--ui-color-bg-muted)",
-                    "padding": "var(--ui-space-2)"
-                  }
-                }
-              ]
-            }
-          ]
+          "html": "<div class=\"ui-cluster ui-cluster--md\">\n  <div style=\"background: var(--ui-color-bg-muted); padding: var(--ui-space-2)\">Tag 1</div>\n  <div style=\"background: var(--ui-color-bg-muted); padding: var(--ui-space-2)\">Tag 2</div>\n  <div style=\"background: var(--ui-color-bg-muted); padding: var(--ui-space-2)\">Tag 3</div>\n  <div style=\"background: var(--ui-color-bg-muted); padding: var(--ui-space-2)\">Tag 4</div>\n</div>"
         }
       ]
     },
@@ -56,72 +17,10 @@
       "title": "Sizes",
       "examples": [
         {
-          "items": [
-            {
-              "tag": "div",
-              "class": "ui-cluster ui-cluster--xs",
-              "children": [
-                {
-                  "tag": "div",
-                  "text": "xs",
-                  "style": {
-                    "background": "var(--ui-color-bg-muted)",
-                    "padding": "var(--ui-space-1)"
-                  }
-                },
-                {
-                  "tag": "div",
-                  "text": "xs",
-                  "style": {
-                    "background": "var(--ui-color-bg-muted)",
-                    "padding": "var(--ui-space-1)"
-                  }
-                },
-                {
-                  "tag": "div",
-                  "text": "xs",
-                  "style": {
-                    "background": "var(--ui-color-bg-muted)",
-                    "padding": "var(--ui-space-1)"
-                  }
-                }
-              ]
-            }
-          ]
+          "html": "<div class=\"ui-cluster ui-cluster--xs\">\n  <div style=\"background: var(--ui-color-bg-muted); padding: var(--ui-space-1)\">xs</div>\n  <div style=\"background: var(--ui-color-bg-muted); padding: var(--ui-space-1)\">xs</div>\n  <div style=\"background: var(--ui-color-bg-muted); padding: var(--ui-space-1)\">xs</div>\n</div>"
         },
         {
-          "items": [
-            {
-              "tag": "div",
-              "class": "ui-cluster ui-cluster--lg",
-              "children": [
-                {
-                  "tag": "div",
-                  "text": "lg",
-                  "style": {
-                    "background": "var(--ui-color-bg-muted)",
-                    "padding": "var(--ui-space-1)"
-                  }
-                },
-                {
-                  "tag": "div",
-                  "text": "lg",
-                  "style": {
-                    "background": "var(--ui-color-bg-muted)",
-                    "padding": "var(--ui-space-1)"
-                  }
-                },
-                {
-                  "tag": "div",
-                  "text": "lg",
-                  "style": {
-                    "background": "var(--ui-color-bg-muted)",
-                    "padding": "var(--ui-space-1)"
-                  }
-                }
-              ]
-            }
-          ]
+          "html": "<div class=\"ui-cluster ui-cluster--lg\">\n  <div style=\"background: var(--ui-color-bg-muted); padding: var(--ui-space-1)\">lg</div>\n  <div style=\"background: var(--ui-color-bg-muted); padding: var(--ui-space-1)\">lg</div>\n  <div style=\"background: var(--ui-color-bg-muted); padding: var(--ui-space-1)\">lg</div>\n</div>"
         }
       ]
     }
