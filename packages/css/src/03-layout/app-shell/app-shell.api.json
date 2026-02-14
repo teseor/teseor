@@ -20,6 +20,15 @@
       "modifiers": {
         "center": { "type": "boolean" }
       }
+    },
+    {
+      "name": "footer",
+      "modifiers": {
+        "sticky": { "type": "boolean" },
+        "fixed": { "type": "boolean" },
+        "bordered": { "type": "boolean" },
+        "raised": { "type": "boolean" }
+      }
     }
   ],
   "cssVars": []

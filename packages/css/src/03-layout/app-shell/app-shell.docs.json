@@ -108,6 +108,15 @@
       ]
     },
     {
+      "title": "With Footer",
+      "description": "Place footer inside the content area, after the container.",
+      "examples": [
+        {
+          "code": "<body class=\"ui-app-shell\">\n  <main class=\"ui-main ui-main--full\">\n    <div class=\"ui-container\">Content</div>\n    <footer class=\"ui-footer ui-footer--bordered\">\n      <div class=\"ui-footer__start\"><small>Brand</small></div>\n      <div class=\"ui-footer__end\"><small>v1.0.0</small></div>\n    </footer>\n  </main>\n</body>"
+        }
+      ]
+    },
+    {
       "title": "Centered Container",
       "examples": [
         {
