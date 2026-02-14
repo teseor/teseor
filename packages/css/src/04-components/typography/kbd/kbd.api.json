@@ -1,0 +1,15 @@
+{
+  "name": "kbd",
+  "element": "kbd",
+  "modifiers": {},
+  "cssVars": [
+    { "name": "--ui-kbd-font-size", "default": "var(--ui-font-size-sm)" },
+    { "name": "--ui-kbd-font-family", "default": "var(--ui-font-mono)" },
+    { "name": "--ui-kbd-padding-x", "default": "var(--ui-space-0)" },
+    { "name": "--ui-kbd-padding-y", "default": "var(--ui-space-0)" },
+    { "name": "--ui-kbd-bg", "default": "var(--ui-color-bg-subtle)" },
+    { "name": "--ui-kbd-border-color", "default": "var(--ui-color-border)" },
+    { "name": "--ui-kbd-radius", "default": "var(--ui-radius-sm)" },
+    { "name": "--ui-kbd-color", "default": "var(--ui-color-text)" }
+  ]
+}
