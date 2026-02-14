@@ -9,9 +9,11 @@ import { scaffoldCss } from './scaffold';
 
 interface DocsItem {
   tag: string;
-  class: string;
-  text: string;
+  class?: string;
+  text?: string;
   attrs?: Record<string, string>;
+  style?: Record<string, string>;
+  children?: DocsItem[];
 }
 
 interface DocsExample {
@@ -41,13 +43,27 @@ export function loadComponentApi(apiPath: string): ComponentAPI {
 }
 
 function renderItem(item: DocsItem): string {
-  const attrs = item.attrs
-    ? Object.entries(item.attrs)
-        .map(([k, v]) => (v === '' ? k : `${k}="${v}"`))
-        .join(' ')
-    : '';
-  const attrStr = attrs ? ` ${attrs}` : '';
-  return `<${item.tag} class="${item.class}"${attrStr}>${item.text}</${item.tag}>`;
+  const parts: string[] = [];
+
+  if (item.class) parts.push(`class="${item.class}"`);
+
+  if (item.style) {
+    const css = Object.entries(item.style)
+      .map(([k, v]) => `${k}: ${v}`)
+      .join('; ');
+    parts.push(`style="${css}"`);
+  }
+
+  if (item.attrs) {
+    for (const [k, v] of Object.entries(item.attrs)) {
+      parts.push(v === '' ? k : `${k}="${v}"`);
+    }
+  }
+
+  const attrStr = parts.length ? ` ${parts.join(' ')}` : '';
+  const content = item.children ? item.children.map(renderItem).join('\n') : (item.text ?? '');
+
+  return `<${item.tag}${attrStr}>${content}</${item.tag}>`;
 }
 
 export function loadDocsJson(docsPath: string): DocsJson {

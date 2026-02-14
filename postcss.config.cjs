@@ -53,15 +53,12 @@ module.exports = {
     require('postcss-prefix-selector')({
       prefix: PREFIX,
       transform(prefix, selector, prefixedSelector, filePath) {
-        // Don't prefix these selectors
+        // Don't prefix root/global selectors
         if (selector.match(/^(html|body|:root|\*|@)/)) {
           return selector;
         }
-        // Transform .class to .ui-class (skip if already prefixed)
-        if (selector.startsWith('.') && !selector.startsWith(`.${PREFIX}`)) {
-          return `.${prefix}${selector.slice(1)}`;
-        }
-        return selector;
+        // Prefix every class segment: .foo → .ui-foo (skip already-prefixed)
+        return selector.replace(/\.(?!ui-)(?=[a-zA-Z_-])/g, `.${prefix}`);
       },
     }),
   ],

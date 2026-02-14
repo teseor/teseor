@@ -53,7 +53,7 @@ const COMPONENT_GROUPS = [
   {
     id: 'navigation',
     label: 'Navigation',
-    components: ['tabs', 'breadcrumb', 'menu', 'pagination'],
+    components: ['tabs', 'breadcrumb', 'menu', 'nav', 'pagination'],
   },
   { id: 'layout', label: 'Layout', components: ['divider'] },
 ];
@@ -175,6 +175,8 @@ function processTemplate(template, data) {
 
 export default function (eleventyConfig) {
   // Add global data
+  const cssPackage = JSON.parse(readFileSync(join(PACKAGES_DIR, 'css/package.json'), 'utf-8'));
+  eleventyConfig.addGlobalData('version', cssPackage.version);
   eleventyConfig.addGlobalData('docs', () => loadAllDocs());
   eleventyConfig.addGlobalData('componentGroups', COMPONENT_GROUPS);
 
