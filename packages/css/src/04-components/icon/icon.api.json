@@ -27,23 +27,23 @@
     },
     {
       "name": "--ui-icon-size-xs",
-      "default": "0.5rem (8px)"
+      "default": "var(--ui-size-xs)"
     },
     {
       "name": "--ui-icon-size-sm",
-      "default": "0.75rem (12px)"
+      "default": "var(--ui-size-sm)"
     },
     {
       "name": "--ui-icon-size-md",
-      "default": "1rem (16px)"
+      "default": "var(--ui-size-md)"
     },
     {
       "name": "--ui-icon-size-lg",
-      "default": "1.25rem (20px)"
+      "default": "var(--ui-size-lg)"
     },
     {
       "name": "--ui-icon-size-xl",
-      "default": "1.5rem (24px)"
+      "default": "var(--ui-size-xl)"
     },
     {
       "name": "--ui-icon-stroke-thin",
