@@ -15,7 +15,7 @@ pnpm --filter docs dev
 Main branch is protected by a ruleset:
 
 - **PRs required** - no direct pushes to main
-- **Status checks must pass** - Lint, Test, Typecheck, Changeset, visual-test
+- **Status checks must pass** - Lint, Test, Typecheck, Changeset, Lighthouse, visual-test
 - **Linear history** - rebase only, no merge commits
 - **No force pushes or deletions**
 
@@ -84,6 +84,8 @@ Docker for snapshot updates (CI is source of truth):
 ```bash
 ./scripts/visual-test-docker.sh --update <component>
 ```
+
+Lighthouse CI runs on every PR, auditing 4 docs pages for performance, accessibility, best practices, and SEO. Config in `lighthouserc.json`. Minimum scores: performance 0.9, accessibility 0.85, best practices 0.9, SEO 0.9.
 
 ## Adding a Component
 
