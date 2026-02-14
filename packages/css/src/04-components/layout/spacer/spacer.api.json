@@ -1,0 +1,6 @@
+{
+  "name": "spacer",
+  "element": "div",
+  "modifiers": {},
+  "cssVars": [{ "name": "--ui-spacer-size", "default": "1" }]
+}
