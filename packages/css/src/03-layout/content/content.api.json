@@ -1,0 +1,26 @@
+{
+  "name": "content",
+  "element": "div",
+  "modifiers": {
+    "prose": {
+      "type": "boolean"
+    },
+    "flush": {
+      "type": "boolean"
+    }
+  },
+  "cssVars": [
+    {
+      "name": "--ui-content-padding-block",
+      "default": "var(--ui-space-4)"
+    },
+    {
+      "name": "--ui-content-padding-inline",
+      "default": "var(--ui-space-4)"
+    },
+    {
+      "name": "--ui-content-gap",
+      "default": "var(--ui-space-3)"
+    }
+  ]
+}
