@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
-    "@changesets/changelog-github": "^0.5.2",
+    "@changesets/changelog-git": "^0.2.1",
     "@changesets/cli": "^2.29.8",
     "@nx/js": "^20.2.3",
     "@nx/playwright": "^20.2.3",
