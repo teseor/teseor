@@ -1,0 +1,111 @@
+@use '../../../00-config/tokens/variables' as t;
+
+// Disclosure - expandable/collapsible content section
+// Uses native details/summary for no-JS accessibility
+
+@layer components.tokens {
+  .disclosure {
+    --_border-color: var(--ui-disclosure-border-color, var(--ui-color-border, rgb(0 0 0 / 0.1)));
+    --_border-width: var(--ui-disclosure-border-width, 1px);
+    --_radius: var(--ui-disclosure-radius, var(--ui-radius-md, calc(#{t.$unit} * 1)));
+    --_trigger-height: var(--ui-disclosure-trigger-height, var(--ui-row-3, calc(#{t.$row} * 3)));
+    --_padding-x: var(--ui-disclosure-padding-x, calc(#{t.$unit} * 2));
+    --_padding-y: var(--ui-disclosure-padding-y, calc(#{t.$unit} * 2));
+  }
+}
+
+@layer components.styles {
+  .disclosure {
+    box-sizing: border-box;
+
+    border-radius: var(--_radius);
+    outline: var(--_border-width) solid var(--_border-color);
+    outline-offset: calc(var(--_border-width) * -1);
+  }
+
+  // When closed, set explicit height for grid rhythm
+  .disclosure:not([open]) {
+    block-size: var(--_trigger-height);
+  }
+
+  .disclosure__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc(#{t.$unit} * 2);
+
+    block-size: var(--_trigger-height);
+    inline-size: 100%;
+    padding-inline: var(--_padding-x);
+
+    font-weight: var(--ui-weight-medium, 500);
+    line-height: 1;
+    text-align: start;
+
+    cursor: pointer;
+    list-style: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::marker {
+      display: none;
+    }
+  }
+
+  // Trigger hover state
+  .disclosure__trigger:hover {
+    background: var(--ui-color-bg-subtle, rgb(0 0 0 / 0.02));
+  }
+
+  // Icon that rotates when open
+  .disclosure__icon {
+    flex-shrink: 0;
+
+    transition: transform var(--ui-duration-fast, 100ms) var(--ui-ease-default, ease);
+  }
+
+  .disclosure[open] .disclosure__icon {
+    transform: rotate(180deg);
+  }
+
+  // Content panel
+  .disclosure__content {
+    padding: 0 var(--_padding-x) var(--_padding-y);
+  }
+
+  // Animation for content
+  .disclosure--animate .disclosure__content {
+    animation: disclosure-open var(--ui-duration-normal, 200ms) var(--ui-ease-default, ease);
+  }
+
+  @keyframes disclosure-open {
+    from {
+      opacity: 0;
+      transform: translateY(calc(#{t.$unit} * -1));
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  // Borderless variant
+  .disclosure--borderless {
+    --_border-width: 0;
+
+    border: none;
+    border-radius: 0;
+  }
+
+  // Flush variant (no horizontal padding)
+  .disclosure--flush .disclosure__trigger {
+    padding-inline: 0;
+  }
+
+  .disclosure--flush .disclosure__content {
+    padding-inline: 0;
+  }
+}

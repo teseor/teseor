@@ -1,0 +1,61 @@
+@use '../../../00-config/tokens/variables' as t;
+
+// @component heading
+// @element h2
+
+@layer components.tokens {
+  .heading {
+    --_font-size: var(--ui-heading-font-size, var(--ui-font-size-xl, #{t.$font-size-xl}));
+    --_line-height: var(--ui-heading-line-height, var(--ui-leading-xl, #{t.$leading-xl}));
+    --_weight: var(--ui-heading-weight, var(--ui-weight-bold, #{t.$weight-bold}));
+    --_color: var(--ui-heading-color, var(--ui-color-text, #{t.$color-text}));
+  }
+
+  // @modifier size
+  .heading--4xl {
+    --_font-size: var(--ui-heading-font-size-4xl, var(--ui-font-size-4xl, #{t.$font-size-4xl}));
+    --_line-height: var(--ui-heading-line-height-4xl, var(--ui-leading-4xl, #{t.$leading-4xl}));
+  }
+
+  .heading--3xl {
+    --_font-size: var(--ui-heading-font-size-3xl, var(--ui-font-size-3xl, #{t.$font-size-3xl}));
+    --_line-height: var(--ui-heading-line-height-3xl, var(--ui-leading-3xl, #{t.$leading-3xl}));
+  }
+
+  .heading--2xl {
+    --_font-size: var(--ui-heading-font-size-2xl, var(--ui-font-size-2xl, #{t.$font-size-2xl}));
+    --_line-height: var(--ui-heading-line-height-2xl, var(--ui-leading-2xl, #{t.$leading-2xl}));
+  }
+
+  .heading--xl {
+    --_font-size: var(--ui-heading-font-size-xl, var(--ui-font-size-xl, #{t.$font-size-xl}));
+    --_line-height: var(--ui-heading-line-height-xl, var(--ui-leading-xl, #{t.$leading-xl}));
+  }
+
+  .heading--lg {
+    --_font-size: var(--ui-heading-font-size-lg, var(--ui-font-size-lg, #{t.$font-size-lg}));
+    --_line-height: var(--ui-heading-line-height-lg, var(--ui-leading-lg, #{t.$leading-lg}));
+  }
+
+  .heading--md {
+    --_font-size: var(--ui-heading-font-size-md, var(--ui-font-size-md, #{t.$font-size-md}));
+    --_line-height: var(--ui-heading-line-height-md, var(--ui-leading-tight-md, #{t.$leading-tight-md}));
+  }
+
+  .heading--sm {
+    --_font-size: var(--ui-heading-font-size-sm, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    --_line-height: var(--ui-heading-line-height-sm, var(--ui-leading-tight-sm, #{t.$leading-tight-sm}));
+  }
+
+}
+
+@layer components.styles {
+  .heading {
+    margin: 0;
+
+    font-size: var(--_font-size);
+    font-weight: var(--_weight);
+    line-height: var(--_line-height);
+    color: var(--_color);
+  }
+}

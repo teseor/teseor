@@ -1,0 +1,60 @@
+@use '../../../00-config/tokens/variables' as t;
+
+// @component spinner
+// @element div
+
+@layer components.tokens {
+  .spinner {
+    --_size: var(--ui-spinner-size, calc(var(--unit) * 4));
+    --_border-width: var(--ui-spinner-border-width, var(--ui-border-width-md));
+    --_color: var(--ui-spinner-color, currentcolor);
+    --_track-color: var(--ui-spinner-track-color, transparent);
+    --_duration: var(--ui-spinner-duration, 750ms);
+  }
+
+  // @modifier size
+  .spinner--xs {
+    --_size: var(--ui-spinner-size-xs, calc(var(--unit) * 2));
+    --_border-width: var(--ui-spinner-border-width-xs, var(--ui-border-width-sm));
+  }
+
+  .spinner--sm {
+    --_size: var(--ui-spinner-size-sm, calc(var(--unit) * 3));
+    --_border-width: var(--ui-spinner-border-width-sm, var(--ui-border-width-md));
+  }
+
+  .spinner--lg {
+    --_size: var(--ui-spinner-size-lg, calc(var(--unit) * 5));
+    --_border-width: var(--ui-spinner-border-width-lg, var(--ui-border-width-md));
+  }
+
+  .spinner--xl {
+    --_size: var(--ui-spinner-size-xl, calc(var(--unit) * 6));
+    --_border-width: var(--ui-spinner-border-width-xl, var(--ui-border-width-lg));
+  }
+}
+
+@layer components.styles {
+  .spinner {
+    display: inline-block;
+    flex-shrink: 0;
+
+    box-sizing: border-box;
+    block-size: var(--_size);
+    inline-size: var(--_size);
+
+    vertical-align: middle;
+
+    border: var(--_border-width) solid var(--_track-color);
+    border-radius: 50%;
+    border-block-start-color: var(--_color);
+
+    animation: spinner-rotate var(--_duration) linear infinite;
+  }
+
+  @keyframes spinner-rotate {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
