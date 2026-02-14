@@ -6,6 +6,8 @@
  * - *.api.json (API definition)
  * - *.docs.json (documentation)
  * - *.visual.spec.ts (visual regression test)
+ *
+ * Scans category subdirectories under 04-components/
  */
 
 import { existsSync, readdirSync, statSync } from 'node:fs';
@@ -31,23 +33,43 @@ function checkGlobPattern(dir, pattern) {
   return files.some((f) => regex.test(f));
 }
 
-function lintComponents() {
-  const components = readdirSync(COMPONENTS_DIR).filter((name) => {
+function findComponentDirs(baseDir) {
+  const components = [];
+  const entries = readdirSync(baseDir).filter((name) => {
     if (name.startsWith('.') || name === 'index.scss') return false;
-    const fullPath = join(COMPONENTS_DIR, name);
-    return statSync(fullPath).isDirectory();
+    return statSync(join(baseDir, name)).isDirectory();
   });
 
+  for (const entry of entries) {
+    const entryPath = join(baseDir, entry);
+    // If dir has index.scss, it's a component
+    if (existsSync(join(entryPath, 'index.scss'))) {
+      components.push({ name: entry, path: entryPath });
+    } else {
+      // Category dir - scan children
+      const children = readdirSync(entryPath).filter((name) => {
+        if (name.startsWith('.')) return false;
+        return statSync(join(entryPath, name)).isDirectory();
+      });
+      for (const child of children) {
+        components.push({ name: child, path: join(entryPath, child) });
+      }
+    }
+  }
+  return components;
+}
+
+function lintComponents() {
+  const components = findComponentDirs(COMPONENTS_DIR);
   const errors = [];
   const warnings = [];
 
-  for (const component of components) {
-    const componentDir = join(COMPONENTS_DIR, component);
+  for (const { name, path } of components) {
     const missing = [];
     const optional = [];
 
     for (const { pattern, description, required } of REQUIRED_FILES) {
-      if (!checkGlobPattern(componentDir, pattern)) {
+      if (!checkGlobPattern(path, pattern)) {
         if (required) {
           missing.push({ pattern, description });
         } else {
@@ -57,10 +79,10 @@ function lintComponents() {
     }
 
     if (missing.length > 0) {
-      errors.push({ component, missing });
+      errors.push({ component: name, missing });
     }
     if (optional.length > 0) {
-      warnings.push({ component, optional });
+      warnings.push({ component: name, optional });
     }
   }
 

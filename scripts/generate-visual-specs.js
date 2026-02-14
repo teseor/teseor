@@ -2,19 +2,21 @@
 /**
  * Generate Visual Specs
  * Creates missing *.visual.spec.ts files for components
+ * Supports category subdirectories (e.g., actions/button)
  */
 
 import { existsSync, readdirSync, statSync, writeFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
+import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const COMPONENTS_DIR = join(__dirname, '../packages/css/src/04-components');
 
-function generateVisualSpec(name) {
+function generateVisualSpec(name, depth) {
+  const testingImport = `${'../'.repeat(depth + 1)}testing`;
   return `import { resolve } from 'node:path';
 import { expect, test } from '@playwright/test';
-import { saveForLostPixel, setupVisualTestFromDocs, validateGridRhythm } from '../../testing';
+import { saveForLostPixel, setupVisualTestFromDocs, validateGridRhythm } from '${testingImport}';
 
 const DOCS_PATH = resolve(__dirname, '${name}.docs.json');
 
@@ -29,22 +31,27 @@ test.describe('${name} visual regression', () => {
 `;
 }
 
-function findMissingSpecs() {
-  const components = readdirSync(COMPONENTS_DIR).filter((name) => {
+function findComponentDirs(baseDir, depth = 0) {
+  const components = [];
+  const entries = readdirSync(baseDir).filter((name) => {
     if (name.startsWith('.') || name === 'index.scss') return false;
-    const fullPath = join(COMPONENTS_DIR, name);
-    return statSync(fullPath).isDirectory() && existsSync(join(fullPath, 'index.scss'));
+    return statSync(join(baseDir, name)).isDirectory();
   });
 
-  const missing = [];
-  for (const name of components) {
-    const specPath = join(COMPONENTS_DIR, name, `${name}.visual.spec.ts`);
-    if (!existsSync(specPath)) {
-      missing.push(name);
+  for (const entry of entries) {
+    const entryPath = join(baseDir, entry);
+    if (existsSync(join(entryPath, 'index.scss'))) {
+      components.push({ name: entry, path: entryPath, depth });
+    } else {
+      components.push(...findComponentDirs(entryPath, depth + 1));
     }
   }
+  return components;
+}
 
-  return missing;
+function findMissingSpecs() {
+  const components = findComponentDirs(COMPONENTS_DIR);
+  return components.filter(({ name, path }) => !existsSync(join(path, `${name}.visual.spec.ts`)));
 }
 
 function generateMissingSpecs(dryRun = false) {
@@ -57,14 +64,15 @@ function generateMissingSpecs(dryRun = false) {
 
   console.log(`Found ${missing.length} components without visual specs:\n`);
 
-  for (const name of missing) {
-    const specPath = join(COMPONENTS_DIR, name, `${name}.visual.spec.ts`);
+  for (const { name, path, depth } of missing) {
+    const specPath = join(path, `${name}.visual.spec.ts`);
+    const relPath = relative(COMPONENTS_DIR, specPath);
 
     if (dryRun) {
-      console.log(`  Would create: ${name}/${name}.visual.spec.ts`);
+      console.log(`  Would create: ${relPath}`);
     } else {
-      writeFileSync(specPath, generateVisualSpec(name));
-      console.log(`  Created: ${name}/${name}.visual.spec.ts`);
+      writeFileSync(specPath, generateVisualSpec(name, depth));
+      console.log(`  Created: ${relPath}`);
     }
   }
 

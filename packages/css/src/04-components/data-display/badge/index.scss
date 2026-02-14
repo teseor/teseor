@@ -1,0 +1,67 @@
+@use '../../../00-config/tokens/variables' as t;
+
+// @component badge
+// @element span
+
+@layer components.tokens {
+  .badge {
+    // Single accent color - variants override this
+    --_accent: var(--ui-badge-accent, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+
+    --_height: var(--ui-badge-height, calc(var(--ui-row, #{t.$row}) * 1.25));
+    --_padding-x: var(--ui-badge-padding-x, var(--ui-space-1, #{t.$space-1}));
+    --_font-size: var(--ui-badge-font-size, var(--ui-font-size-xs, #{t.$font-size-xs}));
+    --_font-weight: var(--ui-badge-font-weight, var(--ui-weight-medium, #{t.$weight-medium}));
+    --_radius: var(--ui-badge-radius, var(--ui-radius-full, #{t.$radius-full}));
+    --_bg: var(--_accent);
+    --_text: var(--ui-badge-text, var(--ui-color-text, #{t.$color-text}));
+  }
+
+  // @modifier size
+  .badge--sm {
+    --_height: var(--ui-badge-height-sm, var(--ui-row, #{t.$row}));
+    --_padding-x: var(--ui-badge-padding-x-sm, var(--ui-space-0, #{t.$space-0}));
+    --_font-size: var(--ui-badge-font-size-sm, calc(var(--ui-font-size-xs, #{t.$font-size-xs}) * 0.85));
+  }
+
+  // @modifier variant
+  .badge--primary {
+    --_accent: var(--ui-color-primary, #{t.$color-primary});
+    --_text: var(--ui-color-text-inverse, #{t.$color-text-inverse});
+  }
+
+  .badge--success {
+    --_accent: var(--ui-color-success, #{t.$color-success});
+    --_text: var(--ui-color-text-inverse, #{t.$color-text-inverse});
+  }
+
+  .badge--warning {
+    --_accent: var(--ui-color-warning, #{t.$color-warning});
+    --_text: var(--ui-color-text, #{t.$color-text});
+  }
+
+  .badge--danger {
+    --_accent: var(--ui-color-danger, #{t.$color-danger});
+    --_text: var(--ui-color-text-inverse, #{t.$color-text-inverse});
+  }
+}
+
+@layer components.styles {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    block-size: var(--_height);
+    padding-inline: var(--_padding-x);
+
+    font-size: var(--_font-size);
+    font-weight: var(--_font-weight);
+    line-height: 1;
+    white-space: nowrap;
+    color: var(--_text);
+
+    background: var(--_bg);
+    border-radius: var(--_radius);
+  }
+}
