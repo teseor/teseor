@@ -7,6 +7,7 @@
 @forward './data-display/icon/index';
 @forward './data-display/status/index';
 @forward './data-display/table/index';
+@forward './data-display/stat/index';
 @forward './data-display/tag/index';
 @forward './disclosure/accordion/index';
 @forward './disclosure/disclosure/index';
@@ -26,6 +27,7 @@
 @forward './forms/textarea/index';
 @forward './forms/toggle/index';
 @forward './layout/divider/index';
+@forward './layout/spacer/index';
 @forward './navigation/breadcrumb/index';
 @forward './navigation/menu/index';
 @forward './navigation/nav/index';
@@ -37,6 +39,9 @@
 @forward './overlays/overlay/index';
 @forward './overlays/popover/index';
 @forward './overlays/tooltip/index';
+@forward './typography/blockquote/index';
 @forward './typography/code/index';
 @forward './typography/heading/index';
+@forward './typography/kbd/index';
 @forward './typography/link/index';
+@forward './typography/mark/index';
