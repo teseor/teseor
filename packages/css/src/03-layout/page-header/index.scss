@@ -1,0 +1,50 @@
+@layer primitives {
+  .page-header {
+    --_padding-block: var(--ui-page-header-padding-block, var(--ui-space-3));
+    --_padding-inline: var(--ui-page-header-padding-inline, 0);
+    --_gap: var(--ui-page-header-gap, var(--ui-space-2));
+    --_border-color: var(--ui-page-header-border-color, var(--ui-color-border));
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--_gap);
+
+    padding-block: var(--_padding-block);
+    padding-inline: var(--_padding-inline);
+  }
+
+  // Title area: stacks title + description vertically
+  .page-header__title {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--ui-space-1);
+  }
+
+  // Actions slot: right-aligned buttons/controls
+  .page-header__actions {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: var(--ui-space-2);
+  }
+
+  // Breadcrumb slot: full-width above title row
+  .page-header__breadcrumb {
+    flex-basis: 100%;
+  }
+
+  // Modifiers
+  .page-header--bordered {
+    box-shadow: inset 0 calc(var(--ui-border-width-sm) * -1) 0 0 var(--_border-color);
+  }
+
+  .page-header--sticky {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: var(--ui-z-sticky);
+
+    background: var(--ui-color-bg);
+  }
+}

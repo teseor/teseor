@@ -1,0 +1,35 @@
+{
+  "name": "page-header",
+  "element": "header",
+  "modifiers": {
+    "bordered": {
+      "type": "boolean"
+    },
+    "sticky": {
+      "type": "boolean"
+    }
+  },
+  "elements": {
+    "title": {},
+    "actions": {},
+    "breadcrumb": {}
+  },
+  "cssVars": [
+    {
+      "name": "--ui-page-header-padding-block",
+      "default": "var(--ui-space-3)"
+    },
+    {
+      "name": "--ui-page-header-padding-inline",
+      "default": "0"
+    },
+    {
+      "name": "--ui-page-header-gap",
+      "default": "var(--ui-space-2)"
+    },
+    {
+      "name": "--ui-page-header-border-color",
+      "default": "var(--ui-color-border)"
+    }
+  ]
+}
