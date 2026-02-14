@@ -1,4 +1,4 @@
-pnpm lint && pnpm typecheck
+pnpm lint && pnpm typecheck && pnpm nx build css && pnpm test
 
-# Visual tests run in CI only (Docker QEMU has slight rendering differences)
+# Visual tests run in CI only (Docker rendering differences)
 # Run locally with: pnpm test:visual
