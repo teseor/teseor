@@ -30,10 +30,21 @@ packages/css/src/
   01-reset/        # Reset styles
   02-base/         # Base HTML styles
   03-layout/       # Layout primitives (stack, grid, sidebar-nav)
-  04-components/   # UI components (button, card)
+  04-components/   # UI components grouped: [group]/[name]/
+    actions/         # button, button-group
+    typography/      # heading, link, code, kbd, ...
+    forms/           # input, select, checkbox, ...
+    data-display/    # avatar, badge, card, table, ...
+    feedback/        # alert, spinner, progress, ...
+    overlays/        # modal, dialog, tooltip, ...
+    disclosure/      # accordion, disclosure
+    navigation/      # tabs, breadcrumb, menu, ...
+    layout/          # divider, spacer
   05-utilities/    # Helper classes
   99-debug/        # Dev tools
 ```
+
+**Auto-discovery**: Components are discovered from directory structure. No manual registration needed — just create files in the right group folder.
 
 **Colocated files** per component/primitive:
 - `index.scss` - Styles with internal tokens (`--_` prefix)
@@ -56,7 +67,7 @@ packages/css/src/
 
 ## Components
 
-**New component**: `pnpm new:component <name>`
+**New component**: `pnpm new:component <name>` (prompts for group, or `--group <group>`)
 
 **Layer pattern**:
 ```scss
