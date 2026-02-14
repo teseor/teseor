@@ -19,7 +19,7 @@
                   "tag": "div",
                   "class": "ui-page-header__title",
                   "children": [
-                    { "tag": "h1", "class": "ui-heading ui-heading--3", "text": "Users" },
+                    { "tag": "h1", "class": "ui-heading ui-heading--xl", "text": "Users" },
                     { "tag": "p", "text": "Manage user accounts and permissions." }
                   ]
                 },
@@ -55,7 +55,7 @@
                   "tag": "div",
                   "class": "ui-page-header__title",
                   "children": [
-                    { "tag": "h1", "class": "ui-heading ui-heading--3", "text": "Users" }
+                    { "tag": "h1", "class": "ui-heading ui-heading--xl", "text": "Users" }
                   ]
                 },
                 {
@@ -83,7 +83,7 @@
                   "tag": "div",
                   "class": "ui-page-header__title",
                   "children": [
-                    { "tag": "h1", "class": "ui-heading ui-heading--3", "text": "Dashboard" }
+                    { "tag": "h1", "class": "ui-heading ui-heading--xl", "text": "Dashboard" }
                   ]
                 }
               ]
@@ -97,7 +97,26 @@
       "description": "Sticks to the top of the scroll container.",
       "examples": [
         {
-          "code": "<header class=\"ui-page-header ui-page-header--sticky ui-page-header--bordered\">\n  <div class=\"ui-page-header__title\">\n    <h1 class=\"ui-heading ui-heading--3\">Sticky Header</h1>\n  </div>\n  <div class=\"ui-page-header__actions\">\n    <button class=\"ui-button\">Save</button>\n  </div>\n</header>"
+          "items": [
+            {
+              "tag": "header",
+              "class": "ui-page-header ui-page-header--sticky ui-page-header--bordered",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-page-header__title",
+                  "children": [
+                    { "tag": "h1", "class": "ui-heading ui-heading--xl", "text": "Sticky Header" }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-page-header__actions",
+                  "children": [{ "tag": "button", "class": "ui-button", "text": "Save" }]
+                }
+              ]
+            }
+          ]
         }
       ]
     }
