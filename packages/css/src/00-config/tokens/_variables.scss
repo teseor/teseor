@@ -39,9 +39,9 @@ $sizes: (
   @return map.get($sizes, $name);
 }
 
-// Typography - Font families
-$font-sans: "Noto Sans", system-ui, -apple-system, sans-serif;
-$font-mono: "Noto Sans Mono", ui-monospace, "Cascadia Code", monospace;
+// Typography - Font families (system stack, consumers override via CSS tokens)
+$font-sans: system-ui, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, sans-serif;
+$font-mono: ui-monospace, sfmono-regular, "SF Mono", menlo, consolas, "Liberation Mono", monospace;
 
 // Typography - Font sizes (1.2 modular scale)
 $font-size-xs: 0.75rem; // 12px

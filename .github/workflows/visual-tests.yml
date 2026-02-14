@@ -8,22 +8,19 @@ on:
 jobs:
   visual-test:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    container:
+      image: mcr.microsoft.com/playwright:v1.57.0-noble
     env:
       LOST_PIXEL_API_KEY: ${{ secrets.LOST_PIXEL_API_KEY }}
+      HOME: /root
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref }}
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: pnpm/action-setup@v4
 
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: pnpm
 
       - name: Install dependencies
         run: pnpm install
@@ -31,41 +28,54 @@ jobs:
       - name: Build CSS
         run: pnpm nx build css
 
-      - name: Install Playwright
-        run: npx playwright install chromium
-
       - name: Run visual tests
         id: test
         run: pnpm nx test css
         continue-on-error: true
 
-      - name: Update snapshots if tests failed on PR
+      - name: Post update instructions on failure
         if: steps.test.outcome == 'failure' && github.event_name == 'pull_request'
-        run: npx playwright test --config=packages/css/playwright.config.ts --update-snapshots --grep visual
-
-      - name: Commit updated snapshots
-        if: steps.test.outcome == 'failure' && github.event_name == 'pull_request'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add "packages/css/src/**/*-visual.png"
-          if git diff --cached --quiet; then
-            echo "No snapshot changes to commit"
-            exit 1
-          else
-            git commit -m "[CSS] test(visual): update snapshots from CI"
-            git push
-          fi
-
-      - name: Fail if tests failed and no snapshots updated
-        if: steps.test.outcome == 'failure'
-        run: |
-          echo "Visual tests failed. Check if snapshots were auto-updated (new commit pushed)."
-          exit 1
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = [
+              '### Visual tests failed',
+              '',
+              'Snapshots need updating. Run locally:',
+              '```bash',
+              './scripts/visual-test-docker.sh --update',
+              '```',
+              'Then commit and push the updated `.png` files.',
+            ].join('\n');
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            const existing = comments.find(c => c.body.includes('### Visual tests failed'));
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
 
       - name: Upload to Lost Pixel
-        if: steps.test.outcome == 'success' && env.LOST_PIXEL_API_KEY != ''
+        if: steps.test.outcome == 'success' && github.event_name == 'push' && env.LOST_PIXEL_API_KEY != ''
         uses: lost-pixel/lost-pixel@v3.22.0
         env:
           LOST_PIXEL_PROJECT_ID: ${{ secrets.LOST_PIXEL_PROJECT_ID }}
           LOST_PIXEL_API_KEY: ${{ secrets.LOST_PIXEL_API_KEY }}
+
+      - name: Fail if visual tests failed
+        if: steps.test.outcome == 'failure'
+        run: exit 1
