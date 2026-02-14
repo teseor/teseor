@@ -12,7 +12,7 @@
   },
   "scripts": {
     "new:component": "hygen component new --name",
-    "sync:components": "node scripts/sync-component-index.js",
+    "sync:components": "node scripts/sync-scss-indexes.js",
     "generate:visual-specs": "node scripts/generate-visual-specs.js",
     "dev": "nx run-many -t dev",
     "build": "nx run-many -t build",

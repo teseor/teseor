@@ -1,14 +1,22 @@
 ---
-to: packages/css/src/04-components/<%= name %>/<%= name %>.docs.json
+to: packages/css/src/04-components/<%= group %>/<%= name %>/<%= name %>.docs.json
 ---
 {
+  "id": "<%= name %>",
+  "type": "component",
   "api": "./<%= name %>.api.json",
   "sections": [
     {
       "title": "Default",
       "examples": [
         {
-          "html": "<<%= element %> class=\"ui-<%= name %>\"><%= h.changeCase.title(name) %></<%= element %>>"
+          "items": [
+            {
+              "tag": "<%= element %>",
+              "class": "ui-<%= name %>",
+              "text": "<%= h.changeCase.title(name) %>"
+            }
+          ]
         }
       ]
     }

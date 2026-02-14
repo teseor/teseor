@@ -10,9 +10,11 @@
  * Scans category subdirectories under 04-components/
  */
 
-import { existsSync, readdirSync, statSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+
+import { discoverComponents } from './discover-structure.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const COMPONENTS_DIR = join(__dirname, '../packages/css/src/04-components');
@@ -113,4 +115,47 @@ function lintComponents() {
   console.log(`All ${components.length} components have required files.`);
 }
 
+function lintSidenavCompleteness() {
+  const configPath = join(__dirname, '../packages/css/component-groups.config.json');
+  const config = JSON.parse(readFileSync(configPath, 'utf-8'));
+  const discovered = discoverComponents(COMPONENTS_DIR);
+  const errors = [];
+
+  // Every group in config should exist on disk
+  for (const id of config.groupOrder) {
+    if (!discovered.has(id)) {
+      errors.push(`Config references group "${id}" but no directory found on disk`);
+    }
+  }
+
+  // Every group on disk should be in config
+  for (const id of discovered.keys()) {
+    if (!config.groupOrder.includes(id)) {
+      errors.push(`Group "${id}" found on disk but missing from component-groups.config.json`);
+    }
+  }
+
+  // Every component with a docs.json should be inside a known group
+  const allDiscoveredComponents = [];
+  for (const [groupId, group] of discovered) {
+    for (const name of group.components) {
+      allDiscoveredComponents.push({ name, group: groupId });
+    }
+  }
+
+  if (errors.length > 0) {
+    console.error('Sidenav completeness check failed:\n');
+    for (const err of errors) {
+      console.error(`  - ${err}`);
+    }
+    console.error('');
+    process.exit(1);
+  }
+
+  console.log(
+    `Sidenav coverage: ${allDiscoveredComponents.length} components across ${discovered.size} groups.`,
+  );
+}
+
 lintComponents();
+lintSidenavCompleteness();

@@ -1,3 +1,15 @@
+const GROUPS = [
+  'actions',
+  'typography',
+  'forms',
+  'data-display',
+  'feedback',
+  'overlays',
+  'disclosure',
+  'navigation',
+  'layout',
+];
+
 module.exports = {
   prompt: ({ inquirer, args }) => {
     // If name passed as arg, use defaults
@@ -6,8 +18,31 @@ module.exports = {
         console.error('Error: name must be kebab-case (e.g., button-group)');
         process.exit(1);
       }
+      if (args.group && !GROUPS.includes(args.group)) {
+        console.error(`Error: group must be one of: ${GROUPS.join(', ')}`);
+        process.exit(1);
+      }
+      // If group not passed as arg, require interactive selection
+      if (!args.group) {
+        return inquirer
+          .prompt([
+            {
+              type: 'list',
+              name: 'group',
+              message: 'Component group:',
+              choices: GROUPS,
+            },
+          ])
+          .then((answers) => ({
+            name: args.name,
+            group: answers.group,
+            description: `${args.name} component`,
+            element: 'div',
+          }));
+      }
       return Promise.resolve({
         name: args.name,
+        group: args.group,
         description: `${args.name} component`,
         element: 'div',
       });
@@ -25,6 +60,12 @@ module.exports = {
           }
           return true;
         },
+      },
+      {
+        type: 'list',
+        name: 'group',
+        message: 'Component group:',
+        choices: GROUPS,
       },
       {
         type: 'input',
