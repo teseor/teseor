@@ -11,8 +11,12 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.57.0-noble
     permissions:
       contents: write
+    env:
+      HOME: /root
     steps:
       - uses: actions/checkout@v4
         with:
@@ -24,11 +28,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: pnpm
 
       - run: pnpm install
       - run: pnpm nx build css
-      - run: npx playwright install chromium
 
       - name: Update snapshots
         run: npx playwright test --config=packages/css/playwright.config.ts --update-snapshots --grep visual
