@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="view-transition" content="same-origin">
+  <meta name="description" content="{{ doc.description if doc.description else 'CSS-first component library with design tokens, layout primitives, and UI components.' }}">
   <title>{{ title }} - Teseor CSS</title>
   <link rel="stylesheet" href="{{ '/css/index.css' | url }}">
   <link rel="stylesheet" href="{{ '/styles.css' | url }}">
@@ -41,8 +42,8 @@
     </div>
   </main>
 
-  <script src="{{ '/debug-grid.js' | url }}"></script>
-  <script src="{{ '/tabs.js' | url }}"></script>
+  <script src="{{ '/debug-grid.js' | url }}" defer></script>
+  <script src="{{ '/tabs.js' | url }}" defer></script>
   <script>
     const DEBUG_CLASSES = ['ui-debug-grid', 'ui-debug-grid-rows', 'ui-debug-baseline', 'ui-debug-outline'];
     const DEBUG_KEY = 'debug-classes';
