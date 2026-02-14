@@ -1,0 +1,45 @@
+{
+  "name": "footer",
+  "element": "footer",
+  "modifiers": {
+    "sticky": {
+      "type": "boolean"
+    },
+    "fixed": {
+      "type": "boolean"
+    },
+    "bordered": {
+      "type": "boolean"
+    },
+    "raised": {
+      "type": "boolean"
+    }
+  },
+  "elements": {
+    "start": {},
+    "center": {},
+    "end": {}
+  },
+  "cssVars": [
+    {
+      "name": "--ui-footer-height",
+      "default": "var(--ui-row-3)"
+    },
+    {
+      "name": "--ui-footer-bg",
+      "default": "var(--ui-color-bg)"
+    },
+    {
+      "name": "--ui-footer-padding-inline",
+      "default": "var(--ui-space-3)"
+    },
+    {
+      "name": "--ui-footer-border-color",
+      "default": "var(--ui-color-border)"
+    },
+    {
+      "name": "--ui-footer-z",
+      "default": "var(--ui-z-sticky)"
+    }
+  ]
+}
