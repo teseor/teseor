@@ -21,11 +21,19 @@
 
   // @modifier size
   .button--sm {
+    --ui-ctx-size: var(--ui-size-sm, #{t.size(sm)});
     --_height: var(--ui-button-height-sm, calc(var(--row, #{t.$row}) * 1.5));
     --_font-size: var(--ui-button-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
   }
 
+  .button--md {
+    --ui-ctx-size: var(--ui-size-md, #{t.size(md)});
+    --_height: var(--ui-button-height-md, var(--ui-row-2, #{t.$row-2}));
+    --_font-size: var(--ui-button-font-size-md, var(--ui-font-size-sm, #{t.$font-size-sm}));
+  }
+
   .button--lg {
+    --ui-ctx-size: var(--ui-size-lg, #{t.size(lg)});
     --_height: var(--ui-button-height-lg, calc(var(--row, #{t.$row}) * 2.5));
     --_padding-x: var(--ui-button-padding-x-lg, var(--ui-space-3, #{t.$space-3}));
     --_font-size: var(--ui-button-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
