@@ -22,12 +22,12 @@
 "component: button":
   - changed-files:
       - any-glob-to-any-file:
-          - packages/css/src/04-components/button/**
+          - packages/css/src/04-components/actions/button/**
 
 "component: card":
   - changed-files:
       - any-glob-to-any-file:
-          - packages/css/src/04-components/card/**
+          - packages/css/src/04-components/data-display/card/**
 
 "component: layout":
   - changed-files:
