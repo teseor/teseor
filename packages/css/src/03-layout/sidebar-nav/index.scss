@@ -142,7 +142,7 @@
   // Active state
   .sidebar-nav__item--active {
     --_bg: var(--ui-sidebar-nav-item-active-bg, var(--ui-color-primary-subtle));
-    --_color: var(--ui-sidebar-nav-item-active-color, var(--ui-color-primary));
+    --_color: var(--ui-sidebar-nav-item-active-color, var(--ui-color-primary-hover));
     --_weight: var(--ui-sidebar-nav-item-active-weight, var(--ui-weight-medium));
   }
 
