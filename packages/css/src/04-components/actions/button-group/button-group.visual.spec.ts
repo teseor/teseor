@@ -7,8 +7,7 @@ const DOCS_PATH = resolve(__dirname, 'button-group.docs.json');
 test.describe('button-group visual regression', () => {
   test('all variations', async ({ page }) => {
     await setupVisualTestFromDocs(page, DOCS_PATH);
-    // TODO: fix grid rhythm - negative margins cause off-grid heights (#178)
-    // await validateGridRhythm(page, 'button-group');
+    await validateGridRhythm(page, 'button-group');
     await saveForLostPixel(page, 'button-group');
     await expect(page.locator('body')).toHaveScreenshot('button-group.visual.png');
   });
