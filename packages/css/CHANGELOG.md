@@ -1,5 +1,15 @@
 # @teseor/css
 
+## 1.4.0
+
+### Minor Changes
+
+- bd632ab: Add content layout primitive with vertical spacing, prose mode, and flush variant
+- 5bf4e1b: Add footer layout primitive with sticky/fixed positioning and border/shadow variants
+- 497d79e: Add nav-rail layout primitive for narrow icon-based vertical navigation
+- 1058272: Add page-header layout primitive with title, actions, breadcrumb slots
+- 84ed987: Add topbar layout primitive with sticky/fixed positioning and sidebar/main integration
+
 ## 1.3.0
 
 ### Minor Changes
