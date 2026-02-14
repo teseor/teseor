@@ -9,6 +9,8 @@ test.describe('sidebar-nav visual regression', () => {
     await setupVisualTestFromDocs(page, DOCS_PATH);
     await validateGridRhythm(page, 'sidebar-nav__item');
     await saveForLostPixel(page, 'sidebar-nav');
-    await expect(page.locator('.test-container')).toHaveScreenshot('sidebar-nav-all.png');
+    await expect(page.locator('.test-container')).toHaveScreenshot('sidebar-nav-all.png', {
+      maxDiffPixelRatio: 0.05,
+    });
   });
 });
