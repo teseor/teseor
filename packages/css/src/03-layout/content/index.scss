@@ -1,0 +1,25 @@
+@layer primitives {
+  .content {
+    --_padding-block: var(--ui-content-padding-block, var(--ui-space-4));
+    --_padding-inline: var(--ui-content-padding-inline, var(--ui-space-4));
+    --_gap: var(--ui-content-gap, var(--ui-space-3));
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--_gap);
+
+    padding-block: var(--_padding-block);
+    padding-inline: var(--_padding-inline);
+  }
+
+  // Prose-friendly: narrower max-width for readability
+  .content--prose {
+    max-inline-size: calc(var(--unit) * 80);
+  }
+
+  // Flush: no padding, just gap
+  .content--flush {
+    padding-block: 0;
+    padding-inline: 0;
+  }
+}
