@@ -184,33 +184,33 @@
   "customization": [
     {
       "token": "--ui-icon-size",
-      "default": "1em",
-      "description": "Default size (inherits from font)"
+      "default": "var(--ui-ctx-size, 1rem)",
+      "description": "3-tier: global > context > default"
     },
     {
       "token": "--ui-icon-size-xs",
-      "default": "calc(var(--unit) * 2)",
-      "description": "Extra small size (16px)"
+      "default": "0.5rem",
+      "description": "Extra small size (8px)"
     },
     {
       "token": "--ui-icon-size-sm",
-      "default": "calc(var(--unit) * 3)",
-      "description": "Small size (24px)"
+      "default": "0.75rem",
+      "description": "Small size (12px)"
     },
     {
       "token": "--ui-icon-size-md",
-      "default": "calc(var(--unit) * 4)",
-      "description": "Medium size (32px)"
+      "default": "1rem",
+      "description": "Medium size (16px)"
     },
     {
       "token": "--ui-icon-size-lg",
-      "default": "calc(var(--unit) * 5)",
-      "description": "Large size (40px)"
+      "default": "1.25rem",
+      "description": "Large size (20px)"
     },
     {
       "token": "--ui-icon-size-xl",
-      "default": "calc(var(--unit) * 6)",
-      "description": "Extra large size (48px)"
+      "default": "1.5rem",
+      "description": "Extra large size (24px)"
     },
     { "token": "--ui-icon-stroke", "default": "2", "description": "Default stroke width" },
     { "token": "--ui-icon-stroke-thin", "default": "1", "description": "Thin stroke width" },
