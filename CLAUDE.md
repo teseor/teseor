@@ -17,6 +17,10 @@ CSS-first component library. Components in CSS, framework wrappers later.
 11. **Test behavior.** Not implementation. Avoid overtesting.
 12. **Research with 2025.** Cite sources. Verify recency.
 13. **No magic numbers.** Never hardcode values (rem, px, colors) in components, api.json, or docs.json. Always reference design tokens: `var(--ui-size-sm)` not `0.75rem`.
+14. **No AI references.** Never mention Claude, AI, or generated-by in commits, issues, PR bodies, or code comments.
+15. **Docs JSON: config over HTML.** Use `items` with `tag`/`class`/`children`/`text` objects, never raw `html` strings. Config format enables future translation.
+16. **Assign everything.** All issues and PRs must be assigned to the repo owner.
+17. **CI gates merge.** Always verify CI passes before merging. Start new features from main, rebased.
 
 ## Structure
 
