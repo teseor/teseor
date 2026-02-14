@@ -34,7 +34,7 @@
     "storybook": "nx run docs:storybook",
     "storybook:build": "nx run docs:build-storybook",
     "changeset": "changeset",
-    "changeset:version": "changeset version",
+    "changeset:version": "changeset version && biome format --write .",
     "changeset:publish": "pnpm build && changeset publish",
     "prepare": "husky",
     "clean": "nx reset && pnpm -r exec rm -rf dist node_modules",
