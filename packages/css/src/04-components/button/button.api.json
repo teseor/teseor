@@ -3,7 +3,7 @@
   "element": "button",
   "modifiers": {
     "size": {
-      "values": ["sm", "lg"]
+      "values": ["sm", "md", "lg"]
     },
     "variant": {
       "values": ["secondary", "ghost", "outline", "danger", "link"]
@@ -65,15 +65,23 @@
     },
     {
       "name": "--ui-button-height-sm",
-      "default": "var(--row)"
+      "default": "calc(var(--row) * 1.5)"
     },
     {
       "name": "--ui-button-font-size-sm",
       "default": "var(--ui-font-size-xs)"
     },
     {
+      "name": "--ui-button-height-md",
+      "default": "var(--ui-row-2)"
+    },
+    {
+      "name": "--ui-button-font-size-md",
+      "default": "var(--ui-font-size-sm)"
+    },
+    {
       "name": "--ui-button-height-lg",
-      "default": "var(--row)"
+      "default": "calc(var(--row) * 2.5)"
     },
     {
       "name": "--ui-button-padding-x-lg",
