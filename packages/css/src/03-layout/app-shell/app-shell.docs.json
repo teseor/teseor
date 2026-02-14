@@ -15,6 +15,15 @@
       ]
     },
     {
+      "title": "With Topbar",
+      "description": "Add a fixed topbar by setting --topbar-height on app-shell. Sidebar and main offset automatically.",
+      "examples": [
+        {
+          "code": "<body class=\"ui-app-shell\" style=\"--topbar-height: var(--ui-row-3)\">\n  <header class=\"ui-topbar ui-topbar--fixed ui-topbar--bordered\">\n    <div class=\"ui-topbar__start\"><strong>App</strong></div>\n    <div class=\"ui-topbar__end\">User</div>\n  </header>\n  <aside class=\"ui-sidebar\">Sidebar</aside>\n  <main class=\"ui-main\">\n    <div class=\"ui-container\">Content</div>\n  </main>\n</body>"
+        }
+      ]
+    },
+    {
       "title": "Sidebar Widths",
       "examples": [
         {
