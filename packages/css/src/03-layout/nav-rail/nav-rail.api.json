@@ -1,0 +1,35 @@
+{
+  "name": "nav-rail",
+  "element": "nav",
+  "modifiers": {
+    "end": {
+      "type": "boolean"
+    }
+  },
+  "elements": {
+    "items": {},
+    "actions": {}
+  },
+  "cssVars": [
+    {
+      "name": "--ui-nav-rail-width",
+      "default": "var(--ui-row-4)"
+    },
+    {
+      "name": "--ui-nav-rail-bg",
+      "default": "var(--ui-color-bg-subtle)"
+    },
+    {
+      "name": "--ui-nav-rail-border-color",
+      "default": "var(--ui-color-border)"
+    },
+    {
+      "name": "--ui-nav-rail-gap",
+      "default": "var(--ui-space-1)"
+    },
+    {
+      "name": "--ui-nav-rail-z",
+      "default": "var(--ui-z-sticky)"
+    }
+  ]
+}

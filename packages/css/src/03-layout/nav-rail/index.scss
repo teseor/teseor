@@ -1,0 +1,50 @@
+@layer primitives {
+  .nav-rail {
+    --_width: var(--ui-nav-rail-width, var(--ui-row-4));
+    --_bg: var(--ui-nav-rail-bg, var(--ui-color-bg-subtle));
+    --_border-color: var(--ui-nav-rail-border-color, var(--ui-color-border));
+    --_gap: var(--ui-nav-rail-gap, var(--ui-space-1));
+    --_z: var(--ui-nav-rail-z, var(--ui-z-sticky));
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    inset-block: var(--topbar-height, 0);
+    inset-inline-start: 0;
+    z-index: var(--_z);
+
+    inline-size: var(--_width);
+    padding-block: var(--ui-space-2);
+
+    background: var(--_bg);
+    box-shadow: inset calc(var(--ui-border-width-sm) * -1) 0 0 0 var(--_border-color);
+  }
+
+  // Navigation items area
+  .nav-rail__items {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--_gap);
+  }
+
+  // Bottom-pinned actions (settings, profile)
+  .nav-rail__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--_gap);
+
+    margin-block-start: auto;
+  }
+
+  // Position on end side
+  .nav-rail--end {
+    inset-inline-start: auto;
+    inset-inline-end: 0;
+
+    box-shadow: inset var(--ui-border-width-sm) 0 0 0 var(--_border-color);
+  }
+}
