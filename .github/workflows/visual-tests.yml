@@ -8,10 +8,13 @@ on:
 jobs:
   visual-test:
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.57.0-noble
     permissions:
       contents: write
     env:
       LOST_PIXEL_API_KEY: ${{ secrets.LOST_PIXEL_API_KEY }}
+      HOME: /root
     steps:
       - uses: actions/checkout@v4
         with:
@@ -23,16 +26,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: pnpm
 
       - name: Install dependencies
         run: pnpm install
 
       - name: Build CSS
         run: pnpm nx build css
-
-      - name: Install Playwright
-        run: npx playwright install chromium
 
       - name: Run visual tests
         id: test
@@ -46,8 +45,9 @@ jobs:
       - name: Commit updated snapshots
         if: steps.test.outcome == 'failure' && github.event_name == 'pull_request'
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global --add safe.directory /__w/teseor/teseor
           git add "packages/css/src/**/*-visual.png"
           if git diff --cached --quiet; then
             echo "No snapshot changes to commit"
