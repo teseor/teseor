@@ -1,4 +1,15 @@
 pnpm lint && pnpm typecheck && pnpm nx build css
 
+# Warn if no changeset exists for feature/fix branches
+branch=$(git branch --show-current)
+if echo "$branch" | grep -qE '^(feat|fix)/'; then
+  if [ -z "$(git diff main --name-only -- .changeset/*.md 2>/dev/null)" ]; then
+    echo ""
+    echo "WARNING: No changeset found on $branch"
+    echo "Run: pnpm changeset"
+    echo ""
+  fi
+fi
+
 # Visual tests run in CI only (Docker rendering differences)
 # Run locally with: ./scripts/visual-test-docker.sh
