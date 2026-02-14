@@ -3,115 +3,117 @@
 ## Development Setup
 
 ```bash
-# Clone and install
 git clone https://github.com/teseor/teseor.git
 cd teseor
 pnpm install
-
-# Build CSS package
 pnpm nx build css
-
-# Run docs locally
 pnpm --filter docs dev
 ```
 
+## Branch Rules
+
+Main branch is protected by a ruleset:
+
+- **PRs required** - no direct pushes to main
+- **Status checks must pass** - Lint, Test, Typecheck, Changeset, visual-test
+- **Linear history** - rebase only, no merge commits
+- **No force pushes or deletions**
+
+Bypass: repo admin only (for release bot).
+
 ## Workflow
 
-### 1. Create a branch
+1. **Create GitHub issue** with clear scope
+2. **Branch** from main: `feat/`, `fix/`, `docs/`, `chore/`
+3. **Implement** with granular commits
+4. **Add changeset** if user-facing (`pnpm changeset`)
+5. **Push + open PR**, wait for CI green
+6. **Merge** to main
+7. Release workflow auto-creates a version PR; merging it publishes to npm
 
-```bash
-git checkout -b feat/button-loading-state
+## Commit Convention
+
+```
+[CSS] type(scope): message
 ```
 
-Branch naming:
-- `feat/description` - new features
-- `fix/description` - bug fixes
-- `docs/description` - documentation
-- `chore/description` - maintenance
+Types: `feat`, `fix`, `chore`, `docs`, `refactor`, `test`
 
-### 2. Make changes
-
-Follow the commit convention:
-```
-[Package] type: message
-```
-
-Examples:
-- `[CSS] feat: add button loading state`
-- `[Docs] fix: correct grid example`
-
-### 3. Add a changeset (if user-facing)
-
-```bash
-pnpm changeset
-```
-
-Select affected packages and describe the change. This generates a file in `.changeset/`.
-
-Skip for:
-- Documentation-only changes
-- Internal refactors
-- CI/tooling changes
-
-### 4. Open a PR
-
-- Fill out the PR template
-- Ensure CI passes (lint, typecheck, tests)
-- Request review
-
-### 5. After merge
-
-The release workflow automatically:
-1. Collects changesets
-2. Creates a "Version Packages" PR
-3. When merged, publishes to npm
+Single line only. Details go in PR body.
 
 ## Project Structure
 
 ```
-packages/
-  css/                 # @teseor/css - Core CSS library
-    src/
-      00-config/       # Tokens, layers
-      01-reset/        # CSS reset
-      02-base/         # Base typography
-      03-layout/       # Layout primitives
-      04-components/   # UI components
-      05-utilities/    # Utility classes
-apps/
-  docs/               # Documentation site
+packages/css/src/
+  00-config/         # Tokens, layers
+  01-reset/          # CSS reset
+  02-base/           # Base typography
+  03-layout/         # Layout primitives
+  04-components/     # UI components (grouped by category)
+    actions/         # button, button-group
+    typography/      # heading, link, code
+    forms/           # input, select, checkbox, radio, toggle, field, ...
+    data-display/    # avatar, badge, icon, tag, status, card, table, data-list
+    feedback/        # alert, spinner, progress, skeleton, toast
+    overlays/        # modal, drawer, popover, tooltip, dialog, overlay
+    disclosure/      # disclosure, accordion
+    navigation/      # tabs, breadcrumb, menu, nav, pagination
+    layout/          # divider
+  05-utilities/      # Utility classes
+  99-debug/          # Debug overlays
+apps/docs/           # Documentation site (Eleventy)
 ```
 
 ## Running Tests
 
 ```bash
-# All tests
-pnpm test
+pnpm test            # all tests
+pnpm lint            # biome + stylelint + component lint
+pnpm typecheck       # typescript
+```
 
-# Visual regression
-pnpm nx test css
+Visual regression tests need the docs server:
 
-# Lint
-pnpm lint
+```bash
+pnpm --filter docs dev                              # start server
+npx playwright test --config=packages/css/playwright.config.ts  # run tests
+```
 
-# Type check
-pnpm typecheck
+Docker for snapshot updates (CI is source of truth):
+
+```bash
+./scripts/visual-test-docker.sh --update <component>
 ```
 
 ## Adding a Component
 
-1. Create folder: `packages/css/src/04-components/<name>/`
-2. Add files:
-   - `index.scss` - styles
-   - `<name>.api.json` - API definition
-   - `<name>.docs.json` - documentation
-3. Import in `packages/css/src/index.scss`
-4. Add visual test: `<name>.visual.spec.ts`
-5. Run `pnpm --filter docs build-docs`
+```bash
+pnpm new:component <name>
+```
+
+Each component lives under a category in `04-components/` with:
+- `index.scss` - styles (use `--_` prefix for internal tokens)
+- `<name>.api.json` - CSS API definition
+- `<name>.docs.json` - documentation (use `items` config format, not raw HTML)
+- `<name>.visual.spec.ts` - visual regression test
+
+After adding, run `pnpm sync:components` to update the index.
+
+## Changesets
+
+Add a changeset for any user-facing change:
+
+```bash
+pnpm changeset
+```
+
+Skip for: docs-only, CI/tooling, internal refactors.
+
+When merged to main, the release workflow collects changesets into a "Release" PR. Merging that PR publishes to npm and creates a GitHub release.
 
 ## Labels
 
-Issues and PRs are auto-labeled. Key labels:
-- `type: bug`, `type: feature`, `type: docs`
-- `pkg: css`, `pkg: react`, `pkg: svelte`
-- `status: triage`, `status: ready`, `status: blocked`
+Auto-applied via `.github/labeler.yml`:
+- `pkg: css`, `pkg: docs`
+- `type: ci`, `type: docs`
+- `component: button`, `component: card`, etc.
