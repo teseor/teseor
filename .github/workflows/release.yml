@@ -42,7 +42,7 @@ jobs:
         with:
           version: pnpm changeset:version
           publish: pnpm changeset:publish
-          title: "Release: new version available"
+          title: "Release @teseor/css"
           commit: "chore: version packages"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
