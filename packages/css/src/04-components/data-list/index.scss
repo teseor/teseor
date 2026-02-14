@@ -61,9 +61,10 @@
 
   // With dividers
   .data-list--divided .data-list__item {
-    padding-block-end: var(--_gap);
+    // Subtract border from padding to keep total on grid
+    padding-block-end: calc(var(--_gap) - var(--ui-border-width-sm, #{t.$border-width-sm}));
 
-    border-block-end: 1px solid var(--ui-color-border, #{t.$color-border});
+    border-block-end: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--ui-color-border, #{t.$color-border});
   }
 
   .data-list--divided .data-list__item:last-child {
