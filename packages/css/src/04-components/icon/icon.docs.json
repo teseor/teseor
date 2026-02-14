@@ -189,28 +189,28 @@
     },
     {
       "token": "--ui-icon-size-xs",
-      "default": "0.5rem",
-      "description": "Extra small size (8px)"
+      "default": "var(--ui-size-xs)",
+      "description": "Extra small size"
     },
     {
       "token": "--ui-icon-size-sm",
-      "default": "0.75rem",
-      "description": "Small size (12px)"
+      "default": "var(--ui-size-sm)",
+      "description": "Small size"
     },
     {
       "token": "--ui-icon-size-md",
-      "default": "1rem",
-      "description": "Medium size (16px)"
+      "default": "var(--ui-size-md)",
+      "description": "Medium size"
     },
     {
       "token": "--ui-icon-size-lg",
-      "default": "1.25rem",
-      "description": "Large size (20px)"
+      "default": "var(--ui-size-lg)",
+      "description": "Large size"
     },
     {
       "token": "--ui-icon-size-xl",
-      "default": "1.5rem",
-      "description": "Extra large size (24px)"
+      "default": "var(--ui-size-xl)",
+      "description": "Extra large size"
     },
     { "token": "--ui-icon-stroke", "default": "2", "description": "Default stroke width" },
     { "token": "--ui-icon-stroke-thin", "default": "1", "description": "Thin stroke width" },
