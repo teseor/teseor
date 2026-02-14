@@ -17,7 +17,11 @@ const TYPE_PATHS = {
 
 const COMPONENT_GROUPS = [
   { id: 'actions', label: 'Actions', components: ['button', 'button-group'] },
-  { id: 'typography', label: 'Typography', components: ['heading', 'link', 'code'] },
+  {
+    id: 'typography',
+    label: 'Typography',
+    components: ['heading', 'link', 'code', 'blockquote', 'kbd', 'mark'],
+  },
   {
     id: 'forms',
     label: 'Forms',
@@ -37,7 +41,7 @@ const COMPONENT_GROUPS = [
   {
     id: 'data-display',
     label: 'Data Display',
-    components: ['avatar', 'badge', 'icon', 'tag', 'status', 'card', 'table', 'data-list'],
+    components: ['avatar', 'badge', 'icon', 'tag', 'status', 'card', 'table', 'data-list', 'stat'],
   },
   {
     id: 'feedback',
@@ -55,7 +59,7 @@ const COMPONENT_GROUPS = [
     label: 'Navigation',
     components: ['tabs', 'breadcrumb', 'menu', 'nav', 'pagination'],
   },
-  { id: 'layout', label: 'Layout', components: ['divider'] },
+  { id: 'layout', label: 'Layout', components: ['divider', 'spacer'] },
 ];
 
 function getGroupForComponent(componentId) {

@@ -1,0 +1,102 @@
+{
+  "id": "spacer",
+  "type": "component",
+  "title": "Spacer",
+  "description": "Flexible space filler that grows to fill available space in flex containers.",
+  "api": "./spacer.api.json",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-cluster",
+              "style": {
+                "inline-size": "100%",
+                "background": "var(--ui-color-bg-subtle)",
+                "padding": "var(--ui-space-2)"
+              },
+              "children": [
+                {
+                  "tag": "span",
+                  "text": "Start",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-1)"
+                  }
+                },
+                { "tag": "div", "class": "ui-spacer" },
+                {
+                  "tag": "span",
+                  "text": "End",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-1)"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Between items",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-cluster",
+              "style": {
+                "inline-size": "100%",
+                "background": "var(--ui-color-bg-subtle)",
+                "padding": "var(--ui-space-2)"
+              },
+              "children": [
+                {
+                  "tag": "span",
+                  "text": "Logo",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-1)"
+                  }
+                },
+                { "tag": "div", "class": "ui-spacer" },
+                {
+                  "tag": "span",
+                  "text": "Nav 1",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-1)"
+                  }
+                },
+                {
+                  "tag": "span",
+                  "text": "Nav 2",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-1)"
+                  }
+                },
+                {
+                  "tag": "span",
+                  "text": "Nav 3",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-1)"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "customization": [
+    { "token": "--ui-spacer-size", "default": "1", "description": "Flex grow factor" }
+  ]
+}

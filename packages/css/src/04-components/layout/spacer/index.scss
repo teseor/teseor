@@ -1,0 +1,11 @@
+@layer components.tokens {
+  .spacer {
+    --_size: var(--ui-spacer-size, 1);
+  }
+}
+
+@layer components.styles {
+  .spacer {
+    flex: var(--_size);
+  }
+}

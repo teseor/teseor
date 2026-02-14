@@ -1,0 +1,18 @@
+{
+  "name": "stat",
+  "element": "div",
+  "modifiers": {
+    "size": {
+      "values": ["sm"]
+    }
+  },
+  "subElements": ["value", "label"],
+  "cssVars": [
+    { "name": "--ui-stat-gap", "default": "var(--ui-space-1)" },
+    { "name": "--ui-stat-value-font-size", "default": "var(--ui-font-size-3xl)" },
+    { "name": "--ui-stat-value-font-weight", "default": "var(--ui-weight-bold)" },
+    { "name": "--ui-stat-value-color", "default": "var(--ui-color-text)" },
+    { "name": "--ui-stat-label-font-size", "default": "var(--ui-font-size-sm)" },
+    { "name": "--ui-stat-label-color", "default": "var(--ui-color-text-muted)" }
+  ]
+}

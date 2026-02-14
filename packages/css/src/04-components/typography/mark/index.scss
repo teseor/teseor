@@ -1,0 +1,22 @@
+@use '../../../00-config/tokens/variables' as t;
+
+@layer components.tokens {
+  .mark {
+    --_bg: var(--ui-mark-bg, var(--ui-color-warning, #{t.$color-warning}));
+    --_color: var(--ui-mark-color, var(--ui-color-text, #{t.$color-text}));
+    --_padding-x: var(--ui-mark-padding-x, var(--ui-space-quarter, #{t.$space-quarter}));
+    --_padding-y: var(--ui-mark-padding-y, 0);
+    --_radius: var(--ui-mark-radius, var(--ui-radius-sm, #{t.$radius-sm}));
+  }
+}
+
+@layer components.styles {
+  .mark {
+    padding: var(--_padding-y) var(--_padding-x);
+
+    color: var(--_color);
+
+    background: var(--_bg);
+    border-radius: var(--_radius);
+  }
+}
