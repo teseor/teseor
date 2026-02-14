@@ -1,5 +1,21 @@
 # @teseor/css
 
+## 1.2.0
+
+### Minor Changes
+
+- [#176](https://github.com/teseor/teseor/pull/176) [`72540a6`](https://github.com/teseor/teseor/commit/72540a67532d476883f9cc97ecd3f2d65014e3c5) Thanks [@letanure](https://github.com/letanure)! - Add nav component with horizontal tabs, pills variant, and vertical layout support
+
+- [#176](https://github.com/teseor/teseor/pull/176) [`72540a6`](https://github.com/teseor/teseor/commit/72540a67532d476883f9cc97ecd3f2d65014e3c5) Thanks [@letanure](https://github.com/letanure)! - Add centralized t-shirt sizing system with consistent size tokens across components
+
+### Patch Changes
+
+- [#180](https://github.com/teseor/teseor/pull/180) [`b82523a`](https://github.com/teseor/teseor/commit/b82523a40a74451162ecb698e7b828b41315cb37) Thanks [@letanure](https://github.com/letanure)! - Fix data-list divided variant border breaking grid rhythm
+
+- [#176](https://github.com/teseor/teseor/pull/176) [`72540a6`](https://github.com/teseor/teseor/commit/72540a67532d476883f9cc97ecd3f2d65014e3c5) Thanks [@letanure](https://github.com/letanure)! - Replace hardcoded values in icon component with design token references
+
+- [#176](https://github.com/teseor/teseor/pull/176) [`72540a6`](https://github.com/teseor/teseor/commit/72540a67532d476883f9cc97ecd3f2d65014e3c5) Thanks [@letanure](https://github.com/letanure)! - Fix PostCSS prefix for compound selectors to correctly prefix all class segments
+
 ## 1.1.0
 
 ### Minor Changes
