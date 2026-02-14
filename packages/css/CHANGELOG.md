@@ -1,5 +1,12 @@
 # @teseor/css
 
+## 1.2.1
+
+### Patch Changes
+
+- 3ba784e: Fix debug overlay and shadow tokens referencing undefined hue variables
+- 9d7fe0c: Reorganize components into functional category subdirectories
+
 ## 1.2.0
 
 ### Minor Changes
