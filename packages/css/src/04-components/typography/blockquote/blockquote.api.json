@@ -1,0 +1,18 @@
+{
+  "name": "blockquote",
+  "element": "blockquote",
+  "modifiers": {
+    "variant": {
+      "values": ["accent"]
+    }
+  },
+  "subElements": ["cite"],
+  "cssVars": [
+    { "name": "--ui-blockquote-border-color", "default": "var(--ui-color-border-strong)" },
+    { "name": "--ui-blockquote-border-width", "default": "var(--ui-border-width-lg)" },
+    { "name": "--ui-blockquote-padding-inline", "default": "var(--ui-space-3)" },
+    { "name": "--ui-blockquote-color", "default": "var(--ui-color-text-muted)" },
+    { "name": "--ui-blockquote-font-size", "default": "var(--ui-font-size-lg)" },
+    { "name": "--ui-blockquote-line-height", "default": "var(--ui-leading-lg)" }
+  ]
+}
