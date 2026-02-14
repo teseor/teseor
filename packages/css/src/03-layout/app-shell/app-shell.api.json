@@ -4,6 +4,15 @@
   "modifiers": {},
   "relatedComponents": [
     {
+      "name": "topbar",
+      "modifiers": {
+        "sticky": { "type": "boolean" },
+        "fixed": { "type": "boolean" },
+        "bordered": { "type": "boolean" },
+        "raised": { "type": "boolean" }
+      }
+    },
+    {
       "name": "sidebar",
       "modifiers": {
         "end": { "type": "boolean" }

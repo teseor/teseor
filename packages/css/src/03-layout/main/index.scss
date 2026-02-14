@@ -1,5 +1,6 @@
 @layer primitives {
   .main {
+    padding-block-start: var(--topbar-height, 0);
     margin-inline-start: var(--sidebar-width, calc(var(--unit) * 30));
   }
 

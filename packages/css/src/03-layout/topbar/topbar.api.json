@@ -1,0 +1,45 @@
+{
+  "name": "topbar",
+  "element": "header",
+  "modifiers": {
+    "sticky": {
+      "type": "boolean"
+    },
+    "fixed": {
+      "type": "boolean"
+    },
+    "bordered": {
+      "type": "boolean"
+    },
+    "raised": {
+      "type": "boolean"
+    }
+  },
+  "elements": {
+    "start": {},
+    "center": {},
+    "end": {}
+  },
+  "cssVars": [
+    {
+      "name": "--ui-topbar-height",
+      "default": "var(--ui-row-3)"
+    },
+    {
+      "name": "--ui-topbar-bg",
+      "default": "var(--ui-color-bg)"
+    },
+    {
+      "name": "--ui-topbar-padding-inline",
+      "default": "var(--ui-space-3)"
+    },
+    {
+      "name": "--ui-topbar-border-color",
+      "default": "var(--ui-color-border)"
+    },
+    {
+      "name": "--ui-topbar-z",
+      "default": "var(--ui-z-sticky)"
+    }
+  ]
+}

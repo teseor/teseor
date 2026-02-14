@@ -3,11 +3,11 @@
     display: flex;
     flex-direction: column;
     position: fixed;
-    inset-block-start: 0;
+    inset-block-start: var(--topbar-height, 0);
     inset-inline-start: 0;
     z-index: var(--ui-z-sticky);
 
-    block-size: 100vh;
+    block-size: calc(100vh - var(--topbar-height, 0px));
     inline-size: var(--sidebar-width, calc(var(--unit) * 30));
     overflow-y: auto;
 
