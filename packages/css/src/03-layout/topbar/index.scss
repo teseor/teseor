@@ -1,0 +1,62 @@
+@layer primitives {
+  .topbar {
+    --_height: var(--ui-topbar-height, var(--ui-row-3));
+    --_bg: var(--ui-topbar-bg, var(--ui-color-bg));
+    --_padding-inline: var(--ui-topbar-padding-inline, var(--ui-space-3));
+    --_border-color: var(--ui-topbar-border-color, var(--ui-color-border));
+    --_z: var(--ui-topbar-z, var(--ui-z-sticky));
+
+    display: flex;
+    align-items: center;
+    z-index: var(--_z);
+
+    block-size: var(--_height);
+    padding-inline: var(--_padding-inline);
+
+    background: var(--_bg);
+  }
+
+  // Sections
+  .topbar__start {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: var(--ui-space-2);
+  }
+
+  .topbar__center {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    gap: var(--ui-space-2);
+  }
+
+  .topbar__end {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: var(--ui-space-2);
+  }
+
+  // Position modifiers
+  .topbar--sticky {
+    position: sticky;
+    inset-block-start: 0;
+  }
+
+  .topbar--fixed {
+    position: fixed;
+    inset-block-start: 0;
+    inset-inline: 0;
+  }
+
+  // Visual modifiers
+  .topbar--bordered {
+    box-shadow: inset 0 calc(var(--ui-border-width-sm) * -1) 0 0 var(--_border-color);
+  }
+
+  .topbar--raised {
+    box-shadow: var(--shadow-sm);
+  }
+}
