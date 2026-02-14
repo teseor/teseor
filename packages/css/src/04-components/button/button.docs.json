@@ -47,7 +47,7 @@
           "layout": "cluster",
           "items": [
             { "tag": "button", "class": "ui-button ui-button--sm", "text": "Small" },
-            { "tag": "button", "class": "ui-button", "text": "Default" },
+            { "tag": "button", "class": "ui-button ui-button--md", "text": "Medium" },
             { "tag": "button", "class": "ui-button ui-button--lg", "text": "Large" }
           ]
         }
