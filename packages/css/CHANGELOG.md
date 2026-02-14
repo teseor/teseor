@@ -1,5 +1,11 @@
 # @teseor/css
 
+## 1.2.2
+
+### Patch Changes
+
+- fc15268: Add GitHub Packages registry publishing to release workflow
+
 ## 1.2.1
 
 ### Patch Changes
