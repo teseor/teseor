@@ -1,0 +1,16 @@
+{
+  "name": "aspect-ratio",
+  "element": "div",
+  "modifiers": {
+    "ratio": {
+      "values": ["square", "video", "photo", "wide", "portrait"]
+    }
+  },
+  "cssVars": [
+    {
+      "name": "--ui-aspect-ratio",
+      "description": "Custom aspect ratio",
+      "default": "1 / 1"
+    }
+  ]
+}

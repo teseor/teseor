@@ -1,0 +1,193 @@
+{
+  "id": "aspect-ratio",
+  "type": "primitive",
+  "title": "Aspect Ratio",
+  "description": "Constrains a container to a specific aspect ratio. Media children fill the container automatically.",
+  "api": "aspect-ratio.api.json",
+  "sections": [
+    {
+      "title": "Presets",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-cluster ui-cluster--md",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-aspect-ratio ui-aspect-ratio--square",
+                  "style": {
+                    "inline-size": "160px",
+                    "background": "var(--ui-color-bg-muted)"
+                  },
+                  "children": [
+                    {
+                      "tag": "span",
+                      "text": "square",
+                      "style": {
+                        "padding": "var(--ui-space-2)"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-aspect-ratio ui-aspect-ratio--video",
+                  "style": {
+                    "inline-size": "160px",
+                    "background": "var(--ui-color-bg-muted)"
+                  },
+                  "children": [
+                    {
+                      "tag": "span",
+                      "text": "video",
+                      "style": {
+                        "padding": "var(--ui-space-2)"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-aspect-ratio ui-aspect-ratio--photo",
+                  "style": {
+                    "inline-size": "160px",
+                    "background": "var(--ui-color-bg-muted)"
+                  },
+                  "children": [
+                    {
+                      "tag": "span",
+                      "text": "photo",
+                      "style": {
+                        "padding": "var(--ui-space-2)"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-aspect-ratio ui-aspect-ratio--wide",
+                  "style": {
+                    "inline-size": "160px",
+                    "background": "var(--ui-color-bg-muted)"
+                  },
+                  "children": [
+                    {
+                      "tag": "span",
+                      "text": "wide",
+                      "style": {
+                        "padding": "var(--ui-space-2)"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-aspect-ratio ui-aspect-ratio--portrait",
+                  "style": {
+                    "inline-size": "160px",
+                    "background": "var(--ui-color-bg-muted)"
+                  },
+                  "children": [
+                    {
+                      "tag": "span",
+                      "text": "portrait",
+                      "style": {
+                        "padding": "var(--ui-space-2)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "With Media",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-cluster ui-cluster--md",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-aspect-ratio ui-aspect-ratio--video",
+                  "style": {
+                    "inline-size": "240px"
+                  },
+                  "children": [
+                    {
+                      "tag": "div",
+                      "text": "img (video)",
+                      "style": {
+                        "inline-size": "100%",
+                        "block-size": "100%",
+                        "background": "var(--ui-color-primary)",
+                        "color": "var(--ui-color-on-primary)",
+                        "display": "grid",
+                        "place-items": "center"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-aspect-ratio ui-aspect-ratio--square",
+                  "style": {
+                    "inline-size": "240px"
+                  },
+                  "children": [
+                    {
+                      "tag": "div",
+                      "text": "img (square)",
+                      "style": {
+                        "inline-size": "100%",
+                        "block-size": "100%",
+                        "background": "var(--ui-color-primary)",
+                        "color": "var(--ui-color-on-primary)",
+                        "display": "grid",
+                        "place-items": "center"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Custom Ratio",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-aspect-ratio",
+              "style": {
+                "--ui-aspect-ratio": "2.35 / 1",
+                "inline-size": "320px",
+                "background": "var(--ui-color-bg-muted)"
+              },
+              "children": [
+                {
+                  "tag": "span",
+                  "text": "2.35:1 (cinemascope)",
+                  "style": {
+                    "padding": "var(--ui-space-2)"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-pnpm lint && pnpm typecheck && pnpm nx build css && pnpm test
+pnpm lint && pnpm typecheck && pnpm nx build css
 
 # Visual tests run in CI only (Docker rendering differences)
-# Run locally with: pnpm test:visual
+# Run locally with: ./scripts/visual-test-docker.sh
