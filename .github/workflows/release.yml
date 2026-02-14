@@ -17,6 +17,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      packages: write
       id-token: write
     steps:
       - uses: actions/checkout@v4
@@ -61,3 +62,15 @@ jobs:
           done
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to GitHub Packages
+        if: steps.changesets.outputs.published == 'true'
+        run: |
+          echo "@teseor:registry=https://npm.pkg.github.com" > .npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> .npmrc
+          for dir in packages/*/; do
+            if [ -f "$dir/package.json" ] && [ "$(jq -r '.private // false' "$dir/package.json")" != "true" ]; then
+              echo "Publishing $(jq -r '.name' "$dir/package.json") to GitHub Packages"
+              npm publish "$dir" --registry=https://npm.pkg.github.com
+            fi
+          done
