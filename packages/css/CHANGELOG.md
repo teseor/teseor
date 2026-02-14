@@ -1,5 +1,12 @@
 # @teseor/css
 
+## 1.2.4
+
+### Patch Changes
+
+- 6337036: Remove dead fonts export and files entry from package.json
+- 8f26dfd: Remove Google Fonts @import from CSS bundle; consumers load fonts separately
+
 ## 1.2.3
 
 ### Patch Changes
