@@ -1,11 +1,14 @@
 import { readFileSync, readdirSync, statSync } from 'node:fs';
-import { dirname, join } from 'node:path';
+import { dirname, join, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import nunjucks from 'nunjucks';
+
+import { discoverComponents } from '../../scripts/discover-structure.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '../..');
 const PACKAGES_DIR = join(ROOT, 'packages');
+const COMPONENTS_DIR = join(PACKAGES_DIR, 'css/src/04-components');
 
 const TYPE_PATHS = {
   token: 'tokens',
@@ -15,60 +18,45 @@ const TYPE_PATHS = {
   guide: 'guides',
 };
 
-const COMPONENT_GROUPS = [
-  { id: 'actions', label: 'Actions', components: ['button', 'button-group'] },
-  {
-    id: 'typography',
-    label: 'Typography',
-    components: ['heading', 'link', 'code', 'blockquote', 'kbd', 'mark'],
-  },
-  {
-    id: 'forms',
-    label: 'Forms',
-    components: [
-      'label',
-      'input',
-      'textarea',
-      'select',
-      'checkbox',
-      'radio',
-      'toggle',
-      'field',
-      'form-helper',
-      'form-error',
-    ],
-  },
-  {
-    id: 'data-display',
-    label: 'Data Display',
-    components: ['avatar', 'badge', 'icon', 'tag', 'status', 'card', 'table', 'data-list', 'stat'],
-  },
-  {
-    id: 'feedback',
-    label: 'Feedback',
-    components: ['alert', 'spinner', 'progress', 'skeleton', 'toast'],
-  },
-  {
-    id: 'overlays',
-    label: 'Overlays',
-    components: ['overlay', 'tooltip', 'popover', 'modal', 'dialog', 'drawer'],
-  },
-  { id: 'disclosure', label: 'Disclosure', components: ['disclosure', 'accordion'] },
-  {
-    id: 'navigation',
-    label: 'Navigation',
-    components: ['tabs', 'breadcrumb', 'menu', 'nav', 'pagination'],
-  },
-  { id: 'layout', label: 'Layout', components: ['divider', 'spacer'] },
-];
+// Derive groups from directory structure, ordered by config
+const groupOrderConfig = JSON.parse(
+  readFileSync(join(PACKAGES_DIR, 'css/component-groups.config.json'), 'utf-8'),
+);
+const discoveredGroups = discoverComponents(COMPONENTS_DIR);
 
-function getGroupForComponent(componentId) {
-  for (const group of COMPONENT_GROUPS) {
-    if (group.components.includes(componentId)) {
-      return group;
+const COMPONENT_GROUPS = groupOrderConfig.groupOrder
+  .filter((id) => {
+    if (!discoveredGroups.has(id)) {
+      console.warn(`component-groups.config.json: "${id}" not found on disk`);
+      return false;
     }
+    return true;
+  })
+  .map((id) => ({
+    id,
+    label: discoveredGroups.get(id).label,
+    components: discoveredGroups.get(id).components,
+  }));
+
+// Warn about groups on disk not in config
+for (const id of discoveredGroups.keys()) {
+  if (!groupOrderConfig.groupOrder.includes(id)) {
+    console.warn(`Group "${id}" found on disk but missing from component-groups.config.json`);
+  }
+}
+
+function getGroupFromPath(docsFilePath) {
+  const rel = relative(COMPONENTS_DIR, docsFilePath);
+  const parts = rel.split(sep);
+  // 04-components/[group]/[name]/file.docs.json -> parts[0] = group
+  if (parts.length >= 3) {
+    return parts[0];
   }
   return null;
+}
+
+function getGroupById(groupId) {
+  return COMPONENT_GROUPS.find((g) => g.id === groupId) || null;
 }
 
 function findDocsFiles(dir, files = []) {
@@ -108,7 +96,8 @@ function resolveDoc(doc, docsFilePath) {
   const api = loadApi(doc, docsFilePath);
   const id = doc.id || api?.name;
   const type = doc.type || 'component';
-  const group = type === 'component' ? getGroupForComponent(id) : null;
+  const groupId = type === 'component' ? getGroupFromPath(docsFilePath) : null;
+  const group = groupId ? getGroupById(groupId) : null;
 
   // Merge modifier usage from docs into API
   const mergedApi = api ? mergeApiWithDocs(api, doc) : null;
