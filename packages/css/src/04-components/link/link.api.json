@@ -4,6 +4,12 @@
   "modifiers": {
     "variant": {
       "values": ["muted", "subtle"]
+    },
+    "external": {
+      "type": "boolean"
+    },
+    "disabled": {
+      "type": "boolean"
     }
   },
   "cssVars": [

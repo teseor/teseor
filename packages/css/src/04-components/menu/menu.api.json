@@ -2,6 +2,30 @@
   "name": "menu",
   "element": "div",
   "modifiers": {},
+  "elements": {
+    "group": {},
+    "label": {},
+    "separator": {},
+    "item": {
+      "modifiers": {
+        "disabled": {
+          "type": "boolean"
+        },
+        "danger": {
+          "type": "boolean"
+        },
+        "check": {
+          "type": "boolean"
+        },
+        "radio": {
+          "type": "boolean"
+        }
+      }
+    },
+    "item-icon": {},
+    "item-shortcut": {},
+    "item-indicator": {}
+  },
   "cssVars": [
     {
       "name": "--ui-menu-min-width",

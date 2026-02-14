@@ -6,6 +6,11 @@
       "values": ["sm", "lg"]
     }
   },
+  "elements": {
+    "input": {},
+    "track": {},
+    "thumb": {}
+  },
   "cssVars": [
     {
       "name": "--ui-toggle-track-width",

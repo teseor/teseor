@@ -10,8 +10,39 @@
     },
     "state": {
       "values": ["error", "success"]
+    },
+    "block": {
+      "type": "boolean"
     }
   },
+  "relatedComponents": [
+    {
+      "name": "input-group",
+      "modifiers": {
+        "has-prefix": {
+          "type": "boolean"
+        },
+        "has-suffix": {
+          "type": "boolean"
+        }
+      },
+      "elements": {
+        "addon": {
+          "modifiers": {
+            "start": {
+              "type": "boolean"
+            },
+            "end": {
+              "type": "boolean"
+            },
+            "interactive": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  ],
   "cssVars": [
     {
       "name": "--ui-input-height",

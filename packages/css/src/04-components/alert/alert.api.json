@@ -6,6 +6,12 @@
       "values": ["info", "success", "warning", "danger"]
     }
   },
+  "elements": {
+    "content": {},
+    "title": {},
+    "description": {},
+    "icon": {}
+  },
   "cssVars": [
     {
       "name": "--ui-alert-padding",

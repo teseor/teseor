@@ -2,6 +2,23 @@
   "name": "tabs",
   "element": "div",
   "modifiers": {},
+  "elements": {
+    "list": {},
+    "tab": {
+      "modifiers": {
+        "active": {
+          "type": "boolean"
+        }
+      }
+    },
+    "panel": {
+      "modifiers": {
+        "active": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
   "cssVars": [
     {
       "name": "--ui-tabs-border-color",

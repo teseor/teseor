@@ -7,6 +7,9 @@
     },
     "dashed": {
       "type": "boolean"
+    },
+    "position": {
+      "values": ["start", "end"]
     }
   },
   "cssVars": [

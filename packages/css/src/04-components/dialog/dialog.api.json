@@ -1,7 +1,18 @@
 {
   "name": "dialog",
   "element": "div",
-  "modifiers": {},
+  "modifiers": {
+    "borderless": {
+      "type": "boolean"
+    }
+  },
+  "elements": {
+    "header": {},
+    "title": {},
+    "close": {},
+    "body": {},
+    "footer": {}
+  },
   "cssVars": [
     {
       "name": "--ui-dialog-header-padding",

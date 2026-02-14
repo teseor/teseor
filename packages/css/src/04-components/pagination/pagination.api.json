@@ -1,7 +1,28 @@
 {
   "name": "pagination",
   "element": "div",
-  "modifiers": {},
+  "modifiers": {
+    "size": {
+      "values": ["sm", "lg"]
+    }
+  },
+  "elements": {
+    "prev": {},
+    "next": {},
+    "list": {},
+    "item": {},
+    "ellipsis": {},
+    "link": {
+      "modifiers": {
+        "active": {
+          "type": "boolean"
+        },
+        "disabled": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
   "cssVars": [
     {
       "name": "--ui-pagination-gap",

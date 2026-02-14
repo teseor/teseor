@@ -1,7 +1,19 @@
 {
   "name": "disclosure",
   "element": "div",
-  "modifiers": {},
+  "modifiers": {
+    "borderless": {
+      "type": "boolean"
+    },
+    "animate": {
+      "type": "boolean"
+    }
+  },
+  "elements": {
+    "trigger": {},
+    "icon": {},
+    "content": {}
+  },
   "cssVars": [
     {
       "name": "--ui-disclosure-border-color",

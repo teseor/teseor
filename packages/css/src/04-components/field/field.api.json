@@ -1,7 +1,15 @@
 {
   "name": "field",
   "element": "div",
-  "modifiers": {},
+  "modifiers": {
+    "horizontal": {
+      "type": "boolean"
+    }
+  },
+  "elements": {
+    "label": {},
+    "control": {}
+  },
   "cssVars": [
     {
       "name": "--ui-field-gap",

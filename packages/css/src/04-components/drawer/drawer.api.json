@@ -1,7 +1,23 @@
 {
   "name": "drawer",
   "element": "div",
-  "modifiers": {},
+  "modifiers": {
+    "position": {
+      "values": ["start", "end", "top", "bottom"]
+    },
+    "size": {
+      "values": ["sm", "lg"]
+    }
+  },
+  "elements": {
+    "header": {},
+    "title": {},
+    "description": {},
+    "close": {},
+    "body": {},
+    "footer": {}
+  },
+  "relatedComponents": ["drawer-overlay"],
   "cssVars": [
     {
       "name": "--ui-drawer-size",

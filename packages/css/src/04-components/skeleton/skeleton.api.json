@@ -1,7 +1,14 @@
 {
   "name": "skeleton",
   "element": "div",
-  "modifiers": {},
+  "modifiers": {
+    "variant": {
+      "values": ["text", "circle", "heading", "rect"]
+    },
+    "pulse": {
+      "type": "boolean"
+    }
+  },
   "cssVars": [
     {
       "name": "--ui-skeleton-bg",

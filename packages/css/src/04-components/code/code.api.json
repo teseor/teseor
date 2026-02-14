@@ -1,7 +1,12 @@
 {
   "name": "code",
   "element": "div",
-  "modifiers": {},
+  "modifiers": {
+    "size": {
+      "values": ["sm"]
+    }
+  },
+  "relatedComponents": ["code-block"],
   "cssVars": [
     {
       "name": "--ui-code-font-size",

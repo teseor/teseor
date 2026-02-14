@@ -9,6 +9,10 @@
       "values": ["primary", "success", "warning", "danger"]
     }
   },
+  "elements": {
+    "remove": {}
+  },
+  "relatedComponents": ["tag-group"],
   "cssVars": [
     {
       "name": "--ui-tag-height",

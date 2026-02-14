@@ -1,7 +1,22 @@
 {
   "name": "data-list",
   "element": "div",
-  "modifiers": {},
+  "modifiers": {
+    "layout": {
+      "values": ["horizontal"]
+    },
+    "style": {
+      "values": ["divided", "striped"]
+    },
+    "size": {
+      "values": ["sm", "lg"]
+    }
+  },
+  "elements": {
+    "item": {},
+    "label": {},
+    "value": {}
+  },
   "cssVars": [
     {
       "name": "--ui-data-list-gap",

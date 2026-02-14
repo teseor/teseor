@@ -10,6 +10,9 @@
     },
     "state": {
       "values": ["error", "success"]
+    },
+    "resize": {
+      "values": ["resize-none", "resize-both"]
     }
   },
   "cssVars": [

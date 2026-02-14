@@ -1,7 +1,11 @@
 {
   "name": "accordion",
   "element": "div",
-  "modifiers": {},
+  "modifiers": {
+    "separated": {
+      "type": "boolean"
+    }
+  },
   "cssVars": [
     {
       "name": "--ui-accordion-border-color",

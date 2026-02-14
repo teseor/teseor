@@ -6,6 +6,10 @@
       "values": ["lg"]
     }
   },
+  "elements": {
+    "required": {},
+    "optional": {}
+  },
   "cssVars": [
     {
       "name": "--ui-label-font-size",
