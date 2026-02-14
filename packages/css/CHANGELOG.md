@@ -1,5 +1,16 @@
 # @teseor/css
 
+## 1.3.0
+
+### Minor Changes
+
+- 117b02f: Add aspect-ratio layout primitive with preset ratios (square, video, photo, wide, portrait) and custom ratio support
+- 4100583: Add kbd, mark, blockquote, stat, and spacer components
+
+### Patch Changes
+
+- f94055b: Fix button-group vertical mode off-grid heights by removing negative margins
+
 ## 1.2.4
 
 ### Patch Changes
