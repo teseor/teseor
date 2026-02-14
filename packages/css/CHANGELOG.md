@@ -1,5 +1,11 @@
 # @teseor/css
 
+## 1.2.3
+
+### Patch Changes
+
+- 72aa8b8: Fix sidebar-nav active item contrast ratio for WCAG AA compliance and enable CSS minification
+
 ## 1.2.2
 
 ### Patch Changes
