@@ -53,7 +53,7 @@ const COMPONENT_GROUPS = [
   {
     id: 'navigation',
     label: 'Navigation',
-    components: ['tabs', 'breadcrumb', 'menu', 'pagination'],
+    components: ['tabs', 'breadcrumb', 'menu', 'nav', 'pagination'],
   },
   { id: 'layout', label: 'Layout', components: ['divider'] },
 ];
