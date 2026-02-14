@@ -1,4 +1,4 @@
-/* Debug grid overlay - add class="debug-grid" to body or any container */
+// Debug grid overlay - add class="debug-grid" to body or any container
 .debug-grid,
 .debug-grid-rows,
 .debug-baseline {
@@ -6,7 +6,8 @@
 }
 
 .debug-grid {
-  --debug-color: hsl(var(--ui-hue-primary) 80% 50% / 0.15);
+  // Fallback hue 220 (blue) when --ui-hue-primary not set
+  --debug-color: hsl(var(--ui-hue-primary, 220) 80% 50% / 0.15);
 }
 
 .debug-grid::after {
@@ -27,10 +28,10 @@
   background-position: 0 0;
 }
 
-/* Stronger grid at row intervals (16px) */
+// Stronger grid at row intervals
 .debug-grid-rows {
-  --debug-color: hsl(var(--ui-hue-primary) 80% 50% / 0.1);
-  --debug-color-strong: hsl(var(--ui-hue-primary) 80% 50% / 0.25);
+  --debug-color: hsl(var(--ui-hue-primary, 220) 80% 50% / 0.1);
+  --debug-color-strong: hsl(var(--ui-hue-primary, 220) 80% 50% / 0.25);
 }
 
 .debug-grid-rows::after {
@@ -52,9 +53,9 @@
   background-position: 0 0;
 }
 
-/* Baseline grid only (horizontal lines) */
+// Baseline grid only (horizontal lines)
 .debug-baseline {
-  --debug-color: hsl(var(--ui-hue-danger) 80% 50% / 0.2);
+  --debug-color: hsl(var(--ui-hue-danger, 0) 80% 50% / 0.2);
 }
 
 .debug-baseline::after {
@@ -73,7 +74,7 @@
   background-size: 100% var(--unit);
 }
 
-/* Element boundaries outline */
+// Element boundaries outline
 .debug-outline * {
   outline: 1px solid hsl(0 100% 50% / 0.5);
 }
