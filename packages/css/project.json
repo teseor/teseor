@@ -11,7 +11,7 @@
       "options": {
         "commands": [
           "mkdir -p packages/css/dist",
-          "sass packages/css/src/index.scss packages/css/dist/compiled.css --no-source-map",
+          "sass packages/css/src/index.scss packages/css/dist/compiled.css --no-source-map --style=compressed",
           "postcss packages/css/dist/compiled.css -o packages/css/dist/index.css"
         ],
         "parallel": false
