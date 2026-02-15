@@ -1,4 +1,7 @@
 {
+  "id": "data-list",
+  "type": "component",
+  "title": "Data List",
   "api": "./data-list.api.json",
   "sections": [
     {

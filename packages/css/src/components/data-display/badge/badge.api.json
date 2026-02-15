@@ -3,7 +3,7 @@
   "element": "span",
   "modifiers": {
     "size": {
-      "values": ["sm"]
+      "values": ["sm", "lg"]
     },
     "variant": {
       "values": ["primary", "success", "warning", "danger"]
@@ -49,6 +49,18 @@
     {
       "name": "--ui-badge-font-size-sm",
       "default": "var(--ui-font-size-xs)"
+    },
+    {
+      "name": "--ui-badge-height-lg",
+      "default": "calc(var(--ui-row) * 1.5)"
+    },
+    {
+      "name": "--ui-badge-padding-x-lg",
+      "default": "var(--ui-space-2)"
+    },
+    {
+      "name": "--ui-badge-font-size-lg",
+      "default": "var(--ui-font-size-md)"
     },
     {
       "name": "--ui-badge-primary-bg",

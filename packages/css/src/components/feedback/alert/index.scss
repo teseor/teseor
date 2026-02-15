@@ -15,6 +15,8 @@
     --_bg: color-mix(in oklch, var(--_accent) 8%, white);
     --_border-color: var(--_accent);
     --_color: var(--ui-alert-color, var(--ui-color-text, #{t.$color-text}));
+    --_font-size: var(--ui-alert-font-size, inherit);
+    --_padding-end: 0;
     --_icon-color: var(--_accent);
   }
 
@@ -34,6 +36,24 @@
   .alert--danger {
     --_accent: var(--ui-color-danger, #{t.$color-danger});
   }
+
+  // @modifier size
+  .alert--sm {
+    --_padding: var(--ui-alert-padding-sm, var(--ui-space-1, #{t.$space-1}));
+    --_gap: var(--ui-alert-gap-sm, calc(#{t.$unit} * 0.5));
+    --_font-size: var(--ui-alert-font-size-sm, var(--ui-font-size-sm, #{t.$font-size-sm}));
+  }
+
+  .alert--lg {
+    --_padding: var(--ui-alert-padding-lg, var(--ui-space-4, #{t.$space-4}));
+    --_gap: var(--ui-alert-gap-lg, var(--ui-space-2, #{t.$space-2}));
+    --_font-size: var(--ui-alert-font-size-lg, var(--ui-font-size-lg, #{t.$font-size-lg}));
+  }
+
+  // @modifier boolean dismissible
+  .alert--dismissible {
+    --_padding-end: var(--ui-alert-padding-end, calc(#{t.$unit} * 5));
+  }
 }
 
 @layer components.styles {
@@ -45,7 +65,9 @@
     // Subtract border from padding to maintain grid rhythm
     padding: calc(var(--_padding) - var(--_border-width));
     padding-inline: var(--_padding);
+    padding-inline-end: calc(var(--_padding) + var(--_padding-end));
 
+    font-size: var(--_font-size);
     color: var(--_color);
 
     background: var(--_bg);

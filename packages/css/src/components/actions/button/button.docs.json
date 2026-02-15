@@ -1,4 +1,7 @@
 {
+  "id": "button",
+  "type": "component",
+  "title": "Button",
   "api": "./button.api.json",
   "description": "Buttons trigger actions. Use primary for main CTA, secondary for less important actions.",
   "modifiers": {

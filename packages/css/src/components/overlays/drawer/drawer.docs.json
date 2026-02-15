@@ -1,4 +1,7 @@
 {
+  "id": "drawer",
+  "type": "component",
+  "title": "Drawer",
   "api": "./drawer.api.json",
   "sections": [
     {

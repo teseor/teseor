@@ -1,4 +1,7 @@
 {
+  "id": "pagination",
+  "type": "component",
+  "title": "Pagination",
   "api": "./pagination.api.json",
   "sections": [
     {

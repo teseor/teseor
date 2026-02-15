@@ -1,4 +1,7 @@
 {
+  "id": "menu",
+  "type": "component",
+  "title": "Menu",
   "api": "./menu.api.json",
   "sections": [
     {

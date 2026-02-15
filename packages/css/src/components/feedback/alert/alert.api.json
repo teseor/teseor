@@ -4,13 +4,20 @@
   "modifiers": {
     "variant": {
       "values": ["info", "success", "warning", "danger"]
+    },
+    "size": {
+      "values": ["sm", "lg"]
+    },
+    "dismissible": {
+      "type": "boolean"
     }
   },
   "elements": {
     "content": {},
     "title": {},
     "description": {},
-    "icon": {}
+    "icon": {},
+    "close": {}
   },
   "cssVars": [
     {
@@ -44,6 +51,22 @@
     {
       "name": "--ui-alert-icon-color",
       "default": "currentcolor"
+    },
+    {
+      "name": "--ui-alert-padding-sm",
+      "default": "var(--ui-space-1)"
+    },
+    {
+      "name": "--ui-alert-font-size-sm",
+      "default": "var(--ui-font-size-sm)"
+    },
+    {
+      "name": "--ui-alert-padding-lg",
+      "default": "var(--ui-space-4)"
+    },
+    {
+      "name": "--ui-alert-font-size-lg",
+      "default": "var(--ui-font-size-lg)"
     },
     {
       "name": "--ui-alert-info-bg",

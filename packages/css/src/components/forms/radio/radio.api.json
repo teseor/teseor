@@ -5,8 +5,8 @@
     "size": {
       "values": ["sm", "lg"]
     },
-    "error": {
-      "type": "boolean"
+    "state": {
+      "values": ["error", "success"]
     }
   },
   "cssVars": [
@@ -41,6 +41,10 @@
     {
       "name": "--ui-radio-error-border",
       "default": "var(--ui-color-danger)"
+    },
+    {
+      "name": "--ui-radio-success-border",
+      "default": "var(--ui-color-success)"
     }
   ]
 }

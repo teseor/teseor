@@ -18,10 +18,15 @@
     --_size: var(--ui-radio-size-lg, calc(#{t.$unit} * 3));
   }
 
-  // @modifier boolean error
+  // @modifier state
   .radio--error {
     --_border-color: var(--ui-radio-error-border, var(--ui-color-danger, #{t.$color-danger}));
     --_border-color-focus: var(--ui-radio-error-border, var(--ui-color-danger, #{t.$color-danger}));
+  }
+
+  .radio--success {
+    --_border-color: var(--ui-radio-success-border, var(--ui-color-success, #{t.$color-success}));
+    --_border-color-focus: var(--ui-radio-success-border, var(--ui-color-success, #{t.$color-success}));
   }
 }
 

@@ -34,7 +34,8 @@
         {
           "items": [
             { "tag": "span", "class": "ui-badge ui-badge--sm", "text": "Small" },
-            { "tag": "span", "class": "ui-badge", "text": "Default" }
+            { "tag": "span", "class": "ui-badge", "text": "Default" },
+            { "tag": "span", "class": "ui-badge ui-badge--lg", "text": "Large" }
           ],
           "layout": "row"
         }
@@ -78,6 +79,11 @@
       "description": "Default height"
     },
     { "token": "--ui-badge-height-sm", "default": "var(--ui-row)", "description": "Small height" },
+    {
+      "token": "--ui-badge-height-lg",
+      "default": "calc(var(--ui-row) * 1.5)",
+      "description": "Large height"
+    },
     {
       "token": "--ui-badge-padding-x",
       "default": "var(--ui-space-1)",
