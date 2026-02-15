@@ -1,0 +1,63 @@
+{
+  "name": "scroll-area",
+  "element": "div",
+  "modifiers": {
+    "size": {
+      "values": ["sm", "lg", "xl"]
+    },
+    "direction": {
+      "values": ["horizontal", "both"]
+    },
+    "thin": {
+      "type": "boolean"
+    },
+    "auto-hide": {
+      "type": "boolean"
+    }
+  },
+  "elements": {
+    "viewport": {}
+  },
+  "cssVars": [
+    {
+      "name": "--ui-scroll-area-max-height",
+      "default": "calc(var(--ui-row) * 10)"
+    },
+    {
+      "name": "--ui-scroll-area-max-height-sm",
+      "default": "calc(var(--ui-row) * 5)"
+    },
+    {
+      "name": "--ui-scroll-area-max-height-lg",
+      "default": "calc(var(--ui-row) * 15)"
+    },
+    {
+      "name": "--ui-scroll-area-max-height-xl",
+      "default": "calc(var(--ui-row) * 20)"
+    },
+    {
+      "name": "--ui-scroll-area-scrollbar-size",
+      "default": "var(--ui-space-1)"
+    },
+    {
+      "name": "--ui-scroll-area-scrollbar-size-thin",
+      "default": "calc(var(--ui-space-1) * 0.5)"
+    },
+    {
+      "name": "--ui-scroll-area-thumb-color",
+      "default": "var(--ui-color-border-strong)"
+    },
+    {
+      "name": "--ui-scroll-area-thumb-hover-color",
+      "default": "var(--ui-color-neutral-400)"
+    },
+    {
+      "name": "--ui-scroll-area-track-color",
+      "default": "transparent"
+    },
+    {
+      "name": "--ui-scroll-area-thumb-radius",
+      "default": "var(--ui-radius-full)"
+    }
+  ]
+}
