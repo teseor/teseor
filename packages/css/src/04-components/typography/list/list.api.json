@@ -1,0 +1,33 @@
+{
+  "name": "list",
+  "element": "ul",
+  "modifiers": {
+    "style": {
+      "values": ["unstyled", "inline"]
+    },
+    "spacing": {
+      "values": ["compact", "loose"]
+    }
+  },
+  "elements": {
+    "item": {}
+  },
+  "cssVars": [
+    {
+      "name": "--ui-list-spacing",
+      "default": "var(--unit)"
+    },
+    {
+      "name": "--ui-list-marker-color",
+      "default": "var(--ui-color-text-muted)"
+    },
+    {
+      "name": "--ui-list-indent",
+      "default": "var(--ui-space-3)"
+    },
+    {
+      "name": "--ui-list-line-height",
+      "default": "var(--ui-leading-md)"
+    }
+  ]
+}
