@@ -4,13 +4,13 @@
     margin-inline-start: var(--sidebar-width, calc(var(--ui-unit) * 30));
   }
 
-  /* When sidebar is on the end */
+  // When sidebar is on the end
   .main--sidebar-end {
     margin-inline-start: 0;
     margin-inline-end: var(--sidebar-width, calc(var(--ui-unit) * 30));
   }
 
-  /* No sidebar */
+  // No sidebar
   .main--full {
     margin-inline-start: 0;
     margin-inline-end: 0;
