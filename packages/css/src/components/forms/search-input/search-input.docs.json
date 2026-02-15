@@ -177,6 +177,42 @@
       ]
     },
     {
+      "title": "Block",
+      "description": "Full-width layout.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-search-input ui-search-input--block",
+              "children": [
+                {
+                  "tag": "span",
+                  "class": "ui-search-input__icon",
+                  "children": [
+                    {
+                      "tag": "svg",
+                      "attrs": { "viewBox": "0 0 24 24" },
+                      "children": [
+                        { "tag": "circle", "attrs": { "cx": "11", "cy": "11", "r": "8" } },
+                        { "tag": "path", "attrs": { "d": "m21 21-4.3-4.3" } }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "input",
+                  "class": "ui-search-input__field",
+                  "attrs": { "type": "search", "placeholder": "Full width search..." }
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-search-input ui-search-input--block\">...</div>"
+        }
+      ]
+    },
+    {
       "title": "Disabled",
       "examples": [
         {

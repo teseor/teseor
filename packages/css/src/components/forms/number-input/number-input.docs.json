@@ -179,6 +179,55 @@
       ]
     },
     {
+      "title": "Block",
+      "description": "Full-width layout.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-number-input ui-number-input--block",
+              "children": [
+                {
+                  "tag": "button",
+                  "class": "ui-number-input__decrement",
+                  "attrs": { "type": "button", "aria-label": "Decrease" },
+                  "children": [
+                    {
+                      "tag": "svg",
+                      "attrs": { "viewBox": "0 0 24 24" },
+                      "children": [{ "tag": "path", "attrs": { "d": "M5 12h14" } }]
+                    }
+                  ]
+                },
+                {
+                  "tag": "input",
+                  "class": "ui-number-input__field",
+                  "attrs": { "type": "number", "value": "5" }
+                },
+                {
+                  "tag": "button",
+                  "class": "ui-number-input__increment",
+                  "attrs": { "type": "button", "aria-label": "Increase" },
+                  "children": [
+                    {
+                      "tag": "svg",
+                      "attrs": { "viewBox": "0 0 24 24" },
+                      "children": [
+                        { "tag": "path", "attrs": { "d": "M12 5v14" } },
+                        { "tag": "path", "attrs": { "d": "M5 12h14" } }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-number-input ui-number-input--block\">...</div>"
+        }
+      ]
+    },
+    {
       "title": "Disabled",
       "examples": [
         {

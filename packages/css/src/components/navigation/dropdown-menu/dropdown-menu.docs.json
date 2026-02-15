@@ -172,6 +172,24 @@
       ]
     },
     {
+      "title": "Top Position",
+      "description": "Opens panel above the trigger.",
+      "examples": [
+        {
+          "code": "<div class=\"ui-dropdown-menu ui-dropdown-menu--open ui-dropdown-menu--top\">\n  <button class=\"ui-dropdown-menu__trigger ui-button\">Actions</button>\n  <div class=\"ui-dropdown-menu__panel\" role=\"menu\">\n    <div class=\"ui-menu\">...</div>\n  </div>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "Full Width",
+      "description": "Panel stretches to match trigger width.",
+      "examples": [
+        {
+          "code": "<div class=\"ui-dropdown-menu ui-dropdown-menu--open ui-dropdown-menu--full-width\">\n  <button class=\"ui-dropdown-menu__trigger ui-button\">Select option</button>\n  <div class=\"ui-dropdown-menu__panel\" role=\"menu\">\n    <div class=\"ui-menu\">...</div>\n  </div>\n</div>"
+        }
+      ]
+    },
+    {
       "title": "Align End",
       "examples": [
         {

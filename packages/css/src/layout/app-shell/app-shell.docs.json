@@ -126,6 +126,24 @@
       ]
     },
     {
+      "title": "Topbar Variants",
+      "description": "Sticky stays in flow, raised adds shadow.",
+      "examples": [
+        {
+          "code": "<header class=\"ui-topbar ui-topbar--sticky ui-topbar--bordered\">...</header>\n<header class=\"ui-topbar ui-topbar--raised\">...</header>"
+        }
+      ]
+    },
+    {
+      "title": "Footer Variants",
+      "description": "Sticky, fixed, and raised options.",
+      "examples": [
+        {
+          "code": "<footer class=\"ui-footer ui-footer--sticky ui-footer--bordered\">...</footer>\n<footer class=\"ui-footer ui-footer--fixed\">...</footer>\n<footer class=\"ui-footer ui-footer--raised\">...</footer>"
+        }
+      ]
+    },
+    {
       "title": "Centered Container",
       "examples": [
         {

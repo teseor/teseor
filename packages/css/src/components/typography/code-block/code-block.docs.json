@@ -186,6 +186,24 @@
       ]
     },
     {
+      "title": "Inline code",
+      "description": "Use the related ui-code class for inline snippets.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "p",
+              "children": [
+                { "tag": "span", "text": "Use " },
+                { "tag": "code", "class": "ui-code", "text": "var(--ui-space-2)" },
+                { "tag": "span", "text": " for consistent spacing." }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "title": "Compact with line numbers",
       "examples": [
         {

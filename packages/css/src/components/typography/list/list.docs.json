@@ -17,14 +17,17 @@
               "children": [
                 {
                   "tag": "li",
+                  "class": "ui-list__item",
                   "text": "First item in the list"
                 },
                 {
                   "tag": "li",
+                  "class": "ui-list__item",
                   "text": "Second item in the list"
                 },
                 {
                   "tag": "li",
+                  "class": "ui-list__item",
                   "text": "Third item in the list"
                 }
               ]

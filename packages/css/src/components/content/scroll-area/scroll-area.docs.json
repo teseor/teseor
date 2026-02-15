@@ -70,6 +70,23 @@
             },
             {
               "tag": "div",
+              "class": "ui-scroll-area ui-scroll-area--xl",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-scroll-area__viewport",
+                  "children": [
+                    { "tag": "p", "text": "XL - Line 1" },
+                    { "tag": "p", "text": "XL - Line 2" },
+                    { "tag": "p", "text": "XL - Line 3" },
+                    { "tag": "p", "text": "XL - Line 4" },
+                    { "tag": "p", "text": "XL - Line 5" }
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "div",
               "class": "ui-scroll-area ui-scroll-area--lg",
               "children": [
                 {
@@ -101,7 +118,59 @@
               ]
             }
           ],
-          "code": "<div class=\"ui-scroll-area ui-scroll-area--sm\">...</div>\n<div class=\"ui-scroll-area ui-scroll-area--lg\">...</div>"
+          "code": "<div class=\"ui-scroll-area ui-scroll-area--sm\">...</div>\n<div class=\"ui-scroll-area ui-scroll-area--lg\">...</div>\n<div class=\"ui-scroll-area ui-scroll-area--xl\">...</div>"
+        }
+      ]
+    },
+    {
+      "title": "Direction",
+      "examples": [
+        {
+          "layout": "column",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-scroll-area ui-scroll-area--horizontal",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-scroll-area__viewport",
+                  "children": [
+                    {
+                      "tag": "p",
+                      "style": { "white-space": "nowrap" },
+                      "text": "This content scrolls horizontally when it overflows the container width. Resize the window to test."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "div",
+              "class": "ui-scroll-area ui-scroll-area--both ui-scroll-area--sm",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-scroll-area__viewport",
+                  "children": [
+                    {
+                      "tag": "p",
+                      "style": { "white-space": "nowrap" },
+                      "text": "Both directions - Line 1 with long content that overflows horizontally"
+                    },
+                    { "tag": "p", "text": "Line 2" },
+                    { "tag": "p", "text": "Line 3" },
+                    { "tag": "p", "text": "Line 4" },
+                    { "tag": "p", "text": "Line 5" },
+                    { "tag": "p", "text": "Line 6" },
+                    { "tag": "p", "text": "Line 7" },
+                    { "tag": "p", "text": "Line 8" }
+                  ]
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-scroll-area ui-scroll-area--horizontal\">...</div>\n<div class=\"ui-scroll-area ui-scroll-area--both\">...</div>"
         }
       ]
     },

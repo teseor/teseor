@@ -45,7 +45,8 @@
                 { "tag": "span", "text": "320px (40 units)" }
               ]
             }
-          ]
+          ],
+          "code": "<aside class=\"ui-sidebar ui-sidebar--sm\">192px</aside>\n<aside class=\"ui-sidebar ui-sidebar--md\">240px (default)</aside>\n<aside class=\"ui-sidebar ui-sidebar--lg\">320px</aside>"
         }
       ]
     },

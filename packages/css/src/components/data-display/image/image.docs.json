@@ -78,7 +78,7 @@
               ]
             }
           ],
-          "code": "<figure class=\"ui-image ui-image--sm\">\n  <img class=\"ui-image__img\" src=\"...\" alt=\"Small\">\n</figure>\n<figure class=\"ui-image ui-image--md\">\n  <img class=\"ui-image__img\" src=\"...\" alt=\"Medium\">\n</figure>\n<figure class=\"ui-image ui-image--lg\">\n  <img class=\"ui-image__img\" src=\"...\" alt=\"Large\">\n</figure>"
+          "code": "<figure class=\"ui-image ui-image--sm\">\n  <img class=\"ui-image__img\" src=\"...\" alt=\"Small\">\n</figure>\n<figure class=\"ui-image ui-image--md\">\n  <img class=\"ui-image__img\" src=\"...\" alt=\"Medium\">\n</figure>\n<figure class=\"ui-image ui-image--lg\">\n  <img class=\"ui-image__img\" src=\"...\" alt=\"Large\">\n</figure>\n<figure class=\"ui-image ui-image--xl\">\n  <img class=\"ui-image__img\" src=\"...\" alt=\"XL\">\n</figure>\n<figure class=\"ui-image ui-image--full\">\n  <img class=\"ui-image__img\" src=\"...\" alt=\"Full\">\n</figure>"
         }
       ]
     },
