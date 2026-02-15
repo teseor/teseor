@@ -152,27 +152,27 @@
   "customization": [
     {
       "token": "--ui-avatar-size",
-      "default": "calc(var(--unit) * 5)",
+      "default": "calc(var(--ui-unit) * 5)",
       "description": "Default size"
     },
     {
       "token": "--ui-avatar-size-xs",
-      "default": "calc(var(--unit) * 3)",
+      "default": "calc(var(--ui-unit) * 3)",
       "description": "Extra small size"
     },
     {
       "token": "--ui-avatar-size-sm",
-      "default": "calc(var(--unit) * 4)",
+      "default": "calc(var(--ui-unit) * 4)",
       "description": "Small size"
     },
     {
       "token": "--ui-avatar-size-lg",
-      "default": "calc(var(--unit) * 6)",
+      "default": "calc(var(--ui-unit) * 6)",
       "description": "Large size"
     },
     {
       "token": "--ui-avatar-size-xl",
-      "default": "calc(var(--unit) * 8)",
+      "default": "calc(var(--ui-unit) * 8)",
       "description": "Extra large size"
     },
     {

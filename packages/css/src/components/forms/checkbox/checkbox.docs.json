@@ -109,12 +109,12 @@
   "customization": [
     {
       "token": "--ui-checkbox-size",
-      "default": "calc(var(--unit) * 2)",
+      "default": "calc(var(--ui-unit) * 2)",
       "description": "Default size"
     },
     {
       "token": "--ui-checkbox-size-lg",
-      "default": "calc(var(--unit) * 3)",
+      "default": "calc(var(--ui-unit) * 3)",
       "description": "Large size"
     },
     {

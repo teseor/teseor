@@ -21,7 +21,7 @@ test('all components should align to vertical grid', async ({ page }) => {
   const violations = await page.evaluate((skipSelf: string[]) => {
     // Get unit from CSS custom property
     const temp = document.createElement('div');
-    temp.style.cssText = 'position:absolute;visibility:hidden;width:var(--unit,0.5rem)';
+    temp.style.cssText = 'position:absolute;visibility:hidden;width:var(--ui-unit,0.5rem)';
     document.body.appendChild(temp);
     const unit = temp.getBoundingClientRect().width || 8;
     document.body.removeChild(temp);

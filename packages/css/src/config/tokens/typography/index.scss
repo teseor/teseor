@@ -24,18 +24,18 @@
   // Tight line-heights for compact UI elements
   --ui-leading-tight-xs: var(--ui-row-1);
   --ui-leading-tight-sm: var(--ui-row-1);
-  --ui-leading-tight-md: calc(var(--unit) * 3);
-  --ui-leading-tight-lg: calc(var(--unit) * 3);
+  --ui-leading-tight-md: calc(var(--ui-unit) * 3);
+  --ui-leading-tight-lg: calc(var(--ui-unit) * 3);
 
   // Normal line-heights for readable body text
   --ui-leading-xs: var(--ui-row-1);
-  --ui-leading-sm: calc(var(--unit) * 3);
-  --ui-leading-md: calc(var(--unit) * 3);
+  --ui-leading-sm: calc(var(--ui-unit) * 3);
+  --ui-leading-md: calc(var(--ui-unit) * 3);
   --ui-leading-lg: var(--ui-row-2);
   --ui-leading-xl: var(--ui-row-2);
   --ui-leading-2xl: var(--ui-row-2);
-  --ui-leading-3xl: calc(var(--unit) * 5);
-  --ui-leading-4xl: calc(var(--unit) * 6);
+  --ui-leading-3xl: calc(var(--ui-unit) * 5);
+  --ui-leading-4xl: calc(var(--ui-unit) * 6);
 
   // ==========================================================================
   // PRIMITIVE TOKENS - Font Weights

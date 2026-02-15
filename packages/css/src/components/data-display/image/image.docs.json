@@ -275,22 +275,22 @@
     },
     {
       "token": "--ui-image-size-sm",
-      "default": "calc(var(--unit) * 12)",
+      "default": "calc(var(--ui-unit) * 12)",
       "description": "Small size"
     },
     {
       "token": "--ui-image-size-md",
-      "default": "calc(var(--unit) * 24)",
+      "default": "calc(var(--ui-unit) * 24)",
       "description": "Medium size"
     },
     {
       "token": "--ui-image-size-lg",
-      "default": "calc(var(--unit) * 40)",
+      "default": "calc(var(--ui-unit) * 40)",
       "description": "Large size"
     },
     {
       "token": "--ui-image-size-xl",
-      "default": "calc(var(--unit) * 60)",
+      "default": "calc(var(--ui-unit) * 60)",
       "description": "Extra large size"
     },
     {

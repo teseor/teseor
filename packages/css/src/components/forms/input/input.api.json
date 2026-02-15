@@ -73,7 +73,7 @@
       "default": "var(--ui-color-primary)"
     },
     {
-      "name": "--ui-input-text",
+      "name": "--ui-input-color",
       "default": "var(--ui-color-text)"
     },
     {

@@ -46,12 +46,12 @@
   "customization": [
     {
       "token": "--ui-pagination-gap",
-      "default": "calc(var(--unit) * 0.5)",
+      "default": "calc(var(--ui-unit) * 0.5)",
       "description": "Gap between items"
     },
     {
       "token": "--ui-pagination-item-size",
-      "default": "calc(var(--unit) * 4)",
+      "default": "calc(var(--ui-unit) * 4)",
       "description": "Item size"
     },
     {

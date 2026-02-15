@@ -24,7 +24,7 @@
   background-image: linear-gradient(to right, var(--debug-color) 1px, transparent 1px),
     linear-gradient(to bottom, var(--debug-color) 1px, transparent 1px);
   pointer-events: none;
-  background-size: var(--unit) var(--unit);
+  background-size: var(--ui-unit) var(--ui-unit);
   background-position: 0 0;
 }
 
@@ -49,7 +49,7 @@
     linear-gradient(to bottom, var(--debug-color) 1px, transparent 1px),
     linear-gradient(to bottom, var(--debug-color-strong) 1px, transparent 1px);
   pointer-events: none;
-  background-size: var(--unit) var(--unit), var(--unit) var(--unit), var(--unit) var(--ui-row);
+  background-size: var(--ui-unit) var(--ui-unit), var(--ui-unit) var(--ui-unit), var(--ui-unit) var(--ui-row);
   background-position: 0 0;
 }
 
@@ -71,7 +71,7 @@
 
   background-image: linear-gradient(to bottom, var(--debug-color) 1px, transparent 1px);
   pointer-events: none;
-  background-size: 100% var(--unit);
+  background-size: 100% var(--ui-unit);
 }
 
 // Element boundaries outline

@@ -5,7 +5,7 @@
 
 @layer components.tokens {
   .progress-circle {
-    --_size: var(--ui-progress-circle-size, calc(var(--unit) * 6));
+    --_size: var(--ui-progress-circle-size, calc(var(--ui-unit) * 6));
     --_stroke-width: var(--ui-progress-circle-stroke-width, 8);
     --_fill-color: var(--ui-progress-circle-fill-color, var(--ui-color-primary));
     --_track-color: var(--ui-progress-circle-track-color, var(--ui-color-border));
@@ -15,15 +15,15 @@
 
   // @modifier size
   .progress-circle--sm {
-    --_size: var(--ui-progress-circle-size-sm, calc(var(--unit) * 4));
+    --_size: var(--ui-progress-circle-size-sm, calc(var(--ui-unit) * 4));
   }
 
   .progress-circle--lg {
-    --_size: var(--ui-progress-circle-size-lg, calc(var(--unit) * 8));
+    --_size: var(--ui-progress-circle-size-lg, calc(var(--ui-unit) * 8));
   }
 
   .progress-circle--xl {
-    --_size: var(--ui-progress-circle-size-xl, calc(var(--unit) * 12));
+    --_size: var(--ui-progress-circle-size-xl, calc(var(--ui-unit) * 12));
   }
 
   // @modifier variant

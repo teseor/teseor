@@ -57,12 +57,12 @@
   "customization": [
     {
       "token": "--ui-data-list-gap",
-      "default": "calc(var(--unit) * 2)",
+      "default": "calc(var(--ui-unit) * 2)",
       "description": "Gap between items"
     },
     {
       "token": "--ui-data-list-item-gap",
-      "default": "var(--unit)",
+      "default": "var(--ui-unit)",
       "description": "Gap between label and value"
     },
     {

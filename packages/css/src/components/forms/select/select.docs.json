@@ -114,12 +114,12 @@
     },
     {
       "token": "--ui-select-height-sm",
-      "default": "calc(var(--row) * 1.5)",
+      "default": "calc(var(--ui-row) * 1.5)",
       "description": "Small height"
     },
     {
       "token": "--ui-select-height-lg",
-      "default": "calc(var(--row) * 2.5)",
+      "default": "calc(var(--ui-row) * 2.5)",
       "description": "Large height"
     },
     {
@@ -152,7 +152,11 @@
       "default": "var(--ui-color-primary)",
       "description": "Focus border color"
     },
-    { "token": "--ui-select-text", "default": "var(--ui-color-text)", "description": "Text color" },
+    {
+      "token": "--ui-select-color",
+      "default": "var(--ui-color-text)",
+      "description": "Text color"
+    },
     {
       "token": "--ui-select-icon-color",
       "default": "var(--ui-color-text-muted)",

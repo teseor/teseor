@@ -48,7 +48,7 @@
   "customization": [
     {
       "token": "--ui-drawer-size",
-      "default": "calc(var(--unit) * 40)",
+      "default": "calc(var(--ui-unit) * 40)",
       "description": "Default width/height"
     },
     { "token": "--ui-drawer-max-size", "default": "90%", "description": "Maximum size" },

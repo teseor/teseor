@@ -84,6 +84,6 @@
       "default": "var(--ui-color-bg-muted)",
       "description": "Background color"
     },
-    { "token": "--ui-badge-text", "default": "var(--ui-color-text)", "description": "Text color" }
+    { "token": "--ui-badge-color", "default": "var(--ui-color-text)", "description": "Text color" }
   ]
 }

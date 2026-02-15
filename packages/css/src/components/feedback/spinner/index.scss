@@ -5,7 +5,7 @@
 
 @layer components.tokens {
   .spinner {
-    --_size: var(--ui-spinner-size, calc(var(--unit) * 4));
+    --_size: var(--ui-spinner-size, calc(var(--ui-unit) * 4));
     --_border-width: var(--ui-spinner-border-width, var(--ui-border-width-md));
     --_color: var(--ui-spinner-color, currentcolor);
     --_track-color: var(--ui-spinner-track-color, transparent);
@@ -14,22 +14,22 @@
 
   // @modifier size
   .spinner--xs {
-    --_size: var(--ui-spinner-size-xs, calc(var(--unit) * 2));
+    --_size: var(--ui-spinner-size-xs, calc(var(--ui-unit) * 2));
     --_border-width: var(--ui-spinner-border-width-xs, var(--ui-border-width-sm));
   }
 
   .spinner--sm {
-    --_size: var(--ui-spinner-size-sm, calc(var(--unit) * 3));
+    --_size: var(--ui-spinner-size-sm, calc(var(--ui-unit) * 3));
     --_border-width: var(--ui-spinner-border-width-sm, var(--ui-border-width-md));
   }
 
   .spinner--lg {
-    --_size: var(--ui-spinner-size-lg, calc(var(--unit) * 5));
+    --_size: var(--ui-spinner-size-lg, calc(var(--ui-unit) * 5));
     --_border-width: var(--ui-spinner-border-width-lg, var(--ui-border-width-md));
   }
 
   .spinner--xl {
-    --_size: var(--ui-spinner-size-xl, calc(var(--unit) * 6));
+    --_size: var(--ui-spinner-size-xl, calc(var(--ui-unit) * 6));
     --_border-width: var(--ui-spinner-border-width-xl, var(--ui-border-width-lg));
   }
 }

@@ -70,12 +70,12 @@
   "customization": [
     {
       "token": "--ui-tag-height",
-      "default": "calc(var(--unit) * 3)",
+      "default": "calc(var(--ui-unit) * 3)",
       "description": "Default height"
     },
     {
       "token": "--ui-tag-height-sm",
-      "default": "calc(var(--unit) * 2.5)",
+      "default": "calc(var(--ui-unit) * 2.5)",
       "description": "Small height"
     },
     {
@@ -85,7 +85,7 @@
     },
     {
       "token": "--ui-tag-gap",
-      "default": "calc(var(--unit) * 0.5)",
+      "default": "calc(var(--ui-unit) * 0.5)",
       "description": "Gap between content and remove button"
     },
     {

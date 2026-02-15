@@ -61,12 +61,12 @@
     },
     {
       "token": "--ui-disclosure-padding-x",
-      "default": "calc(var(--unit) * 2)",
+      "default": "calc(var(--ui-unit) * 2)",
       "description": "Horizontal padding"
     },
     {
       "token": "--ui-disclosure-padding-y",
-      "default": "calc(var(--unit) * 2)",
+      "default": "calc(var(--ui-unit) * 2)",
       "description": "Content vertical padding"
     }
   ]

@@ -8,7 +8,7 @@
     z-index: var(--ui-z-sticky);
 
     block-size: calc(100vh - var(--topbar-height, 0px));
-    inline-size: var(--sidebar-width, calc(var(--unit) * 30));
+    inline-size: var(--sidebar-width, calc(var(--ui-unit) * 30));
     overflow-y: auto;
 
     background: var(--ui-color-bg-subtle);
@@ -16,9 +16,9 @@
   }
 
   /* Width modifiers */
-  .sidebar--sm { --sidebar-width: calc(var(--unit) * 24); }
-  .sidebar--md { --sidebar-width: calc(var(--unit) * 30); }
-  .sidebar--lg { --sidebar-width: calc(var(--unit) * 40); }
+  .sidebar--sm { --sidebar-width: calc(var(--ui-unit) * 24); }
+  .sidebar--md { --sidebar-width: calc(var(--ui-unit) * 30); }
+  .sidebar--lg { --sidebar-width: calc(var(--ui-unit) * 40); }
 
   /* Position modifier - sidebar on end (right in LTR) */
   .sidebar--end {

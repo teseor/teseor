@@ -53,27 +53,27 @@
   "customization": [
     {
       "token": "--ui-spinner-size",
-      "default": "calc(var(--unit) * 4)",
+      "default": "calc(var(--ui-unit) * 4)",
       "description": "Default size"
     },
     {
       "token": "--ui-spinner-size-xs",
-      "default": "calc(var(--unit) * 2)",
+      "default": "calc(var(--ui-unit) * 2)",
       "description": "Extra small size"
     },
     {
       "token": "--ui-spinner-size-sm",
-      "default": "calc(var(--unit) * 3)",
+      "default": "calc(var(--ui-unit) * 3)",
       "description": "Small size"
     },
     {
       "token": "--ui-spinner-size-lg",
-      "default": "calc(var(--unit) * 5)",
+      "default": "calc(var(--ui-unit) * 5)",
       "description": "Large size"
     },
     {
       "token": "--ui-spinner-size-xl",
-      "default": "calc(var(--unit) * 6)",
+      "default": "calc(var(--ui-unit) * 6)",
       "description": "Extra large size"
     },
     {

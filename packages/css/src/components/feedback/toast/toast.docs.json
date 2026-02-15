@@ -56,12 +56,12 @@
   "customization": [
     {
       "token": "--ui-toast-viewport-gap",
-      "default": "var(--unit)",
+      "default": "var(--ui-unit)",
       "description": "Gap between toasts in viewport"
     },
     {
       "token": "--ui-toast-viewport-padding",
-      "default": "calc(var(--unit) * 2)",
+      "default": "calc(var(--ui-unit) * 2)",
       "description": "Viewport padding from edges"
     },
     {
@@ -71,12 +71,12 @@
     },
     {
       "token": "--ui-toast-padding",
-      "default": "calc(var(--unit) * 2)",
+      "default": "calc(var(--ui-unit) * 2)",
       "description": "Toast padding"
     },
     {
       "token": "--ui-toast-gap",
-      "default": "var(--unit)",
+      "default": "var(--ui-unit)",
       "description": "Gap between toast elements"
     },
     {

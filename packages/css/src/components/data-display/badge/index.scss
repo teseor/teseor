@@ -14,7 +14,7 @@
     --_font-weight: var(--ui-badge-font-weight, var(--ui-weight-medium, #{t.$weight-medium}));
     --_radius: var(--ui-badge-radius, var(--ui-radius-full, #{t.$radius-full}));
     --_bg: var(--_accent);
-    --_text: var(--ui-badge-text, var(--ui-color-text, #{t.$color-text}));
+    --_color: var(--ui-badge-color, var(--ui-color-text, #{t.$color-text}));
   }
 
   // @modifier size
@@ -27,22 +27,22 @@
   // @modifier variant
   .badge--primary {
     --_accent: var(--ui-color-primary, #{t.$color-primary});
-    --_text: var(--ui-color-text-inverse, #{t.$color-text-inverse});
+    --_color: var(--ui-color-text-inverse, #{t.$color-text-inverse});
   }
 
   .badge--success {
     --_accent: var(--ui-color-success, #{t.$color-success});
-    --_text: var(--ui-color-text-inverse, #{t.$color-text-inverse});
+    --_color: var(--ui-color-text-inverse, #{t.$color-text-inverse});
   }
 
   .badge--warning {
     --_accent: var(--ui-color-warning, #{t.$color-warning});
-    --_text: var(--ui-color-text, #{t.$color-text});
+    --_color: var(--ui-color-text, #{t.$color-text});
   }
 
   .badge--danger {
     --_accent: var(--ui-color-danger, #{t.$color-danger});
-    --_text: var(--ui-color-text-inverse, #{t.$color-text-inverse});
+    --_color: var(--ui-color-text-inverse, #{t.$color-text-inverse});
   }
 }
 
@@ -59,7 +59,7 @@
     font-weight: var(--_font-weight);
     line-height: 1;
     white-space: nowrap;
-    color: var(--_text);
+    color: var(--_color);
 
     background: var(--_bg);
     border-radius: var(--_radius);

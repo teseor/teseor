@@ -1,6 +1,6 @@
 :root {
-  --unit: 8px; /* 8px */
-  --ui-row: calc(var(--unit) * 2);
+  --ui-unit: 8px; // 8px
+  --ui-row: calc(var(--ui-unit) * 2);
 
   --ui-row-1: var(--ui-row);
   --ui-row-2: calc(var(--ui-row) * 2);

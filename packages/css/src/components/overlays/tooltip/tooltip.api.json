@@ -34,7 +34,7 @@
       "default": "calc(#{t.$unit} / 2"
     },
     {
-      "name": "--ui-tooltip-size",
+      "name": "--ui-tooltip-font-size",
       "default": "var(--ui-font-size-sm)"
     },
     {

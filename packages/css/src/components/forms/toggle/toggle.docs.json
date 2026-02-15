@@ -54,12 +54,12 @@
   "customization": [
     {
       "token": "--ui-toggle-track-width",
-      "default": "calc(var(--unit) * 5)",
+      "default": "calc(var(--ui-unit) * 5)",
       "description": "Track width"
     },
     {
       "token": "--ui-toggle-track-height",
-      "default": "calc(var(--unit) * 3)",
+      "default": "calc(var(--ui-unit) * 3)",
       "description": "Track height"
     },
     {
@@ -74,18 +74,18 @@
     },
     {
       "token": "--ui-toggle-track-radius",
-      "default": "calc(var(--unit) * 1.5)",
+      "default": "calc(var(--ui-unit) * 1.5)",
       "description": "Track border radius"
     },
     {
       "token": "--ui-toggle-thumb-size",
-      "default": "calc(var(--unit) * 2.5)",
+      "default": "calc(var(--ui-unit) * 2.5)",
       "description": "Thumb size"
     },
     { "token": "--ui-toggle-thumb-bg", "default": "white", "description": "Thumb background" },
     {
       "token": "--ui-toggle-thumb-offset",
-      "default": "calc(var(--unit) / 4)",
+      "default": "calc(var(--ui-unit) / 4)",
       "description": "Thumb offset from edge"
     }
   ]

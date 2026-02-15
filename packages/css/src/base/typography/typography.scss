@@ -149,8 +149,8 @@
   // Desktop (>1080px) - larger headings
   @media (width > 67.5rem) {
     h1 {
-      font-size: calc(var(--unit) * 6); // 48px
-      line-height: calc(var(--unit) * 7); // 56px
+      font-size: calc(var(--ui-unit) * 6); // 48px
+      line-height: calc(var(--ui-unit) * 7); // 56px
     }
 
     h2 {

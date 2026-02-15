@@ -32,7 +32,7 @@
     },
     {
       "token": "--ui-breadcrumb-gap",
-      "default": "var(--unit)",
+      "default": "var(--ui-unit)",
       "description": "Gap between items"
     },
     {

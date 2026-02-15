@@ -1,5 +1,5 @@
 :root {
-  --shadow-sm: 0 1px 2px hsl(var(--ui-hue-primary, 220) 10% 20% / 0.05);
-  --shadow-md: 0 4px 6px hsl(var(--ui-hue-primary, 220) 10% 20% / 0.1);
-  --shadow-lg: 0 10px 15px hsl(var(--ui-hue-primary, 220) 10% 20% / 0.15);
+  --ui-shadow-sm: 0 1px 2px hsl(var(--ui-hue-primary, 220) 10% 20% / 0.05);
+  --ui-shadow-md: 0 4px 6px hsl(var(--ui-hue-primary, 220) 10% 20% / 0.1);
+  --ui-shadow-lg: 0 10px 15px hsl(var(--ui-hue-primary, 220) 10% 20% / 0.15);
 }

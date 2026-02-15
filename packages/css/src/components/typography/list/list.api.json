@@ -15,7 +15,7 @@
   "cssVars": [
     {
       "name": "--ui-list-spacing",
-      "default": "var(--unit)"
+      "default": "var(--ui-unit)"
     },
     {
       "name": "--ui-list-marker-color",

@@ -14,7 +14,7 @@
 
   // Prose-friendly: narrower max-width for readability
   .content--prose {
-    max-inline-size: calc(var(--unit) * 80);
+    max-inline-size: calc(var(--ui-unit) * 80);
   }
 
   // Flush: no padding, just gap

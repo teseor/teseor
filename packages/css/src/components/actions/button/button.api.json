@@ -60,12 +60,12 @@
       "default": "var(--ui-radius-md)"
     },
     {
-      "name": "--ui-button-text",
+      "name": "--ui-button-color",
       "default": "var(--ui-color-text-inverse)"
     },
     {
       "name": "--ui-button-height-sm",
-      "default": "calc(var(--row) * 1.5)"
+      "default": "calc(var(--ui-row) * 1.5)"
     },
     {
       "name": "--ui-button-font-size-sm",
@@ -81,7 +81,7 @@
     },
     {
       "name": "--ui-button-height-lg",
-      "default": "calc(var(--row) * 2.5)"
+      "default": "calc(var(--ui-row) * 2.5)"
     },
     {
       "name": "--ui-button-padding-x-lg",
@@ -100,7 +100,7 @@
       "default": "var(--ui-color-border-strong)"
     },
     {
-      "name": "--ui-button-secondary-text",
+      "name": "--ui-button-secondary-color",
       "default": "var(--ui-color-text)"
     },
     {

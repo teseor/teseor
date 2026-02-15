@@ -45,7 +45,7 @@
       "default": "var(--ui-color-primary)"
     },
     {
-      "name": "--ui-select-text",
+      "name": "--ui-select-color",
       "default": "var(--ui-color-text)"
     },
     {
