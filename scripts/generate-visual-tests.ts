@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env tsx
 /**
  * Generate Visual Tests
  * Creates Playwright visual test files from component API definitions
@@ -14,10 +14,27 @@ const ROOT = join(__dirname, '..');
 const CSS_PKG = join(ROOT, 'packages/css/src');
 const PREFIX = 'ui-';
 
-/**
- * Find all api.json files
- */
-function findApiFiles(dir, files = []) {
+interface ApiModifier {
+  values?: string[];
+  type?: string;
+}
+
+interface ComponentApi {
+  name: string;
+  baseClass: string;
+  element: string;
+  description: string;
+  modifiers?: Record<string, ApiModifier>;
+}
+
+interface Variation {
+  name: string;
+  classes: string[];
+  label: string;
+  disabled?: boolean;
+}
+
+function findApiFiles(dir: string, files: string[] = []): string[] {
   const entries = readdirSync(dir);
   for (const entry of entries) {
     const fullPath = join(dir, entry);
@@ -36,17 +53,12 @@ function findApiFiles(dir, files = []) {
   return files;
 }
 
-/**
- * Generate all modifier combinations from API
- */
-function generateVariations(api) {
-  const variations = [];
+function generateVariations(api: ComponentApi): Variation[] {
+  const variations: Variation[] = [];
   const base = `${PREFIX}${api.baseClass}`;
 
-  // Default state
   variations.push({ name: 'default', classes: [base], label: 'Default' });
 
-  // Each enum modifier value
   for (const [modName, mod] of Object.entries(api.modifiers || {})) {
     if (mod.values) {
       for (const value of mod.values) {
@@ -65,37 +77,26 @@ function generateVariations(api) {
     }
   }
 
-  // Disabled state
   variations.push({ name: 'disabled', classes: [base], label: 'Disabled', disabled: true });
 
   return variations;
 }
 
-/**
- * Generate test file content using docs.json sections for doc-like layout
- */
-function generateTestFile(api, docsPath) {
-  // Read CSS at generation time and embed in test
+function generateTestFile(api: ComponentApi, docsPath: string): string {
   const componentCss = readFileSync(join(ROOT, 'packages/css/dist/index.css'), 'utf-8');
 
-  // Read docs.json for structured sections
-  let docs = null;
+  let docs: { sections?: unknown[] } | null = null;
   try {
     docs = JSON.parse(readFileSync(docsPath, 'utf-8'));
   } catch {
     // Fall back to auto-generated if no docs.json
   }
 
-  // Escape backticks and ${} in CSS for template literal
-  const escapeCss = (css) => css.replace(/`/g, '\\`').replace(/\$\{/g, '\\${');
+  const escapeCss = (css: string): string => css.replace(/`/g, '\\`').replace(/\$\{/g, '\\${');
+  const titleCase = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1);
 
-  // Title case helper
-  const titleCase = (str) => str.charAt(0).toUpperCase() + str.slice(1);
-
-  // Generate HTML sections from docs.json
-  const generateSections = () => {
+  const generateSections = (): unknown[] => {
     if (!docs?.sections) {
-      // Fallback: generate from API modifiers
       return generateVariations(api).map((v) => ({
         title: v.label,
         items: [{ classes: v.classes, text: v.label, disabled: v.disabled }],
@@ -106,12 +107,7 @@ function generateTestFile(api, docsPath) {
 
   const sections = generateSections();
 
-  const testContent = `import { test, expect } from '@playwright/test';
-
-/**
- * Visual regression tests for ${api.name}
- * Auto-generated from ${api.name}.api.json and ${api.name}.docs.json
- */
+  return `import { test, expect } from '@playwright/test';
 
 const componentCss = \`${escapeCss(componentCss)}\`;
 
@@ -128,13 +124,6 @@ test.describe('${api.name} visual regression', () => {
       margin: 0;
       padding: 48px;
       background-color: #fff;
-      background-image:
-        linear-gradient(45deg, #f0f0f0 25%, transparent 25%),
-        linear-gradient(-45deg, #f0f0f0 25%, transparent 25%),
-        linear-gradient(45deg, transparent 75%, #f0f0f0 75%),
-        linear-gradient(-45deg, transparent 75%, #f0f0f0 75%);
-      background-size: 16px 16px;
-      background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
       font-family: var(--ui-font-sans);
     }
     .doc-title {
@@ -165,16 +154,6 @@ test.describe('${api.name} visual regression', () => {
       gap: 16px;
       align-items: center;
     }
-    .doc-item {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      min-width: 120px;
-    }
-    .doc-label {
-      font-size: 12px;
-      color: var(--ui-color-text-muted);
-    }
   </style>
 </head>
 <body>
@@ -204,15 +183,10 @@ test.describe('${api.name} visual regression', () => {
   });
 });
 `;
-
-  return testContent;
 }
 
-/**
- * Main function
- */
-function main() {
-  console.log('Generating visual tests from API definitions...\\n');
+function main(): void {
+  console.log('Generating visual tests from API definitions...\n');
 
   const apiFiles = findApiFiles(CSS_PKG);
 
@@ -225,7 +199,7 @@ function main() {
     const relativePath = relative(ROOT, apiPath);
     console.log(`Processing: ${relativePath}`);
 
-    const api = JSON.parse(readFileSync(apiPath, 'utf-8'));
+    const api = JSON.parse(readFileSync(apiPath, 'utf-8')) as ComponentApi;
     const docsPath = apiPath.replace('.api.json', '.docs.json');
     const testContent = generateTestFile(api, docsPath);
 
@@ -235,7 +209,7 @@ function main() {
     console.log(`  Generated: ${relative(ROOT, testPath)}`);
   }
 
-  console.log('\\nDone!');
+  console.log('\nDone!');
 }
 
 main();

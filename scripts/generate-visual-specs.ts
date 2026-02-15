@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env tsx
 /**
  * Generate Visual Specs
  * Creates missing *.visual.spec.ts files for components
@@ -12,7 +12,13 @@ import { fileURLToPath } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const COMPONENTS_DIR = join(__dirname, '../packages/css/src/components');
 
-function generateVisualSpec(name, depth) {
+interface ComponentEntry {
+  name: string;
+  path: string;
+  depth: number;
+}
+
+function generateVisualSpec(name: string, depth: number): string {
   const testingImport = `${'../'.repeat(depth + 1)}testing`;
   return `import { resolve } from 'node:path';
 import { expect, test } from '@playwright/test';
@@ -31,8 +37,8 @@ test.describe('${name} visual regression', () => {
 `;
 }
 
-function findComponentDirs(baseDir, depth = 0) {
-  const components = [];
+function findComponentDirs(baseDir: string, depth = 0): ComponentEntry[] {
+  const components: ComponentEntry[] = [];
   const entries = readdirSync(baseDir).filter((name) => {
     if (name.startsWith('.') || name === 'index.scss') return false;
     return statSync(join(baseDir, name)).isDirectory();
@@ -49,12 +55,12 @@ function findComponentDirs(baseDir, depth = 0) {
   return components;
 }
 
-function findMissingSpecs() {
+function findMissingSpecs(): ComponentEntry[] {
   const components = findComponentDirs(COMPONENTS_DIR);
   return components.filter(({ name, path }) => !existsSync(join(path, `${name}.visual.spec.ts`)));
 }
 
-function generateMissingSpecs(dryRun = false) {
+function generateMissingSpecs(dryRun = false): void {
   const missing = findMissingSpecs();
 
   if (missing.length === 0) {

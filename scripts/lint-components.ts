@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env tsx
 /**
  * Lint Components
  * Validates that all component folders have the required files:
@@ -19,14 +19,25 @@ import { discoverComponents } from './discover-structure.js';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const COMPONENTS_DIR = join(__dirname, '../packages/css/src/components');
 
-const REQUIRED_FILES = [
+interface FileCheck {
+  pattern: string;
+  description: string;
+  required: boolean;
+}
+
+interface ComponentEntry {
+  name: string;
+  path: string;
+}
+
+const REQUIRED_FILES: FileCheck[] = [
   { pattern: 'index.scss', description: 'styles', required: true },
   { pattern: '*.api.json', description: 'API definition', required: true },
   { pattern: '*.docs.json', description: 'documentation', required: true },
   { pattern: '*.visual.spec.ts', description: 'visual regression test', required: false },
 ];
 
-function checkGlobPattern(dir, pattern) {
+function checkGlobPattern(dir: string, pattern: string): boolean {
   if (!pattern.includes('*')) {
     return existsSync(join(dir, pattern));
   }
@@ -35,8 +46,8 @@ function checkGlobPattern(dir, pattern) {
   return files.some((f) => regex.test(f));
 }
 
-function findComponentDirs(baseDir) {
-  const components = [];
+function findComponentDirs(baseDir: string): ComponentEntry[] {
+  const components: ComponentEntry[] = [];
   const entries = readdirSync(baseDir).filter((name) => {
     if (name.startsWith('.') || name === 'index.scss') return false;
     return statSync(join(baseDir, name)).isDirectory();
@@ -61,14 +72,15 @@ function findComponentDirs(baseDir) {
   return components;
 }
 
-function lintComponents() {
+function lintComponents(): void {
   const components = findComponentDirs(COMPONENTS_DIR);
-  const errors = [];
-  const warnings = [];
+  const errors: { component: string; missing: { pattern: string; description: string }[] }[] = [];
+  const warnings: { component: string; optional: { pattern: string; description: string }[] }[] =
+    [];
 
   for (const { name, path } of components) {
-    const missing = [];
-    const optional = [];
+    const missing: { pattern: string; description: string }[] = [];
+    const optional: { pattern: string; description: string }[] = [];
 
     for (const { pattern, description, required } of REQUIRED_FILES) {
       if (!checkGlobPattern(path, pattern)) {
@@ -115,11 +127,11 @@ function lintComponents() {
   console.log(`All ${components.length} components have required files.`);
 }
 
-function lintSidenavCompleteness() {
+function lintSidenavCompleteness(): void {
   const configPath = join(__dirname, '../packages/css/component-groups.config.json');
   const config = JSON.parse(readFileSync(configPath, 'utf-8'));
   const discovered = discoverComponents(COMPONENTS_DIR);
-  const errors = [];
+  const errors: string[] = [];
 
   // Every group in config should exist on disk
   for (const id of config.groupOrder) {
@@ -136,7 +148,7 @@ function lintSidenavCompleteness() {
   }
 
   // Every component with a docs.json should be inside a known group
-  const allDiscoveredComponents = [];
+  const allDiscoveredComponents: { name: string; group: string }[] = [];
   for (const [groupId, group] of discovered) {
     for (const name of group.components) {
       allDiscoveredComponents.push({ name, group: groupId });
@@ -157,5 +169,79 @@ function lintSidenavCompleteness() {
   );
 }
 
+interface ApiJson {
+  name?: string;
+  [key: string]: unknown;
+}
+
+interface DocsJson {
+  sections?: { examples?: { items?: Record<string, unknown>[] }[] }[];
+  [key: string]: unknown;
+}
+
+function lintJsonContent(): void {
+  const components = findComponentDirs(COMPONENTS_DIR);
+  const errors: string[] = [];
+  const warnings: string[] = [];
+
+  for (const { name, path } of components) {
+    // Validate api.json
+    const apiFiles = readdirSync(path).filter((f) => f.endsWith('.api.json'));
+    for (const apiFile of apiFiles) {
+      const data: ApiJson = JSON.parse(readFileSync(join(path, apiFile), 'utf-8'));
+      if (!data.name) {
+        errors.push(`${name}/${apiFile}: missing required "name" field`);
+      }
+      if (data.name && !/^[a-z][a-z0-9]*(-[a-z0-9]+)*$/.test(data.name)) {
+        errors.push(`${name}/${apiFile}: "name" must be kebab-case`);
+      }
+    }
+
+    // Validate docs.json
+    const docsFiles = readdirSync(path).filter((f) => f.endsWith('.docs.json'));
+    for (const docsFile of docsFiles) {
+      const data: DocsJson = JSON.parse(readFileSync(join(path, docsFile), 'utf-8'));
+
+      // Warn on raw html strings in items (prefer config format)
+      if (data.sections) {
+        for (const section of data.sections) {
+          for (const example of section.examples || []) {
+            if (example.items) {
+              for (const item of example.items) {
+                if ('html' in item) {
+                  warnings.push(
+                    `${name}/${docsFile}: items should use tag/class/text/children, not raw "html"`,
+                  );
+                  break;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  if (warnings.length > 0) {
+    console.warn('JSON content warnings:\n');
+    for (const warn of warnings) {
+      console.warn(`  - ${warn}`);
+    }
+    console.warn('');
+  }
+
+  if (errors.length > 0) {
+    console.error('JSON content validation failed:\n');
+    for (const err of errors) {
+      console.error(`  - ${err}`);
+    }
+    console.error(`\n${errors.length} validation error(s).`);
+    process.exit(1);
+  }
+
+  console.log(`JSON validation: ${components.length} components passed.`);
+}
+
 lintComponents();
 lintSidenavCompleteness();
+lintJsonContent();

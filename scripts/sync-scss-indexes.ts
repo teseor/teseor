@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env tsx
 /**
  * Generate SCSS index files for layout and components from directory structure.
  * Run before build to keep indexes in sync with filesystem.
@@ -16,14 +16,14 @@ const LAYOUT_DIR = join(SRC_DIR, 'layout');
 const COMPONENTS_DIR = join(SRC_DIR, 'components');
 
 // Generate layout/index.scss
-const primitives = discoverPrimitives(LAYOUT_DIR);
-const layoutContent = `${primitives.map((name) => `@forward './${name}';`).join('\n')}\n`;
+const primitives: string[] = discoverPrimitives(LAYOUT_DIR);
+const layoutContent = `${primitives.map((name: string) => `@forward './${name}';`).join('\n')}\n`;
 writeFileSync(join(LAYOUT_DIR, 'index.scss'), layoutContent);
 console.log(`layout/index.scss: ${primitives.length} primitives`);
 
-// Generate 04-components/index.scss
+// Generate components/index.scss
 const groups = discoverComponents(COMPONENTS_DIR);
-const componentLines = [];
+const componentLines: string[] = [];
 for (const [groupName, group] of groups) {
   for (const name of group.components) {
     componentLines.push(`@forward './${groupName}/${name}/index';`);
