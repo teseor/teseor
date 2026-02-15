@@ -12,7 +12,7 @@
     --_bg: var(--ui-input-bg, var(--ui-color-bg, #{t.$color-bg}));
     --_border-color: var(--ui-input-border-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
     --_border-color-focus: var(--ui-input-border-color-focus, var(--ui-color-primary, #{t.$color-primary}));
-    --_text: var(--ui-input-text, var(--ui-color-text, #{t.$color-text}));
+    --_color: var(--ui-input-color, var(--ui-color-text, #{t.$color-text}));
     --_placeholder: var(--ui-input-placeholder, var(--ui-color-text-muted, #{t.$color-text-muted}));
   }
 
@@ -62,7 +62,7 @@
     font-family: inherit;
     font-size: var(--_font-size);
     line-height: 1;
-    color: var(--_text);
+    color: var(--_color);
 
     background: var(--_bg);
     border: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_border-color);

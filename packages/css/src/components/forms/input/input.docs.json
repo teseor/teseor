@@ -179,7 +179,7 @@
       "default": "var(--ui-color-primary)",
       "description": "Focus border color"
     },
-    { "token": "--ui-input-text", "default": "var(--ui-color-text)", "description": "Text color" },
+    { "token": "--ui-input-color", "default": "var(--ui-color-text)", "description": "Text color" },
     {
       "token": "--ui-input-placeholder",
       "default": "var(--ui-color-text-muted)",
