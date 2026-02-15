@@ -1,5 +1,14 @@
 # @teseor/css
 
+## 1.6.0
+
+### Minor Changes
+
+- ea57b2d: Add checkbox-group component for grouping related checkboxes with legend
+- be7494d: Add radio-group component for grouping related radio buttons with legend
+- 04e2cde: Add search-input component with icon, clear button, and size variants
+- 81a7522: Add slider component for range value selection with size and color variants
+
 ## 1.5.0
 
 ### Minor Changes
