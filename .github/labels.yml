@@ -2,9 +2,9 @@
 - name: "pkg: css"
   color: "C4B5FD"
   description: Changes in packages/css
-- name: "pkg: docs"
+- name: "pkg: docs-css"
   color: "BFDBFE"
-  description: Changes in apps/docs
+  description: Changes in apps/docs-css
 
 # Type
 - name: "type: feature"

@@ -1,0 +1,10 @@
+{
+  "name": "row",
+  "element": "div",
+  "modifiers": {
+    "size": {
+      "values": ["xs", "md", "lg"]
+    }
+  },
+  "cssVars": []
+}

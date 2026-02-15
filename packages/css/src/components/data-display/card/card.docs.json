@@ -1,0 +1,103 @@
+{
+  "api": "./card.api.json",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "items": [
+            { "tag": "div", "class": "ui-card", "text": "Default card with padding and border" }
+          ],
+          "code": "<div class=\"ui-card\">Content</div>"
+        }
+      ]
+    },
+    {
+      "title": "Background Variants",
+      "data": {
+        "variants": [
+          { "mod": "", "label": "Default background" },
+          { "mod": "subtle", "label": "Subtle background" },
+          { "mod": "muted", "label": "Muted background" }
+        ]
+      },
+      "examples": [
+        {
+          "layout": "column",
+          "items": [
+            { "tag": "div", "class": "ui-card", "text": "Default background" },
+            { "tag": "div", "class": "ui-card ui-card--subtle", "text": "Subtle background" },
+            { "tag": "div", "class": "ui-card ui-card--muted", "text": "Muted background" }
+          ],
+          "code": "{% for v in variants %}<div class=\"ui-card{% if v.mod %} ui-card--{{ v.mod }}{% endif %}\">{{ v.label }}</div>\n{% endfor %}"
+        }
+      ]
+    },
+    {
+      "title": "Padding Variants",
+      "data": {
+        "sizes": [
+          { "mod": "sm", "label": "Small padding" },
+          { "mod": "", "label": "Default padding" },
+          { "mod": "lg", "label": "Large padding" },
+          { "mod": "flush", "label": "No padding (flush)" }
+        ]
+      },
+      "examples": [
+        {
+          "layout": "column",
+          "items": [
+            { "tag": "div", "class": "ui-card ui-card--sm", "text": "Small padding" },
+            { "tag": "div", "class": "ui-card", "text": "Default padding" },
+            { "tag": "div", "class": "ui-card ui-card--lg", "text": "Large padding" },
+            { "tag": "div", "class": "ui-card ui-card--flush", "text": "No padding (flush)" }
+          ],
+          "code": "{% for s in sizes %}<div class=\"ui-card{% if s.mod %} ui-card--{{ s.mod }}{% endif %}\">{{ s.label }}</div>\n{% endfor %}"
+        }
+      ]
+    }
+  ],
+  "customization": [
+    {
+      "token": "--ui-card-padding",
+      "default": "var(--ui-space-4)",
+      "description": "Default padding"
+    },
+    {
+      "token": "--ui-card-padding-sm",
+      "default": "var(--ui-space-2)",
+      "description": "Small padding"
+    },
+    {
+      "token": "--ui-card-padding-lg",
+      "default": "var(--ui-space-6)",
+      "description": "Large padding"
+    },
+    {
+      "token": "--ui-card-border-width",
+      "default": "var(--ui-border-width-sm)",
+      "description": "Border width"
+    },
+    {
+      "token": "--ui-card-border-color",
+      "default": "var(--ui-color-border)",
+      "description": "Border color"
+    },
+    { "token": "--ui-card-bg", "default": "var(--ui-color-bg)", "description": "Background color" },
+    {
+      "token": "--ui-card-bg-subtle",
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Subtle background"
+    },
+    {
+      "token": "--ui-card-bg-muted",
+      "default": "var(--ui-color-bg-muted)",
+      "description": "Muted background"
+    },
+    {
+      "token": "--ui-card-radius",
+      "default": "var(--ui-radius-md)",
+      "description": "Border radius"
+    }
+  ]
+}

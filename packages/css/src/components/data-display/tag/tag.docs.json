@@ -1,0 +1,108 @@
+{
+  "id": "tag",
+  "type": "component",
+  "title": "Tag",
+  "description": "Keyword labels for categorization. Use for filtering, attributes, or status indicators.",
+  "api": "./tag.api.json",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "layout": "row",
+          "items": [
+            { "tag": "span", "class": "ui-tag", "text": "Tag" },
+            { "tag": "span", "class": "ui-tag", "text": "Category" },
+            { "tag": "span", "class": "ui-tag", "text": "Label" }
+          ],
+          "code": "<span class=\"ui-tag\">Tag</span>"
+        }
+      ]
+    },
+    {
+      "title": "Sizes",
+      "examples": [
+        {
+          "layout": "row",
+          "items": [
+            { "tag": "span", "class": "ui-tag ui-tag--sm", "text": "Small" },
+            { "tag": "span", "class": "ui-tag", "text": "Default" }
+          ],
+          "code": "<span class=\"ui-tag ui-tag--sm\">Small</span>\n<span class=\"ui-tag\">Default</span>"
+        }
+      ]
+    },
+    {
+      "title": "Variants",
+      "examples": [
+        {
+          "layout": "row",
+          "items": [
+            { "tag": "span", "class": "ui-tag", "text": "Default" },
+            { "tag": "span", "class": "ui-tag ui-tag--primary", "text": "Primary" },
+            { "tag": "span", "class": "ui-tag ui-tag--success", "text": "Success" },
+            { "tag": "span", "class": "ui-tag ui-tag--warning", "text": "Warning" },
+            { "tag": "span", "class": "ui-tag ui-tag--danger", "text": "Danger" }
+          ],
+          "code": "<span class=\"ui-tag\">Default</span>\n<span class=\"ui-tag ui-tag--primary\">Primary</span>\n<span class=\"ui-tag ui-tag--success\">Success</span>\n<span class=\"ui-tag ui-tag--warning\">Warning</span>\n<span class=\"ui-tag ui-tag--danger\">Danger</span>"
+        }
+      ]
+    },
+    {
+      "title": "With Remove Button",
+      "examples": [
+        {
+          "html": "<span class=\"ui-tag\">Removable<button class=\"ui-tag__remove\" aria-label=\"Remove\"><svg class=\"ui-icon ui-icon--xs\" viewBox=\"0 0 24 24\"><path d=\"M18 6 6 18M6 6l12 12\"></path></svg></button></span>",
+          "code": "<span class=\"ui-tag\">\n  Removable\n  <button class=\"ui-tag__remove\" aria-label=\"Remove\">\n    <svg class=\"ui-icon\">...</svg>\n  </button>\n</span>"
+        }
+      ]
+    },
+    {
+      "title": "Tag Group",
+      "examples": [
+        {
+          "html": "<div class=\"ui-tag-group\"><span class=\"ui-tag\">JavaScript</span><span class=\"ui-tag\">TypeScript</span><span class=\"ui-tag\">React</span><span class=\"ui-tag\">CSS</span></div>",
+          "code": "<div class=\"ui-tag-group\">\n  <span class=\"ui-tag\">JavaScript</span>\n  <span class=\"ui-tag\">TypeScript</span>\n  <span class=\"ui-tag\">React</span>\n</div>"
+        }
+      ]
+    }
+  ],
+  "customization": [
+    {
+      "token": "--ui-tag-height",
+      "default": "calc(var(--unit) * 3)",
+      "description": "Default height"
+    },
+    {
+      "token": "--ui-tag-height-sm",
+      "default": "calc(var(--unit) * 2.5)",
+      "description": "Small height"
+    },
+    {
+      "token": "--ui-tag-padding-x",
+      "default": "var(--ui-space-1)",
+      "description": "Horizontal padding"
+    },
+    {
+      "token": "--ui-tag-gap",
+      "default": "calc(var(--unit) * 0.5)",
+      "description": "Gap between content and remove button"
+    },
+    {
+      "token": "--ui-tag-radius",
+      "default": "var(--ui-radius-full)",
+      "description": "Border radius"
+    },
+    {
+      "token": "--ui-tag-font-size",
+      "default": "var(--ui-font-size-sm)",
+      "description": "Font size"
+    },
+    {
+      "token": "--ui-tag-bg",
+      "default": "var(--ui-color-bg-muted)",
+      "description": "Background color"
+    },
+    { "token": "--ui-tag-color", "default": "var(--ui-color-text)", "description": "Text color" }
+  ]
+}

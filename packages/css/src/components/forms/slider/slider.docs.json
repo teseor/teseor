@@ -1,0 +1,144 @@
+{
+  "id": "slider",
+  "type": "component",
+  "title": "Slider",
+  "description": "Range value selection. Styles the native range input cross-browser for track and thumb.",
+  "api": "./slider.api.json",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "input",
+              "class": "ui-slider",
+              "attrs": { "type": "range", "min": "0", "max": "100", "value": "50" }
+            }
+          ],
+          "code": "<input type=\"range\" class=\"ui-slider\" min=\"0\" max=\"100\" value=\"50\">"
+        }
+      ]
+    },
+    {
+      "title": "Sizes",
+      "examples": [
+        {
+          "layout": "column",
+          "items": [
+            {
+              "tag": "input",
+              "class": "ui-slider ui-slider--sm",
+              "attrs": { "type": "range", "min": "0", "max": "100", "value": "30" }
+            },
+            {
+              "tag": "input",
+              "class": "ui-slider",
+              "attrs": { "type": "range", "min": "0", "max": "100", "value": "50" }
+            },
+            {
+              "tag": "input",
+              "class": "ui-slider ui-slider--lg",
+              "attrs": { "type": "range", "min": "0", "max": "100", "value": "70" }
+            }
+          ],
+          "code": "<input type=\"range\" class=\"ui-slider ui-slider--sm\" value=\"30\">\n<input type=\"range\" class=\"ui-slider\" value=\"50\">\n<input type=\"range\" class=\"ui-slider ui-slider--lg\" value=\"70\">"
+        }
+      ]
+    },
+    {
+      "title": "Colors",
+      "examples": [
+        {
+          "layout": "column",
+          "items": [
+            {
+              "tag": "input",
+              "class": "ui-slider",
+              "attrs": { "type": "range", "min": "0", "max": "100", "value": "50" }
+            },
+            {
+              "tag": "input",
+              "class": "ui-slider ui-slider--success",
+              "attrs": { "type": "range", "min": "0", "max": "100", "value": "80" }
+            },
+            {
+              "tag": "input",
+              "class": "ui-slider ui-slider--warning",
+              "attrs": { "type": "range", "min": "0", "max": "100", "value": "60" }
+            },
+            {
+              "tag": "input",
+              "class": "ui-slider ui-slider--danger",
+              "attrs": { "type": "range", "min": "0", "max": "100", "value": "25" }
+            }
+          ],
+          "code": "<input type=\"range\" class=\"ui-slider\" value=\"50\">\n<input type=\"range\" class=\"ui-slider ui-slider--success\" value=\"80\">\n<input type=\"range\" class=\"ui-slider ui-slider--warning\" value=\"60\">\n<input type=\"range\" class=\"ui-slider ui-slider--danger\" value=\"25\">"
+        }
+      ]
+    },
+    {
+      "title": "Disabled",
+      "examples": [
+        {
+          "layout": "column",
+          "items": [
+            {
+              "tag": "input",
+              "class": "ui-slider",
+              "attrs": { "type": "range", "min": "0", "max": "100", "value": "40", "disabled": "" }
+            },
+            {
+              "tag": "input",
+              "class": "ui-slider ui-slider--success",
+              "attrs": { "type": "range", "min": "0", "max": "100", "value": "70", "disabled": "" }
+            }
+          ],
+          "code": "<input type=\"range\" class=\"ui-slider\" value=\"40\" disabled>\n<input type=\"range\" class=\"ui-slider ui-slider--success\" value=\"70\" disabled>"
+        }
+      ]
+    }
+  ],
+  "customization": [
+    {
+      "token": "--ui-slider-height",
+      "default": "var(--ui-row-2)",
+      "description": "Component height (clickable area)"
+    },
+    {
+      "token": "--ui-slider-track-height",
+      "default": "var(--ui-unit)",
+      "description": "Track bar height"
+    },
+    {
+      "token": "--ui-slider-track-bg",
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Track background"
+    },
+    {
+      "token": "--ui-slider-track-fill",
+      "default": "var(--ui-color-primary)",
+      "description": "Filled portion color (Firefox)"
+    },
+    {
+      "token": "--ui-slider-thumb-size",
+      "default": "calc(var(--ui-unit) * 2.5)",
+      "description": "Thumb diameter"
+    },
+    {
+      "token": "--ui-slider-thumb-bg",
+      "default": "var(--ui-color-bg)",
+      "description": "Thumb background"
+    },
+    {
+      "token": "--ui-slider-thumb-border-color",
+      "default": "var(--ui-color-primary)",
+      "description": "Thumb border color"
+    },
+    {
+      "token": "--ui-slider-focus-ring",
+      "default": "var(--ui-color-focus)",
+      "description": "Focus ring color"
+    }
+  ]
+}

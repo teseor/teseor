@@ -1,0 +1,84 @@
+@use '../../../config/tokens/variables' as t;
+
+// @component dropdown-menu
+// @element div
+// Composite: trigger button + floating menu panel
+
+@layer components.tokens {
+  .dropdown-menu {
+    --_z: var(--ui-dropdown-menu-z, 200);
+    --_panel-offset: var(--ui-dropdown-menu-panel-offset, var(--ui-space-1, #{t.$space-1}));
+    --_panel-min-width: var(--ui-dropdown-menu-panel-min-width, auto);
+  }
+}
+
+@layer components.styles {
+  .dropdown-menu {
+    display: inline-block;
+    position: relative;
+  }
+
+  .dropdown-menu__trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ui-space-0, #{t.$space-0});
+  }
+
+  .dropdown-menu__trigger-icon {
+    display: inline-flex;
+
+    font-size: 0.6em;
+
+    transition: transform var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease);
+  }
+
+  .dropdown-menu--open .dropdown-menu__trigger-icon {
+    transform: rotate(180deg);
+  }
+
+  .dropdown-menu__panel {
+    position: absolute;
+    inset-block-start: calc(100% + var(--_panel-offset));
+    inset-inline-start: 0;
+    z-index: var(--_z);
+
+    min-inline-size: var(--_panel-min-width);
+
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(calc(#{t.$unit} * -1));
+
+    transition:
+      opacity var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease),
+      transform var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease);
+  }
+
+  .dropdown-menu--open .dropdown-menu__panel {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  // Position above trigger
+  .dropdown-menu--top .dropdown-menu__panel {
+    inset-block-start: auto;
+    inset-block-end: calc(100% + var(--_panel-offset));
+
+    transform: translateY(#{t.$unit});
+  }
+
+  .dropdown-menu--top.dropdown-menu--open .dropdown-menu__panel {
+    transform: translateY(0);
+  }
+
+  // Align to end edge
+  .dropdown-menu--align-end .dropdown-menu__panel {
+    inset-inline-start: auto;
+    inset-inline-end: 0;
+  }
+
+  // Full-width panel matches trigger width
+  .dropdown-menu--full-width .dropdown-menu__panel {
+    min-inline-size: 100%;
+  }
+}

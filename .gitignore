@@ -41,7 +41,7 @@ temp
 # Docs
 CLAUDE.md
 .docs.local
-apps/docs/src/generated
+apps/docs-css/src/generated
 
 # Changesets - keep generated changeset files
 # (they're needed for version bumps)

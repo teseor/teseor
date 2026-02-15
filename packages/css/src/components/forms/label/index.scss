@@ -1,0 +1,46 @@
+@use '../../../config/tokens/variables' as t;
+
+// @component label
+// @element label
+
+@layer components.tokens {
+  .label {
+    --_font-size: var(--ui-label-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    --_color: var(--ui-label-color, var(--ui-color-text, #{t.$color-text}));
+    --_required-color: var(--ui-label-required-color, var(--ui-color-danger, #{t.$color-danger}));
+  }
+
+  // @modifier size
+  .label--lg {
+    --_font-size: var(--ui-label-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
+  }
+}
+
+@layer components.styles {
+  .label {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0;
+
+    font-size: var(--_font-size);
+    font-weight: var(--ui-weight-medium, #{t.$weight-medium});
+    line-height: var(--ui-leading-tight-sm, var(--ui-row-1));
+    color: var(--_color);
+
+    cursor: pointer;
+
+    &[aria-disabled='true'] {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  .label__required {
+    color: var(--_required-color);
+  }
+
+  .label__optional {
+    font-weight: var(--ui-weight-normal, #{t.$weight-normal});
+    color: var(--ui-color-text-muted, #{t.$color-text-muted});
+  }
+}

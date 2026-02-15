@@ -1,0 +1,23 @@
+{
+  "name": "docs-css",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "eleventy --serve",
+    "build": "node scripts/validate-docs.js && eleventy",
+    "build-docs": "eleventy",
+    "validate-docs": "node scripts/validate-docs.js",
+    "preview": "eleventy --serve"
+  },
+  "dependencies": {
+    "@teseor/css": "workspace:*",
+    "nunjucks": "^3.2.4"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.2",
+    "concurrently": "^9.2.1",
+    "nodemon": "^3.1.11",
+    "vite": "^6.0.3"
+  }
+}

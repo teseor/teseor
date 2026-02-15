@@ -1,27 +1,24 @@
-/**
- * CSS Library - Main Entry Point
- *
- * Import order follows numbered folder structure for cascade control.
- */
+// CSS Library - Main Entry Point
+// Import order controls cascade.
 
-/* 00. Config: Layer definitions + Design tokens */
-@use './00-config/layers/layers' as *;
-@use './00-config/tokens/index' as *;
+// Config: Layer definitions + Design tokens
+@use './config/layers/layers' as *;
+@use './config/tokens/index' as *;
 
-/* 01. Reset styles */
-@use './01-reset/index' as *;
+// Reset styles
+@use './reset/index' as *;
 
-/* 02. Base styles (typography, etc.) */
-@use './02-base/index' as *;
+// Base styles (typography, etc.)
+@use './base/index' as *;
 
-/* 03. Layout primitives */
-@use './03-layout/index' as *;
+// Layout primitives
+@use './layout/index' as *;
 
-/* 04. Components */
-@use './04-components/index' as *;
+// Components
+@use './components/index' as *;
 
-/* 05. Utilities (high specificity, load last) */
-@use './05-utilities/index' as *;
+// Utilities (high specificity, load last)
+@use './utilities/index' as *;
 
-/* 99. Debug tools (dev only) */
-@use './99-debug/index' as *;
+// Debug tools (dev only)
+@use './debug/index' as *;

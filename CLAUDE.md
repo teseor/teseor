@@ -26,22 +26,22 @@ CSS-first component library. Components in CSS, framework wrappers later.
 
 ```
 packages/css/src/
-  00-config/       # Layers + global tokens
-  01-reset/        # Reset styles
-  02-base/         # Base HTML styles
-  03-layout/       # Layout primitives (stack, grid, sidebar-nav)
-  04-components/   # UI components grouped: [group]/[name]/
-    actions/         # button, button-group
-    typography/      # heading, link, code, kbd, ...
-    forms/           # input, select, checkbox, ...
-    data-display/    # avatar, badge, card, table, ...
-    feedback/        # alert, spinner, progress, ...
-    overlays/        # modal, dialog, tooltip, ...
+  config/          # Layers + global tokens
+  reset/           # Reset styles
+  base/            # Base HTML styles
+  layout/          # Layout primitives (column, row, grid, box, center, container, app-shell, ...)
+  components/      # UI components grouped: [group]/[name]/
+    actions/         # button, button-group, close-button
+    typography/      # heading, link, code, code-block, kbd, blockquote, list, mark
+    forms/           # input, select, checkbox, radio, toggle, slider, fieldset, ...
+    data-display/    # avatar, badge, card, table, tag, stat, ...
+    feedback/        # alert, spinner, progress, progress-circle, skeleton, toast
+    overlays/        # modal, dialog, drawer, tooltip, popover, overlay
     disclosure/      # accordion, disclosure
-    navigation/      # tabs, breadcrumb, menu, ...
-    layout/          # divider, spacer
-  05-utilities/    # Helper classes
-  99-debug/        # Dev tools
+    navigation/      # tabs, breadcrumb, menu, dropdown-menu, nav, pagination
+    content/         # divider, spacer, scroll-area
+  utilities/       # Helper classes
+  debug/           # Dev tools
 ```
 
 **Auto-discovery**: Components are discovered from directory structure. No manual registration needed — just create files in the right group folder.
@@ -71,11 +71,11 @@ packages/css/src/
 
 **Layer pattern**:
 ```scss
-@layer primitives {  // 03-layout
+@layer primitives {  // layout/
   .sidebar-nav { ... }
 }
 
-@layer components {  // 04-components
+@layer components {  // components/
   .button { ... }
 }
 ```
@@ -84,9 +84,9 @@ packages/css/src/
 
 ## Docs (Eleventy)
 
-`pnpm --filter docs build` -> multi-page static site at `apps/docs/dist/`
+`pnpm --filter docs-css build` -> multi-page static site at `apps/docs-css/dist/`
 
-- Nunjucks templating in `apps/docs/src/_includes/`
+- Nunjucks templating in `apps/docs-css/src/_includes/`
 - Pages generated from `*.docs.json` files
 - Sidenav auto-generated from doc types
 

@@ -1,0 +1,13 @@
+@layer primitives {
+  .column {
+    display: flex;
+    flex-direction: column;
+    gap: var(--column-gap, var(--ui-space-2));
+  }
+
+  .column--xs { --column-gap: var(--ui-space-1); }
+  .column--sm { --column-gap: var(--ui-space-2); }
+  .column--md { --column-gap: var(--ui-space-4); }
+  .column--lg { --column-gap: var(--ui-space-6); }
+  .column--xl { --column-gap: var(--ui-space-8); }
+}

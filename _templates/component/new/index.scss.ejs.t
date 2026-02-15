@@ -1,7 +1,7 @@
 ---
-to: packages/css/src/04-components/<%= group %>/<%= name %>/index.scss
+to: packages/css/src/components/<%= group %>/<%= name %>/index.scss
 ---
-@use '../../../00-config/tokens/variables' as t;
+@use '../../../config/tokens/variables' as t;
 
 // <%= h.changeCase.title(name) %> component
 

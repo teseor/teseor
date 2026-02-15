@@ -1,0 +1,257 @@
+{
+  "id": "search-input",
+  "type": "component",
+  "title": "Search Input",
+  "description": "Search field with built-in search icon and optional clear button.",
+  "api": "./search-input.api.json",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-search-input",
+              "children": [
+                {
+                  "tag": "span",
+                  "class": "ui-search-input__icon",
+                  "children": [
+                    {
+                      "tag": "svg",
+                      "attrs": { "viewBox": "0 0 24 24" },
+                      "children": [
+                        { "tag": "circle", "attrs": { "cx": "11", "cy": "11", "r": "8" } },
+                        { "tag": "path", "attrs": { "d": "m21 21-4.3-4.3" } }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "input",
+                  "class": "ui-search-input__field",
+                  "attrs": { "type": "search", "placeholder": "Search..." }
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-search-input\">\n  <span class=\"ui-search-input__icon\"><svg>...</svg></span>\n  <input class=\"ui-search-input__field\" type=\"search\" placeholder=\"Search...\">\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "With Clear Button",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-search-input ui-search-input--has-clear",
+              "children": [
+                {
+                  "tag": "span",
+                  "class": "ui-search-input__icon",
+                  "children": [
+                    {
+                      "tag": "svg",
+                      "attrs": { "viewBox": "0 0 24 24" },
+                      "children": [
+                        { "tag": "circle", "attrs": { "cx": "11", "cy": "11", "r": "8" } },
+                        { "tag": "path", "attrs": { "d": "m21 21-4.3-4.3" } }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "input",
+                  "class": "ui-search-input__field",
+                  "attrs": { "type": "search", "value": "Design tokens" }
+                },
+                {
+                  "tag": "button",
+                  "class": "ui-search-input__clear",
+                  "attrs": { "type": "button", "aria-label": "Clear search" },
+                  "children": [
+                    {
+                      "tag": "svg",
+                      "attrs": { "viewBox": "0 0 24 24" },
+                      "children": [
+                        { "tag": "path", "attrs": { "d": "M18 6 6 18" } },
+                        { "tag": "path", "attrs": { "d": "m6 6 12 12" } }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-search-input ui-search-input--has-clear\">\n  <span class=\"ui-search-input__icon\"><svg>...</svg></span>\n  <input class=\"ui-search-input__field\" type=\"search\" value=\"Design tokens\">\n  <button class=\"ui-search-input__clear\" aria-label=\"Clear search\"><svg>...</svg></button>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "Sizes",
+      "examples": [
+        {
+          "layout": "column",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-search-input ui-search-input--sm",
+              "children": [
+                {
+                  "tag": "span",
+                  "class": "ui-search-input__icon",
+                  "children": [
+                    {
+                      "tag": "svg",
+                      "attrs": { "viewBox": "0 0 24 24" },
+                      "children": [
+                        { "tag": "circle", "attrs": { "cx": "11", "cy": "11", "r": "8" } },
+                        { "tag": "path", "attrs": { "d": "m21 21-4.3-4.3" } }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "input",
+                  "class": "ui-search-input__field",
+                  "attrs": { "type": "search", "placeholder": "Small" }
+                }
+              ]
+            },
+            {
+              "tag": "div",
+              "class": "ui-search-input",
+              "children": [
+                {
+                  "tag": "span",
+                  "class": "ui-search-input__icon",
+                  "children": [
+                    {
+                      "tag": "svg",
+                      "attrs": { "viewBox": "0 0 24 24" },
+                      "children": [
+                        { "tag": "circle", "attrs": { "cx": "11", "cy": "11", "r": "8" } },
+                        { "tag": "path", "attrs": { "d": "m21 21-4.3-4.3" } }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "input",
+                  "class": "ui-search-input__field",
+                  "attrs": { "type": "search", "placeholder": "Default" }
+                }
+              ]
+            },
+            {
+              "tag": "div",
+              "class": "ui-search-input ui-search-input--lg",
+              "children": [
+                {
+                  "tag": "span",
+                  "class": "ui-search-input__icon",
+                  "children": [
+                    {
+                      "tag": "svg",
+                      "attrs": { "viewBox": "0 0 24 24" },
+                      "children": [
+                        { "tag": "circle", "attrs": { "cx": "11", "cy": "11", "r": "8" } },
+                        { "tag": "path", "attrs": { "d": "m21 21-4.3-4.3" } }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "input",
+                  "class": "ui-search-input__field",
+                  "attrs": { "type": "search", "placeholder": "Large" }
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-search-input ui-search-input--sm\">...</div>\n<div class=\"ui-search-input\">...</div>\n<div class=\"ui-search-input ui-search-input--lg\">...</div>"
+        }
+      ]
+    },
+    {
+      "title": "Disabled",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-search-input ui-search-input--disabled",
+              "children": [
+                {
+                  "tag": "span",
+                  "class": "ui-search-input__icon",
+                  "children": [
+                    {
+                      "tag": "svg",
+                      "attrs": { "viewBox": "0 0 24 24" },
+                      "children": [
+                        { "tag": "circle", "attrs": { "cx": "11", "cy": "11", "r": "8" } },
+                        { "tag": "path", "attrs": { "d": "m21 21-4.3-4.3" } }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "input",
+                  "class": "ui-search-input__field",
+                  "attrs": { "type": "search", "placeholder": "Disabled", "disabled": "" }
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-search-input ui-search-input--disabled\">\n  <span class=\"ui-search-input__icon\"><svg>...</svg></span>\n  <input class=\"ui-search-input__field\" type=\"search\" disabled>\n</div>"
+        }
+      ]
+    }
+  ],
+  "customization": [
+    {
+      "token": "--ui-search-input-height",
+      "default": "var(--ui-row-2)",
+      "description": "Default height"
+    },
+    {
+      "token": "--ui-search-input-height-sm",
+      "default": "calc(var(--ui-row) * 1.5)",
+      "description": "Small height"
+    },
+    {
+      "token": "--ui-search-input-height-lg",
+      "default": "calc(var(--ui-row) * 2.5)",
+      "description": "Large height"
+    },
+    {
+      "token": "--ui-search-input-bg",
+      "default": "var(--ui-color-bg)",
+      "description": "Background color"
+    },
+    {
+      "token": "--ui-search-input-border-color",
+      "default": "var(--ui-color-border-strong)",
+      "description": "Border color"
+    },
+    {
+      "token": "--ui-search-input-border-color-focus",
+      "default": "var(--ui-color-primary)",
+      "description": "Focus border color"
+    },
+    {
+      "token": "--ui-search-input-icon-color",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Search icon color"
+    },
+    {
+      "token": "--ui-search-input-clear-color",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Clear button color"
+    }
+  ]
+}

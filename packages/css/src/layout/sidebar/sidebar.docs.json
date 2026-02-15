@@ -1,0 +1,62 @@
+{
+  "id": "sidebar",
+  "type": "primitive",
+  "title": "Sidebar",
+  "description": "Fixed-position sidebar for app layouts with adjustable widths and positioning.",
+  "api": "./sidebar.api.json",
+  "sections": [
+    {
+      "title": "Basic",
+      "description": "Default sidebar positioned on the start side. Use inside an app-shell layout.",
+      "examples": [
+        {
+          "code": "<aside class=\"ui-sidebar\">\n  <p>Sidebar content</p>\n</aside>"
+        }
+      ]
+    },
+    {
+      "title": "Widths",
+      "description": "Three width options via size modifiers.",
+      "examples": [
+        {
+          "layout": "column",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-row",
+              "children": [
+                { "tag": "code", "text": "--sm" },
+                { "tag": "span", "text": "192px (24 units)" }
+              ]
+            },
+            {
+              "tag": "div",
+              "class": "ui-row",
+              "children": [
+                { "tag": "code", "text": "--md" },
+                { "tag": "span", "text": "240px (30 units, default)" }
+              ]
+            },
+            {
+              "tag": "div",
+              "class": "ui-row",
+              "children": [
+                { "tag": "code", "text": "--lg" },
+                { "tag": "span", "text": "320px (40 units)" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "End Position",
+      "description": "Position sidebar on the end side with --end modifier.",
+      "examples": [
+        {
+          "code": "<aside class=\"ui-sidebar ui-sidebar--end\">\n  <p>End sidebar</p>\n</aside>"
+        }
+      ]
+    }
+  ]
+}

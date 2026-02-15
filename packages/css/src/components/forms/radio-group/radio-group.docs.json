@@ -1,0 +1,351 @@
+{
+  "id": "radio-group",
+  "type": "component",
+  "mergeInto": "radio",
+  "title": "Radio Group",
+  "description": "Groups related radio buttons with a legend for single selection. Built on native fieldset semantics.",
+  "api": "./radio-group.api.json",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "fieldset",
+              "class": "ui-radio-group",
+              "children": [
+                {
+                  "tag": "legend",
+                  "class": "ui-radio-group__legend",
+                  "text": "Payment method"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-radio-group__items",
+                  "children": [
+                    {
+                      "tag": "label",
+                      "class": "ui-radio-group__item",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-radio",
+                          "attrs": { "type": "radio", "name": "payment", "checked": "" }
+                        },
+                        { "tag": "span", "text": "Credit card" }
+                      ]
+                    },
+                    {
+                      "tag": "label",
+                      "class": "ui-radio-group__item",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-radio",
+                          "attrs": { "type": "radio", "name": "payment" }
+                        },
+                        { "tag": "span", "text": "Debit card" }
+                      ]
+                    },
+                    {
+                      "tag": "label",
+                      "class": "ui-radio-group__item",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-radio",
+                          "attrs": { "type": "radio", "name": "payment" }
+                        },
+                        { "tag": "span", "text": "Bank transfer" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "code": "<fieldset class=\"ui-radio-group\">\n  <legend class=\"ui-radio-group__legend\">Payment method</legend>\n  <div class=\"ui-radio-group__items\">\n    <label class=\"ui-radio-group__item\">\n      <input type=\"radio\" class=\"ui-radio\" name=\"payment\" checked>\n      <span>Credit card</span>\n    </label>\n    ...\n  </div>\n</fieldset>"
+        }
+      ]
+    },
+    {
+      "title": "Horizontal",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "fieldset",
+              "class": "ui-radio-group ui-radio-group--horizontal",
+              "children": [
+                {
+                  "tag": "legend",
+                  "class": "ui-radio-group__legend",
+                  "text": "Size"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-radio-group__items",
+                  "children": [
+                    {
+                      "tag": "label",
+                      "class": "ui-radio-group__item",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-radio",
+                          "attrs": { "type": "radio", "name": "size", "checked": "" }
+                        },
+                        { "tag": "span", "text": "Small" }
+                      ]
+                    },
+                    {
+                      "tag": "label",
+                      "class": "ui-radio-group__item",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-radio",
+                          "attrs": { "type": "radio", "name": "size" }
+                        },
+                        { "tag": "span", "text": "Medium" }
+                      ]
+                    },
+                    {
+                      "tag": "label",
+                      "class": "ui-radio-group__item",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-radio",
+                          "attrs": { "type": "radio", "name": "size" }
+                        },
+                        { "tag": "span", "text": "Large" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "code": "<fieldset class=\"ui-radio-group ui-radio-group--horizontal\">\n  <legend class=\"ui-radio-group__legend\">Size</legend>\n  ...\n</fieldset>"
+        }
+      ]
+    },
+    {
+      "title": "Compact",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "fieldset",
+              "class": "ui-radio-group ui-radio-group--compact",
+              "children": [
+                {
+                  "tag": "legend",
+                  "class": "ui-radio-group__legend",
+                  "text": "Priority"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-radio-group__items",
+                  "children": [
+                    {
+                      "tag": "label",
+                      "class": "ui-radio-group__item",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-radio",
+                          "attrs": { "type": "radio", "name": "priority", "checked": "" }
+                        },
+                        { "tag": "span", "text": "Low" }
+                      ]
+                    },
+                    {
+                      "tag": "label",
+                      "class": "ui-radio-group__item",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-radio",
+                          "attrs": { "type": "radio", "name": "priority" }
+                        },
+                        { "tag": "span", "text": "Medium" }
+                      ]
+                    },
+                    {
+                      "tag": "label",
+                      "class": "ui-radio-group__item",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-radio",
+                          "attrs": { "type": "radio", "name": "priority" }
+                        },
+                        { "tag": "span", "text": "High" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "code": "<fieldset class=\"ui-radio-group ui-radio-group--compact\">\n  ...\n</fieldset>"
+        }
+      ]
+    },
+    {
+      "title": "Error State",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "fieldset",
+              "class": "ui-radio-group ui-radio-group--error",
+              "children": [
+                {
+                  "tag": "legend",
+                  "class": "ui-radio-group__legend",
+                  "text": "Shipping"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-radio-group__items",
+                  "children": [
+                    {
+                      "tag": "label",
+                      "class": "ui-radio-group__item",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-radio ui-radio--error",
+                          "attrs": { "type": "radio", "name": "shipping" }
+                        },
+                        { "tag": "span", "text": "Standard" }
+                      ]
+                    },
+                    {
+                      "tag": "label",
+                      "class": "ui-radio-group__item",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-radio ui-radio--error",
+                          "attrs": { "type": "radio", "name": "shipping" }
+                        },
+                        { "tag": "span", "text": "Express" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "span",
+                  "class": "ui-form-error",
+                  "text": "Please select a shipping method"
+                }
+              ]
+            }
+          ],
+          "code": "<fieldset class=\"ui-radio-group ui-radio-group--error\">\n  <legend class=\"ui-radio-group__legend\">Shipping</legend>\n  <div class=\"ui-radio-group__items\">\n    <label class=\"ui-radio-group__item\">\n      <input type=\"radio\" class=\"ui-radio ui-radio--error\" name=\"shipping\">\n      <span>Standard</span>\n    </label>\n    ...\n  </div>\n  <span class=\"ui-form-error\">Please select a shipping method</span>\n</fieldset>"
+        }
+      ]
+    },
+    {
+      "title": "Disabled",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "fieldset",
+              "class": "ui-radio-group",
+              "attrs": { "disabled": "" },
+              "children": [
+                {
+                  "tag": "legend",
+                  "class": "ui-radio-group__legend",
+                  "text": "Plan (locked)"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-radio-group__items",
+                  "children": [
+                    {
+                      "tag": "label",
+                      "class": "ui-radio-group__item",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-radio",
+                          "attrs": { "type": "radio", "name": "plan", "checked": "" }
+                        },
+                        { "tag": "span", "text": "Free" }
+                      ]
+                    },
+                    {
+                      "tag": "label",
+                      "class": "ui-radio-group__item",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-radio",
+                          "attrs": { "type": "radio", "name": "plan" }
+                        },
+                        { "tag": "span", "text": "Pro" }
+                      ]
+                    },
+                    {
+                      "tag": "label",
+                      "class": "ui-radio-group__item",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-radio",
+                          "attrs": { "type": "radio", "name": "plan" }
+                        },
+                        { "tag": "span", "text": "Enterprise" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "code": "<fieldset class=\"ui-radio-group\" disabled>\n  ...\n</fieldset>"
+        }
+      ]
+    }
+  ],
+  "customization": [
+    {
+      "token": "--ui-radio-group-spacing",
+      "default": "var(--ui-space-1)",
+      "description": "Gap between radio items"
+    },
+    {
+      "token": "--ui-radio-group-legend-size",
+      "default": "var(--ui-font-size-sm)",
+      "description": "Legend font size"
+    },
+    {
+      "token": "--ui-radio-group-legend-weight",
+      "default": "var(--ui-weight-medium)",
+      "description": "Legend font weight"
+    },
+    {
+      "token": "--ui-radio-group-legend-color",
+      "default": "var(--ui-color-text)",
+      "description": "Legend text color"
+    },
+    {
+      "token": "--ui-radio-group-item-gap",
+      "default": "var(--ui-space-1)",
+      "description": "Gap between radio and label text"
+    },
+    {
+      "token": "--ui-radio-group-error-color",
+      "default": "var(--ui-color-danger)",
+      "description": "Legend color in error state"
+    }
+  ]
+}

@@ -1,0 +1,150 @@
+{
+  "api": "./button.api.json",
+  "description": "Buttons trigger actions. Use primary for main CTA, secondary for less important actions.",
+  "modifiers": {
+    "size": {
+      "usage": "Default is 32px (2 rows). Use small for dense UIs, large for prominent CTAs."
+    },
+    "variant": {
+      "usage": "Primary for main actions. Secondary for less important. Outline for subtle. Ghost for toolbar. Danger for destructive. Link for inline."
+    },
+    "icon": {
+      "usage": "Square icon-only buttons. Always add aria-label for accessibility."
+    },
+    "radius": {
+      "usage": "Override border radius. Use radius-full for pill-shaped buttons."
+    },
+    "block": {
+      "usage": "Full width button. Use for mobile or form submit."
+    },
+    "loading": {
+      "usage": "Shows spinner animation. Button becomes non-interactive."
+    }
+  },
+  "sections": [
+    {
+      "title": "Variants",
+      "description": "Button styles for different purposes and emphasis levels.",
+      "examples": [
+        {
+          "layout": "row",
+          "items": [
+            { "tag": "button", "class": "ui-button", "text": "Primary" },
+            { "tag": "button", "class": "ui-button ui-button--secondary", "text": "Secondary" },
+            { "tag": "button", "class": "ui-button ui-button--outline", "text": "Outline" },
+            { "tag": "button", "class": "ui-button ui-button--ghost", "text": "Ghost" },
+            { "tag": "button", "class": "ui-button ui-button--danger", "text": "Danger" },
+            { "tag": "button", "class": "ui-button ui-button--link", "text": "Link" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sizes",
+      "description": "Small for dense UIs, default for most cases, large for prominent CTAs.",
+      "examples": [
+        {
+          "layout": "row",
+          "items": [
+            { "tag": "button", "class": "ui-button ui-button--sm", "text": "Small" },
+            { "tag": "button", "class": "ui-button ui-button--md", "text": "Medium" },
+            { "tag": "button", "class": "ui-button ui-button--lg", "text": "Large" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Radius",
+      "description": "Override border radius. Use radius-full for pill-shaped buttons.",
+      "examples": [
+        {
+          "layout": "row",
+          "items": [
+            { "tag": "button", "class": "ui-button ui-button--radius-none", "text": "None" },
+            { "tag": "button", "class": "ui-button ui-button--radius-sm", "text": "Small" },
+            { "tag": "button", "class": "ui-button", "text": "Default" },
+            { "tag": "button", "class": "ui-button ui-button--radius-lg", "text": "Large" },
+            { "tag": "button", "class": "ui-button ui-button--radius-full", "text": "Full" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Block",
+      "description": "Full width button for mobile or form submit.",
+      "examples": [
+        {
+          "items": [
+            { "tag": "button", "class": "ui-button ui-button--block", "text": "Block Button" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Loading",
+      "description": "Shows spinner animation. Button becomes non-interactive.",
+      "examples": [
+        {
+          "layout": "row",
+          "items": [
+            { "tag": "button", "class": "ui-button ui-button--loading", "text": "Loading" },
+            {
+              "tag": "button",
+              "class": "ui-button ui-button--secondary ui-button--loading",
+              "text": "Loading"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Icon Button",
+      "description": "Square icon-only buttons. Use with SVG icons from Lucide or similar sets.",
+      "examples": [
+        {
+          "layout": "row",
+          "items": [
+            {
+              "tag": "button",
+              "class": "ui-button ui-button--icon ui-button--sm",
+              "html": "<svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M18 6 6 18\"/><path d=\"m6 6 12 12\"/></svg>"
+            },
+            {
+              "tag": "button",
+              "class": "ui-button ui-button--icon",
+              "html": "<svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M5 12h14\"/><path d=\"M12 5v14\"/></svg>"
+            },
+            {
+              "tag": "button",
+              "class": "ui-button ui-button--icon ui-button--lg",
+              "html": "<svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg>"
+            }
+          ],
+          "code": "<button class=\"ui-button ui-button--icon ui-button--sm\">\n  <svg class=\"ui-icon\"><!-- x icon --></svg>\n</button>\n<button class=\"ui-button ui-button--icon\">\n  <svg class=\"ui-icon\"><!-- plus icon --></svg>\n</button>\n<button class=\"ui-button ui-button--icon ui-button--lg\">\n  <svg class=\"ui-icon\"><!-- search icon --></svg>\n</button>"
+        }
+      ]
+    },
+    {
+      "title": "With Icon",
+      "description": "Buttons with icon and text. Use ui-button__icon element with --start or --end modifier.",
+      "examples": [
+        {
+          "layout": "row",
+          "items": [
+            {
+              "tag": "button",
+              "class": "ui-button",
+              "html": "<svg class=\"ui-icon ui-button__icon ui-button__icon--start\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M5 12h14\"/><path d=\"M12 5v14\"/></svg> Add Item"
+            },
+            {
+              "tag": "button",
+              "class": "ui-button ui-button--secondary",
+              "html": "Next <svg class=\"ui-icon ui-button__icon ui-button__icon--end\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"m9 18 6-6-6-6\"/></svg>"
+            }
+          ],
+          "code": "<button class=\"ui-button\">\n  <svg class=\"ui-icon ui-button__icon ui-button__icon--start\"><!-- plus --></svg>\n  Add Item\n</button>\n<button class=\"ui-button ui-button--secondary\">\n  Next\n  <svg class=\"ui-icon ui-button__icon ui-button__icon--end\"><!-- chevron-right --></svg>\n</button>"
+        }
+      ]
+    }
+  ]
+}

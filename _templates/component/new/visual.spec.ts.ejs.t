@@ -1,5 +1,5 @@
 ---
-to: packages/css/src/04-components/<%= group %>/<%= name %>/<%= name %>.visual.spec.ts
+to: packages/css/src/components/<%= group %>/<%= name %>/<%= name %>.visual.spec.ts
 ---
 import { resolve } from 'node:path';
 import { expect, test } from '@playwright/test';

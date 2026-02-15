@@ -3,10 +3,10 @@
       - any-glob-to-any-file:
           - packages/css/**
 
-"pkg: docs":
+"pkg: docs-css":
   - changed-files:
       - any-glob-to-any-file:
-          - apps/docs/**
+          - apps/docs-css/**
 
 "type: ci":
   - changed-files:
@@ -17,19 +17,19 @@
   - changed-files:
       - any-glob-to-any-file:
           - "**/*.md"
-          - apps/docs/**
+          - apps/docs-css/**
 
 "component: button":
   - changed-files:
       - any-glob-to-any-file:
-          - packages/css/src/04-components/actions/button/**
+          - packages/css/src/components/actions/button/**
 
 "component: card":
   - changed-files:
       - any-glob-to-any-file:
-          - packages/css/src/04-components/data-display/card/**
+          - packages/css/src/components/data-display/card/**
 
 "component: layout":
   - changed-files:
       - any-glob-to-any-file:
-          - packages/css/src/03-layout/**
+          - packages/css/src/layout/**

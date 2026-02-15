@@ -1,0 +1,114 @@
+{
+  "id": "stat",
+  "type": "component",
+  "title": "Stat",
+  "description": "Statistic display with prominent value and descriptive label.",
+  "api": "./stat.api.json",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-stat",
+              "children": [
+                { "tag": "span", "class": "ui-stat__value", "text": "2,847" },
+                { "tag": "span", "class": "ui-stat__label", "text": "Total users" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Multiple stats",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-row ui-row--lg",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-stat",
+                  "children": [
+                    { "tag": "span", "class": "ui-stat__value", "text": "12.5k" },
+                    { "tag": "span", "class": "ui-stat__label", "text": "Revenue" }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-stat",
+                  "children": [
+                    { "tag": "span", "class": "ui-stat__value", "text": "573" },
+                    { "tag": "span", "class": "ui-stat__label", "text": "Orders" }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-stat",
+                  "children": [
+                    { "tag": "span", "class": "ui-stat__value", "text": "98%" },
+                    { "tag": "span", "class": "ui-stat__label", "text": "Satisfaction" }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Small",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-stat ui-stat--sm",
+              "children": [
+                { "tag": "span", "class": "ui-stat__value", "text": "42" },
+                { "tag": "span", "class": "ui-stat__label", "text": "Active now" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "customization": [
+    {
+      "token": "--ui-stat-gap",
+      "default": "var(--ui-space-1)",
+      "description": "Gap between value and label"
+    },
+    {
+      "token": "--ui-stat-value-font-size",
+      "default": "var(--ui-font-size-3xl)",
+      "description": "Value font size"
+    },
+    {
+      "token": "--ui-stat-value-font-weight",
+      "default": "var(--ui-weight-bold)",
+      "description": "Value font weight"
+    },
+    {
+      "token": "--ui-stat-value-color",
+      "default": "var(--ui-color-text)",
+      "description": "Value text color"
+    },
+    {
+      "token": "--ui-stat-label-font-size",
+      "default": "var(--ui-font-size-sm)",
+      "description": "Label font size"
+    },
+    {
+      "token": "--ui-stat-label-color",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Label text color"
+    }
+  ]
+}

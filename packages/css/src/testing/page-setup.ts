@@ -83,7 +83,7 @@ export function generateHtmlFromDocs(docs: DocsJson): string {
         html = example.html;
       } else if (example.items) {
         const items = example.items.map(renderItem).join('\n');
-        html = example.layout === 'cluster' ? `<div class="ui-cluster">${items}</div>` : items;
+        html = example.layout === 'row' ? `<div class="ui-row">${items}</div>` : items;
       }
 
       if (html) {

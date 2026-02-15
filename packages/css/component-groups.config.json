@@ -5,9 +5,33 @@
     "forms",
     "data-display",
     "feedback",
+    "navigation",
     "overlays",
     "disclosure",
-    "navigation",
-    "layout"
-  ]
+    "content"
+  ],
+  "sections": {
+    "foundation": {
+      "label": "Foundation",
+      "docType": "token"
+    },
+    "layout": {
+      "label": "Layout",
+      "docType": "primitive"
+    },
+    "components": {
+      "label": "Components",
+      "docType": "component",
+      "excludeGroups": ["typography"]
+    },
+    "typography": {
+      "label": "Typography",
+      "docType": "component",
+      "onlyGroups": ["typography"]
+    },
+    "utilities": {
+      "label": "Utilities",
+      "docType": "utility"
+    }
+  }
 }

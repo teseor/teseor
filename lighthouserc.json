@@ -1,8 +1,8 @@
 {
   "ci": {
     "collect": {
-      "staticDistDir": "./apps/docs/dist",
-      "url": ["/", "/tokens/colors/", "/components/button/", "/primitives/stack/"],
+      "staticDistDir": "./apps/docs-css/dist",
+      "url": ["/", "/tokens/colors/", "/components/button/", "/primitives/column/"],
       "numberOfRuns": 1
     },
     "assert": {

@@ -79,7 +79,7 @@ jobs:
       - run: pnpm nx build css
 
       - name: Build docs
-        run: pnpm --filter docs build
+        run: pnpm --filter docs-css build
 
       - name: Lighthouse CI
         uses: treosh/lighthouse-ci-action@v12
