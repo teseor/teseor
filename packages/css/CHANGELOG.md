@@ -1,5 +1,14 @@
 # @teseor/css
 
+## 1.7.0
+
+### Minor Changes
+
+- f9c972d: Add dropdown-menu component for trigger button with floating menu panel
+- f6ca4cc: Add number-input component with increment and decrement stepper buttons
+- b5a3409: Add password-input component with toggle visibility button
+- d9f46bb: Add scroll-area component for scrollable containers with styled scrollbars
+
 ## 1.6.0
 
 ### Minor Changes
