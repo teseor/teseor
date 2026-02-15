@@ -1,0 +1,56 @@
+{
+  "name": "code-block",
+  "element": "pre",
+  "modifiers": {
+    "compact": {
+      "type": "boolean"
+    },
+    "line-numbers": {
+      "type": "boolean"
+    }
+  },
+  "subElements": ["code", "line", "line-number"],
+  "relatedComponents": ["code"],
+  "cssVars": [
+    {
+      "name": "--ui-code-block-bg",
+      "default": "var(--ui-color-bg-muted)"
+    },
+    {
+      "name": "--ui-code-block-color",
+      "default": "var(--ui-color-text)"
+    },
+    {
+      "name": "--ui-code-block-border-color",
+      "default": "var(--ui-color-border)"
+    },
+    {
+      "name": "--ui-code-block-padding",
+      "default": "var(--ui-space-3)"
+    },
+    {
+      "name": "--ui-code-block-font-size",
+      "default": "var(--ui-font-size-sm)"
+    },
+    {
+      "name": "--ui-code-block-line-height",
+      "default": "var(--ui-leading-tight-sm)"
+    },
+    {
+      "name": "--ui-code-block-radius",
+      "default": "var(--ui-radius-md)"
+    },
+    {
+      "name": "--ui-code-block-padding-compact",
+      "default": "var(--ui-space-1)"
+    },
+    {
+      "name": "--ui-code-block-line-number-color",
+      "default": "var(--ui-color-text-muted)"
+    },
+    {
+      "name": "--ui-code-block-line-number-border-color",
+      "default": "var(--ui-color-border)"
+    }
+  ]
+}
