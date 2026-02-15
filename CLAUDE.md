@@ -84,9 +84,9 @@ packages/css/src/
 
 ## Docs (Eleventy)
 
-`pnpm --filter docs build` -> multi-page static site at `apps/docs/dist/`
+`pnpm --filter docs-css build` -> multi-page static site at `apps/docs-css/dist/`
 
-- Nunjucks templating in `apps/docs/src/_includes/`
+- Nunjucks templating in `apps/docs-css/src/_includes/`
 - Pages generated from `*.docs.json` files
 - Sidenav auto-generated from doc types
 

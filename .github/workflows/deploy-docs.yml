@@ -34,7 +34,7 @@ jobs:
         run: pnpm nx build css
 
       - name: Build docs
-        run: pnpm --filter docs build
+        run: pnpm --filter docs-css build
         env:
           ELEVENTY_PATH_PREFIX: /teseor/
 
@@ -44,7 +44,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: apps/docs/dist
+          path: apps/docs-css/dist
 
   deploy:
     environment:

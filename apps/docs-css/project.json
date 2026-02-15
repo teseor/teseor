@@ -1,13 +1,13 @@
 {
-  "name": "docs",
+  "name": "docs-css",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/docs/src",
+  "sourceRoot": "apps/docs-css/src",
   "projectType": "application",
   "targets": {
     "dev": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "pnpm --filter docs dev"
+        "command": "pnpm --filter docs-css dev"
       },
       "dependsOn": ["css:build"]
     },
@@ -19,7 +19,7 @@
         "{workspaceRoot}/packages/css/src/**/*.api.json"
       ],
       "options": {
-        "command": "node apps/docs/scripts/validate-docs.js"
+        "command": "node apps/docs-css/scripts/validate-docs.js"
       }
     },
     "build-docs": {
@@ -32,23 +32,23 @@
       ],
       "outputs": ["{projectRoot}/dist"],
       "options": {
-        "command": "pnpm --filter docs build-docs"
+        "command": "pnpm --filter docs-css build-docs"
       }
     },
     "build": {
       "executor": "nx:run-commands",
       "outputs": ["{projectRoot}/dist"],
       "options": {
-        "command": "pnpm --filter docs build"
+        "command": "pnpm --filter docs-css build"
       },
       "dependsOn": ["css:build", "validate", "build-docs"]
     },
     "lint": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "biome check apps/docs"
+        "command": "biome check apps/docs-css"
       }
     }
   },
-  "tags": ["type:app", "scope:docs"]
+  "tags": ["type:app", "scope:docs-css"]
 }

@@ -11,7 +11,7 @@ body:
         - "@teseor/css"
         - "@teseor/react (planned)"
         - "@teseor/svelte (planned)"
-        - "docs"
+        - "docs-css"
         - "other"
     validations:
       required: true
@@ -27,9 +27,9 @@ body:
         - "table"
         - "tabs"
         - "code"
-        - "stack"
+        - "column"
         - "grid"
-        - "cluster"
+        - "row"
         - "tokens"
         - "other"
     validations:
