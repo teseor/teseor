@@ -100,7 +100,17 @@
       "title": "With Label",
       "examples": [
         {
-          "html": "<label class=\"ui-row\" style=\"gap: var(--ui-space-1); cursor: pointer;\"><input type=\"checkbox\" class=\"ui-checkbox\"><span>Accept terms and conditions</span></label>",
+          "items": [
+            {
+              "tag": "label",
+              "class": "ui-row",
+              "attrs": { "style": "gap: var(--ui-space-1); cursor: pointer;" },
+              "children": [
+                { "tag": "input", "class": "ui-checkbox", "attrs": { "type": "checkbox" } },
+                { "tag": "span", "text": "Accept terms and conditions" }
+              ]
+            }
+          ],
           "code": "<label class=\"ui-row\">\n  <input type=\"checkbox\" class=\"ui-checkbox\">\n  <span>Accept terms</span>\n</label>"
         }
       ]

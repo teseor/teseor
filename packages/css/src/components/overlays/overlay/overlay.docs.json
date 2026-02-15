@@ -9,7 +9,26 @@
       "title": "Default",
       "examples": [
         {
-          "html": "<div style=\"position: relative; height: 120px; background: var(--ui-color-bg-subtle);\"><div class=\"ui-overlay\" style=\"position: absolute;\"></div><p style=\"position: relative; padding: var(--ui-space-2);\">Content behind overlay</p></div>",
+          "items": [
+            {
+              "tag": "div",
+              "attrs": {
+                "style": "position: relative; height: 120px; background: var(--ui-color-bg-subtle);"
+              },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-overlay",
+                  "attrs": { "style": "position: absolute;" }
+                },
+                {
+                  "tag": "p",
+                  "attrs": { "style": "position: relative; padding: var(--ui-space-2);" },
+                  "text": "Content behind overlay"
+                }
+              ]
+            }
+          ],
           "code": "<div class=\"ui-overlay\"></div>"
         }
       ]
@@ -18,7 +37,28 @@
       "title": "Light Variant",
       "examples": [
         {
-          "html": "<div style=\"position: relative; height: 120px; background: var(--ui-color-text);\"><div class=\"ui-overlay ui-overlay--light\" style=\"position: absolute;\"></div><p style=\"position: relative; padding: var(--ui-space-2); color: white;\">Dark content behind light overlay</p></div>",
+          "items": [
+            {
+              "tag": "div",
+              "attrs": {
+                "style": "position: relative; height: 120px; background: var(--ui-color-text);"
+              },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-overlay ui-overlay--light",
+                  "attrs": { "style": "position: absolute;" }
+                },
+                {
+                  "tag": "p",
+                  "attrs": {
+                    "style": "position: relative; padding: var(--ui-space-2); color: white;"
+                  },
+                  "text": "Dark content behind light overlay"
+                }
+              ]
+            }
+          ],
           "code": "<div class=\"ui-overlay ui-overlay--light\"></div>"
         }
       ]
@@ -27,7 +67,28 @@
       "title": "Blur Variant",
       "examples": [
         {
-          "html": "<div style=\"position: relative; height: 120px; background: linear-gradient(45deg, var(--ui-color-primary), var(--ui-color-success));\"><div class=\"ui-overlay ui-overlay--blur\" style=\"position: absolute;\"></div><p style=\"position: relative; padding: var(--ui-space-2); color: white;\">Blurred backdrop</p></div>",
+          "items": [
+            {
+              "tag": "div",
+              "attrs": {
+                "style": "position: relative; height: 120px; background: linear-gradient(45deg, var(--ui-color-primary), var(--ui-color-success));"
+              },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-overlay ui-overlay--blur",
+                  "attrs": { "style": "position: absolute;" }
+                },
+                {
+                  "tag": "p",
+                  "attrs": {
+                    "style": "position: relative; padding: var(--ui-space-2); color: white;"
+                  },
+                  "text": "Blurred backdrop"
+                }
+              ]
+            }
+          ],
           "code": "<div class=\"ui-overlay ui-overlay--blur\"></div>"
         }
       ]
@@ -36,7 +97,21 @@
       "title": "With Animation",
       "examples": [
         {
-          "html": "<div style=\"position: relative; height: 120px; background: var(--ui-color-bg-subtle);\"><div class=\"ui-overlay ui-overlay--animate ui-overlay--visible\" style=\"position: absolute;\"></div></div>",
+          "items": [
+            {
+              "tag": "div",
+              "attrs": {
+                "style": "position: relative; height: 120px; background: var(--ui-color-bg-subtle);"
+              },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-overlay ui-overlay--animate ui-overlay--visible",
+                  "attrs": { "style": "position: absolute;" }
+                }
+              ]
+            }
+          ],
           "code": "<div class=\"ui-overlay ui-overlay--animate ui-overlay--visible\"></div>\n<!-- JS toggles between --visible and --hidden -->"
         }
       ]

@@ -10,7 +10,120 @@
       "description": "Font sizes follow a 1.2 (Minor Third) modular scale from 12px to 40px. All line-heights snap to 8px multiples.",
       "examples": [
         {
-          "html": "<table class=\"ui-table\"><thead><tr><th>Token</th><th>Size</th><th>Line-height</th></tr></thead><tbody><tr><td><code>--ui-font-size-xs</code></td><td>12px</td><td>16px</td></tr><tr><td><code>--ui-font-size-sm</code></td><td>14px</td><td>24px</td></tr><tr><td><code>--ui-font-size-md</code></td><td>16px</td><td>24px</td></tr><tr><td><code>--ui-font-size-lg</code></td><td>20px</td><td>32px</td></tr><tr><td><code>--ui-font-size-xl</code></td><td>24px</td><td>32px</td></tr><tr><td><code>--ui-font-size-2xl</code></td><td>28px</td><td>32px</td></tr><tr><td><code>--ui-font-size-3xl</code></td><td>32px</td><td>40px</td></tr><tr><td><code>--ui-font-size-4xl</code></td><td>40px</td><td>48px</td></tr></tbody></table>"
+          "items": [
+            {
+              "tag": "table",
+              "class": "ui-table",
+              "children": [
+                {
+                  "tag": "thead",
+                  "children": [
+                    {
+                      "tag": "tr",
+                      "children": [
+                        { "tag": "th", "text": "Token" },
+                        { "tag": "th", "text": "Size" },
+                        { "tag": "th", "text": "Line-height" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "tbody",
+                  "children": [
+                    {
+                      "tag": "tr",
+                      "children": [
+                        {
+                          "tag": "td",
+                          "children": [{ "tag": "code", "text": "--ui-font-size-xs" }]
+                        },
+                        { "tag": "td", "text": "12px" },
+                        { "tag": "td", "text": "16px" }
+                      ]
+                    },
+                    {
+                      "tag": "tr",
+                      "children": [
+                        {
+                          "tag": "td",
+                          "children": [{ "tag": "code", "text": "--ui-font-size-sm" }]
+                        },
+                        { "tag": "td", "text": "14px" },
+                        { "tag": "td", "text": "24px" }
+                      ]
+                    },
+                    {
+                      "tag": "tr",
+                      "children": [
+                        {
+                          "tag": "td",
+                          "children": [{ "tag": "code", "text": "--ui-font-size-md" }]
+                        },
+                        { "tag": "td", "text": "16px" },
+                        { "tag": "td", "text": "24px" }
+                      ]
+                    },
+                    {
+                      "tag": "tr",
+                      "children": [
+                        {
+                          "tag": "td",
+                          "children": [{ "tag": "code", "text": "--ui-font-size-lg" }]
+                        },
+                        { "tag": "td", "text": "20px" },
+                        { "tag": "td", "text": "32px" }
+                      ]
+                    },
+                    {
+                      "tag": "tr",
+                      "children": [
+                        {
+                          "tag": "td",
+                          "children": [{ "tag": "code", "text": "--ui-font-size-xl" }]
+                        },
+                        { "tag": "td", "text": "24px" },
+                        { "tag": "td", "text": "32px" }
+                      ]
+                    },
+                    {
+                      "tag": "tr",
+                      "children": [
+                        {
+                          "tag": "td",
+                          "children": [{ "tag": "code", "text": "--ui-font-size-2xl" }]
+                        },
+                        { "tag": "td", "text": "28px" },
+                        { "tag": "td", "text": "32px" }
+                      ]
+                    },
+                    {
+                      "tag": "tr",
+                      "children": [
+                        {
+                          "tag": "td",
+                          "children": [{ "tag": "code", "text": "--ui-font-size-3xl" }]
+                        },
+                        { "tag": "td", "text": "32px" },
+                        { "tag": "td", "text": "40px" }
+                      ]
+                    },
+                    {
+                      "tag": "tr",
+                      "children": [
+                        {
+                          "tag": "td",
+                          "children": [{ "tag": "code", "text": "--ui-font-size-4xl" }]
+                        },
+                        { "tag": "td", "text": "40px" },
+                        { "tag": "td", "text": "48px" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -34,7 +147,23 @@
       "description": "Default body text at 16px with 24px line-height (1.5x ratio).",
       "examples": [
         {
-          "html": "<p>Body text at 16px with 24px line-height. The <strong>bold text</strong> and <code>inline code</code> maintain the same rhythm.</p>\n<p class=\"ui-text-body-sm\">Body small at 14px with 24px line-height for secondary text.</p>"
+          "items": [
+            {
+              "tag": "p",
+              "children": [
+                { "text": "Body text at 16px with 24px line-height. The " },
+                { "tag": "strong", "text": "bold text" },
+                { "text": " and " },
+                { "tag": "code", "text": "inline code" },
+                { "text": " maintain the same rhythm." }
+              ]
+            },
+            {
+              "tag": "p",
+              "class": "ui-text-body-sm",
+              "text": "Body small at 14px with 24px line-height for secondary text."
+            }
+          ]
         }
       ]
     },
@@ -43,14 +172,29 @@
       "description": "Semantic text styles for specific use cases.",
       "examples": [
         {
-          "html": "<p class=\"ui-text-lead\">Lead paragraph - 20px / 32px. Use for opening paragraphs or article intros.</p>"
+          "items": [
+            {
+              "tag": "p",
+              "class": "ui-text-lead",
+              "text": "Lead paragraph - 20px / 32px. Use for opening paragraphs or article intros."
+            }
+          ]
         },
         {
-          "html": "<p class=\"ui-text-eyebrow\">Eyebrow text</p>\n<h2>Related Heading</h2>",
+          "items": [
+            { "tag": "p", "class": "ui-text-eyebrow", "text": "Eyebrow text" },
+            { "tag": "h2", "text": "Related Heading" }
+          ],
           "description": "Eyebrow - 12px uppercase with wide tracking. Use above headings for categorization."
         },
         {
-          "html": "<p class=\"ui-text-caption\">Caption text - 12px / 16px. Use for labels, hints, and metadata.</p>"
+          "items": [
+            {
+              "tag": "p",
+              "class": "ui-text-caption",
+              "text": "Caption text - 12px / 16px. Use for labels, hints, and metadata."
+            }
+          ]
         }
       ]
     },
@@ -59,7 +203,16 @@
       "description": "Four weight levels for hierarchy.",
       "examples": [
         {
-          "html": "<p class=\"ui-font-normal\">Normal (400) - Body text</p>\n<p class=\"ui-font-medium\">Medium (500) - Labels, small headings</p>\n<p class=\"ui-font-semibold\">Semibold (600) - Subheadings</p>\n<p class=\"ui-font-bold\">Bold (700) - Headlines, emphasis</p>"
+          "items": [
+            { "tag": "p", "class": "ui-font-normal", "text": "Normal (400) - Body text" },
+            {
+              "tag": "p",
+              "class": "ui-font-medium",
+              "text": "Medium (500) - Labels, small headings"
+            },
+            { "tag": "p", "class": "ui-font-semibold", "text": "Semibold (600) - Subheadings" },
+            { "tag": "p", "class": "ui-font-bold", "text": "Bold (700) - Headlines, emphasis" }
+          ]
         }
       ]
     },
@@ -68,7 +221,15 @@
       "description": "Three tracking options based on use case.",
       "examples": [
         {
-          "html": "<p class=\"ui-text-3xl ui-tracking-display\">Display tracking (-0.02em)</p>\n<p>Body tracking (0) - default</p>\n<p class=\"ui-text-eyebrow\">Caps tracking (+0.08em)</p>"
+          "items": [
+            {
+              "tag": "p",
+              "class": "ui-text-3xl ui-tracking-display",
+              "text": "Display tracking (-0.02em)"
+            },
+            { "tag": "p", "text": "Body tracking (0) - default" },
+            { "tag": "p", "class": "ui-text-eyebrow", "text": "Caps tracking (+0.08em)" }
+          ]
         }
       ]
     },
@@ -77,7 +238,18 @@
       "description": "Constrain text width for optimal readability (45-75 characters).",
       "examples": [
         {
-          "html": "<div class=\"ui-prose\"><p>This paragraph is constrained to 65ch max-width for optimal reading comfort. Long lines of text are harder to read because the eye has difficulty tracking back to the start of the next line.</p></div>"
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-prose",
+              "children": [
+                {
+                  "tag": "p",
+                  "text": "This paragraph is constrained to 65ch max-width for optimal reading comfort. Long lines of text are harder to read because the eye has difficulty tracking back to the start of the next line."
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -86,7 +258,69 @@
       "description": "Headings scale down on mobile (<730px) and up on desktop (>1080px).",
       "examples": [
         {
-          "html": "<table class=\"ui-table\"><thead><tr><th>Heading</th><th>Mobile</th><th>Default</th><th>Desktop</th></tr></thead><tbody><tr><td>h1</td><td>28px</td><td>40px</td><td>48px</td></tr><tr><td>h2</td><td>24px</td><td>32px</td><td>40px</td></tr><tr><td>h3</td><td>20px</td><td>28px</td><td>28px</td></tr><tr><td>h4</td><td>18px</td><td>24px</td><td>24px</td></tr></tbody></table>"
+          "items": [
+            {
+              "tag": "table",
+              "class": "ui-table",
+              "children": [
+                {
+                  "tag": "thead",
+                  "children": [
+                    {
+                      "tag": "tr",
+                      "children": [
+                        { "tag": "th", "text": "Heading" },
+                        { "tag": "th", "text": "Mobile" },
+                        { "tag": "th", "text": "Default" },
+                        { "tag": "th", "text": "Desktop" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "tbody",
+                  "children": [
+                    {
+                      "tag": "tr",
+                      "children": [
+                        { "tag": "td", "text": "h1" },
+                        { "tag": "td", "text": "28px" },
+                        { "tag": "td", "text": "40px" },
+                        { "tag": "td", "text": "48px" }
+                      ]
+                    },
+                    {
+                      "tag": "tr",
+                      "children": [
+                        { "tag": "td", "text": "h2" },
+                        { "tag": "td", "text": "24px" },
+                        { "tag": "td", "text": "32px" },
+                        { "tag": "td", "text": "40px" }
+                      ]
+                    },
+                    {
+                      "tag": "tr",
+                      "children": [
+                        { "tag": "td", "text": "h3" },
+                        { "tag": "td", "text": "20px" },
+                        { "tag": "td", "text": "28px" },
+                        { "tag": "td", "text": "28px" }
+                      ]
+                    },
+                    {
+                      "tag": "tr",
+                      "children": [
+                        { "tag": "td", "text": "h4" },
+                        { "tag": "td", "text": "18px" },
+                        { "tag": "td", "text": "24px" },
+                        { "tag": "td", "text": "24px" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     }

@@ -107,17 +107,47 @@
             {
               "tag": "button",
               "class": "ui-button ui-button--icon ui-button--sm",
-              "html": "<svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M18 6 6 18\"/><path d=\"m6 6 12 12\"/></svg>"
+              "children": [
+                {
+                  "tag": "svg",
+                  "class": "ui-icon",
+                  "attrs": { "xmlns": "http://www.w3.org/2000/svg", "viewBox": "0 0 24 24" },
+                  "children": [
+                    { "tag": "path", "attrs": { "d": "M18 6 6 18" } },
+                    { "tag": "path", "attrs": { "d": "m6 6 12 12" } }
+                  ]
+                }
+              ]
             },
             {
               "tag": "button",
               "class": "ui-button ui-button--icon",
-              "html": "<svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M5 12h14\"/><path d=\"M12 5v14\"/></svg>"
+              "children": [
+                {
+                  "tag": "svg",
+                  "class": "ui-icon",
+                  "attrs": { "xmlns": "http://www.w3.org/2000/svg", "viewBox": "0 0 24 24" },
+                  "children": [
+                    { "tag": "path", "attrs": { "d": "M5 12h14" } },
+                    { "tag": "path", "attrs": { "d": "M12 5v14" } }
+                  ]
+                }
+              ]
             },
             {
               "tag": "button",
               "class": "ui-button ui-button--icon ui-button--lg",
-              "html": "<svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg>"
+              "children": [
+                {
+                  "tag": "svg",
+                  "class": "ui-icon",
+                  "attrs": { "xmlns": "http://www.w3.org/2000/svg", "viewBox": "0 0 24 24" },
+                  "children": [
+                    { "tag": "circle", "attrs": { "cx": "11", "cy": "11", "r": "8" } },
+                    { "tag": "path", "attrs": { "d": "m21 21-4.3-4.3" } }
+                  ]
+                }
+              ]
             }
           ],
           "code": "<button class=\"ui-button ui-button--icon ui-button--sm\">\n  <svg class=\"ui-icon\"><!-- x icon --></svg>\n</button>\n<button class=\"ui-button ui-button--icon\">\n  <svg class=\"ui-icon\"><!-- plus icon --></svg>\n</button>\n<button class=\"ui-button ui-button--icon ui-button--lg\">\n  <svg class=\"ui-icon\"><!-- search icon --></svg>\n</button>"
@@ -134,12 +164,31 @@
             {
               "tag": "button",
               "class": "ui-button",
-              "html": "<svg class=\"ui-icon ui-button__icon ui-button__icon--start\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M5 12h14\"/><path d=\"M12 5v14\"/></svg> Add Item"
+              "children": [
+                {
+                  "tag": "svg",
+                  "class": "ui-icon ui-button__icon ui-button__icon--start",
+                  "attrs": { "xmlns": "http://www.w3.org/2000/svg", "viewBox": "0 0 24 24" },
+                  "children": [
+                    { "tag": "path", "attrs": { "d": "M5 12h14" } },
+                    { "tag": "path", "attrs": { "d": "M12 5v14" } }
+                  ]
+                },
+                { "text": "Add Item" }
+              ]
             },
             {
               "tag": "button",
               "class": "ui-button ui-button--secondary",
-              "html": "Next <svg class=\"ui-icon ui-button__icon ui-button__icon--end\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"m9 18 6-6-6-6\"/></svg>"
+              "children": [
+                { "text": "Next" },
+                {
+                  "tag": "svg",
+                  "class": "ui-icon ui-button__icon ui-button__icon--end",
+                  "attrs": { "xmlns": "http://www.w3.org/2000/svg", "viewBox": "0 0 24 24" },
+                  "children": [{ "tag": "path", "attrs": { "d": "m9 18 6-6-6-6" } }]
+                }
+              ]
             }
           ],
           "code": "<button class=\"ui-button\">\n  <svg class=\"ui-icon ui-button__icon ui-button__icon--start\"><!-- plus --></svg>\n  Add Item\n</button>\n<button class=\"ui-button ui-button--secondary\">\n  Next\n  <svg class=\"ui-icon ui-button__icon ui-button__icon--end\"><!-- chevron-right --></svg>\n</button>"

@@ -52,7 +52,28 @@
       "title": "With Remove Button",
       "examples": [
         {
-          "html": "<span class=\"ui-tag\">Removable<button class=\"ui-tag__remove\" aria-label=\"Remove\"><svg class=\"ui-icon ui-icon--xs\" viewBox=\"0 0 24 24\"><path d=\"M18 6 6 18M6 6l12 12\"></path></svg></button></span>",
+          "items": [
+            {
+              "tag": "span",
+              "class": "ui-tag",
+              "children": [
+                { "tag": "span", "text": "Removable" },
+                {
+                  "tag": "button",
+                  "class": "ui-tag__remove",
+                  "attrs": { "aria-label": "Remove" },
+                  "children": [
+                    {
+                      "tag": "svg",
+                      "class": "ui-icon ui-icon--xs",
+                      "attrs": { "viewBox": "0 0 24 24" },
+                      "children": [{ "tag": "path", "attrs": { "d": "M18 6 6 18M6 6l12 12" } }]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "code": "<span class=\"ui-tag\">\n  Removable\n  <button class=\"ui-tag__remove\" aria-label=\"Remove\">\n    <svg class=\"ui-icon\">...</svg>\n  </button>\n</span>"
         }
       ]
@@ -61,7 +82,18 @@
       "title": "Tag Group",
       "examples": [
         {
-          "html": "<div class=\"ui-tag-group\"><span class=\"ui-tag\">JavaScript</span><span class=\"ui-tag\">TypeScript</span><span class=\"ui-tag\">React</span><span class=\"ui-tag\">CSS</span></div>",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-tag-group",
+              "children": [
+                { "tag": "span", "class": "ui-tag", "text": "JavaScript" },
+                { "tag": "span", "class": "ui-tag", "text": "TypeScript" },
+                { "tag": "span", "class": "ui-tag", "text": "React" },
+                { "tag": "span", "class": "ui-tag", "text": "CSS" }
+              ]
+            }
+          ],
           "code": "<div class=\"ui-tag-group\">\n  <span class=\"ui-tag\">JavaScript</span>\n  <span class=\"ui-tag\">TypeScript</span>\n  <span class=\"ui-tag\">React</span>\n</div>"
         }
       ]

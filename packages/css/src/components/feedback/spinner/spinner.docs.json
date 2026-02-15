@@ -35,7 +35,30 @@
       "title": "Color Inheritance",
       "examples": [
         {
-          "html": "<div class=\"ui-row\" style=\"gap: var(--ui-space-2);\"><div style=\"color: var(--ui-color-primary);\"><div class=\"ui-spinner\"></div></div><div style=\"color: var(--ui-color-danger);\"><div class=\"ui-spinner\"></div></div><div style=\"color: var(--ui-color-success);\"><div class=\"ui-spinner\"></div></div></div>",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-row",
+              "attrs": { "style": "gap: var(--ui-space-2);" },
+              "children": [
+                {
+                  "tag": "div",
+                  "attrs": { "style": "color: var(--ui-color-primary);" },
+                  "children": [{ "tag": "div", "class": "ui-spinner" }]
+                },
+                {
+                  "tag": "div",
+                  "attrs": { "style": "color: var(--ui-color-danger);" },
+                  "children": [{ "tag": "div", "class": "ui-spinner" }]
+                },
+                {
+                  "tag": "div",
+                  "attrs": { "style": "color: var(--ui-color-success);" },
+                  "children": [{ "tag": "div", "class": "ui-spinner" }]
+                }
+              ]
+            }
+          ],
           "code": "<div style=\"color: var(--ui-color-primary);\">\n  <div class=\"ui-spinner\"></div>\n</div>"
         }
       ]
@@ -44,7 +67,17 @@
       "title": "In Button",
       "examples": [
         {
-          "html": "<button class=\"ui-button ui-button--primary\" disabled style=\"opacity: 0.7;\"><div class=\"ui-spinner ui-spinner--xs\"></div><span>Loading...</span></button>",
+          "items": [
+            {
+              "tag": "button",
+              "class": "ui-button ui-button--primary",
+              "attrs": { "disabled": true, "style": "opacity: 0.7;" },
+              "children": [
+                { "tag": "div", "class": "ui-spinner ui-spinner--xs" },
+                { "tag": "span", "text": "Loading..." }
+              ]
+            }
+          ],
           "code": "<button class=\"ui-button\" disabled>\n  <div class=\"ui-spinner ui-spinner--xs\"></div>\n  <span>Loading...</span>\n</button>"
         }
       ]

@@ -9,7 +9,13 @@
       "title": "Default",
       "examples": [
         {
-          "html": "<input class=\"ui-input\" type=\"text\" placeholder=\"Enter text...\">"
+          "items": [
+            {
+              "tag": "input",
+              "class": "ui-input",
+              "attrs": { "type": "text", "placeholder": "Enter text..." }
+            }
+          ]
         }
       ]
     },
@@ -105,7 +111,13 @@
       "title": "Full Width",
       "examples": [
         {
-          "html": "<input class=\"ui-input ui-input--block\" type=\"text\" placeholder=\"Full width input\">"
+          "items": [
+            {
+              "tag": "input",
+              "class": "ui-input ui-input--block",
+              "attrs": { "type": "text", "placeholder": "Full width input" }
+            }
+          ]
         }
       ]
     },
@@ -113,7 +125,34 @@
       "title": "With Prefix Icon",
       "examples": [
         {
-          "html": "<div class=\"ui-input-group ui-input-group--has-prefix\"><span class=\"ui-input-group__addon ui-input-group__addon--start\"><svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg></span><input class=\"ui-input ui-input--block\" type=\"search\" placeholder=\"Search...\"></div>",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-input-group ui-input-group--has-prefix",
+              "children": [
+                {
+                  "tag": "span",
+                  "class": "ui-input-group__addon ui-input-group__addon--start",
+                  "children": [
+                    {
+                      "tag": "svg",
+                      "class": "ui-icon",
+                      "attrs": { "xmlns": "http://www.w3.org/2000/svg", "viewBox": "0 0 24 24" },
+                      "children": [
+                        { "tag": "circle", "attrs": { "cx": "11", "cy": "11", "r": "8" } },
+                        { "tag": "path", "attrs": { "d": "m21 21-4.3-4.3" } }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "input",
+                  "class": "ui-input ui-input--block",
+                  "attrs": { "type": "search", "placeholder": "Search..." }
+                }
+              ]
+            }
+          ],
           "code": "<div class=\"ui-input-group ui-input-group--has-prefix\">\n  <span class=\"ui-input-group__addon ui-input-group__addon--start\">\n    <svg class=\"ui-icon\"><!-- search icon --></svg>\n  </span>\n  <input class=\"ui-input ui-input--block\" type=\"search\" placeholder=\"Search...\">\n</div>"
         }
       ]
@@ -122,7 +161,40 @@
       "title": "With Suffix Icon",
       "examples": [
         {
-          "html": "<div class=\"ui-input-group ui-input-group--has-suffix\"><input class=\"ui-input ui-input--block\" type=\"email\" placeholder=\"Email address\"><span class=\"ui-input-group__addon ui-input-group__addon--end\"><svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><rect width=\"20\" height=\"16\" x=\"2\" y=\"4\" rx=\"2\"/><path d=\"m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7\"/></svg></span></div>",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-input-group ui-input-group--has-suffix",
+              "children": [
+                {
+                  "tag": "input",
+                  "class": "ui-input ui-input--block",
+                  "attrs": { "type": "email", "placeholder": "Email address" }
+                },
+                {
+                  "tag": "span",
+                  "class": "ui-input-group__addon ui-input-group__addon--end",
+                  "children": [
+                    {
+                      "tag": "svg",
+                      "class": "ui-icon",
+                      "attrs": { "xmlns": "http://www.w3.org/2000/svg", "viewBox": "0 0 24 24" },
+                      "children": [
+                        {
+                          "tag": "rect",
+                          "attrs": { "width": "20", "height": "16", "x": "2", "y": "4", "rx": "2" }
+                        },
+                        {
+                          "tag": "path",
+                          "attrs": { "d": "m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "code": "<div class=\"ui-input-group ui-input-group--has-suffix\">\n  <input class=\"ui-input ui-input--block\" type=\"email\" placeholder=\"Email\">\n  <span class=\"ui-input-group__addon ui-input-group__addon--end\">\n    <svg class=\"ui-icon\"><!-- mail icon --></svg>\n  </span>\n</div>"
         }
       ]
@@ -131,7 +203,52 @@
       "title": "With Both Addons",
       "examples": [
         {
-          "html": "<div class=\"ui-input-group ui-input-group--has-prefix ui-input-group--has-suffix\"><span class=\"ui-input-group__addon ui-input-group__addon--start\"><svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2\"/><circle cx=\"12\" cy=\"7\" r=\"4\"/></svg></span><input class=\"ui-input ui-input--block\" type=\"text\" placeholder=\"Username\"><span class=\"ui-input-group__addon ui-input-group__addon--end ui-input-group__addon--interactive\"><svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M18 6 6 18\"/><path d=\"m6 6 12 12\"/></svg></span></div>",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-input-group ui-input-group--has-prefix ui-input-group--has-suffix",
+              "children": [
+                {
+                  "tag": "span",
+                  "class": "ui-input-group__addon ui-input-group__addon--start",
+                  "children": [
+                    {
+                      "tag": "svg",
+                      "class": "ui-icon",
+                      "attrs": { "xmlns": "http://www.w3.org/2000/svg", "viewBox": "0 0 24 24" },
+                      "children": [
+                        {
+                          "tag": "path",
+                          "attrs": { "d": "M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" }
+                        },
+                        { "tag": "circle", "attrs": { "cx": "12", "cy": "7", "r": "4" } }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "input",
+                  "class": "ui-input ui-input--block",
+                  "attrs": { "type": "text", "placeholder": "Username" }
+                },
+                {
+                  "tag": "span",
+                  "class": "ui-input-group__addon ui-input-group__addon--end ui-input-group__addon--interactive",
+                  "children": [
+                    {
+                      "tag": "svg",
+                      "class": "ui-icon",
+                      "attrs": { "xmlns": "http://www.w3.org/2000/svg", "viewBox": "0 0 24 24" },
+                      "children": [
+                        { "tag": "path", "attrs": { "d": "M18 6 6 18" } },
+                        { "tag": "path", "attrs": { "d": "m6 6 12 12" } }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "code": "<div class=\"ui-input-group ui-input-group--has-prefix ui-input-group--has-suffix\">\n  <span class=\"ui-input-group__addon ui-input-group__addon--start\">...</span>\n  <input class=\"ui-input ui-input--block\" placeholder=\"Username\">\n  <span class=\"ui-input-group__addon ui-input-group__addon--end ui-input-group__addon--interactive\">...</span>\n</div>"
         }
       ]

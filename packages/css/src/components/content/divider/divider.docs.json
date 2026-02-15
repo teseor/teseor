@@ -9,7 +9,7 @@
       "title": "Default",
       "examples": [
         {
-          "html": "<div class=\"ui-divider\" role=\"separator\"></div>",
+          "items": [{ "tag": "div", "class": "ui-divider", "attrs": { "role": "separator" } }],
           "code": "<div class=\"ui-divider\" role=\"separator\"></div>"
         }
       ]
@@ -18,7 +18,9 @@
       "title": "With Label",
       "examples": [
         {
-          "html": "<div class=\"ui-divider\" role=\"separator\">OR</div>",
+          "items": [
+            { "tag": "div", "class": "ui-divider", "attrs": { "role": "separator" }, "text": "OR" }
+          ],
           "code": "<div class=\"ui-divider\" role=\"separator\">OR</div>"
         }
       ]
@@ -27,7 +29,26 @@
       "title": "Label Alignment",
       "examples": [
         {
-          "html": "<div class=\"ui-divider ui-divider--start\" role=\"separator\">Start</div><div class=\"ui-divider\" role=\"separator\">Center</div><div class=\"ui-divider ui-divider--end\" role=\"separator\">End</div>",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-divider ui-divider--start",
+              "attrs": { "role": "separator" },
+              "text": "Start"
+            },
+            {
+              "tag": "div",
+              "class": "ui-divider",
+              "attrs": { "role": "separator" },
+              "text": "Center"
+            },
+            {
+              "tag": "div",
+              "class": "ui-divider ui-divider--end",
+              "attrs": { "role": "separator" },
+              "text": "End"
+            }
+          ],
           "code": "<div class=\"ui-divider ui-divider--start\">Start</div>\n<div class=\"ui-divider\">Center</div>\n<div class=\"ui-divider ui-divider--end\">End</div>"
         }
       ]
@@ -36,7 +57,13 @@
       "title": "Dashed",
       "examples": [
         {
-          "html": "<div class=\"ui-divider ui-divider--dashed\" role=\"separator\"></div>",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-divider ui-divider--dashed",
+              "attrs": { "role": "separator" }
+            }
+          ],
           "code": "<div class=\"ui-divider ui-divider--dashed\"></div>"
         }
       ]
@@ -45,7 +72,21 @@
       "title": "Vertical",
       "examples": [
         {
-          "html": "<div style=\"display: flex; height: 64px; align-items: center;\"><span>Left</span><div class=\"ui-divider ui-divider--vertical\" role=\"separator\"></div><span>Right</span></div>",
+          "items": [
+            {
+              "tag": "div",
+              "attrs": { "style": "display: flex; height: 64px; align-items: center;" },
+              "children": [
+                { "tag": "span", "text": "Left" },
+                {
+                  "tag": "div",
+                  "class": "ui-divider ui-divider--vertical",
+                  "attrs": { "role": "separator" }
+                },
+                { "tag": "span", "text": "Right" }
+              ]
+            }
+          ],
           "code": "<div style=\"display: flex;\">\n  <span>Left</span>\n  <div class=\"ui-divider ui-divider--vertical\"></div>\n  <span>Right</span>\n</div>"
         }
       ]

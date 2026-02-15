@@ -10,7 +10,15 @@
       "description": "Content is hidden visually but announced by screen readers",
       "examples": [
         {
-          "html": "<button>Submit<span class=\"ui-visually-hidden\"> form to contact support</span></button>",
+          "items": [
+            {
+              "tag": "button",
+              "children": [
+                { "text": "Submit" },
+                { "tag": "span", "class": "ui-visually-hidden", "text": " form to contact support" }
+              ]
+            }
+          ],
           "code": "<button>\n  Submit\n  <span class=\"ui-visually-hidden\"> form to contact support</span>\n</button>"
         }
       ]
@@ -20,7 +28,14 @@
       "description": "Becomes visible when focused - useful for skip links",
       "examples": [
         {
-          "html": "<a href=\"#main\" class=\"ui-visually-hidden ui-visually-hidden--focusable\" style=\"position: relative;\">Skip to main content</a>",
+          "items": [
+            {
+              "tag": "a",
+              "class": "ui-visually-hidden ui-visually-hidden--focusable",
+              "attrs": { "href": "#main", "style": "position: relative;" },
+              "text": "Skip to main content"
+            }
+          ],
           "code": "<a href=\"#main\" class=\"ui-visually-hidden ui-visually-hidden--focusable\">\n  Skip to main content\n</a>"
         }
       ]

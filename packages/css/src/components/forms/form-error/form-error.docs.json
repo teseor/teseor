@@ -9,7 +9,7 @@
       "title": "Default",
       "examples": [
         {
-          "html": "<span class=\"ui-form-error\">This field is required</span>",
+          "items": [{ "tag": "span", "class": "ui-form-error", "text": "This field is required" }],
           "code": "<span class=\"ui-form-error\">This field is required</span>"
         }
       ]
@@ -18,7 +18,28 @@
       "title": "With Icon",
       "examples": [
         {
-          "html": "<span class=\"ui-form-error\"><svg class=\"ui-form-error__icon ui-icon ui-icon--sm\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z\"/></svg>Please enter a valid email</span>",
+          "items": [
+            {
+              "tag": "span",
+              "class": "ui-form-error",
+              "children": [
+                {
+                  "tag": "svg",
+                  "class": "ui-form-error__icon ui-icon ui-icon--sm",
+                  "attrs": { "viewBox": "0 0 24 24", "fill": "currentColor" },
+                  "children": [
+                    {
+                      "tag": "path",
+                      "attrs": {
+                        "d": "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"
+                      }
+                    }
+                  ]
+                },
+                { "tag": "span", "text": "Please enter a valid email" }
+              ]
+            }
+          ],
           "code": "<span class=\"ui-form-error\">\n  <svg class=\"ui-form-error__icon ui-icon ui-icon--sm\">...</svg>\n  Please enter a valid email\n</span>"
         }
       ]

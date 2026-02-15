@@ -9,7 +9,9 @@
       "title": "Default",
       "examples": [
         {
-          "html": "<a href=\"#\" class=\"ui-link\">Default link</a>",
+          "items": [
+            { "tag": "a", "class": "ui-link", "attrs": { "href": "#" }, "text": "Default link" }
+          ],
           "code": "<a href=\"#\" class=\"ui-link\">Default link</a>"
         }
       ]
@@ -20,7 +22,14 @@
       "api": "./link.api.json",
       "examples": [
         {
-          "html": "<a href=\"#\" class=\"ui-link ui-link--muted\">Muted link</a>",
+          "items": [
+            {
+              "tag": "a",
+              "class": "ui-link ui-link--muted",
+              "attrs": { "href": "#" },
+              "text": "Muted link"
+            }
+          ],
           "code": "<a href=\"#\" class=\"ui-link ui-link--muted\">Muted link</a>"
         }
       ]
@@ -31,7 +40,14 @@
       "api": "./link.api.json",
       "examples": [
         {
-          "html": "<a href=\"#\" class=\"ui-link ui-link--subtle\">Subtle link</a>",
+          "items": [
+            {
+              "tag": "a",
+              "class": "ui-link ui-link--subtle",
+              "attrs": { "href": "#" },
+              "text": "Subtle link"
+            }
+          ],
           "code": "<a href=\"#\" class=\"ui-link ui-link--subtle\">Subtle link</a>"
         }
       ]
@@ -42,7 +58,14 @@
       "api": "./link.api.json",
       "examples": [
         {
-          "html": "<a href=\"#\" class=\"ui-link ui-link--external\">External link</a>",
+          "items": [
+            {
+              "tag": "a",
+              "class": "ui-link ui-link--external",
+              "attrs": { "href": "#" },
+              "text": "External link"
+            }
+          ],
           "code": "<a href=\"#\" class=\"ui-link ui-link--external\">External link</a>"
         }
       ]
@@ -51,7 +74,14 @@
       "title": "Disabled",
       "examples": [
         {
-          "html": "<a href=\"#\" class=\"ui-link ui-link--disabled\" aria-disabled=\"true\">Disabled link</a>",
+          "items": [
+            {
+              "tag": "a",
+              "class": "ui-link ui-link--disabled",
+              "attrs": { "href": "#", "aria-disabled": "true" },
+              "text": "Disabled link"
+            }
+          ],
           "code": "<a href=\"#\" class=\"ui-link ui-link--disabled\" aria-disabled=\"true\">\n  Disabled link\n</a>"
         }
       ]
@@ -62,7 +92,22 @@
       "api": "./link.api.json",
       "examples": [
         {
-          "html": "<p style=\"font-size: var(--ui-size-sm);\">Read our <a href=\"#\" class=\"ui-link\">privacy policy</a> for more information.</p>",
+          "items": [
+            {
+              "tag": "p",
+              "attrs": { "style": "font-size: var(--ui-size-sm);" },
+              "children": [
+                { "text": "Read our " },
+                {
+                  "tag": "a",
+                  "class": "ui-link",
+                  "attrs": { "href": "#" },
+                  "text": "privacy policy"
+                },
+                { "text": " for more information." }
+              ]
+            }
+          ],
           "code": "<p>\n  Read our <a href=\"#\" class=\"ui-link\">privacy policy</a>\n  for more information.\n</p>"
         }
       ]

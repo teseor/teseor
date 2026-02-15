@@ -9,7 +9,59 @@
       "title": "Default",
       "examples": [
         {
-          "html": "<div style=\"position: relative; height: 240px; background: var(--ui-color-bg-subtle);\"><div class=\"ui-modal ui-modal--visible\" style=\"position: absolute;\"><div class=\"ui-modal__content ui-dialog\" style=\"max-height: 200px;\"><header class=\"ui-dialog__header\"><h2 class=\"ui-dialog__title\">Dialog Title</h2><button class=\"ui-button ui-button--ghost ui-button--sm ui-dialog__close\">X</button></header><div class=\"ui-dialog__body\"><p>Dialog content goes here.</p></div><footer class=\"ui-dialog__footer\"><button class=\"ui-button ui-button--ghost\">Cancel</button><button class=\"ui-button\">Confirm</button></footer></div></div></div>",
+          "items": [
+            {
+              "tag": "div",
+              "attrs": {
+                "style": "position: relative; height: 240px; background: var(--ui-color-bg-subtle);"
+              },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-modal ui-modal--visible",
+                  "attrs": { "style": "position: absolute;" },
+                  "children": [
+                    {
+                      "tag": "div",
+                      "class": "ui-modal__content ui-dialog",
+                      "attrs": { "style": "max-height: 200px;" },
+                      "children": [
+                        {
+                          "tag": "header",
+                          "class": "ui-dialog__header",
+                          "children": [
+                            { "tag": "h2", "class": "ui-dialog__title", "text": "Dialog Title" },
+                            {
+                              "tag": "button",
+                              "class": "ui-button ui-button--ghost ui-button--sm ui-dialog__close",
+                              "text": "X"
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "div",
+                          "class": "ui-dialog__body",
+                          "children": [{ "tag": "p", "text": "Dialog content goes here." }]
+                        },
+                        {
+                          "tag": "footer",
+                          "class": "ui-dialog__footer",
+                          "children": [
+                            {
+                              "tag": "button",
+                              "class": "ui-button ui-button--ghost",
+                              "text": "Cancel"
+                            },
+                            { "tag": "button", "class": "ui-button", "text": "Confirm" }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "code": "<div class=\"ui-modal\">\n  <div class=\"ui-modal__content ui-dialog\">\n    <header class=\"ui-dialog__header\">\n      <h2 class=\"ui-dialog__title\">Dialog Title</h2>\n      <button class=\"ui-button ui-button--ghost ui-dialog__close\">X</button>\n    </header>\n    <div class=\"ui-dialog__body\">\n      <p>Dialog content goes here.</p>\n    </div>\n    <footer class=\"ui-dialog__footer\">\n      <button class=\"ui-button ui-button--ghost\">Cancel</button>\n      <button class=\"ui-button\">Confirm</button>\n    </footer>\n  </div>\n</div>"
         }
       ]
@@ -18,7 +70,47 @@
       "title": "Borderless",
       "examples": [
         {
-          "html": "<div style=\"position: relative; height: 200px; background: var(--ui-color-bg-subtle);\"><div class=\"ui-modal ui-modal--visible\" style=\"position: absolute;\"><div class=\"ui-modal__content ui-dialog ui-dialog--borderless\" style=\"max-height: 180px;\"><header class=\"ui-dialog__header\"><h2 class=\"ui-dialog__title\">Simple Dialog</h2></header><div class=\"ui-dialog__body\"><p>Content without borders.</p></div><footer class=\"ui-dialog__footer\"><button class=\"ui-button\">OK</button></footer></div></div></div>",
+          "items": [
+            {
+              "tag": "div",
+              "attrs": {
+                "style": "position: relative; height: 200px; background: var(--ui-color-bg-subtle);"
+              },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-modal ui-modal--visible",
+                  "attrs": { "style": "position: absolute;" },
+                  "children": [
+                    {
+                      "tag": "div",
+                      "class": "ui-modal__content ui-dialog ui-dialog--borderless",
+                      "attrs": { "style": "max-height: 180px;" },
+                      "children": [
+                        {
+                          "tag": "header",
+                          "class": "ui-dialog__header",
+                          "children": [
+                            { "tag": "h2", "class": "ui-dialog__title", "text": "Simple Dialog" }
+                          ]
+                        },
+                        {
+                          "tag": "div",
+                          "class": "ui-dialog__body",
+                          "children": [{ "tag": "p", "text": "Content without borders." }]
+                        },
+                        {
+                          "tag": "footer",
+                          "class": "ui-dialog__footer",
+                          "children": [{ "tag": "button", "class": "ui-button", "text": "OK" }]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "code": "<div class=\"ui-modal\">\n  <div class=\"ui-modal__content ui-dialog ui-dialog--borderless\">\n    ...\n  </div>\n</div>"
         }
       ]
@@ -27,7 +119,57 @@
       "title": "Confirmation Dialog",
       "examples": [
         {
-          "html": "<div style=\"position: relative; height: 200px; background: var(--ui-color-bg-subtle);\"><div class=\"ui-modal ui-modal--sm ui-modal--visible\" style=\"position: absolute;\"><div class=\"ui-modal__content ui-dialog\"><header class=\"ui-dialog__header\"><h2 class=\"ui-dialog__title\">Delete Item?</h2></header><div class=\"ui-dialog__body\"><p>This action cannot be undone.</p></div><footer class=\"ui-dialog__footer\"><button class=\"ui-button ui-button--ghost\">Cancel</button><button class=\"ui-button ui-button--danger\">Delete</button></footer></div></div></div>",
+          "items": [
+            {
+              "tag": "div",
+              "attrs": {
+                "style": "position: relative; height: 200px; background: var(--ui-color-bg-subtle);"
+              },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-modal ui-modal--sm ui-modal--visible",
+                  "attrs": { "style": "position: absolute;" },
+                  "children": [
+                    {
+                      "tag": "div",
+                      "class": "ui-modal__content ui-dialog",
+                      "children": [
+                        {
+                          "tag": "header",
+                          "class": "ui-dialog__header",
+                          "children": [
+                            { "tag": "h2", "class": "ui-dialog__title", "text": "Delete Item?" }
+                          ]
+                        },
+                        {
+                          "tag": "div",
+                          "class": "ui-dialog__body",
+                          "children": [{ "tag": "p", "text": "This action cannot be undone." }]
+                        },
+                        {
+                          "tag": "footer",
+                          "class": "ui-dialog__footer",
+                          "children": [
+                            {
+                              "tag": "button",
+                              "class": "ui-button ui-button--ghost",
+                              "text": "Cancel"
+                            },
+                            {
+                              "tag": "button",
+                              "class": "ui-button ui-button--danger",
+                              "text": "Delete"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "code": "<div class=\"ui-modal ui-modal--sm\">\n  <div class=\"ui-modal__content ui-dialog\">\n    <header class=\"ui-dialog__header\">\n      <h2 class=\"ui-dialog__title\">Delete Item?</h2>\n    </header>\n    <div class=\"ui-dialog__body\">\n      <p>This action cannot be undone.</p>\n    </div>\n    <footer class=\"ui-dialog__footer\">\n      <button class=\"ui-button ui-button--ghost\">Cancel</button>\n      <button class=\"ui-button ui-button--danger\">Delete</button>\n    </footer>\n  </div>\n</div>"
         }
       ]

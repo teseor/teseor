@@ -9,7 +9,7 @@
       "title": "Default",
       "examples": [
         {
-          "html": "<div class=\"ui-box\">Content</div>",
+          "items": [{ "tag": "div", "class": "ui-box", "text": "Content" }],
           "code": "<div class=\"ui-box\">Content</div>"
         }
       ]
@@ -19,7 +19,12 @@
       "examples": [
         {
           "layout": "column",
-          "html": "<div class=\"ui-box ui-box--p-1 ui-box--bg-subtle\">Padding 1</div><div class=\"ui-box ui-box--p-2 ui-box--bg-subtle\">Padding 2</div><div class=\"ui-box ui-box--p-3 ui-box--bg-subtle\">Padding 3</div><div class=\"ui-box ui-box--p-4 ui-box--bg-subtle\">Padding 4</div>",
+          "items": [
+            { "tag": "div", "class": "ui-box ui-box--p-1 ui-box--bg-subtle", "text": "Padding 1" },
+            { "tag": "div", "class": "ui-box ui-box--p-2 ui-box--bg-subtle", "text": "Padding 2" },
+            { "tag": "div", "class": "ui-box ui-box--p-3 ui-box--bg-subtle", "text": "Padding 3" },
+            { "tag": "div", "class": "ui-box ui-box--p-4 ui-box--bg-subtle", "text": "Padding 4" }
+          ],
           "code": "<div class=\"ui-box ui-box--p-1\">...</div>\n<div class=\"ui-box ui-box--p-2\">...</div>\n<div class=\"ui-box ui-box--p-3\">...</div>\n<div class=\"ui-box ui-box--p-4\">...</div>"
         }
       ]
@@ -29,7 +34,18 @@
       "examples": [
         {
           "layout": "column",
-          "html": "<div class=\"ui-box ui-box--p-2 ui-box--bg-subtle\">Subtle background</div><div class=\"ui-box ui-box--p-2 ui-box--bg-muted\">Muted background</div>",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-box ui-box--p-2 ui-box--bg-subtle",
+              "text": "Subtle background"
+            },
+            {
+              "tag": "div",
+              "class": "ui-box ui-box--p-2 ui-box--bg-muted",
+              "text": "Muted background"
+            }
+          ],
           "code": "<div class=\"ui-box ui-box--bg-subtle\">...</div>\n<div class=\"ui-box ui-box--bg-muted\">...</div>"
         }
       ]
@@ -39,7 +55,18 @@
       "examples": [
         {
           "layout": "row",
-          "html": "<div class=\"ui-box ui-box--p-3 ui-box--bg-subtle ui-box--rounded\">Rounded</div><div class=\"ui-box ui-box--p-3 ui-box--bg-subtle ui-box--rounded-lg\">Rounded lg</div>",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-box ui-box--p-3 ui-box--bg-subtle ui-box--rounded",
+              "text": "Rounded"
+            },
+            {
+              "tag": "div",
+              "class": "ui-box ui-box--p-3 ui-box--bg-subtle ui-box--rounded-lg",
+              "text": "Rounded lg"
+            }
+          ],
           "code": "<div class=\"ui-box ui-box--rounded\">...</div>\n<div class=\"ui-box ui-box--rounded-lg\">...</div>"
         }
       ]
@@ -48,7 +75,16 @@
       "title": "Custom via CSS Variables",
       "examples": [
         {
-          "html": "<div class=\"ui-box\" style=\"--box-padding: var(--ui-space-3); --box-bg: var(--ui-color-primary); --box-color: white; --box-radius: var(--ui-radius-lg);\">Custom box</div>",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-box",
+              "attrs": {
+                "style": "--box-padding: var(--ui-space-3); --box-bg: var(--ui-color-primary); --box-color: white; --box-radius: var(--ui-radius-lg);"
+              },
+              "text": "Custom box"
+            }
+          ],
           "code": "<div class=\"ui-box\" style=\"--box-padding: ...; --box-bg: ...;\">...</div>"
         }
       ]

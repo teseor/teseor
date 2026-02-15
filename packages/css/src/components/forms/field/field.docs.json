@@ -9,7 +9,31 @@
       "title": "Default",
       "examples": [
         {
-          "html": "<div class=\"ui-field\"><label class=\"ui-label\" for=\"email\">Email</label><div class=\"ui-field__control\"><input type=\"email\" id=\"email\" class=\"ui-input\" placeholder=\"Enter email\"></div></div>",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-field",
+              "children": [
+                {
+                  "tag": "label",
+                  "class": "ui-label",
+                  "text": "Email",
+                  "attrs": { "for": "email" }
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-field__control",
+                  "children": [
+                    {
+                      "tag": "input",
+                      "class": "ui-input",
+                      "attrs": { "type": "email", "id": "email", "placeholder": "Enter email" }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "code": "<div class=\"ui-field\">\n  <label class=\"ui-label\" for=\"email\">Email</label>\n  <div class=\"ui-field__control\">\n    <input type=\"email\" id=\"email\" class=\"ui-input\">\n  </div>\n</div>"
         }
       ]
@@ -18,7 +42,36 @@
       "title": "With Helper Text",
       "examples": [
         {
-          "html": "<div class=\"ui-field\"><label class=\"ui-label\" for=\"password\">Password</label><div class=\"ui-field__control\"><input type=\"password\" id=\"password\" class=\"ui-input\"><span class=\"ui-form-helper\">Must be at least 8 characters</span></div></div>",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-field",
+              "children": [
+                {
+                  "tag": "label",
+                  "class": "ui-label",
+                  "text": "Password",
+                  "attrs": { "for": "password" }
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-field__control",
+                  "children": [
+                    {
+                      "tag": "input",
+                      "class": "ui-input",
+                      "attrs": { "type": "password", "id": "password" }
+                    },
+                    {
+                      "tag": "span",
+                      "class": "ui-form-helper",
+                      "text": "Must be at least 8 characters"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "code": "<div class=\"ui-field\">\n  <label class=\"ui-label\" for=\"password\">Password</label>\n  <div class=\"ui-field__control\">\n    <input type=\"password\" id=\"password\" class=\"ui-input\">\n    <span class=\"ui-form-helper\">Must be at least 8 characters</span>\n  </div>\n</div>"
         }
       ]
@@ -27,7 +80,36 @@
       "title": "With Error",
       "examples": [
         {
-          "html": "<div class=\"ui-field\"><label class=\"ui-label\" for=\"username\">Username</label><div class=\"ui-field__control\"><input type=\"text\" id=\"username\" class=\"ui-input ui-input--error\" value=\"ab\"><span class=\"ui-form-error\">Username must be at least 3 characters</span></div></div>",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-field",
+              "children": [
+                {
+                  "tag": "label",
+                  "class": "ui-label",
+                  "text": "Username",
+                  "attrs": { "for": "username" }
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-field__control",
+                  "children": [
+                    {
+                      "tag": "input",
+                      "class": "ui-input ui-input--error",
+                      "attrs": { "type": "text", "id": "username", "value": "ab" }
+                    },
+                    {
+                      "tag": "span",
+                      "class": "ui-form-error",
+                      "text": "Username must be at least 3 characters"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "code": "<div class=\"ui-field\">\n  <label class=\"ui-label\" for=\"username\">Username</label>\n  <div class=\"ui-field__control\">\n    <input type=\"text\" id=\"username\" class=\"ui-input ui-input--error\">\n    <span class=\"ui-form-error\">Username must be at least 3 characters</span>\n  </div>\n</div>"
         }
       ]
@@ -38,7 +120,32 @@
       "api": "./field.api.json",
       "examples": [
         {
-          "html": "<div class=\"ui-field ui-field--horizontal\"><label class=\"ui-label ui-field__label\" for=\"name\">Full Name</label><div class=\"ui-field__control\"><input type=\"text\" id=\"name\" class=\"ui-input\"><span class=\"ui-form-helper\">As it appears on your ID</span></div></div>",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-field ui-field--horizontal",
+              "children": [
+                {
+                  "tag": "label",
+                  "class": "ui-label ui-field__label",
+                  "text": "Full Name",
+                  "attrs": { "for": "name" }
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-field__control",
+                  "children": [
+                    {
+                      "tag": "input",
+                      "class": "ui-input",
+                      "attrs": { "type": "text", "id": "name" }
+                    },
+                    { "tag": "span", "class": "ui-form-helper", "text": "As it appears on your ID" }
+                  ]
+                }
+              ]
+            }
+          ],
           "code": "<div class=\"ui-field ui-field--horizontal\">\n  <label class=\"ui-label ui-field__label\" for=\"name\">Full Name</label>\n  <div class=\"ui-field__control\">\n    <input type=\"text\" id=\"name\" class=\"ui-input\">\n    <span class=\"ui-form-helper\">As it appears on your ID</span>\n  </div>\n</div>"
         }
       ]
@@ -47,7 +154,31 @@
       "title": "Required Field",
       "examples": [
         {
-          "html": "<div class=\"ui-field\"><label class=\"ui-label ui-label--required\" for=\"req\">Required Field</label><div class=\"ui-field__control\"><input type=\"text\" id=\"req\" class=\"ui-input\" required></div></div>",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-field",
+              "children": [
+                {
+                  "tag": "label",
+                  "class": "ui-label ui-label--required",
+                  "text": "Required Field",
+                  "attrs": { "for": "req" }
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-field__control",
+                  "children": [
+                    {
+                      "tag": "input",
+                      "class": "ui-input",
+                      "attrs": { "type": "text", "id": "req", "required": "" }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "code": "<div class=\"ui-field\">\n  <label class=\"ui-label ui-label--required\" for=\"req\">Required Field</label>\n  <div class=\"ui-field__control\">\n    <input type=\"text\" id=\"req\" class=\"ui-input\" required>\n  </div>\n</div>"
         }
       ]

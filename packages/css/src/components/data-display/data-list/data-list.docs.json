@@ -5,7 +5,38 @@
       "title": "Default",
       "examples": [
         {
-          "html": "<dl class=\"ui-data-list\"><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Name</dt><dd class=\"ui-data-list__value\">John Doe</dd></div><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Email</dt><dd class=\"ui-data-list__value\">john@example.com</dd></div><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Role</dt><dd class=\"ui-data-list__value\">Administrator</dd></div></dl>"
+          "items": [
+            {
+              "tag": "dl",
+              "class": "ui-data-list",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-data-list__item",
+                  "children": [
+                    { "tag": "dt", "class": "ui-data-list__label", "text": "Name" },
+                    { "tag": "dd", "class": "ui-data-list__value", "text": "John Doe" }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-data-list__item",
+                  "children": [
+                    { "tag": "dt", "class": "ui-data-list__label", "text": "Email" },
+                    { "tag": "dd", "class": "ui-data-list__value", "text": "john@example.com" }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-data-list__item",
+                  "children": [
+                    { "tag": "dt", "class": "ui-data-list__label", "text": "Role" },
+                    { "tag": "dd", "class": "ui-data-list__value", "text": "Administrator" }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -14,7 +45,38 @@
       "description": "Side-by-side label and value",
       "examples": [
         {
-          "html": "<dl class=\"ui-data-list ui-data-list--horizontal\"><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Status</dt><dd class=\"ui-data-list__value\">Active</dd></div><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Created</dt><dd class=\"ui-data-list__value\">Dec 8, 2025</dd></div><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Updated</dt><dd class=\"ui-data-list__value\">Dec 8, 2025</dd></div></dl>"
+          "items": [
+            {
+              "tag": "dl",
+              "class": "ui-data-list ui-data-list--horizontal",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-data-list__item",
+                  "children": [
+                    { "tag": "dt", "class": "ui-data-list__label", "text": "Status" },
+                    { "tag": "dd", "class": "ui-data-list__value", "text": "Active" }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-data-list__item",
+                  "children": [
+                    { "tag": "dt", "class": "ui-data-list__label", "text": "Created" },
+                    { "tag": "dd", "class": "ui-data-list__value", "text": "Dec 8, 2025" }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-data-list__item",
+                  "children": [
+                    { "tag": "dt", "class": "ui-data-list__label", "text": "Updated" },
+                    { "tag": "dd", "class": "ui-data-list__value", "text": "Dec 8, 2025" }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -23,7 +85,38 @@
       "description": "With separator lines between items",
       "examples": [
         {
-          "html": "<dl class=\"ui-data-list ui-data-list--divided\"><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Order ID</dt><dd class=\"ui-data-list__value\">#12345</dd></div><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Total</dt><dd class=\"ui-data-list__value\">$99.00</dd></div><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Payment</dt><dd class=\"ui-data-list__value\">Credit Card</dd></div></dl>"
+          "items": [
+            {
+              "tag": "dl",
+              "class": "ui-data-list ui-data-list--divided",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-data-list__item",
+                  "children": [
+                    { "tag": "dt", "class": "ui-data-list__label", "text": "Order ID" },
+                    { "tag": "dd", "class": "ui-data-list__value", "text": "#12345" }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-data-list__item",
+                  "children": [
+                    { "tag": "dt", "class": "ui-data-list__label", "text": "Total" },
+                    { "tag": "dd", "class": "ui-data-list__value", "text": "$99.00" }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-data-list__item",
+                  "children": [
+                    { "tag": "dt", "class": "ui-data-list__label", "text": "Payment" },
+                    { "tag": "dd", "class": "ui-data-list__value", "text": "Credit Card" }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -32,7 +125,46 @@
       "description": "Alternating background for readability",
       "examples": [
         {
-          "html": "<dl class=\"ui-data-list ui-data-list--striped\"><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">CPU</dt><dd class=\"ui-data-list__value\">Intel i7</dd></div><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Memory</dt><dd class=\"ui-data-list__value\">16 GB</dd></div><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Storage</dt><dd class=\"ui-data-list__value\">512 GB SSD</dd></div><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Display</dt><dd class=\"ui-data-list__value\">14\" Retina</dd></div></dl>"
+          "items": [
+            {
+              "tag": "dl",
+              "class": "ui-data-list ui-data-list--striped",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-data-list__item",
+                  "children": [
+                    { "tag": "dt", "class": "ui-data-list__label", "text": "CPU" },
+                    { "tag": "dd", "class": "ui-data-list__value", "text": "Intel i7" }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-data-list__item",
+                  "children": [
+                    { "tag": "dt", "class": "ui-data-list__label", "text": "Memory" },
+                    { "tag": "dd", "class": "ui-data-list__value", "text": "16 GB" }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-data-list__item",
+                  "children": [
+                    { "tag": "dt", "class": "ui-data-list__label", "text": "Storage" },
+                    { "tag": "dd", "class": "ui-data-list__value", "text": "512 GB SSD" }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-data-list__item",
+                  "children": [
+                    { "tag": "dt", "class": "ui-data-list__label", "text": "Display" },
+                    { "tag": "dd", "class": "ui-data-list__value", "text": "14\" Retina" }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -40,15 +172,60 @@
       "title": "Sizes",
       "examples": [
         {
-          "html": "<dl class=\"ui-data-list ui-data-list--sm\"><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Small</dt><dd class=\"ui-data-list__value\">Compact display</dd></div></dl>",
+          "items": [
+            {
+              "tag": "dl",
+              "class": "ui-data-list ui-data-list--sm",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-data-list__item",
+                  "children": [
+                    { "tag": "dt", "class": "ui-data-list__label", "text": "Small" },
+                    { "tag": "dd", "class": "ui-data-list__value", "text": "Compact display" }
+                  ]
+                }
+              ]
+            }
+          ],
           "layout": "column"
         },
         {
-          "html": "<dl class=\"ui-data-list\"><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Default</dt><dd class=\"ui-data-list__value\">Standard display</dd></div></dl>",
+          "items": [
+            {
+              "tag": "dl",
+              "class": "ui-data-list",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-data-list__item",
+                  "children": [
+                    { "tag": "dt", "class": "ui-data-list__label", "text": "Default" },
+                    { "tag": "dd", "class": "ui-data-list__value", "text": "Standard display" }
+                  ]
+                }
+              ]
+            }
+          ],
           "layout": "column"
         },
         {
-          "html": "<dl class=\"ui-data-list ui-data-list--lg\"><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Large</dt><dd class=\"ui-data-list__value\">Spacious display</dd></div></dl>",
+          "items": [
+            {
+              "tag": "dl",
+              "class": "ui-data-list ui-data-list--lg",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-data-list__item",
+                  "children": [
+                    { "tag": "dt", "class": "ui-data-list__label", "text": "Large" },
+                    { "tag": "dd", "class": "ui-data-list__value", "text": "Spacious display" }
+                  ]
+                }
+              ]
+            }
+          ],
           "layout": "column"
         }
       ]

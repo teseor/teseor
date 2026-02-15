@@ -5,7 +5,27 @@
       "title": "Default",
       "examples": [
         {
-          "html": "<div class=\"ui-toast\"><div class=\"ui-toast__content\"><p class=\"ui-toast__title\">Notification</p><p class=\"ui-toast__description\">Your changes have been saved.</p></div><button class=\"ui-toast__close\">X</button></div>"
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-toast",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-toast__content",
+                  "children": [
+                    { "tag": "p", "class": "ui-toast__title", "text": "Notification" },
+                    {
+                      "tag": "p",
+                      "class": "ui-toast__description",
+                      "text": "Your changes have been saved."
+                    }
+                  ]
+                },
+                { "tag": "button", "class": "ui-toast__close", "text": "X" }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -13,19 +33,95 @@
       "title": "Variants",
       "examples": [
         {
-          "html": "<div class=\"ui-toast ui-toast--success\"><div class=\"ui-toast__content\"><p class=\"ui-toast__title\">Success</p><p class=\"ui-toast__description\">Operation completed successfully.</p></div></div>",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-toast ui-toast--success",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-toast__content",
+                  "children": [
+                    { "tag": "p", "class": "ui-toast__title", "text": "Success" },
+                    {
+                      "tag": "p",
+                      "class": "ui-toast__description",
+                      "text": "Operation completed successfully."
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "layout": "column"
         },
         {
-          "html": "<div class=\"ui-toast ui-toast--warning\"><div class=\"ui-toast__content\"><p class=\"ui-toast__title\">Warning</p><p class=\"ui-toast__description\">Please review before continuing.</p></div></div>",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-toast ui-toast--warning",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-toast__content",
+                  "children": [
+                    { "tag": "p", "class": "ui-toast__title", "text": "Warning" },
+                    {
+                      "tag": "p",
+                      "class": "ui-toast__description",
+                      "text": "Please review before continuing."
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "layout": "column"
         },
         {
-          "html": "<div class=\"ui-toast ui-toast--danger\"><div class=\"ui-toast__content\"><p class=\"ui-toast__title\">Error</p><p class=\"ui-toast__description\">Something went wrong.</p></div></div>",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-toast ui-toast--danger",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-toast__content",
+                  "children": [
+                    { "tag": "p", "class": "ui-toast__title", "text": "Error" },
+                    {
+                      "tag": "p",
+                      "class": "ui-toast__description",
+                      "text": "Something went wrong."
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "layout": "column"
         },
         {
-          "html": "<div class=\"ui-toast ui-toast--info\"><div class=\"ui-toast__content\"><p class=\"ui-toast__title\">Info</p><p class=\"ui-toast__description\">New updates available.</p></div></div>",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-toast ui-toast--info",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-toast__content",
+                  "children": [
+                    { "tag": "p", "class": "ui-toast__title", "text": "Info" },
+                    {
+                      "tag": "p",
+                      "class": "ui-toast__description",
+                      "text": "New updates available."
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "layout": "column"
         }
       ]
@@ -34,7 +130,32 @@
       "title": "With Action",
       "examples": [
         {
-          "html": "<div class=\"ui-toast\"><div class=\"ui-toast__content\"><p class=\"ui-toast__title\">File deleted</p><p class=\"ui-toast__description\">document.pdf was moved to trash.</p></div><button class=\"ui-toast__action ui-button ui-button--sm ui-button--secondary\">Undo</button><button class=\"ui-toast__close\">X</button></div>"
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-toast",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-toast__content",
+                  "children": [
+                    { "tag": "p", "class": "ui-toast__title", "text": "File deleted" },
+                    {
+                      "tag": "p",
+                      "class": "ui-toast__description",
+                      "text": "document.pdf was moved to trash."
+                    }
+                  ]
+                },
+                {
+                  "tag": "button",
+                  "class": "ui-toast__action ui-button ui-button--sm ui-button--secondary",
+                  "text": "Undo"
+                },
+                { "tag": "button", "class": "ui-toast__close", "text": "X" }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -43,11 +164,69 @@
       "description": "Container positions for toast placement",
       "examples": [
         {
-          "html": "<div style=\"position:relative;height:200px;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)\"><div class=\"ui-toast-viewport ui-toast-viewport--top-end\" style=\"position:absolute\"><div class=\"ui-toast\"><div class=\"ui-toast__content\"><p class=\"ui-toast__title\">Top End</p></div></div></div></div>",
+          "items": [
+            {
+              "tag": "div",
+              "attrs": {
+                "style": "position:relative;height:200px;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)"
+              },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-toast-viewport ui-toast-viewport--top-end",
+                  "attrs": { "style": "position:absolute" },
+                  "children": [
+                    {
+                      "tag": "div",
+                      "class": "ui-toast",
+                      "children": [
+                        {
+                          "tag": "div",
+                          "class": "ui-toast__content",
+                          "children": [
+                            { "tag": "p", "class": "ui-toast__title", "text": "Top End" }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "layout": "column"
         },
         {
-          "html": "<div style=\"position:relative;height:200px;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)\"><div class=\"ui-toast-viewport ui-toast-viewport--bottom-end\" style=\"position:absolute\"><div class=\"ui-toast\"><div class=\"ui-toast__content\"><p class=\"ui-toast__title\">Bottom End</p></div></div></div></div>",
+          "items": [
+            {
+              "tag": "div",
+              "attrs": {
+                "style": "position:relative;height:200px;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)"
+              },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-toast-viewport ui-toast-viewport--bottom-end",
+                  "attrs": { "style": "position:absolute" },
+                  "children": [
+                    {
+                      "tag": "div",
+                      "class": "ui-toast",
+                      "children": [
+                        {
+                          "tag": "div",
+                          "class": "ui-toast__content",
+                          "children": [
+                            { "tag": "p", "class": "ui-toast__title", "text": "Bottom End" }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "layout": "column"
         }
       ]

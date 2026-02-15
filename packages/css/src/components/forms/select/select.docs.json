@@ -9,7 +9,22 @@
       "title": "Default",
       "examples": [
         {
-          "html": "<select class=\"ui-select\"><option value=\"\" disabled selected>Choose option...</option><option value=\"1\">Option 1</option><option value=\"2\">Option 2</option><option value=\"3\">Option 3</option></select>"
+          "items": [
+            {
+              "tag": "select",
+              "class": "ui-select",
+              "children": [
+                {
+                  "tag": "option",
+                  "text": "Choose option...",
+                  "attrs": { "value": "", "disabled": "", "selected": "" }
+                },
+                { "tag": "option", "text": "Option 1", "attrs": { "value": "1" } },
+                { "tag": "option", "text": "Option 2", "attrs": { "value": "2" } },
+                { "tag": "option", "text": "Option 3", "attrs": { "value": "3" } }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -22,17 +37,26 @@
             {
               "tag": "select",
               "class": "ui-select ui-select--sm",
-              "html": "<option>Small</option><option>Option 2</option>"
+              "children": [
+                { "tag": "option", "text": "Small" },
+                { "tag": "option", "text": "Option 2" }
+              ]
             },
             {
               "tag": "select",
               "class": "ui-select",
-              "html": "<option>Default</option><option>Option 2</option>"
+              "children": [
+                { "tag": "option", "text": "Default" },
+                { "tag": "option", "text": "Option 2" }
+              ]
             },
             {
               "tag": "select",
               "class": "ui-select ui-select--lg",
-              "html": "<option>Large</option><option>Option 2</option>"
+              "children": [
+                { "tag": "option", "text": "Large" },
+                { "tag": "option", "text": "Option 2" }
+              ]
             }
           ],
           "code": "<select class=\"ui-select ui-select--sm\">...</select>\n<select class=\"ui-select\">...</select>\n<select class=\"ui-select ui-select--lg\">...</select>"
@@ -45,16 +69,20 @@
         {
           "layout": "column",
           "items": [
-            { "tag": "select", "class": "ui-select", "html": "<option>Outline (default)</option>" },
+            {
+              "tag": "select",
+              "class": "ui-select",
+              "children": [{ "tag": "option", "text": "Outline (default)" }]
+            },
             {
               "tag": "select",
               "class": "ui-select ui-select--filled",
-              "html": "<option>Filled</option>"
+              "children": [{ "tag": "option", "text": "Filled" }]
             },
             {
               "tag": "select",
               "class": "ui-select ui-select--ghost",
-              "html": "<option>Ghost</option>"
+              "children": [{ "tag": "option", "text": "Ghost" }]
             }
           ],
           "code": "<select class=\"ui-select\">...</select>\n<select class=\"ui-select ui-select--filled\">...</select>\n<select class=\"ui-select ui-select--ghost\">...</select>"
@@ -70,18 +98,18 @@
             {
               "tag": "select",
               "class": "ui-select ui-select--error",
-              "html": "<option>Error state</option>"
+              "children": [{ "tag": "option", "text": "Error state" }]
             },
             {
               "tag": "select",
               "class": "ui-select ui-select--success",
-              "html": "<option>Success state</option>"
+              "children": [{ "tag": "option", "text": "Success state" }]
             },
             {
               "tag": "select",
               "class": "ui-select",
               "attrs": { "disabled": "" },
-              "html": "<option>Disabled</option>"
+              "children": [{ "tag": "option", "text": "Disabled" }]
             }
           ],
           "code": "<select class=\"ui-select ui-select--error\">...</select>\n<select class=\"ui-select ui-select--success\">...</select>\n<select class=\"ui-select\" disabled>...</select>"
@@ -92,7 +120,16 @@
       "title": "Full Width",
       "examples": [
         {
-          "html": "<select class=\"ui-select ui-select--block\"><option value=\"\">Full width select...</option><option value=\"1\">Option 1</option></select>"
+          "items": [
+            {
+              "tag": "select",
+              "class": "ui-select ui-select--block",
+              "children": [
+                { "tag": "option", "text": "Full width select...", "attrs": { "value": "" } },
+                { "tag": "option", "text": "Option 1", "attrs": { "value": "1" } }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -100,7 +137,35 @@
       "title": "With Option Groups",
       "examples": [
         {
-          "html": "<select class=\"ui-select ui-select--block\"><option value=\"\" disabled selected>Choose a fruit...</option><optgroup label=\"Citrus\"><option value=\"orange\">Orange</option><option value=\"lemon\">Lemon</option></optgroup><optgroup label=\"Berries\"><option value=\"strawberry\">Strawberry</option><option value=\"blueberry\">Blueberry</option></optgroup></select>",
+          "items": [
+            {
+              "tag": "select",
+              "class": "ui-select ui-select--block",
+              "children": [
+                {
+                  "tag": "option",
+                  "text": "Choose a fruit...",
+                  "attrs": { "value": "", "disabled": "", "selected": "" }
+                },
+                {
+                  "tag": "optgroup",
+                  "attrs": { "label": "Citrus" },
+                  "children": [
+                    { "tag": "option", "text": "Orange", "attrs": { "value": "orange" } },
+                    { "tag": "option", "text": "Lemon", "attrs": { "value": "lemon" } }
+                  ]
+                },
+                {
+                  "tag": "optgroup",
+                  "attrs": { "label": "Berries" },
+                  "children": [
+                    { "tag": "option", "text": "Strawberry", "attrs": { "value": "strawberry" } },
+                    { "tag": "option", "text": "Blueberry", "attrs": { "value": "blueberry" } }
+                  ]
+                }
+              ]
+            }
+          ],
           "code": "<select class=\"ui-select\">\n  <optgroup label=\"Citrus\">\n    <option>Orange</option>\n    <option>Lemon</option>\n  </optgroup>\n  <optgroup label=\"Berries\">\n    <option>Strawberry</option>\n  </optgroup>\n</select>"
         }
       ]
