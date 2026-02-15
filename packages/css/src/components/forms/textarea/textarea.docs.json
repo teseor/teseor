@@ -9,7 +9,13 @@
       "title": "Default",
       "examples": [
         {
-          "html": "<textarea class=\"ui-textarea\" placeholder=\"Enter your message...\"></textarea>"
+          "items": [
+            {
+              "tag": "textarea",
+              "class": "ui-textarea",
+              "attrs": { "placeholder": "Enter your message..." }
+            }
+          ]
         }
       ]
     },

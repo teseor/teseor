@@ -9,7 +9,57 @@
       "title": "Default",
       "examples": [
         {
-          "html": "<nav class=\"ui-breadcrumb\" aria-label=\"Breadcrumb\"><ol class=\"ui-breadcrumb\"><li class=\"ui-breadcrumb__item\"><a href=\"#\" class=\"ui-breadcrumb__link\">Home</a></li><li class=\"ui-breadcrumb__item\"><a href=\"#\" class=\"ui-breadcrumb__link\">Products</a></li><li class=\"ui-breadcrumb__item\"><span class=\"ui-breadcrumb__current\" aria-current=\"page\">Shoes</span></li></ol></nav>",
+          "items": [
+            {
+              "tag": "nav",
+              "class": "ui-breadcrumb",
+              "attrs": { "aria-label": "Breadcrumb" },
+              "children": [
+                {
+                  "tag": "ol",
+                  "class": "ui-breadcrumb",
+                  "children": [
+                    {
+                      "tag": "li",
+                      "class": "ui-breadcrumb__item",
+                      "children": [
+                        {
+                          "tag": "a",
+                          "class": "ui-breadcrumb__link",
+                          "attrs": { "href": "#" },
+                          "text": "Home"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "li",
+                      "class": "ui-breadcrumb__item",
+                      "children": [
+                        {
+                          "tag": "a",
+                          "class": "ui-breadcrumb__link",
+                          "attrs": { "href": "#" },
+                          "text": "Products"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "li",
+                      "class": "ui-breadcrumb__item",
+                      "children": [
+                        {
+                          "tag": "span",
+                          "class": "ui-breadcrumb__current",
+                          "attrs": { "aria-current": "page" },
+                          "text": "Shoes"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "code": "<nav aria-label=\"Breadcrumb\">\n  <ol class=\"ui-breadcrumb\">\n    <li class=\"ui-breadcrumb__item\">\n      <a href=\"#\" class=\"ui-breadcrumb__link\">Home</a>\n    </li>\n    <li class=\"ui-breadcrumb__item\">\n      <a href=\"#\" class=\"ui-breadcrumb__link\">Products</a>\n    </li>\n    <li class=\"ui-breadcrumb__item\">\n      <span aria-current=\"page\">Shoes</span>\n    </li>\n  </ol>\n</nav>"
         }
       ]
@@ -18,7 +68,68 @@
       "title": "With Icons",
       "examples": [
         {
-          "html": "<nav aria-label=\"Breadcrumb\"><ol class=\"ui-breadcrumb\"><li class=\"ui-breadcrumb__item\"><a href=\"#\" class=\"ui-breadcrumb__link\"><svg class=\"ui-icon ui-icon--sm\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z\"/></svg></a></li><li class=\"ui-breadcrumb__item\"><a href=\"#\" class=\"ui-breadcrumb__link\">Settings</a></li><li class=\"ui-breadcrumb__item\"><span class=\"ui-breadcrumb__current\" aria-current=\"page\">Profile</span></li></ol></nav>",
+          "items": [
+            {
+              "tag": "nav",
+              "attrs": { "aria-label": "Breadcrumb" },
+              "children": [
+                {
+                  "tag": "ol",
+                  "class": "ui-breadcrumb",
+                  "children": [
+                    {
+                      "tag": "li",
+                      "class": "ui-breadcrumb__item",
+                      "children": [
+                        {
+                          "tag": "a",
+                          "class": "ui-breadcrumb__link",
+                          "attrs": { "href": "#" },
+                          "children": [
+                            {
+                              "tag": "svg",
+                              "class": "ui-icon ui-icon--sm",
+                              "attrs": { "viewBox": "0 0 24 24", "fill": "currentColor" },
+                              "children": [
+                                {
+                                  "tag": "path",
+                                  "attrs": { "d": "M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "li",
+                      "class": "ui-breadcrumb__item",
+                      "children": [
+                        {
+                          "tag": "a",
+                          "class": "ui-breadcrumb__link",
+                          "attrs": { "href": "#" },
+                          "text": "Settings"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "li",
+                      "class": "ui-breadcrumb__item",
+                      "children": [
+                        {
+                          "tag": "span",
+                          "class": "ui-breadcrumb__current",
+                          "attrs": { "aria-current": "page" },
+                          "text": "Profile"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "code": "<ol class=\"ui-breadcrumb\">\n  <li class=\"ui-breadcrumb__item\">\n    <a href=\"#\" class=\"ui-breadcrumb__link\">\n      <svg class=\"ui-icon\">...</svg>\n    </a>\n  </li>\n  ...\n</ol>"
         }
       ]

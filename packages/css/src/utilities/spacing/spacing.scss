@@ -1,8 +1,8 @@
-/* Spacing utilities - all values align to 8px grid */
+// Spacing utilities - all values align to 8px grid
 
-/* Uses logical properties for international/RTL support */
+// Uses logical properties for international/RTL support
 @layer utilities {
-  /* Margin utilities */
+  // Margin utilities
   .m-0 {
     margin: 0;
   }
@@ -187,7 +187,7 @@
     margin-block: var(--ui-space-4);
   }
 
-  /* Padding utilities */
+  // Padding utilities
   .p-0 {
     padding: 0;
   }
@@ -368,7 +368,7 @@
     padding-block: var(--ui-space-4);
   }
 
-  /* Gap utilities (for flex/grid) */
+  // Gap utilities (for flex/grid)
   .gap-0 {
     gap: 0;
   }

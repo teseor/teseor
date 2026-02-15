@@ -5,7 +5,7 @@
 
 @layer components.tokens {
   .modal {
-    --_bg: var(--ui-modal-bg, var(--ui-color-bg, white));
+    --_bg: var(--ui-modal-bg, var(--ui-color-bg, #{t.$color-bg}));
     --_radius: var(--ui-modal-radius, var(--ui-radius-lg, calc(#{t.$unit} * 1.5)));
     --_shadow: var(--ui-modal-shadow, 0 calc(#{t.$unit} * 3) calc(#{t.$unit} * 6) rgb(0 0 0 / 0.25));
     --_padding: var(--ui-modal-padding, calc(#{t.$unit} * 3));

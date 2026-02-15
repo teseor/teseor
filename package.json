@@ -11,7 +11,7 @@
     "pnpm": ">=9.0.0"
   },
   "scripts": {
-    "new:component": "hygen component new --name",
+    "new:component": "hygen component new --name && tsx scripts/sync-scss-indexes.ts",
     "sync:components": "tsx scripts/sync-scss-indexes.ts",
     "generate:visual-specs": "tsx scripts/generate-visual-specs.ts",
     "dev": "nx run-many -t dev",

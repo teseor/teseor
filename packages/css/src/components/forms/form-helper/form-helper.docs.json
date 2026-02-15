@@ -9,7 +9,9 @@
       "title": "Default",
       "examples": [
         {
-          "html": "<span class=\"ui-form-helper\">Must be at least 8 characters</span>",
+          "items": [
+            { "tag": "span", "class": "ui-form-helper", "text": "Must be at least 8 characters" }
+          ],
           "code": "<span class=\"ui-form-helper\">Must be at least 8 characters</span>"
         }
       ]

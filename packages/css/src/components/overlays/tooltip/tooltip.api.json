@@ -27,11 +27,11 @@
     },
     {
       "name": "--ui-tooltip-padding-x",
-      "default": "calc(#{t.$unit} * 1"
+      "default": "calc(var(--ui-unit) * 1"
     },
     {
       "name": "--ui-tooltip-padding-y",
-      "default": "calc(#{t.$unit} / 2"
+      "default": "calc(var(--ui-unit) / 2"
     },
     {
       "name": "--ui-tooltip-font-size",
@@ -43,7 +43,7 @@
     },
     {
       "name": "--ui-tooltip-arrow-size",
-      "default": "calc(#{t.$unit} / 2"
+      "default": "calc(var(--ui-unit) / 2"
     }
   ]
 }

@@ -1,8 +1,8 @@
-/* Display and visibility utilities */
+// Display and visibility utilities
 
-/* Uses logical properties for international/RTL support */
+// Uses logical properties for international/RTL support
 @layer utilities {
-  /* Display */
+  // Display
   .block {
     display: block;
   }
@@ -35,7 +35,7 @@
     display: none;
   }
 
-  /* Flexbox direction */
+  // Flexbox direction
   .flex-row {
     flex-direction: row;
   }
@@ -52,7 +52,7 @@
     flex-direction: column-reverse;
   }
 
-  /* Flexbox wrap */
+  // Flexbox wrap
   .flex-wrap {
     flex-wrap: wrap;
   }
@@ -65,7 +65,7 @@
     flex-wrap: wrap-reverse;
   }
 
-  /* Flexbox grow/shrink */
+  // Flexbox grow/shrink
   .flex-1 {
     flex: 1 1 0%;
   }
@@ -98,7 +98,7 @@
     flex-shrink: 0;
   }
 
-  /* Justify content */
+  // Justify content
   .justify-start {
     justify-content: flex-start;
   }
@@ -123,7 +123,7 @@
     justify-content: space-evenly;
   }
 
-  /* Align items */
+  // Align items
   .items-start {
     align-items: flex-start;
   }
@@ -144,7 +144,7 @@
     align-items: stretch;
   }
 
-  /* Align self */
+  // Align self
   .self-auto {
     align-self: auto;
   }
@@ -165,7 +165,7 @@
     align-self: stretch;
   }
 
-  /* Visibility */
+  // Visibility
   .visible {
     visibility: visible;
   }
@@ -174,7 +174,7 @@
     visibility: hidden;
   }
 
-  /* Screen reader only - visually hidden but accessible */
+  // Screen reader only - visually hidden but accessible
   .sr-only {
     position: absolute;
 

@@ -11,7 +11,39 @@
       "examples": [
         {
           "title": "Default",
-          "html": "<table class=\"ui-table\"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>Alpha</td><td>100</td></tr><tr><td>Beta</td><td>200</td></tr></tbody></table>"
+          "items": [
+            {
+              "tag": "table",
+              "class": "ui-table",
+              "children": [
+                {
+                  "tag": "thead",
+                  "children": [
+                    {
+                      "tag": "tr",
+                      "children": [
+                        { "tag": "th", "text": "Name" },
+                        { "tag": "th", "text": "Value" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "tbody",
+                  "children": [
+                    {
+                      "tag": "tr",
+                      "children": [{ "tag": "td", "text": "Alpha" }, { "tag": "td", "text": "100" }]
+                    },
+                    {
+                      "tag": "tr",
+                      "children": [{ "tag": "td", "text": "Beta" }, { "tag": "td", "text": "200" }]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -20,11 +52,104 @@
       "examples": [
         {
           "title": "Compact",
-          "html": "<table class=\"ui-table ui-table--compact\"><thead><tr><th>Token</th><th>Value</th></tr></thead><tbody><tr><td><code class=\"ui-code ui-code--sm\">--space-1</code></td><td>0.5rem</td></tr><tr><td><code class=\"ui-code ui-code--sm\">--space-2</code></td><td>1rem</td></tr></tbody></table>"
+          "items": [
+            {
+              "tag": "table",
+              "class": "ui-table ui-table--compact",
+              "children": [
+                {
+                  "tag": "thead",
+                  "children": [
+                    {
+                      "tag": "tr",
+                      "children": [
+                        { "tag": "th", "text": "Token" },
+                        { "tag": "th", "text": "Value" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "tbody",
+                  "children": [
+                    {
+                      "tag": "tr",
+                      "children": [
+                        {
+                          "tag": "td",
+                          "children": [
+                            { "tag": "code", "class": "ui-code ui-code--sm", "text": "--space-1" }
+                          ]
+                        },
+                        { "tag": "td", "text": "0.5rem" }
+                      ]
+                    },
+                    {
+                      "tag": "tr",
+                      "children": [
+                        {
+                          "tag": "td",
+                          "children": [
+                            { "tag": "code", "class": "ui-code ui-code--sm", "text": "--space-2" }
+                          ]
+                        },
+                        { "tag": "td", "text": "1rem" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         },
         {
           "title": "Striped",
-          "html": "<table class=\"ui-table ui-table--striped\"><thead><tr><th>Item</th><th>Status</th></tr></thead><tbody><tr><td>Task 1</td><td>Done</td></tr><tr><td>Task 2</td><td>Pending</td></tr><tr><td>Task 3</td><td>Done</td></tr></tbody></table>"
+          "items": [
+            {
+              "tag": "table",
+              "class": "ui-table ui-table--striped",
+              "children": [
+                {
+                  "tag": "thead",
+                  "children": [
+                    {
+                      "tag": "tr",
+                      "children": [
+                        { "tag": "th", "text": "Item" },
+                        { "tag": "th", "text": "Status" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "tbody",
+                  "children": [
+                    {
+                      "tag": "tr",
+                      "children": [
+                        { "tag": "td", "text": "Task 1" },
+                        { "tag": "td", "text": "Done" }
+                      ]
+                    },
+                    {
+                      "tag": "tr",
+                      "children": [
+                        { "tag": "td", "text": "Task 2" },
+                        { "tag": "td", "text": "Pending" }
+                      ]
+                    },
+                    {
+                      "tag": "tr",
+                      "children": [
+                        { "tag": "td", "text": "Task 3" },
+                        { "tag": "td", "text": "Done" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     }

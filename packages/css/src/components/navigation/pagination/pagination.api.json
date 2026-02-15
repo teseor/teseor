@@ -26,11 +26,11 @@
   "cssVars": [
     {
       "name": "--ui-pagination-gap",
-      "default": "calc(#{t.$unit} * 0.5"
+      "default": "calc(var(--ui-unit) * 0.5"
     },
     {
       "name": "--ui-pagination-item-size",
-      "default": "calc(#{t.$unit} * 4"
+      "default": "calc(var(--ui-unit) * 4"
     },
     {
       "name": "--ui-pagination-item-radius",

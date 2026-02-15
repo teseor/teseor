@@ -30,7 +30,7 @@
     cursor: pointer;
 
     &[aria-disabled='true'] {
-      opacity: 0.5;
+      opacity: var(--ui-opacity-disabled, 0.5);
       cursor: not-allowed;
     }
   }

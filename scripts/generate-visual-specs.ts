@@ -5,18 +5,14 @@
  * Supports category subdirectories (e.g., actions/button)
  */
 
-import { existsSync, readdirSync, statSync, writeFileSync } from 'node:fs';
+import { existsSync, writeFileSync } from 'node:fs';
 import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { type ComponentEntry, findComponentDirs } from './shared/find-components.js';
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const COMPONENTS_DIR = join(__dirname, '../packages/css/src/components');
-
-interface ComponentEntry {
-  name: string;
-  path: string;
-  depth: number;
-}
 
 function generateVisualSpec(name: string, depth: number): string {
   const testingImport = `${'../'.repeat(depth + 1)}testing`;
@@ -35,24 +31,6 @@ test.describe('${name} visual regression', () => {
   });
 });
 `;
-}
-
-function findComponentDirs(baseDir: string, depth = 0): ComponentEntry[] {
-  const components: ComponentEntry[] = [];
-  const entries = readdirSync(baseDir).filter((name) => {
-    if (name.startsWith('.') || name === 'index.scss') return false;
-    return statSync(join(baseDir, name)).isDirectory();
-  });
-
-  for (const entry of entries) {
-    const entryPath = join(baseDir, entry);
-    if (existsSync(join(entryPath, 'index.scss'))) {
-      components.push({ name: entry, path: entryPath, depth });
-    } else {
-      components.push(...findComponentDirs(entryPath, depth + 1));
-    }
-  }
-  return components;
 }
 
 function findMissingSpecs(): ComponentEntry[] {

@@ -47,7 +47,155 @@
       "description": "Simple navigation with grouped items.",
       "examples": [
         {
-          "html": "<nav class=\"ui-sidebar-nav\" aria-label=\"Main navigation\" style=\"block-size: 400px;\">\n  <div class=\"ui-sidebar-nav__header\">\n    <strong>App Name</strong>\n  </div>\n  <div class=\"ui-sidebar-nav__content\">\n    <div class=\"ui-sidebar-nav__group\">\n      <span class=\"ui-sidebar-nav__group-label\">Main</span>\n      <ul class=\"ui-sidebar-nav__group-items\">\n        <li><a href=\"#\" class=\"ui-sidebar-nav__item ui-sidebar-nav__item--active\" aria-current=\"page\"><span class=\"ui-sidebar-nav__label\">Dashboard</span></a></li>\n        <li><a href=\"#\" class=\"ui-sidebar-nav__item\"><span class=\"ui-sidebar-nav__label\">Projects</span></a></li>\n        <li><a href=\"#\" class=\"ui-sidebar-nav__item\"><span class=\"ui-sidebar-nav__label\">Tasks</span></a></li>\n      </ul>\n    </div>\n    <div class=\"ui-sidebar-nav__group\">\n      <span class=\"ui-sidebar-nav__group-label\">Settings</span>\n      <ul class=\"ui-sidebar-nav__group-items\">\n        <li><a href=\"#\" class=\"ui-sidebar-nav__item\"><span class=\"ui-sidebar-nav__label\">Profile</span></a></li>\n        <li><a href=\"#\" class=\"ui-sidebar-nav__item\"><span class=\"ui-sidebar-nav__label\">Preferences</span></a></li>\n      </ul>\n    </div>\n  </div>\n  <div class=\"ui-sidebar-nav__footer\">\n    <a href=\"#\" class=\"ui-sidebar-nav__item\"><span class=\"ui-sidebar-nav__label\">Logout</span></a>\n  </div>\n</nav>"
+          "items": [
+            {
+              "tag": "nav",
+              "class": "ui-sidebar-nav",
+              "attrs": { "aria-label": "Main navigation", "style": "block-size: 400px;" },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-sidebar-nav__header",
+                  "children": [{ "tag": "strong", "text": "App Name" }]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-sidebar-nav__content",
+                  "children": [
+                    {
+                      "tag": "div",
+                      "class": "ui-sidebar-nav__group",
+                      "children": [
+                        { "tag": "span", "class": "ui-sidebar-nav__group-label", "text": "Main" },
+                        {
+                          "tag": "ul",
+                          "class": "ui-sidebar-nav__group-items",
+                          "children": [
+                            {
+                              "tag": "li",
+                              "children": [
+                                {
+                                  "tag": "a",
+                                  "class": "ui-sidebar-nav__item ui-sidebar-nav__item--active",
+                                  "attrs": { "href": "#", "aria-current": "page" },
+                                  "children": [
+                                    {
+                                      "tag": "span",
+                                      "class": "ui-sidebar-nav__label",
+                                      "text": "Dashboard"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "tag": "li",
+                              "children": [
+                                {
+                                  "tag": "a",
+                                  "class": "ui-sidebar-nav__item",
+                                  "attrs": { "href": "#" },
+                                  "children": [
+                                    {
+                                      "tag": "span",
+                                      "class": "ui-sidebar-nav__label",
+                                      "text": "Projects"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "tag": "li",
+                              "children": [
+                                {
+                                  "tag": "a",
+                                  "class": "ui-sidebar-nav__item",
+                                  "attrs": { "href": "#" },
+                                  "children": [
+                                    {
+                                      "tag": "span",
+                                      "class": "ui-sidebar-nav__label",
+                                      "text": "Tasks"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-sidebar-nav__group",
+                      "children": [
+                        {
+                          "tag": "span",
+                          "class": "ui-sidebar-nav__group-label",
+                          "text": "Settings"
+                        },
+                        {
+                          "tag": "ul",
+                          "class": "ui-sidebar-nav__group-items",
+                          "children": [
+                            {
+                              "tag": "li",
+                              "children": [
+                                {
+                                  "tag": "a",
+                                  "class": "ui-sidebar-nav__item",
+                                  "attrs": { "href": "#" },
+                                  "children": [
+                                    {
+                                      "tag": "span",
+                                      "class": "ui-sidebar-nav__label",
+                                      "text": "Profile"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "tag": "li",
+                              "children": [
+                                {
+                                  "tag": "a",
+                                  "class": "ui-sidebar-nav__item",
+                                  "attrs": { "href": "#" },
+                                  "children": [
+                                    {
+                                      "tag": "span",
+                                      "class": "ui-sidebar-nav__label",
+                                      "text": "Preferences"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-sidebar-nav__footer",
+                  "children": [
+                    {
+                      "tag": "a",
+                      "class": "ui-sidebar-nav__item",
+                      "attrs": { "href": "#" },
+                      "children": [
+                        { "tag": "span", "class": "ui-sidebar-nav__label", "text": "Logout" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -56,7 +204,153 @@
       "description": "Navigation items with icons for visual clarity.",
       "examples": [
         {
-          "html": "<nav class=\"ui-sidebar-nav\" aria-label=\"Navigation\" style=\"block-size: 300px;\">\n  <div class=\"ui-sidebar-nav__content\">\n    <ul class=\"ui-sidebar-nav__group-items\">\n      <li><a href=\"#\" class=\"ui-sidebar-nav__item ui-sidebar-nav__item--active\" aria-current=\"page\">\n        <span class=\"ui-sidebar-nav__icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/></svg></span>\n        <span class=\"ui-sidebar-nav__label\">Home</span>\n      </a></li>\n      <li><a href=\"#\" class=\"ui-sidebar-nav__item\">\n        <span class=\"ui-sidebar-nav__icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2\"/><circle cx=\"9\" cy=\"7\" r=\"4\"/></svg></span>\n        <span class=\"ui-sidebar-nav__label\">Users</span>\n      </a></li>\n      <li><a href=\"#\" class=\"ui-sidebar-nav__item\">\n        <span class=\"ui-sidebar-nav__icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z\"/></svg></span>\n        <span class=\"ui-sidebar-nav__label\">Settings</span>\n      </a></li>\n    </ul>\n  </div>\n</nav>"
+          "items": [
+            {
+              "tag": "nav",
+              "class": "ui-sidebar-nav",
+              "attrs": { "aria-label": "Navigation", "style": "block-size: 300px;" },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-sidebar-nav__content",
+                  "children": [
+                    {
+                      "tag": "ul",
+                      "class": "ui-sidebar-nav__group-items",
+                      "children": [
+                        {
+                          "tag": "li",
+                          "children": [
+                            {
+                              "tag": "a",
+                              "class": "ui-sidebar-nav__item ui-sidebar-nav__item--active",
+                              "attrs": { "href": "#", "aria-current": "page" },
+                              "children": [
+                                {
+                                  "tag": "span",
+                                  "class": "ui-sidebar-nav__icon",
+                                  "children": [
+                                    {
+                                      "tag": "svg",
+                                      "attrs": {
+                                        "width": "16",
+                                        "height": "16",
+                                        "viewBox": "0 0 24 24",
+                                        "fill": "none",
+                                        "stroke": "currentColor",
+                                        "stroke-width": "2"
+                                      },
+                                      "children": [
+                                        {
+                                          "tag": "path",
+                                          "attrs": {
+                                            "d": "M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                { "tag": "span", "class": "ui-sidebar-nav__label", "text": "Home" }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "children": [
+                            {
+                              "tag": "a",
+                              "class": "ui-sidebar-nav__item",
+                              "attrs": { "href": "#" },
+                              "children": [
+                                {
+                                  "tag": "span",
+                                  "class": "ui-sidebar-nav__icon",
+                                  "children": [
+                                    {
+                                      "tag": "svg",
+                                      "attrs": {
+                                        "width": "16",
+                                        "height": "16",
+                                        "viewBox": "0 0 24 24",
+                                        "fill": "none",
+                                        "stroke": "currentColor",
+                                        "stroke-width": "2"
+                                      },
+                                      "children": [
+                                        {
+                                          "tag": "path",
+                                          "attrs": {
+                                            "d": "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+                                          }
+                                        },
+                                        {
+                                          "tag": "circle",
+                                          "attrs": { "cx": "9", "cy": "7", "r": "4" }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                { "tag": "span", "class": "ui-sidebar-nav__label", "text": "Users" }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "children": [
+                            {
+                              "tag": "a",
+                              "class": "ui-sidebar-nav__item",
+                              "attrs": { "href": "#" },
+                              "children": [
+                                {
+                                  "tag": "span",
+                                  "class": "ui-sidebar-nav__icon",
+                                  "children": [
+                                    {
+                                      "tag": "svg",
+                                      "attrs": {
+                                        "width": "16",
+                                        "height": "16",
+                                        "viewBox": "0 0 24 24",
+                                        "fill": "none",
+                                        "stroke": "currentColor",
+                                        "stroke-width": "2"
+                                      },
+                                      "children": [
+                                        {
+                                          "tag": "circle",
+                                          "attrs": { "cx": "12", "cy": "12", "r": "3" }
+                                        },
+                                        {
+                                          "tag": "path",
+                                          "attrs": {
+                                            "d": "M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "tag": "span",
+                                  "class": "ui-sidebar-nav__label",
+                                  "text": "Settings"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -65,7 +359,107 @@
       "description": "Navigation items with badges for counts or status indicators.",
       "examples": [
         {
-          "html": "<nav class=\"ui-sidebar-nav\" aria-label=\"Navigation\" style=\"block-size: 200px;\">\n  <div class=\"ui-sidebar-nav__content\">\n    <ul class=\"ui-sidebar-nav__group-items\">\n      <li><a href=\"#\" class=\"ui-sidebar-nav__item\">\n        <span class=\"ui-sidebar-nav__label\">Inbox</span>\n        <span class=\"ui-sidebar-nav__badge\"><span class=\"ui-badge ui-badge--primary\">12</span></span>\n      </a></li>\n      <li><a href=\"#\" class=\"ui-sidebar-nav__item\">\n        <span class=\"ui-sidebar-nav__label\">Notifications</span>\n        <span class=\"ui-sidebar-nav__badge\"><span class=\"ui-badge ui-badge--danger\">3</span></span>\n      </a></li>\n      <li><a href=\"#\" class=\"ui-sidebar-nav__item\">\n        <span class=\"ui-sidebar-nav__label\">Updates</span>\n        <span class=\"ui-sidebar-nav__badge\"><span class=\"ui-status ui-status--success\"></span></span>\n      </a></li>\n    </ul>\n  </div>\n</nav>"
+          "items": [
+            {
+              "tag": "nav",
+              "class": "ui-sidebar-nav",
+              "attrs": { "aria-label": "Navigation", "style": "block-size: 200px;" },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-sidebar-nav__content",
+                  "children": [
+                    {
+                      "tag": "ul",
+                      "class": "ui-sidebar-nav__group-items",
+                      "children": [
+                        {
+                          "tag": "li",
+                          "children": [
+                            {
+                              "tag": "a",
+                              "class": "ui-sidebar-nav__item",
+                              "attrs": { "href": "#" },
+                              "children": [
+                                {
+                                  "tag": "span",
+                                  "class": "ui-sidebar-nav__label",
+                                  "text": "Inbox"
+                                },
+                                {
+                                  "tag": "span",
+                                  "class": "ui-sidebar-nav__badge",
+                                  "children": [
+                                    {
+                                      "tag": "span",
+                                      "class": "ui-badge ui-badge--primary",
+                                      "text": "12"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "children": [
+                            {
+                              "tag": "a",
+                              "class": "ui-sidebar-nav__item",
+                              "attrs": { "href": "#" },
+                              "children": [
+                                {
+                                  "tag": "span",
+                                  "class": "ui-sidebar-nav__label",
+                                  "text": "Notifications"
+                                },
+                                {
+                                  "tag": "span",
+                                  "class": "ui-sidebar-nav__badge",
+                                  "children": [
+                                    {
+                                      "tag": "span",
+                                      "class": "ui-badge ui-badge--danger",
+                                      "text": "3"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "children": [
+                            {
+                              "tag": "a",
+                              "class": "ui-sidebar-nav__item",
+                              "attrs": { "href": "#" },
+                              "children": [
+                                {
+                                  "tag": "span",
+                                  "class": "ui-sidebar-nav__label",
+                                  "text": "Updates"
+                                },
+                                {
+                                  "tag": "span",
+                                  "class": "ui-sidebar-nav__badge",
+                                  "children": [
+                                    { "tag": "span", "class": "ui-status ui-status--success" }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -74,7 +468,126 @@
       "description": "Navigation with nested/indented items for sub-sections.",
       "examples": [
         {
-          "html": "<nav class=\"ui-sidebar-nav\" aria-label=\"Navigation\" style=\"block-size: 280px;\">\n  <div class=\"ui-sidebar-nav__content\">\n    <div class=\"ui-sidebar-nav__group\">\n      <span class=\"ui-sidebar-nav__group-label\">Components</span>\n      <ul class=\"ui-sidebar-nav__group-items\">\n        <li><span class=\"ui-sidebar-nav__subgroup-label\">Actions</span></li>\n        <li><a href=\"#\" class=\"ui-sidebar-nav__item ui-sidebar-nav__item--nested\"><span class=\"ui-sidebar-nav__label\">Button</span></a></li>\n        <li><a href=\"#\" class=\"ui-sidebar-nav__item ui-sidebar-nav__item--nested ui-sidebar-nav__item--active\" aria-current=\"page\"><span class=\"ui-sidebar-nav__label\">Button Group</span></a></li>\n        <li><span class=\"ui-sidebar-nav__subgroup-label\">Forms</span></li>\n        <li><a href=\"#\" class=\"ui-sidebar-nav__item ui-sidebar-nav__item--nested\"><span class=\"ui-sidebar-nav__label\">Input</span></a></li>\n        <li><a href=\"#\" class=\"ui-sidebar-nav__item ui-sidebar-nav__item--nested\"><span class=\"ui-sidebar-nav__label\">Select</span></a></li>\n      </ul>\n    </div>\n  </div>\n</nav>"
+          "items": [
+            {
+              "tag": "nav",
+              "class": "ui-sidebar-nav",
+              "attrs": { "aria-label": "Navigation", "style": "block-size: 280px;" },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-sidebar-nav__content",
+                  "children": [
+                    {
+                      "tag": "div",
+                      "class": "ui-sidebar-nav__group",
+                      "children": [
+                        {
+                          "tag": "span",
+                          "class": "ui-sidebar-nav__group-label",
+                          "text": "Components"
+                        },
+                        {
+                          "tag": "ul",
+                          "class": "ui-sidebar-nav__group-items",
+                          "children": [
+                            {
+                              "tag": "li",
+                              "children": [
+                                {
+                                  "tag": "span",
+                                  "class": "ui-sidebar-nav__subgroup-label",
+                                  "text": "Actions"
+                                }
+                              ]
+                            },
+                            {
+                              "tag": "li",
+                              "children": [
+                                {
+                                  "tag": "a",
+                                  "class": "ui-sidebar-nav__item ui-sidebar-nav__item--nested",
+                                  "attrs": { "href": "#" },
+                                  "children": [
+                                    {
+                                      "tag": "span",
+                                      "class": "ui-sidebar-nav__label",
+                                      "text": "Button"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "tag": "li",
+                              "children": [
+                                {
+                                  "tag": "a",
+                                  "class": "ui-sidebar-nav__item ui-sidebar-nav__item--nested ui-sidebar-nav__item--active",
+                                  "attrs": { "href": "#", "aria-current": "page" },
+                                  "children": [
+                                    {
+                                      "tag": "span",
+                                      "class": "ui-sidebar-nav__label",
+                                      "text": "Button Group"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "tag": "li",
+                              "children": [
+                                {
+                                  "tag": "span",
+                                  "class": "ui-sidebar-nav__subgroup-label",
+                                  "text": "Forms"
+                                }
+                              ]
+                            },
+                            {
+                              "tag": "li",
+                              "children": [
+                                {
+                                  "tag": "a",
+                                  "class": "ui-sidebar-nav__item ui-sidebar-nav__item--nested",
+                                  "attrs": { "href": "#" },
+                                  "children": [
+                                    {
+                                      "tag": "span",
+                                      "class": "ui-sidebar-nav__label",
+                                      "text": "Input"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "tag": "li",
+                              "children": [
+                                {
+                                  "tag": "a",
+                                  "class": "ui-sidebar-nav__item ui-sidebar-nav__item--nested",
+                                  "attrs": { "href": "#" },
+                                  "children": [
+                                    {
+                                      "tag": "span",
+                                      "class": "ui-sidebar-nav__label",
+                                      "text": "Select"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -83,7 +596,151 @@
       "description": "Icon-only mode for compact sidebars.",
       "examples": [
         {
-          "html": "<nav class=\"ui-sidebar-nav ui-sidebar-nav--collapsed\" aria-label=\"Navigation\" style=\"block-size: 200px;\">\n  <div class=\"ui-sidebar-nav__content\">\n    <ul class=\"ui-sidebar-nav__group-items\">\n      <li><a href=\"#\" class=\"ui-sidebar-nav__item ui-sidebar-nav__item--active\" aria-current=\"page\" aria-label=\"Home\">\n        <span class=\"ui-sidebar-nav__icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/></svg></span>\n        <span class=\"ui-sidebar-nav__label\">Home</span>\n      </a></li>\n      <li><a href=\"#\" class=\"ui-sidebar-nav__item\" aria-label=\"Users\">\n        <span class=\"ui-sidebar-nav__icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2\"/><circle cx=\"9\" cy=\"7\" r=\"4\"/></svg></span>\n        <span class=\"ui-sidebar-nav__label\">Users</span>\n      </a></li>\n      <li><a href=\"#\" class=\"ui-sidebar-nav__item\" aria-label=\"Settings\">\n        <span class=\"ui-sidebar-nav__icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"3\"/></svg></span>\n        <span class=\"ui-sidebar-nav__label\">Settings</span>\n      </a></li>\n    </ul>\n  </div>\n</nav>"
+          "items": [
+            {
+              "tag": "nav",
+              "class": "ui-sidebar-nav ui-sidebar-nav--collapsed",
+              "attrs": { "aria-label": "Navigation", "style": "block-size: 200px;" },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-sidebar-nav__content",
+                  "children": [
+                    {
+                      "tag": "ul",
+                      "class": "ui-sidebar-nav__group-items",
+                      "children": [
+                        {
+                          "tag": "li",
+                          "children": [
+                            {
+                              "tag": "a",
+                              "class": "ui-sidebar-nav__item ui-sidebar-nav__item--active",
+                              "attrs": {
+                                "href": "#",
+                                "aria-current": "page",
+                                "aria-label": "Home"
+                              },
+                              "children": [
+                                {
+                                  "tag": "span",
+                                  "class": "ui-sidebar-nav__icon",
+                                  "children": [
+                                    {
+                                      "tag": "svg",
+                                      "attrs": {
+                                        "width": "16",
+                                        "height": "16",
+                                        "viewBox": "0 0 24 24",
+                                        "fill": "none",
+                                        "stroke": "currentColor",
+                                        "stroke-width": "2"
+                                      },
+                                      "children": [
+                                        {
+                                          "tag": "path",
+                                          "attrs": {
+                                            "d": "M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                { "tag": "span", "class": "ui-sidebar-nav__label", "text": "Home" }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "children": [
+                            {
+                              "tag": "a",
+                              "class": "ui-sidebar-nav__item",
+                              "attrs": { "href": "#", "aria-label": "Users" },
+                              "children": [
+                                {
+                                  "tag": "span",
+                                  "class": "ui-sidebar-nav__icon",
+                                  "children": [
+                                    {
+                                      "tag": "svg",
+                                      "attrs": {
+                                        "width": "16",
+                                        "height": "16",
+                                        "viewBox": "0 0 24 24",
+                                        "fill": "none",
+                                        "stroke": "currentColor",
+                                        "stroke-width": "2"
+                                      },
+                                      "children": [
+                                        {
+                                          "tag": "path",
+                                          "attrs": {
+                                            "d": "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+                                          }
+                                        },
+                                        {
+                                          "tag": "circle",
+                                          "attrs": { "cx": "9", "cy": "7", "r": "4" }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                { "tag": "span", "class": "ui-sidebar-nav__label", "text": "Users" }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "children": [
+                            {
+                              "tag": "a",
+                              "class": "ui-sidebar-nav__item",
+                              "attrs": { "href": "#", "aria-label": "Settings" },
+                              "children": [
+                                {
+                                  "tag": "span",
+                                  "class": "ui-sidebar-nav__icon",
+                                  "children": [
+                                    {
+                                      "tag": "svg",
+                                      "attrs": {
+                                        "width": "16",
+                                        "height": "16",
+                                        "viewBox": "0 0 24 24",
+                                        "fill": "none",
+                                        "stroke": "currentColor",
+                                        "stroke-width": "2"
+                                      },
+                                      "children": [
+                                        {
+                                          "tag": "circle",
+                                          "attrs": { "cx": "12", "cy": "12", "r": "3" }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "tag": "span",
+                                  "class": "ui-sidebar-nav__label",
+                                  "text": "Settings"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -92,7 +749,77 @@
       "description": "Non-interactive navigation items.",
       "examples": [
         {
-          "html": "<nav class=\"ui-sidebar-nav\" aria-label=\"Navigation\" style=\"block-size: 180px;\">\n  <div class=\"ui-sidebar-nav__content\">\n    <ul class=\"ui-sidebar-nav__group-items\">\n      <li><a href=\"#\" class=\"ui-sidebar-nav__item\"><span class=\"ui-sidebar-nav__label\">Active Link</span></a></li>\n      <li><span class=\"ui-sidebar-nav__item ui-sidebar-nav__item--disabled\"><span class=\"ui-sidebar-nav__label\">Disabled Link</span></span></li>\n      <li><a href=\"#\" class=\"ui-sidebar-nav__item\"><span class=\"ui-sidebar-nav__label\">Another Link</span></a></li>\n    </ul>\n  </div>\n</nav>"
+          "items": [
+            {
+              "tag": "nav",
+              "class": "ui-sidebar-nav",
+              "attrs": { "aria-label": "Navigation", "style": "block-size: 180px;" },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-sidebar-nav__content",
+                  "children": [
+                    {
+                      "tag": "ul",
+                      "class": "ui-sidebar-nav__group-items",
+                      "children": [
+                        {
+                          "tag": "li",
+                          "children": [
+                            {
+                              "tag": "a",
+                              "class": "ui-sidebar-nav__item",
+                              "attrs": { "href": "#" },
+                              "children": [
+                                {
+                                  "tag": "span",
+                                  "class": "ui-sidebar-nav__label",
+                                  "text": "Active Link"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "children": [
+                            {
+                              "tag": "span",
+                              "class": "ui-sidebar-nav__item ui-sidebar-nav__item--disabled",
+                              "children": [
+                                {
+                                  "tag": "span",
+                                  "class": "ui-sidebar-nav__label",
+                                  "text": "Disabled Link"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "children": [
+                            {
+                              "tag": "a",
+                              "class": "ui-sidebar-nav__item",
+                              "attrs": { "href": "#" },
+                              "children": [
+                                {
+                                  "tag": "span",
+                                  "class": "ui-sidebar-nav__label",
+                                  "text": "Another Link"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     }

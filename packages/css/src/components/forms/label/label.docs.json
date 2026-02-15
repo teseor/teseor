@@ -9,7 +9,14 @@
       "title": "Default",
       "examples": [
         {
-          "html": "<label class=\"ui-label\" for=\"input1\">Email address</label>",
+          "items": [
+            {
+              "tag": "label",
+              "class": "ui-label",
+              "text": "Email address",
+              "attrs": { "for": "input1" }
+            }
+          ],
           "code": "<label class=\"ui-label\" for=\"input\">Email address</label>"
         }
       ]
@@ -18,7 +25,17 @@
       "title": "Required",
       "examples": [
         {
-          "html": "<label class=\"ui-label\" for=\"input2\">Email address<span class=\"ui-label__required\">*</span></label>",
+          "items": [
+            {
+              "tag": "label",
+              "class": "ui-label",
+              "attrs": { "for": "input2" },
+              "children": [
+                { "text": "Email address" },
+                { "tag": "span", "class": "ui-label__required", "text": "*" }
+              ]
+            }
+          ],
           "code": "<label class=\"ui-label\" for=\"input\">\n  Email address\n  <span class=\"ui-label__required\">*</span>\n</label>"
         }
       ]
@@ -27,7 +44,17 @@
       "title": "Optional",
       "examples": [
         {
-          "html": "<label class=\"ui-label\" for=\"input3\">Phone number<span class=\"ui-label__optional\">(optional)</span></label>",
+          "items": [
+            {
+              "tag": "label",
+              "class": "ui-label",
+              "attrs": { "for": "input3" },
+              "children": [
+                { "text": "Phone number" },
+                { "tag": "span", "class": "ui-label__optional", "text": "(optional)" }
+              ]
+            }
+          ],
           "code": "<label class=\"ui-label\" for=\"input\">\n  Phone number\n  <span class=\"ui-label__optional\">(optional)</span>\n</label>"
         }
       ]
@@ -37,7 +64,10 @@
       "examples": [
         {
           "layout": "column",
-          "html": "<label class=\"ui-label\">Default size</label><label class=\"ui-label ui-label--lg\">Large size</label>",
+          "items": [
+            { "tag": "label", "class": "ui-label", "text": "Default size" },
+            { "tag": "label", "class": "ui-label ui-label--lg", "text": "Large size" }
+          ],
           "code": "<label class=\"ui-label\">Default</label>\n<label class=\"ui-label ui-label--lg\">Large</label>"
         }
       ]
@@ -46,7 +76,14 @@
       "title": "Disabled",
       "examples": [
         {
-          "html": "<label class=\"ui-label\" aria-disabled=\"true\">Disabled label</label>",
+          "items": [
+            {
+              "tag": "label",
+              "class": "ui-label",
+              "text": "Disabled label",
+              "attrs": { "aria-disabled": "true" }
+            }
+          ],
           "code": "<label class=\"ui-label\" aria-disabled=\"true\">Disabled</label>"
         }
       ]

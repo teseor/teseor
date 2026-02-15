@@ -8,7 +8,7 @@
     margin-inline: auto;
   }
 
-  /* Size modifiers */
+  // Size modifiers
   .container--sm { --container-width: calc(var(--ui-unit) * 80); }
   .container--md { --container-width: calc(var(--ui-unit) * 100); }
   .container--lg { --container-width: calc(var(--ui-unit) * 120); }

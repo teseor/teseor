@@ -11,7 +11,40 @@
       "api": "./tooltip.api.json",
       "examples": [
         {
-          "html": "<div style=\"display: flex; gap: var(--ui-space-4); padding: var(--ui-space-4);\"><div style=\"position: relative;\"><span class=\"ui-tooltip ui-tooltip--top\" style=\"position: relative;\">Top tooltip</span></div><div style=\"position: relative;\"><span class=\"ui-tooltip ui-tooltip--bottom\" style=\"position: relative;\">Bottom tooltip</span></div></div>",
+          "items": [
+            {
+              "tag": "div",
+              "attrs": {
+                "style": "display: flex; gap: var(--ui-space-4); padding: var(--ui-space-4);"
+              },
+              "children": [
+                {
+                  "tag": "div",
+                  "attrs": { "style": "position: relative;" },
+                  "children": [
+                    {
+                      "tag": "span",
+                      "class": "ui-tooltip ui-tooltip--top",
+                      "attrs": { "style": "position: relative;" },
+                      "text": "Top tooltip"
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "attrs": { "style": "position: relative;" },
+                  "children": [
+                    {
+                      "tag": "span",
+                      "class": "ui-tooltip ui-tooltip--bottom",
+                      "attrs": { "style": "position: relative;" },
+                      "text": "Bottom tooltip"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "code": "<span class=\"ui-tooltip ui-tooltip--top\">Top tooltip</span>\n<span class=\"ui-tooltip ui-tooltip--bottom\">Bottom tooltip</span>\n<span class=\"ui-tooltip ui-tooltip--start\">Start tooltip</span>\n<span class=\"ui-tooltip ui-tooltip--end\">End tooltip</span>"
         }
       ]
@@ -20,7 +53,14 @@
       "title": "With Animation",
       "examples": [
         {
-          "html": "<span class=\"ui-tooltip ui-tooltip--top ui-tooltip--animate ui-tooltip--visible\" style=\"position: relative;\">Animated tooltip</span>",
+          "items": [
+            {
+              "tag": "span",
+              "class": "ui-tooltip ui-tooltip--top ui-tooltip--animate ui-tooltip--visible",
+              "attrs": { "style": "position: relative;" },
+              "text": "Animated tooltip"
+            }
+          ],
           "code": "<span class=\"ui-tooltip ui-tooltip--top ui-tooltip--animate ui-tooltip--visible\">\n  Animated tooltip\n</span>"
         }
       ]

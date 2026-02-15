@@ -104,7 +104,21 @@
       "title": "With Label",
       "examples": [
         {
-          "html": "<label class=\"ui-row\" style=\"gap: var(--ui-space-1); cursor: pointer;\"><input type=\"radio\" class=\"ui-radio\" name=\"labeled\"><span>Option one</span></label>",
+          "items": [
+            {
+              "tag": "label",
+              "class": "ui-row",
+              "attrs": { "style": "gap: var(--ui-space-1); cursor: pointer;" },
+              "children": [
+                {
+                  "tag": "input",
+                  "class": "ui-radio",
+                  "attrs": { "type": "radio", "name": "labeled" }
+                },
+                { "tag": "span", "text": "Option one" }
+              ]
+            }
+          ],
           "code": "<label class=\"ui-row\">\n  <input type=\"radio\" class=\"ui-radio\" name=\"group\">\n  <span>Option one</span>\n</label>"
         }
       ]
@@ -113,7 +127,65 @@
       "title": "Radio Group",
       "examples": [
         {
-          "html": "<fieldset style=\"border: none; padding: 0; margin: 0;\"><legend style=\"font-weight: 600; margin-block-end: var(--ui-space-1);\">Choose an option</legend><div class=\"ui-column\" style=\"--column-gap: var(--ui-space-1);\"><label class=\"ui-row\" style=\"gap: var(--ui-space-1); cursor: pointer;\"><input type=\"radio\" class=\"ui-radio\" name=\"group-demo\" checked><span>Option A</span></label><label class=\"ui-row\" style=\"gap: var(--ui-space-1); cursor: pointer;\"><input type=\"radio\" class=\"ui-radio\" name=\"group-demo\"><span>Option B</span></label><label class=\"ui-row\" style=\"gap: var(--ui-space-1); cursor: pointer;\"><input type=\"radio\" class=\"ui-radio\" name=\"group-demo\"><span>Option C</span></label></div></fieldset>",
+          "items": [
+            {
+              "tag": "fieldset",
+              "attrs": { "style": "border: none; padding: 0; margin: 0;" },
+              "children": [
+                {
+                  "tag": "legend",
+                  "attrs": { "style": "font-weight: 600; margin-block-end: var(--ui-space-1);" },
+                  "text": "Choose an option"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-column",
+                  "attrs": { "style": "--column-gap: var(--ui-space-1);" },
+                  "children": [
+                    {
+                      "tag": "label",
+                      "class": "ui-row",
+                      "attrs": { "style": "gap: var(--ui-space-1); cursor: pointer;" },
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-radio",
+                          "attrs": { "type": "radio", "name": "group-demo", "checked": "" }
+                        },
+                        { "tag": "span", "text": "Option A" }
+                      ]
+                    },
+                    {
+                      "tag": "label",
+                      "class": "ui-row",
+                      "attrs": { "style": "gap: var(--ui-space-1); cursor: pointer;" },
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-radio",
+                          "attrs": { "type": "radio", "name": "group-demo" }
+                        },
+                        { "tag": "span", "text": "Option B" }
+                      ]
+                    },
+                    {
+                      "tag": "label",
+                      "class": "ui-row",
+                      "attrs": { "style": "gap: var(--ui-space-1); cursor: pointer;" },
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-radio",
+                          "attrs": { "type": "radio", "name": "group-demo" }
+                        },
+                        { "tag": "span", "text": "Option C" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "code": "<fieldset>\n  <legend>Choose an option</legend>\n  <div class=\"ui-column\">\n    <label class=\"ui-row\">\n      <input type=\"radio\" class=\"ui-radio\" name=\"group\" checked>\n      <span>Option A</span>\n    </label>\n    <label class=\"ui-row\">\n      <input type=\"radio\" class=\"ui-radio\" name=\"group\">\n      <span>Option B</span>\n    </label>\n  </div>\n</fieldset>"
         }
       ]

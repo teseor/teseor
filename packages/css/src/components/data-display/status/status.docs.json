@@ -9,7 +9,44 @@
       "title": "Variants",
       "examples": [
         {
-          "html": "<div style=\"display: flex; flex-direction: column; gap: var(--ui-space-2);\"><span class=\"ui-status\"><span class=\"ui-status__dot\"></span>Default</span><span class=\"ui-status ui-status--success\"><span class=\"ui-status__dot\"></span>Online</span><span class=\"ui-status ui-status--warning\"><span class=\"ui-status__dot\"></span>Away</span><span class=\"ui-status ui-status--danger\"><span class=\"ui-status__dot\"></span>Busy</span><span class=\"ui-status ui-status--info\"><span class=\"ui-status__dot\"></span>In a meeting</span></div>",
+          "items": [
+            {
+              "tag": "div",
+              "attrs": {
+                "style": "display: flex; flex-direction: column; gap: var(--ui-space-2);"
+              },
+              "children": [
+                {
+                  "tag": "span",
+                  "class": "ui-status",
+                  "children": [{ "tag": "span", "class": "ui-status__dot" }, { "text": "Default" }]
+                },
+                {
+                  "tag": "span",
+                  "class": "ui-status ui-status--success",
+                  "children": [{ "tag": "span", "class": "ui-status__dot" }, { "text": "Online" }]
+                },
+                {
+                  "tag": "span",
+                  "class": "ui-status ui-status--warning",
+                  "children": [{ "tag": "span", "class": "ui-status__dot" }, { "text": "Away" }]
+                },
+                {
+                  "tag": "span",
+                  "class": "ui-status ui-status--danger",
+                  "children": [{ "tag": "span", "class": "ui-status__dot" }, { "text": "Busy" }]
+                },
+                {
+                  "tag": "span",
+                  "class": "ui-status ui-status--info",
+                  "children": [
+                    { "tag": "span", "class": "ui-status__dot" },
+                    { "text": "In a meeting" }
+                  ]
+                }
+              ]
+            }
+          ],
           "code": "<span class=\"ui-status ui-status--success\">\n  <span class=\"ui-status__dot\"></span>\n  Online\n</span>"
         }
       ]
@@ -18,7 +55,29 @@
       "title": "Sizes",
       "examples": [
         {
-          "html": "<div style=\"display: flex; gap: var(--ui-space-4); align-items: center;\"><span class=\"ui-status ui-status--success ui-status--sm\"><span class=\"ui-status__dot\"></span>Small</span><span class=\"ui-status ui-status--success\"><span class=\"ui-status__dot\"></span>Default</span><span class=\"ui-status ui-status--success ui-status--lg\"><span class=\"ui-status__dot\"></span>Large</span></div>",
+          "items": [
+            {
+              "tag": "div",
+              "attrs": { "style": "display: flex; gap: var(--ui-space-4); align-items: center;" },
+              "children": [
+                {
+                  "tag": "span",
+                  "class": "ui-status ui-status--success ui-status--sm",
+                  "children": [{ "tag": "span", "class": "ui-status__dot" }, { "text": "Small" }]
+                },
+                {
+                  "tag": "span",
+                  "class": "ui-status ui-status--success",
+                  "children": [{ "tag": "span", "class": "ui-status__dot" }, { "text": "Default" }]
+                },
+                {
+                  "tag": "span",
+                  "class": "ui-status ui-status--success ui-status--lg",
+                  "children": [{ "tag": "span", "class": "ui-status__dot" }, { "text": "Large" }]
+                }
+              ]
+            }
+          ],
           "code": "<span class=\"ui-status ui-status--sm\">...</span>\n<span class=\"ui-status\">...</span>\n<span class=\"ui-status ui-status--lg\">...</span>"
         }
       ]
@@ -29,7 +88,13 @@
       "api": "./status.api.json",
       "examples": [
         {
-          "html": "<span class=\"ui-status ui-status--success ui-status--pulse\"><span class=\"ui-status__dot\"></span>Live</span>",
+          "items": [
+            {
+              "tag": "span",
+              "class": "ui-status ui-status--success ui-status--pulse",
+              "children": [{ "tag": "span", "class": "ui-status__dot" }, { "text": "Live" }]
+            }
+          ],
           "code": "<span class=\"ui-status ui-status--success ui-status--pulse\">\n  <span class=\"ui-status__dot\"></span>\n  Live\n</span>"
         }
       ]
@@ -38,7 +103,29 @@
       "title": "Dot Only",
       "examples": [
         {
-          "html": "<div style=\"display: flex; gap: var(--ui-space-2);\"><span class=\"ui-status ui-status--success\"><span class=\"ui-status__dot\"></span></span><span class=\"ui-status ui-status--warning\"><span class=\"ui-status__dot\"></span></span><span class=\"ui-status ui-status--danger\"><span class=\"ui-status__dot\"></span></span></div>",
+          "items": [
+            {
+              "tag": "div",
+              "attrs": { "style": "display: flex; gap: var(--ui-space-2);" },
+              "children": [
+                {
+                  "tag": "span",
+                  "class": "ui-status ui-status--success",
+                  "children": [{ "tag": "span", "class": "ui-status__dot" }]
+                },
+                {
+                  "tag": "span",
+                  "class": "ui-status ui-status--warning",
+                  "children": [{ "tag": "span", "class": "ui-status__dot" }]
+                },
+                {
+                  "tag": "span",
+                  "class": "ui-status ui-status--danger",
+                  "children": [{ "tag": "span", "class": "ui-status__dot" }]
+                }
+              ]
+            }
+          ],
           "code": "<span class=\"ui-status ui-status--success\">\n  <span class=\"ui-status__dot\"></span>\n</span>"
         }
       ]

@@ -143,7 +143,52 @@
       "title": "Avatar Group",
       "examples": [
         {
-          "html": "<div class=\"ui-avatar-group\"><div class=\"ui-avatar\"><img class=\"ui-avatar__image\" src=\"https://i.pravatar.cc/80?u=g1\" alt=\"\"></div><div class=\"ui-avatar\"><img class=\"ui-avatar__image\" src=\"https://i.pravatar.cc/80?u=g2\" alt=\"\"></div><div class=\"ui-avatar\"><img class=\"ui-avatar__image\" src=\"https://i.pravatar.cc/80?u=g3\" alt=\"\"></div><div class=\"ui-avatar\"><span class=\"ui-avatar__fallback\">+5</span></div></div>",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-avatar-group",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-avatar",
+                  "children": [
+                    {
+                      "tag": "img",
+                      "class": "ui-avatar__image",
+                      "attrs": { "src": "https://i.pravatar.cc/80?u=g1", "alt": "" }
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-avatar",
+                  "children": [
+                    {
+                      "tag": "img",
+                      "class": "ui-avatar__image",
+                      "attrs": { "src": "https://i.pravatar.cc/80?u=g2", "alt": "" }
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-avatar",
+                  "children": [
+                    {
+                      "tag": "img",
+                      "class": "ui-avatar__image",
+                      "attrs": { "src": "https://i.pravatar.cc/80?u=g3", "alt": "" }
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-avatar",
+                  "children": [{ "tag": "span", "class": "ui-avatar__fallback", "text": "+5" }]
+                }
+              ]
+            }
+          ],
           "code": "<div class=\"ui-avatar-group\">\n  <div class=\"ui-avatar\">\n    <img class=\"ui-avatar__image\" src=\"...\" alt=\"\">\n  </div>\n  <div class=\"ui-avatar\">\n    <img class=\"ui-avatar__image\" src=\"...\" alt=\"\">\n  </div>\n  <div class=\"ui-avatar\">\n    <span class=\"ui-avatar__fallback\">+5</span>\n  </div>\n</div>"
         }
       ]

@@ -9,7 +9,7 @@
       "title": "Default",
       "examples": [
         {
-          "html": "<span class=\"ui-badge\">Default</span>"
+          "items": [{ "tag": "span", "class": "ui-badge", "text": "Default" }]
         }
       ]
     },
@@ -44,10 +44,29 @@
       "title": "Use Cases",
       "examples": [
         {
-          "html": "<div class=\"ui-row\"><span>Notifications</span><span class=\"ui-badge ui-badge--primary\">5</span></div>"
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-row",
+              "children": [
+                { "tag": "span", "text": "Notifications" },
+                { "tag": "span", "class": "ui-badge ui-badge--primary", "text": "5" }
+              ]
+            }
+          ]
         },
         {
-          "html": "<div class=\"ui-row\"><span class=\"ui-badge ui-badge--success\">Published</span><span class=\"ui-badge ui-badge--warning\">Draft</span><span class=\"ui-badge ui-badge--danger\">Archived</span></div>"
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-row",
+              "children": [
+                { "tag": "span", "class": "ui-badge ui-badge--success", "text": "Published" },
+                { "tag": "span", "class": "ui-badge ui-badge--warning", "text": "Draft" },
+                { "tag": "span", "class": "ui-badge ui-badge--danger", "text": "Archived" }
+              ]
+            }
+          ]
         }
       ]
     }

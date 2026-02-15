@@ -10,11 +10,12 @@
  * Scans category subdirectories under components/
  */
 
-import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { discoverComponents } from './discover-structure.js';
+import { findComponentDirs } from './shared/find-components.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const COMPONENTS_DIR = join(__dirname, '../packages/css/src/components');
@@ -23,11 +24,6 @@ interface FileCheck {
   pattern: string;
   description: string;
   required: boolean;
-}
-
-interface ComponentEntry {
-  name: string;
-  path: string;
 }
 
 const REQUIRED_FILES: FileCheck[] = [
@@ -42,34 +38,8 @@ function checkGlobPattern(dir: string, pattern: string): boolean {
     return existsSync(join(dir, pattern));
   }
   const files = readdirSync(dir);
-  const regex = new RegExp(`^${pattern.replace('.', '\\.').replace('*', '.*')}$`);
+  const regex = new RegExp(`^${pattern.replace(/\./g, '\\.').replace(/\*/g, '.*')}$`);
   return files.some((f) => regex.test(f));
-}
-
-function findComponentDirs(baseDir: string): ComponentEntry[] {
-  const components: ComponentEntry[] = [];
-  const entries = readdirSync(baseDir).filter((name) => {
-    if (name.startsWith('.') || name === 'index.scss') return false;
-    return statSync(join(baseDir, name)).isDirectory();
-  });
-
-  for (const entry of entries) {
-    const entryPath = join(baseDir, entry);
-    // If dir has index.scss, it's a component
-    if (existsSync(join(entryPath, 'index.scss'))) {
-      components.push({ name: entry, path: entryPath });
-    } else {
-      // Category dir - scan children
-      const children = readdirSync(entryPath).filter((name) => {
-        if (name.startsWith('.')) return false;
-        return statSync(join(entryPath, name)).isDirectory();
-      });
-      for (const child of children) {
-        components.push({ name: child, path: join(entryPath, child) });
-      }
-    }
-  }
-  return components;
 }
 
 function lintComponents(): void {
@@ -129,7 +99,13 @@ function lintComponents(): void {
 
 function lintSidenavCompleteness(): void {
   const configPath = join(__dirname, '../packages/css/component-groups.config.json');
-  const config = JSON.parse(readFileSync(configPath, 'utf-8'));
+  let config: { groupOrder: string[] };
+  try {
+    config = JSON.parse(readFileSync(configPath, 'utf-8'));
+  } catch (e) {
+    console.error(`Failed to parse ${configPath}: ${e instanceof Error ? e.message : e}`);
+    process.exit(1);
+  }
   const discovered = discoverComponents(COMPONENTS_DIR);
   const errors: string[] = [];
 
@@ -188,7 +164,13 @@ function lintJsonContent(): void {
     // Validate api.json
     const apiFiles = readdirSync(path).filter((f) => f.endsWith('.api.json'));
     for (const apiFile of apiFiles) {
-      const data: ApiJson = JSON.parse(readFileSync(join(path, apiFile), 'utf-8'));
+      let data: ApiJson;
+      try {
+        data = JSON.parse(readFileSync(join(path, apiFile), 'utf-8'));
+      } catch (e) {
+        errors.push(`${name}/${apiFile}: invalid JSON — ${e instanceof Error ? e.message : e}`);
+        continue;
+      }
       if (!data.name) {
         errors.push(`${name}/${apiFile}: missing required "name" field`);
       }
@@ -200,7 +182,13 @@ function lintJsonContent(): void {
     // Validate docs.json
     const docsFiles = readdirSync(path).filter((f) => f.endsWith('.docs.json'));
     for (const docsFile of docsFiles) {
-      const data: DocsJson = JSON.parse(readFileSync(join(path, docsFile), 'utf-8'));
+      let data: DocsJson;
+      try {
+        data = JSON.parse(readFileSync(join(path, docsFile), 'utf-8'));
+      } catch (e) {
+        errors.push(`${name}/${docsFile}: invalid JSON — ${e instanceof Error ? e.message : e}`);
+        continue;
+      }
 
       // Warn on raw html strings in items (prefer config format)
       if (data.sections) {

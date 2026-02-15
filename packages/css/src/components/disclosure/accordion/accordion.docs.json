@@ -9,7 +9,71 @@
       "title": "Default",
       "examples": [
         {
-          "html": "<div class=\"ui-accordion\"><details class=\"ui-disclosure\"><summary class=\"ui-disclosure__trigger\">Section 1<span class=\"ui-disclosure__icon\">&#9662;</span></summary><div class=\"ui-disclosure__content\"><p>Content for section 1</p></div></details><details class=\"ui-disclosure\"><summary class=\"ui-disclosure__trigger\">Section 2<span class=\"ui-disclosure__icon\">&#9662;</span></summary><div class=\"ui-disclosure__content\"><p>Content for section 2</p></div></details><details class=\"ui-disclosure\"><summary class=\"ui-disclosure__trigger\">Section 3<span class=\"ui-disclosure__icon\">&#9662;</span></summary><div class=\"ui-disclosure__content\"><p>Content for section 3</p></div></details></div>",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-accordion",
+              "children": [
+                {
+                  "tag": "details",
+                  "class": "ui-disclosure",
+                  "children": [
+                    {
+                      "tag": "summary",
+                      "class": "ui-disclosure__trigger",
+                      "children": [
+                        { "text": "Section 1" },
+                        { "tag": "span", "class": "ui-disclosure__icon", "text": "\u25BE" }
+                      ]
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-disclosure__content",
+                      "children": [{ "tag": "p", "text": "Content for section 1" }]
+                    }
+                  ]
+                },
+                {
+                  "tag": "details",
+                  "class": "ui-disclosure",
+                  "children": [
+                    {
+                      "tag": "summary",
+                      "class": "ui-disclosure__trigger",
+                      "children": [
+                        { "text": "Section 2" },
+                        { "tag": "span", "class": "ui-disclosure__icon", "text": "\u25BE" }
+                      ]
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-disclosure__content",
+                      "children": [{ "tag": "p", "text": "Content for section 2" }]
+                    }
+                  ]
+                },
+                {
+                  "tag": "details",
+                  "class": "ui-disclosure",
+                  "children": [
+                    {
+                      "tag": "summary",
+                      "class": "ui-disclosure__trigger",
+                      "children": [
+                        { "text": "Section 3" },
+                        { "tag": "span", "class": "ui-disclosure__icon", "text": "\u25BE" }
+                      ]
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-disclosure__content",
+                      "children": [{ "tag": "p", "text": "Content for section 3" }]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "code": "<div class=\"ui-accordion\">\n  <details class=\"ui-disclosure\">\n    <summary class=\"ui-disclosure__trigger\">Section 1</summary>\n    <div class=\"ui-disclosure__content\">...</div>\n  </details>\n  <details class=\"ui-disclosure\">\n    <summary class=\"ui-disclosure__trigger\">Section 2</summary>\n    <div class=\"ui-disclosure__content\">...</div>\n  </details>\n</div>"
         }
       ]
@@ -20,7 +84,52 @@
       "api": "./accordion.api.json",
       "examples": [
         {
-          "html": "<div class=\"ui-accordion ui-accordion--separated\"><details class=\"ui-disclosure\"><summary class=\"ui-disclosure__trigger\">Section 1<span class=\"ui-disclosure__icon\">&#9662;</span></summary><div class=\"ui-disclosure__content\"><p>Content for section 1</p></div></details><details class=\"ui-disclosure\"><summary class=\"ui-disclosure__trigger\">Section 2<span class=\"ui-disclosure__icon\">&#9662;</span></summary><div class=\"ui-disclosure__content\"><p>Content for section 2</p></div></details></div>",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-accordion ui-accordion--separated",
+              "children": [
+                {
+                  "tag": "details",
+                  "class": "ui-disclosure",
+                  "children": [
+                    {
+                      "tag": "summary",
+                      "class": "ui-disclosure__trigger",
+                      "children": [
+                        { "text": "Section 1" },
+                        { "tag": "span", "class": "ui-disclosure__icon", "text": "\u25BE" }
+                      ]
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-disclosure__content",
+                      "children": [{ "tag": "p", "text": "Content for section 1" }]
+                    }
+                  ]
+                },
+                {
+                  "tag": "details",
+                  "class": "ui-disclosure",
+                  "children": [
+                    {
+                      "tag": "summary",
+                      "class": "ui-disclosure__trigger",
+                      "children": [
+                        { "text": "Section 2" },
+                        { "tag": "span", "class": "ui-disclosure__icon", "text": "\u25BE" }
+                      ]
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-disclosure__content",
+                      "children": [{ "tag": "p", "text": "Content for section 2" }]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "code": "<div class=\"ui-accordion ui-accordion--separated\">\n  ...\n</div>"
         }
       ]
@@ -29,7 +138,53 @@
       "title": "With One Open",
       "examples": [
         {
-          "html": "<div class=\"ui-accordion\"><details class=\"ui-disclosure\" open><summary class=\"ui-disclosure__trigger\">Open Section<span class=\"ui-disclosure__icon\">&#9662;</span></summary><div class=\"ui-disclosure__content\"><p>This section starts open</p></div></details><details class=\"ui-disclosure\"><summary class=\"ui-disclosure__trigger\">Closed Section<span class=\"ui-disclosure__icon\">&#9662;</span></summary><div class=\"ui-disclosure__content\"><p>Click to open</p></div></details></div>",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-accordion",
+              "children": [
+                {
+                  "tag": "details",
+                  "class": "ui-disclosure",
+                  "attrs": { "open": true },
+                  "children": [
+                    {
+                      "tag": "summary",
+                      "class": "ui-disclosure__trigger",
+                      "children": [
+                        { "text": "Open Section" },
+                        { "tag": "span", "class": "ui-disclosure__icon", "text": "\u25BE" }
+                      ]
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-disclosure__content",
+                      "children": [{ "tag": "p", "text": "This section starts open" }]
+                    }
+                  ]
+                },
+                {
+                  "tag": "details",
+                  "class": "ui-disclosure",
+                  "children": [
+                    {
+                      "tag": "summary",
+                      "class": "ui-disclosure__trigger",
+                      "children": [
+                        { "text": "Closed Section" },
+                        { "tag": "span", "class": "ui-disclosure__icon", "text": "\u25BE" }
+                      ]
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-disclosure__content",
+                      "children": [{ "tag": "p", "text": "Click to open" }]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "code": "<div class=\"ui-accordion\">\n  <details class=\"ui-disclosure\" open>\n    <summary class=\"ui-disclosure__trigger\">Open Section</summary>\n    <div class=\"ui-disclosure__content\">...</div>\n  </details>\n  <details class=\"ui-disclosure\">\n    ...\n  </details>\n</div>"
         }
       ]

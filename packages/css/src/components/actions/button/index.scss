@@ -156,7 +156,7 @@
     }
 
     &:disabled {
-      opacity: 0.5;
+      opacity: var(--ui-opacity-disabled, 0.5);
       cursor: not-allowed;
 
       &:hover {
@@ -205,7 +205,7 @@
     &--loading {
       position: relative;
 
-      opacity: 0.7;
+      opacity: var(--ui-opacity-loading, 0.7);
       pointer-events: none;
 
       &::after {

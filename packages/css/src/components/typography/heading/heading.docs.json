@@ -10,7 +10,15 @@
       "examples": [
         {
           "layout": "column",
-          "html": "<h1 class=\"ui-heading ui-heading--4xl\">Heading 4xl</h1><h2 class=\"ui-heading ui-heading--3xl\">Heading 3xl</h2><h3 class=\"ui-heading ui-heading--2xl\">Heading 2xl</h3><h4 class=\"ui-heading ui-heading--xl\">Heading xl</h4><h5 class=\"ui-heading ui-heading--lg\">Heading lg</h5><h6 class=\"ui-heading ui-heading--md\">Heading md</h6><p class=\"ui-heading ui-heading--sm\">Heading sm</p>",
+          "items": [
+            { "tag": "h1", "class": "ui-heading ui-heading--4xl", "text": "Heading 4xl" },
+            { "tag": "h2", "class": "ui-heading ui-heading--3xl", "text": "Heading 3xl" },
+            { "tag": "h3", "class": "ui-heading ui-heading--2xl", "text": "Heading 2xl" },
+            { "tag": "h4", "class": "ui-heading ui-heading--xl", "text": "Heading xl" },
+            { "tag": "h5", "class": "ui-heading ui-heading--lg", "text": "Heading lg" },
+            { "tag": "h6", "class": "ui-heading ui-heading--md", "text": "Heading md" },
+            { "tag": "p", "class": "ui-heading ui-heading--sm", "text": "Heading sm" }
+          ],
           "code": "<h1 class=\"ui-heading ui-heading--4xl\">4xl</h1>\n<h2 class=\"ui-heading ui-heading--3xl\">3xl</h2>\n<h3 class=\"ui-heading ui-heading--2xl\">2xl</h3>\n<h4 class=\"ui-heading ui-heading--xl\">xl</h4>\n<h5 class=\"ui-heading ui-heading--lg\">lg</h5>\n<h6 class=\"ui-heading ui-heading--md\">md</h6>\n<p class=\"ui-heading ui-heading--sm\">sm</p>"
         }
       ]
@@ -21,7 +29,10 @@
       "examples": [
         {
           "layout": "column",
-          "html": "<h2 class=\"ui-heading ui-heading--3xl\">h2 styled as 3xl</h2><h1 class=\"ui-heading ui-heading--lg\">h1 styled as lg</h1>",
+          "items": [
+            { "tag": "h2", "class": "ui-heading ui-heading--3xl", "text": "h2 styled as 3xl" },
+            { "tag": "h1", "class": "ui-heading ui-heading--lg", "text": "h1 styled as lg" }
+          ],
           "code": "<h2 class=\"ui-heading ui-heading--3xl\">h2 as 3xl</h2>\n<h1 class=\"ui-heading ui-heading--lg\">h1 as lg</h1>"
         }
       ]
@@ -32,7 +43,18 @@
       "examples": [
         {
           "layout": "column",
-          "html": "<h2 class=\"ui-heading ui-heading--2xl ui-text-muted\">Muted heading</h2><h2 class=\"ui-heading ui-heading--2xl ui-text-primary\">Primary heading</h2>",
+          "items": [
+            {
+              "tag": "h2",
+              "class": "ui-heading ui-heading--2xl ui-text-muted",
+              "text": "Muted heading"
+            },
+            {
+              "tag": "h2",
+              "class": "ui-heading ui-heading--2xl ui-text-primary",
+              "text": "Primary heading"
+            }
+          ],
           "code": "<h2 class=\"ui-heading ui-text-muted\">Muted</h2>\n<h2 class=\"ui-heading ui-text-primary\">Primary</h2>"
         }
       ]

@@ -11,7 +11,7 @@
     --_track-bg-checked: var(--ui-toggle-track-bg-checked, var(--ui-color-primary));
     --_track-radius: var(--ui-toggle-track-radius, calc(#{t.$unit} * 1.5));
     --_thumb-size: var(--ui-toggle-thumb-size, calc(#{t.$unit} * 2.5));
-    --_thumb-bg: var(--ui-toggle-thumb-bg, white);
+    --_thumb-bg: var(--ui-toggle-thumb-bg, var(--ui-color-bg, #{t.$color-bg}));
     --_thumb-offset: var(--ui-toggle-thumb-offset, calc(#{t.$unit} / 4));
   }
 
@@ -107,7 +107,7 @@
   // Disabled state
   .toggle__input:disabled ~ .toggle__track,
   .toggle__input:disabled ~ .toggle__thumb {
-    opacity: 0.5;
+    opacity: var(--ui-opacity-disabled, 0.5);
     cursor: not-allowed;
   }
 

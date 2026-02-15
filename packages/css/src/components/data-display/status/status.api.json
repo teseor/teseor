@@ -18,7 +18,7 @@
   "cssVars": [
     {
       "name": "--ui-status-size",
-      "default": "calc(#{t.$unit} * 1"
+      "default": "calc(var(--ui-unit) * 1"
     },
     {
       "name": "--ui-status-color",
@@ -26,7 +26,7 @@
     },
     {
       "name": "--ui-status-gap",
-      "default": "calc(#{t.$unit} * 1"
+      "default": "calc(var(--ui-unit) * 1"
     }
   ]
 }

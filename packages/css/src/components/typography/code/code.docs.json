@@ -11,11 +11,20 @@
       "examples": [
         {
           "title": "Default",
-          "html": "<p>Use the <code class=\"ui-code\">--space-2</code> token for padding.</p>"
+          "items": [
+            {
+              "tag": "p",
+              "children": [
+                { "text": "Use the " },
+                { "tag": "code", "class": "ui-code", "text": "--space-2" },
+                { "text": " token for padding." }
+              ]
+            }
+          ]
         },
         {
           "title": "Small (for tables)",
-          "html": "<code class=\"ui-code ui-code--sm\">--button-height</code>"
+          "items": [{ "tag": "code", "class": "ui-code ui-code--sm", "text": "--button-height" }]
         }
       ]
     },
@@ -24,7 +33,18 @@
       "examples": [
         {
           "title": "Default",
-          "html": "<pre class=\"ui-code-block\"><code>.button {\n  display: inline-flex;\n  align-items: center;\n}</code></pre>"
+          "items": [
+            {
+              "tag": "pre",
+              "class": "ui-code-block",
+              "children": [
+                {
+                  "tag": "code",
+                  "text": ".button {\n  display: inline-flex;\n  align-items: center;\n}"
+                }
+              ]
+            }
+          ]
         }
       ]
     }

@@ -75,7 +75,7 @@
   // Disabled state
   .pagination__link[aria-disabled="true"],
   .pagination__link--disabled {
-    opacity: 0.5;
+    opacity: var(--ui-opacity-disabled, 0.5);
     pointer-events: none;
   }
 

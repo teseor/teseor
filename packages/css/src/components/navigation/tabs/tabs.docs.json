@@ -12,7 +12,34 @@
       },
       "examples": [
         {
-          "html": "<div class=\"ui-tabs\"><div class=\"ui-tabs__list\"><button class=\"ui-tabs__tab ui-tabs__tab--active\">Tab 1</button><button class=\"ui-tabs__tab\">Tab 2</button><button class=\"ui-tabs__tab\">Tab 3</button></div><div class=\"ui-tabs__panel ui-tabs__panel--active\">Panel 1 content</div><div class=\"ui-tabs__panel\">Panel 2 content</div><div class=\"ui-tabs__panel\">Panel 3 content</div></div>",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-tabs",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-tabs__list",
+                  "children": [
+                    {
+                      "tag": "button",
+                      "class": "ui-tabs__tab ui-tabs__tab--active",
+                      "text": "Tab 1"
+                    },
+                    { "tag": "button", "class": "ui-tabs__tab", "text": "Tab 2" },
+                    { "tag": "button", "class": "ui-tabs__tab", "text": "Tab 3" }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-tabs__panel ui-tabs__panel--active",
+                  "text": "Panel 1 content"
+                },
+                { "tag": "div", "class": "ui-tabs__panel", "text": "Panel 2 content" },
+                { "tag": "div", "class": "ui-tabs__panel", "text": "Panel 3 content" }
+              ]
+            }
+          ],
           "code": "<div class=\"ui-tabs\">\n  <div class=\"ui-tabs__list\">\n{% for t in tabs %}    <button class=\"ui-tabs__tab{% if t.active %} ui-tabs__tab--active{% endif %}\">{{ t.label }}</button>\n{% endfor %}  </div>\n{% for t in tabs %}  <div class=\"ui-tabs__panel{% if t.active %} ui-tabs__panel--active{% endif %}\">{{ t.content }}</div>\n{% endfor %}</div>"
         }
       ]
@@ -24,7 +51,44 @@
       },
       "examples": [
         {
-          "html": "<div class=\"ui-tabs\"><div class=\"ui-tabs__list\"><button class=\"ui-tabs__tab ui-tabs__tab--active\">Preview</button><button class=\"ui-tabs__tab\">Code</button></div><div class=\"ui-tabs__panel ui-tabs__panel--active\"><div class=\"ui-card\">Preview content goes here</div></div><div class=\"ui-tabs__panel\"><pre class=\"ui-code-block\"><code>&lt;div&gt;Code snippet&lt;/div&gt;</code></pre></div></div>",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-tabs",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-tabs__list",
+                  "children": [
+                    {
+                      "tag": "button",
+                      "class": "ui-tabs__tab ui-tabs__tab--active",
+                      "text": "Preview"
+                    },
+                    { "tag": "button", "class": "ui-tabs__tab", "text": "Code" }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-tabs__panel ui-tabs__panel--active",
+                  "children": [
+                    { "tag": "div", "class": "ui-card", "text": "Preview content goes here" }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-tabs__panel",
+                  "children": [
+                    {
+                      "tag": "pre",
+                      "class": "ui-code-block",
+                      "children": [{ "tag": "code", "text": "<div>Code snippet</div>" }]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "code": "<div class=\"ui-tabs\">\n  <div class=\"ui-tabs__list\">\n{% for t in tabs %}    <button class=\"ui-tabs__tab{% if t.active %} ui-tabs__tab--active{% endif %}\">{{ t.label }}</button>\n{% endfor %}  </div>\n  <div class=\"ui-tabs__panel ui-tabs__panel--active\">...</div>\n  <div class=\"ui-tabs__panel\">...</div>\n</div>"
         }
       ]

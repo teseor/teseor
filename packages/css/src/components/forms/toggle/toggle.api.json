@@ -14,11 +14,11 @@
   "cssVars": [
     {
       "name": "--ui-toggle-track-width",
-      "default": "calc(#{t.$unit} * 5"
+      "default": "calc(var(--ui-unit) * 5"
     },
     {
       "name": "--ui-toggle-track-height",
-      "default": "calc(#{t.$unit} * 3"
+      "default": "calc(var(--ui-unit) * 3"
     },
     {
       "name": "--ui-toggle-track-bg",
@@ -30,11 +30,11 @@
     },
     {
       "name": "--ui-toggle-track-radius",
-      "default": "calc(#{t.$unit} * 1.5"
+      "default": "calc(var(--ui-unit) * 1.5"
     },
     {
       "name": "--ui-toggle-thumb-size",
-      "default": "calc(#{t.$unit} * 2.5"
+      "default": "calc(var(--ui-unit) * 2.5"
     },
     {
       "name": "--ui-toggle-thumb-bg",
@@ -42,7 +42,7 @@
     },
     {
       "name": "--ui-toggle-thumb-offset",
-      "default": "calc(#{t.$unit} / 4"
+      "default": "calc(var(--ui-unit) / 4"
     }
   ]
 }

@@ -33,11 +33,11 @@
     },
     {
       "name": "--ui-disclosure-padding-x",
-      "default": "calc(#{t.$unit} * 2"
+      "default": "calc(var(--ui-unit) * 2"
     },
     {
       "name": "--ui-disclosure-padding-y",
-      "default": "calc(#{t.$unit} * 2"
+      "default": "calc(var(--ui-unit) * 2"
     }
   ]
 }

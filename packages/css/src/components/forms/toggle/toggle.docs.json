@@ -9,7 +9,21 @@
       "title": "Default",
       "examples": [
         {
-          "html": "<label class=\"ui-toggle\"><input type=\"checkbox\" class=\"ui-toggle__input\" role=\"switch\"><span class=\"ui-toggle__track\"></span><span class=\"ui-toggle__thumb\"></span></label>",
+          "items": [
+            {
+              "tag": "label",
+              "class": "ui-toggle",
+              "children": [
+                {
+                  "tag": "input",
+                  "class": "ui-toggle__input",
+                  "attrs": { "type": "checkbox", "role": "switch" }
+                },
+                { "tag": "span", "class": "ui-toggle__track" },
+                { "tag": "span", "class": "ui-toggle__thumb" }
+              ]
+            }
+          ],
           "code": "<label class=\"ui-toggle\">\n  <input type=\"checkbox\" class=\"ui-toggle__input\" role=\"switch\">\n  <span class=\"ui-toggle__track\"></span>\n  <span class=\"ui-toggle__thumb\"></span>\n</label>"
         }
       ]
@@ -18,7 +32,21 @@
       "title": "Checked",
       "examples": [
         {
-          "html": "<label class=\"ui-toggle\"><input type=\"checkbox\" class=\"ui-toggle__input\" role=\"switch\" checked><span class=\"ui-toggle__track\"></span><span class=\"ui-toggle__thumb\"></span></label>",
+          "items": [
+            {
+              "tag": "label",
+              "class": "ui-toggle",
+              "children": [
+                {
+                  "tag": "input",
+                  "class": "ui-toggle__input",
+                  "attrs": { "type": "checkbox", "role": "switch", "checked": "" }
+                },
+                { "tag": "span", "class": "ui-toggle__track" },
+                { "tag": "span", "class": "ui-toggle__thumb" }
+              ]
+            }
+          ],
           "code": "<label class=\"ui-toggle\">\n  <input type=\"checkbox\" class=\"ui-toggle__input\" role=\"switch\" checked>\n  ...\n</label>"
         }
       ]
@@ -27,7 +55,53 @@
       "title": "Sizes",
       "examples": [
         {
-          "html": "<div style=\"display: flex; gap: var(--ui-space-2); align-items: center;\"><label class=\"ui-toggle ui-toggle--sm\"><input type=\"checkbox\" class=\"ui-toggle__input\" role=\"switch\"><span class=\"ui-toggle__track\"></span><span class=\"ui-toggle__thumb\"></span></label><label class=\"ui-toggle\"><input type=\"checkbox\" class=\"ui-toggle__input\" role=\"switch\" checked><span class=\"ui-toggle__track\"></span><span class=\"ui-toggle__thumb\"></span></label><label class=\"ui-toggle ui-toggle--lg\"><input type=\"checkbox\" class=\"ui-toggle__input\" role=\"switch\"><span class=\"ui-toggle__track\"></span><span class=\"ui-toggle__thumb\"></span></label></div>",
+          "items": [
+            {
+              "tag": "div",
+              "attrs": { "style": "display: flex; gap: var(--ui-space-2); align-items: center;" },
+              "children": [
+                {
+                  "tag": "label",
+                  "class": "ui-toggle ui-toggle--sm",
+                  "children": [
+                    {
+                      "tag": "input",
+                      "class": "ui-toggle__input",
+                      "attrs": { "type": "checkbox", "role": "switch" }
+                    },
+                    { "tag": "span", "class": "ui-toggle__track" },
+                    { "tag": "span", "class": "ui-toggle__thumb" }
+                  ]
+                },
+                {
+                  "tag": "label",
+                  "class": "ui-toggle",
+                  "children": [
+                    {
+                      "tag": "input",
+                      "class": "ui-toggle__input",
+                      "attrs": { "type": "checkbox", "role": "switch", "checked": "" }
+                    },
+                    { "tag": "span", "class": "ui-toggle__track" },
+                    { "tag": "span", "class": "ui-toggle__thumb" }
+                  ]
+                },
+                {
+                  "tag": "label",
+                  "class": "ui-toggle ui-toggle--lg",
+                  "children": [
+                    {
+                      "tag": "input",
+                      "class": "ui-toggle__input",
+                      "attrs": { "type": "checkbox", "role": "switch" }
+                    },
+                    { "tag": "span", "class": "ui-toggle__track" },
+                    { "tag": "span", "class": "ui-toggle__thumb" }
+                  ]
+                }
+              ]
+            }
+          ],
           "code": "<label class=\"ui-toggle ui-toggle--sm\">...</label>\n<label class=\"ui-toggle\">...</label>\n<label class=\"ui-toggle ui-toggle--lg\">...</label>"
         }
       ]
@@ -36,7 +110,45 @@
       "title": "Disabled",
       "examples": [
         {
-          "html": "<div style=\"display: flex; gap: var(--ui-space-2);\"><label class=\"ui-toggle\"><input type=\"checkbox\" class=\"ui-toggle__input\" role=\"switch\" disabled><span class=\"ui-toggle__track\"></span><span class=\"ui-toggle__thumb\"></span></label><label class=\"ui-toggle\"><input type=\"checkbox\" class=\"ui-toggle__input\" role=\"switch\" checked disabled><span class=\"ui-toggle__track\"></span><span class=\"ui-toggle__thumb\"></span></label></div>",
+          "items": [
+            {
+              "tag": "div",
+              "attrs": { "style": "display: flex; gap: var(--ui-space-2);" },
+              "children": [
+                {
+                  "tag": "label",
+                  "class": "ui-toggle",
+                  "children": [
+                    {
+                      "tag": "input",
+                      "class": "ui-toggle__input",
+                      "attrs": { "type": "checkbox", "role": "switch", "disabled": "" }
+                    },
+                    { "tag": "span", "class": "ui-toggle__track" },
+                    { "tag": "span", "class": "ui-toggle__thumb" }
+                  ]
+                },
+                {
+                  "tag": "label",
+                  "class": "ui-toggle",
+                  "children": [
+                    {
+                      "tag": "input",
+                      "class": "ui-toggle__input",
+                      "attrs": {
+                        "type": "checkbox",
+                        "role": "switch",
+                        "checked": "",
+                        "disabled": ""
+                      }
+                    },
+                    { "tag": "span", "class": "ui-toggle__track" },
+                    { "tag": "span", "class": "ui-toggle__thumb" }
+                  ]
+                }
+              ]
+            }
+          ],
           "code": "<label class=\"ui-toggle\">\n  <input type=\"checkbox\" ... disabled>\n  ...\n</label>"
         }
       ]
@@ -45,7 +157,32 @@
       "title": "With Label",
       "examples": [
         {
-          "html": "<div style=\"display: flex; align-items: center; gap: var(--ui-space-2);\"><label class=\"ui-toggle\"><input type=\"checkbox\" class=\"ui-toggle__input\" role=\"switch\" id=\"notifications\"><span class=\"ui-toggle__track\"></span><span class=\"ui-toggle__thumb\"></span></label><label for=\"notifications\">Enable notifications</label></div>",
+          "items": [
+            {
+              "tag": "div",
+              "attrs": { "style": "display: flex; align-items: center; gap: var(--ui-space-2);" },
+              "children": [
+                {
+                  "tag": "label",
+                  "class": "ui-toggle",
+                  "children": [
+                    {
+                      "tag": "input",
+                      "class": "ui-toggle__input",
+                      "attrs": { "type": "checkbox", "role": "switch", "id": "notifications" }
+                    },
+                    { "tag": "span", "class": "ui-toggle__track" },
+                    { "tag": "span", "class": "ui-toggle__thumb" }
+                  ]
+                },
+                {
+                  "tag": "label",
+                  "attrs": { "for": "notifications" },
+                  "text": "Enable notifications"
+                }
+              ]
+            }
+          ],
           "code": "<div style=\"display: flex; align-items: center; gap: var(--ui-space-2);\">\n  <label class=\"ui-toggle\">\n    <input type=\"checkbox\" ... id=\"notifications\">\n    ...\n  </label>\n  <label for=\"notifications\">Enable notifications</label>\n</div>"
         }
       ]

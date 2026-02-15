@@ -9,7 +9,19 @@
       "title": "Default",
       "examples": [
         {
-          "html": "<div class=\"ui-popover\" style=\"position: relative;\"><p>Popover content goes here. Can contain multiple paragraphs and other elements.</p></div>",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-popover",
+              "attrs": { "style": "position: relative;" },
+              "children": [
+                {
+                  "tag": "p",
+                  "text": "Popover content goes here. Can contain multiple paragraphs and other elements."
+                }
+              ]
+            }
+          ],
           "code": "<div class=\"ui-popover\">\n  <p>Popover content goes here.</p>\n</div>"
         }
       ]
@@ -18,7 +30,23 @@
       "title": "With Header",
       "examples": [
         {
-          "html": "<div class=\"ui-popover\" style=\"position: relative;\"><header class=\"ui-popover__header\"><h3 class=\"ui-popover__title\">Popover Title</h3></header><p>Content with a header section.</p></div>",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-popover",
+              "attrs": { "style": "position: relative;" },
+              "children": [
+                {
+                  "tag": "header",
+                  "class": "ui-popover__header",
+                  "children": [
+                    { "tag": "h3", "class": "ui-popover__title", "text": "Popover Title" }
+                  ]
+                },
+                { "tag": "p", "text": "Content with a header section." }
+              ]
+            }
+          ],
           "code": "<div class=\"ui-popover\">\n  <header class=\"ui-popover__header\">\n    <h3 class=\"ui-popover__title\">Popover Title</h3>\n  </header>\n  <p>Content with a header section.</p>\n</div>"
         }
       ]
@@ -27,7 +55,20 @@
       "title": "With Arrow",
       "examples": [
         {
-          "html": "<div style=\"padding: var(--ui-space-4);\"><div class=\"ui-popover ui-popover--top\" style=\"position: relative;\"><p>Popover with arrow pointing down</p></div></div>",
+          "items": [
+            {
+              "tag": "div",
+              "attrs": { "style": "padding: var(--ui-space-4);" },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-popover ui-popover--top",
+                  "attrs": { "style": "position: relative;" },
+                  "children": [{ "tag": "p", "text": "Popover with arrow pointing down" }]
+                }
+              ]
+            }
+          ],
           "code": "<div class=\"ui-popover ui-popover--top\">\n  <p>Popover with arrow pointing down</p>\n</div>"
         }
       ]

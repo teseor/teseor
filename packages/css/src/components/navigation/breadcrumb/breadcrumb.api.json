@@ -14,7 +14,7 @@
     },
     {
       "name": "--ui-breadcrumb-gap",
-      "default": "calc(#{t.$unit} * 1"
+      "default": "calc(var(--ui-unit) * 1"
     },
     {
       "name": "--ui-breadcrumb-separator-color",
