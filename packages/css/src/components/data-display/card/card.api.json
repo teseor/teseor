@@ -10,6 +10,9 @@
     },
     "flush": {
       "type": "boolean"
+    },
+    "interactive": {
+      "type": "boolean"
     }
   },
   "cssVars": [
@@ -48,6 +51,18 @@
     {
       "name": "--ui-card-padding-lg",
       "default": "var(--ui-space-6)"
+    },
+    {
+      "name": "--ui-card-bg-hover",
+      "default": "var(--ui-color-bg-subtle)"
+    },
+    {
+      "name": "--ui-card-border-color-hover",
+      "default": "var(--ui-color-border-strong)"
+    },
+    {
+      "name": "--ui-card-bg-active",
+      "default": "var(--ui-color-bg-muted)"
     }
   ]
 }

@@ -55,6 +55,27 @@
           "code": "{% for s in sizes %}<div class=\"ui-card{% if s.mod %} ui-card--{{ s.mod }}{% endif %}\">{{ s.label }}</div>\n{% endfor %}"
         }
       ]
+    },
+    {
+      "title": "Interactive",
+      "examples": [
+        {
+          "layout": "column",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-card ui-card--interactive",
+              "text": "Hover and click this card"
+            },
+            {
+              "tag": "div",
+              "class": "ui-card ui-card--interactive ui-card--subtle",
+              "text": "Interactive subtle card"
+            }
+          ],
+          "code": "<div class=\"ui-card ui-card--interactive\">Clickable card</div>"
+        }
+      ]
     }
   ],
   "customization": [

@@ -18,6 +18,11 @@
   .card--sm { --_padding: var(--ui-card-padding-sm, var(--ui-space-2)); }
   .card--lg { --_padding: var(--ui-card-padding-lg, var(--ui-space-6)); }
 
+  // @modifier boolean interactive
+  .card--interactive {
+    cursor: pointer;
+  }
+
   // @modifier boolean flush
   .card--flush {
     --_padding: 0;
@@ -36,5 +41,21 @@
     background: var(--_bg);
     border: var(--_border-width) solid var(--_border-color);
     border-radius: var(--_radius);
+  }
+
+  .card--interactive {
+    transition:
+      background-color var(--ui-duration-fast) var(--ui-ease-default),
+      border-color var(--ui-duration-fast) var(--ui-ease-default),
+      box-shadow var(--ui-duration-fast) var(--ui-ease-default);
+
+    &:hover {
+      --_bg: var(--ui-card-bg-hover, var(--ui-color-bg-subtle));
+      --_border-color: var(--ui-card-border-color-hover, var(--ui-color-border-strong));
+    }
+
+    &:active {
+      --_bg: var(--ui-card-bg-active, var(--ui-color-bg-muted));
+    }
   }
 }
