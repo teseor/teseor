@@ -21,7 +21,7 @@
   "cssVars": [
     {
       "name": "--ui-drawer-size",
-      "default": "calc(#{t.$unit} * 40"
+      "default": "calc(var(--ui-unit) * 40"
     },
     {
       "name": "--ui-drawer-max-size",
@@ -37,15 +37,15 @@
     },
     {
       "name": "--ui-drawer-header-padding",
-      "default": "calc(#{t.$unit} * 2"
+      "default": "calc(var(--ui-unit) * 2"
     },
     {
       "name": "--ui-drawer-body-padding",
-      "default": "calc(#{t.$unit} * 3"
+      "default": "calc(var(--ui-unit) * 3"
     },
     {
       "name": "--ui-drawer-footer-padding",
-      "default": "calc(#{t.$unit} * 2"
+      "default": "calc(var(--ui-unit) * 2"
     },
     {
       "name": "--ui-drawer-border-color",

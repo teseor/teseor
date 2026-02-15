@@ -82,7 +82,7 @@
     },
     {
       "name": "--ui-input-height-sm",
-      "default": "calc(#{t.$row} * 1.5"
+      "default": "calc(var(--ui-row) * 1.5"
     },
     {
       "name": "--ui-input-font-size-sm",
@@ -90,7 +90,7 @@
     },
     {
       "name": "--ui-input-height-lg",
-      "default": "calc(#{t.$row} * 2.5"
+      "default": "calc(var(--ui-row) * 2.5"
     },
     {
       "name": "--ui-input-padding-x-lg",

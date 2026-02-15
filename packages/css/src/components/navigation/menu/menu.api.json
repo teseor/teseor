@@ -29,15 +29,15 @@
   "cssVars": [
     {
       "name": "--ui-menu-min-width",
-      "default": "calc(#{t.$unit} * 16"
+      "default": "calc(var(--ui-unit) * 16"
     },
     {
       "name": "--ui-menu-max-height",
-      "default": "calc(#{t.$unit} * 40"
+      "default": "calc(var(--ui-unit) * 40"
     },
     {
       "name": "--ui-menu-padding",
-      "default": "calc(#{t.$unit} * 1"
+      "default": "calc(var(--ui-unit) * 1"
     },
     {
       "name": "--ui-menu-radius",
@@ -57,7 +57,7 @@
     },
     {
       "name": "--ui-menu-item-padding",
-      "default": "calc(#{t.$unit} * 1"
+      "default": "calc(var(--ui-unit) * 1"
     },
     {
       "name": "--ui-menu-item-radius",

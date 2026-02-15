@@ -20,11 +20,11 @@
   "cssVars": [
     {
       "name": "--ui-data-list-gap",
-      "default": "calc(#{t.$unit} * 2"
+      "default": "calc(var(--ui-unit) * 2"
     },
     {
       "name": "--ui-data-list-item-gap",
-      "default": "calc(#{t.$unit} * 1"
+      "default": "calc(var(--ui-unit) * 1"
     },
     {
       "name": "--ui-data-list-label-color",

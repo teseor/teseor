@@ -23,11 +23,11 @@
     },
     {
       "name": "--ui-divider-height",
-      "default": "#{t.$unit}"
+      "default": "var(--ui-unit)"
     },
     {
       "name": "--ui-divider-gap",
-      "default": "calc(#{t.$unit} * 2"
+      "default": "calc(var(--ui-unit) * 2"
     }
   ]
 }

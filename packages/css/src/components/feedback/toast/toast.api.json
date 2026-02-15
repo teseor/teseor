@@ -26,11 +26,11 @@
   "cssVars": [
     {
       "name": "--ui-toast-viewport-gap",
-      "default": "calc(#{t.$unit} * 1"
+      "default": "calc(var(--ui-unit) * 1"
     },
     {
       "name": "--ui-toast-viewport-padding",
-      "default": "calc(#{t.$unit} * 2"
+      "default": "calc(var(--ui-unit) * 2"
     },
     {
       "name": "--ui-toast-viewport-max-width",
@@ -38,11 +38,11 @@
     },
     {
       "name": "--ui-toast-padding",
-      "default": "calc(#{t.$unit} * 2"
+      "default": "calc(var(--ui-unit) * 2"
     },
     {
       "name": "--ui-toast-gap",
-      "default": "calc(#{t.$unit} * 1"
+      "default": "calc(var(--ui-unit) * 1"
     },
     {
       "name": "--ui-toast-radius",

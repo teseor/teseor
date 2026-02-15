@@ -17,7 +17,7 @@
   "cssVars": [
     {
       "name": "--ui-avatar-size",
-      "default": "calc(#{t.$unit} * 5"
+      "default": "calc(var(--ui-unit) * 5"
     },
     {
       "name": "--ui-avatar-bg",
@@ -37,7 +37,7 @@
     },
     {
       "name": "--ui-avatar-size-xs",
-      "default": "calc(#{t.$unit} * 3"
+      "default": "calc(var(--ui-unit) * 3"
     },
     {
       "name": "--ui-avatar-font-size-xs",
@@ -45,7 +45,7 @@
     },
     {
       "name": "--ui-avatar-size-sm",
-      "default": "calc(#{t.$unit} * 4"
+      "default": "calc(var(--ui-unit) * 4"
     },
     {
       "name": "--ui-avatar-font-size-sm",
@@ -53,7 +53,7 @@
     },
     {
       "name": "--ui-avatar-size-lg",
-      "default": "calc(#{t.$unit} * 6"
+      "default": "calc(var(--ui-unit) * 6"
     },
     {
       "name": "--ui-avatar-font-size-lg",
@@ -61,7 +61,7 @@
     },
     {
       "name": "--ui-avatar-size-xl",
-      "default": "calc(#{t.$unit} * 8"
+      "default": "calc(var(--ui-unit) * 8"
     },
     {
       "name": "--ui-avatar-font-size-xl",
