@@ -22,4 +22,12 @@ if [ "$line_count" -gt 1 ]; then
   fi
 fi
 
+# Enforce commit format: [CSS] type(scope): message
+if ! echo "$commit_msg" | grep -qE '^\[CSS\] (feat|fix|chore|docs|refactor|test)\(.+\): .+'; then
+  echo "Error: Commit message must match: [CSS] type(scope): message"
+  echo "Types: feat | fix | chore | docs | refactor | test"
+  echo "Example: [CSS] feat(button): add outline variant"
+  exit 1
+fi
+
 exit 0
