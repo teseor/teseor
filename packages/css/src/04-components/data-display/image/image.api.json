@@ -1,0 +1,76 @@
+{
+  "name": "image",
+  "element": "figure",
+  "modifiers": {
+    "size": {
+      "values": ["sm", "md", "lg", "xl", "full"]
+    },
+    "rounded": {
+      "type": "boolean"
+    },
+    "circle": {
+      "type": "boolean"
+    },
+    "object-fit": {
+      "values": ["cover", "contain"]
+    }
+  },
+  "elements": {
+    "img": {},
+    "caption": {}
+  },
+  "cssVars": [
+    {
+      "name": "--ui-image-size",
+      "default": "auto"
+    },
+    {
+      "name": "--ui-image-size-sm",
+      "default": "calc(var(--unit) * 12)"
+    },
+    {
+      "name": "--ui-image-size-md",
+      "default": "calc(var(--unit) * 24)"
+    },
+    {
+      "name": "--ui-image-size-lg",
+      "default": "calc(var(--unit) * 40)"
+    },
+    {
+      "name": "--ui-image-size-xl",
+      "default": "calc(var(--unit) * 60)"
+    },
+    {
+      "name": "--ui-image-bg",
+      "default": "var(--ui-color-bg-muted)"
+    },
+    {
+      "name": "--ui-image-radius",
+      "default": "0"
+    },
+    {
+      "name": "--ui-image-radius-rounded",
+      "default": "var(--ui-radius-lg)"
+    },
+    {
+      "name": "--ui-image-radius-circle",
+      "default": "50%"
+    },
+    {
+      "name": "--ui-image-object-fit",
+      "default": "cover"
+    },
+    {
+      "name": "--ui-image-caption-color",
+      "default": "var(--ui-color-text-muted)"
+    },
+    {
+      "name": "--ui-image-caption-font-size",
+      "default": "var(--ui-font-size-sm)"
+    },
+    {
+      "name": "--ui-image-caption-spacing",
+      "default": "var(--ui-space-1)"
+    }
+  ]
+}
