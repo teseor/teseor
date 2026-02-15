@@ -1,0 +1,337 @@
+{
+  "id": "image",
+  "type": "component",
+  "title": "Image",
+  "description": "Responsive image with fallback placeholder, optional caption, and shape modifiers.",
+  "api": "./image.api.json",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "figure",
+              "class": "ui-image",
+              "children": [
+                {
+                  "tag": "img",
+                  "class": "ui-image__img",
+                  "attrs": {
+                    "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='160'%3E%3Crect fill='%23b0bec5' width='192' height='160'/%3E%3C/svg%3E",
+                    "alt": "Placeholder"
+                  }
+                }
+              ]
+            }
+          ],
+          "code": "<figure class=\"ui-image\">\n  <img class=\"ui-image__img\" src=\"...\" alt=\"Description\">\n</figure>"
+        }
+      ]
+    },
+    {
+      "title": "Sizes",
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            {
+              "tag": "figure",
+              "class": "ui-image ui-image--sm",
+              "children": [
+                {
+                  "tag": "img",
+                  "class": "ui-image__img",
+                  "attrs": {
+                    "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96'%3E%3Crect fill='%2390a4ae' width='96' height='96'/%3E%3C/svg%3E",
+                    "alt": "Small"
+                  }
+                }
+              ]
+            },
+            {
+              "tag": "figure",
+              "class": "ui-image ui-image--md",
+              "children": [
+                {
+                  "tag": "img",
+                  "class": "ui-image__img",
+                  "attrs": {
+                    "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192'%3E%3Crect fill='%2378909c' width='192' height='192'/%3E%3C/svg%3E",
+                    "alt": "Medium"
+                  }
+                }
+              ]
+            },
+            {
+              "tag": "figure",
+              "class": "ui-image ui-image--lg",
+              "children": [
+                {
+                  "tag": "img",
+                  "class": "ui-image__img",
+                  "attrs": {
+                    "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Crect fill='%23607d8b' width='320' height='320'/%3E%3C/svg%3E",
+                    "alt": "Large"
+                  }
+                }
+              ]
+            }
+          ],
+          "code": "<figure class=\"ui-image ui-image--sm\">\n  <img class=\"ui-image__img\" src=\"...\" alt=\"Small\">\n</figure>\n<figure class=\"ui-image ui-image--md\">\n  <img class=\"ui-image__img\" src=\"...\" alt=\"Medium\">\n</figure>\n<figure class=\"ui-image ui-image--lg\">\n  <img class=\"ui-image__img\" src=\"...\" alt=\"Large\">\n</figure>"
+        }
+      ]
+    },
+    {
+      "title": "Rounded",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "figure",
+              "class": "ui-image ui-image--md ui-image--rounded",
+              "children": [
+                {
+                  "tag": "img",
+                  "class": "ui-image__img",
+                  "attrs": {
+                    "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='140'%3E%3Crect fill='%234db6ac' width='192' height='140'/%3E%3C/svg%3E",
+                    "alt": "Rounded"
+                  }
+                }
+              ]
+            }
+          ],
+          "code": "<figure class=\"ui-image ui-image--rounded\">\n  <img class=\"ui-image__img\" src=\"...\" alt=\"Rounded\">\n</figure>"
+        }
+      ]
+    },
+    {
+      "title": "Circle",
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            {
+              "tag": "figure",
+              "class": "ui-image ui-image--sm ui-image--circle",
+              "children": [
+                {
+                  "tag": "img",
+                  "class": "ui-image__img",
+                  "attrs": {
+                    "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96'%3E%3Crect fill='%23ce93d8' width='96' height='96'/%3E%3C/svg%3E",
+                    "alt": "Circle small"
+                  }
+                }
+              ]
+            },
+            {
+              "tag": "figure",
+              "class": "ui-image ui-image--md ui-image--circle",
+              "children": [
+                {
+                  "tag": "img",
+                  "class": "ui-image__img",
+                  "attrs": {
+                    "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192'%3E%3Crect fill='%23ba68c8' width='192' height='192'/%3E%3C/svg%3E",
+                    "alt": "Circle medium"
+                  }
+                }
+              ]
+            }
+          ],
+          "code": "<figure class=\"ui-image ui-image--circle\">\n  <img class=\"ui-image__img\" src=\"...\" alt=\"Circle\">\n</figure>"
+        }
+      ]
+    },
+    {
+      "title": "Object Fit",
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            {
+              "tag": "figure",
+              "class": "ui-image ui-image--md ui-image--cover",
+              "children": [
+                {
+                  "tag": "img",
+                  "class": "ui-image__img",
+                  "attrs": {
+                    "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='150'%3E%3Crect fill='%2364b5f6' width='300' height='150'/%3E%3Ctext x='150' y='80' text-anchor='middle' fill='%23fff' font-size='16'%3Ecover%3C/text%3E%3C/svg%3E",
+                    "alt": "Cover fit"
+                  }
+                }
+              ]
+            },
+            {
+              "tag": "figure",
+              "class": "ui-image ui-image--md ui-image--contain",
+              "children": [
+                {
+                  "tag": "img",
+                  "class": "ui-image__img",
+                  "attrs": {
+                    "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='150'%3E%3Crect fill='%2381c784' width='300' height='150'/%3E%3Ctext x='150' y='80' text-anchor='middle' fill='%23fff' font-size='16'%3Econtain%3C/text%3E%3C/svg%3E",
+                    "alt": "Contain fit"
+                  }
+                }
+              ]
+            }
+          ],
+          "code": "<figure class=\"ui-image ui-image--cover\">\n  <img class=\"ui-image__img\" src=\"...\" alt=\"Cover\">\n</figure>\n<figure class=\"ui-image ui-image--contain\">\n  <img class=\"ui-image__img\" src=\"...\" alt=\"Contain\">\n</figure>"
+        }
+      ]
+    },
+    {
+      "title": "Caption",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "figure",
+              "class": "ui-image ui-image--md ui-image--rounded",
+              "children": [
+                {
+                  "tag": "img",
+                  "class": "ui-image__img",
+                  "attrs": {
+                    "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='140'%3E%3Crect fill='%23ffb74d' width='192' height='140'/%3E%3C/svg%3E",
+                    "alt": "With caption"
+                  }
+                },
+                {
+                  "tag": "figcaption",
+                  "class": "ui-image__caption",
+                  "text": "An optional image caption"
+                }
+              ]
+            }
+          ],
+          "code": "<figure class=\"ui-image\">\n  <img class=\"ui-image__img\" src=\"...\" alt=\"Description\">\n  <figcaption class=\"ui-image__caption\">Caption text</figcaption>\n</figure>"
+        }
+      ]
+    },
+    {
+      "title": "Fallback",
+      "examples": [
+        {
+          "layout": "cluster",
+          "items": [
+            {
+              "tag": "figure",
+              "class": "ui-image ui-image--sm",
+              "children": [
+                {
+                  "tag": "img",
+                  "class": "ui-image__img",
+                  "attrs": {
+                    "src": "",
+                    "alt": "Broken image"
+                  }
+                }
+              ]
+            },
+            {
+              "tag": "figure",
+              "class": "ui-image ui-image--sm ui-image--rounded",
+              "children": [
+                {
+                  "tag": "img",
+                  "class": "ui-image__img",
+                  "attrs": {
+                    "src": "",
+                    "alt": "Broken rounded"
+                  }
+                }
+              ]
+            },
+            {
+              "tag": "figure",
+              "class": "ui-image ui-image--sm ui-image--circle",
+              "children": [
+                {
+                  "tag": "img",
+                  "class": "ui-image__img",
+                  "attrs": {
+                    "src": "",
+                    "alt": "Broken circle"
+                  }
+                }
+              ]
+            }
+          ],
+          "code": "<figure class=\"ui-image\">\n  <img class=\"ui-image__img\" src=\"\" alt=\"Fallback shown\">\n</figure>"
+        }
+      ]
+    }
+  ],
+  "customization": [
+    {
+      "token": "--ui-image-size",
+      "default": "auto",
+      "description": "Default image dimensions"
+    },
+    {
+      "token": "--ui-image-size-sm",
+      "default": "calc(var(--unit) * 12)",
+      "description": "Small size"
+    },
+    {
+      "token": "--ui-image-size-md",
+      "default": "calc(var(--unit) * 24)",
+      "description": "Medium size"
+    },
+    {
+      "token": "--ui-image-size-lg",
+      "default": "calc(var(--unit) * 40)",
+      "description": "Large size"
+    },
+    {
+      "token": "--ui-image-size-xl",
+      "default": "calc(var(--unit) * 60)",
+      "description": "Extra large size"
+    },
+    {
+      "token": "--ui-image-bg",
+      "default": "var(--ui-color-bg-muted)",
+      "description": "Fallback background"
+    },
+    {
+      "token": "--ui-image-radius",
+      "default": "0",
+      "description": "Border radius"
+    },
+    {
+      "token": "--ui-image-radius-rounded",
+      "default": "var(--ui-radius-lg)",
+      "description": "Rounded variant radius"
+    },
+    {
+      "token": "--ui-image-radius-circle",
+      "default": "50%",
+      "description": "Circle variant radius"
+    },
+    {
+      "token": "--ui-image-object-fit",
+      "default": "cover",
+      "description": "Object-fit strategy"
+    },
+    {
+      "token": "--ui-image-caption-color",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Caption text color"
+    },
+    {
+      "token": "--ui-image-caption-font-size",
+      "default": "var(--ui-font-size-sm)",
+      "description": "Caption font size"
+    },
+    {
+      "token": "--ui-image-caption-spacing",
+      "default": "var(--ui-space-1)",
+      "description": "Space between image and caption"
+    }
+  ]
+}
