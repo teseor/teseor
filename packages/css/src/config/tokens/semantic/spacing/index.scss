@@ -1,10 +1,10 @@
 :root {
-  --spacing-xs: var(--ui-space-1);
-  --spacing-sm: var(--ui-space-2);
-  --spacing-md: var(--ui-space-4);
-  --spacing-lg: var(--ui-space-6);
-  --spacing-xl: var(--ui-space-8);
+  --ui-spacing-xs: var(--ui-space-1);
+  --ui-spacing-sm: var(--ui-space-2);
+  --ui-spacing-md: var(--ui-space-4);
+  --ui-spacing-lg: var(--ui-space-6);
+  --ui-spacing-xl: var(--ui-space-8);
 
-  --spacing-gutter: var(--ui-space-4);
-  --spacing-section: var(--ui-space-8);
+  --ui-spacing-gutter: var(--ui-space-4);
+  --ui-spacing-section: var(--ui-space-8);
 }
