@@ -96,4 +96,14 @@
       opacity: 0.5;
     }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .skeleton::after {
+      animation: none;
+    }
+
+    .skeleton--pulse {
+      animation: none;
+    }
+  }
 }

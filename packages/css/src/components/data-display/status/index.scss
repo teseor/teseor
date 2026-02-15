@@ -72,6 +72,12 @@
     }
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .status--pulse .status__dot::before {
+      animation: none;
+    }
+  }
+
   // Size variants
   .status--sm {
     --_size: calc(#{t.$unit} * 0.75);

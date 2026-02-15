@@ -177,4 +177,10 @@
       transform: translateX(100%);
     }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast[data-state] {
+      animation: none;
+    }
+  }
 }

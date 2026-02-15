@@ -89,4 +89,10 @@
       transform: rotate(270deg);
     }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress-circle--indeterminate {
+      animation: none;
+    }
+  }
 }

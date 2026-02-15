@@ -21,7 +21,7 @@
   }
 
   // Focusable variant - becomes visible on focus
-  .visually-hidden--focusable:focus,
+  .visually-hidden--focusable:focus-visible,
   .visually-hidden--focusable:active {
     position: static;
 
