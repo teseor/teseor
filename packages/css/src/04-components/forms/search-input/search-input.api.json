@@ -1,0 +1,85 @@
+{
+  "name": "search-input",
+  "element": "div",
+  "modifiers": {
+    "size": {
+      "values": ["sm", "lg"]
+    },
+    "has-clear": {
+      "type": "boolean"
+    },
+    "block": {
+      "type": "boolean"
+    },
+    "disabled": {
+      "type": "boolean"
+    }
+  },
+  "elements": {
+    "icon": {},
+    "field": {},
+    "clear": {}
+  },
+  "cssVars": [
+    {
+      "name": "--ui-search-input-height",
+      "default": "var(--ui-row-2)"
+    },
+    {
+      "name": "--ui-search-input-height-sm",
+      "default": "calc(var(--ui-row) * 1.5)"
+    },
+    {
+      "name": "--ui-search-input-height-lg",
+      "default": "calc(var(--ui-row) * 2.5)"
+    },
+    {
+      "name": "--ui-search-input-padding-x",
+      "default": "var(--ui-space-1)"
+    },
+    {
+      "name": "--ui-search-input-font-size",
+      "default": "var(--ui-font-size-sm)"
+    },
+    {
+      "name": "--ui-search-input-radius",
+      "default": "var(--ui-radius-md)"
+    },
+    {
+      "name": "--ui-search-input-bg",
+      "default": "var(--ui-color-bg)"
+    },
+    {
+      "name": "--ui-search-input-border-color",
+      "default": "var(--ui-color-border-strong)"
+    },
+    {
+      "name": "--ui-search-input-border-color-focus",
+      "default": "var(--ui-color-primary)"
+    },
+    {
+      "name": "--ui-search-input-text",
+      "default": "var(--ui-color-text)"
+    },
+    {
+      "name": "--ui-search-input-placeholder",
+      "default": "var(--ui-color-text-muted)"
+    },
+    {
+      "name": "--ui-search-input-icon-color",
+      "default": "var(--ui-color-text-muted)"
+    },
+    {
+      "name": "--ui-search-input-icon-size",
+      "default": "var(--ui-size-md)"
+    },
+    {
+      "name": "--ui-search-input-clear-color",
+      "default": "var(--ui-color-text-muted)"
+    },
+    {
+      "name": "--ui-search-input-clear-hover-bg",
+      "default": "var(--ui-color-bg-muted)"
+    }
+  ]
+}
