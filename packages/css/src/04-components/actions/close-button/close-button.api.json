@@ -1,0 +1,71 @@
+{
+  "name": "close-button",
+  "element": "button",
+  "modifiers": {
+    "size": {
+      "values": ["sm", "lg"]
+    },
+    "subtle": {
+      "type": "boolean"
+    }
+  },
+  "elements": {
+    "icon": {}
+  },
+  "cssVars": [
+    {
+      "name": "--ui-close-button-size",
+      "description": "Overall button size (width and height)",
+      "default": "var(--ui-row-2)"
+    },
+    {
+      "name": "--ui-close-button-icon-size",
+      "description": "Size of the X icon",
+      "default": "var(--ui-size-md)"
+    },
+    {
+      "name": "--ui-close-button-color",
+      "description": "Icon color",
+      "default": "var(--ui-color-text-muted)"
+    },
+    {
+      "name": "--ui-close-button-bg",
+      "description": "Background color",
+      "default": "transparent"
+    },
+    {
+      "name": "--ui-close-button-hover-bg",
+      "description": "Background color on hover",
+      "default": "var(--ui-color-bg-muted)"
+    },
+    {
+      "name": "--ui-close-button-radius",
+      "description": "Border radius",
+      "default": "var(--ui-radius-md)"
+    },
+    {
+      "name": "--ui-close-button-size-sm",
+      "default": "calc(var(--ui-unit) * 3)"
+    },
+    {
+      "name": "--ui-close-button-icon-size-sm",
+      "default": "var(--ui-size-sm)"
+    },
+    {
+      "name": "--ui-close-button-size-lg",
+      "default": "var(--ui-row-3)"
+    },
+    {
+      "name": "--ui-close-button-icon-size-lg",
+      "default": "var(--ui-size-lg)"
+    },
+    {
+      "name": "--ui-close-button-subtle-color",
+      "default": "var(--ui-color-border-strong)"
+    },
+    {
+      "name": "--ui-close-button-subtle-hover-bg",
+      "default": "var(--ui-color-bg-subtle)"
+    }
+  ]
+}

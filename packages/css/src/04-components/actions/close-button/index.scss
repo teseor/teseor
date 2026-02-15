@@ -1,0 +1,101 @@
+@use '../../../00-config/tokens/variables' as t;
+
+// @component close-button
+// @element button
+
+@layer components.tokens {
+  .close-button {
+    --_size: var(--ui-close-button-size, var(--ui-row-2, #{t.$row-2}));
+    --_icon-size: var(--ui-close-button-icon-size, var(--ui-size-md, #{t.size(md)}));
+    --_color: var(--ui-close-button-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    --_bg: var(--ui-close-button-bg, transparent);
+    --_hover-bg: var(--ui-close-button-hover-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+    --_radius: var(--ui-close-button-radius, var(--ui-radius-md, #{t.$radius-md}));
+  }
+
+  // @modifier size
+  .close-button--sm {
+    --_size: var(--ui-close-button-size-sm, calc(#{t.$unit} * 3));
+    --_icon-size: var(--ui-close-button-icon-size-sm, var(--ui-size-sm, #{t.size(sm)}));
+  }
+
+  .close-button--lg {
+    --_size: var(--ui-close-button-size-lg, var(--ui-row-3, #{t.$row-3}));
+    --_icon-size: var(--ui-close-button-icon-size-lg, var(--ui-size-lg, #{t.size(lg)}));
+  }
+
+  // @modifier boolean subtle
+  .close-button--subtle {
+    --_color: var(--ui-close-button-subtle-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
+    --_hover-bg: var(--ui-close-button-subtle-hover-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
+  }
+}
+
+@layer components.styles {
+  .close-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    block-size: var(--_size);
+    inline-size: var(--_size);
+    padding: 0;
+    margin: 0;
+
+    font: inherit;
+    color: var(--_color);
+
+    background: var(--_bg);
+    border: none;
+    border-radius: var(--_radius);
+    cursor: pointer;
+    appearance: none;
+
+    transition:
+      background-color var(--ui-duration-base, 150ms) var(--ui-ease-default, ease),
+      color var(--ui-duration-base, 150ms) var(--ui-ease-default, ease);
+
+    &:hover,
+    &--hover {
+      color: var(--ui-color-text, #{t.$color-text});
+
+      background: var(--_hover-bg);
+    }
+
+    &:focus-visible,
+    &--focus {
+      outline: var(--ui-border-width-md, #{t.$border-width-md}) solid var(--ui-color-focus, #{t.$color-focus});
+      outline-offset: var(--ui-border-width-md, #{t.$border-width-md});
+    }
+
+    &:active,
+    &--active {
+      transform: scale(0.92);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+
+      &:hover {
+        color: var(--_color);
+
+        background: var(--_bg);
+        transform: none;
+      }
+    }
+  }
+
+  .close-button__icon {
+    flex-shrink: 0;
+
+    block-size: var(--_icon-size);
+    inline-size: var(--_icon-size);
+
+    fill: none;
+    stroke: currentcolor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+}
