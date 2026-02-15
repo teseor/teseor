@@ -1,7 +1,9 @@
-:root {
-  // Radius - derived from --unit (8px)
-  --ui-radius-sm: calc(var(--ui-unit) * 0.5); // 4px
-  --ui-radius-md: var(--ui-unit); // 8px
-  --ui-radius-lg: calc(var(--ui-unit) * 2); // 16px
-  --ui-radius-full: 9999px;
+@layer tokens {
+  :root {
+    // Radius - derived from --unit (8px)
+    --ui-radius-sm: calc(var(--ui-unit) * 0.5); // 4px
+    --ui-radius-md: var(--ui-unit); // 8px
+    --ui-radius-lg: calc(var(--ui-unit) * 2); // 16px
+    --ui-radius-full: 9999px;
+  }
 }

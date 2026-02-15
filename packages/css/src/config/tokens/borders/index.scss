@@ -1,6 +1,8 @@
-:root {
-  // Border widths - derived from unit (8px)
-  --ui-border-width-sm: calc(var(--ui-unit) * 0.125); // 1px
-  --ui-border-width-md: calc(var(--ui-unit) * 0.25); // 2px
-  --ui-border-width-lg: calc(var(--ui-unit) * 0.5); // 4px
+@layer tokens {
+  :root {
+    // Border widths - derived from unit (8px)
+    --ui-border-width-sm: calc(var(--ui-unit) * 0.125); // 1px
+    --ui-border-width-md: calc(var(--ui-unit) * 0.25); // 2px
+    --ui-border-width-lg: calc(var(--ui-unit) * 0.5); // 4px
+  }
 }
