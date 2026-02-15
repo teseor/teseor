@@ -1,0 +1,54 @@
+{
+  "name": "checkbox-group",
+  "element": "fieldset",
+  "modifiers": {
+    "horizontal": {
+      "type": "boolean"
+    },
+    "compact": {
+      "type": "boolean"
+    },
+    "error": {
+      "type": "boolean"
+    }
+  },
+  "elements": {
+    "legend": {},
+    "items": {},
+    "item": {}
+  },
+  "cssVars": [
+    {
+      "name": "--ui-checkbox-group-spacing",
+      "default": "var(--ui-space-1)"
+    },
+    {
+      "name": "--ui-checkbox-group-spacing-compact",
+      "default": "0"
+    },
+    {
+      "name": "--ui-checkbox-group-legend-size",
+      "default": "var(--ui-font-size-sm)"
+    },
+    {
+      "name": "--ui-checkbox-group-legend-weight",
+      "default": "var(--ui-weight-medium)"
+    },
+    {
+      "name": "--ui-checkbox-group-legend-color",
+      "default": "var(--ui-color-text)"
+    },
+    {
+      "name": "--ui-checkbox-group-legend-spacing",
+      "default": "var(--ui-space-1)"
+    },
+    {
+      "name": "--ui-checkbox-group-item-gap",
+      "default": "var(--ui-space-1)"
+    },
+    {
+      "name": "--ui-checkbox-group-error-color",
+      "default": "var(--ui-color-danger)"
+    }
+  ]
+}
