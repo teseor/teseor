@@ -1,0 +1,37 @@
+{
+  "name": "dropdown-menu",
+  "element": "div",
+  "modifiers": {
+    "open": {
+      "type": "boolean"
+    },
+    "top": {
+      "type": "boolean"
+    },
+    "align-end": {
+      "type": "boolean"
+    },
+    "full-width": {
+      "type": "boolean"
+    }
+  },
+  "elements": {
+    "trigger": {},
+    "trigger-icon": {},
+    "panel": {}
+  },
+  "cssVars": [
+    {
+      "name": "--ui-dropdown-menu-z",
+      "default": "200"
+    },
+    {
+      "name": "--ui-dropdown-menu-panel-offset",
+      "default": "var(--ui-space-1)"
+    },
+    {
+      "name": "--ui-dropdown-menu-panel-min-width",
+      "default": "auto"
+    }
+  ]
+}
