@@ -277,6 +277,15 @@ function validate() {
   } else {
     console.log('\nAll docs are valid!');
   }
+
+  // Fail on hard errors (parse failures, missing API) but not coverage warnings
+  const hardErrors = docsFiles.some((file) => {
+    const result = validateDoc(file);
+    return result.error !== undefined;
+  });
+  if (hardErrors) {
+    process.exit(1);
+  }
 }
 
 validate();
