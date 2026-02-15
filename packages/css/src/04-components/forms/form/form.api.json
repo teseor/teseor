@@ -1,0 +1,38 @@
+{
+  "name": "form",
+  "element": "form",
+  "modifiers": {
+    "compact": {
+      "type": "boolean"
+    },
+    "inline": {
+      "type": "boolean"
+    }
+  },
+  "elements": {
+    "section": {},
+    "actions": {}
+  },
+  "cssVars": [
+    {
+      "name": "--ui-form-spacing",
+      "default": "var(--ui-space-3)"
+    },
+    {
+      "name": "--ui-form-actions-gap",
+      "default": "var(--ui-space-2)"
+    },
+    {
+      "name": "--ui-form-section-spacing",
+      "default": "var(--ui-space-4)"
+    },
+    {
+      "name": "--ui-form-spacing-compact",
+      "default": "var(--ui-space-2)"
+    },
+    {
+      "name": "--ui-form-section-spacing-compact",
+      "default": "var(--ui-space-3)"
+    }
+  ]
+}
