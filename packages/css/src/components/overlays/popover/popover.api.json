@@ -25,15 +25,15 @@
     },
     {
       "name": "--ui-popover-shadow",
-      "default": "0 calc(#{t.$unit} / 2"
+      "default": "0 calc(var(--ui-unit) / 2"
     },
     {
       "name": "--ui-popover-padding",
-      "default": "calc(#{t.$unit} * 2"
+      "default": "calc(var(--ui-unit) * 2"
     },
     {
       "name": "--ui-popover-max-width",
-      "default": "calc(#{t.$unit} * 40"
+      "default": "calc(var(--ui-unit) * 40"
     },
     {
       "name": "--ui-popover-z",
@@ -41,7 +41,7 @@
     },
     {
       "name": "--ui-popover-arrow-size",
-      "default": "calc(#{t.$unit}"
+      "default": "calc(var(--ui-unit)"
     }
   ]
 }

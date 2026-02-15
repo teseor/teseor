@@ -16,7 +16,7 @@
   "cssVars": [
     {
       "name": "--ui-tag-height",
-      "default": "calc(#{t.$unit} * 3"
+      "default": "calc(var(--ui-unit) * 3"
     },
     {
       "name": "--ui-tag-padding-x",
@@ -24,7 +24,7 @@
     },
     {
       "name": "--ui-tag-gap",
-      "default": "calc(#{t.$unit} * 0.5"
+      "default": "calc(var(--ui-unit) * 0.5"
     },
     {
       "name": "--ui-tag-radius",
@@ -44,11 +44,11 @@
     },
     {
       "name": "--ui-tag-height-sm",
-      "default": "calc(#{t.$unit} * 2.5"
+      "default": "calc(var(--ui-unit) * 2.5"
     },
     {
       "name": "--ui-tag-padding-x-sm",
-      "default": "calc(#{t.$unit} * 1"
+      "default": "calc(var(--ui-unit) * 1"
     },
     {
       "name": "--ui-tag-font-size-sm",

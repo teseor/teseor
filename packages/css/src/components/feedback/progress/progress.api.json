@@ -24,7 +24,7 @@
   "cssVars": [
     {
       "name": "--ui-progress-height",
-      "default": "calc(#{t.$unit} * 1"
+      "default": "calc(var(--ui-unit) * 1"
     },
     {
       "name": "--ui-progress-bg",

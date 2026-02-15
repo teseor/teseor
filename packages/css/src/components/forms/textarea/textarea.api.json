@@ -18,7 +18,7 @@
   "cssVars": [
     {
       "name": "--ui-textarea-min-height",
-      "default": "calc(#{t.$row} * 4"
+      "default": "calc(var(--ui-row) * 4"
     },
     {
       "name": "--ui-textarea-padding-x",
@@ -58,7 +58,7 @@
     },
     {
       "name": "--ui-textarea-min-height-sm",
-      "default": "calc(#{t.$row} * 3"
+      "default": "calc(var(--ui-row) * 3"
     },
     {
       "name": "--ui-textarea-font-size-sm",
@@ -66,7 +66,7 @@
     },
     {
       "name": "--ui-textarea-min-height-lg",
-      "default": "calc(#{t.$row} * 6"
+      "default": "calc(var(--ui-row) * 6"
     },
     {
       "name": "--ui-textarea-padding-x-lg",

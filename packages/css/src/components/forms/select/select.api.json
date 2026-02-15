@@ -54,7 +54,7 @@
     },
     {
       "name": "--ui-select-height-sm",
-      "default": "calc(#{t.$row} * 1.5"
+      "default": "calc(var(--ui-row) * 1.5"
     },
     {
       "name": "--ui-select-font-size-sm",
@@ -62,7 +62,7 @@
     },
     {
       "name": "--ui-select-height-lg",
-      "default": "calc(#{t.$row} * 2.5"
+      "default": "calc(var(--ui-row) * 2.5"
     },
     {
       "name": "--ui-select-padding-x-lg",

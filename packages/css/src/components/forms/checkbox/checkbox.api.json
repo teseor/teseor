@@ -12,7 +12,7 @@
   "cssVars": [
     {
       "name": "--ui-checkbox-size",
-      "default": "calc(#{t.$unit} * 2"
+      "default": "calc(var(--ui-unit) * 2"
     },
     {
       "name": "--ui-checkbox-radius",
@@ -40,7 +40,7 @@
     },
     {
       "name": "--ui-checkbox-size-lg",
-      "default": "calc(#{t.$unit} * 3"
+      "default": "calc(var(--ui-unit) * 3"
     },
     {
       "name": "--ui-checkbox-error-border",

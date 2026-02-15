@@ -24,19 +24,19 @@
     },
     {
       "name": "--ui-modal-shadow",
-      "default": "0 calc(#{t.$unit} * 3"
+      "default": "0 calc(var(--ui-unit) * 3"
     },
     {
       "name": "--ui-modal-padding",
-      "default": "calc(#{t.$unit} * 3"
+      "default": "calc(var(--ui-unit) * 3"
     },
     {
       "name": "--ui-modal-max-width",
-      "default": "calc(#{t.$unit} * 60"
+      "default": "calc(var(--ui-unit) * 60"
     },
     {
       "name": "--ui-modal-max-height",
-      "default": "calc(100vh - #{t.$unit} * 8"
+      "default": "calc(100vh - var(--ui-unit) * 8"
     },
     {
       "name": "--ui-modal-z",
@@ -44,11 +44,11 @@
     },
     {
       "name": "--ui-modal-max-width-sm",
-      "default": "calc(#{t.$unit} * 40"
+      "default": "calc(var(--ui-unit) * 40"
     },
     {
       "name": "--ui-modal-max-width-lg",
-      "default": "calc(#{t.$unit} * 80"
+      "default": "calc(var(--ui-unit) * 80"
     }
   ]
 }
