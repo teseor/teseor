@@ -49,7 +49,7 @@
       "default": "var(--ui-color-primary)"
     },
     {
-      "name": "--ui-textarea-text",
+      "name": "--ui-textarea-color",
       "default": "var(--ui-color-text)"
     },
     {

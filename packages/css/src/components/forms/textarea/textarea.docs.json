@@ -178,7 +178,7 @@
       "description": "Focus border color"
     },
     {
-      "token": "--ui-textarea-text",
+      "token": "--ui-textarea-color",
       "default": "var(--ui-color-text)",
       "description": "Text color"
     },
