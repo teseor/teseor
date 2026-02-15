@@ -1,5 +1,17 @@
 # @teseor/css
 
+## 1.5.0
+
+### Minor Changes
+
+- fcd1ac5: Add close-button component: dismiss button with size variants, subtle mode, and hover/focus/disabled states
+- 9908ee0: Add code-block component: multi-line code display with monospace font, horizontal scroll, compact variant, and optional line numbers
+- 86a36cd: Add fieldset component: form field grouping with legend, bordered/compact variants, and disabled state
+- 81421a2: Add form component: layout container with field spacing, sections, actions row, compact and inline variants
+- 8edc607: Add image component: responsive figure with fallback, caption, size/shape modifiers
+- 9847487: Add list component: ordered/unordered lists with spacing, inline, unstyled variants
+- af39744: Add progress-circle component: circular progress indicator with size, color variants, and indeterminate state
+
 ## 1.4.0
 
 ### Minor Changes
