@@ -1,7 +1,14 @@
 {
   "name": "tabs",
   "element": "div",
-  "modifiers": {},
+  "modifiers": {
+    "size": {
+      "values": ["sm", "lg"]
+    },
+    "vertical": {
+      "type": "boolean"
+    }
+  },
   "elements": {
     "list": {},
     "tab": {
@@ -25,12 +32,20 @@
       "default": "var(--ui-color-border)"
     },
     {
+      "name": "--ui-tabs-tab-height",
+      "default": "var(--ui-row-2)"
+    },
+    {
       "name": "--ui-tabs-tab-padding-x",
       "default": "var(--ui-space-2)"
     },
     {
       "name": "--ui-tabs-tab-padding-y",
       "default": "var(--ui-space-1)"
+    },
+    {
+      "name": "--ui-tabs-tab-font-size",
+      "default": "var(--ui-font-size-sm)"
     },
     {
       "name": "--ui-tabs-tab-bg",

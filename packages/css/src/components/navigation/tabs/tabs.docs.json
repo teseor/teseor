@@ -92,6 +92,111 @@
           "code": "<div class=\"ui-tabs\">\n  <div class=\"ui-tabs__list\">\n{% for t in tabs %}    <button class=\"ui-tabs__tab{% if t.active %} ui-tabs__tab--active{% endif %}\">{{ t.label }}</button>\n{% endfor %}  </div>\n  <div class=\"ui-tabs__panel ui-tabs__panel--active\">...</div>\n  <div class=\"ui-tabs__panel\">...</div>\n</div>"
         }
       ]
+    },
+    {
+      "title": "Sizes",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-column",
+              "attrs": { "style": "--column-gap: var(--ui-space-3);" },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-tabs ui-tabs--sm",
+                  "children": [
+                    {
+                      "tag": "div",
+                      "class": "ui-tabs__list",
+                      "children": [
+                        {
+                          "tag": "button",
+                          "class": "ui-tabs__tab ui-tabs__tab--active",
+                          "text": "Small"
+                        },
+                        { "tag": "button", "class": "ui-tabs__tab", "text": "Tab 2" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-tabs",
+                  "children": [
+                    {
+                      "tag": "div",
+                      "class": "ui-tabs__list",
+                      "children": [
+                        {
+                          "tag": "button",
+                          "class": "ui-tabs__tab ui-tabs__tab--active",
+                          "text": "Default"
+                        },
+                        { "tag": "button", "class": "ui-tabs__tab", "text": "Tab 2" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-tabs ui-tabs--lg",
+                  "children": [
+                    {
+                      "tag": "div",
+                      "class": "ui-tabs__list",
+                      "children": [
+                        {
+                          "tag": "button",
+                          "class": "ui-tabs__tab ui-tabs__tab--active",
+                          "text": "Large"
+                        },
+                        { "tag": "button", "class": "ui-tabs__tab", "text": "Tab 2" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-tabs ui-tabs--sm\">...</div>\n<div class=\"ui-tabs\">...</div>\n<div class=\"ui-tabs ui-tabs--lg\">...</div>"
+        }
+      ]
+    },
+    {
+      "title": "Vertical",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-tabs ui-tabs--vertical",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-tabs__list",
+                  "children": [
+                    {
+                      "tag": "button",
+                      "class": "ui-tabs__tab ui-tabs__tab--active",
+                      "text": "Tab 1"
+                    },
+                    { "tag": "button", "class": "ui-tabs__tab", "text": "Tab 2" },
+                    { "tag": "button", "class": "ui-tabs__tab", "text": "Tab 3" }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-tabs__panel ui-tabs__panel--active",
+                  "text": "Vertical tab content"
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-tabs ui-tabs--vertical\">\n  <div class=\"ui-tabs__list\">\n    <button class=\"ui-tabs__tab ui-tabs__tab--active\">Tab 1</button>\n    <button class=\"ui-tabs__tab\">Tab 2</button>\n  </div>\n  <div class=\"ui-tabs__panel ui-tabs__panel--active\">Content</div>\n</div>"
+        }
+      ]
     }
   ],
   "customization": [
@@ -101,9 +206,19 @@
       "description": "Tab list border color"
     },
     {
+      "token": "--ui-tabs-tab-height",
+      "default": "var(--ui-row-2)",
+      "description": "Tab height"
+    },
+    {
       "token": "--ui-tabs-tab-padding-x",
       "default": "var(--ui-space-2)",
       "description": "Tab horizontal padding"
+    },
+    {
+      "token": "--ui-tabs-tab-font-size",
+      "default": "var(--ui-font-size-sm)",
+      "description": "Tab font size"
     },
     {
       "token": "--ui-tabs-tab-padding-y",
