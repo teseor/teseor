@@ -2,7 +2,7 @@
   "ci": {
     "collect": {
       "staticDistDir": "./apps/docs-css/dist",
-      "url": ["/", "/tokens/colors/", "/components/button/", "/layout/column/"],
+      "url": ["/", "/tokens/colors/", "/components/button/", "/primitives/column/"],
       "numberOfRuns": 1
     },
     "assert": {
