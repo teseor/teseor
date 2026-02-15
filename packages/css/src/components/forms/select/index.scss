@@ -12,7 +12,7 @@
     --_bg: var(--ui-select-bg, var(--ui-color-bg, #{t.$color-bg}));
     --_border-color: var(--ui-select-border-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
     --_border-color-focus: var(--ui-select-border-color-focus, var(--ui-color-primary, #{t.$color-primary}));
-    --_text: var(--ui-select-text, var(--ui-color-text, #{t.$color-text}));
+    --_color: var(--ui-select-color, var(--ui-color-text, #{t.$color-text}));
     --_icon-color: var(--ui-select-icon-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
   }
 
@@ -64,7 +64,7 @@
     font-family: inherit;
     font-size: var(--_font-size);
     line-height: 1;
-    color: var(--_text);
+    color: var(--_color);
 
     background-color: var(--_bg);
     // Chevron down arrow

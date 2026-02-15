@@ -152,7 +152,11 @@
       "default": "var(--ui-color-primary)",
       "description": "Focus border color"
     },
-    { "token": "--ui-select-text", "default": "var(--ui-color-text)", "description": "Text color" },
+    {
+      "token": "--ui-select-color",
+      "default": "var(--ui-color-text)",
+      "description": "Text color"
+    },
     {
       "token": "--ui-select-icon-color",
       "default": "var(--ui-color-text-muted)",
