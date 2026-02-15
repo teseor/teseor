@@ -16,7 +16,7 @@
     --_radius: var(--ui-button-radius, var(--ui-radius-md, #{t.$radius-md}));
     --_bg: var(--_accent);
     --_bg-hover: color-mix(in oklch, var(--_accent) 80%, black);
-    --_text: var(--ui-button-text, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
+    --_color: var(--ui-button-color, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
   }
 
   // @modifier size
@@ -43,20 +43,20 @@
   .button--secondary {
     --_bg: var(--ui-color-bg-muted, #{t.$color-bg-muted});
     --_bg-hover: var(--ui-color-border-strong, #{t.$color-border-strong});
-    --_text: var(--ui-color-text, #{t.$color-text});
+    --_color: var(--ui-color-text, #{t.$color-text});
   }
 
   .button--ghost {
     --_bg: transparent;
     --_bg-hover: color-mix(in oklch, var(--_accent) 10%, transparent);
-    --_text: var(--_accent);
+    --_color: var(--_accent);
   }
 
   .button--outline {
     --_bg: transparent;
     --_bg-hover: var(--_accent);
-    --_text: var(--_accent);
-    --_text-hover: var(--ui-color-text-inverse, #{t.$color-text-inverse});
+    --_color: var(--_accent);
+    --_color-hover: var(--ui-color-text-inverse, #{t.$color-text-inverse});
     --_border: var(--ui-border-width-sm, #{t.$border-width-sm}) solid currentColor;
   }
 
@@ -67,8 +67,8 @@
   .button--link {
     --_bg: transparent;
     --_bg-hover: transparent;
-    --_text: var(--_accent);
-    --_text-hover: color-mix(in oklch, var(--_accent) 70%, black);
+    --_color: var(--_accent);
+    --_color-hover: color-mix(in oklch, var(--_accent) 70%, black);
     --_height: auto;
     --_padding-x: 0;
     --_radius: 0;
@@ -123,7 +123,7 @@
     line-height: 1;
     text-decoration: none;
     white-space: nowrap;
-    color: var(--_text);
+    color: var(--_color);
 
     background: var(--_bg);
     border: var(--_border, none);
@@ -139,7 +139,7 @@
     // States - modifiers mirror pseudo-classes for testing/docs
     &:hover,
     &--hover {
-      color: var(--_text-hover, var(--_text));
+      color: var(--_color-hover, var(--_color));
 
       background: var(--_bg-hover);
     }

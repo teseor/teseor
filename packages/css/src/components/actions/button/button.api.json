@@ -60,7 +60,7 @@
       "default": "var(--ui-radius-md)"
     },
     {
-      "name": "--ui-button-text",
+      "name": "--ui-button-color",
       "default": "var(--ui-color-text-inverse)"
     },
     {
@@ -100,7 +100,7 @@
       "default": "var(--ui-color-border-strong)"
     },
     {
-      "name": "--ui-button-secondary-text",
+      "name": "--ui-button-secondary-color",
       "default": "var(--ui-color-text)"
     },
     {
