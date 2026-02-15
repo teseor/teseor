@@ -15,12 +15,12 @@
     box-shadow: inset calc(var(--ui-border-width-sm) * -1) 0 0 0 var(--ui-color-border);
   }
 
-  /* Width modifiers */
+  // Width modifiers
   .sidebar--sm { --sidebar-width: calc(var(--ui-unit) * 24); }
   .sidebar--md { --sidebar-width: calc(var(--ui-unit) * 30); }
   .sidebar--lg { --sidebar-width: calc(var(--ui-unit) * 40); }
 
-  /* Position modifier - sidebar on end (right in LTR) */
+  // Position modifier - sidebar on end (right in LTR)
   .sidebar--end {
     inset-inline-start: auto;
     inset-inline-end: 0;
