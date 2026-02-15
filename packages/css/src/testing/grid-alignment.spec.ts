@@ -1,92 +1,38 @@
-import { expect, test } from '@playwright/test';
+import { readdirSync, statSync } from 'node:fs';
+import { basename, join, resolve } from 'node:path';
+import { test } from '@playwright/test';
+import { generateHtmlFromDocs, loadDocsJson, setupVisualTest, validateGridRhythm } from '.';
 
-// Skip in CI - needs docs server running
-test.skip(!!process.env.CI, 'Grid alignment test requires docs server');
+const COMPONENTS_DIR = resolve(__dirname, '../components');
 
-// Elements that THEMSELVES don't follow grid (fluid page containers only)
-const SKIP_SELF_SELECTORS = [
-  // Page structure - fluid by nature (viewport-dependent)
-  'html',
-  'body',
-  'main',
-  'aside',
-  '.ui-sidebar',
-  '.ui-main',
-  '.ui-app-shell',
+// Known grid rhythm issues tracked in separate issues
+const SKIP_COMPONENTS = [
+  'data-list', // 1px borders cause off-grid heights (#179)
+  'spinner', // CSS var resolution issue (#154)
+  'spacer', // no intrinsic height by design
 ];
 
-test('all components should align to vertical grid', async ({ page }) => {
-  await page.goto('/');
-
-  const violations = await page.evaluate((skipSelf: string[]) => {
-    // Get unit from CSS custom property
-    const temp = document.createElement('div');
-    temp.style.cssText = 'position:absolute;visibility:hidden;width:var(--ui-unit,0.5rem)';
-    document.body.appendChild(temp);
-    const unit = temp.getBoundingClientRect().width || 8;
-    document.body.removeChild(temp);
-
-    const INLINE_TAGS = [
-      'STRONG',
-      'B',
-      'EM',
-      'I',
-      'SMALL',
-      'SPAN',
-      'A',
-      'CODE',
-      'ABBR',
-      'CITE',
-      'Q',
-      'SUB',
-      'SUP',
-      'MARK',
-      'BR',
-      'WBR',
-    ];
-
-    const results: Array<{ selector: string; height: number; expected: number; offBy: number }> =
-      [];
-
-    for (const el of document.querySelectorAll('*')) {
-      const tagName = el.tagName;
-
-      // Skip script, style, link, meta, etc.
-      if (['SCRIPT', 'STYLE', 'LINK', 'META', 'TITLE', 'HEAD'].includes(tagName)) continue;
-
-      // Skip inline elements
-      if (INLINE_TAGS.includes(tagName)) continue;
-
-      // Skip elements that are fluid containers (but check their children)
-      if (skipSelf.some((sel) => el.matches(sel))) continue;
-
-      const height = el.getBoundingClientRect().height;
-      if (height === 0) continue;
-
-      const remainder = height % unit;
-      const isAligned = remainder < 0.5 || remainder > unit - 0.5;
-
-      if (!isAligned) {
-        const classes = el.className?.toString?.() || '';
-        const firstClass = classes.split(' ')[0];
-        results.push({
-          selector: `${tagName.toLowerCase()}${firstClass ? `.${firstClass}` : ''}`,
-          height: Math.round(height * 10) / 10,
-          expected: Math.round(height / unit) * unit,
-          offBy: Math.round(remainder * 10) / 10,
-        });
-      }
+function findDocsFiles(dir: string): Array<{ name: string; path: string }> {
+  const results: Array<{ name: string; path: string }> = [];
+  for (const entry of readdirSync(dir)) {
+    const full = join(dir, entry);
+    if (statSync(full).isDirectory()) {
+      results.push(...findDocsFiles(full));
+    } else if (entry.endsWith('.docs.json')) {
+      results.push({ name: basename(entry, '.docs.json'), path: full });
     }
-
-    return results;
-  }, SKIP_SELF_SELECTORS);
-
-  if (violations.length > 0) {
-    console.log(`Found ${violations.length} grid violations:`);
-    console.table(violations);
   }
+  return results;
+}
 
-  expect(violations, `Grid violations found:\n${JSON.stringify(violations, null, 2)}`).toHaveLength(
-    0,
-  );
-});
+const docsFiles = findDocsFiles(COMPONENTS_DIR);
+
+for (const { name, path } of docsFiles) {
+  test(`${name} aligns to vertical grid`, async ({ page }) => {
+    test.skip(SKIP_COMPONENTS.includes(name), `${name} has known grid issues`);
+    const docs = loadDocsJson(path);
+    const html = generateHtmlFromDocs(docs);
+    await setupVisualTest(page, { html });
+    await validateGridRhythm(page, name);
+  });
+}
