@@ -49,7 +49,7 @@
       "description": "Vertical padding"
     },
     {
-      "token": "--ui-tooltip-size",
+      "token": "--ui-tooltip-font-size",
       "default": "var(--ui-font-size-sm)",
       "description": "Font size"
     },
