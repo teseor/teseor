@@ -10,11 +10,12 @@
  * Scans category subdirectories under components/
  */
 
-import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { discoverComponents } from './discover-structure.js';
+import { findComponentDirs } from './shared/find-components.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const COMPONENTS_DIR = join(__dirname, '../packages/css/src/components');
@@ -23,11 +24,6 @@ interface FileCheck {
   pattern: string;
   description: string;
   required: boolean;
-}
-
-interface ComponentEntry {
-  name: string;
-  path: string;
 }
 
 const REQUIRED_FILES: FileCheck[] = [
@@ -44,32 +40,6 @@ function checkGlobPattern(dir: string, pattern: string): boolean {
   const files = readdirSync(dir);
   const regex = new RegExp(`^${pattern.replace(/\./g, '\\.').replace(/\*/g, '.*')}$`);
   return files.some((f) => regex.test(f));
-}
-
-function findComponentDirs(baseDir: string): ComponentEntry[] {
-  const components: ComponentEntry[] = [];
-  const entries = readdirSync(baseDir).filter((name) => {
-    if (name.startsWith('.') || name === 'index.scss') return false;
-    return statSync(join(baseDir, name)).isDirectory();
-  });
-
-  for (const entry of entries) {
-    const entryPath = join(baseDir, entry);
-    // If dir has index.scss, it's a component
-    if (existsSync(join(entryPath, 'index.scss'))) {
-      components.push({ name: entry, path: entryPath });
-    } else {
-      // Category dir - scan children
-      const children = readdirSync(entryPath).filter((name) => {
-        if (name.startsWith('.')) return false;
-        return statSync(join(entryPath, name)).isDirectory();
-      });
-      for (const child of children) {
-        components.push({ name: child, path: join(entryPath, child) });
-      }
-    }
-  }
-  return components;
 }
 
 function lintComponents(): void {
