@@ -86,7 +86,7 @@ function extractApiVars(vars, componentName) {
 
 // Main validation
 function validate() {
-  const apiFiles = findApiFiles(join(CSS_ROOT, '04-components'));
+  const apiFiles = findApiFiles(join(CSS_ROOT, 'components'));
   let hasErrors = false;
 
   console.log('Validating component vars against API...\n');

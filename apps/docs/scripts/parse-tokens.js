@@ -3,10 +3,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const VARIABLES_PATH = join(
-  __dirname,
-  '../../../packages/css/src/00-config/tokens/_variables.scss',
-);
+const VARIABLES_PATH = join(__dirname, '../../../packages/css/src/config/tokens/_variables.scss');
 
 /**
  * Parse _variables.scss and extract token values

@@ -1,0 +1,84 @@
+@use '../../../config/tokens/variables' as t;
+
+// @component checkbox-group
+// @element fieldset
+
+@layer components.tokens {
+  .checkbox-group {
+    --_spacing: var(--ui-checkbox-group-spacing, var(--ui-space-1, #{t.$space-1}));
+    --_legend-size: var(--ui-checkbox-group-legend-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    --_legend-weight: var(--ui-checkbox-group-legend-weight, var(--ui-weight-medium, #{t.$weight-medium}));
+    --_legend-color: var(--ui-checkbox-group-legend-color, var(--ui-color-text, #{t.$color-text}));
+    --_legend-spacing: var(--ui-checkbox-group-legend-spacing, var(--ui-space-1, #{t.$space-1}));
+    --_item-gap: var(--ui-checkbox-group-item-gap, var(--ui-space-1, #{t.$space-1}));
+  }
+
+  .checkbox-group--compact {
+    --_spacing: var(--ui-checkbox-group-spacing-compact, 0);
+    --_legend-spacing: var(--ui-checkbox-group-legend-spacing-compact, 0);
+    --_item-gap: var(--ui-checkbox-group-item-gap-compact, 0);
+  }
+
+  // @modifier state
+  .checkbox-group--error {
+    --_legend-color: var(--ui-checkbox-group-error-color, var(--ui-color-danger, #{t.$color-danger}));
+  }
+}
+
+@layer components.styles {
+  .checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--_legend-spacing);
+
+    min-inline-size: 0;
+    padding: 0;
+    margin: 0;
+
+    border: none;
+  }
+
+  .checkbox-group__legend {
+    padding: 0;
+
+    font-size: var(--_legend-size);
+    font-weight: var(--_legend-weight);
+    line-height: var(--ui-leading-tight-sm, var(--ui-row-1, #{t.$leading-tight-sm}));
+    color: var(--_legend-color);
+  }
+
+  .checkbox-group__items {
+    display: flex;
+    flex-direction: column;
+    gap: var(--_spacing);
+  }
+
+  .checkbox-group__item {
+    display: flex;
+    align-items: center;
+    gap: var(--_item-gap);
+
+    line-height: var(--ui-row-1, #{t.$row-1});
+
+    cursor: pointer;
+  }
+
+  .checkbox-group__item:has(:disabled) {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  // Horizontal layout
+  .checkbox-group--horizontal > .checkbox-group__items {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--ui-space-2, #{t.$space-2});
+  }
+
+  // Disabled group
+  .checkbox-group:disabled,
+  .checkbox-group[aria-disabled='true'] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}

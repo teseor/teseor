@@ -10,7 +10,7 @@ import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const COMPONENTS_DIR = join(__dirname, '../packages/css/src/04-components');
+const COMPONENTS_DIR = join(__dirname, '../packages/css/src/components');
 
 function generateVisualSpec(name, depth) {
   const testingImport = `${'../'.repeat(depth + 1)}testing`;

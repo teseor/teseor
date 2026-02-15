@@ -1,5 +1,5 @@
 ---
-to: packages/css/src/04-components/<%= group %>/<%= name %>/<%= name %>.docs.json
+to: packages/css/src/components/<%= group %>/<%= name %>/<%= name %>.docs.json
 ---
 {
   "id": "<%= name %>",

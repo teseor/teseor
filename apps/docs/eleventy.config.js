@@ -8,7 +8,7 @@ import { discoverComponents } from '../../scripts/discover-structure.js';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '../..');
 const PACKAGES_DIR = join(ROOT, 'packages');
-const COMPONENTS_DIR = join(PACKAGES_DIR, 'css/src/04-components');
+const COMPONENTS_DIR = join(PACKAGES_DIR, 'css/src/components');
 
 const TYPE_PATHS = {
   token: 'tokens',
@@ -48,7 +48,7 @@ for (const id of discoveredGroups.keys()) {
 function getGroupFromPath(docsFilePath) {
   const rel = relative(COMPONENTS_DIR, docsFilePath);
   const parts = rel.split(sep);
-  // 04-components/[group]/[name]/file.docs.json -> parts[0] = group
+  // components/[group]/[name]/file.docs.json -> parts[0] = group
   if (parts.length >= 3) {
     return parts[0];
   }

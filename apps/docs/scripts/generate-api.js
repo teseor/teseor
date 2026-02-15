@@ -18,7 +18,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '../../..');
-const COMPONENTS_DIR = join(ROOT, 'packages/css/src/04-components');
+const COMPONENTS_DIR = join(ROOT, 'packages/css/src/components');
 
 /**
  * Extract CSS custom properties from SCSS

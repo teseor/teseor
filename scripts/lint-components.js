@@ -7,7 +7,7 @@
  * - *.docs.json (documentation)
  * - *.visual.spec.ts (visual regression test)
  *
- * Scans category subdirectories under 04-components/
+ * Scans category subdirectories under components/
  */
 
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
@@ -17,7 +17,7 @@ import { fileURLToPath } from 'node:url';
 import { discoverComponents } from './discover-structure.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const COMPONENTS_DIR = join(__dirname, '../packages/css/src/04-components');
+const COMPONENTS_DIR = join(__dirname, '../packages/css/src/components');
 
 const REQUIRED_FILES = [
   { pattern: 'index.scss', description: 'styles', required: true },

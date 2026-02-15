@@ -1,0 +1,66 @@
+@use '../../../config/tokens/variables' as t;
+
+// @component icon
+// @element svg
+
+@layer components.tokens {
+  .icon {
+    // 3-tier inheritance: global > context > default
+    --_size: var(--ui-icon-size, var(--ui-ctx-size, #{t.size(md)}));
+    --_stroke: var(--ui-icon-stroke, 2);
+  }
+
+  // @modifier size
+  @each $name, $value in t.$sizes {
+    .icon--#{$name} {
+      --_size: var(--ui-icon-size-#{$name}, var(--ui-size-#{$name}, #{$value}));
+    }
+  }
+
+  // @modifier stroke
+  .icon--stroke-thin {
+    --_stroke: var(--ui-icon-stroke-thin, 1);
+  }
+
+  .icon--stroke-thick {
+    --_stroke: var(--ui-icon-stroke-thick, 2.5);
+  }
+
+  // @modifier boolean filled
+  // @modifier boolean spin
+}
+
+@layer components.styles {
+  .icon {
+    display: inline-block;
+    flex-shrink: 0;
+
+    block-size: var(--_size);
+    inline-size: var(--_size);
+
+    vertical-align: middle;
+    color: currentcolor;
+    fill: none;
+    stroke: currentcolor;
+    stroke-width: var(--_stroke);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    // For filled icons
+    &--filled {
+      fill: currentcolor;
+      stroke: none;
+    }
+
+    // Spin animation for loading states
+    &--spin {
+      animation: icon-spin 1s linear infinite;
+    }
+  }
+
+  @keyframes icon-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}

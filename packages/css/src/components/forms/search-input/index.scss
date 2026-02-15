@@ -1,0 +1,172 @@
+@use '../../../config/tokens/variables' as t;
+
+// @component search-input
+// @element div
+
+@layer components.tokens {
+  .search-input {
+    --_height: var(--ui-search-input-height, var(--ui-row-2, #{t.$row-2}));
+    --_padding-x: var(--ui-search-input-padding-x, var(--ui-space-1, #{t.$space-1}));
+    --_font-size: var(--ui-search-input-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    --_radius: var(--ui-search-input-radius, var(--ui-radius-md, #{t.$radius-md}));
+    --_bg: var(--ui-search-input-bg, var(--ui-color-bg, #{t.$color-bg}));
+    --_border-color: var(--ui-search-input-border-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
+    --_border-color-focus: var(--ui-search-input-border-color-focus, var(--ui-color-primary, #{t.$color-primary}));
+    --_text: var(--ui-search-input-text, var(--ui-color-text, #{t.$color-text}));
+    --_placeholder: var(--ui-search-input-placeholder, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    --_icon-color: var(--ui-search-input-icon-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    --_icon-size: var(--ui-search-input-icon-size, var(--ui-size-md, #{t.size(md)}));
+    --_clear-color: var(--ui-search-input-clear-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    --_clear-hover-bg: var(--ui-search-input-clear-hover-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+  }
+
+  // @modifier size
+  .search-input--sm {
+    --_height: var(--ui-search-input-height-sm, calc(#{t.$row} * 1.5));
+    --_font-size: var(--ui-search-input-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
+    --_icon-size: var(--ui-search-input-icon-size-sm, var(--ui-size-sm, #{t.size(sm)}));
+  }
+
+  .search-input--lg {
+    --_height: var(--ui-search-input-height-lg, calc(#{t.$row} * 2.5));
+    --_padding-x: var(--ui-search-input-padding-x-lg, var(--ui-space-2, #{t.$space-2}));
+    --_font-size: var(--ui-search-input-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
+    --_icon-size: var(--ui-search-input-icon-size-lg, var(--ui-size-lg, #{t.size(lg)}));
+  }
+}
+
+@layer components.styles {
+  .search-input {
+    display: inline-flex;
+    align-items: center;
+
+    block-size: var(--_height);
+
+    background: var(--_bg);
+    border: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_border-color);
+    border-radius: var(--_radius);
+
+    transition:
+      border-color var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease),
+      box-shadow var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease);
+
+    // Focus via inner field
+    &:focus-within,
+    &--focus {
+      border-color: var(--_border-color-focus);
+      box-shadow: 0 0 0 var(--ui-border-width-md, #{t.$border-width-md}) var(--ui-color-focus, #{t.$color-focus});
+    }
+
+    // Full width
+    &--block {
+      inline-size: 100%;
+    }
+
+    // Disabled
+    &--disabled,
+    &:has(.search-input__field:disabled) {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  // Search icon
+  .search-input__icon {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+
+    inline-size: var(--_height);
+
+    color: var(--_icon-color);
+
+    pointer-events: none;
+
+    svg {
+      block-size: var(--_icon-size);
+      inline-size: var(--_icon-size);
+
+      fill: none;
+      stroke: currentcolor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  }
+
+  // Native search input
+  .search-input__field {
+    flex: 1;
+
+    block-size: 100%;
+    min-inline-size: 0;
+    padding: 0;
+    padding-inline-end: var(--_padding-x);
+
+    font-family: inherit;
+    font-size: var(--_font-size);
+    line-height: 1;
+    color: var(--_text);
+
+    background: transparent;
+    border: none;
+    outline: none;
+
+    &::placeholder {
+      color: var(--_placeholder);
+    }
+
+    // Suppress native webkit cancel button
+    &::-webkit-search-cancel-button,
+    &::-webkit-search-decoration {
+      appearance: none;
+    }
+  }
+
+  // Field padding when clear button present
+  .search-input--has-clear .search-input__field {
+    padding-inline-end: 0;
+  }
+
+  // Clear button
+  .search-input__clear {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+
+    block-size: calc(var(--_height) - var(--ui-space-half, #{t.$space-0}) * 2);
+    inline-size: calc(var(--_height) - var(--ui-space-half, #{t.$space-0}) * 2);
+    margin-inline-end: calc(var(--ui-space-half, #{t.$space-0}));
+
+    color: var(--_clear-color);
+
+    background: transparent;
+    border: none;
+    border-radius: var(--ui-radius-sm, #{t.$radius-sm});
+    cursor: pointer;
+
+    transition: background var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease);
+
+    &:hover {
+      background: var(--_clear-hover-bg);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ui-color-focus, #{t.$color-focus});
+      outline-offset: -2px;
+    }
+
+    svg {
+      block-size: var(--_icon-size);
+      inline-size: var(--_icon-size);
+
+      fill: none;
+      stroke: currentcolor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  }
+}

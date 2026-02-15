@@ -1,0 +1,65 @@
+@use '../../../config/tokens/variables' as t;
+
+// Ordered and unordered lists with spacing and layout variants
+
+@layer components.tokens {
+  .list {
+    --_spacing: var(--ui-list-spacing, #{t.$unit});
+    --_marker-color: var(--ui-list-marker-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    --_indent: var(--ui-list-indent, var(--ui-space-3, #{t.$space-3}));
+    --_line-height: var(--ui-list-line-height, var(--ui-leading-md, #{t.$leading-md}));
+  }
+
+  // @modifier spacing
+  .list--compact {
+    --_spacing: 0;
+  }
+
+  .list--loose {
+    --_spacing: calc(#{t.$unit} * 2);
+  }
+}
+
+@layer components.styles {
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--_spacing);
+
+    padding-inline-start: var(--_indent);
+    margin: 0;
+
+    line-height: var(--_line-height);
+  }
+
+  .list::marker,
+  .list li::marker {
+    color: var(--_marker-color);
+  }
+
+  // Removes markers and indent
+  .list--unstyled {
+    padding-inline-start: 0;
+
+    list-style: none;
+  }
+
+  // Horizontal flow with wrapping
+  .list--inline {
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    padding-inline-start: 0;
+
+    list-style: none;
+  }
+
+  // Nested lists inherit spacing
+  .list .list {
+    margin-block-start: var(--_spacing);
+  }
+
+  .list__item {
+    line-height: var(--_line-height);
+  }
+}

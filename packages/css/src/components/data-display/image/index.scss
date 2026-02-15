@@ -1,0 +1,103 @@
+@use '../../../config/tokens/variables' as t;
+
+// @component image
+// @element figure
+
+@layer components.tokens {
+  .image {
+    --_size: var(--ui-image-size, auto);
+    --_radius: var(--ui-image-radius, 0);
+    --_object-fit: var(--ui-image-object-fit, cover);
+    --_bg: var(--ui-image-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+    --_caption-color: var(--ui-image-caption-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    --_caption-font-size: var(--ui-image-caption-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    --_caption-spacing: var(--ui-image-caption-spacing, var(--ui-space-1));
+  }
+
+  // @modifier size
+  .image--sm {
+    --_size: var(--ui-image-size-sm, calc(#{t.$unit} * 12));
+  }
+
+  .image--md {
+    --_size: var(--ui-image-size-md, calc(#{t.$unit} * 24));
+  }
+
+  .image--lg {
+    --_size: var(--ui-image-size-lg, calc(#{t.$unit} * 40));
+  }
+
+  .image--xl {
+    --_size: var(--ui-image-size-xl, calc(#{t.$unit} * 60));
+  }
+
+  .image--full {
+    --_size: 100%;
+  }
+
+  // @modifier boolean rounded
+  .image--rounded {
+    --_radius: var(--ui-image-radius-rounded, var(--ui-radius-lg, #{t.$radius-lg}));
+  }
+
+  // @modifier boolean circle
+  .image--circle {
+    --_radius: var(--ui-image-radius-circle, 50%);
+  }
+
+  // @modifier object-fit
+  .image--cover {
+    --_object-fit: cover;
+  }
+
+  .image--contain {
+    --_object-fit: contain;
+  }
+}
+
+@layer components.styles {
+  .image {
+    display: inline-block;
+
+    max-inline-size: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .image__img {
+    display: block;
+
+    block-size: var(--_size);
+    inline-size: var(--_size);
+    max-inline-size: 100%;
+
+    object-fit: var(--_object-fit);
+
+    background: var(--_bg);
+    border-radius: var(--_radius);
+  }
+
+  // Fallback when image fails to load — :not([src]) or broken src
+  // The background from --_bg shows through as placeholder
+  .image__img:not([src]),
+  .image__img[src=''] {
+    aspect-ratio: 1 / 1;
+
+    // Ensure minimum dimensions for empty state
+    min-block-size: calc(#{t.$unit} * 8);
+    min-inline-size: calc(#{t.$unit} * 8);
+  }
+
+  .image__caption {
+    margin-block-start: var(--_caption-spacing);
+
+    font-size: var(--_caption-font-size);
+    line-height: var(--ui-row-1, #{t.$row-1});
+    color: var(--_caption-color);
+  }
+
+  // Circle needs equal aspect ratio to stay round
+  .image--circle .image__img {
+    aspect-ratio: 1 / 1;
+  }
+}

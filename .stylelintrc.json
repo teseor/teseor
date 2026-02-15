@@ -254,17 +254,14 @@
 
   "overrides": [
     {
-      "files": [
-        "packages/css/src/00-config/tokens/**/*.scss",
-        "packages/css/src/99-debug/**/*.scss"
-      ],
+      "files": ["packages/css/src/config/tokens/**/*.scss", "packages/css/src/debug/**/*.scss"],
       "rules": {
         "unit-disallowed-list": null,
         "declaration-property-value-disallowed-list": null
       }
     },
     {
-      "files": ["packages/css/src/05-utilities/**/*.scss"],
+      "files": ["packages/css/src/utilities/**/*.scss"],
       "rules": {
         "declaration-property-value-disallowed-list": {
           "/^margin|padding|gap|inset/": ["/^\\d+(\\.\\d+)?px$/", "/^\\d+(\\.\\d+)?rem$/"],

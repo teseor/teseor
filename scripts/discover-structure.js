@@ -19,7 +19,7 @@ function humanize(slug) {
 }
 
 /**
- * Scan 03-layout/ for primitives (dirs with index.scss).
+ * Scan layout/ for primitives (dirs with index.scss).
  * Returns sorted array of primitive names.
  */
 export function discoverPrimitives(layoutDir) {
@@ -34,7 +34,7 @@ export function discoverPrimitives(layoutDir) {
 }
 
 /**
- * Scan 04-components/[group]/[name]/ structure.
+ * Scan components/[group]/[name]/ structure.
  * Returns Map<groupId, { label, components[] }> where components are sorted.
  */
 export function discoverComponents(componentsDir) {

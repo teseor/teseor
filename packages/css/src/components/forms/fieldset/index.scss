@@ -1,0 +1,69 @@
+@use '../../../config/tokens/variables' as t;
+
+// Fieldset - groups related form fields
+// Resets native fieldset chrome, provides consistent spacing and optional border
+
+@layer components.tokens {
+  .fieldset {
+    --_spacing: var(--ui-fieldset-spacing, var(--ui-space-2, #{t.$space-2}));
+    --_border-color: var(--ui-fieldset-border-color, var(--ui-color-border, #{t.$color-border}));
+    --_border-width: var(--ui-fieldset-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    --_border-radius: var(--ui-fieldset-border-radius, var(--ui-radius-md, #{t.$radius-md}));
+    --_padding: var(--ui-fieldset-padding, var(--ui-space-2, #{t.$space-2}));
+    --_legend-size: var(--ui-fieldset-legend-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    --_legend-weight: var(--ui-fieldset-legend-weight, var(--ui-weight-medium, #{t.$weight-medium}));
+    --_legend-color: var(--ui-fieldset-legend-color, var(--ui-color-text, #{t.$color-text}));
+  }
+
+  .fieldset--compact {
+    --_spacing: var(--ui-fieldset-spacing-compact, var(--ui-space-1, #{t.$space-1}));
+    --_padding: var(--ui-fieldset-padding-compact, var(--ui-space-1, #{t.$space-1}));
+  }
+}
+
+@layer components.styles {
+  .fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: var(--_spacing);
+
+    min-inline-size: 0;
+    padding: 0;
+    margin: 0;
+
+    border: none;
+  }
+
+  .fieldset__legend {
+    inline-size: 100%;
+    padding: 0;
+
+    font-size: var(--_legend-size);
+    font-weight: var(--_legend-weight);
+    line-height: var(--ui-leading-tight-sm, var(--ui-row-1, #{t.$leading-tight-sm}));
+    color: var(--_legend-color);
+  }
+
+  // Bordered variant - visible border wrapping the group
+  // Legend absorbs the top border; compensate bottom border to keep grid rhythm
+  .fieldset--bordered {
+    padding: var(--_padding);
+    padding-block-end: calc(var(--_padding) - var(--_border-width));
+
+    border: var(--_border-width) solid var(--_border-color);
+    border-radius: var(--_border-radius);
+  }
+
+  .fieldset--bordered > .fieldset__legend {
+    inline-size: auto;
+    padding-inline: var(--ui-space-half, #{t.$space-0});
+    margin-inline-start: calc(-1 * var(--ui-space-half, #{t.$space-0}));
+  }
+
+  // Disabled state - fieldset[disabled] natively disables children
+  .fieldset:disabled,
+  .fieldset[aria-disabled='true'] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
