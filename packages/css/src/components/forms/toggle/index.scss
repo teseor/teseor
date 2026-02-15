@@ -107,7 +107,7 @@
   // Disabled state
   .toggle__input:disabled ~ .toggle__track,
   .toggle__input:disabled ~ .toggle__thumb {
-    opacity: 0.5;
+    opacity: var(--ui-opacity-disabled, 0.5);
     cursor: not-allowed;
   }
 
