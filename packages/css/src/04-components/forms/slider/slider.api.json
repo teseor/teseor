@@ -1,0 +1,70 @@
+{
+  "name": "slider",
+  "element": "input",
+  "modifiers": {
+    "size": {
+      "values": ["sm", "lg"]
+    },
+    "color": {
+      "values": ["success", "warning", "danger"]
+    }
+  },
+  "cssVars": [
+    {
+      "name": "--ui-slider-height",
+      "default": "var(--ui-row-2)"
+    },
+    {
+      "name": "--ui-slider-height-sm",
+      "default": "calc(var(--ui-row) * 1.5)"
+    },
+    {
+      "name": "--ui-slider-height-lg",
+      "default": "calc(var(--ui-row) * 2.5)"
+    },
+    {
+      "name": "--ui-slider-track-height",
+      "default": "var(--ui-unit)"
+    },
+    {
+      "name": "--ui-slider-track-bg",
+      "default": "var(--ui-color-bg-subtle)"
+    },
+    {
+      "name": "--ui-slider-track-fill",
+      "default": "var(--ui-color-primary)"
+    },
+    {
+      "name": "--ui-slider-track-radius",
+      "default": "var(--ui-radius-full)"
+    },
+    {
+      "name": "--ui-slider-thumb-size",
+      "default": "calc(var(--ui-unit) * 2.5)"
+    },
+    {
+      "name": "--ui-slider-thumb-bg",
+      "default": "var(--ui-color-bg)"
+    },
+    {
+      "name": "--ui-slider-thumb-border-color",
+      "default": "var(--ui-color-primary)"
+    },
+    {
+      "name": "--ui-slider-thumb-border-width",
+      "default": "var(--ui-border-width-md)"
+    },
+    {
+      "name": "--ui-slider-thumb-radius",
+      "default": "var(--ui-radius-full)"
+    },
+    {
+      "name": "--ui-slider-thumb-shadow",
+      "default": "0 1px 3px rgb(0 0 0 / 0.2)"
+    },
+    {
+      "name": "--ui-slider-focus-ring",
+      "default": "var(--ui-color-focus)"
+    }
+  ]
+}
