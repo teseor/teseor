@@ -1,4 +1,7 @@
 {
+  "id": "tabs",
+  "type": "component",
+  "title": "Tabs",
   "api": "./tabs.api.json",
   "sections": [
     {

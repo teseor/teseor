@@ -1,4 +1,7 @@
 {
+  "id": "card",
+  "type": "component",
+  "title": "Card",
   "api": "./card.api.json",
   "sections": [
     {

@@ -1,4 +1,7 @@
 {
+  "id": "toast",
+  "type": "component",
+  "title": "Toast",
   "api": "./toast.api.json",
   "sections": [
     {
