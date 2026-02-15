@@ -217,22 +217,7 @@
       "bottom": ["/.*/"]
     },
 
-    "property-disallowed-list": [
-      "float",
-      "clear",
-      "margin-left",
-      "margin-right",
-      "margin-top",
-      "margin-bottom",
-      "padding-left",
-      "padding-right",
-      "padding-top",
-      "padding-bottom",
-      "border-left",
-      "border-right",
-      "border-top",
-      "border-bottom"
-    ],
+    "property-disallowed-list": ["float", "clear"],
 
     "selector-max-id": 0,
     "selector-max-type": [2, { "ignoreTypes": ["html", "body"] }],
