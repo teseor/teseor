@@ -14,6 +14,16 @@
   --ui-color-interactive-hover: var(--ui-color-primary-dark);
 
   --ui-color-focus: var(--ui-color-primary-light);
+
+  // State opacity
+  --ui-opacity-disabled: 0.5;
+  --ui-opacity-loading: 0.7;
+
+  // Overlay backgrounds
+  --ui-overlay-bg: rgb(0 0 0 / 0.5);
+  --ui-overlay-bg-light: rgb(255 255 255 / 0.7);
+  --ui-overlay-bg-blur: rgb(0 0 0 / 0.3);
+  --ui-overlay-bg-subtle: rgb(0 0 0 / 0.1);
 }
 
 [data-theme="dark"] {
