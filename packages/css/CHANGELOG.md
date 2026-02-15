@@ -1,5 +1,17 @@
 # @teseor/css
 
+## 1.8.0
+
+### Minor Changes
+
+- 8ea2179: Add accessibility features: focus-visible upgrade, prefers-reduced-motion, prefers-color-scheme auto-detection, forced-colors support
+- bebbb65: Add missing component modifiers: badge/tag lg size, checkbox/radio success state, card interactive variant, alert size/dismissible, tabs size/vertical orientation. Fix 8 docs.json missing id/title. Add 5 layout visual specs. Update hygen template.
+- 5e51837: Reorganize project structure: remove numbered folder prefixes, rename layout primitives (stack to column, cluster to row, remove flex), consolidate related doc pages via mergeInto, redesign sidenav with collapsible groups, convert scripts to TypeScript
+
+### Patch Changes
+
+- 86b0f29: Fix text-only item rendering in test HTML generator, convert grid-alignment test to self-contained
+
 ## 1.7.0
 
 ### Minor Changes
