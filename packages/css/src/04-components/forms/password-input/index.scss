@@ -1,0 +1,138 @@
+@use '../../../00-config/tokens/variables' as t;
+
+// @component password-input
+// @element div
+
+@layer components.tokens {
+  .password-input {
+    --_height: var(--ui-password-input-height, var(--ui-row-2, #{t.$row-2}));
+    --_padding-x: var(--ui-password-input-padding-x, var(--ui-space-1, #{t.$space-1}));
+    --_font-size: var(--ui-password-input-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    --_radius: var(--ui-password-input-radius, var(--ui-radius-md, #{t.$radius-md}));
+    --_bg: var(--ui-password-input-bg, var(--ui-color-bg, #{t.$color-bg}));
+    --_border-color: var(--ui-password-input-border-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
+    --_border-color-focus: var(--ui-password-input-border-color-focus, var(--ui-color-primary, #{t.$color-primary}));
+    --_text: var(--ui-password-input-text, var(--ui-color-text, #{t.$color-text}));
+    --_placeholder: var(--ui-password-input-placeholder, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    --_toggle-color: var(--ui-password-input-toggle-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    --_toggle-hover-bg: var(--ui-password-input-toggle-hover-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+  }
+
+  // @modifier size
+  .password-input--sm {
+    --_height: var(--ui-password-input-height-sm, calc(#{t.$row} * 1.5));
+    --_font-size: var(--ui-password-input-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
+  }
+
+  .password-input--lg {
+    --_height: var(--ui-password-input-height-lg, calc(#{t.$row} * 2.5));
+    --_padding-x: var(--ui-password-input-padding-x-lg, var(--ui-space-2, #{t.$space-2}));
+    --_font-size: var(--ui-password-input-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
+  }
+
+  // @modifier state
+  .password-input--error {
+    --_border-color: var(--ui-password-input-error-border, var(--ui-color-danger, #{t.$color-danger}));
+    --_border-color-focus: var(--ui-password-input-error-border, var(--ui-color-danger, #{t.$color-danger}));
+  }
+
+  .password-input--success {
+    --_border-color: var(--ui-password-input-success-border, var(--ui-color-success, #{t.$color-success}));
+    --_border-color-focus: var(--ui-password-input-success-border, var(--ui-color-success, #{t.$color-success}));
+  }
+}
+
+@layer components.styles {
+  .password-input {
+    display: inline-flex;
+    align-items: center;
+
+    block-size: var(--_height);
+
+    background: var(--_bg);
+    border: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_border-color);
+    border-radius: var(--_radius);
+
+    transition:
+      border-color var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease),
+      box-shadow var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease);
+
+    &:focus-within,
+    &--focus {
+      border-color: var(--_border-color-focus);
+      box-shadow: 0 0 0 var(--ui-border-width-md, #{t.$border-width-md}) var(--ui-color-focus, #{t.$color-focus});
+    }
+
+    &--block {
+      inline-size: 100%;
+    }
+
+    &--disabled,
+    &:has(.password-input__field:disabled) {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  .password-input__field {
+    flex: 1;
+
+    block-size: 100%;
+    min-inline-size: 0;
+    padding: 0;
+    padding-inline-start: var(--_padding-x);
+
+    font-family: inherit;
+    font-size: var(--_font-size);
+    line-height: 1;
+    color: var(--_text);
+
+    background: transparent;
+    border: none;
+    outline: none;
+
+    &::placeholder {
+      color: var(--_placeholder);
+    }
+  }
+
+  .password-input__toggle {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+
+    block-size: calc(var(--_height) - var(--ui-space-half, #{t.$space-0}) * 2);
+    inline-size: calc(var(--_height) - var(--ui-space-half, #{t.$space-0}) * 2);
+    margin-inline-end: calc(var(--ui-space-half, #{t.$space-0}));
+
+    color: var(--_toggle-color);
+
+    background: transparent;
+    border: none;
+    border-radius: var(--ui-radius-sm, #{t.$radius-sm});
+    cursor: pointer;
+
+    transition: background var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease);
+
+    &:hover {
+      background: var(--_toggle-hover-bg);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ui-color-focus, #{t.$color-focus});
+      outline-offset: -2px;
+    }
+
+    svg {
+      block-size: var(--ui-size-md, #{t.size(md)});
+      inline-size: var(--ui-size-md, #{t.size(md)});
+
+      fill: none;
+      stroke: currentcolor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  }
+}
