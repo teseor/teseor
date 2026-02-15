@@ -13,6 +13,7 @@
     "section": {},
     "actions": {}
   },
+  "relatedComponents": ["form-error", "form-helper"],
   "cssVars": [
     {
       "name": "--ui-form-spacing",
