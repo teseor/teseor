@@ -151,6 +151,8 @@ interface ApiJson {
 }
 
 interface DocsJson {
+  id?: string;
+  title?: string;
   sections?: { examples?: { items?: Record<string, unknown>[] }[] }[];
   [key: string]: unknown;
 }
@@ -164,9 +166,18 @@ function lintJsonContent(): void {
     // Validate api.json
     const apiFiles = readdirSync(path).filter((f) => f.endsWith('.api.json'));
     for (const apiFile of apiFiles) {
+      const raw = readFileSync(join(path, apiFile), 'utf-8');
+
+      // Detect SCSS interpolation leaks (e.g. #{t.$unit})
+      if (raw.includes('#{')) {
+        errors.push(
+          `${name}/${apiFile}: contains SCSS interpolation "#{" — values must be resolved`,
+        );
+      }
+
       let data: ApiJson;
       try {
-        data = JSON.parse(readFileSync(join(path, apiFile), 'utf-8'));
+        data = JSON.parse(raw);
       } catch (e) {
         errors.push(`${name}/${apiFile}: invalid JSON — ${e instanceof Error ? e.message : e}`);
         continue;
@@ -190,15 +201,23 @@ function lintJsonContent(): void {
         continue;
       }
 
-      // Warn on raw html strings in items (prefer config format)
+      // Require id and title fields
+      if (!data.id) {
+        errors.push(`${name}/${docsFile}: missing required "id" field`);
+      }
+      if (!data.title) {
+        errors.push(`${name}/${docsFile}: missing required "title" field`);
+      }
+
+      // Ban raw html strings in items (must use tag/class/text/children config format)
       if (data.sections) {
         for (const section of data.sections) {
           for (const example of section.examples || []) {
             if (example.items) {
               for (const item of example.items) {
                 if ('html' in item) {
-                  warnings.push(
-                    `${name}/${docsFile}: items should use tag/class/text/children, not raw "html"`,
+                  errors.push(
+                    `${name}/${docsFile}: items must use tag/class/text/children, not raw "html"`,
                   );
                   break;
                 }
