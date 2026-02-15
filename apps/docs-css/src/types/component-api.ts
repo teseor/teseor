@@ -29,8 +29,8 @@ export interface ComponentAPI {
   /** Component name (e.g., "button") */
   name: string;
 
-  /** Base CSS class without prefix (e.g., "button") */
-  baseClass: string;
+  /** Base CSS class without prefix, defaults to name */
+  baseClass?: string;
 
   /** Default HTML element (e.g., "button", "div") */
   element: string;
@@ -63,14 +63,14 @@ export function isEnumModifier(mod: ModifierDef): mod is EnumModifier {
  * Get all CSS classes for a component from its API
  */
 export function getAllClasses(api: ComponentAPI, prefix = 'ui-'): string[] {
-  const classes: string[] = [`${prefix}${api.baseClass}`];
+  const classes: string[] = [`${prefix}${api.baseClass ?? api.name}`];
 
   for (const [name, mod] of Object.entries(api.modifiers)) {
     if (isBooleanModifier(mod)) {
-      classes.push(`${prefix}${api.baseClass}--${name}`);
+      classes.push(`${prefix}${api.baseClass ?? api.name}--${name}`);
     } else if (isEnumModifier(mod)) {
       for (const value of mod.values) {
-        classes.push(`${prefix}${api.baseClass}--${value}`);
+        classes.push(`${prefix}${api.baseClass ?? api.name}--${value}`);
       }
     }
   }

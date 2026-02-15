@@ -30,7 +30,7 @@ function capitalize(s: string): string {
 }
 
 export function generateVariationsHtml(api: ComponentAPI): string {
-  const baseClass = `${PREFIX}${api.baseClass}`;
+  const baseClass = `${PREFIX}${api.baseClass ?? api.name}`;
   const element = api.element;
   const title = capitalize(api.name);
 

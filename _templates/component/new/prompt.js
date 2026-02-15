@@ -7,7 +7,7 @@ const GROUPS = [
   'overlays',
   'disclosure',
   'navigation',
-  'layout',
+  'content',
 ];
 
 module.exports = {
