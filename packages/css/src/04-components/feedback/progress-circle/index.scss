@@ -1,0 +1,92 @@
+@use '../../../00-config/tokens/variables' as t;
+
+// Progress Circle - circular progress indicator
+// Uses SVG circles with stroke-dasharray/dashoffset driven by --ui-progress-circle-value
+
+@layer components.tokens {
+  .progress-circle {
+    --_size: var(--ui-progress-circle-size, calc(var(--unit) * 6));
+    --_stroke-width: var(--ui-progress-circle-stroke-width, 8);
+    --_fill-color: var(--ui-progress-circle-fill-color, var(--ui-color-primary));
+    --_track-color: var(--ui-progress-circle-track-color, var(--ui-color-border));
+    --_value: var(--ui-progress-circle-value, 0);
+    --_circumference: 282.743;
+  }
+
+  // @modifier size
+  .progress-circle--sm {
+    --_size: var(--ui-progress-circle-size-sm, calc(var(--unit) * 4));
+  }
+
+  .progress-circle--lg {
+    --_size: var(--ui-progress-circle-size-lg, calc(var(--unit) * 8));
+  }
+
+  .progress-circle--xl {
+    --_size: var(--ui-progress-circle-size-xl, calc(var(--unit) * 12));
+  }
+
+  // @modifier variant
+  .progress-circle--success {
+    --_fill-color: var(--ui-color-success);
+  }
+
+  .progress-circle--warning {
+    --_fill-color: var(--ui-color-warning);
+  }
+
+  .progress-circle--danger {
+    --_fill-color: var(--ui-color-danger);
+  }
+}
+
+@layer components.styles {
+  .progress-circle {
+    display: inline-block;
+    flex-shrink: 0;
+
+    block-size: var(--_size);
+    inline-size: var(--_size);
+
+    vertical-align: middle;
+    transform: rotate(-90deg);
+  }
+
+  .progress-circle__track {
+    fill: none;
+    stroke: var(--_track-color);
+    stroke-width: var(--_stroke-width);
+  }
+
+  .progress-circle__fill {
+    fill: none;
+    stroke: var(--_fill-color);
+    stroke-width: var(--_stroke-width);
+    stroke-linecap: round;
+    stroke-dasharray: var(--_circumference);
+    stroke-dashoffset: calc(var(--_circumference) * (1 - var(--_value) / 100));
+
+    transition: stroke-dashoffset var(--ui-duration-slow, 300ms) var(--ui-ease-default, ease);
+  }
+
+  // Indeterminate - rotating partial arc
+  .progress-circle--indeterminate {
+    animation: progress-circle-rotate 1.4s linear infinite;
+  }
+
+  .progress-circle--indeterminate .progress-circle__fill {
+    stroke-dashoffset: calc(var(--_circumference) * 0.25);
+
+    transition: none;
+  }
+
+  @keyframes progress-circle-rotate {
+    from {
+      transform: rotate(-90deg);
+    }
+
+    to {
+      transform: rotate(270deg);
+    }
+  }
+}
