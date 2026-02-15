@@ -58,10 +58,14 @@
       "description": "Line color"
     },
     { "token": "--ui-divider-line-size", "default": "1px", "description": "Line thickness" },
-    { "token": "--ui-divider-height", "default": "var(--unit)", "description": "Container height" },
+    {
+      "token": "--ui-divider-height",
+      "default": "var(--ui-unit)",
+      "description": "Container height"
+    },
     {
       "token": "--ui-divider-gap",
-      "default": "calc(var(--unit) * 2)",
+      "default": "calc(var(--ui-unit) * 2)",
       "description": "Vertical margin"
     }
   ]

@@ -65,7 +65,7 @@
   "customization": [
     {
       "token": "--ui-progress-height",
-      "default": "calc(var(--unit) * 1)",
+      "default": "calc(var(--ui-unit) * 1)",
       "description": "Bar height"
     },
     {

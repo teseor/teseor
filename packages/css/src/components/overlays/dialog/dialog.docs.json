@@ -36,17 +36,17 @@
   "customization": [
     {
       "token": "--ui-dialog-header-padding",
-      "default": "calc(var(--unit) * 2) calc(var(--unit) * 3)",
+      "default": "calc(var(--ui-unit) * 2) calc(var(--ui-unit) * 3)",
       "description": "Header padding"
     },
     {
       "token": "--ui-dialog-body-padding",
-      "default": "calc(var(--unit) * 3)",
+      "default": "calc(var(--ui-unit) * 3)",
       "description": "Body padding"
     },
     {
       "token": "--ui-dialog-footer-padding",
-      "default": "calc(var(--unit) * 2) calc(var(--unit) * 3)",
+      "default": "calc(var(--ui-unit) * 2) calc(var(--ui-unit) * 3)",
       "description": "Footer padding"
     },
     {

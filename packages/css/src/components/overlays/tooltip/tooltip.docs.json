@@ -40,12 +40,12 @@
     },
     {
       "token": "--ui-tooltip-padding-x",
-      "default": "calc(var(--unit) * 1)",
+      "default": "calc(var(--ui-unit) * 1)",
       "description": "Horizontal padding"
     },
     {
       "token": "--ui-tooltip-padding-y",
-      "default": "calc(var(--unit) / 2)",
+      "default": "calc(var(--ui-unit) / 2)",
       "description": "Vertical padding"
     },
     {
@@ -55,7 +55,7 @@
     },
     {
       "token": "--ui-tooltip-arrow-size",
-      "default": "calc(var(--unit) / 2)",
+      "default": "calc(var(--ui-unit) / 2)",
       "description": "Arrow size"
     },
     { "token": "--ui-tooltip-z", "default": "var(--ui-z-tooltip)", "description": "Z-index" }

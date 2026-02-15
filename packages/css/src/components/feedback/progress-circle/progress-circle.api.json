@@ -19,7 +19,7 @@
   "cssVars": [
     {
       "name": "--ui-progress-circle-size",
-      "default": "calc(var(--unit) * 6)"
+      "default": "calc(var(--ui-unit) * 6)"
     },
     {
       "name": "--ui-progress-circle-stroke-width",
@@ -39,15 +39,15 @@
     },
     {
       "name": "--ui-progress-circle-size-sm",
-      "default": "calc(var(--unit) * 4)"
+      "default": "calc(var(--ui-unit) * 4)"
     },
     {
       "name": "--ui-progress-circle-size-lg",
-      "default": "calc(var(--unit) * 8)"
+      "default": "calc(var(--ui-unit) * 8)"
     },
     {
       "name": "--ui-progress-circle-size-xl",
-      "default": "calc(var(--unit) * 12)"
+      "default": "calc(var(--ui-unit) * 12)"
     }
   ]
 }

@@ -351,7 +351,7 @@
   "customization": [
     {
       "token": "--ui-progress-circle-size",
-      "default": "calc(var(--unit) * 6)",
+      "default": "calc(var(--ui-unit) * 6)",
       "description": "Circle diameter"
     },
     {

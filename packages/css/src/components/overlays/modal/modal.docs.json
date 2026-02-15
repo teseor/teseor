@@ -58,27 +58,27 @@
     },
     {
       "token": "--ui-modal-padding",
-      "default": "calc(var(--unit) * 3)",
+      "default": "calc(var(--ui-unit) * 3)",
       "description": "Content padding"
     },
     {
       "token": "--ui-modal-max-width",
-      "default": "calc(var(--unit) * 60)",
+      "default": "calc(var(--ui-unit) * 60)",
       "description": "Max width (default)"
     },
     {
       "token": "--ui-modal-max-width-sm",
-      "default": "calc(var(--unit) * 40)",
+      "default": "calc(var(--ui-unit) * 40)",
       "description": "Max width (small)"
     },
     {
       "token": "--ui-modal-max-width-lg",
-      "default": "calc(var(--unit) * 80)",
+      "default": "calc(var(--ui-unit) * 80)",
       "description": "Max width (large)"
     },
     {
       "token": "--ui-modal-max-height",
-      "default": "calc(100vh - var(--unit) * 8)",
+      "default": "calc(100vh - var(--ui-unit) * 8)",
       "description": "Max height"
     },
     { "token": "--ui-modal-z", "default": "var(--ui-z-modal)", "description": "Z-index" }
