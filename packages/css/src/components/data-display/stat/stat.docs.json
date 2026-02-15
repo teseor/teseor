@@ -29,7 +29,7 @@
           "items": [
             {
               "tag": "div",
-              "class": "ui-cluster ui-cluster--lg",
+              "class": "ui-row ui-row--lg",
               "children": [
                 {
                   "tag": "div",

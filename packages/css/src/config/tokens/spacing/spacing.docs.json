@@ -8,11 +8,11 @@
     {
       "examples": [
         {
-          "layout": "cluster",
+          "layout": "row",
           "items": [
             {
               "tag": "div",
-              "class": "ui-stack ui-stack--xs",
+              "class": "ui-column ui-column--xs",
               "style": { "align-items": "center" },
               "children": [
                 {
@@ -28,7 +28,7 @@
             },
             {
               "tag": "div",
-              "class": "ui-stack ui-stack--xs",
+              "class": "ui-column ui-column--xs",
               "style": { "align-items": "center" },
               "children": [
                 {
@@ -44,7 +44,7 @@
             },
             {
               "tag": "div",
-              "class": "ui-stack ui-stack--xs",
+              "class": "ui-column ui-column--xs",
               "style": { "align-items": "center" },
               "children": [
                 {
@@ -60,7 +60,7 @@
             },
             {
               "tag": "div",
-              "class": "ui-stack ui-stack--xs",
+              "class": "ui-column ui-column--xs",
               "style": { "align-items": "center" },
               "children": [
                 {
@@ -76,7 +76,7 @@
             },
             {
               "tag": "div",
-              "class": "ui-stack ui-stack--xs",
+              "class": "ui-column ui-column--xs",
               "style": { "align-items": "center" },
               "children": [
                 {
@@ -92,7 +92,7 @@
             },
             {
               "tag": "div",
-              "class": "ui-stack ui-stack--xs",
+              "class": "ui-column ui-column--xs",
               "style": { "align-items": "center" },
               "children": [
                 {

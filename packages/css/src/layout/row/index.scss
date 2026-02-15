@@ -1,0 +1,18 @@
+@layer primitives {
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--row-gap, var(--ui-space-2));
+  }
+
+  .row--xs { --row-gap: var(--ui-space-1); }
+  .row--sm { --row-gap: var(--ui-space-2); }
+  .row--md { --row-gap: var(--ui-space-4); }
+  .row--lg { --row-gap: var(--ui-space-6); }
+
+  .row--start { justify-content: flex-start; }
+  .row--center { justify-content: center; }
+  .row--end { justify-content: flex-end; }
+  .row--between { justify-content: space-between; }
+}

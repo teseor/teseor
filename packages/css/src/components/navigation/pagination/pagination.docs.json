@@ -30,15 +30,15 @@
       "examples": [
         {
           "html": "<nav class=\"ui-pagination ui-pagination--sm\"><ul class=\"ui-pagination__list\"><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link\" href=\"#\">1</a></li><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link ui-pagination__link--active\" aria-current=\"page\" href=\"#\">2</a></li><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link\" href=\"#\">3</a></li></ul></nav>",
-          "layout": "stack"
+          "layout": "column"
         },
         {
           "html": "<nav class=\"ui-pagination\"><ul class=\"ui-pagination__list\"><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link\" href=\"#\">1</a></li><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link ui-pagination__link--active\" aria-current=\"page\" href=\"#\">2</a></li><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link\" href=\"#\">3</a></li></ul></nav>",
-          "layout": "stack"
+          "layout": "column"
         },
         {
           "html": "<nav class=\"ui-pagination ui-pagination--lg\"><ul class=\"ui-pagination__list\"><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link\" href=\"#\">1</a></li><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link ui-pagination__link--active\" aria-current=\"page\" href=\"#\">2</a></li><li class=\"ui-pagination__item\"><a class=\"ui-pagination__link\" href=\"#\">3</a></li></ul></nav>",
-          "layout": "stack"
+          "layout": "column"
         }
       ]
     }

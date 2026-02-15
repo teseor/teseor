@@ -41,15 +41,15 @@
       "examples": [
         {
           "html": "<dl class=\"ui-data-list ui-data-list--sm\"><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Small</dt><dd class=\"ui-data-list__value\">Compact display</dd></div></dl>",
-          "layout": "stack"
+          "layout": "column"
         },
         {
           "html": "<dl class=\"ui-data-list\"><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Default</dt><dd class=\"ui-data-list__value\">Standard display</dd></div></dl>",
-          "layout": "stack"
+          "layout": "column"
         },
         {
           "html": "<dl class=\"ui-data-list ui-data-list--lg\"><div class=\"ui-data-list__item\"><dt class=\"ui-data-list__label\">Large</dt><dd class=\"ui-data-list__value\">Spacious display</dd></div></dl>",
-          "layout": "stack"
+          "layout": "column"
         }
       ]
     }

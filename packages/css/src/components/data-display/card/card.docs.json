@@ -23,7 +23,7 @@
       },
       "examples": [
         {
-          "layout": "stack",
+          "layout": "column",
           "items": [
             { "tag": "div", "class": "ui-card", "text": "Default background" },
             { "tag": "div", "class": "ui-card ui-card--subtle", "text": "Subtle background" },
@@ -45,7 +45,7 @@
       },
       "examples": [
         {
-          "layout": "stack",
+          "layout": "column",
           "items": [
             { "tag": "div", "class": "ui-card ui-card--sm", "text": "Small padding" },
             { "tag": "div", "class": "ui-card", "text": "Default padding" },

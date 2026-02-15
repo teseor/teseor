@@ -17,7 +17,7 @@
       "title": "Sizes",
       "examples": [
         {
-          "layout": "stack",
+          "layout": "column",
           "items": [
             {
               "tag": "textarea",
@@ -43,7 +43,7 @@
       "title": "Variants",
       "examples": [
         {
-          "layout": "stack",
+          "layout": "column",
           "items": [
             {
               "tag": "textarea",
@@ -69,7 +69,7 @@
       "title": "States",
       "examples": [
         {
-          "layout": "stack",
+          "layout": "column",
           "items": [
             {
               "tag": "textarea",
@@ -103,7 +103,7 @@
       "api": "./textarea.api.json",
       "examples": [
         {
-          "layout": "stack",
+          "layout": "column",
           "items": [
             {
               "tag": "textarea",

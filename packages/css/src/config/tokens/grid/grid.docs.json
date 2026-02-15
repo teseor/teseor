@@ -8,7 +8,7 @@
     {
       "examples": [
         {
-          "layout": "stack",
+          "layout": "column",
           "items": [
             {
               "tag": "div",

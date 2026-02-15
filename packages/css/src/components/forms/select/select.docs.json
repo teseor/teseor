@@ -17,7 +17,7 @@
       "title": "Sizes",
       "examples": [
         {
-          "layout": "stack",
+          "layout": "column",
           "items": [
             {
               "tag": "select",
@@ -43,7 +43,7 @@
       "title": "Variants",
       "examples": [
         {
-          "layout": "stack",
+          "layout": "column",
           "items": [
             { "tag": "select", "class": "ui-select", "html": "<option>Outline (default)</option>" },
             {
@@ -65,7 +65,7 @@
       "title": "States",
       "examples": [
         {
-          "layout": "stack",
+          "layout": "column",
           "items": [
             {
               "tag": "select",

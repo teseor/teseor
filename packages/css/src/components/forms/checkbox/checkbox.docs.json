@@ -9,7 +9,7 @@
       "title": "Default",
       "examples": [
         {
-          "layout": "cluster",
+          "layout": "row",
           "items": [
             { "tag": "input", "class": "ui-checkbox", "attrs": { "type": "checkbox" } },
             {
@@ -26,7 +26,7 @@
       "title": "Sizes",
       "examples": [
         {
-          "layout": "cluster",
+          "layout": "row",
           "items": [
             {
               "tag": "input",
@@ -52,7 +52,7 @@
       "title": "States",
       "examples": [
         {
-          "layout": "cluster",
+          "layout": "row",
           "items": [
             { "tag": "input", "class": "ui-checkbox", "attrs": { "type": "checkbox" } },
             {
@@ -79,7 +79,7 @@
       "title": "Error State",
       "examples": [
         {
-          "layout": "cluster",
+          "layout": "row",
           "items": [
             {
               "tag": "input",
@@ -100,8 +100,8 @@
       "title": "With Label",
       "examples": [
         {
-          "html": "<label class=\"ui-cluster\" style=\"gap: var(--ui-space-1); cursor: pointer;\"><input type=\"checkbox\" class=\"ui-checkbox\"><span>Accept terms and conditions</span></label>",
-          "code": "<label class=\"ui-cluster\">\n  <input type=\"checkbox\" class=\"ui-checkbox\">\n  <span>Accept terms</span>\n</label>"
+          "html": "<label class=\"ui-row\" style=\"gap: var(--ui-space-1); cursor: pointer;\"><input type=\"checkbox\" class=\"ui-checkbox\"><span>Accept terms and conditions</span></label>",
+          "code": "<label class=\"ui-row\">\n  <input type=\"checkbox\" class=\"ui-checkbox\">\n  <span>Accept terms</span>\n</label>"
         }
       ]
     }

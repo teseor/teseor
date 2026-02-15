@@ -141,7 +141,7 @@
           "items": [
             {
               "tag": "div",
-              "class": "ui-stack",
+              "class": "ui-column",
               "style": {
                 "gap": "var(--ui-space-2)"
               },

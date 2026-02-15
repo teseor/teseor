@@ -9,7 +9,7 @@
       "title": "Default",
       "examples": [
         {
-          "layout": "cluster",
+          "layout": "row",
           "items": [
             { "tag": "span", "class": "ui-tag", "text": "Tag" },
             { "tag": "span", "class": "ui-tag", "text": "Category" },
@@ -23,7 +23,7 @@
       "title": "Sizes",
       "examples": [
         {
-          "layout": "cluster",
+          "layout": "row",
           "items": [
             { "tag": "span", "class": "ui-tag ui-tag--sm", "text": "Small" },
             { "tag": "span", "class": "ui-tag", "text": "Default" }
@@ -36,7 +36,7 @@
       "title": "Variants",
       "examples": [
         {
-          "layout": "cluster",
+          "layout": "row",
           "items": [
             { "tag": "span", "class": "ui-tag", "text": "Default" },
             { "tag": "span", "class": "ui-tag ui-tag--primary", "text": "Primary" },

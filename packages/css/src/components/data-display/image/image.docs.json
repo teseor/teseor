@@ -33,7 +33,7 @@
       "title": "Sizes",
       "examples": [
         {
-          "layout": "cluster",
+          "layout": "row",
           "items": [
             {
               "tag": "figure",
@@ -110,7 +110,7 @@
       "title": "Circle",
       "examples": [
         {
-          "layout": "cluster",
+          "layout": "row",
           "items": [
             {
               "tag": "figure",
@@ -149,7 +149,7 @@
       "title": "Object Fit",
       "examples": [
         {
-          "layout": "cluster",
+          "layout": "row",
           "items": [
             {
               "tag": "figure",
@@ -217,7 +217,7 @@
       "title": "Fallback",
       "examples": [
         {
-          "layout": "cluster",
+          "layout": "row",
           "items": [
             {
               "tag": "figure",

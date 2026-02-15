@@ -27,11 +27,11 @@
       "title": "Sidebar Widths",
       "examples": [
         {
-          "layout": "stack",
+          "layout": "column",
           "items": [
             {
               "tag": "div",
-              "class": "ui-cluster ui-cluster--sm",
+              "class": "ui-row ui-row--sm",
               "children": [
                 { "tag": "code", "text": ".ui-sidebar--sm" },
                 { "tag": "span", "text": "192px (24 units)" }
@@ -39,7 +39,7 @@
             },
             {
               "tag": "div",
-              "class": "ui-cluster ui-cluster--sm",
+              "class": "ui-row ui-row--sm",
               "children": [
                 { "tag": "code", "text": ".ui-sidebar--md" },
                 { "tag": "span", "text": "240px (30 units) - default" }
@@ -47,7 +47,7 @@
             },
             {
               "tag": "div",
-              "class": "ui-cluster ui-cluster--sm",
+              "class": "ui-row ui-row--sm",
               "children": [
                 { "tag": "code", "text": ".ui-sidebar--lg" },
                 { "tag": "span", "text": "320px (40 units)" }
@@ -70,11 +70,11 @@
       "title": "Container Widths",
       "examples": [
         {
-          "layout": "stack",
+          "layout": "column",
           "items": [
             {
               "tag": "div",
-              "class": "ui-cluster ui-cluster--sm",
+              "class": "ui-row ui-row--sm",
               "children": [
                 { "tag": "code", "text": ".ui-container--sm" },
                 { "tag": "span", "text": "640px (80 units)" }
@@ -82,7 +82,7 @@
             },
             {
               "tag": "div",
-              "class": "ui-cluster ui-cluster--sm",
+              "class": "ui-row ui-row--sm",
               "children": [
                 { "tag": "code", "text": ".ui-container--md" },
                 { "tag": "span", "text": "800px (100 units)" }
@@ -90,7 +90,7 @@
             },
             {
               "tag": "div",
-              "class": "ui-cluster ui-cluster--sm",
+              "class": "ui-row ui-row--sm",
               "children": [
                 { "tag": "code", "text": ".ui-container--lg" },
                 { "tag": "span", "text": "960px (120 units) - default" }
@@ -98,7 +98,7 @@
             },
             {
               "tag": "div",
-              "class": "ui-cluster ui-cluster--sm",
+              "class": "ui-row ui-row--sm",
               "children": [
                 { "tag": "code", "text": ".ui-container--xl" },
                 { "tag": "span", "text": "1280px (160 units)" }
@@ -106,7 +106,7 @@
             },
             {
               "tag": "div",
-              "class": "ui-cluster ui-cluster--sm",
+              "class": "ui-row ui-row--sm",
               "children": [
                 { "tag": "code", "text": ".ui-container--full" },
                 { "tag": "span", "text": "No max width" }

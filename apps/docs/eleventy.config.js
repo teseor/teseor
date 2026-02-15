@@ -231,10 +231,10 @@ export default function (eleventyConfig) {
 
     if (layout) {
       const layoutClass =
-        layout === 'cluster'
-          ? 'ui-cluster ui-cluster--md'
-          : layout === 'stack'
-            ? 'ui-stack ui-stack--sm'
+        layout === 'row'
+          ? 'ui-row ui-row--md'
+          : layout === 'column'
+            ? 'ui-column ui-column--sm'
             : '';
       if (layoutClass) {
         return `<div class="${layoutClass}">${html}</div>`;
@@ -267,10 +267,10 @@ export default function (eleventyConfig) {
     // Wrap in layout container if specified
     if (layout) {
       const layoutClass =
-        layout === 'cluster'
-          ? 'ui-cluster ui-cluster--md'
-          : layout === 'stack'
-            ? 'ui-stack ui-stack--sm'
+        layout === 'row'
+          ? 'ui-row ui-row--md'
+          : layout === 'column'
+            ? 'ui-column ui-column--sm'
             : '';
       if (layoutClass) {
         return `<div class="${layoutClass}">\n  ${lines.join('\n  ')}\n</div>`;

@@ -1,9 +1,9 @@
 {
-  "id": "stack",
+  "id": "column",
   "type": "primitive",
-  "title": "Stack",
+  "title": "Column",
   "description": "Vertical layout with consistent gap.",
-  "api": "stack.api.json",
+  "api": "column.api.json",
   "sections": [
     {
       "title": "Basic",
@@ -12,7 +12,7 @@
           "items": [
             {
               "tag": "div",
-              "class": "ui-stack ui-stack--sm",
+              "class": "ui-column ui-column--sm",
               "children": [
                 {
                   "tag": "div",
@@ -51,7 +51,7 @@
           "items": [
             {
               "tag": "div",
-              "class": "ui-stack ui-stack--xs",
+              "class": "ui-column ui-column--xs",
               "children": [
                 {
                   "tag": "div",
@@ -77,7 +77,7 @@
           "items": [
             {
               "tag": "div",
-              "class": "ui-stack ui-stack--md",
+              "class": "ui-column ui-column--md",
               "children": [
                 {
                   "tag": "div",
@@ -103,7 +103,7 @@
           "items": [
             {
               "tag": "div",
-              "class": "ui-stack ui-stack--lg",
+              "class": "ui-column ui-column--lg",
               "children": [
                 {
                   "tag": "div",

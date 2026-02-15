@@ -27,7 +27,7 @@
       "description": "Button styles for different purposes and emphasis levels.",
       "examples": [
         {
-          "layout": "cluster",
+          "layout": "row",
           "items": [
             { "tag": "button", "class": "ui-button", "text": "Primary" },
             { "tag": "button", "class": "ui-button ui-button--secondary", "text": "Secondary" },
@@ -44,7 +44,7 @@
       "description": "Small for dense UIs, default for most cases, large for prominent CTAs.",
       "examples": [
         {
-          "layout": "cluster",
+          "layout": "row",
           "items": [
             { "tag": "button", "class": "ui-button ui-button--sm", "text": "Small" },
             { "tag": "button", "class": "ui-button ui-button--md", "text": "Medium" },
@@ -58,7 +58,7 @@
       "description": "Override border radius. Use radius-full for pill-shaped buttons.",
       "examples": [
         {
-          "layout": "cluster",
+          "layout": "row",
           "items": [
             { "tag": "button", "class": "ui-button ui-button--radius-none", "text": "None" },
             { "tag": "button", "class": "ui-button ui-button--radius-sm", "text": "Small" },
@@ -85,7 +85,7 @@
       "description": "Shows spinner animation. Button becomes non-interactive.",
       "examples": [
         {
-          "layout": "cluster",
+          "layout": "row",
           "items": [
             { "tag": "button", "class": "ui-button ui-button--loading", "text": "Loading" },
             {
@@ -102,7 +102,7 @@
       "description": "Square icon-only buttons. Use with SVG icons from Lucide or similar sets.",
       "examples": [
         {
-          "layout": "cluster",
+          "layout": "row",
           "items": [
             {
               "tag": "button",
@@ -129,7 +129,7 @@
       "description": "Buttons with icon and text. Use ui-button__icon element with --start or --end modifier.",
       "examples": [
         {
-          "layout": "cluster",
+          "layout": "row",
           "items": [
             {
               "tag": "button",

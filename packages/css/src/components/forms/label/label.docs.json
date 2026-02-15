@@ -36,7 +36,7 @@
       "title": "Sizes",
       "examples": [
         {
-          "layout": "stack",
+          "layout": "column",
           "html": "<label class=\"ui-label\">Default size</label><label class=\"ui-label ui-label--lg\">Large size</label>",
           "code": "<label class=\"ui-label\">Default</label>\n<label class=\"ui-label ui-label--lg\">Large</label>"
         }

@@ -54,7 +54,7 @@
       "title": "Sizes",
       "examples": [
         {
-          "layout": "cluster",
+          "layout": "row",
           "items": [
             {
               "tag": "button",
@@ -114,7 +114,7 @@
       "description": "Lower visual prominence for secondary dismiss actions.",
       "examples": [
         {
-          "layout": "cluster",
+          "layout": "row",
           "items": [
             {
               "tag": "button",
@@ -157,7 +157,7 @@
       "title": "States",
       "examples": [
         {
-          "layout": "cluster",
+          "layout": "row",
           "items": [
             {
               "tag": "button",

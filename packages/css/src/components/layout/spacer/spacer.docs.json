@@ -12,7 +12,7 @@
           "items": [
             {
               "tag": "div",
-              "class": "ui-cluster",
+              "class": "ui-row",
               "style": {
                 "inline-size": "100%",
                 "background": "var(--ui-color-bg-subtle)",
@@ -49,7 +49,7 @@
           "items": [
             {
               "tag": "div",
-              "class": "ui-cluster",
+              "class": "ui-row",
               "style": {
                 "inline-size": "100%",
                 "background": "var(--ui-color-bg-subtle)",

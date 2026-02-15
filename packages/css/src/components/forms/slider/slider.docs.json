@@ -24,7 +24,7 @@
       "title": "Sizes",
       "examples": [
         {
-          "layout": "stack",
+          "layout": "column",
           "items": [
             {
               "tag": "input",
@@ -50,7 +50,7 @@
       "title": "Colors",
       "examples": [
         {
-          "layout": "stack",
+          "layout": "column",
           "items": [
             {
               "tag": "input",
@@ -81,7 +81,7 @@
       "title": "Disabled",
       "examples": [
         {
-          "layout": "stack",
+          "layout": "column",
           "items": [
             {
               "tag": "input",

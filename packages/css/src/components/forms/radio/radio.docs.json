@@ -9,7 +9,7 @@
       "title": "Default",
       "examples": [
         {
-          "layout": "cluster",
+          "layout": "row",
           "items": [
             { "tag": "input", "class": "ui-radio", "attrs": { "type": "radio", "name": "demo1" } },
             {
@@ -26,7 +26,7 @@
       "title": "Sizes",
       "examples": [
         {
-          "layout": "cluster",
+          "layout": "row",
           "items": [
             {
               "tag": "input",
@@ -52,7 +52,7 @@
       "title": "States",
       "examples": [
         {
-          "layout": "cluster",
+          "layout": "row",
           "items": [
             {
               "tag": "input",
@@ -83,7 +83,7 @@
       "title": "Error State",
       "examples": [
         {
-          "layout": "cluster",
+          "layout": "row",
           "items": [
             {
               "tag": "input",
@@ -104,8 +104,8 @@
       "title": "With Label",
       "examples": [
         {
-          "html": "<label class=\"ui-cluster\" style=\"gap: var(--ui-space-1); cursor: pointer;\"><input type=\"radio\" class=\"ui-radio\" name=\"labeled\"><span>Option one</span></label>",
-          "code": "<label class=\"ui-cluster\">\n  <input type=\"radio\" class=\"ui-radio\" name=\"group\">\n  <span>Option one</span>\n</label>"
+          "html": "<label class=\"ui-row\" style=\"gap: var(--ui-space-1); cursor: pointer;\"><input type=\"radio\" class=\"ui-radio\" name=\"labeled\"><span>Option one</span></label>",
+          "code": "<label class=\"ui-row\">\n  <input type=\"radio\" class=\"ui-radio\" name=\"group\">\n  <span>Option one</span>\n</label>"
         }
       ]
     },
@@ -113,8 +113,8 @@
       "title": "Radio Group",
       "examples": [
         {
-          "html": "<fieldset style=\"border: none; padding: 0; margin: 0;\"><legend style=\"font-weight: 600; margin-block-end: var(--ui-space-1);\">Choose an option</legend><div class=\"ui-stack\" style=\"--stack-gap: var(--ui-space-1);\"><label class=\"ui-cluster\" style=\"gap: var(--ui-space-1); cursor: pointer;\"><input type=\"radio\" class=\"ui-radio\" name=\"group-demo\" checked><span>Option A</span></label><label class=\"ui-cluster\" style=\"gap: var(--ui-space-1); cursor: pointer;\"><input type=\"radio\" class=\"ui-radio\" name=\"group-demo\"><span>Option B</span></label><label class=\"ui-cluster\" style=\"gap: var(--ui-space-1); cursor: pointer;\"><input type=\"radio\" class=\"ui-radio\" name=\"group-demo\"><span>Option C</span></label></div></fieldset>",
-          "code": "<fieldset>\n  <legend>Choose an option</legend>\n  <div class=\"ui-stack\">\n    <label class=\"ui-cluster\">\n      <input type=\"radio\" class=\"ui-radio\" name=\"group\" checked>\n      <span>Option A</span>\n    </label>\n    <label class=\"ui-cluster\">\n      <input type=\"radio\" class=\"ui-radio\" name=\"group\">\n      <span>Option B</span>\n    </label>\n  </div>\n</fieldset>"
+          "html": "<fieldset style=\"border: none; padding: 0; margin: 0;\"><legend style=\"font-weight: 600; margin-block-end: var(--ui-space-1);\">Choose an option</legend><div class=\"ui-column\" style=\"--column-gap: var(--ui-space-1);\"><label class=\"ui-row\" style=\"gap: var(--ui-space-1); cursor: pointer;\"><input type=\"radio\" class=\"ui-radio\" name=\"group-demo\" checked><span>Option A</span></label><label class=\"ui-row\" style=\"gap: var(--ui-space-1); cursor: pointer;\"><input type=\"radio\" class=\"ui-radio\" name=\"group-demo\"><span>Option B</span></label><label class=\"ui-row\" style=\"gap: var(--ui-space-1); cursor: pointer;\"><input type=\"radio\" class=\"ui-radio\" name=\"group-demo\"><span>Option C</span></label></div></fieldset>",
+          "code": "<fieldset>\n  <legend>Choose an option</legend>\n  <div class=\"ui-column\">\n    <label class=\"ui-row\">\n      <input type=\"radio\" class=\"ui-radio\" name=\"group\" checked>\n      <span>Option A</span>\n    </label>\n    <label class=\"ui-row\">\n      <input type=\"radio\" class=\"ui-radio\" name=\"group\">\n      <span>Option B</span>\n    </label>\n  </div>\n</fieldset>"
         }
       ]
     }

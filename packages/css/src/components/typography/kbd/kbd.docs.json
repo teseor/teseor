@@ -35,7 +35,7 @@
             { "tag": "kbd", "class": "ui-kbd", "text": "Shift" },
             { "tag": "kbd", "class": "ui-kbd", "text": "Space" }
           ],
-          "layout": "cluster"
+          "layout": "row"
         }
       ]
     }

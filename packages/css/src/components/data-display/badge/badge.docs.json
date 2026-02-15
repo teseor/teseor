@@ -24,7 +24,7 @@
             { "tag": "span", "class": "ui-badge ui-badge--warning", "text": "Warning" },
             { "tag": "span", "class": "ui-badge ui-badge--danger", "text": "Danger" }
           ],
-          "layout": "cluster"
+          "layout": "row"
         }
       ]
     },
@@ -36,7 +36,7 @@
             { "tag": "span", "class": "ui-badge ui-badge--sm", "text": "Small" },
             { "tag": "span", "class": "ui-badge", "text": "Default" }
           ],
-          "layout": "cluster"
+          "layout": "row"
         }
       ]
     },
@@ -44,10 +44,10 @@
       "title": "Use Cases",
       "examples": [
         {
-          "html": "<div class=\"ui-cluster\"><span>Notifications</span><span class=\"ui-badge ui-badge--primary\">5</span></div>"
+          "html": "<div class=\"ui-row\"><span>Notifications</span><span class=\"ui-badge ui-badge--primary\">5</span></div>"
         },
         {
-          "html": "<div class=\"ui-cluster\"><span class=\"ui-badge ui-badge--success\">Published</span><span class=\"ui-badge ui-badge--warning\">Draft</span><span class=\"ui-badge ui-badge--danger\">Archived</span></div>"
+          "html": "<div class=\"ui-row\"><span class=\"ui-badge ui-badge--success\">Published</span><span class=\"ui-badge ui-badge--warning\">Draft</span><span class=\"ui-badge ui-badge--danger\">Archived</span></div>"
         }
       ]
     }

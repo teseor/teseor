@@ -19,11 +19,11 @@
       "description": "Three width options via size modifiers.",
       "examples": [
         {
-          "layout": "stack",
+          "layout": "column",
           "items": [
             {
               "tag": "div",
-              "class": "ui-cluster",
+              "class": "ui-row",
               "children": [
                 { "tag": "code", "text": "--sm" },
                 { "tag": "span", "text": "192px (24 units)" }
@@ -31,7 +31,7 @@
             },
             {
               "tag": "div",
-              "class": "ui-cluster",
+              "class": "ui-row",
               "children": [
                 { "tag": "code", "text": "--md" },
                 { "tag": "span", "text": "240px (30 units, default)" }
@@ -39,7 +39,7 @@
             },
             {
               "tag": "div",
-              "class": "ui-cluster",
+              "class": "ui-row",
               "children": [
                 { "tag": "code", "text": "--lg" },
                 { "tag": "span", "text": "320px (40 units)" }

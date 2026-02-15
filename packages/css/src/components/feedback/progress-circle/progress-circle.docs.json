@@ -9,7 +9,7 @@
       "title": "Default",
       "examples": [
         {
-          "layout": "cluster",
+          "layout": "row",
           "items": [
             {
               "tag": "svg",
@@ -95,7 +95,7 @@
       "title": "Sizes",
       "examples": [
         {
-          "layout": "cluster",
+          "layout": "row",
           "items": [
             {
               "tag": "svg",
@@ -206,7 +206,7 @@
       "title": "Colors",
       "examples": [
         {
-          "layout": "cluster",
+          "layout": "row",
           "items": [
             {
               "tag": "svg",

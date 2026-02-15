@@ -12,7 +12,7 @@
           "items": [
             {
               "tag": "div",
-              "class": "ui-cluster ui-cluster--md",
+              "class": "ui-row ui-row--md",
               "children": [
                 {
                   "tag": "div",
@@ -112,7 +112,7 @@
           "items": [
             {
               "tag": "div",
-              "class": "ui-cluster ui-cluster--md",
+              "class": "ui-row ui-row--md",
               "children": [
                 {
                   "tag": "div",

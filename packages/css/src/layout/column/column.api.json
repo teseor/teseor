@@ -1,5 +1,5 @@
 {
-  "name": "stack",
+  "name": "column",
   "element": "div",
   "modifiers": {
     "size": {

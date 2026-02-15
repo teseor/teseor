@@ -1,9 +1,9 @@
 {
-  "id": "cluster",
+  "id": "row",
   "type": "primitive",
-  "title": "Cluster",
+  "title": "Row",
   "description": "Horizontal layout with wrapping.",
-  "api": "cluster.api.json",
+  "api": "row.api.json",
   "sections": [
     {
       "title": "Basic",
@@ -12,7 +12,7 @@
           "items": [
             {
               "tag": "div",
-              "class": "ui-cluster ui-cluster--md",
+              "class": "ui-row ui-row--md",
               "children": [
                 {
                   "tag": "div",
@@ -59,7 +59,7 @@
           "items": [
             {
               "tag": "div",
-              "class": "ui-cluster ui-cluster--xs",
+              "class": "ui-row ui-row--xs",
               "children": [
                 {
                   "tag": "div",
@@ -93,7 +93,7 @@
           "items": [
             {
               "tag": "div",
-              "class": "ui-cluster ui-cluster--lg",
+              "class": "ui-row ui-row--lg",
               "children": [
                 {
                   "tag": "div",
