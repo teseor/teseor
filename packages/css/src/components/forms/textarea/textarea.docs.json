@@ -129,17 +129,17 @@
   "customization": [
     {
       "token": "--ui-textarea-min-height",
-      "default": "calc(var(--row) * 4)",
+      "default": "calc(var(--ui-row) * 4)",
       "description": "Default minimum height"
     },
     {
       "token": "--ui-textarea-min-height-sm",
-      "default": "calc(var(--row) * 3)",
+      "default": "calc(var(--ui-row) * 3)",
       "description": "Small minimum height"
     },
     {
       "token": "--ui-textarea-min-height-lg",
-      "default": "calc(var(--row) * 6)",
+      "default": "calc(var(--ui-row) * 6)",
       "description": "Large minimum height"
     },
     {

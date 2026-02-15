@@ -141,12 +141,12 @@
     { "token": "--ui-input-height", "default": "var(--ui-row-2)", "description": "Default height" },
     {
       "token": "--ui-input-height-sm",
-      "default": "calc(var(--row) * 1.5)",
+      "default": "calc(var(--ui-row) * 1.5)",
       "description": "Small height"
     },
     {
       "token": "--ui-input-height-lg",
-      "default": "calc(var(--row) * 2.5)",
+      "default": "calc(var(--ui-row) * 2.5)",
       "description": "Large height"
     },
     {
