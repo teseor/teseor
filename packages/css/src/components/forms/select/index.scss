@@ -82,11 +82,11 @@
     background-position: right var(--ui-space-half, #{t.$space-0}) center;
     background-size: calc(var(--_height) * 0.5);
 
-    &:hover:not(:disabled, :focus) {
+    &:hover:not(:disabled, :focus-visible) {
       border-color: var(--ui-color-border-strong, #{t.$color-border-strong});
     }
 
-    &:focus,
+    &:focus-visible,
     &--focus {
       border-color: var(--_border-color-focus);
       outline: none;

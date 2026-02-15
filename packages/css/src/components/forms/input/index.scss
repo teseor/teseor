@@ -76,11 +76,11 @@
       color: var(--_placeholder);
     }
 
-    &:hover:not(:disabled, :focus) {
+    &:hover:not(:disabled, :focus-visible) {
       border-color: var(--ui-color-border-strong, #{t.$color-border-strong});
     }
 
-    &:focus,
+    &:focus-visible,
     &--focus {
       border-color: var(--_border-color-focus);
       outline: none;
