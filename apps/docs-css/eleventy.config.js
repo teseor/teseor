@@ -229,20 +229,22 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addFilter('processTemplate', (template, data) => processTemplate(template, data));
 
-  // Recursive item renderer - handles nested children
   function renderItemToHtml(item) {
+    // Bare text node - no tag wrapper
+    if (!item.tag && item.text && !item.children && !item.class && !item.innerHTML) {
+      return item.text;
+    }
+
     const tag = item.tag || 'div';
     const classes = item.class || '';
     const text = item.text || '';
 
-    // Build style attribute
     const style = item.style
       ? Object.entries(item.style)
           .map(([k, v]) => `${k}: ${v}`)
           .join('; ')
       : '';
 
-    // Build attributes
     let attrs = classes ? ` class="${classes}"` : '';
     if (style) attrs += ` style="${style}"`;
     if (item.attrs) {
@@ -251,10 +253,12 @@ export default function (eleventyConfig) {
       }
     }
 
-    // Content: children (recursive) or text
+    // Content priority: children > innerHTML > text
     let content = text;
     if (item.children && item.children.length > 0) {
       content = item.children.map((child) => renderItemToHtml(child)).join('');
+    } else if (item.innerHTML) {
+      content = item.innerHTML;
     }
 
     return `<${tag}${attrs}>${content}</${tag}>`;
@@ -284,24 +288,43 @@ export default function (eleventyConfig) {
     if (!items) return '';
     const { layout } = options;
 
-    const lines = items.map((item) => {
+    function itemToCode(item, indent = 0) {
+      // Bare text node
+      if (!item.tag && item.text && !item.children && !item.class && !item.innerHTML) {
+        return item.text;
+      }
+
       const tag = item.tag || 'div';
       const classes = item.class || '';
       const text = item.text || '';
-      const html = item.html || text;
+      const pad = '  '.repeat(indent);
 
-      // Build attributes
+      const style = item.style
+        ? Object.entries(item.style)
+            .map(([k, v]) => `${k}: ${v}`)
+            .join('; ')
+        : '';
+
       let attrs = classes ? ` class="${classes}"` : '';
+      if (style) attrs += ` style="${style}"`;
       if (item.attrs) {
         for (const [k, v] of Object.entries(item.attrs)) {
           attrs += v === '' ? ` ${k}` : ` ${k}="${v}"`;
         }
       }
 
-      return `<${tag}${attrs}>${html}</${tag}>`;
-    });
+      // Content priority: children > innerHTML > text
+      if (item.children && item.children.length > 0) {
+        const inner = item.children.map((c) => itemToCode(c, indent + 1)).join('\n');
+        return `${pad}<${tag}${attrs}>\n${inner}\n${pad}</${tag}>`;
+      }
 
-    // Wrap in layout container if specified
+      const content = item.innerHTML || text;
+      return `${pad}<${tag}${attrs}>${content}</${tag}>`;
+    }
+
+    const lines = items.map((item) => itemToCode(item, 0)).join('\n');
+
     if (layout) {
       const layoutClass =
         layout === 'row'
@@ -310,11 +333,11 @@ export default function (eleventyConfig) {
             ? 'ui-column ui-column--sm'
             : '';
       if (layoutClass) {
-        return `<div class="${layoutClass}">\n  ${lines.join('\n  ')}\n</div>`;
+        return `<div class="${layoutClass}">\n  ${lines.split('\n').join('\n  ')}\n</div>`;
       }
     }
 
-    return lines.join('\n');
+    return lines;
   });
 
   // Watch for changes in packages
