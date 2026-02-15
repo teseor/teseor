@@ -24,6 +24,12 @@
     --_font-size: var(--ui-badge-font-size-sm, calc(var(--ui-font-size-xs, #{t.$font-size-xs}) * 0.85));
   }
 
+  .badge--lg {
+    --_height: var(--ui-badge-height-lg, calc(var(--ui-row, #{t.$row}) * 1.5));
+    --_padding-x: var(--ui-badge-padding-x-lg, var(--ui-space-2, #{t.$space-2}));
+    --_font-size: var(--ui-badge-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
+  }
+
   // @modifier variant
   .badge--primary {
     --_accent: var(--ui-color-primary, #{t.$color-primary});

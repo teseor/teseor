@@ -26,9 +26,10 @@
           "layout": "row",
           "items": [
             { "tag": "span", "class": "ui-tag ui-tag--sm", "text": "Small" },
-            { "tag": "span", "class": "ui-tag", "text": "Default" }
+            { "tag": "span", "class": "ui-tag", "text": "Default" },
+            { "tag": "span", "class": "ui-tag ui-tag--lg", "text": "Large" }
           ],
-          "code": "<span class=\"ui-tag ui-tag--sm\">Small</span>\n<span class=\"ui-tag\">Default</span>"
+          "code": "<span class=\"ui-tag ui-tag--sm\">Small</span>\n<span class=\"ui-tag\">Default</span>\n<span class=\"ui-tag ui-tag--lg\">Large</span>"
         }
       ]
     },
@@ -109,6 +110,11 @@
       "token": "--ui-tag-height-sm",
       "default": "calc(var(--ui-unit) * 2.5)",
       "description": "Small height"
+    },
+    {
+      "token": "--ui-tag-height-lg",
+      "default": "calc(var(--ui-unit) * 3.5)",
+      "description": "Large height"
     },
     {
       "token": "--ui-tag-padding-x",

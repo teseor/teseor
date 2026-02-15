@@ -21,6 +21,12 @@
     --_font-size: var(--ui-tag-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
   }
 
+  .tag--lg {
+    --_height: var(--ui-tag-height-lg, calc(#{t.$unit} * 3.5));
+    --_padding-x: var(--ui-tag-padding-x-lg, var(--ui-space-2, #{t.$space-2}));
+    --_font-size: var(--ui-tag-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
+  }
+
   // @modifier variant
   .tag--primary {
     --_bg: var(--ui-tag-primary-bg, var(--ui-color-primary, #{t.$color-primary}));
