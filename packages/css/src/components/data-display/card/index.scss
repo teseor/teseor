@@ -1,5 +1,3 @@
-@use '../../../config/mixins/border' as *;
-
 // @component card
 // @element div
 
@@ -27,12 +25,11 @@
   }
 }
 
-// Implementation
 @layer components.styles {
   .card {
-    @include border(var(--_border-width), var(--_border-color));
-    @include rounded(var(--_radius));
-    @include surface(var(--_bg));
+    border: var(--_border-width) solid var(--_border-color);
+    border-radius: var(--_radius);
+    background: var(--_bg);
     // Subtract border from padding to keep total on grid
     padding: calc(var(--_padding) - var(--_border-width));
     // Grid-aligned line-height for text content
