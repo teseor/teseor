@@ -64,7 +64,7 @@
   }
 
   .checkbox-group__item:has(:disabled) {
-    opacity: 0.5;
+    opacity: var(--ui-opacity-disabled, 0.5);
     cursor: not-allowed;
   }
 
@@ -78,7 +78,7 @@
   // Disabled group
   .checkbox-group:disabled,
   .checkbox-group[aria-disabled='true'] {
-    opacity: 0.5;
+    opacity: var(--ui-opacity-disabled, 0.5);
     cursor: not-allowed;
   }
 }
