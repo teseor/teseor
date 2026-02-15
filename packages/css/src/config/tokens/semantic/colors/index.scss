@@ -57,4 +57,11 @@
       --ui-color-border-strong: var(--ui-color-neutral-600);
     }
   }
+
+  // Windows high contrast mode
+  @media (forced-colors: active) {
+    :root {
+      --ui-color-focus: Highlight;
+    }
+  }
 }
