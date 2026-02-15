@@ -1,0 +1,62 @@
+@use '../../../00-config/tokens/variables' as t;
+
+// Form - layout container for form fields
+// Provides consistent vertical spacing between fields, sections, and actions
+
+@layer components.tokens {
+  .form {
+    --_spacing: var(--ui-form-spacing, var(--ui-space-3, calc(#{t.$unit} * 3)));
+    --_actions-gap: var(--ui-form-actions-gap, var(--ui-space-2, calc(#{t.$unit} * 2)));
+    --_section-spacing: var(--ui-form-section-spacing, var(--ui-space-4, calc(#{t.$unit} * 4)));
+  }
+}
+
+@layer components.styles {
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--_spacing);
+  }
+
+  // Grouped area with optional heading
+  .form__section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--_spacing);
+
+    padding: 0;
+    margin: 0;
+
+    border: 0;
+  }
+
+  // Spacing between sections is wider than between fields
+  .form__section + .form__section {
+    padding-block-start: var(--_section-spacing);
+  }
+
+  // Button row at bottom
+  .form__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--_actions-gap);
+  }
+
+  // Compact variant - tighter spacing
+  .form--compact {
+    --_spacing: var(--ui-form-spacing-compact, var(--ui-space-2, calc(#{t.$unit} * 2)));
+    --_section-spacing: var(--ui-form-section-spacing-compact, var(--ui-space-3, calc(#{t.$unit} * 3)));
+  }
+
+  // Inline variant - horizontal layout for short forms (search, filters)
+  .form--inline {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-end;
+  }
+
+  .form--inline > .form__actions {
+    align-items: flex-end;
+  }
+}

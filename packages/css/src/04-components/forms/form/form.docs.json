@@ -1,0 +1,482 @@
+{
+  "id": "form",
+  "type": "component",
+  "title": "Form",
+  "description": "Layout container for form fields with consistent spacing, sections, and an actions row.",
+  "api": "./form.api.json",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "form",
+              "class": "ui-form",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-field",
+                  "children": [
+                    {
+                      "tag": "label",
+                      "class": "ui-label",
+                      "text": "Name",
+                      "attrs": { "for": "f-name" }
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-field__control",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-input",
+                          "attrs": {
+                            "type": "text",
+                            "id": "f-name",
+                            "placeholder": "Full name"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-field",
+                  "children": [
+                    {
+                      "tag": "label",
+                      "class": "ui-label",
+                      "text": "Email",
+                      "attrs": { "for": "f-email" }
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-field__control",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-input",
+                          "attrs": {
+                            "type": "email",
+                            "id": "f-email",
+                            "placeholder": "you@example.com"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-form__actions",
+                  "children": [
+                    { "tag": "button", "class": "ui-button", "text": "Submit" },
+                    {
+                      "tag": "button",
+                      "class": "ui-button ui-button--ghost",
+                      "text": "Cancel",
+                      "attrs": { "type": "button" }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "code": "<form class=\"ui-form\">\n  <div class=\"ui-field\">\n    <label class=\"ui-label\" for=\"name\">Name</label>\n    <div class=\"ui-field__control\">\n      <input class=\"ui-input\" type=\"text\" id=\"name\">\n    </div>\n  </div>\n  <div class=\"ui-field\">\n    <label class=\"ui-label\" for=\"email\">Email</label>\n    <div class=\"ui-field__control\">\n      <input class=\"ui-input\" type=\"email\" id=\"email\">\n    </div>\n  </div>\n  <div class=\"ui-form__actions\">\n    <button class=\"ui-button\">Submit</button>\n    <button class=\"ui-button ui-button--ghost\" type=\"button\">Cancel</button>\n  </div>\n</form>"
+        }
+      ]
+    },
+    {
+      "title": "With Sections",
+      "description": "Group related fields using fieldset-based sections",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "form",
+              "class": "ui-form",
+              "children": [
+                {
+                  "tag": "fieldset",
+                  "class": "ui-form__section",
+                  "children": [
+                    { "tag": "legend", "class": "ui-heading ui-heading--sm", "text": "Personal" },
+                    {
+                      "tag": "div",
+                      "class": "ui-field",
+                      "children": [
+                        {
+                          "tag": "label",
+                          "class": "ui-label",
+                          "text": "First name",
+                          "attrs": { "for": "s-first" }
+                        },
+                        {
+                          "tag": "div",
+                          "class": "ui-field__control",
+                          "children": [
+                            {
+                              "tag": "input",
+                              "class": "ui-input",
+                              "attrs": { "type": "text", "id": "s-first" }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-field",
+                      "children": [
+                        {
+                          "tag": "label",
+                          "class": "ui-label",
+                          "text": "Last name",
+                          "attrs": { "for": "s-last" }
+                        },
+                        {
+                          "tag": "div",
+                          "class": "ui-field__control",
+                          "children": [
+                            {
+                              "tag": "input",
+                              "class": "ui-input",
+                              "attrs": { "type": "text", "id": "s-last" }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "fieldset",
+                  "class": "ui-form__section",
+                  "children": [
+                    { "tag": "legend", "class": "ui-heading ui-heading--sm", "text": "Account" },
+                    {
+                      "tag": "div",
+                      "class": "ui-field",
+                      "children": [
+                        {
+                          "tag": "label",
+                          "class": "ui-label",
+                          "text": "Email",
+                          "attrs": { "for": "s-email" }
+                        },
+                        {
+                          "tag": "div",
+                          "class": "ui-field__control",
+                          "children": [
+                            {
+                              "tag": "input",
+                              "class": "ui-input",
+                              "attrs": { "type": "email", "id": "s-email" }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-field",
+                      "children": [
+                        {
+                          "tag": "label",
+                          "class": "ui-label",
+                          "text": "Password",
+                          "attrs": { "for": "s-pass" }
+                        },
+                        {
+                          "tag": "div",
+                          "class": "ui-field__control",
+                          "children": [
+                            {
+                              "tag": "input",
+                              "class": "ui-input",
+                              "attrs": { "type": "password", "id": "s-pass" }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-form__actions",
+                  "children": [{ "tag": "button", "class": "ui-button", "text": "Create account" }]
+                }
+              ]
+            }
+          ],
+          "code": "<form class=\"ui-form\">\n  <fieldset class=\"ui-form__section\">\n    <legend class=\"ui-heading ui-heading--sm\">Personal</legend>\n    <div class=\"ui-field\">...</div>\n    <div class=\"ui-field\">...</div>\n  </fieldset>\n  <fieldset class=\"ui-form__section\">\n    <legend class=\"ui-heading ui-heading--sm\">Account</legend>\n    <div class=\"ui-field\">...</div>\n  </fieldset>\n  <div class=\"ui-form__actions\">\n    <button class=\"ui-button\">Create account</button>\n  </div>\n</form>"
+        }
+      ]
+    },
+    {
+      "title": "Compact",
+      "description": "Tighter spacing for dense interfaces",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "form",
+              "class": "ui-form ui-form--compact",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-field",
+                  "children": [
+                    {
+                      "tag": "label",
+                      "class": "ui-label",
+                      "text": "Username",
+                      "attrs": { "for": "c-user" }
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-field__control",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-input",
+                          "attrs": { "type": "text", "id": "c-user" }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-field",
+                  "children": [
+                    {
+                      "tag": "label",
+                      "class": "ui-label",
+                      "text": "Password",
+                      "attrs": { "for": "c-pass" }
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-field__control",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-input",
+                          "attrs": { "type": "password", "id": "c-pass" }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-form__actions",
+                  "children": [{ "tag": "button", "class": "ui-button", "text": "Log in" }]
+                }
+              ]
+            }
+          ],
+          "code": "<form class=\"ui-form ui-form--compact\">\n  <div class=\"ui-field\">\n    <label class=\"ui-label\" for=\"user\">Username</label>\n    <div class=\"ui-field__control\">\n      <input class=\"ui-input\" type=\"text\" id=\"user\">\n    </div>\n  </div>\n  <div class=\"ui-field\">\n    <label class=\"ui-label\" for=\"pass\">Password</label>\n    <div class=\"ui-field__control\">\n      <input class=\"ui-input\" type=\"password\" id=\"pass\">\n    </div>\n  </div>\n  <div class=\"ui-form__actions\">\n    <button class=\"ui-button\">Log in</button>\n  </div>\n</form>"
+        }
+      ]
+    },
+    {
+      "title": "Inline",
+      "description": "Horizontal layout for short forms like search or filters",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "form",
+              "class": "ui-form ui-form--inline",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-field",
+                  "children": [
+                    {
+                      "tag": "label",
+                      "class": "ui-label",
+                      "text": "Search",
+                      "attrs": { "for": "i-search" }
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-field__control",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-input",
+                          "attrs": {
+                            "type": "search",
+                            "id": "i-search",
+                            "placeholder": "Search..."
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-field",
+                  "children": [
+                    {
+                      "tag": "label",
+                      "class": "ui-label",
+                      "text": "Category",
+                      "attrs": { "for": "i-cat" }
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-field__control",
+                      "children": [
+                        {
+                          "tag": "select",
+                          "class": "ui-select",
+                          "attrs": { "id": "i-cat" },
+                          "children": [
+                            { "tag": "option", "text": "All" },
+                            { "tag": "option", "text": "Articles" },
+                            { "tag": "option", "text": "Products" }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-form__actions",
+                  "children": [{ "tag": "button", "class": "ui-button", "text": "Filter" }]
+                }
+              ]
+            }
+          ],
+          "code": "<form class=\"ui-form ui-form--inline\">\n  <div class=\"ui-field\">\n    <label class=\"ui-label\" for=\"search\">Search</label>\n    <div class=\"ui-field__control\">\n      <input class=\"ui-input\" type=\"search\" id=\"search\">\n    </div>\n  </div>\n  <div class=\"ui-field\">\n    <label class=\"ui-label\" for=\"cat\">Category</label>\n    <div class=\"ui-field__control\">\n      <select class=\"ui-select\" id=\"cat\">\n        <option>All</option>\n      </select>\n    </div>\n  </div>\n  <div class=\"ui-form__actions\">\n    <button class=\"ui-button\">Filter</button>\n  </div>\n</form>"
+        }
+      ]
+    },
+    {
+      "title": "With Validation",
+      "description": "Combining form layout with field error states",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "form",
+              "class": "ui-form",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-field",
+                  "children": [
+                    {
+                      "tag": "label",
+                      "class": "ui-label ui-label--required",
+                      "text": "Email",
+                      "attrs": { "for": "v-email" }
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-field__control",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-input ui-input--error",
+                          "attrs": {
+                            "type": "email",
+                            "id": "v-email",
+                            "value": "not-an-email"
+                          }
+                        },
+                        {
+                          "tag": "span",
+                          "class": "ui-form-error",
+                          "text": "Enter a valid email address"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-field",
+                  "children": [
+                    {
+                      "tag": "label",
+                      "class": "ui-label ui-label--required",
+                      "text": "Password",
+                      "attrs": { "for": "v-pass" }
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-field__control",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-input",
+                          "attrs": { "type": "password", "id": "v-pass" }
+                        },
+                        {
+                          "tag": "span",
+                          "class": "ui-form-helper",
+                          "text": "Must be at least 8 characters"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-form__actions",
+                  "children": [
+                    { "tag": "button", "class": "ui-button", "text": "Sign up" },
+                    {
+                      "tag": "button",
+                      "class": "ui-button ui-button--ghost",
+                      "text": "Reset",
+                      "attrs": { "type": "button" }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "code": "<form class=\"ui-form\">\n  <div class=\"ui-field\">\n    <label class=\"ui-label ui-label--required\" for=\"email\">Email</label>\n    <div class=\"ui-field__control\">\n      <input class=\"ui-input ui-input--error\" type=\"email\" id=\"email\">\n      <span class=\"ui-form-error\">Enter a valid email address</span>\n    </div>\n  </div>\n  <div class=\"ui-field\">\n    <label class=\"ui-label ui-label--required\" for=\"pass\">Password</label>\n    <div class=\"ui-field__control\">\n      <input class=\"ui-input\" type=\"password\" id=\"pass\">\n      <span class=\"ui-form-helper\">Must be at least 8 characters</span>\n    </div>\n  </div>\n  <div class=\"ui-form__actions\">\n    <button class=\"ui-button\">Sign up</button>\n    <button class=\"ui-button ui-button--ghost\" type=\"button\">Reset</button>\n  </div>\n</form>"
+        }
+      ]
+    }
+  ],
+  "customization": [
+    {
+      "token": "--ui-form-spacing",
+      "default": "var(--ui-space-3)",
+      "description": "Gap between fields"
+    },
+    {
+      "token": "--ui-form-actions-gap",
+      "default": "var(--ui-space-2)",
+      "description": "Gap between action buttons"
+    },
+    {
+      "token": "--ui-form-section-spacing",
+      "default": "var(--ui-space-4)",
+      "description": "Extra spacing between sections"
+    },
+    {
+      "token": "--ui-form-spacing-compact",
+      "default": "var(--ui-space-2)",
+      "description": "Field gap in compact variant"
+    },
+    {
+      "token": "--ui-form-section-spacing-compact",
+      "default": "var(--ui-space-3)",
+      "description": "Section gap in compact variant"
+    }
+  ]
+}
