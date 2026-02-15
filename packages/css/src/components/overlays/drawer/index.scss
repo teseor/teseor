@@ -248,4 +248,11 @@
 
     box-shadow: inset 0 var(--ui-border-width-sm, 1px) 0 var(--_border-color);
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .drawer-overlay[data-state],
+    .drawer[data-state] {
+      animation: none;
+    }
+  }
 }

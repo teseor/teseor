@@ -108,4 +108,14 @@
   .disclosure--flush .disclosure__content {
     padding-inline: 0;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .disclosure--animate .disclosure__content {
+      animation: none;
+    }
+
+    .disclosure__icon {
+      transition: none;
+    }
+  }
 }

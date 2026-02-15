@@ -87,6 +87,16 @@
     }
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .progress--indeterminate .progress__bar {
+      animation: none;
+    }
+
+    .progress--animated .progress__bar {
+      animation: none;
+    }
+  }
+
   // Color variants
   .progress--success {
     --_fill: var(--ui-color-success);
