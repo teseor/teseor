@@ -1,6 +1,7 @@
 {
   "id": "close-button",
   "type": "component",
+  "mergeInto": "button",
   "title": "Close Button",
   "description": "Dismiss button for closing modals, alerts, drawers, and other dismissible elements.",
   "api": "./close-button.api.json",

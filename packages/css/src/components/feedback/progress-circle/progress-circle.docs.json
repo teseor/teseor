@@ -1,6 +1,7 @@
 {
   "id": "progress-circle",
   "type": "component",
+  "mergeInto": "progress",
   "title": "Progress Circle",
   "description": "Circular progress indicator showing completion as a donut ring. Set value via --ui-progress-circle-value (0-100).",
   "api": "./progress-circle.api.json",

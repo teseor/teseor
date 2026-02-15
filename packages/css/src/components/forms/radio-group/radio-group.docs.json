@@ -1,6 +1,7 @@
 {
   "id": "radio-group",
   "type": "component",
+  "mergeInto": "radio",
   "title": "Radio Group",
   "description": "Groups related radio buttons with a legend for single selection. Built on native fieldset semantics.",
   "api": "./radio-group.api.json",

@@ -122,6 +122,7 @@ function resolveDoc(doc, docsFilePath) {
     sections: doc.sections || [],
     customization,
     api: mergedApi,
+    mergeInto: doc.mergeInto || null,
     permalink: `/${TYPE_PATHS[type] || type}/${id}/`,
   };
 }
@@ -145,19 +146,55 @@ function mergeApiWithDocs(api, doc) {
 
 function loadAllDocs() {
   const docsFiles = findDocsFiles(PACKAGES_DIR);
-  const docs = [];
+  const all = [];
 
   for (const file of docsFiles) {
     try {
       const content = readFileSync(file, 'utf-8');
       const doc = JSON.parse(content);
-      docs.push(resolveDoc(doc, file));
+      all.push(resolveDoc(doc, file));
     } catch (err) {
       console.error(`Error loading ${file}: ${err.message}`);
     }
   }
 
-  return docs;
+  // Process mergeInto: append secondary docs' sections into target docs
+  const primary = all.filter((d) => !d.mergeInto);
+  const secondary = all.filter((d) => d.mergeInto);
+
+  for (const sec of secondary) {
+    const target = primary.find((d) => d.id === sec.mergeInto);
+    if (!target) {
+      console.warn(`mergeInto target "${sec.mergeInto}" not found for "${sec.id}"`);
+      primary.push(sec);
+      continue;
+    }
+    // Append sections with a heading that identifies the merged component
+    const mergedSections = sec.sections.map((s) => ({
+      ...s,
+      title: `${sec.title}: ${s.title}`,
+      mergedFrom: sec.id,
+    }));
+    target.sections.push(...mergedSections);
+
+    // Append API as a merged API entry
+    if (sec.api) {
+      if (!target.mergedApis) target.mergedApis = [];
+      target.mergedApis.push({ id: sec.id, title: sec.title, api: sec.api });
+    }
+
+    // Append customization tokens
+    if (sec.customization) {
+      if (!target.mergedCustomization) target.mergedCustomization = [];
+      target.mergedCustomization.push({
+        id: sec.id,
+        title: sec.title,
+        tokens: sec.customization,
+      });
+    }
+  }
+
+  return primary;
 }
 
 function processTemplate(template, data) {

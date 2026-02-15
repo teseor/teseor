@@ -1,6 +1,7 @@
 {
   "id": "button-group",
   "type": "component",
+  "mergeInto": "button",
   "title": "Button Group",
   "description": "Container for grouped buttons that share borders and have connected appearance.",
   "api": "./button-group.api.json",

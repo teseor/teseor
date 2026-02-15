@@ -1,6 +1,7 @@
 {
   "id": "checkbox-group",
   "type": "component",
+  "mergeInto": "checkbox",
   "title": "Checkbox Group",
   "description": "Groups related checkboxes with a legend and consistent spacing. Built on native fieldset semantics.",
   "api": "./checkbox-group.api.json",

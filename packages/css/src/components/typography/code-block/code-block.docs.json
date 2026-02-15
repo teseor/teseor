@@ -1,6 +1,7 @@
 {
   "id": "code-block",
   "type": "component",
+  "mergeInto": "code",
   "title": "Code Block",
   "description": "Multi-line code display with monospace font, horizontal scroll, and optional line numbers.",
   "api": "./code-block.api.json",
