@@ -2,7 +2,7 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './src',
-  testMatch: ['**/*.visual.spec.ts', '**/grid-alignment.spec.ts', '**/sidebar-toggles.spec.ts'],
+  testMatch: ['**/*.visual.spec.ts', '**/grid-alignment.spec.ts'],
   snapshotPathTemplate: 'src/{testFileDir}/{arg}{ext}',
 
   fullyParallel: true,

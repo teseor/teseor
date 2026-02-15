@@ -8,7 +8,7 @@ import { generateVariationsHtml } from './html-generator';
 import { scaffoldCss } from './scaffold';
 
 interface DocsItem {
-  tag: string;
+  tag?: string;
   class?: string;
   text?: string;
   attrs?: Record<string, string>;
@@ -43,6 +43,8 @@ export function loadComponentApi(apiPath: string): ComponentAPI {
 }
 
 function renderItem(item: DocsItem): string {
+  if (!item.tag) return item.text ?? '';
+
   const parts: string[] = [];
 
   if (item.class) parts.push(`class="${item.class}"`);
