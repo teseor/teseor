@@ -34,7 +34,7 @@
       padding-block-end: calc(var(--_cell-padding-y) - var(--ui-border-width-sm, #{t.$border-width-sm}));
       padding-inline: var(--_cell-padding-x);
       // Grid-aligned line-height (3 units = 24px at 8px unit)
-      line-height: calc(var(--unit, #{t.$unit}) * 3);
+      line-height: calc(var(--ui-unit, #{t.$unit}) * 3);
       text-align: start;
 
       border-block-end: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_border-color);

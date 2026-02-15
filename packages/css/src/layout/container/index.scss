@@ -1,6 +1,6 @@
 @layer primitives {
   .container {
-    max-inline-size: var(--container-width, calc(var(--unit) * 120));
+    max-inline-size: var(--container-width, calc(var(--ui-unit) * 120));
     padding-inline: var(--ui-space-4);
   }
 
@@ -9,9 +9,9 @@
   }
 
   /* Size modifiers */
-  .container--sm { --container-width: calc(var(--unit) * 80); }
-  .container--md { --container-width: calc(var(--unit) * 100); }
-  .container--lg { --container-width: calc(var(--unit) * 120); }
-  .container--xl { --container-width: calc(var(--unit) * 160); }
+  .container--sm { --container-width: calc(var(--ui-unit) * 80); }
+  .container--md { --container-width: calc(var(--ui-unit) * 100); }
+  .container--lg { --container-width: calc(var(--ui-unit) * 120); }
+  .container--xl { --container-width: calc(var(--ui-unit) * 160); }
   .container--full { max-inline-size: none; }
 }
