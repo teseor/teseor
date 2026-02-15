@@ -1,6 +1,6 @@
 export interface ComponentAPI {
   name: string;
-  baseClass: string;
+  baseClass?: string;
   element: string;
   description: string;
   modifiers: Record<
