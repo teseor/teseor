@@ -1,0 +1,53 @@
+{
+  "name": "progress-circle",
+  "element": "svg",
+  "modifiers": {
+    "size": {
+      "values": ["sm", "lg", "xl"]
+    },
+    "variant": {
+      "values": ["success", "warning", "danger"]
+    },
+    "indeterminate": {
+      "type": "boolean"
+    }
+  },
+  "elements": {
+    "track": {},
+    "fill": {}
+  },
+  "cssVars": [
+    {
+      "name": "--ui-progress-circle-size",
+      "default": "calc(var(--unit) * 6)"
+    },
+    {
+      "name": "--ui-progress-circle-stroke-width",
+      "default": "8"
+    },
+    {
+      "name": "--ui-progress-circle-fill-color",
+      "default": "var(--ui-color-primary)"
+    },
+    {
+      "name": "--ui-progress-circle-track-color",
+      "default": "var(--ui-color-border)"
+    },
+    {
+      "name": "--ui-progress-circle-value",
+      "default": "0"
+    },
+    {
+      "name": "--ui-progress-circle-size-sm",
+      "default": "calc(var(--unit) * 4)"
+    },
+    {
+      "name": "--ui-progress-circle-size-lg",
+      "default": "calc(var(--unit) * 8)"
+    },
+    {
+      "name": "--ui-progress-circle-size-xl",
+      "default": "calc(var(--unit) * 12)"
+    }
+  ]
+}
