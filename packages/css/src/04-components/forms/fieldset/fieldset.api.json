@@ -1,0 +1,49 @@
+{
+  "name": "fieldset",
+  "element": "fieldset",
+  "modifiers": {
+    "bordered": {
+      "type": "boolean"
+    },
+    "compact": {
+      "type": "boolean"
+    }
+  },
+  "elements": {
+    "legend": {}
+  },
+  "cssVars": [
+    {
+      "name": "--ui-fieldset-spacing",
+      "default": "var(--ui-space-2)"
+    },
+    {
+      "name": "--ui-fieldset-border-color",
+      "default": "var(--ui-color-border)"
+    },
+    {
+      "name": "--ui-fieldset-border-width",
+      "default": "var(--ui-border-width-sm)"
+    },
+    {
+      "name": "--ui-fieldset-border-radius",
+      "default": "var(--ui-radius-md)"
+    },
+    {
+      "name": "--ui-fieldset-padding",
+      "default": "var(--ui-space-2)"
+    },
+    {
+      "name": "--ui-fieldset-legend-size",
+      "default": "var(--ui-font-size-sm)"
+    },
+    {
+      "name": "--ui-fieldset-legend-weight",
+      "default": "var(--ui-weight-medium)"
+    },
+    {
+      "name": "--ui-fieldset-legend-color",
+      "default": "var(--ui-color-text)"
+    }
+  ]
+}

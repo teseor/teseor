@@ -1,0 +1,520 @@
+{
+  "id": "fieldset",
+  "type": "component",
+  "title": "Fieldset",
+  "description": "Groups related form fields with an optional legend and border.",
+  "api": "./fieldset.api.json",
+  "sections": [
+    {
+      "title": "Default",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "fieldset",
+              "class": "ui-fieldset",
+              "children": [
+                {
+                  "tag": "legend",
+                  "class": "ui-fieldset__legend",
+                  "text": "Personal Information"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-field",
+                  "children": [
+                    {
+                      "tag": "label",
+                      "class": "ui-label",
+                      "text": "First Name",
+                      "attrs": { "for": "fname" }
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-field__control",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-input",
+                          "attrs": {
+                            "type": "text",
+                            "id": "fname",
+                            "placeholder": "Jane"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-field",
+                  "children": [
+                    {
+                      "tag": "label",
+                      "class": "ui-label",
+                      "text": "Last Name",
+                      "attrs": { "for": "lname" }
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-field__control",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-input",
+                          "attrs": {
+                            "type": "text",
+                            "id": "lname",
+                            "placeholder": "Doe"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "code": "<fieldset class=\"ui-fieldset\">\n  <legend class=\"ui-fieldset__legend\">Personal Information</legend>\n  <div class=\"ui-field\">\n    <label class=\"ui-label\" for=\"fname\">First Name</label>\n    <div class=\"ui-field__control\">\n      <input type=\"text\" id=\"fname\" class=\"ui-input\">\n    </div>\n  </div>\n  <div class=\"ui-field\">\n    <label class=\"ui-label\" for=\"lname\">Last Name</label>\n    <div class=\"ui-field__control\">\n      <input type=\"text\" id=\"lname\" class=\"ui-input\">\n    </div>\n  </div>\n</fieldset>"
+        }
+      ]
+    },
+    {
+      "title": "Bordered",
+      "description": "Visible border wrapping the field group",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "fieldset",
+              "class": "ui-fieldset ui-fieldset--bordered",
+              "children": [
+                {
+                  "tag": "legend",
+                  "class": "ui-fieldset__legend",
+                  "text": "Shipping Address"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-field",
+                  "children": [
+                    {
+                      "tag": "label",
+                      "class": "ui-label",
+                      "text": "Street",
+                      "attrs": { "for": "street" }
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-field__control",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-input",
+                          "attrs": {
+                            "type": "text",
+                            "id": "street",
+                            "placeholder": "123 Example St"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-field",
+                  "children": [
+                    {
+                      "tag": "label",
+                      "class": "ui-label",
+                      "text": "City",
+                      "attrs": { "for": "city" }
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-field__control",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-input",
+                          "attrs": {
+                            "type": "text",
+                            "id": "city",
+                            "placeholder": "Springfield"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "code": "<fieldset class=\"ui-fieldset ui-fieldset--bordered\">\n  <legend class=\"ui-fieldset__legend\">Shipping Address</legend>\n  <div class=\"ui-field\">\n    <label class=\"ui-label\" for=\"street\">Street</label>\n    <div class=\"ui-field__control\">\n      <input type=\"text\" id=\"street\" class=\"ui-input\">\n    </div>\n  </div>\n  <div class=\"ui-field\">\n    <label class=\"ui-label\" for=\"city\">City</label>\n    <div class=\"ui-field__control\">\n      <input type=\"text\" id=\"city\" class=\"ui-input\">\n    </div>\n  </div>\n</fieldset>"
+        }
+      ]
+    },
+    {
+      "title": "Compact",
+      "description": "Reduced spacing for dense forms",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "fieldset",
+              "class": "ui-fieldset ui-fieldset--compact",
+              "children": [
+                {
+                  "tag": "legend",
+                  "class": "ui-fieldset__legend",
+                  "text": "Preferences"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-field",
+                  "children": [
+                    {
+                      "tag": "label",
+                      "class": "ui-label",
+                      "text": "Language",
+                      "attrs": { "for": "lang" }
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-field__control",
+                      "children": [
+                        {
+                          "tag": "select",
+                          "class": "ui-select",
+                          "attrs": { "id": "lang" },
+                          "children": [
+                            {
+                              "tag": "option",
+                              "text": "English"
+                            },
+                            {
+                              "tag": "option",
+                              "text": "Spanish"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-field",
+                  "children": [
+                    {
+                      "tag": "label",
+                      "class": "ui-label",
+                      "text": "Timezone",
+                      "attrs": { "for": "tz" }
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-field__control",
+                      "children": [
+                        {
+                          "tag": "select",
+                          "class": "ui-select",
+                          "attrs": { "id": "tz" },
+                          "children": [
+                            {
+                              "tag": "option",
+                              "text": "UTC-5 Eastern"
+                            },
+                            {
+                              "tag": "option",
+                              "text": "UTC-8 Pacific"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "code": "<fieldset class=\"ui-fieldset ui-fieldset--compact\">\n  <legend class=\"ui-fieldset__legend\">Preferences</legend>\n  <div class=\"ui-field\">...</div>\n  <div class=\"ui-field\">...</div>\n</fieldset>"
+        }
+      ]
+    },
+    {
+      "title": "Bordered Compact",
+      "description": "Bordered with reduced spacing",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "fieldset",
+              "class": "ui-fieldset ui-fieldset--bordered ui-fieldset--compact",
+              "children": [
+                {
+                  "tag": "legend",
+                  "class": "ui-fieldset__legend",
+                  "text": "Payment"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-field",
+                  "children": [
+                    {
+                      "tag": "label",
+                      "class": "ui-label",
+                      "text": "Card Number",
+                      "attrs": { "for": "card" }
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-field__control",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-input",
+                          "attrs": {
+                            "type": "text",
+                            "id": "card",
+                            "placeholder": "4242 4242 4242 4242"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-field",
+                  "children": [
+                    {
+                      "tag": "label",
+                      "class": "ui-label",
+                      "text": "Expiry",
+                      "attrs": { "for": "exp" }
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-field__control",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-input",
+                          "attrs": {
+                            "type": "text",
+                            "id": "exp",
+                            "placeholder": "MM/YY"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "code": "<fieldset class=\"ui-fieldset ui-fieldset--bordered ui-fieldset--compact\">\n  <legend class=\"ui-fieldset__legend\">Payment</legend>\n  <div class=\"ui-field\">...</div>\n  <div class=\"ui-field\">...</div>\n</fieldset>"
+        }
+      ]
+    },
+    {
+      "title": "Disabled",
+      "description": "Native disabled attribute disables all child controls",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "fieldset",
+              "class": "ui-fieldset ui-fieldset--bordered",
+              "attrs": { "disabled": "" },
+              "children": [
+                {
+                  "tag": "legend",
+                  "class": "ui-fieldset__legend",
+                  "text": "Account (locked)"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-field",
+                  "children": [
+                    {
+                      "tag": "label",
+                      "class": "ui-label",
+                      "text": "Username",
+                      "attrs": { "for": "uname" }
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-field__control",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-input",
+                          "attrs": {
+                            "type": "text",
+                            "id": "uname",
+                            "value": "janedoe"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-field",
+                  "children": [
+                    {
+                      "tag": "label",
+                      "class": "ui-label",
+                      "text": "Role",
+                      "attrs": { "for": "role" }
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-field__control",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-input",
+                          "attrs": {
+                            "type": "text",
+                            "id": "role",
+                            "value": "Editor"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "code": "<fieldset class=\"ui-fieldset ui-fieldset--bordered\" disabled>\n  <legend class=\"ui-fieldset__legend\">Account (locked)</legend>\n  <div class=\"ui-field\">...</div>\n</fieldset>"
+        }
+      ]
+    },
+    {
+      "title": "Without Legend",
+      "description": "Fieldset as a spacing container without visible legend",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "fieldset",
+              "class": "ui-fieldset",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-field",
+                  "children": [
+                    {
+                      "tag": "label",
+                      "class": "ui-label",
+                      "text": "Search",
+                      "attrs": { "for": "search" }
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-field__control",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-input",
+                          "attrs": {
+                            "type": "search",
+                            "id": "search",
+                            "placeholder": "Search..."
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-field",
+                  "children": [
+                    {
+                      "tag": "label",
+                      "class": "ui-label",
+                      "text": "Category",
+                      "attrs": { "for": "cat" }
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-field__control",
+                      "children": [
+                        {
+                          "tag": "select",
+                          "class": "ui-select",
+                          "attrs": { "id": "cat" },
+                          "children": [
+                            {
+                              "tag": "option",
+                              "text": "All"
+                            },
+                            {
+                              "tag": "option",
+                              "text": "Articles"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "code": "<fieldset class=\"ui-fieldset\">\n  <div class=\"ui-field\">...</div>\n  <div class=\"ui-field\">...</div>\n</fieldset>"
+        }
+      ]
+    }
+  ],
+  "customization": [
+    {
+      "token": "--ui-fieldset-spacing",
+      "default": "var(--ui-space-2)",
+      "description": "Gap between child fields"
+    },
+    {
+      "token": "--ui-fieldset-border-color",
+      "default": "var(--ui-color-border)",
+      "description": "Border color for bordered variant"
+    },
+    {
+      "token": "--ui-fieldset-border-width",
+      "default": "var(--ui-border-width-sm)",
+      "description": "Border width for bordered variant"
+    },
+    {
+      "token": "--ui-fieldset-border-radius",
+      "default": "var(--ui-radius-md)",
+      "description": "Border radius for bordered variant"
+    },
+    {
+      "token": "--ui-fieldset-padding",
+      "default": "var(--ui-space-2)",
+      "description": "Inner padding for bordered variant"
+    },
+    {
+      "token": "--ui-fieldset-legend-size",
+      "default": "var(--ui-font-size-sm)",
+      "description": "Legend font size"
+    },
+    {
+      "token": "--ui-fieldset-legend-weight",
+      "default": "var(--ui-weight-medium)",
+      "description": "Legend font weight"
+    },
+    {
+      "token": "--ui-fieldset-legend-color",
+      "default": "var(--ui-color-text)",
+      "description": "Legend text color"
+    }
+  ]
+}
