@@ -185,6 +185,107 @@
           "code": "<div class=\"ui-alert ui-alert--success\">\n  <div class=\"ui-alert__content\">\n    <p class=\"ui-alert__description\">File uploaded.</p>\n  </div>\n</div>"
         }
       ]
+    },
+    {
+      "title": "Sizes",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-column",
+              "attrs": { "style": "--column-gap: var(--ui-space-2);" },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-alert ui-alert--info ui-alert--sm",
+                  "children": [
+                    {
+                      "tag": "div",
+                      "class": "ui-alert__content",
+                      "children": [
+                        {
+                          "tag": "p",
+                          "class": "ui-alert__description",
+                          "text": "Small alert with compact padding."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-alert ui-alert--info",
+                  "children": [
+                    {
+                      "tag": "div",
+                      "class": "ui-alert__content",
+                      "children": [
+                        {
+                          "tag": "p",
+                          "class": "ui-alert__description",
+                          "text": "Default alert size."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-alert ui-alert--info ui-alert--lg",
+                  "children": [
+                    {
+                      "tag": "div",
+                      "class": "ui-alert__content",
+                      "children": [
+                        {
+                          "tag": "p",
+                          "class": "ui-alert__description",
+                          "text": "Large alert with extra padding."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-alert ui-alert--sm\">...</div>\n<div class=\"ui-alert\">...</div>\n<div class=\"ui-alert ui-alert--lg\">...</div>"
+        }
+      ]
+    },
+    {
+      "title": "Dismissible",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-alert ui-alert--info ui-alert--dismissible",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-alert__content",
+                  "children": [
+                    { "tag": "p", "class": "ui-alert__title", "text": "Dismissible" },
+                    {
+                      "tag": "p",
+                      "class": "ui-alert__description",
+                      "text": "This alert can be closed by the user."
+                    }
+                  ]
+                },
+                {
+                  "tag": "button",
+                  "class": "ui-alert__close ui-close-button",
+                  "attrs": { "aria-label": "Close" }
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-alert ui-alert--info ui-alert--dismissible\">\n  <div class=\"ui-alert__content\">\n    <p class=\"ui-alert__title\">Dismissible</p>\n    <p class=\"ui-alert__description\">This alert can be closed.</p>\n  </div>\n  <button class=\"ui-alert__close\" aria-label=\"Close\">...</button>\n</div>"
+        }
+      ]
     }
   ],
   "customization": [
