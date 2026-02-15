@@ -19,10 +19,15 @@
     --_size: var(--ui-checkbox-size-lg, calc(#{t.$unit} * 3));
   }
 
-  // @modifier boolean error
+  // @modifier state
   .checkbox--error {
     --_border-color: var(--ui-checkbox-error-border, var(--ui-color-danger, #{t.$color-danger}));
     --_border-color-focus: var(--ui-checkbox-error-border, var(--ui-color-danger, #{t.$color-danger}));
+  }
+
+  .checkbox--success {
+    --_border-color: var(--ui-checkbox-success-border, var(--ui-color-success, #{t.$color-success}));
+    --_border-color-focus: var(--ui-checkbox-success-border, var(--ui-color-success, #{t.$color-success}));
   }
 }
 

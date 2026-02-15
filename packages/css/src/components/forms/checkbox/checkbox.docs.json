@@ -76,7 +76,7 @@
       ]
     },
     {
-      "title": "Error State",
+      "title": "Validation States",
       "examples": [
         {
           "layout": "row",
@@ -90,9 +90,19 @@
               "tag": "input",
               "class": "ui-checkbox ui-checkbox--error",
               "attrs": { "type": "checkbox", "checked": "" }
+            },
+            {
+              "tag": "input",
+              "class": "ui-checkbox ui-checkbox--success",
+              "attrs": { "type": "checkbox" }
+            },
+            {
+              "tag": "input",
+              "class": "ui-checkbox ui-checkbox--success",
+              "attrs": { "type": "checkbox", "checked": "" }
             }
           ],
-          "code": "<input type=\"checkbox\" class=\"ui-checkbox ui-checkbox--error\">\n<input type=\"checkbox\" class=\"ui-checkbox ui-checkbox--error\" checked>"
+          "code": "<input type=\"checkbox\" class=\"ui-checkbox ui-checkbox--error\">\n<input type=\"checkbox\" class=\"ui-checkbox ui-checkbox--error\" checked>\n<input type=\"checkbox\" class=\"ui-checkbox ui-checkbox--success\">\n<input type=\"checkbox\" class=\"ui-checkbox ui-checkbox--success\" checked>"
         }
       ]
     },

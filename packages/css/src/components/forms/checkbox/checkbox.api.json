@@ -5,8 +5,8 @@
     "size": {
       "values": ["sm", "lg"]
     },
-    "error": {
-      "type": "boolean"
+    "state": {
+      "values": ["error", "success"]
     }
   },
   "cssVars": [
@@ -45,6 +45,10 @@
     {
       "name": "--ui-checkbox-error-border",
       "default": "var(--ui-color-danger)"
+    },
+    {
+      "name": "--ui-checkbox-success-border",
+      "default": "var(--ui-color-success)"
     }
   ]
 }
