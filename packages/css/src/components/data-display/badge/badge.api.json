@@ -35,7 +35,7 @@
       "default": "var(--ui-color-bg-muted)"
     },
     {
-      "name": "--ui-badge-text",
+      "name": "--ui-badge-color",
       "default": "var(--ui-color-text)"
     },
     {
