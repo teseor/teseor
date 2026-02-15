@@ -5,8 +5,8 @@
 
 @layer components.tokens {
   .tooltip {
-    --_bg: var(--ui-tooltip-bg, var(--ui-color-text, #1a1a1a));
-    --_color: var(--ui-tooltip-color, var(--ui-color-bg, white));
+    --_bg: var(--ui-tooltip-bg, var(--ui-color-text, #{t.$color-text}));
+    --_color: var(--ui-tooltip-color, var(--ui-color-bg, #{t.$color-bg}));
     --_radius: var(--ui-tooltip-radius, var(--ui-radius-sm, calc(#{t.$unit} / 2)));
     --_padding-x: var(--ui-tooltip-padding-x, calc(#{t.$unit} * 1));
     --_padding-y: var(--ui-tooltip-padding-y, calc(#{t.$unit} / 2));
