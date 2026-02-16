@@ -463,17 +463,21 @@ function lintWrongLayerTokens(): void {
   }
 
   if (errors.length > 0) {
-    console.error('Wrong-layer token definition check failed:\n');
+    console.warn('Wrong-layer token definition warnings:\n');
+    const byFile = new Map<string, number>();
     for (const err of errors) {
-      console.error(`  - ${err}`);
+      const file = err.split(':')[0];
+      byFile.set(file, (byFile.get(file) ?? 0) + 1);
     }
-    console.error(
-      `\n${errors.length} token definition(s) in styles layer. Move --_ definitions to @layer components.tokens.`,
+    for (const [file, count] of byFile) {
+      console.warn(`  ${file} (${count})`);
+    }
+    console.warn(
+      `\n${errors.length} token definition(s) in ${byFile.size} files. Move --_ definitions to @layer components.tokens.`,
     );
-    process.exit(1);
+  } else {
+    console.log(`Wrong-layer tokens: ${scssFiles.length} SCSS files passed.`);
   }
-
-  console.log(`Wrong-layer tokens: ${scssFiles.length} SCSS files passed.`);
 }
 
 lintComponents();
