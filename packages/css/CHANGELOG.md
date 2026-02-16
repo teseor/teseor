@@ -1,5 +1,17 @@
 # @teseor/css
 
+## 1.9.0
+
+### Minor Changes
+
+- 10a5dcb: Auto-generate api.json from SCSS annotations. Adds @desc token descriptions, @component/@element/@modifier/@related SCSS annotations, and a new generate:api script with lint-time staleness check. Removes manually maintained api.json in favor of SCSS as single source of truth.
+
+### Patch Changes
+
+- f5bfcb3: Extract pure functions from build scripts into testable modules and add 85 vitest unit tests. Add Test CI job.
+- 4653991: Add lint checks to prevent regressions: ban :focus (enforce :focus-visible), require id/title in docs.json, error on raw html in items, detect SCSS interpolation in api.json.
+- 10a5dcb: Replace hardcoded literal fallbacks in token var() expressions with SCSS variable references. Add duration-normal and z-drawer tokens. Add lint rule to prevent hardcoded fallback regression.
+
 ## 1.8.0
 
 ### Minor Changes
