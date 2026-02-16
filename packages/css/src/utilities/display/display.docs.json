@@ -6,6 +6,7 @@
   "api": "display.api.json",
   "sections": [
     {
+      "title": "Flex Layout",
       "examples": [
         {
           "items": [
@@ -21,6 +22,60 @@
             }
           ],
           "code": "<div class=\"ui-flex ui-justify-between ui-items-center ui-gap-2\">\n  <span>Start</span>\n  <span>Center</span>\n  <span>End</span>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "Flex Direction",
+      "examples": [
+        {
+          "layout": "row",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-flex ui-flex-col ui-gap-1 ui-p-2",
+              "style": { "background": "var(--ui-color-bg-muted)" },
+              "children": [
+                { "tag": "span", "text": "Column 1" },
+                { "tag": "span", "text": "Column 2" },
+                { "tag": "span", "text": "Column 3" }
+              ]
+            },
+            {
+              "tag": "div",
+              "class": "ui-flex ui-flex-row ui-gap-1 ui-p-2",
+              "style": { "background": "var(--ui-color-bg-muted)" },
+              "children": [
+                { "tag": "span", "text": "Row 1" },
+                { "tag": "span", "text": "Row 2" },
+                { "tag": "span", "text": "Row 3" }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-flex ui-flex-col ui-gap-1\">...</div>\n<div class=\"ui-flex ui-flex-row ui-gap-1\">...</div>"
+        }
+      ]
+    },
+    {
+      "title": "Visibility",
+      "examples": [
+        {
+          "layout": "row",
+          "items": [
+            {
+              "tag": "span",
+              "class": "ui-visible ui-p-1",
+              "style": { "background": "var(--ui-color-bg-muted)" },
+              "text": "Visible"
+            },
+            {
+              "tag": "span",
+              "class": "ui-invisible ui-p-1",
+              "style": { "background": "var(--ui-color-bg-muted)" },
+              "text": "Invisible (hidden but occupies space)"
+            }
+          ],
+          "code": "<span class=\"ui-visible\">Visible</span>\n<span class=\"ui-invisible\">Invisible (hidden but occupies space)</span>"
         }
       ]
     }

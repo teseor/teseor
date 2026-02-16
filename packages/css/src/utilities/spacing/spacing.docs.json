@@ -6,6 +6,7 @@
   "api": "spacing.api.json",
   "sections": [
     {
+      "title": "Padding",
       "examples": [
         {
           "layout": "column",
@@ -27,15 +28,104 @@
               "class": "ui-p-4",
               "text": "p-4 (32px padding)",
               "style": { "background": "var(--ui-color-bg-muted)" }
-            },
+            }
+          ],
+          "code": "<div class=\"ui-p-1\">...</div>\n<div class=\"ui-p-2\">...</div>\n<div class=\"ui-p-4\">...</div>"
+        }
+      ]
+    },
+    {
+      "title": "Directional Padding",
+      "examples": [
+        {
+          "layout": "column",
+          "items": [
             {
               "tag": "div",
               "class": "ui-px-4 ui-py-2",
               "text": "px-4 py-2 (horizontal 32px, vertical 16px)",
               "style": { "background": "var(--ui-color-bg-muted)" }
+            },
+            {
+              "tag": "div",
+              "class": "ui-pt-4 ui-pb-1",
+              "text": "pt-4 pb-1 (top 32px, bottom 8px)",
+              "style": { "background": "var(--ui-color-bg-muted)" }
+            },
+            {
+              "tag": "div",
+              "class": "ui-ps-4 ui-pe-1",
+              "text": "ps-4 pe-1 (start 32px, end 8px)",
+              "style": { "background": "var(--ui-color-bg-muted)" }
             }
           ],
-          "code": "<div class=\"ui-p-2\">...</div>\n<div class=\"ui-px-4 ui-py-2\">...</div>\n<div class=\"ui-mt-4 ui-mb-2\">...</div>"
+          "code": "<div class=\"ui-px-4 ui-py-2\">...</div>\n<div class=\"ui-pt-4 ui-pb-1\">...</div>\n<div class=\"ui-ps-4 ui-pe-1\">...</div>"
+        }
+      ]
+    },
+    {
+      "title": "Margin",
+      "examples": [
+        {
+          "layout": "column",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-mb-2",
+              "text": "mb-2 (16px bottom margin)",
+              "style": { "background": "var(--ui-color-bg-muted)" }
+            },
+            {
+              "tag": "div",
+              "class": "ui-mt-4 ui-mb-2",
+              "text": "mt-4 mb-2 (top 32px, bottom 16px)",
+              "style": { "background": "var(--ui-color-bg-muted)" }
+            },
+            {
+              "tag": "div",
+              "class": "ui-mx-auto",
+              "text": "mx-auto (centered with auto margins)",
+              "style": {
+                "background": "var(--ui-color-bg-muted)",
+                "max-inline-size": "var(--ui-row-8)"
+              }
+            }
+          ],
+          "code": "<div class=\"ui-mb-2\">...</div>\n<div class=\"ui-mt-4 ui-mb-2\">...</div>\n<div class=\"ui-mx-auto\">...</div>"
+        }
+      ]
+    },
+    {
+      "title": "Gap",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-flex ui-gap-2",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-p-2",
+                  "text": "Item",
+                  "style": { "background": "var(--ui-color-bg-muted)" }
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-p-2",
+                  "text": "Item",
+                  "style": { "background": "var(--ui-color-bg-muted)" }
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-p-2",
+                  "text": "Item",
+                  "style": { "background": "var(--ui-color-bg-muted)" }
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-flex ui-gap-2\">\n  <div>Item</div>\n  <div>Item</div>\n  <div>Item</div>\n</div>"
         }
       ]
     }
