@@ -37,7 +37,7 @@ function findDocsFiles(dir, files = []) {
 /**
  * Extract all CSS classes from docs examples
  */
-function extractClassesFromDocs(doc) {
+export function extractClassesFromDocs(doc) {
   const classes = new Set();
 
   function extractFromItem(item) {
@@ -90,7 +90,7 @@ function extractClassesFromDocs(doc) {
 /**
  * Get all expected CSS classes from API
  */
-function getExpectedClasses(api) {
+export function getExpectedClasses(api) {
   const classes = new Set();
 
   // Handle utility type (standalone classes)
@@ -293,4 +293,8 @@ function validate() {
   }
 }
 
-validate();
+// Run only when executed directly (not when imported for tests)
+const isDirectRun = process.argv[1] && import.meta.url === `file://${process.argv[1]}`;
+if (isDirectRun) {
+  validate();
+}

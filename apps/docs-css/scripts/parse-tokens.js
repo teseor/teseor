@@ -6,11 +6,11 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const VARIABLES_PATH = join(__dirname, '../../../packages/css/src/config/tokens/_variables.scss');
 
 /**
- * Parse _variables.scss and extract token values
+ * Parse SCSS content string and extract token values
+ * @param {string} content - SCSS file content
  * @returns {Map<string, string>} Map of token name to value (e.g., "row-2" -> "2rem")
  */
-export function parseTokens() {
-  const content = readFileSync(VARIABLES_PATH, 'utf-8');
+export function parseTokensFromContent(content) {
   const tokens = new Map();
 
   // Match: $token-name: value; or $token-name: value; // comment
@@ -23,6 +23,15 @@ export function parseTokens() {
   }
 
   return tokens;
+}
+
+/**
+ * Parse _variables.scss and extract token values
+ * @returns {Map<string, string>} Map of token name to value (e.g., "row-2" -> "2rem")
+ */
+export function parseTokens() {
+  const content = readFileSync(VARIABLES_PATH, 'utf-8');
+  return parseTokensFromContent(content);
 }
 
 /**
