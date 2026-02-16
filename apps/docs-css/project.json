@@ -43,6 +43,12 @@
       },
       "dependsOn": ["css:build", "validate", "build-docs"]
     },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -p apps/docs-css/tsconfig.json --noEmit"
+      }
+    },
     "lint": {
       "executor": "nx:run-commands",
       "options": {
