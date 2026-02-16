@@ -291,7 +291,8 @@ function lintTokenFallbacks(): void {
       }
       const fallback = content.substring(commaIdx + 1, pos).trim();
       results.push({ token, fallback, index: start });
-      searchFrom = pos + 1;
+      // Resume from after the comma so nested var(--ui-*) inside the fallback are also scanned
+      searchFrom = commaIdx + 1;
     }
     return results;
   }

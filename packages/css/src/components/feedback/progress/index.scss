@@ -8,7 +8,7 @@
     --_height: var(--ui-progress-height, calc(#{t.$unit} * 1));
     --_bg: var(--ui-progress-bg, var(--ui-color-bg-subtle, #{t.$overlay-bg-subtle}));
     --_fill: var(--ui-progress-fill, var(--ui-color-primary));
-    --_radius: var(--ui-progress-radius, var(--ui-radius-full, 9999px));
+    --_radius: var(--ui-progress-radius, var(--ui-radius-full, #{t.$radius-full}));
   }
 
   .progress--sm {

@@ -11,7 +11,7 @@
     --_padding: var(--ui-modal-padding, calc(#{t.$unit} * 3));
     --_max-width: var(--ui-modal-max-width, calc(#{t.$unit} * 60));
     --_max-height: var(--ui-modal-max-height, calc(100vh - #{t.$unit} * 8));
-    --_z: var(--ui-modal-z, var(--ui-z-modal, 400));
+    --_z: var(--ui-modal-z, var(--ui-z-modal, #{t.$z-modal}));
   }
 
   .modal--sm {

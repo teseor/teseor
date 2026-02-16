@@ -6,12 +6,12 @@
 @layer components.tokens {
   .popover {
     --_bg: var(--ui-popover-bg, var(--ui-color-bg, white));
-    --_border-color: var(--ui-popover-border-color, var(--ui-color-border, rgb(0 0 0 / 0.1)));
+    --_border-color: var(--ui-popover-border-color, var(--ui-color-border, #{t.$color-border}));
     --_radius: var(--ui-popover-radius, var(--ui-radius-md, calc(#{t.$unit} * 1)));
     --_shadow: var(--ui-popover-shadow, 0 calc(#{t.$unit} / 2) calc(#{t.$unit} * 2) rgb(0 0 0 / 0.15));
     --_padding: var(--ui-popover-padding, calc(#{t.$unit} * 2));
     --_max-width: var(--ui-popover-max-width, calc(#{t.$unit} * 40));
-    --_z: var(--ui-popover-z, var(--ui-z-popover, 500));
+    --_z: var(--ui-popover-z, var(--ui-z-popover, #{t.$z-popover}));
     --_arrow-size: var(--ui-popover-arrow-size, calc(#{t.$unit}));
   }
 }

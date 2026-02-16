@@ -6,7 +6,7 @@
 @layer components.tokens {
   .overlay {
     --_bg: var(--ui-overlay-bg, #{t.$overlay-bg});
-    --_z: var(--ui-overlay-z, var(--ui-z-overlay, 300));
+    --_z: var(--ui-overlay-z, var(--ui-z-overlay, #{t.$z-overlay}));
   }
 
   .overlay--light {

@@ -5,7 +5,7 @@
 
 @layer components.tokens {
   .disclosure {
-    --_border-color: var(--ui-disclosure-border-color, var(--ui-color-border, rgb(0 0 0 / 0.1)));
+    --_border-color: var(--ui-disclosure-border-color, var(--ui-color-border, #{t.$color-border}));
     --_border-width: var(--ui-disclosure-border-width, #{t.$border-width-sm});
     --_radius: var(--ui-disclosure-radius, var(--ui-radius-md, calc(#{t.$unit} * 1)));
     --_trigger-height: var(--ui-disclosure-trigger-height, var(--ui-row-3, calc(#{t.$row} * 3)));
