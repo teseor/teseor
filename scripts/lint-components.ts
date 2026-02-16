@@ -17,6 +17,7 @@ import { fileURLToPath } from 'node:url';
 
 import { discoverComponents } from './discover-structure.js';
 import { findComponentDirs } from './shared/find-components.js';
+import { extractTokenVars, isHardcodedFallback } from './shared/lint-helpers.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const COMPONENTS_DIR = join(__dirname, '../packages/css/src/components');
@@ -254,75 +255,6 @@ function lintTokenFallbacks(): void {
   const srcDir = join(__dirname, '../packages/css/src');
   const scssFiles = findScssFiles(srcDir);
   const errors: string[] = [];
-
-  // Extract fallback from var(--ui-token, fallback) handling nested parens
-  function extractTokenVars(content: string): { token: string; fallback: string; index: number }[] {
-    const results: { token: string; fallback: string; index: number }[] = [];
-    const prefix = 'var(--ui-';
-    let searchFrom = 0;
-
-    while (searchFrom < content.length) {
-      const start = content.indexOf(prefix, searchFrom);
-      if (start === -1) break;
-
-      // Find token name (up to comma)
-      const tokenStart = start + prefix.length;
-      const commaIdx = content.indexOf(',', tokenStart);
-      if (commaIdx === -1) {
-        searchFrom = tokenStart;
-        continue;
-      }
-      const token = content.substring(tokenStart, commaIdx);
-      if (!/^[\w-]+$/.test(token)) {
-        searchFrom = tokenStart;
-        continue;
-      }
-
-      // Extract fallback with balanced parentheses
-      let depth = 1; // we're inside the outer var(
-      let pos = commaIdx + 1;
-      while (pos < content.length && depth > 0) {
-        if (content[pos] === '(') depth++;
-        else if (content[pos] === ')') depth--;
-        if (depth > 0) pos++;
-      }
-      if (depth !== 0) {
-        searchFrom = tokenStart;
-        continue;
-      }
-      const fallback = content.substring(commaIdx + 1, pos).trim();
-      results.push({ token, fallback, index: start });
-      // Resume from after the comma so nested var(--ui-*) inside the fallback are also scanned
-      searchFrom = commaIdx + 1;
-    }
-    return results;
-  }
-
-  // Fallback values that indicate a hardcoded literal instead of SCSS reference
-  const isHardcodedFallback = (fallback: string): boolean => {
-    const trimmed = fallback.trim();
-    // Allow SCSS interpolations — these are correct
-    if (trimmed.startsWith('#{')) return false;
-    // Allow var() references — nested custom properties are fine
-    if (trimmed.startsWith('var(')) return false;
-    // Allow SCSS variables — direct $var usage
-    if (trimmed.startsWith('$')) return false;
-    // Allow keyword values (none, inherit, auto, transparent, currentcolor, etc)
-    if (/^[a-z-]+$/i.test(trimmed)) return false;
-    // Allow plain 0 — semantically "nothing", not a design token
-    if (trimmed === '0') return false;
-    // Allow percentage values — component-specific, not global tokens
-    if (/^\d+%$/.test(trimmed)) return false;
-    // Allow shadow/shorthand values that contain SCSS interpolation somewhere
-    if (trimmed.includes('#{')) return false;
-    // Flag numeric literals (0.5, 0.0625rem, 624.9375rem, 9999px, etc)
-    if (/^\d/.test(trimmed)) return true;
-    // Flag color functions (rgb, hsl, oklch, etc)
-    if (/^(rgb|hsl|oklch|lab|lch|color)\(/i.test(trimmed)) return true;
-    // Flag hex colors
-    if (/^#[0-9a-f]/i.test(trimmed)) return true;
-    return false;
-  };
 
   for (const file of scssFiles) {
     const content = readFileSync(file, 'utf-8');
