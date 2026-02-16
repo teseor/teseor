@@ -114,3 +114,14 @@ Plan -> Approve -> Create GitHub Issue -> Branch -> Implement -> PR -> CI -> Mer
 
 **Commit format**: `[CSS] type(scope): message`
 Types: `feat` | `fix` | `chore` | `docs` | `refactor` | `test`
+
+## Parallel Work
+
+**Git worktrees for parallel agents.** When multiple agents need separate branches, always use git worktrees to avoid filesystem conflicts:
+```bash
+git worktree add /tmp/ui-lib-<branch-suffix> -b <branch-name> main
+# Agent works in /tmp/ui-lib-<branch-suffix>
+# Clean up after merge:
+git worktree remove /tmp/ui-lib-<branch-suffix>
+```
+Never run parallel agents on different branches in the same working directory — file writes and git operations will conflict.
