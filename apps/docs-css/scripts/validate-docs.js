@@ -130,6 +130,11 @@ function getExpectedClasses(api) {
     }
   }
 
+  // Add sub-elements (simple string array)
+  for (const name of api.subElements || []) {
+    classes.add(`${base}__${name}`);
+  }
+
   // Add related components (e.g., avatar-group for avatar)
   for (const related of api.relatedComponents || []) {
     if (typeof related === 'string') {

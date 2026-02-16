@@ -98,6 +98,15 @@
       ]
     },
     {
+      "title": "Fixed",
+      "description": "Fixed to viewport bottom, always visible.",
+      "examples": [
+        {
+          "code": "<footer class=\"ui-footer ui-footer--fixed ui-footer--bordered\">\n  <div class=\"ui-footer__start\"><small>Brand</small></div>\n  <div class=\"ui-footer__end\"><small>v1.0.0</small></div>\n</footer>"
+        }
+      ]
+    },
+    {
       "title": "Full Layout",
       "description": "Footer inside an app-shell with topbar and sidebar.",
       "examples": [
