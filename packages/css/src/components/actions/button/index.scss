@@ -6,6 +6,16 @@
 // Token definitions - what makes each variant
 @layer components.tokens {
   .button {
+    --_space-1: var(--ui-space-1, #{t.$space-1});
+    --_font-sans: var(--ui-font-sans, #{t.$font-sans});
+    --_duration-base: var(--ui-duration-base);
+    --_ease-default: var(--ui-ease-default);
+    --_duration-fast: var(--ui-duration-fast);
+    --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
+    --_color-focus: var(--ui-color-focus, #{t.$color-focus});
+    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    --_space-quarter: var(--ui-space-quarter);
+    --_opacity-loading: var(--ui-opacity-loading, #{t.$opacity-loading});
     // Single accent color - all shades derived via color-mix
     --_accent: var(--ui-button-accent, var(--ui-color-primary, #{t.$color-primary}));
 
@@ -107,7 +117,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--ui-space-1, #{t.$space-1});
+    gap: var(--_space-1);
 
     // Size
     block-size: var(--_height);
@@ -117,7 +127,7 @@
     margin: 0;
 
     // Typography
-    font-family: var(--ui-font-sans, #{t.$font-sans});
+    font-family: var(--_font-sans);
     font-size: var(--_font-size);
     font-weight: var(--_font-weight);
     line-height: 1;
@@ -132,9 +142,9 @@
 
     // Transitions
     transition:
-      background-color var(--ui-duration-base) var(--ui-ease-default),
-      color var(--ui-duration-base) var(--ui-ease-default),
-      transform var(--ui-duration-fast) var(--ui-ease-default);
+      background-color var(--_duration-base) var(--_ease-default),
+      color var(--_duration-base) var(--_ease-default),
+      transform var(--_duration-fast) var(--_ease-default);
 
     // States - modifiers mirror pseudo-classes for testing/docs
     &:hover,
@@ -146,8 +156,8 @@
 
     &:focus-visible,
     &--focus {
-      outline: var(--ui-border-width-md, #{t.$border-width-md}) solid var(--ui-color-focus, #{t.$color-focus});
-      outline-offset: var(--ui-border-width-md, #{t.$border-width-md});
+      outline: var(--_border-width-md) solid var(--_color-focus);
+      outline-offset: var(--_border-width-md);
     }
 
     &:active,
@@ -156,7 +166,7 @@
     }
 
     &:disabled {
-      opacity: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+      opacity: var(--_opacity-disabled);
       cursor: not-allowed;
 
       &:hover {
@@ -178,10 +188,10 @@
     // Link variant underline
     &--link {
       text-decoration: underline;
-      text-underline-offset: var(--ui-space-quarter);
+      text-underline-offset: var(--_space-quarter);
 
       &:hover {
-        text-decoration-thickness: var(--ui-space-quarter);
+        text-decoration-thickness: var(--_space-quarter);
       }
     }
 
@@ -205,7 +215,7 @@
     &--loading {
       position: relative;
 
-      opacity: var(--ui-opacity-loading, #{t.$opacity-loading});
+      opacity: var(--_opacity-loading);
       pointer-events: none;
 
       &::after {

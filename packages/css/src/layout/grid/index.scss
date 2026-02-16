@@ -1,7 +1,8 @@
 @layer primitives {
   .grid {
+    --_space-4: var(--ui-space-4);
     display: grid;
-    gap: var(--grid-gap, var(--ui-space-4));
+    gap: var(--grid-gap, var(--_space-4));
     grid-template-columns: repeat(var(--grid-cols, 1), minmax(0, 1fr));
   }
 

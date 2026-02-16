@@ -5,6 +5,15 @@
 
 @layer components.tokens {
   .textarea {
+    --_row-1: var(--ui-row-1, #{t.$row});
+    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
+    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
+    --_ease-default: var(--ui-ease-default, ease);
+    --_color-border-strong: var(--ui-color-border-strong, #{t.$color-border-strong});
+    --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
+    --_color-focus: var(--ui-color-focus, #{t.$color-focus});
+    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    --_color-bg-subtle: var(--ui-color-bg-subtle, #{t.$color-bg-subtle});
     --_min-height: var(--ui-textarea-min-height, calc(#{t.$row} * 4));
     --_padding-x: var(--ui-textarea-padding-x, var(--ui-space-1, #{t.$space-1}));
     --_padding-y: var(--ui-textarea-padding-y, var(--ui-space-1, #{t.$space-1}));
@@ -65,18 +74,18 @@
 
     font-family: inherit;
     font-size: var(--_font-size);
-    line-height: var(--ui-row-1, #{t.$row});
+    line-height: var(--_row-1);
     color: var(--_color);
 
     background: var(--_bg);
     border: none;
     border-radius: var(--_radius);
-    outline: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_border-color);
+    outline: var(--_border-width-sm) solid var(--_border-color);
 
     transition:
-      border-color var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease),
-      box-shadow var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease);
-    outline-offset: calc(var(--ui-border-width-sm, #{t.$border-width-sm}) * -1);
+      border-color var(--_duration-fast) var(--_ease-default),
+      box-shadow var(--_duration-fast) var(--_ease-default);
+    outline-offset: calc(var(--_border-width-sm) * -1);
 
     // Default resize behavior
     resize: vertical;
@@ -86,25 +95,25 @@
     }
 
     &:hover:not(:disabled, :focus-visible) {
-      outline-color: var(--ui-color-border-strong, #{t.$color-border-strong});
+      outline-color: var(--_color-border-strong);
     }
 
     &:focus-visible,
     &--focus {
       outline-color: var(--_border-color-focus);
 
-      box-shadow: 0 0 0 var(--ui-border-width-md, #{t.$border-width-md}) var(--ui-color-focus, #{t.$color-focus});
+      box-shadow: 0 0 0 var(--_border-width-md) var(--_color-focus);
     }
 
     &:disabled,
     &--disabled {
-      opacity: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+      opacity: var(--_opacity-disabled);
       cursor: not-allowed;
       resize: none;
     }
 
     &:read-only {
-      background: var(--ui-color-bg-subtle, #{t.$color-bg-subtle});
+      background: var(--_color-bg-subtle);
       resize: none;
     }
 

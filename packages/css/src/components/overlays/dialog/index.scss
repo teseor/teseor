@@ -5,6 +5,8 @@
 
 @layer components.tokens {
   .dialog {
+    --_font-size-lg: var(--ui-font-size-lg, #{t.$font-size-lg});
+    --_weight-semibold: var(--ui-weight-semibold, #{t.$weight-semibold});
     --_header-padding: var(--ui-dialog-header-padding, calc(#{t.$unit} * 2) calc(#{t.$unit} * 3));
     --_body-padding: var(--ui-dialog-body-padding, calc(#{t.$unit} * 3));
     --_footer-padding: var(--ui-dialog-footer-padding, calc(#{t.$unit} * 2) calc(#{t.$unit} * 3));
@@ -33,8 +35,8 @@
   .dialog__title {
     margin: 0;
 
-    font-size: var(--ui-font-size-lg, #{t.$font-size-lg});
-    font-weight: var(--ui-weight-semibold, #{t.$weight-semibold});
+    font-size: var(--_font-size-lg);
+    font-weight: var(--_weight-semibold);
     line-height: calc(#{t.$unit} * 3);
   }
 

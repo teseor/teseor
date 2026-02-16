@@ -5,6 +5,15 @@
 
 @layer components.tokens {
   .select {
+    --_space-half: var(--ui-space-half, #{t.$space-0});
+    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
+    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
+    --_ease-default: var(--ui-ease-default, ease);
+    --_color-border-strong: var(--ui-color-border-strong, #{t.$color-border-strong});
+    --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
+    --_color-focus: var(--ui-color-focus, #{t.$color-focus});
+    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
     --_height: var(--ui-select-height, var(--ui-row-2, #{t.$row-2}));
     --_padding-x: var(--ui-select-padding-x, var(--ui-space-1, #{t.$space-1}));
     --_font-size: var(--ui-select-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
@@ -59,7 +68,7 @@
     block-size: var(--_height);
     // Extra padding for arrow
     padding-inline-start: var(--_padding-x);
-    padding-inline-end: calc(var(--_height) - var(--ui-space-half, #{t.$space-0}));
+    padding-inline-end: calc(var(--_height) - var(--_space-half));
 
     font-family: inherit;
     font-size: var(--_font-size);
@@ -69,35 +78,35 @@
     background-color: var(--_bg);
     // Chevron down arrow
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-    border: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_border-color);
+    border: var(--_border-width-sm) solid var(--_border-color);
     border-radius: var(--_radius);
     cursor: pointer;
     // Reset native select
     appearance: none;
 
     transition:
-      border-color var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease),
-      box-shadow var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease);
+      border-color var(--_duration-fast) var(--_ease-default),
+      box-shadow var(--_duration-fast) var(--_ease-default);
     background-repeat: no-repeat;
-    background-position: right var(--ui-space-half, #{t.$space-0}) center;
+    background-position: right var(--_space-half) center;
     background-size: calc(var(--_height) * 0.5);
 
     &:hover:not(:disabled, :focus-visible) {
-      border-color: var(--ui-color-border-strong, #{t.$color-border-strong});
+      border-color: var(--_color-border-strong);
     }
 
     &:focus-visible,
     &--focus {
       border-color: var(--_border-color-focus);
-      outline: var(--ui-border-width-md, #{t.$border-width-md}) solid transparent;
-      outline-offset: var(--ui-border-width-sm, #{t.$border-width-sm});
+      outline: var(--_border-width-md) solid transparent;
+      outline-offset: var(--_border-width-sm);
 
-      box-shadow: 0 0 0 var(--ui-border-width-md, #{t.$border-width-md}) var(--ui-color-focus, #{t.$color-focus});
+      box-shadow: 0 0 0 var(--_border-width-md) var(--_color-focus);
     }
 
     &:disabled,
     &--disabled {
-      opacity: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+      opacity: var(--_opacity-disabled);
       cursor: not-allowed;
     }
 
@@ -109,7 +118,7 @@
     // Placeholder option styling
     &:invalid,
     &--placeholder {
-      color: var(--ui-color-text-muted, #{t.$color-text-muted});
+      color: var(--_color-text-muted);
     }
   }
 }

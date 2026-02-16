@@ -5,6 +5,10 @@
 
 @layer components.tokens {
   .toggle {
+    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
+    --_ease-default: var(--ui-ease-default, ease);
+    --_color-focus: var(--ui-color-focus, var(--ui-color-primary));
+    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
     --_track-width: var(--ui-toggle-track-width, calc(#{t.$unit} * 5));
     --_track-height: var(--ui-toggle-track-height, calc(#{t.$unit} * 3));
     --_track-bg: var(--ui-toggle-track-bg, var(--ui-color-bg-subtle, #{t.$overlay-bg-subtle}));
@@ -46,7 +50,7 @@
     border-radius: var(--_track-radius);
     cursor: pointer;
 
-    transition: background var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease);
+    transition: background var(--_duration-fast) var(--_ease-default);
   }
 
   // Hidden checkbox input
@@ -70,7 +74,7 @@
     background: var(--_track-bg);
     border-radius: var(--_track-radius);
 
-    transition: background var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease);
+    transition: background var(--_duration-fast) var(--_ease-default);
   }
 
   // Thumb (sliding indicator)
@@ -86,7 +90,7 @@
     border-radius: 50%;
     box-shadow: 0 1px 3px rgb(0 0 0 / 0.2);
 
-    transition: transform var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease);
+    transition: transform var(--_duration-fast) var(--_ease-default);
   }
 
   // Checked state
@@ -100,14 +104,14 @@
 
   // Focus state
   .toggle__input:focus-visible ~ .toggle__track {
-    outline: 2px solid var(--ui-color-focus, var(--ui-color-primary));
+    outline: 2px solid var(--_color-focus);
     outline-offset: calc(#{t.$unit} / 4);
   }
 
   // Disabled state
   .toggle__input:disabled ~ .toggle__track,
   .toggle__input:disabled ~ .toggle__thumb {
-    opacity: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    opacity: var(--_opacity-disabled);
     cursor: not-allowed;
   }
 

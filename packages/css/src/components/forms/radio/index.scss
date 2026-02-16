@@ -5,6 +5,12 @@
 
 @layer components.tokens {
   .radio {
+    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
+    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
+    --_ease-default: var(--ui-ease-default, ease);
+    --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
+    --_color-focus: var(--ui-color-focus, #{t.$color-focus});
+    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
     --_size: var(--ui-radio-size, calc(#{t.$unit} * 2));
     --_bg: var(--ui-radio-bg, var(--ui-color-bg, #{t.$color-bg}));
     --_bg-checked: var(--ui-radio-bg-checked, var(--ui-color-primary, #{t.$color-primary}));
@@ -45,16 +51,16 @@
     vertical-align: middle;
 
     background: var(--_bg);
-    border: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_border-color);
+    border: var(--_border-width-sm) solid var(--_border-color);
     border-radius: 50%;
     cursor: pointer;
     // Reset native radio
     appearance: none;
 
     transition:
-      background-color var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease),
-      border-color var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease),
-      box-shadow var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease);
+      background-color var(--_duration-fast) var(--_ease-default),
+      border-color var(--_duration-fast) var(--_ease-default),
+      box-shadow var(--_duration-fast) var(--_ease-default);
 
     // Inner dot for checked state
     &::before {
@@ -69,8 +75,8 @@
       transform: scale(0);
 
       transition:
-        opacity var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease),
-        transform var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease);
+        opacity var(--_duration-fast) var(--_ease-default),
+        transform var(--_duration-fast) var(--_ease-default);
     }
 
     &:hover:not(:disabled) {
@@ -79,10 +85,10 @@
 
     &:focus-visible {
       border-color: var(--_border-color-focus);
-      outline: var(--ui-border-width-md, #{t.$border-width-md}) solid transparent;
-      outline-offset: var(--ui-border-width-sm, #{t.$border-width-sm});
+      outline: var(--_border-width-md) solid transparent;
+      outline-offset: var(--_border-width-sm);
 
-      box-shadow: 0 0 0 var(--ui-border-width-md, #{t.$border-width-md}) var(--ui-color-focus, #{t.$color-focus});
+      box-shadow: 0 0 0 var(--_border-width-md) var(--_color-focus);
     }
 
     &:checked {
@@ -96,7 +102,7 @@
     }
 
     &:disabled {
-      opacity: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+      opacity: var(--_opacity-disabled);
       cursor: not-allowed;
     }
   }

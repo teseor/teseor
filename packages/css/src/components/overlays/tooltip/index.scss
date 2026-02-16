@@ -5,6 +5,8 @@
 
 @layer components.tokens {
   .tooltip {
+    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
+    --_ease-default: var(--ui-ease-default, ease);
     --_bg: var(--ui-tooltip-bg, var(--ui-color-text, #{t.$color-text}));
     --_color: var(--ui-tooltip-color, var(--ui-color-bg, #{t.$color-bg}));
     --_radius: var(--ui-tooltip-radius, var(--ui-radius-sm, calc(#{t.$unit} / 2)));
@@ -97,6 +99,6 @@
   }
 
   .tooltip--animate {
-    transition: opacity var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease);
+    transition: opacity var(--_duration-fast) var(--_ease-default);
   }
 }

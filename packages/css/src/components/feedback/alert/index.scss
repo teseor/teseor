@@ -5,6 +5,11 @@
 
 @layer components.tokens {
   .alert {
+    --_weight-medium: var(--ui-weight-medium, #{t.$weight-medium});
+    --_row-1: var(--ui-row-1, #{t.$row});
+    --_font-size-sm: var(--ui-font-size-sm, #{t.$font-size-sm});
+    --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
+    --_color-text: var(--ui-color-text, #{t.$color-text});
     // Single accent color - variants override, bg/border derived via color-mix
     --_accent: var(--ui-alert-accent, var(--ui-color-border, #{t.$color-border}));
 
@@ -91,19 +96,19 @@
   .alert__title {
     margin: 0;
 
-    font-weight: var(--ui-weight-medium, #{t.$weight-medium});
+    font-weight: var(--_weight-medium);
     // Line-height aligned to grid (24px = 3 units)
-    line-height: var(--ui-row-1, #{t.$row});
+    line-height: var(--_row-1);
   }
 
   .alert__description {
     margin: 0;
     margin-block-start: calc(#{t.$unit} * 1);
 
-    font-size: var(--ui-font-size-sm, #{t.$font-size-sm});
+    font-size: var(--_font-size-sm);
     // Line-height aligned to grid (16px = 2 units for smaller text)
-    line-height: var(--ui-row-1, #{t.$row});
-    color: var(--ui-color-text-muted, #{t.$color-text-muted});
+    line-height: var(--_row-1);
+    color: var(--_color-text-muted);
   }
 
   .alert__close {
@@ -112,14 +117,14 @@
 
     padding: 0;
 
-    color: var(--ui-color-text-muted, #{t.$color-text-muted});
+    color: var(--_color-text-muted);
 
     background: none;
     border: none;
     cursor: pointer;
 
     &:hover {
-      color: var(--ui-color-text, #{t.$color-text});
+      color: var(--_color-text);
     }
   }
 }

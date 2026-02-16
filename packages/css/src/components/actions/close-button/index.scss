@@ -5,6 +5,12 @@
 
 @layer components.tokens {
   .close-button {
+    --_duration-base: var(--ui-duration-base, #{t.$duration-base});
+    --_ease-default: var(--ui-ease-default, ease);
+    --_color-text: var(--ui-color-text, #{t.$color-text});
+    --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
+    --_color-focus: var(--ui-color-focus, #{t.$color-focus});
+    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
     --_size: var(--ui-close-button-size, var(--ui-row-2, #{t.$row-2}));
     --_icon-size: var(--ui-close-button-icon-size, var(--ui-size-md, #{t.size(md)}));
     --_color: var(--ui-close-button-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
@@ -52,20 +58,20 @@
     appearance: none;
 
     transition:
-      background-color var(--ui-duration-base, #{t.$duration-base}) var(--ui-ease-default, ease),
-      color var(--ui-duration-base, #{t.$duration-base}) var(--ui-ease-default, ease);
+      background-color var(--_duration-base) var(--_ease-default),
+      color var(--_duration-base) var(--_ease-default);
 
     &:hover,
     &--hover {
-      color: var(--ui-color-text, #{t.$color-text});
+      color: var(--_color-text);
 
       background: var(--_hover-bg);
     }
 
     &:focus-visible,
     &--focus {
-      outline: var(--ui-border-width-md, #{t.$border-width-md}) solid var(--ui-color-focus, #{t.$color-focus});
-      outline-offset: var(--ui-border-width-md, #{t.$border-width-md});
+      outline: var(--_border-width-md) solid var(--_color-focus);
+      outline-offset: var(--_border-width-md);
     }
 
     &:active,
@@ -74,7 +80,7 @@
     }
 
     &:disabled {
-      opacity: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+      opacity: var(--_opacity-disabled);
       cursor: not-allowed;
 
       &:hover {

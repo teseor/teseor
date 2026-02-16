@@ -2,6 +2,10 @@
 
 @layer components.tokens {
   .blockquote {
+    --_space-1: var(--ui-space-1, #{t.$space-1});
+    --_font-size-sm: var(--ui-font-size-sm, #{t.$font-size-sm});
+    --_leading-sm: var(--ui-leading-sm, #{t.$leading-sm});
+    --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
     --_border-color: var(--ui-blockquote-border-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
     --_border-width: var(--ui-blockquote-border-width, var(--ui-border-width-lg, #{t.$border-width-lg}));
     --_padding-inline: var(--ui-blockquote-padding-inline, var(--ui-space-3, #{t.$space-3}));
@@ -31,11 +35,11 @@
   .blockquote__cite {
     display: block;
 
-    margin-block-start: var(--ui-space-1, #{t.$space-1});
+    margin-block-start: var(--_space-1);
 
-    font-size: var(--ui-font-size-sm, #{t.$font-size-sm});
+    font-size: var(--_font-size-sm);
     font-style: normal;
-    line-height: var(--ui-leading-sm, #{t.$leading-sm});
-    color: var(--ui-color-text-muted, #{t.$color-text-muted});
+    line-height: var(--_leading-sm);
+    color: var(--_color-text-muted);
   }
 }

@@ -5,6 +5,10 @@
 
 @layer components.tokens {
   .radio-group {
+    --_leading-tight-sm: var(--ui-leading-tight-sm, var(--ui-row-1, #{t.$leading-tight-sm}));
+    --_row-1: var(--ui-row-1, #{t.$row-1});
+    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    --_space-2: var(--ui-space-2, #{t.$space-2});
     --_spacing: var(--ui-radio-group-spacing, var(--ui-space-1, #{t.$space-1}));
     --_legend-size: var(--ui-radio-group-legend-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     --_legend-weight: var(--ui-radio-group-legend-weight, var(--ui-weight-medium, #{t.$weight-medium}));
@@ -43,7 +47,7 @@
 
     font-size: var(--_legend-size);
     font-weight: var(--_legend-weight);
-    line-height: var(--ui-leading-tight-sm, var(--ui-row-1, #{t.$leading-tight-sm}));
+    line-height: var(--_leading-tight-sm);
     color: var(--_legend-color);
   }
 
@@ -58,13 +62,13 @@
     align-items: center;
     gap: var(--_item-gap);
 
-    line-height: var(--ui-row-1, #{t.$row-1});
+    line-height: var(--_row-1);
 
     cursor: pointer;
   }
 
   .radio-group__item:has(:disabled) {
-    opacity: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    opacity: var(--_opacity-disabled);
     cursor: not-allowed;
   }
 
@@ -72,13 +76,13 @@
   .radio-group--horizontal > .radio-group__items {
     flex-direction: row;
     flex-wrap: wrap;
-    gap: var(--ui-space-2, #{t.$space-2});
+    gap: var(--_space-2);
   }
 
   // Disabled group
   .radio-group:disabled,
   .radio-group[aria-disabled='true'] {
-    opacity: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    opacity: var(--_opacity-disabled);
     cursor: not-allowed;
   }
 }

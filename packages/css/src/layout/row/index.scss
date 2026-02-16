@@ -1,15 +1,19 @@
 @layer primitives {
   .row {
+    --_space-2: var(--ui-space-2);
+    --_space-1: var(--ui-space-1);
+    --_space-4: var(--ui-space-4);
+    --_space-6: var(--ui-space-6);
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--row-gap, var(--ui-space-2));
+    gap: var(--row-gap, var(--_space-2));
   }
 
-  .row--xs { --row-gap: var(--ui-space-1); }
-  .row--sm { --row-gap: var(--ui-space-2); }
-  .row--md { --row-gap: var(--ui-space-4); }
-  .row--lg { --row-gap: var(--ui-space-6); }
+  .row--xs { --row-gap: var(--_space-1); }
+  .row--sm { --row-gap: var(--_space-2); }
+  .row--md { --row-gap: var(--_space-4); }
+  .row--lg { --row-gap: var(--_space-6); }
 
   .row--start { justify-content: flex-start; }
   .row--center { justify-content: center; }

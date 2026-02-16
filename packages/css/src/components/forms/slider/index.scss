@@ -5,6 +5,10 @@
 
 @layer components.tokens {
   .slider {
+    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
+    --_ease-default: var(--ui-ease-default, ease);
+    --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
+    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
     --_height: var(--ui-slider-height, var(--ui-row-2, #{t.$row-2}));
     --_track-height: var(--ui-slider-track-height, #{t.$unit});
     --_track-bg: var(--ui-slider-track-bg, var(--ui-color-bg-subtle, #{t.$overlay-bg-subtle}));
@@ -101,8 +105,8 @@
       appearance: none;
 
       transition:
-        box-shadow var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease),
-        transform var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease);
+        box-shadow var(--_duration-fast) var(--_ease-default),
+        transform var(--_duration-fast) var(--_ease-default);
     }
 
     // Firefox thumb
@@ -116,20 +120,20 @@
       box-shadow: var(--_thumb-shadow);
 
       transition:
-        box-shadow var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease),
-        transform var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease);
+        box-shadow var(--_duration-fast) var(--_ease-default),
+        transform var(--_duration-fast) var(--_ease-default);
     }
 
     // Focus state
     &:focus-visible {
-      outline: var(--ui-border-width-md, #{t.$border-width-md}) solid transparent;
+      outline: var(--_border-width-md) solid transparent;
 
       &::-webkit-slider-thumb {
-        box-shadow: 0 0 0 var(--ui-border-width-md, #{t.$border-width-md}) var(--_focus-ring);
+        box-shadow: 0 0 0 var(--_border-width-md) var(--_focus-ring);
       }
 
       &::-moz-range-thumb {
-        box-shadow: 0 0 0 var(--ui-border-width-md, #{t.$border-width-md}) var(--_focus-ring);
+        box-shadow: 0 0 0 var(--_border-width-md) var(--_focus-ring);
       }
     }
 
@@ -146,7 +150,7 @@
 
     // Disabled state
     &:disabled {
-      opacity: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+      opacity: var(--_opacity-disabled);
       cursor: not-allowed;
     }
   }

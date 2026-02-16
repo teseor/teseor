@@ -3,6 +3,10 @@
 // Token definitions
 @layer components.tokens {
   .code-block {
+    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
+    --_font-mono: var(--ui-font-mono, #{t.$font-mono});
+    --_space-4: var(--ui-space-4, #{t.$space-4});
+    --_space-2: var(--ui-space-2, #{t.$space-2});
     --_bg: var(--ui-code-block-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
     --_color: var(--ui-code-block-color, var(--ui-color-text, #{t.$color-text}));
     --_border-color: var(--ui-code-block-border-color, var(--ui-color-border, #{t.$color-border}));
@@ -27,17 +31,17 @@
   .code-block {
     display: block;
     // Subtract border from padding to keep total on grid
-    padding: calc(var(--_padding) - var(--ui-border-width-sm, #{t.$border-width-sm}));
+    padding: calc(var(--_padding) - var(--_border-width-sm));
     overflow-x: auto;
 
-    font-family: var(--ui-font-mono, #{t.$font-mono});
+    font-family: var(--_font-mono);
     font-size: var(--_font-size);
     line-height: var(--_line-height);
     white-space: pre;
     color: var(--_color);
 
     background: var(--_bg);
-    border: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_border-color);
+    border: var(--_border-width-sm) solid var(--_border-color);
     border-radius: var(--_radius);
   }
 
@@ -67,16 +71,16 @@
       counter-increment: line-number;
 
       box-sizing: border-box;
-      min-inline-size: var(--ui-space-4, #{t.$space-4});
-      padding-inline-end: var(--ui-space-2, #{t.$space-2});
-      margin-inline-end: var(--ui-space-2, #{t.$space-2});
+      min-inline-size: var(--_space-4);
+      padding-inline-end: var(--_space-2);
+      margin-inline-end: var(--_space-2);
 
       font-variant-numeric: tabular-nums;
 
       text-align: end;
       color: var(--_line-number-color);
 
-      border-inline-end: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_line-number-border-color);
+      border-inline-end: var(--_border-width-sm) solid var(--_line-number-border-color);
       user-select: none;
 
       &::before {

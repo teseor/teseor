@@ -6,6 +6,9 @@
 
 @layer components.tokens {
   .dropdown-menu {
+    --_space-0: var(--ui-space-0, #{t.$space-0});
+    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
+    --_ease-default: var(--ui-ease-default, ease);
     --_z: var(--ui-dropdown-menu-z, #{t.$z-dropdown});
     --_panel-offset: var(--ui-dropdown-menu-panel-offset, var(--ui-space-1, #{t.$space-1}));
     --_panel-min-width: var(--ui-dropdown-menu-panel-min-width, auto);
@@ -21,7 +24,7 @@
   .dropdown-menu__trigger {
     display: inline-flex;
     align-items: center;
-    gap: var(--ui-space-0, #{t.$space-0});
+    gap: var(--_space-0);
   }
 
   .dropdown-menu__trigger-icon {
@@ -29,7 +32,7 @@
 
     font-size: 0.6em;
 
-    transition: transform var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease);
+    transition: transform var(--_duration-fast) var(--_ease-default);
   }
 
   .dropdown-menu--open .dropdown-menu__trigger-icon {
@@ -49,8 +52,8 @@
     transform: translateY(calc(#{t.$unit} * -1));
 
     transition:
-      opacity var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease),
-      transform var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease);
+      opacity var(--_duration-fast) var(--_ease-default),
+      transform var(--_duration-fast) var(--_ease-default);
   }
 
   .dropdown-menu--open .dropdown-menu__panel {

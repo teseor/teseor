@@ -1,5 +1,6 @@
 @layer primitives {
   .content {
+    --_unit: var(--ui-unit);
     --_padding-block: var(--ui-content-padding-block, var(--ui-space-4));
     --_padding-inline: var(--ui-content-padding-inline, var(--ui-space-4));
     --_gap: var(--ui-content-gap, var(--ui-space-3));
@@ -14,7 +15,7 @@
 
   // Prose-friendly: narrower max-width for readability
   .content--prose {
-    max-inline-size: calc(var(--ui-unit) * 80);
+    max-inline-size: calc(var(--_unit) * 80);
   }
 
   // Flush: no padding, just gap

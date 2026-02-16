@@ -5,6 +5,8 @@
 
 @layer components.tokens {
   .divider {
+    --_font-size-sm: var(--ui-font-size-sm, #{t.$font-size-sm});
+    --_color-text-muted: var(--ui-color-text-muted);
     --_color: var(--ui-divider-color, var(--ui-color-border, #{t.$color-border}));
     --_line-size: var(--ui-divider-line-size, #{t.$border-width-sm});
     --_height: var(--ui-divider-height, #{t.$unit});
@@ -20,9 +22,9 @@
     block-size: var(--_height);
     margin: var(--_gap) 0;
 
-    font-size: var(--ui-font-size-sm, #{t.$font-size-sm});
+    font-size: var(--_font-size-sm);
     line-height: 1;
-    color: var(--ui-color-text-muted);
+    color: var(--_color-text-muted);
   }
 
   // Horizontal line (default)

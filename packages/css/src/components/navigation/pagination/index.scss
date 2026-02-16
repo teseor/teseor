@@ -5,6 +5,11 @@
 
 @layer components.tokens {
   .pagination {
+    --_font-size-sm: var(--ui-font-size-sm, #{t.$font-size-sm});
+    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
+    --_ease-default: var(--ui-ease-default, ease);
+    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
     --_gap: var(--ui-pagination-gap, calc(#{t.$unit} * 0.5));
     --_item-size: var(--ui-pagination-item-size, calc(#{t.$unit} * 4));
     --_item-radius: var(--ui-pagination-item-radius, var(--ui-radius-sm, #{t.$radius-sm}));
@@ -47,7 +52,7 @@
     min-inline-size: var(--_item-size);
     padding-inline: calc(#{t.$unit} * 1);
 
-    font-size: var(--ui-font-size-sm, #{t.$font-size-sm});
+    font-size: var(--_font-size-sm);
     text-decoration: none;
     color: var(--_item-color);
 
@@ -55,8 +60,8 @@
     border-radius: var(--_item-radius);
 
     transition:
-      background var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease),
-      color var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease);
+      background var(--_duration-fast) var(--_ease-default),
+      color var(--_duration-fast) var(--_ease-default);
 
     &:hover {
       background: var(--_item-bg-hover);
@@ -75,7 +80,7 @@
   // Disabled state
   .pagination__link[aria-disabled="true"],
   .pagination__link--disabled {
-    opacity: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    opacity: var(--_opacity-disabled);
     pointer-events: none;
   }
 
@@ -98,7 +103,7 @@
     block-size: var(--_item-size);
     min-inline-size: var(--_item-size);
 
-    color: var(--ui-color-text-muted, #{t.$color-text-muted});
+    color: var(--_color-text-muted);
   }
 
   // Size variants

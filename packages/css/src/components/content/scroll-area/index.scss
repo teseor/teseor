@@ -5,6 +5,8 @@
 
 @layer components.tokens {
   .scroll-area {
+    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
+    --_ease-default: var(--ui-ease-default, ease);
     --_max-height: var(--ui-scroll-area-max-height, calc(#{t.$row} * 10));
     --_scrollbar-size: var(--ui-scroll-area-scrollbar-size, calc(#{t.$unit} * 1));
     --_thumb-color: var(--ui-scroll-area-thumb-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
@@ -83,7 +85,7 @@
   .scroll-area--auto-hide > .scroll-area__viewport::-webkit-scrollbar-thumb {
     background: transparent;
 
-    transition: background var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease);
+    transition: background var(--_duration-fast) var(--_ease-default);
   }
 
   .scroll-area--auto-hide > .scroll-area__viewport:hover::-webkit-scrollbar-thumb {

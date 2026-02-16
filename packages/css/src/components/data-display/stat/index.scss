@@ -2,6 +2,7 @@
 
 @layer components.tokens {
   .stat {
+    --_tracking-display: var(--ui-tracking-display, #{t.$tracking-display});
     --_gap: var(--ui-stat-gap, var(--ui-space-1, #{t.$space-1}));
   }
 
@@ -35,7 +36,7 @@
     font-size: var(--_font-size);
     font-weight: var(--_font-weight);
     line-height: var(--_line-height);
-    letter-spacing: var(--ui-tracking-display, #{t.$tracking-display});
+    letter-spacing: var(--_tracking-display);
     color: var(--_color);
   }
 

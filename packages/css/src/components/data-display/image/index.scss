@@ -5,6 +5,7 @@
 
 @layer components.tokens {
   .image {
+    --_row-1: var(--ui-row-1, #{t.$row-1});
     --_size: var(--ui-image-size, auto);
     --_radius: var(--ui-image-radius, 0);
     --_object-fit: var(--ui-image-object-fit, cover);
@@ -92,7 +93,7 @@
     margin-block-start: var(--_caption-spacing);
 
     font-size: var(--_caption-font-size);
-    line-height: var(--ui-row-1, #{t.$row-1});
+    line-height: var(--_row-1);
     color: var(--_caption-color);
   }
 

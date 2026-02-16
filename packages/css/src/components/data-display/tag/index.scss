@@ -5,6 +5,9 @@
 
 @layer components.tokens {
   .tag {
+    --_weight-medium: var(--ui-weight-medium, #{t.$weight-medium});
+    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    --_opacity-loading: var(--ui-opacity-loading, #{t.$opacity-loading});
     --_height: var(--ui-tag-height, calc(#{t.$unit} * 3));
     --_padding-x: var(--ui-tag-padding-x, var(--ui-space-1, #{t.$space-1}));
     --_gap: var(--ui-tag-gap, calc(#{t.$unit} * 0.5));
@@ -59,7 +62,7 @@
     padding-inline: var(--_padding-x);
 
     font-size: var(--_font-size);
-    font-weight: var(--ui-weight-medium, #{t.$weight-medium});
+    font-weight: var(--_weight-medium);
     line-height: 1;
     white-space: nowrap;
     color: var(--_color);
@@ -69,7 +72,7 @@
 
     &:disabled,
     &[aria-disabled='true'] {
-      opacity: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+      opacity: var(--_opacity-disabled);
       cursor: not-allowed;
     }
   }
@@ -87,7 +90,7 @@
 
     background: none;
     border: none;
-    opacity: var(--ui-opacity-loading, #{t.$opacity-loading});
+    opacity: var(--_opacity-loading);
     cursor: pointer;
 
     &:hover {

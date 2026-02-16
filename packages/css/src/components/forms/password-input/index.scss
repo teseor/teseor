@@ -5,6 +5,15 @@
 
 @layer components.tokens {
   .password-input {
+    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
+    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
+    --_ease-default: var(--ui-ease-default, ease);
+    --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
+    --_color-focus: var(--ui-color-focus, #{t.$color-focus});
+    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    --_space-half: var(--ui-space-half, #{t.$space-0});
+    --_radius-sm: var(--ui-radius-sm, #{t.$radius-sm});
+    --_size-md: var(--ui-size-md, #{t.size(md)});
     --_height: var(--ui-password-input-height, var(--ui-row-2, #{t.$row-2}));
     --_padding-x: var(--ui-password-input-padding-x, var(--ui-space-1, #{t.$space-1}));
     --_font-size: var(--ui-password-input-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
@@ -50,17 +59,17 @@
     block-size: var(--_height);
 
     background: var(--_bg);
-    border: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_border-color);
+    border: var(--_border-width-sm) solid var(--_border-color);
     border-radius: var(--_radius);
 
     transition:
-      border-color var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease),
-      box-shadow var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease);
+      border-color var(--_duration-fast) var(--_ease-default),
+      box-shadow var(--_duration-fast) var(--_ease-default);
 
     &:focus-within,
     &--focus {
       border-color: var(--_border-color-focus);
-      box-shadow: 0 0 0 var(--ui-border-width-md, #{t.$border-width-md}) var(--ui-color-focus, #{t.$color-focus});
+      box-shadow: 0 0 0 var(--_border-width-md) var(--_color-focus);
     }
 
     &--block {
@@ -69,7 +78,7 @@
 
     &--disabled,
     &:has(.password-input__field:disabled) {
-      opacity: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+      opacity: var(--_opacity-disabled);
       cursor: not-allowed;
     }
   }
@@ -102,31 +111,31 @@
     align-items: center;
     justify-content: center;
 
-    block-size: calc(var(--_height) - var(--ui-space-half, #{t.$space-0}) * 2);
-    inline-size: calc(var(--_height) - var(--ui-space-half, #{t.$space-0}) * 2);
-    margin-inline-end: calc(var(--ui-space-half, #{t.$space-0}));
+    block-size: calc(var(--_height) - var(--_space-half) * 2);
+    inline-size: calc(var(--_height) - var(--_space-half) * 2);
+    margin-inline-end: calc(var(--_space-half));
 
     color: var(--_toggle-color);
 
     background: transparent;
     border: none;
-    border-radius: var(--ui-radius-sm, #{t.$radius-sm});
+    border-radius: var(--_radius-sm);
     cursor: pointer;
 
-    transition: background var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease);
+    transition: background var(--_duration-fast) var(--_ease-default);
 
     &:hover {
       background: var(--_toggle-hover-bg);
     }
 
     &:focus-visible {
-      outline: 2px solid var(--ui-color-focus, #{t.$color-focus});
+      outline: 2px solid var(--_color-focus);
       outline-offset: -2px;
     }
 
     svg {
-      block-size: var(--ui-size-md, #{t.size(md)});
-      inline-size: var(--ui-size-md, #{t.size(md)});
+      block-size: var(--_size-md);
+      inline-size: var(--_size-md);
 
       fill: none;
       stroke: currentcolor;

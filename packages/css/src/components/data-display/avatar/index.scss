@@ -5,6 +5,9 @@
 
 @layer components.tokens {
   .avatar {
+    --_weight-medium: var(--ui-weight-medium, #{t.$weight-medium});
+    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
+    --_color-bg: var(--ui-color-bg, #{t.$color-bg});
     --_size: var(--ui-avatar-size, calc(#{t.$unit} * 5));
     --_bg: var(--ui-avatar-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
     --_color: var(--ui-avatar-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
@@ -53,7 +56,7 @@
     overflow: hidden;
 
     font-size: var(--_font-size);
-    font-weight: var(--ui-weight-medium, #{t.$weight-medium});
+    font-weight: var(--_weight-medium);
     line-height: 1;
     text-transform: uppercase;
     color: var(--_color);
@@ -94,7 +97,7 @@
     > .avatar {
       margin-inline-start: calc(var(--_size) * -0.25);
 
-      border: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--ui-color-bg, #{t.$color-bg});
+      border: var(--_border-width-sm) solid var(--_color-bg);
 
       &:last-child {
         margin-inline-start: 0;

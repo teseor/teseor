@@ -5,6 +5,16 @@
 
 @layer components.tokens {
   .input {
+    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
+    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
+    --_ease-default: var(--ui-ease-default, ease);
+    --_color-border-strong: var(--ui-color-border-strong, #{t.$color-border-strong});
+    --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
+    --_color-focus: var(--ui-color-focus, #{t.$color-focus});
+    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    --_color-bg-subtle: var(--ui-color-bg-subtle, #{t.$color-bg-subtle});
+    --_space-half: var(--ui-space-half, #{t.$space-0});
+    --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
     --_height: var(--ui-input-height, var(--ui-row-2, #{t.$row-2}));
     --_padding-x: var(--ui-input-padding-x, var(--ui-space-1, #{t.$space-1}));
     --_font-size: var(--ui-input-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
@@ -65,38 +75,38 @@
     color: var(--_color);
 
     background: var(--_bg);
-    border: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_border-color);
+    border: var(--_border-width-sm) solid var(--_border-color);
     border-radius: var(--_radius);
 
     transition:
-      border-color var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease),
-      box-shadow var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease);
+      border-color var(--_duration-fast) var(--_ease-default),
+      box-shadow var(--_duration-fast) var(--_ease-default);
 
     &::placeholder {
       color: var(--_placeholder);
     }
 
     &:hover:not(:disabled, :focus-visible) {
-      border-color: var(--ui-color-border-strong, #{t.$color-border-strong});
+      border-color: var(--_color-border-strong);
     }
 
     &:focus-visible,
     &--focus {
       border-color: var(--_border-color-focus);
-      outline: var(--ui-border-width-md, #{t.$border-width-md}) solid transparent;
-      outline-offset: var(--ui-border-width-sm, #{t.$border-width-sm});
+      outline: var(--_border-width-md) solid transparent;
+      outline-offset: var(--_border-width-sm);
 
-      box-shadow: 0 0 0 var(--ui-border-width-md, #{t.$border-width-md}) var(--ui-color-focus, #{t.$color-focus});
+      box-shadow: 0 0 0 var(--_border-width-md) var(--_color-focus);
     }
 
     &:disabled,
     &--disabled {
-      opacity: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+      opacity: var(--_opacity-disabled);
       cursor: not-allowed;
     }
 
     &:read-only {
-      background: var(--ui-color-bg-subtle, #{t.$color-bg-subtle});
+      background: var(--_color-bg-subtle);
     }
 
     // Full width
@@ -117,12 +127,12 @@
 
     // With prefix
     &--has-prefix .input {
-      padding-inline-start: calc(var(--_height) + var(--ui-space-half, #{t.$space-0}));
+      padding-inline-start: calc(var(--_height) + var(--_space-half));
     }
 
     // With suffix
     &--has-suffix .input {
-      padding-inline-end: calc(var(--_height) + var(--ui-space-half, #{t.$space-0}));
+      padding-inline-end: calc(var(--_height) + var(--_space-half));
     }
   }
 
@@ -135,7 +145,7 @@
 
     inline-size: var(--_height, #{t.$row-2});
 
-    color: var(--ui-color-text-muted, #{t.$color-text-muted});
+    color: var(--_color-text-muted);
 
     pointer-events: none;
 

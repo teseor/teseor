@@ -3,6 +3,9 @@
 
 @layer components.tokens {
   .card {
+    --_row-1: var(--ui-row-1);
+    --_duration-fast: var(--ui-duration-fast);
+    --_ease-default: var(--ui-ease-default);
     --_padding: var(--ui-card-padding, var(--ui-space-4));
     --_border-width: var(--ui-card-border-width, var(--ui-border-width-sm));
     --_bg: var(--ui-card-bg, var(--ui-color-bg));
@@ -36,7 +39,7 @@
     padding: calc(var(--_padding) - var(--_border-width));
 
     // Grid-aligned line-height for text content
-    line-height: var(--ui-row-1);
+    line-height: var(--_row-1);
 
     background: var(--_bg);
     border: var(--_border-width) solid var(--_border-color);
@@ -45,9 +48,9 @@
 
   .card--interactive {
     transition:
-      background-color var(--ui-duration-fast) var(--ui-ease-default),
-      border-color var(--ui-duration-fast) var(--ui-ease-default),
-      box-shadow var(--ui-duration-fast) var(--ui-ease-default);
+      background-color var(--_duration-fast) var(--_ease-default),
+      border-color var(--_duration-fast) var(--_ease-default),
+      box-shadow var(--_duration-fast) var(--_ease-default);
 
     &:hover {
       --_bg: var(--ui-card-bg-hover, var(--ui-color-bg-subtle));

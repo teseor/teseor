@@ -5,6 +5,14 @@
 
 @layer components.tokens {
   .data-list {
+    --_row-1: var(--ui-row-1, #{t.$row});
+    --_font-size-sm: var(--ui-font-size-sm, #{t.$font-size-sm});
+    --_weight-medium: var(--ui-weight-medium, #{t.$weight-medium});
+    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
+    --_color-border: var(--ui-color-border, #{t.$color-border});
+    --_color-bg-subtle: var(--ui-color-bg-subtle, #{t.$color-bg-subtle});
+    --_radius-sm: var(--ui-radius-sm, #{t.$radius-sm});
+    --_font-size-lg: var(--ui-font-size-lg, #{t.$font-size-lg});
     --_gap: var(--ui-data-list-gap, calc(#{t.$unit} * 2));
     --_item-gap: var(--ui-data-list-item-gap, calc(#{t.$unit} * 1));
     --_label-color: var(--ui-data-list-label-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
@@ -20,7 +28,7 @@
 
     margin: 0;
 
-    line-height: var(--ui-row-1, #{t.$row});
+    line-height: var(--_row-1);
   }
 
   .data-list__item {
@@ -30,16 +38,16 @@
   }
 
   .data-list__label {
-    font-size: var(--ui-font-size-sm, #{t.$font-size-sm});
-    font-weight: var(--ui-weight-medium, #{t.$weight-medium});
-    line-height: var(--ui-row-1, #{t.$row});
+    font-size: var(--_font-size-sm);
+    font-weight: var(--_weight-medium);
+    line-height: var(--_row-1);
     color: var(--_label-color);
   }
 
   .data-list__value {
     margin: 0;
 
-    line-height: var(--ui-row-1, #{t.$row});
+    line-height: var(--_row-1);
     color: var(--_value-color);
   }
 
@@ -62,9 +70,9 @@
   // With dividers
   .data-list--divided .data-list__item {
     // Subtract border from padding to keep total on grid
-    padding-block-end: calc(var(--_gap) - var(--ui-border-width-sm, #{t.$border-width-sm}));
+    padding-block-end: calc(var(--_gap) - var(--_border-width-sm));
 
-    border-block-end: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--ui-color-border, #{t.$color-border});
+    border-block-end: var(--_border-width-sm) solid var(--_color-border);
   }
 
   .data-list--divided .data-list__item:last-child {
@@ -77,8 +85,8 @@
   .data-list--striped .data-list__item:nth-child(odd) {
     padding: calc(#{t.$unit} * 1);
 
-    background: var(--ui-color-bg-subtle, #{t.$color-bg-subtle});
-    border-radius: var(--ui-radius-sm, #{t.$radius-sm});
+    background: var(--_color-bg-subtle);
+    border-radius: var(--_radius-sm);
   }
 
   // Compact size
@@ -86,7 +94,7 @@
     --_gap: calc(#{t.$unit} * 1);
     --_item-gap: 0;
 
-    font-size: var(--ui-font-size-sm, #{t.$font-size-sm});
+    font-size: var(--_font-size-sm);
   }
 
   // Large size
@@ -94,6 +102,6 @@
     --_gap: calc(#{t.$unit} * 3);
     --_item-gap: calc(#{t.$unit} * 1);
 
-    font-size: var(--ui-font-size-lg, #{t.$font-size-lg});
+    font-size: var(--_font-size-lg);
   }
 }

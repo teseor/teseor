@@ -4,6 +4,9 @@
 @layer components.tokens {
   // Inline code
   .code {
+    --_font-mono: var(--ui-font-mono, #{t.$font-mono});
+    --_leading-tight-sm: var(--ui-leading-tight-sm, #{t.$leading-tight-sm});
+    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
     --_font-size: var(--ui-code-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     --_bg: var(--ui-code-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
     --_padding-x: var(--ui-code-padding-x, var(--ui-space-1, #{t.$space-1}));
@@ -30,9 +33,9 @@
   .code {
     padding: var(--_padding-y) var(--_padding-x);
 
-    font-family: var(--ui-font-mono, #{t.$font-mono});
+    font-family: var(--_font-mono);
     font-size: var(--_font-size);
-    line-height: var(--ui-leading-tight-sm, #{t.$leading-tight-sm});
+    line-height: var(--_leading-tight-sm);
 
     background: var(--_bg);
     border-radius: var(--_radius);
@@ -41,16 +44,16 @@
   .code-block {
     display: block;
     // Subtract border from padding to keep total on grid
-    padding: calc(var(--_padding) - var(--ui-border-width-sm, #{t.$border-width-sm}));
+    padding: calc(var(--_padding) - var(--_border-width-sm));
     overflow-x: auto;
 
-    font-family: var(--ui-font-mono, #{t.$font-mono});
+    font-family: var(--_font-mono);
     font-size: var(--_font-size);
-    line-height: var(--ui-leading-tight-sm, #{t.$leading-tight-sm});
+    line-height: var(--_leading-tight-sm);
     white-space: pre;
 
     background: var(--_bg);
-    border: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_border-color);
+    border: var(--_border-width-sm) solid var(--_border-color);
     border-radius: var(--_radius);
 
     code {
