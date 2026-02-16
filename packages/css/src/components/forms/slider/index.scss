@@ -6,7 +6,7 @@
 @layer components.tokens {
   .slider {
     --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
-    --_ease-default: var(--ui-ease-default, ease);
+    --_ease-default: var(--ui-ease-default, #{t.$ease-default});
     --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
     --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
     // @desc Overall height
@@ -16,7 +16,7 @@
     // @desc Track background
     --_track-bg: var(--ui-slider-track-bg, var(--ui-color-bg-subtle, #{t.$overlay-bg-subtle}));
     // @desc Track fill
-    --_track-fill: var(--ui-slider-track-fill, var(--ui-color-primary));
+    --_track-fill: var(--ui-slider-track-fill, var(--ui-color-primary, #{t.$color-primary}));
     // @desc Track corner radius
     --_track-radius: var(--ui-slider-track-radius, var(--ui-radius-full, #{t.$radius-full}));
     // @desc Thumb control size
@@ -24,7 +24,7 @@
     // @desc Thumb background
     --_thumb-bg: var(--ui-slider-thumb-bg, var(--ui-color-bg, #{t.$color-bg}));
     // @desc Thumb control border color
-    --_thumb-border-color: var(--ui-slider-thumb-border-color, var(--ui-color-primary));
+    --_thumb-border-color: var(--ui-slider-thumb-border-color, var(--ui-color-primary, #{t.$color-primary}));
     // @desc Thumb control border thickness
     --_thumb-border-width: var(--ui-slider-thumb-border-width, var(--ui-border-width-md, #{t.$border-width-md}));
     // @desc Thumb corner radius
@@ -52,18 +52,18 @@
 
   // @modifier color
   .slider--success {
-    --_track-fill: var(--ui-color-success);
-    --_thumb-border-color: var(--ui-color-success);
+    --_track-fill: var(--ui-color-success, #{t.$color-success});
+    --_thumb-border-color: var(--ui-color-success, #{t.$color-success});
   }
 
   .slider--warning {
-    --_track-fill: var(--ui-color-warning);
-    --_thumb-border-color: var(--ui-color-warning);
+    --_track-fill: var(--ui-color-warning, #{t.$color-warning});
+    --_thumb-border-color: var(--ui-color-warning, #{t.$color-warning});
   }
 
   .slider--danger {
-    --_track-fill: var(--ui-color-danger);
-    --_thumb-border-color: var(--ui-color-danger);
+    --_track-fill: var(--ui-color-danger, #{t.$color-danger});
+    --_thumb-border-color: var(--ui-color-danger, #{t.$color-danger});
   }
 }
 

@@ -19,7 +19,7 @@
     // @desc Caption font size
     --_caption-font-size: var(--ui-image-caption-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     // @desc Caption spacing
-    --_caption-spacing: var(--ui-image-caption-spacing, var(--ui-space-1));
+    --_caption-spacing: var(--ui-image-caption-spacing, var(--ui-space-1, #{t.$space-1}));
   }
 
   // @modifier size

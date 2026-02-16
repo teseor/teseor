@@ -8,8 +8,8 @@
     --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
     --_font-sans: var(--ui-font-sans, #{t.$font-sans});
     --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
-    --_duration-base: var(--ui-duration-base);
-    --_ease-default: var(--ui-ease-default);
+    --_duration-base: var(--ui-duration-base, #{t.$duration-base});
+    --_ease-default: var(--ui-ease-default, #{t.$ease-default});
     --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
     // @desc Gap between children
     --_gap: var(--ui-nav-gap, var(--ui-space-1, #{t.$space-1}));

@@ -39,24 +39,24 @@
     // @desc Border color
     --_border-color: var(--ui-toast-border-color, var(--ui-color-border, #{t.$color-border}));
     // @desc Box shadow
-    --_shadow: var(--ui-toast-shadow, var(--ui-shadow-lg));
+    --_shadow: var(--ui-toast-shadow, var(--ui-shadow-lg, #{t.$shadow-lg}));
   }
 
   // @modifier variant
   .toast--success {
-    --_border-color: var(--ui-color-success);
+    --_border-color: var(--ui-color-success, #{t.$color-success});
   }
 
   .toast--warning {
-    --_border-color: var(--ui-color-warning);
+    --_border-color: var(--ui-color-warning, #{t.$color-warning});
   }
 
   .toast--danger {
-    --_border-color: var(--ui-color-danger);
+    --_border-color: var(--ui-color-danger, #{t.$color-danger});
   }
 
   .toast--info {
-    --_border-color: var(--ui-color-primary);
+    --_border-color: var(--ui-color-primary, #{t.$color-primary});
   }
 }
 

@@ -6,7 +6,7 @@
 @layer components.tokens {
   .divider {
     --_font-size-sm: var(--ui-font-size-sm, #{t.$font-size-sm});
-    --_color-text-muted: var(--ui-color-text-muted);
+    --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
     // @desc Text color
     --_color: var(--ui-divider-color, var(--ui-color-border, #{t.$color-border}));
     // @desc Line size

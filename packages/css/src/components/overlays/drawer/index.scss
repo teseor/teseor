@@ -27,7 +27,7 @@
     // @desc Background color
     --_bg: var(--ui-drawer-bg, var(--ui-color-bg, #{t.$color-bg}));
     // @desc Box shadow
-    --_shadow: var(--ui-drawer-shadow, var(--ui-shadow-lg));
+    --_shadow: var(--ui-drawer-shadow, var(--ui-shadow-lg, #{t.$shadow-lg}));
     // @desc Header padding on all sides
     --_header-padding: var(--ui-drawer-header-padding, calc(#{t.$unit} * 2) calc(#{t.$unit} * 3));
     // @desc Body area padding on all sides

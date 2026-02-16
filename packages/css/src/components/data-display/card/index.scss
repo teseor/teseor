@@ -1,34 +1,36 @@
+@use '../../../config/tokens/variables' as t;
+
 // @component card
 // @element div
 
 @layer components.tokens {
   .card {
-    --_row-1: var(--ui-row-1);
-    --_duration-fast: var(--ui-duration-fast);
-    --_ease-default: var(--ui-ease-default);
+    --_row-1: var(--ui-row-1, #{t.$row-1});
+    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
+    --_ease-default: var(--ui-ease-default, #{t.$ease-default});
     // @desc Padding on all sides
-    --_padding: var(--ui-card-padding, var(--ui-space-4));
+    --_padding: var(--ui-card-padding, var(--ui-space-4, #{t.$space-4}));
     // @desc Border thickness
-    --_border-width: var(--ui-card-border-width, var(--ui-border-width-sm));
+    --_border-width: var(--ui-card-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
     // @desc Background color
-    --_bg: var(--ui-card-bg, var(--ui-color-bg));
+    --_bg: var(--ui-card-bg, var(--ui-color-bg, #{t.$color-bg}));
     // @desc Border color
-    --_border-color: var(--ui-card-border-color, var(--ui-color-border));
+    --_border-color: var(--ui-card-border-color, var(--ui-color-border, #{t.$color-border}));
     // @desc Corner radius
-    --_radius: var(--ui-card-radius, var(--ui-radius-md));
+    --_radius: var(--ui-card-radius, var(--ui-radius-md, #{t.$radius-md}));
   }
 
   // @modifier variant
   // @desc Bg subtle
-  .card--subtle { --_bg: var(--ui-card-bg-subtle, var(--ui-color-bg-subtle)); }
+  .card--subtle { --_bg: var(--ui-card-bg-subtle, var(--ui-color-bg-subtle, #{t.$color-bg-subtle})); }
   // @desc Bg muted
-  .card--muted { --_bg: var(--ui-card-bg-muted, var(--ui-color-bg-muted)); }
+  .card--muted { --_bg: var(--ui-card-bg-muted, var(--ui-color-bg-muted, #{t.$color-bg-muted})); }
 
   // @modifier size
   // @desc Padding on all sides at small size
-  .card--sm { --_padding: var(--ui-card-padding-sm, var(--ui-space-2)); }
+  .card--sm { --_padding: var(--ui-card-padding-sm, var(--ui-space-2, #{t.$space-2})); }
   // @desc Padding on all sides at large size
-  .card--lg { --_padding: var(--ui-card-padding-lg, var(--ui-space-6)); }
+  .card--lg { --_padding: var(--ui-card-padding-lg, var(--ui-space-6, #{t.$space-6})); }
 
   // @modifier boolean interactive
   .card--interactive {
@@ -63,14 +65,14 @@
 
     &:hover {
       // @desc Bg hover
-      --_bg: var(--ui-card-bg-hover, var(--ui-color-bg-subtle));
+      --_bg: var(--ui-card-bg-hover, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
       // @desc Border color hover
-      --_border-color: var(--ui-card-border-color-hover, var(--ui-color-border-strong));
+      --_border-color: var(--ui-card-border-color-hover, var(--ui-color-border-strong, #{t.$color-border-strong}));
     }
 
     &:active {
       // @desc Bg active
-      --_bg: var(--ui-card-bg-active, var(--ui-color-bg-muted));
+      --_bg: var(--ui-card-bg-active, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
     }
   }
 }
