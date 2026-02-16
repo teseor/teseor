@@ -1,9 +1,10 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "popover",
   "element": "div",
   "modifiers": {
     "position": {
-      "values": ["top"]
+      "values": ["top", "bottom", "visible", "hidden", "animate"]
     }
   },
   "elements": {
@@ -13,35 +14,43 @@
   "cssVars": [
     {
       "name": "--ui-popover-bg",
-      "default": "var(--ui-color-bg)"
+      "default": "var(--ui-color-bg)",
+      "description": "Background color"
     },
     {
       "name": "--ui-popover-border-color",
-      "default": "var(--ui-color-border)"
+      "default": "var(--ui-color-border)",
+      "description": "Border color"
     },
     {
       "name": "--ui-popover-radius",
-      "default": "var(--ui-radius-md)"
+      "default": "var(--ui-radius-md)",
+      "description": "Corner radius"
     },
     {
       "name": "--ui-popover-shadow",
-      "default": "0 calc(var(--ui-unit) / 2"
+      "default": "0 calc(var(--ui-unit) / 2) calc(var(--ui-unit) * 2) rgb(0 0 0 / 0.15)",
+      "description": "Box shadow"
     },
     {
       "name": "--ui-popover-padding",
-      "default": "calc(var(--ui-unit) * 2"
+      "default": "calc(var(--ui-unit) * 2)",
+      "description": "Padding on all sides"
     },
     {
       "name": "--ui-popover-max-width",
-      "default": "calc(var(--ui-unit) * 40"
+      "default": "calc(var(--ui-unit) * 40)",
+      "description": "Maximum width"
     },
     {
       "name": "--ui-popover-z",
-      "default": "var(--ui-z-popover)"
+      "default": "var(--ui-z-popover)",
+      "description": "Z-index stacking order"
     },
     {
       "name": "--ui-popover-arrow-size",
-      "default": "calc(var(--ui-unit)"
+      "default": "calc(var(--ui-unit))",
+      "description": "Arrow size"
     }
   ]
 }

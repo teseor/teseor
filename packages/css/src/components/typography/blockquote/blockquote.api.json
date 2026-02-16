@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "blockquote",
   "element": "blockquote",
   "modifiers": {
@@ -6,13 +7,39 @@
       "values": ["accent"]
     }
   },
-  "subElements": ["cite"],
+  "elements": {
+    "cite": {}
+  },
   "cssVars": [
-    { "name": "--ui-blockquote-border-color", "default": "var(--ui-color-border-strong)" },
-    { "name": "--ui-blockquote-border-width", "default": "var(--ui-border-width-lg)" },
-    { "name": "--ui-blockquote-padding-inline", "default": "var(--ui-space-3)" },
-    { "name": "--ui-blockquote-color", "default": "var(--ui-color-text-muted)" },
-    { "name": "--ui-blockquote-font-size", "default": "var(--ui-font-size-lg)" },
-    { "name": "--ui-blockquote-line-height", "default": "var(--ui-leading-lg)" }
+    {
+      "name": "--ui-blockquote-border-color",
+      "default": "var(--ui-color-border-strong)",
+      "description": "Border color"
+    },
+    {
+      "name": "--ui-blockquote-border-width",
+      "default": "var(--ui-border-width-lg)",
+      "description": "Border thickness"
+    },
+    {
+      "name": "--ui-blockquote-padding-inline",
+      "default": "var(--ui-space-3)",
+      "description": "Horizontal padding"
+    },
+    {
+      "name": "--ui-blockquote-color",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Text color"
+    },
+    {
+      "name": "--ui-blockquote-font-size",
+      "default": "var(--ui-font-size-lg)",
+      "description": "Font size"
+    },
+    {
+      "name": "--ui-blockquote-line-height",
+      "default": "var(--ui-leading-lg)",
+      "description": "Line height"
+    }
   ]
 }

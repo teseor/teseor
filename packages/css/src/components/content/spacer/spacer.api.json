@@ -1,6 +1,13 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "spacer",
   "element": "div",
   "modifiers": {},
-  "cssVars": [{ "name": "--ui-spacer-size", "default": "1" }]
+  "cssVars": [
+    {
+      "name": "--ui-spacer-size",
+      "default": "var(--ui-spacer-size)",
+      "description": "Overall size"
+    }
+  ]
 }

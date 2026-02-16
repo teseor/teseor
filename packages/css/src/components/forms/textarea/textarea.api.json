@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "textarea",
   "element": "textarea",
   "modifiers": {
@@ -12,85 +13,104 @@
       "values": ["error", "success"]
     },
     "resize": {
-      "values": ["resize-none", "resize-both"]
+      "values": ["resize-none", "resize-horizontal", "resize-both"]
     }
   },
   "cssVars": [
     {
       "name": "--ui-textarea-min-height",
-      "default": "calc(var(--ui-row) * 4"
+      "default": "calc(var(--ui-row) * 4)",
+      "description": "Minimum height"
     },
     {
       "name": "--ui-textarea-padding-x",
-      "default": "var(--ui-space-1)"
+      "default": "var(--ui-space-1)",
+      "description": "Horizontal padding"
     },
     {
       "name": "--ui-textarea-padding-y",
-      "default": "var(--ui-space-1)"
+      "default": "var(--ui-space-1)",
+      "description": "Vertical padding"
     },
     {
       "name": "--ui-textarea-font-size",
-      "default": "var(--ui-font-size-sm)"
+      "default": "var(--ui-font-size-sm)",
+      "description": "Font size"
     },
     {
       "name": "--ui-textarea-radius",
-      "default": "var(--ui-radius-md)"
+      "default": "var(--ui-radius-md)",
+      "description": "Corner radius"
     },
     {
       "name": "--ui-textarea-bg",
-      "default": "var(--ui-color-bg)"
+      "default": "var(--ui-color-bg)",
+      "description": "Background color"
     },
     {
       "name": "--ui-textarea-border-color",
-      "default": "var(--ui-color-border-strong)"
+      "default": "var(--ui-color-border-strong)",
+      "description": "Border color"
     },
     {
       "name": "--ui-textarea-border-color-focus",
-      "default": "var(--ui-color-primary)"
+      "default": "var(--ui-color-primary)",
+      "description": "Border color focus"
     },
     {
       "name": "--ui-textarea-color",
-      "default": "var(--ui-color-text)"
+      "default": "var(--ui-color-text)",
+      "description": "Text color"
     },
     {
       "name": "--ui-textarea-placeholder",
-      "default": "var(--ui-color-text-muted)"
+      "default": "var(--ui-color-text-muted)",
+      "description": "Placeholder"
     },
     {
       "name": "--ui-textarea-min-height-sm",
-      "default": "calc(var(--ui-row) * 3"
+      "default": "calc(var(--ui-row) * 3)",
+      "description": "Minimum height at small size"
     },
     {
       "name": "--ui-textarea-font-size-sm",
-      "default": "var(--ui-font-size-xs)"
+      "default": "var(--ui-font-size-xs)",
+      "description": "Font size at small size"
     },
     {
       "name": "--ui-textarea-min-height-lg",
-      "default": "calc(var(--ui-row) * 6"
+      "default": "calc(var(--ui-row) * 6)",
+      "description": "Minimum height at large size"
     },
     {
       "name": "--ui-textarea-padding-x-lg",
-      "default": "var(--ui-space-2)"
+      "default": "var(--ui-space-2)",
+      "description": "Horizontal padding at large size"
     },
     {
       "name": "--ui-textarea-padding-y-lg",
-      "default": "var(--ui-space-2)"
+      "default": "var(--ui-space-2)",
+      "description": "Vertical padding at large size"
     },
     {
       "name": "--ui-textarea-font-size-lg",
-      "default": "var(--ui-font-size-md)"
+      "default": "var(--ui-font-size-md)",
+      "description": "Font size at large size"
     },
     {
       "name": "--ui-textarea-filled-bg",
-      "default": "var(--ui-color-bg-muted)"
+      "default": "var(--ui-color-bg-muted)",
+      "description": "Filled bg"
     },
     {
       "name": "--ui-textarea-error-border",
-      "default": "var(--ui-color-danger)"
+      "default": "var(--ui-color-danger)",
+      "description": "Error border"
     },
     {
       "name": "--ui-textarea-success-border",
-      "default": "var(--ui-color-success)"
+      "default": "var(--ui-color-success)",
+      "description": "Success border"
     }
   ]
 }

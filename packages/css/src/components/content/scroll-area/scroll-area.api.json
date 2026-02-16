@@ -1,15 +1,16 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "scroll-area",
   "element": "div",
   "modifiers": {
     "size": {
       "values": ["sm", "lg", "xl"]
     },
+    "thin": {
+      "values": ["scrollbar"]
+    },
     "direction": {
       "values": ["horizontal", "both"]
-    },
-    "thin": {
-      "type": "boolean"
     },
     "auto-hide": {
       "type": "boolean"
@@ -21,43 +22,53 @@
   "cssVars": [
     {
       "name": "--ui-scroll-area-max-height",
-      "default": "calc(var(--ui-row) * 10)"
-    },
-    {
-      "name": "--ui-scroll-area-max-height-sm",
-      "default": "calc(var(--ui-row) * 5)"
-    },
-    {
-      "name": "--ui-scroll-area-max-height-lg",
-      "default": "calc(var(--ui-row) * 15)"
-    },
-    {
-      "name": "--ui-scroll-area-max-height-xl",
-      "default": "calc(var(--ui-row) * 20)"
+      "default": "calc(var(--ui-row) * 10)",
+      "description": "Maximum height"
     },
     {
       "name": "--ui-scroll-area-scrollbar-size",
-      "default": "var(--ui-space-1)"
-    },
-    {
-      "name": "--ui-scroll-area-scrollbar-size-thin",
-      "default": "calc(var(--ui-space-1) * 0.5)"
+      "default": "calc(var(--ui-unit) * 1)",
+      "description": "Scrollbar size"
     },
     {
       "name": "--ui-scroll-area-thumb-color",
-      "default": "var(--ui-color-border-strong)"
+      "default": "var(--ui-color-border-strong)",
+      "description": "Thumb control text color"
     },
     {
       "name": "--ui-scroll-area-thumb-hover-color",
-      "default": "var(--ui-color-neutral-400)"
+      "default": "var(--ui-color-neutral-400)",
+      "description": "Thumb hover color"
     },
     {
       "name": "--ui-scroll-area-track-color",
-      "default": "transparent"
+      "default": "transparent",
+      "description": "Track text color"
     },
     {
       "name": "--ui-scroll-area-thumb-radius",
-      "default": "var(--ui-radius-full)"
+      "default": "var(--ui-radius-full)",
+      "description": "Thumb corner radius"
+    },
+    {
+      "name": "--ui-scroll-area-max-height-sm",
+      "default": "calc(var(--ui-row) * 5)",
+      "description": "Maximum height at small size"
+    },
+    {
+      "name": "--ui-scroll-area-max-height-lg",
+      "default": "calc(var(--ui-row) * 15)",
+      "description": "Maximum height at large size"
+    },
+    {
+      "name": "--ui-scroll-area-max-height-xl",
+      "default": "calc(var(--ui-row) * 20)",
+      "description": "Maximum height at extra-large size"
+    },
+    {
+      "name": "--ui-scroll-area-scrollbar-size-thin",
+      "default": "calc(var(--ui-unit) * 0.5)",
+      "description": "Scrollbar size thin"
     }
   ]
 }

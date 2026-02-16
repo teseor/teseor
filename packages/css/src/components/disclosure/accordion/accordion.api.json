@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "accordion",
   "element": "div",
   "modifiers": {
@@ -9,15 +10,18 @@
   "cssVars": [
     {
       "name": "--ui-accordion-border-color",
-      "default": "var(--ui-color-border)"
+      "default": "var(--ui-color-border)",
+      "description": "Border color"
     },
     {
       "name": "--ui-accordion-border-width",
-      "default": "1px"
+      "default": "var(--ui-border-width-sm)",
+      "description": "Border thickness"
     },
     {
       "name": "--ui-accordion-radius",
-      "default": "var(--ui-radius-md)"
+      "default": "var(--ui-radius-md)",
+      "description": "Corner radius"
     }
   ]
 }

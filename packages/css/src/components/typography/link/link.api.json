@@ -1,45 +1,53 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "link",
   "element": "a",
   "modifiers": {
     "variant": {
       "values": ["muted", "subtle"]
     },
-    "external": {
+    "disabled": {
       "type": "boolean"
     },
-    "disabled": {
+    "external": {
       "type": "boolean"
     }
   },
   "cssVars": [
     {
       "name": "--ui-link-color",
-      "default": "var(--ui-color-primary)"
+      "default": "var(--ui-color-primary)",
+      "description": "Text color"
     },
     {
       "name": "--ui-link-color-hover",
-      "default": "var(--ui-color-primary-hover)"
+      "default": "var(--ui-color-primary-hover)",
+      "description": "Color hover"
     },
     {
       "name": "--ui-link-color-visited",
-      "default": "var(--_color)"
+      "default": "var(--_color)",
+      "description": "Color visited"
     },
     {
       "name": "--ui-link-decoration",
-      "default": "underline"
+      "default": "underline",
+      "description": "Decoration"
     },
     {
       "name": "--ui-link-decoration-hover",
-      "default": "underline"
+      "default": "underline",
+      "description": "Decoration hover"
     },
     {
       "name": "--ui-link-color-muted",
-      "default": "var(--ui-color-text-muted)"
+      "default": "var(--ui-color-text-muted)",
+      "description": "Color muted"
     },
     {
       "name": "--ui-link-color-muted-hover",
-      "default": "var(--ui-color-text)"
+      "default": "var(--ui-color-text)",
+      "description": "Color muted hover"
     }
   ]
 }

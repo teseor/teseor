@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "alert",
   "element": "div",
   "modifiers": {
@@ -13,108 +14,82 @@
     }
   },
   "elements": {
+    "icon": {},
     "content": {},
     "title": {},
     "description": {},
-    "icon": {},
     "close": {}
   },
   "cssVars": [
     {
+      "name": "--ui-alert-accent",
+      "default": "var(--ui-color-border)",
+      "description": "Accent color"
+    },
+    {
       "name": "--ui-alert-padding",
-      "default": "var(--ui-space-2)"
+      "default": "var(--ui-space-2)",
+      "description": "Padding on all sides"
     },
     {
       "name": "--ui-alert-border-width",
-      "default": "var(--ui-border-width-sm)"
+      "default": "var(--ui-border-width-sm)",
+      "description": "Border thickness"
     },
     {
       "name": "--ui-alert-gap",
-      "default": "var(--ui-space-1)"
+      "default": "var(--ui-space-1)",
+      "description": "Gap between children"
     },
     {
       "name": "--ui-alert-radius",
-      "default": "var(--ui-radius-md)"
-    },
-    {
-      "name": "--ui-alert-bg",
-      "default": "var(--ui-color-bg-subtle)"
-    },
-    {
-      "name": "--ui-alert-border-color",
-      "default": "var(--ui-color-border)"
+      "default": "var(--ui-radius-md)",
+      "description": "Corner radius"
     },
     {
       "name": "--ui-alert-color",
-      "default": "var(--ui-color-text)"
+      "default": "var(--ui-color-text)",
+      "description": "Text color"
     },
     {
-      "name": "--ui-alert-icon-color",
-      "default": "currentcolor"
+      "name": "--ui-alert-font-size",
+      "default": "inherit",
+      "description": "Font size"
     },
     {
       "name": "--ui-alert-padding-sm",
-      "default": "var(--ui-space-1)"
+      "default": "var(--ui-space-1)",
+      "description": "Padding on all sides at small size"
+    },
+    {
+      "name": "--ui-alert-gap-sm",
+      "default": "calc(var(--ui-unit) * 0.5)",
+      "description": "Gap between children at small size"
     },
     {
       "name": "--ui-alert-font-size-sm",
-      "default": "var(--ui-font-size-sm)"
+      "default": "var(--ui-font-size-sm)",
+      "description": "Font size at small size"
     },
     {
       "name": "--ui-alert-padding-lg",
-      "default": "var(--ui-space-4)"
+      "default": "var(--ui-space-4)",
+      "description": "Padding on all sides at large size"
+    },
+    {
+      "name": "--ui-alert-gap-lg",
+      "default": "var(--ui-space-2)",
+      "description": "Gap between children at large size"
     },
     {
       "name": "--ui-alert-font-size-lg",
-      "default": "var(--ui-font-size-lg)"
+      "default": "var(--ui-font-size-lg)",
+      "description": "Font size at large size"
     },
     {
-      "name": "--ui-alert-info-bg",
-      "default": "var(--ui-color-bg-subtle)"
-    },
-    {
-      "name": "--ui-alert-info-border",
-      "default": "var(--ui-color-primary)"
-    },
-    {
-      "name": "--ui-alert-info-icon",
-      "default": "var(--ui-color-primary)"
-    },
-    {
-      "name": "--ui-alert-success-bg",
-      "default": "var(--ui-color-bg-subtle)"
-    },
-    {
-      "name": "--ui-alert-success-border",
-      "default": "var(--ui-color-success)"
-    },
-    {
-      "name": "--ui-alert-success-icon",
-      "default": "var(--ui-color-success)"
-    },
-    {
-      "name": "--ui-alert-warning-bg",
-      "default": "var(--ui-color-bg-subtle)"
-    },
-    {
-      "name": "--ui-alert-warning-border",
-      "default": "var(--ui-color-warning)"
-    },
-    {
-      "name": "--ui-alert-warning-icon",
-      "default": "var(--ui-color-warning)"
-    },
-    {
-      "name": "--ui-alert-danger-bg",
-      "default": "var(--ui-color-bg-subtle)"
-    },
-    {
-      "name": "--ui-alert-danger-border",
-      "default": "var(--ui-color-danger)"
-    },
-    {
-      "name": "--ui-alert-danger-icon",
-      "default": "var(--ui-color-danger)"
+      "name": "--ui-alert-padding-end",
+      "default": "calc(var(--ui-unit) * 5)",
+      "description": "Padding end"
     }
   ]
 }

@@ -1,11 +1,12 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "fieldset",
   "element": "fieldset",
   "modifiers": {
-    "bordered": {
+    "compact": {
       "type": "boolean"
     },
-    "compact": {
+    "bordered": {
       "type": "boolean"
     }
   },
@@ -15,35 +16,53 @@
   "cssVars": [
     {
       "name": "--ui-fieldset-spacing",
-      "default": "var(--ui-space-2)"
+      "default": "var(--ui-space-2)",
+      "description": "Spacing"
     },
     {
       "name": "--ui-fieldset-border-color",
-      "default": "var(--ui-color-border)"
+      "default": "var(--ui-color-border)",
+      "description": "Border color"
     },
     {
       "name": "--ui-fieldset-border-width",
-      "default": "var(--ui-border-width-sm)"
+      "default": "var(--ui-border-width-sm)",
+      "description": "Border thickness"
     },
     {
       "name": "--ui-fieldset-border-radius",
-      "default": "var(--ui-radius-md)"
+      "default": "var(--ui-radius-md)",
+      "description": "Border radius"
     },
     {
       "name": "--ui-fieldset-padding",
-      "default": "var(--ui-space-2)"
+      "default": "var(--ui-space-2)",
+      "description": "Padding on all sides"
     },
     {
       "name": "--ui-fieldset-legend-size",
-      "default": "var(--ui-font-size-sm)"
+      "default": "var(--ui-font-size-sm)",
+      "description": "Legend size"
     },
     {
       "name": "--ui-fieldset-legend-weight",
-      "default": "var(--ui-weight-medium)"
+      "default": "var(--ui-weight-medium)",
+      "description": "Legend weight"
     },
     {
       "name": "--ui-fieldset-legend-color",
-      "default": "var(--ui-color-text)"
+      "default": "var(--ui-color-text)",
+      "description": "Legend color"
+    },
+    {
+      "name": "--ui-fieldset-spacing-compact",
+      "default": "var(--ui-space-1)",
+      "description": "Spacing compact"
+    },
+    {
+      "name": "--ui-fieldset-padding-compact",
+      "default": "var(--ui-space-1)",
+      "description": "Padding compact"
     }
   ]
 }

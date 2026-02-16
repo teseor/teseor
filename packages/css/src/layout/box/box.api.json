@@ -1,15 +1,32 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "box",
   "element": "div",
   "modifiers": {
-    "p-1": { "type": "boolean" },
-    "p-2": { "type": "boolean" },
-    "p-3": { "type": "boolean" },
-    "p-4": { "type": "boolean" },
-    "bg-subtle": { "type": "boolean" },
-    "bg-muted": { "type": "boolean" },
-    "rounded": { "type": "boolean" },
-    "rounded-lg": { "type": "boolean" }
+    "p-1": {
+      "type": "boolean"
+    },
+    "p-2": {
+      "type": "boolean"
+    },
+    "p-3": {
+      "type": "boolean"
+    },
+    "p-4": {
+      "type": "boolean"
+    },
+    "bg-subtle": {
+      "type": "boolean"
+    },
+    "bg-muted": {
+      "type": "boolean"
+    },
+    "rounded": {
+      "type": "boolean"
+    },
+    "rounded-lg": {
+      "type": "boolean"
+    }
   },
   "cssVars": []
 }

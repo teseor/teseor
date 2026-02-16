@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "footer",
   "element": "footer",
   "modifiers": {
@@ -23,23 +24,28 @@
   "cssVars": [
     {
       "name": "--ui-footer-height",
-      "default": "var(--ui-row-3)"
+      "default": "var(--ui-row-3)",
+      "description": "Overall height"
     },
     {
       "name": "--ui-footer-bg",
-      "default": "var(--ui-color-bg)"
+      "default": "var(--ui-color-bg)",
+      "description": "Background color"
     },
     {
       "name": "--ui-footer-padding-inline",
-      "default": "var(--ui-space-3)"
+      "default": "var(--ui-space-3)",
+      "description": "Horizontal padding"
     },
     {
       "name": "--ui-footer-border-color",
-      "default": "var(--ui-color-border)"
+      "default": "var(--ui-color-border)",
+      "description": "Border color"
     },
     {
       "name": "--ui-footer-z",
-      "default": "var(--ui-z-sticky)"
+      "default": "var(--ui-z-sticky)",
+      "description": "Z-index stacking order"
     }
   ]
 }

@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "nav-rail",
   "element": "nav",
   "modifiers": {
@@ -13,23 +14,28 @@
   "cssVars": [
     {
       "name": "--ui-nav-rail-width",
-      "default": "var(--ui-row-4)"
+      "default": "var(--ui-row-4)",
+      "description": "Overall width"
     },
     {
       "name": "--ui-nav-rail-bg",
-      "default": "var(--ui-color-bg-subtle)"
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Background color"
     },
     {
       "name": "--ui-nav-rail-border-color",
-      "default": "var(--ui-color-border)"
+      "default": "var(--ui-color-border)",
+      "description": "Border color"
     },
     {
       "name": "--ui-nav-rail-gap",
-      "default": "var(--ui-space-1)"
+      "default": "var(--ui-space-1)",
+      "description": "Gap between children"
     },
     {
       "name": "--ui-nav-rail-z",
-      "default": "var(--ui-z-sticky)"
+      "default": "var(--ui-z-sticky)",
+      "description": "Z-index stacking order"
     }
   ]
 }

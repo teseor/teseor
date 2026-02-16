@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "button-group",
   "element": "div",
   "modifiers": {
@@ -9,7 +10,8 @@
   "cssVars": [
     {
       "name": "--ui-button-group-radius",
-      "default": "var(--ui-radius-md)"
+      "default": "var(--ui-radius-md)",
+      "description": "Corner radius"
     }
   ]
 }

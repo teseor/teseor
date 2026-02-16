@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "select",
   "element": "select",
   "modifiers": {
@@ -18,71 +19,88 @@
   "cssVars": [
     {
       "name": "--ui-select-height",
-      "default": "var(--ui-row-2)"
+      "default": "var(--ui-row-2)",
+      "description": "Overall height"
     },
     {
       "name": "--ui-select-padding-x",
-      "default": "var(--ui-space-1)"
+      "default": "var(--ui-space-1)",
+      "description": "Horizontal padding"
     },
     {
       "name": "--ui-select-font-size",
-      "default": "var(--ui-font-size-sm)"
+      "default": "var(--ui-font-size-sm)",
+      "description": "Font size"
     },
     {
       "name": "--ui-select-radius",
-      "default": "var(--ui-radius-md)"
+      "default": "var(--ui-radius-md)",
+      "description": "Corner radius"
     },
     {
       "name": "--ui-select-bg",
-      "default": "var(--ui-color-bg)"
+      "default": "var(--ui-color-bg)",
+      "description": "Background color"
     },
     {
       "name": "--ui-select-border-color",
-      "default": "var(--ui-color-border-strong)"
+      "default": "var(--ui-color-border-strong)",
+      "description": "Border color"
     },
     {
       "name": "--ui-select-border-color-focus",
-      "default": "var(--ui-color-primary)"
+      "default": "var(--ui-color-primary)",
+      "description": "Border color focus"
     },
     {
       "name": "--ui-select-color",
-      "default": "var(--ui-color-text)"
+      "default": "var(--ui-color-text)",
+      "description": "Text color"
     },
     {
       "name": "--ui-select-icon-color",
-      "default": "var(--ui-color-text-muted)"
+      "default": "var(--ui-color-text-muted)",
+      "description": "Icon color"
     },
     {
       "name": "--ui-select-height-sm",
-      "default": "calc(var(--ui-row) * 1.5"
+      "default": "calc(var(--ui-row) * 1.5)",
+      "description": "Overall height at small size"
     },
     {
       "name": "--ui-select-font-size-sm",
-      "default": "var(--ui-font-size-xs)"
+      "default": "var(--ui-font-size-xs)",
+      "description": "Font size at small size"
     },
     {
       "name": "--ui-select-height-lg",
-      "default": "calc(var(--ui-row) * 2.5"
+      "default": "calc(var(--ui-row) * 2.5)",
+      "description": "Overall height at large size"
     },
     {
       "name": "--ui-select-padding-x-lg",
-      "default": "var(--ui-space-2)"
+      "default": "var(--ui-space-2)",
+      "description": "Horizontal padding at large size"
     },
     {
       "name": "--ui-select-font-size-lg",
-      "default": "var(--ui-font-size-md)"
+      "default": "var(--ui-font-size-md)",
+      "description": "Font size at large size"
     },
     {
       "name": "--ui-select-filled-bg",
-      "default": "var(--ui-color-bg-muted)"
+      "default": "var(--ui-color-bg-muted)",
+      "description": "Filled bg"
     },
     {
       "name": "--ui-select-error-border",
-      "default": "var(--ui-color-danger)"
+      "default": "var(--ui-color-danger)",
+      "description": "Error border"
     },
     {
       "name": "--ui-select-success-border",
-      "default": "var(--ui-color-success)"
+      "default": "var(--ui-color-success)",
+      "description": "Success border"
     }
   ]
 }

@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "toggle",
   "element": "div",
   "modifiers": {
@@ -14,35 +15,43 @@
   "cssVars": [
     {
       "name": "--ui-toggle-track-width",
-      "default": "calc(var(--ui-unit) * 5"
+      "default": "calc(var(--ui-unit) * 5)",
+      "description": "Track width"
     },
     {
       "name": "--ui-toggle-track-height",
-      "default": "calc(var(--ui-unit) * 3"
+      "default": "calc(var(--ui-unit) * 3)",
+      "description": "Track height"
     },
     {
       "name": "--ui-toggle-track-bg",
-      "default": "var(--ui-color-bg-subtle)"
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Track background"
     },
     {
       "name": "--ui-toggle-track-bg-checked",
-      "default": "var(--ui-color-primary)"
+      "default": "var(--ui-color-primary)",
+      "description": "Track bg checked"
     },
     {
       "name": "--ui-toggle-track-radius",
-      "default": "calc(var(--ui-unit) * 1.5"
+      "default": "calc(var(--ui-unit) * 1.5)",
+      "description": "Track corner radius"
     },
     {
       "name": "--ui-toggle-thumb-size",
-      "default": "calc(var(--ui-unit) * 2.5"
+      "default": "calc(var(--ui-unit) * 2.5)",
+      "description": "Thumb control size"
     },
     {
       "name": "--ui-toggle-thumb-bg",
-      "default": "white"
+      "default": "var(--ui-color-bg)",
+      "description": "Thumb background"
     },
     {
       "name": "--ui-toggle-thumb-offset",
-      "default": "calc(var(--ui-unit) / 4"
+      "default": "calc(var(--ui-unit) / 4)",
+      "description": "Thumb control offset from anchor"
     }
   ]
 }

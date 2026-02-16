@@ -1,12 +1,33 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "mark",
   "element": "mark",
   "modifiers": {},
   "cssVars": [
-    { "name": "--ui-mark-bg", "default": "var(--ui-color-warning)" },
-    { "name": "--ui-mark-color", "default": "var(--ui-color-text)" },
-    { "name": "--ui-mark-padding-x", "default": "var(--ui-space-quarter)" },
-    { "name": "--ui-mark-padding-y", "default": "0" },
-    { "name": "--ui-mark-radius", "default": "var(--ui-radius-sm)" }
+    {
+      "name": "--ui-mark-bg",
+      "default": "var(--ui-color-warning)",
+      "description": "Background color"
+    },
+    {
+      "name": "--ui-mark-color",
+      "default": "var(--ui-color-text)",
+      "description": "Text color"
+    },
+    {
+      "name": "--ui-mark-padding-x",
+      "default": "var(--ui-space-quarter)",
+      "description": "Horizontal padding"
+    },
+    {
+      "name": "--ui-mark-padding-y",
+      "default": "0",
+      "description": "Vertical padding"
+    },
+    {
+      "name": "--ui-mark-radius",
+      "default": "var(--ui-radius-sm)",
+      "description": "Corner radius"
+    }
   ]
 }

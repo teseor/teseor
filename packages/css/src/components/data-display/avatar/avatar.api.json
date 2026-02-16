@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "avatar",
   "element": "div",
   "modifiers": {
@@ -10,66 +11,84 @@
     }
   },
   "elements": {
-    "fallback": {},
-    "image": {}
+    "image": {},
+    "fallback": {}
   },
-  "relatedComponents": ["avatar-group"],
+  "relatedComponents": [
+    {
+      "name": "avatar-group"
+    }
+  ],
   "cssVars": [
     {
       "name": "--ui-avatar-size",
-      "default": "calc(var(--ui-unit) * 5"
+      "default": "calc(var(--ui-unit) * 5)",
+      "description": "Overall size"
     },
     {
       "name": "--ui-avatar-bg",
-      "default": "var(--ui-color-bg-subtle)"
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Background color"
     },
     {
       "name": "--ui-avatar-color",
-      "default": "var(--ui-color-text-muted)"
+      "default": "var(--ui-color-text-muted)",
+      "description": "Text color"
     },
     {
       "name": "--ui-avatar-font-size",
-      "default": "var(--ui-font-size-sm)"
+      "default": "var(--ui-font-size-sm)",
+      "description": "Font size"
     },
     {
       "name": "--ui-avatar-radius",
-      "default": "50%"
+      "default": "50%",
+      "description": "Corner radius"
     },
     {
       "name": "--ui-avatar-size-xs",
-      "default": "calc(var(--ui-unit) * 3"
+      "default": "calc(var(--ui-unit) * 3)",
+      "description": "Overall size at extra-small size"
     },
     {
       "name": "--ui-avatar-font-size-xs",
-      "default": "var(--ui-font-size-xs)"
+      "default": "var(--ui-font-size-xs)",
+      "description": "Font size at extra-small size"
     },
     {
       "name": "--ui-avatar-size-sm",
-      "default": "calc(var(--ui-unit) * 4"
+      "default": "calc(var(--ui-unit) * 4)",
+      "description": "Overall size at small size"
     },
     {
       "name": "--ui-avatar-font-size-sm",
-      "default": "var(--ui-font-size-xs)"
+      "default": "var(--ui-font-size-xs)",
+      "description": "Font size at small size"
     },
     {
       "name": "--ui-avatar-size-lg",
-      "default": "calc(var(--ui-unit) * 6"
+      "default": "calc(var(--ui-unit) * 6)",
+      "description": "Overall size at large size"
     },
     {
       "name": "--ui-avatar-font-size-lg",
-      "default": "var(--ui-font-size-md)"
+      "default": "var(--ui-font-size-md)",
+      "description": "Font size at large size"
     },
     {
       "name": "--ui-avatar-size-xl",
-      "default": "calc(var(--ui-unit) * 8"
+      "default": "calc(var(--ui-unit) * 8)",
+      "description": "Overall size at extra-large size"
     },
     {
       "name": "--ui-avatar-font-size-xl",
-      "default": "var(--ui-font-size-lg)"
+      "default": "var(--ui-font-size-lg)",
+      "description": "Font size at extra-large size"
     },
     {
       "name": "--ui-avatar-radius-square",
-      "default": "var(--ui-radius-md)"
+      "default": "var(--ui-radius-md)",
+      "description": "Radius square"
     }
   ]
 }

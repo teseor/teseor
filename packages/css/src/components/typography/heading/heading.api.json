@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "heading",
   "element": "h2",
   "modifiers": {
@@ -9,75 +10,93 @@
   "cssVars": [
     {
       "name": "--ui-heading-font-size",
-      "default": "var(--ui-font-size-xl)"
+      "default": "var(--ui-font-size-xl)",
+      "description": "Font size"
     },
     {
       "name": "--ui-heading-line-height",
-      "default": "var(--ui-leading-xl)"
+      "default": "var(--ui-leading-xl)",
+      "description": "Line height"
     },
     {
       "name": "--ui-heading-weight",
-      "default": "var(--ui-weight-bold)"
+      "default": "var(--ui-weight-bold)",
+      "description": "Weight"
     },
     {
       "name": "--ui-heading-color",
-      "default": "var(--ui-color-text)"
+      "default": "var(--ui-color-text)",
+      "description": "Text color"
     },
     {
       "name": "--ui-heading-font-size-4xl",
-      "default": "var(--ui-font-size-4xl)"
+      "default": "var(--ui-font-size-4xl)",
+      "description": "Font size 4xl"
     },
     {
       "name": "--ui-heading-line-height-4xl",
-      "default": "var(--ui-leading-4xl)"
+      "default": "var(--ui-leading-4xl)",
+      "description": "Line height 4xl"
     },
     {
       "name": "--ui-heading-font-size-3xl",
-      "default": "var(--ui-font-size-3xl)"
+      "default": "var(--ui-font-size-3xl)",
+      "description": "Font size 3xl"
     },
     {
       "name": "--ui-heading-line-height-3xl",
-      "default": "var(--ui-leading-3xl)"
+      "default": "var(--ui-leading-3xl)",
+      "description": "Line height 3xl"
     },
     {
       "name": "--ui-heading-font-size-2xl",
-      "default": "var(--ui-font-size-2xl)"
+      "default": "var(--ui-font-size-2xl)",
+      "description": "Font size 2xl"
     },
     {
       "name": "--ui-heading-line-height-2xl",
-      "default": "var(--ui-leading-2xl)"
+      "default": "var(--ui-leading-2xl)",
+      "description": "Line height 2xl"
     },
     {
       "name": "--ui-heading-font-size-xl",
-      "default": "var(--ui-font-size-xl)"
+      "default": "var(--ui-font-size-xl)",
+      "description": "Font size at extra-large size"
     },
     {
       "name": "--ui-heading-line-height-xl",
-      "default": "var(--ui-leading-xl)"
+      "default": "var(--ui-leading-xl)",
+      "description": "Line height at extra-large size"
     },
     {
       "name": "--ui-heading-font-size-lg",
-      "default": "var(--ui-font-size-lg)"
+      "default": "var(--ui-font-size-lg)",
+      "description": "Font size at large size"
     },
     {
       "name": "--ui-heading-line-height-lg",
-      "default": "var(--ui-leading-lg)"
+      "default": "var(--ui-leading-lg)",
+      "description": "Line height at large size"
     },
     {
       "name": "--ui-heading-font-size-md",
-      "default": "var(--ui-font-size-md)"
+      "default": "var(--ui-font-size-md)",
+      "description": "Font size at medium size"
     },
     {
       "name": "--ui-heading-line-height-md",
-      "default": "var(--ui-leading-tight-md)"
+      "default": "var(--ui-leading-tight-md)",
+      "description": "Line height at medium size"
     },
     {
       "name": "--ui-heading-font-size-sm",
-      "default": "var(--ui-font-size-sm)"
+      "default": "var(--ui-font-size-sm)",
+      "description": "Font size at small size"
     },
     {
       "name": "--ui-heading-line-height-sm",
-      "default": "var(--ui-leading-tight-sm)"
+      "default": "var(--ui-leading-tight-sm)",
+      "description": "Line height at small size"
     }
   ]
 }

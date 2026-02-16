@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "badge",
   "element": "span",
   "modifiers": {
@@ -11,88 +12,69 @@
   },
   "cssVars": [
     {
+      "name": "--ui-badge-accent",
+      "default": "var(--ui-color-bg-muted)",
+      "description": "Accent color"
+    },
+    {
       "name": "--ui-badge-height",
-      "default": "var(--ui-row)"
+      "default": "calc(var(--ui-row) * 1.25)",
+      "description": "Overall height"
     },
     {
       "name": "--ui-badge-padding-x",
-      "default": "var(--ui-space-1)"
+      "default": "var(--ui-space-1)",
+      "description": "Horizontal padding"
     },
     {
       "name": "--ui-badge-font-size",
-      "default": "var(--ui-font-size-xs)"
+      "default": "var(--ui-font-size-xs)",
+      "description": "Font size"
     },
     {
       "name": "--ui-badge-font-weight",
-      "default": "var(--ui-weight-medium)"
+      "default": "var(--ui-weight-medium)",
+      "description": "Font weight"
     },
     {
       "name": "--ui-badge-radius",
-      "default": "var(--ui-radius-full)"
-    },
-    {
-      "name": "--ui-badge-bg",
-      "default": "var(--ui-color-bg-muted)"
+      "default": "var(--ui-radius-full)",
+      "description": "Corner radius"
     },
     {
       "name": "--ui-badge-color",
-      "default": "var(--ui-color-text)"
+      "default": "var(--ui-color-text)",
+      "description": "Text color"
     },
     {
       "name": "--ui-badge-height-sm",
-      "default": "var(--ui-row)"
+      "default": "var(--ui-row)",
+      "description": "Overall height at small size"
     },
     {
       "name": "--ui-badge-padding-x-sm",
-      "default": "var(--ui-space-0)"
+      "default": "var(--ui-space-0)",
+      "description": "Horizontal padding at small size"
     },
     {
       "name": "--ui-badge-font-size-sm",
-      "default": "var(--ui-font-size-xs)"
+      "default": "calc(var(--ui-font-size-xs) * 0.85)",
+      "description": "Font size at small size"
     },
     {
       "name": "--ui-badge-height-lg",
-      "default": "calc(var(--ui-row) * 1.5)"
+      "default": "calc(var(--ui-row) * 1.5)",
+      "description": "Overall height at large size"
     },
     {
       "name": "--ui-badge-padding-x-lg",
-      "default": "var(--ui-space-2)"
+      "default": "var(--ui-space-2)",
+      "description": "Horizontal padding at large size"
     },
     {
       "name": "--ui-badge-font-size-lg",
-      "default": "var(--ui-font-size-md)"
-    },
-    {
-      "name": "--ui-badge-primary-bg",
-      "default": "var(--ui-color-primary)"
-    },
-    {
-      "name": "--ui-badge-primary-text",
-      "default": "var(--ui-color-text-inverse)"
-    },
-    {
-      "name": "--ui-badge-success-bg",
-      "default": "var(--ui-color-success)"
-    },
-    {
-      "name": "--ui-badge-success-text",
-      "default": "var(--ui-color-text-inverse)"
-    },
-    {
-      "name": "--ui-badge-warning-bg",
-      "default": "var(--ui-color-warning)"
-    },
-    {
-      "name": "--ui-badge-warning-text",
-      "default": "var(--ui-color-text)"
-    },
-    {
-      "name": "--ui-badge-danger-bg",
-      "default": "var(--ui-color-danger)"
-    },
-    {
-      "name": "--ui-badge-danger-text",
-      "default": "var(--ui-color-text-inverse)"
+      "default": "var(--ui-font-size-md)",
+      "description": "Font size at large size"
     }
   ]
 }

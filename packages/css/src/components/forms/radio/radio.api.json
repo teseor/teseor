@@ -1,9 +1,10 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "radio",
   "element": "input",
   "modifiers": {
     "size": {
-      "values": ["sm", "lg"]
+      "values": ["lg"]
     },
     "state": {
       "values": ["error", "success"]
@@ -12,39 +13,48 @@
   "cssVars": [
     {
       "name": "--ui-radio-size",
-      "default": "calc(var(--ui-unit) * 2"
+      "default": "calc(var(--ui-unit) * 2)",
+      "description": "Overall size"
     },
     {
       "name": "--ui-radio-bg",
-      "default": "var(--ui-color-bg)"
+      "default": "var(--ui-color-bg)",
+      "description": "Background color"
     },
     {
       "name": "--ui-radio-bg-checked",
-      "default": "var(--ui-color-primary)"
+      "default": "var(--ui-color-primary)",
+      "description": "Bg checked"
     },
     {
       "name": "--ui-radio-border-color",
-      "default": "var(--ui-color-border-strong)"
+      "default": "var(--ui-color-border-strong)",
+      "description": "Border color"
     },
     {
       "name": "--ui-radio-border-color-focus",
-      "default": "var(--ui-color-primary)"
+      "default": "var(--ui-color-primary)",
+      "description": "Border color focus"
     },
     {
       "name": "--ui-radio-dot-color",
-      "default": "var(--ui-color-text-inverse)"
+      "default": "var(--ui-color-text-inverse)",
+      "description": "Dot color"
     },
     {
       "name": "--ui-radio-size-lg",
-      "default": "calc(var(--ui-unit) * 3"
+      "default": "calc(var(--ui-unit) * 3)",
+      "description": "Overall size at large size"
     },
     {
       "name": "--ui-radio-error-border",
-      "default": "var(--ui-color-danger)"
+      "default": "var(--ui-color-danger)",
+      "description": "Error border"
     },
     {
       "name": "--ui-radio-success-border",
-      "default": "var(--ui-color-success)"
+      "default": "var(--ui-color-success)",
+      "description": "Success border"
     }
   ]
 }

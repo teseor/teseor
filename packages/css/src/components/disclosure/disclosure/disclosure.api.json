@@ -1,11 +1,12 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "disclosure",
   "element": "div",
   "modifiers": {
-    "borderless": {
+    "animate": {
       "type": "boolean"
     },
-    "animate": {
+    "borderless": {
       "type": "boolean"
     }
   },
@@ -17,27 +18,33 @@
   "cssVars": [
     {
       "name": "--ui-disclosure-border-color",
-      "default": "var(--ui-color-border)"
+      "default": "var(--ui-color-border)",
+      "description": "Border color"
     },
     {
       "name": "--ui-disclosure-border-width",
-      "default": "1px"
+      "default": "var(--ui-border-width-sm)",
+      "description": "Border thickness"
     },
     {
       "name": "--ui-disclosure-radius",
-      "default": "var(--ui-radius-md)"
+      "default": "var(--ui-radius-md)",
+      "description": "Corner radius"
     },
     {
       "name": "--ui-disclosure-trigger-height",
-      "default": "var(--ui-row-3)"
+      "default": "var(--ui-row-3)",
+      "description": "Trigger overall height"
     },
     {
       "name": "--ui-disclosure-padding-x",
-      "default": "calc(var(--ui-unit) * 2"
+      "default": "calc(var(--ui-unit) * 2)",
+      "description": "Horizontal padding"
     },
     {
       "name": "--ui-disclosure-padding-y",
-      "default": "calc(var(--ui-unit) * 2"
+      "default": "calc(var(--ui-unit) * 2)",
+      "description": "Vertical padding"
     }
   ]
 }

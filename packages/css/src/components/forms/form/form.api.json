@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "form",
   "element": "form",
   "modifiers": {
@@ -13,27 +14,29 @@
     "section": {},
     "actions": {}
   },
-  "relatedComponents": ["form-error", "form-helper"],
+  "relatedComponents": [
+    {
+      "name": "form-error"
+    },
+    {
+      "name": "form-helper"
+    }
+  ],
   "cssVars": [
     {
       "name": "--ui-form-spacing",
-      "default": "var(--ui-space-3)"
+      "default": "var(--ui-space-3)",
+      "description": "Spacing"
     },
     {
       "name": "--ui-form-actions-gap",
-      "default": "var(--ui-space-2)"
+      "default": "var(--ui-space-2)",
+      "description": "Actions gap"
     },
     {
       "name": "--ui-form-section-spacing",
-      "default": "var(--ui-space-4)"
-    },
-    {
-      "name": "--ui-form-spacing-compact",
-      "default": "var(--ui-space-2)"
-    },
-    {
-      "name": "--ui-form-section-spacing-compact",
-      "default": "var(--ui-space-3)"
+      "default": "var(--ui-space-4)",
+      "description": "Section spacing"
     }
   ]
 }

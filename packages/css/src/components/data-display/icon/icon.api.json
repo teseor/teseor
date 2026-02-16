@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "icon",
   "element": "svg",
   "modifiers": {
@@ -18,40 +19,28 @@
   "cssVars": [
     {
       "name": "--ui-icon-size",
-      "default": "var(--ui-ctx-size, 1rem)",
+      "default": "var(--ui-ctx-size)",
       "description": "3-tier: global > context > default"
     },
     {
       "name": "--ui-icon-stroke",
-      "default": "2"
+      "default": "var(--ui-icon-stroke)",
+      "description": "Stroke"
     },
     {
-      "name": "--ui-icon-size-xs",
-      "default": "var(--ui-size-xs)"
-    },
-    {
-      "name": "--ui-icon-size-sm",
-      "default": "var(--ui-size-sm)"
-    },
-    {
-      "name": "--ui-icon-size-md",
-      "default": "var(--ui-size-md)"
-    },
-    {
-      "name": "--ui-icon-size-lg",
-      "default": "var(--ui-size-lg)"
-    },
-    {
-      "name": "--ui-icon-size-xl",
-      "default": "var(--ui-size-xl)"
+      "name": "--ui-icon-size-",
+      "default": "",
+      "description": "Size"
     },
     {
       "name": "--ui-icon-stroke-thin",
-      "default": "1"
+      "default": "var(--ui-icon-stroke-thin)",
+      "description": "Stroke thin"
     },
     {
       "name": "--ui-icon-stroke-thick",
-      "default": "2.5"
+      "default": "var(--ui-icon-stroke-thick)",
+      "description": "Stroke thick"
     }
   ]
 }

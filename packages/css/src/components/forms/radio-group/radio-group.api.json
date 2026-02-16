@@ -1,14 +1,15 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "radio-group",
   "element": "fieldset",
   "modifiers": {
-    "horizontal": {
-      "type": "boolean"
-    },
     "compact": {
       "type": "boolean"
     },
     "error": {
+      "type": "boolean"
+    },
+    "horizontal": {
       "type": "boolean"
     }
   },
@@ -20,35 +21,53 @@
   "cssVars": [
     {
       "name": "--ui-radio-group-spacing",
-      "default": "var(--ui-space-1)"
-    },
-    {
-      "name": "--ui-radio-group-spacing-compact",
-      "default": "0"
+      "default": "var(--ui-space-1)",
+      "description": "Spacing"
     },
     {
       "name": "--ui-radio-group-legend-size",
-      "default": "var(--ui-font-size-sm)"
+      "default": "var(--ui-font-size-sm)",
+      "description": "Legend size"
     },
     {
       "name": "--ui-radio-group-legend-weight",
-      "default": "var(--ui-weight-medium)"
+      "default": "var(--ui-weight-medium)",
+      "description": "Legend weight"
     },
     {
       "name": "--ui-radio-group-legend-color",
-      "default": "var(--ui-color-text)"
+      "default": "var(--ui-color-text)",
+      "description": "Legend color"
     },
     {
       "name": "--ui-radio-group-legend-spacing",
-      "default": "var(--ui-space-1)"
+      "default": "var(--ui-space-1)",
+      "description": "Legend spacing"
     },
     {
       "name": "--ui-radio-group-item-gap",
-      "default": "var(--ui-space-1)"
+      "default": "var(--ui-space-1)",
+      "description": "Item gap between children"
+    },
+    {
+      "name": "--ui-radio-group-spacing-compact",
+      "default": "0",
+      "description": "Spacing compact"
+    },
+    {
+      "name": "--ui-radio-group-legend-spacing-compact",
+      "default": "0",
+      "description": "Legend spacing compact"
+    },
+    {
+      "name": "--ui-radio-group-item-gap-compact",
+      "default": "0",
+      "description": "Item gap compact"
     },
     {
       "name": "--ui-radio-group-error-color",
-      "default": "var(--ui-color-danger)"
+      "default": "var(--ui-color-danger)",
+      "description": "Error color"
     }
   ]
 }
