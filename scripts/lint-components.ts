@@ -17,7 +17,11 @@ import { fileURLToPath } from 'node:url';
 
 import { discoverComponents } from './discover-structure.js';
 import { findComponentDirs } from './shared/find-components.js';
-import { extractTokenVars, isHardcodedFallback } from './shared/lint-helpers.js';
+import {
+  extractBareTokenVars,
+  extractTokenVars,
+  isHardcodedFallback,
+} from './shared/lint-helpers.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const COMPONENTS_DIR = join(__dirname, '../packages/css/src/components');
@@ -403,9 +407,44 @@ function lintApiSync(): void {
   }
 }
 
+function lintBareTokenVars(): void {
+  const srcDir = join(__dirname, '../packages/css/src');
+  const errors: string[] = [];
+
+  // Only check component SCSS files — utilities/base/layout use bare vars intentionally
+  const componentScssFiles = findScssFiles(join(srcDir, 'components'));
+
+  for (const file of componentScssFiles) {
+    const content = readFileSync(file, 'utf-8');
+    const relPath = file.replace(`${srcDir}/`, '');
+
+    const bareVars = extractBareTokenVars(content);
+    for (const { token, index } of bareVars) {
+      const line = content.substring(0, index).split('\n').length;
+      errors.push(
+        `${relPath}:${line}: var(--ui-${token}) has no fallback — add SCSS variable reference e.g. var(--ui-${token}, \#{t.$...})`,
+      );
+    }
+  }
+
+  if (errors.length > 0) {
+    console.error('Bare token variable check failed:\n');
+    for (const err of errors) {
+      console.error(`  - ${err}`);
+    }
+    console.error(
+      `\n${errors.length} bare token var(s) found in components. Every var(--ui-*) in components must have a fallback.`,
+    );
+    process.exit(1);
+  }
+
+  console.log(`Bare token vars: ${componentScssFiles.length} component SCSS files passed.`);
+}
+
 lintComponents();
 lintSidenavCompleteness();
 lintJsonContent();
 lintTokenFallbacks();
+lintBareTokenVars();
 lintStyleLayerTokens();
 lintApiSync();
