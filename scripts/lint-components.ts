@@ -369,7 +369,95 @@ function findScssFiles(dir: string): string[] {
   return results;
 }
 
+function lintStyleLayerTokens(): void {
+  const srcDir = join(__dirname, '../packages/css/src');
+  const errors: string[] = [];
+
+  // Only check component and layout SCSS files
+  const dirs = [join(srcDir, 'components'), join(srcDir, 'layout')];
+  const scssFiles = dirs.flatMap((d) => findScssFiles(d));
+
+  // Layers where var(--ui-*) should NOT appear (only var(--_*) allowed)
+  const stylesLayerPatterns = ['@layer components.styles', '@layer primitives'];
+
+  for (const file of scssFiles) {
+    const content = readFileSync(file, 'utf-8');
+    const relPath = file.replace(`${srcDir}/`, '');
+
+    // Find each styles layer block and check for var(--ui-*) inside
+    for (const layerName of stylesLayerPatterns) {
+      let searchFrom = 0;
+      while (searchFrom < content.length) {
+        const layerStart = content.indexOf(layerName, searchFrom);
+        if (layerStart === -1) break;
+
+        // Find the opening brace
+        const braceStart = content.indexOf('{', layerStart);
+        if (braceStart === -1) break;
+
+        // Find matching closing brace with depth tracking
+        let depth = 1;
+        let pos = braceStart + 1;
+        while (pos < content.length && depth > 0) {
+          if (content[pos] === '{') depth++;
+          else if (content[pos] === '}') depth--;
+          pos++;
+        }
+        const layerBody = content.substring(braceStart + 1, pos - 1);
+        const layerBodyStart = braceStart + 1;
+
+        // Find all var(--ui-*) inside this layer block
+        // Skip lines that are --_ custom property declarations (modifier overrides are allowed)
+        const lines = layerBody.split('\n');
+        let charOffset = 0;
+        for (const rawLine of lines) {
+          const trimmedLine = rawLine.trim();
+          // Skip custom property declarations — these are token assignments, not property usage
+          const isCustomPropDecl = /^\s*--[\w_-]+\s*:/.test(rawLine);
+          if (!isCustomPropDecl) {
+            const tokenPattern = /var\(--ui-[\w-]+/g;
+            for (
+              let match = tokenPattern.exec(rawLine);
+              match !== null;
+              match = tokenPattern.exec(rawLine)
+            ) {
+              const tokenName = match[0].replace('var(', '');
+              const absoluteIdx = layerBodyStart + charOffset + match.index;
+              const line = content.substring(0, absoluteIdx).split('\n').length;
+              errors.push(
+                `${relPath}:${line}: ${tokenName} used directly in styles layer — extract to --_ internal variable in tokens layer`,
+              );
+            }
+          }
+          charOffset += rawLine.length + 1; // +1 for newline
+        }
+
+        searchFrom = pos;
+      }
+    }
+  }
+
+  if (errors.length > 0) {
+    console.warn('Style layer token encapsulation warnings:\n');
+    // Group by file for readability
+    const byFile = new Map<string, number>();
+    for (const err of errors) {
+      const file = err.split(':')[0];
+      byFile.set(file, (byFile.get(file) ?? 0) + 1);
+    }
+    for (const [file, count] of byFile) {
+      console.warn(`  ${file} (${count})`);
+    }
+    console.warn(
+      `\n${errors.length} direct token reference(s) in ${byFile.size} files. Move to @layer components.tokens as --_ internal variables.`,
+    );
+  } else {
+    console.log(`Style layer tokens: ${scssFiles.length} SCSS files passed.`);
+  }
+}
+
 lintComponents();
 lintSidenavCompleteness();
 lintJsonContent();
 lintTokenFallbacks();
+lintStyleLayerTokens();
