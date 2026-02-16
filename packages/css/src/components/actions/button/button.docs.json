@@ -198,5 +198,67 @@
         }
       ]
     }
+  ],
+  "customization": [
+    {
+      "token": "--ui-button-accent",
+      "default": "var(--ui-color-primary)",
+      "description": "Primary accent color. All shades auto-generated via color-mix."
+    },
+    {
+      "token": "--ui-button-height",
+      "default": "var(--ui-row-2)",
+      "description": "Overall height"
+    },
+    {
+      "token": "--ui-button-padding-x",
+      "default": "var(--ui-space-2)",
+      "description": "Horizontal padding"
+    },
+    {
+      "token": "--ui-button-font-size",
+      "default": "var(--ui-font-size-sm)",
+      "description": "Font size"
+    },
+    {
+      "token": "--ui-button-font-weight",
+      "default": "var(--ui-weight-medium)",
+      "description": "Font weight"
+    },
+    {
+      "token": "--ui-button-radius",
+      "default": "var(--ui-radius-md)",
+      "description": "Corner radius"
+    },
+    {
+      "token": "--ui-button-color",
+      "default": "var(--ui-color-text-inverse)",
+      "description": "Text color"
+    },
+    {
+      "token": "--ui-button-height-sm",
+      "default": "calc(var(--ui-row) * 1.5)",
+      "description": "Overall height at small size"
+    },
+    {
+      "token": "--ui-button-font-size-sm",
+      "default": "var(--ui-font-size-xs)",
+      "description": "Font size at small size"
+    },
+    {
+      "token": "--ui-button-height-lg",
+      "default": "calc(var(--ui-row) * 2.5)",
+      "description": "Overall height at large size"
+    },
+    {
+      "token": "--ui-button-padding-x-lg",
+      "default": "var(--ui-space-3)",
+      "description": "Horizontal padding at large size"
+    },
+    {
+      "token": "--ui-button-font-size-lg",
+      "default": "var(--ui-font-size-md)",
+      "description": "Font size at large size"
+    }
   ]
 }
