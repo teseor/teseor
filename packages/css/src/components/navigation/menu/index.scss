@@ -32,7 +32,7 @@
     // @desc Border color
     --_border-color: var(--ui-menu-border-color, var(--ui-color-border, #{t.$color-border}));
     // @desc Box shadow
-    --_shadow: var(--ui-menu-shadow, var(--ui-shadow-lg));
+    --_shadow: var(--ui-menu-shadow, var(--ui-shadow-lg, #{t.$shadow-lg}));
     // @desc Item padding on all sides
     --_item-padding: var(--ui-menu-item-padding, calc(#{t.$unit} * 1) calc(#{t.$unit} * 2));
     // @desc Item corner radius

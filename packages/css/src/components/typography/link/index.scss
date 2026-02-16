@@ -6,11 +6,11 @@
 @layer components.tokens {
   .link {
     --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
-    --_ease-default: var(--ui-ease-default, ease);
-    --_color-focus: var(--ui-color-focus, var(--ui-color-primary));
-    --_color-text-muted: var(--ui-color-text-muted);
+    --_ease-default: var(--ui-ease-default, #{t.$ease-default});
+    --_color-focus: var(--ui-color-focus, var(--ui-color-primary, #{t.$color-primary}));
+    --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
     // @desc Text color
-    --_color: var(--ui-link-color, var(--ui-color-primary));
+    --_color: var(--ui-link-color, var(--ui-color-primary, #{t.$color-primary}));
     // @desc Color hover
     --_color-hover: var(--ui-link-color-hover, var(--ui-color-primary-hover, color-mix(in srgb, var(--_color) 85%, black)));
     // @desc Color visited
@@ -24,9 +24,9 @@
   // @modifier variant
   .link--muted {
     // @desc Color muted
-    --_color: var(--ui-link-color-muted, var(--ui-color-text-muted));
+    --_color: var(--ui-link-color-muted, var(--ui-color-text-muted, #{t.$color-text-muted}));
     // @desc Color muted hover
-    --_color-hover: var(--ui-link-color-muted-hover, var(--ui-color-text));
+    --_color-hover: var(--ui-link-color-muted-hover, var(--ui-color-text, #{t.$color-text}));
   }
 
   .link--subtle {

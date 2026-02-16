@@ -8,15 +8,15 @@
 @layer components.tokens {
   .progress-circle {
     --_duration-slow: var(--ui-duration-slow, #{t.$duration-slow});
-    --_ease-default: var(--ui-ease-default, ease);
+    --_ease-default: var(--ui-ease-default, #{t.$ease-default});
     // @desc Overall size
-    --_size: var(--ui-progress-circle-size, calc(var(--ui-unit) * 6));
+    --_size: var(--ui-progress-circle-size, calc(var(--ui-unit, #{t.$unit}) * 6));
     // @desc Stroke width
     --_stroke-width: var(--ui-progress-circle-stroke-width, #{t.$progress-circle-stroke-width});
     // @desc Fill area text color
-    --_fill-color: var(--ui-progress-circle-fill-color, var(--ui-color-primary));
+    --_fill-color: var(--ui-progress-circle-fill-color, var(--ui-color-primary, #{t.$color-primary}));
     // @desc Track text color
-    --_track-color: var(--ui-progress-circle-track-color, var(--ui-color-border));
+    --_track-color: var(--ui-progress-circle-track-color, var(--ui-color-border, #{t.$color-border}));
     // @desc Value
     --_value: var(--ui-progress-circle-value, 0);
     --_circumference: 282.743;
@@ -25,30 +25,30 @@
   // @modifier size
   .progress-circle--sm {
     // @desc Overall size at small size
-    --_size: var(--ui-progress-circle-size-sm, calc(var(--ui-unit) * 4));
+    --_size: var(--ui-progress-circle-size-sm, calc(var(--ui-unit, #{t.$unit}) * 4));
   }
 
   .progress-circle--lg {
     // @desc Overall size at large size
-    --_size: var(--ui-progress-circle-size-lg, calc(var(--ui-unit) * 8));
+    --_size: var(--ui-progress-circle-size-lg, calc(var(--ui-unit, #{t.$unit}) * 8));
   }
 
   .progress-circle--xl {
     // @desc Overall size at extra-large size
-    --_size: var(--ui-progress-circle-size-xl, calc(var(--ui-unit) * 12));
+    --_size: var(--ui-progress-circle-size-xl, calc(var(--ui-unit, #{t.$unit}) * 12));
   }
 
   // @modifier variant
   .progress-circle--success {
-    --_fill-color: var(--ui-color-success);
+    --_fill-color: var(--ui-color-success, #{t.$color-success});
   }
 
   .progress-circle--warning {
-    --_fill-color: var(--ui-color-warning);
+    --_fill-color: var(--ui-color-warning, #{t.$color-warning});
   }
 
   .progress-circle--danger {
-    --_fill-color: var(--ui-color-danger);
+    --_fill-color: var(--ui-color-danger, #{t.$color-danger});
   }
 }
 

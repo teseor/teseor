@@ -10,26 +10,26 @@
     // @desc Overall size
     --_size: var(--ui-status-size, calc(#{t.$unit} * 1));
     // @desc Text color
-    --_color: var(--ui-status-color, var(--ui-color-text-muted));
+    --_color: var(--ui-status-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
     // @desc Gap between children
     --_gap: var(--ui-status-gap, calc(#{t.$unit} * 1));
   }
 
   // @modifier variant
   .status--success {
-    --_color: var(--ui-color-success);
+    --_color: var(--ui-color-success, #{t.$color-success});
   }
 
   .status--warning {
-    --_color: var(--ui-color-warning);
+    --_color: var(--ui-color-warning, #{t.$color-warning});
   }
 
   .status--danger {
-    --_color: var(--ui-color-danger);
+    --_color: var(--ui-color-danger, #{t.$color-danger});
   }
 
   .status--info {
-    --_color: var(--ui-color-primary);
+    --_color: var(--ui-color-primary, #{t.$color-primary});
   }
 }
 

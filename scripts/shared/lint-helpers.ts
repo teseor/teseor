@@ -46,6 +46,21 @@ export function extractTokenVars(content: string): TokenVar[] {
   return results;
 }
 
+export interface BareFallbackVar {
+  token: string;
+  index: number;
+}
+
+// Find var(--ui-*) with no fallback at all (just closing paren after token name)
+export function extractBareTokenVars(content: string): BareFallbackVar[] {
+  const results: BareFallbackVar[] = [];
+  const pattern = /var\(--ui-([\w-]+)\)/g;
+  for (let match = pattern.exec(content); match !== null; match = pattern.exec(content)) {
+    results.push({ token: match[1], index: match.index });
+  }
+  return results;
+}
+
 // Check if a fallback value is a hardcoded literal instead of a SCSS reference
 export function isHardcodedFallback(fallback: string): boolean {
   const trimmed = fallback.trim();

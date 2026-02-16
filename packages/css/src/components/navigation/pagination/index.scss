@@ -23,7 +23,7 @@
     // @desc Item bg hover
     --_item-bg-hover: var(--ui-pagination-item-bg-hover, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
     // @desc Item bg active
-    --_item-bg-active: var(--ui-pagination-item-bg-active, var(--ui-color-primary));
+    --_item-bg-active: var(--ui-pagination-item-bg-active, var(--ui-color-primary, #{t.$color-primary}));
     // @desc Item text color
     --_item-color: var(--ui-pagination-item-color, var(--ui-color-text, #{t.$color-text}));
     // @desc Item color active

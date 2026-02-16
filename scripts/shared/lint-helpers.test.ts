@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { extractTokenVars, isHardcodedFallback } from './lint-helpers.js';
+import { extractBareTokenVars, extractTokenVars, isHardcodedFallback } from './lint-helpers.js';
 
 describe('extractTokenVars', () => {
   it('extracts basic var(--ui-X, fallback)', () => {
@@ -49,6 +49,39 @@ describe('extractTokenVars', () => {
     const content = '  height: var(--ui-button-height, 10px);';
     const result = extractTokenVars(content);
     expect(result[0].index).toBe(content.indexOf('var(--ui-'));
+  });
+});
+
+describe('extractBareTokenVars', () => {
+  it('finds var(--ui-X) without fallback', () => {
+    const content = '--_color: var(--ui-color-success);';
+    const result = extractBareTokenVars(content);
+    expect(result).toHaveLength(1);
+    expect(result[0].token).toBe('color-success');
+  });
+
+  it('ignores var(--ui-X, fallback) with fallback', () => {
+    const content = '--_color: var(--ui-color-success, #{t.$color-success});';
+    const result = extractBareTokenVars(content);
+    expect(result).toHaveLength(0);
+  });
+
+  it('finds bare inner vars in nested expressions', () => {
+    const content = '--_fill: var(--ui-progress-fill, var(--ui-color-primary));';
+    const result = extractBareTokenVars(content);
+    expect(result).toHaveLength(1);
+    expect(result[0].token).toBe('color-primary');
+  });
+
+  it('finds multiple bare vars', () => {
+    const content = ['--_a: var(--ui-duration-base);', '--_b: var(--ui-ease-default);'].join('\n');
+    const result = extractBareTokenVars(content);
+    expect(result).toHaveLength(2);
+  });
+
+  it('returns empty for no matches', () => {
+    const content = 'color: red;';
+    expect(extractBareTokenVars(content)).toHaveLength(0);
   });
 });
 

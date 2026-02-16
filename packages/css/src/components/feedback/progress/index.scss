@@ -8,13 +8,13 @@
 @layer components.tokens {
   .progress {
     --_duration-normal: var(--ui-duration-normal, #{t.$duration-normal});
-    --_ease-default: var(--ui-ease-default, ease);
+    --_ease-default: var(--ui-ease-default, #{t.$ease-default});
     // @desc Overall height
     --_height: var(--ui-progress-height, calc(#{t.$unit} * 1));
     // @desc Background color
     --_bg: var(--ui-progress-bg, var(--ui-color-bg-subtle, #{t.$overlay-bg-subtle}));
     // @desc Fill
-    --_fill: var(--ui-progress-fill, var(--ui-color-primary));
+    --_fill: var(--ui-progress-fill, var(--ui-color-primary, #{t.$color-primary}));
     // @desc Corner radius
     --_radius: var(--ui-progress-radius, var(--ui-radius-full, #{t.$radius-full}));
   }
@@ -112,14 +112,14 @@
   // Color variants
   // @modifier variant
   .progress--success {
-    --_fill: var(--ui-color-success);
+    --_fill: var(--ui-color-success, #{t.$color-success});
   }
 
   .progress--warning {
-    --_fill: var(--ui-color-warning);
+    --_fill: var(--ui-color-warning, #{t.$color-warning});
   }
 
   .progress--danger {
-    --_fill: var(--ui-color-danger);
+    --_fill: var(--ui-color-danger, #{t.$color-danger});
   }
 }

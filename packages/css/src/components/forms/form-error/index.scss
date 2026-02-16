@@ -7,9 +7,9 @@
 
 @layer components.tokens {
   .form-error {
-    --_leading-tight-sm: var(--ui-leading-tight-sm, var(--ui-row-1));
+    --_leading-tight-sm: var(--ui-leading-tight-sm, var(--ui-row-1, #{t.$row-1}));
     // @desc Text color
-    --_color: var(--ui-form-error-color, var(--ui-color-danger));
+    --_color: var(--ui-form-error-color, var(--ui-color-danger, #{t.$color-danger}));
     // @desc Overall size
     --_size: var(--ui-form-error-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     // @desc Gap between children

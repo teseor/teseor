@@ -6,8 +6,8 @@
 @layer components.tokens {
   .toggle {
     --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
-    --_ease-default: var(--ui-ease-default, ease);
-    --_color-focus: var(--ui-color-focus, var(--ui-color-primary));
+    --_ease-default: var(--ui-ease-default, #{t.$ease-default});
+    --_color-focus: var(--ui-color-focus, var(--ui-color-primary, #{t.$color-primary}));
     --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
     // @desc Track width
     --_track-width: var(--ui-toggle-track-width, calc(#{t.$unit} * 5));
@@ -16,7 +16,7 @@
     // @desc Track background
     --_track-bg: var(--ui-toggle-track-bg, var(--ui-color-bg-subtle, #{t.$overlay-bg-subtle}));
     // @desc Track bg checked
-    --_track-bg-checked: var(--ui-toggle-track-bg-checked, var(--ui-color-primary));
+    --_track-bg-checked: var(--ui-toggle-track-bg-checked, var(--ui-color-primary, #{t.$color-primary}));
     // @desc Track corner radius
     --_track-radius: var(--ui-toggle-track-radius, calc(#{t.$unit} * 1.5));
     // @desc Thumb control size
