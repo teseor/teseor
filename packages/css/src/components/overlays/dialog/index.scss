@@ -34,7 +34,7 @@
     margin: 0;
 
     font-size: var(--ui-font-size-lg, #{t.$font-size-lg});
-    font-weight: var(--ui-weight-semibold, 600);
+    font-weight: var(--ui-weight-semibold, #{t.$weight-semibold});
     line-height: calc(#{t.$unit} * 3);
   }
 

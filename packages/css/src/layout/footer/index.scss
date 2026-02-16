@@ -1,3 +1,5 @@
+@use '../../config/tokens/variables' as t;
+
 @layer primitives {
   .footer {
     --_height: var(--ui-footer-height, var(--ui-row-3));
@@ -57,6 +59,6 @@
   }
 
   .footer--raised {
-    box-shadow: 0 calc(var(--ui-border-width-sm) * -1) 6px hsl(var(--ui-hue-primary, 220) 10% 20% / 0.08);
+    box-shadow: 0 calc(var(--ui-border-width-sm) * -1) 6px hsl(var(--ui-hue-primary, #{t.$hue-primary}) 10% 20% / 0.08);
   }
 }

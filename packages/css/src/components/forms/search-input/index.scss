@@ -47,8 +47,8 @@
     border-radius: var(--_radius);
 
     transition:
-      border-color var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease),
-      box-shadow var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease);
+      border-color var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease),
+      box-shadow var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease);
 
     // Focus via inner field
     &:focus-within,
@@ -65,7 +65,7 @@
     // Disabled
     &--disabled,
     &:has(.search-input__field:disabled) {
-      opacity: var(--ui-opacity-disabled, 0.5);
+      opacity: var(--ui-opacity-disabled, #{t.$opacity-disabled});
       cursor: not-allowed;
     }
   }
@@ -147,7 +147,7 @@
     border-radius: var(--ui-radius-sm, #{t.$radius-sm});
     cursor: pointer;
 
-    transition: background var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease);
+    transition: background var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease);
 
     &:hover {
       background: var(--_clear-hover-bg);

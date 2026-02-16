@@ -63,7 +63,7 @@
   // Disabled state - fieldset[disabled] natively disables children
   .fieldset:disabled,
   .fieldset[aria-disabled='true'] {
-    opacity: var(--ui-opacity-disabled, 0.5);
+    opacity: var(--ui-opacity-disabled, #{t.$opacity-disabled});
     cursor: not-allowed;
   }
 }

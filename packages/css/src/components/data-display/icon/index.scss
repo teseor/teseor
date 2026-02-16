@@ -7,7 +7,7 @@
   .icon {
     // 3-tier inheritance: global > context > default
     --_size: var(--ui-icon-size, var(--ui-ctx-size, #{t.size(md)}));
-    --_stroke: var(--ui-icon-stroke, 2);
+    --_stroke: var(--ui-icon-stroke, #{t.$icon-stroke});
   }
 
   // @modifier size
@@ -19,11 +19,11 @@
 
   // @modifier stroke
   .icon--stroke-thin {
-    --_stroke: var(--ui-icon-stroke-thin, 1);
+    --_stroke: var(--ui-icon-stroke-thin, #{t.$icon-stroke-thin});
   }
 
   .icon--stroke-thick {
-    --_stroke: var(--ui-icon-stroke-thick, 2.5);
+    --_stroke: var(--ui-icon-stroke-thick, #{t.$icon-stroke-thick});
   }
 
   // @modifier boolean filled

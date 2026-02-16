@@ -6,7 +6,7 @@
 @layer components.tokens {
   .progress {
     --_height: var(--ui-progress-height, calc(#{t.$unit} * 1));
-    --_bg: var(--ui-progress-bg, var(--ui-color-bg-subtle, rgb(0 0 0 / 0.1)));
+    --_bg: var(--ui-progress-bg, var(--ui-color-bg-subtle, #{t.$overlay-bg-subtle}));
     --_fill: var(--ui-progress-fill, var(--ui-color-primary));
     --_radius: var(--ui-progress-radius, var(--ui-radius-full, 9999px));
   }
@@ -37,7 +37,7 @@
     background: var(--_fill);
     border-radius: var(--_radius);
 
-    transition: inline-size var(--ui-duration-normal, 200ms) var(--ui-ease-default, ease);
+    transition: inline-size var(--ui-duration-normal, #{t.$duration-normal}) var(--ui-ease-default, ease);
   }
 
   // Indeterminate state - animated stripe

@@ -76,8 +76,8 @@
     appearance: none;
 
     transition:
-      border-color var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease),
-      box-shadow var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease);
+      border-color var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease),
+      box-shadow var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease);
     background-repeat: no-repeat;
     background-position: right var(--ui-space-half, #{t.$space-0}) center;
     background-size: calc(var(--_height) * 0.5);
@@ -97,7 +97,7 @@
 
     &:disabled,
     &--disabled {
-      opacity: var(--ui-opacity-disabled, 0.5);
+      opacity: var(--ui-opacity-disabled, #{t.$opacity-disabled});
       cursor: not-allowed;
     }
 

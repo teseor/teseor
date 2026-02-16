@@ -9,7 +9,7 @@
     --_border-width: var(--ui-spinner-border-width, var(--ui-border-width-md));
     --_color: var(--ui-spinner-color, currentcolor);
     --_track-color: var(--ui-spinner-track-color, transparent);
-    --_duration: var(--ui-spinner-duration, 750ms);
+    --_duration: var(--ui-spinner-duration, #{t.$spinner-duration});
   }
 
   // @modifier size

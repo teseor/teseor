@@ -83,7 +83,7 @@
   .scroll-area--auto-hide > .scroll-area__viewport::-webkit-scrollbar-thumb {
     background: transparent;
 
-    transition: background var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease);
+    transition: background var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease);
   }
 
   .scroll-area--auto-hide > .scroll-area__viewport:hover::-webkit-scrollbar-thumb {

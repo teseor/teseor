@@ -6,7 +6,7 @@
 @layer components.tokens {
   .accordion {
     --_border-color: var(--ui-accordion-border-color, var(--ui-color-border, rgb(0 0 0 / 0.1)));
-    --_border-width: var(--ui-accordion-border-width, 1px);
+    --_border-width: var(--ui-accordion-border-width, #{t.$border-width-sm});
     --_radius: var(--ui-accordion-radius, var(--ui-radius-md, calc(#{t.$unit} * 1)));
   }
 }

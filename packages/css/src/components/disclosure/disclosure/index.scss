@@ -6,7 +6,7 @@
 @layer components.tokens {
   .disclosure {
     --_border-color: var(--ui-disclosure-border-color, var(--ui-color-border, rgb(0 0 0 / 0.1)));
-    --_border-width: var(--ui-disclosure-border-width, 1px);
+    --_border-width: var(--ui-disclosure-border-width, #{t.$border-width-sm});
     --_radius: var(--ui-disclosure-radius, var(--ui-radius-md, calc(#{t.$unit} * 1)));
     --_trigger-height: var(--ui-disclosure-trigger-height, var(--ui-row-3, calc(#{t.$row} * 3)));
     --_padding-x: var(--ui-disclosure-padding-x, calc(#{t.$unit} * 2));
@@ -38,7 +38,7 @@
     inline-size: 100%;
     padding-inline: var(--_padding-x);
 
-    font-weight: var(--ui-weight-medium, 500);
+    font-weight: var(--ui-weight-medium, #{t.$weight-medium});
     line-height: 1;
     text-align: start;
 
@@ -56,14 +56,14 @@
 
   // Trigger hover state
   .disclosure__trigger:hover {
-    background: var(--ui-color-bg-subtle, rgb(0 0 0 / 0.02));
+    background: var(--ui-color-bg-subtle, #{t.$color-bg-subtle});
   }
 
   // Icon that rotates when open
   .disclosure__icon {
     flex-shrink: 0;
 
-    transition: transform var(--ui-duration-fast, 100ms) var(--ui-ease-default, ease);
+    transition: transform var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease);
   }
 
   .disclosure[open] .disclosure__icon {
@@ -77,7 +77,7 @@
 
   // Animation for content
   .disclosure--animate .disclosure__content {
-    animation: disclosure-open var(--ui-duration-normal, 200ms) var(--ui-ease-default, ease);
+    animation: disclosure-open var(--ui-duration-normal, #{t.$duration-normal}) var(--ui-ease-default, ease);
   }
 
   @keyframes disclosure-open {

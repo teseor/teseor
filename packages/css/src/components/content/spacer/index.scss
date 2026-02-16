@@ -1,6 +1,8 @@
+@use '../../../config/tokens/variables' as t;
+
 @layer components.tokens {
   .spacer {
-    --_size: var(--ui-spacer-size, 1);
+    --_size: var(--ui-spacer-size, #{t.$spacer-size});
   }
 }
 

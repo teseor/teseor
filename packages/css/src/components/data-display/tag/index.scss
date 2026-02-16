@@ -69,7 +69,7 @@
 
     &:disabled,
     &[aria-disabled='true'] {
-      opacity: var(--ui-opacity-disabled, 0.5);
+      opacity: var(--ui-opacity-disabled, #{t.$opacity-disabled});
       cursor: not-allowed;
     }
   }
@@ -87,7 +87,7 @@
 
     background: none;
     border: none;
-    opacity: var(--ui-opacity-loading, 0.7);
+    opacity: var(--ui-opacity-loading, #{t.$opacity-loading});
     cursor: pointer;
 
     &:hover {

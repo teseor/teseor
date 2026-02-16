@@ -52,8 +52,8 @@
     appearance: none;
 
     transition:
-      background-color var(--ui-duration-base, 150ms) var(--ui-ease-default, ease),
-      color var(--ui-duration-base, 150ms) var(--ui-ease-default, ease);
+      background-color var(--ui-duration-base, #{t.$duration-base}) var(--ui-ease-default, ease),
+      color var(--ui-duration-base, #{t.$duration-base}) var(--ui-ease-default, ease);
 
     &:hover,
     &--hover {
@@ -74,7 +74,7 @@
     }
 
     &:disabled {
-      opacity: var(--ui-opacity-disabled, 0.5);
+      opacity: var(--ui-opacity-disabled, #{t.$opacity-disabled});
       cursor: not-allowed;
 
       &:hover {

@@ -1,3 +1,4 @@
+@use '../../config/tokens/variables' as t;
 // Sidebar Navigation
 // Primary navigation for sidebar with groups, items, and nested levels
 
@@ -168,7 +169,7 @@
 
   // Disabled state
   .sidebar-nav__item--disabled {
-    opacity: var(--ui-opacity-disabled, 0.5);
+    opacity: var(--ui-opacity-disabled, #{t.$opacity-disabled});
     cursor: not-allowed;
     pointer-events: none;
   }

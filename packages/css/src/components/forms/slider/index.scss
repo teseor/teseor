@@ -7,7 +7,7 @@
   .slider {
     --_height: var(--ui-slider-height, var(--ui-row-2, #{t.$row-2}));
     --_track-height: var(--ui-slider-track-height, #{t.$unit});
-    --_track-bg: var(--ui-slider-track-bg, var(--ui-color-bg-subtle, rgb(0 0 0 / 0.1)));
+    --_track-bg: var(--ui-slider-track-bg, var(--ui-color-bg-subtle, #{t.$overlay-bg-subtle}));
     --_track-fill: var(--ui-slider-track-fill, var(--ui-color-primary));
     --_track-radius: var(--ui-slider-track-radius, var(--ui-radius-full, #{t.$radius-full}));
     --_thumb-size: var(--ui-slider-thumb-size, calc(#{t.$unit} * 2.5));
@@ -15,7 +15,7 @@
     --_thumb-border-color: var(--ui-slider-thumb-border-color, var(--ui-color-primary));
     --_thumb-border-width: var(--ui-slider-thumb-border-width, var(--ui-border-width-md, #{t.$border-width-md}));
     --_thumb-radius: var(--ui-slider-thumb-radius, var(--ui-radius-full, #{t.$radius-full}));
-    --_thumb-shadow: var(--ui-slider-thumb-shadow, 0 1px 3px rgb(0 0 0 / 0.2));
+    --_thumb-shadow: var(--ui-slider-thumb-shadow, #{t.$slider-thumb-shadow});
     --_focus-ring: var(--ui-slider-focus-ring, var(--ui-color-focus, #{t.$color-focus}));
   }
 
@@ -101,8 +101,8 @@
       appearance: none;
 
       transition:
-        box-shadow var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease),
-        transform var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease);
+        box-shadow var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease),
+        transform var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease);
     }
 
     // Firefox thumb
@@ -116,8 +116,8 @@
       box-shadow: var(--_thumb-shadow);
 
       transition:
-        box-shadow var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease),
-        transform var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease);
+        box-shadow var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease),
+        transform var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease);
     }
 
     // Focus state
@@ -146,7 +146,7 @@
 
     // Disabled state
     &:disabled {
-      opacity: var(--ui-opacity-disabled, 0.5);
+      opacity: var(--ui-opacity-disabled, #{t.$opacity-disabled});
       cursor: not-allowed;
     }
   }

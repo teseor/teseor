@@ -28,9 +28,9 @@
 
     background: var(--_bg);
     border-radius: var(--_radius);
-    outline: var(--ui-border-width-sm, 0.0625rem) solid var(--_border-color);
+    outline: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_border-color);
     box-shadow: var(--_shadow);
-    outline-offset: calc(var(--ui-border-width-sm, 0.0625rem) * -1);
+    outline-offset: calc(var(--ui-border-width-sm, #{t.$border-width-sm}) * -1);
   }
 
   // Header section
@@ -38,14 +38,14 @@
     padding-block-end: calc(#{t.$unit} * 2);
     margin-block-end: calc(#{t.$unit} * 2);
 
-    box-shadow: inset 0 calc(var(--ui-border-width-sm, 1px) * -1) 0 var(--_border-color);
+    box-shadow: inset 0 calc(var(--ui-border-width-sm, #{t.$border-width-sm}) * -1) 0 var(--_border-color);
   }
 
   .popover__title {
     margin: 0;
 
     font-size: var(--ui-font-size-md, #{t.$font-size-md});
-    font-weight: var(--ui-weight-semibold, 600);
+    font-weight: var(--ui-weight-semibold, #{t.$weight-semibold});
   }
 
   // Arrow pointing down (popover above trigger)
@@ -109,6 +109,6 @@
   }
 
   .popover--animate {
-    transition: opacity var(--ui-duration-fast, 100ms) var(--ui-ease-default, ease);
+    transition: opacity var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease);
   }
 }

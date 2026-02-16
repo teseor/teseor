@@ -6,7 +6,7 @@
 @layer components.tokens {
   .progress-circle {
     --_size: var(--ui-progress-circle-size, calc(var(--ui-unit) * 6));
-    --_stroke-width: var(--ui-progress-circle-stroke-width, 8);
+    --_stroke-width: var(--ui-progress-circle-stroke-width, #{t.$progress-circle-stroke-width});
     --_fill-color: var(--ui-progress-circle-fill-color, var(--ui-color-primary));
     --_track-color: var(--ui-progress-circle-track-color, var(--ui-color-border));
     --_value: var(--ui-progress-circle-value, 0);
@@ -66,7 +66,7 @@
     stroke-dasharray: var(--_circumference);
     stroke-dashoffset: calc(var(--_circumference) * (1 - var(--_value) / 100));
 
-    transition: stroke-dashoffset var(--ui-duration-slow, 300ms) var(--ui-ease-default, ease);
+    transition: stroke-dashoffset var(--ui-duration-slow, #{t.$duration-slow}) var(--ui-ease-default, ease);
   }
 
   // Indeterminate - rotating partial arc

@@ -97,6 +97,6 @@
   }
 
   .tooltip--animate {
-    transition: opacity var(--ui-duration-fast, 100ms) var(--ui-ease-default, ease);
+    transition: opacity var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease);
   }
 }

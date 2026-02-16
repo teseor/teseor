@@ -81,8 +81,8 @@
 
   .modal--animate .modal__content {
     transition:
-      opacity var(--ui-duration-normal, 200ms) var(--ui-ease-default, ease),
-      transform var(--ui-duration-normal, 200ms) var(--ui-ease-default, ease);
+      opacity var(--ui-duration-normal, #{t.$duration-normal}) var(--ui-ease-default, ease),
+      transform var(--ui-duration-normal, #{t.$duration-normal}) var(--ui-ease-default, ease);
   }
 
   // Hidden state hides entire modal

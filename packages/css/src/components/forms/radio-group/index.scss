@@ -64,7 +64,7 @@
   }
 
   .radio-group__item:has(:disabled) {
-    opacity: var(--ui-opacity-disabled, 0.5);
+    opacity: var(--ui-opacity-disabled, #{t.$opacity-disabled});
     cursor: not-allowed;
   }
 
@@ -78,7 +78,7 @@
   // Disabled group
   .radio-group:disabled,
   .radio-group[aria-disabled='true'] {
-    opacity: var(--ui-opacity-disabled, 0.5);
+    opacity: var(--ui-opacity-disabled, #{t.$opacity-disabled});
     cursor: not-allowed;
   }
 }

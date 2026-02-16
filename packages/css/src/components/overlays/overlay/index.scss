@@ -5,16 +5,16 @@
 
 @layer components.tokens {
   .overlay {
-    --_bg: var(--ui-overlay-bg, rgb(0 0 0 / 0.5));
+    --_bg: var(--ui-overlay-bg, #{t.$overlay-bg});
     --_z: var(--ui-overlay-z, var(--ui-z-overlay, 300));
   }
 
   .overlay--light {
-    --_bg: var(--ui-overlay-bg-light, rgb(255 255 255 / 0.7));
+    --_bg: var(--ui-overlay-bg-light, #{t.$overlay-bg-light});
   }
 
   .overlay--blur {
-    --_bg: var(--ui-overlay-bg-blur, rgb(0 0 0 / 0.3));
+    --_bg: var(--ui-overlay-bg-blur, #{t.$overlay-bg-blur});
   }
 }
 
@@ -44,6 +44,6 @@
   }
 
   .overlay--animate {
-    transition: opacity var(--ui-duration-normal, 200ms) var(--ui-ease-default, ease);
+    transition: opacity var(--ui-duration-normal, #{t.$duration-normal}) var(--ui-ease-default, ease);
   }
 }

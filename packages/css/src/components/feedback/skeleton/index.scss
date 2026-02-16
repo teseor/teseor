@@ -5,8 +5,8 @@
 
 @layer components.tokens {
   .skeleton {
-    --_bg: var(--ui-skeleton-bg, var(--ui-color-bg-subtle, rgb(0 0 0 / 0.1)));
-    --_shimmer: var(--ui-skeleton-shimmer, rgb(255 255 255 / 0.5));
+    --_bg: var(--ui-skeleton-bg, var(--ui-color-bg-subtle, #{t.$overlay-bg-subtle}));
+    --_shimmer: var(--ui-skeleton-shimmer, #{t.$skeleton-shimmer});
     --_radius: var(--ui-skeleton-radius, var(--ui-radius-sm, calc(#{t.$unit} / 2)));
   }
 }

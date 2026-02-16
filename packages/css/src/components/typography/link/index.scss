@@ -31,7 +31,7 @@
 
     cursor: pointer;
 
-    transition: color var(--ui-duration-fast, 100ms) var(--ui-ease-default, ease);
+    transition: color var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease);
     text-underline-offset: calc(#{t.$unit} / 4);
 
     &:hover {

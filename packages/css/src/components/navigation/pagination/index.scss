@@ -55,8 +55,8 @@
     border-radius: var(--_item-radius);
 
     transition:
-      background var(--ui-duration-fast, 100ms) var(--ui-ease-default, ease),
-      color var(--ui-duration-fast, 100ms) var(--ui-ease-default, ease);
+      background var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease),
+      color var(--ui-duration-fast, #{t.$duration-fast}) var(--ui-ease-default, ease);
 
     &:hover {
       background: var(--_item-bg-hover);
@@ -75,7 +75,7 @@
   // Disabled state
   .pagination__link[aria-disabled="true"],
   .pagination__link--disabled {
-    opacity: var(--ui-opacity-disabled, 0.5);
+    opacity: var(--ui-opacity-disabled, #{t.$opacity-disabled});
     pointer-events: none;
   }
 
