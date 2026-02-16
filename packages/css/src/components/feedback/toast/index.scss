@@ -9,6 +9,15 @@
 @layer components.tokens {
   .toast-viewport {
     --_z-toast: var(--ui-z-toast, #{t.$z-toast});
+    // @desc Viewport gap
+    --_gap: var(--ui-toast-viewport-gap, calc(#{t.$unit} * 1));
+    // @desc Viewport padding
+    --_padding: var(--ui-toast-viewport-padding, calc(#{t.$unit} * 2));
+    // @desc Viewport max width
+    --_max-width: var(--ui-toast-viewport-max-width, #{t.$toast-viewport-max-width});
+  }
+
+  .toast {
     --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
     --_weight-medium: var(--ui-weight-medium, #{t.$weight-medium});
     --_row-1: var(--ui-row-1, #{t.$row});
@@ -19,15 +28,6 @@
     --_ease-out: var(--ui-ease-out, ease-out);
     --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
     --_ease-in: var(--ui-ease-in, ease-in);
-    // @desc Viewport gap
-    --_gap: var(--ui-toast-viewport-gap, calc(#{t.$unit} * 1));
-    // @desc Viewport padding
-    --_padding: var(--ui-toast-viewport-padding, calc(#{t.$unit} * 2));
-    // @desc Viewport max width
-    --_max-width: var(--ui-toast-viewport-max-width, #{t.$toast-viewport-max-width});
-  }
-
-  .toast {
     // @desc Padding on all sides
     --_padding: var(--ui-toast-padding, calc(#{t.$unit} * 2));
     // @desc Gap between children
