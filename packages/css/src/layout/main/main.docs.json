@@ -1,0 +1,87 @@
+{
+  "id": "main",
+  "type": "primitive",
+  "title": "Main",
+  "description": "Main content area that accounts for sidebar and topbar offsets in app layouts.",
+  "api": "main.api.json",
+  "sections": [
+    {
+      "title": "Default",
+      "description": "Offsets content for a start-side sidebar and optional topbar.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "style": { "position": "relative", "height": "var(--ui-row-4)" },
+              "children": [
+                {
+                  "tag": "main",
+                  "class": "ui-main",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-2)"
+                  },
+                  "children": [{ "tag": "p", "text": "Main content area" }]
+                }
+              ]
+            }
+          ],
+          "code": "<main class=\"ui-main\">Main content area</main>"
+        }
+      ]
+    },
+    {
+      "title": "Sidebar End",
+      "description": "Offsets content for an end-side sidebar instead of start.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "style": { "position": "relative", "height": "var(--ui-row-4)" },
+              "children": [
+                {
+                  "tag": "main",
+                  "class": "ui-main ui-main--sidebar-end",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-2)"
+                  },
+                  "children": [{ "tag": "p", "text": "Content with end sidebar" }]
+                }
+              ]
+            }
+          ],
+          "code": "<main class=\"ui-main ui-main--sidebar-end\">Content with end sidebar</main>"
+        }
+      ]
+    },
+    {
+      "title": "Full Width",
+      "description": "No sidebar offset. Use when there is no sidebar.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "style": { "position": "relative", "height": "var(--ui-row-4)" },
+              "children": [
+                {
+                  "tag": "main",
+                  "class": "ui-main ui-main--full",
+                  "style": {
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-2)"
+                  },
+                  "children": [{ "tag": "p", "text": "Full width content" }]
+                }
+              ]
+            }
+          ],
+          "code": "<main class=\"ui-main ui-main--full\">Full width content</main>"
+        }
+      ]
+    }
+  ]
+}
