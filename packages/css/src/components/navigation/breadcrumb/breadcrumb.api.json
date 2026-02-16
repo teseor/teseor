@@ -1,36 +1,50 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "breadcrumb",
   "element": "div",
   "modifiers": {},
   "elements": {
-    "item": {},
+    "item": {
+      "modifiers": {
+        "hidden": {
+          "type": "boolean"
+        }
+      }
+    },
     "link": {},
-    "current": {}
+    "current": {},
+    "ellipsis": {}
   },
   "cssVars": [
     {
+      "name": "--ui-breadcrumb-separator",
+      "default": "\"/\"",
+      "description": "Separator"
+    },
+    {
       "name": "--ui-breadcrumb-height",
-      "default": "var(--ui-row-1)"
+      "default": "var(--ui-row-1)",
+      "description": "Overall height"
     },
     {
       "name": "--ui-breadcrumb-gap",
-      "default": "calc(var(--ui-unit) * 1"
+      "default": "calc(var(--ui-unit) * 1)",
+      "description": "Gap between children"
     },
     {
       "name": "--ui-breadcrumb-separator-color",
-      "default": "var(--ui-color-text-muted)"
+      "default": "var(--ui-color-text-muted)",
+      "description": "Separator text color"
     },
     {
       "name": "--ui-breadcrumb-link-color",
-      "default": "var(--ui-color-text-muted)"
+      "default": "var(--ui-color-text-muted)",
+      "description": "Link text color"
     },
     {
       "name": "--ui-breadcrumb-current-color",
-      "default": "var(--ui-color-text)"
-    },
-    {
-      "name": "--ui-breadcrumb-separator",
-      "default": "\"/\""
+      "default": "var(--ui-color-text)",
+      "description": "Current color"
     }
   ]
 }

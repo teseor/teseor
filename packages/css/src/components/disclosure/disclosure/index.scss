@@ -1,15 +1,28 @@
 @use '../../../config/tokens/variables' as t;
+// @component disclosure
+// @element div
 
 // Disclosure - expandable/collapsible content section
 // Uses native details/summary for no-JS accessibility
 
 @layer components.tokens {
   .disclosure {
-    --_border-color: var(--ui-disclosure-border-color, var(--ui-color-border, rgb(0 0 0 / 0.1)));
-    --_border-width: var(--ui-disclosure-border-width, 1px);
+    --_weight-medium: var(--ui-weight-medium, #{t.$weight-medium});
+    --_color-bg-subtle: var(--ui-color-bg-subtle, #{t.$color-bg-subtle});
+    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
+    --_ease-default: var(--ui-ease-default, ease);
+    --_duration-normal: var(--ui-duration-normal, #{t.$duration-normal});
+    // @desc Border color
+    --_border-color: var(--ui-disclosure-border-color, var(--ui-color-border, #{t.$color-border}));
+    // @desc Border thickness
+    --_border-width: var(--ui-disclosure-border-width, #{t.$border-width-sm});
+    // @desc Corner radius
     --_radius: var(--ui-disclosure-radius, var(--ui-radius-md, calc(#{t.$unit} * 1)));
+    // @desc Trigger overall height
     --_trigger-height: var(--ui-disclosure-trigger-height, var(--ui-row-3, calc(#{t.$row} * 3)));
+    // @desc Horizontal padding
     --_padding-x: var(--ui-disclosure-padding-x, calc(#{t.$unit} * 2));
+    // @desc Vertical padding
     --_padding-y: var(--ui-disclosure-padding-y, calc(#{t.$unit} * 2));
   }
 }
@@ -38,7 +51,7 @@
     inline-size: 100%;
     padding-inline: var(--_padding-x);
 
-    font-weight: var(--ui-weight-medium, 500);
+    font-weight: var(--_weight-medium);
     line-height: 1;
     text-align: start;
 
@@ -56,14 +69,14 @@
 
   // Trigger hover state
   .disclosure__trigger:hover {
-    background: var(--ui-color-bg-subtle, rgb(0 0 0 / 0.02));
+    background: var(--_color-bg-subtle);
   }
 
   // Icon that rotates when open
   .disclosure__icon {
     flex-shrink: 0;
 
-    transition: transform var(--ui-duration-fast, 100ms) var(--ui-ease-default, ease);
+    transition: transform var(--_duration-fast) var(--_ease-default);
   }
 
   .disclosure[open] .disclosure__icon {
@@ -76,8 +89,9 @@
   }
 
   // Animation for content
+  // @modifier boolean animate
   .disclosure--animate .disclosure__content {
-    animation: disclosure-open var(--ui-duration-normal, 200ms) var(--ui-ease-default, ease);
+    animation: disclosure-open var(--_duration-normal) var(--_ease-default);
   }
 
   @keyframes disclosure-open {
@@ -93,6 +107,7 @@
   }
 
   // Borderless variant
+  // @modifier boolean borderless
   .disclosure--borderless {
     --_border-width: 0;
 

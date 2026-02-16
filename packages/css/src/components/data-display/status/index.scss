@@ -1,15 +1,21 @@
 @use '../../../config/tokens/variables' as t;
+// @component status
+// @element div
 
 // Status - visual status indicator
 // Small dot or badge to show state
 
 @layer components.tokens {
   .status {
+    // @desc Overall size
     --_size: var(--ui-status-size, calc(#{t.$unit} * 1));
+    // @desc Text color
     --_color: var(--ui-status-color, var(--ui-color-text-muted));
+    // @desc Gap between children
     --_gap: var(--ui-status-gap, calc(#{t.$unit} * 1));
   }
 
+  // @modifier variant
   .status--success {
     --_color: var(--ui-color-success);
   }
@@ -45,6 +51,7 @@
   }
 
   // Pulse animation for active status
+  // @modifier boolean pulse
   .status--pulse .status__dot {
     position: relative;
   }
@@ -79,6 +86,7 @@
   }
 
   // Size variants
+  // @modifier size
   .status--sm {
     --_size: calc(#{t.$unit} * 0.75);
     --_gap: calc(#{t.$unit} * 0.75);

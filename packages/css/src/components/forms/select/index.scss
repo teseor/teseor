@@ -5,31 +5,55 @@
 
 @layer components.tokens {
   .select {
+    --_space-half: var(--ui-space-half, #{t.$space-0});
+    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
+    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
+    --_ease-default: var(--ui-ease-default, ease);
+    --_color-border-strong: var(--ui-color-border-strong, #{t.$color-border-strong});
+    --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
+    --_color-focus: var(--ui-color-focus, #{t.$color-focus});
+    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
+    // @desc Overall height
     --_height: var(--ui-select-height, var(--ui-row-2, #{t.$row-2}));
+    // @desc Horizontal padding
     --_padding-x: var(--ui-select-padding-x, var(--ui-space-1, #{t.$space-1}));
+    // @desc Font size
     --_font-size: var(--ui-select-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    // @desc Corner radius
     --_radius: var(--ui-select-radius, var(--ui-radius-md, #{t.$radius-md}));
+    // @desc Background color
     --_bg: var(--ui-select-bg, var(--ui-color-bg, #{t.$color-bg}));
+    // @desc Border color
     --_border-color: var(--ui-select-border-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
+    // @desc Border color focus
     --_border-color-focus: var(--ui-select-border-color-focus, var(--ui-color-primary, #{t.$color-primary}));
+    // @desc Text color
     --_color: var(--ui-select-color, var(--ui-color-text, #{t.$color-text}));
+    // @desc Icon color
     --_icon-color: var(--ui-select-icon-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
   }
 
   // @modifier size
   .select--sm {
+    // @desc Overall height at small size
     --_height: var(--ui-select-height-sm, calc(#{t.$row} * 1.5));
+    // @desc Font size at small size
     --_font-size: var(--ui-select-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
   }
 
   .select--lg {
+    // @desc Overall height at large size
     --_height: var(--ui-select-height-lg, calc(#{t.$row} * 2.5));
+    // @desc Horizontal padding at large size
     --_padding-x: var(--ui-select-padding-x-lg, var(--ui-space-2, #{t.$space-2}));
+    // @desc Font size at large size
     --_font-size: var(--ui-select-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
   }
 
   // @modifier variant
   .select--filled {
+    // @desc Filled bg
     --_bg: var(--ui-select-filled-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
     --_border-color: transparent;
   }
@@ -41,12 +65,16 @@
 
   // @modifier state
   .select--error {
+    // @desc Error border
     --_border-color: var(--ui-select-error-border, var(--ui-color-danger, #{t.$color-danger}));
+    // @desc Error border
     --_border-color-focus: var(--ui-select-error-border, var(--ui-color-danger, #{t.$color-danger}));
   }
 
   .select--success {
+    // @desc Success border
     --_border-color: var(--ui-select-success-border, var(--ui-color-success, #{t.$color-success}));
+    // @desc Success border
     --_border-color-focus: var(--ui-select-success-border, var(--ui-color-success, #{t.$color-success}));
   }
 }
@@ -59,7 +87,7 @@
     block-size: var(--_height);
     // Extra padding for arrow
     padding-inline-start: var(--_padding-x);
-    padding-inline-end: calc(var(--_height) - var(--ui-space-half, #{t.$space-0}));
+    padding-inline-end: calc(var(--_height) - var(--_space-half));
 
     font-family: inherit;
     font-size: var(--_font-size);
@@ -69,39 +97,40 @@
     background-color: var(--_bg);
     // Chevron down arrow
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-    border: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_border-color);
+    border: var(--_border-width-sm) solid var(--_border-color);
     border-radius: var(--_radius);
     cursor: pointer;
     // Reset native select
     appearance: none;
 
     transition:
-      border-color var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease),
-      box-shadow var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease);
+      border-color var(--_duration-fast) var(--_ease-default),
+      box-shadow var(--_duration-fast) var(--_ease-default);
     background-repeat: no-repeat;
-    background-position: right var(--ui-space-half, #{t.$space-0}) center;
+    background-position: right var(--_space-half) center;
     background-size: calc(var(--_height) * 0.5);
 
     &:hover:not(:disabled, :focus-visible) {
-      border-color: var(--ui-color-border-strong, #{t.$color-border-strong});
+      border-color: var(--_color-border-strong);
     }
 
     &:focus-visible,
     &--focus {
       border-color: var(--_border-color-focus);
-      outline: var(--ui-border-width-md, #{t.$border-width-md}) solid transparent;
-      outline-offset: var(--ui-border-width-sm, #{t.$border-width-sm});
+      outline: var(--_border-width-md) solid transparent;
+      outline-offset: var(--_border-width-sm);
 
-      box-shadow: 0 0 0 var(--ui-border-width-md, #{t.$border-width-md}) var(--ui-color-focus, #{t.$color-focus});
+      box-shadow: 0 0 0 var(--_border-width-md) var(--_color-focus);
     }
 
     &:disabled,
     &--disabled {
-      opacity: var(--ui-opacity-disabled, 0.5);
+      opacity: var(--_opacity-disabled);
       cursor: not-allowed;
     }
 
     // Full width
+  // @modifier boolean block
     &--block {
       inline-size: 100%;
     }
@@ -109,7 +138,7 @@
     // Placeholder option styling
     &:invalid,
     &--placeholder {
-      color: var(--ui-color-text-muted, #{t.$color-text-muted});
+      color: var(--_color-text-muted);
     }
   }
 }

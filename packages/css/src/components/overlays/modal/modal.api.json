@@ -1,12 +1,13 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "modal",
   "element": "div",
   "modifiers": {
+    "size": {
+      "values": ["sm", "lg", "full", "entering"]
+    },
     "visible": {
       "type": "boolean"
-    },
-    "size": {
-      "values": ["sm"]
     }
   },
   "elements": {
@@ -16,39 +17,48 @@
   "cssVars": [
     {
       "name": "--ui-modal-bg",
-      "default": "var(--ui-color-bg)"
+      "default": "var(--ui-color-bg)",
+      "description": "Background color"
     },
     {
       "name": "--ui-modal-radius",
-      "default": "var(--ui-radius-lg)"
+      "default": "var(--ui-radius-lg)",
+      "description": "Corner radius"
     },
     {
       "name": "--ui-modal-shadow",
-      "default": "0 calc(var(--ui-unit) * 3"
+      "default": "0 calc(var(--ui-unit) * 3) calc(var(--ui-unit) * 6) rgb(0 0 0 / 0.25)",
+      "description": "Box shadow"
     },
     {
       "name": "--ui-modal-padding",
-      "default": "calc(var(--ui-unit) * 3"
+      "default": "calc(var(--ui-unit) * 3)",
+      "description": "Padding on all sides"
     },
     {
       "name": "--ui-modal-max-width",
-      "default": "calc(var(--ui-unit) * 60"
+      "default": "calc(var(--ui-unit) * 60)",
+      "description": "Maximum width"
     },
     {
       "name": "--ui-modal-max-height",
-      "default": "calc(100vh - var(--ui-unit) * 8"
+      "default": "calc(100vh - var(--ui-unit) * 8)",
+      "description": "Maximum height"
     },
     {
       "name": "--ui-modal-z",
-      "default": "var(--ui-z-modal)"
+      "default": "var(--ui-z-modal)",
+      "description": "Z-index stacking order"
     },
     {
       "name": "--ui-modal-max-width-sm",
-      "default": "calc(var(--ui-unit) * 40"
+      "default": "calc(var(--ui-unit) * 40)",
+      "description": "Maximum width at small size"
     },
     {
       "name": "--ui-modal-max-width-lg",
-      "default": "calc(var(--ui-unit) * 80"
+      "default": "calc(var(--ui-unit) * 80)",
+      "description": "Maximum width at large size"
     }
   ]
 }

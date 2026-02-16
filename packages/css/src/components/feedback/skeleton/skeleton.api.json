@@ -1,9 +1,10 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "skeleton",
   "element": "div",
   "modifiers": {
     "variant": {
-      "values": ["text", "circle", "heading", "rect"]
+      "values": ["text", "heading", "circle", "rect", "static"]
     },
     "pulse": {
       "type": "boolean"
@@ -12,15 +13,18 @@
   "cssVars": [
     {
       "name": "--ui-skeleton-bg",
-      "default": "var(--ui-color-bg-subtle)"
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Background color"
     },
     {
       "name": "--ui-skeleton-shimmer",
-      "default": "rgb(255 255 255 / 0.5"
+      "default": "var(--ui-skeleton-shimmer)",
+      "description": "Shimmer"
     },
     {
       "name": "--ui-skeleton-radius",
-      "default": "var(--ui-radius-sm)"
+      "default": "var(--ui-radius-sm)",
+      "description": "Corner radius"
     }
   ]
 }

@@ -5,16 +5,27 @@
 
 @layer components.tokens {
   .link {
+    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
+    --_ease-default: var(--ui-ease-default, ease);
+    --_color-focus: var(--ui-color-focus, var(--ui-color-primary));
+    --_color-text-muted: var(--ui-color-text-muted);
+    // @desc Text color
     --_color: var(--ui-link-color, var(--ui-color-primary));
+    // @desc Color hover
     --_color-hover: var(--ui-link-color-hover, var(--ui-color-primary-hover, color-mix(in srgb, var(--_color) 85%, black)));
+    // @desc Color visited
     --_color-visited: var(--ui-link-color-visited, var(--_color));
+    // @desc Decoration
     --_decoration: var(--ui-link-decoration, underline);
+    // @desc Decoration hover
     --_decoration-hover: var(--ui-link-decoration-hover, underline);
   }
 
   // @modifier variant
   .link--muted {
+    // @desc Color muted
     --_color: var(--ui-link-color-muted, var(--ui-color-text-muted));
+    // @desc Color muted hover
     --_color-hover: var(--ui-link-color-muted-hover, var(--ui-color-text));
   }
 
@@ -31,7 +42,7 @@
 
     cursor: pointer;
 
-    transition: color var(--ui-duration-fast, 100ms) var(--ui-ease-default, ease);
+    transition: color var(--_duration-fast) var(--_ease-default);
     text-underline-offset: calc(#{t.$unit} / 4);
 
     &:hover {
@@ -41,7 +52,7 @@
 
     &:focus-visible {
       border-radius: calc(#{t.$unit} / 4);
-      outline: 2px solid var(--ui-color-focus, var(--ui-color-primary));
+      outline: 2px solid var(--_color-focus);
       outline-offset: calc(#{t.$unit} / 4);
     }
 
@@ -51,9 +62,10 @@
   }
 
   // Disabled link
+  // @modifier boolean disabled
   .link--disabled,
   .link[aria-disabled="true"] {
-    color: var(--ui-color-text-muted);
+    color: var(--_color-text-muted);
 
     opacity: 0.6;
     cursor: not-allowed;
@@ -61,6 +73,7 @@
   }
 
   // External link indicator
+  // @modifier boolean external
   .link--external::after {
 
     content: "\2197"; // ↗

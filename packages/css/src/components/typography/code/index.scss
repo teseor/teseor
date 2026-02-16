@@ -1,26 +1,43 @@
 @use '../../../config/tokens/variables' as t;
+// @component code
+// @element div
+// @related code-block
 
 // Token definitions
 @layer components.tokens {
   // Inline code
   .code {
+    --_font-mono: var(--ui-font-mono, #{t.$font-mono});
+    --_leading-tight-sm: var(--ui-leading-tight-sm, #{t.$leading-tight-sm});
+    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
+    // @desc Font size
     --_font-size: var(--ui-code-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    // @desc Background color
     --_bg: var(--ui-code-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+    // @desc Horizontal padding
     --_padding-x: var(--ui-code-padding-x, var(--ui-space-1, #{t.$space-1}));
+    // @desc Vertical padding
     --_padding-y: var(--ui-code-padding-y, var(--ui-space-0, #{t.$space-0}));
+    // @desc Corner radius
     --_radius: var(--ui-code-radius, var(--ui-radius-sm, #{t.$radius-sm}));
   }
 
+  // @modifier size
   .code--sm {
     --_font-size: var(--ui-font-size-xs, #{t.$font-size-xs});
   }
 
   // Code block
   .code-block {
+    // @desc Font size block
     --_font-size: var(--ui-code-font-size-block, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    // @desc Bg block
     --_bg: var(--ui-code-bg-block, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+    // @desc Vertical padding
     --_padding: var(--ui-code-padding-block, var(--ui-space-3, #{t.$space-3}));
+    // @desc Radius block
     --_radius: var(--ui-code-radius-block, var(--ui-radius-md, #{t.$radius-md}));
+    // @desc Border color block
     --_border-color: var(--ui-code-border-color-block, var(--ui-color-border, #{t.$color-border}));
   }
 }
@@ -30,9 +47,9 @@
   .code {
     padding: var(--_padding-y) var(--_padding-x);
 
-    font-family: var(--ui-font-mono, #{t.$font-mono});
+    font-family: var(--_font-mono);
     font-size: var(--_font-size);
-    line-height: var(--ui-leading-tight-sm, #{t.$leading-tight-sm});
+    line-height: var(--_leading-tight-sm);
 
     background: var(--_bg);
     border-radius: var(--_radius);
@@ -41,16 +58,16 @@
   .code-block {
     display: block;
     // Subtract border from padding to keep total on grid
-    padding: calc(var(--_padding) - var(--ui-border-width-sm, #{t.$border-width-sm}));
+    padding: calc(var(--_padding) - var(--_border-width-sm));
     overflow-x: auto;
 
-    font-family: var(--ui-font-mono, #{t.$font-mono});
+    font-family: var(--_font-mono);
     font-size: var(--_font-size);
-    line-height: var(--ui-leading-tight-sm, #{t.$leading-tight-sm});
+    line-height: var(--_leading-tight-sm);
     white-space: pre;
 
     background: var(--_bg);
-    border: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_border-color);
+    border: var(--_border-width-sm) solid var(--_border-color);
     border-radius: var(--_radius);
 
     code {

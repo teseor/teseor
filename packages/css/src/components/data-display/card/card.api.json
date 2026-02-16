@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "card",
   "element": "div",
   "modifiers": {
@@ -8,61 +9,58 @@
     "size": {
       "values": ["sm", "lg"]
     },
-    "flush": {
+    "interactive": {
       "type": "boolean"
     },
-    "interactive": {
+    "flush": {
       "type": "boolean"
     }
   },
   "cssVars": [
     {
       "name": "--ui-card-padding",
-      "default": "var(--ui-space-4)"
+      "default": "var(--ui-space-4)",
+      "description": "Padding on all sides"
     },
     {
       "name": "--ui-card-border-width",
-      "default": "var(--ui-border-width-sm)"
+      "default": "var(--ui-border-width-sm)",
+      "description": "Border thickness"
     },
     {
       "name": "--ui-card-bg",
-      "default": "var(--ui-color-bg)"
+      "default": "var(--ui-color-bg)",
+      "description": "Background color"
     },
     {
       "name": "--ui-card-border-color",
-      "default": "var(--ui-color-border)"
+      "default": "var(--ui-color-border)",
+      "description": "Border color"
     },
     {
       "name": "--ui-card-radius",
-      "default": "var(--ui-radius-md)"
+      "default": "var(--ui-radius-md)",
+      "description": "Corner radius"
     },
     {
       "name": "--ui-card-bg-subtle",
-      "default": "var(--ui-color-bg-subtle)"
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Bg subtle"
     },
     {
       "name": "--ui-card-bg-muted",
-      "default": "var(--ui-color-bg-muted)"
+      "default": "var(--ui-color-bg-muted)",
+      "description": "Bg muted"
     },
     {
       "name": "--ui-card-padding-sm",
-      "default": "var(--ui-space-2)"
+      "default": "var(--ui-space-2)",
+      "description": "Padding on all sides at small size"
     },
     {
       "name": "--ui-card-padding-lg",
-      "default": "var(--ui-space-6)"
-    },
-    {
-      "name": "--ui-card-bg-hover",
-      "default": "var(--ui-color-bg-subtle)"
-    },
-    {
-      "name": "--ui-card-border-color-hover",
-      "default": "var(--ui-color-border-strong)"
-    },
-    {
-      "name": "--ui-card-bg-active",
-      "default": "var(--ui-color-bg-muted)"
+      "default": "var(--ui-space-6)",
+      "description": "Padding on all sides at large size"
     }
   ]
 }

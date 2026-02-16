@@ -5,29 +5,41 @@
 
 @layer components.tokens {
   .scroll-area {
+    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
+    --_ease-default: var(--ui-ease-default, ease);
+    // @desc Maximum height
     --_max-height: var(--ui-scroll-area-max-height, calc(#{t.$row} * 10));
+    // @desc Scrollbar size
     --_scrollbar-size: var(--ui-scroll-area-scrollbar-size, calc(#{t.$unit} * 1));
+    // @desc Thumb control text color
     --_thumb-color: var(--ui-scroll-area-thumb-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
+    // @desc Thumb hover color
     --_thumb-hover-color: var(--ui-scroll-area-thumb-hover-color, var(--ui-color-neutral-400, #{t.$color-neutral-400}));
+    // @desc Track text color
     --_track-color: var(--ui-scroll-area-track-color, transparent);
+    // @desc Thumb corner radius
     --_thumb-radius: var(--ui-scroll-area-thumb-radius, var(--ui-radius-full, #{t.$radius-full}));
   }
 
   // @modifier size
   .scroll-area--sm {
+    // @desc Maximum height at small size
     --_max-height: var(--ui-scroll-area-max-height-sm, calc(#{t.$row} * 5));
   }
 
   .scroll-area--lg {
+    // @desc Maximum height at large size
     --_max-height: var(--ui-scroll-area-max-height-lg, calc(#{t.$row} * 15));
   }
 
   .scroll-area--xl {
+    // @desc Maximum height at extra-large size
     --_max-height: var(--ui-scroll-area-max-height-xl, calc(#{t.$row} * 20));
   }
 
   // @modifier thin scrollbar
   .scroll-area--thin {
+    // @desc Scrollbar size thin
     --_scrollbar-size: var(--ui-scroll-area-scrollbar-size-thin, calc(#{t.$unit} * 0.5));
   }
 }
@@ -67,6 +79,7 @@
   }
 
   // Horizontal scrolling
+  // @modifier direction
   .scroll-area--horizontal > .scroll-area__viewport {
     max-block-size: none;
     overflow-x: auto;
@@ -80,10 +93,11 @@
   }
 
   // Auto-hide: fade scrollbar until hover
+  // @modifier boolean auto-hide
   .scroll-area--auto-hide > .scroll-area__viewport::-webkit-scrollbar-thumb {
     background: transparent;
 
-    transition: background var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease);
+    transition: background var(--_duration-fast) var(--_ease-default);
   }
 
   .scroll-area--auto-hide > .scroll-area__viewport:hover::-webkit-scrollbar-thumb {

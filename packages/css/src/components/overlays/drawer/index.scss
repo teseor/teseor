@@ -1,20 +1,44 @@
 @use '../../../config/tokens/variables' as t;
+// @component drawer
+// @element div
+// @related drawer-overlay
 
 // Drawer - slide-out panel
 // Side panel that slides in from edge
 
 @layer components.tokens {
   .drawer {
+    --_z-drawer: var(--ui-z-drawer, #{t.$z-drawer});
+    --_overlay-bg: var(--ui-overlay-bg, #{t.$overlay-bg});
+    --_duration-normal: var(--ui-duration-normal, #{t.$duration-normal});
+    --_ease-out: var(--ui-ease-out, ease-out);
+    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
+    --_ease-in: var(--ui-ease-in, ease-in);
+    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
+    --_font-size-lg: var(--ui-font-size-lg, #{t.$font-size-lg});
+    --_weight-semibold: var(--ui-weight-semibold, #{t.$weight-semibold});
+    --_row-1: var(--ui-row-1, #{t.$row});
+    --_font-size-sm: var(--ui-font-size-sm, #{t.$font-size-sm});
+    --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
+    // @desc Overall size
     --_size: var(--ui-drawer-size, calc(#{t.$unit} * 40));
+    // @desc Max size
     --_max-size: var(--ui-drawer-max-size, 90%);
+    // @desc Background color
     --_bg: var(--ui-drawer-bg, var(--ui-color-bg, #{t.$color-bg}));
+    // @desc Box shadow
     --_shadow: var(--ui-drawer-shadow, var(--ui-shadow-lg));
+    // @desc Header padding on all sides
     --_header-padding: var(--ui-drawer-header-padding, calc(#{t.$unit} * 2) calc(#{t.$unit} * 3));
+    // @desc Body area padding on all sides
     --_body-padding: var(--ui-drawer-body-padding, calc(#{t.$unit} * 3));
+    // @desc Footer padding on all sides
     --_footer-padding: var(--ui-drawer-footer-padding, calc(#{t.$unit} * 2) calc(#{t.$unit} * 3));
+    // @desc Border color
     --_border-color: var(--ui-drawer-border-color, var(--ui-color-border, #{t.$color-border}));
   }
 
+  // @modifier size
   .drawer--sm {
     --_size: calc(#{t.$unit} * 30);
   }
@@ -34,17 +58,17 @@
   .drawer-overlay {
     position: fixed;
     inset: 0;
-    z-index: var(--ui-z-drawer, 900);
+    z-index: var(--_z-drawer);
 
-    background: var(--ui-overlay-bg, rgb(0 0 0 / 0.5));
+    background: var(--_overlay-bg);
   }
 
   .drawer-overlay[data-state="open"] {
-    animation: drawer-overlay-in var(--ui-duration-normal, 200ms) var(--ui-ease-out, ease-out);
+    animation: drawer-overlay-in var(--_duration-normal) var(--_ease-out);
   }
 
   .drawer-overlay[data-state="closed"] {
-    animation: drawer-overlay-out var(--ui-duration-fast, 100ms) var(--ui-ease-in, ease-in);
+    animation: drawer-overlay-out var(--_duration-fast) var(--_ease-in);
   }
 
   @keyframes drawer-overlay-in {
@@ -65,13 +89,14 @@
     display: flex;
     flex-direction: column;
     position: fixed;
-    z-index: var(--ui-z-drawer, 900);
+    z-index: var(--_z-drawer);
 
     background: var(--_bg);
     box-shadow: var(--_shadow);
   }
 
   // Direction variants
+  // @modifier position
   .drawer--end {
     inset-block: 0;
     inset-inline-end: 0;
@@ -79,7 +104,7 @@
     inline-size: var(--_size);
     max-inline-size: var(--_max-size);
 
-    box-shadow: calc(var(--ui-border-width-sm, 1px) * -1) 0 0 var(--_border-color);
+    box-shadow: calc(var(--_border-width-sm) * -1) 0 0 var(--_border-color);
   }
 
   .drawer--start {
@@ -89,7 +114,7 @@
     inline-size: var(--_size);
     max-inline-size: var(--_max-size);
 
-    box-shadow: var(--ui-border-width-sm, 1px) 0 0 var(--_border-color);
+    box-shadow: var(--_border-width-sm) 0 0 var(--_border-color);
   }
 
   .drawer--top {
@@ -99,7 +124,7 @@
     block-size: var(--_size);
     max-block-size: var(--_max-size);
 
-    box-shadow: 0 var(--ui-border-width-sm, 1px) 0 var(--_border-color);
+    box-shadow: 0 var(--_border-width-sm) 0 var(--_border-color);
   }
 
   .drawer--bottom {
@@ -109,40 +134,40 @@
     block-size: var(--_size);
     max-block-size: var(--_max-size);
 
-    box-shadow: 0 calc(var(--ui-border-width-sm, 1px) * -1) 0 var(--_border-color);
+    box-shadow: 0 calc(var(--_border-width-sm) * -1) 0 var(--_border-color);
   }
 
   // Animation states
   .drawer--end[data-state="open"] {
-    animation: drawer-slide-in-end var(--ui-duration-normal, 200ms) var(--ui-ease-out, ease-out);
+    animation: drawer-slide-in-end var(--_duration-normal) var(--_ease-out);
   }
 
   .drawer--end[data-state="closed"] {
-    animation: drawer-slide-out-end var(--ui-duration-fast, 100ms) var(--ui-ease-in, ease-in);
+    animation: drawer-slide-out-end var(--_duration-fast) var(--_ease-in);
   }
 
   .drawer--start[data-state="open"] {
-    animation: drawer-slide-in-start var(--ui-duration-normal, 200ms) var(--ui-ease-out, ease-out);
+    animation: drawer-slide-in-start var(--_duration-normal) var(--_ease-out);
   }
 
   .drawer--start[data-state="closed"] {
-    animation: drawer-slide-out-start var(--ui-duration-fast, 100ms) var(--ui-ease-in, ease-in);
+    animation: drawer-slide-out-start var(--_duration-fast) var(--_ease-in);
   }
 
   .drawer--top[data-state="open"] {
-    animation: drawer-slide-in-top var(--ui-duration-normal, 200ms) var(--ui-ease-out, ease-out);
+    animation: drawer-slide-in-top var(--_duration-normal) var(--_ease-out);
   }
 
   .drawer--top[data-state="closed"] {
-    animation: drawer-slide-out-top var(--ui-duration-fast, 100ms) var(--ui-ease-in, ease-in);
+    animation: drawer-slide-out-top var(--_duration-fast) var(--_ease-in);
   }
 
   .drawer--bottom[data-state="open"] {
-    animation: drawer-slide-in-bottom var(--ui-duration-normal, 200ms) var(--ui-ease-out, ease-out);
+    animation: drawer-slide-in-bottom var(--_duration-normal) var(--_ease-out);
   }
 
   .drawer--bottom[data-state="closed"] {
-    animation: drawer-slide-out-bottom var(--ui-duration-fast, 100ms) var(--ui-ease-in, ease-in);
+    animation: drawer-slide-out-bottom var(--_duration-fast) var(--_ease-in);
   }
 
   @keyframes drawer-slide-in-end {
@@ -203,23 +228,23 @@
 
     padding: var(--_header-padding);
 
-    box-shadow: inset 0 calc(var(--ui-border-width-sm, 1px) * -1) 0 var(--_border-color);
+    box-shadow: inset 0 calc(var(--_border-width-sm) * -1) 0 var(--_border-color);
   }
 
   .drawer__title {
     margin: 0;
 
-    font-size: var(--ui-font-size-lg, #{t.$font-size-lg});
-    font-weight: var(--ui-weight-semibold, 600);
-    line-height: var(--ui-row-1, #{t.$row});
+    font-size: var(--_font-size-lg);
+    font-weight: var(--_weight-semibold);
+    line-height: var(--_row-1);
   }
 
   .drawer__description {
     margin: 0;
 
-    font-size: var(--ui-font-size-sm, #{t.$font-size-sm});
-    line-height: var(--ui-row-1, #{t.$row});
-    color: var(--ui-color-text-muted, #{t.$color-text-muted});
+    font-size: var(--_font-size-sm);
+    line-height: var(--_row-1);
+    color: var(--_color-text-muted);
   }
 
   .drawer__close {
@@ -234,7 +259,7 @@
     padding: var(--_body-padding);
     overflow-y: auto;
 
-    line-height: var(--ui-row-1, #{t.$row});
+    line-height: var(--_row-1);
   }
 
   .drawer__footer {
@@ -246,7 +271,7 @@
 
     padding: var(--_footer-padding);
 
-    box-shadow: inset 0 var(--ui-border-width-sm, 1px) 0 var(--_border-color);
+    box-shadow: inset 0 var(--_border-width-sm) 0 var(--_border-color);
   }
 
   @media (prefers-reduced-motion: reduce) {

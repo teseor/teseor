@@ -1,17 +1,29 @@
 @use '../../../config/tokens/variables' as t;
+// @component tooltip
+// @element div
 
 // Tooltip - small informational popup
 // Appears on hover/focus to provide additional context
 
 @layer components.tokens {
   .tooltip {
+    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
+    --_ease-default: var(--ui-ease-default, ease);
+    // @desc Background color
     --_bg: var(--ui-tooltip-bg, var(--ui-color-text, #{t.$color-text}));
+    // @desc Text color
     --_color: var(--ui-tooltip-color, var(--ui-color-bg, #{t.$color-bg}));
+    // @desc Corner radius
     --_radius: var(--ui-tooltip-radius, var(--ui-radius-sm, calc(#{t.$unit} / 2)));
+    // @desc Horizontal padding
     --_padding-x: var(--ui-tooltip-padding-x, calc(#{t.$unit} * 1));
+    // @desc Vertical padding
     --_padding-y: var(--ui-tooltip-padding-y, calc(#{t.$unit} / 2));
+    // @desc Font size
     --_font-size: var(--ui-tooltip-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
-    --_z: var(--ui-tooltip-z, var(--ui-z-tooltip, 500));
+    // @desc Z-index stacking order
+    --_z: var(--ui-tooltip-z, var(--ui-z-tooltip, #{t.$z-tooltip}));
+    // @desc Arrow size
     --_arrow-size: var(--ui-tooltip-arrow-size, calc(#{t.$unit} / 2));
   }
 }
@@ -35,6 +47,7 @@
   }
 
   // Arrow pointing down (tooltip above trigger)
+  // @modifier position
   .tooltip--top::after {
 
     content: "";
@@ -87,6 +100,7 @@
   }
 
   // Animation states
+  // @modifier boolean visible
   .tooltip--visible {
     opacity: 1;
   }
@@ -96,7 +110,8 @@
     pointer-events: none;
   }
 
+  // @modifier boolean animate
   .tooltip--animate {
-    transition: opacity var(--ui-duration-fast, 100ms) var(--ui-ease-default, ease);
+    transition: opacity var(--_duration-fast) var(--_ease-default);
   }
 }

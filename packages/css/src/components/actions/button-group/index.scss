@@ -1,10 +1,13 @@
 @use '../../../config/tokens/variables' as t;
+// @component button-group
+// @element div
 
 // Button Group - container for grouped buttons
 // Joins buttons together with shared borders
 
 @layer components.tokens {
   .button-group {
+    // @desc Corner radius
     --_radius: var(--ui-button-group-radius, var(--ui-radius-md, calc(#{t.$unit} / 2)));
   }
 }
@@ -40,6 +43,7 @@
   }
 
   // Vertical orientation
+  // @modifier boolean vertical
   .button-group--vertical {
     flex-direction: column;
   }

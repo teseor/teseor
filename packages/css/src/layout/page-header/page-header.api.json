@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "page-header",
   "element": "header",
   "modifiers": {
@@ -17,19 +18,23 @@
   "cssVars": [
     {
       "name": "--ui-page-header-padding-block",
-      "default": "var(--ui-space-3)"
+      "default": "var(--ui-space-3)",
+      "description": "Vertical padding"
     },
     {
       "name": "--ui-page-header-padding-inline",
-      "default": "0"
+      "default": "0",
+      "description": "Horizontal padding"
     },
     {
       "name": "--ui-page-header-gap",
-      "default": "var(--ui-space-2)"
+      "default": "var(--ui-space-2)",
+      "description": "Gap between children"
     },
     {
       "name": "--ui-page-header-border-color",
-      "default": "var(--ui-color-border)"
+      "default": "var(--ui-color-border)",
+      "description": "Border color"
     }
   ]
 }

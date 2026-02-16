@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "image",
   "element": "figure",
   "modifiers": {
@@ -12,7 +13,7 @@
       "type": "boolean"
     },
     "object-fit": {
-      "values": ["cover", "contain"]
+      "values": ["cover", "contain", "circle"]
     }
   },
   "elements": {
@@ -22,55 +23,68 @@
   "cssVars": [
     {
       "name": "--ui-image-size",
-      "default": "auto"
-    },
-    {
-      "name": "--ui-image-size-sm",
-      "default": "calc(var(--ui-unit) * 12)"
-    },
-    {
-      "name": "--ui-image-size-md",
-      "default": "calc(var(--ui-unit) * 24)"
-    },
-    {
-      "name": "--ui-image-size-lg",
-      "default": "calc(var(--ui-unit) * 40)"
-    },
-    {
-      "name": "--ui-image-size-xl",
-      "default": "calc(var(--ui-unit) * 60)"
-    },
-    {
-      "name": "--ui-image-bg",
-      "default": "var(--ui-color-bg-muted)"
+      "default": "auto",
+      "description": "Overall size"
     },
     {
       "name": "--ui-image-radius",
-      "default": "0"
-    },
-    {
-      "name": "--ui-image-radius-rounded",
-      "default": "var(--ui-radius-lg)"
-    },
-    {
-      "name": "--ui-image-radius-circle",
-      "default": "50%"
+      "default": "0",
+      "description": "Corner radius"
     },
     {
       "name": "--ui-image-object-fit",
-      "default": "cover"
+      "default": "cover",
+      "description": "Object fit"
+    },
+    {
+      "name": "--ui-image-bg",
+      "default": "var(--ui-color-bg-muted)",
+      "description": "Background color"
     },
     {
       "name": "--ui-image-caption-color",
-      "default": "var(--ui-color-text-muted)"
+      "default": "var(--ui-color-text-muted)",
+      "description": "Caption color"
     },
     {
       "name": "--ui-image-caption-font-size",
-      "default": "var(--ui-font-size-sm)"
+      "default": "var(--ui-font-size-sm)",
+      "description": "Caption font size"
     },
     {
       "name": "--ui-image-caption-spacing",
-      "default": "var(--ui-space-1)"
+      "default": "var(--ui-space-1)",
+      "description": "Caption spacing"
+    },
+    {
+      "name": "--ui-image-size-sm",
+      "default": "calc(var(--ui-unit) * 12)",
+      "description": "Overall size at small size"
+    },
+    {
+      "name": "--ui-image-size-md",
+      "default": "calc(var(--ui-unit) * 24)",
+      "description": "Overall size at medium size"
+    },
+    {
+      "name": "--ui-image-size-lg",
+      "default": "calc(var(--ui-unit) * 40)",
+      "description": "Overall size at large size"
+    },
+    {
+      "name": "--ui-image-size-xl",
+      "default": "calc(var(--ui-unit) * 60)",
+      "description": "Overall size at extra-large size"
+    },
+    {
+      "name": "--ui-image-radius-rounded",
+      "default": "var(--ui-radius-lg)",
+      "description": "Radius rounded"
+    },
+    {
+      "name": "--ui-image-radius-circle",
+      "default": "50%",
+      "description": "Radius circle"
     }
   ]
 }

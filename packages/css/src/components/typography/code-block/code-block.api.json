@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "code-block",
   "element": "pre",
   "modifiers": {
@@ -9,48 +10,66 @@
       "type": "boolean"
     }
   },
-  "subElements": ["code", "line", "line-number"],
-  "relatedComponents": ["code"],
+  "elements": {
+    "code": {},
+    "line": {},
+    "line-number": {}
+  },
+  "relatedComponents": [
+    {
+      "name": "code"
+    }
+  ],
   "cssVars": [
     {
       "name": "--ui-code-block-bg",
-      "default": "var(--ui-color-bg-muted)"
+      "default": "var(--ui-color-bg-muted)",
+      "description": "Background color"
     },
     {
       "name": "--ui-code-block-color",
-      "default": "var(--ui-color-text)"
+      "default": "var(--ui-color-text)",
+      "description": "Text color"
     },
     {
       "name": "--ui-code-block-border-color",
-      "default": "var(--ui-color-border)"
+      "default": "var(--ui-color-border)",
+      "description": "Border color"
     },
     {
       "name": "--ui-code-block-padding",
-      "default": "var(--ui-space-3)"
+      "default": "var(--ui-space-3)",
+      "description": "Padding on all sides"
     },
     {
       "name": "--ui-code-block-font-size",
-      "default": "var(--ui-font-size-sm)"
+      "default": "var(--ui-font-size-sm)",
+      "description": "Font size"
     },
     {
       "name": "--ui-code-block-line-height",
-      "default": "var(--ui-leading-tight-sm)"
+      "default": "var(--ui-leading-tight-sm)",
+      "description": "Line height"
     },
     {
       "name": "--ui-code-block-radius",
-      "default": "var(--ui-radius-md)"
+      "default": "var(--ui-radius-md)",
+      "description": "Corner radius"
     },
     {
       "name": "--ui-code-block-padding-compact",
-      "default": "var(--ui-space-1)"
+      "default": "var(--ui-space-1)",
+      "description": "Padding compact"
     },
     {
       "name": "--ui-code-block-line-number-color",
-      "default": "var(--ui-color-text-muted)"
+      "default": "var(--ui-color-text-muted)",
+      "description": "Line number color"
     },
     {
       "name": "--ui-code-block-line-number-border-color",
-      "default": "var(--ui-color-border)"
+      "default": "var(--ui-color-border)",
+      "description": "Line number border color"
     }
   ]
 }

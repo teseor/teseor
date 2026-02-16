@@ -5,22 +5,38 @@
 
 @layer components.tokens {
   .checkbox-group {
+    --_leading-tight-sm: var(--ui-leading-tight-sm, var(--ui-row-1, #{t.$leading-tight-sm}));
+    --_row-1: var(--ui-row-1, #{t.$row-1});
+    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    --_space-2: var(--ui-space-2, #{t.$space-2});
+    // @desc Spacing
     --_spacing: var(--ui-checkbox-group-spacing, var(--ui-space-1, #{t.$space-1}));
+    // @desc Legend size
     --_legend-size: var(--ui-checkbox-group-legend-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    // @desc Legend weight
     --_legend-weight: var(--ui-checkbox-group-legend-weight, var(--ui-weight-medium, #{t.$weight-medium}));
+    // @desc Legend color
     --_legend-color: var(--ui-checkbox-group-legend-color, var(--ui-color-text, #{t.$color-text}));
+    // @desc Legend spacing
     --_legend-spacing: var(--ui-checkbox-group-legend-spacing, var(--ui-space-1, #{t.$space-1}));
+    // @desc Item gap between children
     --_item-gap: var(--ui-checkbox-group-item-gap, var(--ui-space-1, #{t.$space-1}));
   }
 
+  // @modifier boolean compact
   .checkbox-group--compact {
+    // @desc Spacing compact
     --_spacing: var(--ui-checkbox-group-spacing-compact, 0);
+    // @desc Legend spacing compact
     --_legend-spacing: var(--ui-checkbox-group-legend-spacing-compact, 0);
+    // @desc Item gap compact
     --_item-gap: var(--ui-checkbox-group-item-gap-compact, 0);
   }
 
   // @modifier state
+  // @modifier boolean error
   .checkbox-group--error {
+    // @desc Error color
     --_legend-color: var(--ui-checkbox-group-error-color, var(--ui-color-danger, #{t.$color-danger}));
   }
 }
@@ -43,7 +59,7 @@
 
     font-size: var(--_legend-size);
     font-weight: var(--_legend-weight);
-    line-height: var(--ui-leading-tight-sm, var(--ui-row-1, #{t.$leading-tight-sm}));
+    line-height: var(--_leading-tight-sm);
     color: var(--_legend-color);
   }
 
@@ -58,27 +74,28 @@
     align-items: center;
     gap: var(--_item-gap);
 
-    line-height: var(--ui-row-1, #{t.$row-1});
+    line-height: var(--_row-1);
 
     cursor: pointer;
   }
 
   .checkbox-group__item:has(:disabled) {
-    opacity: var(--ui-opacity-disabled, 0.5);
+    opacity: var(--_opacity-disabled);
     cursor: not-allowed;
   }
 
   // Horizontal layout
+  // @modifier boolean horizontal
   .checkbox-group--horizontal > .checkbox-group__items {
     flex-direction: row;
     flex-wrap: wrap;
-    gap: var(--ui-space-2, #{t.$space-2});
+    gap: var(--_space-2);
   }
 
   // Disabled group
   .checkbox-group:disabled,
   .checkbox-group[aria-disabled='true'] {
-    opacity: var(--ui-opacity-disabled, 0.5);
+    opacity: var(--_opacity-disabled);
     cursor: not-allowed;
   }
 }

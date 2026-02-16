@@ -1,49 +1,58 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "tooltip",
   "element": "div",
   "modifiers": {
     "position": {
       "values": ["top", "bottom", "start", "end"]
     },
-    "animate": {
+    "visible": {
       "type": "boolean"
     },
-    "visible": {
+    "animate": {
       "type": "boolean"
     }
   },
   "cssVars": [
     {
       "name": "--ui-tooltip-bg",
-      "default": "var(--ui-color-text)"
+      "default": "var(--ui-color-text)",
+      "description": "Background color"
     },
     {
       "name": "--ui-tooltip-color",
-      "default": "var(--ui-color-bg)"
+      "default": "var(--ui-color-bg)",
+      "description": "Text color"
     },
     {
       "name": "--ui-tooltip-radius",
-      "default": "var(--ui-radius-sm)"
+      "default": "var(--ui-radius-sm)",
+      "description": "Corner radius"
     },
     {
       "name": "--ui-tooltip-padding-x",
-      "default": "calc(var(--ui-unit) * 1"
+      "default": "calc(var(--ui-unit) * 1)",
+      "description": "Horizontal padding"
     },
     {
       "name": "--ui-tooltip-padding-y",
-      "default": "calc(var(--ui-unit) / 2"
+      "default": "calc(var(--ui-unit) / 2)",
+      "description": "Vertical padding"
     },
     {
       "name": "--ui-tooltip-font-size",
-      "default": "var(--ui-font-size-sm)"
+      "default": "var(--ui-font-size-sm)",
+      "description": "Font size"
     },
     {
       "name": "--ui-tooltip-z",
-      "default": "var(--ui-z-tooltip)"
+      "default": "var(--ui-z-tooltip)",
+      "description": "Z-index stacking order"
     },
     {
       "name": "--ui-tooltip-arrow-size",
-      "default": "calc(var(--ui-unit) / 2"
+      "default": "calc(var(--ui-unit) / 2)",
+      "description": "Arrow size"
     }
   ]
 }

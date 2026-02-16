@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "dialog",
   "element": "div",
   "modifiers": {
@@ -16,19 +17,23 @@
   "cssVars": [
     {
       "name": "--ui-dialog-header-padding",
-      "default": "calc(var(--ui-unit) * 2"
+      "default": "calc(var(--ui-unit) * 2) calc(var(--ui-unit) * 3)",
+      "description": "Header padding on all sides"
     },
     {
       "name": "--ui-dialog-body-padding",
-      "default": "calc(var(--ui-unit) * 3"
+      "default": "calc(var(--ui-unit) * 3)",
+      "description": "Body area padding on all sides"
     },
     {
       "name": "--ui-dialog-footer-padding",
-      "default": "calc(var(--ui-unit) * 2"
+      "default": "calc(var(--ui-unit) * 2) calc(var(--ui-unit) * 3)",
+      "description": "Footer padding on all sides"
     },
     {
       "name": "--ui-dialog-border-color",
-      "default": "var(--ui-color-border)"
+      "default": "var(--ui-color-border)",
+      "description": "Border color"
     }
   ]
 }

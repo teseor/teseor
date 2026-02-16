@@ -5,28 +5,51 @@
 
 @layer components.tokens {
   .number-input {
+    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
+    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
+    --_ease-default: var(--ui-ease-default, ease);
+    --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
+    --_color-focus: var(--ui-color-focus, #{t.$color-focus});
+    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    --_size-sm: var(--ui-size-sm, #{t.size(sm)});
+    // @desc Overall height
     --_height: var(--ui-number-input-height, var(--ui-row-2, #{t.$row-2}));
+    // @desc Horizontal padding
     --_padding-x: var(--ui-number-input-padding-x, var(--ui-space-1, #{t.$space-1}));
+    // @desc Font size
     --_font-size: var(--ui-number-input-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    // @desc Corner radius
     --_radius: var(--ui-number-input-radius, var(--ui-radius-md, #{t.$radius-md}));
+    // @desc Background color
     --_bg: var(--ui-number-input-bg, var(--ui-color-bg, #{t.$color-bg}));
+    // @desc Border color
     --_border-color: var(--ui-number-input-border-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
+    // @desc Border color focus
     --_border-color-focus: var(--ui-number-input-border-color-focus, var(--ui-color-primary, #{t.$color-primary}));
+    // @desc Text
     --_text: var(--ui-number-input-text, var(--ui-color-text, #{t.$color-text}));
+    // @desc Button color
     --_button-color: var(--ui-number-input-button-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    // @desc Button bg
     --_button-bg: var(--ui-number-input-button-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+    // @desc Button hover bg
     --_button-hover-bg: var(--ui-number-input-button-hover-bg, var(--ui-color-border, #{t.$color-border}));
   }
 
   // @modifier size
   .number-input--sm {
+    // @desc Overall height at small size
     --_height: var(--ui-number-input-height-sm, calc(#{t.$row} * 1.5));
+    // @desc Font size at small size
     --_font-size: var(--ui-number-input-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
   }
 
   .number-input--lg {
+    // @desc Overall height at large size
     --_height: var(--ui-number-input-height-lg, calc(#{t.$row} * 2.5));
+    // @desc Horizontal padding at large size
     --_padding-x: var(--ui-number-input-padding-x-lg, var(--ui-space-2, #{t.$space-2}));
+    // @desc Font size at large size
     --_font-size: var(--ui-number-input-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
   }
 }
@@ -39,25 +62,27 @@
     block-size: var(--_height);
 
     background: var(--_bg);
-    border: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_border-color);
+    border: var(--_border-width-sm) solid var(--_border-color);
     border-radius: var(--_radius);
 
     transition:
-      border-color var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease),
-      box-shadow var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease);
+      border-color var(--_duration-fast) var(--_ease-default),
+      box-shadow var(--_duration-fast) var(--_ease-default);
 
     &:focus-within {
       border-color: var(--_border-color-focus);
-      box-shadow: 0 0 0 var(--ui-border-width-md, #{t.$border-width-md}) var(--ui-color-focus, #{t.$color-focus});
+      box-shadow: 0 0 0 var(--_border-width-md) var(--_color-focus);
     }
 
+  // @modifier boolean block
     &--block {
       inline-size: 100%;
     }
 
+  // @modifier boolean disabled
     &--disabled,
     &:has(.number-input__field:disabled) {
-      opacity: var(--ui-opacity-disabled, 0.5);
+      opacity: var(--_opacity-disabled);
       cursor: not-allowed;
     }
   }
@@ -110,14 +135,14 @@
     border: none;
     cursor: pointer;
 
-    transition: background var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease);
+    transition: background var(--_duration-fast) var(--_ease-default);
 
     &:hover:not(:disabled) {
       background: var(--_button-hover-bg);
     }
 
     &:focus-visible {
-      outline: 2px solid var(--ui-color-focus, #{t.$color-focus});
+      outline: 2px solid var(--_color-focus);
       outline-offset: -2px;
     }
 
@@ -126,8 +151,8 @@
     }
 
     svg {
-      block-size: var(--ui-size-sm, #{t.size(sm)});
-      inline-size: var(--ui-size-sm, #{t.size(sm)});
+      block-size: var(--_size-sm);
+      inline-size: var(--_size-sm);
 
       fill: none;
       stroke: currentcolor;
@@ -138,16 +163,16 @@
   }
 
   .number-input__decrement {
-    border-start-start-radius: calc(var(--_radius) - var(--ui-border-width-sm, #{t.$border-width-sm}));
-    border-end-start-radius: calc(var(--_radius) - var(--ui-border-width-sm, #{t.$border-width-sm}));
+    border-start-start-radius: calc(var(--_radius) - var(--_border-width-sm));
+    border-end-start-radius: calc(var(--_radius) - var(--_border-width-sm));
 
-    border-inline-end: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_border-color);
+    border-inline-end: var(--_border-width-sm) solid var(--_border-color);
   }
 
   .number-input__increment {
-    border-start-end-radius: calc(var(--_radius) - var(--ui-border-width-sm, #{t.$border-width-sm}));
-    border-end-end-radius: calc(var(--_radius) - var(--ui-border-width-sm, #{t.$border-width-sm}));
+    border-start-end-radius: calc(var(--_radius) - var(--_border-width-sm));
+    border-end-end-radius: calc(var(--_radius) - var(--_border-width-sm));
 
-    border-inline-start: var(--ui-border-width-sm, #{t.$border-width-sm}) solid var(--_border-color);
+    border-inline-start: var(--_border-width-sm) solid var(--_border-color);
   }
 }

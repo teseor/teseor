@@ -5,28 +5,46 @@
 
 @layer components.tokens {
   .slider {
+    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
+    --_ease-default: var(--ui-ease-default, ease);
+    --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
+    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    // @desc Overall height
     --_height: var(--ui-slider-height, var(--ui-row-2, #{t.$row-2}));
+    // @desc Track height
     --_track-height: var(--ui-slider-track-height, #{t.$unit});
-    --_track-bg: var(--ui-slider-track-bg, var(--ui-color-bg-subtle, rgb(0 0 0 / 0.1)));
+    // @desc Track background
+    --_track-bg: var(--ui-slider-track-bg, var(--ui-color-bg-subtle, #{t.$overlay-bg-subtle}));
+    // @desc Track fill
     --_track-fill: var(--ui-slider-track-fill, var(--ui-color-primary));
+    // @desc Track corner radius
     --_track-radius: var(--ui-slider-track-radius, var(--ui-radius-full, #{t.$radius-full}));
+    // @desc Thumb control size
     --_thumb-size: var(--ui-slider-thumb-size, calc(#{t.$unit} * 2.5));
+    // @desc Thumb background
     --_thumb-bg: var(--ui-slider-thumb-bg, var(--ui-color-bg, #{t.$color-bg}));
+    // @desc Thumb control border color
     --_thumb-border-color: var(--ui-slider-thumb-border-color, var(--ui-color-primary));
+    // @desc Thumb control border thickness
     --_thumb-border-width: var(--ui-slider-thumb-border-width, var(--ui-border-width-md, #{t.$border-width-md}));
+    // @desc Thumb corner radius
     --_thumb-radius: var(--ui-slider-thumb-radius, var(--ui-radius-full, #{t.$radius-full}));
-    --_thumb-shadow: var(--ui-slider-thumb-shadow, 0 1px 3px rgb(0 0 0 / 0.2));
+    // @desc Thumb control box shadow
+    --_thumb-shadow: var(--ui-slider-thumb-shadow, #{t.$slider-thumb-shadow});
+    // @desc Focus ring
     --_focus-ring: var(--ui-slider-focus-ring, var(--ui-color-focus, #{t.$color-focus}));
   }
 
   // @modifier size
   .slider--sm {
+    // @desc Overall height at small size
     --_height: var(--ui-slider-height-sm, calc(#{t.$row} * 1.5));
     --_track-height: calc(#{t.$unit} * 0.5);
     --_thumb-size: calc(#{t.$unit} * 2);
   }
 
   .slider--lg {
+    // @desc Overall height at large size
     --_height: var(--ui-slider-height-lg, calc(#{t.$row} * 2.5));
     --_track-height: calc(#{t.$unit} * 1.5);
     --_thumb-size: calc(#{t.$unit} * 3);
@@ -101,8 +119,8 @@
       appearance: none;
 
       transition:
-        box-shadow var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease),
-        transform var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease);
+        box-shadow var(--_duration-fast) var(--_ease-default),
+        transform var(--_duration-fast) var(--_ease-default);
     }
 
     // Firefox thumb
@@ -116,20 +134,20 @@
       box-shadow: var(--_thumb-shadow);
 
       transition:
-        box-shadow var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease),
-        transform var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease);
+        box-shadow var(--_duration-fast) var(--_ease-default),
+        transform var(--_duration-fast) var(--_ease-default);
     }
 
     // Focus state
     &:focus-visible {
-      outline: var(--ui-border-width-md, #{t.$border-width-md}) solid transparent;
+      outline: var(--_border-width-md) solid transparent;
 
       &::-webkit-slider-thumb {
-        box-shadow: 0 0 0 var(--ui-border-width-md, #{t.$border-width-md}) var(--_focus-ring);
+        box-shadow: 0 0 0 var(--_border-width-md) var(--_focus-ring);
       }
 
       &::-moz-range-thumb {
-        box-shadow: 0 0 0 var(--ui-border-width-md, #{t.$border-width-md}) var(--_focus-ring);
+        box-shadow: 0 0 0 var(--_border-width-md) var(--_focus-ring);
       }
     }
 
@@ -146,7 +164,7 @@
 
     // Disabled state
     &:disabled {
-      opacity: var(--ui-opacity-disabled, 0.5);
+      opacity: var(--_opacity-disabled);
       cursor: not-allowed;
     }
   }

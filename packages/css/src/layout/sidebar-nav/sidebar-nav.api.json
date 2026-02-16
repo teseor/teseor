@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "sidebar-nav",
   "element": "nav",
   "modifiers": {
@@ -13,16 +14,17 @@
     "group": {},
     "group-label": {},
     "group-items": {},
+    "subgroup": {},
     "subgroup-label": {},
     "item": {
       "modifiers": {
         "active": {
           "type": "boolean"
         },
-        "disabled": {
+        "nested": {
           "type": "boolean"
         },
-        "nested": {
+        "disabled": {
           "type": "boolean"
         }
       }
@@ -34,31 +36,108 @@
   "cssVars": [
     {
       "name": "--ui-sidebar-nav-width",
-      "default": "calc(var(--ui-unit) * 30)"
-    },
-    {
-      "name": "--ui-sidebar-nav-width-collapsed",
-      "default": "var(--ui-row-3)"
+      "default": "calc(var(--ui-unit) * 30)",
+      "description": "Overall width"
     },
     {
       "name": "--ui-sidebar-nav-bg",
-      "default": "var(--ui-color-bg-subtle)"
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Background color"
+    },
+    {
+      "name": "--ui-sidebar-nav-border-color",
+      "default": "var(--ui-color-border)",
+      "description": "Border color"
+    },
+    {
+      "name": "--ui-sidebar-nav-padding",
+      "default": "var(--ui-space-2)",
+      "description": "Padding on all sides"
+    },
+    {
+      "name": "--ui-sidebar-nav-header-padding",
+      "default": "var(--ui-space-2)",
+      "description": "Header padding on all sides"
+    },
+    {
+      "name": "--ui-sidebar-nav-footer-padding",
+      "default": "var(--ui-space-2)",
+      "description": "Footer padding on all sides"
+    },
+    {
+      "name": "--ui-sidebar-nav-group-label-size",
+      "default": "var(--ui-size-xs)",
+      "description": "Group label size"
+    },
+    {
+      "name": "--ui-sidebar-nav-group-label-color",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Group label color"
+    },
+    {
+      "name": "--ui-sidebar-nav-group-label-weight",
+      "default": "var(--ui-weight-bold)",
+      "description": "Group label weight"
     },
     {
       "name": "--ui-sidebar-nav-item-height",
-      "default": "var(--ui-row-2)"
+      "default": "var(--ui-row-2)",
+      "description": "Item overall height"
+    },
+    {
+      "name": "--ui-sidebar-nav-item-padding-inline",
+      "default": "var(--ui-space-2)",
+      "description": "Item horizontal padding"
+    },
+    {
+      "name": "--ui-sidebar-nav-item-size",
+      "default": "var(--ui-size-sm)",
+      "description": "Item overall size"
+    },
+    {
+      "name": "--ui-sidebar-nav-item-color",
+      "default": "var(--ui-color-text)",
+      "description": "Item text color"
+    },
+    {
+      "name": "--ui-sidebar-nav-item-bg",
+      "default": "transparent",
+      "description": "Item background color"
+    },
+    {
+      "name": "--ui-sidebar-nav-item-radius",
+      "default": "var(--ui-radius-sm)",
+      "description": "Item corner radius"
     },
     {
       "name": "--ui-sidebar-nav-item-hover-bg",
-      "default": "var(--ui-color-bg-muted)"
+      "default": "var(--ui-color-bg-muted)",
+      "description": "Item hover bg"
     },
     {
       "name": "--ui-sidebar-nav-item-active-bg",
-      "default": "var(--ui-color-primary-subtle)"
+      "default": "var(--ui-color-primary-subtle)",
+      "description": "Item active bg"
     },
     {
       "name": "--ui-sidebar-nav-item-active-color",
-      "default": "var(--ui-color-primary)"
+      "default": "var(--ui-color-primary-hover)",
+      "description": "Item active color"
+    },
+    {
+      "name": "--ui-sidebar-nav-item-active-weight",
+      "default": "var(--ui-weight-medium)",
+      "description": "Item active weight"
+    },
+    {
+      "name": "--ui-sidebar-nav-item-nested-indent",
+      "default": "var(--ui-space-4)",
+      "description": "Item nested indent"
+    },
+    {
+      "name": "--ui-sidebar-nav-width-collapsed",
+      "default": "var(--ui-row-3)",
+      "description": "Width collapsed"
     }
   ]
 }

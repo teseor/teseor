@@ -1,12 +1,32 @@
+@use '../../config/tokens/variables' as t;
+
+// @component sidebar-nav
+// @element nav
 // Sidebar Navigation
 // Primary navigation for sidebar with groups, items, and nested levels
 
 @layer primitives {
   .sidebar-nav {
+    --_border-width-sm: var(--ui-border-width-sm);
+    --_space-2: var(--ui-space-2);
+    --_space-1: var(--ui-space-1);
+    --_space-half: var(--ui-space-half);
+    --_size-xs: var(--ui-size-xs);
+    --_weight-medium: var(--ui-weight-medium);
+    --_color-text-muted: var(--ui-color-text-muted);
+    --_duration-fast: var(--ui-duration-fast);
+    --_easing-default: var(--ui-easing-default);
+    --_color-focus: var(--ui-color-focus);
+    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    --_size-md: var(--ui-size-md);
     // Tokens
+    // @desc Overall width
     --_width: var(--ui-sidebar-nav-width, calc(var(--ui-unit) * 30));
+    // @desc Background color
     --_bg: var(--ui-sidebar-nav-bg, var(--ui-color-bg-subtle));
+    // @desc Border color
     --_border-color: var(--ui-sidebar-nav-border-color, var(--ui-color-border));
+    // @desc Padding on all sides
     --_padding: var(--ui-sidebar-nav-padding, var(--ui-space-2));
 
     // Styles
@@ -21,13 +41,14 @@
 
   // Header - sticky at top
   .sidebar-nav__header {
+    // @desc Header padding on all sides
     --_padding: var(--ui-sidebar-nav-header-padding, var(--ui-space-2));
 
     flex-shrink: 0;
 
     padding: var(--_padding);
 
-    box-shadow: inset 0 calc(var(--ui-border-width-sm) * -1) 0 0 var(--_border-color);
+    box-shadow: inset 0 calc(var(--_border-width-sm) * -1) 0 0 var(--_border-color);
   }
 
   // Content - scrollable
@@ -40,29 +61,33 @@
 
   // Footer - sticky at bottom
   .sidebar-nav__footer {
+    // @desc Footer padding on all sides
     --_padding: var(--ui-sidebar-nav-footer-padding, var(--ui-space-2));
 
     flex-shrink: 0;
 
     padding: var(--_padding);
 
-    box-shadow: inset 0 var(--ui-border-width-sm) 0 0 var(--_border-color);
+    box-shadow: inset 0 var(--_border-width-sm) 0 0 var(--_border-color);
   }
 
   // Group container
   .sidebar-nav__group {
-    margin-block-end: var(--ui-space-2);
+    margin-block-end: var(--_space-2);
   }
 
   // Group label (section heading)
   .sidebar-nav__group-label {
+    // @desc Group label size
     --_font-size: var(--ui-sidebar-nav-group-label-size, var(--ui-size-xs));
+    // @desc Group label color
     --_color: var(--ui-sidebar-nav-group-label-color, var(--ui-color-text-muted));
+    // @desc Group label weight
     --_weight: var(--ui-sidebar-nav-group-label-weight, var(--ui-weight-bold));
 
     display: block;
 
-    padding: var(--ui-space-1) var(--ui-space-2);
+    padding: var(--_space-1) var(--_space-2);
     margin: 0;
 
     font-size: var(--_font-size);
@@ -76,7 +101,7 @@
   .sidebar-nav__group-items {
     display: flex;
     flex-direction: column;
-    gap: var(--ui-space-half);
+    gap: var(--_space-half);
 
     padding: 0;
     margin: 0;
@@ -93,13 +118,13 @@
     display: block;
     list-style: none;
 
-    padding: var(--ui-space-1) var(--ui-space-2);
+    padding: var(--_space-1) var(--_space-2);
     margin: 0;
-    margin-block-start: var(--ui-space-1);
+    margin-block-start: var(--_space-1);
 
-    font-size: var(--ui-size-xs);
-    font-weight: var(--ui-weight-medium);
-    color: var(--ui-color-text-muted);
+    font-size: var(--_size-xs);
+    font-weight: var(--_weight-medium);
+    color: var(--_color-text-muted);
 
     cursor: pointer;
     user-select: none;
@@ -111,16 +136,22 @@
 
   // Nav item (link wrapper)
   .sidebar-nav__item {
+    // @desc Item overall height
     --_height: var(--ui-sidebar-nav-item-height, var(--ui-row-2));
+    // @desc Item horizontal padding
     --_padding-inline: var(--ui-sidebar-nav-item-padding-inline, var(--ui-space-2));
+    // @desc Item overall size
     --_font-size: var(--ui-sidebar-nav-item-size, var(--ui-size-sm));
+    // @desc Item text color
     --_color: var(--ui-sidebar-nav-item-color, var(--ui-color-text));
+    // @desc Item background color
     --_bg: var(--ui-sidebar-nav-item-bg, transparent);
+    // @desc Item corner radius
     --_radius: var(--ui-sidebar-nav-item-radius, var(--ui-radius-sm));
 
     display: flex;
     align-items: center;
-    gap: var(--ui-space-1);
+    gap: var(--_space-1);
 
     min-block-size: var(--_height);
     padding-inline: var(--_padding-inline);
@@ -135,11 +166,12 @@
     cursor: pointer;
 
     transition:
-      background var(--ui-duration-fast) var(--ui-easing-default),
-      color var(--ui-duration-fast) var(--ui-easing-default);
+      background var(--_duration-fast) var(--_easing-default),
+      color var(--_duration-fast) var(--_easing-default);
   }
 
   .sidebar-nav__item:hover {
+    // @desc Item hover bg
     --_bg: var(--ui-sidebar-nav-item-hover-bg, var(--ui-color-bg-muted));
   }
 
@@ -148,19 +180,23 @@
   }
 
   .sidebar-nav__item:focus-visible {
-    outline: 2px solid var(--ui-color-focus);
+    outline: 2px solid var(--_color-focus);
     outline-offset: -2px;
   }
 
   // Active state
   .sidebar-nav__item--active {
+    // @desc Item active bg
     --_bg: var(--ui-sidebar-nav-item-active-bg, var(--ui-color-primary-subtle));
+    // @desc Item active color
     --_color: var(--ui-sidebar-nav-item-active-color, var(--ui-color-primary-hover));
+    // @desc Item active weight
     --_weight: var(--ui-sidebar-nav-item-active-weight, var(--ui-weight-medium));
   }
 
   // Nested item indent
   .sidebar-nav__item--nested {
+    // @desc Item nested indent
     --_padding-inline-start: var(--ui-sidebar-nav-item-nested-indent, var(--ui-space-4));
 
     padding-inline-start: var(--_padding-inline-start);
@@ -168,7 +204,7 @@
 
   // Disabled state
   .sidebar-nav__item--disabled {
-    opacity: var(--ui-opacity-disabled, 0.5);
+    opacity: var(--_opacity-disabled);
     cursor: not-allowed;
     pointer-events: none;
   }
@@ -180,8 +216,8 @@
     align-items: center;
     justify-content: center;
 
-    block-size: var(--ui-size-md);
-    inline-size: var(--ui-size-md);
+    block-size: var(--_size-md);
+    inline-size: var(--_size-md);
   }
 
   // Label text
@@ -203,7 +239,9 @@
   }
 
   // Collapsed mode - icon only
+  // @modifier boolean collapsed
   .sidebar-nav--collapsed {
+    // @desc Width collapsed
     --_width: var(--ui-sidebar-nav-width-collapsed, var(--ui-row-3));
 
     .sidebar-nav__label,
@@ -216,7 +254,7 @@
     .sidebar-nav__item {
       justify-content: center;
 
-      padding-inline: var(--ui-space-1);
+      padding-inline: var(--_space-1);
     }
   }
 }

@@ -10,6 +10,7 @@
  * Scans category subdirectories under components/
  */
 
+import { execSync } from 'node:child_process';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -249,6 +250,230 @@ function lintJsonContent(): void {
   console.log(`JSON validation: ${components.length} components passed.`);
 }
 
+function lintTokenFallbacks(): void {
+  const srcDir = join(__dirname, '../packages/css/src');
+  const scssFiles = findScssFiles(srcDir);
+  const errors: string[] = [];
+
+  // Extract fallback from var(--ui-token, fallback) handling nested parens
+  function extractTokenVars(content: string): { token: string; fallback: string; index: number }[] {
+    const results: { token: string; fallback: string; index: number }[] = [];
+    const prefix = 'var(--ui-';
+    let searchFrom = 0;
+
+    while (searchFrom < content.length) {
+      const start = content.indexOf(prefix, searchFrom);
+      if (start === -1) break;
+
+      // Find token name (up to comma)
+      const tokenStart = start + prefix.length;
+      const commaIdx = content.indexOf(',', tokenStart);
+      if (commaIdx === -1) {
+        searchFrom = tokenStart;
+        continue;
+      }
+      const token = content.substring(tokenStart, commaIdx);
+      if (!/^[\w-]+$/.test(token)) {
+        searchFrom = tokenStart;
+        continue;
+      }
+
+      // Extract fallback with balanced parentheses
+      let depth = 1; // we're inside the outer var(
+      let pos = commaIdx + 1;
+      while (pos < content.length && depth > 0) {
+        if (content[pos] === '(') depth++;
+        else if (content[pos] === ')') depth--;
+        if (depth > 0) pos++;
+      }
+      if (depth !== 0) {
+        searchFrom = tokenStart;
+        continue;
+      }
+      const fallback = content.substring(commaIdx + 1, pos).trim();
+      results.push({ token, fallback, index: start });
+      // Resume from after the comma so nested var(--ui-*) inside the fallback are also scanned
+      searchFrom = commaIdx + 1;
+    }
+    return results;
+  }
+
+  // Fallback values that indicate a hardcoded literal instead of SCSS reference
+  const isHardcodedFallback = (fallback: string): boolean => {
+    const trimmed = fallback.trim();
+    // Allow SCSS interpolations — these are correct
+    if (trimmed.startsWith('#{')) return false;
+    // Allow var() references — nested custom properties are fine
+    if (trimmed.startsWith('var(')) return false;
+    // Allow SCSS variables — direct $var usage
+    if (trimmed.startsWith('$')) return false;
+    // Allow keyword values (none, inherit, auto, transparent, currentcolor, etc)
+    if (/^[a-z-]+$/i.test(trimmed)) return false;
+    // Allow plain 0 — semantically "nothing", not a design token
+    if (trimmed === '0') return false;
+    // Allow percentage values — component-specific, not global tokens
+    if (/^\d+%$/.test(trimmed)) return false;
+    // Allow shadow/shorthand values that contain SCSS interpolation somewhere
+    if (trimmed.includes('#{')) return false;
+    // Flag numeric literals (0.5, 0.0625rem, 624.9375rem, 9999px, etc)
+    if (/^\d/.test(trimmed)) return true;
+    // Flag color functions (rgb, hsl, oklch, etc)
+    if (/^(rgb|hsl|oklch|lab|lch|color)\(/i.test(trimmed)) return true;
+    // Flag hex colors
+    if (/^#[0-9a-f]/i.test(trimmed)) return true;
+    return false;
+  };
+
+  for (const file of scssFiles) {
+    const content = readFileSync(file, 'utf-8');
+    const relPath = file.replace(`${srcDir}/`, '');
+    // Skip token definition files — they define the values, not consume them
+    if (relPath.startsWith('config/')) continue;
+    // Skip debug tools — development utilities, not shipped components
+    if (relPath.startsWith('debug/')) continue;
+
+    const vars = extractTokenVars(content);
+    for (const { token, fallback, index } of vars) {
+      if (isHardcodedFallback(fallback)) {
+        const line = content.substring(0, index).split('\n').length;
+        errors.push(
+          `${relPath}:${line}: var(--ui-${token}) has hardcoded fallback "${fallback}" — use SCSS variable reference`,
+        );
+      }
+    }
+  }
+
+  if (errors.length > 0) {
+    console.error('Hardcoded token fallback check failed:\n');
+    for (const err of errors) {
+      console.error(`  - ${err}`);
+    }
+    console.error(
+      `\n${errors.length} hardcoded fallback(s) found. Use #{t.$variable} instead of literal values.`,
+    );
+    process.exit(1);
+  }
+
+  console.log(`Token fallbacks: ${scssFiles.length} SCSS files passed.`);
+}
+
+function findScssFiles(dir: string): string[] {
+  const results: string[] = [];
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const fullPath = join(dir, entry.name);
+    if (entry.isDirectory()) {
+      results.push(...findScssFiles(fullPath));
+    } else if (entry.name.endsWith('.scss')) {
+      results.push(fullPath);
+    }
+  }
+  return results;
+}
+
+function lintStyleLayerTokens(): void {
+  const srcDir = join(__dirname, '../packages/css/src');
+  const errors: string[] = [];
+
+  // Only check component and layout SCSS files
+  const dirs = [join(srcDir, 'components'), join(srcDir, 'layout')];
+  const scssFiles = dirs.flatMap((d) => findScssFiles(d));
+
+  // Layers where var(--ui-*) should NOT appear (only var(--_*) allowed)
+  const stylesLayerPatterns = ['@layer components.styles', '@layer primitives'];
+
+  for (const file of scssFiles) {
+    const content = readFileSync(file, 'utf-8');
+    const relPath = file.replace(`${srcDir}/`, '');
+
+    // Find each styles layer block and check for var(--ui-*) inside
+    for (const layerName of stylesLayerPatterns) {
+      let searchFrom = 0;
+      while (searchFrom < content.length) {
+        const layerStart = content.indexOf(layerName, searchFrom);
+        if (layerStart === -1) break;
+
+        // Find the opening brace
+        const braceStart = content.indexOf('{', layerStart);
+        if (braceStart === -1) break;
+
+        // Find matching closing brace with depth tracking
+        let depth = 1;
+        let pos = braceStart + 1;
+        while (pos < content.length && depth > 0) {
+          if (content[pos] === '{') depth++;
+          else if (content[pos] === '}') depth--;
+          pos++;
+        }
+        const layerBody = content.substring(braceStart + 1, pos - 1);
+        const layerBodyStart = braceStart + 1;
+
+        // Find all var(--ui-*) inside this layer block
+        // Skip lines that are --_ custom property declarations (modifier overrides are allowed)
+        const lines = layerBody.split('\n');
+        let charOffset = 0;
+        for (const rawLine of lines) {
+          // Skip custom property declarations — these are token assignments, not property usage
+          const isCustomPropDecl = /^\s*--[\w_-]+\s*:/.test(rawLine);
+          if (!isCustomPropDecl) {
+            const tokenPattern = /var\(--ui-[\w-]+/g;
+            for (
+              let match = tokenPattern.exec(rawLine);
+              match !== null;
+              match = tokenPattern.exec(rawLine)
+            ) {
+              const tokenName = match[0].replace('var(', '');
+              const absoluteIdx = layerBodyStart + charOffset + match.index;
+              const line = content.substring(0, absoluteIdx).split('\n').length;
+              errors.push(
+                `${relPath}:${line}: ${tokenName} used directly in styles layer — extract to --_ internal variable in tokens layer`,
+              );
+            }
+          }
+          charOffset += rawLine.length + 1; // +1 for newline
+        }
+
+        searchFrom = pos;
+      }
+    }
+  }
+
+  if (errors.length > 0) {
+    console.warn('Style layer token encapsulation warnings:\n');
+    // Group by file for readability
+    const byFile = new Map<string, number>();
+    for (const err of errors) {
+      const file = err.split(':')[0];
+      byFile.set(file, (byFile.get(file) ?? 0) + 1);
+    }
+    for (const [file, count] of byFile) {
+      console.warn(`  ${file} (${count})`);
+    }
+    console.warn(
+      `\n${errors.length} direct token reference(s) in ${byFile.size} files. Move to @layer components.tokens as --_ internal variables.`,
+    );
+  } else {
+    console.log(`Style layer tokens: ${scssFiles.length} SCSS files passed.`);
+  }
+}
+
+function lintApiSync(): void {
+  try {
+    execSync('tsx scripts/generate-api.ts -- --check', {
+      encoding: 'utf-8',
+      stdio: 'pipe',
+    });
+    console.log('API sync: all api.json files up to date.');
+  } catch (err: unknown) {
+    const error = err as { stdout?: string; stderr?: string };
+    const output = (error.stdout || '') + (error.stderr || '');
+    console.error(output);
+    process.exit(1);
+  }
+}
+
 lintComponents();
 lintSidenavCompleteness();
 lintJsonContent();
+lintTokenFallbacks();
+lintStyleLayerTokens();
+lintApiSync();

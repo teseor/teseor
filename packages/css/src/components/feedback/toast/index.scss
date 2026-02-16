@@ -1,24 +1,48 @@
 @use '../../../config/tokens/variables' as t;
+// @component toast
+// @element div
+// @related toast-viewport
 
 // Toast - notification messages
 // Appears in viewport corner with auto-dismiss
 
 @layer components.tokens {
   .toast-viewport {
+    --_z-toast: var(--ui-z-toast, #{t.$z-toast});
+    // @desc Viewport gap
     --_gap: var(--ui-toast-viewport-gap, calc(#{t.$unit} * 1));
+    // @desc Viewport padding
     --_padding: var(--ui-toast-viewport-padding, calc(#{t.$unit} * 2));
-    --_max-width: var(--ui-toast-viewport-max-width, 420px);
+    // @desc Viewport max width
+    --_max-width: var(--ui-toast-viewport-max-width, #{t.$toast-viewport-max-width});
   }
 
   .toast {
+    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
+    --_weight-medium: var(--ui-weight-medium, #{t.$weight-medium});
+    --_row-1: var(--ui-row-1, #{t.$row});
+    --_font-size-sm: var(--ui-font-size-sm, #{t.$font-size-sm});
+    --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
+    --_color-text: var(--ui-color-text, #{t.$color-text});
+    --_duration-normal: var(--ui-duration-normal, #{t.$duration-normal});
+    --_ease-out: var(--ui-ease-out, ease-out);
+    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
+    --_ease-in: var(--ui-ease-in, ease-in);
+    // @desc Padding on all sides
     --_padding: var(--ui-toast-padding, calc(#{t.$unit} * 2));
+    // @desc Gap between children
     --_gap: var(--ui-toast-gap, calc(#{t.$unit} * 1));
+    // @desc Corner radius
     --_radius: var(--ui-toast-radius, var(--ui-radius-md, #{t.$radius-md}));
+    // @desc Background color
     --_bg: var(--ui-toast-bg, var(--ui-color-bg, #{t.$color-bg}));
+    // @desc Border color
     --_border-color: var(--ui-toast-border-color, var(--ui-color-border, #{t.$color-border}));
+    // @desc Box shadow
     --_shadow: var(--ui-toast-shadow, var(--ui-shadow-lg));
   }
 
+  // @modifier variant
   .toast--success {
     --_border-color: var(--ui-color-success);
   }
@@ -44,7 +68,7 @@
     flex-direction: column;
     gap: var(--_gap);
     position: fixed;
-    z-index: var(--ui-z-toast, 1000);
+    z-index: var(--_z-toast);
 
     max-inline-size: var(--_max-width);
     padding: var(--_padding);
@@ -99,10 +123,10 @@
 
     background: var(--_bg);
     border-radius: var(--_radius);
-    outline: var(--ui-border-width-sm, 0.0625rem) solid var(--_border-color);
+    outline: var(--_border-width-sm) solid var(--_border-color);
     box-shadow: var(--_shadow);
     pointer-events: auto;
-    outline-offset: calc(var(--ui-border-width-sm, 0.0625rem) * -1);
+    outline-offset: calc(var(--_border-width-sm) * -1);
   }
 
   .toast__icon {
@@ -118,16 +142,16 @@
   .toast__title {
     margin: 0;
 
-    font-weight: var(--ui-weight-medium, #{t.$weight-medium});
-    line-height: var(--ui-row-1, #{t.$row});
+    font-weight: var(--_weight-medium);
+    line-height: var(--_row-1);
   }
 
   .toast__description {
     margin: 0;
 
-    font-size: var(--ui-font-size-sm, #{t.$font-size-sm});
-    line-height: var(--ui-row-1, #{t.$row});
-    color: var(--ui-color-text-muted, #{t.$color-text-muted});
+    font-size: var(--_font-size-sm);
+    line-height: var(--_row-1);
+    color: var(--_color-text-muted);
   }
 
   .toast__action {
@@ -140,28 +164,28 @@
     align-items: center;
     justify-content: center;
 
-    block-size: var(--ui-row-1, #{t.$row});
-    inline-size: var(--ui-row-1, #{t.$row});
+    block-size: var(--_row-1);
+    inline-size: var(--_row-1);
     padding: 0;
 
-    color: var(--ui-color-text-muted, #{t.$color-text-muted});
+    color: var(--_color-text-muted);
 
     background: none;
     border: none;
     cursor: pointer;
 
     &:hover {
-      color: var(--ui-color-text, #{t.$color-text});
+      color: var(--_color-text);
     }
   }
 
   // Animation states
   .toast[data-state="open"] {
-    animation: toast-slide-in var(--ui-duration-normal, 200ms) var(--ui-ease-out, ease-out);
+    animation: toast-slide-in var(--_duration-normal) var(--_ease-out);
   }
 
   .toast[data-state="closed"] {
-    animation: toast-slide-out var(--ui-duration-fast, 100ms) var(--ui-ease-in, ease-in);
+    animation: toast-slide-out var(--_duration-fast) var(--_ease-in);
   }
 
   @keyframes toast-slide-in {

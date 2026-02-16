@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "pagination",
   "element": "div",
   "modifiers": {
@@ -7,11 +8,8 @@
     }
   },
   "elements": {
-    "prev": {},
-    "next": {},
     "list": {},
     "item": {},
-    "ellipsis": {},
     "link": {
       "modifiers": {
         "active": {
@@ -21,40 +19,51 @@
           "type": "boolean"
         }
       }
-    }
+    },
+    "prev": {},
+    "next": {},
+    "ellipsis": {}
   },
   "cssVars": [
     {
       "name": "--ui-pagination-gap",
-      "default": "calc(var(--ui-unit) * 0.5"
+      "default": "calc(var(--ui-unit) * 0.5)",
+      "description": "Gap between children"
     },
     {
       "name": "--ui-pagination-item-size",
-      "default": "calc(var(--ui-unit) * 4"
+      "default": "calc(var(--ui-unit) * 4)",
+      "description": "Item overall size"
     },
     {
       "name": "--ui-pagination-item-radius",
-      "default": "var(--ui-radius-sm)"
+      "default": "var(--ui-radius-sm)",
+      "description": "Item corner radius"
     },
     {
       "name": "--ui-pagination-item-bg",
-      "default": "transparent"
+      "default": "transparent",
+      "description": "Item background color"
     },
     {
       "name": "--ui-pagination-item-bg-hover",
-      "default": "var(--ui-color-bg-subtle)"
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Item bg hover"
     },
     {
       "name": "--ui-pagination-item-bg-active",
-      "default": "var(--ui-color-primary)"
+      "default": "var(--ui-color-primary)",
+      "description": "Item bg active"
     },
     {
       "name": "--ui-pagination-item-color",
-      "default": "var(--ui-color-text)"
+      "default": "var(--ui-color-text)",
+      "description": "Item text color"
     },
     {
       "name": "--ui-pagination-item-color-active",
-      "default": "var(--ui-color-text-inverse)"
+      "default": "var(--ui-color-text-inverse)",
+      "description": "Item color active"
     }
   ]
 }

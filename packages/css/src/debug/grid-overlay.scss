@@ -1,3 +1,4 @@
+@use '../config/tokens/variables' as t;
 // Debug grid overlay - add class="debug-grid" to body or any container
 .debug-grid,
 .debug-grid-rows,
@@ -7,7 +8,7 @@
 
 .debug-grid {
   // Fallback hue 220 (blue) when --ui-hue-primary not set
-  --debug-color: hsl(var(--ui-hue-primary, 220) 80% 50% / 0.15);
+  --debug-color: hsl(var(--ui-hue-primary, #{t.$hue-primary}) 80% 50% / 0.15);
 }
 
 .debug-grid::after {
@@ -30,8 +31,8 @@
 
 // Stronger grid at row intervals
 .debug-grid-rows {
-  --debug-color: hsl(var(--ui-hue-primary, 220) 80% 50% / 0.1);
-  --debug-color-strong: hsl(var(--ui-hue-primary, 220) 80% 50% / 0.25);
+  --debug-color: hsl(var(--ui-hue-primary, #{t.$hue-primary}) 80% 50% / 0.1);
+  --debug-color-strong: hsl(var(--ui-hue-primary, #{t.$hue-primary}) 80% 50% / 0.25);
 }
 
 .debug-grid-rows::after {

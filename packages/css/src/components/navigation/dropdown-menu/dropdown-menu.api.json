@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "dropdown-menu",
   "element": "div",
   "modifiers": {
@@ -23,15 +24,18 @@
   "cssVars": [
     {
       "name": "--ui-dropdown-menu-z",
-      "default": "200"
+      "default": "var(--ui-z-dropdown)",
+      "description": "Z-index stacking order"
     },
     {
       "name": "--ui-dropdown-menu-panel-offset",
-      "default": "var(--ui-space-1)"
+      "default": "var(--ui-space-1)",
+      "description": "Panel offset from anchor"
     },
     {
       "name": "--ui-dropdown-menu-panel-min-width",
-      "default": "auto"
+      "default": "auto",
+      "description": "Panel minimum width"
     }
   ]
 }

@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "spinner",
   "element": "div",
   "modifiers": {
@@ -9,55 +10,68 @@
   "cssVars": [
     {
       "name": "--ui-spinner-size",
-      "default": "var(--ui-unit)"
+      "default": "calc(var(--ui-unit) * 4)",
+      "description": "Overall size"
     },
     {
       "name": "--ui-spinner-border-width",
-      "default": "var(--ui-border-width-md)"
+      "default": "var(--ui-border-width-md)",
+      "description": "Border thickness"
     },
     {
       "name": "--ui-spinner-color",
-      "default": "currentcolor"
+      "default": "currentcolor",
+      "description": "Text color"
     },
     {
       "name": "--ui-spinner-track-color",
-      "default": "transparent"
+      "default": "transparent",
+      "description": "Track text color"
     },
     {
       "name": "--ui-spinner-duration",
-      "default": "750ms"
+      "default": "var(--ui-spinner-duration)",
+      "description": "Animation duration"
     },
     {
       "name": "--ui-spinner-size-xs",
-      "default": "var(--ui-unit)"
+      "default": "calc(var(--ui-unit) * 2)",
+      "description": "Overall size at extra-small size"
     },
     {
       "name": "--ui-spinner-border-width-xs",
-      "default": "var(--ui-border-width-sm)"
+      "default": "var(--ui-border-width-sm)",
+      "description": "Border thickness at extra-small size"
     },
     {
       "name": "--ui-spinner-size-sm",
-      "default": "var(--ui-unit)"
+      "default": "calc(var(--ui-unit) * 3)",
+      "description": "Overall size at small size"
     },
     {
       "name": "--ui-spinner-border-width-sm",
-      "default": "var(--ui-border-width-md)"
+      "default": "var(--ui-border-width-md)",
+      "description": "Border thickness at small size"
     },
     {
       "name": "--ui-spinner-size-lg",
-      "default": "var(--ui-unit)"
+      "default": "calc(var(--ui-unit) * 5)",
+      "description": "Overall size at large size"
     },
     {
       "name": "--ui-spinner-border-width-lg",
-      "default": "var(--ui-border-width-md)"
+      "default": "var(--ui-border-width-md)",
+      "description": "Border thickness at large size"
     },
     {
       "name": "--ui-spinner-size-xl",
-      "default": "var(--ui-unit)"
+      "default": "calc(var(--ui-unit) * 6)",
+      "description": "Overall size at extra-large size"
     },
     {
       "name": "--ui-spinner-border-width-xl",
-      "default": "var(--ui-border-width-lg)"
+      "default": "var(--ui-border-width-lg)",
+      "description": "Border thickness at extra-large size"
     }
   ]
 }

@@ -1,17 +1,24 @@
+// @component container
+// @element div
+
 @layer primitives {
   .container {
-    max-inline-size: var(--container-width, calc(var(--ui-unit) * 120));
-    padding-inline: var(--ui-space-4);
+    --_unit: var(--ui-unit);
+    --_space-4: var(--ui-space-4);
+    max-inline-size: var(--container-width, calc(var(--_unit) * 120));
+    padding-inline: var(--_space-4);
   }
 
+  // @modifier boolean center
   .container--center {
     margin-inline: auto;
   }
 
   // Size modifiers
-  .container--sm { --container-width: calc(var(--ui-unit) * 80); }
-  .container--md { --container-width: calc(var(--ui-unit) * 100); }
-  .container--lg { --container-width: calc(var(--ui-unit) * 120); }
-  .container--xl { --container-width: calc(var(--ui-unit) * 160); }
+  // @modifier size
+  .container--sm { --container-width: calc(var(--_unit) * 80); }
+  .container--md { --container-width: calc(var(--_unit) * 100); }
+  .container--lg { --container-width: calc(var(--_unit) * 120); }
+  .container--xl { --container-width: calc(var(--_unit) * 160); }
   .container--full { max-inline-size: none; }
 }

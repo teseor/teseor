@@ -1,12 +1,13 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "drawer",
   "element": "div",
   "modifiers": {
-    "position": {
-      "values": ["start", "end", "top", "bottom"]
-    },
     "size": {
-      "values": ["sm", "lg"]
+      "values": ["sm", "lg", "full"]
+    },
+    "position": {
+      "values": ["end", "start", "top", "bottom"]
     }
   },
   "elements": {
@@ -17,39 +18,51 @@
     "body": {},
     "footer": {}
   },
-  "relatedComponents": ["drawer-overlay"],
+  "relatedComponents": [
+    {
+      "name": "drawer-overlay"
+    }
+  ],
   "cssVars": [
     {
       "name": "--ui-drawer-size",
-      "default": "calc(var(--ui-unit) * 40"
+      "default": "calc(var(--ui-unit) * 40)",
+      "description": "Overall size"
     },
     {
       "name": "--ui-drawer-max-size",
-      "default": "90%"
+      "default": "90%",
+      "description": "Max size"
     },
     {
       "name": "--ui-drawer-bg",
-      "default": "var(--ui-color-bg)"
+      "default": "var(--ui-color-bg)",
+      "description": "Background color"
     },
     {
       "name": "--ui-drawer-shadow",
-      "default": "var(--shadow-lg)"
+      "default": "var(--ui-shadow-lg)",
+      "description": "Box shadow"
     },
     {
       "name": "--ui-drawer-header-padding",
-      "default": "calc(var(--ui-unit) * 2"
+      "default": "calc(var(--ui-unit) * 2) calc(var(--ui-unit) * 3)",
+      "description": "Header padding on all sides"
     },
     {
       "name": "--ui-drawer-body-padding",
-      "default": "calc(var(--ui-unit) * 3"
+      "default": "calc(var(--ui-unit) * 3)",
+      "description": "Body area padding on all sides"
     },
     {
       "name": "--ui-drawer-footer-padding",
-      "default": "calc(var(--ui-unit) * 2"
+      "default": "calc(var(--ui-unit) * 2) calc(var(--ui-unit) * 3)",
+      "description": "Footer padding on all sides"
     },
     {
       "name": "--ui-drawer-border-color",
-      "default": "var(--ui-color-border)"
+      "default": "var(--ui-color-border)",
+      "description": "Border color"
     }
   ]
 }

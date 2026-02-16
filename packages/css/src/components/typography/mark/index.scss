@@ -1,11 +1,18 @@
 @use '../../../config/tokens/variables' as t;
+// @component mark
+// @element mark
 
 @layer components.tokens {
   .mark {
+    // @desc Background color
     --_bg: var(--ui-mark-bg, var(--ui-color-warning, #{t.$color-warning}));
+    // @desc Text color
     --_color: var(--ui-mark-color, var(--ui-color-text, #{t.$color-text}));
+    // @desc Horizontal padding
     --_padding-x: var(--ui-mark-padding-x, var(--ui-space-quarter, #{t.$space-quarter}));
+    // @desc Vertical padding
     --_padding-y: var(--ui-mark-padding-y, 0);
+    // @desc Corner radius
     --_radius: var(--ui-mark-radius, var(--ui-radius-sm, #{t.$radius-sm}));
   }
 }

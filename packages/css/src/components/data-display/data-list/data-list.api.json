@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "data-list",
   "element": "div",
   "modifiers": {
@@ -20,19 +21,23 @@
   "cssVars": [
     {
       "name": "--ui-data-list-gap",
-      "default": "calc(var(--ui-unit) * 2"
+      "default": "calc(var(--ui-unit) * 2)",
+      "description": "Gap between children"
     },
     {
       "name": "--ui-data-list-item-gap",
-      "default": "calc(var(--ui-unit) * 1"
+      "default": "calc(var(--ui-unit) * 1)",
+      "description": "Item gap between children"
     },
     {
       "name": "--ui-data-list-label-color",
-      "default": "var(--ui-color-text-muted)"
+      "default": "var(--ui-color-text-muted)",
+      "description": "Label text color"
     },
     {
       "name": "--ui-data-list-value-color",
-      "default": "var(--ui-color-text)"
+      "default": "var(--ui-color-text)",
+      "description": "Value display text color"
     }
   ]
 }

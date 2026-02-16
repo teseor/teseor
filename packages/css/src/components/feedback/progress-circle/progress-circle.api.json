@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "progress-circle",
   "element": "svg",
   "modifiers": {
@@ -19,35 +20,43 @@
   "cssVars": [
     {
       "name": "--ui-progress-circle-size",
-      "default": "calc(var(--ui-unit) * 6)"
+      "default": "calc(var(--ui-unit) * 6)",
+      "description": "Overall size"
     },
     {
       "name": "--ui-progress-circle-stroke-width",
-      "default": "8"
+      "default": "var(--ui-progress-circle-stroke-width)",
+      "description": "Stroke width"
     },
     {
       "name": "--ui-progress-circle-fill-color",
-      "default": "var(--ui-color-primary)"
+      "default": "var(--ui-color-primary)",
+      "description": "Fill area text color"
     },
     {
       "name": "--ui-progress-circle-track-color",
-      "default": "var(--ui-color-border)"
+      "default": "var(--ui-color-border)",
+      "description": "Track text color"
     },
     {
       "name": "--ui-progress-circle-value",
-      "default": "0"
+      "default": "0",
+      "description": "Value"
     },
     {
       "name": "--ui-progress-circle-size-sm",
-      "default": "calc(var(--ui-unit) * 4)"
+      "default": "calc(var(--ui-unit) * 4)",
+      "description": "Overall size at small size"
     },
     {
       "name": "--ui-progress-circle-size-lg",
-      "default": "calc(var(--ui-unit) * 8)"
+      "default": "calc(var(--ui-unit) * 8)",
+      "description": "Overall size at large size"
     },
     {
       "name": "--ui-progress-circle-size-xl",
-      "default": "calc(var(--ui-unit) * 12)"
+      "default": "calc(var(--ui-unit) * 12)",
+      "description": "Overall size at extra-large size"
     }
   ]
 }

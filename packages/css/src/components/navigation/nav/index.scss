@@ -5,22 +5,41 @@
 
 @layer components.tokens {
   .nav {
+    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
+    --_font-sans: var(--ui-font-sans, #{t.$font-sans});
+    --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
+    --_duration-base: var(--ui-duration-base);
+    --_ease-default: var(--ui-ease-default);
+    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    // @desc Gap between children
     --_gap: var(--ui-nav-gap, var(--ui-space-1, #{t.$space-1}));
+    // @desc Item overall height
     --_item-height: var(--ui-nav-item-height, var(--ui-row-2, #{t.$row-2}));
+    // @desc Item horizontal padding
     --_item-padding-x: var(--ui-nav-item-padding-x, var(--ui-space-2, #{t.$space-2}));
+    // @desc Item font size
     --_item-font-size: var(--ui-nav-item-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    // @desc Item font weight
     --_item-font-weight: var(--ui-nav-item-font-weight, var(--ui-weight-medium, #{t.$weight-medium}));
+    // @desc Item text color
     --_item-color: var(--ui-nav-item-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    // @desc Item color hover
     --_item-color-hover: var(--ui-nav-item-color-hover, var(--ui-color-text, #{t.$color-text}));
+    // @desc Item color active
     --_item-color-active: var(--ui-nav-item-color-active, var(--ui-color-primary, #{t.$color-primary}));
+    // @desc Item corner radius
     --_item-radius: var(--ui-nav-item-radius, var(--ui-radius-sm, #{t.$radius-sm}));
+    // @desc Border color
     --_border-color: var(--ui-nav-border-color, var(--ui-color-border, #{t.$color-border}));
   }
 
   // @modifier pills
   .nav--pills {
+    // @desc Item bg hover
     --_item-bg-hover: var(--ui-nav-item-bg-hover, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+    // @desc Item bg active
     --_item-bg-active: var(--ui-nav-item-bg-active, var(--ui-color-primary, #{t.$color-primary}));
+    // @desc Item color active
     --_item-color-active: var(--ui-nav-item-color-active, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
   }
 
@@ -41,7 +60,7 @@
     list-style: none;
 
     // Bottom border via box-shadow to avoid height impact
-    box-shadow: inset 0 calc(var(--ui-border-width-sm, #{t.$border-width-sm}) * -1) 0 var(--_border-color);
+    box-shadow: inset 0 calc(var(--_border-width-sm) * -1) 0 var(--_border-color);
   }
 
   .nav__item {
@@ -52,7 +71,7 @@
     block-size: var(--_item-height);
     padding-inline: var(--_item-padding-x);
 
-    font-family: var(--ui-font-sans, #{t.$font-sans});
+    font-family: var(--_font-sans);
     font-size: var(--_item-font-size);
     font-weight: var(--_item-font-weight);
     line-height: 1;
@@ -63,13 +82,13 @@
     background: transparent;
     border: none;
     // Underline indicator via box-shadow
-    box-shadow: inset 0 calc(var(--ui-border-width-md, #{t.$border-width-md}) * -1) 0 transparent;
+    box-shadow: inset 0 calc(var(--_border-width-md) * -1) 0 transparent;
     cursor: pointer;
 
     transition:
-      color var(--ui-duration-base) var(--ui-ease-default),
-      background var(--ui-duration-base) var(--ui-ease-default),
-      box-shadow var(--ui-duration-base) var(--ui-ease-default);
+      color var(--_duration-base) var(--_ease-default),
+      background var(--_duration-base) var(--_ease-default),
+      box-shadow var(--_duration-base) var(--_ease-default);
 
     &:hover {
       color: var(--_item-color-hover);
@@ -78,11 +97,11 @@
     &--active {
       color: var(--_item-color-active);
 
-      box-shadow: inset 0 calc(var(--ui-border-width-md, #{t.$border-width-md}) * -1) 0 var(--_item-color-active);
+      box-shadow: inset 0 calc(var(--_border-width-md) * -1) 0 var(--_item-color-active);
     }
 
     &--disabled {
-      opacity: var(--ui-opacity-disabled, 0.5);
+      opacity: var(--_opacity-disabled);
       pointer-events: none;
     }
   }
@@ -117,14 +136,14 @@
 
       block-size: auto;
 
-      box-shadow: inset calc(var(--ui-border-width-sm, #{t.$border-width-sm}) * -1) 0 0 var(--_border-color);
+      box-shadow: inset calc(var(--_border-width-sm) * -1) 0 0 var(--_border-color);
     }
 
     .nav__item {
-      box-shadow: inset calc(var(--ui-border-width-md, #{t.$border-width-md}) * -1) 0 0 transparent;
+      box-shadow: inset calc(var(--_border-width-md) * -1) 0 0 transparent;
 
       &--active {
-        box-shadow: inset calc(var(--ui-border-width-md, #{t.$border-width-md}) * -1) 0 0 var(--_item-color-active);
+        box-shadow: inset calc(var(--_border-width-md) * -1) 0 0 var(--_item-color-active);
       }
     }
   }

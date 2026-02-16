@@ -1,10 +1,13 @@
 @use '../../../config/tokens/variables' as t;
+// @component field
+// @element div
 
 // Field - form field wrapper
 // Combines label, control, helper text, and error message
 
 @layer components.tokens {
   .field {
+    // @desc Gap between children
     --_gap: var(--ui-field-gap, 0);
   }
 }
@@ -23,6 +26,7 @@
   }
 
   // Horizontal layout variant
+  // @modifier boolean horizontal
   .field--horizontal {
     flex-direction: row;
     flex-wrap: wrap;

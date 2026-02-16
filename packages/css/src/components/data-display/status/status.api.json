@@ -1,15 +1,16 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "status",
   "element": "div",
   "modifiers": {
     "variant": {
       "values": ["success", "warning", "danger", "info"]
     },
-    "size": {
-      "values": ["sm", "lg"]
-    },
     "pulse": {
       "type": "boolean"
+    },
+    "size": {
+      "values": ["sm", "lg"]
     }
   },
   "elements": {
@@ -18,15 +19,18 @@
   "cssVars": [
     {
       "name": "--ui-status-size",
-      "default": "calc(var(--ui-unit) * 1"
+      "default": "calc(var(--ui-unit) * 1)",
+      "description": "Overall size"
     },
     {
       "name": "--ui-status-color",
-      "default": "var(--ui-color-text-muted)"
+      "default": "var(--ui-color-text-muted)",
+      "description": "Text color"
     },
     {
       "name": "--ui-status-gap",
-      "default": "calc(var(--ui-unit) * 1"
+      "default": "calc(var(--ui-unit) * 1)",
+      "description": "Gap between children"
     }
   ]
 }

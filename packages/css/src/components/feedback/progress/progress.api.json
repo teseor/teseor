@@ -1,12 +1,13 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "progress",
   "element": "div",
   "modifiers": {
     "size": {
       "values": ["sm", "lg"]
     },
-    "variant": {
-      "values": ["success", "warning", "danger"]
+    "indeterminate": {
+      "type": "boolean"
     },
     "striped": {
       "type": "boolean"
@@ -14,8 +15,8 @@
     "animated": {
       "type": "boolean"
     },
-    "indeterminate": {
-      "type": "boolean"
+    "variant": {
+      "values": ["success", "warning", "danger"]
     }
   },
   "elements": {
@@ -24,19 +25,23 @@
   "cssVars": [
     {
       "name": "--ui-progress-height",
-      "default": "calc(var(--ui-unit) * 1"
+      "default": "calc(var(--ui-unit) * 1)",
+      "description": "Overall height"
     },
     {
       "name": "--ui-progress-bg",
-      "default": "var(--ui-color-bg-subtle)"
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Background color"
     },
     {
       "name": "--ui-progress-fill",
-      "default": "var(--ui-color-primary)"
+      "default": "var(--ui-color-primary)",
+      "description": "Fill"
     },
     {
       "name": "--ui-progress-radius",
-      "default": "var(--ui-radius-full)"
+      "default": "var(--ui-radius-full)",
+      "description": "Corner radius"
     }
   ]
 }

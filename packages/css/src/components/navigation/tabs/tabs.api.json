@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "tabs",
   "element": "div",
   "modifiers": {
@@ -11,53 +12,79 @@
   },
   "elements": {
     "list": {},
-    "tab": {
-      "modifiers": {
-        "active": {
-          "type": "boolean"
-        }
-      }
-    },
-    "panel": {
-      "modifiers": {
-        "active": {
-          "type": "boolean"
-        }
-      }
-    }
+    "tab": {},
+    "panel": {}
   },
   "cssVars": [
     {
       "name": "--ui-tabs-border-color",
-      "default": "var(--ui-color-border)"
+      "default": "var(--ui-color-border)",
+      "description": "Border color"
     },
     {
       "name": "--ui-tabs-tab-height",
-      "default": "var(--ui-row-2)"
+      "default": "var(--ui-row-2)",
+      "description": "Tab height"
     },
     {
       "name": "--ui-tabs-tab-padding-x",
-      "default": "var(--ui-space-2)"
+      "default": "var(--ui-space-2)",
+      "description": "Tab padding x"
     },
     {
       "name": "--ui-tabs-tab-padding-y",
-      "default": "var(--ui-space-1)"
+      "default": "var(--ui-space-1)",
+      "description": "Tab padding y"
     },
     {
       "name": "--ui-tabs-tab-font-size",
-      "default": "var(--ui-font-size-sm)"
+      "default": "var(--ui-font-size-sm)",
+      "description": "Tab font size"
     },
     {
       "name": "--ui-tabs-tab-bg",
-      "default": "transparent"
+      "default": "transparent",
+      "description": "Tab bg"
     },
     {
       "name": "--ui-tabs-tab-bg-active",
-      "default": "var(--ui-color-bg)"
+      "default": "var(--ui-color-bg)",
+      "description": "Tab bg active"
     },
     {
       "name": "--ui-tabs-panel-padding",
-      "default": "var(--ui-space-3)"
+      "default": "var(--ui-space-3)",
+      "description": "Panel padding on all sides"
+    },
+    {
+      "name": "--ui-tabs-tab-height-sm",
+      "default": "var(--ui-row-1)",
+      "description": "Tab height sm"
+    },
+    {
+      "name": "--ui-tabs-tab-padding-x-sm",
+      "default": "var(--ui-space-1)",
+      "description": "Tab padding x sm"
+    },
+    {
+      "name": "--ui-tabs-tab-font-size-sm",
+      "default": "var(--ui-font-size-xs)",
+      "description": "Tab font size sm"
+    },
+    {
+      "name": "--ui-tabs-tab-height-lg",
+      "default": "calc(var(--ui-row) * 2.5)",
+      "description": "Tab height lg"
+    },
+    {
+      "name": "--ui-tabs-tab-padding-x-lg",
+      "default": "var(--ui-space-3)",
+      "description": "Tab padding x lg"
+    },
+    {
+      "name": "--ui-tabs-tab-font-size-lg",
+      "default": "var(--ui-font-size-md)",
+      "description": "Tab font size lg"
     }
   ]
 }

@@ -1,19 +1,43 @@
 @use '../../../config/tokens/variables' as t;
+// @component menu
+// @element div
 
 // Menu - action menu
 // Dropdown list of actions or options
 
 @layer components.tokens {
   .menu {
+    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
+    --_font-size-xs: var(--ui-font-size-xs, #{t.$font-size-xs});
+    --_weight-medium: var(--ui-weight-medium, #{t.$weight-medium});
+    --_row-1: var(--ui-row-1, #{t.$row});
+    --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
+    --_font-size-sm: var(--ui-font-size-sm, #{t.$font-size-sm});
+    --_color-text: var(--ui-color-text, #{t.$color-text});
+    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
+    --_ease-default: var(--ui-ease-default, ease);
+    --_color-danger: var(--ui-color-danger, #{t.$color-danger});
+    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    --_color-border: var(--ui-color-border, #{t.$color-border});
+    // @desc Minimum width
     --_min-width: var(--ui-menu-min-width, calc(#{t.$unit} * 16));
+    // @desc Maximum height
     --_max-height: var(--ui-menu-max-height, calc(#{t.$unit} * 40));
+    // @desc Padding on all sides
     --_padding: var(--ui-menu-padding, calc(#{t.$unit} * 1));
+    // @desc Corner radius
     --_radius: var(--ui-menu-radius, var(--ui-radius-md, #{t.$radius-md}));
+    // @desc Background color
     --_bg: var(--ui-menu-bg, var(--ui-color-bg, #{t.$color-bg}));
+    // @desc Border color
     --_border-color: var(--ui-menu-border-color, var(--ui-color-border, #{t.$color-border}));
+    // @desc Box shadow
     --_shadow: var(--ui-menu-shadow, var(--ui-shadow-lg));
+    // @desc Item padding on all sides
     --_item-padding: var(--ui-menu-item-padding, calc(#{t.$unit} * 1) calc(#{t.$unit} * 2));
+    // @desc Item corner radius
     --_item-radius: var(--ui-menu-item-radius, var(--ui-radius-sm, #{t.$radius-sm}));
+    // @desc Item bg hover
     --_item-bg-hover: var(--ui-menu-item-bg-hover, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
   }
 }
@@ -27,9 +51,9 @@
 
     background: var(--_bg);
     border-radius: var(--_radius);
-    outline: var(--ui-border-width-sm, 0.0625rem) solid var(--_border-color);
+    outline: var(--_border-width-sm) solid var(--_border-color);
     box-shadow: var(--_shadow);
-    outline-offset: calc(var(--ui-border-width-sm, 0.0625rem) * -1);
+    outline-offset: calc(var(--_border-width-sm) * -1);
   }
 
   .menu__group {
@@ -42,12 +66,12 @@
   .menu__label {
     padding: var(--_item-padding);
 
-    font-size: var(--ui-font-size-xs, #{t.$font-size-xs});
-    font-weight: var(--ui-weight-medium, #{t.$weight-medium});
-    line-height: var(--ui-row-1, #{t.$row});
+    font-size: var(--_font-size-xs);
+    font-weight: var(--_weight-medium);
+    line-height: var(--_row-1);
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    color: var(--ui-color-text-muted, #{t.$color-text-muted});
+    color: var(--_color-text-muted);
   }
 
   .menu__item {
@@ -57,17 +81,17 @@
 
     padding: var(--_item-padding);
 
-    font-size: var(--ui-font-size-sm, #{t.$font-size-sm});
-    line-height: var(--ui-row-1, #{t.$row});
+    font-size: var(--_font-size-sm);
+    line-height: var(--_row-1);
     text-decoration: none;
-    color: var(--ui-color-text, #{t.$color-text});
+    color: var(--_color-text);
 
     background: transparent;
     border: none;
     border-radius: var(--_item-radius);
     cursor: pointer;
 
-    transition: background var(--ui-duration-fast, 100ms) var(--ui-ease-default, ease);
+    transition: background var(--_duration-fast) var(--_ease-default);
 
     &:hover,
     &:focus-visible {
@@ -77,17 +101,17 @@
   }
 
   .menu__item--danger {
-    color: var(--ui-color-danger, #{t.$color-danger});
+    color: var(--_color-danger);
 
     &:hover,
     &:focus-visible {
-      color: var(--ui-color-danger, #{t.$color-danger});
+      color: var(--_color-danger);
     }
   }
 
   .menu__item--disabled,
   .menu__item[aria-disabled="true"] {
-    opacity: var(--ui-opacity-disabled, 0.5);
+    opacity: var(--_opacity-disabled);
     pointer-events: none;
   }
 
@@ -101,8 +125,8 @@
   .menu__item-shortcut {
     margin-inline-start: auto;
 
-    font-size: var(--ui-font-size-xs, #{t.$font-size-xs});
-    color: var(--ui-color-text-muted, #{t.$color-text-muted});
+    font-size: var(--_font-size-xs);
+    color: var(--_color-text-muted);
   }
 
   .menu__separator {
@@ -116,9 +140,9 @@
       content: '';
       flex: 1;
 
-      block-size: var(--ui-border-width-sm, 1px);
+      block-size: var(--_border-width-sm);
 
-      background: var(--ui-color-border, #{t.$color-border});
+      background: var(--_color-border);
     }
   }
 

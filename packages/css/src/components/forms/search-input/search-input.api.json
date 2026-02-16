@@ -1,85 +1,126 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "search-input",
   "element": "div",
   "modifiers": {
     "size": {
       "values": ["sm", "lg"]
     },
-    "has-clear": {
-      "type": "boolean"
-    },
     "block": {
       "type": "boolean"
     },
     "disabled": {
       "type": "boolean"
+    },
+    "has-clear": {
+      "type": "boolean"
     }
   },
   "elements": {
-    "icon": {},
     "field": {},
+    "icon": {},
     "clear": {}
   },
   "cssVars": [
     {
       "name": "--ui-search-input-height",
-      "default": "var(--ui-row-2)"
-    },
-    {
-      "name": "--ui-search-input-height-sm",
-      "default": "calc(var(--ui-row) * 1.5)"
-    },
-    {
-      "name": "--ui-search-input-height-lg",
-      "default": "calc(var(--ui-row) * 2.5)"
+      "default": "var(--ui-row-2)",
+      "description": "Overall height"
     },
     {
       "name": "--ui-search-input-padding-x",
-      "default": "var(--ui-space-1)"
+      "default": "var(--ui-space-1)",
+      "description": "Horizontal padding"
     },
     {
       "name": "--ui-search-input-font-size",
-      "default": "var(--ui-font-size-sm)"
+      "default": "var(--ui-font-size-sm)",
+      "description": "Font size"
     },
     {
       "name": "--ui-search-input-radius",
-      "default": "var(--ui-radius-md)"
+      "default": "var(--ui-radius-md)",
+      "description": "Corner radius"
     },
     {
       "name": "--ui-search-input-bg",
-      "default": "var(--ui-color-bg)"
+      "default": "var(--ui-color-bg)",
+      "description": "Background color"
     },
     {
       "name": "--ui-search-input-border-color",
-      "default": "var(--ui-color-border-strong)"
+      "default": "var(--ui-color-border-strong)",
+      "description": "Border color"
     },
     {
       "name": "--ui-search-input-border-color-focus",
-      "default": "var(--ui-color-primary)"
+      "default": "var(--ui-color-primary)",
+      "description": "Border color focus"
     },
     {
       "name": "--ui-search-input-text",
-      "default": "var(--ui-color-text)"
+      "default": "var(--ui-color-text)",
+      "description": "Text"
     },
     {
       "name": "--ui-search-input-placeholder",
-      "default": "var(--ui-color-text-muted)"
+      "default": "var(--ui-color-text-muted)",
+      "description": "Placeholder"
     },
     {
       "name": "--ui-search-input-icon-color",
-      "default": "var(--ui-color-text-muted)"
+      "default": "var(--ui-color-text-muted)",
+      "description": "Icon color"
     },
     {
       "name": "--ui-search-input-icon-size",
-      "default": "var(--ui-size-md)"
+      "default": "var(--ui-size-md)",
+      "description": "Icon dimensions"
     },
     {
       "name": "--ui-search-input-clear-color",
-      "default": "var(--ui-color-text-muted)"
+      "default": "var(--ui-color-text-muted)",
+      "description": "Clear color"
     },
     {
       "name": "--ui-search-input-clear-hover-bg",
-      "default": "var(--ui-color-bg-muted)"
+      "default": "var(--ui-color-bg-muted)",
+      "description": "Clear hover bg"
+    },
+    {
+      "name": "--ui-search-input-height-sm",
+      "default": "calc(var(--ui-row) * 1.5)",
+      "description": "Overall height at small size"
+    },
+    {
+      "name": "--ui-search-input-font-size-sm",
+      "default": "var(--ui-font-size-xs)",
+      "description": "Font size at small size"
+    },
+    {
+      "name": "--ui-search-input-icon-size-sm",
+      "default": "var(--ui-size-sm)",
+      "description": "Icon dimensions at small size"
+    },
+    {
+      "name": "--ui-search-input-height-lg",
+      "default": "calc(var(--ui-row) * 2.5)",
+      "description": "Overall height at large size"
+    },
+    {
+      "name": "--ui-search-input-padding-x-lg",
+      "default": "var(--ui-space-2)",
+      "description": "Horizontal padding at large size"
+    },
+    {
+      "name": "--ui-search-input-font-size-lg",
+      "default": "var(--ui-font-size-md)",
+      "description": "Font size at large size"
+    },
+    {
+      "name": "--ui-search-input-icon-size-lg",
+      "default": "var(--ui-size-lg)",
+      "description": "Icon dimensions at large size"
     }
   ]
 }

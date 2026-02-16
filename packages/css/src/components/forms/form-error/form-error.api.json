@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "form-error",
   "element": "div",
   "modifiers": {},
@@ -8,15 +9,18 @@
   "cssVars": [
     {
       "name": "--ui-form-error-color",
-      "default": "var(--ui-color-danger)"
+      "default": "var(--ui-color-danger)",
+      "description": "Text color"
     },
     {
       "name": "--ui-form-error-size",
-      "default": "var(--ui-font-size-sm)"
+      "default": "var(--ui-font-size-sm)",
+      "description": "Overall size"
     },
     {
       "name": "--ui-form-error-gap",
-      "default": "0"
+      "default": "0",
+      "description": "Gap between children"
     }
   ]
 }

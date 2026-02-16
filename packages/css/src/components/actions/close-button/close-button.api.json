@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "close-button",
   "element": "button",
   "modifiers": {
@@ -21,57 +22,63 @@
   "cssVars": [
     {
       "name": "--ui-close-button-size",
-      "description": "Overall button size (width and height)",
-      "default": "var(--ui-row-2)"
+      "default": "var(--ui-row-2)",
+      "description": "Overall button size (width and height)"
     },
     {
       "name": "--ui-close-button-icon-size",
-      "description": "Size of the X icon",
-      "default": "var(--ui-size-md)"
+      "default": "var(--ui-size-md)",
+      "description": "Size of the X icon"
     },
     {
       "name": "--ui-close-button-color",
-      "description": "Icon color",
-      "default": "var(--ui-color-text-muted)"
+      "default": "var(--ui-color-text-muted)",
+      "description": "Icon color"
     },
     {
       "name": "--ui-close-button-bg",
-      "description": "Background color",
-      "default": "transparent"
+      "default": "transparent",
+      "description": "Background color"
     },
     {
       "name": "--ui-close-button-hover-bg",
-      "description": "Background color on hover",
-      "default": "var(--ui-color-bg-muted)"
+      "default": "var(--ui-color-bg-muted)",
+      "description": "Background color on hover"
     },
     {
       "name": "--ui-close-button-radius",
-      "description": "Border radius",
-      "default": "var(--ui-radius-md)"
+      "default": "var(--ui-radius-md)",
+      "description": "Border radius"
     },
     {
       "name": "--ui-close-button-size-sm",
-      "default": "calc(var(--ui-unit) * 3)"
+      "default": "calc(var(--ui-unit) * 3)",
+      "description": "Overall size at small size"
     },
     {
       "name": "--ui-close-button-icon-size-sm",
-      "default": "var(--ui-size-sm)"
+      "default": "var(--ui-size-sm)",
+      "description": "Icon dimensions at small size"
     },
     {
       "name": "--ui-close-button-size-lg",
-      "default": "var(--ui-row-3)"
+      "default": "var(--ui-row-3)",
+      "description": "Overall size at large size"
     },
     {
       "name": "--ui-close-button-icon-size-lg",
-      "default": "var(--ui-size-lg)"
+      "default": "var(--ui-size-lg)",
+      "description": "Icon dimensions at large size"
     },
     {
       "name": "--ui-close-button-subtle-color",
-      "default": "var(--ui-color-border-strong)"
+      "default": "var(--ui-color-border-strong)",
+      "description": "Subtle color"
     },
     {
       "name": "--ui-close-button-subtle-hover-bg",
-      "default": "var(--ui-color-bg-subtle)"
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Subtle hover bg"
     }
   ]
 }

@@ -1,9 +1,19 @@
+// @component nav-rail
+// @element nav
+
 @layer primitives {
   .nav-rail {
+    --_space-2: var(--ui-space-2);
+    --_border-width-sm: var(--ui-border-width-sm);
+    // @desc Overall width
     --_width: var(--ui-nav-rail-width, var(--ui-row-4));
+    // @desc Background color
     --_bg: var(--ui-nav-rail-bg, var(--ui-color-bg-subtle));
+    // @desc Border color
     --_border-color: var(--ui-nav-rail-border-color, var(--ui-color-border));
+    // @desc Gap between children
     --_gap: var(--ui-nav-rail-gap, var(--ui-space-1));
+    // @desc Z-index stacking order
     --_z: var(--ui-nav-rail-z, var(--ui-z-sticky));
 
     display: flex;
@@ -15,10 +25,10 @@
     z-index: var(--_z);
 
     inline-size: var(--_width);
-    padding-block: var(--ui-space-2);
+    padding-block: var(--_space-2);
 
     background: var(--_bg);
-    box-shadow: inset calc(var(--ui-border-width-sm) * -1) 0 0 0 var(--_border-color);
+    box-shadow: inset calc(var(--_border-width-sm) * -1) 0 0 0 var(--_border-color);
   }
 
   // Navigation items area
@@ -41,10 +51,11 @@
   }
 
   // Position on end side
+  // @modifier boolean end
   .nav-rail--end {
     inset-inline-start: auto;
     inset-inline-end: 0;
 
-    box-shadow: inset var(--ui-border-width-sm) 0 0 0 var(--_border-color);
+    box-shadow: inset var(--_border-width-sm) 0 0 0 var(--_border-color);
   }
 }

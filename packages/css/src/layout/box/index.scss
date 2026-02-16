@@ -1,10 +1,20 @@
 @use '../../config/tokens/variables' as t;
+// @component box
+// @element div
 
 // Box - base container with style props
 // Foundation for other layout primitives
 
 @layer primitives {
   .box {
+    --_space-1: var(--ui-space-1, #{t.$space-1});
+    --_space-2: var(--ui-space-2, #{t.$space-2});
+    --_space-3: var(--ui-space-3, #{t.$space-3});
+    --_space-4: var(--ui-space-4, #{t.$space-4});
+    --_color-bg-subtle: var(--ui-color-bg-subtle, #{t.$color-bg-subtle});
+    --_color-bg-muted: var(--ui-color-bg-muted, #{t.$color-bg-muted});
+    --_radius-md: var(--ui-radius-md, #{t.$radius-md});
+    --_radius-lg: var(--ui-radius-lg, #{t.$radius-lg});
     --_padding: var(--box-padding, 0);
     --_bg: var(--box-bg, transparent);
     --_color: var(--box-color, inherit);
@@ -19,16 +29,24 @@
   }
 
   // Padding modifiers
-  .box--p-1 { --_padding: var(--ui-space-1, #{t.$space-1}); }
-  .box--p-2 { --_padding: var(--ui-space-2, #{t.$space-2}); }
-  .box--p-3 { --_padding: var(--ui-space-3, #{t.$space-3}); }
-  .box--p-4 { --_padding: var(--ui-space-4, #{t.$space-4}); }
+  // @modifier boolean p-1
+  .box--p-1 { --_padding: var(--_space-1); }
+  // @modifier boolean p-2
+  .box--p-2 { --_padding: var(--_space-2); }
+  // @modifier boolean p-3
+  .box--p-3 { --_padding: var(--_space-3); }
+  // @modifier boolean p-4
+  .box--p-4 { --_padding: var(--_space-4); }
 
   // Background modifiers
-  .box--bg-subtle { --_bg: var(--ui-color-bg-subtle, #{t.$color-bg-subtle}); }
-  .box--bg-muted { --_bg: var(--ui-color-bg-muted, #{t.$color-bg-muted}); }
+  // @modifier boolean bg-subtle
+  .box--bg-subtle { --_bg: var(--_color-bg-subtle); }
+  // @modifier boolean bg-muted
+  .box--bg-muted { --_bg: var(--_color-bg-muted); }
 
   // Border radius modifiers
-  .box--rounded { --_radius: var(--ui-radius-md, #{t.$radius-md}); }
-  .box--rounded-lg { --_radius: var(--ui-radius-lg, #{t.$radius-lg}); }
+  // @modifier boolean rounded
+  .box--rounded { --_radius: var(--_radius-md); }
+  // @modifier boolean rounded-lg
+  .box--rounded-lg { --_radius: var(--_radius-lg); }
 }

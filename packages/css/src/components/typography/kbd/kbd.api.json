@@ -1,15 +1,48 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "kbd",
   "element": "kbd",
   "modifiers": {},
   "cssVars": [
-    { "name": "--ui-kbd-font-size", "default": "var(--ui-font-size-sm)" },
-    { "name": "--ui-kbd-font-family", "default": "var(--ui-font-mono)" },
-    { "name": "--ui-kbd-padding-x", "default": "var(--ui-space-0)" },
-    { "name": "--ui-kbd-padding-y", "default": "var(--ui-space-0)" },
-    { "name": "--ui-kbd-bg", "default": "var(--ui-color-bg-subtle)" },
-    { "name": "--ui-kbd-border-color", "default": "var(--ui-color-border)" },
-    { "name": "--ui-kbd-radius", "default": "var(--ui-radius-sm)" },
-    { "name": "--ui-kbd-color", "default": "var(--ui-color-text)" }
+    {
+      "name": "--ui-kbd-font-size",
+      "default": "var(--ui-font-size-sm)",
+      "description": "Font size"
+    },
+    {
+      "name": "--ui-kbd-font-family",
+      "default": "var(--ui-font-mono)",
+      "description": "Font family"
+    },
+    {
+      "name": "--ui-kbd-padding-x",
+      "default": "var(--ui-space-0)",
+      "description": "Horizontal padding"
+    },
+    {
+      "name": "--ui-kbd-padding-y",
+      "default": "var(--ui-space-0)",
+      "description": "Vertical padding"
+    },
+    {
+      "name": "--ui-kbd-bg",
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Background color"
+    },
+    {
+      "name": "--ui-kbd-border-color",
+      "default": "var(--ui-color-border)",
+      "description": "Border color"
+    },
+    {
+      "name": "--ui-kbd-radius",
+      "default": "var(--ui-radius-sm)",
+      "description": "Corner radius"
+    },
+    {
+      "name": "--ui-kbd-color",
+      "default": "var(--ui-color-text)",
+      "description": "Text color"
+    }
   ]
 }

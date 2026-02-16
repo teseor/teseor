@@ -6,36 +6,60 @@
 // Token definitions - what makes each variant
 @layer components.tokens {
   .button {
+    --_space-1: var(--ui-space-1, #{t.$space-1});
+    --_font-sans: var(--ui-font-sans, #{t.$font-sans});
+    --_duration-base: var(--ui-duration-base);
+    --_ease-default: var(--ui-ease-default);
+    --_duration-fast: var(--ui-duration-fast);
+    --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
+    --_color-focus: var(--ui-color-focus, #{t.$color-focus});
+    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    --_space-quarter: var(--ui-space-quarter);
+    --_opacity-loading: var(--ui-opacity-loading, #{t.$opacity-loading});
     // Single accent color - all shades derived via color-mix
+    // @desc Primary accent color. All shades auto-generated via color-mix.
     --_accent: var(--ui-button-accent, var(--ui-color-primary, #{t.$color-primary}));
 
+    // @desc Overall height
     --_height: var(--ui-button-height, var(--ui-row-2, #{t.$row-2}));
+    // @desc Horizontal padding
     --_padding-x: var(--ui-button-padding-x, var(--ui-space-2, #{t.$space-2}));
+    // @desc Font size
     --_font-size: var(--ui-button-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    // @desc Font weight
     --_font-weight: var(--ui-button-font-weight, var(--ui-weight-medium, #{t.$weight-medium}));
+    // @desc Corner radius
     --_radius: var(--ui-button-radius, var(--ui-radius-md, #{t.$radius-md}));
     --_bg: var(--_accent);
     --_bg-hover: color-mix(in oklch, var(--_accent) 80%, black);
+    // @desc Text color
     --_color: var(--ui-button-color, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
   }
 
   // @modifier size
   .button--sm {
     --ui-ctx-size: var(--ui-size-sm, #{t.size(sm)});
+    // @desc Overall height at small size
     --_height: var(--ui-button-height-sm, calc(var(--ui-row, #{t.$row}) * 1.5));
+    // @desc Font size at small size
     --_font-size: var(--ui-button-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
   }
 
   .button--md {
     --ui-ctx-size: var(--ui-size-md, #{t.size(md)});
+    // @desc Overall height at medium size
     --_height: var(--ui-button-height-md, var(--ui-row-2, #{t.$row-2}));
+    // @desc Font size at medium size
     --_font-size: var(--ui-button-font-size-md, var(--ui-font-size-sm, #{t.$font-size-sm}));
   }
 
   .button--lg {
     --ui-ctx-size: var(--ui-size-lg, #{t.size(lg)});
+    // @desc Overall height at large size
     --_height: var(--ui-button-height-lg, calc(var(--ui-row, #{t.$row}) * 2.5));
+    // @desc Horizontal padding at large size
     --_padding-x: var(--ui-button-padding-x-lg, var(--ui-space-3, #{t.$space-3}));
+    // @desc Font size at large size
     --_font-size: var(--ui-button-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
   }
 
@@ -61,6 +85,7 @@
   }
 
   .button--danger {
+    // @desc Used by --danger variant as accent color
     --_accent: var(--ui-color-danger, #{t.$color-danger});
   }
 
@@ -107,7 +132,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--ui-space-1, #{t.$space-1});
+    gap: var(--_space-1);
 
     // Size
     block-size: var(--_height);
@@ -117,7 +142,7 @@
     margin: 0;
 
     // Typography
-    font-family: var(--ui-font-sans, #{t.$font-sans});
+    font-family: var(--_font-sans);
     font-size: var(--_font-size);
     font-weight: var(--_font-weight);
     line-height: 1;
@@ -132,9 +157,9 @@
 
     // Transitions
     transition:
-      background-color var(--ui-duration-base) var(--ui-ease-default),
-      color var(--ui-duration-base) var(--ui-ease-default),
-      transform var(--ui-duration-fast) var(--ui-ease-default);
+      background-color var(--_duration-base) var(--_ease-default),
+      color var(--_duration-base) var(--_ease-default),
+      transform var(--_duration-fast) var(--_ease-default);
 
     // States - modifiers mirror pseudo-classes for testing/docs
     &:hover,
@@ -146,8 +171,8 @@
 
     &:focus-visible,
     &--focus {
-      outline: var(--ui-border-width-md, #{t.$border-width-md}) solid var(--ui-color-focus, #{t.$color-focus});
-      outline-offset: var(--ui-border-width-md, #{t.$border-width-md});
+      outline: var(--_border-width-md) solid var(--_color-focus);
+      outline-offset: var(--_border-width-md);
     }
 
     &:active,
@@ -156,7 +181,7 @@
     }
 
     &:disabled {
-      opacity: var(--ui-opacity-disabled, 0.5);
+      opacity: var(--_opacity-disabled);
       cursor: not-allowed;
 
       &:hover {
@@ -178,10 +203,10 @@
     // Link variant underline
     &--link {
       text-decoration: underline;
-      text-underline-offset: var(--ui-space-quarter);
+      text-underline-offset: var(--_space-quarter);
 
       &:hover {
-        text-decoration-thickness: var(--ui-space-quarter);
+        text-decoration-thickness: var(--_space-quarter);
       }
     }
 
@@ -205,7 +230,7 @@
     &--loading {
       position: relative;
 
-      opacity: var(--ui-opacity-loading, 0.7);
+      opacity: var(--_opacity-loading);
       pointer-events: none;
 
       &::after {

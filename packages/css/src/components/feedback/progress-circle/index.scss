@@ -1,28 +1,40 @@
 @use '../../../config/tokens/variables' as t;
+// @component progress-circle
+// @element svg
 
 // Progress Circle - circular progress indicator
 // Uses SVG circles with stroke-dasharray/dashoffset driven by --ui-progress-circle-value
 
 @layer components.tokens {
   .progress-circle {
+    --_duration-slow: var(--ui-duration-slow, #{t.$duration-slow});
+    --_ease-default: var(--ui-ease-default, ease);
+    // @desc Overall size
     --_size: var(--ui-progress-circle-size, calc(var(--ui-unit) * 6));
-    --_stroke-width: var(--ui-progress-circle-stroke-width, 8);
+    // @desc Stroke width
+    --_stroke-width: var(--ui-progress-circle-stroke-width, #{t.$progress-circle-stroke-width});
+    // @desc Fill area text color
     --_fill-color: var(--ui-progress-circle-fill-color, var(--ui-color-primary));
+    // @desc Track text color
     --_track-color: var(--ui-progress-circle-track-color, var(--ui-color-border));
+    // @desc Value
     --_value: var(--ui-progress-circle-value, 0);
     --_circumference: 282.743;
   }
 
   // @modifier size
   .progress-circle--sm {
+    // @desc Overall size at small size
     --_size: var(--ui-progress-circle-size-sm, calc(var(--ui-unit) * 4));
   }
 
   .progress-circle--lg {
+    // @desc Overall size at large size
     --_size: var(--ui-progress-circle-size-lg, calc(var(--ui-unit) * 8));
   }
 
   .progress-circle--xl {
+    // @desc Overall size at extra-large size
     --_size: var(--ui-progress-circle-size-xl, calc(var(--ui-unit) * 12));
   }
 
@@ -66,10 +78,11 @@
     stroke-dasharray: var(--_circumference);
     stroke-dashoffset: calc(var(--_circumference) * (1 - var(--_value) / 100));
 
-    transition: stroke-dashoffset var(--ui-duration-slow, 300ms) var(--ui-ease-default, ease);
+    transition: stroke-dashoffset var(--_duration-slow) var(--_ease-default);
   }
 
   // Indeterminate - rotating partial arc
+  // @modifier boolean indeterminate
   .progress-circle--indeterminate {
     animation: progress-circle-rotate 1.4s linear infinite;
   }

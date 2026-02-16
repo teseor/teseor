@@ -1,9 +1,10 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "checkbox",
   "element": "input",
   "modifiers": {
     "size": {
-      "values": ["sm", "lg"]
+      "values": ["lg"]
     },
     "state": {
       "values": ["error", "success"]
@@ -12,43 +13,53 @@
   "cssVars": [
     {
       "name": "--ui-checkbox-size",
-      "default": "calc(var(--ui-unit) * 2"
+      "default": "calc(var(--ui-unit) * 2)",
+      "description": "Overall size"
     },
     {
       "name": "--ui-checkbox-radius",
-      "default": "var(--ui-radius-sm)"
+      "default": "var(--ui-radius-sm)",
+      "description": "Corner radius"
     },
     {
       "name": "--ui-checkbox-bg",
-      "default": "var(--ui-color-bg)"
+      "default": "var(--ui-color-bg)",
+      "description": "Background color"
     },
     {
       "name": "--ui-checkbox-bg-checked",
-      "default": "var(--ui-color-primary)"
+      "default": "var(--ui-color-primary)",
+      "description": "Bg checked"
     },
     {
       "name": "--ui-checkbox-border-color",
-      "default": "var(--ui-color-border-strong)"
+      "default": "var(--ui-color-border-strong)",
+      "description": "Border color"
     },
     {
       "name": "--ui-checkbox-border-color-focus",
-      "default": "var(--ui-color-primary)"
+      "default": "var(--ui-color-primary)",
+      "description": "Border color focus"
     },
     {
       "name": "--ui-checkbox-check-color",
-      "default": "var(--ui-color-text-inverse)"
+      "default": "var(--ui-color-text-inverse)",
+      "description": "Check mark text color"
     },
     {
       "name": "--ui-checkbox-size-lg",
-      "default": "calc(var(--ui-unit) * 3"
+      "default": "calc(var(--ui-unit) * 3)",
+      "description": "Overall size at large size"
     },
     {
       "name": "--ui-checkbox-error-border",
-      "default": "var(--ui-color-danger)"
+      "default": "var(--ui-color-danger)",
+      "description": "Error border"
     },
     {
       "name": "--ui-checkbox-success-border",
-      "default": "var(--ui-color-success)"
+      "default": "var(--ui-color-success)",
+      "description": "Success border"
     }
   ]
 }

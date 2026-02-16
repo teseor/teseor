@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "content",
   "element": "div",
   "modifiers": {
@@ -12,15 +13,18 @@
   "cssVars": [
     {
       "name": "--ui-content-padding-block",
-      "default": "var(--ui-space-4)"
+      "default": "var(--ui-space-4)",
+      "description": "Vertical padding"
     },
     {
       "name": "--ui-content-padding-inline",
-      "default": "var(--ui-space-4)"
+      "default": "var(--ui-space-4)",
+      "description": "Horizontal padding"
     },
     {
       "name": "--ui-content-gap",
-      "default": "var(--ui-space-3)"
+      "default": "var(--ui-space-3)",
+      "description": "Gap between children"
     }
   ]
 }

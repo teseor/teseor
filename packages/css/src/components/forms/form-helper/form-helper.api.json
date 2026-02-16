@@ -1,19 +1,23 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "form-helper",
   "element": "div",
   "modifiers": {},
   "cssVars": [
     {
       "name": "--ui-form-helper-color",
-      "default": "var(--ui-color-text-muted)"
+      "default": "var(--ui-color-text-muted)",
+      "description": "Text color"
     },
     {
       "name": "--ui-form-helper-size",
-      "default": "var(--ui-font-size-sm)"
+      "default": "var(--ui-font-size-sm)",
+      "description": "Overall size"
     },
     {
       "name": "--ui-form-helper-gap",
-      "default": "0"
+      "default": "0",
+      "description": "Gap between children"
     }
   ]
 }

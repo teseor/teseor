@@ -1,12 +1,13 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "list",
   "element": "ul",
   "modifiers": {
-    "style": {
-      "values": ["unstyled", "inline"]
-    },
     "spacing": {
       "values": ["compact", "loose"]
+    },
+    "style": {
+      "values": ["unstyled", "inline"]
     }
   },
   "elements": {
@@ -15,19 +16,23 @@
   "cssVars": [
     {
       "name": "--ui-list-spacing",
-      "default": "var(--ui-unit)"
+      "default": "var(--ui-unit)",
+      "description": "Spacing"
     },
     {
       "name": "--ui-list-marker-color",
-      "default": "var(--ui-color-text-muted)"
+      "default": "var(--ui-color-text-muted)",
+      "description": "Marker color"
     },
     {
       "name": "--ui-list-indent",
-      "default": "var(--ui-space-3)"
+      "default": "var(--ui-space-3)",
+      "description": "Indent"
     },
     {
       "name": "--ui-list-line-height",
-      "default": "var(--ui-leading-md)"
+      "default": "var(--ui-leading-md)",
+      "description": "Line height"
     }
   ]
 }

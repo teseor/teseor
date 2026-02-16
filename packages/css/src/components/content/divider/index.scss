@@ -5,9 +5,15 @@
 
 @layer components.tokens {
   .divider {
-    --_color: var(--ui-divider-color, var(--ui-color-border, rgb(0 0 0 / 0.1)));
-    --_line-size: var(--ui-divider-line-size, 1px);
+    --_font-size-sm: var(--ui-font-size-sm, #{t.$font-size-sm});
+    --_color-text-muted: var(--ui-color-text-muted);
+    // @desc Text color
+    --_color: var(--ui-divider-color, var(--ui-color-border, #{t.$color-border}));
+    // @desc Line size
+    --_line-size: var(--ui-divider-line-size, #{t.$border-width-sm});
+    // @desc Overall height
     --_height: var(--ui-divider-height, #{t.$unit});
+    // @desc Gap between children
     --_gap: var(--ui-divider-gap, calc(#{t.$unit} * 2));
   }
 }
@@ -20,9 +26,9 @@
     block-size: var(--_height);
     margin: var(--_gap) 0;
 
-    font-size: var(--ui-font-size-sm, #{t.$font-size-sm});
+    font-size: var(--_font-size-sm);
     line-height: 1;
-    color: var(--ui-color-text-muted);
+    color: var(--_color-text-muted);
   }
 
   // Horizontal line (default)
@@ -74,6 +80,7 @@
   }
 
   // @modifier align
+  // @modifier position
   .divider--start::before {
     display: none;
   }

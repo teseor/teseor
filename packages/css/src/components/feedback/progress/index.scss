@@ -1,16 +1,25 @@
 @use '../../../config/tokens/variables' as t;
+// @component progress
+// @element div
 
 // Progress - progress bar indicator
 // Shows completion status of a task
 
 @layer components.tokens {
   .progress {
+    --_duration-normal: var(--ui-duration-normal, #{t.$duration-normal});
+    --_ease-default: var(--ui-ease-default, ease);
+    // @desc Overall height
     --_height: var(--ui-progress-height, calc(#{t.$unit} * 1));
-    --_bg: var(--ui-progress-bg, var(--ui-color-bg-subtle, rgb(0 0 0 / 0.1)));
+    // @desc Background color
+    --_bg: var(--ui-progress-bg, var(--ui-color-bg-subtle, #{t.$overlay-bg-subtle}));
+    // @desc Fill
     --_fill: var(--ui-progress-fill, var(--ui-color-primary));
-    --_radius: var(--ui-progress-radius, var(--ui-radius-full, 9999px));
+    // @desc Corner radius
+    --_radius: var(--ui-progress-radius, var(--ui-radius-full, #{t.$radius-full}));
   }
 
+  // @modifier size
   .progress--sm {
     --_height: calc(#{t.$unit} * 1);
   }
@@ -37,10 +46,11 @@
     background: var(--_fill);
     border-radius: var(--_radius);
 
-    transition: inline-size var(--ui-duration-normal, 200ms) var(--ui-ease-default, ease);
+    transition: inline-size var(--_duration-normal) var(--_ease-default);
   }
 
   // Indeterminate state - animated stripe
+  // @modifier boolean indeterminate
   .progress--indeterminate .progress__bar {
     inline-size: 30%;
 
@@ -58,6 +68,7 @@
   }
 
   // Striped variant
+  // @modifier boolean striped
   .progress--striped .progress__bar {
     background-image: linear-gradient(
       45deg,
@@ -73,6 +84,7 @@
   }
 
   // Animated stripes
+  // @modifier boolean animated
   .progress--animated .progress__bar {
     animation: progress-stripes 1s linear infinite;
   }
@@ -98,6 +110,7 @@
   }
 
   // Color variants
+  // @modifier variant
   .progress--success {
     --_fill: var(--ui-color-success);
   }

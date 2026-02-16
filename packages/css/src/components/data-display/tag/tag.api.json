@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "tag",
   "element": "span",
   "modifiers": {
@@ -12,91 +13,116 @@
   "elements": {
     "remove": {}
   },
-  "relatedComponents": ["tag-group"],
+  "relatedComponents": [
+    {
+      "name": "tag-group"
+    }
+  ],
   "cssVars": [
     {
       "name": "--ui-tag-height",
-      "default": "calc(var(--ui-unit) * 3"
+      "default": "calc(var(--ui-unit) * 3)",
+      "description": "Overall height"
     },
     {
       "name": "--ui-tag-padding-x",
-      "default": "var(--ui-space-1)"
+      "default": "var(--ui-space-1)",
+      "description": "Horizontal padding"
     },
     {
       "name": "--ui-tag-gap",
-      "default": "calc(var(--ui-unit) * 0.5"
+      "default": "calc(var(--ui-unit) * 0.5)",
+      "description": "Gap between children"
     },
     {
       "name": "--ui-tag-radius",
-      "default": "var(--ui-radius-full)"
+      "default": "var(--ui-radius-full)",
+      "description": "Corner radius"
     },
     {
       "name": "--ui-tag-font-size",
-      "default": "var(--ui-font-size-sm)"
+      "default": "var(--ui-font-size-sm)",
+      "description": "Font size"
     },
     {
       "name": "--ui-tag-bg",
-      "default": "var(--ui-color-bg-muted)"
+      "default": "var(--ui-color-bg-muted)",
+      "description": "Background color"
     },
     {
       "name": "--ui-tag-color",
-      "default": "var(--ui-color-text)"
+      "default": "var(--ui-color-text)",
+      "description": "Text color"
     },
     {
       "name": "--ui-tag-height-sm",
-      "default": "calc(var(--ui-unit) * 2.5"
+      "default": "calc(var(--ui-unit) * 2.5)",
+      "description": "Overall height at small size"
     },
     {
       "name": "--ui-tag-padding-x-sm",
-      "default": "calc(var(--ui-unit) * 1"
+      "default": "calc(var(--ui-unit) * 1)",
+      "description": "Horizontal padding at small size"
     },
     {
       "name": "--ui-tag-font-size-sm",
-      "default": "var(--ui-font-size-xs)"
+      "default": "var(--ui-font-size-xs)",
+      "description": "Font size at small size"
     },
     {
       "name": "--ui-tag-height-lg",
-      "default": "calc(var(--ui-unit) * 3.5)"
+      "default": "calc(var(--ui-unit) * 3.5)",
+      "description": "Overall height at large size"
     },
     {
       "name": "--ui-tag-padding-x-lg",
-      "default": "var(--ui-space-2)"
+      "default": "var(--ui-space-2)",
+      "description": "Horizontal padding at large size"
     },
     {
       "name": "--ui-tag-font-size-lg",
-      "default": "var(--ui-font-size-md)"
+      "default": "var(--ui-font-size-md)",
+      "description": "Font size at large size"
     },
     {
       "name": "--ui-tag-primary-bg",
-      "default": "var(--ui-color-primary)"
+      "default": "var(--ui-color-primary)",
+      "description": "Primary bg"
     },
     {
       "name": "--ui-tag-primary-color",
-      "default": "var(--ui-color-text-inverse)"
+      "default": "var(--ui-color-text-inverse)",
+      "description": "Primary color"
     },
     {
       "name": "--ui-tag-success-bg",
-      "default": "var(--ui-color-success)"
+      "default": "var(--ui-color-success)",
+      "description": "Success bg"
     },
     {
       "name": "--ui-tag-success-color",
-      "default": "var(--ui-color-text-inverse)"
+      "default": "var(--ui-color-text-inverse)",
+      "description": "Success color"
     },
     {
       "name": "--ui-tag-warning-bg",
-      "default": "var(--ui-color-warning)"
+      "default": "var(--ui-color-warning)",
+      "description": "Warning bg"
     },
     {
       "name": "--ui-tag-warning-color",
-      "default": "var(--ui-color-text)"
+      "default": "var(--ui-color-text)",
+      "description": "Warning color"
     },
     {
       "name": "--ui-tag-danger-bg",
-      "default": "var(--ui-color-danger)"
+      "default": "var(--ui-color-danger)",
+      "description": "Danger bg"
     },
     {
       "name": "--ui-tag-danger-color",
-      "default": "var(--ui-color-text-inverse)"
+      "default": "var(--ui-color-text-inverse)",
+      "description": "Danger color"
     }
   ]
 }

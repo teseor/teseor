@@ -1,9 +1,21 @@
+@use '../../config/tokens/variables' as t;
+// @component footer
+// @element footer
+
 @layer primitives {
   .footer {
+    --_space-2: var(--ui-space-2);
+    --_border-width-sm: var(--ui-border-width-sm);
+    --_hue-primary: var(--ui-hue-primary, #{t.$hue-primary});
+    // @desc Overall height
     --_height: var(--ui-footer-height, var(--ui-row-3));
+    // @desc Background color
     --_bg: var(--ui-footer-bg, var(--ui-color-bg));
+    // @desc Horizontal padding
     --_padding-inline: var(--ui-footer-padding-inline, var(--ui-space-3));
+    // @desc Border color
     --_border-color: var(--ui-footer-border-color, var(--ui-color-border));
+    // @desc Z-index stacking order
     --_z: var(--ui-footer-z, var(--ui-z-sticky));
 
     display: flex;
@@ -21,7 +33,7 @@
     display: flex;
     flex-shrink: 0;
     align-items: center;
-    gap: var(--ui-space-2);
+    gap: var(--_space-2);
   }
 
   .footer__center {
@@ -29,22 +41,24 @@
     flex: 1;
     align-items: center;
     justify-content: center;
-    gap: var(--ui-space-2);
+    gap: var(--_space-2);
   }
 
   .footer__end {
     display: flex;
     flex-shrink: 0;
     align-items: center;
-    gap: var(--ui-space-2);
+    gap: var(--_space-2);
   }
 
   // Position modifiers
+  // @modifier boolean sticky
   .footer--sticky {
     position: sticky;
     inset-block-end: 0;
   }
 
+  // @modifier boolean fixed
   .footer--fixed {
     position: fixed;
     inset-block-end: 0;
@@ -52,11 +66,13 @@
   }
 
   // Visual modifiers
+  // @modifier boolean bordered
   .footer--bordered {
-    box-shadow: inset 0 var(--ui-border-width-sm) 0 0 var(--_border-color);
+    box-shadow: inset 0 var(--_border-width-sm) 0 0 var(--_border-color);
   }
 
+  // @modifier boolean raised
   .footer--raised {
-    box-shadow: 0 calc(var(--ui-border-width-sm) * -1) 6px hsl(var(--ui-hue-primary, 220) 10% 20% / 0.08);
+    box-shadow: 0 calc(var(--_border-width-sm) * -1) 6px hsl(var(--_hue-primary) 10% 20% / 0.08);
   }
 }

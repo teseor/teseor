@@ -1,9 +1,10 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "grid",
   "element": "div",
   "modifiers": {
     "columns": {
-      "values": ["2", "3", "4"]
+      "values": ["2", "3", "4", "auto"]
     }
   },
   "cssVars": []

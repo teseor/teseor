@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "table",
   "element": "div",
   "modifiers": {
@@ -12,23 +13,28 @@
   "cssVars": [
     {
       "name": "--ui-table-font-size",
-      "default": "var(--ui-font-size-sm)"
+      "default": "var(--ui-font-size-sm)",
+      "description": "Font size"
     },
     {
       "name": "--ui-table-border-color",
-      "default": "var(--ui-color-border)"
+      "default": "var(--ui-color-border)",
+      "description": "Border color"
     },
     {
       "name": "--ui-table-header-bg",
-      "default": "var(--ui-color-bg-subtle)"
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Header background color"
     },
     {
       "name": "--ui-table-cell-padding-x",
-      "default": "var(--ui-space-2)"
+      "default": "var(--ui-space-2)",
+      "description": "Cell padding x"
     },
     {
       "name": "--ui-table-cell-padding-y",
-      "default": "var(--ui-space-1)"
+      "default": "var(--ui-space-1)",
+      "description": "Cell padding y"
     }
   ]
 }

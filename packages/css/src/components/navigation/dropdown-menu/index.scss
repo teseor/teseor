@@ -6,8 +6,14 @@
 
 @layer components.tokens {
   .dropdown-menu {
-    --_z: var(--ui-dropdown-menu-z, 200);
+    --_space-0: var(--ui-space-0, #{t.$space-0});
+    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
+    --_ease-default: var(--ui-ease-default, ease);
+    // @desc Z-index stacking order
+    --_z: var(--ui-dropdown-menu-z, #{t.$z-dropdown});
+    // @desc Panel offset from anchor
     --_panel-offset: var(--ui-dropdown-menu-panel-offset, var(--ui-space-1, #{t.$space-1}));
+    // @desc Panel minimum width
     --_panel-min-width: var(--ui-dropdown-menu-panel-min-width, auto);
   }
 }
@@ -21,7 +27,7 @@
   .dropdown-menu__trigger {
     display: inline-flex;
     align-items: center;
-    gap: var(--ui-space-0, #{t.$space-0});
+    gap: var(--_space-0);
   }
 
   .dropdown-menu__trigger-icon {
@@ -29,9 +35,10 @@
 
     font-size: 0.6em;
 
-    transition: transform var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease);
+    transition: transform var(--_duration-fast) var(--_ease-default);
   }
 
+  // @modifier boolean open
   .dropdown-menu--open .dropdown-menu__trigger-icon {
     transform: rotate(180deg);
   }
@@ -49,8 +56,8 @@
     transform: translateY(calc(#{t.$unit} * -1));
 
     transition:
-      opacity var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease),
-      transform var(--ui-duration-fast, 150ms) var(--ui-ease-default, ease);
+      opacity var(--_duration-fast) var(--_ease-default),
+      transform var(--_duration-fast) var(--_ease-default);
   }
 
   .dropdown-menu--open .dropdown-menu__panel {
@@ -60,6 +67,7 @@
   }
 
   // Position above trigger
+  // @modifier boolean top
   .dropdown-menu--top .dropdown-menu__panel {
     inset-block-start: auto;
     inset-block-end: calc(100% + var(--_panel-offset));
@@ -72,12 +80,14 @@
   }
 
   // Align to end edge
+  // @modifier boolean align-end
   .dropdown-menu--align-end .dropdown-menu__panel {
     inset-inline-start: auto;
     inset-inline-end: 0;
   }
 
   // Full-width panel matches trigger width
+  // @modifier boolean full-width
   .dropdown-menu--full-width .dropdown-menu__panel {
     min-inline-size: 100%;
   }

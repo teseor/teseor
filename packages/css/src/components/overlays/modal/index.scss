@@ -1,24 +1,38 @@
 @use '../../../config/tokens/variables' as t;
+// @component modal
+// @element div
 
 // Modal - container for modal dialogs
 // Centered container with backdrop that appears over page content
 
 @layer components.tokens {
   .modal {
+    --_duration-normal: var(--ui-duration-normal, #{t.$duration-normal});
+    --_ease-default: var(--ui-ease-default, ease);
+    // @desc Background color
     --_bg: var(--ui-modal-bg, var(--ui-color-bg, #{t.$color-bg}));
+    // @desc Corner radius
     --_radius: var(--ui-modal-radius, var(--ui-radius-lg, calc(#{t.$unit} * 1.5)));
+    // @desc Box shadow
     --_shadow: var(--ui-modal-shadow, 0 calc(#{t.$unit} * 3) calc(#{t.$unit} * 6) rgb(0 0 0 / 0.25));
+    // @desc Padding on all sides
     --_padding: var(--ui-modal-padding, calc(#{t.$unit} * 3));
+    // @desc Maximum width
     --_max-width: var(--ui-modal-max-width, calc(#{t.$unit} * 60));
+    // @desc Maximum height
     --_max-height: var(--ui-modal-max-height, calc(100vh - #{t.$unit} * 8));
-    --_z: var(--ui-modal-z, var(--ui-z-modal, 400));
+    // @desc Z-index stacking order
+    --_z: var(--ui-modal-z, var(--ui-z-modal, #{t.$z-modal}));
   }
 
+  // @modifier size
   .modal--sm {
+    // @desc Maximum width at small size
     --_max-width: var(--ui-modal-max-width-sm, calc(#{t.$unit} * 40));
   }
 
   .modal--lg {
+    // @desc Maximum width at large size
     --_max-width: var(--ui-modal-max-width-lg, calc(#{t.$unit} * 80));
   }
 
@@ -68,6 +82,7 @@
 
   // Animation states
   .modal--entering .modal__content,
+  // @modifier boolean visible
   .modal--visible .modal__content {
     opacity: 1;
     transform: scale(1);
@@ -81,8 +96,8 @@
 
   .modal--animate .modal__content {
     transition:
-      opacity var(--ui-duration-normal, 200ms) var(--ui-ease-default, ease),
-      transform var(--ui-duration-normal, 200ms) var(--ui-ease-default, ease);
+      opacity var(--_duration-normal) var(--_ease-default),
+      transform var(--_duration-normal) var(--_ease-default);
   }
 
   // Hidden state hides entire modal

@@ -1,28 +1,55 @@
 @use '../../../config/tokens/variables' as t;
+// @component tabs
+// @element div
 
 // Token definitions
 @layer components.tokens {
   .tabs {
+    --_space-1: var(--ui-space-1, #{t.$space-1});
+    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
+    --_font-sans: var(--ui-font-sans, #{t.$font-sans});
+    --_weight-medium: var(--ui-weight-medium, #{t.$weight-medium});
+    --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
+    --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
+    --_duration-base: var(--ui-duration-base);
+    --_ease-default: var(--ui-ease-default);
+    --_color-text: var(--ui-color-text, #{t.$color-text});
+    --_color-primary: var(--ui-color-primary, #{t.$color-primary});
+    --_row-1: var(--ui-row-1, #{t.$row});
+    // @desc Border color
     --_border-color: var(--ui-tabs-border-color, var(--ui-color-border, #{t.$color-border}));
+    // @desc Tab height
     --_tab-height: var(--ui-tabs-tab-height, var(--ui-row-2, #{t.$row-2}));
+    // @desc Tab padding x
     --_tab-padding-x: var(--ui-tabs-tab-padding-x, var(--ui-space-2, #{t.$space-2}));
+    // @desc Tab padding y
     --_tab-padding-y: var(--ui-tabs-tab-padding-y, var(--ui-space-1, #{t.$space-1}));
+    // @desc Tab font size
     --_tab-font-size: var(--ui-tabs-tab-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    // @desc Tab bg
     --_tab-bg: var(--ui-tabs-tab-bg, transparent);
+    // @desc Tab bg active
     --_tab-bg-active: var(--ui-tabs-tab-bg-active, var(--ui-color-bg, #{t.$color-bg}));
+    // @desc Panel padding on all sides
     --_panel-padding: var(--ui-tabs-panel-padding, var(--ui-space-3, #{t.$space-3}));
   }
 
   // @modifier size
   .tabs--sm {
+    // @desc Tab height sm
     --_tab-height: var(--ui-tabs-tab-height-sm, var(--ui-row-1, #{t.$row}));
+    // @desc Tab padding x sm
     --_tab-padding-x: var(--ui-tabs-tab-padding-x-sm, var(--ui-space-1, #{t.$space-1}));
+    // @desc Tab font size sm
     --_tab-font-size: var(--ui-tabs-tab-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
   }
 
   .tabs--lg {
+    // @desc Tab height lg
     --_tab-height: var(--ui-tabs-tab-height-lg, calc(#{t.$row} * 2.5));
+    // @desc Tab padding x lg
     --_tab-padding-x: var(--ui-tabs-tab-padding-x-lg, var(--ui-space-3, #{t.$space-3}));
+    // @desc Tab font size lg
     --_tab-font-size: var(--ui-tabs-tab-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
   }
 }
@@ -32,13 +59,13 @@
   .tabs__list {
     display: flex;
     align-items: stretch;
-    gap: var(--ui-space-1, #{t.$space-1});
+    gap: var(--_space-1);
 
     box-sizing: border-box;
     block-size: var(--_tab-height);
 
     // Use box-shadow instead of border to avoid affecting height
-    box-shadow: inset 0 calc(var(--ui-border-width-sm, #{t.$border-width-sm}) * -1) 0 var(--_border-color);
+    box-shadow: inset 0 calc(var(--_border-width-sm) * -1) 0 var(--_border-color);
   }
 
   .tabs__tab {
@@ -50,31 +77,31 @@
     padding-inline: var(--_tab-padding-x);
     margin: 0;
 
-    font-family: var(--ui-font-sans, #{t.$font-sans});
+    font-family: var(--_font-sans);
     font-size: var(--_tab-font-size);
-    font-weight: var(--ui-weight-medium, #{t.$weight-medium});
+    font-weight: var(--_weight-medium);
     line-height: 1;
-    color: var(--ui-color-text-muted, #{t.$color-text-muted});
+    color: var(--_color-text-muted);
 
     background: var(--_tab-bg);
     border: none;
     // Use box-shadow for indicator to avoid affecting height
-    box-shadow: inset 0 calc(var(--ui-border-width-md, #{t.$border-width-md}) * -1) 0 transparent;
+    box-shadow: inset 0 calc(var(--_border-width-md) * -1) 0 transparent;
     cursor: pointer;
 
     transition:
-      color var(--ui-duration-base) var(--ui-ease-default),
-      box-shadow var(--ui-duration-base) var(--ui-ease-default);
+      color var(--_duration-base) var(--_ease-default),
+      box-shadow var(--_duration-base) var(--_ease-default);
 
     &:hover {
-      color: var(--ui-color-text, #{t.$color-text});
+      color: var(--_color-text);
     }
 
     &--active {
-      color: var(--ui-color-primary, #{t.$color-primary});
+      color: var(--_color-primary);
 
       background: var(--_tab-bg-active);
-      box-shadow: inset 0 calc(var(--ui-border-width-md, #{t.$border-width-md}) * -1) 0 var(--ui-color-primary, #{t.$color-primary});
+      box-shadow: inset 0 calc(var(--_border-width-md) * -1) 0 var(--_color-primary);
     }
   }
 
@@ -83,7 +110,7 @@
 
     padding: var(--_panel-padding);
 
-    line-height: var(--ui-row-1, #{t.$row});
+    line-height: var(--_row-1);
 
     &--active {
       display: block;
@@ -91,6 +118,7 @@
   }
 
   // Vertical orientation
+  // @modifier boolean vertical
   .tabs--vertical {
     display: flex;
 
@@ -101,16 +129,16 @@
       inline-size: auto;
 
       // Move indicator to inline-start instead of block-end
-      box-shadow: inset calc(var(--ui-border-width-sm, #{t.$border-width-sm}) * -1) 0 0 var(--_border-color);
+      box-shadow: inset calc(var(--_border-width-sm) * -1) 0 0 var(--_border-color);
     }
 
     > .tabs__list > .tabs__tab {
       block-size: var(--_tab-height);
 
-      box-shadow: inset calc(var(--ui-border-width-md, #{t.$border-width-md}) * -1) 0 0 transparent;
+      box-shadow: inset calc(var(--_border-width-md) * -1) 0 0 transparent;
 
       &--active {
-        box-shadow: inset calc(var(--ui-border-width-md, #{t.$border-width-md}) * -1) 0 0 var(--ui-color-primary, #{t.$color-primary});
+        box-shadow: inset calc(var(--_border-width-md) * -1) 0 0 var(--_color-primary);
       }
     }
 

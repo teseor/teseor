@@ -1,17 +1,33 @@
 @use '../../../config/tokens/variables' as t;
+// @component popover
+// @element div
 
 // Popover - floating panel for additional content
 // Larger than tooltip, can contain structured content
 
 @layer components.tokens {
   .popover {
+    --_row-1: var(--ui-row-1, #{t.$row});
+    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
+    --_font-size-md: var(--ui-font-size-md, #{t.$font-size-md});
+    --_weight-semibold: var(--ui-weight-semibold, #{t.$weight-semibold});
+    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
+    --_ease-default: var(--ui-ease-default, ease);
+    // @desc Background color
     --_bg: var(--ui-popover-bg, var(--ui-color-bg, white));
-    --_border-color: var(--ui-popover-border-color, var(--ui-color-border, rgb(0 0 0 / 0.1)));
+    // @desc Border color
+    --_border-color: var(--ui-popover-border-color, var(--ui-color-border, #{t.$color-border}));
+    // @desc Corner radius
     --_radius: var(--ui-popover-radius, var(--ui-radius-md, calc(#{t.$unit} * 1)));
+    // @desc Box shadow
     --_shadow: var(--ui-popover-shadow, 0 calc(#{t.$unit} / 2) calc(#{t.$unit} * 2) rgb(0 0 0 / 0.15));
+    // @desc Padding on all sides
     --_padding: var(--ui-popover-padding, calc(#{t.$unit} * 2));
+    // @desc Maximum width
     --_max-width: var(--ui-popover-max-width, calc(#{t.$unit} * 40));
-    --_z: var(--ui-popover-z, var(--ui-z-popover, 500));
+    // @desc Z-index stacking order
+    --_z: var(--ui-popover-z, var(--ui-z-popover, #{t.$z-popover}));
+    // @desc Arrow size
     --_arrow-size: var(--ui-popover-arrow-size, calc(#{t.$unit}));
   }
 }
@@ -24,13 +40,13 @@
     max-inline-size: var(--_max-width);
     padding: var(--_padding);
 
-    line-height: var(--ui-row-1, #{t.$row});
+    line-height: var(--_row-1);
 
     background: var(--_bg);
     border-radius: var(--_radius);
-    outline: var(--ui-border-width-sm, 0.0625rem) solid var(--_border-color);
+    outline: var(--_border-width-sm) solid var(--_border-color);
     box-shadow: var(--_shadow);
-    outline-offset: calc(var(--ui-border-width-sm, 0.0625rem) * -1);
+    outline-offset: calc(var(--_border-width-sm) * -1);
   }
 
   // Header section
@@ -38,17 +54,18 @@
     padding-block-end: calc(#{t.$unit} * 2);
     margin-block-end: calc(#{t.$unit} * 2);
 
-    box-shadow: inset 0 calc(var(--ui-border-width-sm, 1px) * -1) 0 var(--_border-color);
+    box-shadow: inset 0 calc(var(--_border-width-sm) * -1) 0 var(--_border-color);
   }
 
   .popover__title {
     margin: 0;
 
-    font-size: var(--ui-font-size-md, #{t.$font-size-md});
-    font-weight: var(--ui-weight-semibold, 600);
+    font-size: var(--_font-size-md);
+    font-weight: var(--_weight-semibold);
   }
 
   // Arrow pointing down (popover above trigger)
+  // @modifier position
   .popover--top::after {
 
     content: "";
@@ -109,6 +126,6 @@
   }
 
   .popover--animate {
-    transition: opacity var(--ui-duration-fast, 100ms) var(--ui-ease-default, ease);
+    transition: opacity var(--_duration-fast) var(--_ease-default);
   }
 }

@@ -1,4 +1,5 @@
 {
+  "$schema": "Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api",
   "name": "code",
   "element": "div",
   "modifiers": {
@@ -6,47 +7,61 @@
       "values": ["sm"]
     }
   },
-  "relatedComponents": ["code-block"],
+  "relatedComponents": [
+    {
+      "name": "code-block"
+    }
+  ],
   "cssVars": [
     {
       "name": "--ui-code-font-size",
-      "default": "var(--ui-font-size-sm)"
+      "default": "var(--ui-font-size-sm)",
+      "description": "Font size"
     },
     {
       "name": "--ui-code-bg",
-      "default": "var(--ui-color-bg-muted)"
+      "default": "var(--ui-color-bg-muted)",
+      "description": "Background color"
     },
     {
       "name": "--ui-code-padding-x",
-      "default": "var(--ui-space-1)"
+      "default": "var(--ui-space-1)",
+      "description": "Horizontal padding"
     },
     {
       "name": "--ui-code-padding-y",
-      "default": "var(--ui-space-0)"
+      "default": "var(--ui-space-0)",
+      "description": "Vertical padding"
     },
     {
       "name": "--ui-code-radius",
-      "default": "var(--ui-radius-sm)"
+      "default": "var(--ui-radius-sm)",
+      "description": "Corner radius"
     },
     {
       "name": "--ui-code-font-size-block",
-      "default": "var(--ui-font-size-sm)"
+      "default": "var(--ui-font-size-sm)",
+      "description": "Font size block"
     },
     {
       "name": "--ui-code-bg-block",
-      "default": "var(--ui-color-bg-muted)"
+      "default": "var(--ui-color-bg-muted)",
+      "description": "Bg block"
     },
     {
       "name": "--ui-code-padding-block",
-      "default": "var(--ui-space-3)"
+      "default": "var(--ui-space-3)",
+      "description": "Vertical padding"
     },
     {
       "name": "--ui-code-radius-block",
-      "default": "var(--ui-radius-md)"
+      "default": "var(--ui-radius-md)",
+      "description": "Radius block"
     },
     {
       "name": "--ui-code-border-color-block",
-      "default": "var(--ui-color-border)"
+      "default": "var(--ui-color-border)",
+      "description": "Border color block"
     }
   ]
 }

@@ -1,14 +1,27 @@
 @use '../../../config/tokens/variables' as t;
+// @component breadcrumb
+// @element div
 
 // Breadcrumb - navigation hierarchy
 // Shows current page location in site structure
 
 @layer components.tokens {
   .breadcrumb {
+    --_font-size-sm: var(--ui-font-size-sm, #{t.$font-size-sm});
+    // @desc Separator
+    --_breadcrumb-separator: var(--ui-breadcrumb-separator, "/");
+    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
+    --_ease-default: var(--ui-ease-default, ease);
+    --_color-primary: var(--ui-color-primary);
+    // @desc Overall height
     --_height: var(--ui-breadcrumb-height, var(--ui-row-1, #{t.$row}));
+    // @desc Gap between children
     --_gap: var(--ui-breadcrumb-gap, calc(#{t.$unit} * 1));
+    // @desc Separator text color
     --_separator-color: var(--ui-breadcrumb-separator-color, var(--ui-color-text-muted));
+    // @desc Link text color
     --_link-color: var(--ui-breadcrumb-link-color, var(--ui-color-text-muted));
+    // @desc Current color
     --_current-color: var(--ui-breadcrumb-current-color, var(--ui-color-text));
   }
 }
@@ -24,7 +37,7 @@
     padding: 0;
     margin: 0;
 
-    font-size: var(--ui-font-size-sm, #{t.$font-size-sm});
+    font-size: var(--_font-size-sm);
     line-height: 1;
 
     list-style: none;
@@ -41,7 +54,7 @@
   // Separator after each item except last
   .breadcrumb__item:not(:last-child)::after {
 
-    content: var(--ui-breadcrumb-separator, "/");
+    content: var(--_breadcrumb-separator);
 
     color: var(--_separator-color);
   }
@@ -50,11 +63,11 @@
     text-decoration: none;
     color: var(--_link-color);
 
-    transition: color var(--ui-duration-fast, 100ms) var(--ui-ease-default, ease);
+    transition: color var(--_duration-fast) var(--_ease-default);
 
     &:hover {
       text-decoration: underline;
-      color: var(--ui-color-primary);
+      color: var(--_color-primary);
     }
   }
 

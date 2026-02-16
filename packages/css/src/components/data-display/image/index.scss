@@ -5,29 +5,41 @@
 
 @layer components.tokens {
   .image {
+    --_row-1: var(--ui-row-1, #{t.$row-1});
+    // @desc Overall size
     --_size: var(--ui-image-size, auto);
+    // @desc Corner radius
     --_radius: var(--ui-image-radius, 0);
+    // @desc Object fit
     --_object-fit: var(--ui-image-object-fit, cover);
+    // @desc Background color
     --_bg: var(--ui-image-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+    // @desc Caption color
     --_caption-color: var(--ui-image-caption-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    // @desc Caption font size
     --_caption-font-size: var(--ui-image-caption-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    // @desc Caption spacing
     --_caption-spacing: var(--ui-image-caption-spacing, var(--ui-space-1));
   }
 
   // @modifier size
   .image--sm {
+    // @desc Overall size at small size
     --_size: var(--ui-image-size-sm, calc(#{t.$unit} * 12));
   }
 
   .image--md {
+    // @desc Overall size at medium size
     --_size: var(--ui-image-size-md, calc(#{t.$unit} * 24));
   }
 
   .image--lg {
+    // @desc Overall size at large size
     --_size: var(--ui-image-size-lg, calc(#{t.$unit} * 40));
   }
 
   .image--xl {
+    // @desc Overall size at extra-large size
     --_size: var(--ui-image-size-xl, calc(#{t.$unit} * 60));
   }
 
@@ -37,11 +49,13 @@
 
   // @modifier boolean rounded
   .image--rounded {
+    // @desc Radius rounded
     --_radius: var(--ui-image-radius-rounded, var(--ui-radius-lg, #{t.$radius-lg}));
   }
 
   // @modifier boolean circle
   .image--circle {
+    // @desc Radius circle
     --_radius: var(--ui-image-radius-circle, 50%);
   }
 
@@ -92,7 +106,7 @@
     margin-block-start: var(--_caption-spacing);
 
     font-size: var(--_caption-font-size);
-    line-height: var(--ui-row-1, #{t.$row-1});
+    line-height: var(--_row-1);
     color: var(--_caption-color);
   }
 
