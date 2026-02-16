@@ -24,6 +24,19 @@
     // @desc Value display text color
     --_value-color: var(--ui-data-list-value-color, var(--ui-color-text, #{t.$color-text}));
   }
+
+  // Compact size
+  // @modifier size
+  .data-list--sm {
+    --_gap: calc(#{t.$unit} * 1);
+    --_item-gap: 0;
+  }
+
+  // Large size
+  .data-list--lg {
+    --_gap: calc(#{t.$unit} * 3);
+    --_item-gap: calc(#{t.$unit} * 1);
+  }
 }
 
 @layer components.styles {
@@ -100,17 +113,11 @@
   // Compact size
   // @modifier size
   .data-list--sm {
-    --_gap: calc(#{t.$unit} * 1);
-    --_item-gap: 0;
-
     font-size: var(--_font-size-sm);
   }
 
   // Large size
   .data-list--lg {
-    --_gap: calc(#{t.$unit} * 3);
-    --_item-gap: calc(#{t.$unit} * 1);
-
     font-size: var(--_font-size-lg);
   }
 }
