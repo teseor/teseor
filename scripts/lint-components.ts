@@ -10,6 +10,7 @@
  * Scans category subdirectories under components/
  */
 
+import { execSync } from 'node:child_process';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -411,7 +412,6 @@ function lintStyleLayerTokens(): void {
         const lines = layerBody.split('\n');
         let charOffset = 0;
         for (const rawLine of lines) {
-          const trimmedLine = rawLine.trim();
           // Skip custom property declarations — these are token assignments, not property usage
           const isCustomPropDecl = /^\s*--[\w_-]+\s*:/.test(rawLine);
           if (!isCustomPropDecl) {
@@ -456,8 +456,24 @@ function lintStyleLayerTokens(): void {
   }
 }
 
+function lintApiSync(): void {
+  try {
+    execSync('tsx scripts/generate-api.ts -- --check', {
+      encoding: 'utf-8',
+      stdio: 'pipe',
+    });
+    console.log('API sync: all api.json files up to date.');
+  } catch (err: unknown) {
+    const error = err as { stdout?: string; stderr?: string };
+    const output = (error.stdout || '') + (error.stderr || '');
+    console.error(output);
+    process.exit(1);
+  }
+}
+
 lintComponents();
 lintSidenavCompleteness();
 lintJsonContent();
 lintTokenFallbacks();
 lintStyleLayerTokens();
+lintApiSync();
