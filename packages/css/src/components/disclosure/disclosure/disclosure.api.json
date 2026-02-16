@@ -3,10 +3,10 @@
   "name": "disclosure",
   "element": "div",
   "modifiers": {
-    "animate": {
+    "borderless": {
       "type": "boolean"
     },
-    "borderless": {
+    "animate": {
       "type": "boolean"
     }
   },

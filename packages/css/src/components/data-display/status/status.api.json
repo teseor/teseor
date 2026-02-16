@@ -6,11 +6,11 @@
     "variant": {
       "values": ["success", "warning", "danger", "info"]
     },
-    "pulse": {
-      "type": "boolean"
-    },
     "size": {
       "values": ["sm", "lg"]
+    },
+    "pulse": {
+      "type": "boolean"
     }
   },
   "elements": {
