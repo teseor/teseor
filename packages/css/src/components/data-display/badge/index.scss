@@ -6,27 +6,40 @@
 @layer components.tokens {
   .badge {
     // Single accent color - variants override this
+    // @desc Accent color
     --_accent: var(--ui-badge-accent, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
 
+    // @desc Overall height
     --_height: var(--ui-badge-height, calc(var(--ui-row, #{t.$row}) * 1.25));
+    // @desc Horizontal padding
     --_padding-x: var(--ui-badge-padding-x, var(--ui-space-1, #{t.$space-1}));
+    // @desc Font size
     --_font-size: var(--ui-badge-font-size, var(--ui-font-size-xs, #{t.$font-size-xs}));
+    // @desc Font weight
     --_font-weight: var(--ui-badge-font-weight, var(--ui-weight-medium, #{t.$weight-medium}));
+    // @desc Corner radius
     --_radius: var(--ui-badge-radius, var(--ui-radius-full, #{t.$radius-full}));
     --_bg: var(--_accent);
+    // @desc Text color
     --_color: var(--ui-badge-color, var(--ui-color-text, #{t.$color-text}));
   }
 
   // @modifier size
   .badge--sm {
+    // @desc Overall height at small size
     --_height: var(--ui-badge-height-sm, var(--ui-row, #{t.$row}));
+    // @desc Horizontal padding at small size
     --_padding-x: var(--ui-badge-padding-x-sm, var(--ui-space-0, #{t.$space-0}));
+    // @desc Font size at small size
     --_font-size: var(--ui-badge-font-size-sm, calc(var(--ui-font-size-xs, #{t.$font-size-xs}) * 0.85));
   }
 
   .badge--lg {
+    // @desc Overall height at large size
     --_height: var(--ui-badge-height-lg, calc(var(--ui-row, #{t.$row}) * 1.5));
+    // @desc Horizontal padding at large size
     --_padding-x: var(--ui-badge-padding-x-lg, var(--ui-space-2, #{t.$space-2}));
+    // @desc Font size at large size
     --_font-size: var(--ui-badge-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
   }
 

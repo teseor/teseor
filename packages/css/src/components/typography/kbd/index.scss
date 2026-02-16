@@ -1,16 +1,26 @@
 @use '../../../config/tokens/variables' as t;
+// @component kbd
+// @element kbd
 
 @layer components.tokens {
   .kbd {
     --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
     --_space-quarter: var(--ui-space-quarter, #{t.$space-quarter});
+    // @desc Font size
     --_font-size: var(--ui-kbd-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    // @desc Font family
     --_font-family: var(--ui-kbd-font-family, var(--ui-font-mono, #{t.$font-mono}));
+    // @desc Horizontal padding
     --_padding-x: var(--ui-kbd-padding-x, var(--ui-space-0, #{t.$space-0}));
+    // @desc Vertical padding
     --_padding-y: var(--ui-kbd-padding-y, var(--ui-space-0, #{t.$space-0}));
+    // @desc Background color
     --_bg: var(--ui-kbd-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
+    // @desc Border color
     --_border-color: var(--ui-kbd-border-color, var(--ui-color-border, #{t.$color-border}));
+    // @desc Corner radius
     --_radius: var(--ui-kbd-radius, var(--ui-radius-sm, #{t.$radius-sm}));
+    // @desc Text color
     --_color: var(--ui-kbd-color, var(--ui-color-text, #{t.$color-text}));
   }
 }

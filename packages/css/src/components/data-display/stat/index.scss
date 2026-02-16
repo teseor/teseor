@@ -1,24 +1,35 @@
 @use '../../../config/tokens/variables' as t;
+// @component stat
+// @element div
 
 @layer components.tokens {
   .stat {
     --_tracking-display: var(--ui-tracking-display, #{t.$tracking-display});
+    // @desc Gap between children
     --_gap: var(--ui-stat-gap, var(--ui-space-1, #{t.$space-1}));
   }
 
   .stat__value {
+    // @desc Value display font size
     --_font-size: var(--ui-stat-value-font-size, var(--ui-font-size-3xl, #{t.$font-size-3xl}));
+    // @desc Value display font weight
     --_font-weight: var(--ui-stat-value-font-weight, var(--ui-weight-bold, #{t.$weight-bold}));
+    // @desc Value display line height
     --_line-height: var(--ui-stat-value-line-height, var(--ui-leading-3xl, #{t.$leading-3xl}));
+    // @desc Value display text color
     --_color: var(--ui-stat-value-color, var(--ui-color-text, #{t.$color-text}));
   }
 
   .stat__label {
+    // @desc Label font size
     --_font-size: var(--ui-stat-label-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    // @desc Label text color
     --_color: var(--ui-stat-label-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    // @desc Label line height
     --_line-height: var(--ui-stat-label-line-height, var(--ui-leading-sm, #{t.$leading-sm}));
   }
 
+  // @modifier size
   .stat--sm .stat__value {
     --_font-size: var(--ui-font-size-xl, #{t.$font-size-xl});
     --_line-height: var(--ui-leading-xl, #{t.$leading-xl});

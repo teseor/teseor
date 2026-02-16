@@ -1,4 +1,7 @@
 @use '../../../config/tokens/variables' as t;
+// @component toast
+// @element div
+// @related toast-viewport
 
 // Toast - notification messages
 // Appears in viewport corner with auto-dismiss
@@ -16,20 +19,30 @@
     --_ease-out: var(--ui-ease-out, ease-out);
     --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
     --_ease-in: var(--ui-ease-in, ease-in);
+    // @desc Viewport gap
     --_gap: var(--ui-toast-viewport-gap, calc(#{t.$unit} * 1));
+    // @desc Viewport padding
     --_padding: var(--ui-toast-viewport-padding, calc(#{t.$unit} * 2));
+    // @desc Viewport max width
     --_max-width: var(--ui-toast-viewport-max-width, #{t.$toast-viewport-max-width});
   }
 
   .toast {
+    // @desc Padding on all sides
     --_padding: var(--ui-toast-padding, calc(#{t.$unit} * 2));
+    // @desc Gap between children
     --_gap: var(--ui-toast-gap, calc(#{t.$unit} * 1));
+    // @desc Corner radius
     --_radius: var(--ui-toast-radius, var(--ui-radius-md, #{t.$radius-md}));
+    // @desc Background color
     --_bg: var(--ui-toast-bg, var(--ui-color-bg, #{t.$color-bg}));
+    // @desc Border color
     --_border-color: var(--ui-toast-border-color, var(--ui-color-border, #{t.$color-border}));
+    // @desc Box shadow
     --_shadow: var(--ui-toast-shadow, var(--ui-shadow-lg));
   }
 
+  // @modifier variant
   .toast--success {
     --_border-color: var(--ui-color-success);
   }

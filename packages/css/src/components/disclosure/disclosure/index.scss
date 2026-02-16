@@ -1,4 +1,6 @@
 @use '../../../config/tokens/variables' as t;
+// @component disclosure
+// @element div
 
 // Disclosure - expandable/collapsible content section
 // Uses native details/summary for no-JS accessibility
@@ -10,11 +12,17 @@
     --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
     --_ease-default: var(--ui-ease-default, ease);
     --_duration-normal: var(--ui-duration-normal, #{t.$duration-normal});
+    // @desc Border color
     --_border-color: var(--ui-disclosure-border-color, var(--ui-color-border, #{t.$color-border}));
+    // @desc Border thickness
     --_border-width: var(--ui-disclosure-border-width, #{t.$border-width-sm});
+    // @desc Corner radius
     --_radius: var(--ui-disclosure-radius, var(--ui-radius-md, calc(#{t.$unit} * 1)));
+    // @desc Trigger overall height
     --_trigger-height: var(--ui-disclosure-trigger-height, var(--ui-row-3, calc(#{t.$row} * 3)));
+    // @desc Horizontal padding
     --_padding-x: var(--ui-disclosure-padding-x, calc(#{t.$unit} * 2));
+    // @desc Vertical padding
     --_padding-y: var(--ui-disclosure-padding-y, calc(#{t.$unit} * 2));
   }
 }
@@ -81,6 +89,7 @@
   }
 
   // Animation for content
+  // @modifier boolean animate
   .disclosure--animate .disclosure__content {
     animation: disclosure-open var(--_duration-normal) var(--_ease-default);
   }
@@ -98,6 +107,7 @@
   }
 
   // Borderless variant
+  // @modifier boolean borderless
   .disclosure--borderless {
     --_border-width: 0;
 

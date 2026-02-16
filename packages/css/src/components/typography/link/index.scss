@@ -9,16 +9,23 @@
     --_ease-default: var(--ui-ease-default, ease);
     --_color-focus: var(--ui-color-focus, var(--ui-color-primary));
     --_color-text-muted: var(--ui-color-text-muted);
+    // @desc Text color
     --_color: var(--ui-link-color, var(--ui-color-primary));
+    // @desc Color hover
     --_color-hover: var(--ui-link-color-hover, var(--ui-color-primary-hover, color-mix(in srgb, var(--_color) 85%, black)));
+    // @desc Color visited
     --_color-visited: var(--ui-link-color-visited, var(--_color));
+    // @desc Decoration
     --_decoration: var(--ui-link-decoration, underline);
+    // @desc Decoration hover
     --_decoration-hover: var(--ui-link-decoration-hover, underline);
   }
 
   // @modifier variant
   .link--muted {
+    // @desc Color muted
     --_color: var(--ui-link-color-muted, var(--ui-color-text-muted));
+    // @desc Color muted hover
     --_color-hover: var(--ui-link-color-muted-hover, var(--ui-color-text));
   }
 
@@ -55,6 +62,7 @@
   }
 
   // Disabled link
+  // @modifier boolean disabled
   .link--disabled,
   .link[aria-disabled="true"] {
     color: var(--_color-text-muted);
@@ -65,6 +73,7 @@
   }
 
   // External link indicator
+  // @modifier boolean external
   .link--external::after {
 
     content: "\2197"; // ↗

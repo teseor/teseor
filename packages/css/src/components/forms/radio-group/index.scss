@@ -9,22 +9,34 @@
     --_row-1: var(--ui-row-1, #{t.$row-1});
     --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
     --_space-2: var(--ui-space-2, #{t.$space-2});
+    // @desc Spacing
     --_spacing: var(--ui-radio-group-spacing, var(--ui-space-1, #{t.$space-1}));
+    // @desc Legend size
     --_legend-size: var(--ui-radio-group-legend-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    // @desc Legend weight
     --_legend-weight: var(--ui-radio-group-legend-weight, var(--ui-weight-medium, #{t.$weight-medium}));
+    // @desc Legend color
     --_legend-color: var(--ui-radio-group-legend-color, var(--ui-color-text, #{t.$color-text}));
+    // @desc Legend spacing
     --_legend-spacing: var(--ui-radio-group-legend-spacing, var(--ui-space-1, #{t.$space-1}));
+    // @desc Item gap between children
     --_item-gap: var(--ui-radio-group-item-gap, var(--ui-space-1, #{t.$space-1}));
   }
 
+  // @modifier boolean compact
   .radio-group--compact {
+    // @desc Spacing compact
     --_spacing: var(--ui-radio-group-spacing-compact, 0);
+    // @desc Legend spacing compact
     --_legend-spacing: var(--ui-radio-group-legend-spacing-compact, 0);
+    // @desc Item gap compact
     --_item-gap: var(--ui-radio-group-item-gap-compact, 0);
   }
 
   // @modifier state
+  // @modifier boolean error
   .radio-group--error {
+    // @desc Error color
     --_legend-color: var(--ui-radio-group-error-color, var(--ui-color-danger, #{t.$color-danger}));
   }
 }
@@ -73,6 +85,7 @@
   }
 
   // Horizontal layout
+  // @modifier boolean horizontal
   .radio-group--horizontal > .radio-group__items {
     flex-direction: row;
     flex-wrap: wrap;

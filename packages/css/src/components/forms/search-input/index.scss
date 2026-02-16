@@ -13,32 +13,52 @@
     --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
     --_space-half: var(--ui-space-half, #{t.$space-0});
     --_radius-sm: var(--ui-radius-sm, #{t.$radius-sm});
+    // @desc Overall height
     --_height: var(--ui-search-input-height, var(--ui-row-2, #{t.$row-2}));
+    // @desc Horizontal padding
     --_padding-x: var(--ui-search-input-padding-x, var(--ui-space-1, #{t.$space-1}));
+    // @desc Font size
     --_font-size: var(--ui-search-input-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    // @desc Corner radius
     --_radius: var(--ui-search-input-radius, var(--ui-radius-md, #{t.$radius-md}));
+    // @desc Background color
     --_bg: var(--ui-search-input-bg, var(--ui-color-bg, #{t.$color-bg}));
+    // @desc Border color
     --_border-color: var(--ui-search-input-border-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
+    // @desc Border color focus
     --_border-color-focus: var(--ui-search-input-border-color-focus, var(--ui-color-primary, #{t.$color-primary}));
+    // @desc Text
     --_text: var(--ui-search-input-text, var(--ui-color-text, #{t.$color-text}));
+    // @desc Placeholder
     --_placeholder: var(--ui-search-input-placeholder, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    // @desc Icon color
     --_icon-color: var(--ui-search-input-icon-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    // @desc Icon dimensions
     --_icon-size: var(--ui-search-input-icon-size, var(--ui-size-md, #{t.size(md)}));
+    // @desc Clear color
     --_clear-color: var(--ui-search-input-clear-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    // @desc Clear hover bg
     --_clear-hover-bg: var(--ui-search-input-clear-hover-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
   }
 
   // @modifier size
   .search-input--sm {
+    // @desc Overall height at small size
     --_height: var(--ui-search-input-height-sm, calc(#{t.$row} * 1.5));
+    // @desc Font size at small size
     --_font-size: var(--ui-search-input-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
+    // @desc Icon dimensions at small size
     --_icon-size: var(--ui-search-input-icon-size-sm, var(--ui-size-sm, #{t.size(sm)}));
   }
 
   .search-input--lg {
+    // @desc Overall height at large size
     --_height: var(--ui-search-input-height-lg, calc(#{t.$row} * 2.5));
+    // @desc Horizontal padding at large size
     --_padding-x: var(--ui-search-input-padding-x-lg, var(--ui-space-2, #{t.$space-2}));
+    // @desc Font size at large size
     --_font-size: var(--ui-search-input-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
+    // @desc Icon dimensions at large size
     --_icon-size: var(--ui-search-input-icon-size-lg, var(--ui-size-lg, #{t.size(lg)}));
   }
 }
@@ -66,11 +86,13 @@
     }
 
     // Full width
+  // @modifier boolean block
     &--block {
       inline-size: 100%;
     }
 
     // Disabled
+  // @modifier boolean disabled
     &--disabled,
     &:has(.search-input__field:disabled) {
       opacity: var(--_opacity-disabled);
@@ -133,6 +155,7 @@
   }
 
   // Field padding when clear button present
+  // @modifier boolean has-clear
   .search-input--has-clear .search-input__field {
     padding-inline-end: 0;
   }

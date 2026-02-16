@@ -1,4 +1,7 @@
 @use '../../../config/tokens/variables' as t;
+// @component drawer
+// @element div
+// @related drawer-overlay
 
 // Drawer - slide-out panel
 // Side panel that slides in from edge
@@ -17,16 +20,25 @@
     --_row-1: var(--ui-row-1, #{t.$row});
     --_font-size-sm: var(--ui-font-size-sm, #{t.$font-size-sm});
     --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
+    // @desc Overall size
     --_size: var(--ui-drawer-size, calc(#{t.$unit} * 40));
+    // @desc Max size
     --_max-size: var(--ui-drawer-max-size, 90%);
+    // @desc Background color
     --_bg: var(--ui-drawer-bg, var(--ui-color-bg, #{t.$color-bg}));
+    // @desc Box shadow
     --_shadow: var(--ui-drawer-shadow, var(--ui-shadow-lg));
+    // @desc Header padding on all sides
     --_header-padding: var(--ui-drawer-header-padding, calc(#{t.$unit} * 2) calc(#{t.$unit} * 3));
+    // @desc Body area padding on all sides
     --_body-padding: var(--ui-drawer-body-padding, calc(#{t.$unit} * 3));
+    // @desc Footer padding on all sides
     --_footer-padding: var(--ui-drawer-footer-padding, calc(#{t.$unit} * 2) calc(#{t.$unit} * 3));
+    // @desc Border color
     --_border-color: var(--ui-drawer-border-color, var(--ui-color-border, #{t.$color-border}));
   }
 
+  // @modifier size
   .drawer--sm {
     --_size: calc(#{t.$unit} * 30);
   }
@@ -84,6 +96,7 @@
   }
 
   // Direction variants
+  // @modifier position
   .drawer--end {
     inset-block: 0;
     inset-inline-end: 0;

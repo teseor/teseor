@@ -1,12 +1,17 @@
 @use '../../../config/tokens/variables' as t;
+// @component skeleton
+// @element div
 
 // Skeleton - loading placeholder
 // Animated shimmer effect for content loading states
 
 @layer components.tokens {
   .skeleton {
+    // @desc Background color
     --_bg: var(--ui-skeleton-bg, var(--ui-color-bg-subtle, #{t.$overlay-bg-subtle}));
+    // @desc Shimmer
     --_shimmer: var(--ui-skeleton-shimmer, #{t.$skeleton-shimmer});
+    // @desc Corner radius
     --_radius: var(--ui-skeleton-radius, var(--ui-radius-sm, calc(#{t.$unit} / 2)));
   }
 }
@@ -47,6 +52,7 @@
   }
 
   // Text line variant
+  // @modifier variant
   .skeleton--text {
     block-size: calc(#{t.$unit} * 2);
     inline-size: 100%;
@@ -78,6 +84,7 @@
   }
 
   // Pulse animation alternative
+  // @modifier boolean pulse
   .skeleton--pulse {
     animation: skeleton-pulse 1.5s infinite ease-in-out;
   }

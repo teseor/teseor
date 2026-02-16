@@ -11,28 +11,40 @@
     --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
     --_color-focus: var(--ui-color-focus, #{t.$color-focus});
     --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    // @desc Overall size
     --_size: var(--ui-checkbox-size, calc(#{t.$unit} * 2));
+    // @desc Corner radius
     --_radius: var(--ui-checkbox-radius, var(--ui-radius-sm, #{t.$radius-sm}));
+    // @desc Background color
     --_bg: var(--ui-checkbox-bg, var(--ui-color-bg, #{t.$color-bg}));
+    // @desc Bg checked
     --_bg-checked: var(--ui-checkbox-bg-checked, var(--ui-color-primary, #{t.$color-primary}));
+    // @desc Border color
     --_border-color: var(--ui-checkbox-border-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
+    // @desc Border color focus
     --_border-color-focus: var(--ui-checkbox-border-color-focus, var(--ui-color-primary, #{t.$color-primary}));
+    // @desc Check mark text color
     --_check-color: var(--ui-checkbox-check-color, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
   }
 
   // @modifier size
   .checkbox--lg {
+    // @desc Overall size at large size
     --_size: var(--ui-checkbox-size-lg, calc(#{t.$unit} * 3));
   }
 
   // @modifier state
   .checkbox--error {
+    // @desc Error border
     --_border-color: var(--ui-checkbox-error-border, var(--ui-color-danger, #{t.$color-danger}));
+    // @desc Error border
     --_border-color-focus: var(--ui-checkbox-error-border, var(--ui-color-danger, #{t.$color-danger}));
   }
 
   .checkbox--success {
+    // @desc Success border
     --_border-color: var(--ui-checkbox-success-border, var(--ui-color-success, #{t.$color-success}));
+    // @desc Success border
     --_border-color-focus: var(--ui-checkbox-success-border, var(--ui-color-success, #{t.$color-success}));
   }
 }

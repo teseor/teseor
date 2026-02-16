@@ -1,3 +1,6 @@
+// @component page-header
+// @element header
+
 @layer primitives {
   .page-header {
     --_body-line-height: var(--ui-body-line-height);
@@ -6,9 +9,13 @@
     --_border-width-sm: var(--ui-border-width-sm);
     --_z-sticky: var(--ui-z-sticky);
     --_color-bg: var(--ui-color-bg);
+    // @desc Vertical padding
     --_padding-block: var(--ui-page-header-padding-block, var(--ui-space-3));
+    // @desc Horizontal padding
     --_padding-inline: var(--ui-page-header-padding-inline, 0);
+    // @desc Gap between children
     --_gap: var(--ui-page-header-gap, var(--ui-space-2));
+    // @desc Border color
     --_border-color: var(--ui-page-header-border-color, var(--ui-color-border));
 
     display: flex;
@@ -44,10 +51,12 @@
   }
 
   // Modifiers
+  // @modifier boolean bordered
   .page-header--bordered {
     box-shadow: inset 0 calc(var(--_border-width-sm) * -1) 0 0 var(--_border-color);
   }
 
+  // @modifier boolean sticky
   .page-header--sticky {
     position: sticky;
     inset-block-start: 0;

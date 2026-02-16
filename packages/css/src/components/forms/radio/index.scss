@@ -11,27 +11,38 @@
     --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
     --_color-focus: var(--ui-color-focus, #{t.$color-focus});
     --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    // @desc Overall size
     --_size: var(--ui-radio-size, calc(#{t.$unit} * 2));
+    // @desc Background color
     --_bg: var(--ui-radio-bg, var(--ui-color-bg, #{t.$color-bg}));
+    // @desc Bg checked
     --_bg-checked: var(--ui-radio-bg-checked, var(--ui-color-primary, #{t.$color-primary}));
+    // @desc Border color
     --_border-color: var(--ui-radio-border-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
+    // @desc Border color focus
     --_border-color-focus: var(--ui-radio-border-color-focus, var(--ui-color-primary, #{t.$color-primary}));
+    // @desc Dot color
     --_dot-color: var(--ui-radio-dot-color, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
   }
 
   // @modifier size
   .radio--lg {
+    // @desc Overall size at large size
     --_size: var(--ui-radio-size-lg, calc(#{t.$unit} * 3));
   }
 
   // @modifier state
   .radio--error {
+    // @desc Error border
     --_border-color: var(--ui-radio-error-border, var(--ui-color-danger, #{t.$color-danger}));
+    // @desc Error border
     --_border-color-focus: var(--ui-radio-error-border, var(--ui-color-danger, #{t.$color-danger}));
   }
 
   .radio--success {
+    // @desc Success border
     --_border-color: var(--ui-radio-success-border, var(--ui-color-success, #{t.$color-success}));
+    // @desc Success border
     --_border-color-focus: var(--ui-radio-success-border, var(--ui-color-success, #{t.$color-success}));
   }
 }

@@ -9,13 +9,21 @@
     --_ease-default: var(--ui-ease-default, ease);
     --_color-focus: var(--ui-color-focus, var(--ui-color-primary));
     --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    // @desc Track width
     --_track-width: var(--ui-toggle-track-width, calc(#{t.$unit} * 5));
+    // @desc Track height
     --_track-height: var(--ui-toggle-track-height, calc(#{t.$unit} * 3));
+    // @desc Track background
     --_track-bg: var(--ui-toggle-track-bg, var(--ui-color-bg-subtle, #{t.$overlay-bg-subtle}));
+    // @desc Track bg checked
     --_track-bg-checked: var(--ui-toggle-track-bg-checked, var(--ui-color-primary));
+    // @desc Track corner radius
     --_track-radius: var(--ui-toggle-track-radius, calc(#{t.$unit} * 1.5));
+    // @desc Thumb control size
     --_thumb-size: var(--ui-toggle-thumb-size, calc(#{t.$unit} * 2.5));
+    // @desc Thumb background
     --_thumb-bg: var(--ui-toggle-thumb-bg, var(--ui-color-bg, #{t.$color-bg}));
+    // @desc Thumb control offset from anchor
     --_thumb-offset: var(--ui-toggle-thumb-offset, calc(#{t.$unit} / 4));
   }
 

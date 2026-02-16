@@ -11,15 +11,22 @@
     --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
     --_color-text: var(--ui-color-text, #{t.$color-text});
     // Single accent color - variants override, bg/border derived via color-mix
+    // @desc Accent color
     --_accent: var(--ui-alert-accent, var(--ui-color-border, #{t.$color-border}));
 
+    // @desc Padding on all sides
     --_padding: var(--ui-alert-padding, var(--ui-space-2, #{t.$space-2}));
+    // @desc Border thickness
     --_border-width: var(--ui-alert-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    // @desc Gap between children
     --_gap: var(--ui-alert-gap, var(--ui-space-1, #{t.$space-1}));
+    // @desc Corner radius
     --_radius: var(--ui-alert-radius, var(--ui-radius-md, #{t.$radius-md}));
     --_bg: color-mix(in oklch, var(--_accent) 8%, white);
     --_border-color: var(--_accent);
+    // @desc Text color
     --_color: var(--ui-alert-color, var(--ui-color-text, #{t.$color-text}));
+    // @desc Font size
     --_font-size: var(--ui-alert-font-size, inherit);
     --_padding-end: 0;
     --_icon-color: var(--_accent);
@@ -44,19 +51,26 @@
 
   // @modifier size
   .alert--sm {
+    // @desc Padding on all sides at small size
     --_padding: var(--ui-alert-padding-sm, var(--ui-space-1, #{t.$space-1}));
+    // @desc Gap between children at small size
     --_gap: var(--ui-alert-gap-sm, calc(#{t.$unit} * 0.5));
+    // @desc Font size at small size
     --_font-size: var(--ui-alert-font-size-sm, var(--ui-font-size-sm, #{t.$font-size-sm}));
   }
 
   .alert--lg {
+    // @desc Padding on all sides at large size
     --_padding: var(--ui-alert-padding-lg, var(--ui-space-4, #{t.$space-4}));
+    // @desc Gap between children at large size
     --_gap: var(--ui-alert-gap-lg, var(--ui-space-2, #{t.$space-2}));
+    // @desc Font size at large size
     --_font-size: var(--ui-alert-font-size-lg, var(--ui-font-size-lg, #{t.$font-size-lg}));
   }
 
   // @modifier boolean dismissible
   .alert--dismissible {
+    // @desc Padding end
     --_padding-end: var(--ui-alert-padding-end, calc(#{t.$unit} * 5));
   }
 }

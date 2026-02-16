@@ -1,12 +1,18 @@
 @use '../../../config/tokens/variables' as t;
+// @component list
+// @element ul
 
 // Ordered and unordered lists with spacing and layout variants
 
 @layer components.tokens {
   .list {
+    // @desc Spacing
     --_spacing: var(--ui-list-spacing, #{t.$unit});
+    // @desc Marker color
     --_marker-color: var(--ui-list-marker-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    // @desc Indent
     --_indent: var(--ui-list-indent, var(--ui-space-3, #{t.$space-3}));
+    // @desc Line height
     --_line-height: var(--ui-list-line-height, var(--ui-leading-md, #{t.$leading-md}));
   }
 
@@ -38,6 +44,7 @@
   }
 
   // Removes markers and indent
+  // @modifier style
   .list--unstyled {
     padding-inline-start: 0;
 

@@ -1,8 +1,14 @@
+// @component content
+// @element div
+
 @layer primitives {
   .content {
     --_unit: var(--ui-unit);
+    // @desc Vertical padding
     --_padding-block: var(--ui-content-padding-block, var(--ui-space-4));
+    // @desc Horizontal padding
     --_padding-inline: var(--ui-content-padding-inline, var(--ui-space-4));
+    // @desc Gap between children
     --_gap: var(--ui-content-gap, var(--ui-space-3));
 
     display: flex;
@@ -14,11 +20,13 @@
   }
 
   // Prose-friendly: narrower max-width for readability
+  // @modifier boolean prose
   .content--prose {
     max-inline-size: calc(var(--_unit) * 80);
   }
 
   // Flush: no padding, just gap
+  // @modifier boolean flush
   .content--flush {
     padding-block: 0;
     padding-inline: 0;

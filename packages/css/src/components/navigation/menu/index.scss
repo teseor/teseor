@@ -1,4 +1,6 @@
 @use '../../../config/tokens/variables' as t;
+// @component menu
+// @element div
 
 // Menu - action menu
 // Dropdown list of actions or options
@@ -17,15 +19,25 @@
     --_color-danger: var(--ui-color-danger, #{t.$color-danger});
     --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
     --_color-border: var(--ui-color-border, #{t.$color-border});
+    // @desc Minimum width
     --_min-width: var(--ui-menu-min-width, calc(#{t.$unit} * 16));
+    // @desc Maximum height
     --_max-height: var(--ui-menu-max-height, calc(#{t.$unit} * 40));
+    // @desc Padding on all sides
     --_padding: var(--ui-menu-padding, calc(#{t.$unit} * 1));
+    // @desc Corner radius
     --_radius: var(--ui-menu-radius, var(--ui-radius-md, #{t.$radius-md}));
+    // @desc Background color
     --_bg: var(--ui-menu-bg, var(--ui-color-bg, #{t.$color-bg}));
+    // @desc Border color
     --_border-color: var(--ui-menu-border-color, var(--ui-color-border, #{t.$color-border}));
+    // @desc Box shadow
     --_shadow: var(--ui-menu-shadow, var(--ui-shadow-lg));
+    // @desc Item padding on all sides
     --_item-padding: var(--ui-menu-item-padding, calc(#{t.$unit} * 1) calc(#{t.$unit} * 2));
+    // @desc Item corner radius
     --_item-radius: var(--ui-menu-item-radius, var(--ui-radius-sm, #{t.$radius-sm}));
+    // @desc Item bg hover
     --_item-bg-hover: var(--ui-menu-item-bg-hover, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
   }
 }

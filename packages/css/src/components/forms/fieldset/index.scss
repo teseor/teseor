@@ -1,4 +1,6 @@
 @use '../../../config/tokens/variables' as t;
+// @component fieldset
+// @element fieldset
 
 // Fieldset - groups related form fields
 // Resets native fieldset chrome, provides consistent spacing and optional border
@@ -8,18 +10,29 @@
     --_leading-tight-sm: var(--ui-leading-tight-sm, var(--ui-row-1, #{t.$leading-tight-sm}));
     --_space-half: var(--ui-space-half, #{t.$space-0});
     --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    // @desc Spacing
     --_spacing: var(--ui-fieldset-spacing, var(--ui-space-2, #{t.$space-2}));
+    // @desc Border color
     --_border-color: var(--ui-fieldset-border-color, var(--ui-color-border, #{t.$color-border}));
+    // @desc Border thickness
     --_border-width: var(--ui-fieldset-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    // @desc Border radius
     --_border-radius: var(--ui-fieldset-border-radius, var(--ui-radius-md, #{t.$radius-md}));
+    // @desc Padding on all sides
     --_padding: var(--ui-fieldset-padding, var(--ui-space-2, #{t.$space-2}));
+    // @desc Legend size
     --_legend-size: var(--ui-fieldset-legend-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    // @desc Legend weight
     --_legend-weight: var(--ui-fieldset-legend-weight, var(--ui-weight-medium, #{t.$weight-medium}));
+    // @desc Legend color
     --_legend-color: var(--ui-fieldset-legend-color, var(--ui-color-text, #{t.$color-text}));
   }
 
+  // @modifier boolean compact
   .fieldset--compact {
+    // @desc Spacing compact
     --_spacing: var(--ui-fieldset-spacing-compact, var(--ui-space-1, #{t.$space-1}));
+    // @desc Padding compact
     --_padding: var(--ui-fieldset-padding-compact, var(--ui-space-1, #{t.$space-1}));
   }
 }
@@ -49,6 +62,7 @@
 
   // Bordered variant - visible border wrapping the group
   // Legend absorbs the top border; compensate bottom border to keep grid rhythm
+  // @modifier boolean bordered
   .fieldset--bordered {
     padding: var(--_padding);
     padding-block-end: calc(var(--_padding) - var(--_border-width));

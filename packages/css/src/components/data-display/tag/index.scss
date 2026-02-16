@@ -2,52 +2,74 @@
 
 // @component tag
 // @element span
+// @related tag-group
 
 @layer components.tokens {
   .tag {
     --_weight-medium: var(--ui-weight-medium, #{t.$weight-medium});
     --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
     --_opacity-loading: var(--ui-opacity-loading, #{t.$opacity-loading});
+    // @desc Overall height
     --_height: var(--ui-tag-height, calc(#{t.$unit} * 3));
+    // @desc Horizontal padding
     --_padding-x: var(--ui-tag-padding-x, var(--ui-space-1, #{t.$space-1}));
+    // @desc Gap between children
     --_gap: var(--ui-tag-gap, calc(#{t.$unit} * 0.5));
+    // @desc Corner radius
     --_radius: var(--ui-tag-radius, var(--ui-radius-full, #{t.$radius-full}));
+    // @desc Font size
     --_font-size: var(--ui-tag-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    // @desc Background color
     --_bg: var(--ui-tag-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+    // @desc Text color
     --_color: var(--ui-tag-color, var(--ui-color-text, #{t.$color-text}));
   }
 
   // @modifier size
   .tag--sm {
+    // @desc Overall height at small size
     --_height: var(--ui-tag-height-sm, calc(#{t.$unit} * 2.5));
+    // @desc Horizontal padding at small size
     --_padding-x: var(--ui-tag-padding-x-sm, calc(#{t.$unit} * 1));
+    // @desc Font size at small size
     --_font-size: var(--ui-tag-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
   }
 
   .tag--lg {
+    // @desc Overall height at large size
     --_height: var(--ui-tag-height-lg, calc(#{t.$unit} * 3.5));
+    // @desc Horizontal padding at large size
     --_padding-x: var(--ui-tag-padding-x-lg, var(--ui-space-2, #{t.$space-2}));
+    // @desc Font size at large size
     --_font-size: var(--ui-tag-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
   }
 
   // @modifier variant
   .tag--primary {
+    // @desc Primary bg
     --_bg: var(--ui-tag-primary-bg, var(--ui-color-primary, #{t.$color-primary}));
+    // @desc Primary color
     --_color: var(--ui-tag-primary-color, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
   }
 
   .tag--success {
+    // @desc Success bg
     --_bg: var(--ui-tag-success-bg, var(--ui-color-success, #{t.$color-success}));
+    // @desc Success color
     --_color: var(--ui-tag-success-color, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
   }
 
   .tag--warning {
+    // @desc Warning bg
     --_bg: var(--ui-tag-warning-bg, var(--ui-color-warning, #{t.$color-warning}));
+    // @desc Warning color
     --_color: var(--ui-tag-warning-color, var(--ui-color-text, #{t.$color-text}));
   }
 
   .tag--danger {
+    // @desc Danger bg
     --_bg: var(--ui-tag-danger-bg, var(--ui-color-danger, #{t.$color-danger}));
+    // @desc Danger color
     --_color: var(--ui-tag-danger-color, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
   }
 }

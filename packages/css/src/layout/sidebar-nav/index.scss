@@ -1,4 +1,7 @@
 @use '../../config/tokens/variables' as t;
+
+// @component sidebar-nav
+// @element nav
 // Sidebar Navigation
 // Primary navigation for sidebar with groups, items, and nested levels
 
@@ -17,9 +20,13 @@
     --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
     --_size-md: var(--ui-size-md);
     // Tokens
+    // @desc Overall width
     --_width: var(--ui-sidebar-nav-width, calc(var(--ui-unit) * 30));
+    // @desc Background color
     --_bg: var(--ui-sidebar-nav-bg, var(--ui-color-bg-subtle));
+    // @desc Border color
     --_border-color: var(--ui-sidebar-nav-border-color, var(--ui-color-border));
+    // @desc Padding on all sides
     --_padding: var(--ui-sidebar-nav-padding, var(--ui-space-2));
 
     // Styles
@@ -34,6 +41,7 @@
 
   // Header - sticky at top
   .sidebar-nav__header {
+    // @desc Header padding on all sides
     --_padding: var(--ui-sidebar-nav-header-padding, var(--ui-space-2));
 
     flex-shrink: 0;
@@ -53,6 +61,7 @@
 
   // Footer - sticky at bottom
   .sidebar-nav__footer {
+    // @desc Footer padding on all sides
     --_padding: var(--ui-sidebar-nav-footer-padding, var(--ui-space-2));
 
     flex-shrink: 0;
@@ -69,8 +78,11 @@
 
   // Group label (section heading)
   .sidebar-nav__group-label {
+    // @desc Group label size
     --_font-size: var(--ui-sidebar-nav-group-label-size, var(--ui-size-xs));
+    // @desc Group label color
     --_color: var(--ui-sidebar-nav-group-label-color, var(--ui-color-text-muted));
+    // @desc Group label weight
     --_weight: var(--ui-sidebar-nav-group-label-weight, var(--ui-weight-bold));
 
     display: block;
@@ -124,11 +136,17 @@
 
   // Nav item (link wrapper)
   .sidebar-nav__item {
+    // @desc Item overall height
     --_height: var(--ui-sidebar-nav-item-height, var(--ui-row-2));
+    // @desc Item horizontal padding
     --_padding-inline: var(--ui-sidebar-nav-item-padding-inline, var(--ui-space-2));
+    // @desc Item overall size
     --_font-size: var(--ui-sidebar-nav-item-size, var(--ui-size-sm));
+    // @desc Item text color
     --_color: var(--ui-sidebar-nav-item-color, var(--ui-color-text));
+    // @desc Item background color
     --_bg: var(--ui-sidebar-nav-item-bg, transparent);
+    // @desc Item corner radius
     --_radius: var(--ui-sidebar-nav-item-radius, var(--ui-radius-sm));
 
     display: flex;
@@ -153,6 +171,7 @@
   }
 
   .sidebar-nav__item:hover {
+    // @desc Item hover bg
     --_bg: var(--ui-sidebar-nav-item-hover-bg, var(--ui-color-bg-muted));
   }
 
@@ -167,13 +186,17 @@
 
   // Active state
   .sidebar-nav__item--active {
+    // @desc Item active bg
     --_bg: var(--ui-sidebar-nav-item-active-bg, var(--ui-color-primary-subtle));
+    // @desc Item active color
     --_color: var(--ui-sidebar-nav-item-active-color, var(--ui-color-primary-hover));
+    // @desc Item active weight
     --_weight: var(--ui-sidebar-nav-item-active-weight, var(--ui-weight-medium));
   }
 
   // Nested item indent
   .sidebar-nav__item--nested {
+    // @desc Item nested indent
     --_padding-inline-start: var(--ui-sidebar-nav-item-nested-indent, var(--ui-space-4));
 
     padding-inline-start: var(--_padding-inline-start);
@@ -216,7 +239,9 @@
   }
 
   // Collapsed mode - icon only
+  // @modifier boolean collapsed
   .sidebar-nav--collapsed {
+    // @desc Width collapsed
     --_width: var(--ui-sidebar-nav-width-collapsed, var(--ui-row-3));
 
     .sidebar-nav__label,

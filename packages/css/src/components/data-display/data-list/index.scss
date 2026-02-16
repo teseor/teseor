@@ -1,4 +1,6 @@
 @use '../../../config/tokens/variables' as t;
+// @component data-list
+// @element div
 
 // Data-List - key-value pairs
 // Display structured data with labels and values
@@ -13,9 +15,13 @@
     --_color-bg-subtle: var(--ui-color-bg-subtle, #{t.$color-bg-subtle});
     --_radius-sm: var(--ui-radius-sm, #{t.$radius-sm});
     --_font-size-lg: var(--ui-font-size-lg, #{t.$font-size-lg});
+    // @desc Gap between children
     --_gap: var(--ui-data-list-gap, calc(#{t.$unit} * 2));
+    // @desc Item gap between children
     --_item-gap: var(--ui-data-list-item-gap, calc(#{t.$unit} * 1));
+    // @desc Label text color
     --_label-color: var(--ui-data-list-label-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    // @desc Value display text color
     --_value-color: var(--ui-data-list-value-color, var(--ui-color-text, #{t.$color-text}));
   }
 }
@@ -52,6 +58,7 @@
   }
 
   // Horizontal layout (side-by-side)
+  // @modifier layout
   .data-list--horizontal .data-list__item {
     flex-direction: row;
     align-items: baseline;
@@ -68,6 +75,7 @@
   }
 
   // With dividers
+  // @modifier style
   .data-list--divided .data-list__item {
     // Subtract border from padding to keep total on grid
     padding-block-end: calc(var(--_gap) - var(--_border-width-sm));
@@ -90,6 +98,7 @@
   }
 
   // Compact size
+  // @modifier size
   .data-list--sm {
     --_gap: calc(#{t.$unit} * 1);
     --_item-gap: 0;

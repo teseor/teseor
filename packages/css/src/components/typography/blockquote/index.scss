@@ -1,4 +1,6 @@
 @use '../../../config/tokens/variables' as t;
+// @component blockquote
+// @element blockquote
 
 @layer components.tokens {
   .blockquote {
@@ -6,14 +8,21 @@
     --_font-size-sm: var(--ui-font-size-sm, #{t.$font-size-sm});
     --_leading-sm: var(--ui-leading-sm, #{t.$leading-sm});
     --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
+    // @desc Border color
     --_border-color: var(--ui-blockquote-border-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
+    // @desc Border thickness
     --_border-width: var(--ui-blockquote-border-width, var(--ui-border-width-lg, #{t.$border-width-lg}));
+    // @desc Horizontal padding
     --_padding-inline: var(--ui-blockquote-padding-inline, var(--ui-space-3, #{t.$space-3}));
+    // @desc Text color
     --_color: var(--ui-blockquote-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    // @desc Font size
     --_font-size: var(--ui-blockquote-font-size, var(--ui-font-size-lg, #{t.$font-size-lg}));
+    // @desc Line height
     --_line-height: var(--ui-blockquote-line-height, var(--ui-leading-lg, #{t.$leading-lg}));
   }
 
+  // @modifier variant
   .blockquote--accent {
     --_border-color: var(--ui-color-primary, #{t.$color-primary});
   }

@@ -7,9 +7,13 @@
   .divider {
     --_font-size-sm: var(--ui-font-size-sm, #{t.$font-size-sm});
     --_color-text-muted: var(--ui-color-text-muted);
+    // @desc Text color
     --_color: var(--ui-divider-color, var(--ui-color-border, #{t.$color-border}));
+    // @desc Line size
     --_line-size: var(--ui-divider-line-size, #{t.$border-width-sm});
+    // @desc Overall height
     --_height: var(--ui-divider-height, #{t.$unit});
+    // @desc Gap between children
     --_gap: var(--ui-divider-gap, calc(#{t.$unit} * 2));
   }
 }
@@ -76,6 +80,7 @@
   }
 
   // @modifier align
+  // @modifier position
   .divider--start::before {
     display: none;
   }

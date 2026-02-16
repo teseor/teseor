@@ -17,35 +17,49 @@
     --_space-quarter: var(--ui-space-quarter);
     --_opacity-loading: var(--ui-opacity-loading, #{t.$opacity-loading});
     // Single accent color - all shades derived via color-mix
+    // @desc Primary accent color. All shades auto-generated via color-mix.
     --_accent: var(--ui-button-accent, var(--ui-color-primary, #{t.$color-primary}));
 
+    // @desc Overall height
     --_height: var(--ui-button-height, var(--ui-row-2, #{t.$row-2}));
+    // @desc Horizontal padding
     --_padding-x: var(--ui-button-padding-x, var(--ui-space-2, #{t.$space-2}));
+    // @desc Font size
     --_font-size: var(--ui-button-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    // @desc Font weight
     --_font-weight: var(--ui-button-font-weight, var(--ui-weight-medium, #{t.$weight-medium}));
+    // @desc Corner radius
     --_radius: var(--ui-button-radius, var(--ui-radius-md, #{t.$radius-md}));
     --_bg: var(--_accent);
     --_bg-hover: color-mix(in oklch, var(--_accent) 80%, black);
+    // @desc Text color
     --_color: var(--ui-button-color, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
   }
 
   // @modifier size
   .button--sm {
     --ui-ctx-size: var(--ui-size-sm, #{t.size(sm)});
+    // @desc Overall height at small size
     --_height: var(--ui-button-height-sm, calc(var(--ui-row, #{t.$row}) * 1.5));
+    // @desc Font size at small size
     --_font-size: var(--ui-button-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
   }
 
   .button--md {
     --ui-ctx-size: var(--ui-size-md, #{t.size(md)});
+    // @desc Overall height at medium size
     --_height: var(--ui-button-height-md, var(--ui-row-2, #{t.$row-2}));
+    // @desc Font size at medium size
     --_font-size: var(--ui-button-font-size-md, var(--ui-font-size-sm, #{t.$font-size-sm}));
   }
 
   .button--lg {
     --ui-ctx-size: var(--ui-size-lg, #{t.size(lg)});
+    // @desc Overall height at large size
     --_height: var(--ui-button-height-lg, calc(var(--ui-row, #{t.$row}) * 2.5));
+    // @desc Horizontal padding at large size
     --_padding-x: var(--ui-button-padding-x-lg, var(--ui-space-3, #{t.$space-3}));
+    // @desc Font size at large size
     --_font-size: var(--ui-button-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
   }
 
@@ -71,6 +85,7 @@
   }
 
   .button--danger {
+    // @desc Used by --danger variant as accent color
     --_accent: var(--ui-color-danger, #{t.$color-danger});
   }
 

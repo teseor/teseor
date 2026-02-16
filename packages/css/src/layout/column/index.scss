@@ -1,3 +1,6 @@
+// @component column
+// @element div
+
 @layer primitives {
   .column {
     --_space-2: var(--ui-space-2);
@@ -10,6 +13,7 @@
     gap: var(--column-gap, var(--_space-2));
   }
 
+  // @modifier size
   .column--xs { --column-gap: var(--_space-1); }
   .column--sm { --column-gap: var(--_space-2); }
   .column--md { --column-gap: var(--_space-4); }

@@ -1,4 +1,6 @@
 @use '../../../config/tokens/variables' as t;
+// @component form-error
+// @element div
 
 // Form Error - validation error message for form fields
 // Displays error text with danger color
@@ -6,8 +8,11 @@
 @layer components.tokens {
   .form-error {
     --_leading-tight-sm: var(--ui-leading-tight-sm, var(--ui-row-1));
+    // @desc Text color
     --_color: var(--ui-form-error-color, var(--ui-color-danger));
+    // @desc Overall size
     --_size: var(--ui-form-error-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    // @desc Gap between children
     --_gap: var(--ui-form-error-gap, 0);
   }
 }

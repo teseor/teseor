@@ -1,4 +1,6 @@
 @use '../../config/tokens/variables' as t;
+// @component box
+// @element div
 
 // Box - base container with style props
 // Foundation for other layout primitives
@@ -27,16 +29,24 @@
   }
 
   // Padding modifiers
+  // @modifier boolean p-1
   .box--p-1 { --_padding: var(--_space-1); }
+  // @modifier boolean p-2
   .box--p-2 { --_padding: var(--_space-2); }
+  // @modifier boolean p-3
   .box--p-3 { --_padding: var(--_space-3); }
+  // @modifier boolean p-4
   .box--p-4 { --_padding: var(--_space-4); }
 
   // Background modifiers
+  // @modifier boolean bg-subtle
   .box--bg-subtle { --_bg: var(--_color-bg-subtle); }
+  // @modifier boolean bg-muted
   .box--bg-muted { --_bg: var(--_color-bg-muted); }
 
   // Border radius modifiers
+  // @modifier boolean rounded
   .box--rounded { --_radius: var(--_radius-md); }
+  // @modifier boolean rounded-lg
   .box--rounded-lg { --_radius: var(--_radius-lg); }
 }

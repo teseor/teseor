@@ -11,22 +11,35 @@
     --_duration-base: var(--ui-duration-base);
     --_ease-default: var(--ui-ease-default);
     --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    // @desc Gap between children
     --_gap: var(--ui-nav-gap, var(--ui-space-1, #{t.$space-1}));
+    // @desc Item overall height
     --_item-height: var(--ui-nav-item-height, var(--ui-row-2, #{t.$row-2}));
+    // @desc Item horizontal padding
     --_item-padding-x: var(--ui-nav-item-padding-x, var(--ui-space-2, #{t.$space-2}));
+    // @desc Item font size
     --_item-font-size: var(--ui-nav-item-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    // @desc Item font weight
     --_item-font-weight: var(--ui-nav-item-font-weight, var(--ui-weight-medium, #{t.$weight-medium}));
+    // @desc Item text color
     --_item-color: var(--ui-nav-item-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    // @desc Item color hover
     --_item-color-hover: var(--ui-nav-item-color-hover, var(--ui-color-text, #{t.$color-text}));
+    // @desc Item color active
     --_item-color-active: var(--ui-nav-item-color-active, var(--ui-color-primary, #{t.$color-primary}));
+    // @desc Item corner radius
     --_item-radius: var(--ui-nav-item-radius, var(--ui-radius-sm, #{t.$radius-sm}));
+    // @desc Border color
     --_border-color: var(--ui-nav-border-color, var(--ui-color-border, #{t.$color-border}));
   }
 
   // @modifier pills
   .nav--pills {
+    // @desc Item bg hover
     --_item-bg-hover: var(--ui-nav-item-bg-hover, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+    // @desc Item bg active
     --_item-bg-active: var(--ui-nav-item-bg-active, var(--ui-color-primary, #{t.$color-primary}));
+    // @desc Item color active
     --_item-color-active: var(--ui-nav-item-color-active, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
   }
 

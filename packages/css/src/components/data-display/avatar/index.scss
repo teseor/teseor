@@ -2,42 +2,57 @@
 
 // @component avatar
 // @element div
+// @related avatar-group
 
 @layer components.tokens {
   .avatar {
     --_weight-medium: var(--ui-weight-medium, #{t.$weight-medium});
     --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
     --_color-bg: var(--ui-color-bg, #{t.$color-bg});
+    // @desc Overall size
     --_size: var(--ui-avatar-size, calc(#{t.$unit} * 5));
+    // @desc Background color
     --_bg: var(--ui-avatar-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
+    // @desc Text color
     --_color: var(--ui-avatar-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    // @desc Font size
     --_font-size: var(--ui-avatar-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    // @desc Corner radius
     --_radius: var(--ui-avatar-radius, 50%);
   }
 
   // @modifier size
   .avatar--xs {
+    // @desc Overall size at extra-small size
     --_size: var(--ui-avatar-size-xs, calc(#{t.$unit} * 3));
+    // @desc Font size at extra-small size
     --_font-size: var(--ui-avatar-font-size-xs, var(--ui-font-size-xs, #{t.$font-size-xs}));
   }
 
   .avatar--sm {
+    // @desc Overall size at small size
     --_size: var(--ui-avatar-size-sm, calc(#{t.$unit} * 4));
+    // @desc Font size at small size
     --_font-size: var(--ui-avatar-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
   }
 
   .avatar--lg {
+    // @desc Overall size at large size
     --_size: var(--ui-avatar-size-lg, calc(#{t.$unit} * 6));
+    // @desc Font size at large size
     --_font-size: var(--ui-avatar-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
   }
 
   .avatar--xl {
+    // @desc Overall size at extra-large size
     --_size: var(--ui-avatar-size-xl, calc(#{t.$unit} * 8));
+    // @desc Font size at extra-large size
     --_font-size: var(--ui-avatar-font-size-xl, var(--ui-font-size-lg, #{t.$font-size-lg}));
   }
 
   // @modifier boolean square
   .avatar--square {
+    // @desc Radius square
     --_radius: var(--ui-avatar-radius-square, var(--ui-radius-md, #{t.$radius-md}));
   }
 }

@@ -1,12 +1,18 @@
 @use '../../../config/tokens/variables' as t;
+// @component form
+// @element form
+// @related form-error, form-helper
 
 // Form - layout container for form fields
 // Provides consistent vertical spacing between fields, sections, and actions
 
 @layer components.tokens {
   .form {
+    // @desc Spacing
     --_spacing: var(--ui-form-spacing, var(--ui-space-3, calc(#{t.$unit} * 3)));
+    // @desc Actions gap
     --_actions-gap: var(--ui-form-actions-gap, var(--ui-space-2, calc(#{t.$unit} * 2)));
+    // @desc Section spacing
     --_section-spacing: var(--ui-form-section-spacing, var(--ui-space-4, calc(#{t.$unit} * 4)));
   }
 }
@@ -44,12 +50,16 @@
   }
 
   // Compact variant - tighter spacing
+  // @modifier boolean compact
   .form--compact {
+    // @desc Spacing compact
     --_spacing: var(--ui-form-spacing-compact, var(--ui-space-2, calc(#{t.$unit} * 2)));
+    // @desc Section spacing compact
     --_section-spacing: var(--ui-form-section-spacing-compact, var(--ui-space-3, calc(#{t.$unit} * 3)));
   }
 
   // Inline variant - horizontal layout for short forms (search, filters)
+  // @modifier boolean inline
   .form--inline {
     flex-direction: row;
     flex-wrap: wrap;

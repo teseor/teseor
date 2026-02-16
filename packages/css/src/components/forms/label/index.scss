@@ -10,13 +10,17 @@
     --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
     --_weight-normal: var(--ui-weight-normal, #{t.$weight-normal});
     --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
+    // @desc Font size
     --_font-size: var(--ui-label-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    // @desc Text color
     --_color: var(--ui-label-color, var(--ui-color-text, #{t.$color-text}));
+    // @desc Required color
     --_required-color: var(--ui-label-required-color, var(--ui-color-danger, #{t.$color-danger}));
   }
 
   // @modifier size
   .label--lg {
+    // @desc Font size at large size
     --_font-size: var(--ui-label-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
   }
 }

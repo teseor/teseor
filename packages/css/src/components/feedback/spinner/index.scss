@@ -5,31 +5,44 @@
 
 @layer components.tokens {
   .spinner {
+    // @desc Overall size
     --_size: var(--ui-spinner-size, calc(var(--ui-unit) * 4));
+    // @desc Border thickness
     --_border-width: var(--ui-spinner-border-width, var(--ui-border-width-md));
+    // @desc Text color
     --_color: var(--ui-spinner-color, currentcolor);
+    // @desc Track text color
     --_track-color: var(--ui-spinner-track-color, transparent);
+    // @desc Animation duration
     --_duration: var(--ui-spinner-duration, #{t.$spinner-duration});
   }
 
   // @modifier size
   .spinner--xs {
+    // @desc Overall size at extra-small size
     --_size: var(--ui-spinner-size-xs, calc(var(--ui-unit) * 2));
+    // @desc Border thickness at extra-small size
     --_border-width: var(--ui-spinner-border-width-xs, var(--ui-border-width-sm));
   }
 
   .spinner--sm {
+    // @desc Overall size at small size
     --_size: var(--ui-spinner-size-sm, calc(var(--ui-unit) * 3));
+    // @desc Border thickness at small size
     --_border-width: var(--ui-spinner-border-width-sm, var(--ui-border-width-md));
   }
 
   .spinner--lg {
+    // @desc Overall size at large size
     --_size: var(--ui-spinner-size-lg, calc(var(--ui-unit) * 5));
+    // @desc Border thickness at large size
     --_border-width: var(--ui-spinner-border-width-lg, var(--ui-border-width-md));
   }
 
   .spinner--xl {
+    // @desc Overall size at extra-large size
     --_size: var(--ui-spinner-size-xl, calc(var(--ui-unit) * 6));
+    // @desc Border thickness at extra-large size
     --_border-width: var(--ui-spinner-border-width-xl, var(--ui-border-width-lg));
   }
 }

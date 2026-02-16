@@ -1,12 +1,17 @@
 @use '../../../config/tokens/variables' as t;
+// @component accordion
+// @element div
 
 // Accordion - grouped expandable sections
 // Container for multiple disclosure items
 
 @layer components.tokens {
   .accordion {
+    // @desc Border color
     --_border-color: var(--ui-accordion-border-color, var(--ui-color-border, #{t.$color-border}));
+    // @desc Border thickness
     --_border-width: var(--ui-accordion-border-width, #{t.$border-width-sm});
+    // @desc Corner radius
     --_radius: var(--ui-accordion-radius, var(--ui-radius-md, calc(#{t.$unit} * 1)));
   }
 }
@@ -59,6 +64,7 @@
   }
 
   // Separated variant - gap between items
+  // @modifier boolean separated
   .accordion--separated {
     display: flex;
     flex-direction: column;

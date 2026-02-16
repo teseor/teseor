@@ -1,4 +1,6 @@
 @use '../../../config/tokens/variables' as t;
+// @component pagination
+// @element div
 
 // Pagination - page navigation
 // Navigation through paginated content
@@ -10,13 +12,21 @@
     --_ease-default: var(--ui-ease-default, ease);
     --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
     --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
+    // @desc Gap between children
     --_gap: var(--ui-pagination-gap, calc(#{t.$unit} * 0.5));
+    // @desc Item overall size
     --_item-size: var(--ui-pagination-item-size, calc(#{t.$unit} * 4));
+    // @desc Item corner radius
     --_item-radius: var(--ui-pagination-item-radius, var(--ui-radius-sm, #{t.$radius-sm}));
+    // @desc Item background color
     --_item-bg: var(--ui-pagination-item-bg, transparent);
+    // @desc Item bg hover
     --_item-bg-hover: var(--ui-pagination-item-bg-hover, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
+    // @desc Item bg active
     --_item-bg-active: var(--ui-pagination-item-bg-active, var(--ui-color-primary));
+    // @desc Item text color
     --_item-color: var(--ui-pagination-item-color, var(--ui-color-text, #{t.$color-text}));
+    // @desc Item color active
     --_item-color-active: var(--ui-pagination-item-color-active, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
   }
 }
@@ -107,6 +117,7 @@
   }
 
   // Size variants
+  // @modifier size
   .pagination--sm {
     --_item-size: calc(#{t.$unit} * 3);
     --_gap: calc(#{t.$unit} * 0.25);

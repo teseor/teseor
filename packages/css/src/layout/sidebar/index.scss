@@ -1,3 +1,6 @@
+// @component sidebar
+// @element aside
+
 @layer primitives {
   .sidebar {
     --_z-sticky: var(--ui-z-sticky);
@@ -21,11 +24,13 @@
   }
 
   // Width modifiers
+  // @modifier size
   .sidebar--sm { --sidebar-width: calc(var(--_unit) * 24); }
   .sidebar--md { --sidebar-width: calc(var(--_unit) * 30); }
   .sidebar--lg { --sidebar-width: calc(var(--_unit) * 40); }
 
   // Position modifier - sidebar on end (right in LTR)
+  // @modifier boolean end
   .sidebar--end {
     inset-inline-start: auto;
     inset-inline-end: 0;
