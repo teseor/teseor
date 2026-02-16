@@ -10,7 +10,7 @@
     },
     "lint": {
       "cache": true,
-      "inputs": ["default", "{workspaceRoot}/biome.json", "{workspaceRoot}/.stylelintrc.json"]
+      "inputs": ["default", "sharedGlobals", "{workspaceRoot}/.stylelintrc.json"]
     },
     "typecheck": {
       "cache": true,
