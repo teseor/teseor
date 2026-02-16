@@ -20,15 +20,6 @@
       "cache": true,
       "inputs": ["default", "^production"],
       "outputs": ["{projectRoot}/coverage", "{projectRoot}/test-results"]
-    },
-    "storybook": {
-      "cache": false
-    },
-    "build-storybook": {
-      "dependsOn": ["^build"],
-      "cache": true,
-      "inputs": ["default", "^production"],
-      "outputs": ["{projectRoot}/storybook-static"]
     }
   },
   "namedInputs": {

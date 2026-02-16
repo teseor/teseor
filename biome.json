@@ -8,15 +8,7 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "ignore": [
-      "node_modules",
-      "dist",
-      ".nx",
-      "coverage",
-      "storybook-static",
-      ".changeset",
-      "pnpm-lock.yaml"
-    ]
+    "ignore": ["node_modules", "dist", ".nx", "coverage", ".changeset", "pnpm-lock.yaml"]
   },
   "formatter": {
     "enabled": true,
