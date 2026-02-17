@@ -70,6 +70,7 @@
 @layer components.styles {
   .heading {
     margin: 0;
+    text-wrap: balance;
 
     font-size: var(--_font-size);
     font-weight: var(--_weight);
