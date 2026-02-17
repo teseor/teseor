@@ -14,7 +14,14 @@
     },
     "flush": {
       "type": "boolean"
+    },
+    "responsive": {
+      "type": "boolean"
     }
+  },
+  "elements": {
+    "media": {},
+    "body": {}
   },
   "cssVars": [
     {

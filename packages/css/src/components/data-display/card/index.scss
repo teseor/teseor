@@ -57,6 +57,33 @@
     border-radius: var(--_radius);
   }
 
+  // @modifier boolean responsive
+  .card--responsive {
+    display: flex;
+    flex-direction: column;
+
+    // Horizontal layout when container is wide enough
+    @container (inline-size >= 30rem) {
+      flex-direction: row;
+    }
+  }
+
+  .card--responsive > .card__media {
+    // Vertical: full width
+    inline-size: 100%;
+
+    @container (inline-size >= 30rem) {
+      // Horizontal: fixed width, fill height
+      flex: 0 0 auto;
+
+      inline-size: 40%;
+    }
+  }
+
+  .card--responsive > .card__body {
+    flex: 1 1 auto;
+  }
+
   .card--interactive {
     transition:
       background-color var(--_duration-fast) var(--_ease-default),

@@ -45,4 +45,33 @@
 
     min-inline-size: calc(#{t.$unit} * 20);
   }
+
+  // Auto-switch to horizontal when container is wide enough
+  // @modifier boolean responsive
+  .field--responsive {
+    flex-direction: column;
+
+    @container (inline-size >= 30rem) {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+  }
+
+  .field--responsive > .field__label {
+    @container (inline-size >= 30rem) {
+      flex: 0 0 auto;
+
+      min-inline-size: calc(#{t.$unit} * 15);
+      padding-block-start: calc(#{t.$unit} * 1);
+    }
+  }
+
+  .field--responsive > .field__control {
+    @container (inline-size >= 30rem) {
+      flex: 1 1 0;
+
+      min-inline-size: calc(#{t.$unit} * 20);
+    }
+  }
 }
