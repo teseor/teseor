@@ -5,6 +5,9 @@
   "modifiers": {
     "horizontal": {
       "type": "boolean"
+    },
+    "responsive": {
+      "type": "boolean"
     }
   },
   "elements": {

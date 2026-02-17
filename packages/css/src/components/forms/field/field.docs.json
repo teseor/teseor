@@ -18,7 +18,9 @@
                   "tag": "label",
                   "class": "ui-label",
                   "text": "Email",
-                  "attrs": { "for": "email" }
+                  "attrs": {
+                    "for": "email"
+                  }
                 },
                 {
                   "tag": "div",
@@ -27,7 +29,11 @@
                     {
                       "tag": "input",
                       "class": "ui-input",
-                      "attrs": { "type": "email", "id": "email", "placeholder": "Enter email" }
+                      "attrs": {
+                        "type": "email",
+                        "id": "email",
+                        "placeholder": "Enter email"
+                      }
                     }
                   ]
                 }
@@ -51,7 +57,9 @@
                   "tag": "label",
                   "class": "ui-label",
                   "text": "Password",
-                  "attrs": { "for": "password" }
+                  "attrs": {
+                    "for": "password"
+                  }
                 },
                 {
                   "tag": "div",
@@ -60,7 +68,10 @@
                     {
                       "tag": "input",
                       "class": "ui-input",
-                      "attrs": { "type": "password", "id": "password" }
+                      "attrs": {
+                        "type": "password",
+                        "id": "password"
+                      }
                     },
                     {
                       "tag": "span",
@@ -89,7 +100,9 @@
                   "tag": "label",
                   "class": "ui-label",
                   "text": "Username",
-                  "attrs": { "for": "username" }
+                  "attrs": {
+                    "for": "username"
+                  }
                 },
                 {
                   "tag": "div",
@@ -98,7 +111,11 @@
                     {
                       "tag": "input",
                       "class": "ui-input ui-input--error",
-                      "attrs": { "type": "text", "id": "username", "value": "ab" }
+                      "attrs": {
+                        "type": "text",
+                        "id": "username",
+                        "value": "ab"
+                      }
                     },
                     {
                       "tag": "span",
@@ -129,7 +146,9 @@
                   "tag": "label",
                   "class": "ui-label ui-field__label",
                   "text": "Full Name",
-                  "attrs": { "for": "name" }
+                  "attrs": {
+                    "for": "name"
+                  }
                 },
                 {
                   "tag": "div",
@@ -138,15 +157,72 @@
                     {
                       "tag": "input",
                       "class": "ui-input",
-                      "attrs": { "type": "text", "id": "name" }
+                      "attrs": {
+                        "type": "text",
+                        "id": "name"
+                      }
                     },
-                    { "tag": "span", "class": "ui-form-helper", "text": "As it appears on your ID" }
+                    {
+                      "tag": "span",
+                      "class": "ui-form-helper",
+                      "text": "As it appears on your ID"
+                    }
                   ]
                 }
               ]
             }
           ],
           "code": "<div class=\"ui-field ui-field--horizontal\">\n  <label class=\"ui-label ui-field__label\" for=\"name\">Full Name</label>\n  <div class=\"ui-field__control\">\n    <input type=\"text\" id=\"name\" class=\"ui-input\">\n    <span class=\"ui-form-helper\">As it appears on your ID</span>\n  </div>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "Responsive Layout",
+      "description": "Auto-switches to horizontal layout when container is wide enough (>= 30rem). Requires a parent with container-type: inline-size (use ui-container-inline utility).",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-container-inline",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-field ui-field--responsive",
+                  "children": [
+                    {
+                      "tag": "label",
+                      "class": "ui-label ui-field__label",
+                      "text": "Full Name",
+                      "attrs": {
+                        "for": "resp-name"
+                      }
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-field__control",
+                      "children": [
+                        {
+                          "tag": "input",
+                          "class": "ui-input",
+                          "attrs": {
+                            "type": "text",
+                            "id": "resp-name"
+                          }
+                        },
+                        {
+                          "tag": "span",
+                          "class": "ui-form-helper",
+                          "text": "Stacks vertically in narrow containers, horizontal at >= 30rem"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-container-inline\">\n  <div class=\"ui-field ui-field--responsive\">\n    <label class=\"ui-label ui-field__label\" for=\"name\">Full Name</label>\n    <div class=\"ui-field__control\">\n      <input type=\"text\" id=\"name\" class=\"ui-input\">\n    </div>\n  </div>\n</div>"
         }
       ]
     },
@@ -163,7 +239,9 @@
                   "tag": "label",
                   "class": "ui-label ui-label--required",
                   "text": "Required Field",
-                  "attrs": { "for": "req" }
+                  "attrs": {
+                    "for": "req"
+                  }
                 },
                 {
                   "tag": "div",
@@ -172,7 +250,11 @@
                     {
                       "tag": "input",
                       "class": "ui-input",
-                      "attrs": { "type": "text", "id": "req", "required": "" }
+                      "attrs": {
+                        "type": "text",
+                        "id": "req",
+                        "required": ""
+                      }
                     }
                   ]
                 }
@@ -185,6 +267,10 @@
     }
   ],
   "customization": [
-    { "token": "--ui-field-gap", "default": "0", "description": "Gap between field elements" }
+    {
+      "token": "--ui-field-gap",
+      "default": "0",
+      "description": "Gap between field elements"
+    }
   ]
 }
