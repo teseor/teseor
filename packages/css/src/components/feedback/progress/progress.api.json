@@ -6,6 +6,9 @@
     "size": {
       "values": ["sm", "lg"]
     },
+    "variant": {
+      "values": ["success", "warning", "danger"]
+    },
     "indeterminate": {
       "type": "boolean"
     },
@@ -14,9 +17,6 @@
     },
     "animated": {
       "type": "boolean"
-    },
-    "variant": {
-      "values": ["success", "warning", "danger"]
     }
   },
   "elements": {

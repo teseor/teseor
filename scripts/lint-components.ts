@@ -18,7 +18,11 @@ import { fileURLToPath } from 'node:url';
 import { discoverComponents } from './discover-structure.js';
 import { findComponentDirs } from './shared/find-components.js';
 import {
+  extractAllTokenRefs,
   extractBareTokenVars,
+  extractDynamicTokenPrefixes,
+  extractPropertyDeclarations,
+  extractTokenDefinitions,
   extractTokenVars,
   extractWrongLayerTokens,
   isHardcodedFallback,
@@ -322,6 +326,9 @@ function lintStyleLayerTokens(): void {
     const content = readFileSync(file, 'utf-8');
     const relPath = file.replace(`${srcDir}/`, '');
 
+    // Collect @property-registered names to allow in styles layer
+    const propertyDecls = extractPropertyDeclarations(content);
+
     // Find each styles layer block and check for var(--ui-*) inside
     for (const layerName of stylesLayerPatterns) {
       let searchFrom = 0;
@@ -359,6 +366,8 @@ function lintStyleLayerTokens(): void {
               match = tokenPattern.exec(rawLine)
             ) {
               const tokenName = match[0].replace('var(', '');
+              // Allow @property-registered typed properties in styles layer
+              if (propertyDecls.has(tokenName)) continue;
               const absoluteIdx = layerBodyStart + charOffset + match.index;
               const line = content.substring(0, absoluteIdx).split('\n').length;
               errors.push(
@@ -375,19 +384,19 @@ function lintStyleLayerTokens(): void {
   }
 
   if (errors.length > 0) {
-    console.warn('Style layer token encapsulation warnings:\n');
-    // Group by file for readability
+    console.error('Style layer token encapsulation check failed:\n');
     const byFile = new Map<string, number>();
     for (const err of errors) {
       const file = err.split(':')[0];
       byFile.set(file, (byFile.get(file) ?? 0) + 1);
     }
     for (const [file, count] of byFile) {
-      console.warn(`  ${file} (${count})`);
+      console.error(`  ${file} (${count})`);
     }
-    console.warn(
+    console.error(
       `\n${errors.length} direct token reference(s) in ${byFile.size} files. Move to @layer components.tokens as --_ internal variables.`,
     );
+    process.exit(1);
   } else {
     console.log(`Style layer tokens: ${scssFiles.length} SCSS files passed.`);
   }
@@ -463,21 +472,96 @@ function lintWrongLayerTokens(): void {
   }
 
   if (errors.length > 0) {
-    console.warn('Wrong-layer token definition warnings:\n');
+    console.error('Wrong-layer token definition check failed:\n');
     const byFile = new Map<string, number>();
     for (const err of errors) {
       const file = err.split(':')[0];
       byFile.set(file, (byFile.get(file) ?? 0) + 1);
     }
     for (const [file, count] of byFile) {
-      console.warn(`  ${file} (${count})`);
+      console.error(`  ${file} (${count})`);
     }
-    console.warn(
+    console.error(
       `\n${errors.length} token definition(s) in ${byFile.size} files. Move --_ definitions to @layer components.tokens.`,
     );
+    process.exit(1);
   } else {
     console.log(`Wrong-layer tokens: ${scssFiles.length} SCSS files passed.`);
   }
+}
+
+function lintTokenNames(): void {
+  const srcDir = join(__dirname, '../packages/css/src');
+  const tokensDir = join(srcDir, 'config/tokens');
+  const errors: string[] = [];
+
+  // Build registry of known global token names from config/tokens/**/*.scss
+  const globalTokens = new Set<string>();
+  for (const file of findScssFiles(tokensDir)) {
+    const content = readFileSync(file, 'utf-8');
+    for (const token of extractTokenDefinitions(content)) {
+      globalTokens.add(token);
+    }
+  }
+
+  // Also scan all SCSS for --ui-*: definitions (captures cross-component tokens like --ui-ctx-*)
+  const allScssFiles = findScssFiles(srcDir);
+  const dynamicPrefixes = new Set<string>();
+  for (const file of allScssFiles) {
+    const content = readFileSync(file, 'utf-8');
+    for (const token of extractTokenDefinitions(content)) {
+      globalTokens.add(token);
+    }
+    for (const prefix of extractDynamicTokenPrefixes(content)) {
+      dynamicPrefixes.add(prefix);
+    }
+  }
+
+  // Scan component SCSS files for var(--ui-*) references
+  const componentScssFiles = findScssFiles(join(srcDir, 'components'));
+  for (const file of componentScssFiles) {
+    const content = readFileSync(file, 'utf-8');
+    const relPath = file.replace(`${srcDir}/`, '');
+
+    // Derive component name from directory (e.g. components/actions/button -> button)
+    const parts = relPath.split('/');
+    const componentName = parts[parts.length - 2];
+
+    // @property-registered names are valid (typed custom properties)
+    const propertyDecls = extractPropertyDeclarations(content);
+
+    const refs = extractAllTokenRefs(content);
+    for (const { token, index } of refs) {
+      const fullName = `--ui-${token}`;
+      // Skip @property-registered typed properties
+      if (propertyDecls.has(fullName)) continue;
+      // Skip SCSS-interpolated refs (token name ends with - from #{...})
+      if (token.endsWith('-')) continue;
+      // Valid if: known global token OR component-scoped (--ui-{componentName}-*)
+      if (globalTokens.has(token)) continue;
+      if (token.startsWith(`${componentName}-`)) continue;
+      // Valid if matches a dynamic prefix from SCSS @each (e.g. --ui-size-sm)
+      const matchesDynamic = [...dynamicPrefixes].some((p) => token.startsWith(`${p}-`));
+      if (matchesDynamic) continue;
+      const line = content.substring(0, index).split('\n').length;
+      errors.push(
+        `${relPath}:${line}: --ui-${token} is not a known global token or ${componentName}-scoped token`,
+      );
+    }
+  }
+
+  if (errors.length > 0) {
+    console.error('Token name validation failed:\n');
+    for (const err of errors) {
+      console.error(`  - ${err}`);
+    }
+    console.error(
+      `\n${errors.length} unknown token reference(s). Use global tokens or --ui-{component}-* pattern.`,
+    );
+    process.exit(1);
+  }
+
+  console.log(`Token names: ${componentScssFiles.length} component SCSS files passed.`);
 }
 
 lintComponents();
@@ -487,4 +571,5 @@ lintTokenFallbacks();
 lintBareTokenVars();
 lintWrongLayerTokens();
 lintStyleLayerTokens();
+lintTokenNames();
 lintApiSync();

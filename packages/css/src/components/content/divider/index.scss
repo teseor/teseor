@@ -16,6 +16,11 @@
     // @desc Gap between children
     --_gap: var(--ui-divider-gap, calc(#{t.$unit} * 2));
   }
+
+  // With text label - taller to accommodate text
+  .divider:not(:empty) {
+    --_height: var(--ui-row-1, #{t.$row});
+  }
 }
 
 @layer components.styles {
@@ -41,11 +46,6 @@
     block-size: var(--_line-size);
 
     background: var(--_color);
-  }
-
-  // With text label - taller to accommodate text
-  .divider:not(:empty) {
-    --_height: var(--ui-row-1, #{t.$row});
   }
 
   .divider:not(:empty)::before {

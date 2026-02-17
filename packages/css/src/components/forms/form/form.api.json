@@ -37,6 +37,16 @@
       "name": "--ui-form-section-spacing",
       "default": "var(--ui-space-4)",
       "description": "Section spacing"
+    },
+    {
+      "name": "--ui-form-spacing-compact",
+      "default": "var(--ui-space-2)",
+      "description": "Spacing compact"
+    },
+    {
+      "name": "--ui-form-section-spacing-compact",
+      "default": "var(--ui-space-3)",
+      "description": "Section spacing compact"
     }
   ]
 }

@@ -113,6 +113,46 @@ export function extractWrongLayerTokens(content: string): WrongLayerToken[] {
   return results;
 }
 
+// Extract @property declarations from SCSS content (e.g. @property --ui-progress-value)
+export function extractPropertyDeclarations(content: string): Set<string> {
+  const results = new Set<string>();
+  const pattern = /@property\s+(--[\w-]+)/g;
+  for (let match = pattern.exec(content); match !== null; match = pattern.exec(content)) {
+    results.add(match[1]);
+  }
+  return results;
+}
+
+// Extract all var(--ui-*) token references from content (both with and without fallbacks)
+export function extractAllTokenRefs(content: string): { token: string; index: number }[] {
+  const results: { token: string; index: number }[] = [];
+  const pattern = /var\(--ui-([\w-]+)/g;
+  for (let match = pattern.exec(content); match !== null; match = pattern.exec(content)) {
+    results.push({ token: match[1], index: match.index });
+  }
+  return results;
+}
+
+// Extract --ui-* token definitions from SCSS content (e.g. --ui-color-primary: ...)
+export function extractTokenDefinitions(content: string): Set<string> {
+  const results = new Set<string>();
+  const pattern = /--ui-([\w-]+)\s*:/g;
+  for (let match = pattern.exec(content); match !== null; match = pattern.exec(content)) {
+    results.add(match[1]);
+  }
+  return results;
+}
+
+// Extract dynamic token prefixes from SCSS @each loops (e.g. "size" from var(--ui-size-#{$name}))
+export function extractDynamicTokenPrefixes(content: string): Set<string> {
+  const results = new Set<string>();
+  const pattern = /var\(--ui-([\w-]+)-#\{/g;
+  for (let match = pattern.exec(content); match !== null; match = pattern.exec(content)) {
+    results.add(match[1]);
+  }
+  return results;
+}
+
 // Check if a fallback value is a hardcoded literal instead of a SCSS reference
 export function isHardcodedFallback(fallback: string): boolean {
   const trimmed = fallback.trim();

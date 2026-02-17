@@ -9,10 +9,10 @@
     "size": {
       "values": ["sm", "lg"]
     },
-    "interactive": {
+    "flush": {
       "type": "boolean"
     },
-    "flush": {
+    "interactive": {
       "type": "boolean"
     },
     "responsive": {
@@ -68,6 +68,21 @@
       "name": "--ui-card-padding-lg",
       "default": "var(--ui-space-6)",
       "description": "Padding on all sides at large size"
+    },
+    {
+      "name": "--ui-card-bg-hover",
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Bg hover"
+    },
+    {
+      "name": "--ui-card-border-color-hover",
+      "default": "var(--ui-color-border-strong)",
+      "description": "Border color hover"
+    },
+    {
+      "name": "--ui-card-bg-active",
+      "default": "var(--ui-color-bg-muted)",
+      "description": "Bg active"
     }
   ]
 }

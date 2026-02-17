@@ -1,7 +1,11 @@
 import { describe, expect, it } from 'vitest';
 
 import {
+  extractAllTokenRefs,
   extractBareTokenVars,
+  extractDynamicTokenPrefixes,
+  extractPropertyDeclarations,
+  extractTokenDefinitions,
   extractTokenVars,
   extractWrongLayerTokens,
   isHardcodedFallback,
@@ -140,6 +144,71 @@ describe('isHardcodedFallback', () => {
     expect(isHardcodedFallback('rgb(0, 0, 0)')).toBe(true);
     expect(isHardcodedFallback('hsl(0, 100%, 50%)')).toBe(true);
     expect(isHardcodedFallback('oklch(0.5 0.2 120)')).toBe(true);
+  });
+});
+
+describe('extractPropertyDeclarations', () => {
+  it('finds @property declarations', () => {
+    const content = [
+      '@property --ui-progress-value {',
+      '  syntax: "<percentage>";',
+      '  inherits: false;',
+      '  initial-value: 0%;',
+      '}',
+    ].join('\n');
+    const result = extractPropertyDeclarations(content);
+    expect(result).toEqual(new Set(['--ui-progress-value']));
+  });
+
+  it('returns empty set for no declarations', () => {
+    const content = '.foo { color: red; }';
+    expect(extractPropertyDeclarations(content).size).toBe(0);
+  });
+});
+
+describe('extractAllTokenRefs', () => {
+  it('finds var(--ui-*) with and without fallbacks', () => {
+    const content = [
+      '--_fill: var(--ui-color-primary, #{t.$color-primary});',
+      'inline-size: var(--ui-progress-value, auto);',
+      '--_bg: var(--ui-color-bg);',
+    ].join('\n');
+    const result = extractAllTokenRefs(content);
+    expect(result).toHaveLength(3);
+    expect(result[0].token).toBe('color-primary');
+    expect(result[1].token).toBe('progress-value');
+    expect(result[2].token).toBe('color-bg');
+  });
+
+  it('returns empty for no matches', () => {
+    expect(extractAllTokenRefs('color: var(--_bg);')).toHaveLength(0);
+  });
+});
+
+describe('extractTokenDefinitions', () => {
+  it('finds --ui-* definitions', () => {
+    const content = ['--ui-color-primary: oklch(0.6 0.2 260);', '--ui-space-2: 16px;'].join('\n');
+    const result = extractTokenDefinitions(content);
+    expect(result).toEqual(new Set(['color-primary', 'space-2']));
+  });
+
+  it('ignores var(--ui-*) references', () => {
+    const content = 'color: var(--ui-color-primary, red);';
+    const result = extractTokenDefinitions(content);
+    expect(result.size).toBe(0);
+  });
+});
+
+describe('extractDynamicTokenPrefixes', () => {
+  it('finds prefixes from SCSS @each interpolation', () => {
+    const content = '--_size: var(--ui-icon-size-#{$name}, var(--ui-size-#{$name}, #{$value}));';
+    const result = extractDynamicTokenPrefixes(content);
+    expect(result).toEqual(new Set(['icon-size', 'size']));
+  });
+
+  it('returns empty for no interpolation', () => {
+    const content = '--_size: var(--ui-icon-size, 1rem);';
+    expect(extractDynamicTokenPrefixes(content).size).toBe(0);
   });
 });
 
