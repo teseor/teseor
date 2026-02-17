@@ -36,4 +36,15 @@
     grid-template-columns: subgrid;
     grid-template-rows: subgrid;
   }
+
+  // Column spanning
+  .grid-col-span-2 { grid-column: span 2; }
+  .grid-col-span-3 { grid-column: span 3; }
+  .grid-col-span-4 { grid-column: span 4; }
+  .grid-col-span-full { grid-column: 1 / -1; }
+
+  // Row spanning
+  .grid-row-span-2 { grid-row: span 2; }
+  .grid-row-span-3 { grid-row: span 3; }
+  .grid-row-span-full { grid-row: 1 / -1; }
 }
