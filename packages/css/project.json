@@ -7,7 +7,7 @@
     "build": {
       "executor": "nx:run-commands",
       "outputs": ["{projectRoot}/dist"],
-      "inputs": ["{projectRoot}/src/**/*.scss", "{workspaceRoot}/postcss.config.js"],
+      "inputs": ["{projectRoot}/src/**/*.scss", "{workspaceRoot}/postcss.config.cjs"],
       "options": {
         "commands": [
           "tsx scripts/sync-scss-indexes.ts",
