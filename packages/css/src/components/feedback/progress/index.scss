@@ -5,6 +5,15 @@
 // Progress - progress bar indicator
 // Shows completion status of a task
 
+// Register --ui-progress-value as typed property so browsers can
+// interpolate percentage values — enables smooth CSS-only transitions
+// when value changes via JS (no inline width needed)
+@property --ui-progress-value {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+
 @layer components.tokens {
   .progress {
     --_duration-normal: var(--ui-duration-normal, #{t.$duration-normal});
@@ -42,11 +51,16 @@
 
   .progress__bar {
     block-size: 100%;
+    // Typed --ui-progress-value enables CSS-only transitions;
+    // falls back to inline style width for older browsers
+    inline-size: var(--ui-progress-value, auto);
 
     background: var(--_fill);
     border-radius: var(--_radius);
 
-    transition: inline-size var(--_duration-normal) var(--_ease-default);
+    transition:
+      inline-size var(--_duration-normal) var(--_ease-default),
+      --ui-progress-value var(--_duration-normal) var(--_ease-default);
   }
 
   // Indeterminate state - animated stripe
