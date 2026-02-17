@@ -85,6 +85,27 @@
       ]
     },
     {
+      "title": "Contrast Preference",
+      "description": "Adapts border visibility, muted text, and subtle backgrounds when users request more or less contrast via OS settings.",
+      "examples": [
+        {
+          "title": "High contrast",
+          "description": "When prefers-contrast: more is active, borders become stronger, muted text becomes more readable, and subtle backgrounds become more distinct.",
+          "code": "@media (prefers-contrast: more) {\n  :root {\n    --ui-color-border: var(--ui-color-neutral-400);\n    --ui-color-border-strong: var(--ui-color-neutral-600);\n    --ui-color-text-muted: var(--ui-color-neutral-600);\n    --ui-color-bg-subtle: var(--ui-color-neutral-200);\n  }\n}"
+        },
+        {
+          "title": "Low contrast",
+          "description": "When prefers-contrast: less is active, borders become softer.",
+          "code": "@media (prefers-contrast: less) {\n  :root {\n    --ui-color-border: var(--ui-color-neutral-150);\n    --ui-color-border-strong: var(--ui-color-neutral-200);\n  }\n}"
+        },
+        {
+          "title": "Affected tokens",
+          "description": "Overrides apply to semantic color tokens. All components using these tokens automatically adapt: cards, inputs, buttons, dividers, and any element with borders or muted text.",
+          "code": "// Tokens affected by prefers-contrast:\n// --ui-color-border (default: neutral-200 -> more: neutral-400)\n// --ui-color-border-strong (default: neutral-300 -> more: neutral-600)\n// --ui-color-text-muted (default: neutral-500 -> more: neutral-600)\n// --ui-color-bg-subtle (default: neutral-100 -> more: neutral-200)"
+        }
+      ]
+    },
+    {
       "title": "Forced Colors (High Contrast)",
       "description": "Windows High Contrast Mode support. Focus rings use transparent outlines that become visible in forced-colors mode, and the focus color maps to the system Highlight color.",
       "examples": [

@@ -64,4 +64,29 @@
       --ui-color-focus: Highlight;
     }
   }
+
+  // Increased contrast preference
+  @media (prefers-contrast: more) {
+    :root {
+      --ui-color-border: var(--ui-color-neutral-400);
+      --ui-color-border-strong: var(--ui-color-neutral-600);
+      --ui-color-text-muted: var(--ui-color-neutral-600);
+      --ui-color-bg-subtle: var(--ui-color-neutral-200);
+    }
+
+    [data-theme="dark"] {
+      --ui-color-border: var(--ui-color-neutral-400);
+      --ui-color-border-strong: var(--ui-color-neutral-300);
+      --ui-color-text-muted: var(--ui-color-neutral-300);
+      --ui-color-bg-subtle: var(--ui-color-neutral-700);
+    }
+  }
+
+  // Decreased contrast preference
+  @media (prefers-contrast: less) {
+    :root {
+      --ui-color-border: var(--ui-color-neutral-150);
+      --ui-color-border-strong: var(--ui-color-neutral-200);
+    }
+  }
 }
