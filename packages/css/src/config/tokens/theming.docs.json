@@ -16,9 +16,21 @@
               "tag": "div",
               "class": "theme-demo",
               "children": [
-                { "tag": "button", "class": "ui-button", "text": "Primary" },
-                { "tag": "button", "class": "ui-button ui-button--secondary", "text": "Secondary" },
-                { "tag": "button", "class": "ui-button ui-button--danger", "text": "Danger" }
+                {
+                  "tag": "button",
+                  "class": "ui-button",
+                  "text": "Primary"
+                },
+                {
+                  "tag": "button",
+                  "class": "ui-button ui-button--secondary",
+                  "text": "Secondary"
+                },
+                {
+                  "tag": "button",
+                  "class": "ui-button ui-button--danger",
+                  "text": "Danger"
+                }
               ]
             }
           ],
@@ -31,9 +43,21 @@
               "tag": "div",
               "class": "theme-demo theme-purple",
               "children": [
-                { "tag": "button", "class": "ui-button", "text": "Primary" },
-                { "tag": "button", "class": "ui-button ui-button--secondary", "text": "Secondary" },
-                { "tag": "button", "class": "ui-button ui-button--danger", "text": "Danger" }
+                {
+                  "tag": "button",
+                  "class": "ui-button",
+                  "text": "Primary"
+                },
+                {
+                  "tag": "button",
+                  "class": "ui-button ui-button--secondary",
+                  "text": "Secondary"
+                },
+                {
+                  "tag": "button",
+                  "class": "ui-button ui-button--danger",
+                  "text": "Danger"
+                }
               ]
             }
           ],
@@ -46,9 +70,21 @@
               "tag": "div",
               "class": "theme-demo theme-teal",
               "children": [
-                { "tag": "button", "class": "ui-button", "text": "Primary" },
-                { "tag": "button", "class": "ui-button ui-button--secondary", "text": "Secondary" },
-                { "tag": "button", "class": "ui-button ui-button--danger", "text": "Danger" }
+                {
+                  "tag": "button",
+                  "class": "ui-button",
+                  "text": "Primary"
+                },
+                {
+                  "tag": "button",
+                  "class": "ui-button ui-button--secondary",
+                  "text": "Secondary"
+                },
+                {
+                  "tag": "button",
+                  "class": "ui-button ui-button--danger",
+                  "text": "Danger"
+                }
               ]
             }
           ],
@@ -61,9 +97,21 @@
               "tag": "div",
               "class": "theme-demo theme-orange",
               "children": [
-                { "tag": "button", "class": "ui-button", "text": "Primary" },
-                { "tag": "button", "class": "ui-button ui-button--secondary", "text": "Secondary" },
-                { "tag": "button", "class": "ui-button ui-button--danger", "text": "Danger" }
+                {
+                  "tag": "button",
+                  "class": "ui-button",
+                  "text": "Primary"
+                },
+                {
+                  "tag": "button",
+                  "class": "ui-button ui-button--secondary",
+                  "text": "Secondary"
+                },
+                {
+                  "tag": "button",
+                  "class": "ui-button ui-button--danger",
+                  "text": "Danger"
+                }
               ]
             }
           ],
@@ -73,10 +121,10 @@
     },
     {
       "title": "Dark Mode",
-      "description": "Toggle dark mode with data-theme attribute",
+      "description": "Dark mode uses the CSS light-dark() function. Tokens resolve automatically based on color-scheme. Override with data-theme attribute.",
       "examples": [
         {
-          "title": "Light Mode",
+          "title": "Automatic (system preference)",
           "items": [
             {
               "tag": "div",
@@ -85,30 +133,67 @@
                 {
                   "tag": "div",
                   "class": "ui-card",
-                  "children": [{ "tag": "p", "text": "Light mode card" }]
+                  "children": [
+                    {
+                      "tag": "p",
+                      "text": "Follows OS color scheme"
+                    }
+                  ]
                 }
               ]
             }
           ],
-          "code": "<html>\n  <!-- Light mode (default) -->\n</html>"
+          "code": ":root {\n  color-scheme: light dark;\n  --ui-color-bg: light-dark(\n    var(--ui-color-neutral-50),\n    var(--ui-color-neutral-900)\n  );\n}"
         },
         {
-          "title": "Dark Mode",
+          "title": "Force Light Mode",
           "items": [
             {
               "tag": "div",
               "class": "theme-demo",
-              "attrs": { "data-theme": "dark" },
+              "attrs": {
+                "data-theme": "light"
+              },
               "children": [
                 {
                   "tag": "div",
                   "class": "ui-card",
-                  "children": [{ "tag": "p", "text": "Dark mode card" }]
+                  "children": [
+                    {
+                      "tag": "p",
+                      "text": "Always light"
+                    }
+                  ]
                 }
               ]
             }
           ],
-          "code": "<html data-theme=\"dark\">\n  <!-- Dark mode enabled -->\n</html>"
+          "code": "<html data-theme=\"light\">\n  <!-- Forces light mode regardless of OS setting -->\n</html>"
+        },
+        {
+          "title": "Force Dark Mode",
+          "items": [
+            {
+              "tag": "div",
+              "class": "theme-demo",
+              "attrs": {
+                "data-theme": "dark"
+              },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-card",
+                  "children": [
+                    {
+                      "tag": "p",
+                      "text": "Always dark"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "code": "<html data-theme=\"dark\">\n  <!-- Forces dark mode regardless of OS setting -->\n</html>"
         }
       ]
     },
@@ -123,9 +208,21 @@
               "tag": "div",
               "class": "theme-demo custom-buttons",
               "children": [
-                { "tag": "button", "class": "ui-button ui-button--sm", "text": "Small" },
-                { "tag": "button", "class": "ui-button", "text": "Default" },
-                { "tag": "button", "class": "ui-button ui-button--lg", "text": "Large" }
+                {
+                  "tag": "button",
+                  "class": "ui-button ui-button--sm",
+                  "text": "Small"
+                },
+                {
+                  "tag": "button",
+                  "class": "ui-button",
+                  "text": "Default"
+                },
+                {
+                  "tag": "button",
+                  "class": "ui-button ui-button--lg",
+                  "text": "Large"
+                }
               ]
             }
           ],
@@ -141,7 +238,12 @@
                 {
                   "tag": "div",
                   "class": "ui-card",
-                  "children": [{ "tag": "p", "text": "Card with custom padding" }]
+                  "children": [
+                    {
+                      "tag": "p",
+                      "text": "Card with custom padding"
+                    }
+                  ]
                 }
               ]
             }
@@ -160,12 +262,19 @@
               "tag": "div",
               "class": "theme-demo theme-corporate",
               "children": [
-                { "tag": "button", "class": "ui-button", "text": "Action" },
+                {
+                  "tag": "button",
+                  "class": "ui-button",
+                  "text": "Action"
+                },
                 {
                   "tag": "div",
                   "class": "ui-card",
                   "children": [
-                    { "tag": "p", "text": "Corporate theme with teal accent and sharp corners" }
+                    {
+                      "tag": "p",
+                      "text": "Corporate theme with teal accent and sharp corners"
+                    }
                   ]
                 }
               ]
