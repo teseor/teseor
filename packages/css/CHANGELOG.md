@@ -1,5 +1,16 @@
 # @teseor/css
 
+## 1.11.0
+
+### Minor Changes
+
+- 2fc20a1: Add scroll-snap utility classes for containers (snap-x, snap-y, proximity variants) and children (snap-start, snap-center, snap-end)
+- 8678686: Add text-wrap utilities (balance, pretty, nowrap) and multi-line truncation (truncate-2/3/4). Apply text-wrap: balance to headings by default.
+
+### Patch Changes
+
+- d514364: Add prefers-contrast media query support for increased and decreased contrast preferences
+
 ## 1.10.1
 
 ### Patch Changes
