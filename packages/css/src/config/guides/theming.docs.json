@@ -3,6 +3,7 @@
   "type": "guide",
   "title": "Theming",
   "description": "Customize the design system with CSS custom properties",
+  "weight": 2,
   "skipValidation": true,
   "sections": [
     {

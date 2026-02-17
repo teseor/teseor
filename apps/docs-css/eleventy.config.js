@@ -119,6 +119,7 @@ function resolveDoc(doc, docsFilePath) {
     groupLabel: group?.label || null,
     title: doc.title || (api ? capitalize(api.name) : id),
     description: doc.description || api?.description || '',
+    weight: doc.weight || null,
     sections: doc.sections || [],
     customization,
     api: mergedApi,
@@ -225,6 +226,14 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addFilter('sortByTitle', (docs) =>
     [...docs].sort((a, b) => (a.title || '').localeCompare(b.title || '')),
+  );
+
+  eleventyConfig.addFilter('sortByWeight', (docs) =>
+    [...docs].sort((a, b) => {
+      const wa = a.weight ?? Number.MAX_SAFE_INTEGER;
+      const wb = b.weight ?? Number.MAX_SAFE_INTEGER;
+      return wa !== wb ? wa - wb : (a.title || '').localeCompare(b.title || '');
+    }),
   );
 
   eleventyConfig.addFilter('processTemplate', (template, data) => processTemplate(template, data));
