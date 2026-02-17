@@ -105,9 +105,180 @@
       ]
     },
     {
+      "title": "Proximity Snap",
+      "description": "Softer snap that only engages when close to a snap point.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-snap-x-proximity ui-flex ui-gap-2 ui-p-2",
+              "style": { "max-inline-size": "20rem" },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-snap-start ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "Proximity 1"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-snap-start ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "Proximity 2"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-snap-start ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "Proximity 3"
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-snap-x-proximity ui-flex ui-gap-2\">\n  <div class=\"ui-snap-start\">Proximity 1</div>\n  <div class=\"ui-snap-start\">Proximity 2</div>\n</div>"
+        },
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-snap-y-proximity",
+              "style": { "max-block-size": "8rem" },
+              "children": [
+                { "tag": "div", "class": "ui-snap-start ui-card ui-p-2", "text": "Section 1" },
+                { "tag": "div", "class": "ui-snap-start ui-card ui-p-2", "text": "Section 2" },
+                { "tag": "div", "class": "ui-snap-start ui-card ui-p-2", "text": "Section 3" }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-snap-y-proximity\" style=\"max-block-size: 8rem\">\n  <div class=\"ui-snap-start\">Section 1</div>\n  <div class=\"ui-snap-start\">Section 2</div>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "End Alignment and Stop",
+      "description": "Snap children to end position or force stop at every snap point.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-snap-x ui-flex ui-gap-2 ui-p-2",
+              "style": { "max-inline-size": "20rem" },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-snap-end ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "End 1"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-snap-end ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "End 2"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-snap-end ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "End 3"
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-snap-x ui-flex ui-gap-2\">\n  <div class=\"ui-snap-end\">End 1</div>\n  <div class=\"ui-snap-end\">End 2</div>\n</div>"
+        },
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-snap-x ui-flex ui-gap-2 ui-p-2",
+              "style": { "max-inline-size": "20rem" },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-snap-start ui-snap-always ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "Always 1"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-snap-start ui-snap-always ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "Always 2"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-snap-start ui-snap-always ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "Always 3"
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-snap-x ui-flex ui-gap-2\">\n  <div class=\"ui-snap-start ui-snap-always\">Always 1</div>\n  <div class=\"ui-snap-start ui-snap-always\">Always 2</div>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "Disable Snap",
+      "description": "Remove snap behavior from a container.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-snap-none ui-flex ui-gap-2 ui-p-2",
+              "style": { "max-inline-size": "20rem", "overflow-x": "auto" },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "No snap 1"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "No snap 2"
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-snap-none\">\n  <div>No snap 1</div>\n  <div>No snap 2</div>\n</div>"
+        }
+      ]
+    },
+    {
       "title": "Scroll Padding",
       "description": "Offset snap position for fixed headers or insets.",
       "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-snap-x ui-snap-p-1 ui-flex ui-gap-2 ui-p-2",
+              "style": { "max-inline-size": "20rem" },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-snap-start ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "p-1"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-snap-start ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "p-1"
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-snap-x ui-snap-p-1 ui-flex ui-gap-2\">\n  <div class=\"ui-snap-start\">p-1</div>\n</div>"
+        },
         {
           "items": [
             {
@@ -119,24 +290,42 @@
                   "tag": "div",
                   "class": "ui-snap-start ui-card ui-p-2",
                   "style": { "min-inline-size": "10rem" },
-                  "text": "Padded 1"
+                  "text": "p-2"
                 },
                 {
                   "tag": "div",
                   "class": "ui-snap-start ui-card ui-p-2",
                   "style": { "min-inline-size": "10rem" },
-                  "text": "Padded 2"
-                },
-                {
-                  "tag": "div",
-                  "class": "ui-snap-start ui-card ui-p-2",
-                  "style": { "min-inline-size": "10rem" },
-                  "text": "Padded 3"
+                  "text": "p-2"
                 }
               ]
             }
           ],
-          "code": "<div class=\"ui-snap-x ui-snap-p-2 ui-flex ui-gap-2\">\n  <div class=\"ui-snap-start\">Padded 1</div>\n  <div class=\"ui-snap-start\">Padded 2</div>\n</div>"
+          "code": "<div class=\"ui-snap-x ui-snap-p-2 ui-flex ui-gap-2\">\n  <div class=\"ui-snap-start\">p-2</div>\n</div>"
+        },
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-snap-x ui-snap-p-4 ui-flex ui-gap-2 ui-p-2",
+              "style": { "max-inline-size": "20rem" },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-snap-start ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "p-4"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-snap-start ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "p-4"
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-snap-x ui-snap-p-4 ui-flex ui-gap-2\">\n  <div class=\"ui-snap-start\">p-4</div>\n</div>"
         }
       ]
     }
