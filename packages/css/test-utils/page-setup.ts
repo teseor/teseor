@@ -2,7 +2,7 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import type { Page } from '@playwright/test';
 
-const LOSTPIXEL_DIR = resolve(__dirname, '../../.lostpixel');
+const LOSTPIXEL_DIR = resolve(__dirname, '../.lostpixel');
 import type { ComponentAPI } from './api-types';
 import { generateVariationsHtml } from './html-generator';
 import { scaffoldCss } from './scaffold';
@@ -32,7 +32,7 @@ interface DocsJson {
   sections: DocsSection[];
 }
 
-const DIST_PATH = resolve(__dirname, '../../dist');
+const DIST_PATH = resolve(__dirname, '../dist');
 
 export function loadCss(filename = 'index.css'): string {
   return readFileSync(resolve(DIST_PATH, filename), 'utf-8');

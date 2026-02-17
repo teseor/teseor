@@ -3,7 +3,7 @@ import { basename, join, resolve } from 'node:path';
 import { test } from '@playwright/test';
 import { generateHtmlFromDocs, loadDocsJson, setupVisualTest, validateGridRhythm } from '.';
 
-const COMPONENTS_DIR = resolve(__dirname, '../components');
+const COMPONENTS_DIR = resolve(__dirname, '../src/components');
 
 // Known grid rhythm issues tracked in separate issues
 const SKIP_COMPONENTS = [
