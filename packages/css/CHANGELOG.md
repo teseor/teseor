@@ -1,5 +1,11 @@
 # @teseor/css
 
+## 1.13.0
+
+### Minor Changes
+
+- d616cd8: Add subgrid support and span utilities to grid primitive
+
 ## 1.12.0
 
 ### Minor Changes
