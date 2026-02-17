@@ -16,10 +16,30 @@
               "class": "ui-snap-x ui-flex ui-gap-2 ui-p-2",
               "style": { "max-inline-size": "20rem" },
               "children": [
-                { "tag": "div", "class": "ui-snap-start ui-card ui-p-2", "style": { "min-inline-size": "10rem" }, "text": "Item 1" },
-                { "tag": "div", "class": "ui-snap-start ui-card ui-p-2", "style": { "min-inline-size": "10rem" }, "text": "Item 2" },
-                { "tag": "div", "class": "ui-snap-start ui-card ui-p-2", "style": { "min-inline-size": "10rem" }, "text": "Item 3" },
-                { "tag": "div", "class": "ui-snap-start ui-card ui-p-2", "style": { "min-inline-size": "10rem" }, "text": "Item 4" }
+                {
+                  "tag": "div",
+                  "class": "ui-snap-start ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "Item 1"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-snap-start ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "Item 2"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-snap-start ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "Item 3"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-snap-start ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "Item 4"
+                }
               ]
             }
           ],
@@ -38,9 +58,24 @@
               "class": "ui-snap-x ui-flex ui-gap-2 ui-p-2",
               "style": { "max-inline-size": "20rem" },
               "children": [
-                { "tag": "div", "class": "ui-snap-center ui-card ui-p-2", "style": { "min-inline-size": "10rem" }, "text": "Center 1" },
-                { "tag": "div", "class": "ui-snap-center ui-card ui-p-2", "style": { "min-inline-size": "10rem" }, "text": "Center 2" },
-                { "tag": "div", "class": "ui-snap-center ui-card ui-p-2", "style": { "min-inline-size": "10rem" }, "text": "Center 3" }
+                {
+                  "tag": "div",
+                  "class": "ui-snap-center ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "Center 1"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-snap-center ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "Center 2"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-snap-center ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "Center 3"
+                }
               ]
             }
           ],
@@ -80,9 +115,24 @@
               "class": "ui-snap-x ui-snap-p-2 ui-flex ui-gap-2 ui-p-2",
               "style": { "max-inline-size": "20rem" },
               "children": [
-                { "tag": "div", "class": "ui-snap-start ui-card ui-p-2", "style": { "min-inline-size": "10rem" }, "text": "Padded 1" },
-                { "tag": "div", "class": "ui-snap-start ui-card ui-p-2", "style": { "min-inline-size": "10rem" }, "text": "Padded 2" },
-                { "tag": "div", "class": "ui-snap-start ui-card ui-p-2", "style": { "min-inline-size": "10rem" }, "text": "Padded 3" }
+                {
+                  "tag": "div",
+                  "class": "ui-snap-start ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "Padded 1"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-snap-start ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "Padded 2"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-snap-start ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "Padded 3"
+                }
               ]
             }
           ],
