@@ -14,6 +14,11 @@
               "class": "ui-toast",
               "children": [
                 {
+                  "tag": "span",
+                  "class": "ui-toast__icon",
+                  "text": "i"
+                },
+                {
                   "tag": "div",
                   "class": "ui-toast__content",
                   "children": [
@@ -221,6 +226,138 @@
                           "class": "ui-toast__content",
                           "children": [
                             { "tag": "p", "class": "ui-toast__title", "text": "Bottom End" }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "layout": "column"
+        },
+        {
+          "items": [
+            {
+              "tag": "div",
+              "attrs": {
+                "style": "position:relative;height:200px;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)"
+              },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-toast-viewport ui-toast-viewport--top-start",
+                  "attrs": { "style": "position:absolute" },
+                  "children": [
+                    {
+                      "tag": "div",
+                      "class": "ui-toast",
+                      "children": [
+                        {
+                          "tag": "div",
+                          "class": "ui-toast__content",
+                          "children": [
+                            { "tag": "p", "class": "ui-toast__title", "text": "Top Start" }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "layout": "column"
+        },
+        {
+          "items": [
+            {
+              "tag": "div",
+              "attrs": {
+                "style": "position:relative;height:200px;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)"
+              },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-toast-viewport ui-toast-viewport--top-center",
+                  "attrs": { "style": "position:absolute" },
+                  "children": [
+                    {
+                      "tag": "div",
+                      "class": "ui-toast",
+                      "children": [
+                        {
+                          "tag": "div",
+                          "class": "ui-toast__content",
+                          "children": [
+                            { "tag": "p", "class": "ui-toast__title", "text": "Top Center" }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "layout": "column"
+        },
+        {
+          "items": [
+            {
+              "tag": "div",
+              "attrs": {
+                "style": "position:relative;height:200px;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)"
+              },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-toast-viewport ui-toast-viewport--bottom-start",
+                  "attrs": { "style": "position:absolute" },
+                  "children": [
+                    {
+                      "tag": "div",
+                      "class": "ui-toast",
+                      "children": [
+                        {
+                          "tag": "div",
+                          "class": "ui-toast__content",
+                          "children": [
+                            { "tag": "p", "class": "ui-toast__title", "text": "Bottom Start" }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "layout": "column"
+        },
+        {
+          "items": [
+            {
+              "tag": "div",
+              "attrs": {
+                "style": "position:relative;height:200px;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)"
+              },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-toast-viewport ui-toast-viewport--bottom-center",
+                  "attrs": { "style": "position:absolute" },
+                  "children": [
+                    {
+                      "tag": "div",
+                      "class": "ui-toast",
+                      "children": [
+                        {
+                          "tag": "div",
+                          "class": "ui-toast__content",
+                          "children": [
+                            { "tag": "p", "class": "ui-toast__title", "text": "Bottom Center" }
                           ]
                         }
                       ]

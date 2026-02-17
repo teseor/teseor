@@ -133,6 +133,76 @@
           "code": "<ol class=\"ui-breadcrumb\">\n  <li class=\"ui-breadcrumb__item\">\n    <a href=\"#\" class=\"ui-breadcrumb__link\">\n      <svg class=\"ui-icon\">...</svg>\n    </a>\n  </li>\n  ...\n</ol>"
         }
       ]
+    },
+    {
+      "title": "Overflow with Ellipsis",
+      "description": "Truncate long breadcrumbs with hidden items and an ellipsis indicator.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "nav",
+              "attrs": { "aria-label": "Breadcrumb" },
+              "children": [
+                {
+                  "tag": "ol",
+                  "class": "ui-breadcrumb",
+                  "children": [
+                    {
+                      "tag": "li",
+                      "class": "ui-breadcrumb__item",
+                      "children": [
+                        {
+                          "tag": "a",
+                          "class": "ui-breadcrumb__link",
+                          "attrs": { "href": "#" },
+                          "text": "Home"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "li",
+                      "class": "ui-breadcrumb__item ui-breadcrumb__item--hidden",
+                      "children": [
+                        {
+                          "tag": "a",
+                          "class": "ui-breadcrumb__link",
+                          "attrs": { "href": "#" },
+                          "text": "Category"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "li",
+                      "class": "ui-breadcrumb__item",
+                      "children": [
+                        {
+                          "tag": "span",
+                          "class": "ui-breadcrumb__ellipsis",
+                          "text": "..."
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "li",
+                      "class": "ui-breadcrumb__item",
+                      "children": [
+                        {
+                          "tag": "span",
+                          "class": "ui-breadcrumb__current",
+                          "attrs": { "aria-current": "page" },
+                          "text": "Current Page"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "code": "<ol class=\"ui-breadcrumb\">\n  <li class=\"ui-breadcrumb__item\"><a href=\"#\">Home</a></li>\n  <li class=\"ui-breadcrumb__item ui-breadcrumb__item--hidden\"><a href=\"#\">Category</a></li>\n  <li class=\"ui-breadcrumb__item\"><span class=\"ui-breadcrumb__ellipsis\">...</span></li>\n  <li class=\"ui-breadcrumb__item\"><span aria-current=\"page\">Current</span></li>\n</ol>"
+        }
+      ]
     }
   ],
   "customization": [

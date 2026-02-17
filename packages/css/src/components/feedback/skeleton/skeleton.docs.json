@@ -104,6 +104,22 @@
           "code": "<div class=\"ui-skeleton ui-skeleton--text ui-skeleton--pulse\"></div>"
         }
       ]
+    },
+    {
+      "title": "Static",
+      "description": "No animation, just a placeholder block.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-skeleton ui-skeleton--static",
+              "attrs": { "style": "width: 200px;" }
+            }
+          ],
+          "code": "<div class=\"ui-skeleton ui-skeleton--static\"></div>"
+        }
+      ]
     }
   ],
   "customization": [

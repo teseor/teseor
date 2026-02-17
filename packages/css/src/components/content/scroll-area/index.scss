@@ -37,7 +37,7 @@
     --_max-height: var(--ui-scroll-area-max-height-xl, calc(#{t.$row} * 20));
   }
 
-  // @modifier thin scrollbar
+  // @modifier boolean thin
   .scroll-area--thin {
     // @desc Scrollbar size thin
     --_scrollbar-size: var(--ui-scroll-area-scrollbar-size-thin, calc(#{t.$unit} * 0.5));

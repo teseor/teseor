@@ -19,8 +19,28 @@
   "relatedComponents": [
     {
       "name": "input-group",
+      "modifiers": {
+        "has-prefix": {
+          "type": "boolean"
+        },
+        "has-suffix": {
+          "type": "boolean"
+        }
+      },
       "elements": {
-        "addon": {}
+        "addon": {
+          "modifiers": {
+            "start": {
+              "type": "boolean"
+            },
+            "end": {
+              "type": "boolean"
+            },
+            "interactive": {
+              "type": "boolean"
+            }
+          }
+        }
       }
     }
   ],

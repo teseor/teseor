@@ -30,11 +30,6 @@
           "items": [
             {
               "tag": "input",
-              "class": "ui-checkbox ui-checkbox--sm",
-              "attrs": { "type": "checkbox", "checked": "" }
-            },
-            {
-              "tag": "input",
               "class": "ui-checkbox",
               "attrs": { "type": "checkbox", "checked": "" }
             },
@@ -44,7 +39,7 @@
               "attrs": { "type": "checkbox", "checked": "" }
             }
           ],
-          "code": "<input type=\"checkbox\" class=\"ui-checkbox ui-checkbox--sm\" checked>\n<input type=\"checkbox\" class=\"ui-checkbox\" checked>\n<input type=\"checkbox\" class=\"ui-checkbox ui-checkbox--lg\" checked>"
+          "code": "<input type=\"checkbox\" class=\"ui-checkbox\" checked>\n<input type=\"checkbox\" class=\"ui-checkbox ui-checkbox--lg\" checked>"
         }
       ]
     },

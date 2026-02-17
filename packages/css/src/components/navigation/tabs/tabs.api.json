@@ -12,8 +12,20 @@
   },
   "elements": {
     "list": {},
-    "tab": {},
-    "panel": {}
+    "tab": {
+      "modifiers": {
+        "active": {
+          "type": "boolean"
+        }
+      }
+    },
+    "panel": {
+      "modifiers": {
+        "active": {
+          "type": "boolean"
+        }
+      }
+    }
   },
   "cssVars": [
     {

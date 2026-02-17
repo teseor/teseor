@@ -276,9 +276,28 @@ export function extractElements(
     const innerModPattern = /&--([\w-]+)\s*[{,]/g;
     for (const modMatch of block.matchAll(innerModPattern)) {
       const modName = modMatch[1];
-      if (['hover', 'focus', 'active', 'disabled'].includes(modName)) continue;
+      if (['hover', 'focus'].includes(modName)) continue;
       if (!elements[elemName].modifiers) elements[elemName].modifiers = {};
       elements[elemName].modifiers![modName] = { type: 'boolean' };
+    }
+  }
+
+  // Full-class element blocks: .component__element { &--modifier }
+  const fullElemBlockPattern = new RegExp(`\\.${escaped}__(\\w[\\w-]*)\\s*\\{`, 'g');
+  for (const match of content.matchAll(fullElemBlockPattern)) {
+    const rawName = match[1];
+    if (rawName.includes('--')) continue;
+    if (!elements[rawName]) elements[rawName] = {};
+
+    const blockStart = content.indexOf('{', match.index! + match[0].length - 1);
+    if (blockStart === -1) continue;
+    const block = extractBalanced(content, blockStart, '{', '}');
+    const innerModPattern = /&--([\w-]+)\s*[{,]/g;
+    for (const modMatch of block.matchAll(innerModPattern)) {
+      const modName = modMatch[1];
+      if (['hover', 'focus'].includes(modName)) continue;
+      if (!elements[rawName].modifiers) elements[rawName].modifiers = {};
+      elements[rawName].modifiers![modName] = { type: 'boolean' };
     }
   }
 
@@ -317,8 +336,21 @@ export function extractRelatedComponents(
     const modPattern = new RegExp(`\\.${escaped}--([\\w-]+)\\s*[{,]`, 'g');
     for (const match of content.matchAll(modPattern)) {
       const modName = match[1];
-      if (['hover', 'focus', 'active', 'disabled'].includes(modName)) continue;
+      if (['hover', 'focus'].includes(modName)) continue;
       modifiers[modName] = { type: 'boolean' };
+    }
+
+    // Nested &--modifier inside .related { } blocks
+    const blockPattern = new RegExp(`\\.${escaped}\\s*\\{`, 'g');
+    for (const blockMatch of content.matchAll(blockPattern)) {
+      const braceStart = content.indexOf('{', blockMatch.index!);
+      if (braceStart === -1) continue;
+      const block = extractBalanced(content, braceStart, '{', '}');
+      for (const modMatch of block.matchAll(/&--([\w-]+)/g)) {
+        const modName = modMatch[1];
+        if (['hover', 'focus'].includes(modName)) continue;
+        modifiers[modName] = { type: 'boolean' };
+      }
     }
 
     const elements: Record<string, ElementDef> = {};
@@ -334,6 +366,23 @@ export function extractRelatedComponents(
         elemMods.get(elemName)![modName] = { type: 'boolean' };
       } else {
         if (!elements[rawName]) elements[rawName] = {};
+      }
+    }
+
+    // Nested &--modifier inside .related__element { } blocks
+    const nestedElemBlockPattern = new RegExp(`\\.${escaped}__(\\w[\\w-]*)\\s*\\{`, 'g');
+    for (const nestedMatch of content.matchAll(nestedElemBlockPattern)) {
+      const elemName = nestedMatch[1];
+      if (!elements[elemName]) elements[elemName] = {};
+
+      const blockStart = content.indexOf('{', nestedMatch.index! + nestedMatch[0].length - 1);
+      if (blockStart === -1) continue;
+      const block = extractBalanced(content, blockStart, '{', '}');
+      for (const modMatch of block.matchAll(/&--([\w-]+)\s*[{,]/g)) {
+        const modName = modMatch[1];
+        if (['hover', 'focus'].includes(modName)) continue;
+        if (!elemMods.has(elemName)) elemMods.set(elemName, {});
+        elemMods.get(elemName)![modName] = { type: 'boolean' };
       }
     }
 
