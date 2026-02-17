@@ -7,7 +7,7 @@
       "values": ["sm", "lg", "xl"]
     },
     "thin": {
-      "values": ["scrollbar"]
+      "type": "boolean"
     },
     "direction": {
       "values": ["horizontal", "both"]

@@ -12,7 +12,16 @@
   },
   "elements": {
     "list": {},
-    "item": {}
+    "item": {
+      "modifiers": {
+        "active": {
+          "type": "boolean"
+        },
+        "disabled": {
+          "type": "boolean"
+        }
+      }
+    }
   },
   "cssVars": [
     {
