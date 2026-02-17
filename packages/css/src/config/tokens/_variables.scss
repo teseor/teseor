@@ -3,9 +3,12 @@
 // SCSS Variables - Source of truth for fallback values
 // These are the computed values that CSS custom properties resolve to.
 // Import this file in components that need standalone fallbacks.
+// Section order mirrors config/tokens/index.scss import order.
 
-// Grid - all derived from $unit
-$unit: 0.5rem; // 8px
+// ==========================================================================
+// 1. Grid — all derived from $unit
+// ==========================================================================
+$unit: 0.5rem; // 8px (matches --ui-unit: 8px)
 $row: $unit * 2; // 16px
 $row-1: $row;
 $row-2: $row * 2; // 32px
@@ -14,7 +17,41 @@ $row-4: $row * 4;
 $row-5: $row * 5;
 $row-6: $row * 6;
 
-// Spacing - derived from $unit
+// ==========================================================================
+// 2. Colors — OKLCH for perceptual uniformity
+// ==========================================================================
+
+// Theming hue — used in HSL fallbacks for shadows, debug overlays
+$hue-primary: 220;
+
+// Base palette
+$color-primary: oklch(55% 0.22 250);
+$color-success: oklch(60% 0.18 145);
+$color-warning: oklch(75% 0.18 70);
+$color-danger: oklch(60% 0.22 25);
+$color-neutral: oklch(50% 0.02 250);
+
+// Neutral scale — HSL approximation of color-mix(in oklch, ...) results.
+// CSS tokens use oklch color-mix(); these HSL values are static SCSS
+// fallbacks for when custom properties are unavailable.
+$color-neutral-50: hsl(220 10% 98%);
+$color-neutral-100: hsl(220 10% 96%);
+$color-neutral-200: hsl(220 10% 90%);
+$color-neutral-300: hsl(220 10% 80%);
+$color-neutral-400: hsl(220 10% 60%);
+$color-neutral-500: hsl(220 10% 45%);
+$color-neutral-600: hsl(220 10% 35%);
+$color-neutral-700: hsl(220 10% 25%);
+$color-neutral-800: hsl(220 10% 15%);
+$color-neutral-900: hsl(220 10% 10%);
+
+// Primary shades (CSS uses color-mix)
+$color-primary-light: oklch(75% 0.15 250);
+$color-primary-dark: oklch(40% 0.18 250);
+
+// ==========================================================================
+// 3. Spacing — derived from $unit
+// ==========================================================================
 $space-px: $unit * 0.125; // 1px - hairline
 $space-quarter: $unit * 0.25; // 2px - micro spacing
 $space-0: $unit * 0.5; // 4px
@@ -39,11 +76,15 @@ $sizes: (
   @return map.get($sizes, $name);
 }
 
-// Typography - Font families (system stack, consumers override via CSS tokens)
+// ==========================================================================
+// 4. Typography
+// ==========================================================================
+
+// Font families (system stack, consumers override via CSS tokens)
 $font-sans: system-ui, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, sans-serif;
 $font-mono: ui-monospace, sfmono-regular, "SF Mono", menlo, consolas, "Liberation Mono", monospace;
 
-// Typography - Font sizes (1.2 modular scale)
+// Font sizes (1.2 modular scale)
 $font-size-xs: 0.75rem; // 12px
 $font-size-sm: 0.875rem; // 14px
 $font-size-md: 1rem; // 16px (base)
@@ -53,13 +94,13 @@ $font-size-2xl: 1.75rem; // 28px
 $font-size-3xl: 2rem; // 32px
 $font-size-4xl: 2.5rem; // 40px
 
-// Typography - Tight line heights (for compact UI elements)
+// Tight line heights (compact UI elements)
 $leading-tight-xs: $row;
 $leading-tight-sm: $row;
 $leading-tight-md: $unit * 3;
 $leading-tight-lg: $unit * 3;
 
-// Typography - Line heights (for body text)
+// Normal line heights (body text)
 $leading-xs: $row;
 $leading-sm: $unit * 3;
 $leading-md: $unit * 3;
@@ -69,54 +110,68 @@ $leading-2xl: $row-2;
 $leading-3xl: $unit * 5;
 $leading-4xl: $unit * 6;
 
-// Typography - Font weights
+// Font weights
 $weight-normal: 400;
 $weight-medium: 500;
 $weight-semibold: 600;
 $weight-bold: 700;
 
-// Typography - Letter spacing
+// Letter spacing
 $tracking-display: -0.02em;
 $tracking-body: 0;
 $tracking-caps: 0.08em;
 
-
-// Radius - derived from $unit (0.5rem = 8px)
+// ==========================================================================
+// 5. Radius — derived from $unit
+// ==========================================================================
 $radius-sm: $unit * 0.5; // 4px
 $radius-md: $unit; // 8px
 $radius-lg: $unit * 2; // 16px
 $radius-full: 9999px;
 
-// Borders - derived from $unit (0.5rem = 8px)
+// ==========================================================================
+// 6. Borders — derived from $unit
+// ==========================================================================
 $border-width-sm: $unit * 0.125; // 1px
 $border-width-md: $unit * 0.25; // 2px
 $border-width-lg: $unit * 0.5; // 4px
 
-// Base colors - OKLCH for perceptual uniformity
-// These are fallback values; CSS custom properties take precedence
-$color-primary: oklch(55% 0.22 250);
-$color-success: oklch(60% 0.18 145);
-$color-warning: oklch(75% 0.18 70);
-$color-danger: oklch(60% 0.22 25);
-$color-neutral: oklch(50% 0.02 250);
+// ==========================================================================
+// 7. Shadows — static hue fallback
+// ==========================================================================
+$shadow-sm: 0 1px 2px hsl(220 10% 20% / 0.05);
+$shadow-md: 0 4px 6px hsl(220 10% 20% / 0.1);
+$shadow-lg: 0 10px 15px hsl(220 10% 20% / 0.15);
 
-// Neutral scale - approximated from color-mix in oklch
-$color-neutral-50: hsl(220 10% 98%);
-$color-neutral-100: hsl(220 10% 96%);
-$color-neutral-200: hsl(220 10% 90%);
-$color-neutral-300: hsl(220 10% 80%);
-$color-neutral-400: hsl(220 10% 60%);
-$color-neutral-500: hsl(220 10% 45%);
-$color-neutral-600: hsl(220 10% 35%);
-$color-neutral-700: hsl(220 10% 25%);
-$color-neutral-800: hsl(220 10% 15%);
-$color-neutral-900: hsl(220 10% 10%);
+// ==========================================================================
+// 8. Z-index scale
+// ==========================================================================
+$z-base: 0;
+$z-sticky: 100;
+$z-dropdown: 200;
+$z-overlay: 300;
+$z-modal: 400;
+$z-popover: 500;
+$z-tooltip: 600;
+$z-toast: 700;
+$z-drawer: 800;
+$z-debug: 9999;
 
-// Primary shades - fallbacks (CSS uses color-mix)
-$color-primary-light: oklch(75% 0.15 250);
-$color-primary-dark: oklch(40% 0.18 250);
+// ==========================================================================
+// 9. Motion
+// ==========================================================================
+$duration-instant: 50ms;
+$duration-fast: 100ms;
+$duration-base: 150ms;
+$duration-normal: 200ms;
+$duration-slow: 250ms;
+$duration-slower: 400ms;
 
-// Semantic colors (light theme defaults)
+$ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+
+// ==========================================================================
+// 10. Semantic colors (light theme defaults)
+// ==========================================================================
 $color-text: $color-neutral-900;
 $color-text-muted: $color-neutral-500;
 $color-text-inverse: $color-neutral-50;
@@ -133,37 +188,6 @@ $color-interactive-hover: $color-primary-dark;
 
 $color-focus: $color-primary-light;
 
-// Motion - duration scale (matches config/tokens/motion)
-$duration-instant: 50ms;
-$duration-fast: 100ms;
-$duration-base: 150ms;
-$duration-normal: 200ms;
-$duration-slow: 250ms;
-$duration-slower: 400ms;
-
-// Motion - easing (matches config/tokens/motion)
-$ease-default: cubic-bezier(0.4, 0, 0.2, 1);
-
-// Shadows (matches config/tokens/shadows, static hue fallback)
-$shadow-sm: 0 1px 2px hsl(220 10% 20% / 0.05);
-$shadow-md: 0 4px 6px hsl(220 10% 20% / 0.1);
-$shadow-lg: 0 10px 15px hsl(220 10% 20% / 0.15);
-
-// Z-index scale (matches config/tokens/zindex)
-$z-base: 0;
-$z-sticky: 100;
-$z-dropdown: 200;
-$z-overlay: 300;
-$z-modal: 400;
-$z-popover: 500;
-$z-tooltip: 600;
-$z-toast: 700;
-$z-drawer: 800;
-$z-debug: 9999;
-
-// Theming
-$hue-primary: 220;
-
 // State opacity
 $opacity-disabled: 0.5;
 $opacity-loading: 0.7;
@@ -174,17 +198,32 @@ $overlay-bg-light: rgb(255 255 255 / 0.7);
 $overlay-bg-blur: rgb(0 0 0 / 0.3);
 $overlay-bg-subtle: rgb(0 0 0 / 0.1);
 
-// Component defaults - icons
+// ==========================================================================
+// 11. Semantic spacing
+// ==========================================================================
+$spacing-xs: $space-1;
+$spacing-sm: $space-2;
+$spacing-md: $space-4;
+$spacing-lg: $space-6;
+$spacing-xl: $space-8;
+$spacing-gutter: $space-4;
+$spacing-section: $space-8;
+
+// ==========================================================================
+// 12. Component defaults
+// ==========================================================================
+
+// Icons
 $icon-stroke: 2;
 $icon-stroke-thin: 1;
 $icon-stroke-thick: 2.5;
 
-// Component defaults - feedback
+// Feedback
 $spinner-duration: 750ms;
 $progress-circle-stroke-width: 8;
 $skeleton-shimmer: rgb(255 255 255 / 0.5);
 
-// Component defaults - misc
+// Misc
 $slider-thumb-shadow: 0 1px 3px rgb(0 0 0 / 0.2);
 $toast-viewport-max-width: 420px;
 $spacer-size: 1;
