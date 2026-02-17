@@ -3,6 +3,7 @@
   "type": "guide",
   "title": "Accessibility",
   "description": "Built-in accessibility features: reduced motion, system theme detection, high contrast, and keyboard focus indicators",
+  "weight": 3,
   "skipValidation": true,
   "sections": [
     {
