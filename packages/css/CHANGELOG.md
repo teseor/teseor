@@ -1,5 +1,15 @@
 # @teseor/css
 
+## 1.10.1
+
+### Patch Changes
+
+- 6aee545: Fix NX cache inputs, remove unused dependencies, add docs-css typecheck
+- 2ffba42: Move token definitions from styles layer to tokens layer for consistency
+- 86f9180: Remove dead storybook config, orphaned scripts, and unused build targets
+- aff8b90: Add missing docs for container and main layouts, enhance component documentation
+- ea18a50: Add SCSS variable fallbacks to all component token vars for resilience without CSS custom property definitions
+
 ## 1.10.0
 
 ### Minor Changes
