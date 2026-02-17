@@ -1,5 +1,11 @@
 # @teseor/css
 
+## 1.14.1
+
+### Patch Changes
+
+- cc86b63: Fix 3-layer token pattern violations and enforce lint rules as errors
+
 ## 1.14.0
 
 ### Minor Changes
