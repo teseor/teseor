@@ -1,0 +1,35 @@
+{
+  "id": "root",
+  "type": "token",
+  "title": "Root",
+  "description": "Base styles applied to the .root class: font family, size, line-height, color, and background",
+  "skipValidation": true,
+  "sections": [
+    {
+      "title": "Usage",
+      "description": "Add the .ui-root class to the html or body element to establish baseline typography and color.",
+      "examples": [
+        {
+          "title": "Basic setup",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-root",
+              "children": [
+                {
+                  "tag": "p",
+                  "text": "Text inherits font-family, size, line-height, and color from .ui-root"
+                }
+              ]
+            }
+          ],
+          "code": "<html class=\"ui-root\">\n  <body>\n    <!-- All children inherit base styles -->\n  </body>\n</html>"
+        },
+        {
+          "title": "Tokens applied",
+          "code": ".ui-root {\n  font-family: var(--ui-font-sans);\n  font-size: var(--ui-font-size-md);\n  line-height: var(--ui-leading-md);\n  color: var(--ui-color-text);\n  background: var(--ui-color-bg);\n}"
+        }
+      ]
+    }
+  ]
+}

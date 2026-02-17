@@ -1,1 +1,81 @@
-@forward "./grid-overlay";
+@use '../config/tokens/variables' as t;
+// Debug grid overlay - add class="debug-grid" to body or any container
+.debug-grid,
+.debug-grid-rows,
+.debug-baseline {
+  position: relative;
+}
+
+.debug-grid {
+  // Fallback hue 220 (blue) when --ui-hue-primary not set
+  --debug-color: hsl(var(--ui-hue-primary, #{t.$hue-primary}) 80% 50% / 0.15);
+}
+
+.debug-grid::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  z-index: var(--ui-z-debug);
+
+  block-size: 100%;
+  inline-size: 100%;
+  min-block-size: 100vh;
+
+  background-image: linear-gradient(to right, var(--debug-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--debug-color) 1px, transparent 1px);
+  pointer-events: none;
+  background-size: var(--ui-unit) var(--ui-unit);
+  background-position: 0 0;
+}
+
+// Stronger grid at row intervals
+.debug-grid-rows {
+  --debug-color: hsl(var(--ui-hue-primary, #{t.$hue-primary}) 80% 50% / 0.1);
+  --debug-color-strong: hsl(var(--ui-hue-primary, #{t.$hue-primary}) 80% 50% / 0.25);
+}
+
+.debug-grid-rows::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  z-index: var(--ui-z-debug);
+
+  block-size: 100%;
+  inline-size: 100%;
+  min-block-size: 100vh;
+
+  background-image: linear-gradient(to right, var(--debug-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--debug-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--debug-color-strong) 1px, transparent 1px);
+  pointer-events: none;
+  background-size: var(--ui-unit) var(--ui-unit), var(--ui-unit) var(--ui-unit), var(--ui-unit) var(--ui-row);
+  background-position: 0 0;
+}
+
+// Baseline grid only (horizontal lines)
+.debug-baseline {
+  --debug-color: hsl(var(--ui-hue-danger, 0) 80% 50% / 0.2);
+}
+
+.debug-baseline::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  z-index: var(--ui-z-debug);
+
+  block-size: 100%;
+  inline-size: 100%;
+  min-block-size: 100vh;
+
+  background-image: linear-gradient(to bottom, var(--debug-color) 1px, transparent 1px);
+  pointer-events: none;
+  background-size: 100% var(--ui-unit);
+}
+
+// Element boundaries outline
+.debug-outline * {
+  outline: 1px solid hsl(0 100% 50% / 0.5);
+}
