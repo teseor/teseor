@@ -1,0 +1,17 @@
+{
+  "name": "scroll-animation",
+  "type": "utility",
+  "utilities": ["scroll-progress", "view-fade", "view-slide-up", "view-slide-start", "view-scale"],
+  "cssVars": [
+    {
+      "name": "--ui-scroll-progress-height",
+      "default": "var(--ui-space-half)",
+      "description": "Scroll progress indicator height"
+    },
+    {
+      "name": "--ui-scroll-progress-bg",
+      "default": "var(--ui-color-primary)",
+      "description": "Scroll progress indicator color"
+    }
+  ]
+}
