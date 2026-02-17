@@ -1,0 +1,100 @@
+{
+  "id": "scroll-animation-utils",
+  "type": "utility",
+  "title": "Scroll Animation",
+  "description": "Scroll-driven animation utilities for progress indicators and viewport-triggered effects. Wrapped in @supports — no impact on unsupported browsers.",
+  "api": "scroll-animation.api.json",
+  "sections": [
+    {
+      "title": "Scroll Progress Indicator",
+      "description": "Fixed bar at the top of the viewport that fills as the user scrolls down.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "attrs": { "style": "position: relative; block-size: 12rem; overflow-y: auto;" },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-scroll-progress",
+                  "attrs": { "style": "position: absolute;" }
+                },
+                {
+                  "tag": "div",
+                  "attrs": { "style": "block-size: 40rem; padding: var(--ui-space-2);" },
+                  "children": [{ "tag": "p", "text": "Scroll down to see the progress bar fill." }]
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-scroll-progress\"></div>\n<!-- Fills as page scrolls -->"
+        }
+      ]
+    },
+    {
+      "title": "View Fade",
+      "description": "Elements fade in as they enter the viewport.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-view-fade ui-card ui-p-2",
+              "text": "I fade in on scroll"
+            }
+          ],
+          "code": "<div class=\"ui-view-fade\">I fade in on scroll</div>"
+        }
+      ]
+    },
+    {
+      "title": "View Slide Up",
+      "description": "Elements slide up and fade in on viewport entry.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-view-slide-up ui-card ui-p-2",
+              "text": "I slide up into view"
+            }
+          ],
+          "code": "<div class=\"ui-view-slide-up\">I slide up into view</div>"
+        }
+      ]
+    },
+    {
+      "title": "View Slide Start",
+      "description": "Elements slide in from the start edge (left in LTR) on viewport entry.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-view-slide-start ui-card ui-p-2",
+              "text": "I slide from the start"
+            }
+          ],
+          "code": "<div class=\"ui-view-slide-start\">I slide from the start</div>"
+        }
+      ]
+    },
+    {
+      "title": "View Scale",
+      "description": "Elements scale up and fade in on viewport entry.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-view-scale ui-card ui-p-2",
+              "text": "I scale into view"
+            }
+          ],
+          "code": "<div class=\"ui-view-scale\">I scale into view</div>"
+        }
+      ]
+    }
+  ]
+}

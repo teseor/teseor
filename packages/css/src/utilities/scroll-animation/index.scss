@@ -1,0 +1,136 @@
+@use '../../config/tokens/variables' as t;
+// Scroll-driven animation utilities
+// Progressive enhancement: all rules wrapped in @supports
+
+@layer utilities {
+  @supports (animation-timeline: scroll()) {
+    // ========================================================================
+    // SCROLL PROGRESS INDICATOR
+    // Fixed bar at top of viewport showing page scroll progress
+    // ========================================================================
+    .scroll-progress {
+      position: fixed;
+      inset-block-start: 0;
+      inset-inline-start: 0;
+      z-index: var(--ui-z-toast, #{t.$z-toast});
+
+      block-size: var(--ui-scroll-progress-height, var(--ui-space-half, #{t.$space-0}));
+      inline-size: 100%;
+
+      background: var(--ui-scroll-progress-bg, var(--ui-color-primary));
+      transform-origin: inline-start;
+      scale: 0 1;
+
+      animation: scroll-progress-fill auto linear;
+      animation-timeline: scroll();
+    }
+
+    @keyframes scroll-progress-fill {
+      to {
+        scale: 1 1;
+      }
+    }
+
+    // ========================================================================
+    // VIEW-DRIVEN FADE IN
+    // Fade in when element enters viewport
+    // ========================================================================
+    .view-fade {
+      animation: view-fade-in auto linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+
+    @keyframes view-fade-in {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    // ========================================================================
+    // VIEW-DRIVEN SLIDE UP
+    // Slide up and fade in when element enters viewport
+    // ========================================================================
+    .view-slide-up {
+      animation: view-slide-up-in auto linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+
+    @keyframes view-slide-up-in {
+      from {
+        opacity: 0;
+        transform: translateY(var(--ui-space-4, #{t.$space-4}));
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    // ========================================================================
+    // VIEW-DRIVEN SLIDE START (left in LTR)
+    // ========================================================================
+    .view-slide-start {
+      animation: view-slide-start-in auto linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+
+    @keyframes view-slide-start-in {
+      from {
+        opacity: 0;
+        transform: translateX(calc(var(--ui-space-4, #{t.$space-4}) * -1));
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    // ========================================================================
+    // VIEW-DRIVEN SCALE
+    // Scale up and fade in on viewport entry
+    // ========================================================================
+    .view-scale {
+      animation: view-scale-in auto linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+
+    @keyframes view-scale-in {
+      from {
+        opacity: 0;
+        scale: 0.9;
+      }
+
+      to {
+        opacity: 1;
+        scale: 1;
+      }
+    }
+
+    // ========================================================================
+    // ACCESSIBILITY: disable all scroll-driven animations for reduced motion
+    // ========================================================================
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-progress,
+      .view-fade,
+      .view-slide-up,
+      .view-slide-start,
+      .view-scale {
+        opacity: 1;
+        transform: none;
+        scale: 1 1;
+
+        animation: none;
+      }
+    }
+  }
+}
