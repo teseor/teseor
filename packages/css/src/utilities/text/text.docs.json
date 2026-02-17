@@ -127,6 +127,65 @@
           ]
         }
       ]
+    },
+    {
+      "title": "Text Wrap",
+      "description": "Control how text wraps across lines.",
+      "examples": [
+        {
+          "layout": "column",
+          "items": [
+            {
+              "tag": "p",
+              "class": "ui-text-balance ui-text-2xl ui-font-bold",
+              "style": { "max-inline-size": "20rem" },
+              "text": "Balanced: distributes text evenly across lines"
+            },
+            {
+              "tag": "p",
+              "class": "ui-text-pretty",
+              "style": { "max-inline-size": "20rem" },
+              "text": "Pretty: avoids orphans and widows for cleaner body text paragraphs that wrap naturally"
+            },
+            {
+              "tag": "p",
+              "class": "ui-text-nowrap",
+              "text": "Nowrap: prevents text from wrapping to the next line"
+            }
+          ],
+          "code": "<p class=\"ui-text-balance\">Balanced heading text</p>\n<p class=\"ui-text-pretty\">Pretty body text</p>\n<p class=\"ui-text-nowrap\">No wrap text</p>"
+        }
+      ]
+    },
+    {
+      "title": "Multi-line Truncation",
+      "description": "Clamp text to a specific number of lines with ellipsis.",
+      "examples": [
+        {
+          "layout": "column",
+          "items": [
+            {
+              "tag": "p",
+              "class": "ui-truncate-2",
+              "style": { "max-inline-size": "20rem" },
+              "text": "Truncate to 2 lines: This is a long paragraph that will be clamped after two lines of text. Any overflow content will be hidden and replaced with an ellipsis character."
+            },
+            {
+              "tag": "p",
+              "class": "ui-truncate-3",
+              "style": { "max-inline-size": "20rem" },
+              "text": "Truncate to 3 lines: This is a long paragraph that will be clamped after three lines of text. Any overflow content beyond the third line will be hidden and replaced with an ellipsis character at the end."
+            },
+            {
+              "tag": "p",
+              "class": "ui-truncate-4",
+              "style": { "max-inline-size": "20rem" },
+              "text": "Truncate to 4 lines: This is a long paragraph that will be clamped after four lines. It gives more room for content previews while still maintaining a consistent height. Overflow beyond line four is hidden with ellipsis."
+            }
+          ],
+          "code": "<p class=\"ui-truncate-2\">Long text clamped to 2 lines...</p>\n<p class=\"ui-truncate-3\">Long text clamped to 3 lines...</p>\n<p class=\"ui-truncate-4\">Long text clamped to 4 lines...</p>"
+        }
+      ]
     }
   ]
 }

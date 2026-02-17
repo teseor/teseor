@@ -32,7 +32,13 @@
     "text-danger",
     "text-start",
     "text-center",
-    "text-end"
+    "text-end",
+    "text-balance",
+    "text-pretty",
+    "text-nowrap",
+    "truncate-2",
+    "truncate-3",
+    "truncate-4"
   ],
   "cssVars": []
 }
