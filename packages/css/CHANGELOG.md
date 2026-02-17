@@ -1,5 +1,13 @@
 # @teseor/css
 
+## 1.14.0
+
+### Minor Changes
+
+- 984543b: Add anchor positioning support to tooltip with --anchored modifier
+- 74fb0a7: Register @property typed custom properties for progress and progress-circle smooth transitions
+- 1f48e12: Add scroll-driven animation utilities with progress indicator and viewport-triggered effects
+
 ## 1.13.0
 
 ### Minor Changes
