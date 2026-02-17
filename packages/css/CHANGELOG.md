@@ -1,5 +1,13 @@
 # @teseor/css
 
+## 1.14.3
+
+### Patch Changes
+
+- 05f69da: Add design-tokens overview, root, and debug docs; inline grid-overlay into debug/index
+- 4355c2a: Move guides to config/guides/, add Getting Started guide, reorder sidenav
+- 82f55f4: Move test utilities from src/testing/ to packages/css/test-utils/
+
 ## 1.14.2
 
 ### Patch Changes
