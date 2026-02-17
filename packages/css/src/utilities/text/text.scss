@@ -215,6 +215,45 @@
   }
 
   // ==========================================================================
+  // TEXT WRAP
+  // ==========================================================================
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .text-nowrap {
+    text-wrap: nowrap;
+  }
+
+  // ==========================================================================
+  // MULTI-LINE TRUNCATION
+  // ==========================================================================
+  .truncate-2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+
+  .truncate-3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+  }
+
+  .truncate-4 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+  }
+
+  // ==========================================================================
   // LINE LENGTH (for readable text)
   // ==========================================================================
   .prose {
