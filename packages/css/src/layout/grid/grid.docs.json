@@ -2,7 +2,7 @@
   "id": "grid-primitive",
   "type": "primitive",
   "title": "Grid",
-  "description": "CSS Grid with column variants.",
+  "description": "CSS Grid with column variants, subgrid support, and span utilities.",
   "api": "grid.api.json",
   "sections": [
     {
@@ -143,6 +143,349 @@
               ]
             }
           ]
+        }
+      ]
+    },
+    {
+      "title": "Subgrid",
+      "description": "Children inherit parent grid tracks for cross-item alignment.",
+      "examples": [
+        {
+          "title": "Column subgrid",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-grid ui-grid--3",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-grid--subgrid",
+                  "style": {
+                    "grid-column": "span 3"
+                  },
+                  "children": [
+                    {
+                      "tag": "div",
+                      "text": "Subgrid child 1",
+                      "style": {
+                        "background": "var(--ui-color-bg-muted)",
+                        "padding": "var(--ui-space-2)"
+                      }
+                    },
+                    {
+                      "tag": "div",
+                      "text": "Subgrid child 2",
+                      "style": {
+                        "background": "var(--ui-color-bg-muted)",
+                        "padding": "var(--ui-space-2)"
+                      }
+                    },
+                    {
+                      "tag": "div",
+                      "text": "Subgrid child 3",
+                      "style": {
+                        "background": "var(--ui-color-bg-muted)",
+                        "padding": "var(--ui-space-2)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-grid ui-grid--3\">\n  <div class=\"ui-grid--subgrid\" style=\"grid-column: span 3\">\n    <div>Subgrid child 1</div>\n    <div>Subgrid child 2</div>\n    <div>Subgrid child 3</div>\n  </div>\n</div>"
+        },
+        {
+          "title": "Row subgrid (aligned cards)",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-grid ui-grid--3",
+              "style": {
+                "grid-template-rows": "auto 1fr auto"
+              },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-grid--subgrid-rows",
+                  "style": {
+                    "grid-row": "span 3",
+                    "border": "1px solid var(--ui-color-border)",
+                    "padding": "var(--ui-space-2)"
+                  },
+                  "children": [
+                    {
+                      "tag": "strong",
+                      "text": "Card A"
+                    },
+                    {
+                      "tag": "p",
+                      "text": "Short content."
+                    },
+                    {
+                      "tag": "span",
+                      "text": "Footer",
+                      "style": {
+                        "color": "var(--ui-color-text-muted)"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-grid--subgrid-rows",
+                  "style": {
+                    "grid-row": "span 3",
+                    "border": "1px solid var(--ui-color-border)",
+                    "padding": "var(--ui-space-2)"
+                  },
+                  "children": [
+                    {
+                      "tag": "strong",
+                      "text": "Card B"
+                    },
+                    {
+                      "tag": "p",
+                      "text": "Longer content that wraps to multiple lines to demonstrate row alignment."
+                    },
+                    {
+                      "tag": "span",
+                      "text": "Footer",
+                      "style": {
+                        "color": "var(--ui-color-text-muted)"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-grid--subgrid-rows",
+                  "style": {
+                    "grid-row": "span 3",
+                    "border": "1px solid var(--ui-color-border)",
+                    "padding": "var(--ui-space-2)"
+                  },
+                  "children": [
+                    {
+                      "tag": "strong",
+                      "text": "Card C"
+                    },
+                    {
+                      "tag": "p",
+                      "text": "Medium text."
+                    },
+                    {
+                      "tag": "span",
+                      "text": "Footer",
+                      "style": {
+                        "color": "var(--ui-color-text-muted)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-grid ui-grid--3\" style=\"grid-template-rows: auto 1fr auto\">\n  <div class=\"ui-grid--subgrid-rows\" style=\"grid-row: span 3\">\n    <strong>Title</strong>\n    <p>Content</p>\n    <span>Footer</span>\n  </div>\n</div>"
+        },
+        {
+          "title": "Both axes subgrid",
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-grid ui-grid--3",
+              "style": {
+                "grid-template-rows": "auto auto"
+              },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-grid--subgrid-both",
+                  "style": {
+                    "grid-column": "span 3",
+                    "grid-row": "span 2"
+                  },
+                  "children": [
+                    {
+                      "tag": "div",
+                      "text": "A1",
+                      "style": {
+                        "background": "var(--ui-color-bg-muted)",
+                        "padding": "var(--ui-space-2)"
+                      }
+                    },
+                    {
+                      "tag": "div",
+                      "text": "A2",
+                      "style": {
+                        "background": "var(--ui-color-bg-muted)",
+                        "padding": "var(--ui-space-2)"
+                      }
+                    },
+                    {
+                      "tag": "div",
+                      "text": "A3",
+                      "style": {
+                        "background": "var(--ui-color-bg-muted)",
+                        "padding": "var(--ui-space-2)"
+                      }
+                    },
+                    {
+                      "tag": "div",
+                      "text": "B1",
+                      "style": {
+                        "background": "var(--ui-color-bg-subtle)",
+                        "padding": "var(--ui-space-2)"
+                      }
+                    },
+                    {
+                      "tag": "div",
+                      "text": "B2",
+                      "style": {
+                        "background": "var(--ui-color-bg-subtle)",
+                        "padding": "var(--ui-space-2)"
+                      }
+                    },
+                    {
+                      "tag": "div",
+                      "text": "B3",
+                      "style": {
+                        "background": "var(--ui-color-bg-subtle)",
+                        "padding": "var(--ui-space-2)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-grid ui-grid--3\" style=\"grid-template-rows: auto auto\">\n  <div class=\"ui-grid--subgrid-both\" style=\"grid-column: span 3; grid-row: span 2\">\n    <div>A1</div><div>A2</div><div>A3</div>\n    <div>B1</div><div>B2</div><div>B3</div>\n  </div>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "Column Span",
+      "description": "Span multiple columns with .ui-grid-col-span-{2,3,4,full} utilities.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-grid ui-grid--4",
+              "children": [
+                {
+                  "tag": "div",
+                  "text": "Span 2",
+                  "style": {
+                    "grid-column": "span 2",
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-2)"
+                  }
+                },
+                {
+                  "tag": "div",
+                  "text": "1",
+                  "style": {
+                    "background": "var(--ui-color-bg-subtle)",
+                    "padding": "var(--ui-space-2)"
+                  }
+                },
+                {
+                  "tag": "div",
+                  "text": "1",
+                  "style": {
+                    "background": "var(--ui-color-bg-subtle)",
+                    "padding": "var(--ui-space-2)"
+                  }
+                },
+                {
+                  "tag": "div",
+                  "text": "1",
+                  "style": {
+                    "background": "var(--ui-color-bg-subtle)",
+                    "padding": "var(--ui-space-2)"
+                  }
+                },
+                {
+                  "tag": "div",
+                  "text": "Span 3",
+                  "style": {
+                    "grid-column": "span 3",
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-2)"
+                  }
+                },
+                {
+                  "tag": "div",
+                  "text": "Span full",
+                  "style": {
+                    "grid-column": "1 / -1",
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-2)"
+                  }
+                }
+              ]
+            }
+          ],
+          "code": "{% set spans = ['2', '3', '4', 'full'] %}<div class=\"ui-grid ui-grid--4\">\n{% for s in spans %}  <div class=\"ui-grid-col-span-{{ s }}\">Span {{ s }}</div>\n{% endfor %}</div>"
+        }
+      ]
+    },
+    {
+      "title": "Row Span",
+      "description": "Span multiple rows with .ui-grid-row-span-{2,3,full} utilities.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-grid ui-grid--3",
+              "children": [
+                {
+                  "tag": "div",
+                  "text": "Row span 2",
+                  "style": {
+                    "grid-row": "span 2",
+                    "background": "var(--ui-color-bg-muted)",
+                    "padding": "var(--ui-space-2)"
+                  }
+                },
+                {
+                  "tag": "div",
+                  "text": "1",
+                  "style": {
+                    "background": "var(--ui-color-bg-subtle)",
+                    "padding": "var(--ui-space-2)"
+                  }
+                },
+                {
+                  "tag": "div",
+                  "text": "2",
+                  "style": {
+                    "background": "var(--ui-color-bg-subtle)",
+                    "padding": "var(--ui-space-2)"
+                  }
+                },
+                {
+                  "tag": "div",
+                  "text": "3",
+                  "style": {
+                    "background": "var(--ui-color-bg-subtle)",
+                    "padding": "var(--ui-space-2)"
+                  }
+                },
+                {
+                  "tag": "div",
+                  "text": "4",
+                  "style": {
+                    "background": "var(--ui-color-bg-subtle)",
+                    "padding": "var(--ui-space-2)"
+                  }
+                }
+              ]
+            }
+          ],
+          "code": "{% set spans = ['2', '3', 'full'] %}<div class=\"ui-grid ui-grid--3\">\n{% for s in spans %}  <div class=\"ui-grid-row-span-{{ s }}\">Row span {{ s }}</div>\n{% endfor %}</div>"
         }
       ]
     }

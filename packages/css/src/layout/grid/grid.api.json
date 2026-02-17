@@ -5,6 +5,15 @@
   "modifiers": {
     "columns": {
       "values": ["2", "3", "4", "auto"]
+    },
+    "subgrid": {
+      "type": "boolean"
+    },
+    "subgrid-rows": {
+      "type": "boolean"
+    },
+    "subgrid-both": {
+      "type": "boolean"
     }
   },
   "cssVars": []
