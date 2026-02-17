@@ -1,6 +1,10 @@
 import { resolve } from 'node:path';
 import { expect, test } from '@playwright/test';
-import { saveForLostPixel, setupVisualTestFromDocs, validateGridRhythm } from '../../../testing';
+import {
+  saveForLostPixel,
+  setupVisualTestFromDocs,
+  validateGridRhythm,
+} from '../../../../test-utils';
 
 const DOCS_PATH = resolve(__dirname, 'toggle.docs.json');
 

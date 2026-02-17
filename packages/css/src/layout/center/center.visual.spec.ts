@@ -1,6 +1,6 @@
 import { resolve } from 'node:path';
 import { expect, test } from '@playwright/test';
-import { saveForLostPixel, setupVisualTestFromDocs } from '../../testing';
+import { saveForLostPixel, setupVisualTestFromDocs } from '../../../test-utils';
 
 const DOCS_PATH = resolve(__dirname, 'center.docs.json');
 
