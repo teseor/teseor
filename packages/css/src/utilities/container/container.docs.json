@@ -1,0 +1,121 @@
+{
+  "id": "container-utils",
+  "type": "utility",
+  "title": "Container",
+  "description": "Container query utilities for component-level responsive design.",
+  "api": "container.api.json",
+  "sections": [
+    {
+      "title": "Inline Size Containment",
+      "description": "Establish inline-size containment so children can use container queries to respond to the container width.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-container-inline ui-p-2",
+              "style": {
+                "background": "var(--ui-color-bg-muted)"
+              },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-card",
+                  "text": "This card is inside an inline-size container"
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-container-inline\">\n  <div class=\"ui-card\">Content responds to container width</div>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "Size Containment",
+      "description": "Establish containment on both axes for container queries on width and height.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-container-size ui-p-2",
+              "style": {
+                "background": "var(--ui-color-bg-muted)",
+                "block-size": "12rem"
+              },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-card",
+                  "text": "Inside a size container"
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-container-size\">\n  <div class=\"ui-card\">Content responds to container width and height</div>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "Remove Containment",
+      "description": "Reset container type back to normal (no containment).",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-container-normal ui-p-2",
+              "style": {
+                "background": "var(--ui-color-bg-muted)"
+              },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-card",
+                  "text": "No containment on this container"
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-container-normal\">\n  <div class=\"ui-card\">Normal container behavior</div>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "With Responsive Card",
+      "description": "Combine container-inline with card--responsive for automatic horizontal layout at wider container sizes.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-container-inline",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-card ui-card--responsive",
+                  "children": [
+                    {
+                      "tag": "div",
+                      "class": "ui-card__media",
+                      "style": {
+                        "background": "var(--ui-color-bg-muted)",
+                        "min-block-size": "6rem"
+                      }
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-card__body",
+                      "text": "Card switches to horizontal layout when container is wide enough"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-container-inline\">\n  <div class=\"ui-card ui-card--responsive\">\n    <div class=\"ui-card__media\">Image</div>\n    <div class=\"ui-card__body\">Switches to horizontal at >= 30rem</div>\n  </div>\n</div>"
+        }
+      ]
+    }
+  ]
+}

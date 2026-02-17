@@ -1,0 +1,6 @@
+{
+  "name": "container",
+  "type": "utility",
+  "utilities": ["container-inline", "container-size", "container-normal"],
+  "cssVars": []
+}
