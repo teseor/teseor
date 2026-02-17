@@ -1,5 +1,12 @@
 # @teseor/css
 
+## 1.14.2
+
+### Patch Changes
+
+- a7d27d3: Flatten single-file folders in config/tokens and base, add @layer tokens wrapper to input.scss
+- d2ab77f: Restructure \_variables.scss sections to mirror token import order, add semantic spacing vars
+
 ## 1.14.1
 
 ### Patch Changes
