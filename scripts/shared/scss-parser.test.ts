@@ -234,10 +234,12 @@ describe('extractElements', () => {
     expect(extractElements('.button { color: red; }', 'button')).toBeUndefined();
   });
 
-  it('ignores pseudo-class modifiers inside elements', () => {
+  it('ignores hover/focus but keeps active/disabled modifiers inside elements', () => {
     const content = '&__item { &--hover { } &--active { } &--selected { } }';
     const elems = extractElements(content, 'menu');
-    expect(elems!.item).toEqual({ modifiers: { selected: { type: 'boolean' } } });
+    expect(elems!.item).toEqual({
+      modifiers: { active: { type: 'boolean' }, selected: { type: 'boolean' } },
+    });
   });
 });
 
