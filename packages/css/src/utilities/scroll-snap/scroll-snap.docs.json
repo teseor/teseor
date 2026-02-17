@@ -1,0 +1,144 @@
+{
+  "id": "scroll-snap-utils",
+  "type": "utility",
+  "title": "Scroll Snap",
+  "description": "Scroll-snap utilities for carousels, horizontal lists, and snap-to-position scrolling.",
+  "api": "scroll-snap.api.json",
+  "sections": [
+    {
+      "title": "Horizontal Snap",
+      "description": "Snap children to start position on horizontal scroll.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-snap-x ui-flex ui-gap-2 ui-p-2",
+              "style": { "max-inline-size": "20rem" },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-snap-start ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "Item 1"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-snap-start ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "Item 2"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-snap-start ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "Item 3"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-snap-start ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "Item 4"
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-snap-x ui-flex ui-gap-2\">\n  <div class=\"ui-snap-start\">Item 1</div>\n  <div class=\"ui-snap-start\">Item 2</div>\n  <div class=\"ui-snap-start\">Item 3</div>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "Center Snap",
+      "description": "Snap children to center position.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-snap-x ui-flex ui-gap-2 ui-p-2",
+              "style": { "max-inline-size": "20rem" },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-snap-center ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "Center 1"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-snap-center ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "Center 2"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-snap-center ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "Center 3"
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-snap-x ui-flex ui-gap-2\">\n  <div class=\"ui-snap-center\">Center 1</div>\n  <div class=\"ui-snap-center\">Center 2</div>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "Vertical Snap",
+      "description": "Snap children on vertical scroll.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-snap-y",
+              "style": { "max-block-size": "8rem" },
+              "children": [
+                { "tag": "div", "class": "ui-snap-start ui-card ui-p-2", "text": "Section 1" },
+                { "tag": "div", "class": "ui-snap-start ui-card ui-p-2", "text": "Section 2" },
+                { "tag": "div", "class": "ui-snap-start ui-card ui-p-2", "text": "Section 3" }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-snap-y\" style=\"max-block-size: 8rem\">\n  <div class=\"ui-snap-start\">Section 1</div>\n  <div class=\"ui-snap-start\">Section 2</div>\n</div>"
+        }
+      ]
+    },
+    {
+      "title": "Scroll Padding",
+      "description": "Offset snap position for fixed headers or insets.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-snap-x ui-snap-p-2 ui-flex ui-gap-2 ui-p-2",
+              "style": { "max-inline-size": "20rem" },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-snap-start ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "Padded 1"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-snap-start ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "Padded 2"
+                },
+                {
+                  "tag": "div",
+                  "class": "ui-snap-start ui-card ui-p-2",
+                  "style": { "min-inline-size": "10rem" },
+                  "text": "Padded 3"
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-snap-x ui-snap-p-2 ui-flex ui-gap-2\">\n  <div class=\"ui-snap-start\">Padded 1</div>\n  <div class=\"ui-snap-start\">Padded 2</div>\n</div>"
+        }
+      ]
+    }
+  ]
+}

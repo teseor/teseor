@@ -1,0 +1,19 @@
+{
+  "name": "scroll-snap",
+  "type": "utility",
+  "utilities": [
+    "snap-x",
+    "snap-y",
+    "snap-x-proximity",
+    "snap-y-proximity",
+    "snap-none",
+    "snap-start",
+    "snap-center",
+    "snap-end",
+    "snap-always",
+    "snap-p-1",
+    "snap-p-2",
+    "snap-p-4"
+  ],
+  "cssVars": []
+}
