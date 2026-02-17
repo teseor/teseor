@@ -73,6 +73,95 @@
       ]
     },
     {
+      "title": "Large",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "attrs": {
+                "style": "position: relative; height: 120px; background: var(--ui-color-bg-subtle);"
+              },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-modal ui-modal--lg ui-modal--visible",
+                  "attrs": { "style": "position: absolute;" },
+                  "children": [
+                    {
+                      "tag": "div",
+                      "class": "ui-modal__content",
+                      "children": [{ "tag": "p", "text": "Large modal" }]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Full",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "attrs": {
+                "style": "position: relative; height: 120px; background: var(--ui-color-bg-subtle);"
+              },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-modal ui-modal--full ui-modal--visible",
+                  "attrs": { "style": "position: absolute;" },
+                  "children": [
+                    {
+                      "tag": "div",
+                      "class": "ui-modal__content",
+                      "children": [{ "tag": "p", "text": "Full-screen modal" }]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Entering Animation",
+      "description": "Apply entering modifier for open transition.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "attrs": {
+                "style": "position: relative; height: 120px; background: var(--ui-color-bg-subtle);"
+              },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-modal ui-modal--visible ui-modal--entering",
+                  "attrs": { "style": "position: absolute;" },
+                  "children": [
+                    {
+                      "tag": "div",
+                      "class": "ui-modal__content",
+                      "children": [{ "tag": "p", "text": "Entering modal" }]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-modal ui-modal--entering\">\n  <div class=\"ui-modal__content\">...</div>\n</div>"
+        }
+      ]
+    },
+    {
       "title": "With Scrollable Content",
       "examples": [
         {

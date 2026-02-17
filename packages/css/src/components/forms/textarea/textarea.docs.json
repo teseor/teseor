@@ -123,11 +123,16 @@
             },
             {
               "tag": "textarea",
+              "class": "ui-textarea ui-textarea--resize-horizontal",
+              "attrs": { "placeholder": "Horizontal resize only" }
+            },
+            {
+              "tag": "textarea",
               "class": "ui-textarea ui-textarea--resize-both",
               "attrs": { "placeholder": "Resize both directions" }
             }
           ],
-          "code": "<textarea class=\"ui-textarea\">Vertical (default)</textarea>\n<textarea class=\"ui-textarea ui-textarea--resize-none\">No resize</textarea>\n<textarea class=\"ui-textarea ui-textarea--resize-both\">Both directions</textarea>"
+          "code": "<textarea class=\"ui-textarea\">Vertical (default)</textarea>\n<textarea class=\"ui-textarea ui-textarea--resize-none\">No resize</textarea>\n<textarea class=\"ui-textarea ui-textarea--resize-horizontal\">Horizontal only</textarea>\n<textarea class=\"ui-textarea ui-textarea--resize-both\">Both directions</textarea>"
         }
       ]
     }

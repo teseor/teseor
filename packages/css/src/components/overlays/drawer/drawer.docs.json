@@ -245,6 +245,31 @@
             }
           ],
           "layout": "column"
+        },
+        {
+          "items": [
+            {
+              "tag": "div",
+              "attrs": {
+                "style": "position:relative;height:150px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)"
+              },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-drawer ui-drawer--end ui-drawer--full",
+                  "attrs": { "style": "position:absolute", "data-state": "open" },
+                  "children": [
+                    {
+                      "tag": "div",
+                      "class": "ui-drawer__body",
+                      "children": [{ "tag": "p", "text": "Full-size drawer" }]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "layout": "column"
         }
       ]
     }

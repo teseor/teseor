@@ -495,9 +495,15 @@
                               "tag": "li",
                               "children": [
                                 {
-                                  "tag": "span",
-                                  "class": "ui-sidebar-nav__subgroup-label",
-                                  "text": "Actions"
+                                  "tag": "div",
+                                  "class": "ui-sidebar-nav__subgroup",
+                                  "children": [
+                                    {
+                                      "tag": "span",
+                                      "class": "ui-sidebar-nav__subgroup-label",
+                                      "text": "Actions"
+                                    }
+                                  ]
                                 }
                               ]
                             },

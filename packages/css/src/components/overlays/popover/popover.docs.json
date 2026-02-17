@@ -52,7 +52,7 @@
       ]
     },
     {
-      "title": "With Arrow",
+      "title": "Positions",
       "examples": [
         {
           "items": [
@@ -64,12 +64,55 @@
                   "tag": "div",
                   "class": "ui-popover ui-popover--top",
                   "attrs": { "style": "position: relative;" },
-                  "children": [{ "tag": "p", "text": "Popover with arrow pointing down" }]
+                  "children": [{ "tag": "p", "text": "Top (arrow down)" }]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "items": [
+            {
+              "tag": "div",
+              "attrs": { "style": "padding: var(--ui-space-4);" },
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-popover ui-popover--bottom",
+                  "attrs": { "style": "position: relative;" },
+                  "children": [{ "tag": "p", "text": "Bottom (arrow up)" }]
                 }
               ]
             }
           ],
-          "code": "<div class=\"ui-popover ui-popover--top\">\n  <p>Popover with arrow pointing down</p>\n</div>"
+          "code": "<div class=\"ui-popover ui-popover--top\">...</div>\n<div class=\"ui-popover ui-popover--bottom\">...</div>"
+        }
+      ]
+    },
+    {
+      "title": "Visibility",
+      "description": "Control popover visibility and animation.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-popover ui-popover--visible ui-popover--animate",
+              "attrs": { "style": "position: relative;" },
+              "children": [{ "tag": "p", "text": "Visible and animated" }]
+            }
+          ]
+        },
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-popover ui-popover--hidden",
+              "attrs": { "style": "position: relative;" },
+              "children": [{ "tag": "p", "text": "Hidden popover" }]
+            }
+          ],
+          "code": "<div class=\"ui-popover ui-popover--visible ui-popover--animate\">...</div>\n<div class=\"ui-popover ui-popover--hidden\">...</div>"
         }
       ]
     }
