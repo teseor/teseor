@@ -278,18 +278,10 @@ function validate() {
   console.log(`\nValidated: ${validated}, Skipped: ${skipped}`);
 
   if (hasErrors) {
-    console.log('\nSome docs have coverage issues (warnings only, build continues).');
+    console.log('\nDocs coverage gaps found. Fix missing items above.');
+    process.exit(1);
   } else {
     console.log('\nAll docs are valid!');
-  }
-
-  // Fail on hard errors (parse failures, missing API) but not coverage warnings
-  const hardErrors = docsFiles.some((file) => {
-    const result = validateDoc(file);
-    return result.error !== undefined;
-  });
-  if (hardErrors) {
-    process.exit(1);
   }
 }
 
