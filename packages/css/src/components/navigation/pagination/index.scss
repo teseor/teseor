@@ -29,6 +29,18 @@
     // @desc Item color active
     --_item-color-active: var(--ui-pagination-item-color-active, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
   }
+
+  // Size variants
+  // @modifier size
+  .pagination--sm {
+    --_item-size: calc(#{t.$unit} * 3);
+    --_gap: calc(#{t.$unit} * 0.25);
+  }
+
+  .pagination--lg {
+    --_item-size: calc(#{t.$unit} * 5);
+    --_gap: calc(#{t.$unit} * 0.75);
+  }
 }
 
 @layer components.styles {
@@ -114,17 +126,5 @@
     min-inline-size: var(--_item-size);
 
     color: var(--_color-text-muted);
-  }
-
-  // Size variants
-  // @modifier size
-  .pagination--sm {
-    --_item-size: calc(#{t.$unit} * 3);
-    --_gap: calc(#{t.$unit} * 0.25);
-  }
-
-  .pagination--lg {
-    --_item-size: calc(#{t.$unit} * 5);
-    --_gap: calc(#{t.$unit} * 0.75);
   }
 }

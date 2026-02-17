@@ -31,6 +31,18 @@
   .status--info {
     --_color: var(--ui-color-primary, #{t.$color-primary});
   }
+
+  // Size variants
+  // @modifier size
+  .status--sm {
+    --_size: calc(#{t.$unit} * 0.75);
+    --_gap: calc(#{t.$unit} * 0.75);
+  }
+
+  .status--lg {
+    --_size: calc(#{t.$unit} * 1.5);
+    --_gap: calc(#{t.$unit} * 1.5);
+  }
 }
 
 @layer components.styles {
@@ -83,17 +95,5 @@
     .status--pulse .status__dot::before {
       animation: none;
     }
-  }
-
-  // Size variants
-  // @modifier size
-  .status--sm {
-    --_size: calc(#{t.$unit} * 0.75);
-    --_gap: calc(#{t.$unit} * 0.75);
-  }
-
-  .status--lg {
-    --_size: calc(#{t.$unit} * 1.5);
-    --_gap: calc(#{t.$unit} * 1.5);
   }
 }

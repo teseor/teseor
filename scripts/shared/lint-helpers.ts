@@ -61,6 +61,58 @@ export function extractBareTokenVars(content: string): BareFallbackVar[] {
   return results;
 }
 
+export interface WrongLayerToken {
+  varName: string;
+  index: number;
+}
+
+// Find --_ variable definitions inside @layer components.styles blocks
+export function extractWrongLayerTokens(content: string): WrongLayerToken[] {
+  const results: WrongLayerToken[] = [];
+  const layerMarker = '@layer components.styles';
+  let searchFrom = 0;
+
+  while (searchFrom < content.length) {
+    const layerStart = content.indexOf(layerMarker, searchFrom);
+    if (layerStart === -1) break;
+
+    const braceStart = content.indexOf('{', layerStart);
+    if (braceStart === -1) break;
+
+    // Find matching closing brace with depth tracking
+    let depth = 1;
+    let pos = braceStart + 1;
+    while (pos < content.length && depth > 0) {
+      if (content[pos] === '{') depth++;
+      else if (content[pos] === '}') depth--;
+      pos++;
+    }
+    const layerBody = content.substring(braceStart + 1, pos - 1);
+    const layerBodyStart = braceStart + 1;
+
+    // Find --_ definitions (not usages via var(--_...))
+    const tokenDefPattern = /--_([\w-]+)\s*:/g;
+    for (
+      let match = tokenDefPattern.exec(layerBody);
+      match !== null;
+      match = tokenDefPattern.exec(layerBody)
+    ) {
+      // Ensure this is a definition, not inside a var() usage
+      const beforeMatch = layerBody.substring(Math.max(0, match.index - 4), match.index);
+      if (beforeMatch.includes('var(')) continue;
+
+      results.push({
+        varName: `--_${match[1]}`,
+        index: layerBodyStart + match.index,
+      });
+    }
+
+    searchFrom = pos;
+  }
+
+  return results;
+}
+
 // Check if a fallback value is a hardcoded literal instead of a SCSS reference
 export function isHardcodedFallback(fallback: string): boolean {
   const trimmed = fallback.trim();

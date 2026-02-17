@@ -3,14 +3,14 @@
   "name": "data-list",
   "element": "div",
   "modifiers": {
+    "size": {
+      "values": ["sm", "lg"]
+    },
     "layout": {
       "values": ["horizontal"]
     },
     "style": {
       "values": ["divided", "striped"]
-    },
-    "size": {
-      "values": ["sm", "lg"]
     }
   },
   "elements": {

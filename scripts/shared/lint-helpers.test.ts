@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest';
 
-import { extractBareTokenVars, extractTokenVars, isHardcodedFallback } from './lint-helpers.js';
+import {
+  extractBareTokenVars,
+  extractTokenVars,
+  extractWrongLayerTokens,
+  isHardcodedFallback,
+} from './lint-helpers.js';
 
 describe('extractTokenVars', () => {
   it('extracts basic var(--ui-X, fallback)', () => {
@@ -135,5 +140,60 @@ describe('isHardcodedFallback', () => {
     expect(isHardcodedFallback('rgb(0, 0, 0)')).toBe(true);
     expect(isHardcodedFallback('hsl(0, 100%, 50%)')).toBe(true);
     expect(isHardcodedFallback('oklch(0.5 0.2 120)')).toBe(true);
+  });
+});
+
+describe('extractWrongLayerTokens', () => {
+  it('detects --_ definitions inside @layer components.styles', () => {
+    const content = [
+      '@layer components.styles {',
+      '  .foo--sm {',
+      '    --_gap: 8px;',
+      '  }',
+      '}',
+    ].join('\n');
+    const result = extractWrongLayerTokens(content);
+    expect(result).toHaveLength(1);
+    expect(result[0].varName).toBe('--_gap');
+  });
+
+  it('ignores --_ definitions in @layer components.tokens', () => {
+    const content = ['@layer components.tokens {', '  .foo {', '    --_gap: 8px;', '  }', '}'].join(
+      '\n',
+    );
+    const result = extractWrongLayerTokens(content);
+    expect(result).toHaveLength(0);
+  });
+
+  it('ignores var(--_...) usages in styles layer', () => {
+    const content = [
+      '@layer components.styles {',
+      '  .foo {',
+      '    gap: var(--_gap);',
+      '  }',
+      '}',
+    ].join('\n');
+    const result = extractWrongLayerTokens(content);
+    expect(result).toHaveLength(0);
+  });
+
+  it('detects multiple --_ definitions', () => {
+    const content = [
+      '@layer components.styles {',
+      '  .foo--sm {',
+      '    --_size: 24px;',
+      '    --_gap: 4px;',
+      '  }',
+      '}',
+    ].join('\n');
+    const result = extractWrongLayerTokens(content);
+    expect(result).toHaveLength(2);
+    expect(result[0].varName).toBe('--_size');
+    expect(result[1].varName).toBe('--_gap');
+  });
+
+  it('returns empty for no styles layer', () => {
+    const content = '.foo { color: red; }';
+    expect(extractWrongLayerTokens(content)).toHaveLength(0);
   });
 });

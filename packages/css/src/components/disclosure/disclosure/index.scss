@@ -25,6 +25,12 @@
     // @desc Vertical padding
     --_padding-y: var(--ui-disclosure-padding-y, calc(#{t.$unit} * 2));
   }
+
+  // Borderless variant
+  // @modifier boolean borderless
+  .disclosure--borderless {
+    --_border-width: 0;
+  }
 }
 
 @layer components.styles {
@@ -109,8 +115,6 @@
   // Borderless variant
   // @modifier boolean borderless
   .disclosure--borderless {
-    --_border-width: 0;
-
     border: none;
     border-radius: 0;
   }

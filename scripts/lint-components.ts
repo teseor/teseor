@@ -20,6 +20,7 @@ import { findComponentDirs } from './shared/find-components.js';
 import {
   extractBareTokenVars,
   extractTokenVars,
+  extractWrongLayerTokens,
   isHardcodedFallback,
 } from './shared/lint-helpers.js';
 
@@ -441,10 +442,49 @@ function lintBareTokenVars(): void {
   console.log(`Bare token vars: ${componentScssFiles.length} component SCSS files passed.`);
 }
 
+function lintWrongLayerTokens(): void {
+  const srcDir = join(__dirname, '../packages/css/src');
+  const errors: string[] = [];
+
+  const dirs = [join(srcDir, 'components'), join(srcDir, 'layout')];
+  const scssFiles = dirs.flatMap((d) => findScssFiles(d));
+
+  for (const file of scssFiles) {
+    const content = readFileSync(file, 'utf-8');
+    const relPath = file.replace(`${srcDir}/`, '');
+
+    const wrongTokens = extractWrongLayerTokens(content);
+    for (const { varName, index } of wrongTokens) {
+      const line = content.substring(0, index).split('\n').length;
+      errors.push(
+        `${relPath}:${line}: ${varName} defined in styles layer — move to @layer components.tokens`,
+      );
+    }
+  }
+
+  if (errors.length > 0) {
+    console.warn('Wrong-layer token definition warnings:\n');
+    const byFile = new Map<string, number>();
+    for (const err of errors) {
+      const file = err.split(':')[0];
+      byFile.set(file, (byFile.get(file) ?? 0) + 1);
+    }
+    for (const [file, count] of byFile) {
+      console.warn(`  ${file} (${count})`);
+    }
+    console.warn(
+      `\n${errors.length} token definition(s) in ${byFile.size} files. Move --_ definitions to @layer components.tokens.`,
+    );
+  } else {
+    console.log(`Wrong-layer tokens: ${scssFiles.length} SCSS files passed.`);
+  }
+}
+
 lintComponents();
 lintSidenavCompleteness();
 lintJsonContent();
 lintTokenFallbacks();
 lintBareTokenVars();
+lintWrongLayerTokens();
 lintStyleLayerTokens();
 lintApiSync();
