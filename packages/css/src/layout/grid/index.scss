@@ -17,4 +17,23 @@
   .grid--auto {
     grid-template-columns: repeat(auto-fit, minmax(var(--grid-min, 16rem), 1fr));
   }
+
+  // @modifier boolean subgrid
+  .grid--subgrid {
+    display: grid;
+    grid-template-columns: subgrid;
+  }
+
+  // @modifier boolean subgrid-rows
+  .grid--subgrid-rows {
+    display: grid;
+    grid-template-rows: subgrid;
+  }
+
+  // @modifier boolean subgrid-both
+  .grid--subgrid-both {
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-template-rows: subgrid;
+  }
 }
