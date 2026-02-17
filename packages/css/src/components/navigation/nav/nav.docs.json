@@ -238,5 +238,67 @@
         }
       ]
     }
+  ],
+  "customization": [
+    {
+      "token": "--ui-nav-gap",
+      "default": "var(--ui-space-1)",
+      "description": "Gap between children"
+    },
+    {
+      "token": "--ui-nav-item-height",
+      "default": "var(--ui-row-2)",
+      "description": "Item overall height"
+    },
+    {
+      "token": "--ui-nav-item-padding-x",
+      "default": "var(--ui-space-2)",
+      "description": "Item horizontal padding"
+    },
+    {
+      "token": "--ui-nav-item-font-size",
+      "default": "var(--ui-font-size-sm)",
+      "description": "Item font size"
+    },
+    {
+      "token": "--ui-nav-item-font-weight",
+      "default": "var(--ui-weight-medium)",
+      "description": "Item font weight"
+    },
+    {
+      "token": "--ui-nav-item-color",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Item text color"
+    },
+    {
+      "token": "--ui-nav-item-color-hover",
+      "default": "var(--ui-color-text)",
+      "description": "Item color on hover"
+    },
+    {
+      "token": "--ui-nav-item-color-active",
+      "default": "var(--ui-color-primary)",
+      "description": "Item color when active"
+    },
+    {
+      "token": "--ui-nav-item-radius",
+      "default": "var(--ui-radius-sm)",
+      "description": "Item corner radius"
+    },
+    {
+      "token": "--ui-nav-border-color",
+      "default": "var(--ui-color-border)",
+      "description": "Border color"
+    },
+    {
+      "token": "--ui-nav-item-bg-hover",
+      "default": "var(--ui-color-bg-muted)",
+      "description": "Item background on hover"
+    },
+    {
+      "token": "--ui-nav-item-bg-active",
+      "default": "var(--ui-color-primary)",
+      "description": "Item background when active"
+    }
   ]
 }
