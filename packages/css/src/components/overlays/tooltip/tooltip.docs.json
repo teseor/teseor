@@ -64,6 +64,36 @@
           "code": "<span class=\"ui-tooltip ui-tooltip--top ui-tooltip--animate ui-tooltip--visible\">\n  Animated tooltip\n</span>"
         }
       ]
+    },
+    {
+      "title": "Anchor Positioned",
+      "description": "Browser-native positioning via CSS Anchor Positioning. No JS needed for placement. Wrapped in @supports — falls back to manual positioning in unsupported browsers.",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "attrs": {
+                "style": "position: relative; padding: var(--ui-space-4); display: flex; gap: var(--ui-space-4);"
+              },
+              "children": [
+                {
+                  "tag": "button",
+                  "class": "ui-button",
+                  "attrs": { "style": "anchor-name: --tooltip;" },
+                  "text": "Hover me"
+                },
+                {
+                  "tag": "span",
+                  "class": "ui-tooltip ui-tooltip--anchored ui-tooltip--visible",
+                  "text": "Anchored tooltip"
+                }
+              ]
+            }
+          ],
+          "code": "<!-- Add anchor-name: --tooltip to trigger -->\n<button class=\"ui-button\" style=\"anchor-name: --tooltip\">Hover me</button>\n<span class=\"ui-tooltip ui-tooltip--anchored ui-tooltip--visible\">\n  Anchored tooltip\n</span>\n\n<!-- Or use the helper class -->\n<button class=\"ui-button\" style=\"anchor-name: --tooltip\">Trigger</button>"
+        }
+      ]
     }
   ],
   "customization": [

@@ -114,4 +114,29 @@
   .tooltip--animate {
     transition: opacity var(--_duration-fast) var(--_ease-default);
   }
+
+  // Anchor-positioned tooltip (progressive enhancement)
+  // Browser auto-positions relative to anchor element, no JS needed
+  // @modifier boolean anchored
+  @supports (anchor-name: --tooltip) {
+    .tooltip--anchored {
+      position: fixed;
+      position-anchor: --tooltip;
+      inset: auto;
+      inset-area: block-start center;
+      position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+
+      margin-block-end: var(--_arrow-size);
+    }
+
+    // Hide CSS arrows — browser handles positioning
+    .tooltip--anchored::after {
+      content: none;
+    }
+
+    // Anchor source: place on trigger element
+    .tooltip-anchor {
+      anchor-name: --tooltip;
+    }
+  }
 }

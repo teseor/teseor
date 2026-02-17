@@ -11,6 +11,9 @@
     },
     "animate": {
       "type": "boolean"
+    },
+    "anchored": {
+      "type": "boolean"
     }
   },
   "cssVars": [
