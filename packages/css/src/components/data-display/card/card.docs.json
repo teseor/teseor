@@ -9,7 +9,11 @@
       "examples": [
         {
           "items": [
-            { "tag": "div", "class": "ui-card", "text": "Default card with padding and border" }
+            {
+              "tag": "div",
+              "class": "ui-card",
+              "text": "Default card with padding and border"
+            }
           ],
           "code": "<div class=\"ui-card\">Content</div>"
         }
@@ -19,18 +23,39 @@
       "title": "Background Variants",
       "data": {
         "variants": [
-          { "mod": "", "label": "Default background" },
-          { "mod": "subtle", "label": "Subtle background" },
-          { "mod": "muted", "label": "Muted background" }
+          {
+            "mod": "",
+            "label": "Default background"
+          },
+          {
+            "mod": "subtle",
+            "label": "Subtle background"
+          },
+          {
+            "mod": "muted",
+            "label": "Muted background"
+          }
         ]
       },
       "examples": [
         {
           "layout": "column",
           "items": [
-            { "tag": "div", "class": "ui-card", "text": "Default background" },
-            { "tag": "div", "class": "ui-card ui-card--subtle", "text": "Subtle background" },
-            { "tag": "div", "class": "ui-card ui-card--muted", "text": "Muted background" }
+            {
+              "tag": "div",
+              "class": "ui-card",
+              "text": "Default background"
+            },
+            {
+              "tag": "div",
+              "class": "ui-card ui-card--subtle",
+              "text": "Subtle background"
+            },
+            {
+              "tag": "div",
+              "class": "ui-card ui-card--muted",
+              "text": "Muted background"
+            }
           ],
           "code": "{% for v in variants %}<div class=\"ui-card{% if v.mod %} ui-card--{{ v.mod }}{% endif %}\">{{ v.label }}</div>\n{% endfor %}"
         }
@@ -40,20 +65,48 @@
       "title": "Padding Variants",
       "data": {
         "sizes": [
-          { "mod": "sm", "label": "Small padding" },
-          { "mod": "", "label": "Default padding" },
-          { "mod": "lg", "label": "Large padding" },
-          { "mod": "flush", "label": "No padding (flush)" }
+          {
+            "mod": "sm",
+            "label": "Small padding"
+          },
+          {
+            "mod": "",
+            "label": "Default padding"
+          },
+          {
+            "mod": "lg",
+            "label": "Large padding"
+          },
+          {
+            "mod": "flush",
+            "label": "No padding (flush)"
+          }
         ]
       },
       "examples": [
         {
           "layout": "column",
           "items": [
-            { "tag": "div", "class": "ui-card ui-card--sm", "text": "Small padding" },
-            { "tag": "div", "class": "ui-card", "text": "Default padding" },
-            { "tag": "div", "class": "ui-card ui-card--lg", "text": "Large padding" },
-            { "tag": "div", "class": "ui-card ui-card--flush", "text": "No padding (flush)" }
+            {
+              "tag": "div",
+              "class": "ui-card ui-card--sm",
+              "text": "Small padding"
+            },
+            {
+              "tag": "div",
+              "class": "ui-card",
+              "text": "Default padding"
+            },
+            {
+              "tag": "div",
+              "class": "ui-card ui-card--lg",
+              "text": "Large padding"
+            },
+            {
+              "tag": "div",
+              "class": "ui-card ui-card--flush",
+              "text": "No padding (flush)"
+            }
           ],
           "code": "{% for s in sizes %}<div class=\"ui-card{% if s.mod %} ui-card--{{ s.mod }}{% endif %}\">{{ s.label }}</div>\n{% endfor %}"
         }
@@ -77,6 +130,51 @@
             }
           ],
           "code": "<div class=\"ui-card ui-card--interactive\">Clickable card</div>"
+        }
+      ]
+    },
+    {
+      "title": "Responsive (Container Query)",
+      "description": "Switches to horizontal layout when container is wide enough. Requires a parent with container-type: inline-size (use ui-container-inline utility).",
+      "examples": [
+        {
+          "items": [
+            {
+              "tag": "div",
+              "class": "ui-container-inline",
+              "children": [
+                {
+                  "tag": "div",
+                  "class": "ui-card ui-card--responsive",
+                  "children": [
+                    {
+                      "tag": "div",
+                      "class": "ui-card__media",
+                      "style": {
+                        "background": "var(--ui-color-bg-muted)",
+                        "min-block-size": "6rem"
+                      }
+                    },
+                    {
+                      "tag": "div",
+                      "class": "ui-card__body",
+                      "children": [
+                        {
+                          "tag": "strong",
+                          "text": "Responsive Card"
+                        },
+                        {
+                          "tag": "p",
+                          "text": "Stacks vertically in narrow containers, switches to side-by-side at >= 30rem."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "code": "<div class=\"ui-container-inline\">\n  <div class=\"ui-card ui-card--responsive\">\n    <div class=\"ui-card__media\">Image</div>\n    <div class=\"ui-card__body\">Content</div>\n  </div>\n</div>"
         }
       ]
     }
@@ -107,7 +205,11 @@
       "default": "var(--ui-color-border)",
       "description": "Border color"
     },
-    { "token": "--ui-card-bg", "default": "var(--ui-color-bg)", "description": "Background color" },
+    {
+      "token": "--ui-card-bg",
+      "default": "var(--ui-color-bg)",
+      "description": "Background color"
+    },
     {
       "token": "--ui-card-bg-subtle",
       "default": "var(--ui-color-bg-subtle)",
