@@ -30,21 +30,16 @@
           "items": [
             {
               "tag": "input",
-              "class": "ui-radio ui-radio--sm",
+              "class": "ui-radio",
               "attrs": { "type": "radio", "name": "sizes", "checked": "" }
             },
             {
               "tag": "input",
-              "class": "ui-radio",
-              "attrs": { "type": "radio", "name": "sizes2", "checked": "" }
-            },
-            {
-              "tag": "input",
               "class": "ui-radio ui-radio--lg",
-              "attrs": { "type": "radio", "name": "sizes3", "checked": "" }
+              "attrs": { "type": "radio", "name": "sizes2", "checked": "" }
             }
           ],
-          "code": "<input type=\"radio\" class=\"ui-radio ui-radio--sm\" checked>\n<input type=\"radio\" class=\"ui-radio\" checked>\n<input type=\"radio\" class=\"ui-radio ui-radio--lg\" checked>"
+          "code": "<input type=\"radio\" class=\"ui-radio\" checked>\n<input type=\"radio\" class=\"ui-radio ui-radio--lg\" checked>"
         }
       ]
     },
