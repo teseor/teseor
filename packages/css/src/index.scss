@@ -2,7 +2,7 @@
 // Import order controls cascade.
 
 // Config: Layer definitions + Design tokens
-@use './config/layers/layers' as *;
+@use './config/layers' as *;
 @use './config/tokens/index' as *;
 
 // Reset styles

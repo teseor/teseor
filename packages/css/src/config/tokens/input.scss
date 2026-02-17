@@ -1,14 +1,16 @@
-:root {
-  --ui-input-height: var(--ui-row-2);
-  --ui-input-padding-x: var(--ui-space-2);
-  --ui-input-padding-y: var(--ui-space-1);
+@layer tokens {
+  :root {
+    --ui-input-height: var(--ui-row-2);
+    --ui-input-padding-x: var(--ui-space-2);
+    --ui-input-padding-y: var(--ui-space-1);
 
-  --ui-input-radius: var(--ui-radius-md);
-  --ui-input-border-width: var(--ui-border-width-sm);
+    --ui-input-radius: var(--ui-radius-md);
+    --ui-input-border-width: var(--ui-border-width-sm);
 
-  --ui-input-bg: var(--ui-color-bg);
-  --ui-input-border: var(--ui-color-border);
-  --ui-input-border-focus: var(--ui-color-interactive);
-  --ui-input-text: var(--ui-color-text);
-  --ui-input-placeholder: var(--ui-color-text-muted);
+    --ui-input-bg: var(--ui-color-bg);
+    --ui-input-border: var(--ui-color-border);
+    --ui-input-border-focus: var(--ui-color-interactive);
+    --ui-input-text: var(--ui-color-text);
+    --ui-input-placeholder: var(--ui-color-text-muted);
+  }
 }

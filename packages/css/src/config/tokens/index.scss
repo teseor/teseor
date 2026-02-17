@@ -1,15 +1,15 @@
 // Design tokens - colors, spacing, typography, grid, etc.
 @use './colors/index' as *;
 @use './spacing/index' as *;
-@use './typography/index' as *;
+@use './typography' as *;
 @use './grid/index' as *;
-@use './radius/index' as *;
-@use './borders/index' as *;
-@use './shadows/index' as *;
-@use './zindex/index' as *;
-@use './motion/index' as *;
-@use './semantic/colors/index' as *;
-@use './semantic/spacing/index' as *;
+@use './radius' as *;
+@use './borders' as *;
+@use './shadows' as *;
+@use './zindex' as *;
+@use './motion' as *;
+@use './semantic-colors' as *;
+@use './semantic-spacing' as *;
 
 // Component tokens
 @use './input' as *;
