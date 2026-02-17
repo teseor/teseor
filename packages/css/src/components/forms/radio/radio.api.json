@@ -4,7 +4,7 @@
   "element": "input",
   "modifiers": {
     "size": {
-      "values": ["sm", "lg"]
+      "values": ["lg"]
     },
     "state": {
       "values": ["error", "success"]

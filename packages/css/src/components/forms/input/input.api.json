@@ -30,8 +30,11 @@
       "elements": {
         "addon": {
           "modifiers": {
-            "position": {
-              "values": ["start", "end"]
+            "start": {
+              "type": "boolean"
+            },
+            "end": {
+              "type": "boolean"
             },
             "interactive": {
               "type": "boolean"
