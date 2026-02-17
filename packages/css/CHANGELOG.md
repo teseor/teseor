@@ -1,5 +1,17 @@
 # @teseor/css
 
+## 1.12.0
+
+### Minor Changes
+
+- 21599d9: Add container query support with responsive card and field modifiers
+- a8949d7: Refactor dark mode tokens with CSS light-dark() function
+
+### Patch Changes
+
+- 5f7f59d: Enforce docs coverage validation: fix 18 gaps across api.json and docs.json files
+- edea453: Add field-sizing: content modifier for auto-sizing textareas
+
 ## 1.11.0
 
 ### Minor Changes
