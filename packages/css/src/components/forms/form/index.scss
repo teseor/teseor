@@ -15,6 +15,15 @@
     // @desc Section spacing
     --_section-spacing: var(--ui-form-section-spacing, var(--ui-space-4, calc(#{t.$unit} * 4)));
   }
+
+  // Compact variant - tighter spacing
+  // @modifier boolean compact
+  .form--compact {
+    // @desc Spacing compact
+    --_spacing: var(--ui-form-spacing-compact, var(--ui-space-2, calc(#{t.$unit} * 2)));
+    // @desc Section spacing compact
+    --_section-spacing: var(--ui-form-section-spacing-compact, var(--ui-space-3, calc(#{t.$unit} * 3)));
+  }
 }
 
 @layer components.styles {
@@ -47,15 +56,6 @@
     flex-wrap: wrap;
     align-items: center;
     gap: var(--_actions-gap);
-  }
-
-  // Compact variant - tighter spacing
-  // @modifier boolean compact
-  .form--compact {
-    // @desc Spacing compact
-    --_spacing: var(--ui-form-spacing-compact, var(--ui-space-2, calc(#{t.$unit} * 2)));
-    // @desc Section spacing compact
-    --_section-spacing: var(--ui-form-section-spacing-compact, var(--ui-space-3, calc(#{t.$unit} * 3)));
   }
 
   // Inline variant - horizontal layout for short forms (search, filters)

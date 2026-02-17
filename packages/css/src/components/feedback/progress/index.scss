@@ -36,6 +36,20 @@
   .progress--lg {
     --_height: calc(#{t.$unit} * 2);
   }
+
+  // Color variants
+  // @modifier variant
+  .progress--success {
+    --_fill: var(--ui-color-success, #{t.$color-success});
+  }
+
+  .progress--warning {
+    --_fill: var(--ui-color-warning, #{t.$color-warning});
+  }
+
+  .progress--danger {
+    --_fill: var(--ui-color-danger, #{t.$color-danger});
+  }
 }
 
 @layer components.styles {
@@ -121,19 +135,5 @@
     .progress--animated .progress__bar {
       animation: none;
     }
-  }
-
-  // Color variants
-  // @modifier variant
-  .progress--success {
-    --_fill: var(--ui-color-success, #{t.$color-success});
-  }
-
-  .progress--warning {
-    --_fill: var(--ui-color-warning, #{t.$color-warning});
-  }
-
-  .progress--danger {
-    --_fill: var(--ui-color-danger, #{t.$color-danger});
   }
 }
