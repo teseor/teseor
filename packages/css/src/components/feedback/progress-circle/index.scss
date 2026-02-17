@@ -5,6 +5,14 @@
 // Progress Circle - circular progress indicator
 // Uses SVG circles with stroke-dasharray/dashoffset driven by --ui-progress-circle-value
 
+// Register typed property so browsers can interpolate the value
+// — enables smooth stroke-dashoffset transitions via CSS alone
+@property --ui-progress-circle-value {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
 @layer components.tokens {
   .progress-circle {
     --_duration-slow: var(--ui-duration-slow, #{t.$duration-slow});
@@ -78,7 +86,9 @@
     stroke-dasharray: var(--_circumference);
     stroke-dashoffset: calc(var(--_circumference) * (1 - var(--_value) / 100));
 
-    transition: stroke-dashoffset var(--_duration-slow) var(--_ease-default);
+    transition:
+      stroke-dashoffset var(--_duration-slow) var(--_ease-default),
+      --ui-progress-circle-value var(--_duration-slow) var(--_ease-default);
   }
 
   // Indeterminate - rotating partial arc
