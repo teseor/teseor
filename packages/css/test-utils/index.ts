@@ -8,8 +8,11 @@ export {
   loadComponentApi,
   loadDocsJson,
   generateHtmlFromDocs,
+  loadHtmlDoc,
+  generateHtmlFromHtmlDoc,
   setupVisualTest,
   setupVisualTestFromApi,
   setupVisualTestFromDocs,
+  setupVisualTestFromHtmlDocs,
   saveForLostPixel,
 } from './page-setup';
