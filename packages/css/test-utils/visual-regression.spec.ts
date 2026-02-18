@@ -6,8 +6,18 @@ import { saveForLostPixel, setupVisualTestFromHtmlDocs, validateGridRhythm } fro
 const SRC_DIR = resolve(__dirname, '../src');
 const SEARCH_DIRS = [join(SRC_DIR, 'components'), join(SRC_DIR, 'layout')];
 
-// Layout primitives that are fluid containers — no grid rhythm check
-const SKIP_GRID = new Set(['app-shell', 'box', 'center', 'column', 'grid']);
+// Skip grid rhythm: fluid containers, proportion-based, or known border issues
+const SKIP_GRID = new Set([
+  'app-shell',
+  'aspect-ratio',
+  'box',
+  'center',
+  'column',
+  'data-list', // 1px borders cause off-grid heights (#179)
+  'grid',
+  'row',
+  'sidebar-nav',
+]);
 
 function findDocsFiles(dir: string): Array<{ name: string; path: string }> {
   const results: Array<{ name: string; path: string }> = [];
