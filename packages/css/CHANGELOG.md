@@ -1,5 +1,11 @@
 # @teseor/css
 
+## 1.15.0
+
+### Minor Changes
+
+- 0c16544: Migrate docs format from JSON to HTML templates with Nunjucks support
+
 ## 1.14.3
 
 ### Patch Changes
