@@ -1,5 +1,11 @@
 # @teseor/css
 
+## 1.15.2
+
+### Patch Changes
+
+- af4a7ae: Replace 76 individual visual spec files with a single auto-discovery spec
+
 ## 1.15.1
 
 ### Patch Changes
