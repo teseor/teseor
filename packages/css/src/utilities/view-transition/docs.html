@@ -10,18 +10,18 @@ description: CSS View Transitions API utilities for smooth page navigation. Enab
 
 <!-- @slide_animations -->
 <!-- Content slides in/out in different directions. -->
-<main class="ui-transition-name-main">Slides up</main>
-<main class="ui-transition-name-slide-up">Slides up</main>
-<main class="ui-transition-name-slide-down">Slides down</main>
-<main class="ui-transition-name-slide-start">Slides from left</main>
-<main class="ui-transition-name-slide-end">Slides from right</main>
+<main class="ui-transition-name-main">{{ t('slides_up', 'Slides up') }}</main>
+<main class="ui-transition-name-slide-up">{{ t('slides_up', 'Slides up') }}</main>
+<main class="ui-transition-name-slide-down">{{ t('slides_down', 'Slides down') }}</main>
+<main class="ui-transition-name-slide-start">{{ t('slides_from_left', 'Slides from left') }}</main>
+<main class="ui-transition-name-slide-end">{{ t('slides_from_right', 'Slides from right') }}</main>
 
 <!-- @scale_and_fade -->
 <!-- Scale effect for modals/cards, fade for subtle transitions. -->
-<div class="ui-transition-name-scale">Scales in/out</div>
-<div class="ui-transition-name-card">Card scales</div>
-<div class="ui-transition-name-modal">Modal scales</div>
-<div class="ui-transition-name-fade">Fades in/out</div>
+<div class="ui-transition-name-scale">{{ t('scales_inout', 'Scales in/out') }}</div>
+<div class="ui-transition-name-card">{{ t('card_scales', 'Card scales') }}</div>
+<div class="ui-transition-name-modal">{{ t('modal_scales', 'Modal scales') }}</div>
+<div class="ui-transition-name-fade">{{ t('fades_inout', 'Fades in/out') }}</div>
 
 <!-- @hero_morph -->
 <!-- Same element on both pages morphs (position/size interpolates). Use same class on source and target. -->
@@ -33,16 +33,16 @@ description: CSS View Transitions API utilities for smooth page navigation. Enab
 
 <!-- @disable -->
 <!-- Exclude an element from view transitions. -->
-<div class="ui-transition-name-none">No transition</div>
+<div class="ui-transition-name-none">{{ t('no_transition', 'No transition') }}</div>
 
 <!-- @preserving_scroll_position -->
 <!-- View transitions snapshot elements, resetting scroll. Use `pagereveal` event to restore scroll before paint. -->
-// Save scroll on navigation
+{{ t('save_scroll_on_navigation', '// Save scroll on navigation') }}
 link.addEventListener('click', () => {
   sessionStorage.setItem('scroll', sidebar.scrollTop);
 });
 
-// Restore before page reveals
+{{ t('restore_before_page_reveals', '// Restore before page reveals') }}
 window.addEventListener('pagereveal', () => {
   const saved = sessionStorage.getItem('scroll');
   if (saved) sidebar.scrollTop = parseInt(saved, 10);
