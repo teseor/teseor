@@ -1,5 +1,5 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
+import { dirname, resolve } from 'node:path';
 import type { Page } from '@playwright/test';
 
 const LOSTPIXEL_DIR = resolve(__dirname, '../.lostpixel');
@@ -160,17 +160,20 @@ export function generateHtmlFromHtmlDoc(doc: HtmlDoc, apiPath?: string): string 
 
   for (const section of doc.sections) {
     // Render Nunjucks templates in rawHtml
-    let nunjucks: typeof import('nunjucks') | undefined;
-    try {
-      nunjucks = require('nunjucks');
-    } catch {
-      // nunjucks not available in test env, use raw HTML
-    }
-
     let rendered = section.rawHtml;
-    if (nunjucks && (rendered.includes('{%') || rendered.includes('{{'))) {
-      const env = nunjucks.configure({ autoescape: false });
-      rendered = env.renderString(rendered, { api, labels, t });
+    if (rendered.includes('{%') || rendered.includes('{{')) {
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
+        const nunjucks = require('nunjucks') as {
+          configure: (opts: { autoescape: boolean }) => {
+            renderString: (str: string, ctx: Record<string, unknown>) => string;
+          };
+        };
+        const env = nunjucks.configure({ autoescape: false });
+        rendered = env.renderString(rendered, { api, labels, t });
+      } catch {
+        // nunjucks not available, use raw HTML
+      }
     }
 
     // Wrap in layout if specified
