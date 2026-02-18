@@ -529,6 +529,106 @@ function lintTokenNames(): void {
   console.log(`Token names: ${componentScssFiles.length} component SCSS files passed.`);
 }
 
+function findDocsHtmlFiles(dir: string): string[] {
+  const results: string[] = [];
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const fullPath = join(dir, entry.name);
+    if (entry.isDirectory() && !entry.name.startsWith('.') && entry.name !== 'node_modules') {
+      results.push(...findDocsHtmlFiles(fullPath));
+    } else if (entry.name === 'docs.html' || entry.name.endsWith('.docs.html')) {
+      results.push(fullPath);
+    }
+  }
+  return results;
+}
+
+function lintI18nCoverage(): void {
+  const srcDir = join(__dirname, '../packages/css/src');
+  const files = findDocsHtmlFiles(srcDir);
+  let totalBare = 0;
+  const filesBare: { file: string; count: number }[] = [];
+
+  for (const file of files) {
+    const content = readFileSync(file, 'utf-8');
+    const relPath = file.replace(`${srcDir}/`, '');
+
+    // Extract body (after frontmatter)
+    const fmMatch = content.match(/^---\n[\s\S]*?\n---\n([\s\S]*)$/);
+    if (!fmMatch) continue;
+    const body = fmMatch[1];
+
+    let bareCount = 0;
+    let inPre = false;
+    let inSvg = false;
+
+    for (const line of body.split('\n')) {
+      const trimmed = line.trim();
+      if (!trimmed) continue;
+
+      // Track pre/svg blocks
+      if (/<pre[\s>]/.test(line)) inPre = true;
+      if (/<\/pre>/.test(line)) {
+        inPre = false;
+        continue;
+      }
+      if (inPre) continue;
+      if (/<svg[\s>]/.test(line)) inSvg = true;
+      if (/<\/svg>/.test(line)) {
+        inSvg = false;
+        continue;
+      }
+      if (inSvg) continue;
+
+      // Skip comments, template syntax, CSS code
+      if (/^\s*<!--/.test(trimmed)) continue;
+      if (/\{\{|\{%/.test(line)) continue;
+      if (/^(--|:root|@media|@layer|@property|\.ui-|var\(|\/\/|\/\*|\*|#|[{}])/.test(trimmed))
+        continue;
+      if (/[{};]$/.test(trimmed)) continue;
+      if (/^(npm|pnpm|yarn|import|export|const|let|function)\s/.test(trimmed)) continue;
+
+      // Check for bare text between tags: >Text< without t()
+      const bareMatches = line.match(/>([^<{}\n]+)</g);
+      if (bareMatches) {
+        for (const m of bareMatches) {
+          const text = m.slice(1, -1).trim();
+          if (!text || /^[\d.,]+(%|px|rem|em|ms|s)?$/.test(text)) continue;
+          if (text === '...' || text === '\u2026') continue;
+          if (/^\.ui-|^--|^var\(/.test(text)) continue;
+          if (!/[a-zA-Z]/.test(text)) continue;
+          // Check preceding context for <code> tags
+          const idx = line.indexOf(m);
+          const before = line.substring(0, idx);
+          if (before.lastIndexOf('<code') > before.lastIndexOf('</code')) continue;
+          bareCount++;
+        }
+      }
+
+      // Check for bare text lines (no tags, has letters, not code)
+      if (!/[<>]/.test(trimmed) && /[a-zA-Z]/.test(trimmed)) {
+        if (!/^[\w][\w-]*:\s/.test(trimmed)) {
+          bareCount++;
+        }
+      }
+    }
+
+    if (bareCount > 0) {
+      filesBare.push({ file: relPath, count: bareCount });
+      totalBare += bareCount;
+    }
+  }
+
+  if (totalBare > 0) {
+    console.warn(`i18n coverage: ${totalBare} unwrapped text(s) in ${filesBare.length} file(s):`);
+    for (const { file, count } of filesBare) {
+      console.warn(`  ${file} (${count})`);
+    }
+    console.warn("Wrap visible text with {{ t('key', 'text') }} for i18n readiness.\n");
+  } else {
+    console.log(`i18n coverage: ${files.length} docs files fully wrapped.`);
+  }
+}
+
 lintComponents();
 lintSidenavCompleteness();
 lintDocsContent();
@@ -538,3 +638,4 @@ lintWrongLayerTokens();
 lintStyleLayerTokens();
 lintTokenNames();
 lintApiSync();
+lintI18nCoverage();
