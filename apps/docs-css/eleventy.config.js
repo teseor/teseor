@@ -90,15 +90,14 @@ function resolveHtmlDoc(filePath) {
   const { frontmatter, sections: rawSections } = parseHtmlDocFile(filePath);
   const fm = frontmatter;
 
-  // Load API if referenced
+  // Load API (defaults to ./api.json if not specified)
   let api = null;
-  if (fm.api) {
-    const apiPath = join(dirname(filePath), fm.api);
-    try {
-      api = JSON.parse(readFileSync(apiPath, 'utf-8'));
-    } catch {
-      // api not found
-    }
+  const apiRef = fm.api || './api.json';
+  const apiPath = join(dirname(filePath), apiRef);
+  try {
+    api = JSON.parse(readFileSync(apiPath, 'utf-8'));
+  } catch {
+    // api not found
   }
 
   const id = fm.id || api?.name;

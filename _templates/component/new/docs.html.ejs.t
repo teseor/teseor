@@ -6,7 +6,6 @@ title: <%= h.changeCase.title(name) %>
 type: component
 id: <%= name %>
 description: <%= description %>
-api: ./api.json
 ---
 
 <!-- @default -->
