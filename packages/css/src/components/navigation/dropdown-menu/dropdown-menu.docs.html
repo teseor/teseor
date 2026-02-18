@@ -45,7 +45,7 @@ api: ./dropdown-menu.api.json
           <button class="ui-menu__item" role="menuitem">Save</button>
         </li>
         <li>
-          <hr class="ui-menu__separator"></hr>
+          <hr class="ui-menu__separator">
         </li>
         <li>
           <button class="ui-menu__item ui-menu__item--danger" role="menuitem">Close</button>
@@ -60,7 +60,12 @@ api: ./dropdown-menu.api.json
 <div class="ui-dropdown-menu ui-dropdown-menu--open ui-dropdown-menu--top">
   <button class="ui-dropdown-menu__trigger ui-button">Actions</button>
   <div class="ui-dropdown-menu__panel" role="menu">
-    <div class="ui-menu">...</div>
+    <div class="ui-menu">
+      <ul class="ui-menu__group">
+        <li><button class="ui-menu__item" role="menuitem">Edit</button></li>
+        <li><button class="ui-menu__item" role="menuitem">Delete</button></li>
+      </ul>
+    </div>
   </div>
 </div>
 
@@ -69,7 +74,12 @@ api: ./dropdown-menu.api.json
 <div class="ui-dropdown-menu ui-dropdown-menu--open ui-dropdown-menu--full-width">
   <button class="ui-dropdown-menu__trigger ui-button">Select option</button>
   <div class="ui-dropdown-menu__panel" role="menu">
-    <div class="ui-menu">...</div>
+    <div class="ui-menu">
+      <ul class="ui-menu__group">
+        <li><button class="ui-menu__item" role="menuitem">Option A</button></li>
+        <li><button class="ui-menu__item" role="menuitem">Option B</button></li>
+      </ul>
+    </div>
   </div>
 </div>
 
