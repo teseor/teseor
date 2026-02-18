@@ -26,24 +26,24 @@ description: Native radio button with custom styling. Use for mutually exclusive
 <!-- @with_label -->
 <label class="ui-row" style="gap: var(--ui-space-1); cursor: pointer;">
   <input class="ui-radio" type="radio" name="labeled"></input>
-  <span>Option one</span>
+  <span>{{ t('option_one', 'Option one') }}</span>
 </label>
 
 <!-- @radio_group -->
 <fieldset style="border: none; padding: 0; margin: 0;">
-  <legend style="font-weight: 600; margin-block-end: var(--ui-space-1);">Choose an option</legend>
+  <legend style="font-weight: 600; margin-block-end: var(--ui-space-1);">{{ t('choose_an_option', 'Choose an option') }}</legend>
   <div class="ui-column" style="--column-gap: var(--ui-space-1);">
     <label class="ui-row" style="gap: var(--ui-space-1); cursor: pointer;">
       <input class="ui-radio" type="radio" name="group-demo" checked></input>
-      <span>Option A</span>
+      <span>{{ t('option_a', 'Option A') }}</span>
     </label>
     <label class="ui-row" style="gap: var(--ui-space-1); cursor: pointer;">
       <input class="ui-radio" type="radio" name="group-demo"></input>
-      <span>Option B</span>
+      <span>{{ t('option_b', 'Option B') }}</span>
     </label>
     <label class="ui-row" style="gap: var(--ui-space-1); cursor: pointer;">
       <input class="ui-radio" type="radio" name="group-demo"></input>
-      <span>Option C</span>
+      <span>{{ t('option_c', 'Option C') }}</span>
     </label>
   </div>
 </fieldset>

@@ -5,37 +5,37 @@ description: Form field wrapper that combines label, control, helper text, and e
 
 <!-- @default -->
 <div class="ui-field">
-  <label class="ui-label" for="email">Email</label>
+  <label class="ui-label" for="email">{{ t('email', 'Email') }}</label>
   <div class="ui-field__control">
-    <input class="ui-input" type="email" id="email" placeholder="Enter email"></input>
+    <input class="ui-input" type="email" id="email" placeholder="{{ t('enter_email', 'Enter email') }}"></input>
   </div>
 </div>
 
 <!-- @with_helper_text -->
 <div class="ui-field">
-  <label class="ui-label" for="password">Password</label>
+  <label class="ui-label" for="password">{{ t('password', 'Password') }}</label>
   <div class="ui-field__control">
     <input class="ui-input" type="password" id="password"></input>
-    <span class="ui-form-helper">Must be at least 8 characters</span>
+    <span class="ui-form-helper">{{ t('must_be_at_least_8_characters', 'Must be at least 8 characters') }}</span>
   </div>
 </div>
 
 <!-- @with_error -->
 <div class="ui-field">
-  <label class="ui-label" for="username">Username</label>
+  <label class="ui-label" for="username">{{ t('username', 'Username') }}</label>
   <div class="ui-field__control">
     <input class="ui-input ui-input--error" type="text" id="username" value="ab"></input>
-    <span class="ui-form-error">Username must be at least 3 characters</span>
+    <span class="ui-form-error">{{ t('username_must_be_at_least_3_characters', 'Username must be at least 3 characters') }}</span>
   </div>
 </div>
 
 <!-- @horizontal_layout -->
 <!-- Label beside control for wider forms -->
 <div class="ui-field ui-field--horizontal">
-  <label class="ui-label ui-field__label" for="name">Full Name</label>
+  <label class="ui-label ui-field__label" for="name">{{ t('full_name', 'Full Name') }}</label>
   <div class="ui-field__control">
     <input class="ui-input" type="text" id="name"></input>
-    <span class="ui-form-helper">As it appears on your ID</span>
+    <span class="ui-form-helper">{{ t('as_it_appears_on_your_id', 'As it appears on your ID') }}</span>
   </div>
 </div>
 
@@ -43,17 +43,17 @@ description: Form field wrapper that combines label, control, helper text, and e
 <!-- Auto-switches to horizontal layout when container is wide enough (>= 30rem). Requires a parent with container-type: inline-size (use ui-container-inline utility). -->
 <div class="ui-container-inline">
   <div class="ui-field ui-field--responsive">
-    <label class="ui-label ui-field__label" for="resp-name">Full Name</label>
+    <label class="ui-label ui-field__label" for="resp-name">{{ t('full_name', 'Full Name') }}</label>
     <div class="ui-field__control">
       <input class="ui-input" type="text" id="resp-name"></input>
-      <span class="ui-form-helper">Stacks vertically in narrow containers, horizontal at >= 30rem</span>
+      <span class="ui-form-helper">{{ t('stacks_vertically_in_narrow_containers', 'Stacks vertically in narrow containers, horizontal at >= 30rem') }}</span>
     </div>
   </div>
 </div>
 
 <!-- @required_field -->
 <div class="ui-field">
-  <label class="ui-label ui-label--required" for="req">Required Field</label>
+  <label class="ui-label ui-label--required" for="req">{{ t('required_field', 'Required Field') }}</label>
   <div class="ui-field__control">
     <input class="ui-input" type="text" id="req" required></input>
   </div>

@@ -4,23 +4,23 @@ description: Form control labels. Associates text with inputs via htmlFor or wra
 ---
 
 <!-- @default -->
-<label class="ui-label" for="input1">Email address</label>
+<label class="ui-label" for="input1">{{ t('email_address', 'Email address') }}</label>
 
 <!-- @required -->
 <label class="ui-label" for="input2">
-Email address
+{{ t('email_address', 'Email address') }}
   <span class="ui-label__required">*</span>
 </label>
 
 <!-- @optional -->
 <label class="ui-label" for="input3">
-Phone number
-  <span class="ui-label__optional">(optional)</span>
+{{ t('phone_number', 'Phone number') }}
+  <span class="ui-label__optional">{{ t('optional', '(optional)') }}</span>
 </label>
 
 <!-- @sizes | column -->
-<label class="ui-label">Default size</label>
-<label class="ui-label ui-label--lg">Large size</label>
+<label class="ui-label">{{ t('default_size', 'Default size') }}</label>
+<label class="ui-label ui-label--lg">{{ t('large_size', 'Large size') }}</label>
 
 <!-- @disabled -->
-<label class="ui-label" aria-disabled="true">Disabled label</label>
+<label class="ui-label" aria-disabled="true">{{ t('disabled_label', 'Disabled label') }}</label>

@@ -5,63 +5,63 @@ description: Native select dropdown with custom styling. Dropdown options use br
 
 <!-- @default -->
 <select class="ui-select">
-  <option value disabled selected>Choose option...</option>
-  <option value="1">Option 1</option>
-  <option value="2">Option 2</option>
-  <option value="3">Option 3</option>
+  <option value disabled selected>{{ t('choose_option', 'Choose option...') }}</option>
+  <option value="1">{{ t('option_1', 'Option 1') }}</option>
+  <option value="2">{{ t('option_2', 'Option 2') }}</option>
+  <option value="3">{{ t('option_3', 'Option 3') }}</option>
 </select>
 
 <!-- @sizes | column -->
 <select class="ui-select ui-select--sm">
-  <option>Small</option>
-  <option>Option 2</option>
+  <option>{{ t('small', 'Small') }}</option>
+  <option>{{ t('option_2', 'Option 2') }}</option>
 </select>
 <select class="ui-select">
-  <option>Default</option>
-  <option>Option 2</option>
+  <option>{{ t('default', 'Default') }}</option>
+  <option>{{ t('option_2', 'Option 2') }}</option>
 </select>
 <select class="ui-select ui-select--lg">
-  <option>Large</option>
-  <option>Option 2</option>
+  <option>{{ t('large', 'Large') }}</option>
+  <option>{{ t('option_2', 'Option 2') }}</option>
 </select>
 
 <!-- @variants | column -->
 <select class="ui-select">
-  <option>Outline (default)</option>
+  <option>{{ t('outline_default', 'Outline (default)') }}</option>
 </select>
 <select class="ui-select ui-select--filled">
-  <option>Filled</option>
+  <option>{{ t('filled', 'Filled') }}</option>
 </select>
 <select class="ui-select ui-select--ghost">
-  <option>Ghost</option>
+  <option>{{ t('ghost', 'Ghost') }}</option>
 </select>
 
 <!-- @states | column -->
 <select class="ui-select ui-select--error">
-  <option>Error state</option>
+  <option>{{ t('error_state', 'Error state') }}</option>
 </select>
 <select class="ui-select ui-select--success">
-  <option>Success state</option>
+  <option>{{ t('success_state', 'Success state') }}</option>
 </select>
 <select class="ui-select" disabled>
-  <option>Disabled</option>
+  <option>{{ t('disabled', 'Disabled') }}</option>
 </select>
 
 <!-- @full_width -->
 <select class="ui-select ui-select--block">
-  <option value>Full width select...</option>
-  <option value="1">Option 1</option>
+  <option value>{{ t('full_width_select', 'Full width select...') }}</option>
+  <option value="1">{{ t('option_1', 'Option 1') }}</option>
 </select>
 
 <!-- @with_option_groups -->
 <select class="ui-select ui-select--block">
-  <option value disabled selected>Choose a fruit...</option>
+  <option value disabled selected>{{ t('choose_a_fruit', 'Choose a fruit...') }}</option>
   <optgroup label="Citrus">
-    <option value="orange">Orange</option>
-    <option value="lemon">Lemon</option>
+    <option value="orange">{{ t('orange', 'Orange') }}</option>
+    <option value="lemon">{{ t('lemon', 'Lemon') }}</option>
   </optgroup>
   <optgroup label="Berries">
-    <option value="strawberry">Strawberry</option>
-    <option value="blueberry">Blueberry</option>
+    <option value="strawberry">{{ t('strawberry', 'Strawberry') }}</option>
+    <option value="blueberry">{{ t('blueberry', 'Blueberry') }}</option>
   </optgroup>
 </select>

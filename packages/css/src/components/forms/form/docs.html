@@ -6,20 +6,20 @@ description: Layout container for form fields with consistent spacing, sections,
 <!-- @default -->
 <form class="ui-form">
   <div class="ui-field">
-    <label class="ui-label" for="f-name">Name</label>
+    <label class="ui-label" for="f-name">{{ t('name', 'Name') }}</label>
     <div class="ui-field__control">
-      <input class="ui-input" type="text" id="f-name" placeholder="Full name"></input>
+      <input class="ui-input" type="text" id="f-name" placeholder="{{ t('full_name', 'Full name') }}"></input>
     </div>
   </div>
   <div class="ui-field">
-    <label class="ui-label" for="f-email">Email</label>
+    <label class="ui-label" for="f-email">{{ t('email', 'Email') }}</label>
     <div class="ui-field__control">
-      <input class="ui-input" type="email" id="f-email" placeholder="you@example.com"></input>
+      <input class="ui-input" type="email" id="f-email" placeholder="{{ t('email_placeholder', 'you@example.com') }}"></input>
     </div>
   </div>
   <div class="ui-form__actions">
-    <button class="ui-button">Submit</button>
-    <button class="ui-button ui-button--ghost" type="button">Cancel</button>
+    <button class="ui-button">{{ t('submit', 'Submit') }}</button>
+    <button class="ui-button ui-button--ghost" type="button">{{ t('cancel', 'Cancel') }}</button>
   </div>
 </form>
 
@@ -27,37 +27,37 @@ description: Layout container for form fields with consistent spacing, sections,
 <!-- Group related fields using fieldset-based sections -->
 <form class="ui-form">
   <fieldset class="ui-form__section">
-    <legend class="ui-heading ui-heading--sm">Personal</legend>
+    <legend class="ui-heading ui-heading--sm">{{ t('personal', 'Personal') }}</legend>
     <div class="ui-field">
-      <label class="ui-label" for="s-first">First name</label>
+      <label class="ui-label" for="s-first">{{ t('first_name', 'First name') }}</label>
       <div class="ui-field__control">
         <input class="ui-input" type="text" id="s-first"></input>
       </div>
     </div>
     <div class="ui-field">
-      <label class="ui-label" for="s-last">Last name</label>
+      <label class="ui-label" for="s-last">{{ t('last_name', 'Last name') }}</label>
       <div class="ui-field__control">
         <input class="ui-input" type="text" id="s-last"></input>
       </div>
     </div>
   </fieldset>
   <fieldset class="ui-form__section">
-    <legend class="ui-heading ui-heading--sm">Account</legend>
+    <legend class="ui-heading ui-heading--sm">{{ t('account', 'Account') }}</legend>
     <div class="ui-field">
-      <label class="ui-label" for="s-email">Email</label>
+      <label class="ui-label" for="s-email">{{ t('email', 'Email') }}</label>
       <div class="ui-field__control">
         <input class="ui-input" type="email" id="s-email"></input>
       </div>
     </div>
     <div class="ui-field">
-      <label class="ui-label" for="s-pass">Password</label>
+      <label class="ui-label" for="s-pass">{{ t('password', 'Password') }}</label>
       <div class="ui-field__control">
         <input class="ui-input" type="password" id="s-pass"></input>
       </div>
     </div>
   </fieldset>
   <div class="ui-form__actions">
-    <button class="ui-button">Create account</button>
+    <button class="ui-button">{{ t('create_account', 'Create account') }}</button>
   </div>
 </form>
 
@@ -65,19 +65,19 @@ description: Layout container for form fields with consistent spacing, sections,
 <!-- Tighter spacing for dense interfaces -->
 <form class="ui-form ui-form--compact">
   <div class="ui-field">
-    <label class="ui-label" for="c-user">Username</label>
+    <label class="ui-label" for="c-user">{{ t('username', 'Username') }}</label>
     <div class="ui-field__control">
       <input class="ui-input" type="text" id="c-user"></input>
     </div>
   </div>
   <div class="ui-field">
-    <label class="ui-label" for="c-pass">Password</label>
+    <label class="ui-label" for="c-pass">{{ t('password', 'Password') }}</label>
     <div class="ui-field__control">
       <input class="ui-input" type="password" id="c-pass"></input>
     </div>
   </div>
   <div class="ui-form__actions">
-    <button class="ui-button">Log in</button>
+    <button class="ui-button">{{ t('log_in', 'Log in') }}</button>
   </div>
 </form>
 
@@ -85,23 +85,23 @@ description: Layout container for form fields with consistent spacing, sections,
 <!-- Horizontal layout for short forms like search or filters -->
 <form class="ui-form ui-form--inline">
   <div class="ui-field">
-    <label class="ui-label" for="i-search">Search</label>
+    <label class="ui-label" for="i-search">{{ t('search', 'Search') }}</label>
     <div class="ui-field__control">
-      <input class="ui-input" type="search" id="i-search" placeholder="Search..."></input>
+      <input class="ui-input" type="search" id="i-search" placeholder="{{ t('search', 'Search...') }}"></input>
     </div>
   </div>
   <div class="ui-field">
-    <label class="ui-label" for="i-cat">Category</label>
+    <label class="ui-label" for="i-cat">{{ t('category', 'Category') }}</label>
     <div class="ui-field__control">
       <select class="ui-select" id="i-cat">
-        <option>All</option>
-        <option>Articles</option>
-        <option>Products</option>
+        <option>{{ t('all', 'All') }}</option>
+        <option>{{ t('articles', 'Articles') }}</option>
+        <option>{{ t('products', 'Products') }}</option>
       </select>
     </div>
   </div>
   <div class="ui-form__actions">
-    <button class="ui-button">Filter</button>
+    <button class="ui-button">{{ t('filter', 'Filter') }}</button>
   </div>
 </form>
 
@@ -109,21 +109,21 @@ description: Layout container for form fields with consistent spacing, sections,
 <!-- Combining form layout with field error states -->
 <form class="ui-form">
   <div class="ui-field">
-    <label class="ui-label ui-label--required" for="v-email">Email</label>
+    <label class="ui-label ui-label--required" for="v-email">{{ t('email', 'Email') }}</label>
     <div class="ui-field__control">
       <input class="ui-input ui-input--error" type="email" id="v-email" value="not-an-email"></input>
-      <span class="ui-form-error">Enter a valid email address</span>
+      <span class="ui-form-error">{{ t('enter_a_valid_email_address', 'Enter a valid email address') }}</span>
     </div>
   </div>
   <div class="ui-field">
-    <label class="ui-label ui-label--required" for="v-pass">Password</label>
+    <label class="ui-label ui-label--required" for="v-pass">{{ t('password', 'Password') }}</label>
     <div class="ui-field__control">
       <input class="ui-input" type="password" id="v-pass"></input>
-      <span class="ui-form-helper">Must be at least 8 characters</span>
+      <span class="ui-form-helper">{{ t('must_be_at_least_8_characters', 'Must be at least 8 characters') }}</span>
     </div>
   </div>
   <div class="ui-form__actions">
-    <button class="ui-button">Sign up</button>
-    <button class="ui-button ui-button--ghost" type="button">Reset</button>
+    <button class="ui-button">{{ t('sign_up', 'Sign up') }}</button>
+    <button class="ui-button ui-button--ghost" type="button">{{ t('reset', 'Reset') }}</button>
   </div>
 </form>

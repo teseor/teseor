@@ -11,7 +11,7 @@ description: Search field with built-in search icon and optional clear button.
       <path d="m21 21-4.3-4.3"></path>
     </svg>
   </span>
-  <input class="ui-search-input__field" type="search" placeholder="Search..."></input>
+  <input class="ui-search-input__field" type="search" placeholder="{{ t('search', 'Search...') }}"></input>
 </div>
 
 <!-- @with_clear_button -->
@@ -23,7 +23,7 @@ description: Search field with built-in search icon and optional clear button.
     </svg>
   </span>
   <input class="ui-search-input__field" type="search" value="Design tokens"></input>
-  <button class="ui-search-input__clear" type="button" aria-label="Clear search">
+  <button class="ui-search-input__clear" type="button" aria-label="{{ t('clear_search', 'Clear search') }}">
     <svg viewBox="0 0 24 24">
       <path d="M18 6 6 18"></path>
       <path d="m6 6 12 12"></path>
@@ -39,7 +39,7 @@ description: Search field with built-in search icon and optional clear button.
       <path d="m21 21-4.3-4.3"></path>
     </svg>
   </span>
-  <input class="ui-search-input__field" type="search" placeholder="Small"></input>
+  <input class="ui-search-input__field" type="search" placeholder="{{ t('small', 'Small') }}"></input>
 </div>
 <div class="ui-search-input">
   <span class="ui-search-input__icon">
@@ -48,7 +48,7 @@ description: Search field with built-in search icon and optional clear button.
       <path d="m21 21-4.3-4.3"></path>
     </svg>
   </span>
-  <input class="ui-search-input__field" type="search" placeholder="Default"></input>
+  <input class="ui-search-input__field" type="search" placeholder="{{ t('default', 'Default') }}"></input>
 </div>
 <div class="ui-search-input ui-search-input--lg">
   <span class="ui-search-input__icon">
@@ -57,7 +57,7 @@ description: Search field with built-in search icon and optional clear button.
       <path d="m21 21-4.3-4.3"></path>
     </svg>
   </span>
-  <input class="ui-search-input__field" type="search" placeholder="Large"></input>
+  <input class="ui-search-input__field" type="search" placeholder="{{ t('large', 'Large') }}"></input>
 </div>
 
 <!-- @block -->
@@ -69,7 +69,7 @@ description: Search field with built-in search icon and optional clear button.
       <path d="m21 21-4.3-4.3"></path>
     </svg>
   </span>
-  <input class="ui-search-input__field" type="search" placeholder="Full width search..."></input>
+  <input class="ui-search-input__field" type="search" placeholder="{{ t('full_width_search', 'Full width search...') }}"></input>
 </div>
 
 <!-- @disabled -->
@@ -80,5 +80,5 @@ description: Search field with built-in search icon and optional clear button.
       <path d="m21 21-4.3-4.3"></path>
     </svg>
   </span>
-  <input class="ui-search-input__field" type="search" placeholder="Disabled" disabled></input>
+  <input class="ui-search-input__field" type="search" placeholder="{{ t('disabled', 'Disabled') }}" disabled></input>
 </div>

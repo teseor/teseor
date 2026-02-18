@@ -4,36 +4,36 @@ description: Helper text for form fields. Provides additional context or instruc
 ---
 
 <!-- @default -->
-<span class="ui-form-helper">Must be at least 8 characters</span>
+<span class="ui-form-helper">{{ t('must_be_at_least_8_characters', 'Must be at least 8 characters') }}</span>
 
 <!-- @with_input_field | column -->
 <!-- Helper text paired with a form input for context. -->
 <div class="ui-column ui-column--xs">
-  <input class="ui-input" type="email" placeholder="Email address"></input>
-  <span class="ui-form-helper">We will never share your email</span>
+  <input class="ui-input" type="email" placeholder="{{ t('email_address', 'Email address') }}"></input>
+  <span class="ui-form-helper">{{ t('we_will_never_share_your_email', 'We will never share your email') }}</span>
 </div>
 
 <!-- @error_state | column -->
 <!-- Helper text styled for validation errors using the input error context. -->
 <div class="ui-column ui-column--xs">
   <input class="ui-input ui-input--error" type="text" value="abc"></input>
-  <span class="ui-form-helper" style="color: var(--ui-color-danger);">Password must be at least 8 characters</span>
+  <span class="ui-form-helper" style="color: var(--ui-color-danger);">{{ t('password_must_be_at_least_8_characters', 'Password must be at least 8 characters') }}</span>
 </div>
 
 <!-- @success_state | column -->
 <!-- Helper text for successful validation. -->
 <div class="ui-column ui-column--xs">
   <input class="ui-input ui-input--success" type="text" value="strongpassword123"></input>
-  <span class="ui-form-helper" style="color: var(--ui-color-success);">Password strength: strong</span>
+  <span class="ui-form-helper" style="color: var(--ui-color-success);">{{ t('password_strength_strong', 'Password strength: strong') }}</span>
 </div>
 
 <!-- @with_select | column -->
 <!-- Helper text paired with a select field. -->
 <div class="ui-column ui-column--xs">
   <select class="ui-select">
-    <option>Choose a country</option>
-    <option>United States</option>
-    <option>Canada</option>
+    <option>{{ t('choose_a_country', 'Choose a country') }}</option>
+    <option>{{ t('united_states', 'United States') }}</option>
+    <option>{{ t('canada', 'Canada') }}</option>
   </select>
-  <span class="ui-form-helper">Required for shipping calculations</span>
+  <span class="ui-form-helper">{{ t('required_for_shipping_calculations', 'Required for shipping calculations') }}</span>
 </div>

@@ -4,27 +4,27 @@ description: Text input field for user data entry. Heights align to grid rows.
 ---
 
 <!-- @default -->
-<input class="ui-input" type="text" placeholder="Enter text..."></input>
+<input class="ui-input" type="text" placeholder="{{ t('enter_text', 'Enter text...') }}"></input>
 
 <!-- @sizes | column -->
-<input class="ui-input ui-input--sm" type="text" placeholder="Small (1.5 rows)"></input>
-<input class="ui-input" type="text" placeholder="Default (2 rows)"></input>
-<input class="ui-input ui-input--lg" type="text" placeholder="Large (2.5 rows)"></input>
+<input class="ui-input ui-input--sm" type="text" placeholder="{{ t('small_15_rows', 'Small (1.5 rows)') }}"></input>
+<input class="ui-input" type="text" placeholder="{{ t('default_2_rows', 'Default (2 rows)') }}"></input>
+<input class="ui-input ui-input--lg" type="text" placeholder="{{ t('large_25_rows', 'Large (2.5 rows)') }}"></input>
 
 <!-- @variants | column -->
-<input class="ui-input" type="text" placeholder="Outline (default)"></input>
-<input class="ui-input ui-input--filled" type="text" placeholder="Filled"></input>
-<input class="ui-input ui-input--ghost" type="text" placeholder="Ghost"></input>
+<input class="ui-input" type="text" placeholder="{{ t('outline_default', 'Outline (default)') }}"></input>
+<input class="ui-input ui-input--filled" type="text" placeholder="{{ t('filled', 'Filled') }}"></input>
+<input class="ui-input ui-input--ghost" type="text" placeholder="{{ t('ghost', 'Ghost') }}"></input>
 
 <!-- @states | column -->
-<input class="ui-input" type="text" placeholder="Default"></input>
+<input class="ui-input" type="text" placeholder="{{ t('default', 'Default') }}"></input>
 <input class="ui-input ui-input--error" type="text" value="Invalid input"></input>
 <input class="ui-input ui-input--success" type="text" value="Valid input"></input>
-<input class="ui-input" type="text" placeholder="Disabled" disabled></input>
+<input class="ui-input" type="text" placeholder="{{ t('disabled', 'Disabled') }}" disabled></input>
 <input class="ui-input" type="text" value="Read only" readonly></input>
 
 <!-- @full_width -->
-<input class="ui-input ui-input--block" type="text" placeholder="Full width input"></input>
+<input class="ui-input ui-input--block" type="text" placeholder="{{ t('full_width_input', 'Full width input') }}"></input>
 
 <!-- @with_prefix_icon -->
 <div class="ui-input-group ui-input-group--has-prefix">
@@ -34,12 +34,12 @@ description: Text input field for user data entry. Heights align to grid rows.
       <path d="m21 21-4.3-4.3"></path>
     </svg>
   </span>
-  <input class="ui-input ui-input--block" type="search" placeholder="Search..."></input>
+  <input class="ui-input ui-input--block" type="search" placeholder="{{ t('search', 'Search...') }}"></input>
 </div>
 
 <!-- @with_suffix_icon -->
 <div class="ui-input-group ui-input-group--has-suffix">
-  <input class="ui-input ui-input--block" type="email" placeholder="Email address"></input>
+  <input class="ui-input ui-input--block" type="email" placeholder="{{ t('email_address', 'Email address') }}"></input>
   <span class="ui-input-group__addon ui-input-group__addon--end">
     <svg class="ui-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <rect width="20" height="16" x="2" y="4" rx="2"></rect>
@@ -56,7 +56,7 @@ description: Text input field for user data entry. Heights align to grid rows.
       <circle cx="12" cy="7" r="4"></circle>
     </svg>
   </span>
-  <input class="ui-input ui-input--block" type="text" placeholder="Username"></input>
+  <input class="ui-input ui-input--block" type="text" placeholder="{{ t('username', 'Username') }}"></input>
   <span class="ui-input-group__addon ui-input-group__addon--end ui-input-group__addon--interactive">
     <svg class="ui-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path d="M18 6 6 18"></path>

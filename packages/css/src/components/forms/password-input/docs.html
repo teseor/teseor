@@ -5,8 +5,8 @@ description: Secure password field with toggle visibility button.
 
 <!-- @default -->
 <div class="ui-password-input">
-  <input class="ui-password-input__field" type="password" placeholder="Enter password"></input>
-  <button class="ui-password-input__toggle" type="button" aria-label="Show password">
+  <input class="ui-password-input__field" type="password" placeholder="{{ t('enter_password', 'Enter password') }}"></input>
+  <button class="ui-password-input__toggle" type="button" aria-label="{{ t('show_password', 'Show password') }}">
     <svg viewBox="0 0 24 24">
       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
       <circle cx="12" cy="12" r="3"></circle>
@@ -16,8 +16,8 @@ description: Secure password field with toggle visibility button.
 
 <!-- @sizes | column -->
 <div class="ui-password-input ui-password-input--sm">
-  <input class="ui-password-input__field" type="password" placeholder="Small"></input>
-  <button class="ui-password-input__toggle" type="button" aria-label="Show password">
+  <input class="ui-password-input__field" type="password" placeholder="{{ t('small', 'Small') }}"></input>
+  <button class="ui-password-input__toggle" type="button" aria-label="{{ t('show_password', 'Show password') }}">
     <svg viewBox="0 0 24 24">
       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
       <circle cx="12" cy="12" r="3"></circle>
@@ -25,8 +25,8 @@ description: Secure password field with toggle visibility button.
   </button>
 </div>
 <div class="ui-password-input">
-  <input class="ui-password-input__field" type="password" placeholder="Default"></input>
-  <button class="ui-password-input__toggle" type="button" aria-label="Show password">
+  <input class="ui-password-input__field" type="password" placeholder="{{ t('default', 'Default') }}"></input>
+  <button class="ui-password-input__toggle" type="button" aria-label="{{ t('show_password', 'Show password') }}">
     <svg viewBox="0 0 24 24">
       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
       <circle cx="12" cy="12" r="3"></circle>
@@ -34,8 +34,8 @@ description: Secure password field with toggle visibility button.
   </button>
 </div>
 <div class="ui-password-input ui-password-input--lg">
-  <input class="ui-password-input__field" type="password" placeholder="Large"></input>
-  <button class="ui-password-input__toggle" type="button" aria-label="Show password">
+  <input class="ui-password-input__field" type="password" placeholder="{{ t('large', 'Large') }}"></input>
+  <button class="ui-password-input__toggle" type="button" aria-label="{{ t('show_password', 'Show password') }}">
     <svg viewBox="0 0 24 24">
       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
       <circle cx="12" cy="12" r="3"></circle>
@@ -46,8 +46,8 @@ description: Secure password field with toggle visibility button.
 <!-- @block -->
 <!-- Full-width layout. -->
 <div class="ui-password-input ui-password-input--block">
-  <input class="ui-password-input__field" type="password" placeholder="Full width"></input>
-  <button class="ui-password-input__toggle" type="button" aria-label="Show password">
+  <input class="ui-password-input__field" type="password" placeholder="{{ t('full_width', 'Full width') }}"></input>
+  <button class="ui-password-input__toggle" type="button" aria-label="{{ t('show_password', 'Show password') }}">
     <svg viewBox="0 0 24 24">
       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
       <circle cx="12" cy="12" r="3"></circle>
@@ -58,7 +58,7 @@ description: Secure password field with toggle visibility button.
 <!-- @states | column -->
 <div class="ui-password-input ui-password-input--error">
   <input class="ui-password-input__field" type="password" value="wrongpass"></input>
-  <button class="ui-password-input__toggle" type="button" aria-label="Show password">
+  <button class="ui-password-input__toggle" type="button" aria-label="{{ t('show_password', 'Show password') }}">
     <svg viewBox="0 0 24 24">
       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
       <circle cx="12" cy="12" r="3"></circle>
@@ -67,7 +67,7 @@ description: Secure password field with toggle visibility button.
 </div>
 <div class="ui-password-input ui-password-input--success">
   <input class="ui-password-input__field" type="password" value="correctpass"></input>
-  <button class="ui-password-input__toggle" type="button" aria-label="Show password">
+  <button class="ui-password-input__toggle" type="button" aria-label="{{ t('show_password', 'Show password') }}">
     <svg viewBox="0 0 24 24">
       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
       <circle cx="12" cy="12" r="3"></circle>
@@ -75,8 +75,8 @@ description: Secure password field with toggle visibility button.
   </button>
 </div>
 <div class="ui-password-input ui-password-input--disabled">
-  <input class="ui-password-input__field" type="password" placeholder="Disabled" disabled></input>
-  <button class="ui-password-input__toggle" type="button" aria-label="Show password" disabled>
+  <input class="ui-password-input__field" type="password" placeholder="{{ t('disabled', 'Disabled') }}" disabled></input>
+  <button class="ui-password-input__toggle" type="button" aria-label="{{ t('show_password', 'Show password') }}" disabled>
     <svg viewBox="0 0 24 24">
       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
       <circle cx="12" cy="12" r="3"></circle>
