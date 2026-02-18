@@ -1,5 +1,5 @@
 ---
-to: packages/css/src/components/<%= group %>/<%= name %>/<%= name %>.api.json
+to: packages/css/src/components/<%= group %>/<%= name %>/api.json
 ---
 {
   "name": "<%= name %>",
