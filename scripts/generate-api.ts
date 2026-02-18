@@ -65,7 +65,7 @@ function main(): void {
     try {
       const api = parseScss(scssPath, isLayout);
       const dir = dirname(scssPath);
-      const apiPath = join(dir, `${api.name}.api.json`);
+      const apiPath = join(dir, 'api.json');
 
       const newContent = serializeApi(api);
 

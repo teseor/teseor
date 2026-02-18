@@ -1,0 +1,25 @@
+---
+title: Divider
+description: Visual separator between content sections. Supports horizontal/vertical orientation and optional text label.
+---
+
+<!-- @default -->
+<div class="ui-divider" role="separator"></div>
+
+<!-- @with_label -->
+<div class="ui-divider" role="separator">OR</div>
+
+<!-- @label_alignment -->
+<div class="ui-divider ui-divider--start" role="separator">{{ t('start', 'Start') }}</div>
+<div class="ui-divider" role="separator">{{ t('center', 'Center') }}</div>
+<div class="ui-divider ui-divider--end" role="separator">{{ t('end', 'End') }}</div>
+
+<!-- @dashed -->
+<div class="ui-divider ui-divider--dashed" role="separator"></div>
+
+<!-- @vertical -->
+<div style="display: flex; height: 64px; align-items: center;">
+  <span>{{ t('left', 'Left') }}</span>
+  <div class="ui-divider ui-divider--vertical" role="separator"></div>
+  <span>{{ t('right', 'Right') }}</span>
+</div>

@@ -1,0 +1,66 @@
+---
+title: Modal
+description: Container for modal dialogs. Use with overlay for backdrop effect.
+---
+
+<!-- @default -->
+<div style="position: relative; height: 200px; background: var(--ui-color-bg-subtle);">
+  <div class="ui-modal ui-modal--visible" style="position: absolute;">
+    <div class="ui-modal__content">
+      <p>Modal content goes here</p>
+    </div>
+  </div>
+</div>
+
+<!-- @sizes -->
+<div style="position: relative; height: 120px; background: var(--ui-color-bg-subtle);">
+  <div class="ui-modal ui-modal--sm ui-modal--visible" style="position: absolute;">
+    <div class="ui-modal__content">
+      <p>Small modal</p>
+    </div>
+  </div>
+</div>
+
+<!-- @large -->
+<div style="position: relative; height: 120px; background: var(--ui-color-bg-subtle);">
+  <div class="ui-modal ui-modal--lg ui-modal--visible" style="position: absolute;">
+    <div class="ui-modal__content">
+      <p>Large modal</p>
+    </div>
+  </div>
+</div>
+
+<!-- @full -->
+<div style="position: relative; height: 120px; background: var(--ui-color-bg-subtle);">
+  <div class="ui-modal ui-modal--full ui-modal--visible" style="position: absolute;">
+    <div class="ui-modal__content">
+      <p>Full-screen modal</p>
+    </div>
+  </div>
+</div>
+
+<!-- @entering_animation -->
+<!-- Apply entering modifier for open transition. -->
+<div style="position: relative; height: 120px; background: var(--ui-color-bg-subtle);">
+  <div class="ui-modal ui-modal--visible ui-modal--entering" style="position: absolute;">
+    <div class="ui-modal__content">
+      <p>Entering modal</p>
+    </div>
+  </div>
+</div>
+
+<!-- @with_scrollable_content -->
+<div style="position: relative; height: 200px; background: var(--ui-color-bg-subtle);">
+  <div class="ui-modal ui-modal--visible" style="position: absolute;">
+    <div class="ui-modal__content" style="max-height: 150px;">
+      <div class="ui-modal__body">
+        <p>Line 1</p>
+        <p>Line 2</p>
+        <p>Line 3</p>
+        <p>Line 4</p>
+        <p>Line 5</p>
+        <p>Line 6</p>
+      </div>
+    </div>
+  </div>
+</div>

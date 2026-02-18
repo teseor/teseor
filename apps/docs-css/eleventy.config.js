@@ -13,7 +13,8 @@ import {
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '../..');
 const PACKAGES_DIR = join(ROOT, 'packages');
-const COMPONENTS_DIR = join(PACKAGES_DIR, 'css/src/components');
+const SRC_DIR = join(PACKAGES_DIR, 'css/src');
+const COMPONENTS_DIR = join(SRC_DIR, 'components');
 
 const TYPE_PATHS = {
   token: 'tokens',
@@ -22,6 +23,44 @@ const TYPE_PATHS = {
   utility: 'utilities',
   guide: 'guides',
 };
+
+// Derive type from file path (e.g. components/ -> component)
+const PATH_TYPE_MAP = [
+  ['components/', 'component'],
+  ['layout/', 'primitive'],
+  ['utilities/', 'utility'],
+  ['config/tokens/', 'token'],
+  ['config/guides/', 'guide'],
+  ['base/', 'token'],
+  ['debug/', 'utility'],
+];
+
+function deriveTypeFromPath(filePath) {
+  const rel = relative(SRC_DIR, filePath).split(sep).join('/');
+  for (const [prefix, type] of PATH_TYPE_MAP) {
+    if (rel.startsWith(prefix)) return type;
+  }
+  return 'component';
+}
+
+// Derive id from file path and type
+function deriveIdFromPath(filePath, type) {
+  const rel = relative(SRC_DIR, filePath).split(sep).join('/');
+  const dirName = dirname(rel).split('/').pop();
+  const fileName = filePath.split(sep).pop();
+
+  // Guides use prefixed filenames — derive from stem
+  if (type === 'guide' && fileName.endsWith('.docs.html')) {
+    return fileName.replace('.docs.html', '');
+  }
+
+  // Utilities get -utils suffix to avoid collisions with layout/tokens
+  if (type === 'utility' && !rel.startsWith('debug/')) {
+    return `${dirName}-utils`;
+  }
+
+  return dirName;
+}
 
 // Derive groups from directory structure, ordered by config
 const groupOrderConfig = JSON.parse(
@@ -75,7 +114,7 @@ function findDocsFiles(dir, files = []) {
       entry !== 'dist'
     ) {
       findDocsFiles(fullPath, files);
-    } else if (entry.endsWith('.docs.html')) {
+    } else if (entry === 'docs.html' || entry.endsWith('.docs.html')) {
       files.push(fullPath);
     }
   }
@@ -90,19 +129,18 @@ function resolveHtmlDoc(filePath) {
   const { frontmatter, sections: rawSections } = parseHtmlDocFile(filePath);
   const fm = frontmatter;
 
-  // Load API if referenced
+  // Load API (defaults to ./api.json if not specified)
   let api = null;
-  if (fm.api) {
-    const apiPath = join(dirname(filePath), fm.api);
-    try {
-      api = JSON.parse(readFileSync(apiPath, 'utf-8'));
-    } catch {
-      // api not found
-    }
+  const apiRef = fm.api || './api.json';
+  const apiPath = join(dirname(filePath), apiRef);
+  try {
+    api = JSON.parse(readFileSync(apiPath, 'utf-8'));
+  } catch {
+    // api not found
   }
 
-  const id = fm.id || api?.name;
-  const type = fm.type || 'component';
+  const type = fm.type || deriveTypeFromPath(filePath);
+  const id = fm.id || deriveIdFromPath(filePath, type) || api?.name;
   const groupId = type === 'component' ? getGroupFromPath(filePath) : null;
   const group = groupId ? getGroupById(groupId) : null;
   const labels = fm.labels || {};
@@ -249,8 +287,9 @@ export default function (eleventyConfig) {
   );
 
   // Watch for changes in packages
+  eleventyConfig.addWatchTarget(join(ROOT, 'packages/**/docs.html'));
   eleventyConfig.addWatchTarget(join(ROOT, 'packages/**/*.docs.html'));
-  eleventyConfig.addWatchTarget(join(ROOT, 'packages/**/*.api.json'));
+  eleventyConfig.addWatchTarget(join(ROOT, 'packages/**/api.json'));
 
   return {
     dir: {

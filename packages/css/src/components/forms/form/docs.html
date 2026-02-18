@@ -1,0 +1,129 @@
+---
+title: Form
+description: Layout container for form fields with consistent spacing, sections, and an actions row.
+---
+
+<!-- @default -->
+<form class="ui-form">
+  <div class="ui-field">
+    <label class="ui-label" for="f-name">Name</label>
+    <div class="ui-field__control">
+      <input class="ui-input" type="text" id="f-name" placeholder="Full name"></input>
+    </div>
+  </div>
+  <div class="ui-field">
+    <label class="ui-label" for="f-email">Email</label>
+    <div class="ui-field__control">
+      <input class="ui-input" type="email" id="f-email" placeholder="you@example.com"></input>
+    </div>
+  </div>
+  <div class="ui-form__actions">
+    <button class="ui-button">Submit</button>
+    <button class="ui-button ui-button--ghost" type="button">Cancel</button>
+  </div>
+</form>
+
+<!-- @with_sections -->
+<!-- Group related fields using fieldset-based sections -->
+<form class="ui-form">
+  <fieldset class="ui-form__section">
+    <legend class="ui-heading ui-heading--sm">Personal</legend>
+    <div class="ui-field">
+      <label class="ui-label" for="s-first">First name</label>
+      <div class="ui-field__control">
+        <input class="ui-input" type="text" id="s-first"></input>
+      </div>
+    </div>
+    <div class="ui-field">
+      <label class="ui-label" for="s-last">Last name</label>
+      <div class="ui-field__control">
+        <input class="ui-input" type="text" id="s-last"></input>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset class="ui-form__section">
+    <legend class="ui-heading ui-heading--sm">Account</legend>
+    <div class="ui-field">
+      <label class="ui-label" for="s-email">Email</label>
+      <div class="ui-field__control">
+        <input class="ui-input" type="email" id="s-email"></input>
+      </div>
+    </div>
+    <div class="ui-field">
+      <label class="ui-label" for="s-pass">Password</label>
+      <div class="ui-field__control">
+        <input class="ui-input" type="password" id="s-pass"></input>
+      </div>
+    </div>
+  </fieldset>
+  <div class="ui-form__actions">
+    <button class="ui-button">Create account</button>
+  </div>
+</form>
+
+<!-- @compact -->
+<!-- Tighter spacing for dense interfaces -->
+<form class="ui-form ui-form--compact">
+  <div class="ui-field">
+    <label class="ui-label" for="c-user">Username</label>
+    <div class="ui-field__control">
+      <input class="ui-input" type="text" id="c-user"></input>
+    </div>
+  </div>
+  <div class="ui-field">
+    <label class="ui-label" for="c-pass">Password</label>
+    <div class="ui-field__control">
+      <input class="ui-input" type="password" id="c-pass"></input>
+    </div>
+  </div>
+  <div class="ui-form__actions">
+    <button class="ui-button">Log in</button>
+  </div>
+</form>
+
+<!-- @inline -->
+<!-- Horizontal layout for short forms like search or filters -->
+<form class="ui-form ui-form--inline">
+  <div class="ui-field">
+    <label class="ui-label" for="i-search">Search</label>
+    <div class="ui-field__control">
+      <input class="ui-input" type="search" id="i-search" placeholder="Search..."></input>
+    </div>
+  </div>
+  <div class="ui-field">
+    <label class="ui-label" for="i-cat">Category</label>
+    <div class="ui-field__control">
+      <select class="ui-select" id="i-cat">
+        <option>All</option>
+        <option>Articles</option>
+        <option>Products</option>
+      </select>
+    </div>
+  </div>
+  <div class="ui-form__actions">
+    <button class="ui-button">Filter</button>
+  </div>
+</form>
+
+<!-- @with_validation -->
+<!-- Combining form layout with field error states -->
+<form class="ui-form">
+  <div class="ui-field">
+    <label class="ui-label ui-label--required" for="v-email">Email</label>
+    <div class="ui-field__control">
+      <input class="ui-input ui-input--error" type="email" id="v-email" value="not-an-email"></input>
+      <span class="ui-form-error">Enter a valid email address</span>
+    </div>
+  </div>
+  <div class="ui-field">
+    <label class="ui-label ui-label--required" for="v-pass">Password</label>
+    <div class="ui-field__control">
+      <input class="ui-input" type="password" id="v-pass"></input>
+      <span class="ui-form-helper">Must be at least 8 characters</span>
+    </div>
+  </div>
+  <div class="ui-form__actions">
+    <button class="ui-button">Sign up</button>
+    <button class="ui-button ui-button--ghost" type="button">Reset</button>
+  </div>
+</form>

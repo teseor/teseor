@@ -1,0 +1,19 @@
+---
+title: Root
+id: root
+description: Base styles applied to the .root class: font family, size, line-height, color, and background
+skipValidation: true
+---
+
+<!-- @usage -->
+<!-- Add the .ui-root class to the html or body element to establish baseline typography and color. -->
+<div class="ui-root">
+  <p>Text inherits font-family, size, line-height, and color from .ui-root</p>
+</div>
+.ui-root {
+  font-family: var(--ui-font-sans);
+  font-size: var(--ui-font-size-md);
+  line-height: var(--ui-leading-md);
+  color: var(--ui-color-text);
+  background: var(--ui-color-bg);
+}

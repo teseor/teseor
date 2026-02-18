@@ -1,0 +1,64 @@
+---
+title: Image
+description: Responsive image with fallback placeholder, optional caption, and shape modifiers.
+---
+
+<!-- @default -->
+<figure class="ui-image">
+  <img class="ui-image__img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='160'%3E%3Crect fill='%23b0bec5' width='192' height='160'/%3E%3C/svg%3E" alt="Placeholder"></img>
+</figure>
+
+<!-- @sizes | row -->
+<figure class="ui-image ui-image--sm">
+  <img class="ui-image__img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96'%3E%3Crect fill='%2390a4ae' width='96' height='96'/%3E%3C/svg%3E" alt="Small"></img>
+</figure>
+<figure class="ui-image ui-image--md">
+  <img class="ui-image__img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192'%3E%3Crect fill='%2378909c' width='192' height='192'/%3E%3C/svg%3E" alt="Medium"></img>
+</figure>
+<figure class="ui-image ui-image--lg">
+  <img class="ui-image__img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Crect fill='%23607d8b' width='320' height='320'/%3E%3C/svg%3E" alt="Large"></img>
+</figure>
+<figure class="ui-image ui-image--xl">
+  <img class="ui-image__img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='480'%3E%3Crect fill='%23546e7a' width='480' height='480'/%3E%3C/svg%3E" alt="XL"></img>
+</figure>
+<figure class="ui-image ui-image--full">
+  <img class="ui-image__img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='200'%3E%3Crect fill='%23455a64' width='600' height='200'/%3E%3C/svg%3E" alt="Full"></img>
+</figure>
+
+<!-- @rounded -->
+<figure class="ui-image ui-image--md ui-image--rounded">
+  <img class="ui-image__img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='140'%3E%3Crect fill='%234db6ac' width='192' height='140'/%3E%3C/svg%3E" alt="Rounded"></img>
+</figure>
+
+<!-- @circle | row -->
+<figure class="ui-image ui-image--sm ui-image--circle">
+  <img class="ui-image__img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96'%3E%3Crect fill='%23ce93d8' width='96' height='96'/%3E%3C/svg%3E" alt="Circle small"></img>
+</figure>
+<figure class="ui-image ui-image--md ui-image--circle">
+  <img class="ui-image__img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192'%3E%3Crect fill='%23ba68c8' width='192' height='192'/%3E%3C/svg%3E" alt="Circle medium"></img>
+</figure>
+
+<!-- @object_fit | row -->
+<figure class="ui-image ui-image--md ui-image--cover">
+  <img class="ui-image__img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='150'%3E%3Crect fill='%2364b5f6' width='300' height='150'/%3E%3Ctext x='150' y='80' text-anchor='middle' fill='%23fff' font-size='16'%3Ecover%3C/text%3E%3C/svg%3E" alt="Cover fit"></img>
+</figure>
+<figure class="ui-image ui-image--md ui-image--contain">
+  <img class="ui-image__img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='150'%3E%3Crect fill='%2381c784' width='300' height='150'/%3E%3Ctext x='150' y='80' text-anchor='middle' fill='%23fff' font-size='16'%3Econtain%3C/text%3E%3C/svg%3E" alt="Contain fit"></img>
+</figure>
+
+<!-- @caption -->
+<figure class="ui-image ui-image--md ui-image--rounded">
+  <img class="ui-image__img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='140'%3E%3Crect fill='%23ffb74d' width='192' height='140'/%3E%3C/svg%3E" alt="With caption"></img>
+  <figcaption class="ui-image__caption">An optional image caption</figcaption>
+</figure>
+
+<!-- @fallback | row -->
+<figure class="ui-image ui-image--sm">
+  <img class="ui-image__img" src alt="Broken image"></img>
+</figure>
+<figure class="ui-image ui-image--sm ui-image--rounded">
+  <img class="ui-image__img" src alt="Broken rounded"></img>
+</figure>
+<figure class="ui-image ui-image--sm ui-image--circle">
+  <img class="ui-image__img" src alt="Broken circle"></img>
+</figure>

@@ -29,7 +29,7 @@ function findDocsFiles(dir, files = []) {
       entry !== 'dist'
     ) {
       findDocsFiles(fullPath, files);
-    } else if (entry.endsWith('.docs.html')) {
+    } else if (entry === 'docs.html' || entry.endsWith('.docs.html')) {
       files.push(fullPath);
     }
   }
@@ -63,15 +63,14 @@ function extractClassesFromHtmlDoc(docsPath) {
   const classes = new Set();
   const { frontmatter, sections } = parseHtmlDocFile(docsPath);
 
-  // Load API for template rendering
+  // Load API (defaults to ./api.json if not specified)
   let api = null;
-  if (frontmatter.api) {
-    const apiPath = join(dirname(docsPath), frontmatter.api);
-    try {
-      api = JSON.parse(readFileSync(apiPath, 'utf-8'));
-    } catch {
-      // api not found
-    }
+  const apiRef = frontmatter.api || './api.json';
+  const apiPath = join(dirname(docsPath), apiRef);
+  try {
+    api = JSON.parse(readFileSync(apiPath, 'utf-8'));
+  } catch {
+    // api not found
   }
 
   const labels = frontmatter.labels || {};
@@ -182,16 +181,13 @@ function validateDoc(docsPath) {
     return { path: docsPath, skipped: true, reason: 'skipValidation flag' };
   }
 
-  if (!frontmatter.api) {
-    return { path: docsPath, skipped: true, reason: 'No API reference' };
-  }
-
-  const apiPath = join(dirname(docsPath), frontmatter.api);
+  const apiRef = frontmatter.api || './api.json';
+  const apiPath = join(dirname(docsPath), apiRef);
   let api;
   try {
     api = JSON.parse(readFileSync(apiPath, 'utf-8'));
   } catch (err) {
-    return { path: docsPath, error: `Cannot read API file: ${frontmatter.api}` };
+    return { path: docsPath, skipped: true, reason: 'No API file found' };
   }
 
   const docsClasses = extractClassesFromHtmlDoc(docsPath);

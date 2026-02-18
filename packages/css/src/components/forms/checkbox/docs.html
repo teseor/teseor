@@ -1,0 +1,30 @@
+---
+title: Checkbox
+description: Native checkbox input with custom styling. Supports checked, indeterminate, and disabled states.
+---
+
+<!-- @default | row -->
+<input class="ui-checkbox" type="checkbox"></input>
+<input class="ui-checkbox" type="checkbox" checked></input>
+
+<!-- @sizes | row -->
+<input class="ui-checkbox" type="checkbox" checked></input>
+<input class="ui-checkbox ui-checkbox--lg" type="checkbox" checked></input>
+
+<!-- @states | row -->
+<input class="ui-checkbox" type="checkbox"></input>
+<input class="ui-checkbox" type="checkbox" checked></input>
+<input class="ui-checkbox" type="checkbox" disabled></input>
+<input class="ui-checkbox" type="checkbox" checked disabled></input>
+
+<!-- @validation_states | row -->
+<input class="ui-checkbox ui-checkbox--error" type="checkbox"></input>
+<input class="ui-checkbox ui-checkbox--error" type="checkbox" checked></input>
+<input class="ui-checkbox ui-checkbox--success" type="checkbox"></input>
+<input class="ui-checkbox ui-checkbox--success" type="checkbox" checked></input>
+
+<!-- @with_label -->
+<label class="ui-row" style="gap: var(--ui-space-1); cursor: pointer;">
+  <input class="ui-checkbox" type="checkbox"></input>
+  <span>Accept terms and conditions</span>
+</label>

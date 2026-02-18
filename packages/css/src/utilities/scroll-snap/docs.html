@@ -1,0 +1,77 @@
+---
+title: Scroll Snap
+description: Scroll-snap utilities for carousels, horizontal lists, and snap-to-position scrolling.
+---
+
+<!-- @horizontal_snap -->
+<!-- Snap children to start position on horizontal scroll. -->
+<div class="ui-snap-x ui-flex ui-gap-2 ui-p-2" style="max-inline-size: 20rem">
+  <div class="ui-snap-start ui-card ui-p-2" style="min-inline-size: 10rem">Item 1</div>
+  <div class="ui-snap-start ui-card ui-p-2" style="min-inline-size: 10rem">Item 2</div>
+  <div class="ui-snap-start ui-card ui-p-2" style="min-inline-size: 10rem">Item 3</div>
+  <div class="ui-snap-start ui-card ui-p-2" style="min-inline-size: 10rem">Item 4</div>
+</div>
+
+<!-- @center_snap -->
+<!-- Snap children to center position. -->
+<div class="ui-snap-x ui-flex ui-gap-2 ui-p-2" style="max-inline-size: 20rem">
+  <div class="ui-snap-center ui-card ui-p-2" style="min-inline-size: 10rem">Center 1</div>
+  <div class="ui-snap-center ui-card ui-p-2" style="min-inline-size: 10rem">Center 2</div>
+  <div class="ui-snap-center ui-card ui-p-2" style="min-inline-size: 10rem">Center 3</div>
+</div>
+
+<!-- @vertical_snap -->
+<!-- Snap children on vertical scroll. -->
+<div class="ui-snap-y" style="max-block-size: 8rem">
+  <div class="ui-snap-start ui-card ui-p-2">Section 1</div>
+  <div class="ui-snap-start ui-card ui-p-2">Section 2</div>
+  <div class="ui-snap-start ui-card ui-p-2">Section 3</div>
+</div>
+
+<!-- @proximity_snap -->
+<!-- Softer snap that only engages when close to a snap point. -->
+<div class="ui-snap-x-proximity ui-flex ui-gap-2 ui-p-2" style="max-inline-size: 20rem">
+  <div class="ui-snap-start ui-card ui-p-2" style="min-inline-size: 10rem">Proximity 1</div>
+  <div class="ui-snap-start ui-card ui-p-2" style="min-inline-size: 10rem">Proximity 2</div>
+  <div class="ui-snap-start ui-card ui-p-2" style="min-inline-size: 10rem">Proximity 3</div>
+</div>
+<div class="ui-snap-y-proximity" style="max-block-size: 8rem">
+  <div class="ui-snap-start ui-card ui-p-2">Section 1</div>
+  <div class="ui-snap-start ui-card ui-p-2">Section 2</div>
+  <div class="ui-snap-start ui-card ui-p-2">Section 3</div>
+</div>
+
+<!-- @end_alignment_and_stop -->
+<!-- Snap children to end position or force stop at every snap point. -->
+<div class="ui-snap-x ui-flex ui-gap-2 ui-p-2" style="max-inline-size: 20rem">
+  <div class="ui-snap-end ui-card ui-p-2" style="min-inline-size: 10rem">End 1</div>
+  <div class="ui-snap-end ui-card ui-p-2" style="min-inline-size: 10rem">End 2</div>
+  <div class="ui-snap-end ui-card ui-p-2" style="min-inline-size: 10rem">End 3</div>
+</div>
+<div class="ui-snap-x ui-flex ui-gap-2 ui-p-2" style="max-inline-size: 20rem">
+  <div class="ui-snap-start ui-snap-always ui-card ui-p-2" style="min-inline-size: 10rem">Always 1</div>
+  <div class="ui-snap-start ui-snap-always ui-card ui-p-2" style="min-inline-size: 10rem">Always 2</div>
+  <div class="ui-snap-start ui-snap-always ui-card ui-p-2" style="min-inline-size: 10rem">Always 3</div>
+</div>
+
+<!-- @disable_snap -->
+<!-- Remove snap behavior from a container. -->
+<div class="ui-snap-none ui-flex ui-gap-2 ui-p-2" style="max-inline-size: 20rem; overflow-x: auto">
+  <div class="ui-card ui-p-2" style="min-inline-size: 10rem">No snap 1</div>
+  <div class="ui-card ui-p-2" style="min-inline-size: 10rem">No snap 2</div>
+</div>
+
+<!-- @scroll_padding -->
+<!-- Offset snap position for fixed headers or insets. -->
+<div class="ui-snap-x ui-snap-p-1 ui-flex ui-gap-2 ui-p-2" style="max-inline-size: 20rem">
+  <div class="ui-snap-start ui-card ui-p-2" style="min-inline-size: 10rem">p-1</div>
+  <div class="ui-snap-start ui-card ui-p-2" style="min-inline-size: 10rem">p-1</div>
+</div>
+<div class="ui-snap-x ui-snap-p-2 ui-flex ui-gap-2 ui-p-2" style="max-inline-size: 20rem">
+  <div class="ui-snap-start ui-card ui-p-2" style="min-inline-size: 10rem">p-2</div>
+  <div class="ui-snap-start ui-card ui-p-2" style="min-inline-size: 10rem">p-2</div>
+</div>
+<div class="ui-snap-x ui-snap-p-4 ui-flex ui-gap-2 ui-p-2" style="max-inline-size: 20rem">
+  <div class="ui-snap-start ui-card ui-p-2" style="min-inline-size: 10rem">p-4</div>
+  <div class="ui-snap-start ui-card ui-p-2" style="min-inline-size: 10rem">p-4</div>
+</div>

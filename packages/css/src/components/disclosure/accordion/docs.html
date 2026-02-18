@@ -1,0 +1,80 @@
+---
+title: Accordion
+description: Container for grouped expandable sections. Use with disclosure components.
+---
+
+<!-- @default -->
+<div class="ui-accordion">
+  <details class="ui-disclosure">
+    <summary class="ui-disclosure__trigger">
+Section 1
+      <span class="ui-disclosure__icon">▾</span>
+    </summary>
+    <div class="ui-disclosure__content">
+      <p>Content for section 1</p>
+    </div>
+  </details>
+  <details class="ui-disclosure">
+    <summary class="ui-disclosure__trigger">
+Section 2
+      <span class="ui-disclosure__icon">▾</span>
+    </summary>
+    <div class="ui-disclosure__content">
+      <p>Content for section 2</p>
+    </div>
+  </details>
+  <details class="ui-disclosure">
+    <summary class="ui-disclosure__trigger">
+Section 3
+      <span class="ui-disclosure__icon">▾</span>
+    </summary>
+    <div class="ui-disclosure__content">
+      <p>Content for section 3</p>
+    </div>
+  </details>
+</div>
+
+<!-- @separated -->
+<!-- Gap between accordion items -->
+<div class="ui-accordion ui-accordion--separated">
+  <details class="ui-disclosure">
+    <summary class="ui-disclosure__trigger">
+Section 1
+      <span class="ui-disclosure__icon">▾</span>
+    </summary>
+    <div class="ui-disclosure__content">
+      <p>Content for section 1</p>
+    </div>
+  </details>
+  <details class="ui-disclosure">
+    <summary class="ui-disclosure__trigger">
+Section 2
+      <span class="ui-disclosure__icon">▾</span>
+    </summary>
+    <div class="ui-disclosure__content">
+      <p>Content for section 2</p>
+    </div>
+  </details>
+</div>
+
+<!-- @with_one_open -->
+<div class="ui-accordion">
+  <details class="ui-disclosure" open>
+    <summary class="ui-disclosure__trigger">
+Open Section
+      <span class="ui-disclosure__icon">▾</span>
+    </summary>
+    <div class="ui-disclosure__content">
+      <p>This section starts open</p>
+    </div>
+  </details>
+  <details class="ui-disclosure">
+    <summary class="ui-disclosure__trigger">
+Closed Section
+      <span class="ui-disclosure__icon">▾</span>
+    </summary>
+    <div class="ui-disclosure__content">
+      <p>Click to open</p>
+    </div>
+  </details>
+</div>

@@ -1,0 +1,97 @@
+---
+title: Radio Group
+description: Groups related radio buttons with a legend for single selection. Built on native fieldset semantics.
+mergeInto: radio
+---
+
+<!-- @default -->
+<fieldset class="ui-radio-group">
+  <legend class="ui-radio-group__legend">Payment method</legend>
+  <div class="ui-radio-group__items">
+    <label class="ui-radio-group__item">
+      <input class="ui-radio" type="radio" name="payment" checked></input>
+      <span>Credit card</span>
+    </label>
+    <label class="ui-radio-group__item">
+      <input class="ui-radio" type="radio" name="payment"></input>
+      <span>Debit card</span>
+    </label>
+    <label class="ui-radio-group__item">
+      <input class="ui-radio" type="radio" name="payment"></input>
+      <span>Bank transfer</span>
+    </label>
+  </div>
+</fieldset>
+
+<!-- @horizontal -->
+<fieldset class="ui-radio-group ui-radio-group--horizontal">
+  <legend class="ui-radio-group__legend">Size</legend>
+  <div class="ui-radio-group__items">
+    <label class="ui-radio-group__item">
+      <input class="ui-radio" type="radio" name="size" checked></input>
+      <span>Small</span>
+    </label>
+    <label class="ui-radio-group__item">
+      <input class="ui-radio" type="radio" name="size"></input>
+      <span>Medium</span>
+    </label>
+    <label class="ui-radio-group__item">
+      <input class="ui-radio" type="radio" name="size"></input>
+      <span>Large</span>
+    </label>
+  </div>
+</fieldset>
+
+<!-- @compact -->
+<fieldset class="ui-radio-group ui-radio-group--compact">
+  <legend class="ui-radio-group__legend">Priority</legend>
+  <div class="ui-radio-group__items">
+    <label class="ui-radio-group__item">
+      <input class="ui-radio" type="radio" name="priority" checked></input>
+      <span>Low</span>
+    </label>
+    <label class="ui-radio-group__item">
+      <input class="ui-radio" type="radio" name="priority"></input>
+      <span>Medium</span>
+    </label>
+    <label class="ui-radio-group__item">
+      <input class="ui-radio" type="radio" name="priority"></input>
+      <span>High</span>
+    </label>
+  </div>
+</fieldset>
+
+<!-- @error_state -->
+<fieldset class="ui-radio-group ui-radio-group--error">
+  <legend class="ui-radio-group__legend">Shipping</legend>
+  <div class="ui-radio-group__items">
+    <label class="ui-radio-group__item">
+      <input class="ui-radio ui-radio--error" type="radio" name="shipping"></input>
+      <span>Standard</span>
+    </label>
+    <label class="ui-radio-group__item">
+      <input class="ui-radio ui-radio--error" type="radio" name="shipping"></input>
+      <span>Express</span>
+    </label>
+  </div>
+  <span class="ui-form-error">Please select a shipping method</span>
+</fieldset>
+
+<!-- @disabled -->
+<fieldset class="ui-radio-group" disabled>
+  <legend class="ui-radio-group__legend">Plan (locked)</legend>
+  <div class="ui-radio-group__items">
+    <label class="ui-radio-group__item">
+      <input class="ui-radio" type="radio" name="plan" checked></input>
+      <span>Free</span>
+    </label>
+    <label class="ui-radio-group__item">
+      <input class="ui-radio" type="radio" name="plan"></input>
+      <span>Pro</span>
+    </label>
+    <label class="ui-radio-group__item">
+      <input class="ui-radio" type="radio" name="plan"></input>
+      <span>Enterprise</span>
+    </label>
+  </div>
+</fieldset>

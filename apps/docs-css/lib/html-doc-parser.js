@@ -1,12 +1,11 @@
 /**
  * HTML Doc Parser
- * Parses .docs.html files with YAML frontmatter and section-delimited HTML.
+ * Parses docs.html files with YAML frontmatter and section-delimited HTML.
  *
  * Format:
  *   ---
  *   title: Button
  *   type: component
- *   api: ./button.api.json
  *   labels:
  *     sm: Small
  *   ---

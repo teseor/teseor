@@ -1,0 +1,84 @@
+---
+title: Search Input
+description: Search field with built-in search icon and optional clear button.
+---
+
+<!-- @default -->
+<div class="ui-search-input">
+  <span class="ui-search-input__icon">
+    <svg viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="m21 21-4.3-4.3"></path>
+    </svg>
+  </span>
+  <input class="ui-search-input__field" type="search" placeholder="Search..."></input>
+</div>
+
+<!-- @with_clear_button -->
+<div class="ui-search-input ui-search-input--has-clear">
+  <span class="ui-search-input__icon">
+    <svg viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="m21 21-4.3-4.3"></path>
+    </svg>
+  </span>
+  <input class="ui-search-input__field" type="search" value="Design tokens"></input>
+  <button class="ui-search-input__clear" type="button" aria-label="Clear search">
+    <svg viewBox="0 0 24 24">
+      <path d="M18 6 6 18"></path>
+      <path d="m6 6 12 12"></path>
+    </svg>
+  </button>
+</div>
+
+<!-- @sizes | column -->
+<div class="ui-search-input ui-search-input--sm">
+  <span class="ui-search-input__icon">
+    <svg viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="m21 21-4.3-4.3"></path>
+    </svg>
+  </span>
+  <input class="ui-search-input__field" type="search" placeholder="Small"></input>
+</div>
+<div class="ui-search-input">
+  <span class="ui-search-input__icon">
+    <svg viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="m21 21-4.3-4.3"></path>
+    </svg>
+  </span>
+  <input class="ui-search-input__field" type="search" placeholder="Default"></input>
+</div>
+<div class="ui-search-input ui-search-input--lg">
+  <span class="ui-search-input__icon">
+    <svg viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="m21 21-4.3-4.3"></path>
+    </svg>
+  </span>
+  <input class="ui-search-input__field" type="search" placeholder="Large"></input>
+</div>
+
+<!-- @block -->
+<!-- Full-width layout. -->
+<div class="ui-search-input ui-search-input--block">
+  <span class="ui-search-input__icon">
+    <svg viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="m21 21-4.3-4.3"></path>
+    </svg>
+  </span>
+  <input class="ui-search-input__field" type="search" placeholder="Full width search..."></input>
+</div>
+
+<!-- @disabled -->
+<div class="ui-search-input ui-search-input--disabled">
+  <span class="ui-search-input__icon">
+    <svg viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="m21 21-4.3-4.3"></path>
+    </svg>
+  </span>
+  <input class="ui-search-input__field" type="search" placeholder="Disabled" disabled></input>
+</div>

@@ -1,0 +1,64 @@
+---
+title: Status
+description: Visual status indicator with colored dot to show state.
+---
+
+<!-- @variants -->
+<div style="display: flex; flex-direction: column; gap: var(--ui-space-2);">
+  <span class="ui-status">
+    <span class="ui-status__dot"></span>
+Default
+  </span>
+  <span class="ui-status ui-status--success">
+    <span class="ui-status__dot"></span>
+Online
+  </span>
+  <span class="ui-status ui-status--warning">
+    <span class="ui-status__dot"></span>
+Away
+  </span>
+  <span class="ui-status ui-status--danger">
+    <span class="ui-status__dot"></span>
+Busy
+  </span>
+  <span class="ui-status ui-status--info">
+    <span class="ui-status__dot"></span>
+In a meeting
+  </span>
+</div>
+
+<!-- @sizes -->
+<div style="display: flex; gap: var(--ui-space-4); align-items: center;">
+  <span class="ui-status ui-status--success ui-status--sm">
+    <span class="ui-status__dot"></span>
+Small
+  </span>
+  <span class="ui-status ui-status--success">
+    <span class="ui-status__dot"></span>
+Default
+  </span>
+  <span class="ui-status ui-status--success ui-status--lg">
+    <span class="ui-status__dot"></span>
+Large
+  </span>
+</div>
+
+<!-- @pulse_animation -->
+<!-- For live or active indicators -->
+<span class="ui-status ui-status--success ui-status--pulse">
+  <span class="ui-status__dot"></span>
+Live
+</span>
+
+<!-- @dot_only -->
+<div style="display: flex; gap: var(--ui-space-2);">
+  <span class="ui-status ui-status--success">
+    <span class="ui-status__dot"></span>
+  </span>
+  <span class="ui-status ui-status--warning">
+    <span class="ui-status__dot"></span>
+  </span>
+  <span class="ui-status ui-status--danger">
+    <span class="ui-status__dot"></span>
+  </span>
+</div>

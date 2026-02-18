@@ -1,0 +1,30 @@
+---
+title: Link
+description: Styled anchor element for text links with consistent hover and focus states.
+---
+
+<!-- @default -->
+<a class="ui-link" href="#">Default link</a>
+
+<!-- @muted_variant -->
+<!-- For secondary or less prominent links -->
+<a class="ui-link ui-link--muted" href="#">Muted link</a>
+
+<!-- @subtle_variant -->
+<!-- No underline by default, shows on hover -->
+<a class="ui-link ui-link--subtle" href="#">Subtle link</a>
+
+<!-- @external_link -->
+<!-- Adds arrow indicator for external links -->
+<a class="ui-link ui-link--external" href="#">External link</a>
+
+<!-- @disabled -->
+<a class="ui-link ui-link--disabled" href="#" aria-disabled="true">Disabled link</a>
+
+<!-- @in_context -->
+<!-- Links inherit text size from context -->
+<p style="font-size: var(--ui-size-sm);">
+Read our 
+  <a class="ui-link" href="#">privacy policy</a>
+ for more information.
+</p>

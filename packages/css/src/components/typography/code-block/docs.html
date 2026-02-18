@@ -1,0 +1,84 @@
+---
+title: Code Block
+description: Multi-line code display with monospace font, horizontal scroll, and optional line numbers.
+mergeInto: code
+---
+
+<!-- @default -->
+<pre class="ui-code-block">
+  <code class="ui-code-block__code">.button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ui-space-1);
+}</code>
+</pre>
+
+<!-- @horizontal_overflow -->
+<pre class="ui-code-block">
+  <code class="ui-code-block__code">export function calculateGridRhythm(element: HTMLElement, unit: number): { violations: string[]; totalHeight: number } {
+  const computed = getComputedStyle(element);
+  return { violations: [], totalHeight: parseFloat(computed.height) };
+}</code>
+</pre>
+
+<!-- @compact -->
+<pre class="ui-code-block ui-code-block--compact">
+  <code class="ui-code-block__code">npm install @teseor/css
+import "@teseor/css/dist/index.css";</code>
+</pre>
+
+<!-- @line_numbers -->
+<pre class="ui-code-block ui-code-block--line-numbers">
+  <code class="ui-code-block__code">
+    <span class="ui-code-block__line">
+      <span class="ui-code-block__line-number"></span>
+      <span>@layer components {</span>
+    </span>
+    <span class="ui-code-block__line">
+      <span class="ui-code-block__line-number"></span>
+      <span>  .card {</span>
+    </span>
+    <span class="ui-code-block__line">
+      <span class="ui-code-block__line-number"></span>
+      <span>    padding: var(--_padding);</span>
+    </span>
+    <span class="ui-code-block__line">
+      <span class="ui-code-block__line-number"></span>
+      <span>    background: var(--_bg);</span>
+    </span>
+    <span class="ui-code-block__line">
+      <span class="ui-code-block__line-number"></span>
+      <span>    border-radius: var(--_radius);</span>
+    </span>
+    <span class="ui-code-block__line">
+      <span class="ui-code-block__line-number"></span>
+      <span>  }</span>
+    </span>
+    <span class="ui-code-block__line">
+      <span class="ui-code-block__line-number"></span>
+      <span>}</span>
+    </span>
+  </code>
+</pre>
+
+<!-- @inline_code -->
+<!-- Use the related ui-code class for inline snippets. -->
+<p>
+  <span>Use </span>
+  <code class="ui-code">var(--ui-space-2)</code>
+  <span> for consistent spacing.</span>
+</p>
+
+<!-- @compact_with_line_numbers -->
+<pre class="ui-code-block ui-code-block--compact ui-code-block--line-numbers">
+  <code class="ui-code-block__code">
+    <span class="ui-code-block__line">
+      <span class="ui-code-block__line-number"></span>
+      <span>const name = "world";</span>
+    </span>
+    <span class="ui-code-block__line">
+      <span class="ui-code-block__line-number"></span>
+      <span>console.log(`Hello, ${name}`);</span>
+    </span>
+  </code>
+</pre>

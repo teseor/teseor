@@ -1,0 +1,36 @@
+---
+title: Textarea
+description: Multi-line text input for longer content like comments or descriptions.
+---
+
+<!-- @default -->
+<textarea class="ui-textarea" placeholder="Enter your message..."></textarea>
+
+<!-- @sizes | column -->
+<textarea class="ui-textarea ui-textarea--sm" placeholder="Small (3 rows)"></textarea>
+<textarea class="ui-textarea" placeholder="Default (4 rows)"></textarea>
+<textarea class="ui-textarea ui-textarea--lg" placeholder="Large (6 rows)"></textarea>
+
+<!-- @variants | column -->
+<textarea class="ui-textarea" placeholder="Outline (default)"></textarea>
+<textarea class="ui-textarea ui-textarea--filled" placeholder="Filled"></textarea>
+<textarea class="ui-textarea ui-textarea--ghost" placeholder="Ghost"></textarea>
+
+<!-- @states | column -->
+<textarea class="ui-textarea ui-textarea--error">Invalid content</textarea>
+<textarea class="ui-textarea ui-textarea--success">Valid content</textarea>
+<textarea class="ui-textarea" disabled placeholder="Disabled"></textarea>
+<textarea class="ui-textarea" readonly>Read only content</textarea>
+
+<!-- @resize_options | column -->
+<!-- Control how users can resize the textarea. -->
+<textarea class="ui-textarea" placeholder="Vertical resize (default)"></textarea>
+<textarea class="ui-textarea ui-textarea--resize-none" placeholder="No resize"></textarea>
+<textarea class="ui-textarea ui-textarea--resize-horizontal" placeholder="Horizontal resize only"></textarea>
+<textarea class="ui-textarea ui-textarea--resize-both" placeholder="Resize both directions"></textarea>
+
+<!-- @auto_size | column -->
+<!-- Automatically grows to fit content using field-sizing: content. Falls back to fixed min-height in unsupported browsers. -->
+<textarea class="ui-textarea ui-textarea--auto-size" placeholder="Type to grow..."></textarea>
+<textarea class="ui-textarea ui-textarea--auto-size ui-textarea--sm" placeholder="Small auto-size"></textarea>
+<textarea class="ui-textarea ui-textarea--auto-size ui-textarea--lg" placeholder="Large auto-size"></textarea>

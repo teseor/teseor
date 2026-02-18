@@ -1,0 +1,100 @@
+---
+title: Layout
+id: layout
+description: Layout primitives for app shells with sidebars and content containers.
+---
+
+<!-- @app_shell_sidebar_main -->
+<!-- This page uses the layout primitives: -->
+<body class="ui-app-shell">
+  <aside class="ui-sidebar">
+    <!-- sidebar content -->
+  </aside>
+  <main class="ui-main">
+    <div class="ui-container">
+      <!-- page content -->
+    </div>
+  </main>
+</body>
+
+<!-- @with_topbar -->
+<!-- Add a fixed topbar by setting --topbar-height on app-shell. Sidebar and main offset automatically. -->
+<body class="ui-app-shell" style="--topbar-height: var(--ui-row-3)">
+  <header class="ui-topbar ui-topbar--fixed ui-topbar--bordered">
+    <div class="ui-topbar__start"><strong>App</strong></div>
+    <div class="ui-topbar__end">User</div>
+  </header>
+  <aside class="ui-sidebar">Sidebar</aside>
+  <main class="ui-main">
+    <div class="ui-container">Content</div>
+  </main>
+</body>
+
+<!-- @sidebar_widths | column -->
+<div class="ui-row ui-row--sm">
+  <code>.ui-sidebar--sm</code>
+  <span>192px (24 units)</span>
+</div>
+<div class="ui-row ui-row--sm">
+  <code>.ui-sidebar--md</code>
+  <span>240px (30 units) - default</span>
+</div>
+<div class="ui-row ui-row--sm">
+  <code>.ui-sidebar--lg</code>
+  <span>320px (40 units)</span>
+</div>
+
+<!-- @sidebar_position -->
+<!-- By default, sidebar is on the start (left in LTR). Use .ui-sidebar--end for right-side: -->
+<aside class="ui-sidebar ui-sidebar--end">...</aside>
+<main class="ui-main ui-main--sidebar-end">...</main>
+
+<!-- @container_widths | column -->
+<div class="ui-row ui-row--sm">
+  <code>.ui-container--sm</code>
+  <span>640px (80 units)</span>
+</div>
+<div class="ui-row ui-row--sm">
+  <code>.ui-container--md</code>
+  <span>800px (100 units)</span>
+</div>
+<div class="ui-row ui-row--sm">
+  <code>.ui-container--lg</code>
+  <span>960px (120 units) - default</span>
+</div>
+<div class="ui-row ui-row--sm">
+  <code>.ui-container--xl</code>
+  <span>1280px (160 units)</span>
+</div>
+<div class="ui-row ui-row--sm">
+  <code>.ui-container--full</code>
+  <span>No max width</span>
+</div>
+
+<!-- @with_footer -->
+<!-- Place footer inside the content area, after the container. -->
+<body class="ui-app-shell">
+  <main class="ui-main ui-main--full">
+    <div class="ui-container">Content</div>
+    <footer class="ui-footer ui-footer--bordered">
+      <div class="ui-footer__start"><small>Brand</small></div>
+      <div class="ui-footer__end"><small>v1.0.0</small></div>
+    </footer>
+  </main>
+</body>
+
+<!-- @topbar_variants -->
+<!-- Sticky stays in flow, raised adds shadow. -->
+<header class="ui-topbar ui-topbar--sticky ui-topbar--bordered">...</header>
+<header class="ui-topbar ui-topbar--raised">...</header>
+
+<!-- @footer_variants -->
+<!-- Sticky, fixed, and raised options. -->
+<footer class="ui-footer ui-footer--sticky ui-footer--bordered">...</footer>
+<footer class="ui-footer ui-footer--fixed">...</footer>
+<footer class="ui-footer ui-footer--raised">...</footer>
+
+<!-- @centered_container -->
+<div class="ui-container ui-container--center">
+  <!-- centered content with max-width -->
+</div>

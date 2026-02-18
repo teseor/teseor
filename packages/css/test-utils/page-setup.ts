@@ -201,7 +201,8 @@ export function generateHtmlFromHtmlDoc(doc: HtmlDoc, apiPath?: string): string 
 export async function setupVisualTestFromHtmlDocs(page: Page, htmlDocsPath: string): Promise<void> {
   const doc = loadHtmlDoc(htmlDocsPath);
   const fm = doc.frontmatter;
-  const apiPath = fm.api ? resolve(dirname(htmlDocsPath), String(fm.api)) : undefined;
+  const apiRef = fm.api ? String(fm.api) : './api.json';
+  const apiPath = resolve(dirname(htmlDocsPath), apiRef);
   const html = generateHtmlFromHtmlDoc(doc, apiPath);
   await setupVisualTest(page, { html });
 }

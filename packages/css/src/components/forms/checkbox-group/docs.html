@@ -1,0 +1,101 @@
+---
+title: Checkbox Group
+description: Groups related checkboxes with a legend and consistent spacing. Built on native fieldset semantics.
+mergeInto: checkbox
+---
+
+<!-- @default -->
+<fieldset class="ui-checkbox-group">
+  <legend class="ui-checkbox-group__legend">Notifications</legend>
+  <div class="ui-checkbox-group__items">
+    <label class="ui-checkbox-group__item">
+      <input class="ui-checkbox" type="checkbox" checked></input>
+      <span>Email</span>
+    </label>
+    <label class="ui-checkbox-group__item">
+      <input class="ui-checkbox" type="checkbox"></input>
+      <span>SMS</span>
+    </label>
+    <label class="ui-checkbox-group__item">
+      <input class="ui-checkbox" type="checkbox"></input>
+      <span>Push</span>
+    </label>
+  </div>
+</fieldset>
+
+<!-- @horizontal -->
+<fieldset class="ui-checkbox-group ui-checkbox-group--horizontal">
+  <legend class="ui-checkbox-group__legend">Interests</legend>
+  <div class="ui-checkbox-group__items">
+    <label class="ui-checkbox-group__item">
+      <input class="ui-checkbox" type="checkbox" checked></input>
+      <span>Design</span>
+    </label>
+    <label class="ui-checkbox-group__item">
+      <input class="ui-checkbox" type="checkbox"></input>
+      <span>Engineering</span>
+    </label>
+    <label class="ui-checkbox-group__item">
+      <input class="ui-checkbox" type="checkbox" checked></input>
+      <span>Product</span>
+    </label>
+    <label class="ui-checkbox-group__item">
+      <input class="ui-checkbox" type="checkbox"></input>
+      <span>Marketing</span>
+    </label>
+  </div>
+</fieldset>
+
+<!-- @compact -->
+<fieldset class="ui-checkbox-group ui-checkbox-group--compact">
+  <legend class="ui-checkbox-group__legend">Features</legend>
+  <div class="ui-checkbox-group__items">
+    <label class="ui-checkbox-group__item">
+      <input class="ui-checkbox" type="checkbox" checked></input>
+      <span>Dark mode</span>
+    </label>
+    <label class="ui-checkbox-group__item">
+      <input class="ui-checkbox" type="checkbox" checked></input>
+      <span>Notifications</span>
+    </label>
+    <label class="ui-checkbox-group__item">
+      <input class="ui-checkbox" type="checkbox"></input>
+      <span>Analytics</span>
+    </label>
+  </div>
+</fieldset>
+
+<!-- @error_state -->
+<fieldset class="ui-checkbox-group ui-checkbox-group--error">
+  <legend class="ui-checkbox-group__legend">Terms</legend>
+  <div class="ui-checkbox-group__items">
+    <label class="ui-checkbox-group__item">
+      <input class="ui-checkbox ui-checkbox--error" type="checkbox"></input>
+      <span>I accept the terms of service</span>
+    </label>
+    <label class="ui-checkbox-group__item">
+      <input class="ui-checkbox ui-checkbox--error" type="checkbox"></input>
+      <span>I accept the privacy policy</span>
+    </label>
+  </div>
+  <span class="ui-form-error">You must accept all terms to continue</span>
+</fieldset>
+
+<!-- @disabled -->
+<fieldset class="ui-checkbox-group" disabled>
+  <legend class="ui-checkbox-group__legend">Permissions (locked)</legend>
+  <div class="ui-checkbox-group__items">
+    <label class="ui-checkbox-group__item">
+      <input class="ui-checkbox" type="checkbox" checked></input>
+      <span>Read</span>
+    </label>
+    <label class="ui-checkbox-group__item">
+      <input class="ui-checkbox" type="checkbox" checked></input>
+      <span>Write</span>
+    </label>
+    <label class="ui-checkbox-group__item">
+      <input class="ui-checkbox" type="checkbox"></input>
+      <span>Admin</span>
+    </label>
+  </div>
+</fieldset>

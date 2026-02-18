@@ -1,0 +1,70 @@
+---
+title: Footer
+description: Page footer with start, center, and end sections. Supports sticky/fixed positioning and border/shadow variants.
+---
+
+<!-- @default -->
+<!-- Basic footer with three sections. -->
+<footer class="ui-footer ui-footer--bordered">
+  <div class="ui-footer__start">
+    <small>2026 Brand</small>
+  </div>
+  <div class="ui-footer__center">
+    <span>Footer links</span>
+  </div>
+  <div class="ui-footer__end">
+    <small>v1.0.0</small>
+  </div>
+</footer>
+
+<!-- @sticky -->
+<!-- Stays at the bottom of the viewport on scroll. -->
+<footer class="ui-footer ui-footer--sticky ui-footer--bordered">
+  <div class="ui-footer__start"><small>Brand</small></div>
+  <div class="ui-footer__center">Links</div>
+  <div class="ui-footer__end"><small>v1.0.0</small></div>
+</footer>
+
+<!-- @bordered -->
+<!-- Top border via inset box-shadow to preserve grid rhythm. -->
+<footer class="ui-footer ui-footer--bordered">
+  <div class="ui-footer__start">
+    <small>Bordered footer</small>
+  </div>
+  <div class="ui-footer__end">
+    <small>v1.0.0</small>
+  </div>
+</footer>
+
+<!-- @raised -->
+<!-- Subtle drop shadow above the footer. -->
+<footer class="ui-footer ui-footer--raised">
+  <div class="ui-footer__start">
+    <small>Raised footer</small>
+  </div>
+  <div class="ui-footer__end">
+    <small>v1.0.0</small>
+  </div>
+</footer>
+
+<!-- @fixed -->
+<!-- Fixed to viewport bottom, always visible. -->
+<footer class="ui-footer ui-footer--fixed ui-footer--bordered">
+  <div class="ui-footer__start"><small>Brand</small></div>
+  <div class="ui-footer__end"><small>v1.0.0</small></div>
+</footer>
+
+<!-- @full_layout -->
+<!-- Footer inside an app-shell with topbar and sidebar. -->
+<body class="ui-app-shell">
+  <header class="ui-topbar ui-topbar--bordered">
+    <div class="ui-topbar__start"><strong>App</strong></div>
+  </header>
+  <main class="ui-main ui-main--full">
+    <div class="ui-container">Content</div>
+    <footer class="ui-footer ui-footer--bordered">
+      <div class="ui-footer__start"><small>Brand</small></div>
+      <div class="ui-footer__end"><small>v1.0.0</small></div>
+    </footer>
+  </main>
+</body>

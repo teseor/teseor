@@ -1,0 +1,18 @@
+import { resolve } from 'node:path';
+import { expect, test } from '@playwright/test';
+import {
+  saveForLostPixel,
+  setupVisualTestFromHtmlDocs,
+  validateGridRhythm,
+} from '../../../../test-utils';
+
+const DOCS_PATH = resolve(__dirname, 'docs.html');
+
+test.describe('kbd visual regression', () => {
+  test('all variations', async ({ page }) => {
+    await setupVisualTestFromHtmlDocs(page, DOCS_PATH);
+    await validateGridRhythm(page, 'kbd');
+    await saveForLostPixel(page, 'kbd');
+    await expect(page.locator('body')).toHaveScreenshot('visual.png');
+  });
+});
