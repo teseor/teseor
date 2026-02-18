@@ -1,12 +1,16 @@
 import { resolve } from 'node:path';
 import { expect, test } from '@playwright/test';
-import { saveForLostPixel, setupVisualTestFromDocs, validateGridRhythm } from '../../../test-utils';
+import {
+  saveForLostPixel,
+  setupVisualTestFromHtmlDocs,
+  validateGridRhythm,
+} from '../../../test-utils';
 
-const DOCS_PATH = resolve(__dirname, 'topbar.docs.json');
+const DOCS_PATH = resolve(__dirname, 'topbar.docs.html');
 
 test.describe('topbar visual regression', () => {
   test('all variations', async ({ page }) => {
-    await setupVisualTestFromDocs(page, DOCS_PATH);
+    await setupVisualTestFromHtmlDocs(page, DOCS_PATH);
     await validateGridRhythm(page, 'topbar');
     await saveForLostPixel(page, 'topbar');
     await expect(page.locator('body')).toHaveScreenshot('topbar.visual.png');

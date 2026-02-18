@@ -1,0 +1,52 @@
+---
+title: Page Header
+type: primitive
+id: page-header
+description: Content area header with title, description, actions, and optional breadcrumb.
+api: ./page-header.api.json
+---
+
+<!-- @default -->
+<!-- Title with actions on the end side. -->
+<header class="ui-page-header ui-page-header--bordered">
+  <div class="ui-page-header__title">
+    <h1 class="ui-heading ui-heading--xl">Users</h1>
+    <p>Manage user accounts and permissions.</p>
+  </div>
+  <div class="ui-page-header__actions">
+    <button class="ui-button ui-button--primary">Add user</button>
+  </div>
+</header>
+
+<!-- @with_breadcrumb -->
+<!-- Breadcrumb spans the full width above the title row. -->
+<header class="ui-page-header ui-page-header--bordered">
+  <nav class="ui-page-header__breadcrumb">
+    <span>Home / Settings / Users</span>
+  </nav>
+  <div class="ui-page-header__title">
+    <h1 class="ui-heading ui-heading--xl">Users</h1>
+  </div>
+  <div class="ui-page-header__actions">
+    <button class="ui-button">Export</button>
+  </div>
+</header>
+
+<!-- @bordered -->
+<!-- Bottom border via inset box-shadow. -->
+<header class="ui-page-header ui-page-header--bordered">
+  <div class="ui-page-header__title">
+    <h1 class="ui-heading ui-heading--xl">Dashboard</h1>
+  </div>
+</header>
+
+<!-- @sticky -->
+<!-- Sticks to the top of the scroll container. -->
+<header class="ui-page-header ui-page-header--sticky ui-page-header--bordered">
+  <div class="ui-page-header__title">
+    <h1 class="ui-heading ui-heading--xl">Sticky Header</h1>
+  </div>
+  <div class="ui-page-header__actions">
+    <button class="ui-button">Save</button>
+  </div>
+</header>

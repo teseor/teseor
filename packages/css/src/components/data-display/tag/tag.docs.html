@@ -1,0 +1,42 @@
+---
+title: Tag
+type: component
+id: tag
+description: Keyword labels for categorization. Use for filtering, attributes, or status indicators.
+api: ./tag.api.json
+---
+
+<!-- @default | row -->
+<span class="ui-tag">Tag</span>
+<span class="ui-tag">Category</span>
+<span class="ui-tag">Label</span>
+
+<!-- @sizes | row -->
+<span class="ui-tag ui-tag--sm">Small</span>
+<span class="ui-tag">Default</span>
+<span class="ui-tag ui-tag--lg">Large</span>
+
+<!-- @variants | row -->
+<span class="ui-tag">Default</span>
+<span class="ui-tag ui-tag--primary">Primary</span>
+<span class="ui-tag ui-tag--success">Success</span>
+<span class="ui-tag ui-tag--warning">Warning</span>
+<span class="ui-tag ui-tag--danger">Danger</span>
+
+<!-- @with_remove_button -->
+<span class="ui-tag">
+  <span>Removable</span>
+  <button class="ui-tag__remove" aria-label="Remove">
+    <svg class="ui-icon ui-icon--xs" viewBox="0 0 24 24">
+      <path d="M18 6 6 18M6 6l12 12"></path>
+    </svg>
+  </button>
+</span>
+
+<!-- @tag_group -->
+<div class="ui-tag-group">
+  <span class="ui-tag">JavaScript</span>
+  <span class="ui-tag">TypeScript</span>
+  <span class="ui-tag">React</span>
+  <span class="ui-tag">CSS</span>
+</div>

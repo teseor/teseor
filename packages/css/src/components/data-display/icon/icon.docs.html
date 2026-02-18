@@ -1,0 +1,72 @@
+---
+title: Icon
+type: component
+id: icon
+description: CSS classes for sizing and styling SVG icons. Works with any stroke-based icon set like Lucide, Heroicons, or Feather.
+api: ./icon.api.json
+---
+
+<!-- @basic_usage -->
+<!-- Add the `ui-icon` class to any SVG. Icons inherit color from their parent via `currentColor`. -->
+<svg class="ui-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+
+<!-- @with_lucide_icons -->
+<!-- Recommended icon set. Copy SVG from lucide.dev and add the ui-icon class. -->
+<div class="ui-row ui-row--gap-2">
+  <svg class="ui-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+  <svg class="ui-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+  <svg class="ui-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+  <svg class="ui-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+</div>
+
+<!-- @sizes | row -->
+<!-- Scale icons from extra small to extra large. -->
+<div class="ui-column" style="align-items: center; gap: var(--ui-space-1)">
+  <svg class="ui-icon ui-icon--xs" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+  <small>xs</small>
+</div>
+<div class="ui-column" style="align-items: center; gap: var(--ui-space-1)">
+  <svg class="ui-icon ui-icon--sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+  <small>sm</small>
+</div>
+<div class="ui-column" style="align-items: center; gap: var(--ui-space-1)">
+  <svg class="ui-icon ui-icon--md" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+  <small>md</small>
+</div>
+<div class="ui-column" style="align-items: center; gap: var(--ui-space-1)">
+  <svg class="ui-icon ui-icon--lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+  <small>lg</small>
+</div>
+<div class="ui-column" style="align-items: center; gap: var(--ui-space-1)">
+  <svg class="ui-icon ui-icon--xl" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+  <small>xl</small>
+</div>
+
+<!-- @stroke_width | row -->
+<!-- Adjust stroke thickness for visual weight. -->
+<svg class="ui-icon ui-icon--lg ui-icon--stroke-thin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+<svg class="ui-icon ui-icon--lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+<svg class="ui-icon ui-icon--lg ui-icon--stroke-thick" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+
+<!-- @filled_icons | row -->
+<!-- For solid icons, use the `--filled` modifier. -->
+<svg class="ui-icon ui-icon--lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+<svg class="ui-icon ui-icon--lg ui-icon--filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+
+<!-- @spin_animation -->
+<!-- Use `--spin` for loading indicators. -->
+<svg class="ui-icon ui-icon--lg ui-icon--spin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+
+<!-- @color_inheritance -->
+<!-- Icons inherit color from parent text color. -->
+<div class="ui-row ui-row--gap-2">
+  <span style="color: var(--ui-color-primary)">
+    <svg class="ui-icon ui-icon--lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+  </span>
+  <span style="color: var(--ui-color-success)">
+    <svg class="ui-icon ui-icon--lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+  </span>
+  <span style="color: var(--ui-color-danger)">
+    <svg class="ui-icon ui-icon--lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+  </span>
+</div>

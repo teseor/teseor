@@ -1,0 +1,41 @@
+---
+title: Popover
+type: component
+id: popover
+description: Floating panel for additional content. Larger than tooltip, can contain structured content.
+api: ./popover.api.json
+---
+
+<!-- @default -->
+<div class="ui-popover" style="position: relative;">
+  <p>Popover content goes here. Can contain multiple paragraphs and other elements.</p>
+</div>
+
+<!-- @with_header -->
+<div class="ui-popover" style="position: relative;">
+  <header class="ui-popover__header">
+    <h3 class="ui-popover__title">Popover Title</h3>
+  </header>
+  <p>Content with a header section.</p>
+</div>
+
+<!-- @positions -->
+<div style="padding: var(--ui-space-4);">
+  <div class="ui-popover ui-popover--top" style="position: relative;">
+    <p>Top (arrow down)</p>
+  </div>
+</div>
+<div style="padding: var(--ui-space-4);">
+  <div class="ui-popover ui-popover--bottom" style="position: relative;">
+    <p>Bottom (arrow up)</p>
+  </div>
+</div>
+
+<!-- @visibility -->
+<!-- Control popover visibility and animation. -->
+<div class="ui-popover ui-popover--visible ui-popover--animate" style="position: relative;">
+  <p>Visible and animated</p>
+</div>
+<div class="ui-popover ui-popover--hidden" style="position: relative;">
+  <p>Hidden popover</p>
+</div>

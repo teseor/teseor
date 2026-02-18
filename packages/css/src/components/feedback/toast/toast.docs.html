@@ -1,0 +1,109 @@
+---
+title: Toast
+type: component
+id: toast
+api: ./toast.api.json
+---
+
+<!-- @default -->
+<div class="ui-toast">
+  <span class="ui-toast__icon">i</span>
+  <div class="ui-toast__content">
+    <p class="ui-toast__title">Notification</p>
+    <p class="ui-toast__description">Your changes have been saved.</p>
+  </div>
+  <button class="ui-toast__close">X</button>
+</div>
+
+<!-- @variants | column -->
+<div class="ui-toast ui-toast--success">
+  <div class="ui-toast__content">
+    <p class="ui-toast__title">Success</p>
+    <p class="ui-toast__description">Operation completed successfully.</p>
+  </div>
+</div>
+<div class="ui-toast ui-toast--warning">
+  <div class="ui-toast__content">
+    <p class="ui-toast__title">Warning</p>
+    <p class="ui-toast__description">Please review before continuing.</p>
+  </div>
+</div>
+<div class="ui-toast ui-toast--danger">
+  <div class="ui-toast__content">
+    <p class="ui-toast__title">Error</p>
+    <p class="ui-toast__description">Something went wrong.</p>
+  </div>
+</div>
+<div class="ui-toast ui-toast--info">
+  <div class="ui-toast__content">
+    <p class="ui-toast__title">Info</p>
+    <p class="ui-toast__description">New updates available.</p>
+  </div>
+</div>
+
+<!-- @with_action -->
+<div class="ui-toast">
+  <div class="ui-toast__content">
+    <p class="ui-toast__title">File deleted</p>
+    <p class="ui-toast__description">document.pdf was moved to trash.</p>
+  </div>
+  <button class="ui-toast__action ui-button ui-button--sm ui-button--secondary">Undo</button>
+  <button class="ui-toast__close">X</button>
+</div>
+
+<!-- @viewport_positions | column -->
+<!-- Container positions for toast placement -->
+<div style="position:relative;height:200px;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)">
+  <div class="ui-toast-viewport ui-toast-viewport--top-end" style="position:absolute">
+    <div class="ui-toast">
+      <div class="ui-toast__content">
+        <p class="ui-toast__title">Top End</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="position:relative;height:200px;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)">
+  <div class="ui-toast-viewport ui-toast-viewport--bottom-end" style="position:absolute">
+    <div class="ui-toast">
+      <div class="ui-toast__content">
+        <p class="ui-toast__title">Bottom End</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="position:relative;height:200px;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)">
+  <div class="ui-toast-viewport ui-toast-viewport--top-start" style="position:absolute">
+    <div class="ui-toast">
+      <div class="ui-toast__content">
+        <p class="ui-toast__title">Top Start</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="position:relative;height:200px;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)">
+  <div class="ui-toast-viewport ui-toast-viewport--top-center" style="position:absolute">
+    <div class="ui-toast">
+      <div class="ui-toast__content">
+        <p class="ui-toast__title">Top Center</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="position:relative;height:200px;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)">
+  <div class="ui-toast-viewport ui-toast-viewport--bottom-start" style="position:absolute">
+    <div class="ui-toast">
+      <div class="ui-toast__content">
+        <p class="ui-toast__title">Bottom Start</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="position:relative;height:200px;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)">
+  <div class="ui-toast-viewport ui-toast-viewport--bottom-center" style="position:absolute">
+    <div class="ui-toast">
+      <div class="ui-toast__content">
+        <p class="ui-toast__title">Bottom Center</p>
+      </div>
+    </div>
+  </div>
+</div>

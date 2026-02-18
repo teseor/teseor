@@ -1,0 +1,87 @@
+---
+title: Grid
+type: primitive
+id: grid-primitive
+description: CSS Grid with column variants, subgrid support, and span utilities.
+api: grid.api.json
+---
+
+<!-- @columns -->
+<div class="ui-grid ui-grid--2">
+  <div style="background: var(--ui-color-bg-muted); padding: var(--ui-space-2)">1</div>
+  <div style="background: var(--ui-color-bg-muted); padding: var(--ui-space-2)">2</div>
+</div>
+<div class="ui-grid ui-grid--3">
+  <div style="background: var(--ui-color-bg-muted); padding: var(--ui-space-2)">1</div>
+  <div style="background: var(--ui-color-bg-muted); padding: var(--ui-space-2)">2</div>
+  <div style="background: var(--ui-color-bg-muted); padding: var(--ui-space-2)">3</div>
+</div>
+<div class="ui-grid ui-grid--4">
+  <div style="background: var(--ui-color-bg-muted); padding: var(--ui-space-2)">1</div>
+  <div style="background: var(--ui-color-bg-muted); padding: var(--ui-space-2)">2</div>
+  <div style="background: var(--ui-color-bg-muted); padding: var(--ui-space-2)">3</div>
+  <div style="background: var(--ui-color-bg-muted); padding: var(--ui-space-2)">4</div>
+</div>
+<div class="ui-grid ui-grid--auto">
+  <div style="background: var(--ui-color-bg-muted); padding: var(--ui-space-2)">Auto</div>
+  <div style="background: var(--ui-color-bg-muted); padding: var(--ui-space-2)">Auto</div>
+  <div style="background: var(--ui-color-bg-muted); padding: var(--ui-space-2)">Auto</div>
+</div>
+
+<!-- @subgrid -->
+<!-- Children inherit parent grid tracks for cross-item alignment. -->
+<div class="ui-grid ui-grid--3">
+  <div class="ui-grid--subgrid" style="grid-column: span 3">
+    <div style="background: var(--ui-color-bg-muted); padding: var(--ui-space-2)">Subgrid child 1</div>
+    <div style="background: var(--ui-color-bg-muted); padding: var(--ui-space-2)">Subgrid child 2</div>
+    <div style="background: var(--ui-color-bg-muted); padding: var(--ui-space-2)">Subgrid child 3</div>
+  </div>
+</div>
+<div class="ui-grid ui-grid--3" style="grid-template-rows: auto 1fr auto">
+  <div class="ui-grid--subgrid-rows" style="grid-row: span 3; border: 1px solid var(--ui-color-border); padding: var(--ui-space-2)">
+    <strong>Card A</strong>
+    <p>Short content.</p>
+    <span style="color: var(--ui-color-text-muted)">Footer</span>
+  </div>
+  <div class="ui-grid--subgrid-rows" style="grid-row: span 3; border: 1px solid var(--ui-color-border); padding: var(--ui-space-2)">
+    <strong>Card B</strong>
+    <p>Longer content that wraps to multiple lines to demonstrate row alignment.</p>
+    <span style="color: var(--ui-color-text-muted)">Footer</span>
+  </div>
+  <div class="ui-grid--subgrid-rows" style="grid-row: span 3; border: 1px solid var(--ui-color-border); padding: var(--ui-space-2)">
+    <strong>Card C</strong>
+    <p>Medium text.</p>
+    <span style="color: var(--ui-color-text-muted)">Footer</span>
+  </div>
+</div>
+<div class="ui-grid ui-grid--3" style="grid-template-rows: auto auto">
+  <div class="ui-grid--subgrid-both" style="grid-column: span 3; grid-row: span 2">
+    <div style="background: var(--ui-color-bg-muted); padding: var(--ui-space-2)">A1</div>
+    <div style="background: var(--ui-color-bg-muted); padding: var(--ui-space-2)">A2</div>
+    <div style="background: var(--ui-color-bg-muted); padding: var(--ui-space-2)">A3</div>
+    <div style="background: var(--ui-color-bg-subtle); padding: var(--ui-space-2)">B1</div>
+    <div style="background: var(--ui-color-bg-subtle); padding: var(--ui-space-2)">B2</div>
+    <div style="background: var(--ui-color-bg-subtle); padding: var(--ui-space-2)">B3</div>
+  </div>
+</div>
+
+<!-- @column_span -->
+<!-- Span multiple columns with .ui-grid-col-span-{2,3,4,full} utilities. -->
+<div class="ui-grid ui-grid--4">
+  <div style="grid-column: span 2; background: var(--ui-color-bg-muted); padding: var(--ui-space-2)">Span 2</div>
+  <div style="background: var(--ui-color-bg-subtle); padding: var(--ui-space-2)">1</div>
+  <div style="background: var(--ui-color-bg-subtle); padding: var(--ui-space-2)">1</div>
+  <div style="background: var(--ui-color-bg-subtle); padding: var(--ui-space-2)">1</div>
+  <div style="grid-column: span 3; background: var(--ui-color-bg-muted); padding: var(--ui-space-2)">Span 3</div>
+  <div style="grid-column: 1 / -1; background: var(--ui-color-bg-muted); padding: var(--ui-space-2)">Span full</div>
+</div>
+
+<!-- @row_span -->
+<!-- Span multiple rows with .ui-grid-row-span-{2,3,full} utilities. -->
+<div class="ui-grid ui-grid--3">
+  <div style="grid-row: span 2; background: var(--ui-color-bg-muted); padding: var(--ui-space-2)">Row span 2</div>
+  <div style="background: var(--ui-color-bg-subtle); padding: var(--ui-space-2)">1</div>
+  <div style="background: var(--ui-color-bg-subtle); padding: var(--ui-space-2)">2</div>
+  <div style="background: var(--ui-color-bg-subtle); padding: var(--ui-space-2)">3</div>
+  <div style="background: var(--ui-color-bg-subtle); padding: var(--ui-space-2)">4</div>
+</div>

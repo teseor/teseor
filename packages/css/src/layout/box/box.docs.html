@@ -1,0 +1,27 @@
+---
+title: Box
+type: primitive
+id: box
+description: Base container with style props. Foundation for layout primitives.
+api: box.api.json
+---
+
+<!-- @default -->
+<div class="ui-box">Content</div>
+
+<!-- @padding | column -->
+<div class="ui-box ui-box--p-1 ui-box--bg-subtle">Padding 1</div>
+<div class="ui-box ui-box--p-2 ui-box--bg-subtle">Padding 2</div>
+<div class="ui-box ui-box--p-3 ui-box--bg-subtle">Padding 3</div>
+<div class="ui-box ui-box--p-4 ui-box--bg-subtle">Padding 4</div>
+
+<!-- @background | column -->
+<div class="ui-box ui-box--p-2 ui-box--bg-subtle">Subtle background</div>
+<div class="ui-box ui-box--p-2 ui-box--bg-muted">Muted background</div>
+
+<!-- @rounded | row -->
+<div class="ui-box ui-box--p-3 ui-box--bg-subtle ui-box--rounded">Rounded</div>
+<div class="ui-box ui-box--p-3 ui-box--bg-subtle ui-box--rounded-lg">Rounded lg</div>
+
+<!-- @custom_via_css_variables -->
+<div class="ui-box" style="--box-padding: var(--ui-space-3); --box-bg: var(--ui-color-primary); --box-color: white; --box-radius: var(--ui-radius-lg);">Custom box</div>

@@ -1,0 +1,34 @@
+---
+title: Container
+type: utility
+id: container-utils
+description: Container query utilities for component-level responsive design.
+api: container.api.json
+---
+
+<!-- @inline_size_containment -->
+<!-- Establish inline-size containment so children can use container queries to respond to the container width. -->
+<div class="ui-container-inline ui-p-2" style="background: var(--ui-color-bg-muted)">
+  <div class="ui-card">This card is inside an inline-size container</div>
+</div>
+
+<!-- @size_containment -->
+<!-- Establish containment on both axes for container queries on width and height. -->
+<div class="ui-container-size ui-p-2" style="background: var(--ui-color-bg-muted); block-size: 12rem">
+  <div class="ui-card">Inside a size container</div>
+</div>
+
+<!-- @remove_containment -->
+<!-- Reset container type back to normal (no containment). -->
+<div class="ui-container-normal ui-p-2" style="background: var(--ui-color-bg-muted)">
+  <div class="ui-card">No containment on this container</div>
+</div>
+
+<!-- @with_responsive_card -->
+<!-- Combine container-inline with card--responsive for automatic horizontal layout at wider container sizes. -->
+<div class="ui-container-inline">
+  <div class="ui-card ui-card--responsive">
+    <div class="ui-card__media" style="background: var(--ui-color-bg-muted); min-block-size: 6rem"></div>
+    <div class="ui-card__body">Card switches to horizontal layout when container is wide enough</div>
+  </div>
+</div>

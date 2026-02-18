@@ -1,0 +1,47 @@
+---
+title: Getting Started
+type: guide
+id: getting-started
+description: Install, import, and start using the CSS library in your project
+skipValidation: true
+weight: 1
+---
+
+<!-- @installation -->
+<!-- Install the package from npm. -->
+npm install @teseor/css
+# or
+pnpm add @teseor/css
+# or
+yarn add @teseor/css
+
+<!-- @import -->
+<!-- Import the compiled CSS in your app entry point. -->
+import '@teseor/css';
+// or
+import '@teseor/css/dist/index.css';
+<link rel="stylesheet" href="node_modules/@teseor/css/dist/index.css">
+
+<!-- @root_class -->
+<!-- Add the .ui-root class to set baseline typography and colors. -->
+<div class="ui-root">
+  <p>Text inherits font, size, color from .ui-root</p>
+</div>
+
+<!-- @first_component -->
+<!-- Use any component by adding its class. No JS required. -->
+<div class="ui-row ui-row--sm">
+  <button class="ui-button">Primary</button>
+  <button class="ui-button ui-button--secondary">Secondary</button>
+  <button class="ui-button ui-button--danger">Danger</button>
+</div>
+<div class="ui-card">
+  <h3 class="ui-heading ui-heading--4">Card Title</h3>
+  <p>Cards use semantic tokens for padding, border, and background.</p>
+</div>
+
+<!-- @customize -->
+<!-- Override design tokens with CSS custom properties. No build step required. -->
+<div class="theme-demo" style="--ui-hue-primary: 270">
+  <button class="ui-button">Purple brand</button>
+</div>
