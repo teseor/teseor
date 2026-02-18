@@ -6,71 +6,71 @@ description: Ordered and unordered lists with spacing control, inline layout, an
 <!-- @default -->
 <!-- Unordered list with default bullet markers. -->
 <ul class="ui-list">
-  <li class="ui-list__item">First item in the list</li>
-  <li class="ui-list__item">Second item in the list</li>
-  <li class="ui-list__item">Third item in the list</li>
+  <li class="ui-list__item">{{ t('first_item_in_the_list', 'First item in the list') }}</li>
+  <li class="ui-list__item">{{ t('second_item_in_the_list', 'Second item in the list') }}</li>
+  <li class="ui-list__item">{{ t('third_item_in_the_list', 'Third item in the list') }}</li>
 </ul>
 
 <!-- @ordered -->
 <!-- Use on ol for numbered markers. -->
 <ol class="ui-list">
-  <li>Create the branch</li>
-  <li>Implement the feature</li>
-  <li>Open a pull request</li>
-  <li>Merge after review</li>
+  <li>{{ t('create_the_branch', 'Create the branch') }}</li>
+  <li>{{ t('implement_the_feature', 'Implement the feature') }}</li>
+  <li>{{ t('open_a_pull_request', 'Open a pull request') }}</li>
+  <li>{{ t('merge_after_review', 'Merge after review') }}</li>
 </ol>
 
 <!-- @unstyled -->
 <!-- Removes markers and indent for nav or custom lists. -->
 <ul class="ui-list ui-list--unstyled">
-  <li>No bullet markers</li>
-  <li>No inline padding</li>
-  <li>Clean vertical stack</li>
+  <li>{{ t('no_bullet_markers', 'No bullet markers') }}</li>
+  <li>{{ t('no_inline_padding', 'No inline padding') }}</li>
+  <li>{{ t('clean_vertical_stack', 'Clean vertical stack') }}</li>
 </ul>
 
 <!-- @inline -->
 <!-- Horizontal flow with wrapping. Markers removed. -->
 <ul class="ui-list ui-list--inline">
-  <li>HTML</li>
-  <li>CSS</li>
-  <li>JavaScript</li>
-  <li>TypeScript</li>
-  <li>React</li>
+  <li>{{ t('html', 'HTML') }}</li>
+  <li>{{ t('css', 'CSS') }}</li>
+  <li>{{ t('javascript', 'JavaScript') }}</li>
+  <li>{{ t('typescript', 'TypeScript') }}</li>
+  <li>{{ t('react', 'React') }}</li>
 </ul>
 
 <!-- @spacing -->
 <!-- Control gap between items with compact or loose variants. -->
 <div class="ui-column" style="gap: var(--ui-space-2)">
-  <p>Compact</p>
+  <p>{{ t('compact', 'Compact') }}</p>
   <ul class="ui-list ui-list--compact">
-    <li>Tight spacing</li>
-    <li>No gap between items</li>
-    <li>Dense content</li>
+    <li>{{ t('tight_spacing', 'Tight spacing') }}</li>
+    <li>{{ t('no_gap_between_items', 'No gap between items') }}</li>
+    <li>{{ t('dense_content', 'Dense content') }}</li>
   </ul>
-  <p>Default</p>
+  <p>{{ t('default', 'Default') }}</p>
   <ul class="ui-list">
-    <li>Standard spacing</li>
-    <li>One grid unit gap</li>
-    <li>Balanced readability</li>
+    <li>{{ t('standard_spacing', 'Standard spacing') }}</li>
+    <li>{{ t('one_grid_unit_gap', 'One grid unit gap') }}</li>
+    <li>{{ t('balanced_readability', 'Balanced readability') }}</li>
   </ul>
-  <p>Loose</p>
+  <p>{{ t('loose', 'Loose') }}</p>
   <ul class="ui-list ui-list--loose">
-    <li>Extra breathing room</li>
-    <li>Two grid units gap</li>
-    <li>Prominent separation</li>
+    <li>{{ t('extra_breathing_room', 'Extra breathing room') }}</li>
+    <li>{{ t('two_grid_units_gap', 'Two grid units gap') }}</li>
+    <li>{{ t('prominent_separation', 'Prominent separation') }}</li>
   </ul>
 </div>
 
 <!-- @nested -->
 <!-- Lists inside lists inherit spacing and show sub-level markers. -->
 <ul class="ui-list">
-  <li>Top-level item</li>
+  <li>{{ t('top_level_item', 'Top-level item') }}</li>
   <li>
-    <span>Parent with children</span>
+    <span>{{ t('parent_with_children', 'Parent with children') }}</span>
     <ul class="ui-list">
-      <li>Nested child</li>
-      <li>Another nested child</li>
+      <li>{{ t('nested_child', 'Nested child') }}</li>
+      <li>{{ t('another_nested_child', 'Another nested child') }}</li>
     </ul>
   </li>
-  <li>Back to top level</li>
+  <li>{{ t('back_to_top_level', 'Back to top level') }}</li>
 </ul>
