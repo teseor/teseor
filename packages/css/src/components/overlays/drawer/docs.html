@@ -9,17 +9,17 @@ title: Drawer
   <div class="ui-drawer ui-drawer--end" style="position:absolute" data-state="open">
     <div class="ui-drawer__header">
       <div>
-        <h2 class="ui-drawer__title">Drawer Title</h2>
-        <p class="ui-drawer__description">Optional description text</p>
+        <h2 class="ui-drawer__title">{{ t('drawer_title', 'Drawer Title') }}</h2>
+        <p class="ui-drawer__description">{{ t('optional_description_text', 'Optional description text') }}</p>
       </div>
-      <button class="ui-drawer__close ui-button ui-button--ghost ui-button--icon">X</button>
+      <button class="ui-drawer__close ui-button ui-button--ghost ui-button--icon">{{ t('x', 'X') }}</button>
     </div>
     <div class="ui-drawer__body">
-      <p>Drawer content goes here.</p>
+      <p>{{ t('drawer_content_goes_here', 'Drawer content goes here.') }}</p>
     </div>
     <div class="ui-drawer__footer">
-      <button class="ui-button ui-button--secondary">Cancel</button>
-      <button class="ui-button">Save</button>
+      <button class="ui-button ui-button--secondary">{{ t('cancel', 'Cancel') }}</button>
+      <button class="ui-button">{{ t('save', 'Save') }}</button>
     </div>
   </div>
 </div>
@@ -28,30 +28,30 @@ title: Drawer
 <div style="position:relative;height:200px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)">
   <div class="ui-drawer ui-drawer--start ui-drawer--sm" style="position:absolute" data-state="open">
     <div class="ui-drawer__header">
-      <h2 class="ui-drawer__title">Start</h2>
+      <h2 class="ui-drawer__title">{{ t('start', 'Start') }}</h2>
     </div>
     <div class="ui-drawer__body">
-      <p>From start edge</p>
+      <p>{{ t('from_start_edge', 'From start edge') }}</p>
     </div>
   </div>
 </div>
 <div style="position:relative;height:200px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)">
   <div class="ui-drawer ui-drawer--top" style="position:absolute" data-state="open">
     <div class="ui-drawer__header">
-      <h2 class="ui-drawer__title">Top</h2>
+      <h2 class="ui-drawer__title">{{ t('top', 'Top') }}</h2>
     </div>
     <div class="ui-drawer__body">
-      <p>From top edge</p>
+      <p>{{ t('from_top_edge', 'From top edge') }}</p>
     </div>
   </div>
 </div>
 <div style="position:relative;height:200px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)">
   <div class="ui-drawer ui-drawer--bottom" style="position:absolute" data-state="open">
     <div class="ui-drawer__header">
-      <h2 class="ui-drawer__title">Bottom</h2>
+      <h2 class="ui-drawer__title">{{ t('bottom', 'Bottom') }}</h2>
     </div>
     <div class="ui-drawer__body">
-      <p>From bottom edge</p>
+      <p>{{ t('from_bottom_edge', 'From bottom edge') }}</p>
     </div>
   </div>
 </div>
@@ -60,28 +60,28 @@ title: Drawer
 <div style="position:relative;height:150px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)">
   <div class="ui-drawer ui-drawer--end ui-drawer--sm" style="position:absolute" data-state="open">
     <div class="ui-drawer__body">
-      <p>Small drawer</p>
+      <p>{{ t('small_drawer', 'Small drawer') }}</p>
     </div>
   </div>
 </div>
 <div style="position:relative;height:150px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)">
   <div class="ui-drawer ui-drawer--end" style="position:absolute" data-state="open">
     <div class="ui-drawer__body">
-      <p>Default drawer</p>
+      <p>{{ t('default_drawer', 'Default drawer') }}</p>
     </div>
   </div>
 </div>
 <div style="position:relative;height:150px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)">
   <div class="ui-drawer ui-drawer--end ui-drawer--lg" style="position:absolute" data-state="open">
     <div class="ui-drawer__body">
-      <p>Large drawer</p>
+      <p>{{ t('large_drawer', 'Large drawer') }}</p>
     </div>
   </div>
 </div>
 <div style="position:relative;height:150px;overflow:hidden;border:1px solid var(--ui-color-border);border-radius:var(--ui-radius-md)">
   <div class="ui-drawer ui-drawer--end ui-drawer--full" style="position:absolute" data-state="open">
     <div class="ui-drawer__body">
-      <p>Full-size drawer</p>
+      <p>{{ t('full_size_drawer', 'Full-size drawer') }}</p>
     </div>
   </div>
 </div>
