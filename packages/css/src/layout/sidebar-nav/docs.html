@@ -5,42 +5,42 @@ description: Navigation component for sidebars with support for groups, nested i
 
 <!-- @basic -->
 <!-- Simple navigation with grouped items. -->
-<nav class="ui-sidebar-nav" aria-label="Main navigation" style="block-size: 400px;">
+<nav class="ui-sidebar-nav" aria-label="{{ t('main_navigation', 'Main navigation') }}" style="block-size: 400px;">
   <div class="ui-sidebar-nav__header">
-    <strong>App Name</strong>
+    <strong>{{ t('app_name', 'App Name') }}</strong>
   </div>
   <div class="ui-sidebar-nav__content">
     <div class="ui-sidebar-nav__group">
-      <span class="ui-sidebar-nav__group-label">Main</span>
+      <span class="ui-sidebar-nav__group-label">{{ t('main', 'Main') }}</span>
       <ul class="ui-sidebar-nav__group-items">
         <li>
           <a class="ui-sidebar-nav__item ui-sidebar-nav__item--active" href="#" aria-current="page">
-            <span class="ui-sidebar-nav__label">Dashboard</span>
+            <span class="ui-sidebar-nav__label">{{ t('dashboard', 'Dashboard') }}</span>
           </a>
         </li>
         <li>
           <a class="ui-sidebar-nav__item" href="#">
-            <span class="ui-sidebar-nav__label">Projects</span>
+            <span class="ui-sidebar-nav__label">{{ t('projects', 'Projects') }}</span>
           </a>
         </li>
         <li>
           <a class="ui-sidebar-nav__item" href="#">
-            <span class="ui-sidebar-nav__label">Tasks</span>
+            <span class="ui-sidebar-nav__label">{{ t('tasks', 'Tasks') }}</span>
           </a>
         </li>
       </ul>
     </div>
     <div class="ui-sidebar-nav__group">
-      <span class="ui-sidebar-nav__group-label">Settings</span>
+      <span class="ui-sidebar-nav__group-label">{{ t('settings', 'Settings') }}</span>
       <ul class="ui-sidebar-nav__group-items">
         <li>
           <a class="ui-sidebar-nav__item" href="#">
-            <span class="ui-sidebar-nav__label">Profile</span>
+            <span class="ui-sidebar-nav__label">{{ t('profile', 'Profile') }}</span>
           </a>
         </li>
         <li>
           <a class="ui-sidebar-nav__item" href="#">
-            <span class="ui-sidebar-nav__label">Preferences</span>
+            <span class="ui-sidebar-nav__label">{{ t('preferences', 'Preferences') }}</span>
           </a>
         </li>
       </ul>
@@ -48,14 +48,14 @@ description: Navigation component for sidebars with support for groups, nested i
   </div>
   <div class="ui-sidebar-nav__footer">
     <a class="ui-sidebar-nav__item" href="#">
-      <span class="ui-sidebar-nav__label">Logout</span>
+      <span class="ui-sidebar-nav__label">{{ t('logout', 'Logout') }}</span>
     </a>
   </div>
 </nav>
 
 <!-- @with_icons -->
 <!-- Navigation items with icons for visual clarity. -->
-<nav class="ui-sidebar-nav" aria-label="Navigation" style="block-size: 300px;">
+<nav class="ui-sidebar-nav" aria-label="{{ t('navigation', 'Navigation') }}" style="block-size: 300px;">
   <div class="ui-sidebar-nav__content">
     <ul class="ui-sidebar-nav__group-items">
       <li>
@@ -65,7 +65,7 @@ description: Navigation component for sidebars with support for groups, nested i
               <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
             </svg>
           </span>
-          <span class="ui-sidebar-nav__label">Home</span>
+          <span class="ui-sidebar-nav__label">{{ t('home', 'Home') }}</span>
         </a>
       </li>
       <li>
@@ -76,7 +76,7 @@ description: Navigation component for sidebars with support for groups, nested i
               <circle cx="9" cy="7" r="4"></circle>
             </svg>
           </span>
-          <span class="ui-sidebar-nav__label">Users</span>
+          <span class="ui-sidebar-nav__label">{{ t('users', 'Users') }}</span>
         </a>
       </li>
       <li>
@@ -87,7 +87,7 @@ description: Navigation component for sidebars with support for groups, nested i
               <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
             </svg>
           </span>
-          <span class="ui-sidebar-nav__label">Settings</span>
+          <span class="ui-sidebar-nav__label">{{ t('settings', 'Settings') }}</span>
         </a>
       </li>
     </ul>
@@ -96,12 +96,12 @@ description: Navigation component for sidebars with support for groups, nested i
 
 <!-- @with_badges -->
 <!-- Navigation items with badges for counts or status indicators. -->
-<nav class="ui-sidebar-nav" aria-label="Navigation" style="block-size: 200px;">
+<nav class="ui-sidebar-nav" aria-label="{{ t('navigation', 'Navigation') }}" style="block-size: 200px;">
   <div class="ui-sidebar-nav__content">
     <ul class="ui-sidebar-nav__group-items">
       <li>
         <a class="ui-sidebar-nav__item" href="#">
-          <span class="ui-sidebar-nav__label">Inbox</span>
+          <span class="ui-sidebar-nav__label">{{ t('inbox', 'Inbox') }}</span>
           <span class="ui-sidebar-nav__badge">
             <span class="ui-badge ui-badge--primary">12</span>
           </span>
@@ -109,7 +109,7 @@ description: Navigation component for sidebars with support for groups, nested i
       </li>
       <li>
         <a class="ui-sidebar-nav__item" href="#">
-          <span class="ui-sidebar-nav__label">Notifications</span>
+          <span class="ui-sidebar-nav__label">{{ t('notifications', 'Notifications') }}</span>
           <span class="ui-sidebar-nav__badge">
             <span class="ui-badge ui-badge--danger">3</span>
           </span>
@@ -117,7 +117,7 @@ description: Navigation component for sidebars with support for groups, nested i
       </li>
       <li>
         <a class="ui-sidebar-nav__item" href="#">
-          <span class="ui-sidebar-nav__label">Updates</span>
+          <span class="ui-sidebar-nav__label">{{ t('updates', 'Updates') }}</span>
           <span class="ui-sidebar-nav__badge">
             <span class="ui-status ui-status--success"></span>
           </span>
@@ -129,37 +129,37 @@ description: Navigation component for sidebars with support for groups, nested i
 
 <!-- @nested_items -->
 <!-- Navigation with nested/indented items for sub-sections. -->
-<nav class="ui-sidebar-nav" aria-label="Navigation" style="block-size: 280px;">
+<nav class="ui-sidebar-nav" aria-label="{{ t('navigation', 'Navigation') }}" style="block-size: 280px;">
   <div class="ui-sidebar-nav__content">
     <div class="ui-sidebar-nav__group">
-      <span class="ui-sidebar-nav__group-label">Components</span>
+      <span class="ui-sidebar-nav__group-label">{{ t('components', 'Components') }}</span>
       <ul class="ui-sidebar-nav__group-items">
         <li>
           <div class="ui-sidebar-nav__subgroup">
-            <span class="ui-sidebar-nav__subgroup-label">Actions</span>
+            <span class="ui-sidebar-nav__subgroup-label">{{ t('actions', 'Actions') }}</span>
           </div>
         </li>
         <li>
           <a class="ui-sidebar-nav__item ui-sidebar-nav__item--nested" href="#">
-            <span class="ui-sidebar-nav__label">Button</span>
+            <span class="ui-sidebar-nav__label">{{ t('button', 'Button') }}</span>
           </a>
         </li>
         <li>
           <a class="ui-sidebar-nav__item ui-sidebar-nav__item--nested ui-sidebar-nav__item--active" href="#" aria-current="page">
-            <span class="ui-sidebar-nav__label">Button Group</span>
+            <span class="ui-sidebar-nav__label">{{ t('button_group', 'Button Group') }}</span>
           </a>
         </li>
         <li>
-          <span class="ui-sidebar-nav__subgroup-label">Forms</span>
+          <span class="ui-sidebar-nav__subgroup-label">{{ t('forms', 'Forms') }}</span>
         </li>
         <li>
           <a class="ui-sidebar-nav__item ui-sidebar-nav__item--nested" href="#">
-            <span class="ui-sidebar-nav__label">Input</span>
+            <span class="ui-sidebar-nav__label">{{ t('input', 'Input') }}</span>
           </a>
         </li>
         <li>
           <a class="ui-sidebar-nav__item ui-sidebar-nav__item--nested" href="#">
-            <span class="ui-sidebar-nav__label">Select</span>
+            <span class="ui-sidebar-nav__label">{{ t('select', 'Select') }}</span>
           </a>
         </li>
       </ul>
@@ -169,38 +169,38 @@ description: Navigation component for sidebars with support for groups, nested i
 
 <!-- @collapsed -->
 <!-- Icon-only mode for compact sidebars. -->
-<nav class="ui-sidebar-nav ui-sidebar-nav--collapsed" aria-label="Navigation" style="block-size: 200px;">
+<nav class="ui-sidebar-nav ui-sidebar-nav--collapsed" aria-label="{{ t('navigation', 'Navigation') }}" style="block-size: 200px;">
   <div class="ui-sidebar-nav__content">
     <ul class="ui-sidebar-nav__group-items">
       <li>
-        <a class="ui-sidebar-nav__item ui-sidebar-nav__item--active" href="#" aria-current="page" aria-label="Home">
+        <a class="ui-sidebar-nav__item ui-sidebar-nav__item--active" href="#" aria-current="page" aria-label="{{ t('home', 'Home') }}">
           <span class="ui-sidebar-nav__icon">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
             </svg>
           </span>
-          <span class="ui-sidebar-nav__label">Home</span>
+          <span class="ui-sidebar-nav__label">{{ t('home', 'Home') }}</span>
         </a>
       </li>
       <li>
-        <a class="ui-sidebar-nav__item" href="#" aria-label="Users">
+        <a class="ui-sidebar-nav__item" href="#" aria-label="{{ t('users', 'Users') }}">
           <span class="ui-sidebar-nav__icon">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
               <circle cx="9" cy="7" r="4"></circle>
             </svg>
           </span>
-          <span class="ui-sidebar-nav__label">Users</span>
+          <span class="ui-sidebar-nav__label">{{ t('users', 'Users') }}</span>
         </a>
       </li>
       <li>
-        <a class="ui-sidebar-nav__item" href="#" aria-label="Settings">
+        <a class="ui-sidebar-nav__item" href="#" aria-label="{{ t('settings', 'Settings') }}">
           <span class="ui-sidebar-nav__icon">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="12" cy="12" r="3"></circle>
             </svg>
           </span>
-          <span class="ui-sidebar-nav__label">Settings</span>
+          <span class="ui-sidebar-nav__label">{{ t('settings', 'Settings') }}</span>
         </a>
       </li>
     </ul>
@@ -209,22 +209,22 @@ description: Navigation component for sidebars with support for groups, nested i
 
 <!-- @disabled_items -->
 <!-- Non-interactive navigation items. -->
-<nav class="ui-sidebar-nav" aria-label="Navigation" style="block-size: 180px;">
+<nav class="ui-sidebar-nav" aria-label="{{ t('navigation', 'Navigation') }}" style="block-size: 180px;">
   <div class="ui-sidebar-nav__content">
     <ul class="ui-sidebar-nav__group-items">
       <li>
         <a class="ui-sidebar-nav__item" href="#">
-          <span class="ui-sidebar-nav__label">Active Link</span>
+          <span class="ui-sidebar-nav__label">{{ t('active_link', 'Active Link') }}</span>
         </a>
       </li>
       <li>
         <span class="ui-sidebar-nav__item ui-sidebar-nav__item--disabled">
-          <span class="ui-sidebar-nav__label">Disabled Link</span>
+          <span class="ui-sidebar-nav__label">{{ t('disabled_link', 'Disabled Link') }}</span>
         </span>
       </li>
       <li>
         <a class="ui-sidebar-nav__item" href="#">
-          <span class="ui-sidebar-nav__label">Another Link</span>
+          <span class="ui-sidebar-nav__label">{{ t('another_link', 'Another Link') }}</span>
         </a>
       </li>
     </ul>
