@@ -5,16 +5,16 @@ title: Data List
 <!-- @default -->
 <dl class="ui-data-list">
   <div class="ui-data-list__item">
-    <dt class="ui-data-list__label">Name</dt>
-    <dd class="ui-data-list__value">John Doe</dd>
+    <dt class="ui-data-list__label">{{ t('name', 'Name') }}</dt>
+    <dd class="ui-data-list__value">{{ t('john_doe', 'John Doe') }}</dd>
   </div>
   <div class="ui-data-list__item">
-    <dt class="ui-data-list__label">Email</dt>
-    <dd class="ui-data-list__value">john@example.com</dd>
+    <dt class="ui-data-list__label">{{ t('email', 'Email') }}</dt>
+    <dd class="ui-data-list__value">{{ t('johnexamplecom', 'john@example.com') }}</dd>
   </div>
   <div class="ui-data-list__item">
-    <dt class="ui-data-list__label">Role</dt>
-    <dd class="ui-data-list__value">Administrator</dd>
+    <dt class="ui-data-list__label">{{ t('role', 'Role') }}</dt>
+    <dd class="ui-data-list__value">{{ t('administrator', 'Administrator') }}</dd>
   </div>
 </dl>
 
@@ -22,16 +22,16 @@ title: Data List
 <!-- Side-by-side label and value -->
 <dl class="ui-data-list ui-data-list--horizontal">
   <div class="ui-data-list__item">
-    <dt class="ui-data-list__label">Status</dt>
-    <dd class="ui-data-list__value">Active</dd>
+    <dt class="ui-data-list__label">{{ t('status', 'Status') }}</dt>
+    <dd class="ui-data-list__value">{{ t('active', 'Active') }}</dd>
   </div>
   <div class="ui-data-list__item">
-    <dt class="ui-data-list__label">Created</dt>
-    <dd class="ui-data-list__value">Dec 8, 2025</dd>
+    <dt class="ui-data-list__label">{{ t('created', 'Created') }}</dt>
+    <dd class="ui-data-list__value">{{ t('dec_8_2025', 'Dec 8, 2025') }}</dd>
   </div>
   <div class="ui-data-list__item">
-    <dt class="ui-data-list__label">Updated</dt>
-    <dd class="ui-data-list__value">Dec 8, 2025</dd>
+    <dt class="ui-data-list__label">{{ t('updated', 'Updated') }}</dt>
+    <dd class="ui-data-list__value">{{ t('dec_8_2025', 'Dec 8, 2025') }}</dd>
   </div>
 </dl>
 
@@ -39,16 +39,16 @@ title: Data List
 <!-- With separator lines between items -->
 <dl class="ui-data-list ui-data-list--divided">
   <div class="ui-data-list__item">
-    <dt class="ui-data-list__label">Order ID</dt>
-    <dd class="ui-data-list__value">#12345</dd>
+    <dt class="ui-data-list__label">{{ t('order_id', 'Order ID') }}</dt>
+    <dd class="ui-data-list__value">{{ t('12345', '#12345') }}</dd>
   </div>
   <div class="ui-data-list__item">
-    <dt class="ui-data-list__label">Total</dt>
-    <dd class="ui-data-list__value">$99.00</dd>
+    <dt class="ui-data-list__label">{{ t('total', 'Total') }}</dt>
+    <dd class="ui-data-list__value">{{ t('9900', '$99.00') }}</dd>
   </div>
   <div class="ui-data-list__item">
-    <dt class="ui-data-list__label">Payment</dt>
-    <dd class="ui-data-list__value">Credit Card</dd>
+    <dt class="ui-data-list__label">{{ t('payment', 'Payment') }}</dt>
+    <dd class="ui-data-list__value">{{ t('credit_card', 'Credit Card') }}</dd>
   </div>
 </dl>
 
@@ -56,39 +56,39 @@ title: Data List
 <!-- Alternating background for readability -->
 <dl class="ui-data-list ui-data-list--striped">
   <div class="ui-data-list__item">
-    <dt class="ui-data-list__label">CPU</dt>
-    <dd class="ui-data-list__value">Intel i7</dd>
+    <dt class="ui-data-list__label">{{ t('cpu', 'CPU') }}</dt>
+    <dd class="ui-data-list__value">{{ t('intel_i7', 'Intel i7') }}</dd>
   </div>
   <div class="ui-data-list__item">
-    <dt class="ui-data-list__label">Memory</dt>
-    <dd class="ui-data-list__value">16 GB</dd>
+    <dt class="ui-data-list__label">{{ t('memory', 'Memory') }}</dt>
+    <dd class="ui-data-list__value">{{ t('16_gb', '16 GB') }}</dd>
   </div>
   <div class="ui-data-list__item">
-    <dt class="ui-data-list__label">Storage</dt>
-    <dd class="ui-data-list__value">512 GB SSD</dd>
+    <dt class="ui-data-list__label">{{ t('storage', 'Storage') }}</dt>
+    <dd class="ui-data-list__value">{{ t('512_gb_ssd', '512 GB SSD') }}</dd>
   </div>
   <div class="ui-data-list__item">
-    <dt class="ui-data-list__label">Display</dt>
-    <dd class="ui-data-list__value">14" Retina</dd>
+    <dt class="ui-data-list__label">{{ t('display', 'Display') }}</dt>
+    <dd class="ui-data-list__value">{{ t('14_retina', '14" Retina') }}</dd>
   </div>
 </dl>
 
 <!-- @sizes | column -->
 <dl class="ui-data-list ui-data-list--sm">
   <div class="ui-data-list__item">
-    <dt class="ui-data-list__label">Small</dt>
-    <dd class="ui-data-list__value">Compact display</dd>
+    <dt class="ui-data-list__label">{{ t('small', 'Small') }}</dt>
+    <dd class="ui-data-list__value">{{ t('compact_display', 'Compact display') }}</dd>
   </div>
 </dl>
 <dl class="ui-data-list">
   <div class="ui-data-list__item">
-    <dt class="ui-data-list__label">Default</dt>
-    <dd class="ui-data-list__value">Standard display</dd>
+    <dt class="ui-data-list__label">{{ t('default', 'Default') }}</dt>
+    <dd class="ui-data-list__value">{{ t('standard_display', 'Standard display') }}</dd>
   </div>
 </dl>
 <dl class="ui-data-list ui-data-list--lg">
   <div class="ui-data-list__item">
-    <dt class="ui-data-list__label">Large</dt>
-    <dd class="ui-data-list__value">Spacious display</dd>
+    <dt class="ui-data-list__label">{{ t('large', 'Large') }}</dt>
+    <dd class="ui-data-list__value">{{ t('spacious_display', 'Spacious display') }}</dd>
   </div>
 </dl>
