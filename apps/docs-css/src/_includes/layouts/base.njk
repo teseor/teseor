@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="view-transition" content="same-origin">
   <meta name="description" content="{{ doc.description if doc.description else 'CSS-first component library with design tokens, layout primitives, and UI components.' }}">
-  <title>{{ title }} - Teseor CSS</title>
+  <title>{{ title }} - {{ t('teseor_css', 'Teseor CSS') }}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&family=Noto+Sans+Mono:wght@400;500&display=swap">
@@ -18,7 +18,7 @@
     <nav class="ui-sidebar-nav ui-transition-name-sidebar" aria-label="Main navigation">
       <div class="ui-sidebar-nav__header">
         <a href="{{ '/' | url }}">
-          <strong class="ui-text-xl">Teseor CSS</strong>
+          <strong class="ui-text-xl">{{ t('teseor_css', 'Teseor CSS') }}</strong>
         </a>
         <p class="ui-text-sm ui-text-muted">v{{ version }}</p>
       </div>
@@ -29,11 +29,11 @@
 
       <div class="ui-sidebar-nav__footer">
         <div class="ui-column ui-column--xs">
-          <button class="ui-button ui-button--sm ui-button--block" onclick="toggleTheme()" id="theme-toggle" aria-pressed="false">Dark Mode</button>
-          <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug(this, 'ui-debug-grid')" aria-pressed="false">Toggle Grid</button>
-          <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug(this, 'ui-debug-grid-rows')" aria-pressed="false">Toggle Row Grid</button>
-          <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug(this, 'ui-debug-baseline')" aria-pressed="false">Toggle Baseline</button>
-          <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug(this, 'ui-debug-outline')" aria-pressed="false">Toggle Outlines</button>
+          <button class="ui-button ui-button--sm ui-button--block" onclick="toggleTheme()" id="theme-toggle" aria-pressed="false" data-label-dark="{{ t('dark_mode', 'Dark Mode') }}" data-label-light="{{ t('light_mode', 'Light Mode') }}">{{ t('dark_mode', 'Dark Mode') }}</button>
+          <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug(this, 'ui-debug-grid')" aria-pressed="false">{{ t('toggle_grid', 'Toggle Grid') }}</button>
+          <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug(this, 'ui-debug-grid-rows')" aria-pressed="false">{{ t('toggle_row_grid', 'Toggle Row Grid') }}</button>
+          <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug(this, 'ui-debug-baseline')" aria-pressed="false">{{ t('toggle_baseline', 'Toggle Baseline') }}</button>
+          <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug(this, 'ui-debug-outline')" aria-pressed="false">{{ t('toggle_outlines', 'Toggle Outlines') }}</button>
         </div>
       </div>
     </nav>
@@ -87,12 +87,12 @@
       const isDark = html.getAttribute('data-theme') === 'dark';
       if (isDark) {
         html.removeAttribute('data-theme');
-        btn.textContent = 'Dark Mode';
+        btn.textContent = btn.dataset.labelDark;
         btn.setAttribute('aria-pressed', 'false');
         localStorage.removeItem('theme');
       } else {
         html.setAttribute('data-theme', 'dark');
-        btn.textContent = 'Light Mode';
+        btn.textContent = btn.dataset.labelLight;
         btn.setAttribute('aria-pressed', 'true');
         localStorage.setItem('theme', 'dark');
       }
@@ -101,7 +101,7 @@
     if (localStorage.getItem('theme') === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
       const themeBtn = document.getElementById('theme-toggle');
-      themeBtn.textContent = 'Light Mode';
+      themeBtn.textContent = themeBtn.dataset.labelLight;
       themeBtn.setAttribute('aria-pressed', 'true');
     }
   </script>

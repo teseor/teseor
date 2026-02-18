@@ -255,6 +255,10 @@ function loadAllDocs() {
 }
 
 export default function (eleventyConfig) {
+  // Global t() for Nunjucks templates (layout/partial strings)
+  const globalT = makeT();
+  eleventyConfig.addNunjucksGlobal('t', globalT);
+
   // Add global data
   const cssPackage = JSON.parse(readFileSync(join(PACKAGES_DIR, 'css/package.json'), 'utf-8'));
   eleventyConfig.addGlobalData('version', cssPackage.version);

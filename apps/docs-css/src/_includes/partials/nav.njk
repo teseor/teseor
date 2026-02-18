@@ -1,7 +1,7 @@
 {# Home link #}
 <div class="ui-sidebar-nav__group">
   <ul class="ui-sidebar-nav__group-items">
-    <li><a class="ui-sidebar-nav__item{% if page.url == '/' %} ui-sidebar-nav__item--active{% endif %}" href="{{ '/' | url }}"{% if page.url == '/' %} aria-current="page"{% endif %}><span class="ui-sidebar-nav__label">Home</span></a></li>
+    <li><a class="ui-sidebar-nav__item{% if page.url == '/' %} ui-sidebar-nav__item--active{% endif %}" href="{{ '/' | url }}"{% if page.url == '/' %} aria-current="page"{% endif %}><span class="ui-sidebar-nav__label">{{ t('home', 'Home') }}</span></a></li>
   </ul>
 </div>
 
@@ -9,7 +9,7 @@
 {% set guides = docs | byType('guide') | sortByWeight %}
 {% if guides.length > 0 %}
 <div class="ui-sidebar-nav__group">
-  <span class="ui-sidebar-nav__group-label">Guides</span>
+  <span class="ui-sidebar-nav__group-label">{{ t('guides', 'Guides') }}</span>
   <ul class="ui-sidebar-nav__group-items">
     {% for doc in guides %}
     <li><a class="ui-sidebar-nav__item{% if page.url == doc.permalink %} ui-sidebar-nav__item--active{% endif %}" href="{{ doc.permalink | url }}"{% if page.url == doc.permalink %} aria-current="page"{% endif %}><span class="ui-sidebar-nav__label">{{ doc.title }}</span></a></li>
@@ -22,7 +22,7 @@
 {% set tokens = docs | byType('token') | sortByTitle %}
 {% if tokens.length > 0 %}
 <div class="ui-sidebar-nav__group">
-  <span class="ui-sidebar-nav__group-label">Foundation</span>
+  <span class="ui-sidebar-nav__group-label">{{ t('foundation', 'Foundation') }}</span>
   <ul class="ui-sidebar-nav__group-items">
     {% for doc in tokens %}
     <li><a class="ui-sidebar-nav__item{% if page.url == doc.permalink %} ui-sidebar-nav__item--active{% endif %}" href="{{ doc.permalink | url }}"{% if page.url == doc.permalink %} aria-current="page"{% endif %}><span class="ui-sidebar-nav__label">{{ doc.title }}</span></a></li>
@@ -35,7 +35,7 @@
 {% set primitives = docs | byType('primitive') | sortByTitle %}
 {% if primitives.length > 0 %}
 <div class="ui-sidebar-nav__group">
-  <span class="ui-sidebar-nav__group-label">Layout</span>
+  <span class="ui-sidebar-nav__group-label">{{ t('layout', 'Layout') }}</span>
   <ul class="ui-sidebar-nav__group-items">
     {% for doc in primitives %}
     <li><a class="ui-sidebar-nav__item{% if page.url == doc.permalink %} ui-sidebar-nav__item--active{% endif %}" href="{{ doc.permalink | url }}"{% if page.url == doc.permalink %} aria-current="page"{% endif %}><span class="ui-sidebar-nav__label">{{ doc.title }}</span></a></li>
@@ -49,7 +49,7 @@
 {% set nonTypography = componentGroups | rejectattr("id", "equalto", "typography") %}
 {% if components.length > 0 %}
 <div class="ui-sidebar-nav__group">
-  <span class="ui-sidebar-nav__group-label">Components</span>
+  <span class="ui-sidebar-nav__group-label">{{ t('components', 'Components') }}</span>
   <ul class="ui-sidebar-nav__group-items">
     {% for group in componentGroups %}
       {% if group.id != "typography" %}
@@ -76,7 +76,7 @@
 {% set typographyDocs = components | byGroup('typography') | sortByTitle %}
 {% if typographyDocs.length > 0 %}
 <div class="ui-sidebar-nav__group">
-  <span class="ui-sidebar-nav__group-label">Typography</span>
+  <span class="ui-sidebar-nav__group-label">{{ t('typography', 'Typography') }}</span>
   <ul class="ui-sidebar-nav__group-items">
     {% for doc in typographyDocs %}
     <li><a class="ui-sidebar-nav__item{% if page.url == doc.permalink %} ui-sidebar-nav__item--active{% endif %}" href="{{ doc.permalink | url }}"{% if page.url == doc.permalink %} aria-current="page"{% endif %}><span class="ui-sidebar-nav__label">{{ doc.title }}</span></a></li>
@@ -89,7 +89,7 @@
 {% set utilities = docs | byType('utility') | sortByTitle %}
 {% if utilities.length > 0 %}
 <div class="ui-sidebar-nav__group">
-  <span class="ui-sidebar-nav__group-label">Utilities</span>
+  <span class="ui-sidebar-nav__group-label">{{ t('utilities', 'Utilities') }}</span>
   <ul class="ui-sidebar-nav__group-items">
     {% for doc in utilities %}
     <li><a class="ui-sidebar-nav__item{% if page.url == doc.permalink %} ui-sidebar-nav__item--active{% endif %}" href="{{ doc.permalink | url }}"{% if page.url == doc.permalink %} aria-current="page"{% endif %}><span class="ui-sidebar-nav__label">{{ doc.title }}</span></a></li>
