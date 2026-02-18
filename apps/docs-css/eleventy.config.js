@@ -4,6 +4,12 @@ import { fileURLToPath } from 'node:url';
 import nunjucks from 'nunjucks';
 
 import { discoverComponents } from '../../scripts/discover-structure.js';
+import {
+  makeT,
+  parseHtmlDocFile,
+  renderHtmlSection,
+  sectionIdToTitle,
+} from './lib/html-doc-parser.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '../..');
@@ -71,7 +77,7 @@ function findDocsFiles(dir, files = []) {
       entry !== 'dist'
     ) {
       findDocsFiles(fullPath, files);
-    } else if (entry.endsWith('.docs.json')) {
+    } else if (entry.endsWith('.docs.json') || entry.endsWith('.docs.html')) {
       files.push(fullPath);
     }
   }
@@ -145,15 +151,107 @@ function mergeApiWithDocs(api, doc) {
   return merged;
 }
 
+function resolveHtmlDoc(filePath) {
+  const { frontmatter, sections: rawSections } = parseHtmlDocFile(filePath);
+  const fm = frontmatter;
+
+  // Load API if referenced
+  let api = null;
+  if (fm.api) {
+    const apiPath = join(dirname(filePath), fm.api);
+    try {
+      api = JSON.parse(readFileSync(apiPath, 'utf-8'));
+    } catch {
+      // api not found
+    }
+  }
+
+  const id = fm.id || api?.name;
+  const type = fm.type || 'component';
+  const groupId = type === 'component' ? getGroupFromPath(filePath) : null;
+  const group = groupId ? getGroupById(groupId) : null;
+  const labels = fm.labels || {};
+  const t = makeT();
+
+  // Render each section through Nunjucks
+  const sections = rawSections.map((raw) => {
+    const title = fm.sections?.[raw.id] || sectionIdToTitle(raw.id);
+
+    const context = { api, labels, t };
+    const renderedHtml = renderHtmlSection(raw.rawHtml, context);
+
+    // Wrap in layout if specified
+    let previewHtml = renderedHtml;
+    if (raw.layout) {
+      const layoutClass =
+        raw.layout === 'row'
+          ? 'ui-row ui-row--md'
+          : raw.layout === 'column'
+            ? 'ui-column ui-column--sm'
+            : raw.layout === 'grid'
+              ? 'ui-grid'
+              : '';
+      if (layoutClass) {
+        previewHtml = `<div class="${layoutClass}">${renderedHtml}</div>`;
+      }
+    }
+
+    return {
+      title,
+      previewHtml,
+      codeHtml: renderedHtml,
+      // Wrap in examples array for compatibility with existing template
+      examples: [
+        {
+          previewHtml,
+          codeHtml: renderedHtml,
+          layout: raw.layout,
+        },
+      ],
+    };
+  });
+
+  // Use cssVars from API for customization, fall back to frontmatter customization
+  const customization = api?.cssVars?.length
+    ? api.cssVars.map((v) => ({
+        token: v.name,
+        default: v.default,
+        description: v.description || '',
+      }))
+    : fm.customization || null;
+
+  return {
+    id,
+    type,
+    typePath: TYPE_PATHS[type] || type,
+    group: group?.id || null,
+    groupLabel: group?.label || null,
+    title: fm.title || (api ? capitalize(api.name) : id),
+    description: fm.description || api?.description || '',
+    weight: fm.weight || null,
+    sections,
+    customization,
+    api: api || null,
+    mergeInto: fm.mergeInto || null,
+    skipValidation: fm.skipValidation || false,
+    permalink: `/${TYPE_PATHS[type] || type}/${id}/`,
+    _isHtmlDoc: true,
+  };
+}
+
 function loadAllDocs() {
   const docsFiles = findDocsFiles(PACKAGES_DIR);
   const all = [];
 
   for (const file of docsFiles) {
     try {
-      const content = readFileSync(file, 'utf-8');
-      const doc = JSON.parse(content);
-      all.push(resolveDoc(doc, file));
+      if (file.endsWith('.docs.html')) {
+        all.push(resolveHtmlDoc(file));
+      } else {
+        const content = readFileSync(file, 'utf-8');
+        const doc = JSON.parse(content);
+        all.push(resolveDoc(doc, file));
+      }
     } catch (err) {
       console.error(`Error loading ${file}: ${err.message}`);
     }
@@ -351,6 +449,7 @@ export default function (eleventyConfig) {
 
   // Watch for changes in packages
   eleventyConfig.addWatchTarget(join(ROOT, 'packages/**/*.docs.json'));
+  eleventyConfig.addWatchTarget(join(ROOT, 'packages/**/*.docs.html'));
   eleventyConfig.addWatchTarget(join(ROOT, 'packages/**/*.api.json'));
 
   return {

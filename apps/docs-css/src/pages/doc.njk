@@ -26,19 +26,25 @@ eleventyComputed:
     {% endif %}
 
     {% for example in section.examples %}
-      {# Build preview HTML - from html string or items array #}
+      {# Build preview HTML - from previewHtml (HTML docs) or items/html (JSON docs) #}
       {% set previewHtml = '' %}
-      {% if example.html %}
+      {% if example.previewHtml %}
+        {% set previewHtml = example.previewHtml %}
+      {% elif example.html %}
         {% set previewHtml = example.html %}
       {% elif example.items %}
         {% set previewHtml = example.items | renderItems(example.layout) %}
       {% endif %}
 
-      {# Build code snippet - auto-generate from items if not provided #}
-      {% set codeSnippet = example.code or '' %}
-      {% if not codeSnippet and example.items %}
+      {# Build code snippet #}
+      {% set codeSnippet = '' %}
+      {% if example.codeHtml %}
+        {% set codeSnippet = example.codeHtml %}
+      {% elif example.code %}
+        {% set codeSnippet = example.code %}
+      {% elif example.items %}
         {% set codeSnippet = example.items | generateCode({ layout: example.layout }) %}
-      {% elif not codeSnippet and example.html %}
+      {% elif example.html %}
         {% set codeSnippet = example.html %}
       {% endif %}
       {% if section.data %}
