@@ -6,13 +6,13 @@ import {
   validateGridRhythm,
 } from '../../../../test-utils';
 
-const DOCS_PATH = resolve(__dirname, 'mark.docs.html');
+const DOCS_PATH = resolve(__dirname, 'docs.html');
 
 test.describe('mark visual regression', () => {
   test('all variations', async ({ page }) => {
     await setupVisualTestFromHtmlDocs(page, DOCS_PATH);
     await validateGridRhythm(page, 'mark');
     await saveForLostPixel(page, 'mark');
-    await expect(page.locator('body')).toHaveScreenshot('mark.visual.png');
+    await expect(page.locator('body')).toHaveScreenshot('visual.png');
   });
 });

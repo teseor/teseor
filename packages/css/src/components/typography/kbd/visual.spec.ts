@@ -6,13 +6,13 @@ import {
   validateGridRhythm,
 } from '../../../../test-utils';
 
-const DOCS_PATH = resolve(__dirname, 'kbd.docs.html');
+const DOCS_PATH = resolve(__dirname, 'docs.html');
 
 test.describe('kbd visual regression', () => {
   test('all variations', async ({ page }) => {
     await setupVisualTestFromHtmlDocs(page, DOCS_PATH);
     await validateGridRhythm(page, 'kbd');
     await saveForLostPixel(page, 'kbd');
-    await expect(page.locator('body')).toHaveScreenshot('kbd.visual.png');
+    await expect(page.locator('body')).toHaveScreenshot('visual.png');
   });
 });

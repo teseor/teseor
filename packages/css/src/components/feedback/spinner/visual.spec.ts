@@ -6,7 +6,7 @@ import {
   validateGridRhythm,
 } from '../../../../test-utils';
 
-const DOCS_PATH = resolve(__dirname, 'spinner.docs.html');
+const DOCS_PATH = resolve(__dirname, 'docs.html');
 
 test.describe('spinner visual regression', () => {
   // TODO: Skip grid rhythm until #154 is resolved (CSS var resolution issue)
@@ -14,6 +14,6 @@ test.describe('spinner visual regression', () => {
     await setupVisualTestFromHtmlDocs(page, DOCS_PATH);
     // await validateGridRhythm(page, 'spinner');
     await saveForLostPixel(page, 'spinner');
-    await expect(page.locator('body')).toHaveScreenshot('spinner.visual.png');
+    await expect(page.locator('body')).toHaveScreenshot('visual.png');
   });
 });

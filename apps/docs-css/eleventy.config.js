@@ -75,7 +75,7 @@ function findDocsFiles(dir, files = []) {
       entry !== 'dist'
     ) {
       findDocsFiles(fullPath, files);
-    } else if (entry.endsWith('.docs.html')) {
+    } else if (entry === 'docs.html' || entry.endsWith('.docs.html')) {
       files.push(fullPath);
     }
   }
@@ -249,8 +249,9 @@ export default function (eleventyConfig) {
   );
 
   // Watch for changes in packages
+  eleventyConfig.addWatchTarget(join(ROOT, 'packages/**/docs.html'));
   eleventyConfig.addWatchTarget(join(ROOT, 'packages/**/*.docs.html'));
-  eleventyConfig.addWatchTarget(join(ROOT, 'packages/**/*.api.json'));
+  eleventyConfig.addWatchTarget(join(ROOT, 'packages/**/api.json'));
 
   return {
     dir: {

@@ -6,7 +6,7 @@ import {
   validateGridRhythm,
 } from '../../../../test-utils';
 
-const DOCS_PATH = resolve(__dirname, 'data-list.docs.html');
+const DOCS_PATH = resolve(__dirname, 'docs.html');
 
 test.describe('data-list visual regression', () => {
   test('all variations', async ({ page }) => {
@@ -14,6 +14,6 @@ test.describe('data-list visual regression', () => {
     // TODO: fix grid rhythm - 1px borders cause off-grid heights (#179)
     // await validateGridRhythm(page, 'data-list');
     await saveForLostPixel(page, 'data-list');
-    await expect(page.locator('body')).toHaveScreenshot('data-list.visual.png');
+    await expect(page.locator('body')).toHaveScreenshot('visual.png');
   });
 });

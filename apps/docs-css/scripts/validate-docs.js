@@ -29,7 +29,7 @@ function findDocsFiles(dir, files = []) {
       entry !== 'dist'
     ) {
       findDocsFiles(fullPath, files);
-    } else if (entry.endsWith('.docs.html')) {
+    } else if (entry === 'docs.html' || entry.endsWith('.docs.html')) {
       files.push(fullPath);
     }
   }

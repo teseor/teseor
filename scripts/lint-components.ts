@@ -3,9 +3,9 @@
  * Lint Components
  * Validates that all component folders have the required files:
  * - index.scss (styles)
- * - *.api.json (API definition)
- * - *.docs.html (documentation)
- * - *.visual.spec.ts (visual regression test)
+ * - api.json (API definition)
+ * - docs.html (documentation)
+ * - visual.spec.ts (visual regression test)
  *
  * Scans category subdirectories under components/
  */
@@ -39,9 +39,9 @@ interface FileCheck {
 
 const REQUIRED_FILES: FileCheck[] = [
   { pattern: 'index.scss', description: 'styles', required: true },
-  { pattern: '*.api.json', description: 'API definition', required: true },
-  { pattern: '*.docs.html', description: 'documentation', required: true },
-  { pattern: '*.visual.spec.ts', description: 'visual regression test', required: false },
+  { pattern: 'api.json', description: 'API definition', required: true },
+  { pattern: 'docs.html', description: 'documentation', required: true },
+  { pattern: 'visual.spec.ts', description: 'visual regression test', required: false },
 ];
 
 function checkGlobPattern(dir: string, pattern: string): boolean {
@@ -167,7 +167,7 @@ function lintDocsContent(): void {
 
   for (const { name, path } of components) {
     // Validate api.json
-    const apiFiles = readdirSync(path).filter((f) => f.endsWith('.api.json'));
+    const apiFiles = readdirSync(path).filter((f) => f === 'api.json');
     for (const apiFile of apiFiles) {
       const raw = readFileSync(join(path, apiFile), 'utf-8');
 
@@ -193,7 +193,7 @@ function lintDocsContent(): void {
     }
 
     // Validate docs.html
-    const docsHtmlFiles = readdirSync(path).filter((f) => f.endsWith('.docs.html'));
+    const docsHtmlFiles = readdirSync(path).filter((f) => f === 'docs.html');
     for (const docsFile of docsHtmlFiles) {
       const raw = readFileSync(join(path, docsFile), 'utf-8');
       const fmMatch = raw.match(/^---\n([\s\S]*?)\n---/);

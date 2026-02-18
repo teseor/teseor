@@ -6,7 +6,7 @@ import {
   validateGridRhythm,
 } from '../../../test-utils';
 
-const DOCS_PATH = resolve(__dirname, 'sidebar-nav.docs.html');
+const DOCS_PATH = resolve(__dirname, 'docs.html');
 
 test.describe('sidebar-nav visual regression', () => {
   test('all variations', async ({ page }) => {

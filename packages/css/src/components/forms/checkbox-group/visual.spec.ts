@@ -6,13 +6,13 @@ import {
   validateGridRhythm,
 } from '../../../../test-utils';
 
-const DOCS_PATH = resolve(__dirname, 'checkbox-group.docs.html');
+const DOCS_PATH = resolve(__dirname, 'docs.html');
 
 test.describe('checkbox-group visual regression', () => {
   test('all variations', async ({ page }) => {
     await setupVisualTestFromHtmlDocs(page, DOCS_PATH);
     await validateGridRhythm(page, 'checkbox-group');
     await saveForLostPixel(page, 'checkbox-group');
-    await expect(page.locator('body')).toHaveScreenshot('checkbox-group.visual.png');
+    await expect(page.locator('body')).toHaveScreenshot('visual.png');
   });
 });

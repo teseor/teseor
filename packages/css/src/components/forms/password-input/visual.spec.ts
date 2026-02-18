@@ -6,13 +6,13 @@ import {
   validateGridRhythm,
 } from '../../../../test-utils';
 
-const DOCS_PATH = resolve(__dirname, 'password-input.docs.html');
+const DOCS_PATH = resolve(__dirname, 'docs.html');
 
 test.describe('password-input visual regression', () => {
   test('all variations', async ({ page }) => {
     await setupVisualTestFromHtmlDocs(page, DOCS_PATH);
     await validateGridRhythm(page, 'password-input');
     await saveForLostPixel(page, 'password-input');
-    await expect(page.locator('body')).toHaveScreenshot('password-input-visual.png');
+    await expect(page.locator('body')).toHaveScreenshot('visual.png');
   });
 });
