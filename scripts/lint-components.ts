@@ -5,7 +5,6 @@
  * - index.scss (styles)
  * - api.json (API definition)
  * - docs.html (documentation)
- * - visual.spec.ts (visual regression test)
  *
  * Scans category subdirectories under components/
  */
@@ -41,7 +40,6 @@ const REQUIRED_FILES: FileCheck[] = [
   { pattern: 'index.scss', description: 'styles', required: true },
   { pattern: 'api.json', description: 'API definition', required: true },
   { pattern: 'docs.html', description: 'documentation', required: true },
-  { pattern: 'visual.spec.ts', description: 'visual regression test', required: false },
 ];
 
 function checkGlobPattern(dir: string, pattern: string): boolean {

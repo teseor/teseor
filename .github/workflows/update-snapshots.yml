@@ -40,7 +40,7 @@ jobs:
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add "packages/css/src/**/visual.png"
+          git add "packages/css/test-utils/snapshots/"
           if git diff --cached --quiet; then
             echo "No snapshot changes"
           else
