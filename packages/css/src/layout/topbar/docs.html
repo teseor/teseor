@@ -7,32 +7,32 @@ description: Fixed or sticky header bar for app layouts with start, center, and 
 <!-- Basic topbar with three sections: start (brand), center (search/nav), and end (actions). -->
 <header class="ui-topbar ui-topbar--bordered">
   <div class="ui-topbar__start">
-    <strong>Brand</strong>
+    <strong>{{ t('brand', 'Brand') }}</strong>
   </div>
   <div class="ui-topbar__center">
-    <span>Center content</span>
+    <span>{{ t('center_content', 'Center content') }}</span>
   </div>
   <div class="ui-topbar__end">
-    <span>Actions</span>
+    <span>{{ t('actions', 'Actions') }}</span>
   </div>
 </header>
 
 <!-- @sticky -->
 <!-- Stays at the top of the viewport on scroll. -->
 <header class="ui-topbar ui-topbar--sticky ui-topbar--bordered">
-  <div class="ui-topbar__start"><strong>Brand</strong></div>
-  <div class="ui-topbar__center">Nav</div>
-  <div class="ui-topbar__end">Actions</div>
+  <div class="ui-topbar__start"><strong>{{ t('brand', 'Brand') }}</strong></div>
+  <div class="ui-topbar__center">{{ t('nav', 'Nav') }}</div>
+  <div class="ui-topbar__end">{{ t('actions', 'Actions') }}</div>
 </header>
 
 <!-- @bordered -->
 <!-- Bottom border via inset box-shadow to preserve grid rhythm. -->
 <header class="ui-topbar ui-topbar--bordered">
   <div class="ui-topbar__start">
-    <strong>Bordered</strong>
+    <strong>{{ t('bordered', 'Bordered') }}</strong>
   </div>
   <div class="ui-topbar__end">
-    <span>Actions</span>
+    <span>{{ t('actions', 'Actions') }}</span>
   </div>
 </header>
 
@@ -40,10 +40,10 @@ description: Fixed or sticky header bar for app layouts with start, center, and 
 <!-- Subtle drop shadow below the topbar. -->
 <header class="ui-topbar ui-topbar--raised">
   <div class="ui-topbar__start">
-    <strong>Raised</strong>
+    <strong>{{ t('raised', 'Raised') }}</strong>
   </div>
   <div class="ui-topbar__end">
-    <span>Actions</span>
+    <span>{{ t('actions', 'Actions') }}</span>
   </div>
 </header>
 
@@ -51,11 +51,11 @@ description: Fixed or sticky header bar for app layouts with start, center, and 
 <!-- Set --topbar-height on .app-shell so sidebar and main offset correctly. The topbar itself uses --fixed, and sidebar/main read --topbar-height. -->
 <body class="ui-app-shell" style="--topbar-height: var(--ui-row-3)">
   <header class="ui-topbar ui-topbar--fixed ui-topbar--bordered">
-    <div class="ui-topbar__start"><strong>App</strong></div>
-    <div class="ui-topbar__end">User</div>
+    <div class="ui-topbar__start"><strong>{{ t('app', 'App') }}</strong></div>
+    <div class="ui-topbar__end">{{ t('user', 'User') }}</div>
   </header>
-  <aside class="ui-sidebar">Sidebar</aside>
+  <aside class="ui-sidebar">{{ t('sidebar', 'Sidebar') }}</aside>
   <main class="ui-main">
-    <div class="ui-container">Content</div>
+    <div class="ui-container">{{ t('content', 'Content') }}</div>
   </main>
 </body>

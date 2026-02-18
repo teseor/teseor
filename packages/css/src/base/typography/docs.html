@@ -9,9 +9,9 @@ skipValidation: true
 <table class="ui-table">
   <thead>
     <tr>
-      <th>Token</th>
-      <th>Size</th>
-      <th>Line-height</th>
+      <th>{{ t('token', 'Token') }}</th>
+      <th>{{ t('size', 'Size') }}</th>
+      <th>{{ t('line_height', 'Line-height') }}</th>
     </tr>
   </thead>
   <tbody>
@@ -76,47 +76,47 @@ skipValidation: true
 
 <!-- @headings -->
 <!-- Headings use semantic tokens and adjust size at breakpoints. -->
-<h1>Heading 1 - 40px / 48px</h1>
-<h2>Heading 2 - 32px / 40px</h2>
-<h3>Heading 3 - 28px / 32px</h3>
-<h4>Heading 4 - 24px / 32px</h4>
-<h5>Heading 5 - 20px / 24px</h5>
+<h1>{{ t('heading_1_40px_48px', 'Heading 1 - 40px / 48px') }}</h1>
+<h2>{{ t('heading_2_32px_40px', 'Heading 2 - 32px / 40px') }}</h2>
+<h3>{{ t('heading_3_28px_32px', 'Heading 3 - 28px / 32px') }}</h3>
+<h4>{{ t('heading_4_24px_32px', 'Heading 4 - 24px / 32px') }}</h4>
+<h5>{{ t('heading_5_20px_24px', 'Heading 5 - 20px / 24px') }}</h5>
 
 <!-- @body_text -->
 <!-- Default body text at 16px with 24px line-height (1.5x ratio). -->
 <p>
-Body text at 16px with 24px line-height. The 
-  <strong>bold text</strong>
- and 
+{{ t('body_text_at_16px_with_24px_line_height_the', 'Body text at 16px with 24px line-height. The') }} 
+  <strong>{{ t('bold_text', 'bold text') }}</strong>
+ {{ t('and', 'and') }} 
   <code>inline code</code>
- maintain the same rhythm.
+ {{ t('maintain_the_same_rhythm', 'maintain the same rhythm.') }}
 </p>
-<p class="ui-text-body-sm">Body small at 14px with 24px line-height for secondary text.</p>
+<p class="ui-text-body-sm">{{ t('body_small_demo', 'Body small at 14px with 24px line-height for secondary text.') }}</p>
 
 <!-- @text_roles -->
 <!-- Semantic text styles for specific use cases. -->
-<p class="ui-text-lead">Lead paragraph - 20px / 32px. Use for opening paragraphs or article intros.</p>
-<p class="ui-text-eyebrow">Eyebrow text</p>
-<h2>Related Heading</h2>
-<p class="ui-text-caption">Caption text - 12px / 16px. Use for labels, hints, and metadata.</p>
+<p class="ui-text-lead">{{ t('lead_paragraph_demo', 'Lead paragraph - 20px / 32px. Use for opening paragraphs or article intros.') }}</p>
+<p class="ui-text-eyebrow">{{ t('eyebrow_text', 'Eyebrow text') }}</p>
+<h2>{{ t('related_heading', 'Related Heading') }}</h2>
+<p class="ui-text-caption">{{ t('caption_text_demo', 'Caption text - 12px / 16px. Use for labels, hints, and metadata.') }}</p>
 
 <!-- @font_weights -->
 <!-- Four weight levels for hierarchy. -->
-<p class="ui-font-normal">Normal (400) - Body text</p>
-<p class="ui-font-medium">Medium (500) - Labels, small headings</p>
-<p class="ui-font-semibold">Semibold (600) - Subheadings</p>
-<p class="ui-font-bold">Bold (700) - Headlines, emphasis</p>
+<p class="ui-font-normal">{{ t('normal_400_body_text', 'Normal (400) - Body text') }}</p>
+<p class="ui-font-medium">{{ t('medium_500_labels_small_headings', 'Medium (500) - Labels, small headings') }}</p>
+<p class="ui-font-semibold">{{ t('semibold_600_subheadings', 'Semibold (600) - Subheadings') }}</p>
+<p class="ui-font-bold">{{ t('bold_700_headlines_emphasis', 'Bold (700) - Headlines, emphasis') }}</p>
 
 <!-- @letter_spacing -->
 <!-- Three tracking options based on use case. -->
-<p class="ui-text-3xl ui-tracking-display">Display tracking (-0.02em)</p>
-<p>Body tracking (0) - default</p>
-<p class="ui-text-eyebrow">Caps tracking (+0.08em)</p>
+<p class="ui-text-3xl ui-tracking-display">{{ t('display_tracking_002em', 'Display tracking (-0.02em)') }}</p>
+<p>{{ t('body_tracking_0_default', 'Body tracking (0) - default') }}</p>
+<p class="ui-text-eyebrow">{{ t('caps_tracking_008em', 'Caps tracking (+0.08em)') }}</p>
 
 <!-- @line_length -->
 <!-- Constrain text width for optimal readability (45-75 characters). -->
 <div class="ui-prose">
-  <p>This paragraph is constrained to 65ch max-width for optimal reading comfort. Long lines of text are harder to read because the eye has difficulty tracking back to the start of the next line.</p>
+  <p>{{ t('paragraph_constrained_65ch', 'This paragraph is constrained to 65ch max-width for optimal reading comfort. Long lines of text are harder to read because the eye has difficulty tracking back to the start of the next line.') }}</p>
 </div>
 
 <!-- @responsive_behavior -->
@@ -124,33 +124,33 @@ Body text at 16px with 24px line-height. The
 <table class="ui-table">
   <thead>
     <tr>
-      <th>Heading</th>
-      <th>Mobile</th>
-      <th>Default</th>
-      <th>Desktop</th>
+      <th>{{ t('heading', 'Heading') }}</th>
+      <th>{{ t('mobile', 'Mobile') }}</th>
+      <th>{{ t('default', 'Default') }}</th>
+      <th>{{ t('desktop', 'Desktop') }}</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>h1</td>
+      <td>{{ t('h1', 'h1') }}</td>
       <td>28px</td>
       <td>40px</td>
       <td>48px</td>
     </tr>
     <tr>
-      <td>h2</td>
+      <td>{{ t('h2', 'h2') }}</td>
       <td>24px</td>
       <td>32px</td>
       <td>40px</td>
     </tr>
     <tr>
-      <td>h3</td>
+      <td>{{ t('h3', 'h3') }}</td>
       <td>20px</td>
       <td>28px</td>
       <td>28px</td>
     </tr>
     <tr>
-      <td>h4</td>
+      <td>{{ t('h4', 'h4') }}</td>
       <td>18px</td>
       <td>24px</td>
       <td>24px</td>

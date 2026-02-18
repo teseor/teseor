@@ -4,26 +4,26 @@ description: Keyword labels for categorization. Use for filtering, attributes, o
 ---
 
 <!-- @default | row -->
-<span class="ui-tag">Tag</span>
-<span class="ui-tag">Category</span>
-<span class="ui-tag">Label</span>
+<span class="ui-tag">{{ t('tag', 'Tag') }}</span>
+<span class="ui-tag">{{ t('category', 'Category') }}</span>
+<span class="ui-tag">{{ t('label', 'Label') }}</span>
 
 <!-- @sizes | row -->
-<span class="ui-tag ui-tag--sm">Small</span>
-<span class="ui-tag">Default</span>
-<span class="ui-tag ui-tag--lg">Large</span>
+<span class="ui-tag ui-tag--sm">{{ t('small', 'Small') }}</span>
+<span class="ui-tag">{{ t('default', 'Default') }}</span>
+<span class="ui-tag ui-tag--lg">{{ t('large', 'Large') }}</span>
 
 <!-- @variants | row -->
-<span class="ui-tag">Default</span>
-<span class="ui-tag ui-tag--primary">Primary</span>
-<span class="ui-tag ui-tag--success">Success</span>
-<span class="ui-tag ui-tag--warning">Warning</span>
-<span class="ui-tag ui-tag--danger">Danger</span>
+<span class="ui-tag">{{ t('default', 'Default') }}</span>
+<span class="ui-tag ui-tag--primary">{{ t('primary', 'Primary') }}</span>
+<span class="ui-tag ui-tag--success">{{ t('success', 'Success') }}</span>
+<span class="ui-tag ui-tag--warning">{{ t('warning', 'Warning') }}</span>
+<span class="ui-tag ui-tag--danger">{{ t('danger', 'Danger') }}</span>
 
 <!-- @with_remove_button -->
 <span class="ui-tag">
-  <span>Removable</span>
-  <button class="ui-tag__remove" aria-label="Remove">
+  <span>{{ t('removable', 'Removable') }}</span>
+  <button class="ui-tag__remove" aria-label="{{ t('remove', 'Remove') }}">
     <svg class="ui-icon ui-icon--xs" viewBox="0 0 24 24">
       <path d="M18 6 6 18M6 6l12 12"></path>
     </svg>
@@ -32,8 +32,8 @@ description: Keyword labels for categorization. Use for filtering, attributes, o
 
 <!-- @tag_group -->
 <div class="ui-tag-group">
-  <span class="ui-tag">JavaScript</span>
-  <span class="ui-tag">TypeScript</span>
-  <span class="ui-tag">React</span>
-  <span class="ui-tag">CSS</span>
+  <span class="ui-tag">{{ t('javascript', 'JavaScript') }}</span>
+  <span class="ui-tag">{{ t('typescript', 'TypeScript') }}</span>
+  <span class="ui-tag">{{ t('react', 'React') }}</span>
+  <span class="ui-tag">{{ t('css', 'CSS') }}</span>
 </div>

@@ -8,15 +8,15 @@ description: Structured modal with header, body, and footer sections. Use with m
   <div class="ui-modal ui-modal--visible" style="position: absolute;">
     <div class="ui-modal__content ui-dialog" style="max-height: 200px;">
       <header class="ui-dialog__header">
-        <h2 class="ui-dialog__title">Dialog Title</h2>
-        <button class="ui-button ui-button--ghost ui-button--sm ui-dialog__close">X</button>
+        <h2 class="ui-dialog__title">{{ t('dialog_title', 'Dialog Title') }}</h2>
+        <button class="ui-button ui-button--ghost ui-button--sm ui-dialog__close">{{ t('x', 'X') }}</button>
       </header>
       <div class="ui-dialog__body">
-        <p>Dialog content goes here.</p>
+        <p>{{ t('dialog_content_goes_here', 'Dialog content goes here.') }}</p>
       </div>
       <footer class="ui-dialog__footer">
-        <button class="ui-button ui-button--ghost">Cancel</button>
-        <button class="ui-button">Confirm</button>
+        <button class="ui-button ui-button--ghost">{{ t('cancel', 'Cancel') }}</button>
+        <button class="ui-button">{{ t('confirm', 'Confirm') }}</button>
       </footer>
     </div>
   </div>
@@ -27,13 +27,13 @@ description: Structured modal with header, body, and footer sections. Use with m
   <div class="ui-modal ui-modal--visible" style="position: absolute;">
     <div class="ui-modal__content ui-dialog ui-dialog--borderless" style="max-height: 180px;">
       <header class="ui-dialog__header">
-        <h2 class="ui-dialog__title">Simple Dialog</h2>
+        <h2 class="ui-dialog__title">{{ t('simple_dialog', 'Simple Dialog') }}</h2>
       </header>
       <div class="ui-dialog__body">
-        <p>Content without borders.</p>
+        <p>{{ t('content_without_borders', 'Content without borders.') }}</p>
       </div>
       <footer class="ui-dialog__footer">
-        <button class="ui-button">OK</button>
+        <button class="ui-button">{{ t('ok', 'OK') }}</button>
       </footer>
     </div>
   </div>
@@ -44,14 +44,14 @@ description: Structured modal with header, body, and footer sections. Use with m
   <div class="ui-modal ui-modal--sm ui-modal--visible" style="position: absolute;">
     <div class="ui-modal__content ui-dialog">
       <header class="ui-dialog__header">
-        <h2 class="ui-dialog__title">Delete Item?</h2>
+        <h2 class="ui-dialog__title">{{ t('delete_item', 'Delete Item?') }}</h2>
       </header>
       <div class="ui-dialog__body">
-        <p>This action cannot be undone.</p>
+        <p>{{ t('this_action_cannot_be_undone', 'This action cannot be undone.') }}</p>
       </div>
       <footer class="ui-dialog__footer">
-        <button class="ui-button ui-button--ghost">Cancel</button>
-        <button class="ui-button ui-button--danger">Delete</button>
+        <button class="ui-button ui-button--ghost">{{ t('cancel', 'Cancel') }}</button>
+        <button class="ui-button ui-button--danger">{{ t('delete', 'Delete') }}</button>
       </footer>
     </div>
   </div>

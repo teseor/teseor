@@ -6,43 +6,43 @@ description: Expandable/collapsible content section. Uses native details/summary
 <!-- @default -->
 <details class="ui-disclosure">
   <summary class="ui-disclosure__trigger">
-Click to expand
+{{ t('click_to_expand', 'Click to expand') }}
     <span class="ui-disclosure__icon">▾</span>
   </summary>
   <div class="ui-disclosure__content">
-    <p>Hidden content that expands when clicked.</p>
+    <p>{{ t('hidden_content_that_expands_when_clicked', 'Hidden content that expands when clicked.') }}</p>
   </div>
 </details>
 
 <!-- @open_by_default -->
 <details class="ui-disclosure" open>
   <summary class="ui-disclosure__trigger">
-Already expanded
+{{ t('already_expanded', 'Already expanded') }}
     <span class="ui-disclosure__icon">▾</span>
   </summary>
   <div class="ui-disclosure__content">
-    <p>This content is visible by default.</p>
+    <p>{{ t('this_content_is_visible_by_default', 'This content is visible by default.') }}</p>
   </div>
 </details>
 
 <!-- @borderless -->
 <details class="ui-disclosure ui-disclosure--borderless">
   <summary class="ui-disclosure__trigger">
-Borderless disclosure
+{{ t('borderless_disclosure', 'Borderless disclosure') }}
     <span class="ui-disclosure__icon">▾</span>
   </summary>
   <div class="ui-disclosure__content">
-    <p>No border around the disclosure.</p>
+    <p>{{ t('no_border_around_the_disclosure', 'No border around the disclosure.') }}</p>
   </div>
 </details>
 
 <!-- @animated -->
 <details class="ui-disclosure ui-disclosure--animate">
   <summary class="ui-disclosure__trigger">
-Animated expansion
+{{ t('animated_expansion', 'Animated expansion') }}
     <span class="ui-disclosure__icon">▾</span>
   </summary>
   <div class="ui-disclosure__content">
-    <p>Content animates in when opened.</p>
+    <p>{{ t('content_animates_in_when_opened', 'Content animates in when opened.') }}</p>
   </div>
 </details>

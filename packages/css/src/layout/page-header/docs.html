@@ -7,11 +7,11 @@ description: Content area header with title, description, actions, and optional 
 <!-- Title with actions on the end side. -->
 <header class="ui-page-header ui-page-header--bordered">
   <div class="ui-page-header__title">
-    <h1 class="ui-heading ui-heading--xl">Users</h1>
-    <p>Manage user accounts and permissions.</p>
+    <h1 class="ui-heading ui-heading--xl">{{ t('users', 'Users') }}</h1>
+    <p>{{ t('manage_user_accounts_and_permissions', 'Manage user accounts and permissions.') }}</p>
   </div>
   <div class="ui-page-header__actions">
-    <button class="ui-button ui-button--primary">Add user</button>
+    <button class="ui-button ui-button--primary">{{ t('add_user', 'Add user') }}</button>
   </div>
 </header>
 
@@ -19,13 +19,13 @@ description: Content area header with title, description, actions, and optional 
 <!-- Breadcrumb spans the full width above the title row. -->
 <header class="ui-page-header ui-page-header--bordered">
   <nav class="ui-page-header__breadcrumb">
-    <span>Home / Settings / Users</span>
+    <span>{{ t('home_settings_users', 'Home / Settings / Users') }}</span>
   </nav>
   <div class="ui-page-header__title">
-    <h1 class="ui-heading ui-heading--xl">Users</h1>
+    <h1 class="ui-heading ui-heading--xl">{{ t('users', 'Users') }}</h1>
   </div>
   <div class="ui-page-header__actions">
-    <button class="ui-button">Export</button>
+    <button class="ui-button">{{ t('export', 'Export') }}</button>
   </div>
 </header>
 
@@ -33,7 +33,7 @@ description: Content area header with title, description, actions, and optional 
 <!-- Bottom border via inset box-shadow. -->
 <header class="ui-page-header ui-page-header--bordered">
   <div class="ui-page-header__title">
-    <h1 class="ui-heading ui-heading--xl">Dashboard</h1>
+    <h1 class="ui-heading ui-heading--xl">{{ t('dashboard', 'Dashboard') }}</h1>
   </div>
 </header>
 
@@ -41,9 +41,9 @@ description: Content area header with title, description, actions, and optional 
 <!-- Sticks to the top of the scroll container. -->
 <header class="ui-page-header ui-page-header--sticky ui-page-header--bordered">
   <div class="ui-page-header__title">
-    <h1 class="ui-heading ui-heading--xl">Sticky Header</h1>
+    <h1 class="ui-heading ui-heading--xl">{{ t('sticky_header', 'Sticky Header') }}</h1>
   </div>
   <div class="ui-page-header__actions">
-    <button class="ui-button">Save</button>
+    <button class="ui-button">{{ t('save', 'Save') }}</button>
   </div>
 </header>

@@ -31,10 +31,10 @@ weight: 3
 <!-- @system_theme_detection -->
 <!-- Dark mode activates automatically when the OS is set to dark and no explicit data-theme attribute is present. Set data-theme to override. -->
 <div class="ui-card">
-  <p>Follows system preference when no data-theme is set</p>
+  <p>{{ t('follows_system_preference', 'Follows system preference when no data-theme is set') }}</p>
 </div>
 <div class="ui-card" data-theme="dark">
-  <p>Forced dark regardless of system preference</p>
+  <p>{{ t('forced_dark_regardless_of_system_preference', 'Forced dark regardless of system preference') }}</p>
 </div>
 // Explicit toggle (highest priority)
 [data-theme="dark"] {
@@ -53,10 +53,10 @@ weight: 3
 <!-- @focus_indicators -->
 <!-- All interactive elements use :focus-visible for keyboard-only focus rings. Mouse clicks do not show focus outlines. -->
 <div class="ui-row ui-row--sm">
-  <button class="ui-button ui-button--focus">Button</button>
-  <input class="ui-input ui-input--focus" placeholder="Input"></input>
+  <button class="ui-button ui-button--focus">{{ t('button', 'Button') }}</button>
+  <input class="ui-input ui-input--focus" placeholder="{{ t('input', 'Input') }}"></input>
   <select class="ui-select ui-select--focus">
-    <option>Select</option>
+    <option>{{ t('select', 'Select') }}</option>
   </select>
 </div>
 

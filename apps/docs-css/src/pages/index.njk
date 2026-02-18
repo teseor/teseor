@@ -4,14 +4,14 @@ title: Home
 permalink: /
 ---
 <section class="ui-docs-section">
-  <h2>Welcome to Teseor CSS</h2>
-  <p>A CSS-first component library with design tokens, layout primitives, and UI components.</p>
+  <h2>{{ t('welcome', 'Welcome to Teseor CSS') }}</h2>
+  <p>{{ t('welcome_description', 'A CSS-first component library with design tokens, layout primitives, and UI components.') }}</p>
 
   <div class="ui-column ui-column--lg ui-mt-4">
     {% set tokens = docs | byType('token') | sortByTitle %}
     {% if tokens.length > 0 %}
     <div>
-      <h3>Tokens ({{ tokens.length }})</h3>
+      <h3>{{ t('tokens', 'Tokens') }} ({{ tokens.length }})</h3>
       <ul class="ui-column ui-column--xs">
         {% for doc in tokens %}
         <li><a href="{{ doc.permalink | url }}">{{ doc.title }}</a></li>
@@ -23,7 +23,7 @@ permalink: /
     {% set primitives = docs | byType('primitive') | sortByTitle %}
     {% if primitives.length > 0 %}
     <div>
-      <h3>Primitives ({{ primitives.length }})</h3>
+      <h3>{{ t('primitives', 'Primitives') }} ({{ primitives.length }})</h3>
       <ul class="ui-column ui-column--xs">
         {% for doc in primitives %}
         <li><a href="{{ doc.permalink | url }}">{{ doc.title }}</a></li>
@@ -35,7 +35,7 @@ permalink: /
     {% set components = docs | byType('component') | sortByTitle %}
     {% if components.length > 0 %}
     <div>
-      <h3>Components ({{ components.length }})</h3>
+      <h3>{{ t('components', 'Components') }} ({{ components.length }})</h3>
       <ul class="ui-column ui-column--xs">
         {% for doc in components %}
         <li><a href="{{ doc.permalink | url }}">{{ doc.title }}</a></li>
@@ -47,7 +47,7 @@ permalink: /
     {% set utilities = docs | byType('utility') | sortByTitle %}
     {% if utilities.length > 0 %}
     <div>
-      <h3>Utilities ({{ utilities.length }})</h3>
+      <h3>{{ t('utilities', 'Utilities') }} ({{ utilities.length }})</h3>
       <ul class="ui-column ui-column--xs">
         {% for doc in utilities %}
         <li><a href="{{ doc.permalink | url }}">{{ doc.title }}</a></li>

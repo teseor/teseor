@@ -6,92 +6,92 @@ mergeInto: radio
 
 <!-- @default -->
 <fieldset class="ui-radio-group">
-  <legend class="ui-radio-group__legend">Payment method</legend>
+  <legend class="ui-radio-group__legend">{{ t('payment_method', 'Payment method') }}</legend>
   <div class="ui-radio-group__items">
     <label class="ui-radio-group__item">
       <input class="ui-radio" type="radio" name="payment" checked></input>
-      <span>Credit card</span>
+      <span>{{ t('credit_card', 'Credit card') }}</span>
     </label>
     <label class="ui-radio-group__item">
       <input class="ui-radio" type="radio" name="payment"></input>
-      <span>Debit card</span>
+      <span>{{ t('debit_card', 'Debit card') }}</span>
     </label>
     <label class="ui-radio-group__item">
       <input class="ui-radio" type="radio" name="payment"></input>
-      <span>Bank transfer</span>
+      <span>{{ t('bank_transfer', 'Bank transfer') }}</span>
     </label>
   </div>
 </fieldset>
 
 <!-- @horizontal -->
 <fieldset class="ui-radio-group ui-radio-group--horizontal">
-  <legend class="ui-radio-group__legend">Size</legend>
+  <legend class="ui-radio-group__legend">{{ t('size', 'Size') }}</legend>
   <div class="ui-radio-group__items">
     <label class="ui-radio-group__item">
       <input class="ui-radio" type="radio" name="size" checked></input>
-      <span>Small</span>
+      <span>{{ t('small', 'Small') }}</span>
     </label>
     <label class="ui-radio-group__item">
       <input class="ui-radio" type="radio" name="size"></input>
-      <span>Medium</span>
+      <span>{{ t('medium', 'Medium') }}</span>
     </label>
     <label class="ui-radio-group__item">
       <input class="ui-radio" type="radio" name="size"></input>
-      <span>Large</span>
+      <span>{{ t('large', 'Large') }}</span>
     </label>
   </div>
 </fieldset>
 
 <!-- @compact -->
 <fieldset class="ui-radio-group ui-radio-group--compact">
-  <legend class="ui-radio-group__legend">Priority</legend>
+  <legend class="ui-radio-group__legend">{{ t('priority', 'Priority') }}</legend>
   <div class="ui-radio-group__items">
     <label class="ui-radio-group__item">
       <input class="ui-radio" type="radio" name="priority" checked></input>
-      <span>Low</span>
+      <span>{{ t('low', 'Low') }}</span>
     </label>
     <label class="ui-radio-group__item">
       <input class="ui-radio" type="radio" name="priority"></input>
-      <span>Medium</span>
+      <span>{{ t('medium', 'Medium') }}</span>
     </label>
     <label class="ui-radio-group__item">
       <input class="ui-radio" type="radio" name="priority"></input>
-      <span>High</span>
+      <span>{{ t('high', 'High') }}</span>
     </label>
   </div>
 </fieldset>
 
 <!-- @error_state -->
 <fieldset class="ui-radio-group ui-radio-group--error">
-  <legend class="ui-radio-group__legend">Shipping</legend>
+  <legend class="ui-radio-group__legend">{{ t('shipping', 'Shipping') }}</legend>
   <div class="ui-radio-group__items">
     <label class="ui-radio-group__item">
       <input class="ui-radio ui-radio--error" type="radio" name="shipping"></input>
-      <span>Standard</span>
+      <span>{{ t('standard', 'Standard') }}</span>
     </label>
     <label class="ui-radio-group__item">
       <input class="ui-radio ui-radio--error" type="radio" name="shipping"></input>
-      <span>Express</span>
+      <span>{{ t('express', 'Express') }}</span>
     </label>
   </div>
-  <span class="ui-form-error">Please select a shipping method</span>
+  <span class="ui-form-error">{{ t('please_select_a_shipping_method', 'Please select a shipping method') }}</span>
 </fieldset>
 
 <!-- @disabled -->
 <fieldset class="ui-radio-group" disabled>
-  <legend class="ui-radio-group__legend">Plan (locked)</legend>
+  <legend class="ui-radio-group__legend">{{ t('plan_locked', 'Plan (locked)') }}</legend>
   <div class="ui-radio-group__items">
     <label class="ui-radio-group__item">
       <input class="ui-radio" type="radio" name="plan" checked></input>
-      <span>Free</span>
+      <span>{{ t('free', 'Free') }}</span>
     </label>
     <label class="ui-radio-group__item">
       <input class="ui-radio" type="radio" name="plan"></input>
-      <span>Pro</span>
+      <span>{{ t('pro', 'Pro') }}</span>
     </label>
     <label class="ui-radio-group__item">
       <input class="ui-radio" type="radio" name="plan"></input>
-      <span>Enterprise</span>
+      <span>{{ t('enterprise', 'Enterprise') }}</span>
     </label>
   </div>
 </fieldset>

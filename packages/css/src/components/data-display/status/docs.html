@@ -7,23 +7,23 @@ description: Visual status indicator with colored dot to show state.
 <div style="display: flex; flex-direction: column; gap: var(--ui-space-2);">
   <span class="ui-status">
     <span class="ui-status__dot"></span>
-Default
+{{ t('default', 'Default') }}
   </span>
   <span class="ui-status ui-status--success">
     <span class="ui-status__dot"></span>
-Online
+{{ t('online', 'Online') }}
   </span>
   <span class="ui-status ui-status--warning">
     <span class="ui-status__dot"></span>
-Away
+{{ t('away', 'Away') }}
   </span>
   <span class="ui-status ui-status--danger">
     <span class="ui-status__dot"></span>
-Busy
+{{ t('busy', 'Busy') }}
   </span>
   <span class="ui-status ui-status--info">
     <span class="ui-status__dot"></span>
-In a meeting
+{{ t('in_a_meeting', 'In a meeting') }}
   </span>
 </div>
 
@@ -31,15 +31,15 @@ In a meeting
 <div style="display: flex; gap: var(--ui-space-4); align-items: center;">
   <span class="ui-status ui-status--success ui-status--sm">
     <span class="ui-status__dot"></span>
-Small
+{{ t('small', 'Small') }}
   </span>
   <span class="ui-status ui-status--success">
     <span class="ui-status__dot"></span>
-Default
+{{ t('default', 'Default') }}
   </span>
   <span class="ui-status ui-status--success ui-status--lg">
     <span class="ui-status__dot"></span>
-Large
+{{ t('large', 'Large') }}
   </span>
 </div>
 
@@ -47,7 +47,7 @@ Large
 <!-- For live or active indicators -->
 <span class="ui-status ui-status--success ui-status--pulse">
   <span class="ui-status__dot"></span>
-Live
+{{ t('live', 'Live') }}
 </span>
 
 <!-- @dot_only -->

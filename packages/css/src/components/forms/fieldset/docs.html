@@ -5,17 +5,17 @@ description: Groups related form fields with an optional legend and border.
 
 <!-- @default -->
 <fieldset class="ui-fieldset">
-  <legend class="ui-fieldset__legend">Personal Information</legend>
+  <legend class="ui-fieldset__legend">{{ t('personal_information', 'Personal Information') }}</legend>
   <div class="ui-field">
-    <label class="ui-label" for="fname">First Name</label>
+    <label class="ui-label" for="fname">{{ t('first_name', 'First Name') }}</label>
     <div class="ui-field__control">
-      <input class="ui-input" type="text" id="fname" placeholder="Jane"></input>
+      <input class="ui-input" type="text" id="fname" placeholder="{{ t('jane', 'Jane') }}"></input>
     </div>
   </div>
   <div class="ui-field">
-    <label class="ui-label" for="lname">Last Name</label>
+    <label class="ui-label" for="lname">{{ t('last_name', 'Last Name') }}</label>
     <div class="ui-field__control">
-      <input class="ui-input" type="text" id="lname" placeholder="Doe"></input>
+      <input class="ui-input" type="text" id="lname" placeholder="{{ t('doe', 'Doe') }}"></input>
     </div>
   </div>
 </fieldset>
@@ -23,17 +23,17 @@ description: Groups related form fields with an optional legend and border.
 <!-- @bordered -->
 <!-- Visible border wrapping the field group -->
 <fieldset class="ui-fieldset ui-fieldset--bordered">
-  <legend class="ui-fieldset__legend">Shipping Address</legend>
+  <legend class="ui-fieldset__legend">{{ t('shipping_address', 'Shipping Address') }}</legend>
   <div class="ui-field">
-    <label class="ui-label" for="street">Street</label>
+    <label class="ui-label" for="street">{{ t('street', 'Street') }}</label>
     <div class="ui-field__control">
-      <input class="ui-input" type="text" id="street" placeholder="123 Example St"></input>
+      <input class="ui-input" type="text" id="street" placeholder="{{ t('123_example_st', '123 Example St') }}"></input>
     </div>
   </div>
   <div class="ui-field">
-    <label class="ui-label" for="city">City</label>
+    <label class="ui-label" for="city">{{ t('city', 'City') }}</label>
     <div class="ui-field__control">
-      <input class="ui-input" type="text" id="city" placeholder="Springfield"></input>
+      <input class="ui-input" type="text" id="city" placeholder="{{ t('springfield', 'Springfield') }}"></input>
     </div>
   </div>
 </fieldset>
@@ -41,22 +41,22 @@ description: Groups related form fields with an optional legend and border.
 <!-- @compact -->
 <!-- Reduced spacing for dense forms -->
 <fieldset class="ui-fieldset ui-fieldset--compact">
-  <legend class="ui-fieldset__legend">Preferences</legend>
+  <legend class="ui-fieldset__legend">{{ t('preferences', 'Preferences') }}</legend>
   <div class="ui-field">
-    <label class="ui-label" for="lang">Language</label>
+    <label class="ui-label" for="lang">{{ t('language', 'Language') }}</label>
     <div class="ui-field__control">
       <select class="ui-select" id="lang">
-        <option>English</option>
-        <option>Spanish</option>
+        <option>{{ t('english', 'English') }}</option>
+        <option>{{ t('spanish', 'Spanish') }}</option>
       </select>
     </div>
   </div>
   <div class="ui-field">
-    <label class="ui-label" for="tz">Timezone</label>
+    <label class="ui-label" for="tz">{{ t('timezone', 'Timezone') }}</label>
     <div class="ui-field__control">
       <select class="ui-select" id="tz">
-        <option>UTC-5 Eastern</option>
-        <option>UTC-8 Pacific</option>
+        <option>{{ t('utc_5_eastern', 'UTC-5 Eastern') }}</option>
+        <option>{{ t('utc_8_pacific', 'UTC-8 Pacific') }}</option>
       </select>
     </div>
   </div>
@@ -65,17 +65,17 @@ description: Groups related form fields with an optional legend and border.
 <!-- @bordered_compact -->
 <!-- Bordered with reduced spacing -->
 <fieldset class="ui-fieldset ui-fieldset--bordered ui-fieldset--compact">
-  <legend class="ui-fieldset__legend">Payment</legend>
+  <legend class="ui-fieldset__legend">{{ t('payment', 'Payment') }}</legend>
   <div class="ui-field">
-    <label class="ui-label" for="card">Card Number</label>
+    <label class="ui-label" for="card">{{ t('card_number', 'Card Number') }}</label>
     <div class="ui-field__control">
-      <input class="ui-input" type="text" id="card" placeholder="4242 4242 4242 4242"></input>
+      <input class="ui-input" type="text" id="card" placeholder="{{ t('4242_4242_4242_4242', '4242 4242 4242 4242') }}"></input>
     </div>
   </div>
   <div class="ui-field">
-    <label class="ui-label" for="exp">Expiry</label>
+    <label class="ui-label" for="exp">{{ t('expiry', 'Expiry') }}</label>
     <div class="ui-field__control">
-      <input class="ui-input" type="text" id="exp" placeholder="MM/YY"></input>
+      <input class="ui-input" type="text" id="exp" placeholder="{{ t('mmyy', 'MM/YY') }}"></input>
     </div>
   </div>
 </fieldset>
@@ -83,15 +83,15 @@ description: Groups related form fields with an optional legend and border.
 <!-- @disabled -->
 <!-- Native disabled attribute disables all child controls -->
 <fieldset class="ui-fieldset ui-fieldset--bordered" disabled>
-  <legend class="ui-fieldset__legend">Account (locked)</legend>
+  <legend class="ui-fieldset__legend">{{ t('account_locked', 'Account (locked)') }}</legend>
   <div class="ui-field">
-    <label class="ui-label" for="uname">Username</label>
+    <label class="ui-label" for="uname">{{ t('username', 'Username') }}</label>
     <div class="ui-field__control">
       <input class="ui-input" type="text" id="uname" value="janedoe"></input>
     </div>
   </div>
   <div class="ui-field">
-    <label class="ui-label" for="role">Role</label>
+    <label class="ui-label" for="role">{{ t('role', 'Role') }}</label>
     <div class="ui-field__control">
       <input class="ui-input" type="text" id="role" value="Editor"></input>
     </div>
@@ -102,17 +102,17 @@ description: Groups related form fields with an optional legend and border.
 <!-- Fieldset as a spacing container without visible legend -->
 <fieldset class="ui-fieldset">
   <div class="ui-field">
-    <label class="ui-label" for="search">Search</label>
+    <label class="ui-label" for="search">{{ t('search', 'Search') }}</label>
     <div class="ui-field__control">
-      <input class="ui-input" type="search" id="search" placeholder="Search..."></input>
+      <input class="ui-input" type="search" id="search" placeholder="{{ t('search', 'Search...') }}"></input>
     </div>
   </div>
   <div class="ui-field">
-    <label class="ui-label" for="cat">Category</label>
+    <label class="ui-label" for="cat">{{ t('category', 'Category') }}</label>
     <div class="ui-field__control">
       <select class="ui-select" id="cat">
-        <option>All</option>
-        <option>Articles</option>
+        <option>{{ t('all', 'All') }}</option>
+        <option>{{ t('articles', 'Articles') }}</option>
       </select>
     </div>
   </div>

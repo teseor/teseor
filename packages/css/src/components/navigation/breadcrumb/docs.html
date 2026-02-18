@@ -4,22 +4,22 @@ description: Navigation hierarchy showing current page location in site structur
 ---
 
 <!-- @default -->
-<nav class="ui-breadcrumb" aria-label="Breadcrumb">
+<nav class="ui-breadcrumb" aria-label="{{ t('breadcrumb', 'Breadcrumb') }}">
   <ol class="ui-breadcrumb">
     <li class="ui-breadcrumb__item">
-      <a class="ui-breadcrumb__link" href="#">Home</a>
+      <a class="ui-breadcrumb__link" href="#">{{ t('home', 'Home') }}</a>
     </li>
     <li class="ui-breadcrumb__item">
-      <a class="ui-breadcrumb__link" href="#">Products</a>
+      <a class="ui-breadcrumb__link" href="#">{{ t('products', 'Products') }}</a>
     </li>
     <li class="ui-breadcrumb__item">
-      <span class="ui-breadcrumb__current" aria-current="page">Shoes</span>
+      <span class="ui-breadcrumb__current" aria-current="page">{{ t('shoes', 'Shoes') }}</span>
     </li>
   </ol>
 </nav>
 
 <!-- @with_icons -->
-<nav aria-label="Breadcrumb">
+<nav aria-label="{{ t('breadcrumb', 'Breadcrumb') }}">
   <ol class="ui-breadcrumb">
     <li class="ui-breadcrumb__item">
       <a class="ui-breadcrumb__link" href="#">
@@ -29,29 +29,29 @@ description: Navigation hierarchy showing current page location in site structur
       </a>
     </li>
     <li class="ui-breadcrumb__item">
-      <a class="ui-breadcrumb__link" href="#">Settings</a>
+      <a class="ui-breadcrumb__link" href="#">{{ t('settings', 'Settings') }}</a>
     </li>
     <li class="ui-breadcrumb__item">
-      <span class="ui-breadcrumb__current" aria-current="page">Profile</span>
+      <span class="ui-breadcrumb__current" aria-current="page">{{ t('profile', 'Profile') }}</span>
     </li>
   </ol>
 </nav>
 
 <!-- @overflow_with_ellipsis -->
 <!-- Truncate long breadcrumbs with hidden items and an ellipsis indicator. -->
-<nav aria-label="Breadcrumb">
+<nav aria-label="{{ t('breadcrumb', 'Breadcrumb') }}">
   <ol class="ui-breadcrumb">
     <li class="ui-breadcrumb__item">
-      <a class="ui-breadcrumb__link" href="#">Home</a>
+      <a class="ui-breadcrumb__link" href="#">{{ t('home', 'Home') }}</a>
     </li>
     <li class="ui-breadcrumb__item ui-breadcrumb__item--hidden">
-      <a class="ui-breadcrumb__link" href="#">Category</a>
+      <a class="ui-breadcrumb__link" href="#">{{ t('category', 'Category') }}</a>
     </li>
     <li class="ui-breadcrumb__item">
       <span class="ui-breadcrumb__ellipsis">...</span>
     </li>
     <li class="ui-breadcrumb__item">
-      <span class="ui-breadcrumb__current" aria-current="page">Current Page</span>
+      <span class="ui-breadcrumb__current" aria-current="page">{{ t('current_page', 'Current Page') }}</span>
     </li>
   </ol>
 </nav>

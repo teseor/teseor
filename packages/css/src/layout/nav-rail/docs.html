@@ -7,12 +7,12 @@ description: Narrow fixed vertical navigation rail for icon-based navigation wit
 <!-- Fixed narrow rail with icon items and bottom actions. -->
 <nav class="ui-nav-rail" style="0: p; 1: o; 2: s; 3: i; 4: t; 5: i; 6: o; 7: n; 8: :; 9:  ; 10: r; 11: e; 12: l; 13: a; 14: t; 15: i; 16: v; 17: e; 18: ;; 19:  ; 20: b; 21: l; 22: o; 23: c; 24: k; 25: -; 26: s; 27: i; 28: z; 29: e; 30: :; 31:  ; 32: 3; 33: 2; 34: 0; 35: p; 36: x">
   <div class="ui-nav-rail__items">
-    <button class="ui-button ui-button--ghost ui-button--icon">H</button>
-    <button class="ui-button ui-button--ghost ui-button--icon">S</button>
-    <button class="ui-button ui-button--ghost ui-button--icon">M</button>
+    <button class="ui-button ui-button--ghost ui-button--icon">{{ t('h', 'H') }}</button>
+    <button class="ui-button ui-button--ghost ui-button--icon">{{ t('s', 'S') }}</button>
+    <button class="ui-button ui-button--ghost ui-button--icon">{{ t('m', 'M') }}</button>
   </div>
   <div class="ui-nav-rail__actions">
-    <button class="ui-button ui-button--ghost ui-button--icon">G</button>
+    <button class="ui-button ui-button--ghost ui-button--icon">{{ t('g', 'G') }}</button>
   </div>
 </nav>
 
@@ -31,7 +31,7 @@ description: Narrow fixed vertical navigation rail for icon-based navigation wit
 <!-- Nav rail respects --topbar-height, offsetting below the topbar. -->
 <body class="ui-app-shell" style="--topbar-height: var(--ui-row-3)">
   <header class="ui-topbar ui-topbar--fixed ui-topbar--bordered">
-    <div class="ui-topbar__start"><strong>App</strong></div>
+    <div class="ui-topbar__start"><strong>{{ t('app', 'App') }}</strong></div>
   </header>
   <nav class="ui-nav-rail">
     <div class="ui-nav-rail__items"><!-- icons --></div>

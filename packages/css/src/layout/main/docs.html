@@ -7,7 +7,7 @@ description: Main content area that accounts for sidebar and topbar offsets in a
 <!-- Offsets content for a start-side sidebar and optional topbar. -->
 <div style="position: relative; height: var(--ui-row-4)">
   <main class="ui-main" style="background: var(--ui-color-bg-muted); padding: var(--ui-space-2)">
-    <p>Main content area</p>
+    <p>{{ t('main_content_area', 'Main content area') }}</p>
   </main>
 </div>
 
@@ -15,7 +15,7 @@ description: Main content area that accounts for sidebar and topbar offsets in a
 <!-- Offsets content for an end-side sidebar instead of start. -->
 <div style="position: relative; height: var(--ui-row-4)">
   <main class="ui-main ui-main--sidebar-end" style="background: var(--ui-color-bg-muted); padding: var(--ui-space-2)">
-    <p>Content with end sidebar</p>
+    <p>{{ t('content_with_end_sidebar', 'Content with end sidebar') }}</p>
   </main>
 </div>
 
@@ -23,6 +23,6 @@ description: Main content area that accounts for sidebar and topbar offsets in a
 <!-- No sidebar offset. Use when there is no sidebar. -->
 <div style="position: relative; height: var(--ui-row-4)">
   <main class="ui-main ui-main--full" style="background: var(--ui-color-bg-muted); padding: var(--ui-space-2)">
-    <p>Full width content</p>
+    <p>{{ t('full_width_content', 'Full width content') }}</p>
   </main>
 </div>

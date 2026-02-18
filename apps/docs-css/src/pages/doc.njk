@@ -35,10 +35,10 @@ eleventyComputed:
 
       <div class="ui-tabs ui-mb-2">
         <div class="ui-tabs__list">
-          <button class="ui-tabs__tab ui-tabs__tab--active">Preview</button>
-          <button class="ui-tabs__tab">{% if showCssProps %}CSS{% else %}HTML{% endif %}</button>
+          <button class="ui-tabs__tab ui-tabs__tab--active">{{ t('preview', 'Preview') }}</button>
+          <button class="ui-tabs__tab">{% if showCssProps %}{{ t('css', 'CSS') }}{% else %}{{ t('html', 'HTML') }}{% endif %}</button>
           {% if showCustomization %}
-          <button class="ui-tabs__tab">Customization</button>
+          <button class="ui-tabs__tab">{{ t('customization', 'Customization') }}</button>
           {% endif %}
         </div>
         <div class="ui-tabs__panel ui-tabs__panel--active">
@@ -47,10 +47,10 @@ eleventyComputed:
         <div class="ui-tabs__panel">
           {% if showCssProps %}
             {# CSS Props Table #}
-            <h4>Base</h4>
+            <h4>{{ t('base', 'Base') }}</h4>
             <table class="ui-table ui-table--compact">
-              <thead><tr><th>Class</th><th>Description</th></tr></thead>
-              <tbody><tr><td><code>.ui-{{ doc.api.name }}</code></td><td>Base class</td></tr></tbody>
+              <thead><tr><th>{{ t('class', 'Class') }}</th><th>{{ t('description', 'Description') }}</th></tr></thead>
+              <tbody><tr><td><code>.ui-{{ doc.api.name }}</code></td><td>{{ t('base_class', 'Base class') }}</td></tr></tbody>
             </table>
             {% if doc.api.modifiers %}
               {% for groupName, def in doc.api.modifiers %}
@@ -59,7 +59,7 @@ eleventyComputed:
                 <h4>{{ heading }}</h4>
                 {% if def.usage %}<p>{{ def.usage }}</p>{% endif %}
                 <table class="ui-table ui-table--compact">
-                  <thead><tr><th>Class</th><th>Value</th></tr></thead>
+                  <thead><tr><th>{{ t('class', 'Class') }}</th><th>{{ t('value', 'Value') }}</th></tr></thead>
                   <tbody>
                     {% for val in def.values %}
                     <tr><td><code>.ui-{{ doc.api.name }}--{{ val }}</code></td><td>{{ val }}</td></tr>
@@ -70,7 +70,7 @@ eleventyComputed:
                 <h4>{{ heading }}</h4>
                 {% if def.usage %}<p>{{ def.usage }}</p>{% endif %}
                 <table class="ui-table ui-table--compact">
-                  <thead><tr><th>Class</th><th>Description</th></tr></thead>
+                  <thead><tr><th>{{ t('class', 'Class') }}</th><th>{{ t('description', 'Description') }}</th></tr></thead>
                   <tbody><tr><td><code>.ui-{{ doc.api.name }}--{{ groupName }}</code></td><td>{{ def.usage or groupName }}</td></tr></tbody>
                 </table>
                 {% endif %}
@@ -82,17 +82,17 @@ eleventyComputed:
         </div>
         {% if showCustomization %}
         <div class="ui-tabs__panel">
-          <p>Override these CSS custom properties to customize the component.</p>
+          <p>{{ t('customization_hint', 'Override these CSS custom properties to customize the component.') }}</p>
           <table class="ui-table">
             <thead>
-              <tr><th>Token</th><th>Default</th><th>Description</th></tr>
+              <tr><th>{{ t('token', 'Token') }}</th><th>{{ t('default', 'Default') }}</th><th>{{ t('description', 'Description') }}</th></tr>
             </thead>
             <tbody>
-              {% for t in doc.customization %}
+              {% for prop in doc.customization %}
               <tr>
-                <td><code>{{ t.token }}</code></td>
-                <td><code>{{ t.default }}</code></td>
-                <td>{{ t.description }}</td>
+                <td><code>{{ prop.token }}</code></td>
+                <td><code>{{ prop.default }}</code></td>
+                <td>{{ prop.description }}</td>
               </tr>
               {% endfor %}
             </tbody>

@@ -6,33 +6,33 @@ description: Constrains a container to a specific aspect ratio. Media children f
 <!-- @presets -->
 <div class="ui-row ui-row--md">
   <div class="ui-aspect-ratio ui-aspect-ratio--square" style="inline-size: 160px; background: var(--ui-color-bg-muted)">
-    <span style="padding: var(--ui-space-2)">square</span>
+    <span style="padding: var(--ui-space-2)">{{ t('square', 'square') }}</span>
   </div>
   <div class="ui-aspect-ratio ui-aspect-ratio--video" style="inline-size: 160px; background: var(--ui-color-bg-muted)">
-    <span style="padding: var(--ui-space-2)">video</span>
+    <span style="padding: var(--ui-space-2)">{{ t('video', 'video') }}</span>
   </div>
   <div class="ui-aspect-ratio ui-aspect-ratio--photo" style="inline-size: 160px; background: var(--ui-color-bg-muted)">
-    <span style="padding: var(--ui-space-2)">photo</span>
+    <span style="padding: var(--ui-space-2)">{{ t('photo', 'photo') }}</span>
   </div>
   <div class="ui-aspect-ratio ui-aspect-ratio--wide" style="inline-size: 160px; background: var(--ui-color-bg-muted)">
-    <span style="padding: var(--ui-space-2)">wide</span>
+    <span style="padding: var(--ui-space-2)">{{ t('wide', 'wide') }}</span>
   </div>
   <div class="ui-aspect-ratio ui-aspect-ratio--portrait" style="inline-size: 160px; background: var(--ui-color-bg-muted)">
-    <span style="padding: var(--ui-space-2)">portrait</span>
+    <span style="padding: var(--ui-space-2)">{{ t('portrait', 'portrait') }}</span>
   </div>
 </div>
 
 <!-- @with_media -->
 <div class="ui-row ui-row--md">
   <div class="ui-aspect-ratio ui-aspect-ratio--video" style="inline-size: 240px">
-    <div style="inline-size: 100%; block-size: 100%; background: var(--ui-color-primary); color: var(--ui-color-on-primary); display: grid; place-items: center">img (video)</div>
+    <div style="inline-size: 100%; block-size: 100%; background: var(--ui-color-primary); color: var(--ui-color-on-primary); display: grid; place-items: center">{{ t('img_video', 'img (video)') }}</div>
   </div>
   <div class="ui-aspect-ratio ui-aspect-ratio--square" style="inline-size: 240px">
-    <div style="inline-size: 100%; block-size: 100%; background: var(--ui-color-primary); color: var(--ui-color-on-primary); display: grid; place-items: center">img (square)</div>
+    <div style="inline-size: 100%; block-size: 100%; background: var(--ui-color-primary); color: var(--ui-color-on-primary); display: grid; place-items: center">{{ t('img_square', 'img (square)') }}</div>
   </div>
 </div>
 
 <!-- @custom_ratio -->
 <div class="ui-aspect-ratio" style="--ui-aspect-ratio: 2.35 / 1; inline-size: 320px; background: var(--ui-color-bg-muted)">
-  <span style="padding: var(--ui-space-2)">2.35:1 (cinemascope)</span>
+  <span style="padding: var(--ui-space-2)">{{ t('2351_cinemascope', '2.35:1 (cinemascope)') }}</span>
 </div>

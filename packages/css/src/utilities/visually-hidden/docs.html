@@ -7,10 +7,10 @@ description: Hides content visually while keeping it accessible to screen reader
 <!-- @default -->
 <!-- Content is hidden visually but announced by screen readers -->
 <button>
-Submit
-  <span class="ui-visually-hidden"> form to contact support</span>
+{{ t('submit', 'Submit') }}
+  <span class="ui-visually-hidden"> {{ t('form_to_contact_support', 'form to contact support') }}</span>
 </button>
 
 <!-- @focusable_skip_link -->
 <!-- Becomes visible when focused - useful for skip links -->
-<a class="ui-visually-hidden ui-visually-hidden--focusable" href="#main" style="position: relative;">Skip to main content</a>
+<a class="ui-visually-hidden ui-visually-hidden--focusable" href="#main" style="position: relative;">{{ t('skip_to_main_content', 'Skip to main content') }}</a>
