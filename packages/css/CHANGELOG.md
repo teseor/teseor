@@ -1,5 +1,11 @@
 # @teseor/css
 
+## 1.15.1
+
+### Patch Changes
+
+- 6b75a3c: Rename colocated files to generic names (api.json, docs.html, visual.spec.ts, visual.png) and auto-derive type/id from folder path
+
 ## 1.15.0
 
 ### Minor Changes
