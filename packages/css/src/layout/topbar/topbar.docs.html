@@ -1,0 +1,64 @@
+---
+title: Topbar
+type: primitive
+id: topbar
+description: Fixed or sticky header bar for app layouts with start, center, and end sections.
+api: ./topbar.api.json
+---
+
+<!-- @default -->
+<!-- Basic topbar with three sections: start (brand), center (search/nav), and end (actions). -->
+<header class="ui-topbar ui-topbar--bordered">
+  <div class="ui-topbar__start">
+    <strong>Brand</strong>
+  </div>
+  <div class="ui-topbar__center">
+    <span>Center content</span>
+  </div>
+  <div class="ui-topbar__end">
+    <span>Actions</span>
+  </div>
+</header>
+
+<!-- @sticky -->
+<!-- Stays at the top of the viewport on scroll. -->
+<header class="ui-topbar ui-topbar--sticky ui-topbar--bordered">
+  <div class="ui-topbar__start"><strong>Brand</strong></div>
+  <div class="ui-topbar__center">Nav</div>
+  <div class="ui-topbar__end">Actions</div>
+</header>
+
+<!-- @bordered -->
+<!-- Bottom border via inset box-shadow to preserve grid rhythm. -->
+<header class="ui-topbar ui-topbar--bordered">
+  <div class="ui-topbar__start">
+    <strong>Bordered</strong>
+  </div>
+  <div class="ui-topbar__end">
+    <span>Actions</span>
+  </div>
+</header>
+
+<!-- @raised -->
+<!-- Subtle drop shadow below the topbar. -->
+<header class="ui-topbar ui-topbar--raised">
+  <div class="ui-topbar__start">
+    <strong>Raised</strong>
+  </div>
+  <div class="ui-topbar__end">
+    <span>Actions</span>
+  </div>
+</header>
+
+<!-- @integration_with_sidebar -->
+<!-- Set --topbar-height on .app-shell so sidebar and main offset correctly. The topbar itself uses --fixed, and sidebar/main read --topbar-height. -->
+<body class="ui-app-shell" style="--topbar-height: var(--ui-row-3)">
+  <header class="ui-topbar ui-topbar--fixed ui-topbar--bordered">
+    <div class="ui-topbar__start"><strong>App</strong></div>
+    <div class="ui-topbar__end">User</div>
+  </header>
+  <aside class="ui-sidebar">Sidebar</aside>
+  <main class="ui-main">
+    <div class="ui-container">Content</div>
+  </main>
+</body>

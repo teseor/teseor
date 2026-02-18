@@ -1,0 +1,33 @@
+---
+title: Tooltip
+type: component
+id: tooltip
+description: Small informational popup for additional context. Position via JS.
+api: ./tooltip.api.json
+---
+
+<!-- @positions -->
+<div style="display: flex; gap: var(--ui-space-4); padding: var(--ui-space-4); flex-wrap: wrap;">
+  <div style="position: relative;">
+    <span class="ui-tooltip ui-tooltip--top" style="position: relative;">Top</span>
+  </div>
+  <div style="position: relative;">
+    <span class="ui-tooltip ui-tooltip--bottom" style="position: relative;">Bottom</span>
+  </div>
+  <div style="position: relative;">
+    <span class="ui-tooltip ui-tooltip--start" style="position: relative;">Start</span>
+  </div>
+  <div style="position: relative;">
+    <span class="ui-tooltip ui-tooltip--end" style="position: relative;">End</span>
+  </div>
+</div>
+
+<!-- @with_animation -->
+<span class="ui-tooltip ui-tooltip--top ui-tooltip--animate ui-tooltip--visible" style="position: relative;">Animated tooltip</span>
+
+<!-- @anchor_positioned -->
+<!-- Browser-native positioning via CSS Anchor Positioning. No JS needed for placement. Wrapped in @supports — falls back to manual positioning in unsupported browsers. -->
+<div style="position: relative; padding: var(--ui-space-4); display: flex; gap: var(--ui-space-4);">
+  <button class="ui-button" style="anchor-name: --tooltip;">Hover me</button>
+  <span class="ui-tooltip ui-tooltip--anchored ui-tooltip--visible">Anchored tooltip</span>
+</div>

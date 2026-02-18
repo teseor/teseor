@@ -1,0 +1,108 @@
+---
+title: Accessibility
+type: guide
+id: accessibility
+description: Built-in accessibility features: reduced motion, system theme detection, high contrast, and keyboard focus indicators
+skipValidation: true
+weight: 3
+---
+
+<!-- @reduced_motion -->
+<!-- All animations and transitions respect prefers-reduced-motion. Duration tokens are set to 0ms, and component animations are disabled with animation: none. -->
+// Motion tokens (config/tokens/motion)
+:root {
+  --ui-duration-fast: 100ms;
+  --ui-duration-base: 150ms;
+  --ui-duration-slow: 250ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --ui-duration-fast: 0ms;
+    --ui-duration-base: 0ms;
+    --ui-duration-slow: 0ms;
+  }
+}
+// Example: spinner
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+  }
+}
+
+<!-- @system_theme_detection -->
+<!-- Dark mode activates automatically when the OS is set to dark and no explicit data-theme attribute is present. Set data-theme to override. -->
+<div class="ui-card">
+  <p>Follows system preference when no data-theme is set</p>
+</div>
+<div class="ui-card" data-theme="dark">
+  <p>Forced dark regardless of system preference</p>
+</div>
+// Explicit toggle (highest priority)
+[data-theme="dark"] {
+  --ui-color-bg: var(--ui-color-neutral-900);
+  ...
+}
+
+// Auto-detect (only when no data-theme is set)
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --ui-color-bg: var(--ui-color-neutral-900);
+    ...
+  }
+}
+
+<!-- @focus_indicators -->
+<!-- All interactive elements use :focus-visible for keyboard-only focus rings. Mouse clicks do not show focus outlines. -->
+<div class="ui-row ui-row--sm">
+  <button class="ui-button ui-button--focus">Button</button>
+  <input class="ui-input ui-input--focus" placeholder="Input"></input>
+  <select class="ui-select ui-select--focus">
+    <option>Select</option>
+  </select>
+</div>
+
+<!-- @contrast_preference -->
+<!-- Adapts border visibility, muted text, and subtle backgrounds when users request more or less contrast via OS settings. -->
+@media (prefers-contrast: more) {
+  :root {
+    --ui-color-border: var(--ui-color-neutral-400);
+    --ui-color-border-strong: var(--ui-color-neutral-600);
+    --ui-color-text-muted: var(--ui-color-neutral-600);
+    --ui-color-bg-subtle: var(--ui-color-neutral-200);
+  }
+}
+@media (prefers-contrast: less) {
+  :root {
+    --ui-color-border: var(--ui-color-neutral-150);
+    --ui-color-border-strong: var(--ui-color-neutral-200);
+  }
+}
+// Tokens affected by prefers-contrast:
+// --ui-color-border (default: neutral-200 -> more: neutral-400)
+// --ui-color-border-strong (default: neutral-300 -> more: neutral-600)
+// --ui-color-text-muted (default: neutral-500 -> more: neutral-600)
+// --ui-color-bg-subtle (default: neutral-100 -> more: neutral-200)
+
+<!-- @forced_colors_high_contrast -->
+<!-- Windows High Contrast Mode support. Focus rings use transparent outlines that become visible in forced-colors mode, and the focus color maps to the system Highlight color. -->
+// Normal mode: box-shadow visible, outline transparent
+.input:focus-visible {
+  outline: var(--ui-border-width-md) solid transparent;
+  outline-offset: var(--ui-border-width-sm);
+  box-shadow: 0 0 0 var(--ui-border-width-md)
+    var(--ui-color-focus);
+}
+
+// Forced colors: browser removes box-shadow,
+// transparent outline becomes system-colored
+@media (forced-colors: active) {
+  :root {
+    --ui-color-focus: Highlight;
+  }
+}
+// Components with forced-colors support:
+// Forms: input, select, checkbox, radio, slider
+// Actions: button, close-button
+// Navigation: tabs, breadcrumb, pagination
+// Overlays: modal, drawer, dialog

@@ -1,0 +1,29 @@
+---
+title: Debug
+type: utility
+id: debug
+description: Visual debugging overlays for grid alignment, baseline rhythm, and element boundaries
+skipValidation: true
+---
+
+<!-- @grid_overlay -->
+<!-- Shows the 8px unit grid. Add the class to any container. -->
+<div class="ui-debug-grid" style="height: var(--ui-row-6); position: relative"></div>
+
+<!-- @row_grid -->
+<!-- Shows both 8px unit lines and stronger row (16px) lines. -->
+<div class="ui-debug-grid-rows" style="height: var(--ui-row-6); position: relative"></div>
+
+<!-- @baseline -->
+<!-- Horizontal baseline grid for verifying text alignment. -->
+<div class="ui-debug-baseline" style="height: var(--ui-row-6); position: relative"></div>
+
+<!-- @outline -->
+<!-- Outlines all child elements to reveal layout boundaries. -->
+<div class="ui-debug-outline">
+  <div class="ui-row ui-row--sm">
+    <div style="padding: var(--ui-space-1)">A</div>
+    <div style="padding: var(--ui-space-1)">B</div>
+    <div style="padding: var(--ui-space-1)">C</div>
+  </div>
+</div>

@@ -2,15 +2,15 @@ import { resolve } from 'node:path';
 import { expect, test } from '@playwright/test';
 import {
   saveForLostPixel,
-  setupVisualTestFromDocs,
+  setupVisualTestFromHtmlDocs,
   validateGridRhythm,
 } from '../../../../test-utils';
 
-const DOCS_PATH = resolve(__dirname, 'mark.docs.json');
+const DOCS_PATH = resolve(__dirname, 'mark.docs.html');
 
 test.describe('mark visual regression', () => {
   test('all variations', async ({ page }) => {
-    await setupVisualTestFromDocs(page, DOCS_PATH);
+    await setupVisualTestFromHtmlDocs(page, DOCS_PATH);
     await validateGridRhythm(page, 'mark');
     await saveForLostPixel(page, 'mark');
     await expect(page.locator('body')).toHaveScreenshot('mark.visual.png');

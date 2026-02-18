@@ -1,0 +1,64 @@
+---
+title: Toggle
+type: component
+id: toggle
+description: Switch control for boolean states. Uses checkbox semantics with role=switch for accessibility.
+api: ./toggle.api.json
+---
+
+<!-- @default -->
+<label class="ui-toggle">
+  <input class="ui-toggle__input" type="checkbox" role="switch"></input>
+  <span class="ui-toggle__track"></span>
+  <span class="ui-toggle__thumb"></span>
+</label>
+
+<!-- @checked -->
+<label class="ui-toggle">
+  <input class="ui-toggle__input" type="checkbox" role="switch" checked></input>
+  <span class="ui-toggle__track"></span>
+  <span class="ui-toggle__thumb"></span>
+</label>
+
+<!-- @sizes -->
+<div style="display: flex; gap: var(--ui-space-2); align-items: center;">
+  <label class="ui-toggle ui-toggle--sm">
+    <input class="ui-toggle__input" type="checkbox" role="switch"></input>
+    <span class="ui-toggle__track"></span>
+    <span class="ui-toggle__thumb"></span>
+  </label>
+  <label class="ui-toggle">
+    <input class="ui-toggle__input" type="checkbox" role="switch" checked></input>
+    <span class="ui-toggle__track"></span>
+    <span class="ui-toggle__thumb"></span>
+  </label>
+  <label class="ui-toggle ui-toggle--lg">
+    <input class="ui-toggle__input" type="checkbox" role="switch"></input>
+    <span class="ui-toggle__track"></span>
+    <span class="ui-toggle__thumb"></span>
+  </label>
+</div>
+
+<!-- @disabled -->
+<div style="display: flex; gap: var(--ui-space-2);">
+  <label class="ui-toggle">
+    <input class="ui-toggle__input" type="checkbox" role="switch" disabled></input>
+    <span class="ui-toggle__track"></span>
+    <span class="ui-toggle__thumb"></span>
+  </label>
+  <label class="ui-toggle">
+    <input class="ui-toggle__input" type="checkbox" role="switch" checked disabled></input>
+    <span class="ui-toggle__track"></span>
+    <span class="ui-toggle__thumb"></span>
+  </label>
+</div>
+
+<!-- @with_label -->
+<div style="display: flex; align-items: center; gap: var(--ui-space-2);">
+  <label class="ui-toggle">
+    <input class="ui-toggle__input" type="checkbox" role="switch" id="notifications"></input>
+    <span class="ui-toggle__track"></span>
+    <span class="ui-toggle__thumb"></span>
+  </label>
+  <label for="notifications">Enable notifications</label>
+</div>

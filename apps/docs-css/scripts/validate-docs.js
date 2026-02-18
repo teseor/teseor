@@ -8,12 +8,14 @@ import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { makeT, parseHtmlDocFile, renderHtmlSection } from '../lib/html-doc-parser.js';
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '../../..');
 const PREFIX = 'ui-';
 
 /**
- * Recursively find all .docs.json files
+ * Recursively find all docs files (.docs.html)
  */
 function findDocsFiles(dir, files = []) {
   const entries = readdirSync(dir);
@@ -27,7 +29,7 @@ function findDocsFiles(dir, files = []) {
       entry !== 'dist'
     ) {
       findDocsFiles(fullPath, files);
-    } else if (entry.endsWith('.docs.json')) {
+    } else if (entry.endsWith('.docs.html')) {
       files.push(fullPath);
     }
   }
@@ -35,52 +37,50 @@ function findDocsFiles(dir, files = []) {
 }
 
 /**
- * Extract all CSS classes from docs examples
+ * Extract CSS classes from an HTML string
  */
-export function extractClassesFromDocs(doc) {
+function extractFromHtml(html) {
   const classes = new Set();
-
-  function extractFromItem(item) {
-    if (item.class) {
-      for (const c of item.class.split(' ')) {
-        if (c.trim()) classes.add(c.trim());
+  const regex = /class="([^"]+)"/g;
+  let match = regex.exec(html);
+  while (match !== null) {
+    for (const c of match[1].split(' ')) {
+      const cls = c.trim();
+      // Skip Nunjucks template syntax
+      if (cls && !cls.includes('{%') && !cls.includes('{{')) {
+        classes.add(cls);
       }
     }
-    if (item.children) {
-      for (const child of item.children) {
-        extractFromItem(child);
-      }
+    match = regex.exec(html);
+  }
+  return classes;
+}
+
+/**
+ * Extract all CSS classes from HTML doc sections (rendered through Nunjucks)
+ */
+function extractClassesFromHtmlDoc(docsPath) {
+  const classes = new Set();
+  const { frontmatter, sections } = parseHtmlDocFile(docsPath);
+
+  // Load API for template rendering
+  let api = null;
+  if (frontmatter.api) {
+    const apiPath = join(dirname(docsPath), frontmatter.api);
+    try {
+      api = JSON.parse(readFileSync(apiPath, 'utf-8'));
+    } catch {
+      // api not found
     }
   }
 
-  function extractFromHtml(html) {
-    const regex = /class="([^"]+)"/g;
-    let match = regex.exec(html);
-    while (match !== null) {
-      for (const c of match[1].split(' ')) {
-        const cls = c.trim();
-        // Skip Nunjucks template syntax
-        if (cls && !cls.includes('{%') && !cls.includes('{{')) {
-          classes.add(cls);
-        }
-      }
-      match = regex.exec(html);
-    }
-  }
+  const labels = frontmatter.labels || {};
+  const t = makeT();
 
-  for (const section of doc.sections || []) {
-    for (const example of section.examples || []) {
-      if (example.items) {
-        for (const item of example.items) {
-          extractFromItem(item);
-        }
-      }
-      if (example.html) {
-        extractFromHtml(example.html);
-      }
-      if (example.code) {
-        extractFromHtml(example.code);
-      }
+  for (const section of sections) {
+    const rendered = renderHtmlSection(section.rawHtml, { api, labels, t });
+    for (const c of extractFromHtml(rendered)) {
+      classes.add(c);
     }
   }
 
@@ -176,31 +176,29 @@ export function getExpectedClasses(api) {
  * Validate a single docs file against its API
  */
 function validateDoc(docsPath) {
-  const doc = JSON.parse(readFileSync(docsPath, 'utf-8'));
+  const { frontmatter } = parseHtmlDocFile(docsPath);
 
-  if (doc.skipValidation) {
+  if (frontmatter.skipValidation) {
     return { path: docsPath, skipped: true, reason: 'skipValidation flag' };
   }
 
-  if (!doc.api) {
+  if (!frontmatter.api) {
     return { path: docsPath, skipped: true, reason: 'No API reference' };
   }
 
-  const apiPath = join(dirname(docsPath), doc.api);
+  const apiPath = join(dirname(docsPath), frontmatter.api);
   let api;
   try {
     api = JSON.parse(readFileSync(apiPath, 'utf-8'));
   } catch (err) {
-    return { path: docsPath, error: `Cannot read API file: ${doc.api}` };
+    return { path: docsPath, error: `Cannot read API file: ${frontmatter.api}` };
   }
 
-  const docsClasses = extractClassesFromDocs(doc);
+  const docsClasses = extractClassesFromHtmlDoc(docsPath);
   const expectedClasses = getExpectedClasses(api);
 
   const missing = [...expectedClasses].filter((c) => !docsClasses.has(c));
 
-  // For utilities, only report extras that are in the expected set
-  // For components, report extras that start with the component prefix
   let extra;
   if (api.type === 'utility' && api.utilities) {
     extra = [];

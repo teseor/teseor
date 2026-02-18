@@ -26,24 +26,8 @@ eleventyComputed:
     {% endif %}
 
     {% for example in section.examples %}
-      {# Build preview HTML - from html string or items array #}
-      {% set previewHtml = '' %}
-      {% if example.html %}
-        {% set previewHtml = example.html %}
-      {% elif example.items %}
-        {% set previewHtml = example.items | renderItems(example.layout) %}
-      {% endif %}
-
-      {# Build code snippet - auto-generate from items if not provided #}
-      {% set codeSnippet = example.code or '' %}
-      {% if not codeSnippet and example.items %}
-        {% set codeSnippet = example.items | generateCode({ layout: example.layout }) %}
-      {% elif not codeSnippet and example.html %}
-        {% set codeSnippet = example.html %}
-      {% endif %}
-      {% if section.data %}
-        {% set codeSnippet = codeSnippet | processTemplate(section.data) %}
-      {% endif %}
+      {% set previewHtml = example.previewHtml %}
+      {% set codeSnippet = example.codeHtml %}
 
       {# First example of first section gets CSS props and customization tabs #}
       {% set showCssProps = loop.first and isFirstSection and doc.api %}

@@ -1,0 +1,106 @@
+---
+title: Dropdown Menu
+type: component
+id: dropdown-menu
+description: Trigger button with floating menu panel. Reuses the menu component for consistent item styling.
+api: ./dropdown-menu.api.json
+---
+
+<!-- @default -->
+<div class="ui-dropdown-menu ui-dropdown-menu--open">
+  <button class="ui-dropdown-menu__trigger ui-button" type="button">
+    <span>Actions</span>
+    <span class="ui-dropdown-menu__trigger-icon">▾</span>
+  </button>
+  <div class="ui-dropdown-menu__panel" role="menu">
+    <div class="ui-menu">
+      <ul class="ui-menu__group">
+        <li>
+          <button class="ui-menu__item" role="menuitem">Edit</button>
+        </li>
+        <li>
+          <button class="ui-menu__item" role="menuitem">Duplicate</button>
+        </li>
+        <li>
+          <button class="ui-menu__item ui-menu__item--danger" role="menuitem">Delete</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- @with_separator -->
+<div class="ui-dropdown-menu ui-dropdown-menu--open">
+  <button class="ui-dropdown-menu__trigger ui-button ui-button--secondary" type="button">File</button>
+  <div class="ui-dropdown-menu__panel" role="menu">
+    <div class="ui-menu">
+      <ul class="ui-menu__group">
+        <li>
+          <button class="ui-menu__item" role="menuitem">New</button>
+        </li>
+        <li>
+          <button class="ui-menu__item" role="menuitem">Open</button>
+        </li>
+        <li>
+          <button class="ui-menu__item" role="menuitem">Save</button>
+        </li>
+        <li>
+          <hr class="ui-menu__separator">
+        </li>
+        <li>
+          <button class="ui-menu__item ui-menu__item--danger" role="menuitem">Close</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- @top_position -->
+<!-- Opens panel above the trigger. -->
+<div class="ui-dropdown-menu ui-dropdown-menu--open ui-dropdown-menu--top">
+  <button class="ui-dropdown-menu__trigger ui-button">Actions</button>
+  <div class="ui-dropdown-menu__panel" role="menu">
+    <div class="ui-menu">
+      <ul class="ui-menu__group">
+        <li><button class="ui-menu__item" role="menuitem">Edit</button></li>
+        <li><button class="ui-menu__item" role="menuitem">Delete</button></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- @full_width -->
+<!-- Panel stretches to match trigger width. -->
+<div class="ui-dropdown-menu ui-dropdown-menu--open ui-dropdown-menu--full-width">
+  <button class="ui-dropdown-menu__trigger ui-button">Select option</button>
+  <div class="ui-dropdown-menu__panel" role="menu">
+    <div class="ui-menu">
+      <ul class="ui-menu__group">
+        <li><button class="ui-menu__item" role="menuitem">Option A</button></li>
+        <li><button class="ui-menu__item" role="menuitem">Option B</button></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- @align_end -->
+<div style="display: flex; justify-content: flex-end">
+  <div class="ui-dropdown-menu ui-dropdown-menu--open ui-dropdown-menu--align-end">
+    <button class="ui-dropdown-menu__trigger ui-button ui-button--ghost" type="button">⋮</button>
+    <div class="ui-dropdown-menu__panel" role="menu">
+      <div class="ui-menu">
+        <ul class="ui-menu__group">
+          <li>
+            <button class="ui-menu__item" role="menuitem">View</button>
+          </li>
+          <li>
+            <button class="ui-menu__item" role="menuitem">Share</button>
+          </li>
+          <li>
+            <button class="ui-menu__item ui-menu__item--danger" role="menuitem">Remove</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

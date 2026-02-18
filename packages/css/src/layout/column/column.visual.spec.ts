@@ -1,12 +1,12 @@
 import { resolve } from 'node:path';
 import { expect, test } from '@playwright/test';
-import { saveForLostPixel, setupVisualTestFromDocs } from '../../../test-utils';
+import { saveForLostPixel, setupVisualTestFromHtmlDocs } from '../../../test-utils';
 
-const DOCS_PATH = resolve(__dirname, 'column.docs.json');
+const DOCS_PATH = resolve(__dirname, 'column.docs.html');
 
 test.describe('column visual regression', () => {
   test('all variations', async ({ page }) => {
-    await setupVisualTestFromDocs(page, DOCS_PATH);
+    await setupVisualTestFromHtmlDocs(page, DOCS_PATH);
     await saveForLostPixel(page, 'column');
     await expect(page.locator('body')).toHaveScreenshot('column.visual.png');
   });

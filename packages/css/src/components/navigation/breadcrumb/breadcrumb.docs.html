@@ -1,0 +1,60 @@
+---
+title: Breadcrumb
+type: component
+id: breadcrumb
+description: Navigation hierarchy showing current page location in site structure.
+api: ./breadcrumb.api.json
+---
+
+<!-- @default -->
+<nav class="ui-breadcrumb" aria-label="Breadcrumb">
+  <ol class="ui-breadcrumb">
+    <li class="ui-breadcrumb__item">
+      <a class="ui-breadcrumb__link" href="#">Home</a>
+    </li>
+    <li class="ui-breadcrumb__item">
+      <a class="ui-breadcrumb__link" href="#">Products</a>
+    </li>
+    <li class="ui-breadcrumb__item">
+      <span class="ui-breadcrumb__current" aria-current="page">Shoes</span>
+    </li>
+  </ol>
+</nav>
+
+<!-- @with_icons -->
+<nav aria-label="Breadcrumb">
+  <ol class="ui-breadcrumb">
+    <li class="ui-breadcrumb__item">
+      <a class="ui-breadcrumb__link" href="#">
+        <svg class="ui-icon ui-icon--sm" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path>
+        </svg>
+      </a>
+    </li>
+    <li class="ui-breadcrumb__item">
+      <a class="ui-breadcrumb__link" href="#">Settings</a>
+    </li>
+    <li class="ui-breadcrumb__item">
+      <span class="ui-breadcrumb__current" aria-current="page">Profile</span>
+    </li>
+  </ol>
+</nav>
+
+<!-- @overflow_with_ellipsis -->
+<!-- Truncate long breadcrumbs with hidden items and an ellipsis indicator. -->
+<nav aria-label="Breadcrumb">
+  <ol class="ui-breadcrumb">
+    <li class="ui-breadcrumb__item">
+      <a class="ui-breadcrumb__link" href="#">Home</a>
+    </li>
+    <li class="ui-breadcrumb__item ui-breadcrumb__item--hidden">
+      <a class="ui-breadcrumb__link" href="#">Category</a>
+    </li>
+    <li class="ui-breadcrumb__item">
+      <span class="ui-breadcrumb__ellipsis">...</span>
+    </li>
+    <li class="ui-breadcrumb__item">
+      <span class="ui-breadcrumb__current" aria-current="page">Current Page</span>
+    </li>
+  </ol>
+</nav>

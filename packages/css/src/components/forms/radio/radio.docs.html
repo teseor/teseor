@@ -1,0 +1,52 @@
+---
+title: Radio
+type: component
+id: radio
+description: Native radio button with custom styling. Use for mutually exclusive options within a group.
+api: ./radio.api.json
+---
+
+<!-- @default | row -->
+<input class="ui-radio" type="radio" name="demo1"></input>
+<input class="ui-radio" type="radio" name="demo1" checked></input>
+
+<!-- @sizes | row -->
+<input class="ui-radio" type="radio" name="sizes" checked></input>
+<input class="ui-radio ui-radio--lg" type="radio" name="sizes2" checked></input>
+
+<!-- @states | row -->
+<input class="ui-radio" type="radio" name="states1"></input>
+<input class="ui-radio" type="radio" name="states2" checked></input>
+<input class="ui-radio" type="radio" name="states3" disabled></input>
+<input class="ui-radio" type="radio" name="states4" checked disabled></input>
+
+<!-- @validation_states | row -->
+<input class="ui-radio ui-radio--error" type="radio" name="error1"></input>
+<input class="ui-radio ui-radio--error" type="radio" name="error2" checked></input>
+<input class="ui-radio ui-radio--success" type="radio" name="success1"></input>
+<input class="ui-radio ui-radio--success" type="radio" name="success2" checked></input>
+
+<!-- @with_label -->
+<label class="ui-row" style="gap: var(--ui-space-1); cursor: pointer;">
+  <input class="ui-radio" type="radio" name="labeled"></input>
+  <span>Option one</span>
+</label>
+
+<!-- @radio_group -->
+<fieldset style="border: none; padding: 0; margin: 0;">
+  <legend style="font-weight: 600; margin-block-end: var(--ui-space-1);">Choose an option</legend>
+  <div class="ui-column" style="--column-gap: var(--ui-space-1);">
+    <label class="ui-row" style="gap: var(--ui-space-1); cursor: pointer;">
+      <input class="ui-radio" type="radio" name="group-demo" checked></input>
+      <span>Option A</span>
+    </label>
+    <label class="ui-row" style="gap: var(--ui-space-1); cursor: pointer;">
+      <input class="ui-radio" type="radio" name="group-demo"></input>
+      <span>Option B</span>
+    </label>
+    <label class="ui-row" style="gap: var(--ui-space-1); cursor: pointer;">
+      <input class="ui-radio" type="radio" name="group-demo"></input>
+      <span>Option C</span>
+    </label>
+  </div>
+</fieldset>

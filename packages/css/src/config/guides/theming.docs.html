@@ -1,0 +1,71 @@
+---
+title: Theming
+type: guide
+id: theming
+description: Customize the design system with CSS custom properties
+skipValidation: true
+weight: 2
+---
+
+<!-- @brand_colors -->
+<!-- Change the entire color palette by adjusting hue values -->
+<div class="theme-demo">
+  <button class="ui-button">Primary</button>
+  <button class="ui-button ui-button--secondary">Secondary</button>
+  <button class="ui-button ui-button--danger">Danger</button>
+</div>
+<div class="theme-demo theme-purple">
+  <button class="ui-button">Primary</button>
+  <button class="ui-button ui-button--secondary">Secondary</button>
+  <button class="ui-button ui-button--danger">Danger</button>
+</div>
+<div class="theme-demo theme-teal">
+  <button class="ui-button">Primary</button>
+  <button class="ui-button ui-button--secondary">Secondary</button>
+  <button class="ui-button ui-button--danger">Danger</button>
+</div>
+<div class="theme-demo theme-orange">
+  <button class="ui-button">Primary</button>
+  <button class="ui-button ui-button--secondary">Secondary</button>
+  <button class="ui-button ui-button--danger">Danger</button>
+</div>
+
+<!-- @dark_mode -->
+<!-- Dark mode uses the CSS light-dark() function. Tokens resolve automatically based on color-scheme. Override with data-theme attribute. -->
+<div class="theme-demo">
+  <div class="ui-card">
+    <p>Follows OS color scheme</p>
+  </div>
+</div>
+<div class="theme-demo" data-theme="light">
+  <div class="ui-card">
+    <p>Always light</p>
+  </div>
+</div>
+<div class="theme-demo" data-theme="dark">
+  <div class="ui-card">
+    <p>Always dark</p>
+  </div>
+</div>
+
+<!-- @component_overrides -->
+<!-- Override specific component tokens -->
+<div class="theme-demo custom-buttons">
+  <button class="ui-button ui-button--sm">Small</button>
+  <button class="ui-button">Default</button>
+  <button class="ui-button ui-button--lg">Large</button>
+</div>
+<div class="theme-demo custom-cards">
+  <div class="ui-card">
+    <p>Card with custom padding</p>
+  </div>
+</div>
+
+<!-- @full_theme_example -->
+<!-- Complete theme customization -->
+<div class="theme-demo theme-corporate">
+  <button class="ui-button">Action</button>
+  <div class="ui-card">
+    <p>Corporate theme with teal accent and sharp corners</p>
+  </div>
+</div>

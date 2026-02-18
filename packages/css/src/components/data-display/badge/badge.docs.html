@@ -1,0 +1,39 @@
+---
+title: Badge
+type: component
+description: Inline labels for status indicators, counts, and categories
+api: ./badge.api.json
+labels:
+  sm: Small
+  lg: Large
+  primary: Primary
+  success: Success
+  warning: Warning
+  danger: Danger
+---
+
+<!-- @default -->
+<span class="ui-badge">{{ t('default', 'Default') }}</span>
+
+<!-- @variants | row -->
+<span class="ui-badge">{{ t('default', 'Default') }}</span>
+{% for v in api.modifiers.variant.values %}
+<span class="ui-badge ui-badge--{{ v }}">{{ t(v, labels[v]) }}</span>
+{% endfor %}
+
+<!-- @sizes | row -->
+{% for s in api.modifiers.size.values %}
+<span class="ui-badge ui-badge--{{ s }}">{{ t(s, labels[s]) }}</span>
+{% endfor %}
+<span class="ui-badge">{{ t('default', 'Default') }}</span>
+
+<!-- @use_cases -->
+<div class="ui-row">
+  <span>{{ t('notifications', 'Notifications') }}</span>
+  <span class="ui-badge ui-badge--primary">5</span>
+</div>
+<div class="ui-row">
+  <span class="ui-badge ui-badge--success">{{ t('published', 'Published') }}</span>
+  <span class="ui-badge ui-badge--warning">{{ t('draft', 'Draft') }}</span>
+  <span class="ui-badge ui-badge--danger">{{ t('archived', 'Archived') }}</span>
+</div>
