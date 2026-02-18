@@ -26,30 +26,8 @@ eleventyComputed:
     {% endif %}
 
     {% for example in section.examples %}
-      {# Build preview HTML - from previewHtml (HTML docs) or items/html (JSON docs) #}
-      {% set previewHtml = '' %}
-      {% if example.previewHtml %}
-        {% set previewHtml = example.previewHtml %}
-      {% elif example.html %}
-        {% set previewHtml = example.html %}
-      {% elif example.items %}
-        {% set previewHtml = example.items | renderItems(example.layout) %}
-      {% endif %}
-
-      {# Build code snippet #}
-      {% set codeSnippet = '' %}
-      {% if example.codeHtml %}
-        {% set codeSnippet = example.codeHtml %}
-      {% elif example.code %}
-        {% set codeSnippet = example.code %}
-      {% elif example.items %}
-        {% set codeSnippet = example.items | generateCode({ layout: example.layout }) %}
-      {% elif example.html %}
-        {% set codeSnippet = example.html %}
-      {% endif %}
-      {% if section.data %}
-        {% set codeSnippet = codeSnippet | processTemplate(section.data) %}
-      {% endif %}
+      {% set previewHtml = example.previewHtml %}
+      {% set codeSnippet = example.codeHtml %}
 
       {# First example of first section gets CSS props and customization tabs #}
       {% set showCssProps = loop.first and isFirstSection and doc.api %}

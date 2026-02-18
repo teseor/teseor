@@ -1,7 +1,7 @@
 import { readdirSync, statSync } from 'node:fs';
 import { basename, join, resolve } from 'node:path';
 import { test } from '@playwright/test';
-import { generateHtmlFromDocs, loadDocsJson, setupVisualTest, validateGridRhythm } from '.';
+import { generateHtmlFromHtmlDoc, loadHtmlDoc, setupVisualTest, validateGridRhythm } from '.';
 
 const COMPONENTS_DIR = resolve(__dirname, '../src/components');
 
@@ -18,8 +18,8 @@ function findDocsFiles(dir: string): Array<{ name: string; path: string }> {
     const full = join(dir, entry);
     if (statSync(full).isDirectory()) {
       results.push(...findDocsFiles(full));
-    } else if (entry.endsWith('.docs.json')) {
-      results.push({ name: basename(entry, '.docs.json'), path: full });
+    } else if (entry.endsWith('.docs.html')) {
+      results.push({ name: basename(entry, '.docs.html'), path: full });
     }
   }
   return results;
@@ -30,8 +30,11 @@ const docsFiles = findDocsFiles(COMPONENTS_DIR);
 for (const { name, path } of docsFiles) {
   test(`${name} aligns to vertical grid`, async ({ page }) => {
     test.skip(SKIP_COMPONENTS.includes(name), `${name} has known grid issues`);
-    const docs = loadDocsJson(path);
-    const html = generateHtmlFromDocs(docs);
+    const doc = loadHtmlDoc(path);
+    const apiPath = doc.frontmatter.api
+      ? resolve(join(path, '..'), String(doc.frontmatter.api))
+      : undefined;
+    const html = generateHtmlFromHtmlDoc(doc, apiPath);
     await setupVisualTest(page, { html });
     await validateGridRhythm(page, name);
   });

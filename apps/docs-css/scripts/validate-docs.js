@@ -15,7 +15,7 @@ const ROOT = join(__dirname, '../../..');
 const PREFIX = 'ui-';
 
 /**
- * Recursively find all docs files (.docs.json and .docs.html)
+ * Recursively find all docs files (.docs.html)
  */
 function findDocsFiles(dir, files = []) {
   const entries = readdirSync(dir);
@@ -29,7 +29,7 @@ function findDocsFiles(dir, files = []) {
       entry !== 'dist'
     ) {
       findDocsFiles(fullPath, files);
-    } else if (entry.endsWith('.docs.json') || entry.endsWith('.docs.html')) {
+    } else if (entry.endsWith('.docs.html')) {
       files.push(fullPath);
     }
   }
@@ -53,44 +53,6 @@ function extractFromHtml(html) {
     }
     match = regex.exec(html);
   }
-  return classes;
-}
-
-/**
- * Extract all CSS classes from JSON docs examples
- */
-export function extractClassesFromDocs(doc) {
-  const classes = new Set();
-
-  function extractFromItem(item) {
-    if (item.class) {
-      for (const c of item.class.split(' ')) {
-        if (c.trim()) classes.add(c.trim());
-      }
-    }
-    if (item.children) {
-      for (const child of item.children) {
-        extractFromItem(child);
-      }
-    }
-  }
-
-  for (const section of doc.sections || []) {
-    for (const example of section.examples || []) {
-      if (example.items) {
-        for (const item of example.items) {
-          extractFromItem(item);
-        }
-      }
-      if (example.html) {
-        for (const c of extractFromHtml(example.html)) classes.add(c);
-      }
-      if (example.code) {
-        for (const c of extractFromHtml(example.code)) classes.add(c);
-      }
-    }
-  }
-
   return classes;
 }
 
@@ -214,57 +176,6 @@ export function getExpectedClasses(api) {
  * Validate a single docs file against its API
  */
 function validateDoc(docsPath) {
-  const isHtml = docsPath.endsWith('.docs.html');
-
-  if (isHtml) {
-    return validateHtmlDoc(docsPath);
-  }
-
-  const doc = JSON.parse(readFileSync(docsPath, 'utf-8'));
-
-  if (doc.skipValidation) {
-    return { path: docsPath, skipped: true, reason: 'skipValidation flag' };
-  }
-
-  if (!doc.api) {
-    return { path: docsPath, skipped: true, reason: 'No API reference' };
-  }
-
-  const apiPath = join(dirname(docsPath), doc.api);
-  let api;
-  try {
-    api = JSON.parse(readFileSync(apiPath, 'utf-8'));
-  } catch (err) {
-    return { path: docsPath, error: `Cannot read API file: ${doc.api}` };
-  }
-
-  const docsClasses = extractClassesFromDocs(doc);
-  const expectedClasses = getExpectedClasses(api);
-
-  const missing = [...expectedClasses].filter((c) => !docsClasses.has(c));
-
-  let extra;
-  if (api.type === 'utility' && api.utilities) {
-    extra = [];
-  } else {
-    extra = [...docsClasses].filter(
-      (c) => c.startsWith(`${PREFIX}${api.name}`) && !expectedClasses.has(c),
-    );
-  }
-
-  return {
-    path: docsPath,
-    component: api.name,
-    missing,
-    extra,
-    valid: missing.length === 0 && extra.length === 0,
-  };
-}
-
-/**
- * Validate a .docs.html file against its API
- */
-function validateHtmlDoc(docsPath) {
   const { frontmatter } = parseHtmlDocFile(docsPath);
 
   if (frontmatter.skipValidation) {

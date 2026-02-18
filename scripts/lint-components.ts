@@ -4,7 +4,7 @@
  * Validates that all component folders have the required files:
  * - index.scss (styles)
  * - *.api.json (API definition)
- * - *.docs.json or *.docs.html (documentation)
+ * - *.docs.html (documentation)
  * - *.visual.spec.ts (visual regression test)
  *
  * Scans category subdirectories under components/
@@ -40,15 +40,11 @@ interface FileCheck {
 const REQUIRED_FILES: FileCheck[] = [
   { pattern: 'index.scss', description: 'styles', required: true },
   { pattern: '*.api.json', description: 'API definition', required: true },
-  { pattern: '*.docs.json|*.docs.html', description: 'documentation', required: true },
+  { pattern: '*.docs.html', description: 'documentation', required: true },
   { pattern: '*.visual.spec.ts', description: 'visual regression test', required: false },
 ];
 
 function checkGlobPattern(dir: string, pattern: string): boolean {
-  // Support OR patterns: "*.docs.json|*.docs.html"
-  if (pattern.includes('|')) {
-    return pattern.split('|').some((p) => checkGlobPattern(dir, p));
-  }
   if (!pattern.includes('*')) {
     return existsSync(join(dir, pattern));
   }
@@ -138,7 +134,7 @@ function lintSidenavCompleteness(): void {
     }
   }
 
-  // Every component with a docs.json should be inside a known group
+  // Every component with docs should be inside a known group
   const allDiscoveredComponents: { name: string; group: string }[] = [];
   for (const [groupId, group] of discovered) {
     for (const name of group.components) {
@@ -165,17 +161,9 @@ interface ApiJson {
   [key: string]: unknown;
 }
 
-interface DocsJson {
-  id?: string;
-  title?: string;
-  sections?: { examples?: { items?: Record<string, unknown>[] }[] }[];
-  [key: string]: unknown;
-}
-
-function lintJsonContent(): void {
+function lintDocsContent(): void {
   const components = findComponentDirs(COMPONENTS_DIR);
   const errors: string[] = [];
-  const warnings: string[] = [];
 
   for (const { name, path } of components) {
     // Validate api.json
@@ -183,7 +171,6 @@ function lintJsonContent(): void {
     for (const apiFile of apiFiles) {
       const raw = readFileSync(join(path, apiFile), 'utf-8');
 
-      // Detect SCSS interpolation leaks (e.g. #{t.$unit})
       if (raw.includes('#{')) {
         errors.push(
           `${name}/${apiFile}: contains SCSS interpolation "#{" — values must be resolved`,
@@ -205,44 +192,6 @@ function lintJsonContent(): void {
       }
     }
 
-    // Validate docs.json
-    const docsJsonFiles = readdirSync(path).filter((f) => f.endsWith('.docs.json'));
-    for (const docsFile of docsJsonFiles) {
-      let data: DocsJson;
-      try {
-        data = JSON.parse(readFileSync(join(path, docsFile), 'utf-8'));
-      } catch (e) {
-        errors.push(`${name}/${docsFile}: invalid JSON — ${e instanceof Error ? e.message : e}`);
-        continue;
-      }
-
-      // Require id and title fields
-      if (!data.id) {
-        errors.push(`${name}/${docsFile}: missing required "id" field`);
-      }
-      if (!data.title) {
-        errors.push(`${name}/${docsFile}: missing required "title" field`);
-      }
-
-      // Ban raw html strings in items (must use tag/class/text/children config format)
-      if (data.sections) {
-        for (const section of data.sections) {
-          for (const example of section.examples || []) {
-            if (example.items) {
-              for (const item of example.items) {
-                if ('html' in item) {
-                  errors.push(
-                    `${name}/${docsFile}: items must use tag/class/text/children, not raw "html"`,
-                  );
-                  break;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
     // Validate docs.html
     const docsHtmlFiles = readdirSync(path).filter((f) => f.endsWith('.docs.html'));
     for (const docsFile of docsHtmlFiles) {
@@ -256,7 +205,6 @@ function lintJsonContent(): void {
       if (!/^title:\s*.+/m.test(fm)) {
         errors.push(`${name}/${docsFile}: missing required "title" in frontmatter`);
       }
-      // Validate api path if specified
       const apiMatch = fm.match(/^api:\s*(.+)/m);
       if (apiMatch) {
         const apiRef = apiMatch[1].trim();
@@ -267,16 +215,8 @@ function lintJsonContent(): void {
     }
   }
 
-  if (warnings.length > 0) {
-    console.warn('JSON content warnings:\n');
-    for (const warn of warnings) {
-      console.warn(`  - ${warn}`);
-    }
-    console.warn('');
-  }
-
   if (errors.length > 0) {
-    console.error('JSON content validation failed:\n');
+    console.error('Docs content validation failed:\n');
     for (const err of errors) {
       console.error(`  - ${err}`);
     }
@@ -284,7 +224,7 @@ function lintJsonContent(): void {
     process.exit(1);
   }
 
-  console.log(`JSON validation: ${components.length} components passed.`);
+  console.log(`Docs validation: ${components.length} components passed.`);
 }
 
 function lintTokenFallbacks(): void {
@@ -593,7 +533,7 @@ function lintTokenNames(): void {
 
 lintComponents();
 lintSidenavCompleteness();
-lintJsonContent();
+lintDocsContent();
 lintTokenFallbacks();
 lintBareTokenVars();
 lintWrongLayerTokens();

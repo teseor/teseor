@@ -1,7 +1,6 @@
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { dirname, join, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import nunjucks from 'nunjucks';
 
 import { discoverComponents } from '../../scripts/discover-structure.js';
 import {
@@ -54,7 +53,6 @@ for (const id of discoveredGroups.keys()) {
 function getGroupFromPath(docsFilePath) {
   const rel = relative(COMPONENTS_DIR, docsFilePath);
   const parts = rel.split(sep);
-  // components/[group]/[name]/file.docs.json -> parts[0] = group
   if (parts.length >= 3) {
     return parts[0];
   }
@@ -77,7 +75,7 @@ function findDocsFiles(dir, files = []) {
       entry !== 'dist'
     ) {
       findDocsFiles(fullPath, files);
-    } else if (entry.endsWith('.docs.json') || entry.endsWith('.docs.html')) {
+    } else if (entry.endsWith('.docs.html')) {
       files.push(fullPath);
     }
   }
@@ -86,69 +84,6 @@ function findDocsFiles(dir, files = []) {
 
 function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-function loadApi(doc, docsFilePath) {
-  if (!doc.api) return null;
-  const apiPath = join(dirname(docsFilePath), doc.api);
-  try {
-    return JSON.parse(readFileSync(apiPath, 'utf-8'));
-  } catch {
-    return null;
-  }
-}
-
-function resolveDoc(doc, docsFilePath) {
-  const api = loadApi(doc, docsFilePath);
-  const id = doc.id || api?.name;
-  const type = doc.type || 'component';
-  const groupId = type === 'component' ? getGroupFromPath(docsFilePath) : null;
-  const group = groupId ? getGroupById(groupId) : null;
-
-  // Merge modifier usage from docs into API
-  const mergedApi = api ? mergeApiWithDocs(api, doc) : null;
-
-  // Use cssVars from API for customization, fall back to doc.customization
-  const customization = api?.cssVars?.length
-    ? api.cssVars.map((v) => ({
-        token: v.name,
-        default: v.default,
-        description: v.description || '',
-      }))
-    : doc.customization || null;
-
-  return {
-    id,
-    type,
-    typePath: TYPE_PATHS[type] || type,
-    group: group?.id || null,
-    groupLabel: group?.label || null,
-    title: doc.title || (api ? capitalize(api.name) : id),
-    description: doc.description || api?.description || '',
-    weight: doc.weight || null,
-    sections: doc.sections || [],
-    customization,
-    api: mergedApi,
-    mergeInto: doc.mergeInto || null,
-    permalink: `/${TYPE_PATHS[type] || type}/${id}/`,
-  };
-}
-
-function mergeApiWithDocs(api, doc) {
-  if (!doc.modifiers) return api;
-
-  const merged = { ...api, modifiers: { ...api.modifiers } };
-
-  for (const [name, docMod] of Object.entries(doc.modifiers)) {
-    if (merged.modifiers[name]) {
-      merged.modifiers[name] = {
-        ...merged.modifiers[name],
-        usage: docMod.usage || '',
-      };
-    }
-  }
-
-  return merged;
 }
 
 function resolveHtmlDoc(filePath) {
@@ -198,14 +133,10 @@ function resolveHtmlDoc(filePath) {
 
     return {
       title,
-      previewHtml,
-      codeHtml: renderedHtml,
-      // Wrap in examples array for compatibility with existing template
       examples: [
         {
           previewHtml,
           codeHtml: renderedHtml,
-          layout: raw.layout,
         },
       ],
     };
@@ -233,9 +164,7 @@ function resolveHtmlDoc(filePath) {
     customization,
     api: api || null,
     mergeInto: fm.mergeInto || null,
-    skipValidation: fm.skipValidation || false,
     permalink: `/${TYPE_PATHS[type] || type}/${id}/`,
-    _isHtmlDoc: true,
   };
 }
 
@@ -245,13 +174,7 @@ function loadAllDocs() {
 
   for (const file of docsFiles) {
     try {
-      if (file.endsWith('.docs.html')) {
-        all.push(resolveHtmlDoc(file));
-      } else {
-        const content = readFileSync(file, 'utf-8');
-        const doc = JSON.parse(content);
-        all.push(resolveDoc(doc, file));
-      }
+      all.push(resolveHtmlDoc(file));
     } catch (err) {
       console.error(`Error loading ${file}: ${err.message}`);
     }
@@ -268,7 +191,6 @@ function loadAllDocs() {
       primary.push(sec);
       continue;
     }
-    // Append sections with a heading that identifies the merged component
     const mergedSections = sec.sections.map((s) => ({
       ...s,
       title: `${sec.title}: ${s.title}`,
@@ -276,13 +198,11 @@ function loadAllDocs() {
     }));
     target.sections.push(...mergedSections);
 
-    // Append API as a merged API entry
     if (sec.api) {
       if (!target.mergedApis) target.mergedApis = [];
       target.mergedApis.push({ id: sec.id, title: sec.title, api: sec.api });
     }
 
-    // Append customization tokens
     if (sec.customization) {
       if (!target.mergedCustomization) target.mergedCustomization = [];
       target.mergedCustomization.push({
@@ -294,12 +214,6 @@ function loadAllDocs() {
   }
 
   return primary;
-}
-
-function processTemplate(template, data) {
-  if (!data || Object.keys(data).length === 0) return template;
-  const env = nunjucks.configure({ autoescape: false });
-  return env.renderString(template, data);
 }
 
 export default function (eleventyConfig) {
@@ -334,121 +248,7 @@ export default function (eleventyConfig) {
     }),
   );
 
-  eleventyConfig.addFilter('processTemplate', (template, data) => processTemplate(template, data));
-
-  function renderItemToHtml(item) {
-    // Bare text node - no tag wrapper
-    if (!item.tag && item.text && !item.children && !item.class && !item.innerHTML) {
-      return item.text;
-    }
-
-    const tag = item.tag || 'div';
-    const classes = item.class || '';
-    const text = item.text || '';
-
-    const style = item.style
-      ? Object.entries(item.style)
-          .map(([k, v]) => `${k}: ${v}`)
-          .join('; ')
-      : '';
-
-    let attrs = classes ? ` class="${classes}"` : '';
-    if (style) attrs += ` style="${style}"`;
-    if (item.attrs) {
-      for (const [k, v] of Object.entries(item.attrs)) {
-        attrs += v === '' ? ` ${k}` : ` ${k}="${v}"`;
-      }
-    }
-
-    // Content priority: children > innerHTML > text
-    let content = text;
-    if (item.children && item.children.length > 0) {
-      content = item.children.map((child) => renderItemToHtml(child)).join('');
-    } else if (item.innerHTML) {
-      content = item.innerHTML;
-    }
-
-    return `<${tag}${attrs}>${content}</${tag}>`;
-  }
-
-  // Filter to render items array to HTML (for preview)
-  eleventyConfig.addFilter('renderItems', (items, layout) => {
-    if (!items || items.length === 0) return '';
-
-    const html = items.map((item) => renderItemToHtml(item)).join('\n');
-
-    if (layout) {
-      const layoutClass =
-        layout === 'row'
-          ? 'ui-row ui-row--md'
-          : layout === 'column'
-            ? 'ui-column ui-column--sm'
-            : '';
-      if (layoutClass) {
-        return `<div class="${layoutClass}">${html}</div>`;
-      }
-    }
-    return html;
-  });
-
-  eleventyConfig.addFilter('generateCode', (items, options = {}) => {
-    if (!items) return '';
-    const { layout } = options;
-
-    function itemToCode(item, indent = 0) {
-      // Bare text node
-      if (!item.tag && item.text && !item.children && !item.class && !item.innerHTML) {
-        return item.text;
-      }
-
-      const tag = item.tag || 'div';
-      const classes = item.class || '';
-      const text = item.text || '';
-      const pad = '  '.repeat(indent);
-
-      const style = item.style
-        ? Object.entries(item.style)
-            .map(([k, v]) => `${k}: ${v}`)
-            .join('; ')
-        : '';
-
-      let attrs = classes ? ` class="${classes}"` : '';
-      if (style) attrs += ` style="${style}"`;
-      if (item.attrs) {
-        for (const [k, v] of Object.entries(item.attrs)) {
-          attrs += v === '' ? ` ${k}` : ` ${k}="${v}"`;
-        }
-      }
-
-      // Content priority: children > innerHTML > text
-      if (item.children && item.children.length > 0) {
-        const inner = item.children.map((c) => itemToCode(c, indent + 1)).join('\n');
-        return `${pad}<${tag}${attrs}>\n${inner}\n${pad}</${tag}>`;
-      }
-
-      const content = item.innerHTML || text;
-      return `${pad}<${tag}${attrs}>${content}</${tag}>`;
-    }
-
-    const lines = items.map((item) => itemToCode(item, 0)).join('\n');
-
-    if (layout) {
-      const layoutClass =
-        layout === 'row'
-          ? 'ui-row ui-row--md'
-          : layout === 'column'
-            ? 'ui-column ui-column--sm'
-            : '';
-      if (layoutClass) {
-        return `<div class="${layoutClass}">\n  ${lines.split('\n').join('\n  ')}\n</div>`;
-      }
-    }
-
-    return lines;
-  });
-
   // Watch for changes in packages
-  eleventyConfig.addWatchTarget(join(ROOT, 'packages/**/*.docs.json'));
   eleventyConfig.addWatchTarget(join(ROOT, 'packages/**/*.docs.html'));
   eleventyConfig.addWatchTarget(join(ROOT, 'packages/**/*.api.json'));
 
