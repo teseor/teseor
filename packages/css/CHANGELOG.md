@@ -1,5 +1,11 @@
 # @teseor/css
 
+## 1.15.3
+
+### Patch Changes
+
+- 20b121a: Wrap all visible text in docs with t() for i18n readiness
+
 ## 1.15.2
 
 ### Patch Changes
