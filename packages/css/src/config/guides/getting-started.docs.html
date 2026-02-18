@@ -23,23 +23,23 @@ import '@teseor/css/dist/index.css';
 <!-- @root_class -->
 <!-- Add the .ui-root class to set baseline typography and colors. -->
 <div class="ui-root">
-  <p>Text inherits font, size, color from .ui-root</p>
+  <p>{{ t('text_inherits_from_ui_root', 'Text inherits font, size, color from .ui-root') }}</p>
 </div>
 
 <!-- @first_component -->
 <!-- Use any component by adding its class. No JS required. -->
 <div class="ui-row ui-row--sm">
-  <button class="ui-button">Primary</button>
-  <button class="ui-button ui-button--secondary">Secondary</button>
-  <button class="ui-button ui-button--danger">Danger</button>
+  <button class="ui-button">{{ t('primary', 'Primary') }}</button>
+  <button class="ui-button ui-button--secondary">{{ t('secondary', 'Secondary') }}</button>
+  <button class="ui-button ui-button--danger">{{ t('danger', 'Danger') }}</button>
 </div>
 <div class="ui-card">
-  <h3 class="ui-heading ui-heading--4">Card Title</h3>
-  <p>Cards use semantic tokens for padding, border, and background.</p>
+  <h3 class="ui-heading ui-heading--4">{{ t('card_title', 'Card Title') }}</h3>
+  <p>{{ t('cards_use_semantic_tokens', 'Cards use semantic tokens for padding, border, and background.') }}</p>
 </div>
 
 <!-- @customize -->
 <!-- Override design tokens with CSS custom properties. No build step required. -->
 <div class="theme-demo" style="--ui-hue-primary: 270">
-  <button class="ui-button">Purple brand</button>
+  <button class="ui-button">{{ t('purple_brand', 'Purple brand') }}</button>
 </div>
