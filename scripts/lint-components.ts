@@ -4,7 +4,7 @@
  * Validates that all component folders have the required files:
  * - index.scss (styles)
  * - *.api.json (API definition)
- * - *.docs.json (documentation)
+ * - *.docs.json or *.docs.html (documentation)
  * - *.visual.spec.ts (visual regression test)
  *
  * Scans category subdirectories under components/
@@ -40,11 +40,15 @@ interface FileCheck {
 const REQUIRED_FILES: FileCheck[] = [
   { pattern: 'index.scss', description: 'styles', required: true },
   { pattern: '*.api.json', description: 'API definition', required: true },
-  { pattern: '*.docs.json', description: 'documentation', required: true },
+  { pattern: '*.docs.json|*.docs.html', description: 'documentation', required: true },
   { pattern: '*.visual.spec.ts', description: 'visual regression test', required: false },
 ];
 
 function checkGlobPattern(dir: string, pattern: string): boolean {
+  // Support OR patterns: "*.docs.json|*.docs.html"
+  if (pattern.includes('|')) {
+    return pattern.split('|').some((p) => checkGlobPattern(dir, p));
+  }
   if (!pattern.includes('*')) {
     return existsSync(join(dir, pattern));
   }
@@ -202,8 +206,8 @@ function lintJsonContent(): void {
     }
 
     // Validate docs.json
-    const docsFiles = readdirSync(path).filter((f) => f.endsWith('.docs.json'));
-    for (const docsFile of docsFiles) {
+    const docsJsonFiles = readdirSync(path).filter((f) => f.endsWith('.docs.json'));
+    for (const docsFile of docsJsonFiles) {
       let data: DocsJson;
       try {
         data = JSON.parse(readFileSync(join(path, docsFile), 'utf-8'));
@@ -235,6 +239,29 @@ function lintJsonContent(): void {
               }
             }
           }
+        }
+      }
+    }
+
+    // Validate docs.html
+    const docsHtmlFiles = readdirSync(path).filter((f) => f.endsWith('.docs.html'));
+    for (const docsFile of docsHtmlFiles) {
+      const raw = readFileSync(join(path, docsFile), 'utf-8');
+      const fmMatch = raw.match(/^---\n([\s\S]*?)\n---/);
+      if (!fmMatch) {
+        errors.push(`${name}/${docsFile}: missing YAML frontmatter (--- delimiters)`);
+        continue;
+      }
+      const fm = fmMatch[1];
+      if (!/^title:\s*.+/m.test(fm)) {
+        errors.push(`${name}/${docsFile}: missing required "title" in frontmatter`);
+      }
+      // Validate api path if specified
+      const apiMatch = fm.match(/^api:\s*(.+)/m);
+      if (apiMatch) {
+        const apiRef = apiMatch[1].trim();
+        if (!existsSync(join(path, apiRef))) {
+          errors.push(`${name}/${docsFile}: api path "${apiRef}" does not exist`);
         }
       }
     }
