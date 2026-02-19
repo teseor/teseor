@@ -1,5 +1,14 @@
 # @teseor/css
 
+## 1.16.0
+
+### Minor Changes
+
+- 05ac1a7: Add color-mix() shade tokens for success, warning, and danger (light, dark, subtle, hover variants). Remove disconnected --ui-hue-primary token — shadows now derive from --ui-color-neutral via color-mix(). Theme demos updated to override --ui-color-primary directly.
+- d9d763d: Remove unused --ui-spacing-_ semantic aliases (xs/sm/md/lg/xl/gutter/section). No consumer references existed — use --ui-space-_ numeric tokens instead.
+- 51219e0: Add position, overflow, and inset utility classes; replace 154 inline styles with demo- prefixed classes
+- d597467: Add --ui-radius-base theme knob token. Override it once to control all border radii (sm, md, lg derive from it). Simplifies theming — e.g. `--ui-radius-base: 2px` for sharp corners.
+
 ## 1.15.7
 
 ### Patch Changes
