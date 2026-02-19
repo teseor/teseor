@@ -1,5 +1,11 @@
 # @teseor/css
 
+## 1.15.6
+
+### Patch Changes
+
+- 5bc487d: Replace 135 inline styles with existing DS utility classes across 18 docs.html files
+
 ## 1.15.5
 
 ### Patch Changes
