@@ -19,12 +19,18 @@ const prefixCustomProperties = () => {
     postcssPlugin: 'postcss-prefix-custom-properties',
     Declaration(decl) {
       // Prefix custom property declarations (--property-name)
-      if (decl.prop.startsWith('--') && !decl.prop.startsWith(`--${PREFIX}`)) {
+      // Skip internal vars (--_ prefix) — they are component-scoped, not public API
+      if (
+        decl.prop.startsWith('--') &&
+        !decl.prop.startsWith(`--${PREFIX}`) &&
+        !decl.prop.startsWith('--_')
+      ) {
         decl.prop = `--${PREFIX}${decl.prop.slice(2)}`;
       }
       // Prefix var() references in values
+      // Skip internal vars (--_ prefix) via negative lookahead
       if (decl.value.includes('var(--')) {
-        decl.value = decl.value.replace(/var\(--(?!ui-)([^)]+)\)/g, `var(--${PREFIX}$1)`);
+        decl.value = decl.value.replace(/var\(--(?!ui-)(?!_)([^)]+)\)/g, `var(--${PREFIX}$1)`);
       }
     },
     AtRule(atRule) {

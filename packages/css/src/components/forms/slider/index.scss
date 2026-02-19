@@ -12,9 +12,9 @@
     // @desc Overall height
     --_height: var(--ui-slider-height, var(--ui-row-2, #{t.$row-2}));
     // @desc Track height
-    --_track-height: var(--ui-slider-track-height, #{t.$unit});
+    --_track-height: var(--ui-slider-track-height, var(--ui-unit, #{t.$unit}));
     // @desc Track background
-    --_track-bg: var(--ui-slider-track-bg, var(--ui-color-bg-subtle, #{t.$overlay-bg-subtle}));
+    --_track-bg: var(--ui-slider-track-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
     // @desc Track fill
     --_track-fill: var(--ui-slider-track-fill, var(--ui-color-primary, #{t.$color-primary}));
     // @desc Track corner radius
