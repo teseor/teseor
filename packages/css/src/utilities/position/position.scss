@@ -1,0 +1,74 @@
+// Position, overflow, and inset utilities
+
+@layer utilities {
+  // Position
+  .relative {
+    position: relative;
+  }
+
+  .absolute {
+    position: absolute;
+  }
+
+  .fixed {
+    position: fixed;
+  }
+
+  .sticky {
+    position: sticky;
+  }
+
+  .static {
+    position: static;
+  }
+
+  // Inset (logical properties)
+  .inset-0 {
+    inset: 0;
+  }
+
+  .inset-block-0 {
+    inset-block: 0;
+  }
+
+  .inset-inline-0 {
+    inset-inline: 0;
+  }
+
+  .top-0 {
+    inset-block-start: 0;
+  }
+
+  .bottom-0 {
+    inset-block-end: 0;
+  }
+
+  .start-0 {
+    inset-inline-start: 0;
+  }
+
+  .end-0 {
+    inset-inline-end: 0;
+  }
+
+  // Overflow
+  .overflow-hidden {
+    overflow: hidden;
+  }
+
+  .overflow-auto {
+    overflow: auto;
+  }
+
+  .overflow-x-auto {
+    overflow-x: auto;
+  }
+
+  .overflow-y-auto {
+    overflow-y: auto;
+  }
+
+  .overflow-visible {
+    overflow: visible;
+  }
+}

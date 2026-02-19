@@ -1,0 +1,29 @@
+---
+title: Position
+description: Position, overflow, and inset utilities for controlling element placement.
+---
+
+<!-- @position -->
+<!-- Set position type on any element. -->
+<div class="ui-relative ui-bg-muted ui-p-2" style="block-size: var(--ui-row-4)">
+  <div class="ui-absolute ui-top-0 ui-end-0 ui-bg-subtle ui-p-1">{{ t('absolute_top_end', 'Absolute top-end') }}</div>
+  <div class="ui-absolute ui-bottom-0 ui-start-0 ui-bg-subtle ui-p-1">{{ t('absolute_bottom_start', 'Absolute bottom-start') }}</div>
+</div>
+
+<!-- @inset | row -->
+<!-- Pin element to all edges or specific sides. -->
+<div class="ui-relative ui-bg-muted" style="block-size: var(--ui-row-4)">
+  <div class="ui-absolute ui-inset-0 ui-bg-subtle ui-p-2">{{ t('inset_0_fills_parent', 'inset-0 fills parent') }}</div>
+</div>
+<div class="ui-relative ui-bg-muted" style="block-size: var(--ui-row-4)">
+  <div class="ui-absolute ui-inset-block-0 ui-start-0 ui-bg-subtle ui-p-2">{{ t('inset_block_0_start_0', 'inset-block-0 + start-0') }}</div>
+</div>
+
+<!-- @overflow | row -->
+<!-- Control overflow behavior. -->
+<div class="ui-overflow-hidden ui-bg-muted ui-p-2" style="block-size: var(--ui-row-3)">
+  <p>{{ t('overflow_hidden_long_content', 'This content is clipped when it overflows the container boundary. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.') }}</p>
+</div>
+<div class="ui-overflow-auto ui-bg-muted ui-p-2" style="block-size: var(--ui-row-3)">
+  <p>{{ t('overflow_auto_long_content', 'This content gets a scrollbar when it overflows. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.') }}</p>
+</div>

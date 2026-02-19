@@ -4,8 +4,8 @@ description: Container for modal dialogs. Use with overlay for backdrop effect.
 ---
 
 <!-- @default -->
-<div style="position: relative; height: 200px; background: var(--ui-color-bg-subtle);">
-  <div class="ui-modal ui-modal--visible" style="position: absolute;">
+<div class="demo-area">
+  <div class="ui-modal ui-modal--visible ui-absolute">
     <div class="ui-modal__content">
       <p>{{ t('modal_content_goes_here', 'Modal content goes here') }}</p>
     </div>
@@ -13,8 +13,8 @@ description: Container for modal dialogs. Use with overlay for backdrop effect.
 </div>
 
 <!-- @sizes -->
-<div style="position: relative; height: 120px; background: var(--ui-color-bg-subtle);">
-  <div class="ui-modal ui-modal--sm ui-modal--visible" style="position: absolute;">
+<div class="demo-area" style="--demo-h: 120px">
+  <div class="ui-modal ui-modal--sm ui-modal--visible ui-absolute">
     <div class="ui-modal__content">
       <p>{{ t('small_modal', 'Small modal') }}</p>
     </div>
@@ -22,8 +22,8 @@ description: Container for modal dialogs. Use with overlay for backdrop effect.
 </div>
 
 <!-- @large -->
-<div style="position: relative; height: 120px; background: var(--ui-color-bg-subtle);">
-  <div class="ui-modal ui-modal--lg ui-modal--visible" style="position: absolute;">
+<div class="demo-area" style="--demo-h: 120px">
+  <div class="ui-modal ui-modal--lg ui-modal--visible ui-absolute">
     <div class="ui-modal__content">
       <p>{{ t('large_modal', 'Large modal') }}</p>
     </div>
@@ -31,8 +31,8 @@ description: Container for modal dialogs. Use with overlay for backdrop effect.
 </div>
 
 <!-- @full -->
-<div style="position: relative; height: 120px; background: var(--ui-color-bg-subtle);">
-  <div class="ui-modal ui-modal--full ui-modal--visible" style="position: absolute;">
+<div class="demo-area" style="--demo-h: 120px">
+  <div class="ui-modal ui-modal--full ui-modal--visible ui-absolute">
     <div class="ui-modal__content">
       <p>{{ t('full_screen_modal', 'Full-screen modal') }}</p>
     </div>
@@ -41,8 +41,8 @@ description: Container for modal dialogs. Use with overlay for backdrop effect.
 
 <!-- @entering_animation -->
 <!-- Apply entering modifier for open transition. -->
-<div style="position: relative; height: 120px; background: var(--ui-color-bg-subtle);">
-  <div class="ui-modal ui-modal--visible ui-modal--entering" style="position: absolute;">
+<div class="demo-area" style="--demo-h: 120px">
+  <div class="ui-modal ui-modal--visible ui-modal--entering ui-absolute">
     <div class="ui-modal__content">
       <p>{{ t('entering_modal', 'Entering modal') }}</p>
     </div>
@@ -50,8 +50,8 @@ description: Container for modal dialogs. Use with overlay for backdrop effect.
 </div>
 
 <!-- @with_scrollable_content -->
-<div style="position: relative; height: 200px; background: var(--ui-color-bg-subtle);">
-  <div class="ui-modal ui-modal--visible" style="position: absolute;">
+<div class="demo-area">
+  <div class="ui-modal ui-modal--visible ui-absolute">
     <div class="ui-modal__content" style="max-height: 150px;">
       <div class="ui-modal__body">
         <p>{{ t('line_1', 'Line 1') }}</p>

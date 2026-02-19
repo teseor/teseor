@@ -4,12 +4,12 @@ description: Floating panel for additional content. Larger than tooltip, can con
 ---
 
 <!-- @default -->
-<div class="ui-popover" style="position: relative;">
+<div class="ui-popover ui-relative">
   <p>{{ t('popover_content', 'Popover content goes here. Can contain multiple paragraphs and other elements.') }}</p>
 </div>
 
 <!-- @with_header -->
-<div class="ui-popover" style="position: relative;">
+<div class="ui-popover ui-relative">
   <header class="ui-popover__header">
     <h3 class="ui-popover__title">{{ t('popover_title', 'Popover Title') }}</h3>
   </header>
@@ -18,21 +18,21 @@ description: Floating panel for additional content. Larger than tooltip, can con
 
 <!-- @positions -->
 <div style="padding: var(--ui-space-4);">
-  <div class="ui-popover ui-popover--top" style="position: relative;">
+  <div class="ui-popover ui-popover--top ui-relative">
     <p>{{ t('top_arrow_down', 'Top (arrow down)') }}</p>
   </div>
 </div>
 <div style="padding: var(--ui-space-4);">
-  <div class="ui-popover ui-popover--bottom" style="position: relative;">
+  <div class="ui-popover ui-popover--bottom ui-relative">
     <p>{{ t('bottom_arrow_up', 'Bottom (arrow up)') }}</p>
   </div>
 </div>
 
 <!-- @visibility -->
 <!-- Control popover visibility and animation. -->
-<div class="ui-popover ui-popover--visible ui-popover--animate" style="position: relative;">
+<div class="ui-popover ui-popover--visible ui-popover--animate ui-relative">
   <p>{{ t('visible_and_animated', 'Visible and animated') }}</p>
 </div>
-<div class="ui-popover ui-popover--hidden" style="position: relative;">
+<div class="ui-popover ui-popover--hidden ui-relative">
   <p>{{ t('hidden_popover', 'Hidden popover') }}</p>
 </div>

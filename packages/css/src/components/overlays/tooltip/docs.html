@@ -4,23 +4,23 @@ description: Small informational popup for additional context. Position via JS.
 ---
 
 <!-- @positions -->
-<div style="display: flex; gap: var(--ui-space-4); padding: var(--ui-space-4); flex-wrap: wrap;">
-  <div style="position: relative;">
-    <span class="ui-tooltip ui-tooltip--top" style="position: relative;">{{ t('top', 'Top') }}</span>
+<div class="ui-flex ui-gap-4 ui-p-4 ui-flex-wrap">
+  <div class="ui-relative">
+    <span class="ui-tooltip ui-tooltip--top ui-relative">{{ t('top', 'Top') }}</span>
   </div>
-  <div style="position: relative;">
-    <span class="ui-tooltip ui-tooltip--bottom" style="position: relative;">{{ t('bottom', 'Bottom') }}</span>
+  <div class="ui-relative">
+    <span class="ui-tooltip ui-tooltip--bottom ui-relative">{{ t('bottom', 'Bottom') }}</span>
   </div>
-  <div style="position: relative;">
-    <span class="ui-tooltip ui-tooltip--start" style="position: relative;">{{ t('start', 'Start') }}</span>
+  <div class="ui-relative">
+    <span class="ui-tooltip ui-tooltip--start ui-relative">{{ t('start', 'Start') }}</span>
   </div>
-  <div style="position: relative;">
-    <span class="ui-tooltip ui-tooltip--end" style="position: relative;">{{ t('end', 'End') }}</span>
+  <div class="ui-relative">
+    <span class="ui-tooltip ui-tooltip--end ui-relative">{{ t('end', 'End') }}</span>
   </div>
 </div>
 
 <!-- @with_animation -->
-<span class="ui-tooltip ui-tooltip--top ui-tooltip--animate ui-tooltip--visible" style="position: relative;">{{ t('animated_tooltip', 'Animated tooltip') }}</span>
+<span class="ui-tooltip ui-tooltip--top ui-tooltip--animate ui-tooltip--visible ui-relative">{{ t('animated_tooltip', 'Animated tooltip') }}</span>
 
 <!-- @anchor_positioned -->
 <!-- Browser-native positioning via CSS Anchor Positioning. No JS needed for placement. Wrapped in @supports — falls back to manual positioning in unsupported browsers. -->

@@ -5,19 +5,19 @@ description: Centers content horizontally and vertically.
 
 <!-- @basic -->
 <!-- Centers children both horizontally and vertically using flexbox. -->
-<div class="ui-center" style="height: var(--ui-row-4); background: var(--ui-color-bg-muted)">
+<div class="ui-center demo-box ui-bg-muted" style="--demo-h: var(--ui-row-4)">
   <span>{{ t('centered_content', 'Centered content') }}</span>
 </div>
 
 <!-- @column_direction -->
 <!-- Stack centered children vertically. -->
-<div class="ui-center ui-center--column" style="height: var(--ui-row-6); background: var(--ui-color-bg-muted)">
+<div class="ui-center ui-center--column demo-box ui-bg-muted" style="--demo-h: var(--ui-row-6)">
   <span>{{ t('first_line', 'First line') }}</span>
   <span>{{ t('second_line', 'Second line') }}</span>
 </div>
 
 <!-- @full_page_center -->
 <!-- Center content within a full viewport area, useful for loading or empty states. -->
-<div class="ui-center" style="height: var(--ui-row-8); background: var(--ui-color-bg-muted)">
+<div class="ui-center demo-box ui-bg-muted" style="--demo-h: var(--ui-row-8)">
   <p>{{ t('no_results_found', 'No results found') }}</p>
 </div>
