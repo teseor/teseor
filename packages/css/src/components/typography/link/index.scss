@@ -8,6 +8,7 @@
     --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
     --_ease-default: var(--ui-ease-default, #{t.$ease-default});
     --_color-focus: var(--ui-color-focus, var(--ui-color-primary, #{t.$color-primary}));
+    --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
     --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
     // @desc Text color
     --_color: var(--ui-link-color, var(--ui-color-primary, #{t.$color-primary}));
@@ -52,7 +53,7 @@
 
     &:focus-visible {
       border-radius: calc(#{t.$unit} / 4);
-      outline: 2px solid var(--_color-focus);
+      outline: var(--_border-width-md) solid var(--_color-focus);
       outline-offset: calc(#{t.$unit} / 4);
     }
 

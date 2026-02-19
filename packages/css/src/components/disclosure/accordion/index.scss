@@ -37,7 +37,7 @@
 
   // Add dividers between items
   .accordion > .disclosure + .disclosure {
-    border-block-start: 1px solid var(--_border-color);
+    border-block-start: var(--_border-width) solid var(--_border-color);
   }
 
   // Round first and last items
@@ -77,11 +77,11 @@
   }
 
   .accordion--separated > .disclosure {
-    border: 1px solid var(--_border-color);
+    border: var(--_border-width) solid var(--_border-color);
     border-radius: var(--_radius);
   }
 
   .accordion--separated > .disclosure + .disclosure {
-    border-block-start: 1px solid var(--_border-color);
+    border-block-start: var(--_border-width) solid var(--_border-color);
   }
 }
