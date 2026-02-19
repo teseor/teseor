@@ -4,8 +4,8 @@ description: Structured modal with header, body, and footer sections. Use with m
 ---
 
 <!-- @default -->
-<div style="position: relative; height: 240px; background: var(--ui-color-bg-subtle);">
-  <div class="ui-modal ui-modal--visible" style="position: absolute;">
+<div class="demo-area" style="--demo-h: 240px">
+  <div class="ui-modal ui-modal--visible ui-absolute">
     <div class="ui-modal__content ui-dialog" style="max-height: 200px;">
       <header class="ui-dialog__header">
         <h2 class="ui-dialog__title">{{ t('dialog_title', 'Dialog Title') }}</h2>
@@ -23,8 +23,8 @@ description: Structured modal with header, body, and footer sections. Use with m
 </div>
 
 <!-- @borderless -->
-<div style="position: relative; height: 200px; background: var(--ui-color-bg-subtle);">
-  <div class="ui-modal ui-modal--visible" style="position: absolute;">
+<div class="demo-area">
+  <div class="ui-modal ui-modal--visible ui-absolute">
     <div class="ui-modal__content ui-dialog ui-dialog--borderless" style="max-height: 180px;">
       <header class="ui-dialog__header">
         <h2 class="ui-dialog__title">{{ t('simple_dialog', 'Simple Dialog') }}</h2>
@@ -40,8 +40,8 @@ description: Structured modal with header, body, and footer sections. Use with m
 </div>
 
 <!-- @confirmation_dialog -->
-<div style="position: relative; height: 200px; background: var(--ui-color-bg-subtle);">
-  <div class="ui-modal ui-modal--sm ui-modal--visible" style="position: absolute;">
+<div class="demo-area">
+  <div class="ui-modal ui-modal--sm ui-modal--visible ui-absolute">
     <div class="ui-modal__content ui-dialog">
       <header class="ui-dialog__header">
         <h2 class="ui-dialog__title">{{ t('delete_item', 'Delete Item?') }}</h2>
