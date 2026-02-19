@@ -1,5 +1,11 @@
 # @teseor/css
 
+## 2.2.1
+
+### Patch Changes
+
+- 169d15e: Merge duplicate @layer blocks in PostCSS output and fix layer declaration order
+
 ## 2.2.0
 
 ### Minor Changes
