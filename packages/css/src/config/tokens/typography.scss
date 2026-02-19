@@ -1,21 +1,16 @@
-@layer tokens {
+@layer tokens.scale {
   :root {
-    // Font families — system font stack, override with custom fonts via these tokens
-    --ui-font-sans: system-ui, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, sans-serif;
-    --ui-font-mono: ui-monospace, sfmono-regular, "SF Mono", menlo, consolas, "Liberation Mono", monospace;
-
     // ==========================================================================
-    // PRIMITIVE TOKENS - Font Size Scale
-    // Modular scale: 1.2 ratio (Minor Third), base 16px
+    // PRIMITIVE TOKENS - Font Size Scale (derived from --ui-font-size-base)
     // ==========================================================================
-    --ui-font-size-xs: 0.75rem;
-    --ui-font-size-sm: 0.875rem;
-    --ui-font-size-md: 1rem;
-    --ui-font-size-lg: 1.25rem;
-    --ui-font-size-xl: 1.5rem;
-    --ui-font-size-2xl: 1.75rem;
-    --ui-font-size-3xl: 2rem;
-    --ui-font-size-4xl: 2.5rem;
+    --ui-font-size-xs: calc(var(--ui-font-size-base) * 0.75);
+    --ui-font-size-sm: calc(var(--ui-font-size-base) * 0.875);
+    --ui-font-size-md: var(--ui-font-size-base);
+    --ui-font-size-lg: calc(var(--ui-font-size-base) * 1.25);
+    --ui-font-size-xl: calc(var(--ui-font-size-base) * 1.5);
+    --ui-font-size-2xl: calc(var(--ui-font-size-base) * 1.75);
+    --ui-font-size-3xl: calc(var(--ui-font-size-base) * 2);
+    --ui-font-size-4xl: calc(var(--ui-font-size-base) * 2.5);
 
     // ==========================================================================
     // PRIMITIVE TOKENS - Line Heights (8px grid-snap)
@@ -52,7 +47,11 @@
     --ui-letter-spacing-display: -0.02em;
     --ui-letter-spacing-body: 0;
     --ui-letter-spacing-caps: 0.08em;
+  }
+}
 
+@layer tokens.semantic {
+  :root {
     // ==========================================================================
     // SEMANTIC TOKENS - Text Roles
     // ==========================================================================

@@ -1,8 +1,8 @@
-@layer tokens {
+@layer tokens.scale {
   :root {
-    // Border widths - derived from unit (8px)
-    --ui-border-width-sm: calc(var(--ui-unit) * 0.125); // 1px
-    --ui-border-width-md: calc(var(--ui-unit) * 0.25); // 2px
-    --ui-border-width-lg: calc(var(--ui-unit) * 0.5); // 4px
+    // Border widths - derived from --ui-border-width-base
+    --ui-border-width-sm: var(--ui-border-width-base);
+    --ui-border-width-md: calc(var(--ui-border-width-base) * 2);
+    --ui-border-width-lg: calc(var(--ui-border-width-base) * 4);
   }
 }

@@ -101,7 +101,8 @@ $sizes: (
 $font-sans: system-ui, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, sans-serif;
 $font-mono: ui-monospace, sfmono-regular, "SF Mono", menlo, consolas, "Liberation Mono", monospace;
 
-// Font sizes (1.2 modular scale)
+// Font sizes (derived from base, 1.2 modular scale)
+$font-size-base: 1rem; // 16px — core knob
 $font-size-xs: 0.75rem; // 12px
 $font-size-sm: 0.875rem; // 14px
 $font-size-md: 1rem; // 16px (base)
@@ -153,19 +154,21 @@ $radius-lg: $radius-base * 2; // 16px
 $radius-full: 9999px;
 
 // ==========================================================================
-// 6. Borders — derived from $unit
+// 6. Borders — derived from $border-width-base
 // ==========================================================================
-$border-width-sm: $unit * 0.125; // 1px
-$border-width-md: $unit * 0.25; // 2px
-$border-width-lg: $unit * 0.5; // 4px
+$border-width-base: $unit * 0.125; // 1px — core knob
+$border-width-sm: $border-width-base; // 1px
+$border-width-md: $border-width-base * 2; // 2px
+$border-width-lg: $border-width-base * 4; // 4px
 $focus-ring-offset: -$border-width-md;
 
 // ==========================================================================
-// 7. Shadows — neutral-tinted
+// 7. Shadows — geometry from $unit, opacity from $shadow-strength
 // ==========================================================================
-$shadow-sm: 0 1px 2px hsl(220 10% 20% / 0.05);
-$shadow-md: 0 4px 6px hsl(220 10% 20% / 0.1);
-$shadow-lg: 0 10px 15px hsl(220 10% 20% / 0.15);
+$shadow-strength: 20%; // core knob
+$shadow-sm: 0 ($unit * 0.125) ($unit * 0.25) hsl(220 10% 20% / 0.05);
+$shadow-md: 0 ($unit * 0.5) ($unit * 0.75) hsl(220 10% 20% / 0.1);
+$shadow-lg: 0 ($unit * 1.25) ($unit * 2) hsl(220 10% 20% / 0.15);
 
 // ==========================================================================
 // 8. Z-index scale

@@ -1,12 +1,5 @@
-@layer tokens {
+@layer tokens.scale {
   :root {
-    // Base colors - override these to customize the design system
-    --ui-color-primary: oklch(55% 0.22 250);
-    --ui-color-success: oklch(60% 0.18 145);
-    --ui-color-warning: oklch(75% 0.18 70);
-    --ui-color-danger: oklch(60% 0.22 25);
-    --ui-color-neutral: oklch(50% 0.02 250);
-
     // Primary shades - auto-generated via color-mix
     --ui-color-primary-light: color-mix(in oklch, var(--ui-color-primary) 50%, white);
     --ui-color-primary-dark: color-mix(in oklch, var(--ui-color-primary) 75%, black);

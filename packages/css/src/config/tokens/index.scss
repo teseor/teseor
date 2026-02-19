@@ -1,4 +1,5 @@
-// Design tokens - colors, spacing, typography, grid, etc.
+// Design tokens - core knobs, derived scales, semantic mappings
+@use './core' as *;
 @use './colors/index' as *;
 @use './spacing/index' as *;
 @use './typography' as *;

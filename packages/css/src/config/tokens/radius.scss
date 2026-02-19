@@ -1,7 +1,5 @@
-@layer tokens {
+@layer tokens.scale {
   :root {
-    // Override --ui-radius-base to control all border radii at once
-    --ui-radius-base: var(--ui-unit); // 8px — the single theme knob
     --ui-radius-sm: calc(var(--ui-radius-base) * 0.5); // 4px
     --ui-radius-md: var(--ui-radius-base); // 8px
     --ui-radius-lg: calc(var(--ui-radius-base) * 2); // 16px

@@ -30,7 +30,7 @@ export const TOKEN_DICTIONARY: TokenCategory[] = [
   {
     prefix: 'font-size',
     description: 'Font size scale',
-    scales: ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'],
+    scales: ['base', 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'],
   },
   {
     prefix: 'font-weight',
@@ -55,9 +55,9 @@ export const TOKEN_DICTIONARY: TokenCategory[] = [
   {
     prefix: 'border-width',
     description: 'Border widths',
-    scales: ['sm', 'md', 'lg'],
+    scales: ['base', 'sm', 'md', 'lg'],
   },
-  { prefix: 'shadow', description: 'Box shadows', scales: ['sm', 'md', 'lg'] },
+  { prefix: 'shadow', description: 'Box shadows', scales: ['strength', 'sm', 'md', 'lg'] },
 
   // Layout
   {

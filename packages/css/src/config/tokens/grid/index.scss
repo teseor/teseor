@@ -1,6 +1,5 @@
-@layer tokens {
+@layer tokens.scale {
   :root {
-    --ui-unit: 8px; // 8px
     --ui-row: calc(var(--ui-unit) * 2);
 
     --ui-row-1: var(--ui-row);
