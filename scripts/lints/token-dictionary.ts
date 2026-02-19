@@ -8,11 +8,13 @@ import { findScssFiles } from './_utils.js';
 // Sort prefixes longest-first for greedy matching
 const SORTED_PREFIXES = TOKEN_DICTIONARY.map((c) => c.prefix).sort((a, b) => b.length - a.length);
 
-function findCategoryPrefix(tokenName: string): string | undefined {
+export function findCategoryPrefix(tokenName: string): string | undefined {
   return SORTED_PREFIXES.find((p) => tokenName === p || tokenName.startsWith(`${p}-`));
 }
 
-function findBannedPrefix(name: string): { banned: string; replacement: string } | undefined {
+export function findBannedPrefix(
+  name: string,
+): { banned: string; replacement: string } | undefined {
   for (const [banned, replacement] of Object.entries(BANNED_PREFIXES)) {
     if (name === banned || name.startsWith(`${banned}-`)) {
       return { banned, replacement };
