@@ -1,5 +1,11 @@
 # @teseor/css
 
+## 1.15.7
+
+### Patch Changes
+
+- c21d232: Redesign docs home page using DS components: grid layout, cards, badges, tags, headings, links, and dividers
+
 ## 1.15.6
 
 ### Patch Changes
