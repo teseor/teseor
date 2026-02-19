@@ -159,9 +159,7 @@
 
   .demo-theme--corporate {
     --ui-color-primary: oklch(55% 0.15 180);
-    --ui-radius-sm: 2px;
-    --ui-radius-md: 4px;
-    --ui-radius-lg: 6px;
+    --ui-radius-base: 2px;
   }
 
   /* Component override demos */
