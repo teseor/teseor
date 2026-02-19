@@ -1,0 +1,6 @@
+{
+  "name": "position",
+  "type": "utility",
+  "utilities": ["relative", "absolute", "overflow-hidden", "inset-0"],
+  "cssVars": []
+}
