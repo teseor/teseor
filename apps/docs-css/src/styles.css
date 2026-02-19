@@ -80,13 +80,61 @@
     overflow-x: auto;
   }
 
-  /* Demo for custom font override */
-  .custom-font-demo {
-    font-family: var(--ui-font-sans);
+  /* Sidebar toggle buttons - pressed state */
+  .ui-sidebar-nav__footer button[aria-pressed="true"] {
+    background: var(--ui-color-primary);
+    color: var(--ui-color-on-primary);
+    border-color: var(--ui-color-primary);
   }
 
-  /* Theme demo container */
-  .theme-demo {
+  /* =========================================================================
+     Demo-only classes: used in docs.html to style preview containers.
+     ALL prefixed with `demo-` to distinguish from DS utility classes.
+     ========================================================================= */
+
+  /* Bordered box for overlay/drawer/toast demos */
+  .demo-container {
+    position: relative;
+    block-size: var(--demo-h, 200px);
+    border: 1px solid var(--ui-color-border);
+    border-radius: var(--ui-radius-md);
+  }
+
+  .demo-container--overflow {
+    overflow: hidden;
+  }
+
+  /* Background area for modal/overlay demos */
+  .demo-area {
+    position: relative;
+    block-size: var(--demo-h, 200px);
+    background: var(--ui-color-bg-subtle);
+  }
+
+  /* Height container for debug/center/main demos */
+  .demo-box {
+    position: relative;
+    block-size: var(--demo-h, var(--ui-row-4));
+  }
+
+  /* Fixed-width swatch for aspect-ratio demos */
+  .demo-swatch {
+    inline-size: var(--demo-w, 160px);
+    background: var(--ui-color-bg-muted);
+  }
+
+  /* Max-width constraint for text/scroll-snap/nav demos */
+  .demo-narrow {
+    max-inline-size: var(--demo-w, 20rem);
+  }
+
+  /* Min-width for scroll-snap items */
+  .demo-snap-item {
+    min-inline-size: 10rem;
+  }
+
+  /* Theme showcase container */
+  .demo-theme {
     padding: var(--ui-space-2);
     border-radius: var(--ui-radius-md);
     background: var(--ui-color-bg);
@@ -96,41 +144,34 @@
     align-items: flex-start;
   }
 
-  /* Theme variants (demo only) */
-  .theme-purple {
+  /* Theme hue variants */
+  .demo-theme--purple {
     --ui-hue-primary: 270;
   }
 
-  .theme-teal {
+  .demo-theme--teal {
     --ui-hue-primary: 180;
   }
 
-  .theme-orange {
+  .demo-theme--orange {
     --ui-hue-primary: 25;
   }
 
-  .theme-corporate {
+  .demo-theme--corporate {
     --ui-hue-primary: 180;
     --ui-radius-sm: 2px;
     --ui-radius-md: 4px;
     --ui-radius-lg: 6px;
   }
 
-  /* Custom component overrides demo */
-  .custom-buttons {
+  /* Component override demos */
+  .demo-buttons {
     --ui-button-height-sm: 24px;
     --ui-button-height: 40px;
     --ui-button-height-lg: 56px;
   }
 
-  .custom-cards {
+  .demo-cards {
     --ui-card-padding: var(--ui-space-4);
-  }
-
-  /* Sidebar toggle buttons - pressed state */
-  .ui-sidebar-nav__footer button[aria-pressed="true"] {
-    background: var(--ui-color-primary);
-    color: var(--ui-color-on-primary);
-    border-color: var(--ui-color-primary);
   }
 }
