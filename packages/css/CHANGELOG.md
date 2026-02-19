@@ -1,5 +1,11 @@
 # @teseor/css
 
+## 2.0.2
+
+### Patch Changes
+
+- d8feebe: Fix PostCSS prefix leak on internal --\_ custom properties and add missing 3-tier token fallbacks
+
 ## 2.0.1
 
 ### Patch Changes
