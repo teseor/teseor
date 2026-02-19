@@ -1,5 +1,11 @@
 # @teseor/css
 
+## 1.15.5
+
+### Patch Changes
+
+- f9db3f5: Fix corrupted style attributes in content and nav-rail docs (character-split serialization bug). Replace with utility classes where possible.
+
 ## 1.15.4
 
 ### Patch Changes
