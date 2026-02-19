@@ -1,5 +1,17 @@
 # @teseor/css
 
+## 2.0.0
+
+### Major Changes
+
+- b22d30f: Rename --ui-leading-_ tokens to --ui-line-height-_ for CSS property name consistency. Clean break — old names removed entirely. Add banned-token-names lint rule to prevent regression.
+- 6a2e057: Rename --ui-tracking-_ to --ui-letter-spacing-_ and --ui-z-_ to --ui-z-index-_ for CSS property name consistency. Clean break — old names removed entirely. Add banned-token-names lint rule to prevent regression.
+- 599fc43: Rename --ui-weight-_ tokens to --ui-font-weight-_ for CSS property name consistency. Clean break — old names removed entirely. Add banned-token-names lint rule to prevent regression.
+
+### Patch Changes
+
+- 798f6a3: Add token dictionary as single source of truth, replace ad-hoc banned-name regexes with dictionary-based lint, extract lint functions into modular files, add token architecture guide
+
 ## 1.16.0
 
 ### Minor Changes
