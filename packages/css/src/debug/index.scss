@@ -7,8 +7,7 @@
 }
 
 .debug-grid {
-  // Fallback hue 220 (blue) when --ui-hue-primary not set
-  --debug-color: hsl(var(--ui-hue-primary, #{t.$hue-primary}) 80% 50% / 0.15);
+  --debug-color: color-mix(in oklch, var(--ui-color-primary, #{t.$color-primary}) 15%, transparent);
 }
 
 .debug-grid::after {
@@ -31,8 +30,8 @@
 
 // Stronger grid at row intervals
 .debug-grid-rows {
-  --debug-color: hsl(var(--ui-hue-primary, #{t.$hue-primary}) 80% 50% / 0.1);
-  --debug-color-strong: hsl(var(--ui-hue-primary, #{t.$hue-primary}) 80% 50% / 0.25);
+  --debug-color: color-mix(in oklch, var(--ui-color-primary, #{t.$color-primary}) 10%, transparent);
+  --debug-color-strong: color-mix(in oklch, var(--ui-color-primary, #{t.$color-primary}) 25%, transparent);
 }
 
 .debug-grid-rows::after {
@@ -56,7 +55,7 @@
 
 // Baseline grid only (horizontal lines)
 .debug-baseline {
-  --debug-color: hsl(var(--ui-hue-danger, 0) 80% 50% / 0.2);
+  --debug-color: color-mix(in oklch, var(--ui-color-danger, #{t.$color-danger}) 20%, transparent);
 }
 
 .debug-baseline::after {
