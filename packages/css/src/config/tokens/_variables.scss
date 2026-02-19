@@ -144,11 +144,12 @@ $font-size-relative-xs: 0.6em;
 $font-size-relative-sm: 0.75em;
 
 // ==========================================================================
-// 5. Radius — derived from $unit
+// 5. Radius — derived from $radius-base (which defaults to $unit)
 // ==========================================================================
-$radius-sm: $unit * 0.5; // 4px
-$radius-md: $unit; // 8px
-$radius-lg: $unit * 2; // 16px
+$radius-base: $unit; // 8px — theme knob
+$radius-sm: $radius-base * 0.5; // 4px
+$radius-md: $radius-base; // 8px
+$radius-lg: $radius-base * 2; // 16px
 $radius-full: 9999px;
 
 // ==========================================================================
