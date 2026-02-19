@@ -157,9 +157,28 @@
     --ui-color-primary: oklch(65% 0.18 55);
   }
 
+  .demo-theme--sharp {
+    --ui-radius-base: 0px;
+  }
+
+  .demo-theme--round {
+    --ui-radius-base: 1rem;
+  }
+
   .demo-theme--corporate {
     --ui-color-primary: oklch(55% 0.15 180);
     --ui-radius-base: 2px;
+  }
+
+  .demo-theme--playful {
+    --ui-color-primary: oklch(65% 0.18 55);
+    --ui-radius-base: 1rem;
+  }
+
+  .demo-theme--minimal {
+    --ui-color-primary: oklch(45% 0.02 250);
+    --ui-radius-base: 0px;
+    --ui-border-width-base: 0.5px;
   }
 
   /* Component override demos */
@@ -173,39 +192,98 @@
     --ui-card-padding: var(--ui-space-4);
   }
 
-  /* Theme playground sliders */
+  /* Theme playground — two-column on wide, stacked on narrow */
+  #theme-playground {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--ui-space-2);
+    align-items: start;
+  }
+
   .demo-playground {
     display: grid;
-    gap: var(--ui-space-2);
+    gap: var(--ui-space-1);
+    align-content: start;
+    padding: var(--ui-space-2);
+    background: var(--ui-color-bg-subtle);
+    border-radius: var(--ui-radius-md);
   }
 
   .demo-playground__row {
     display: grid;
-    grid-template-columns: 10rem 1fr 4rem;
+    grid-template-columns: 8rem 1fr 3.5rem;
     align-items: center;
     gap: var(--ui-space-1);
   }
 
   .demo-playground__row label {
-    font-size: var(--ui-font-size-sm);
+    font-size: var(--ui-font-size-xs);
     font-family: var(--ui-font-mono);
+    white-space: nowrap;
   }
 
   .demo-playground__row output {
-    font-size: var(--ui-font-size-sm);
+    font-size: var(--ui-font-size-xs);
     font-family: var(--ui-font-mono);
     text-align: end;
   }
 
+  .demo-playground__row input[type="range"] {
+    accent-color: var(--ui-color-primary);
+  }
+
+  .demo-playground__row select {
+    font-size: var(--ui-font-size-xs);
+    padding: var(--ui-space-half) var(--ui-space-1);
+  }
+
+  /* Color swatches — direct feedback for each color slider */
+  .demo-swatch-color {
+    display: block;
+    inline-size: var(--ui-space-4);
+    block-size: var(--ui-space-4);
+    border-radius: var(--ui-radius-sm);
+    border: var(--ui-border-width-sm) solid var(--ui-color-border);
+  }
+
+  .demo-swatch-color--primary {
+    background: var(--ui-color-primary);
+  }
+
+  .demo-swatch-color--success {
+    background: var(--ui-color-success);
+  }
+
+  .demo-swatch-color--warning {
+    background: var(--ui-color-warning);
+  }
+
+  .demo-swatch-color--danger {
+    background: var(--ui-color-danger);
+  }
+
+  .demo-swatch-color--neutral {
+    background: var(--ui-color-neutral);
+  }
+
   .demo-playground__preview {
     display: flex;
+    flex-direction: column;
     gap: var(--ui-space-2);
-    flex-wrap: wrap;
-    align-items: start;
     padding: var(--ui-space-3);
     border: var(--ui-border-width-sm) solid var(--ui-color-border);
     border-radius: var(--ui-radius-md);
     background: var(--ui-color-bg);
+  }
+
+  .demo-playground__preview .ui-row {
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 640px) {
+    #theme-playground {
+      grid-template-columns: 1fr;
+    }
   }
 }
 
