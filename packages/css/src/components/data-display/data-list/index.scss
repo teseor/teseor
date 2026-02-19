@@ -9,7 +9,7 @@
   .data-list {
     --_row-1: var(--ui-row-1, #{t.$row});
     --_font-size-sm: var(--ui-font-size-sm, #{t.$font-size-sm});
-    --_weight-medium: var(--ui-weight-medium, #{t.$weight-medium});
+    --_weight-medium: var(--ui-font-weight-medium, #{t.$font-weight-medium});
     --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
     --_color-border: var(--ui-color-border, #{t.$color-border});
     --_color-bg-subtle: var(--ui-color-bg-subtle, #{t.$color-bg-subtle});

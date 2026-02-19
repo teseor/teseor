@@ -16,7 +16,7 @@
     --_ease-in: var(--ui-ease-in, ease-in);
     --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
     --_font-size-lg: var(--ui-font-size-lg, #{t.$font-size-lg});
-    --_weight-semibold: var(--ui-weight-semibold, #{t.$weight-semibold});
+    --_weight-semibold: var(--ui-font-weight-semibold, #{t.$font-weight-semibold});
     --_row-1: var(--ui-row-1, #{t.$row});
     --_font-size-sm: var(--ui-font-size-sm, #{t.$font-size-sm});
     --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});

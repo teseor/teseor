@@ -13,7 +13,7 @@
     // @desc Value display font size
     --_font-size: var(--ui-stat-value-font-size, var(--ui-font-size-3xl, #{t.$font-size-3xl}));
     // @desc Value display font weight
-    --_font-weight: var(--ui-stat-value-font-weight, var(--ui-weight-bold, #{t.$weight-bold}));
+    --_font-weight: var(--ui-stat-value-font-weight, var(--ui-font-weight-bold, #{t.$font-weight-bold}));
     // @desc Value display line height
     --_line-height: var(--ui-stat-value-line-height, var(--ui-leading-3xl, #{t.$leading-3xl}));
     // @desc Value display text color

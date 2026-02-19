@@ -76,7 +76,7 @@
     },
     {
       "name": "--ui-sidebar-nav-group-label-weight",
-      "default": "var(--ui-weight-bold)",
+      "default": "var(--ui-font-weight-bold)",
       "description": "Group label weight"
     },
     {
@@ -126,7 +126,7 @@
     },
     {
       "name": "--ui-sidebar-nav-item-active-weight",
-      "default": "var(--ui-weight-medium)",
+      "default": "var(--ui-font-weight-medium)",
       "description": "Item active weight"
     },
     {

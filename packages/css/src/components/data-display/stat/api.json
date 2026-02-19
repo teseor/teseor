@@ -24,7 +24,7 @@
     },
     {
       "name": "--ui-stat-value-font-weight",
-      "default": "var(--ui-weight-bold)",
+      "default": "var(--ui-font-weight-bold)",
       "description": "Value display font weight"
     },
     {

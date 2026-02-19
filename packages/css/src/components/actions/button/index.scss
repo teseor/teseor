@@ -27,7 +27,7 @@
     // @desc Font size
     --_font-size: var(--ui-button-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     // @desc Font weight
-    --_font-weight: var(--ui-button-font-weight, var(--ui-weight-medium, #{t.$weight-medium}));
+    --_font-weight: var(--ui-button-font-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
     // @desc Corner radius
     --_radius: var(--ui-button-radius, var(--ui-radius-md, #{t.$radius-md}));
     --_bg: var(--_accent);

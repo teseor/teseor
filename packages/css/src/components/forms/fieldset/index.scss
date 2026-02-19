@@ -23,7 +23,7 @@
     // @desc Legend size
     --_legend-size: var(--ui-fieldset-legend-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     // @desc Legend weight
-    --_legend-weight: var(--ui-fieldset-legend-weight, var(--ui-weight-medium, #{t.$weight-medium}));
+    --_legend-weight: var(--ui-fieldset-legend-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
     // @desc Legend color
     --_legend-color: var(--ui-fieldset-legend-color, var(--ui-color-text, #{t.$color-text}));
   }

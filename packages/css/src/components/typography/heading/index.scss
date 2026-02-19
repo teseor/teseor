@@ -10,7 +10,7 @@
     // @desc Line height
     --_line-height: var(--ui-heading-line-height, var(--ui-leading-xl, #{t.$leading-xl}));
     // @desc Weight
-    --_weight: var(--ui-heading-weight, var(--ui-weight-bold, #{t.$weight-bold}));
+    --_weight: var(--ui-heading-weight, var(--ui-font-weight-bold, #{t.$font-weight-bold}));
     // @desc Text color
     --_color: var(--ui-heading-color, var(--ui-color-text, #{t.$color-text}));
   }

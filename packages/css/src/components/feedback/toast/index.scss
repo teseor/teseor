@@ -19,7 +19,7 @@
 
   .toast {
     --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
-    --_weight-medium: var(--ui-weight-medium, #{t.$weight-medium});
+    --_weight-medium: var(--ui-font-weight-medium, #{t.$font-weight-medium});
     --_row-1: var(--ui-row-1, #{t.$row});
     --_font-size-sm: var(--ui-font-size-sm, #{t.$font-size-sm});
     --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});

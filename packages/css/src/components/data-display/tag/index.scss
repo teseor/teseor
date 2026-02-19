@@ -6,7 +6,7 @@
 
 @layer components.tokens {
   .tag {
-    --_weight-medium: var(--ui-weight-medium, #{t.$weight-medium});
+    --_weight-medium: var(--ui-font-weight-medium, #{t.$font-weight-medium});
     --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
     --_opacity-loading: var(--ui-opacity-loading, #{t.$opacity-loading});
     // @desc Overall height

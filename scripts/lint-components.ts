@@ -629,6 +629,51 @@ function lintI18nCoverage(): void {
   }
 }
 
+function lintBannedTokenNames(): void {
+  const srcDir = join(__dirname, '../packages/css/src');
+  const errors: string[] = [];
+
+  // Banned patterns: old token names that have been renamed
+  const bannedPatterns: { pattern: RegExp; message: string }[] = [
+    {
+      pattern: /--ui-weight-(?:normal|medium|semibold|bold)/g,
+      message: 'use --ui-font-weight-* instead of --ui-weight-*',
+    },
+    {
+      pattern: /\$weight-(?:normal|medium|semibold|bold)/g,
+      message: 'use $font-weight-* instead of $weight-*',
+    },
+  ];
+
+  const allFiles = [...findScssFiles(srcDir), ...findScssFiles(join(__dirname, '../apps'))];
+
+  for (const file of allFiles) {
+    const content = readFileSync(file, 'utf-8');
+    const relPath = file.replace(`${join(__dirname, '..')}/`, '');
+
+    for (const { pattern, message } of bannedPatterns) {
+      pattern.lastIndex = 0;
+      for (let match = pattern.exec(content); match !== null; match = pattern.exec(content)) {
+        const line = content.substring(0, match.index).split('\n').length;
+        errors.push(`${relPath}:${line}: "${match[0]}" is banned — ${message}`);
+      }
+    }
+  }
+
+  if (errors.length > 0) {
+    console.error('Banned token names check failed:\n');
+    for (const err of errors) {
+      console.error(`  - ${err}`);
+    }
+    console.error(
+      `\n${errors.length} banned token name(s) found. See naming dictionary for allowed names.`,
+    );
+    process.exit(1);
+  }
+
+  console.log(`Banned token names: ${allFiles.length} SCSS files passed.`);
+}
+
 lintComponents();
 lintSidenavCompleteness();
 lintDocsContent();
@@ -637,5 +682,6 @@ lintBareTokenVars();
 lintWrongLayerTokens();
 lintStyleLayerTokens();
 lintTokenNames();
+lintBannedTokenNames();
 lintApiSync();
 lintI18nCoverage();

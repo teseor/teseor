@@ -57,7 +57,7 @@
     },
     {
       "name": "--ui-button-font-weight",
-      "default": "var(--ui-weight-medium)",
+      "default": "var(--ui-font-weight-medium)",
       "description": "Font weight"
     },
     {

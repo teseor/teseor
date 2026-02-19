@@ -7,7 +7,7 @@
   .table {
     --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
     --_unit: var(--ui-unit, #{t.$unit});
-    --_weight-medium: var(--ui-weight-medium, #{t.$weight-medium});
+    --_weight-medium: var(--ui-font-weight-medium, #{t.$font-weight-medium});
     --_color-bg-subtle: var(--ui-color-bg-subtle, #{t.$color-bg-subtle});
     --_color-bg-muted: var(--ui-color-bg-muted, #{t.$color-bg-muted});
     // @desc Font size

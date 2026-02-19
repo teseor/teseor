@@ -46,7 +46,7 @@
     },
     {
       "name": "--ui-nav-item-font-weight",
-      "default": "var(--ui-weight-medium)",
+      "default": "var(--ui-font-weight-medium)",
       "description": "Item font weight"
     },
     {

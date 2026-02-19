@@ -6,7 +6,7 @@
 
 @layer components.tokens {
   .avatar {
-    --_weight-medium: var(--ui-weight-medium, #{t.$weight-medium});
+    --_weight-medium: var(--ui-font-weight-medium, #{t.$font-weight-medium});
     --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
     --_color-bg: var(--ui-color-bg, #{t.$color-bg});
     // @desc Overall size

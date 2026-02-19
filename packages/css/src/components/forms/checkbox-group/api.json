@@ -31,7 +31,7 @@
     },
     {
       "name": "--ui-checkbox-group-legend-weight",
-      "default": "var(--ui-weight-medium)",
+      "default": "var(--ui-font-weight-medium)",
       "description": "Legend weight"
     },
     {

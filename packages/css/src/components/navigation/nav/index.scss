@@ -20,7 +20,7 @@
     // @desc Item font size
     --_item-font-size: var(--ui-nav-item-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     // @desc Item font weight
-    --_item-font-weight: var(--ui-nav-item-font-weight, var(--ui-weight-medium, #{t.$weight-medium}));
+    --_item-font-weight: var(--ui-nav-item-font-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
     // @desc Item text color
     --_item-color: var(--ui-nav-item-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
     // @desc Item color hover

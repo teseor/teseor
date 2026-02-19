@@ -7,7 +7,7 @@
 
 @layer components.tokens {
   .disclosure {
-    --_weight-medium: var(--ui-weight-medium, #{t.$weight-medium});
+    --_weight-medium: var(--ui-font-weight-medium, #{t.$font-weight-medium});
     --_color-bg-subtle: var(--ui-color-bg-subtle, #{t.$color-bg-subtle});
     --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
     --_ease-default: var(--ui-ease-default, ease);
