@@ -12,7 +12,7 @@
     // @desc Background color
     --_bg: var(--ui-overlay-bg, #{t.$overlay-bg});
     // @desc Z-index stacking order
-    --_z: var(--ui-overlay-z, var(--ui-z-overlay, #{t.$z-overlay}));
+    --_z: var(--ui-overlay-z, var(--ui-z-index-overlay, #{t.$z-index-overlay}));
   }
 
   // @modifier boolean light

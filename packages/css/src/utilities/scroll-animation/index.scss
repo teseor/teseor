@@ -12,7 +12,7 @@
       position: fixed;
       inset-block-start: 0;
       inset-inline-start: 0;
-      z-index: var(--ui-z-toast, #{t.$z-toast});
+      z-index: var(--ui-z-index-toast, #{t.$z-index-toast});
 
       block-size: var(--ui-scroll-progress-height, var(--ui-space-half, #{t.$space-0}));
       inline-size: 100%;

@@ -4,7 +4,7 @@
 
 @layer components.tokens {
   .stat {
-    --_tracking-display: var(--ui-tracking-display, #{t.$tracking-display});
+    --_tracking-display: var(--ui-letter-spacing-display, #{t.$letter-spacing-display});
     // @desc Gap between children
     --_gap: var(--ui-stat-gap, var(--ui-space-1, #{t.$space-1}));
   }

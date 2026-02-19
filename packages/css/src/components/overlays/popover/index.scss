@@ -26,7 +26,7 @@
     // @desc Maximum width
     --_max-width: var(--ui-popover-max-width, calc(#{t.$unit} * 40));
     // @desc Z-index stacking order
-    --_z: var(--ui-popover-z, var(--ui-z-popover, #{t.$z-popover}));
+    --_z: var(--ui-popover-z, var(--ui-z-index-popover, #{t.$z-index-popover}));
     // @desc Arrow size
     --_arrow-size: var(--ui-popover-arrow-size, calc(#{t.$unit}));
   }

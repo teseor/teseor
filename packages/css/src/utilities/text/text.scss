@@ -275,14 +275,14 @@
   // LETTER SPACING
   // ==========================================================================
   .tracking-display {
-    letter-spacing: var(--ui-tracking-display);
+    letter-spacing: var(--ui-letter-spacing-display);
   }
 
   .tracking-body {
-    letter-spacing: var(--ui-tracking-body);
+    letter-spacing: var(--ui-letter-spacing-body);
   }
 
   .tracking-caps {
-    letter-spacing: var(--ui-tracking-caps);
+    letter-spacing: var(--ui-letter-spacing-caps);
   }
 }

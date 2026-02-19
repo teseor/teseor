@@ -69,7 +69,7 @@
     font-size: var(--_font-size-xs);
     font-weight: var(--_weight-medium);
     line-height: var(--_row-1);
-    letter-spacing: #{t.$tracking-wide};
+    letter-spacing: #{t.$letter-spacing-wide};
     text-transform: uppercase;
     color: var(--_color-text-muted);
   }

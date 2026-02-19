@@ -134,10 +134,10 @@ $font-weight-semibold: 600;
 $font-weight-bold: 700;
 
 // Letter spacing
-$tracking-display: -0.02em;
-$tracking-body: 0;
-$tracking-wide: 0.05em;
-$tracking-caps: 0.08em;
+$letter-spacing-display: -0.02em;
+$letter-spacing-body: 0;
+$letter-spacing-wide: 0.05em;
+$letter-spacing-caps: 0.08em;
 
 // Relative font sizes (for sub-elements sized relative to parent)
 $font-size-relative-xs: 0.6em;
@@ -170,16 +170,16 @@ $shadow-lg: 0 10px 15px hsl(220 10% 20% / 0.15);
 // ==========================================================================
 // 8. Z-index scale
 // ==========================================================================
-$z-base: 0;
-$z-sticky: 100;
-$z-dropdown: 200;
-$z-overlay: 300;
-$z-modal: 400;
-$z-popover: 500;
-$z-tooltip: 600;
-$z-toast: 700;
-$z-drawer: 800;
-$z-debug: 9999;
+$z-index-base: 0;
+$z-index-sticky: 100;
+$z-index-dropdown: 200;
+$z-index-overlay: 300;
+$z-index-modal: 400;
+$z-index-popover: 500;
+$z-index-tooltip: 600;
+$z-index-toast: 700;
+$z-index-drawer: 800;
+$z-index-debug: 9999;
 
 // ==========================================================================
 // 9. Motion

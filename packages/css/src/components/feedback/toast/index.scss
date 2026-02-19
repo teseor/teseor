@@ -8,7 +8,7 @@
 
 @layer components.tokens {
   .toast-viewport {
-    --_z-toast: var(--ui-z-toast, #{t.$z-toast});
+    --_z-toast: var(--ui-z-index-toast, #{t.$z-index-toast});
     // @desc Viewport gap
     --_gap: var(--ui-toast-viewport-gap, calc(#{t.$unit} * 1));
     // @desc Viewport padding

@@ -44,7 +44,7 @@
     },
     {
       "name": "--ui-footer-z",
-      "default": "var(--ui-z-sticky)",
+      "default": "var(--ui-z-index-sticky)",
       "description": "Z-index stacking order"
     }
   ]

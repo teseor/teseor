@@ -92,7 +92,7 @@
 
     font-size: var(--_font-size);
     font-weight: var(--_weight);
-    letter-spacing: #{t.$tracking-wide};
+    letter-spacing: #{t.$letter-spacing-wide};
     text-transform: uppercase;
     color: var(--_color);
   }
