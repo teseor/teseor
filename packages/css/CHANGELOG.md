@@ -1,5 +1,11 @@
 # @teseor/css
 
+## 2.1.0
+
+### Minor Changes
+
+- c5faff4: Split @layer tokens into tokens.core / tokens.scale / tokens.semantic for clearer DevTools hierarchy and theming. Font sizes now derive from --ui-font-size-base via calc().
+
 ## 2.0.2
 
 ### Patch Changes
