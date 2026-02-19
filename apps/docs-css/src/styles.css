@@ -172,6 +172,41 @@
   .demo-cards {
     --ui-card-padding: var(--ui-space-4);
   }
+
+  /* Theme playground sliders */
+  .demo-playground {
+    display: grid;
+    gap: var(--ui-space-2);
+  }
+
+  .demo-playground__row {
+    display: grid;
+    grid-template-columns: 10rem 1fr 4rem;
+    align-items: center;
+    gap: var(--ui-space-1);
+  }
+
+  .demo-playground__row label {
+    font-size: var(--ui-font-size-sm);
+    font-family: var(--ui-font-mono);
+  }
+
+  .demo-playground__row output {
+    font-size: var(--ui-font-size-sm);
+    font-family: var(--ui-font-mono);
+    text-align: end;
+  }
+
+  .demo-playground__preview {
+    display: flex;
+    gap: var(--ui-space-2);
+    flex-wrap: wrap;
+    align-items: start;
+    padding: var(--ui-space-3);
+    border: var(--ui-border-width-sm) solid var(--ui-color-border);
+    border-radius: var(--ui-radius-md);
+    background: var(--ui-color-bg);
+  }
 }
 
 /* Theme transition — temporary class applied during brand switch */

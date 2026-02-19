@@ -36,6 +36,11 @@
             <option value="minimal">{{ t('minimal_theme', 'Minimal') }}</option>
             <option value="terminal">{{ t('terminal_theme', 'Terminal') }}</option>
           </select>
+          <select class="ui-select" id="density-select" onchange="setDensity(this.value)" aria-label="{{ t('density', 'Density') }}">
+            <option value="compact">{{ t('compact', 'Compact') }}</option>
+            <option value="" selected>{{ t('default_density', 'Default') }}</option>
+            <option value="comfortable">{{ t('comfortable', 'Comfortable') }}</option>
+          </select>
           <button class="ui-button ui-button--sm ui-button--block" onclick="toggleTheme()" id="theme-toggle" aria-pressed="false" data-label-dark="{{ t('dark_mode', 'Dark Mode') }}" data-label-light="{{ t('light_mode', 'Light Mode') }}">{{ t('dark_mode', 'Dark Mode') }}</button>
           <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug(this, 'ui-debug-grid')" aria-pressed="false">{{ t('toggle_grid', 'Toggle Grid') }}</button>
           <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug(this, 'ui-debug-grid-rows')" aria-pressed="false">{{ t('toggle_row_grid', 'Toggle Row Grid') }}</button>
@@ -54,6 +59,7 @@
 
   <script src="{{ '/debug-grid.js' | url }}" defer></script>
   <script src="{{ '/tabs.js' | url }}" defer></script>
+  <script src="{{ '/theme-playground.js' | url }}" defer></script>
   <script>
     const DEBUG_CLASSES = ['ui-debug-grid', 'ui-debug-grid-rows', 'ui-debug-baseline', 'ui-debug-outline'];
     const DEBUG_KEY = 'debug-classes';
@@ -137,6 +143,25 @@
     if (savedBrand) {
       document.documentElement.setAttribute('data-brand', savedBrand);
       document.getElementById('brand-select').value = savedBrand;
+    }
+
+    function setDensity(value) {
+      withTransition(() => {
+        const html = document.documentElement;
+        if (value) {
+          html.setAttribute('data-density', value);
+          localStorage.setItem('density', value);
+        } else {
+          html.removeAttribute('data-density');
+          localStorage.removeItem('density');
+        }
+      });
+    }
+
+    const savedDensity = localStorage.getItem('density');
+    if (savedDensity) {
+      document.documentElement.setAttribute('data-density', savedDensity);
+      document.getElementById('density-select').value = savedDensity;
     }
   </script>
 </body>
