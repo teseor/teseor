@@ -4,56 +4,135 @@ title: Home
 permalink: /
 ---
 <section class="ui-docs-section">
-  <h2>{{ t('welcome', 'Welcome to Teseor CSS') }}</h2>
-  <p>{{ t('welcome_description', 'A CSS-first component library with design tokens, layout primitives, and UI components.') }}</p>
-
-  <div class="ui-column ui-column--lg ui-mt-4">
-    {% set tokens = docs | byType('token') | sortByTitle %}
-    {% if tokens.length > 0 %}
-    <div>
-      <h3>{{ t('tokens', 'Tokens') }} ({{ tokens.length }})</h3>
-      <ul class="ui-column ui-column--xs">
-        {% for doc in tokens %}
-        <li><a href="{{ doc.permalink | url }}">{{ doc.title }}</a></li>
-        {% endfor %}
-      </ul>
+  <div class="ui-column ui-column--sm">
+    <h2 class="ui-heading ui-heading--2xl">{{ t('teseor_css', 'Teseor CSS') }}</h2>
+    <p class="ui-text-muted">{{ t('welcome_description', 'A CSS-first component library with design tokens, layout primitives, and UI components.') }}</p>
+    <div class="ui-row ui-row--sm">
+      <span class="ui-badge">v{{ version }}</span>
+      <span class="ui-tag ui-tag--sm">{{ t('css_first', 'CSS-first') }}</span>
+      <span class="ui-tag ui-tag--sm">{{ t('zero_js', 'Zero JS') }}</span>
+      <span class="ui-tag ui-tag--sm">{{ t('design_tokens', 'Design Tokens') }}</span>
     </div>
-    {% endif %}
-
-    {% set primitives = docs | byType('primitive') | sortByTitle %}
-    {% if primitives.length > 0 %}
-    <div>
-      <h3>{{ t('primitives', 'Primitives') }} ({{ primitives.length }})</h3>
-      <ul class="ui-column ui-column--xs">
-        {% for doc in primitives %}
-        <li><a href="{{ doc.permalink | url }}">{{ doc.title }}</a></li>
-        {% endfor %}
-      </ul>
-    </div>
-    {% endif %}
-
-    {% set components = docs | byType('component') | sortByTitle %}
-    {% if components.length > 0 %}
-    <div>
-      <h3>{{ t('components', 'Components') }} ({{ components.length }})</h3>
-      <ul class="ui-column ui-column--xs">
-        {% for doc in components %}
-        <li><a href="{{ doc.permalink | url }}">{{ doc.title }}</a></li>
-        {% endfor %}
-      </ul>
-    </div>
-    {% endif %}
-
-    {% set utilities = docs | byType('utility') | sortByTitle %}
-    {% if utilities.length > 0 %}
-    <div>
-      <h3>{{ t('utilities', 'Utilities') }} ({{ utilities.length }})</h3>
-      <ul class="ui-column ui-column--xs">
-        {% for doc in utilities %}
-        <li><a href="{{ doc.permalink | url }}">{{ doc.title }}</a></li>
-        {% endfor %}
-      </ul>
-    </div>
-    {% endif %}
   </div>
 </section>
+
+{% set guides = docs | byType('guide') | sortByWeight %}
+{% set tokens = docs | byType('token') | sortByTitle %}
+{% set primitives = docs | byType('primitive') | sortByTitle %}
+{% set components = docs | byType('component') | sortByTitle %}
+{% set typographyDocs = components | byGroup('typography') | sortByTitle %}
+{% set utilities = docs | byType('utility') | sortByTitle %}
+
+<div class="ui-grid ui-grid--2">
+  {% if guides.length > 0 %}
+  <div class="ui-card">
+    <div class="ui-column ui-column--sm">
+      <div class="ui-row ui-row--sm ui-items-center">
+        <h3 class="ui-heading ui-heading--md">{{ t('guides', 'Guides') }}</h3>
+        <span class="ui-badge ui-badge--sm">{{ guides.length }}</span>
+      </div>
+      <hr class="ui-divider">
+      <ul class="ui-column ui-column--xs">
+        {% for doc in guides %}
+        <li><a class="ui-link" href="{{ doc.permalink | url }}">{{ doc.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if tokens.length > 0 %}
+  <div class="ui-card">
+    <div class="ui-column ui-column--sm">
+      <div class="ui-row ui-row--sm ui-items-center">
+        <h3 class="ui-heading ui-heading--md">{{ t('foundation', 'Foundation') }}</h3>
+        <span class="ui-badge ui-badge--sm">{{ tokens.length }}</span>
+      </div>
+      <hr class="ui-divider">
+      <ul class="ui-column ui-column--xs">
+        {% for doc in tokens %}
+        <li><a class="ui-link" href="{{ doc.permalink | url }}">{{ doc.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if primitives.length > 0 %}
+  <div class="ui-card">
+    <div class="ui-column ui-column--sm">
+      <div class="ui-row ui-row--sm ui-items-center">
+        <h3 class="ui-heading ui-heading--md">{{ t('layout', 'Layout') }}</h3>
+        <span class="ui-badge ui-badge--sm">{{ primitives.length }}</span>
+      </div>
+      <hr class="ui-divider">
+      <ul class="ui-column ui-column--xs">
+        {% for doc in primitives %}
+        <li><a class="ui-link" href="{{ doc.permalink | url }}">{{ doc.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if components.length > typographyDocs.length %}
+  <div class="ui-card">
+    <div class="ui-column ui-column--sm">
+      <div class="ui-row ui-row--sm ui-items-center">
+        <h3 class="ui-heading ui-heading--md">{{ t('components', 'Components') }}</h3>
+        <span class="ui-badge ui-badge--sm">{{ components.length - typographyDocs.length }}</span>
+      </div>
+      <hr class="ui-divider">
+      {% for group in componentGroups %}
+        {% if group.id != 'typography' %}
+        {% set groupDocs = components | byGroup(group.id) | sortByTitle %}
+        {% if groupDocs.length > 0 %}
+        <div class="ui-column ui-column--xs">
+          <span class="ui-text-sm ui-text-muted">{{ group.label }}</span>
+          <ul class="ui-column ui-column--xs">
+            {% for doc in groupDocs %}
+            <li><a class="ui-link" href="{{ doc.permalink | url }}">{{ doc.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% if typographyDocs.length > 0 %}
+  <div class="ui-card">
+    <div class="ui-column ui-column--sm">
+      <div class="ui-row ui-row--sm ui-items-center">
+        <h3 class="ui-heading ui-heading--md">{{ t('typography', 'Typography') }}</h3>
+        <span class="ui-badge ui-badge--sm">{{ typographyDocs.length }}</span>
+      </div>
+      <hr class="ui-divider">
+      <ul class="ui-column ui-column--xs">
+        {% for doc in typographyDocs %}
+        <li><a class="ui-link" href="{{ doc.permalink | url }}">{{ doc.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if utilities.length > 0 %}
+  <div class="ui-card">
+    <div class="ui-column ui-column--sm">
+      <div class="ui-row ui-row--sm ui-items-center">
+        <h3 class="ui-heading ui-heading--md">{{ t('utilities', 'Utilities') }}</h3>
+        <span class="ui-badge ui-badge--sm">{{ utilities.length }}</span>
+      </div>
+      <hr class="ui-divider">
+      <ul class="ui-column ui-column--xs">
+        {% for doc in utilities %}
+        <li><a class="ui-link" href="{{ doc.permalink | url }}">{{ doc.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+</div>
