@@ -12,7 +12,7 @@
     --_space-1: var(--ui-space-1);
     --_space-half: var(--ui-space-half);
     --_size-xs: var(--ui-size-xs);
-    --_weight-medium: var(--ui-weight-medium);
+    --_weight-medium: var(--ui-font-weight-medium);
     --_color-text-muted: var(--ui-color-text-muted);
     --_duration-fast: var(--ui-duration-fast);
     --_easing-default: var(--ui-easing-default);
@@ -83,7 +83,7 @@
     // @desc Group label color
     --_color: var(--ui-sidebar-nav-group-label-color, var(--ui-color-text-muted));
     // @desc Group label weight
-    --_weight: var(--ui-sidebar-nav-group-label-weight, var(--ui-weight-bold));
+    --_weight: var(--ui-sidebar-nav-group-label-weight, var(--ui-font-weight-bold));
 
     display: block;
 
@@ -191,7 +191,7 @@
     // @desc Item active color
     --_color: var(--ui-sidebar-nav-item-active-color, var(--ui-color-primary-hover));
     // @desc Item active weight
-    --_weight: var(--ui-sidebar-nav-item-active-weight, var(--ui-weight-medium));
+    --_weight: var(--ui-sidebar-nav-item-active-weight, var(--ui-font-weight-medium));
   }
 
   // Nested item indent

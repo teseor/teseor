@@ -62,7 +62,7 @@
   // Inline elements - line-height: 0 prevents affecting parent rhythm
   strong,
   b {
-    font-weight: var(--ui-weight-bold);
+    font-weight: var(--ui-font-weight-bold);
     line-height: 0;
   }
 

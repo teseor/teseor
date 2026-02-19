@@ -10,7 +10,7 @@
     --_row-1: var(--ui-row-1, #{t.$row});
     --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
     --_font-size-md: var(--ui-font-size-md, #{t.$font-size-md});
-    --_weight-semibold: var(--ui-weight-semibold, #{t.$weight-semibold});
+    --_weight-semibold: var(--ui-font-weight-semibold, #{t.$font-weight-semibold});
     --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
     --_ease-default: var(--ui-ease-default, ease);
     // @desc Background color

@@ -8,7 +8,7 @@
 @layer components.tokens {
   .dialog {
     --_font-size-lg: var(--ui-font-size-lg, #{t.$font-size-lg});
-    --_weight-semibold: var(--ui-weight-semibold, #{t.$weight-semibold});
+    --_weight-semibold: var(--ui-font-weight-semibold, #{t.$font-weight-semibold});
     // @desc Header padding on all sides
     --_header-padding: var(--ui-dialog-header-padding, calc(#{t.$unit} * 2) calc(#{t.$unit} * 3));
     // @desc Body area padding on all sides

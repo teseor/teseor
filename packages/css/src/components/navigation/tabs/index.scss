@@ -8,7 +8,7 @@
     --_space-1: var(--ui-space-1, #{t.$space-1});
     --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
     --_font-sans: var(--ui-font-sans, #{t.$font-sans});
-    --_weight-medium: var(--ui-weight-medium, #{t.$weight-medium});
+    --_weight-medium: var(--ui-font-weight-medium, #{t.$font-weight-medium});
     --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
     --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
     --_duration-base: var(--ui-duration-base, #{t.$duration-base});
