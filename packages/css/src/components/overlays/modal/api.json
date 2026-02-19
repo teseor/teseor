@@ -47,7 +47,7 @@
     },
     {
       "name": "--ui-modal-z",
-      "default": "var(--ui-z-modal)",
+      "default": "var(--ui-z-index-modal)",
       "description": "Z-index stacking order"
     },
     {

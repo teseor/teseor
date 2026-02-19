@@ -10,7 +10,7 @@
     --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
     --_ease-default: var(--ui-ease-default, #{t.$ease-default});
     // @desc Z-index stacking order
-    --_z: var(--ui-dropdown-menu-z, #{t.$z-dropdown});
+    --_z: var(--ui-dropdown-menu-z, #{t.$z-index-dropdown});
     // @desc Panel offset from anchor
     --_panel-offset: var(--ui-dropdown-menu-panel-offset, var(--ui-space-1, #{t.$space-1}));
     // @desc Panel minimum width

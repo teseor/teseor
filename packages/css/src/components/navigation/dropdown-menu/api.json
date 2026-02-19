@@ -24,7 +24,7 @@
   "cssVars": [
     {
       "name": "--ui-dropdown-menu-z",
-      "default": "var(--ui-z-dropdown)",
+      "default": "var(--ui-z-index-dropdown)",
       "description": "Z-index stacking order"
     },
     {

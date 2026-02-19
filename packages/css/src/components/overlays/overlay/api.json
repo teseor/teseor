@@ -24,7 +24,7 @@
     },
     {
       "name": "--ui-overlay-z",
-      "default": "var(--ui-z-overlay)",
+      "default": "var(--ui-z-index-overlay)",
       "description": "Z-index stacking order"
     },
     {

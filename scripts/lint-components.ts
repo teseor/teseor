@@ -651,6 +651,24 @@ function lintBannedTokenNames(): void {
       pattern: /\$leading-(?:tight-)?(?:xs|sm|md|lg|xl|2xl|3xl|4xl)/g,
       message: 'use $line-height-* instead of $leading-*',
     },
+    {
+      pattern: /--ui-tracking-(?:display|body|caps|wide)/g,
+      message: 'use --ui-letter-spacing-* instead of --ui-tracking-*',
+    },
+    {
+      pattern: /\$tracking-(?:display|body|caps|wide)/g,
+      message: 'use $letter-spacing-* instead of $tracking-*',
+    },
+    {
+      pattern:
+        /--ui-z-(?!index-)(?:base|sticky|dropdown|overlay|modal|popover|tooltip|toast|drawer|debug)/g,
+      message: 'use --ui-z-index-* instead of --ui-z-*',
+    },
+    {
+      pattern:
+        /\$z-(?!index-)(?:base|sticky|dropdown|overlay|modal|popover|tooltip|toast|drawer|debug)/g,
+      message: 'use $z-index-* instead of $z-*',
+    },
   ];
 
   const allFiles = [...findScssFiles(srcDir), ...findScssFiles(join(__dirname, '../apps'))];

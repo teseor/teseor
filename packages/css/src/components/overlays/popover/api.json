@@ -44,7 +44,7 @@
     },
     {
       "name": "--ui-popover-z",
-      "default": "var(--ui-z-popover)",
+      "default": "var(--ui-z-index-popover)",
       "description": "Z-index stacking order"
     },
     {

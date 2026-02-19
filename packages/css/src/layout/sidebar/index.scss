@@ -3,7 +3,7 @@
 
 @layer primitives {
   .sidebar {
-    --_z-sticky: var(--ui-z-sticky);
+    --_z-sticky: var(--ui-z-index-sticky);
     --_unit: var(--ui-unit);
     --_color-bg-subtle: var(--ui-color-bg-subtle);
     --_border-width-sm: var(--ui-border-width-sm);

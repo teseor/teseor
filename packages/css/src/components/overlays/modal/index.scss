@@ -22,7 +22,7 @@
     // @desc Maximum height
     --_max-height: var(--ui-modal-max-height, calc(100vh - #{t.$unit} * 8));
     // @desc Z-index stacking order
-    --_z: var(--ui-modal-z, var(--ui-z-modal, #{t.$z-modal}));
+    --_z: var(--ui-modal-z, var(--ui-z-index-modal, #{t.$z-index-modal}));
   }
 
   // @modifier size

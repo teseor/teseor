@@ -49,7 +49,7 @@
     },
     {
       "name": "--ui-tooltip-z",
-      "default": "var(--ui-z-tooltip)",
+      "default": "var(--ui-z-index-tooltip)",
       "description": "Z-index stacking order"
     },
     {

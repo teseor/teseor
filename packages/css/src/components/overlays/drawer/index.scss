@@ -8,7 +8,7 @@
 
 @layer components.tokens {
   .drawer {
-    --_z-drawer: var(--ui-z-drawer, #{t.$z-drawer});
+    --_z-drawer: var(--ui-z-index-drawer, #{t.$z-index-drawer});
     --_overlay-bg: var(--ui-overlay-bg, #{t.$overlay-bg});
     --_duration-normal: var(--ui-duration-normal, #{t.$duration-normal});
     --_ease-out: var(--ui-ease-out, ease-out);

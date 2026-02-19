@@ -22,7 +22,7 @@
     // @desc Font size
     --_font-size: var(--ui-tooltip-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     // @desc Z-index stacking order
-    --_z: var(--ui-tooltip-z, var(--ui-z-tooltip, #{t.$z-tooltip}));
+    --_z: var(--ui-tooltip-z, var(--ui-z-index-tooltip, #{t.$z-index-tooltip}));
     // @desc Arrow size
     --_arrow-size: var(--ui-tooltip-arrow-size, calc(#{t.$unit} / 2));
   }

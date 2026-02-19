@@ -14,7 +14,7 @@
     // @desc Gap between children
     --_gap: var(--ui-nav-rail-gap, var(--ui-space-1));
     // @desc Z-index stacking order
-    --_z: var(--ui-nav-rail-z, var(--ui-z-sticky));
+    --_z: var(--ui-nav-rail-z, var(--ui-z-index-sticky));
 
     display: flex;
     flex-direction: column;

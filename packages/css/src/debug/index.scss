@@ -15,7 +15,7 @@
   position: absolute;
   inset-block-start: 0;
   inset-inline-start: 0;
-  z-index: var(--ui-z-debug);
+  z-index: var(--ui-z-index-debug);
 
   block-size: 100%;
   inline-size: 100%;
@@ -39,7 +39,7 @@
   position: absolute;
   inset-block-start: 0;
   inset-inline-start: 0;
-  z-index: var(--ui-z-debug);
+  z-index: var(--ui-z-index-debug);
 
   block-size: 100%;
   inline-size: 100%;
@@ -63,7 +63,7 @@
   position: absolute;
   inset-block-start: 0;
   inset-inline-start: 0;
-  z-index: var(--ui-z-debug);
+  z-index: var(--ui-z-index-debug);
 
   block-size: 100%;
   inline-size: 100%;

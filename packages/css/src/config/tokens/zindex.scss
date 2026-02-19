@@ -1,15 +1,15 @@
 @layer tokens {
   :root {
     // Z-index scale (gaps allow insertion)
-    --ui-z-base: 0;
-    --ui-z-sticky: 100;
-    --ui-z-dropdown: 200;
-    --ui-z-overlay: 300;
-    --ui-z-modal: 400;
-    --ui-z-popover: 500;
-    --ui-z-tooltip: 600;
-    --ui-z-toast: 700;
-    --ui-z-drawer: 800;
-    --ui-z-debug: 9999;
+    --ui-z-index-base: 0;
+    --ui-z-index-sticky: 100;
+    --ui-z-index-dropdown: 200;
+    --ui-z-index-overlay: 300;
+    --ui-z-index-modal: 400;
+    --ui-z-index-popover: 500;
+    --ui-z-index-tooltip: 600;
+    --ui-z-index-toast: 700;
+    --ui-z-index-drawer: 800;
+    --ui-z-index-debug: 9999;
   }
 }
