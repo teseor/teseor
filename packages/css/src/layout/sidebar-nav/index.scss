@@ -92,7 +92,7 @@
 
     font-size: var(--_font-size);
     font-weight: var(--_weight);
-    letter-spacing: 0.05em;
+    letter-spacing: #{t.$tracking-wide};
     text-transform: uppercase;
     color: var(--_color);
   }
@@ -181,7 +181,7 @@
 
   .sidebar-nav__item:focus-visible {
     outline: 2px solid var(--_color-focus);
-    outline-offset: -2px;
+    outline-offset: #{t.$focus-ring-offset};
   }
 
   // Active state

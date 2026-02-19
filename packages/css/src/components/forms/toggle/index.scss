@@ -96,7 +96,7 @@
 
     background: var(--_thumb-bg);
     border-radius: 50%;
-    box-shadow: 0 1px 3px rgb(0 0 0 / 0.2);
+    box-shadow: #{t.$slider-thumb-shadow};
 
     transition: transform var(--_duration-fast) var(--_ease-default);
   }

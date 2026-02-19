@@ -119,7 +119,12 @@ $weight-bold: 700;
 // Letter spacing
 $tracking-display: -0.02em;
 $tracking-body: 0;
+$tracking-wide: 0.05em;
 $tracking-caps: 0.08em;
+
+// Relative font sizes (for sub-elements sized relative to parent)
+$font-size-relative-xs: 0.6em;
+$font-size-relative-sm: 0.75em;
 
 // ==========================================================================
 // 5. Radius — derived from $unit
@@ -135,6 +140,7 @@ $radius-full: 9999px;
 $border-width-sm: $unit * 0.125; // 1px
 $border-width-md: $unit * 0.25; // 2px
 $border-width-lg: $unit * 0.5; // 4px
+$focus-ring-offset: -$border-width-md;
 
 // ==========================================================================
 // 7. Shadows — static hue fallback
@@ -197,6 +203,7 @@ $overlay-bg: rgb(0 0 0 / 0.5);
 $overlay-bg-light: rgb(255 255 255 / 0.7);
 $overlay-bg-blur: rgb(0 0 0 / 0.3);
 $overlay-bg-subtle: rgb(0 0 0 / 0.1);
+$stripe-highlight: rgb(255 255 255 / 0.15);
 
 // ==========================================================================
 // 11. Semantic spacing
@@ -222,6 +229,13 @@ $icon-stroke-thick: 2.5;
 $spinner-duration: 750ms;
 $progress-circle-stroke-width: 8;
 $skeleton-shimmer: rgb(255 255 255 / 0.5);
+
+// Layout
+$container-threshold-sm: 30rem;
+$grid-col-min: 16rem;
+
+// Icon
+$icon-size-inline: 1em;
 
 // Misc
 $slider-thumb-shadow: 0 1px 3px rgb(0 0 0 / 0.2);

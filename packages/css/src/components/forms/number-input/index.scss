@@ -7,7 +7,7 @@
   .number-input {
     --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
     --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
-    --_ease-default: var(--ui-ease-default, ease);
+    --_ease-default: var(--ui-ease-default, #{t.$ease-default});
     --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
     --_color-focus: var(--ui-color-focus, #{t.$color-focus});
     --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
@@ -143,7 +143,7 @@
 
     &:focus-visible {
       outline: 2px solid var(--_color-focus);
-      outline-offset: -2px;
+      outline-offset: #{t.$focus-ring-offset};
     }
 
     &:disabled {
