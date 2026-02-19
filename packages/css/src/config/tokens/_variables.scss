@@ -6,9 +6,14 @@
 // Section order mirrors config/tokens/index.scss import order.
 
 // ==========================================================================
+// 0. Scale — global density multiplier
+// ==========================================================================
+$scale: 1;
+
+// ==========================================================================
 // 1. Grid — all derived from $unit
 // ==========================================================================
-$unit: 0.5rem; // 8px (matches --ui-unit: 8px)
+$unit: 0.5rem; // 8px (matches --ui-unit at scale 1)
 $row: $unit * 2; // 16px
 $row-1: $row;
 $row-2: $row * 2; // 32px

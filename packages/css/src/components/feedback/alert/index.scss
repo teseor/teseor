@@ -92,7 +92,7 @@
     background: var(--_bg);
     border: var(--_border-width) solid var(--_border-color);
     border-radius: var(--_radius);
-    border-inline-start-width: calc(#{t.$unit} * 0.5);
+    border-inline-start-width: calc(var(--_border-width) * 4);
   }
 
   .alert__icon {

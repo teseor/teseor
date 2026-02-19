@@ -1,8 +1,11 @@
-// Core design knobs — change these ~10 values to retheme everything
+// Core design knobs — change these values to retheme everything
 @layer tokens.core {
   :root {
+    // Global density multiplier — scales unit + font-size-base together
+    --ui-scale: 1;
+
     // Grid unit — all spacing, row heights, and radii derive from this
-    --ui-unit: 8px;
+    --ui-unit: calc(8px * var(--ui-scale));
 
     // Base colors — shades auto-generated via color-mix in tokens.scale
     --ui-color-primary: oklch(55% 0.22 250);
@@ -16,7 +19,7 @@
     --ui-font-mono: ui-monospace, sfmono-regular, "SF Mono", menlo, consolas, "Liberation Mono", monospace;
 
     // Base font size — all font-size-* tokens derive from this via calc()
-    --ui-font-size-base: 1rem;
+    --ui-font-size-base: calc(1rem * var(--ui-scale));
 
     // Base radius — sm/md/lg derive from this
     --ui-radius-base: var(--ui-unit);

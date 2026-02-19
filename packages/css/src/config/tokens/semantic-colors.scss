@@ -65,4 +65,13 @@
       --ui-color-border-strong: var(--ui-color-neutral-200);
     }
   }
+
+  // Density presets — scale all spacing and text proportionally
+  [data-density="compact"] {
+    --ui-scale: 0.875;
+  }
+
+  [data-density="comfortable"] {
+    --ui-scale: 1.125;
+  }
 }

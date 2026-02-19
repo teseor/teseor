@@ -5,6 +5,121 @@ skipValidation: true
 weight: 2
 ---
 
+<!-- @playground -->
+<!-- Drag the sliders to see how core tokens cascade through the entire system. Every component on this page responds in real time. -->
+<div id="theme-playground">
+  <div class="demo-playground">
+    <div class="demo-playground__row">
+      <label>scale</label>
+      <input type="range" min="0.75" max="1.25" step="0.025" value="1" data-token="--ui-scale" data-suffix="">
+      <output>1</output>
+    </div>
+    <div class="demo-playground__row">
+      <label>primary hue</label>
+      <input type="range" min="0" max="360" step="1" value="250" data-token="--ui-color-primary" data-template="oklch(55% 0.22 {value})" data-suffix="">
+      <output>250</output>
+    </div>
+    <div class="demo-playground__row">
+      <label>success hue</label>
+      <input type="range" min="0" max="360" step="1" value="145" data-token="--ui-color-success" data-template="oklch(60% 0.18 {value})" data-suffix="">
+      <output>145</output>
+    </div>
+    <div class="demo-playground__row">
+      <label>warning hue</label>
+      <input type="range" min="0" max="360" step="1" value="70" data-token="--ui-color-warning" data-template="oklch(75% 0.18 {value})" data-suffix="">
+      <output>70</output>
+    </div>
+    <div class="demo-playground__row">
+      <label>danger hue</label>
+      <input type="range" min="0" max="360" step="1" value="25" data-token="--ui-color-danger" data-template="oklch(60% 0.22 {value})" data-suffix="">
+      <output>25</output>
+    </div>
+    <div class="demo-playground__row">
+      <label>neutral hue</label>
+      <input type="range" min="0" max="360" step="1" value="250" data-token="--ui-color-neutral" data-param="hue" data-template="oklch(50% {chroma} {hue})" data-suffix="">
+      <output>250</output>
+    </div>
+    <div class="demo-playground__row">
+      <label>neutral chroma</label>
+      <input type="range" min="0" max="0.08" step="0.005" value="0.02" data-token="--ui-color-neutral" data-param="chroma" data-template="oklch(50% {chroma} {hue})" data-suffix="">
+      <output>0.02</output>
+    </div>
+    <div class="demo-playground__row">
+      <label>font size</label>
+      <input type="range" min="0.75" max="1.25" step="0.05" value="1" data-token="--ui-font-size-base" data-suffix="rem">
+      <output>1rem</output>
+    </div>
+    <div class="demo-playground__row">
+      <label>font family</label>
+      <select data-token="--ui-font-sans">
+        <option value="system-ui, -apple-system, sans-serif">System</option>
+        <option value="'Georgia', 'Times New Roman', serif">Serif</option>
+        <option value="ui-monospace, sfmono-regular, monospace">Mono</option>
+        <option value="'Noto Sans', system-ui, sans-serif">Noto Sans</option>
+      </select>
+      <output></output>
+    </div>
+    <div class="demo-playground__row">
+      <label>radius</label>
+      <input type="range" min="0" max="24" step="1" value="8" data-token="--ui-radius-base" data-suffix="px">
+      <output>8px</output>
+    </div>
+    <div class="demo-playground__row">
+      <label>shadow strength</label>
+      <input type="range" min="0" max="40" step="1" value="20" data-token="--ui-shadow-strength" data-suffix="%">
+      <output>20%</output>
+    </div>
+    <div class="demo-playground__row">
+      <label>border width</label>
+      <input type="range" min="0" max="4" step="0.5" value="1" data-token="--ui-border-width-base" data-suffix="px">
+      <output>1px</output>
+    </div>
+    <div class="ui-row ui-row--xs">
+      <button class="ui-button ui-button--sm ui-button--secondary" data-reset>{{ t('reset', 'Reset') }}</button>
+      <button class="ui-button ui-button--sm" data-random>{{ t('random_theme', 'Random Theme') }}</button>
+    </div>
+  </div>
+  <div class="demo-playground__preview">
+    <div class="ui-row ui-row--xs">
+      <span class="demo-swatch-color demo-swatch-color--primary"></span>
+      <span class="demo-swatch-color demo-swatch-color--success"></span>
+      <span class="demo-swatch-color demo-swatch-color--warning"></span>
+      <span class="demo-swatch-color demo-swatch-color--danger"></span>
+      <span class="demo-swatch-color demo-swatch-color--neutral"></span>
+    </div>
+    <div class="ui-row ui-row--xs">
+      <button class="ui-button">{{ t('primary', 'Primary') }}</button>
+      <button class="ui-button ui-button--secondary">{{ t('secondary', 'Secondary') }}</button>
+      <button class="ui-button ui-button--danger">{{ t('danger', 'Danger') }}</button>
+    </div>
+    <div class="ui-row ui-row--xs">
+      <button class="ui-button ui-button--sm">{{ t('small', 'Small') }}</button>
+      <button class="ui-button ui-button--lg">{{ t('large', 'Large') }}</button>
+    </div>
+    <input class="ui-input" placeholder="{{ t('input_placeholder', 'Type here...') }}">
+    <select class="ui-select">
+      <option>{{ t('select_option', 'Select option') }}</option>
+    </select>
+    <div class="ui-card">
+      <h4 class="ui-heading">{{ t('card_title', 'Card Title') }}</h4>
+      <p>{{ t('card_body', 'Cards, badges, and tags all respond to the same core tokens.') }}</p>
+      <div class="ui-row ui-row--xs">
+        <span class="ui-badge ui-badge--primary">{{ t('primary', 'Primary') }}</span>
+        <span class="ui-badge ui-badge--success">{{ t('success', 'Success') }}</span>
+        <span class="ui-badge ui-badge--warning">{{ t('warning', 'Warning') }}</span>
+        <span class="ui-badge ui-badge--danger">{{ t('danger', 'Danger') }}</span>
+        <span class="ui-tag">{{ t('tag', 'Tag') }}</span>
+      </div>
+    </div>
+    <div class="ui-column ui-column--xs">
+      <div class="ui-alert ui-alert--info">{{ t('alert_info', 'Info alert') }}</div>
+      <div class="ui-alert ui-alert--success">{{ t('alert_success', 'Success alert') }}</div>
+      <div class="ui-alert ui-alert--warning">{{ t('alert_warning', 'Warning alert') }}</div>
+      <div class="ui-alert ui-alert--danger">{{ t('alert_danger', 'Danger alert') }}</div>
+    </div>
+  </div>
+</div>
+
 <!-- @brand_colors -->
 <!-- Override --ui-color-primary to change the entire color palette. All shades (light, dark, subtle, hover) derive automatically via color-mix(). -->
 <div class="demo-theme">

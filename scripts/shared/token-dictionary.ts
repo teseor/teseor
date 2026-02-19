@@ -6,6 +6,9 @@ export interface TokenCategory {
 }
 
 export const TOKEN_DICTIONARY: TokenCategory[] = [
+  // Scale
+  { prefix: 'scale', description: 'Global density multiplier', scales: null },
+
   // Grid
   { prefix: 'unit', description: 'Base grid unit (8px)', scales: null },
   { prefix: 'row', description: 'Row height multiples', scales: ['1', '2', '3', '4', '5', '6'] },
