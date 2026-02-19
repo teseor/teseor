@@ -10,9 +10,9 @@
     // @desc Text color
     --_color: var(--ui-divider-color, var(--ui-color-border, #{t.$color-border}));
     // @desc Line size
-    --_line-size: var(--ui-divider-line-size, #{t.$border-width-sm});
+    --_line-size: var(--ui-divider-line-size, var(--ui-border-width-sm, #{t.$border-width-sm}));
     // @desc Overall height
-    --_height: var(--ui-divider-height, #{t.$unit});
+    --_height: var(--ui-divider-height, var(--ui-unit, #{t.$unit}));
     // @desc Gap between children
     --_gap: var(--ui-divider-gap, calc(#{t.$unit} * 2));
   }

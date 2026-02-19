@@ -7,7 +7,7 @@
 @layer components.tokens {
   .list {
     // @desc Spacing
-    --_spacing: var(--ui-list-spacing, #{t.$unit});
+    --_spacing: var(--ui-list-spacing, var(--ui-unit, #{t.$unit}));
     // @desc Marker color
     --_marker-color: var(--ui-list-marker-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
     // @desc Indent
