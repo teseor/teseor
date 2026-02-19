@@ -15,7 +15,7 @@
     // @desc Value display font weight
     --_font-weight: var(--ui-stat-value-font-weight, var(--ui-font-weight-bold, #{t.$font-weight-bold}));
     // @desc Value display line height
-    --_line-height: var(--ui-stat-value-line-height, var(--ui-leading-3xl, #{t.$leading-3xl}));
+    --_line-height: var(--ui-stat-value-line-height, var(--ui-line-height-3xl, #{t.$line-height-3xl}));
     // @desc Value display text color
     --_color: var(--ui-stat-value-color, var(--ui-color-text, #{t.$color-text}));
   }
@@ -26,13 +26,13 @@
     // @desc Label text color
     --_color: var(--ui-stat-label-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
     // @desc Label line height
-    --_line-height: var(--ui-stat-label-line-height, var(--ui-leading-sm, #{t.$leading-sm}));
+    --_line-height: var(--ui-stat-label-line-height, var(--ui-line-height-sm, #{t.$line-height-sm}));
   }
 
   // @modifier size
   .stat--sm .stat__value {
     --_font-size: var(--ui-font-size-xl, #{t.$font-size-xl});
-    --_line-height: var(--ui-leading-xl, #{t.$leading-xl});
+    --_line-height: var(--ui-line-height-xl, #{t.$line-height-xl});
   }
 }
 

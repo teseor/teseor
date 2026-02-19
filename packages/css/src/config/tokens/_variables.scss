@@ -112,20 +112,20 @@ $font-size-3xl: 2rem; // 32px
 $font-size-4xl: 2.5rem; // 40px
 
 // Tight line heights (compact UI elements)
-$leading-tight-xs: $row;
-$leading-tight-sm: $row;
-$leading-tight-md: $unit * 3;
-$leading-tight-lg: $unit * 3;
+$line-height-tight-xs: $row;
+$line-height-tight-sm: $row;
+$line-height-tight-md: $unit * 3;
+$line-height-tight-lg: $unit * 3;
 
 // Normal line heights (body text)
-$leading-xs: $row;
-$leading-sm: $unit * 3;
-$leading-md: $unit * 3;
-$leading-lg: $row-2;
-$leading-xl: $row-2;
-$leading-2xl: $row-2;
-$leading-3xl: $unit * 5;
-$leading-4xl: $unit * 6;
+$line-height-xs: $row;
+$line-height-sm: $unit * 3;
+$line-height-md: $unit * 3;
+$line-height-lg: $row-2;
+$line-height-xl: $row-2;
+$line-height-2xl: $row-2;
+$line-height-3xl: $unit * 5;
+$line-height-4xl: $unit * 6;
 
 // Font weights
 $font-weight-normal: 400;

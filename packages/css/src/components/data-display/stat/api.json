@@ -29,7 +29,7 @@
     },
     {
       "name": "--ui-stat-value-line-height",
-      "default": "var(--ui-leading-3xl)",
+      "default": "var(--ui-line-height-3xl)",
       "description": "Value display line height"
     },
     {
@@ -49,7 +49,7 @@
     },
     {
       "name": "--ui-stat-label-line-height",
-      "default": "var(--ui-leading-sm)",
+      "default": "var(--ui-line-height-sm)",
       "description": "Label line height"
     }
   ]

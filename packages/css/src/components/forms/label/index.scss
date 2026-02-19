@@ -6,7 +6,7 @@
 @layer components.tokens {
   .label {
     --_weight-medium: var(--ui-font-weight-medium, #{t.$font-weight-medium});
-    --_leading-tight-sm: var(--ui-leading-tight-sm, var(--ui-row-1, #{t.$row-1}));
+    --_leading-tight-sm: var(--ui-line-height-tight-sm, var(--ui-row-1, #{t.$row-1}));
     --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
     --_weight-normal: var(--ui-font-weight-normal, #{t.$font-weight-normal});
     --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});

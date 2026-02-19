@@ -38,7 +38,7 @@
     },
     {
       "name": "--ui-blockquote-line-height",
-      "default": "var(--ui-leading-lg)",
+      "default": "var(--ui-line-height-lg)",
       "description": "Line height"
     }
   ]

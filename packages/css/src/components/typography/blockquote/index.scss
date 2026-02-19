@@ -6,7 +6,7 @@
   .blockquote {
     --_space-1: var(--ui-space-1, #{t.$space-1});
     --_font-size-sm: var(--ui-font-size-sm, #{t.$font-size-sm});
-    --_leading-sm: var(--ui-leading-sm, #{t.$leading-sm});
+    --_leading-sm: var(--ui-line-height-sm, #{t.$line-height-sm});
     --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
     // @desc Border color
     --_border-color: var(--ui-blockquote-border-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
@@ -19,7 +19,7 @@
     // @desc Font size
     --_font-size: var(--ui-blockquote-font-size, var(--ui-font-size-lg, #{t.$font-size-lg}));
     // @desc Line height
-    --_line-height: var(--ui-blockquote-line-height, var(--ui-leading-lg, #{t.$leading-lg}));
+    --_line-height: var(--ui-blockquote-line-height, var(--ui-line-height-lg, #{t.$line-height-lg}));
   }
 
   // @modifier variant

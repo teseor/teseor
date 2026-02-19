@@ -643,6 +643,14 @@ function lintBannedTokenNames(): void {
       pattern: /\$weight-(?:normal|medium|semibold|bold)/g,
       message: 'use $font-weight-* instead of $weight-*',
     },
+    {
+      pattern: /--ui-leading-(?:tight-)?(?:xs|sm|md|lg|xl|2xl|3xl|4xl)/g,
+      message: 'use --ui-line-height-* instead of --ui-leading-*',
+    },
+    {
+      pattern: /\$leading-(?:tight-)?(?:xs|sm|md|lg|xl|2xl|3xl|4xl)/g,
+      message: 'use $line-height-* instead of $leading-*',
+    },
   ];
 
   const allFiles = [...findScssFiles(srcDir), ...findScssFiles(join(__dirname, '../apps'))];

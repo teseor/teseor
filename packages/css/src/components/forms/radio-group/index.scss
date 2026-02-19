@@ -5,7 +5,7 @@
 
 @layer components.tokens {
   .radio-group {
-    --_leading-tight-sm: var(--ui-leading-tight-sm, var(--ui-row-1, #{t.$leading-tight-sm}));
+    --_leading-tight-sm: var(--ui-line-height-tight-sm, var(--ui-row-1, #{t.$line-height-tight-sm}));
     --_row-1: var(--ui-row-1, #{t.$row-1});
     --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
     --_space-2: var(--ui-space-2, #{t.$space-2});
