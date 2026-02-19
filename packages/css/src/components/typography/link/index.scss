@@ -67,7 +67,7 @@
   .link[aria-disabled="true"] {
     color: var(--_color-text-muted);
 
-    opacity: 0.6;
+    opacity: #{t.$opacity-disabled};
     cursor: not-allowed;
     pointer-events: none;
   }
@@ -81,6 +81,6 @@
 
     margin-inline-start: calc(#{t.$unit} / 4);
 
-    font-size: 0.75em;
+    font-size: #{t.$font-size-relative-sm};
   }
 }

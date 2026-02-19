@@ -8,7 +8,7 @@
   .dropdown-menu {
     --_space-0: var(--ui-space-0, #{t.$space-0});
     --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
-    --_ease-default: var(--ui-ease-default, ease);
+    --_ease-default: var(--ui-ease-default, #{t.$ease-default});
     // @desc Z-index stacking order
     --_z: var(--ui-dropdown-menu-z, #{t.$z-dropdown});
     // @desc Panel offset from anchor
@@ -33,7 +33,7 @@
   .dropdown-menu__trigger-icon {
     display: inline-flex;
 
-    font-size: 0.6em;
+    font-size: #{t.$font-size-relative-xs};
 
     transition: transform var(--_duration-fast) var(--_ease-default);
   }

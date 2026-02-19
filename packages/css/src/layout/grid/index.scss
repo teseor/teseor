@@ -1,9 +1,11 @@
+@use '../../config/tokens/variables' as t;
+
 // @component grid
 // @element div
 
 @layer primitives {
   .grid {
-    --_space-4: var(--ui-space-4);
+    --_space-4: var(--ui-space-4, #{t.$space-4});
     display: grid;
     gap: var(--grid-gap, var(--_space-4));
     grid-template-columns: repeat(var(--grid-cols, 1), minmax(0, 1fr));
@@ -15,7 +17,7 @@
   .grid--4 { --grid-cols: 4; }
 
   .grid--auto {
-    grid-template-columns: repeat(auto-fit, minmax(var(--grid-min, 16rem), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(var(--grid-min, #{t.$grid-col-min}), 1fr));
   }
 
   // @modifier boolean subgrid

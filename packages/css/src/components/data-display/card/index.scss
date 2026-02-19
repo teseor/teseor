@@ -73,7 +73,7 @@
     flex-direction: column;
 
     // Horizontal layout when container is wide enough
-    @container (inline-size >= 30rem) {
+    @container (inline-size >= #{t.$container-threshold-sm}) {
       flex-direction: row;
     }
   }
@@ -82,7 +82,7 @@
     // Vertical: full width
     inline-size: 100%;
 
-    @container (inline-size >= 30rem) {
+    @container (inline-size >= #{t.$container-threshold-sm}) {
       // Horizontal: fixed width, fill height
       flex: 0 0 auto;
 
