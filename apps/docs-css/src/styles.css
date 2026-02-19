@@ -173,3 +173,48 @@
     --ui-card-padding: var(--ui-space-4);
   }
 }
+
+/* Theme transition — temporary class applied during brand switch */
+@layer base {
+  .theme-transitioning,
+  .theme-transitioning *,
+  .theme-transitioning *::before,
+  .theme-transitioning *::after {
+    transition: background-color var(--ui-duration-slow) var(--ui-ease-default), color
+      var(--ui-duration-slow) var(--ui-ease-default), border-color var(--ui-duration-slow)
+      var(--ui-ease-default), box-shadow var(--ui-duration-slow) var(--ui-ease-default);
+  }
+}
+
+/* Brand theme presets — applied site-wide via data-brand on <html> */
+@layer themes {
+  [data-brand="corporate"] {
+    --ui-color-primary: oklch(55% 0.15 180);
+    --ui-radius-base: 2px;
+    --ui-shadow-strength: 10%;
+  }
+
+  [data-brand="playful"] {
+    --ui-color-primary: oklch(65% 0.18 55);
+    --ui-radius-base: 16px;
+    --ui-font-size-base: 1.05rem;
+    --ui-shadow-strength: 25%;
+  }
+
+  [data-brand="minimal"] {
+    --ui-color-primary: oklch(45% 0.02 250);
+    --ui-radius-base: 0px;
+    --ui-border-width-base: 0.5px;
+    --ui-shadow-strength: 5%;
+  }
+
+  [data-brand="terminal"] {
+    --ui-color-primary: oklch(72% 0.19 145);
+    --ui-color-neutral: oklch(35% 0.01 145);
+    --ui-font-sans: ui-monospace, sfmono-regular, "SF Mono", menlo, consolas, "Liberation Mono",
+      monospace;
+    --ui-radius-base: 0px;
+    --ui-border-width-base: 1px;
+    --ui-shadow-strength: 0%;
+  }
+}

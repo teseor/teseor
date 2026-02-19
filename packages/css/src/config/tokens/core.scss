@@ -1,0 +1,30 @@
+// Core design knobs — change these ~10 values to retheme everything
+@layer tokens.core {
+  :root {
+    // Grid unit — all spacing, row heights, and radii derive from this
+    --ui-unit: 8px;
+
+    // Base colors — shades auto-generated via color-mix in tokens.scale
+    --ui-color-primary: oklch(55% 0.22 250);
+    --ui-color-success: oklch(60% 0.18 145);
+    --ui-color-warning: oklch(75% 0.18 70);
+    --ui-color-danger: oklch(60% 0.22 25);
+    --ui-color-neutral: oklch(50% 0.02 250);
+
+    // Font families — system stacks, override for brand fonts
+    --ui-font-sans: system-ui, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, sans-serif;
+    --ui-font-mono: ui-monospace, sfmono-regular, "SF Mono", menlo, consolas, "Liberation Mono", monospace;
+
+    // Base font size — all font-size-* tokens derive from this via calc()
+    --ui-font-size-base: 1rem;
+
+    // Base radius — sm/md/lg derive from this
+    --ui-radius-base: var(--ui-unit);
+
+    // Base border width — sm/md/lg derive from this
+    --ui-border-width-base: calc(var(--ui-unit) * 0.125);
+
+    // Shadow strength — controls opacity of all shadow levels
+    --ui-shadow-strength: 20%;
+  }
+}

@@ -1,8 +1,20 @@
-@layer tokens {
+@layer tokens.scale {
   :root {
-    // Shadows tinted by neutral color — changing --ui-color-neutral shifts shadow tone
-    --ui-shadow-sm: 0 1px 2px color-mix(in oklch, var(--ui-color-neutral) 20%, transparent);
-    --ui-shadow-md: 0 4px 6px color-mix(in oklch, var(--ui-color-neutral) 15%, transparent);
-    --ui-shadow-lg: 0 10px 15px color-mix(in oklch, var(--ui-color-neutral) 12%, transparent);
+    // Shadows — geometry from --ui-unit, opacity from --ui-shadow-strength
+    --ui-shadow-sm:
+      0
+      calc(var(--ui-unit) * 0.125)
+      calc(var(--ui-unit) * 0.25)
+      color-mix(in oklch, var(--ui-color-neutral) var(--ui-shadow-strength), transparent);
+    --ui-shadow-md:
+      0
+      calc(var(--ui-unit) * 0.5)
+      calc(var(--ui-unit) * 0.75)
+      color-mix(in oklch, var(--ui-color-neutral) calc(var(--ui-shadow-strength) * 0.75), transparent);
+    --ui-shadow-lg:
+      0
+      calc(var(--ui-unit) * 1.25)
+      calc(var(--ui-unit) * 2)
+      color-mix(in oklch, var(--ui-color-neutral) calc(var(--ui-shadow-strength) * 0.6), transparent);
   }
 }
