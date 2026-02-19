@@ -21,15 +21,36 @@ $row-6: $row * 6;
 // 2. Colors — OKLCH for perceptual uniformity
 // ==========================================================================
 
-// Theming hue — used in HSL fallbacks for shadows, debug overlays
-$hue-primary: 220;
-
 // Base palette
 $color-primary: oklch(55% 0.22 250);
 $color-success: oklch(60% 0.18 145);
 $color-warning: oklch(75% 0.18 70);
 $color-danger: oklch(60% 0.22 25);
 $color-neutral: oklch(50% 0.02 250);
+
+// Primary shades (CSS uses color-mix)
+$color-primary-light: oklch(75% 0.15 250);
+$color-primary-dark: oklch(40% 0.18 250);
+$color-primary-subtle: oklch(95% 0.03 250);
+$color-primary-hover: oklch(48% 0.20 250);
+
+// Success shades (CSS uses color-mix)
+$color-success-light: oklch(80% 0.12 145);
+$color-success-dark: oklch(45% 0.15 145);
+$color-success-subtle: oklch(95% 0.03 145);
+$color-success-hover: oklch(52% 0.16 145);
+
+// Warning shades (CSS uses color-mix)
+$color-warning-light: oklch(88% 0.12 70);
+$color-warning-dark: oklch(58% 0.15 70);
+$color-warning-subtle: oklch(96% 0.03 70);
+$color-warning-hover: oklch(66% 0.16 70);
+
+// Danger shades (CSS uses color-mix)
+$color-danger-light: oklch(80% 0.14 25);
+$color-danger-dark: oklch(45% 0.18 25);
+$color-danger-subtle: oklch(95% 0.03 25);
+$color-danger-hover: oklch(52% 0.20 25);
 
 // Neutral scale — HSL approximation of color-mix(in oklch, ...) results.
 // CSS tokens use oklch color-mix(); these HSL values are static SCSS
@@ -44,10 +65,6 @@ $color-neutral-600: hsl(220 10% 35%);
 $color-neutral-700: hsl(220 10% 25%);
 $color-neutral-800: hsl(220 10% 15%);
 $color-neutral-900: hsl(220 10% 10%);
-
-// Primary shades (CSS uses color-mix)
-$color-primary-light: oklch(75% 0.15 250);
-$color-primary-dark: oklch(40% 0.18 250);
 
 // ==========================================================================
 // 3. Spacing — derived from $unit
@@ -143,7 +160,7 @@ $border-width-lg: $unit * 0.5; // 4px
 $focus-ring-offset: -$border-width-md;
 
 // ==========================================================================
-// 7. Shadows — static hue fallback
+// 7. Shadows — neutral-tinted
 // ==========================================================================
 $shadow-sm: 0 1px 2px hsl(220 10% 20% / 0.05);
 $shadow-md: 0 4px 6px hsl(220 10% 20% / 0.1);

@@ -6,7 +6,7 @@
   .footer {
     --_space-2: var(--ui-space-2);
     --_border-width-sm: var(--ui-border-width-sm);
-    --_hue-primary: var(--ui-hue-primary, #{t.$hue-primary});
+    --_shadow-color: color-mix(in oklch, var(--ui-color-neutral, #{t.$color-neutral}) 8%, transparent);
     // @desc Overall height
     --_height: var(--ui-footer-height, var(--ui-row-3));
     // @desc Background color
@@ -73,6 +73,6 @@
 
   // @modifier boolean raised
   .footer--raised {
-    box-shadow: 0 calc(var(--_border-width-sm) * -1) 6px hsl(var(--_hue-primary) 10% 20% / 0.08);
+    box-shadow: 0 calc(var(--_border-width-sm) * -1) 6px var(--_shadow-color);
   }
 }

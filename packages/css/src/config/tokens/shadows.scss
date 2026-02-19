@@ -1,7 +1,8 @@
 @layer tokens {
   :root {
-    --ui-shadow-sm: 0 1px 2px hsl(var(--ui-hue-primary, 220) 10% 20% / 0.05);
-    --ui-shadow-md: 0 4px 6px hsl(var(--ui-hue-primary, 220) 10% 20% / 0.1);
-    --ui-shadow-lg: 0 10px 15px hsl(var(--ui-hue-primary, 220) 10% 20% / 0.15);
+    // Shadows tinted by neutral color — changing --ui-color-neutral shifts shadow tone
+    --ui-shadow-sm: 0 1px 2px color-mix(in oklch, var(--ui-color-neutral) 20%, transparent);
+    --ui-shadow-md: 0 4px 6px color-mix(in oklch, var(--ui-color-neutral) 15%, transparent);
+    --ui-shadow-lg: 0 10px 15px color-mix(in oklch, var(--ui-color-neutral) 12%, transparent);
   }
 }

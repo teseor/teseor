@@ -13,6 +13,24 @@
     --ui-color-primary-subtle: color-mix(in oklch, var(--ui-color-primary) 12%, white);
     --ui-color-primary-hover: color-mix(in oklch, var(--ui-color-primary) 85%, black);
 
+    // Success shades - auto-generated via color-mix
+    --ui-color-success-light: color-mix(in oklch, var(--ui-color-success) 50%, white);
+    --ui-color-success-dark: color-mix(in oklch, var(--ui-color-success) 75%, black);
+    --ui-color-success-subtle: color-mix(in oklch, var(--ui-color-success) 12%, white);
+    --ui-color-success-hover: color-mix(in oklch, var(--ui-color-success) 85%, black);
+
+    // Warning shades - auto-generated via color-mix
+    --ui-color-warning-light: color-mix(in oklch, var(--ui-color-warning) 50%, white);
+    --ui-color-warning-dark: color-mix(in oklch, var(--ui-color-warning) 75%, black);
+    --ui-color-warning-subtle: color-mix(in oklch, var(--ui-color-warning) 12%, white);
+    --ui-color-warning-hover: color-mix(in oklch, var(--ui-color-warning) 85%, black);
+
+    // Danger shades - auto-generated via color-mix
+    --ui-color-danger-light: color-mix(in oklch, var(--ui-color-danger) 50%, white);
+    --ui-color-danger-dark: color-mix(in oklch, var(--ui-color-danger) 75%, black);
+    --ui-color-danger-subtle: color-mix(in oklch, var(--ui-color-danger) 12%, white);
+    --ui-color-danger-hover: color-mix(in oklch, var(--ui-color-danger) 85%, black);
+
     // Neutral scale - auto-generated via color-mix
     --ui-color-neutral-50: color-mix(in oklch, var(--ui-color-neutral) 3%, white);
     --ui-color-neutral-100: color-mix(in oklch, var(--ui-color-neutral) 6%, white);

@@ -144,21 +144,21 @@
     align-items: flex-start;
   }
 
-  /* Theme hue variants */
+  /* Theme color variants — override --ui-color-primary for real theming */
   .demo-theme--purple {
-    --ui-hue-primary: 270;
+    --ui-color-primary: oklch(55% 0.22 290);
   }
 
   .demo-theme--teal {
-    --ui-hue-primary: 180;
+    --ui-color-primary: oklch(55% 0.15 180);
   }
 
   .demo-theme--orange {
-    --ui-hue-primary: 25;
+    --ui-color-primary: oklch(65% 0.18 55);
   }
 
   .demo-theme--corporate {
-    --ui-hue-primary: 180;
+    --ui-color-primary: oklch(55% 0.15 180);
     --ui-radius-sm: 2px;
     --ui-radius-md: 4px;
     --ui-radius-lg: 6px;
