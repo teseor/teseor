@@ -1,0 +1,87 @@
+---
+title: Token Architecture
+description: Design token taxonomy — tiers, naming dictionary, theme roots, and derivation patterns
+skipValidation: true
+weight: 3
+---
+
+<!-- @token_tiers -->
+<!-- Tokens are organized into four tiers. Theme roots feed primitives, primitives feed semantic tokens, and semantic tokens feed component tokens. -->
+<pre>
+{{ t('tier_diagram',
+'Theme Roots          Primitives           Semantic              Component
+--ui-color-primary    --ui-color-*         --ui-color-text       --ui-button-bg
+--ui-unit             --ui-space-*         --ui-color-bg         --ui-input-height
+--ui-radius-base      --ui-row-*           --ui-color-border     --ui-card-radius
+--ui-font-sans        --ui-font-size-*     --ui-opacity-*        --ui-alert-bg
+                      --ui-radius-*        --ui-overlay-*') }}
+</pre>
+
+<!-- @naming_dictionary -->
+<!-- Every --ui-* token must use a prefix from this dictionary. The lint enforces it. -->
+<table class="ui-table">
+  <thead>
+    <tr>
+      <th>{{ t('col_prefix', 'Prefix') }}</th>
+      <th>{{ t('col_scales', 'Scales') }}</th>
+      <th>{{ t('col_example', 'Example') }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>unit</td><td>{{ t('singleton', 'singleton') }}</td><td>--ui-unit</td></tr>
+    <tr><td>row</td><td>1–6</td><td>--ui-row-2</td></tr>
+    <tr><td>space</td><td>px, quarter, half, 0–8</td><td>--ui-space-2</td></tr>
+    <tr><td>color</td><td>{{ t('open_ended', 'open-ended') }}</td><td>--ui-color-primary</td></tr>
+    <tr><td>font</td><td>sans, mono</td><td>--ui-font-sans</td></tr>
+    <tr><td>font-size</td><td>xs–4xl</td><td>--ui-font-size-lg</td></tr>
+    <tr><td>font-weight</td><td>normal, medium, semibold, bold</td><td>--ui-font-weight-bold</td></tr>
+    <tr><td>line-height</td><td>{{ t('open_ended', 'open-ended') }}</td><td>--ui-line-height-md</td></tr>
+    <tr><td>letter-spacing</td><td>display, body, caps</td><td>--ui-letter-spacing-caps</td></tr>
+    <tr><td>radius</td><td>base, sm, md, lg, full</td><td>--ui-radius-md</td></tr>
+    <tr><td>border-width</td><td>sm, md, lg</td><td>--ui-border-width-sm</td></tr>
+    <tr><td>shadow</td><td>sm, md, lg</td><td>--ui-shadow-lg</td></tr>
+    <tr><td>z-index</td><td>base–debug (10 levels)</td><td>--ui-z-index-modal</td></tr>
+    <tr><td>duration</td><td>instant–slower</td><td>--ui-duration-fast</td></tr>
+    <tr><td>ease</td><td>default, in, out, in-out</td><td>--ui-ease-out</td></tr>
+    <tr><td>opacity</td><td>disabled, loading</td><td>--ui-opacity-disabled</td></tr>
+    <tr><td>overlay</td><td>bg, bg-light, bg-blur, bg-subtle</td><td>--ui-overlay-bg</td></tr>
+    <tr><td>heading</td><td>{{ t('open_ended', 'open-ended') }}</td><td>--ui-heading-1-size</td></tr>
+    <tr><td>body / body-sm</td><td>{{ t('open_ended', 'open-ended') }}</td><td>--ui-body-weight</td></tr>
+    <tr><td>caption / lead / eyebrow</td><td>{{ t('open_ended', 'open-ended') }}</td><td>--ui-caption-size</td></tr>
+    <tr><td>input</td><td>{{ t('open_ended', 'open-ended') }}</td><td>--ui-input-height</td></tr>
+  </tbody>
+</table>
+
+<!-- @theme_root_tokens -->
+<!-- Theme roots are the small set of tokens you override to create a brand theme. Everything else derives from them. -->
+<pre>
+{{ t('theme_roots_code',
+':root {
+  --ui-color-primary: oklch(0.6 0.2 260);   /* brand hue */
+  --ui-color-neutral: oklch(0.5 0.01 260);  /* neutral tint */
+  --ui-unit: 8px;                            /* grid base */
+  --ui-radius-base: 0.5rem;                  /* corner radius */
+  --ui-font-sans: system-ui, sans-serif;     /* body typeface */
+  --ui-font-mono: monospace;                 /* code typeface */
+}') }}
+</pre>
+
+<!-- @derivation -->
+<!-- Tokens use color-mix() and calc() to derive values from roots. Change one root and dozens of tokens update automatically. -->
+<pre>
+{{ t('derivation_code',
+'/* color-mix(): shade derivation from --ui-color-primary */
+--ui-color-primary-light:  color-mix(in oklch, var(--ui-color-primary), white 40%);
+--ui-color-primary-dark:   color-mix(in oklch, var(--ui-color-primary), black 30%);
+--ui-color-primary-subtle: color-mix(in oklch, var(--ui-color-primary), transparent 85%);
+
+/* calc(): radius derivation from --ui-radius-base */
+--ui-radius-sm:   calc(var(--ui-radius-base) * 0.5);
+--ui-radius-md:   var(--ui-radius-base);
+--ui-radius-lg:   calc(var(--ui-radius-base) * 1.5);
+--ui-radius-full: 9999px;
+
+/* calc(): spacing from --ui-unit */
+--ui-space-1: var(--ui-unit);           /* 8px */
+--ui-space-2: calc(var(--ui-unit) * 2); /* 16px */') }}
+</pre>

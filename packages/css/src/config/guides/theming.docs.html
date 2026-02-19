@@ -28,6 +28,27 @@ weight: 2
   <button class="ui-button ui-button--danger">{{ t('danger', 'Danger') }}</button>
 </div>
 
+<!-- @radius_theming -->
+<!-- Override --ui-radius-base to control all corner radii at once. Set to 0 for sharp corners or increase for a softer look. sm/md/lg derive automatically via calc(). -->
+<div class="demo-theme demo-theme--sharp">
+  <button class="ui-button">{{ t('sharp_button', 'Sharp') }}</button>
+  <div class="ui-card">
+    <p>{{ t('sharp_radius', 'radius-base: 0') }}</p>
+  </div>
+</div>
+<div class="demo-theme">
+  <button class="ui-button">{{ t('default_button', 'Default') }}</button>
+  <div class="ui-card">
+    <p>{{ t('default_radius', 'radius-base: 0.5rem') }}</p>
+  </div>
+</div>
+<div class="demo-theme demo-theme--round">
+  <button class="ui-button">{{ t('round_button', 'Round') }}</button>
+  <div class="ui-card">
+    <p>{{ t('round_radius', 'radius-base: 1rem') }}</p>
+  </div>
+</div>
+
 <!-- @dark_mode -->
 <!-- Dark mode uses the CSS light-dark() function. Tokens resolve automatically based on color-scheme. Override with data-theme attribute. -->
 <div class="demo-theme">
@@ -46,8 +67,29 @@ weight: 2
   </div>
 </div>
 
+<!-- @full_theme_examples -->
+<!-- Complete theme customization using just 2-3 root tokens. -->
+<div class="demo-theme demo-theme--corporate">
+  <button class="ui-button">{{ t('action', 'Action') }}</button>
+  <div class="ui-card">
+    <p>{{ t('corporate_theme', 'Corporate: teal, sharp corners, system font') }}</p>
+  </div>
+</div>
+<div class="demo-theme demo-theme--playful">
+  <button class="ui-button">{{ t('action', 'Action') }}</button>
+  <div class="ui-card">
+    <p>{{ t('playful_theme', 'Playful: orange, round corners') }}</p>
+  </div>
+</div>
+<div class="demo-theme demo-theme--minimal">
+  <button class="ui-button">{{ t('action', 'Action') }}</button>
+  <div class="ui-card">
+    <p>{{ t('minimal_theme', 'Minimal: neutral palette, no radius') }}</p>
+  </div>
+</div>
+
 <!-- @component_overrides -->
-<!-- Override specific component tokens -->
+<!-- Override specific component tokens for fine-grained control. -->
 <div class="demo-theme demo-buttons">
   <button class="ui-button ui-button--sm">{{ t('small', 'Small') }}</button>
   <button class="ui-button">{{ t('default', 'Default') }}</button>
@@ -56,14 +98,5 @@ weight: 2
 <div class="demo-theme demo-cards">
   <div class="ui-card">
     <p>{{ t('card_with_custom_padding', 'Card with custom padding') }}</p>
-  </div>
-</div>
-
-<!-- @full_theme_example -->
-<!-- Complete theme customization -->
-<div class="demo-theme demo-theme--corporate">
-  <button class="ui-button">{{ t('action', 'Action') }}</button>
-  <div class="ui-card">
-    <p>{{ t('corporate_theme_with_teal_accent_and_sharp_corners', 'Corporate theme with teal accent and sharp corners') }}</p>
   </div>
 </div>
