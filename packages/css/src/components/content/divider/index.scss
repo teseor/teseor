@@ -34,6 +34,9 @@
     font-size: var(--_font-size-sm);
     line-height: 1;
     color: var(--_color-text-muted);
+
+    // Reset <hr> defaults so it works as semantic separator
+    border: none;
   }
 
   // Horizontal line (default)
@@ -76,7 +79,7 @@
     flex: 1;
 
     block-size: auto;
-    inline-size: var(--_size);
+    inline-size: var(--_line-size);
   }
 
   // @modifier align
