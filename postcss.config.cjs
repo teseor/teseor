@@ -47,6 +47,51 @@ const prefixCustomProperties = () => {
 };
 prefixCustomProperties.postcss = true;
 
+// Merge duplicate @layer blocks and duplicate selectors within each layer
+const mergeLayerBlocks = () => {
+  const mergeRules = (parent) => {
+    const seen = new Map();
+    parent.each((node) => {
+      if (node.type !== 'rule') return;
+      const key = node.selector;
+      if (seen.has(key)) {
+        const target = seen.get(key);
+        for (const child of node.nodes) {
+          target.append(child.clone());
+        }
+        node.remove();
+      } else {
+        seen.set(key, node);
+      }
+    });
+  };
+
+  return {
+    postcssPlugin: 'postcss-merge-layer-blocks',
+    OnceExit(root) {
+      const seen = new Map();
+      root.walkAtRules('layer', (atRule) => {
+        if (!atRule.nodes || atRule.nodes.length === 0) return;
+        const name = atRule.params;
+        if (seen.has(name)) {
+          const target = seen.get(name);
+          for (const node of atRule.nodes) {
+            target.append(node.clone());
+          }
+          atRule.remove();
+        } else {
+          seen.set(name, atRule);
+        }
+      });
+      // Merge duplicate selectors within each merged layer
+      for (const layer of seen.values()) {
+        mergeRules(layer);
+      }
+    },
+  };
+};
+mergeLayerBlocks.postcss = true;
+
 module.exports = {
   plugins: [
     // Bundle @import statements
@@ -67,5 +112,8 @@ module.exports = {
         return selector.replace(/\.(?!ui-)(?=[a-zA-Z_-])/g, `.${prefix}`);
       },
     }),
+
+    // Merge duplicate @layer blocks
+    mergeLayerBlocks(),
   ],
 };
