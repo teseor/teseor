@@ -29,6 +29,13 @@
 
       <div class="ui-sidebar-nav__footer">
         <div class="ui-column ui-column--xs">
+          <select class="ui-select" id="brand-select" onchange="setBrand(this.value)" aria-label="{{ t('theme_preset', 'Theme preset') }}">
+            <option value="">{{ t('default_theme', 'Default') }}</option>
+            <option value="corporate">{{ t('corporate_theme', 'Corporate') }}</option>
+            <option value="playful">{{ t('playful_theme', 'Playful') }}</option>
+            <option value="minimal">{{ t('minimal_theme', 'Minimal') }}</option>
+            <option value="terminal">{{ t('terminal_theme', 'Terminal') }}</option>
+          </select>
           <button class="ui-button ui-button--sm ui-button--block" onclick="toggleTheme()" id="theme-toggle" aria-pressed="false" data-label-dark="{{ t('dark_mode', 'Dark Mode') }}" data-label-light="{{ t('light_mode', 'Light Mode') }}">{{ t('dark_mode', 'Dark Mode') }}</button>
           <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug(this, 'ui-debug-grid')" aria-pressed="false">{{ t('toggle_grid', 'Toggle Grid') }}</button>
           <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug(this, 'ui-debug-grid-rows')" aria-pressed="false">{{ t('toggle_row_grid', 'Toggle Row Grid') }}</button>
@@ -82,20 +89,22 @@
     });
 
     function toggleTheme() {
-      const html = document.documentElement;
-      const btn = document.getElementById('theme-toggle');
-      const isDark = html.getAttribute('data-theme') === 'dark';
-      if (isDark) {
-        html.removeAttribute('data-theme');
-        btn.textContent = btn.dataset.labelDark;
-        btn.setAttribute('aria-pressed', 'false');
-        localStorage.removeItem('theme');
-      } else {
-        html.setAttribute('data-theme', 'dark');
-        btn.textContent = btn.dataset.labelLight;
-        btn.setAttribute('aria-pressed', 'true');
-        localStorage.setItem('theme', 'dark');
-      }
+      withTransition(() => {
+        const html = document.documentElement;
+        const btn = document.getElementById('theme-toggle');
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        if (isDark) {
+          html.removeAttribute('data-theme');
+          btn.textContent = btn.dataset.labelDark;
+          btn.setAttribute('aria-pressed', 'false');
+          localStorage.removeItem('theme');
+        } else {
+          html.setAttribute('data-theme', 'dark');
+          btn.textContent = btn.dataset.labelLight;
+          btn.setAttribute('aria-pressed', 'true');
+          localStorage.setItem('theme', 'dark');
+        }
+      });
     }
 
     if (localStorage.getItem('theme') === 'dark') {
@@ -103,6 +112,31 @@
       const themeBtn = document.getElementById('theme-toggle');
       themeBtn.textContent = themeBtn.dataset.labelLight;
       themeBtn.setAttribute('aria-pressed', 'true');
+    }
+
+    function withTransition(fn) {
+      document.body.classList.add('theme-transitioning');
+      fn();
+      setTimeout(() => document.body.classList.remove('theme-transitioning'), 300);
+    }
+
+    function setBrand(value) {
+      withTransition(() => {
+        const html = document.documentElement;
+        if (value) {
+          html.setAttribute('data-brand', value);
+          localStorage.setItem('brand', value);
+        } else {
+          html.removeAttribute('data-brand');
+          localStorage.removeItem('brand');
+        }
+      });
+    }
+
+    const savedBrand = localStorage.getItem('brand');
+    if (savedBrand) {
+      document.documentElement.setAttribute('data-brand', savedBrand);
+      document.getElementById('brand-select').value = savedBrand;
     }
   </script>
 </body>
