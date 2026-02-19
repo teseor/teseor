@@ -13,7 +13,7 @@
     // @desc Indent
     --_indent: var(--ui-list-indent, var(--ui-space-3, #{t.$space-3}));
     // @desc Line height
-    --_line-height: var(--ui-list-line-height, var(--ui-leading-md, #{t.$leading-md}));
+    --_line-height: var(--ui-list-line-height, var(--ui-line-height-md, #{t.$line-height-md}));
   }
 
   // @modifier spacing

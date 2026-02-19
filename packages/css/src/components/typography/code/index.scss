@@ -8,7 +8,7 @@
   // Inline code
   .code {
     --_font-mono: var(--ui-font-mono, #{t.$font-mono});
-    --_leading-tight-sm: var(--ui-leading-tight-sm, #{t.$leading-tight-sm});
+    --_leading-tight-sm: var(--ui-line-height-tight-sm, #{t.$line-height-tight-sm});
     --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
     // @desc Font size
     --_font-size: var(--ui-code-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));

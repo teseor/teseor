@@ -15,7 +15,7 @@
     },
     {
       "name": "--ui-heading-line-height",
-      "default": "var(--ui-leading-xl)",
+      "default": "var(--ui-line-height-xl)",
       "description": "Line height"
     },
     {
@@ -35,7 +35,7 @@
     },
     {
       "name": "--ui-heading-line-height-4xl",
-      "default": "var(--ui-leading-4xl)",
+      "default": "var(--ui-line-height-4xl)",
       "description": "Line height 4xl"
     },
     {
@@ -45,7 +45,7 @@
     },
     {
       "name": "--ui-heading-line-height-3xl",
-      "default": "var(--ui-leading-3xl)",
+      "default": "var(--ui-line-height-3xl)",
       "description": "Line height 3xl"
     },
     {
@@ -55,7 +55,7 @@
     },
     {
       "name": "--ui-heading-line-height-2xl",
-      "default": "var(--ui-leading-2xl)",
+      "default": "var(--ui-line-height-2xl)",
       "description": "Line height 2xl"
     },
     {
@@ -65,7 +65,7 @@
     },
     {
       "name": "--ui-heading-line-height-xl",
-      "default": "var(--ui-leading-xl)",
+      "default": "var(--ui-line-height-xl)",
       "description": "Line height at extra-large size"
     },
     {
@@ -75,7 +75,7 @@
     },
     {
       "name": "--ui-heading-line-height-lg",
-      "default": "var(--ui-leading-lg)",
+      "default": "var(--ui-line-height-lg)",
       "description": "Line height at large size"
     },
     {
@@ -85,7 +85,7 @@
     },
     {
       "name": "--ui-heading-line-height-md",
-      "default": "var(--ui-leading-tight-md)",
+      "default": "var(--ui-line-height-tight-md)",
       "description": "Line height at medium size"
     },
     {
@@ -95,7 +95,7 @@
     },
     {
       "name": "--ui-heading-line-height-sm",
-      "default": "var(--ui-leading-tight-sm)",
+      "default": "var(--ui-line-height-tight-sm)",
       "description": "Line height at small size"
     }
   ]

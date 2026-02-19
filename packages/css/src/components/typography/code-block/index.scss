@@ -21,7 +21,7 @@
     // @desc Font size
     --_font-size: var(--ui-code-block-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     // @desc Line height
-    --_line-height: var(--ui-code-block-line-height, var(--ui-leading-tight-sm, #{t.$leading-tight-sm}));
+    --_line-height: var(--ui-code-block-line-height, var(--ui-line-height-tight-sm, #{t.$line-height-tight-sm}));
     // @desc Corner radius
     --_radius: var(--ui-code-block-radius, var(--ui-radius-md, #{t.$radius-md}));
   }

@@ -127,22 +127,22 @@
   @media (width < 45.625rem) {
     h1 {
       font-size: var(--ui-font-size-2xl); // 28px
-      line-height: var(--ui-leading-2xl); // 32px
+      line-height: var(--ui-line-height-2xl); // 32px
     }
 
     h2 {
       font-size: var(--ui-font-size-xl); // 24px
-      line-height: var(--ui-leading-xl); // 32px
+      line-height: var(--ui-line-height-xl); // 32px
     }
 
     h3 {
       font-size: var(--ui-font-size-lg); // 20px
-      line-height: var(--ui-leading-sm); // 24px
+      line-height: var(--ui-line-height-sm); // 24px
     }
 
     h4 {
       font-size: 1.125rem; // 18px
-      line-height: var(--ui-leading-sm); // 24px
+      line-height: var(--ui-line-height-sm); // 24px
     }
   }
 
@@ -155,7 +155,7 @@
 
     h2 {
       font-size: var(--ui-font-size-4xl); // 40px
-      line-height: var(--ui-leading-4xl); // 48px
+      line-height: var(--ui-line-height-4xl); // 48px
     }
   }
 }

@@ -7,7 +7,7 @@
 
 @layer components.tokens {
   .fieldset {
-    --_leading-tight-sm: var(--ui-leading-tight-sm, var(--ui-row-1, #{t.$leading-tight-sm}));
+    --_leading-tight-sm: var(--ui-line-height-tight-sm, var(--ui-row-1, #{t.$line-height-tight-sm}));
     --_space-half: var(--ui-space-half, #{t.$space-0});
     --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
     // @desc Spacing

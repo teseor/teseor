@@ -23,20 +23,20 @@
     // ==========================================================================
 
     // Tight line-heights for compact UI elements
-    --ui-leading-tight-xs: var(--ui-row-1);
-    --ui-leading-tight-sm: var(--ui-row-1);
-    --ui-leading-tight-md: calc(var(--ui-unit) * 3);
-    --ui-leading-tight-lg: calc(var(--ui-unit) * 3);
+    --ui-line-height-tight-xs: var(--ui-row-1);
+    --ui-line-height-tight-sm: var(--ui-row-1);
+    --ui-line-height-tight-md: calc(var(--ui-unit) * 3);
+    --ui-line-height-tight-lg: calc(var(--ui-unit) * 3);
 
     // Normal line-heights for readable body text
-    --ui-leading-xs: var(--ui-row-1);
-    --ui-leading-sm: calc(var(--ui-unit) * 3);
-    --ui-leading-md: calc(var(--ui-unit) * 3);
-    --ui-leading-lg: var(--ui-row-2);
-    --ui-leading-xl: var(--ui-row-2);
-    --ui-leading-2xl: var(--ui-row-2);
-    --ui-leading-3xl: calc(var(--ui-unit) * 5);
-    --ui-leading-4xl: calc(var(--ui-unit) * 6);
+    --ui-line-height-xs: var(--ui-row-1);
+    --ui-line-height-sm: calc(var(--ui-unit) * 3);
+    --ui-line-height-md: calc(var(--ui-unit) * 3);
+    --ui-line-height-lg: var(--ui-row-2);
+    --ui-line-height-xl: var(--ui-row-2);
+    --ui-line-height-2xl: var(--ui-row-2);
+    --ui-line-height-3xl: calc(var(--ui-unit) * 5);
+    --ui-line-height-4xl: calc(var(--ui-unit) * 6);
 
     // ==========================================================================
     // PRIMITIVE TOKENS - Font Weights
@@ -59,61 +59,61 @@
 
     // Heading 1
     --ui-heading-1-size: var(--ui-font-size-4xl);
-    --ui-heading-1-line-height: var(--ui-leading-4xl);
+    --ui-heading-1-line-height: var(--ui-line-height-4xl);
     --ui-heading-1-weight: var(--ui-font-weight-bold);
     --ui-heading-1-tracking: var(--ui-tracking-display);
 
     // Heading 2
     --ui-heading-2-size: var(--ui-font-size-3xl);
-    --ui-heading-2-line-height: var(--ui-leading-3xl);
+    --ui-heading-2-line-height: var(--ui-line-height-3xl);
     --ui-heading-2-weight: var(--ui-font-weight-bold);
     --ui-heading-2-tracking: -0.01em;
 
     // Heading 3
     --ui-heading-3-size: var(--ui-font-size-2xl);
-    --ui-heading-3-line-height: var(--ui-leading-2xl);
+    --ui-heading-3-line-height: var(--ui-line-height-2xl);
     --ui-heading-3-weight: var(--ui-font-weight-semibold);
     --ui-heading-3-tracking: var(--ui-tracking-body);
 
     // Heading 4
     --ui-heading-4-size: var(--ui-font-size-xl);
-    --ui-heading-4-line-height: var(--ui-leading-xl);
+    --ui-heading-4-line-height: var(--ui-line-height-xl);
     --ui-heading-4-weight: var(--ui-font-weight-semibold);
     --ui-heading-4-tracking: var(--ui-tracking-body);
 
     // Heading 5
     --ui-heading-5-size: var(--ui-font-size-lg);
-    --ui-heading-5-line-height: var(--ui-leading-sm);
+    --ui-heading-5-line-height: var(--ui-line-height-sm);
     --ui-heading-5-weight: var(--ui-font-weight-medium);
     --ui-heading-5-tracking: var(--ui-tracking-body);
 
     // Body
     --ui-body-size: var(--ui-font-size-md);
-    --ui-body-line-height: var(--ui-leading-md);
+    --ui-body-line-height: var(--ui-line-height-md);
     --ui-body-weight: var(--ui-font-weight-normal);
     --ui-body-tracking: var(--ui-tracking-body);
 
     // Body Small
     --ui-body-sm-size: var(--ui-font-size-sm);
-    --ui-body-sm-line-height: var(--ui-leading-sm);
+    --ui-body-sm-line-height: var(--ui-line-height-sm);
     --ui-body-sm-weight: var(--ui-font-weight-normal);
     --ui-body-sm-tracking: var(--ui-tracking-body);
 
     // Caption
     --ui-caption-size: var(--ui-font-size-xs);
-    --ui-caption-line-height: var(--ui-leading-xs);
+    --ui-caption-line-height: var(--ui-line-height-xs);
     --ui-caption-weight: var(--ui-font-weight-normal);
     --ui-caption-tracking: 0.01em;
 
     // Lead
     --ui-lead-size: var(--ui-font-size-lg);
-    --ui-lead-line-height: var(--ui-leading-lg);
+    --ui-lead-line-height: var(--ui-line-height-lg);
     --ui-lead-weight: var(--ui-font-weight-normal);
     --ui-lead-tracking: var(--ui-tracking-body);
 
     // Eyebrow
     --ui-eyebrow-size: var(--ui-font-size-xs);
-    --ui-eyebrow-line-height: var(--ui-leading-xs);
+    --ui-eyebrow-line-height: var(--ui-line-height-xs);
     --ui-eyebrow-weight: var(--ui-font-weight-semibold);
     --ui-eyebrow-tracking: var(--ui-tracking-caps);
   }
