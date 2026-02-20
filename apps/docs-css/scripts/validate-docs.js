@@ -4,7 +4,7 @@
  * Checks that docs cover all modifiers defined in API
  */
 
-import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -186,7 +186,7 @@ function validateDoc(docsPath) {
   let api;
   try {
     api = JSON.parse(readFileSync(apiPath, 'utf-8'));
-  } catch (err) {
+  } catch (_err) {
     return { path: docsPath, skipped: true, reason: 'No API file found' };
   }
 

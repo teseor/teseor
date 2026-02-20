@@ -1,15 +1,15 @@
 export type { ComponentAPI } from './api-types';
-export type { RhythmViolation } from './rhythm';
-export { scaffoldCss } from './scaffold';
 export { generateVariationsHtml } from './html-generator';
-export { validateGridRhythm } from './rhythm';
 export {
-  loadCss,
-  loadComponentApi,
-  loadHtmlDoc,
   generateHtmlFromHtmlDoc,
+  loadComponentApi,
+  loadCss,
+  loadHtmlDoc,
+  saveForLostPixel,
   setupVisualTest,
   setupVisualTestFromApi,
   setupVisualTestFromHtmlDocs,
-  saveForLostPixel,
 } from './page-setup';
+export type { RhythmViolation } from './rhythm';
+export { validateGridRhythm } from './rhythm';
+export { scaffoldCss } from './scaffold';

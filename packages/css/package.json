@@ -11,13 +11,23 @@
   },
   "homepage": "https://teseor.com",
   "bugs": "https://github.com/teseor/teseor/issues",
-  "keywords": ["css", "components", "design-system", "ui", "tokens", "utilities"],
+  "keywords": [
+    "css",
+    "components",
+    "design-system",
+    "ui",
+    "tokens",
+    "utilities"
+  ],
   "main": "dist/index.css",
   "exports": {
     ".": "./dist/index.css",
     "./dist/*": "./dist/*"
   },
-  "files": ["dist", "src"],
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "build": "pnpm --filter @teseor/source sync:components && mkdir -p dist && sass src/index.scss dist/compiled.css --no-source-map --style=compressed && postcss dist/compiled.css -o dist/index.css",
     "test:grid": "playwright test --config=playwright.config.ts src/testing/grid-alignment.spec.ts",

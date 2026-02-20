@@ -26,7 +26,7 @@ function parseFrontmatter(raw) {
   const result = {};
   const lines = raw.split('\n');
   let currentKey = null;
-  let currentIndent = 0;
+  let _currentIndent = 0;
   let currentMap = null;
 
   for (const line of lines) {
@@ -48,7 +48,7 @@ function parseFrontmatter(raw) {
         // Start of a map
         currentKey = key;
         currentMap = {};
-        currentIndent = 0;
+        _currentIndent = 0;
       } else {
         currentKey = null;
         currentMap = null;
@@ -162,7 +162,7 @@ export function makeT(i18nMap = {}) {
 /**
  * Resolve a dotted path on an object (e.g., "api.modifiers.size.values").
  */
-function resolvePath(obj, path) {
+function _resolvePath(obj, path) {
   return path.split('.').reduce((o, k) => (o != null ? o[k] : undefined), obj);
 }
 

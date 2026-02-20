@@ -3,6 +3,7 @@ import { dirname, resolve } from 'node:path';
 import type { Page } from '@playwright/test';
 
 const LOSTPIXEL_DIR = resolve(__dirname, '../.lostpixel');
+
 import type { ComponentAPI } from './api-types';
 import { generateVariationsHtml } from './html-generator';
 import { scaffoldCss } from './scaffold';
