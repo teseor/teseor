@@ -50,7 +50,7 @@ export function lintVersionSync(): void {
           pattern: /playwright:v([\d.]+)-/,
         },
         {
-          path: 'docker-compose.visual.yml',
+          path: '.config/docker-compose.visual.yml',
           pattern: /playwright:v([\d.]+)-/,
         },
       ],
@@ -74,7 +74,7 @@ export function lintVersionSync(): void {
       expected: pnpmVersion,
       files: [
         {
-          path: 'docker-compose.visual.yml',
+          path: '.config/docker-compose.visual.yml',
           pattern: /pnpm@([\d.]+)/,
         },
       ],
