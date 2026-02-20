@@ -15,9 +15,9 @@ pnpm add @teseor/css
 Use directly without a build step:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@teseor/css@2/dist/index.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@teseor/css/dist/index.css">
 <!-- or -->
-<link rel="stylesheet" href="https://unpkg.com/@teseor/css@2/dist/index.css">
+<link rel="stylesheet" href="https://unpkg.com/@teseor/css/dist/index.css">
 ```
 
 ## Usage

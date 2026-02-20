@@ -50,13 +50,13 @@ npm install @teseor/css
 No build step needed -- use directly from jsDelivr or unpkg:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@teseor/css@2/dist/index.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@teseor/css/dist/index.css">
 ```
 
 Or unpkg:
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@teseor/css@2/dist/index.css">
+<link rel="stylesheet" href="https://unpkg.com/@teseor/css/dist/index.css">
 ```
 
 ## Theming
