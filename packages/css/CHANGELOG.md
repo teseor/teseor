@@ -1,5 +1,12 @@
 # @teseor/css
 
+## 2.3.1
+
+### Patch Changes
+
+- c8d9b74: Fix grid rhythm violations: align tag--sm/tag--lg to 8px grid, fix demo container heights
+- 79e7870: Add Dracula, GitHub, Amazon, Linear theme presets to docs sidebar
+
 ## 2.3.0
 
 ### Minor Changes
