@@ -1,5 +1,11 @@
 # @teseor/css
 
+## 2.5.0
+
+### Minor Changes
+
+- d114dca: Add container query utilities (container-inline, container-normal), nav responsive modifier with auto-collapse via @container, and input auto-size modifier with field-sizing: content.
+
 ## 2.4.0
 
 ### Minor Changes
