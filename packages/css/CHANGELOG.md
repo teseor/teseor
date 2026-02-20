@@ -1,5 +1,11 @@
 # @teseor/css
 
+## 2.3.2
+
+### Patch Changes
+
+- 0c5d827: Fix grid violations: replace ui-p-2 with ui-card--sm on cards, add ui-button to bare button in docs
+
 ## 2.3.1
 
 ### Patch Changes
