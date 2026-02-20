@@ -160,13 +160,6 @@ export function makeT(i18nMap = {}) {
 }
 
 /**
- * Resolve a dotted path on an object (e.g., "api.modifiers.size.values").
- */
-function _resolvePath(obj, path) {
-  return path.split('.').reduce((o, k) => (o != null ? o[k] : undefined), obj);
-}
-
-/**
  * Render a raw HTML section through Nunjucks with the provided context.
  * @param {string} rawHtml - raw HTML with Nunjucks template syntax
  * @param {object} context - { api, labels, t, ... }
