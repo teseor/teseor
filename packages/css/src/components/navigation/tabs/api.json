@@ -64,6 +64,11 @@
       "description": "Tab bg active"
     },
     {
+      "name": "--ui-tabs-tab-line-height",
+      "default": "var(--ui-line-height-none)",
+      "description": "Tab line height"
+    },
+    {
       "name": "--ui-tabs-panel-padding",
       "default": "var(--ui-space-3)",
       "description": "Panel padding on all sides"

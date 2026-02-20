@@ -350,14 +350,4 @@
     --ui-shadow-strength: 15%;
     --ui-border-width-base: 1px;
   }
-
-  /* Linear — indigo accent, minimal, modern */
-  [data-brand="linear"] {
-    --ui-color-primary: oklch(52% 0.2 280);
-    --ui-color-neutral: oklch(40% 0.015 265);
-    --ui-font-sans: "Inter", system-ui, -apple-system, sans-serif;
-    --ui-radius-base: 6px;
-    --ui-shadow-strength: 8%;
-    --ui-border-width-base: 1px;
-  }
 }

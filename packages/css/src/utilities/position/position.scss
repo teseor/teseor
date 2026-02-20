@@ -35,20 +35,51 @@
     inset-inline: 0;
   }
 
-  .top-0 {
-    inset-block-start: 0;
+  @each $n in (0, 1, 2, 3, 4) {
+    .top-#{$n} {
+      inset-block-start: if($n == 0, 0, var(--ui-space-#{$n}));
+    }
+
+    .bottom-#{$n} {
+      inset-block-end: if($n == 0, 0, var(--ui-space-#{$n}));
+    }
+
+    .start-#{$n} {
+      inset-inline-start: if($n == 0, 0, var(--ui-space-#{$n}));
+    }
+
+    .end-#{$n} {
+      inset-inline-end: if($n == 0, 0, var(--ui-space-#{$n}));
+    }
   }
 
-  .bottom-0 {
-    inset-block-end: 0;
+  // Z-index
+  .z-0 {
+    z-index: 0;
   }
 
-  .start-0 {
-    inset-inline-start: 0;
+  .z-10 {
+    z-index: 10;
   }
 
-  .end-0 {
-    inset-inline-end: 0;
+  .z-20 {
+    z-index: 20;
+  }
+
+  .z-30 {
+    z-index: 30;
+  }
+
+  .z-40 {
+    z-index: 40;
+  }
+
+  .z-50 {
+    z-index: 50;
+  }
+
+  .z-auto {
+    z-index: auto;
   }
 
   // Overflow
