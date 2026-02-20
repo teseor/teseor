@@ -1,5 +1,11 @@
 # @teseor/css
 
+## 2.3.0
+
+### Minor Changes
+
+- a2224d6: Add bg-inset token for component track/bar backgrounds, tighten grid rhythm tolerance, distinct debug overlays, root-cause grid checker, playground improvements
+
 ## 2.2.2
 
 ### Patch Changes
