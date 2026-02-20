@@ -43,7 +43,7 @@ export function lintThreeTierFallbacks(srcDir: string): void {
       // Match var(--ui-TOKEN, #{t.$SCSS_VAR}) — bare SCSS ref as fallback
       const pattern = /var\(--ui-([\w-]+),\s*#\{t\.\$([\w-]+)\}\s*\)/g;
 
-      for (let m = pattern.exec(layerBody); m !== null; m = pattern.exec(layerBody)) {
+      for (const m of layerBody.matchAll(pattern)) {
         const outerToken = m[1];
         const scssVar = m[2];
 
@@ -56,7 +56,7 @@ export function lintThreeTierFallbacks(srcDir: string): void {
         // Skip if SCSS var has no matching global token category
         if (!findCategoryPrefix(scssVar)) continue;
 
-        const absIndex = layerBodyStart + m.index;
+        const absIndex = layerBodyStart + (m.index ?? 0);
         const line = content.substring(0, absIndex).split('\n').length;
         errors.push(
           `${relPath}:${line}: var(--ui-${outerToken}) fallback #{t.$${scssVar}} needs middle tier var(--ui-${scssVar}, ...)`,
