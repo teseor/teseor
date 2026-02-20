@@ -1,37 +1,27 @@
 # Contributing to Teseor
 
-## Development Setup
+## Development setup
 
 ```bash
 git clone https://github.com/teseor/teseor.git
 cd teseor
 pnpm install
-pnpm nx build css
-pnpm --filter docs dev
+pnpm dev                   # docs dev server at localhost:3000
 ```
 
-## Branch Rules
-
-Main branch is protected by a ruleset:
-
-- **PRs required** - no direct pushes to main
-- **Status checks must pass** - Lint, Test, Typecheck, Changeset, Lighthouse, visual-test
-- **Linear history** - rebase only, no merge commits
-- **No force pushes or deletions**
-
-Bypass: repo admin only (for release bot).
+Requires Node 22+ and pnpm 9+.
 
 ## Workflow
 
-1. **Create GitHub issue** with clear scope
-2. **Branch** from main: `feat/`, `fix/`, `docs/`, `chore/`
+1. **Create a GitHub issue** with clear scope
+2. **Branch** from main: `feat/`, `fix/`, `docs/`, `chore/`, `refactor/`, `test/`
 3. **Implement** with granular commits
-4. **Add changeset** if user-facing (`pnpm changeset`)
-5. **Push + open PR**, wait for CI green
+4. **Add a changeset** for user-facing changes (`pnpm changeset`)
+5. **Push and open a PR** -- CI must pass before merge
 6. **Merge** to main
-7. Release workflow auto-creates a version PR; merging it publishes to npm
+7. The release workflow auto-creates a version PR; merging it publishes to npm
 
-## Commit Convention
+## Commit convention
 
 ```
 [CSS] type(scope): message
@@ -39,67 +29,83 @@ Bypass: repo admin only (for release bot).
 
 Types: `feat`, `fix`, `chore`, `docs`, `refactor`, `test`
 
-Single line only. Details go in PR body.
+Single line only. Put details in the PR body. Enforced by commitlint in CI.
 
-## Project Structure
+## Branch rules
+
+- PRs required -- no direct pushes to main
+- Status checks must pass -- Lint, Test, Typecheck, Changeset, Lighthouse, Visual Tests
+- Linear history -- rebase only, no merge commits
+- No force pushes or branch deletions
+
+## Project structure
 
 ```
 packages/css/src/
-  00-config/         # Tokens, layers
-  01-reset/          # CSS reset
-  02-base/           # Base typography
-  03-layout/         # Layout primitives
-  04-components/     # UI components (grouped by category)
-    actions/         # button, button-group
-    typography/      # heading, link, code
-    forms/           # input, select, checkbox, radio, toggle, field, ...
-    data-display/    # avatar, badge, icon, tag, status, card, table, data-list
-    feedback/        # alert, spinner, progress, skeleton, toast
-    overlays/        # modal, drawer, popover, tooltip, dialog, overlay
-    disclosure/      # disclosure, accordion
-    navigation/      # tabs, breadcrumb, menu, nav, pagination
-    layout/          # divider
-  05-utilities/      # Utility classes
-  99-debug/          # Debug overlays
-apps/docs/           # Documentation site (Eleventy)
+  config/            # Layer order (layers.scss), design tokens (tokens/), guides (guides/)
+  reset/             # CSS reset
+  base/              # Base HTML element styles
+  layout/            # Layout primitives (grid, column, row, box, sidebar-nav, ...)
+  components/        # UI components grouped by category
+    actions/         # button, button-group, close-button
+    typography/      # heading, link, code, code-block, kbd, blockquote, list, mark
+    forms/           # input, select, checkbox, radio, toggle, slider, field, ...
+    data-display/    # avatar, badge, card, table, tag, stat, icon, image, ...
+    feedback/        # alert, spinner, progress, progress-circle, skeleton, toast
+    overlays/        # modal, dialog, drawer, tooltip, popover, overlay
+    disclosure/      # accordion, disclosure
+    navigation/      # tabs, breadcrumb, menu, dropdown-menu, nav, pagination
+    content/         # divider, spacer, scroll-area
+  utilities/         # Helper classes
+  debug/             # Dev tools
+apps/docs-css/       # Documentation site (Eleventy)
 ```
 
-## Running Tests
+Components are auto-discovered from directory structure -- no manual registration needed.
+
+## Running tests
 
 ```bash
-pnpm test            # all tests
-pnpm lint            # biome + stylelint + component lint
-pnpm typecheck       # typescript
+pnpm lint              # biome + stylelint + custom lints + docs validation
+pnpm typecheck         # typescript
+pnpm test:unit         # vitest
 ```
 
-Visual regression tests need the docs server:
+### Visual regression tests
+
+Visual snapshots must match the CI environment. Always update via Docker:
 
 ```bash
-pnpm --filter docs dev                              # start server
-npx playwright test --config=packages/css/playwright.config.ts  # run tests
+./scripts/visual-test-docker.sh                    # run all visual tests
+./scripts/visual-test-docker.sh --update           # update all snapshots
+./scripts/visual-test-docker.sh --update button    # update specific component
+./scripts/visual-test-docker.sh --stop             # stop the container
 ```
 
-Docker for snapshot updates (CI is source of truth):
+### Lighthouse CI
 
-```bash
-./scripts/visual-test-docker.sh --update <component>
-```
+Runs on every PR, auditing 4 docs pages. Minimum scores: performance 0.8, accessibility 0.85, best practices 0.9, SEO 0.9. Config in `lighthouserc.json`.
 
-Lighthouse CI runs on every PR, auditing 4 docs pages for performance, accessibility, best practices, and SEO. Config in `lighthouserc.json`. Minimum scores: performance 0.9, accessibility 0.85, best practices 0.9, SEO 0.9.
-
-## Adding a Component
+## Adding a component
 
 ```bash
 pnpm new:component <name>
 ```
 
-Each component lives under a category in `04-components/` with:
-- `index.scss` - styles (use `--_` prefix for internal tokens)
-- `<name>.api.json` - CSS API definition
-- `<name>.docs.json` - documentation (use `items` config format, not raw HTML)
-- `<name>.visual.spec.ts` - visual regression test
+Prompts for a category group. Creates 4 files:
 
-After adding, run `pnpm sync:components` to update the index.
+- `index.scss` -- styles (use `--_` prefix for internal tokens)
+- `<name>.api.json` -- CSS API definition
+- `<name>.docs.json` -- documentation (use `items` config format, not raw HTML)
+- `<name>.visual.spec.ts` -- visual regression test
+
+### Style conventions
+
+- **Token fallback pattern**: `var(--ui-component-token, var(--ui-global-token, #{$fallback}))`
+- **Internal variables**: `--_` prefix for component-scoped vars
+- **Layers**: components split into `components.tokens` and `components.styles`
+- **BEM naming**: `.ui-block--modifier`, `.ui-block__element`
+- **No magic numbers**: always reference design tokens
 
 ## Changesets
 
@@ -109,13 +115,12 @@ Add a changeset for any user-facing change:
 pnpm changeset
 ```
 
-Skip for: docs-only, CI/tooling, internal refactors.
+Package name: `@teseor/css`. Skip changesets for docs-only, CI/tooling, or internal refactors.
 
-When merged to main, the release workflow collects changesets into a "Release" PR. Merging that PR publishes to npm and creates a GitHub release.
+When merged to main, the release workflow collects changesets into a version PR. Merging that PR publishes to npm and creates a GitHub release.
 
 ## Labels
 
 Auto-applied via `.github/labeler.yml`:
-- `pkg: css`, `pkg: docs`
-- `type: ci`, `type: docs`
-- `component: button`, `component: card`, etc.
+- `pkg: css`, `pkg: docs-css`
+- `type: ci`, `type: docs`, `type: feature`, `type: bug`, `type: refactor`, `type: test`
