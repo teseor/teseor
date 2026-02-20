@@ -18,6 +18,12 @@ jobs:
     env:
       HOME: /root
     steps:
+      - name: Silence container warnings
+        run: |
+          mkdir -p /root/.docker && echo '{}' > /root/.docker/config.json
+          git config --global init.defaultBranch main
+          git config --global advice.detachedHead false
+
       - uses: actions/checkout@v4
 
       - uses: pnpm/action-setup@v4
