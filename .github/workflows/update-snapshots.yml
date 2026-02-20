@@ -18,19 +18,18 @@ jobs:
     env:
       HOME: /root
     steps:
+      - name: Configure container
+        run: |
+          mkdir -p /root/.docker && echo '{}' > /root/.docker/config.json
+          git config --global init.defaultBranch main
+          git config --global advice.detachedHead false
+
       - uses: actions/checkout@v4
         with:
           ref: ${{ inputs.branch }}
           token: ${{ secrets.PUSH_TOKEN }}
 
-      - uses: pnpm/action-setup@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - run: pnpm install
-      - run: pnpm nx build css
+      - uses: ./.github/actions/setup-container
 
       - name: Update snapshots
         run: npx playwright test --config=packages/css/playwright.config.ts --update-snapshots --grep visual

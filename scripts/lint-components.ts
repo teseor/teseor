@@ -15,6 +15,7 @@ import { lintThreeTierFallbacks } from './lints/three-tier-fallbacks.js';
 import { lintTokenDictionary } from './lints/token-dictionary.js';
 import { lintTokenFallbacks } from './lints/token-fallbacks.js';
 import { lintTokenNames } from './lints/token-names.js';
+import { lintVersionSync } from './lints/version-sync.js';
 import { lintWrongLayerTokens } from './lints/wrong-layer-tokens.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -35,3 +36,4 @@ lintThreeTierFallbacks(SRC_DIR);
 lintTokenDictionary(SRC_DIR, APPS_DIR);
 lintApiSync();
 lintI18nCoverage(SRC_DIR);
+lintVersionSync();

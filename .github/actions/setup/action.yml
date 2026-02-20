@@ -1,6 +1,11 @@
 name: Setup
 description: Install pnpm and Node.js dependencies
 
+inputs:
+  registry-url:
+    description: npm registry URL (for publishing workflows)
+    required: false
+
 runs:
   using: composite
   steps:
@@ -9,5 +14,6 @@ runs:
       with:
         node-version: 22
         cache: pnpm
+        registry-url: ${{ inputs.registry-url || '' }}
     - run: pnpm install
       shell: bash
