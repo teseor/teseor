@@ -1,24 +1,19 @@
 /**
  * Grid Alignment Checker
- * Run in browser console to find elements not aligned to the grid
- *
- * Checks:
- *   - Size: element heights should be multiples of the grid unit
+ * Finds elements breaking the 8px vertical rhythm and traces root causes.
  *
  * Usage:
- *   checkGridAlignment()                    // Check all elements
- *   checkGridAlignment({ color: 'blue' })   // Custom highlight color
- *   checkGridAlignment({ selector: 'main' }) // Check only within main
- *   clearGridHighlights()                   // Remove highlights
+ *   checkGridAlignment()                // Check all
+ *   checkGridAlignment('.ui-container') // Check within scope
+ *   clearGridHighlights()              // Remove highlights
  *
- * Returns: [...] array of misaligned elements
+ * Output shows root causes first, with ancestor chain for context.
  */
 
 (() => {
   const HIGHLIGHT_ATTR = 'data-grid-misaligned';
 
-  // Elements that don't follow grid (fluid page containers)
-  const SKIP_SELF_SELECTORS = [
+  const SKIP_SELECTORS = [
     'html',
     'body',
     'main',
@@ -26,10 +21,10 @@
     '.ui-sidebar',
     '.ui-main',
     '.ui-app-shell',
+    '.ui-drawer',
   ];
 
-  // Inline elements to skip (they don't affect block layout)
-  const INLINE_TAGS = [
+  const INLINE_TAGS = new Set([
     'STRONG',
     'B',
     'EM',
@@ -46,144 +41,201 @@
     'MARK',
     'BR',
     'WBR',
-  ];
+  ]);
 
-  window.checkGridAlignment = (options = {}) => {
-    const {
-      color = 'hsl(0 80% 50% / 0.3)',
-      selector = 'body',
-      unit = null, // auto-detect from CSS if not provided
-    } = options;
+  const SKIP_TAGS = new Set([
+    'SCRIPT',
+    'STYLE',
+    'LINK',
+    'META',
+    'TITLE',
+    'HEAD',
+    'SVG',
+    'PATH',
+    'CIRCLE',
+    'RECT',
+    'LINE',
+    'POLYGON',
+    'POLYLINE',
+    'ELLIPSE',
+    'G',
+    'DEFS',
+    'USE',
+    'SYMBOL',
+    'CLIPPATH',
+    'MASK',
+    'PATTERN',
+    'IMAGE',
+    'TEXT',
+    'TSPAN',
+    'TEXTPATH',
+    'FOREIGNOBJECT',
+  ]);
 
-    // Get the base unit from CSS custom property (compute actual px value)
-    let computedUnit = unit;
+  function getUnit() {
+    const temp = document.createElement('div');
+    temp.style.cssText = 'position:absolute;visibility:hidden;width:var(--ui-unit,8px)';
+    document.body.appendChild(temp);
+    const px = temp.getBoundingClientRect().width || 8;
+    document.body.removeChild(temp);
+    return px;
+  }
 
-    if (!computedUnit) {
-      // Create a temp element to compute the actual pixel value of --unit
-      const temp = document.createElement('div');
-      temp.style.position = 'absolute';
-      temp.style.visibility = 'hidden';
-      temp.style.width = 'var(--unit, 0.5rem)';
-      document.body.appendChild(temp);
-      computedUnit = temp.getBoundingClientRect().width;
-      document.body.removeChild(temp);
+  function label(el) {
+    const tag = el.tagName.toLowerCase();
+    const cls = (el.className?.toString?.() || '').split(' ').filter(Boolean).join('.');
+    return cls ? `${tag}.${cls}` : tag;
+  }
+
+  function shouldSkip(el) {
+    const tag = el.tagName;
+    if (SKIP_TAGS.has(tag)) return true;
+    if (INLINE_TAGS.has(tag)) return true;
+    if (
+      SKIP_SELECTORS.some((sel) => {
+        try {
+          return el.matches(sel);
+        } catch {
+          return false;
+        }
+      })
+    )
+      return true;
+    return false;
+  }
+
+  function measure(el, unit) {
+    const height = el.getBoundingClientRect().height;
+    if (height === 0 || height < unit / 2) return null;
+    const remainder = height % unit;
+    const aligned = remainder < 0.01 || remainder > unit - 0.01;
+    return { height, remainder: aligned ? 0 : remainder, aligned };
+  }
+
+  // Build ancestor chain from element up to container
+  function ancestorChain(el, container, unit) {
+    const chain = [];
+    let cur = el.parentElement;
+    while (cur && cur !== container && cur !== document.body) {
+      const m = measure(cur, unit);
+      if (m && !m.aligned) {
+        chain.push({ el: cur, label: label(cur), height: m.height, offBy: m.remainder });
+      }
+      cur = cur.parentElement;
     }
+    return chain;
+  }
 
-    // Fallback to 8px if detection failed
-    if (!computedUnit || computedUnit === 0) computedUnit = 8;
+  window.checkGridAlignment = (rawSelector) => {
+    const selector = typeof rawSelector === 'string' ? rawSelector : 'body';
 
-    console.log('%c Grid Alignment Check', 'font-size: 16px; font-weight: bold;');
-    console.log(`Base unit: ${computedUnit}px`);
-    console.log('─'.repeat(50));
-
+    const unit = getUnit();
     const container = document.querySelector(selector);
     if (!container) {
-      console.error(`Selector "${selector}" not found`);
-      return;
+      console.error(`"${selector}" not found`);
+      return [];
     }
 
-    const allElements = container.querySelectorAll('*');
-    const misaligned = [];
-
-    // Clear previous highlights
     clearGridHighlights();
 
-    for (const el of allElements) {
-      const tagName = el.tagName;
-
-      // Skip script, style, link, meta, etc.
-      if (['SCRIPT', 'STYLE', 'LINK', 'META', 'TITLE', 'HEAD'].includes(tagName)) continue;
-
-      // Skip inline elements
-      if (INLINE_TAGS.includes(tagName)) continue;
-
-      // Skip fluid containers (but check their children)
-      if (SKIP_SELF_SELECTORS.some((sel) => el.matches(sel))) continue;
-
-      const height = el.getBoundingClientRect().height;
-
-      // Skip zero-height elements
-      if (height === 0) continue;
-
-      // Check height alignment
-      const heightRemainder = height % computedUnit;
-      const isHeightAligned = heightRemainder < 0.5 || heightRemainder > computedUnit - 0.5;
-
-      if (!isHeightAligned) {
-        el.setAttribute(HIGHLIGHT_ATTR, 'true');
-        el.style.setProperty('--grid-debug-color', color);
-        el.style.boxShadow = `inset 0 0 0 2px var(--grid-debug-color, ${color})`;
-
-        misaligned.push({
-          element: el,
-          tag: tagName.toLowerCase(),
-          classes: el.className,
-          height: height,
-          remainder: heightRemainder,
-          expected: Math.round(height / computedUnit) * computedUnit,
-        });
+    // Pass 1: find all violating elements
+    const allViolations = new Map();
+    for (const el of container.querySelectorAll('*')) {
+      if (shouldSkip(el)) continue;
+      const m = measure(el, unit);
+      if (m && !m.aligned) {
+        allViolations.set(el, { label: label(el), height: m.height, offBy: m.remainder });
       }
     }
 
-    // Output results
-    if (misaligned.length === 0) {
-      console.log('%c All elements on grid!', 'color: green; font-weight: bold;');
-    } else {
-      console.log(`%c ${misaligned.length} misaligned elements:`, 'color: red; font-weight: bold;');
-
-      // Group by tag
-      const byTag = {};
-      for (const item of misaligned) {
-        if (!byTag[item.tag]) byTag[item.tag] = [];
-        byTag[item.tag].push(item);
-      }
-
-      for (const [tag, items] of Object.entries(byTag)) {
-        console.groupCollapsed(`${tag} (${items.length})`);
-        for (const item of items) {
-          console.log(
-            `%c${item.height.toFixed(1)}px%c -> should be %c${item.expected}px%c (off by ${item.remainder.toFixed(1)}px)`,
-            'color: red; font-weight: bold;',
-            'color: inherit;',
-            'color: green;',
-            'color: inherit;',
-            item.element,
-          );
+    // Pass 2: find root causes — violations with no violating descendants
+    const rootCauses = [];
+    for (const [el, info] of allViolations) {
+      let hasViolatingChild = false;
+      for (const child of el.querySelectorAll('*')) {
+        if (allViolations.has(child)) {
+          hasViolatingChild = true;
+          break;
         }
-        console.groupEnd();
+      }
+      if (!hasViolatingChild) {
+        rootCauses.push({ el, ...info, chain: ancestorChain(el, container, unit) });
       }
     }
 
-    console.log('');
-    console.log('─'.repeat(50));
+    // Highlight root causes (bright) and inherited violations (dim)
+    for (const [el] of allViolations) {
+      el.setAttribute(HIGHLIGHT_ATTR, 'true');
+      el.style.boxShadow = 'inset 0 0 0 1px hsl(0 60% 50% / 0.15)';
+    }
+    for (const v of rootCauses) {
+      v.el.style.boxShadow = 'inset 0 0 0 2px hsl(0 80% 50% / 0.5)';
+    }
 
-    return misaligned;
+    // Console output
+    console.log('%c Grid Rhythm Check', 'font-size: 14px; font-weight: bold;');
+    console.log(
+      `Unit: ${unit}px | Scope: ${selector} | Violations: ${allViolations.size} total, ${rootCauses.length} root causes`,
+    );
+
+    if (rootCauses.length === 0) {
+      console.log('%c All elements on grid', 'color: green; font-weight: bold;');
+      return [];
+    }
+
+    // Detailed nested output
+    for (const v of rootCauses) {
+      const expected = Math.round(v.height / unit) * unit;
+      const chainStr =
+        v.chain.length > 0
+          ? `\n    caused by: ${v.chain
+              .map((c) => `${c.label} (${c.height}px, off by ${c.offBy.toFixed(2)}px)`)
+              .join(' > ')}`
+          : '';
+
+      console.log(
+        `%c ROOT %c ${v.label} — ${v.height}px (expected ${expected}px, off by ${v.offBy.toFixed(2)}px)${chainStr}`,
+        'background: #c00; color: white; padding: 1px 4px; border-radius: 2px;',
+        'color: inherit;',
+        v.el,
+      );
+    }
+
+    // Pasteable report
+    const lines = rootCauses.map((v) => {
+      const expected = Math.round(v.height / unit) * unit;
+      let line = `${v.label} — ${v.height}px (expected ${expected}px, off by ${v.offBy.toFixed(2)}px)`;
+      if (v.chain.length > 0) {
+        line += `\n  ancestors affected: ${v.chain
+          .map((c) => `${c.label} (${c.height}px)`)
+          .join(' > ')}`;
+      }
+      return line;
+    });
+
+    const report = [
+      `Grid rhythm violations — ${rootCauses.length} root causes (${allViolations.size} total affected):`,
+      '',
+      ...lines,
+    ].join('\n');
+
+    console.log('\n--- Copy-paste report ---');
+    console.log(report);
+    console.log('--- End ---');
+
+    return rootCauses;
   };
 
   window.clearGridHighlights = () => {
     for (const el of document.querySelectorAll(`[${HIGHLIGHT_ATTR}]`)) {
       el.removeAttribute(HIGHLIGHT_ATTR);
-      el.style.removeProperty('--grid-debug-color');
       el.style.boxShadow = '';
     }
-    console.log('Grid highlights cleared');
-  };
-
-  // Also expose a function to highlight specific elements
-  window.highlightElement = (selector, color = 'hsl(200 80% 50% / 0.5)') => {
-    const elements = document.querySelectorAll(selector);
-    for (const el of elements) {
-      el.setAttribute(HIGHLIGHT_ATTR, 'true');
-      el.style.boxShadow = `inset 0 0 0 2px ${color}`;
-    }
-    console.log(`Highlighted ${elements.length} elements matching "${selector}"`);
   };
 
   console.log(
-    '%c Grid Debug Tools Loaded',
-    'background: #333; color: #fff; padding: 4px 8px; border-radius: 4px;',
-  );
-  console.log(
-    'Commands: checkGridAlignment(), clearGridHighlights(), highlightElement(selector, color)',
+    '%c Grid Debug',
+    'background: #333; color: #fff; padding: 2px 6px; border-radius: 3px;',
+    "checkGridAlignment('.ui-container') | clearGridHighlights()",
   );
 })();

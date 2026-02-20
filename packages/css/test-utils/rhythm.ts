@@ -116,7 +116,7 @@ export async function validateGridRhythm(
         if (height === 0 || height < unit / 2) continue;
 
         const remainder = height % unit;
-        const isAligned = remainder < 0.5 || remainder > unit - 0.5;
+        const isAligned = remainder < 0.01 || remainder > unit - 0.01;
 
         if (!isAligned) {
           const firstClass = classes.split(' ')[0];
