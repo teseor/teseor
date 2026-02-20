@@ -17,7 +17,8 @@
       "!**/.changeset",
       "!**/pnpm-lock.yaml",
       "!**/*.html",
-      "!**/*.njk"
+      "!**/*.njk",
+      "!**/.astro"
     ]
   },
   "formatter": {
@@ -56,6 +57,19 @@
       "trailingCommas": "all"
     }
   },
+  "overrides": [
+    {
+      "includes": ["**/*.astro"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnusedImports": "off",
+            "noUnusedVariables": "off"
+          }
+        }
+      }
+    }
+  ],
   "css": {
     "formatter": {
       "enabled": true,

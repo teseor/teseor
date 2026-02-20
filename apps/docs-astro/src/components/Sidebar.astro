@@ -1,0 +1,106 @@
+---
+import { getCollection } from 'astro:content';
+import { buildSidebar } from '../lib/sidebar';
+import ThemeToggle from './ThemeToggle.astro';
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+
+const allDocs = await getCollection('docs');
+const groups = buildSidebar(allDocs);
+
+function isActive(permalink: string): boolean {
+  return currentPath === permalink || currentPath === permalink.slice(0, -1);
+}
+---
+
+<div class="ui-sidebar-nav__header">
+  <a href="/">
+    <strong class="ui-text-xl">Teseor CSS</strong>
+  </a>
+  <p class="ui-text-sm ui-text-muted">Docs</p>
+</div>
+
+<div class="ui-sidebar-nav__content">
+  {/* Home link */}
+  <div class="ui-sidebar-nav__group">
+    <ul class="ui-sidebar-nav__group-items">
+      <li>
+        <a
+          class:list={['ui-sidebar-nav__item', { 'ui-sidebar-nav__item--active': currentPath === '/' }]}
+          href="/"
+          aria-current={currentPath === '/' ? 'page' : undefined}
+        >
+          <span class="ui-sidebar-nav__label">Home</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  {groups.map((group) => (
+    <div class="ui-sidebar-nav__group">
+      <span class="ui-sidebar-nav__group-label">{group.label}</span>
+      <ul class="ui-sidebar-nav__group-items">
+        {group.items?.map((item) => (
+          <li>
+            <a
+              class:list={['ui-sidebar-nav__item', { 'ui-sidebar-nav__item--active': isActive(item.permalink) }]}
+              href={item.permalink}
+              aria-current={isActive(item.permalink) ? 'page' : undefined}
+            >
+              <span class="ui-sidebar-nav__label">{item.title}</span>
+            </a>
+          </li>
+        ))}
+        {group.subgroups?.map((subgroup) => (
+          <li>
+            <details class="ui-sidebar-nav__subgroup" open>
+              <summary class="ui-sidebar-nav__subgroup-label">{subgroup.label}</summary>
+              <ul class="ui-sidebar-nav__group-items">
+                {subgroup.items.map((item) => (
+                  <li>
+                    <a
+                      class:list={['ui-sidebar-nav__item ui-sidebar-nav__item--nested', { 'ui-sidebar-nav__item--active': isActive(item.permalink) }]}
+                      href={item.permalink}
+                      aria-current={isActive(item.permalink) ? 'page' : undefined}
+                    >
+                      <span class="ui-sidebar-nav__label">{item.title}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </details>
+          </li>
+        ))}
+      </ul>
+    </div>
+  ))}
+</div>
+
+<div class="ui-sidebar-nav__footer">
+  <div class="ui-column ui-column--xs">
+    <select class="ui-select" id="brand-select" onchange="setBrand(this.value)" aria-label="Theme preset">
+      <option value="">Default</option>
+      <option value="corporate">Corporate</option>
+      <option value="playful">Playful</option>
+      <option value="minimal">Minimal</option>
+      <option value="terminal">Terminal</option>
+      <option value="dracula">Dracula</option>
+      <option value="github">GitHub</option>
+      <option value="amazon">Amazon</option>
+    </select>
+    <select class="ui-select" id="density-select" onchange="setDensity(this.value)" aria-label="Density">
+      <option value="compact">Compact</option>
+      <option value="" selected>Default</option>
+      <option value="comfortable">Comfortable</option>
+    </select>
+    <ThemeToggle />
+    <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug(this, 'ui-debug-grid')" aria-pressed="false" data-label="Grid">Grid: Off</button>
+    <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug(this, 'ui-debug-grid-rows')" aria-pressed="false" data-label="Row Grid">Row Grid: Off</button>
+    <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug(this, 'ui-debug-baseline')" aria-pressed="false" data-label="Baseline">Baseline: Off</button>
+    <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug(this, 'ui-debug-outline')" aria-pressed="false" data-label="Outlines">Outlines: Off</button>
+  </div>
+</div>

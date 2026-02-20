@@ -1,0 +1,111 @@
+---
+import { getCollection } from 'astro:content';
+import DocLayout from '../layouts/DocLayout.astro';
+
+export async function getStaticPaths() {
+  const docs = await getCollection('docs');
+  return docs.map((entry) => {
+    // permalink is like /components/button/ — strip leading/trailing slashes for slug
+    const slug = entry.data.permalink.replace(/^\/|\/$/g, '');
+    return {
+      params: { slug },
+      props: { entry },
+    };
+  });
+}
+
+interface Props {
+  entry: {
+    id: string;
+    data: {
+      title: string;
+      description: string;
+      type: string;
+      typePath: string;
+      group: string | null;
+      groupLabel: string | null;
+      permalink: string;
+      apiData: Record<string, unknown> | null;
+    };
+  };
+}
+
+const { entry } = Astro.props;
+const { title, description, type, groupLabel, apiData } = entry.data;
+
+// Extract API info for stub display
+const modifiers = apiData?.modifiers as Record<string, { values?: string[] }> | undefined;
+const cssVars = apiData?.cssVars as
+  | Array<{ name: string; default?: string; description?: string }>
+  | undefined;
+---
+
+<DocLayout title={title} description={description}>
+  <div class="ui-column ui-column--md">
+    <header>
+      <div class="ui-row ui-row--sm ui-items-center">
+        {groupLabel && <span class="ui-tag ui-tag--sm">{groupLabel}</span>}
+        <span class="ui-tag ui-tag--sm ui-tag--secondary">{type}</span>
+      </div>
+      <h1 class="ui-heading ui-heading--2xl">{title}</h1>
+      {description && <p class="ui-text-muted">{description}</p>}
+    </header>
+
+    {/* Content placeholder — full HTML rendering in #472 */}
+    <section class="ui-docs-section">
+      <p class="ui-text-muted">Content rendering coming in a future update.</p>
+    </section>
+
+    {/* CSS API stub — modifiers */}
+    {modifiers && Object.keys(modifiers).length > 0 && (
+      <section class="ui-docs-section">
+        <h2 class="ui-heading ui-heading--lg">Modifiers</h2>
+        <table class="ui-table ui-table--compact">
+          <thead>
+            <tr>
+              <th>Modifier</th>
+              <th>Values</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.entries(modifiers).map(([name, mod]) => (
+              <tr>
+                <td><code class="ui-code">{name}</code></td>
+                <td>
+                  {mod.values?.map((v) => (
+                    <code class="ui-code">{v}</code>
+                  ))}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+    )}
+
+    {/* CSS API stub — custom properties */}
+    {cssVars && cssVars.length > 0 && (
+      <section class="ui-docs-section">
+        <h2 class="ui-heading ui-heading--lg">Custom Properties</h2>
+        <table class="ui-table ui-table--compact">
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {cssVars.map((v) => (
+              <tr>
+                <td><code class="ui-code">{v.name}</code></td>
+                <td><code class="ui-code">{v.default ?? '-'}</code></td>
+                <td>{v.description ?? ''}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+    )}
+  </div>
+</DocLayout>

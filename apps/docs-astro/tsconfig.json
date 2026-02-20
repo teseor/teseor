@@ -1,0 +1,12 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@teseor/css": ["../../packages/css/dist/index.css"],
+      "@teseor/contract": ["../../packages/contract/src/index.ts"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.astro", "astro.config.ts"],
+  "exclude": ["node_modules", "dist"]
+}

@@ -1,0 +1,28 @@
+---
+import Sidebar from '../components/Sidebar.astro';
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+<BaseLayout title={title} description={description}>
+  <aside class="ui-sidebar">
+    <nav class="ui-sidebar-nav" aria-label="Main navigation">
+      <Sidebar currentPath={currentPath} />
+    </nav>
+  </aside>
+
+  <main class="ui-main">
+    <div class="ui-container">
+      <slot />
+    </div>
+  </main>
+
+  <!-- TOC aside stub — full implementation in #470 -->
+</BaseLayout>

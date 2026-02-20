@@ -1,0 +1,145 @@
+---
+import { getCollection } from 'astro:content';
+import DocLayout from '../layouts/DocLayout.astro';
+import { buildSidebar } from '../lib/sidebar';
+
+const allDocs = await getCollection('docs');
+const groups = buildSidebar(allDocs);
+
+const byType = (type: string) => allDocs.filter((d) => d.data.type === type);
+const byGroup = (groupId: string) => allDocs.filter((d) => d.data.group === groupId);
+const sortByTitle = <T extends { data: { title: string } }>(arr: T[]) =>
+  [...arr].sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+const guides = groups.find((g) => g.id === 'guides');
+const foundation = groups.find((g) => g.id === 'foundation');
+const layout = groups.find((g) => g.id === 'layout');
+const componentsGroup = groups.find((g) => g.id === 'components');
+const typography = groups.find((g) => g.id === 'typography');
+const utilities = groups.find((g) => g.id === 'utilities');
+
+const componentCount = byType('component').filter((d) => d.data.group !== 'typography').length;
+---
+
+<DocLayout title="Home">
+  <section class="ui-docs-section">
+    <div class="ui-column ui-column--sm">
+      <h2 class="ui-heading ui-heading--2xl">Teseor CSS</h2>
+      <p class="ui-text-muted">A CSS-first component library with design tokens, layout primitives, and UI components.</p>
+      <div class="ui-row ui-row--sm">
+        <span class="ui-tag ui-tag--sm">CSS-first</span>
+        <span class="ui-tag ui-tag--sm">Zero JS</span>
+        <span class="ui-tag ui-tag--sm">Design Tokens</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="ui-grid ui-grid--2">
+    {guides && guides.items && guides.items.length > 0 && (
+      <div class="ui-card">
+        <div class="ui-column ui-column--sm">
+          <div class="ui-row ui-row--sm ui-items-center">
+            <h3 class="ui-heading ui-heading--md">Guides</h3>
+            <span class="ui-badge ui-badge--sm">{guides.items.length}</span>
+          </div>
+          <hr class="ui-divider" />
+          <ul class="ui-column ui-column--xs">
+            {guides.items.map((item) => (
+              <li><a class="ui-link" href={item.permalink}>{item.title}</a></li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    )}
+
+    {foundation && foundation.items && foundation.items.length > 0 && (
+      <div class="ui-card">
+        <div class="ui-column ui-column--sm">
+          <div class="ui-row ui-row--sm ui-items-center">
+            <h3 class="ui-heading ui-heading--md">Foundation</h3>
+            <span class="ui-badge ui-badge--sm">{foundation.items.length}</span>
+          </div>
+          <hr class="ui-divider" />
+          <ul class="ui-column ui-column--xs">
+            {foundation.items.map((item) => (
+              <li><a class="ui-link" href={item.permalink}>{item.title}</a></li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    )}
+
+    {layout && layout.items && layout.items.length > 0 && (
+      <div class="ui-card">
+        <div class="ui-column ui-column--sm">
+          <div class="ui-row ui-row--sm ui-items-center">
+            <h3 class="ui-heading ui-heading--md">Layout</h3>
+            <span class="ui-badge ui-badge--sm">{layout.items.length}</span>
+          </div>
+          <hr class="ui-divider" />
+          <ul class="ui-column ui-column--xs">
+            {layout.items.map((item) => (
+              <li><a class="ui-link" href={item.permalink}>{item.title}</a></li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    )}
+
+    {componentsGroup && componentsGroup.subgroups && componentsGroup.subgroups.length > 0 && (
+      <div class="ui-card">
+        <div class="ui-column ui-column--sm">
+          <div class="ui-row ui-row--sm ui-items-center">
+            <h3 class="ui-heading ui-heading--md">Components</h3>
+            <span class="ui-badge ui-badge--sm">{componentCount}</span>
+          </div>
+          <hr class="ui-divider" />
+          {componentsGroup.subgroups.map((subgroup) => (
+            <div class="ui-column ui-column--xs">
+              <span class="ui-text-sm ui-text-muted">{subgroup.label}</span>
+              <ul class="ui-column ui-column--xs">
+                {subgroup.items.map((item) => (
+                  <li><a class="ui-link" href={item.permalink}>{item.title}</a></li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {typography && typography.items && typography.items.length > 0 && (
+      <div class="ui-card">
+        <div class="ui-column ui-column--sm">
+          <div class="ui-row ui-row--sm ui-items-center">
+            <h3 class="ui-heading ui-heading--md">Typography</h3>
+            <span class="ui-badge ui-badge--sm">{typography.items.length}</span>
+          </div>
+          <hr class="ui-divider" />
+          <ul class="ui-column ui-column--xs">
+            {typography.items.map((item) => (
+              <li><a class="ui-link" href={item.permalink}>{item.title}</a></li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    )}
+
+    {utilities && utilities.items && utilities.items.length > 0 && (
+      <div class="ui-card">
+        <div class="ui-column ui-column--sm">
+          <div class="ui-row ui-row--sm ui-items-center">
+            <h3 class="ui-heading ui-heading--md">Utilities</h3>
+            <span class="ui-badge ui-badge--sm">{utilities.items.length}</span>
+          </div>
+          <hr class="ui-divider" />
+          <ul class="ui-column ui-column--xs">
+            {utilities.items.map((item) => (
+              <li><a class="ui-link" href={item.permalink}>{item.title}</a></li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    )}
+  </div>
+</DocLayout>

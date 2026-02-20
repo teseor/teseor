@@ -43,5 +43,8 @@ CLAUDE.md
 .docs.local
 apps/docs-css/src/generated
 
+# Astro
+.astro
+
 # Changesets - keep generated changeset files
 # (they're needed for version bumps)
