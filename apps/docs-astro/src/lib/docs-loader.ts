@@ -26,6 +26,12 @@ const PATH_TYPE_MAP: [string, string][] = [
   ['debug/', 'utility'],
 ];
 
+export interface DocSection {
+  id: string;
+  layout: string | null;
+  rawHtml: string;
+}
+
 export interface DocEntry {
   id: string;
   title: string;
@@ -37,6 +43,7 @@ export interface DocEntry {
   weight: number | null;
   permalink: string;
   apiData: Record<string, unknown> | null;
+  sections: DocSection[];
 }
 
 // Custom frontmatter parser matching html-doc-parser.js
@@ -206,12 +213,53 @@ function findDocsFiles(dir: string, files: string[] = []): string[] {
   return files;
 }
 
+function parseSections(body: string): DocSection[] {
+  const sectionRegex = /<!--\s*@(\w+)(?:\s*\|\s*(\w+))?\s*-->/g;
+  const sections: DocSection[] = [];
+  let lastIndex = 0;
+  let lastSection: { id: string; layout: string | null } | null = null;
+
+  let match = sectionRegex.exec(body);
+  while (match !== null) {
+    if (lastSection) {
+      sections.push({
+        ...lastSection,
+        rawHtml: body.substring(lastIndex, match.index).trim(),
+      });
+    }
+
+    lastSection = {
+      id: match[1],
+      layout: match[2] || null,
+    };
+    lastIndex = match.index + match[0].length;
+    match = sectionRegex.exec(body);
+  }
+
+  if (lastSection) {
+    sections.push({
+      ...lastSection,
+      rawHtml: body.substring(lastIndex).trim(),
+    });
+  }
+
+  if (sections.length === 0 && body.trim()) {
+    sections.push({
+      id: 'default',
+      layout: null,
+      rawHtml: body.trim(),
+    });
+  }
+
+  return sections;
+}
+
 function resolveDocEntry(
   filePath: string,
   groupsMap: Map<string, { label: string; components: string[] }>,
 ): DocEntry | null {
   const raw = readFileSync(filePath, 'utf-8');
-  const { frontmatter: fm } = extractFrontmatter(raw);
+  const { frontmatter: fm, body } = extractFrontmatter(raw);
 
   // Skip docs with mergeInto
   if (fm.mergeInto) return null;
@@ -234,6 +282,7 @@ function resolveDocEntry(
   const groupId = type === 'component' ? getGroupFromPath(filePath) : null;
   const groupInfo = groupId ? groupsMap.get(groupId) : null;
   const typePath = TYPE_PATHS[type] ?? type;
+  const sections = parseSections(body);
 
   return {
     id,
@@ -249,6 +298,7 @@ function resolveDocEntry(
     weight: (fm.weight as number) ?? null,
     permalink: `/${typePath}/${id}/`,
     apiData,
+    sections,
   };
 }
 

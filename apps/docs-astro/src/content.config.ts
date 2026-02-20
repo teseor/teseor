@@ -15,6 +15,7 @@ const docs = defineCollection({
       weight: entry.weight,
       permalink: entry.permalink,
       apiData: entry.apiData,
+      sections: entry.sections,
     }));
   },
   schema: z.object({
@@ -27,6 +28,13 @@ const docs = defineCollection({
     weight: z.number().nullable(),
     permalink: z.string(),
     apiData: z.record(z.unknown()).nullable(),
+    sections: z.array(
+      z.object({
+        id: z.string(),
+        layout: z.string().nullable(),
+        rawHtml: z.string(),
+      }),
+    ),
   }),
 });
 
