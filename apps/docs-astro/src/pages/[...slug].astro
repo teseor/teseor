@@ -1,6 +1,8 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
+import ApiTable from '../components/ApiTable.astro';
+import CodePreview from '../components/CodePreview.astro';
 import DocLayout from '../layouts/DocLayout.astro';
 
 export async function getStaticPaths() {
@@ -15,13 +17,40 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props as { entry: CollectionEntry<'docs'> };
-const { title, description, type, groupLabel, apiData } = entry.data;
+const { title, description, type, groupLabel, apiData, sections } = entry.data;
 
-// Extract API info for stub display
-const modifiers = apiData?.modifiers as Record<string, { values?: string[] }> | undefined;
+const modifiers = apiData?.modifiers as
+  | Record<string, { values?: string[]; type?: string }>
+  | undefined;
+const elements = apiData?.elements as
+  | Record<string, { modifiers?: Record<string, { values?: string[]; type?: string }> }>
+  | undefined;
 const cssVars = apiData?.cssVars as
   | Array<{ name: string; default?: string; description?: string }>
   | undefined;
+const componentName = (apiData?.name as string) ?? entry.id;
+
+interface Section {
+  id: string;
+  layout: string | null;
+  rawHtml: string;
+}
+
+// Strip Nunjucks template syntax from raw HTML for preview display.
+// Replaces {{ t('key', 'Default') }} with 'Default' and removes {% %} blocks.
+function stripNunjucks(html: string): string {
+  return html
+    .replace(/\{\{\s*t\(\s*'[^']*'\s*,\s*'([^']*)'\s*\)\s*\}\}/g, '$1')
+    .replace(/\{\{[^}]*\}\}/g, '')
+    .replace(/\{%[\s\S]*?%\}/g, '');
+}
+
+function sectionTitle(id: string): string {
+  return id
+    .split('_')
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
+}
 ---
 
 <DocLayout title={title} description={description}>
@@ -35,60 +64,29 @@ const cssVars = apiData?.cssVars as
       {description && <p class="ui-text-muted">{description}</p>}
     </header>
 
-    {/* Content placeholder — full HTML rendering in #472 */}
-    <section class="ui-docs-section">
-      <p class="ui-text-muted">Content rendering coming in a future update.</p>
-    </section>
+    {sections.map((section: Section) => {
+      const cleanHtml = stripNunjucks(section.rawHtml);
+      return (
+        <section class="ui-docs-section" id={section.id}>
+          {section.id !== 'default' && (
+            <h2 class="ui-heading ui-heading--lg">{sectionTitle(section.id)}</h2>
+          )}
+          <CodePreview code={cleanHtml}>
+            <div slot="preview" class={section.layout === 'row' ? 'ui-row ui-row--sm ui-wrap' : undefined} set:html={cleanHtml} />
+          </CodePreview>
+        </section>
+      );
+    })}
 
-    {/* CSS API stub — modifiers */}
-    {modifiers && Object.keys(modifiers).length > 0 && (
-      <section class="ui-docs-section">
-        <h2 class="ui-heading ui-heading--lg">Modifiers</h2>
-        <table class="ui-table ui-table--compact">
-          <thead>
-            <tr>
-              <th>Modifier</th>
-              <th>Values</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.entries(modifiers).map(([name, mod]) => (
-              <tr>
-                <td><code class="ui-code">{name}</code></td>
-                <td>
-                  {mod.values?.map((v) => (
-                    <code class="ui-code">{v}</code>
-                  ))}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </section>
-    )}
-
-    {/* CSS API stub — custom properties */}
-    {cssVars && cssVars.length > 0 && (
-      <section class="ui-docs-section">
-        <h2 class="ui-heading ui-heading--lg">Custom Properties</h2>
-        <table class="ui-table ui-table--compact">
-          <thead>
-            <tr>
-              <th>Property</th>
-              <th>Default</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            {cssVars.map((v) => (
-              <tr>
-                <td><code class="ui-code">{v.name}</code></td>
-                <td><code class="ui-code">{v.default ?? '-'}</code></td>
-                <td>{v.description ?? ''}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    {(modifiers || elements || cssVars) && (
+      <section class="ui-docs-section" id="css-api">
+        <h2 class="ui-heading ui-heading--lg">CSS API</h2>
+        <ApiTable
+          name={componentName}
+          modifiers={modifiers}
+          elements={elements}
+          cssVars={cssVars}
+        />
       </section>
     )}
   </div>

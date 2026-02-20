@@ -89,6 +89,17 @@
 }
 
 @layer docs {
+  .code-preview__code {
+    position: relative;
+  }
+
+  .code-preview__code .copy-btn {
+    position: absolute;
+    inset-block-start: var(--ui-space-1);
+    inset-inline-end: var(--ui-space-1);
+    z-index: 1;
+  }
+
   .demo-container {
     position: relative;
     block-size: var(--demo-h, 200px);
