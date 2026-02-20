@@ -1,0 +1,113 @@
+---
+interface ModifierDef {
+  values?: string[];
+  type?: string;
+}
+
+interface ElementDef {
+  modifiers?: Record<string, ModifierDef>;
+}
+
+interface CssVar {
+  name: string;
+  default?: string;
+  description?: string;
+}
+
+interface Props {
+  name: string;
+  modifiers?: Record<string, ModifierDef>;
+  elements?: Record<string, ElementDef>;
+  cssVars?: CssVar[];
+}
+
+const { name, modifiers, elements, cssVars } = Astro.props;
+
+const hasModifiers = modifiers && Object.keys(modifiers).length > 0;
+const hasElements = elements && Object.keys(elements).length > 0;
+const hasCssVars = cssVars && cssVars.length > 0;
+---
+
+{hasModifiers && (
+  <section>
+    <h3 class="ui-heading ui-heading--md">Modifiers</h3>
+    <table class="ui-table ui-table--compact">
+      <thead>
+        <tr>
+          <th>Class</th>
+          <th>Values</th>
+        </tr>
+      </thead>
+      <tbody>
+        {Object.entries(modifiers!).map(([mod, def]) => (
+          <tr>
+            <td><code class="ui-code">.ui-{name}--{mod}</code></td>
+            <td>
+              {def.values
+                ? def.values.map((v) => (
+                    <code class="ui-code">{v}</code>
+                  ))
+                : def.type === 'boolean'
+                  ? <span>boolean</span>
+                  : <span>-</span>
+              }
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </section>
+)}
+
+{hasElements && (
+  <section>
+    <h3 class="ui-heading ui-heading--md">Elements</h3>
+    <table class="ui-table ui-table--compact">
+      <thead>
+        <tr>
+          <th>Class</th>
+          <th>Modifiers</th>
+        </tr>
+      </thead>
+      <tbody>
+        {Object.entries(elements!).map(([el, def]) => (
+          <tr>
+            <td><code class="ui-code">.ui-{name}__{el}</code></td>
+            <td>
+              {def.modifiers
+                ? Object.keys(def.modifiers).map((m) => (
+                    <code class="ui-code">--{m}</code>
+                  ))
+                : <span>-</span>
+              }
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </section>
+)}
+
+{hasCssVars && (
+  <section>
+    <h3 class="ui-heading ui-heading--md">Custom Properties</h3>
+    <table class="ui-table ui-table--compact">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Default</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        {cssVars!.map((v) => (
+          <tr>
+            <td><code class="ui-code">{v.name}</code></td>
+            <td><code class="ui-code">{v.default ?? '-'}</code></td>
+            <td>{v.description ?? ''}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </section>
+)}

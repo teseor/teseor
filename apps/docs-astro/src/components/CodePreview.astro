@@ -1,0 +1,56 @@
+---
+import { Code } from 'astro:components';
+import type { ComponentProps } from 'astro/types';
+
+type CodeLang = ComponentProps<typeof Code>['lang'];
+
+interface Props {
+  title?: string;
+  code: string;
+  lang?: CodeLang;
+}
+
+const { title, code, lang = 'html' } = Astro.props;
+---
+
+<div class="ui-card">
+  {title && (
+    <div class="ui-card__header">
+      <h3 class="ui-heading ui-heading--sm">{title}</h3>
+    </div>
+  )}
+
+  <div class="ui-card__body" data-preview>
+    <slot name="preview" />
+  </div>
+
+  <details class="ui-disclosure">
+    <summary class="ui-disclosure__trigger">Show code</summary>
+    <div class="code-preview__code">
+      <button
+        class="ui-button ui-button--ghost ui-button--sm copy-btn"
+        type="button"
+        data-copy
+        aria-label="Copy code"
+      >Copy</button>
+      <Code code={code} lang={lang} theme="github-dark" />
+    </div>
+  </details>
+</div>
+
+<script>
+  document.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest('[data-copy]');
+    if (!btn) return;
+
+    const wrapper = btn.closest('.code-preview__code');
+    const codeEl = wrapper?.querySelector('code');
+    if (!codeEl) return;
+
+    navigator.clipboard.writeText(codeEl.textContent || '').then(() => {
+      const original = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => { btn.textContent = original; }, 1500);
+    });
+  });
+</script>
