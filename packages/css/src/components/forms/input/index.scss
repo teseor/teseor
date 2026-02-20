@@ -79,6 +79,12 @@
     // @desc Success border
     --_border-color-focus: var(--ui-input-success-border, var(--ui-color-success, #{t.$color-success}));
   }
+
+  // @modifier boolean auto-size
+  .input--auto-size {
+    --_height: auto;
+    --_min-height: var(--ui-input-height, var(--ui-row-2, #{t.$row-2}));
+  }
 }
 
 @layer components.styles {
@@ -127,6 +133,13 @@
 
     &:read-only {
       background: var(--_color-bg-subtle);
+    }
+
+    // Auto-size — textarea/input grows with content
+    &--auto-size {
+      field-sizing: content;
+
+      min-block-size: var(--_min-height);
     }
 
     // Full width

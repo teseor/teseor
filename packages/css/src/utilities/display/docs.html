@@ -22,6 +22,15 @@ description: Flexbox and display utilities.
   <span>{{ t('row_3', 'Row 3') }}</span>
 </div>
 
+<!-- @container_queries | row -->
+<!-- Make an element a container query context. -->
+<div class="ui-container-inline ui-bg-muted ui-p-2">
+  <span class="ui-text-sm">{{ t('container_inline_desc', 'container-inline: enables inline-size container queries on children') }}</span>
+</div>
+<div class="ui-container-normal ui-bg-muted ui-p-2">
+  <span class="ui-text-sm">{{ t('container_normal_desc', 'container-normal: named container without size containment') }}</span>
+</div>
+
 <!-- @visibility | row -->
 <span class="ui-visible ui-p-1 ui-bg-muted">{{ t('visible', 'Visible') }}</span>
 <span class="ui-invisible ui-p-1 ui-bg-muted">{{ t('invisible_hidden_but_occupies_space', 'Invisible (hidden but occupies space)') }}</span>
