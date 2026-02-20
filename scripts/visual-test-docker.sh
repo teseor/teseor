@@ -13,7 +13,7 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
-COMPOSE_FILE="${PROJECT_ROOT}/docker-compose.visual.yml"
+COMPOSE_FILE="${PROJECT_ROOT}/.config/docker-compose.visual.yml"
 SERVICE_NAME="visual-tests"
 
 cd "$PROJECT_ROOT"
