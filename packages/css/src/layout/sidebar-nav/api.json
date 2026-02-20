@@ -76,8 +76,18 @@
     },
     {
       "name": "--ui-sidebar-nav-group-label-weight",
-      "default": "var(--ui-font-weight-bold)",
+      "default": "var(--ui-font-weight-semibold)",
       "description": "Group label weight"
+    },
+    {
+      "name": "--ui-sidebar-nav-group-label-transform",
+      "default": "none",
+      "description": "Group label text-transform"
+    },
+    {
+      "name": "--ui-sidebar-nav-group-label-letter-spacing",
+      "default": "normal",
+      "description": "Group label letter-spacing"
     },
     {
       "name": "--ui-sidebar-nav-item-height",
@@ -116,17 +126,17 @@
     },
     {
       "name": "--ui-sidebar-nav-item-active-bg",
-      "default": "var(--ui-color-primary-subtle)",
+      "default": "var(--ui-color-bg-muted)",
       "description": "Item active bg"
     },
     {
       "name": "--ui-sidebar-nav-item-active-color",
-      "default": "var(--ui-color-primary-hover)",
+      "default": "var(--ui-color-primary)",
       "description": "Item active color"
     },
     {
       "name": "--ui-sidebar-nav-item-active-weight",
-      "default": "var(--ui-font-weight-medium)",
+      "default": "normal",
       "description": "Item active weight"
     },
     {

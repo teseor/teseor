@@ -8,26 +8,26 @@
     --ui-unit: calc(8px * var(--ui-scale));
 
     // Base colors — shades auto-generated via color-mix in tokens.scale
-    --ui-color-primary: oklch(55% 0.22 250);
+    --ui-color-primary: oklch(54% 0.20 260);
     --ui-color-success: oklch(60% 0.18 145);
     --ui-color-warning: oklch(75% 0.18 70);
     --ui-color-danger: oklch(60% 0.22 25);
-    --ui-color-neutral: oklch(50% 0.02 250);
+    --ui-color-neutral: oklch(45% 0.015 260);
 
     // Font families — system stacks, override for brand fonts
-    --ui-font-sans: system-ui, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, sans-serif;
-    --ui-font-mono: ui-monospace, sfmono-regular, "SF Mono", menlo, consolas, "Liberation Mono", monospace;
+    --ui-font-sans: system-ui, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, oxygen, ubuntu, cantarell, "Helvetica Neue", arial, sans-serif;
+    --ui-font-mono: ui-monospace, "SFMono-Regular", "SF Mono", menlo, consolas, "Liberation Mono", "Courier New", monospace;
 
     // Base font size — all font-size-* tokens derive from this via calc()
     --ui-font-size-base: calc(1rem * var(--ui-scale));
 
     // Base radius — sm/md/lg derive from this
-    --ui-radius-base: var(--ui-unit);
+    --ui-radius-base: 6px;
 
     // Base border width — sm/md/lg derive from this
     --ui-border-width-base: calc(var(--ui-unit) * 0.125);
 
     // Shadow strength — controls opacity of all shadow levels
-    --ui-shadow-strength: 20%;
+    --ui-shadow-strength: 12%;
   }
 }

@@ -83,7 +83,11 @@
     // @desc Group label color
     --_color: var(--ui-sidebar-nav-group-label-color, var(--ui-color-text-muted));
     // @desc Group label weight
-    --_weight: var(--ui-sidebar-nav-group-label-weight, var(--ui-font-weight-bold));
+    --_weight: var(--ui-sidebar-nav-group-label-weight, var(--ui-font-weight-semibold));
+    // @desc Group label text-transform
+    --_transform: var(--ui-sidebar-nav-group-label-transform, none);
+    // @desc Group label letter-spacing
+    --_letter-spacing: var(--ui-sidebar-nav-group-label-letter-spacing, normal);
 
     display: block;
 
@@ -92,8 +96,8 @@
 
     font-size: var(--_font-size);
     font-weight: var(--_weight);
-    letter-spacing: #{t.$letter-spacing-wide};
-    text-transform: uppercase;
+    letter-spacing: var(--_letter-spacing);
+    text-transform: var(--_transform);
     color: var(--_color);
   }
 
@@ -156,12 +160,14 @@
     min-block-size: var(--_height);
     padding-inline: var(--_padding-inline);
 
+    font-family: inherit;
     font-size: var(--_font-size);
     font-weight: var(--_weight, normal);
     text-decoration: none;
     color: var(--_color);
 
     background: var(--_bg);
+    border: none;
     border-radius: var(--_radius);
     cursor: pointer;
 
@@ -187,11 +193,11 @@
   // Active state
   .sidebar-nav__item--active {
     // @desc Item active bg
-    --_bg: var(--ui-sidebar-nav-item-active-bg, var(--ui-color-primary-subtle));
+    --_bg: var(--ui-sidebar-nav-item-active-bg, var(--ui-color-bg-muted));
     // @desc Item active color
-    --_color: var(--ui-sidebar-nav-item-active-color, var(--ui-color-primary-hover));
+    --_color: var(--ui-sidebar-nav-item-active-color, var(--ui-color-primary));
     // @desc Item active weight
-    --_weight: var(--ui-sidebar-nav-item-active-weight, var(--ui-font-weight-medium));
+    --_weight: var(--ui-sidebar-nav-item-active-weight, normal);
   }
 
   // Nested item indent

@@ -103,8 +103,8 @@ $sizes: (
 // ==========================================================================
 
 // Font families (system stack, consumers override via CSS tokens)
-$font-sans: system-ui, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, sans-serif;
-$font-mono: ui-monospace, sfmono-regular, "SF Mono", menlo, consolas, "Liberation Mono", monospace;
+$font-sans: system-ui, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, oxygen, ubuntu, cantarell, "Helvetica Neue", arial, sans-serif;
+$font-mono: ui-monospace, "SFMono-Regular", "SF Mono", menlo, consolas, "Liberation Mono", "Courier New", monospace;
 
 // Font sizes (derived from base, 1.2 modular scale)
 $font-size-base: 1rem; // 16px — core knob
@@ -116,6 +116,9 @@ $font-size-xl: 1.5rem; // 24px
 $font-size-2xl: 1.75rem; // 28px
 $font-size-3xl: 2rem; // 32px
 $font-size-4xl: 2.5rem; // 40px
+
+// Unitless line height (no extra leading)
+$line-height-none: 1;
 
 // Tight line heights (compact UI elements)
 $line-height-tight-xs: $row;
