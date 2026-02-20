@@ -164,7 +164,6 @@ export function generateHtmlFromHtmlDoc(doc: HtmlDoc, apiPath?: string): string 
     let rendered = section.rawHtml;
     if (rendered.includes('{%') || rendered.includes('{{')) {
       try {
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
         const nunjucks = require('nunjucks') as {
           configure: (opts: { autoescape: boolean }) => {
             renderString: (str: string, ctx: Record<string, unknown>) => string;

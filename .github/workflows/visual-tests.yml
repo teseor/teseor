@@ -16,7 +16,6 @@ jobs:
     container:
       image: mcr.microsoft.com/playwright:v1.57.0-noble
     env:
-      LOST_PIXEL_API_KEY: ${{ secrets.LOST_PIXEL_API_KEY }}
       HOME: /root
     steps:
       - uses: actions/checkout@v4
@@ -78,12 +77,6 @@ jobs:
                 body,
               });
             }
-
-      - name: Upload to Lost Pixel
-        if: steps.test.outcome == 'success' && github.event_name == 'push' && env.LOST_PIXEL_API_KEY != ''
-        uses: lost-pixel/lost-pixel@v3.22.0
-        env:
-          LOST_PIXEL_PROJECT_ID: ${{ secrets.LOST_PIXEL_PROJECT_ID }}
 
       - name: Fail if visual tests failed
         if: steps.test.outcome == 'failure'
