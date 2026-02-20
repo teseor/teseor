@@ -10,6 +10,16 @@ npm install @teseor/css
 pnpm add @teseor/css
 ```
 
+### CDN
+
+Use directly without a build step:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@teseor/css/dist/index.css">
+<!-- or -->
+<link rel="stylesheet" href="https://unpkg.com/@teseor/css/dist/index.css">
+```
+
 ## Usage
 
 ### Full bundle (recommended)
