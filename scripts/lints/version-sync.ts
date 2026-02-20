@@ -60,11 +60,11 @@ export function lintVersionSync(): void {
       expected: nodeMajor,
       files: [
         {
-          path: '.github/workflows/visual-tests.yml',
+          path: '.github/actions/setup/action.yml',
           pattern: /node-version:\s*(\d+)/,
         },
         {
-          path: '.github/workflows/update-snapshots.yml',
+          path: '.github/actions/setup-container/action.yml',
           pattern: /node-version:\s*(\d+)/,
         },
       ],

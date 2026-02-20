@@ -21,20 +21,11 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v4
-
-      - uses: pnpm/action-setup@v4
-
-      - uses: actions/setup-node@v4
+      - uses: ./.github/actions/setup
         with:
-          node-version: 22
-          cache: pnpm
           registry-url: https://registry.npmjs.org
 
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Build packages
-        run: pnpm nx build css
+      - run: pnpm nx build css
 
       - name: Create Release PR or Publish
         id: changesets
