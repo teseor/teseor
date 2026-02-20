@@ -1,6 +1,3 @@
-/* DS library */
-@import "@teseor/css/dist/index.css";
-
 /* Docs-specific overrides */
 @layer base {
   body {
