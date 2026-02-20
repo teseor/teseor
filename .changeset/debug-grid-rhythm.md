@@ -1,5 +1,5 @@
 ---
-'@teseor/css': patch
+'@teseor/css': minor
 ---
 
-Tighten grid rhythm tolerance to 0.01px, distinct debug overlay colors, stateful toggle labels, root-cause grid checker
+Add bg-inset token for component track/bar backgrounds, tighten grid rhythm tolerance, distinct debug overlays, root-cause grid checker, playground improvements
