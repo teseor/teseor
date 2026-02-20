@@ -9,9 +9,8 @@
 <p align="center">
   <a href="https://www.npmjs.com/package/@teseor/css"><img src="https://img.shields.io/npm/v/@teseor/css" alt="npm version"></a>
   <a href="https://www.npmjs.com/package/@teseor/css"><img src="https://img.shields.io/npm/dm/@teseor/css" alt="npm downloads"></a>
-  <a href="https://bundlephobia.com/package/@teseor/css"><img src="https://img.shields.io/bundlephobia/minzip/@teseor/css" alt="bundle size"></a>
   <a href="https://github.com/teseor/teseor/blob/main/LICENSE"><img src="https://img.shields.io/github/license/teseor/teseor" alt="license"></a>
-  <a href="https://github.com/teseor/teseor/actions"><img src="https://img.shields.io/github/actions/workflow/status/teseor/teseor/ci.yml?branch=main" alt="CI status"></a>
+  <a href="https://github.com/teseor/teseor/actions/workflows/visual-tests.yml"><img src="https://img.shields.io/github/actions/workflow/status/teseor/teseor/visual-tests.yml?branch=main&label=tests" alt="tests"></a>
 </p>
 
 <p align="center">
@@ -44,6 +43,20 @@ npm install @teseor/css
 
 ```html
 <button class="ui-button ui-button--primary">Get started</button>
+```
+
+### CDN
+
+No build step needed -- use directly from jsDelivr or unpkg:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@teseor/css@2/dist/index.css">
+```
+
+Or unpkg:
+
+```html
+<link rel="stylesheet" href="https://unpkg.com/@teseor/css@2/dist/index.css">
 ```
 
 ## Theming
