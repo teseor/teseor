@@ -42,10 +42,10 @@
             <option value="comfortable">{{ t('comfortable', 'Comfortable') }}</option>
           </select>
           <button class="ui-button ui-button--sm ui-button--block" onclick="toggleTheme()" id="theme-toggle" aria-pressed="false" data-label-dark="{{ t('dark_mode', 'Dark Mode') }}" data-label-light="{{ t('light_mode', 'Light Mode') }}">{{ t('dark_mode', 'Dark Mode') }}</button>
-          <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug(this, 'ui-debug-grid')" aria-pressed="false">{{ t('toggle_grid', 'Toggle Grid') }}</button>
-          <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug(this, 'ui-debug-grid-rows')" aria-pressed="false">{{ t('toggle_row_grid', 'Toggle Row Grid') }}</button>
-          <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug(this, 'ui-debug-baseline')" aria-pressed="false">{{ t('toggle_baseline', 'Toggle Baseline') }}</button>
-          <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug(this, 'ui-debug-outline')" aria-pressed="false">{{ t('toggle_outlines', 'Toggle Outlines') }}</button>
+          <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug(this, 'ui-debug-grid')" aria-pressed="false" data-label="{{ t('grid', 'Grid') }}">{{ t('grid', 'Grid') }}: Off</button>
+          <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug(this, 'ui-debug-grid-rows')" aria-pressed="false" data-label="{{ t('row_grid', 'Row Grid') }}">{{ t('row_grid', 'Row Grid') }}: Off</button>
+          <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug(this, 'ui-debug-baseline')" aria-pressed="false" data-label="{{ t('baseline', 'Baseline') }}">{{ t('baseline', 'Baseline') }}: Off</button>
+          <button class="ui-button ui-button--sm ui-button--secondary ui-button--block" onclick="toggleDebug(this, 'ui-debug-outline')" aria-pressed="false" data-label="{{ t('outlines', 'Outlines') }}">{{ t('outlines', 'Outlines') }}: Off</button>
         </div>
       </div>
     </nav>
@@ -74,24 +74,26 @@
       sessionStorage.setItem(DEBUG_KEY, JSON.stringify(active));
     }
 
+    function updateDebugLabel(btn, isActive) {
+      const label = btn.dataset.label;
+      if (label) btn.textContent = label + ': ' + (isActive ? 'On' : 'Off');
+      btn.setAttribute('aria-pressed', String(isActive));
+    }
+
     function toggleDebug(btn, className) {
       const isActive = document.body.classList.toggle(className);
-      btn.setAttribute('aria-pressed', String(isActive));
+      updateDebugLabel(btn, isActive);
       saveDebugState();
     }
 
-    // Restore debug state on load
+    // Restore debug state on load and sync buttons
     const activeDebug = getDebugState();
     for (const c of activeDebug) {
       document.body.classList.add(c);
     }
-
-    // Sync button aria-pressed with restored state
-    document.querySelectorAll('.ui-sidebar-nav__footer button[aria-pressed]').forEach(btn => {
+    document.querySelectorAll('.ui-sidebar-nav__footer button[data-label]').forEach(btn => {
       const match = btn.getAttribute('onclick')?.match(/toggleDebug\(this, '([^']+)'\)/);
-      if (match && activeDebug.includes(match[1])) {
-        btn.setAttribute('aria-pressed', 'true');
-      }
+      if (match) updateDebugLabel(btn, activeDebug.includes(match[1]));
     });
 
     function toggleTheme() {

@@ -7,7 +7,7 @@
 }
 
 .debug-grid {
-  --debug-color: color-mix(in oklch, var(--ui-color-primary, #{t.$color-primary}) 15%, transparent);
+  --debug-color: color-mix(in oklch, var(--ui-color-primary, #{t.$color-primary}) 20%, transparent);
 }
 
 .debug-grid::after {
@@ -28,10 +28,10 @@
   background-position: 0 0;
 }
 
-// Stronger grid at row intervals
+// Stronger grid at row intervals — green to contrast with blue unit grid
 .debug-grid-rows {
-  --debug-color: color-mix(in oklch, var(--ui-color-primary, #{t.$color-primary}) 10%, transparent);
-  --debug-color-strong: color-mix(in oklch, var(--ui-color-primary, #{t.$color-primary}) 25%, transparent);
+  --debug-color: color-mix(in oklch, var(--ui-color-success, #{t.$color-success}) 15%, transparent);
+  --debug-color-strong: color-mix(in oklch, var(--ui-color-success, #{t.$color-success}) 30%, transparent);
 }
 
 .debug-grid-rows::after {
@@ -53,9 +53,9 @@
   background-position: 0 0;
 }
 
-// Baseline grid only (horizontal lines)
+// Baseline grid only (horizontal lines) — red to contrast with blue/green grids
 .debug-baseline {
-  --debug-color: color-mix(in oklch, var(--ui-color-danger, #{t.$color-danger}) 20%, transparent);
+  --debug-color: color-mix(in oklch, var(--ui-color-danger, #{t.$color-danger}) 25%, transparent);
 }
 
 .debug-baseline::after {

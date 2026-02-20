@@ -30,7 +30,7 @@
     },
     {
       "name": "--ui-progress-bg",
-      "default": "var(--ui-color-bg-subtle)",
+      "default": "var(--ui-color-bg-inset)",
       "description": "Background color"
     },
     {

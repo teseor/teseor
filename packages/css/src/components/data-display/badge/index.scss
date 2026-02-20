@@ -10,7 +10,7 @@
     --_accent: var(--ui-badge-accent, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
 
     // @desc Overall height
-    --_height: var(--ui-badge-height, calc(var(--ui-row, #{t.$row}) * 1.25));
+    --_height: var(--ui-badge-height, calc(var(--ui-row, #{t.$row}) * 1.5));
     // @desc Horizontal padding
     --_padding-x: var(--ui-badge-padding-x, var(--ui-space-1, #{t.$space-1}));
     // @desc Font size
@@ -36,7 +36,7 @@
 
   .badge--lg {
     // @desc Overall height at large size
-    --_height: var(--ui-badge-height-lg, calc(var(--ui-row, #{t.$row}) * 1.5));
+    --_height: var(--ui-badge-height-lg, var(--ui-row-2, #{t.$row-2}));
     // @desc Horizontal padding at large size
     --_padding-x: var(--ui-badge-padding-x-lg, var(--ui-space-2, #{t.$space-2}));
     // @desc Font size at large size

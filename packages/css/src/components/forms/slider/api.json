@@ -23,7 +23,7 @@
     },
     {
       "name": "--ui-slider-track-bg",
-      "default": "var(--ui-color-bg-subtle)",
+      "default": "var(--ui-color-bg-inset)",
       "description": "Track background"
     },
     {
@@ -70,6 +70,11 @@
       "name": "--ui-slider-focus-ring",
       "default": "var(--ui-color-focus)",
       "description": "Focus ring"
+    },
+    {
+      "name": "--ui-slider-fill-pct",
+      "default": "50%",
+      "description": "Fill percentage (set via JS for Webkit track fill)"
     },
     {
       "name": "--ui-slider-height-sm",

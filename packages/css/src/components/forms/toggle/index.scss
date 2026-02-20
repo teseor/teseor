@@ -15,7 +15,7 @@
     // @desc Track height
     --_track-height: var(--ui-toggle-track-height, calc(#{t.$unit} * 3));
     // @desc Track background
-    --_track-bg: var(--ui-toggle-track-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
+    --_track-bg: var(--ui-toggle-track-bg, var(--ui-color-bg-inset, #{t.$color-bg-inset}));
     // @desc Track bg checked
     --_track-bg-checked: var(--ui-toggle-track-bg-checked, var(--ui-color-primary, #{t.$color-primary}));
     // @desc Track corner radius

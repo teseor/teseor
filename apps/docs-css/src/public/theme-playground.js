@@ -29,6 +29,14 @@
     return result;
   };
 
+  const updateFillPct = (slider) => {
+    const min = Number.parseFloat(slider.min) || 0;
+    const max = Number.parseFloat(slider.max) || 100;
+    const val = Number.parseFloat(slider.value) || 0;
+    const pct = ((val - min) / (max - min)) * 100;
+    slider.style.setProperty('--_fill-pct', `${pct}%`);
+  };
+
   const updateSlider = (slider) => {
     const token = slider.dataset.token;
     const suffix = slider.dataset.suffix || '';
@@ -45,6 +53,7 @@
     }
 
     document.documentElement.style.setProperty(token, cssValue);
+    updateFillPct(slider);
 
     // Update output label
     const output = slider.nextElementSibling;
@@ -61,6 +70,7 @@
   // Bind slider events
   for (const slider of sliders) {
     slider.addEventListener('input', (e) => updateSlider(e.currentTarget));
+    updateFillPct(slider);
     const output = slider.nextElementSibling;
     if (output && output.tagName === 'OUTPUT') {
       const suffix = slider.dataset.suffix || '';
@@ -91,9 +101,16 @@
     });
   }
 
-  // Randomize all controls
+  // Initialize fill percentage on ALL sliders in the playground (including preview)
+  for (const slider of container.querySelectorAll('.ui-slider:not([data-token])')) {
+    updateFillPct(slider);
+    slider.addEventListener('input', (e) => updateFillPct(e.currentTarget));
+  }
+
+  // Randomize all controls with smooth transition
   if (randomBtn) {
     randomBtn.addEventListener('click', () => {
+      document.documentElement.classList.add('theme-transitioning');
       for (const slider of sliders) {
         const min = Number.parseFloat(slider.min);
         const max = Number.parseFloat(slider.max);
@@ -110,6 +127,9 @@
         select.selectedIndex = Math.floor(Math.random() * opts.length);
         updateSelect(select);
       }
+      setTimeout(() => {
+        document.documentElement.classList.remove('theme-transitioning');
+      }, 300);
     });
   }
 })();

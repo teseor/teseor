@@ -14,7 +14,7 @@
     // @desc Track height
     --_track-height: var(--ui-slider-track-height, var(--ui-unit, #{t.$unit}));
     // @desc Track background
-    --_track-bg: var(--ui-slider-track-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
+    --_track-bg: var(--ui-slider-track-bg, var(--ui-color-bg-inset, #{t.$color-bg-inset}));
     // @desc Track fill
     --_track-fill: var(--ui-slider-track-fill, var(--ui-color-primary, #{t.$color-primary}));
     // @desc Track corner radius
@@ -33,6 +33,8 @@
     --_thumb-shadow: var(--ui-slider-thumb-shadow, #{t.$slider-thumb-shadow});
     // @desc Focus ring
     --_focus-ring: var(--ui-slider-focus-ring, var(--ui-color-focus, #{t.$color-focus}));
+    // @desc Fill percentage (set via JS for Webkit track fill)
+    --_fill-pct: var(--ui-slider-fill-pct, 50%);
   }
 
   // @modifier size
@@ -81,11 +83,11 @@
     cursor: pointer;
     appearance: none;
 
-    // Webkit track
+    // Webkit track — gradient simulates fill (no ::-webkit-range-progress)
     &::-webkit-slider-runnable-track {
       block-size: var(--_track-height);
 
-      background: var(--_track-bg);
+      background: linear-gradient(to right, var(--_track-fill) var(--_fill-pct, 50%), var(--_track-bg) var(--_fill-pct, 50%));
       border-radius: var(--_track-radius);
     }
 
