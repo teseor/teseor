@@ -103,7 +103,7 @@ module.exports = {
     // Prefix class selectors
     require('postcss-prefix-selector')({
       prefix: PREFIX,
-      transform(prefix, selector, prefixedSelector, filePath) {
+      transform(prefix, selector, _prefixedSelector, _filePath) {
         // Don't prefix root/global selectors
         if (selector.match(/^(html|body|:root|\*|@)/)) {
           return selector;

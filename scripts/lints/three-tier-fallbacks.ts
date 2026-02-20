@@ -1,9 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-
-import { findCategoryPrefix } from './token-dictionary.js';
-
 import { findScssFiles } from './_utils.js';
+import { findCategoryPrefix } from './token-dictionary.js';
 
 // Lint: component tokens must use the 3-tier fallback pattern
 // var(--ui-component-token, var(--ui-global-token, #{t.$var}))

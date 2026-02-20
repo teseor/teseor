@@ -17,7 +17,7 @@ export function lintBareTokenVars(srcDir: string): void {
     for (const { token, index } of bareVars) {
       const line = content.substring(0, index).split('\n').length;
       errors.push(
-        `${relPath}:${line}: var(--ui-${token}) has no fallback — add SCSS variable reference e.g. var(--ui-${token}, \#{t.$...})`,
+        `${relPath}:${line}: var(--ui-${token}) has no fallback — add SCSS variable reference e.g. var(--ui-${token}, #{t.$...})`,
       );
     }
   }
