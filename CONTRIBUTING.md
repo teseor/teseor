@@ -88,11 +88,7 @@ Runs on every PR, auditing 4 docs pages. Minimum scores: performance 0.8, access
 
 ## Adding a component
 
-```bash
-pnpm new:component <name>
-```
-
-Prompts for a category group. Creates 4 files:
+Create a folder under the appropriate category in `packages/css/src/components/` with 4 files:
 
 - `index.scss` -- styles (use `--_` prefix for internal tokens)
 - `<name>.api.json` -- CSS API definition
