@@ -109,8 +109,6 @@ property: var(--ui-component-token, var(--ui-global-token, #{$fallback}));
 
 ## Components
 
-**New component**: `pnpm new:component <name>` (prompts for group, or `--group <group>`)
-
 **Layer pattern**:
 ```scss
 // layout/ — single layer
