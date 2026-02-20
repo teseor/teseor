@@ -1,5 +1,12 @@
 # @teseor/css
 
+## 2.5.2
+
+### Patch Changes
+
+- 2321f92: Add CDN usage examples to README
+- ecc1d4e: Update README and package documentation
+
 ## 2.5.1
 
 ### Patch Changes
