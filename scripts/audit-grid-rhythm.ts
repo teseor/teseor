@@ -18,6 +18,18 @@ const SKIP_SELECTORS = [
   '.ui-main',
   '.ui-app-shell',
   '.ui-drawer',
+  // Decorative/inline elements — don't affect row height
+  '.ui-icon',
+  '.ui-spinner',
+  '.ui-status__dot',
+  '.ui-progress__bar',
+  '.ui-skeleton',
+  '.ui-toggle__track',
+  '.ui-toggle__thumb',
+  '.ui-avatar',
+  '.ui-spacer',
+  '.ui-divider',
+  '.scroll-progress',
 ];
 
 const INLINE_TAGS = [
@@ -118,6 +130,11 @@ async function checkPage(page: import('playwright').Page, url: string): Promise<
         const classes = el.className?.toString?.() || '';
         if (classes.includes('__')) continue;
         if (skipSelectors.some((sel: string) => el.matches(sel))) continue;
+
+        const style = getComputedStyle(el);
+        // Skip positioned overlays and decorative containers with aspect-ratio
+        if (style.position === 'absolute' || style.position === 'fixed') continue;
+        if (style.aspectRatio && style.aspectRatio !== 'auto') continue;
 
         const height = el.getBoundingClientRect().height;
         if (height === 0 || height < unit / 2) continue;
