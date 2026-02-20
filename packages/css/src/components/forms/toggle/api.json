@@ -25,7 +25,7 @@
     },
     {
       "name": "--ui-toggle-track-bg",
-      "default": "var(--ui-color-bg-subtle)",
+      "default": "var(--ui-color-bg-inset)",
       "description": "Track background"
     },
     {

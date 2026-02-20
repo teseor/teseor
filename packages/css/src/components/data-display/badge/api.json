@@ -18,7 +18,7 @@
     },
     {
       "name": "--ui-badge-height",
-      "default": "calc(var(--ui-row) * 1.25)",
+      "default": "calc(var(--ui-row) * 1.5)",
       "description": "Overall height"
     },
     {
@@ -63,7 +63,7 @@
     },
     {
       "name": "--ui-badge-height-lg",
-      "default": "calc(var(--ui-row) * 1.5)",
+      "default": "var(--ui-row-2)",
       "description": "Overall height at large size"
     },
     {

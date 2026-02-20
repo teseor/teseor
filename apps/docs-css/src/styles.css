@@ -87,11 +87,20 @@
     border-color: var(--ui-color-primary);
   }
 
-  /* =========================================================================
-     Demo-only classes: used in docs.html to style preview containers.
-     ALL prefixed with `demo-` to distinguish from DS utility classes.
-     ========================================================================= */
+  /* Theme transition — temporary class applied during brand switch */
+  .theme-transitioning,
+  .theme-transitioning *,
+  .theme-transitioning *::before,
+  .theme-transitioning *::after {
+    transition: background-color var(--ui-duration-slow) var(--ui-ease-default), color
+      var(--ui-duration-slow) var(--ui-ease-default), border-color var(--ui-duration-slow)
+      var(--ui-ease-default), box-shadow var(--ui-duration-slow) var(--ui-ease-default);
+  }
+}
 
+/* Demo-only classes: used in docs.html to style preview containers.
+   ALL prefixed with `demo-` to distinguish from DS utility classes. */
+@layer docs {
   /* Bordered box for overlay/drawer/toast demos */
   .demo-container {
     position: relative;
@@ -228,15 +237,6 @@
     text-align: end;
   }
 
-  .demo-playground__row input[type="range"] {
-    accent-color: var(--ui-color-primary);
-  }
-
-  .demo-playground__row select {
-    font-size: var(--ui-font-size-xs);
-    padding: var(--ui-space-half) var(--ui-space-1);
-  }
-
   /* Color swatches — direct feedback for each color slider */
   .demo-swatch-color {
     display: block;
@@ -284,18 +284,6 @@
     #theme-playground {
       grid-template-columns: 1fr;
     }
-  }
-}
-
-/* Theme transition — temporary class applied during brand switch */
-@layer base {
-  .theme-transitioning,
-  .theme-transitioning *,
-  .theme-transitioning *::before,
-  .theme-transitioning *::after {
-    transition: background-color var(--ui-duration-slow) var(--ui-ease-default), color
-      var(--ui-duration-slow) var(--ui-ease-default), border-color var(--ui-duration-slow)
-      var(--ui-ease-default), box-shadow var(--ui-duration-slow) var(--ui-ease-default);
   }
 }
 

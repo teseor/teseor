@@ -21,7 +21,7 @@
     // @desc Overall height
     --_height: var(--ui-progress-height, calc(#{t.$unit} * 1));
     // @desc Background color
-    --_bg: var(--ui-progress-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
+    --_bg: var(--ui-progress-bg, var(--ui-color-bg-inset, #{t.$color-bg-inset}));
     // @desc Fill
     --_fill: var(--ui-progress-fill, var(--ui-color-primary, #{t.$color-primary}));
     // @desc Corner radius

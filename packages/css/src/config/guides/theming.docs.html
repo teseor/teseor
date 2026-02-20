@@ -11,47 +11,47 @@ weight: 2
   <div class="demo-playground">
     <div class="demo-playground__row">
       <label>scale</label>
-      <input type="range" min="0.75" max="1.25" step="0.025" value="1" data-token="--ui-scale" data-suffix="">
+      <input class="ui-slider ui-slider--sm" type="range" min="0.75" max="1.25" step="0.025" value="1" data-token="--ui-scale" data-suffix="">
       <output>1</output>
     </div>
     <div class="demo-playground__row">
       <label>primary hue</label>
-      <input type="range" min="0" max="360" step="1" value="250" data-token="--ui-color-primary" data-template="oklch(55% 0.22 {value})" data-suffix="">
+      <input class="ui-slider ui-slider--sm" type="range" min="0" max="360" step="1" value="250" data-token="--ui-color-primary" data-template="oklch(55% 0.22 {value})" data-suffix="">
       <output>250</output>
     </div>
     <div class="demo-playground__row">
       <label>success hue</label>
-      <input type="range" min="0" max="360" step="1" value="145" data-token="--ui-color-success" data-template="oklch(60% 0.18 {value})" data-suffix="">
+      <input class="ui-slider ui-slider--sm" type="range" min="0" max="360" step="1" value="145" data-token="--ui-color-success" data-template="oklch(60% 0.18 {value})" data-suffix="">
       <output>145</output>
     </div>
     <div class="demo-playground__row">
       <label>warning hue</label>
-      <input type="range" min="0" max="360" step="1" value="70" data-token="--ui-color-warning" data-template="oklch(75% 0.18 {value})" data-suffix="">
+      <input class="ui-slider ui-slider--sm" type="range" min="0" max="360" step="1" value="70" data-token="--ui-color-warning" data-template="oklch(75% 0.18 {value})" data-suffix="">
       <output>70</output>
     </div>
     <div class="demo-playground__row">
       <label>danger hue</label>
-      <input type="range" min="0" max="360" step="1" value="25" data-token="--ui-color-danger" data-template="oklch(60% 0.22 {value})" data-suffix="">
+      <input class="ui-slider ui-slider--sm" type="range" min="0" max="360" step="1" value="25" data-token="--ui-color-danger" data-template="oklch(60% 0.22 {value})" data-suffix="">
       <output>25</output>
     </div>
     <div class="demo-playground__row">
       <label>neutral hue</label>
-      <input type="range" min="0" max="360" step="1" value="250" data-token="--ui-color-neutral" data-param="hue" data-template="oklch(50% {chroma} {hue})" data-suffix="">
+      <input class="ui-slider ui-slider--sm" type="range" min="0" max="360" step="1" value="250" data-token="--ui-color-neutral" data-param="hue" data-template="oklch(50% {chroma} {hue})" data-suffix="">
       <output>250</output>
     </div>
     <div class="demo-playground__row">
       <label>neutral chroma</label>
-      <input type="range" min="0" max="0.08" step="0.005" value="0.02" data-token="--ui-color-neutral" data-param="chroma" data-template="oklch(50% {chroma} {hue})" data-suffix="">
+      <input class="ui-slider ui-slider--sm" type="range" min="0" max="0.08" step="0.005" value="0.02" data-token="--ui-color-neutral" data-param="chroma" data-template="oklch(50% {chroma} {hue})" data-suffix="">
       <output>0.02</output>
     </div>
     <div class="demo-playground__row">
       <label>font size</label>
-      <input type="range" min="0.75" max="1.25" step="0.05" value="1" data-token="--ui-font-size-base" data-suffix="rem">
+      <input class="ui-slider ui-slider--sm" type="range" min="0.75" max="1.25" step="0.05" value="1" data-token="--ui-font-size-base" data-suffix="rem">
       <output>1rem</output>
     </div>
     <div class="demo-playground__row">
       <label>font family</label>
-      <select data-token="--ui-font-sans">
+      <select class="ui-select ui-select--sm" data-token="--ui-font-sans">
         <option value="system-ui, -apple-system, sans-serif">System</option>
         <option value="'Georgia', 'Times New Roman', serif">Serif</option>
         <option value="ui-monospace, sfmono-regular, monospace">Mono</option>
@@ -60,18 +60,27 @@ weight: 2
       <output></output>
     </div>
     <div class="demo-playground__row">
+      <label>mono font</label>
+      <select class="ui-select ui-select--sm" data-token="--ui-font-mono">
+        <option value="ui-monospace, sfmono-regular, monospace">System</option>
+        <option value="'Courier New', courier, monospace">Courier</option>
+        <option value="'Fira Code', ui-monospace, monospace">Fira Code</option>
+      </select>
+      <output></output>
+    </div>
+    <div class="demo-playground__row">
       <label>radius</label>
-      <input type="range" min="0" max="24" step="1" value="8" data-token="--ui-radius-base" data-suffix="px">
+      <input class="ui-slider ui-slider--sm" type="range" min="0" max="24" step="1" value="8" data-token="--ui-radius-base" data-suffix="px">
       <output>8px</output>
     </div>
     <div class="demo-playground__row">
       <label>shadow strength</label>
-      <input type="range" min="0" max="40" step="1" value="20" data-token="--ui-shadow-strength" data-suffix="%">
+      <input class="ui-slider ui-slider--sm" type="range" min="0" max="40" step="1" value="20" data-token="--ui-shadow-strength" data-suffix="%">
       <output>20%</output>
     </div>
     <div class="demo-playground__row">
       <label>border width</label>
-      <input type="range" min="0" max="4" step="0.5" value="1" data-token="--ui-border-width-base" data-suffix="px">
+      <input class="ui-slider ui-slider--sm" type="range" min="0" max="4" step="0.5" value="1" data-token="--ui-border-width-base" data-suffix="px">
       <output>1px</output>
     </div>
     <div class="ui-row ui-row--xs">
@@ -111,6 +120,18 @@ weight: 2
         <span class="ui-tag">{{ t('tag', 'Tag') }}</span>
       </div>
     </div>
+    <div class="ui-row ui-row--xs">
+      <input class="ui-slider" type="range" min="0" max="100" value="60">
+      <div class="ui-toggle">
+        <input class="ui-toggle__input" type="checkbox" checked>
+        <span class="ui-toggle__track"></span>
+        <span class="ui-toggle__thumb"></span>
+      </div>
+    </div>
+    <div class="ui-progress" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="--ui-progress-value: 65%">
+      <div class="ui-progress__bar"></div>
+    </div>
+    <code class="ui-code">{{ t('mono_preview', 'const theme = "custom"') }}</code>
     <div class="ui-column ui-column--xs">
       <div class="ui-alert ui-alert--info">{{ t('alert_info', 'Info alert') }}</div>
       <div class="ui-alert ui-alert--success">{{ t('alert_success', 'Success alert') }}</div>
