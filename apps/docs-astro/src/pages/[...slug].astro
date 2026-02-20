@@ -1,11 +1,11 @@
 ---
+import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import DocLayout from '../layouts/DocLayout.astro';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
-  return docs.map((entry) => {
-    // permalink is like /components/button/ — strip leading/trailing slashes for slug
+  return docs.map((entry: CollectionEntry<'docs'>) => {
     const slug = entry.data.permalink.replace(/^\/|\/$/g, '');
     return {
       params: { slug },
@@ -14,23 +14,7 @@ export async function getStaticPaths() {
   });
 }
 
-interface Props {
-  entry: {
-    id: string;
-    data: {
-      title: string;
-      description: string;
-      type: string;
-      typePath: string;
-      group: string | null;
-      groupLabel: string | null;
-      permalink: string;
-      apiData: Record<string, unknown> | null;
-    };
-  };
-}
-
-const { entry } = Astro.props;
+const { entry } = Astro.props as { entry: CollectionEntry<'docs'> };
 const { title, description, type, groupLabel, apiData } = entry.data;
 
 // Extract API info for stub display

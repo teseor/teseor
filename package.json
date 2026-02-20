@@ -14,6 +14,7 @@
     "sync:components": "tsx scripts/sync-scss-indexes.ts",
     "generate:api": "tsx scripts/generate-api.ts",
     "dev": "nx run-many -t dev",
+    "dev2": "pnpm --filter docs-astro dev",
     "build": "nx run-many -t build",
     "build:affected": "nx affected -t build",
     "test": "nx run-many -t test",

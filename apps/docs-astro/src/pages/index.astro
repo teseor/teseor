@@ -6,11 +6,6 @@ import { buildSidebar } from '../lib/sidebar';
 const allDocs = await getCollection('docs');
 const groups = buildSidebar(allDocs);
 
-const byType = (type: string) => allDocs.filter((d) => d.data.type === type);
-const byGroup = (groupId: string) => allDocs.filter((d) => d.data.group === groupId);
-const sortByTitle = <T extends { data: { title: string } }>(arr: T[]) =>
-  [...arr].sort((a, b) => a.data.title.localeCompare(b.data.title));
-
 const guides = groups.find((g) => g.id === 'guides');
 const foundation = groups.find((g) => g.id === 'foundation');
 const layout = groups.find((g) => g.id === 'layout');
@@ -18,7 +13,10 @@ const componentsGroup = groups.find((g) => g.id === 'components');
 const typography = groups.find((g) => g.id === 'typography');
 const utilities = groups.find((g) => g.id === 'utilities');
 
-const componentCount = byType('component').filter((d) => d.data.group !== 'typography').length;
+const componentCount = allDocs.filter(
+  (d: { data: { type: string; group: string | null } }) =>
+    d.data.type === 'component' && d.data.group !== 'typography',
+).length;
 ---
 
 <DocLayout title="Home">

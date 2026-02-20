@@ -22,7 +22,7 @@
     "typecheck": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "pnpm astro check --root apps/docs-astro"
+        "command": "pnpm --filter docs-astro exec astro check"
       }
     },
     "lint": {
