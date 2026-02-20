@@ -1,5 +1,11 @@
 # @teseor/css
 
+## 2.5.1
+
+### Patch Changes
+
+- 7efdb24: Upgrade build tooling: nx 22, vite 7, biome 2, patch transitive vulnerabilities
+
 ## 2.5.0
 
 ### Minor Changes
