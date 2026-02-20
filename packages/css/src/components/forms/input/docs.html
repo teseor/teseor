@@ -26,6 +26,11 @@ description: Text input field for user data entry. Heights align to grid rows.
 <!-- @full_width -->
 <input class="ui-input ui-input--block" type="text" placeholder="{{ t('full_width_input', 'Full width input') }}"></input>
 
+<!-- @auto_size | column -->
+<!-- Auto-sizing textarea grows with content. Requires browser support for field-sizing. -->
+<textarea class="ui-input ui-input--auto-size ui-input--block" placeholder="{{ t('auto_size_textarea', 'Type here and watch it grow...') }}"></textarea>
+<input class="ui-input ui-input--auto-size" type="text" placeholder="{{ t('auto_size_input', 'Auto-sizing input') }}"></input>
+
 <!-- @with_prefix_icon -->
 <div class="ui-input-group ui-input-group--has-prefix">
   <span class="ui-input-group__addon ui-input-group__addon--start">

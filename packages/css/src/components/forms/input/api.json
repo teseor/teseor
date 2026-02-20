@@ -12,6 +12,9 @@
     "state": {
       "values": ["error", "success"]
     },
+    "auto-size": {
+      "type": "boolean"
+    },
     "block": {
       "type": "boolean"
     }

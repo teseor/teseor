@@ -44,6 +44,8 @@
   }
 
   // @modifier boolean vertical
+
+  // @modifier boolean responsive
 }
 
 @layer components.styles {
@@ -144,6 +146,30 @@
 
       &--active {
         box-shadow: inset calc(var(--_border-width-md) * -1) 0 0 var(--_item-color-active);
+      }
+    }
+  }
+
+  // Responsive — auto-collapses to vertical in narrow containers
+  .nav--responsive {
+    container-type: inline-size;
+
+    @container (max-width: #{t.$container-threshold-sm}) {
+      .nav__list {
+        flex-direction: column;
+        align-items: stretch;
+
+        block-size: auto;
+
+        box-shadow: inset calc(var(--_border-width-sm) * -1) 0 0 var(--_border-color);
+      }
+
+      .nav__item {
+        box-shadow: inset calc(var(--_border-width-md) * -1) 0 0 transparent;
+
+        &--active {
+          box-shadow: inset calc(var(--_border-width-md) * -1) 0 0 var(--_item-color-active);
+        }
       }
     }
   }

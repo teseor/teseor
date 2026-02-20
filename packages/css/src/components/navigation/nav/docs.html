@@ -54,6 +54,24 @@ description: Horizontal or vertical navigation links for primary and secondary n
   </ul>
 </nav>
 
+<!-- @responsive -->
+<!-- Auto-collapses to vertical when container is narrow. -->
+<div class="ui-bg-muted ui-p-2" style="inline-size: 250px">
+  <nav class="ui-nav ui-nav--responsive">
+    <ul class="ui-nav__list">
+      <li>
+        <a class="ui-nav__item ui-nav__item--active" href="#">{{ t('home', 'Home') }}</a>
+      </li>
+      <li>
+        <a class="ui-nav__item" href="#">{{ t('about', 'About') }}</a>
+      </li>
+      <li>
+        <a class="ui-nav__item" href="#">{{ t('contact', 'Contact') }}</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
 <!-- @vertical_pills -->
 <!-- Vertical navigation with pill-style active indicator. -->
 <nav class="ui-nav ui-nav--vertical ui-nav--pills" style="inline-size: 200px">
