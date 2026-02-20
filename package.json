@@ -24,6 +24,7 @@
     "test:visual": "./scripts/visual-test-docker.sh",
     "test:visual:update": "./scripts/visual-test-docker.sh --update",
     "test:visual:stop": "./scripts/visual-test-docker.sh --stop",
+    "audit:grid": "tsx scripts/audit-grid-rhythm.ts",
     "lint": "biome check . && stylelint \"**/*.scss\" && tsx scripts/lint-components.ts && pnpm --filter docs-css validate-docs",
     "lint:components": "tsx scripts/lint-components.ts",
     "lint:docs": "pnpm --filter docs-css validate-docs",
