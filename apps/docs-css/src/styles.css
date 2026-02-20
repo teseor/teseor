@@ -318,4 +318,46 @@
     --ui-border-width-base: 1px;
     --ui-shadow-strength: 0%;
   }
+
+  /* Dracula — purple accent, dark, monospace feel */
+  [data-brand="dracula"] {
+    color-scheme: dark;
+    --ui-color-primary: oklch(72% 0.15 295);
+    --ui-color-success: oklch(72% 0.18 145);
+    --ui-color-warning: oklch(80% 0.16 80);
+    --ui-color-danger: oklch(68% 0.2 15);
+    --ui-color-neutral: oklch(25% 0.02 260);
+    --ui-radius-base: 4px;
+    --ui-shadow-strength: 10%;
+  }
+
+  /* GitHub — blue accent, clean, system font */
+  [data-brand="github"] {
+    --ui-color-primary: oklch(52% 0.18 250);
+    --ui-color-success: oklch(58% 0.16 145);
+    --ui-color-danger: oklch(58% 0.2 25);
+    --ui-color-neutral: oklch(45% 0.01 240);
+    --ui-radius-base: 6px;
+    --ui-shadow-strength: 12%;
+    --ui-border-width-base: 1px;
+  }
+
+  /* Amazon — orange accent, commercial, dense */
+  [data-brand="amazon"] {
+    --ui-color-primary: oklch(72% 0.18 65);
+    --ui-color-neutral: oklch(30% 0.01 80);
+    --ui-radius-base: 8px;
+    --ui-shadow-strength: 15%;
+    --ui-border-width-base: 1px;
+  }
+
+  /* Linear — indigo accent, minimal, modern */
+  [data-brand="linear"] {
+    --ui-color-primary: oklch(52% 0.2 280);
+    --ui-color-neutral: oklch(40% 0.015 265);
+    --ui-font-sans: "Inter", system-ui, -apple-system, sans-serif;
+    --ui-radius-base: 6px;
+    --ui-shadow-strength: 8%;
+    --ui-border-width-base: 1px;
+  }
 }
