@@ -10,7 +10,7 @@
     --ui-sidebar-nav-padding: var(--ui-space-1);
 
     /* Smaller nav items */
-    --ui-sidebar-nav-item-height: 28px;
+    --ui-sidebar-nav-item-height: 32px;
     --ui-sidebar-nav-item-size: var(--ui-font-size-sm);
     --ui-sidebar-nav-group-label-size: 10px;
   }

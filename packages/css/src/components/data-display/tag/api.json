@@ -56,7 +56,7 @@
     },
     {
       "name": "--ui-tag-height-sm",
-      "default": "calc(var(--ui-unit) * 2.5)",
+      "default": "calc(var(--ui-unit) * 2)",
       "description": "Overall height at small size"
     },
     {
@@ -71,7 +71,7 @@
     },
     {
       "name": "--ui-tag-height-lg",
-      "default": "calc(var(--ui-unit) * 3.5)",
+      "default": "calc(var(--ui-unit) * 4)",
       "description": "Overall height at large size"
     },
     {
