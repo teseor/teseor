@@ -3,6 +3,11 @@ import { join } from 'node:path';
 import { findScssFiles } from './_utils.js';
 import { findCategoryPrefix } from './token-dictionary.js';
 
+// Matches a CSS custom property where the fallback is a bare SCSS token reference:
+//   var(--ui-TOKEN, #{t.$SCSS_VAR})
+// capturing TOKEN as group 1 and SCSS_VAR as group 2.
+const BARE_SCSS_FALLBACK_PATTERN = /var\(--ui-([\w-]+),\s*#\{t\.\$([\w-]+)\}\s*\)/g;
+
 // Lint: component tokens must use the 3-tier fallback pattern
 // var(--ui-component-token, var(--ui-global-token, #{t.$var}))
 //
@@ -13,7 +18,7 @@ export function lintThreeTierFallbacks(srcDir: string): void {
   const componentsDir = join(srcDir, 'components');
   const scssFiles = findScssFiles(componentsDir);
   const errors: string[] = [];
-  const rootDir = join(srcDir, '../..');
+  const rootDir = process.cwd();
 
   for (const file of scssFiles) {
     const content = readFileSync(file, 'utf-8');
@@ -41,9 +46,9 @@ export function lintThreeTierFallbacks(srcDir: string): void {
       const layerBodyStart = braceStart + 1;
 
       // Match var(--ui-TOKEN, #{t.$SCSS_VAR}) — bare SCSS ref as fallback
-      const pattern = /var\(--ui-([\w-]+),\s*#\{t\.\$([\w-]+)\}\s*\)/g;
+      const pattern = BARE_SCSS_FALLBACK_PATTERN;
 
-      for (let m = pattern.exec(layerBody); m !== null; m = pattern.exec(layerBody)) {
+      for (const m of layerBody.matchAll(pattern)) {
         const outerToken = m[1];
         const scssVar = m[2];
 
@@ -56,7 +61,7 @@ export function lintThreeTierFallbacks(srcDir: string): void {
         // Skip if SCSS var has no matching global token category
         if (!findCategoryPrefix(scssVar)) continue;
 
-        const absIndex = layerBodyStart + m.index;
+        const absIndex = layerBodyStart + (m.index ?? 0);
         const line = content.substring(0, absIndex).split('\n').length;
         errors.push(
           `${relPath}:${line}: var(--ui-${outerToken}) fallback #{t.$${scssVar}} needs middle tier var(--ui-${scssVar}, ...)`,

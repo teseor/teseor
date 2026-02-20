@@ -15,16 +15,29 @@ function extractPlaywrightMinor(version: string): string {
   // "^1.58.2" → "1.58", "1.58.2" → "1.58"
   const clean = version.replace(/^[\^~]/, '');
   const parts = clean.split('.');
+  if (parts.length < 2 || !parts[0] || !parts[1]) {
+    throw new Error(`Invalid Playwright version string: "${version}". Expected at least major.minor.`);
+  }
   return `${parts[0]}.${parts[1]}`;
 }
 
 function extractMajor(version: string): string {
   // ">=22.0.0" → "22", "22" → "22"
-  return version.replace(/^[>=^~]+/, '').split('.')[0];
+  const clean = version.replace(/^[>=^~]+/, '');
+  if (!clean || !/^\d/.test(clean)) {
+    throw new Error(`Invalid Node engine version: "${version}"`);
+  }
+  return clean.split('.')[0];
 }
 
 function extractPnpmVersion(packageManager: string): string {
   // "pnpm@9.15.0" → "9.15.0"
+  if (!packageManager.startsWith('pnpm@')) {
+    throw new Error(
+      `Expected packageManager to start with "pnpm@", but got "${packageManager}". ` +
+        'This lint currently supports only pnpm as the package manager.',
+    );
+  }
   return packageManager.replace(/^pnpm@/, '');
 }
 
@@ -32,9 +45,43 @@ export function lintVersionSync(): void {
   const pkg = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf-8'));
   const errors: string[] = [];
 
-  const playwrightMinor = extractPlaywrightMinor(pkg.devDependencies['@playwright/test']);
-  const nodeMajor = extractMajor(pkg.engines.node);
-  const pnpmVersion = extractPnpmVersion(pkg.packageManager);
+  const playwrightDep =
+    pkg &&
+    typeof pkg === 'object' &&
+    pkg.devDependencies &&
+    typeof pkg.devDependencies === 'object'
+      ? pkg.devDependencies['@playwright/test']
+      : undefined;
+  if (typeof playwrightDep !== 'string') {
+    throw new Error(
+      "Missing required devDependency '@playwright/test' in package.json",
+    );
+  }
+
+  const nodeEngine =
+    pkg &&
+    typeof pkg === 'object' &&
+    pkg.engines &&
+    typeof pkg.engines === 'object'
+      ? pkg.engines.node
+      : undefined;
+  if (typeof nodeEngine !== 'string') {
+    throw new Error(
+      "Missing required 'engines.node' field in package.json",
+    );
+  }
+
+  const packageManager =
+    pkg && typeof pkg === 'object' ? pkg.packageManager : undefined;
+  if (typeof packageManager !== 'string') {
+    throw new Error(
+      "Missing required 'packageManager' field in package.json",
+    );
+  }
+
+  const playwrightMinor = extractPlaywrightMinor(playwrightDep);
+  const nodeMajor = extractMajor(nodeEngine);
+  const pnpmVersion = extractPnpmVersion(packageManager);
 
   const checks: VersionCheck[] = [
     {
