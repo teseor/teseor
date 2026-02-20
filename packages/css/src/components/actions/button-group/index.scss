@@ -9,6 +9,8 @@
   .button-group {
     // @desc Corner radius
     --_radius: var(--ui-button-group-radius, var(--ui-radius-md, calc(#{t.$unit} / 2)));
+    // @desc Border thickness
+    --_border-width: var(--ui-button-group-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
   }
 }
 
@@ -75,7 +77,7 @@
   }
 
   .button-group--attached > .button:last-child {
-    border-inline-end-width: 1px;
+    border-inline-end-width: var(--_border-width);
   }
 
   .button-group--attached > .button + .button {

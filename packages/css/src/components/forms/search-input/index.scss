@@ -119,7 +119,7 @@
 
       fill: none;
       stroke: currentcolor;
-      stroke-width: 2;
+      stroke-width: #{t.$icon-stroke};
       stroke-linecap: round;
       stroke-linejoin: round;
     }
@@ -185,7 +185,7 @@
     }
 
     &:focus-visible {
-      outline: 2px solid var(--_color-focus);
+      outline: var(--_border-width-md) solid var(--_color-focus);
       outline-offset: #{t.$focus-ring-offset};
     }
 
@@ -195,7 +195,7 @@
 
       fill: none;
       stroke: currentcolor;
-      stroke-width: 2;
+      stroke-width: #{t.$icon-stroke};
       stroke-linecap: round;
       stroke-linejoin: round;
     }
