@@ -1,5 +1,11 @@
 # @teseor/css
 
+## 2.2.2
+
+### Patch Changes
+
+- 187fcd2: Replace hardcoded pixel values with design tokens across 8 components
+
 ## 2.2.1
 
 ### Patch Changes
