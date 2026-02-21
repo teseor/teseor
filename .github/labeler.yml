@@ -3,10 +3,10 @@
       - any-glob-to-any-file:
           - packages/css/**
 
-"pkg: docs-css":
+"pkg: docgen":
   - changed-files:
       - any-glob-to-any-file:
-          - apps/docs-css/**
+          - packages/docgen/**
 
 "type: ci":
   - changed-files:
@@ -17,7 +17,7 @@
   - changed-files:
       - any-glob-to-any-file:
           - "**/*.md"
-          - apps/docs-css/**
+          - "**/*.md"
 
 "component: button":
   - changed-files:

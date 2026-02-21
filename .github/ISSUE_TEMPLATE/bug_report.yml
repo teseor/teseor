@@ -11,7 +11,7 @@ body:
         - "@teseor/css"
         - "@teseor/react (planned)"
         - "@teseor/svelte (planned)"
-        - "docs-css"
+        - "@teseor/docgen"
         - "other"
     validations:
       required: true

@@ -36,24 +36,6 @@ jobs:
       - uses: ./.github/actions/setup
       - run: pnpm typecheck
 
-  lighthouse:
-    name: Lighthouse
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup
-
-      - run: pnpm nx build css
-
-      - name: Build docs
-        run: pnpm --filter docs-css build
-
-      - name: Lighthouse CI
-        uses: treosh/lighthouse-ci-action@v12
-        with:
-          configPath: ./.config/lighthouserc.json
-
   changeset:
     name: Changeset
     runs-on: ubuntu-latest
