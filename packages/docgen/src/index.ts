@@ -1,5 +1,6 @@
 export {
   buildComponentNameSet,
+  isAutoDescription,
   loadContent,
   loadContentFromParsed,
   parseContentYaml,

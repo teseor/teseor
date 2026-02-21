@@ -1,0 +1,16 @@
+description: $auto Search Input component.
+
+sections:
+  size:
+    modifier: size
+    layout: row
+    description: $shared.size
+  block:
+    modifier: block
+    description: $shared.block
+  disabled:
+    modifier: disabled
+    description: $shared.disabled
+  has_clear:
+    modifier: has-clear
+    description: $auto Has Clear modifier.

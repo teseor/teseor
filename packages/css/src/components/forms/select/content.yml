@@ -1,0 +1,20 @@
+description: $auto Select component.
+
+sections:
+  size:
+    modifier: size
+    layout: row
+    description: $shared.size
+  variant:
+    modifier: variant
+    layout: row
+    include_default: true
+    description: $shared.variant
+  state:
+    modifier: state
+    layout: row
+    include_default: true
+    description: $shared.state
+  block:
+    modifier: block
+    description: $shared.block

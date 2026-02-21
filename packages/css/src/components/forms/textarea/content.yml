@@ -1,0 +1,20 @@
+description: $auto Textarea component.
+
+sections:
+  size:
+    modifier: size
+    layout: row
+    description: $shared.size
+  variant:
+    modifier: variant
+    layout: row
+    include_default: true
+    description: $shared.variant
+  state:
+    modifier: state
+    layout: row
+    include_default: true
+    description: $shared.state
+  auto_size:
+    modifier: auto-size
+    description: $auto Auto Size modifier.

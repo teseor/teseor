@@ -1,0 +1,17 @@
+description: $auto Icon component.
+
+sections:
+  size:
+    modifier: size
+    layout: row
+    description: $shared.size
+  stroke:
+    modifier: stroke
+    layout: row
+    description: $auto Stroke modifier.
+  filled:
+    modifier: filled
+    description: $auto Filled modifier.
+  spin:
+    modifier: spin
+    description: $auto Spin modifier.

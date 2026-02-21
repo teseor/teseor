@@ -14,6 +14,12 @@ import {
 } from './content-schema.js';
 import type { ApiJson } from './types.js';
 
+const AUTO_PREFIX = '$auto';
+
+export function isAutoDescription(value: string): boolean {
+  return value.startsWith(AUTO_PREFIX);
+}
+
 export interface ValidationError {
   path: string;
   message: string;

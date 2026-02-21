@@ -13,6 +13,7 @@
   "scripts": {
     "sync:components": "tsx scripts/sync-scss-indexes.ts",
     "generate:api": "tsx scripts/generate-api.ts",
+    "generate:content": "tsx scripts/generate-content.ts",
     "generate:contract": "tsx scripts/generate-contract.ts",
     "dev": "nx run-many -t dev",
     "build": "nx run-many -t build",

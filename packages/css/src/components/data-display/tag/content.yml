@@ -1,0 +1,12 @@
+description: $auto Tag component.
+
+sections:
+  size:
+    modifier: size
+    layout: row
+    description: $shared.size
+  variant:
+    modifier: variant
+    layout: row
+    include_default: true
+    description: $shared.variant

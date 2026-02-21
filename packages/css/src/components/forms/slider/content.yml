@@ -1,0 +1,11 @@
+description: $auto Slider component.
+
+sections:
+  size:
+    modifier: size
+    layout: row
+    description: $shared.size
+  color:
+    modifier: color
+    layout: row
+    description: $auto Color modifier.

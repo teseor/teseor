@@ -1,0 +1,7 @@
+description: $auto Popover component.
+
+sections:
+  position:
+    modifier: position
+    layout: row
+    description: $auto Position modifier.

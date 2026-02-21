@@ -1,0 +1,7 @@
+description: $auto Stat component.
+
+sections:
+  size:
+    modifier: size
+    layout: row
+    description: $shared.size

@@ -1,0 +1,9 @@
+description: $auto Table component.
+
+sections:
+  compact:
+    modifier: compact
+    description: $auto Compact modifier.
+  striped:
+    modifier: striped
+    description: $auto Striped modifier.
