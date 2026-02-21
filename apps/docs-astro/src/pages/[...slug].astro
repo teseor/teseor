@@ -29,6 +29,7 @@ const cssVars = apiData?.cssVars as
   | Array<{ name: string; default?: string; description?: string }>
   | undefined;
 const componentName = (apiData?.name as string) ?? entry.id;
+const apiElement = (apiData?.element as string) ?? 'div';
 
 interface Section {
   id: string;
@@ -47,9 +48,80 @@ function stripNunjucks(html: string): string {
 
 function sectionTitle(id: string): string {
   return id
-    .split('_')
+    .split(/[_-]/)
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     .join(' ');
+}
+
+// Compound component templates — maps component name to HTML generator
+const compoundTemplates: Record<string, (cls: string, label: string) => string> = {
+  alert: (c, l) =>
+    `<div class="${c}"><div class="ui-alert__content"><p class="ui-alert__description">${l}</p></div></div>`,
+  modal: (c, l) =>
+    `<div class="demo-area" style="--demo-h: 100px"><div class="${c} ui-modal--visible ui-absolute"><div class="ui-modal__content"><p>${l}</p></div></div></div>`,
+  tabs: (c, l) =>
+    `<div class="${c}"><div class="ui-tabs__list"><button class="ui-tabs__tab ui-tabs__tab--active">${l}</button><button class="ui-tabs__tab">Tab 2</button></div></div>`,
+  accordion: (c, l) =>
+    `<div class="${c}"><details class="ui-disclosure"><summary class="ui-disclosure__trigger">${l}<span class="ui-disclosure__icon">▾</span></summary><div class="ui-disclosure__content"><p>Content</p></div></details></div>`,
+  table: (c, l) =>
+    `<table class="${c}"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>Item</td><td>${l}</td></tr></tbody></table>`,
+  select: (c, l) =>
+    `<select class="${c}"><option>${l}</option><option>Option 2</option></select>`,
+};
+
+function renderComponentHtml(name: string, element: string, cls: string, label: string): string {
+  if (compoundTemplates[name]) return compoundTemplates[name](cls, label);
+  if (element === 'input') return `<input class="${cls}" type="text" placeholder="${label}" />`;
+  return `<${element} class="${cls}">${label}</${element}>`;
+}
+
+function humanizeValue(value: string): string {
+  return value
+    .split('-')
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
+}
+
+// Build gallery entries: one per modifier, each showing all its values
+interface GalleryEntry {
+  id: string;
+  title: string;
+  html: string;
+}
+
+const gallery: GalleryEntry[] = [];
+if (modifiers) {
+  for (const [mod, def] of Object.entries(modifiers)) {
+    if (def.values) {
+      const baseHtml = renderComponentHtml(
+        componentName, apiElement, `ui-${componentName}`, 'Default',
+      );
+      const items = [
+        baseHtml,
+        ...def.values.map((v) =>
+          renderComponentHtml(
+            componentName, apiElement,
+            `ui-${componentName} ui-${componentName}--${v}`, humanizeValue(v),
+          ),
+        ),
+      ];
+      gallery.push({
+        id: `modifier-${mod}`,
+        title: sectionTitle(mod),
+        html: items.join('\n'),
+      });
+    } else if (def.type === 'boolean') {
+      const html = renderComponentHtml(
+        componentName, apiElement,
+        `ui-${componentName} ui-${componentName}--${mod}`, humanizeValue(mod),
+      );
+      gallery.push({
+        id: `modifier-${mod}`,
+        title: sectionTitle(mod),
+        html,
+      });
+    }
+  }
 }
 ---
 
@@ -77,6 +149,20 @@ function sectionTitle(id: string): string {
         </section>
       );
     })}
+
+    {gallery.length > 0 && (
+      <section class="ui-docs-section" id="modifiers-gallery">
+        <h2 class="ui-heading ui-heading--lg">Modifiers</h2>
+        {gallery.map((g) => (
+          <div class="gallery-modifier" id={g.id}>
+            <h3 class="ui-heading ui-heading--md">{g.title}</h3>
+            <CodePreview code={g.html}>
+              <div slot="preview" class="ui-row ui-row--sm ui-wrap ui-items-center" set:html={g.html} />
+            </CodePreview>
+          </div>
+        ))}
+      </section>
+    )}
 
     {(modifiers || elements || cssVars) && (
       <section class="ui-docs-section" id="css-api">
