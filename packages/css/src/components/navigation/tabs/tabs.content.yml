@@ -1,0 +1,57 @@
+description: Tabbed content panels for organizing related content.
+
+sections:
+  default:
+    examples:
+      - component: Tabs
+        children:
+          - component: TabsList
+            children:
+              - component: TabsTab
+                props: { active: true }
+                text: Tab 1
+              - component: TabsTab
+                text: Tab 2
+              - component: TabsTab
+                text: Tab 3
+          - component: TabsPanel
+            props: { active: true }
+            text: Panel 1 content
+          - component: TabsPanel
+            text: Panel 2 content
+          - component: TabsPanel
+            text: Panel 3 content
+
+  sizes:
+    modifier: size
+    layout: column
+    description: $shared.size
+    template:
+      component: Tabs
+      children:
+        - component: TabsList
+          children:
+            - component: TabsTab
+              props: { active: true }
+              text: $value
+            - component: TabsTab
+              text: Tab 2
+
+  vertical:
+    modifier: vertical
+    description: $shared.vertical
+    template:
+      component: Tabs
+      children:
+        - component: TabsList
+          children:
+            - component: TabsTab
+              props: { active: true }
+              text: Tab 1
+            - component: TabsTab
+              text: Tab 2
+            - component: TabsTab
+              text: Tab 3
+        - component: TabsPanel
+          props: { active: true }
+          text: Vertical tab content

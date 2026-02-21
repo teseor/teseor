@@ -1,0 +1,68 @@
+description: Informational banner for important messages. Use variants for different message types.
+
+sections:
+  default:
+    examples:
+      - component: Alert
+        children:
+          - component: AlertContent
+            children:
+              - component: AlertTitle
+                text: Note
+              - component: AlertDescription
+                text: This is a default alert message.
+
+  variants:
+    modifier: variant
+    layout: column
+    description: $shared.variant
+    template:
+      component: Alert
+      children:
+        - component: AlertContent
+          children:
+            - component: AlertTitle
+              text: $value
+            - component: AlertDescription
+              text: Alert message for the user.
+
+  sizes:
+    modifier: size
+    layout: column
+    description: $shared.size
+    template:
+      component: Alert
+      props: { variant: info }
+      children:
+        - component: AlertContent
+          children:
+            - component: AlertDescription
+              text: $value alert size.
+
+  with_icon:
+    description: Alert with leading icon.
+    examples:
+      - component: Alert
+        props: { variant: info }
+        children:
+          - component: AlertIcon
+            icon: info
+          - component: AlertContent
+            children:
+              - component: AlertDescription
+                text: Your session will expire in 5 minutes.
+
+  dismissible:
+    modifier: dismissible
+    description: $shared.dismissible
+    template:
+      component: Alert
+      props: { variant: info }
+      children:
+        - component: AlertContent
+          children:
+            - component: AlertTitle
+              text: Dismissible
+            - component: AlertDescription
+              text: This alert can be closed by the user.
+        - component: AlertClose

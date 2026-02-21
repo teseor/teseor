@@ -1,0 +1,45 @@
+description: Overlay dialog for focused interactions. Use size variants for different content amounts.
+
+sections:
+  default:
+    examples:
+      - component: Modal
+        props: { visible: true }
+        children:
+          - component: ModalContent
+            children:
+              - component: ModalBody
+                text: Modal body content goes here.
+
+  sizes:
+    modifier: size
+    layout: column
+    description: $shared.size
+    template:
+      component: Modal
+      props: { visible: true }
+      children:
+        - component: ModalContent
+          children:
+            - component: ModalBody
+              text: $value modal content.
+
+  entering:
+    modifier: entering
+    description: Applied during the enter animation phase.
+
+  visible:
+    modifier: visible
+    description: Shows the modal and overlay.
+
+  exiting:
+    modifier: exiting
+    description: Applied during the exit animation phase.
+
+  hidden:
+    modifier: hidden
+    description: Hides the modal after exit animation completes.
+
+  animate:
+    modifier: animate
+    description: Enables enter/exit CSS transitions.

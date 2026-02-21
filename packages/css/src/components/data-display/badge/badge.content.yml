@@ -1,0 +1,44 @@
+description: Inline labels for status indicators, counts, and categories.
+
+sections:
+  default:
+    examples:
+      - component: Badge
+        text: Default
+
+  variants:
+    modifier: variant
+    layout: row
+    include_default: true
+    description: $shared.variant
+
+  sizes:
+    modifier: size
+    layout: row
+    include_default: true
+    description: $shared.size
+
+  use_cases:
+    layout: row
+    description: Common badge patterns.
+    examples:
+      - element: div
+        classes: [ui-row]
+        children:
+          - element: span
+            text: Notifications
+          - component: Badge
+            props: { variant: primary }
+            text: "5"
+      - element: div
+        classes: [ui-row]
+        children:
+          - component: Badge
+            props: { variant: success }
+            text: Published
+          - component: Badge
+            props: { variant: warning }
+            text: Draft
+          - component: Badge
+            props: { variant: danger }
+            text: Archived
