@@ -25,31 +25,31 @@
   "cssVars": [
     {
       "name": "--ui-form-spacing",
-      "default": "var(--ui-space-3)",
+      "default": "--ui-space-3",
       "defaultValue": "24px",
       "description": "Spacing"
     },
     {
       "name": "--ui-form-actions-gap",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Actions gap"
     },
     {
       "name": "--ui-form-section-spacing",
-      "default": "var(--ui-space-4)",
+      "default": "--ui-space-4",
       "defaultValue": "32px",
       "description": "Section spacing"
     },
     {
       "name": "--ui-form-spacing-compact",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Spacing compact"
     },
     {
       "name": "--ui-form-section-spacing-compact",
-      "default": "var(--ui-space-3)",
+      "default": "--ui-space-3",
       "defaultValue": "24px",
       "description": "Section spacing compact"
     }

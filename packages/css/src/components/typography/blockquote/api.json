@@ -13,64 +13,64 @@
   "cssVars": [
     {
       "name": "--ui-blockquote-cite-spacing",
-      "default": "var(--ui-space-1)",
+      "default": "--ui-space-1",
       "defaultValue": "8px",
       "description": "Citation spacing"
     },
     {
       "name": "--ui-blockquote-cite-font-size",
-      "default": "var(--ui-font-size-sm)",
+      "default": "--ui-font-size-sm",
       "defaultValue": "14px",
       "description": "Citation font size"
     },
     {
       "name": "--ui-blockquote-cite-line-height",
-      "default": "var(--ui-line-height-sm)",
+      "default": "--ui-line-height-sm",
       "defaultValue": "24px",
       "description": "Citation line height"
     },
     {
       "name": "--ui-blockquote-cite-color",
-      "default": "var(--ui-color-text-muted)",
+      "default": "--ui-color-text-muted",
       "description": "Citation text color"
     },
     {
       "name": "--ui-blockquote-border-color",
-      "default": "var(--ui-color-border-strong)",
+      "default": "--ui-color-border-strong",
       "description": "Border color"
     },
     {
       "name": "--ui-blockquote-border-width",
-      "default": "var(--ui-border-width-lg)",
+      "default": "--ui-border-width-lg",
       "defaultValue": "4px",
       "description": "Border thickness"
     },
     {
       "name": "--ui-blockquote-padding-inline",
-      "default": "var(--ui-space-3)",
+      "default": "--ui-space-3",
       "defaultValue": "24px",
       "description": "Horizontal padding"
     },
     {
       "name": "--ui-blockquote-color",
-      "default": "var(--ui-color-text-muted)",
+      "default": "--ui-color-text-muted",
       "description": "Text color"
     },
     {
       "name": "--ui-blockquote-font-size",
-      "default": "var(--ui-font-size-lg)",
+      "default": "--ui-font-size-lg",
       "defaultValue": "20px",
       "description": "Font size"
     },
     {
       "name": "--ui-blockquote-line-height",
-      "default": "var(--ui-line-height-lg)",
+      "default": "--ui-line-height-lg",
       "defaultValue": "32px",
       "description": "Line height"
     },
     {
       "name": "--ui-blockquote-accent-border-color",
-      "default": "var(--ui-color-primary)",
+      "default": "--ui-color-primary",
       "description": "Accent border color"
     }
   ]

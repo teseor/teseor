@@ -14,29 +14,29 @@
   "cssVars": [
     {
       "name": "--ui-nav-rail-width",
-      "default": "var(--ui-row-4)",
+      "default": "--ui-row-4",
       "defaultValue": "64px",
       "description": "Overall width"
     },
     {
       "name": "--ui-nav-rail-bg",
-      "default": "var(--ui-color-bg-subtle)",
+      "default": "--ui-color-bg-subtle",
       "description": "Background color"
     },
     {
       "name": "--ui-nav-rail-border-color",
-      "default": "var(--ui-color-border)",
+      "default": "--ui-color-border",
       "description": "Border color"
     },
     {
       "name": "--ui-nav-rail-gap",
-      "default": "var(--ui-space-1)",
+      "default": "--ui-space-1",
       "defaultValue": "8px",
       "description": "Gap between children"
     },
     {
       "name": "--ui-nav-rail-z",
-      "default": "var(--ui-z-index-sticky)",
+      "default": "--ui-z-index-sticky",
       "defaultValue": "100",
       "description": "Z-index stacking order"
     }

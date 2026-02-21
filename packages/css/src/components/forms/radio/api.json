@@ -13,83 +13,83 @@
   "cssVars": [
     {
       "name": "--ui-radio-border-width",
-      "default": "var(--ui-border-width-sm)",
+      "default": "--ui-border-width-sm",
       "defaultValue": "1px",
       "description": "Border width"
     },
     {
       "name": "--ui-radio-transition-duration",
-      "default": "var(--ui-duration-fast)",
+      "default": "--ui-duration-fast",
       "defaultValue": "100ms",
       "description": "Transition duration"
     },
     {
       "name": "--ui-radio-transition-timing",
-      "default": "var(--ui-ease-default)",
+      "default": "--ui-ease-default",
       "description": "Transition timing"
     },
     {
       "name": "--ui-radio-focus-ring-width",
-      "default": "var(--ui-border-width-md)",
+      "default": "--ui-border-width-md",
       "defaultValue": "2px",
       "description": "Focus ring width"
     },
     {
       "name": "--ui-radio-focus-ring-color",
-      "default": "var(--ui-color-focus)",
+      "default": "--ui-color-focus",
       "description": "Focus ring color"
     },
     {
       "name": "--ui-radio-disabled-opacity",
-      "default": "var(--ui-opacity-disabled)",
+      "default": "--ui-opacity-disabled",
       "defaultValue": "0.5",
       "description": "Disabled opacity"
     },
     {
       "name": "--ui-radio-size",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Overall size"
     },
     {
       "name": "--ui-radio-bg",
-      "default": "var(--ui-color-bg)",
+      "default": "--ui-color-bg",
       "description": "Background color"
     },
     {
       "name": "--ui-radio-bg-checked",
-      "default": "var(--ui-color-primary)",
+      "default": "--ui-color-primary",
       "description": "Bg checked"
     },
     {
       "name": "--ui-radio-border-color",
-      "default": "var(--ui-color-border-strong)",
+      "default": "--ui-color-border-strong",
       "description": "Border color"
     },
     {
       "name": "--ui-radio-border-color-focus",
-      "default": "var(--ui-color-primary)",
+      "default": "--ui-color-primary",
       "description": "Border color focus"
     },
     {
       "name": "--ui-radio-dot-color",
-      "default": "var(--ui-color-text-inverse)",
+      "default": "--ui-color-text-inverse",
       "description": "Dot color"
     },
     {
       "name": "--ui-radio-size-lg",
-      "default": "var(--ui-space-3)",
+      "default": "--ui-space-3",
       "defaultValue": "24px",
       "description": "Overall size at large size"
     },
     {
       "name": "--ui-radio-error-border",
-      "default": "var(--ui-color-danger)",
+      "default": "--ui-color-danger",
       "description": "Error border"
     },
     {
       "name": "--ui-radio-success-border",
-      "default": "var(--ui-color-success)",
+      "default": "--ui-color-success",
       "description": "Success border"
     }
   ]

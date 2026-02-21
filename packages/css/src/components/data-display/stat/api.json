@@ -14,65 +14,65 @@
   "cssVars": [
     {
       "name": "--ui-stat-letter-spacing",
-      "default": "var(--ui-letter-spacing-display)",
+      "default": "--ui-letter-spacing-display",
       "defaultValue": "-0.02em",
       "description": "Letter spacing"
     },
     {
       "name": "--ui-stat-gap",
-      "default": "var(--ui-space-1)",
+      "default": "--ui-space-1",
       "defaultValue": "8px",
       "description": "Gap between children"
     },
     {
       "name": "--ui-stat-value-font-size",
-      "default": "var(--ui-font-size-3xl)",
+      "default": "--ui-font-size-3xl",
       "defaultValue": "32px",
       "description": "Value display font size"
     },
     {
       "name": "--ui-stat-value-font-weight",
-      "default": "var(--ui-font-weight-bold)",
+      "default": "--ui-font-weight-bold",
       "defaultValue": "700",
       "description": "Value display font weight"
     },
     {
       "name": "--ui-stat-value-line-height",
-      "default": "var(--ui-line-height-3xl)",
+      "default": "--ui-line-height-3xl",
       "defaultValue": "40px",
       "description": "Value display line height"
     },
     {
       "name": "--ui-stat-value-color",
-      "default": "var(--ui-color-text)",
+      "default": "--ui-color-text",
       "description": "Value display text color"
     },
     {
       "name": "--ui-stat-label-font-size",
-      "default": "var(--ui-font-size-sm)",
+      "default": "--ui-font-size-sm",
       "defaultValue": "14px",
       "description": "Label font size"
     },
     {
       "name": "--ui-stat-label-color",
-      "default": "var(--ui-color-text-muted)",
+      "default": "--ui-color-text-muted",
       "description": "Label text color"
     },
     {
       "name": "--ui-stat-label-line-height",
-      "default": "var(--ui-line-height-sm)",
+      "default": "--ui-line-height-sm",
       "defaultValue": "24px",
       "description": "Label line height"
     },
     {
       "name": "--ui-stat-value-font-size-sm",
-      "default": "var(--ui-font-size-xl)",
+      "default": "--ui-font-size-xl",
       "defaultValue": "24px",
       "description": "Value font size at small size"
     },
     {
       "name": "--ui-stat-value-line-height-sm",
-      "default": "var(--ui-line-height-xl)",
+      "default": "--ui-line-height-xl",
       "defaultValue": "32px",
       "description": "Value line height at small size"
     }

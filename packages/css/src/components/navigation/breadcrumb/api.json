@@ -18,7 +18,7 @@
   "cssVars": [
     {
       "name": "--ui-breadcrumb-font-size",
-      "default": "var(--ui-font-size-sm)",
+      "default": "--ui-font-size-sm",
       "defaultValue": "14px",
       "description": "Font size"
     },
@@ -29,45 +29,45 @@
     },
     {
       "name": "--ui-breadcrumb-transition-duration",
-      "default": "var(--ui-duration-fast)",
+      "default": "--ui-duration-fast",
       "defaultValue": "100ms",
       "description": "Transition duration"
     },
     {
       "name": "--ui-breadcrumb-transition-timing",
-      "default": "var(--ui-ease-default)",
+      "default": "--ui-ease-default",
       "description": "Transition timing function"
     },
     {
       "name": "--ui-breadcrumb-link-hover-color",
-      "default": "var(--ui-color-primary)",
+      "default": "--ui-color-primary",
       "description": "Link hover color"
     },
     {
       "name": "--ui-breadcrumb-height",
-      "default": "var(--ui-row-1)",
+      "default": "--ui-row-1",
       "defaultValue": "16px",
       "description": "Overall height"
     },
     {
       "name": "--ui-breadcrumb-gap",
-      "default": "var(--ui-space-1)",
+      "default": "--ui-space-1",
       "defaultValue": "8px",
       "description": "Gap between children"
     },
     {
       "name": "--ui-breadcrumb-separator-color",
-      "default": "var(--ui-color-text-muted)",
+      "default": "--ui-color-text-muted",
       "description": "Separator text color"
     },
     {
       "name": "--ui-breadcrumb-link-color",
-      "default": "var(--ui-color-text-muted)",
+      "default": "--ui-color-text-muted",
       "description": "Link text color"
     },
     {
       "name": "--ui-breadcrumb-current-color",
-      "default": "var(--ui-color-text)",
+      "default": "--ui-color-text",
       "description": "Current color"
     }
   ]

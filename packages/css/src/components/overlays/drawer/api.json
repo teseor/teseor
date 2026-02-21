@@ -26,87 +26,87 @@
   "cssVars": [
     {
       "name": "--ui-drawer-z-index",
-      "default": "var(--ui-z-index-drawer)",
+      "default": "--ui-z-index-drawer",
       "defaultValue": "800",
       "description": "Z-index stacking order"
     },
     {
       "name": "--ui-drawer-backdrop-color",
-      "default": "var(--ui-overlay-bg)",
+      "default": "--ui-overlay-bg",
       "description": "Backdrop color"
     },
     {
       "name": "--ui-drawer-enter-duration",
-      "default": "var(--ui-duration-normal)",
+      "default": "--ui-duration-normal",
       "defaultValue": "200ms",
       "description": "Enter duration"
     },
     {
       "name": "--ui-drawer-enter-timing",
-      "default": "var(--ui-ease-out)",
+      "default": "--ui-ease-out",
       "description": "Enter timing function"
     },
     {
       "name": "--ui-drawer-exit-duration",
-      "default": "var(--ui-duration-fast)",
+      "default": "--ui-duration-fast",
       "defaultValue": "100ms",
       "description": "Exit duration"
     },
     {
       "name": "--ui-drawer-exit-timing",
-      "default": "var(--ui-ease-in)",
+      "default": "--ui-ease-in",
       "description": "Exit timing function"
     },
     {
       "name": "--ui-drawer-border-width",
-      "default": "var(--ui-border-width-sm)",
+      "default": "--ui-border-width-sm",
       "defaultValue": "1px",
       "description": "Border width"
     },
     {
       "name": "--ui-drawer-title-font-size",
-      "default": "var(--ui-font-size-lg)",
+      "default": "--ui-font-size-lg",
       "defaultValue": "20px",
       "description": "Title font size"
     },
     {
       "name": "--ui-drawer-title-font-weight",
-      "default": "var(--ui-font-weight-semibold)",
+      "default": "--ui-font-weight-semibold",
       "defaultValue": "600",
       "description": "Title font weight"
     },
     {
       "name": "--ui-drawer-title-line-height",
-      "default": "var(--ui-row-1)",
+      "default": "--ui-row-1",
       "defaultValue": "16px",
       "description": "Title line height"
     },
     {
       "name": "--ui-drawer-description-font-size",
-      "default": "var(--ui-font-size-sm)",
+      "default": "--ui-font-size-sm",
       "defaultValue": "14px",
       "description": "Description font size"
     },
     {
       "name": "--ui-drawer-description-color",
-      "default": "var(--ui-color-text-muted)",
+      "default": "--ui-color-text-muted",
       "description": "Description color"
     },
     {
       "name": "--ui-drawer-header-gap",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Header gap"
     },
     {
       "name": "--ui-drawer-footer-gap",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Footer gap"
     },
     {
       "name": "--ui-drawer-size",
-      "default": "var(--ui-unit-40)",
+      "default": "--ui-unit-40",
       "defaultValue": "320px",
       "description": "Overall size"
     },
@@ -117,47 +117,47 @@
     },
     {
       "name": "--ui-drawer-bg",
-      "default": "var(--ui-color-bg)",
+      "default": "--ui-color-bg",
       "description": "Background color"
     },
     {
       "name": "--ui-drawer-shadow",
-      "default": "var(--ui-shadow-lg)",
+      "default": "--ui-shadow-lg",
       "description": "Box shadow"
     },
     {
       "name": "--ui-drawer-header-padding-y",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Header padding on all sides"
     },
     {
       "name": "--ui-drawer-header-padding-x",
-      "default": "var(--ui-space-3)",
+      "default": "--ui-space-3",
       "defaultValue": "24px",
       "description": "Header horizontal padding"
     },
     {
       "name": "--ui-drawer-body-padding",
-      "default": "var(--ui-space-3)",
+      "default": "--ui-space-3",
       "defaultValue": "24px",
       "description": "Body area padding on all sides"
     },
     {
       "name": "--ui-drawer-footer-padding-y",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Footer padding on all sides"
     },
     {
       "name": "--ui-drawer-footer-padding-x",
-      "default": "var(--ui-space-3)",
+      "default": "--ui-space-3",
       "defaultValue": "24px",
       "description": "Footer horizontal padding"
     },
     {
       "name": "--ui-drawer-border-color",
-      "default": "var(--ui-color-border)",
+      "default": "--ui-color-border",
       "description": "Border color"
     }
   ]

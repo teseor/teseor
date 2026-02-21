@@ -28,40 +28,40 @@
   "cssVars": [
     {
       "name": "--ui-overlay-transition-duration",
-      "default": "var(--ui-duration-normal)",
+      "default": "--ui-duration-normal",
       "defaultValue": "200ms",
       "description": "Transition duration"
     },
     {
       "name": "--ui-overlay-transition-timing",
-      "default": "var(--ui-ease-default)",
+      "default": "--ui-ease-default",
       "description": "Transition timing function"
     },
     {
       "name": "--ui-overlay-blur-amount",
-      "default": "var(--ui-space-0)",
+      "default": "--ui-space-0",
       "defaultValue": "4px",
       "description": "Blur amount"
     },
     {
       "name": "--ui-overlay-bg",
-      "default": "var(--ui-overlay-bg)",
+      "default": "--ui-overlay-bg",
       "description": "Background color"
     },
     {
       "name": "--ui-overlay-z",
-      "default": "var(--ui-z-index-overlay)",
+      "default": "--ui-z-index-overlay",
       "defaultValue": "300",
       "description": "Z-index stacking order"
     },
     {
       "name": "--ui-overlay-bg-light",
-      "default": "var(--ui-overlay-bg-light)",
+      "default": "--ui-overlay-bg-light",
       "description": "Bg light"
     },
     {
       "name": "--ui-overlay-bg-blur",
-      "default": "var(--ui-overlay-bg-blur)",
+      "default": "--ui-overlay-bg-blur",
       "description": "Bg blur"
     }
   ]

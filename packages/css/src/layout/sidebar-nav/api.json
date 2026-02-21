@@ -36,52 +36,52 @@
   "cssVars": [
     {
       "name": "--ui-sidebar-nav-width",
-      "default": "var(--ui-unit-30)",
+      "default": "--ui-unit-30",
       "defaultValue": "240px",
       "description": "Overall width"
     },
     {
       "name": "--ui-sidebar-nav-bg",
-      "default": "var(--ui-color-bg-subtle)",
+      "default": "--ui-color-bg-subtle",
       "description": "Background color"
     },
     {
       "name": "--ui-sidebar-nav-border-color",
-      "default": "var(--ui-color-border)",
+      "default": "--ui-color-border",
       "description": "Border color"
     },
     {
       "name": "--ui-sidebar-nav-padding",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Padding on all sides"
     },
     {
       "name": "--ui-sidebar-nav-header-padding",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Header padding on all sides"
     },
     {
       "name": "--ui-sidebar-nav-footer-padding",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Footer padding on all sides"
     },
     {
       "name": "--ui-sidebar-nav-group-label-size",
-      "default": "var(--ui-size-xs)",
+      "default": "--ui-size-xs",
       "defaultValue": "8px",
       "description": "Group label size"
     },
     {
       "name": "--ui-sidebar-nav-group-label-color",
-      "default": "var(--ui-color-text-muted)",
+      "default": "--ui-color-text-muted",
       "description": "Group label color"
     },
     {
       "name": "--ui-sidebar-nav-group-label-weight",
-      "default": "var(--ui-font-weight-semibold)",
+      "default": "--ui-font-weight-semibold",
       "defaultValue": "600",
       "description": "Group label weight"
     },
@@ -97,25 +97,25 @@
     },
     {
       "name": "--ui-sidebar-nav-item-height",
-      "default": "var(--ui-row-2)",
+      "default": "--ui-row-2",
       "defaultValue": "32px",
       "description": "Item overall height"
     },
     {
       "name": "--ui-sidebar-nav-item-padding-inline",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Item horizontal padding"
     },
     {
       "name": "--ui-sidebar-nav-item-size",
-      "default": "var(--ui-size-sm)",
+      "default": "--ui-size-sm",
       "defaultValue": "12px",
       "description": "Item overall size"
     },
     {
       "name": "--ui-sidebar-nav-item-color",
-      "default": "var(--ui-color-text)",
+      "default": "--ui-color-text",
       "description": "Item text color"
     },
     {
@@ -125,23 +125,23 @@
     },
     {
       "name": "--ui-sidebar-nav-item-radius",
-      "default": "var(--ui-radius-sm)",
+      "default": "--ui-radius-sm",
       "defaultValue": "4px",
       "description": "Item corner radius"
     },
     {
       "name": "--ui-sidebar-nav-item-hover-bg",
-      "default": "var(--ui-color-bg-muted)",
+      "default": "--ui-color-bg-muted",
       "description": "Item hover bg"
     },
     {
       "name": "--ui-sidebar-nav-item-active-bg",
-      "default": "var(--ui-color-bg-muted)",
+      "default": "--ui-color-bg-muted",
       "description": "Item active bg"
     },
     {
       "name": "--ui-sidebar-nav-item-active-color",
-      "default": "var(--ui-color-primary)",
+      "default": "--ui-color-primary",
       "description": "Item active color"
     },
     {
@@ -151,13 +151,13 @@
     },
     {
       "name": "--ui-sidebar-nav-item-nested-indent",
-      "default": "var(--ui-space-4)",
+      "default": "--ui-space-4",
       "defaultValue": "32px",
       "description": "Item nested indent"
     },
     {
       "name": "--ui-sidebar-nav-width-collapsed",
-      "default": "var(--ui-row-3)",
+      "default": "--ui-row-3",
       "defaultValue": "48px",
       "description": "Width collapsed"
     }

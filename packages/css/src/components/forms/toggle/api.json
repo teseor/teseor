@@ -15,133 +15,133 @@
   "cssVars": [
     {
       "name": "--ui-toggle-transition-duration",
-      "default": "var(--ui-duration-fast)",
+      "default": "--ui-duration-fast",
       "defaultValue": "100ms",
       "description": "Transition duration"
     },
     {
       "name": "--ui-toggle-transition-timing",
-      "default": "var(--ui-ease-default)",
+      "default": "--ui-ease-default",
       "description": "Transition timing"
     },
     {
       "name": "--ui-toggle-focus-ring-color",
-      "default": "var(--ui-color-focus)",
+      "default": "--ui-color-focus",
       "description": "Focus ring color"
     },
     {
       "name": "--ui-toggle-focus-ring-width",
-      "default": "var(--ui-border-width-md)",
+      "default": "--ui-border-width-md",
       "defaultValue": "2px",
       "description": "Focus ring width"
     },
     {
       "name": "--ui-toggle-focus-ring-offset",
-      "default": "var(--ui-space-quarter)",
+      "default": "--ui-space-quarter",
       "defaultValue": "2px",
       "description": "Focus ring offset"
     },
     {
       "name": "--ui-toggle-disabled-opacity",
-      "default": "var(--ui-opacity-disabled)",
+      "default": "--ui-opacity-disabled",
       "defaultValue": "0.5",
       "description": "Disabled opacity"
     },
     {
       "name": "--ui-toggle-thumb-shadow",
-      "default": "var(--ui-slider-thumb-shadow)",
+      "default": "--ui-slider-thumb-shadow",
       "description": "Thumb shadow"
     },
     {
       "name": "--ui-toggle-track-width",
-      "default": "var(--ui-space-5)",
+      "default": "--ui-space-5",
       "defaultValue": "40px",
       "description": "Track width"
     },
     {
       "name": "--ui-toggle-track-height",
-      "default": "var(--ui-space-3)",
+      "default": "--ui-space-3",
       "defaultValue": "24px",
       "description": "Track height"
     },
     {
       "name": "--ui-toggle-track-bg",
-      "default": "var(--ui-color-bg-inset)",
+      "default": "--ui-color-bg-inset",
       "description": "Track background"
     },
     {
       "name": "--ui-toggle-track-bg-checked",
-      "default": "var(--ui-color-primary)",
+      "default": "--ui-color-primary",
       "description": "Track bg checked"
     },
     {
       "name": "--ui-toggle-track-radius",
-      "default": "var(--ui-size-sm)",
+      "default": "--ui-size-sm",
       "defaultValue": "12px",
       "description": "Track corner radius"
     },
     {
       "name": "--ui-toggle-thumb-size",
-      "default": "var(--ui-size-lg)",
+      "default": "--ui-size-lg",
       "defaultValue": "20px",
       "description": "Thumb control size"
     },
     {
       "name": "--ui-toggle-thumb-bg",
-      "default": "var(--ui-color-bg)",
+      "default": "--ui-color-bg",
       "description": "Thumb background"
     },
     {
       "name": "--ui-toggle-thumb-offset",
-      "default": "var(--ui-space-quarter)",
+      "default": "--ui-space-quarter",
       "defaultValue": "2px",
       "description": "Thumb control offset from anchor"
     },
     {
       "name": "--ui-toggle-track-width-sm",
-      "default": "var(--ui-space-4)",
+      "default": "--ui-space-4",
       "defaultValue": "32px",
       "description": "Track width at small size"
     },
     {
       "name": "--ui-toggle-track-height-sm",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Track height at small size"
     },
     {
       "name": "--ui-toggle-track-radius-sm",
-      "default": "var(--ui-unit)",
+      "default": "--ui-unit",
       "defaultValue": "8px",
       "description": "Track radius at small size"
     },
     {
       "name": "--ui-toggle-thumb-size-sm",
-      "default": "var(--ui-size-sm)",
+      "default": "--ui-size-sm",
       "defaultValue": "12px",
       "description": "Thumb size at small size"
     },
     {
       "name": "--ui-toggle-track-width-lg",
-      "default": "var(--ui-space-6)",
+      "default": "--ui-space-6",
       "defaultValue": "48px",
       "description": "Track width at large size"
     },
     {
       "name": "--ui-toggle-track-height-lg",
-      "default": "var(--ui-space-4)",
+      "default": "--ui-space-4",
       "defaultValue": "32px",
       "description": "Track height at large size"
     },
     {
       "name": "--ui-toggle-track-radius-lg",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Track radius at large size"
     },
     {
       "name": "--ui-toggle-thumb-size-lg",
-      "default": "var(--ui-unit-3-5)",
+      "default": "--ui-unit-3-5",
       "defaultValue": "28px",
       "description": "Thumb size at large size"
     }

@@ -21,60 +21,60 @@
   "cssVars": [
     {
       "name": "--ui-checkbox-group-line-height",
-      "default": "var(--ui-line-height-tight-sm)",
+      "default": "--ui-line-height-tight-sm",
       "defaultValue": "16px",
       "description": "Line height"
     },
     {
       "name": "--ui-checkbox-group-item-line-height",
-      "default": "var(--ui-row-1)",
+      "default": "--ui-row-1",
       "defaultValue": "16px",
       "description": "Item line height"
     },
     {
       "name": "--ui-checkbox-group-disabled-opacity",
-      "default": "var(--ui-opacity-disabled)",
+      "default": "--ui-opacity-disabled",
       "defaultValue": "0.5",
       "description": "Disabled opacity"
     },
     {
       "name": "--ui-checkbox-group-horizontal-gap",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Horizontal gap"
     },
     {
       "name": "--ui-checkbox-group-spacing",
-      "default": "var(--ui-space-1)",
+      "default": "--ui-space-1",
       "defaultValue": "8px",
       "description": "Spacing"
     },
     {
       "name": "--ui-checkbox-group-legend-size",
-      "default": "var(--ui-font-size-sm)",
+      "default": "--ui-font-size-sm",
       "defaultValue": "14px",
       "description": "Legend size"
     },
     {
       "name": "--ui-checkbox-group-legend-weight",
-      "default": "var(--ui-font-weight-medium)",
+      "default": "--ui-font-weight-medium",
       "defaultValue": "500",
       "description": "Legend weight"
     },
     {
       "name": "--ui-checkbox-group-legend-color",
-      "default": "var(--ui-color-text)",
+      "default": "--ui-color-text",
       "description": "Legend color"
     },
     {
       "name": "--ui-checkbox-group-legend-spacing",
-      "default": "var(--ui-space-1)",
+      "default": "--ui-space-1",
       "defaultValue": "8px",
       "description": "Legend spacing"
     },
     {
       "name": "--ui-checkbox-group-item-gap",
-      "default": "var(--ui-space-1)",
+      "default": "--ui-space-1",
       "defaultValue": "8px",
       "description": "Item gap between children"
     },
@@ -95,7 +95,7 @@
     },
     {
       "name": "--ui-checkbox-group-error-color",
-      "default": "var(--ui-color-danger)",
+      "default": "--ui-color-danger",
       "description": "Error color"
     }
   ]

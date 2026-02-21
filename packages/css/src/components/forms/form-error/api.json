@@ -9,18 +9,18 @@
   "cssVars": [
     {
       "name": "--ui-form-error-line-height",
-      "default": "var(--ui-line-height-tight-sm)",
+      "default": "--ui-line-height-tight-sm",
       "defaultValue": "16px",
       "description": "Line height"
     },
     {
       "name": "--ui-form-error-color",
-      "default": "var(--ui-color-danger)",
+      "default": "--ui-color-danger",
       "description": "Text color"
     },
     {
       "name": "--ui-form-error-size",
-      "default": "var(--ui-font-size-sm)",
+      "default": "--ui-font-size-sm",
       "defaultValue": "14px",
       "description": "Overall size"
     },

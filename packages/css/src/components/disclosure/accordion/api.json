@@ -13,24 +13,24 @@
   "cssVars": [
     {
       "name": "--ui-accordion-border-color",
-      "default": "var(--ui-color-border)",
+      "default": "--ui-color-border",
       "description": "Border color"
     },
     {
       "name": "--ui-accordion-border-width",
-      "default": "var(--ui-border-width-sm)",
+      "default": "--ui-border-width-sm",
       "defaultValue": "1px",
       "description": "Border thickness"
     },
     {
       "name": "--ui-accordion-radius",
-      "default": "var(--ui-radius-md)",
+      "default": "--ui-radius-md",
       "defaultValue": "8px",
       "description": "Corner radius"
     },
     {
       "name": "--ui-accordion-separated-gap",
-      "default": "var(--ui-space-1)",
+      "default": "--ui-space-1",
       "defaultValue": "8px",
       "description": "Gap between items in separated variant"
     }

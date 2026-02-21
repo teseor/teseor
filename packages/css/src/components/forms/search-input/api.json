@@ -24,170 +24,170 @@
   "cssVars": [
     {
       "name": "--ui-search-input-border-width",
-      "default": "var(--ui-border-width-sm)",
+      "default": "--ui-border-width-sm",
       "defaultValue": "1px",
       "description": "Border width"
     },
     {
       "name": "--ui-search-input-transition-duration",
-      "default": "var(--ui-duration-fast)",
+      "default": "--ui-duration-fast",
       "defaultValue": "100ms",
       "description": "Transition duration"
     },
     {
       "name": "--ui-search-input-transition-timing",
-      "default": "var(--ui-ease-default)",
+      "default": "--ui-ease-default",
       "description": "Transition timing"
     },
     {
       "name": "--ui-search-input-focus-ring-width",
-      "default": "var(--ui-border-width-md)",
+      "default": "--ui-border-width-md",
       "defaultValue": "2px",
       "description": "Focus ring width"
     },
     {
       "name": "--ui-search-input-focus-ring-color",
-      "default": "var(--ui-color-focus)",
+      "default": "--ui-color-focus",
       "description": "Focus ring color"
     },
     {
       "name": "--ui-search-input-disabled-opacity",
-      "default": "var(--ui-opacity-disabled)",
+      "default": "--ui-opacity-disabled",
       "defaultValue": "0.5",
       "description": "Disabled opacity"
     },
     {
       "name": "--ui-search-input-clear-inset-gap",
-      "default": "var(--ui-space-half)",
+      "default": "--ui-space-half",
       "description": "Clear inset gap"
     },
     {
       "name": "--ui-search-input-clear-radius",
-      "default": "var(--ui-radius-sm)",
+      "default": "--ui-radius-sm",
       "defaultValue": "4px",
       "description": "Clear border radius"
     },
     {
       "name": "--ui-search-input-icon-stroke",
-      "default": "var(--ui-icon-stroke)",
+      "default": "--ui-icon-stroke",
       "defaultValue": "2",
       "description": "Icon stroke width"
     },
     {
       "name": "--ui-search-input-focus-ring-offset",
-      "default": "var(--ui-focus-ring-offset)",
+      "default": "--ui-focus-ring-offset",
       "defaultValue": "-2px",
       "description": "Focus ring offset"
     },
     {
       "name": "--ui-search-input-height",
-      "default": "var(--ui-row-2)",
+      "default": "--ui-row-2",
       "defaultValue": "32px",
       "description": "Overall height"
     },
     {
       "name": "--ui-search-input-padding-x",
-      "default": "var(--ui-space-1)",
+      "default": "--ui-space-1",
       "defaultValue": "8px",
       "description": "Horizontal padding"
     },
     {
       "name": "--ui-search-input-font-size",
-      "default": "var(--ui-font-size-sm)",
+      "default": "--ui-font-size-sm",
       "defaultValue": "14px",
       "description": "Font size"
     },
     {
       "name": "--ui-search-input-radius",
-      "default": "var(--ui-radius-md)",
+      "default": "--ui-radius-md",
       "defaultValue": "8px",
       "description": "Corner radius"
     },
     {
       "name": "--ui-search-input-bg",
-      "default": "var(--ui-color-bg)",
+      "default": "--ui-color-bg",
       "description": "Background color"
     },
     {
       "name": "--ui-search-input-border-color",
-      "default": "var(--ui-color-border-strong)",
+      "default": "--ui-color-border-strong",
       "description": "Border color"
     },
     {
       "name": "--ui-search-input-border-color-focus",
-      "default": "var(--ui-color-primary)",
+      "default": "--ui-color-primary",
       "description": "Border color focus"
     },
     {
       "name": "--ui-search-input-text",
-      "default": "var(--ui-color-text)",
+      "default": "--ui-color-text",
       "description": "Text"
     },
     {
       "name": "--ui-search-input-placeholder",
-      "default": "var(--ui-color-text-muted)",
+      "default": "--ui-color-text-muted",
       "description": "Placeholder"
     },
     {
       "name": "--ui-search-input-icon-color",
-      "default": "var(--ui-color-text-muted)",
+      "default": "--ui-color-text-muted",
       "description": "Icon color"
     },
     {
       "name": "--ui-search-input-icon-size",
-      "default": "var(--ui-size-md)",
+      "default": "--ui-size-md",
       "defaultValue": "16px",
       "description": "Icon dimensions"
     },
     {
       "name": "--ui-search-input-clear-color",
-      "default": "var(--ui-color-text-muted)",
+      "default": "--ui-color-text-muted",
       "description": "Clear color"
     },
     {
       "name": "--ui-search-input-clear-hover-bg",
-      "default": "var(--ui-color-bg-muted)",
+      "default": "--ui-color-bg-muted",
       "description": "Clear hover bg"
     },
     {
       "name": "--ui-search-input-height-sm",
-      "default": "var(--ui-row-1-5)",
+      "default": "--ui-row-1-5",
       "defaultValue": "24px",
       "description": "Overall height at small size"
     },
     {
       "name": "--ui-search-input-font-size-sm",
-      "default": "var(--ui-font-size-xs)",
+      "default": "--ui-font-size-xs",
       "defaultValue": "12px",
       "description": "Font size at small size"
     },
     {
       "name": "--ui-search-input-icon-size-sm",
-      "default": "var(--ui-size-sm)",
+      "default": "--ui-size-sm",
       "defaultValue": "12px",
       "description": "Icon dimensions at small size"
     },
     {
       "name": "--ui-search-input-height-lg",
-      "default": "var(--ui-row-2-5)",
+      "default": "--ui-row-2-5",
       "defaultValue": "40px",
       "description": "Overall height at large size"
     },
     {
       "name": "--ui-search-input-padding-x-lg",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Horizontal padding at large size"
     },
     {
       "name": "--ui-search-input-font-size-lg",
-      "default": "var(--ui-font-size-md)",
+      "default": "--ui-font-size-md",
       "defaultValue": "16px",
       "description": "Font size at large size"
     },
     {
       "name": "--ui-search-input-icon-size-lg",
-      "default": "var(--ui-size-lg)",
+      "default": "--ui-size-lg",
       "defaultValue": "20px",
       "description": "Icon dimensions at large size"
     }

@@ -23,80 +23,80 @@
   "cssVars": [
     {
       "name": "--ui-code-block-border-width",
-      "default": "var(--ui-border-width-sm)",
+      "default": "--ui-border-width-sm",
       "defaultValue": "1px",
       "description": "Border width"
     },
     {
       "name": "--ui-code-block-font-family",
-      "default": "var(--ui-font-mono)",
+      "default": "--ui-font-mono",
       "description": "Font family"
     },
     {
       "name": "--ui-code-block-line-number-width",
-      "default": "var(--ui-space-4)",
+      "default": "--ui-space-4",
       "defaultValue": "32px",
       "description": "Line number min width"
     },
     {
       "name": "--ui-code-block-line-number-spacing",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Line number spacing"
     },
     {
       "name": "--ui-code-block-bg",
-      "default": "var(--ui-color-bg-muted)",
+      "default": "--ui-color-bg-muted",
       "description": "Background color"
     },
     {
       "name": "--ui-code-block-color",
-      "default": "var(--ui-color-text)",
+      "default": "--ui-color-text",
       "description": "Text color"
     },
     {
       "name": "--ui-code-block-border-color",
-      "default": "var(--ui-color-border)",
+      "default": "--ui-color-border",
       "description": "Border color"
     },
     {
       "name": "--ui-code-block-padding",
-      "default": "var(--ui-space-3)",
+      "default": "--ui-space-3",
       "defaultValue": "24px",
       "description": "Padding on all sides"
     },
     {
       "name": "--ui-code-block-font-size",
-      "default": "var(--ui-font-size-sm)",
+      "default": "--ui-font-size-sm",
       "defaultValue": "14px",
       "description": "Font size"
     },
     {
       "name": "--ui-code-block-line-height",
-      "default": "var(--ui-line-height-tight-sm)",
+      "default": "--ui-line-height-tight-sm",
       "defaultValue": "16px",
       "description": "Line height"
     },
     {
       "name": "--ui-code-block-radius",
-      "default": "var(--ui-radius-md)",
+      "default": "--ui-radius-md",
       "defaultValue": "8px",
       "description": "Corner radius"
     },
     {
       "name": "--ui-code-block-padding-compact",
-      "default": "var(--ui-space-1)",
+      "default": "--ui-space-1",
       "defaultValue": "8px",
       "description": "Padding compact"
     },
     {
       "name": "--ui-code-block-line-number-color",
-      "default": "var(--ui-color-text-muted)",
+      "default": "--ui-color-text-muted",
       "description": "Line number color"
     },
     {
       "name": "--ui-code-block-line-number-border-color",
-      "default": "var(--ui-color-border)",
+      "default": "--ui-color-border",
       "description": "Line number border color"
     }
   ]

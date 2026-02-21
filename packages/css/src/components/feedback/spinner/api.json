@@ -10,13 +10,13 @@
   "cssVars": [
     {
       "name": "--ui-spinner-size",
-      "default": "var(--ui-space-4)",
+      "default": "--ui-space-4",
       "defaultValue": "32px",
       "description": "Overall size"
     },
     {
       "name": "--ui-spinner-border-width",
-      "default": "var(--ui-border-width-md)",
+      "default": "--ui-border-width-md",
       "defaultValue": "2px",
       "description": "Border thickness"
     },
@@ -32,55 +32,55 @@
     },
     {
       "name": "--ui-spinner-duration",
-      "default": "var(--ui-spinner-duration)",
+      "default": "--ui-spinner-duration",
       "defaultValue": "750ms",
       "description": "Animation duration"
     },
     {
       "name": "--ui-spinner-size-xs",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Overall size at extra-small size"
     },
     {
       "name": "--ui-spinner-border-width-xs",
-      "default": "var(--ui-border-width-sm)",
+      "default": "--ui-border-width-sm",
       "defaultValue": "1px",
       "description": "Border thickness at extra-small size"
     },
     {
       "name": "--ui-spinner-size-sm",
-      "default": "var(--ui-space-3)",
+      "default": "--ui-space-3",
       "defaultValue": "24px",
       "description": "Overall size at small size"
     },
     {
       "name": "--ui-spinner-border-width-sm",
-      "default": "var(--ui-border-width-md)",
+      "default": "--ui-border-width-md",
       "defaultValue": "2px",
       "description": "Border thickness at small size"
     },
     {
       "name": "--ui-spinner-size-lg",
-      "default": "var(--ui-space-5)",
+      "default": "--ui-space-5",
       "defaultValue": "40px",
       "description": "Overall size at large size"
     },
     {
       "name": "--ui-spinner-border-width-lg",
-      "default": "var(--ui-border-width-md)",
+      "default": "--ui-border-width-md",
       "defaultValue": "2px",
       "description": "Border thickness at large size"
     },
     {
       "name": "--ui-spinner-size-xl",
-      "default": "var(--ui-space-6)",
+      "default": "--ui-space-6",
       "defaultValue": "48px",
       "description": "Overall size at extra-large size"
     },
     {
       "name": "--ui-spinner-border-width-xl",
-      "default": "var(--ui-border-width-lg)",
+      "default": "--ui-border-width-lg",
       "defaultValue": "4px",
       "description": "Border thickness at extra-large size"
     }

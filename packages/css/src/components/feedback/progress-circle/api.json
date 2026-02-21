@@ -20,35 +20,35 @@
   "cssVars": [
     {
       "name": "--ui-progress-circle-transition-duration",
-      "default": "var(--ui-duration-slow)",
+      "default": "--ui-duration-slow",
       "defaultValue": "250ms",
       "description": "Transition duration"
     },
     {
       "name": "--ui-progress-circle-transition-timing",
-      "default": "var(--ui-ease-default)",
+      "default": "--ui-ease-default",
       "description": "Transition timing function"
     },
     {
       "name": "--ui-progress-circle-size",
-      "default": "var(--ui-space-6)",
+      "default": "--ui-space-6",
       "defaultValue": "48px",
       "description": "Overall size"
     },
     {
       "name": "--ui-progress-circle-stroke-width",
-      "default": "var(--ui-progress-circle-stroke-width)",
+      "default": "--ui-progress-circle-stroke-width",
       "defaultValue": "8",
       "description": "Stroke width"
     },
     {
       "name": "--ui-progress-circle-fill-color",
-      "default": "var(--ui-color-primary)",
+      "default": "--ui-color-primary",
       "description": "Fill area text color"
     },
     {
       "name": "--ui-progress-circle-track-color",
-      "default": "var(--ui-color-border)",
+      "default": "--ui-color-border",
       "description": "Track text color"
     },
     {
@@ -58,19 +58,19 @@
     },
     {
       "name": "--ui-progress-circle-size-sm",
-      "default": "var(--ui-space-4)",
+      "default": "--ui-space-4",
       "defaultValue": "32px",
       "description": "Overall size at small size"
     },
     {
       "name": "--ui-progress-circle-size-lg",
-      "default": "var(--ui-space-8)",
+      "default": "--ui-space-8",
       "defaultValue": "64px",
       "description": "Overall size at large size"
     },
     {
       "name": "--ui-progress-circle-size-xl",
-      "default": "var(--ui-unit-12)",
+      "default": "--ui-unit-12",
       "defaultValue": "96px",
       "description": "Overall size at extra-large size"
     }

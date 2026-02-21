@@ -23,13 +23,13 @@
   "cssVars": [
     {
       "name": "--ui-image-line-height",
-      "default": "var(--ui-row-1)",
+      "default": "--ui-row-1",
       "defaultValue": "16px",
       "description": "Line height"
     },
     {
       "name": "--ui-image-fallback-min-size",
-      "default": "var(--ui-space-8)",
+      "default": "--ui-space-8",
       "defaultValue": "64px",
       "description": "Fallback minimum size"
     },
@@ -50,53 +50,53 @@
     },
     {
       "name": "--ui-image-bg",
-      "default": "var(--ui-color-bg-muted)",
+      "default": "--ui-color-bg-muted",
       "description": "Background color"
     },
     {
       "name": "--ui-image-caption-color",
-      "default": "var(--ui-color-text-muted)",
+      "default": "--ui-color-text-muted",
       "description": "Caption color"
     },
     {
       "name": "--ui-image-caption-font-size",
-      "default": "var(--ui-font-size-sm)",
+      "default": "--ui-font-size-sm",
       "defaultValue": "14px",
       "description": "Caption font size"
     },
     {
       "name": "--ui-image-caption-spacing",
-      "default": "var(--ui-space-1)",
+      "default": "--ui-space-1",
       "defaultValue": "8px",
       "description": "Caption spacing"
     },
     {
       "name": "--ui-image-size-sm",
-      "default": "var(--ui-unit-12)",
+      "default": "--ui-unit-12",
       "defaultValue": "96px",
       "description": "Overall size at small size"
     },
     {
       "name": "--ui-image-size-md",
-      "default": "var(--ui-unit-24)",
+      "default": "--ui-unit-24",
       "defaultValue": "192px",
       "description": "Overall size at medium size"
     },
     {
       "name": "--ui-image-size-lg",
-      "default": "var(--ui-unit-40)",
+      "default": "--ui-unit-40",
       "defaultValue": "320px",
       "description": "Overall size at large size"
     },
     {
       "name": "--ui-image-size-xl",
-      "default": "var(--ui-unit-60)",
+      "default": "--ui-unit-60",
       "defaultValue": "480px",
       "description": "Overall size at extra-large size"
     },
     {
       "name": "--ui-image-radius-rounded",
-      "default": "var(--ui-radius-lg)",
+      "default": "--ui-radius-lg",
       "defaultValue": "16px",
       "description": "Radius rounded"
     },

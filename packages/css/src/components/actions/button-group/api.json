@@ -10,19 +10,19 @@
   "cssVars": [
     {
       "name": "--ui-button-group-radius",
-      "default": "var(--ui-radius-md)",
+      "default": "--ui-radius-md",
       "defaultValue": "8px",
       "description": "Corner radius"
     },
     {
       "name": "--ui-button-group-border-width",
-      "default": "var(--ui-border-width-sm)",
+      "default": "--ui-border-width-sm",
       "defaultValue": "1px",
       "description": "Border thickness"
     },
     {
       "name": "--ui-button-group-overlap",
-      "default": "var(--ui-unit-neg-eighth)",
+      "default": "--ui-unit-neg-eighth",
       "defaultValue": "-1px",
       "description": "Negative overlap between adjacent buttons"
     }

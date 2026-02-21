@@ -29,69 +29,69 @@
   "cssVars": [
     {
       "name": "--ui-modal-transition-duration",
-      "default": "var(--ui-duration-normal)",
+      "default": "--ui-duration-normal",
       "defaultValue": "200ms",
       "description": "Transition duration"
     },
     {
       "name": "--ui-modal-transition-timing",
-      "default": "var(--ui-ease-default)",
+      "default": "--ui-ease-default",
       "description": "Transition timing function"
     },
     {
       "name": "--ui-modal-viewport-padding",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Viewport padding"
     },
     {
       "name": "--ui-modal-bg",
-      "default": "var(--ui-color-bg)",
+      "default": "--ui-color-bg",
       "description": "Background color"
     },
     {
       "name": "--ui-modal-radius",
-      "default": "var(--ui-radius-lg)",
+      "default": "--ui-radius-lg",
       "defaultValue": "16px",
       "description": "Corner radius"
     },
     {
       "name": "--ui-modal-shadow",
-      "default": "var(--ui-shadow-lg)",
+      "default": "--ui-shadow-lg",
       "description": "Box shadow"
     },
     {
       "name": "--ui-modal-padding",
-      "default": "var(--ui-space-3)",
+      "default": "--ui-space-3",
       "defaultValue": "24px",
       "description": "Padding on all sides"
     },
     {
       "name": "--ui-modal-max-width",
-      "default": "var(--ui-unit-60)",
+      "default": "--ui-unit-60",
       "defaultValue": "480px",
       "description": "Maximum width"
     },
     {
       "name": "--ui-modal-max-height",
-      "default": "var(--ui-viewport-max-height)",
+      "default": "--ui-viewport-max-height",
       "description": "Maximum height"
     },
     {
       "name": "--ui-modal-z",
-      "default": "var(--ui-z-index-modal)",
+      "default": "--ui-z-index-modal",
       "defaultValue": "400",
       "description": "Z-index stacking order"
     },
     {
       "name": "--ui-modal-max-width-sm",
-      "default": "var(--ui-unit-40)",
+      "default": "--ui-unit-40",
       "defaultValue": "320px",
       "description": "Maximum width at small size"
     },
     {
       "name": "--ui-modal-max-width-lg",
-      "default": "var(--ui-unit-80)",
+      "default": "--ui-unit-80",
       "defaultValue": "640px",
       "description": "Maximum width at large size"
     }

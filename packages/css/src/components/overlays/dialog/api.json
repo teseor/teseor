@@ -17,72 +17,72 @@
   "cssVars": [
     {
       "name": "--ui-dialog-title-font-size",
-      "default": "var(--ui-font-size-lg)",
+      "default": "--ui-font-size-lg",
       "defaultValue": "20px",
       "description": "Title font size"
     },
     {
       "name": "--ui-dialog-title-font-weight",
-      "default": "var(--ui-font-weight-semibold)",
+      "default": "--ui-font-weight-semibold",
       "defaultValue": "600",
       "description": "Title font weight"
     },
     {
       "name": "--ui-dialog-title-line-height",
-      "default": "var(--ui-space-3)",
+      "default": "--ui-space-3",
       "defaultValue": "24px",
       "description": "Title line height"
     },
     {
       "name": "--ui-dialog-header-gap",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Header gap"
     },
     {
       "name": "--ui-dialog-footer-gap",
-      "default": "var(--ui-size-sm)",
+      "default": "--ui-size-sm",
       "defaultValue": "12px",
       "description": "Footer gap"
     },
     {
       "name": "--ui-dialog-header-padding-y",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Header vertical padding"
     },
     {
       "name": "--ui-dialog-header-padding-x",
-      "default": "var(--ui-space-3)",
+      "default": "--ui-space-3",
       "defaultValue": "24px",
       "description": "Header horizontal padding"
     },
     {
       "name": "--ui-dialog-body-padding",
-      "default": "var(--ui-space-3)",
+      "default": "--ui-space-3",
       "defaultValue": "24px",
       "description": "Body area padding on all sides"
     },
     {
       "name": "--ui-dialog-footer-padding-y",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Footer vertical padding"
     },
     {
       "name": "--ui-dialog-footer-padding-x",
-      "default": "var(--ui-space-3)",
+      "default": "--ui-space-3",
       "defaultValue": "24px",
       "description": "Footer horizontal padding"
     },
     {
       "name": "--ui-dialog-border-color",
-      "default": "var(--ui-color-border)",
+      "default": "--ui-color-border",
       "description": "Border color"
     },
     {
       "name": "--ui-dialog-border-width",
-      "default": "var(--ui-border-width-sm)",
+      "default": "--ui-border-width-sm",
       "defaultValue": "1px",
       "description": "Border thickness"
     }

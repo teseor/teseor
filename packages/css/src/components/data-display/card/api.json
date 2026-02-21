@@ -26,84 +26,84 @@
   "cssVars": [
     {
       "name": "--ui-card-line-height",
-      "default": "var(--ui-row-1)",
+      "default": "--ui-row-1",
       "defaultValue": "16px",
       "description": "Line height"
     },
     {
       "name": "--ui-card-transition-duration",
-      "default": "var(--ui-duration-fast)",
+      "default": "--ui-duration-fast",
       "defaultValue": "100ms",
       "description": "Transition duration"
     },
     {
       "name": "--ui-card-transition-timing",
-      "default": "var(--ui-ease-default)",
+      "default": "--ui-ease-default",
       "description": "Transition timing"
     },
     {
       "name": "--ui-card-padding",
-      "default": "var(--ui-space-4)",
+      "default": "--ui-space-4",
       "defaultValue": "32px",
       "description": "Padding on all sides"
     },
     {
       "name": "--ui-card-border-width",
-      "default": "var(--ui-border-width-sm)",
+      "default": "--ui-border-width-sm",
       "defaultValue": "1px",
       "description": "Border thickness"
     },
     {
       "name": "--ui-card-bg",
-      "default": "var(--ui-color-bg)",
+      "default": "--ui-color-bg",
       "description": "Background color"
     },
     {
       "name": "--ui-card-border-color",
-      "default": "var(--ui-color-border)",
+      "default": "--ui-color-border",
       "description": "Border color"
     },
     {
       "name": "--ui-card-radius",
-      "default": "var(--ui-radius-md)",
+      "default": "--ui-radius-md",
       "defaultValue": "8px",
       "description": "Corner radius"
     },
     {
       "name": "--ui-card-bg-subtle",
-      "default": "var(--ui-color-bg-subtle)",
+      "default": "--ui-color-bg-subtle",
       "description": "Bg subtle"
     },
     {
       "name": "--ui-card-bg-muted",
-      "default": "var(--ui-color-bg-muted)",
+      "default": "--ui-color-bg-muted",
       "description": "Bg muted"
     },
     {
       "name": "--ui-card-padding-sm",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Padding on all sides at small size"
     },
     {
       "name": "--ui-card-padding-lg",
-      "default": "var(--ui-space-6)",
+      "default": "--ui-space-6",
       "defaultValue": "48px",
       "description": "Padding on all sides at large size"
     },
     {
       "name": "--ui-card-bg-hover",
-      "default": "var(--ui-color-bg-subtle)",
+      "default": "--ui-color-bg-subtle",
       "description": "Bg hover"
     },
     {
       "name": "--ui-card-border-color-hover",
-      "default": "var(--ui-color-border-strong)",
+      "default": "--ui-color-border-strong",
       "description": "Border color hover"
     },
     {
       "name": "--ui-card-bg-active",
-      "default": "var(--ui-color-bg-muted)",
+      "default": "--ui-color-bg-muted",
       "description": "Bg active"
     }
   ]

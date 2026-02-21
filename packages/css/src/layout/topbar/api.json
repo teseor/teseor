@@ -24,29 +24,29 @@
   "cssVars": [
     {
       "name": "--ui-topbar-height",
-      "default": "var(--ui-row-3)",
+      "default": "--ui-row-3",
       "defaultValue": "48px",
       "description": "Overall height"
     },
     {
       "name": "--ui-topbar-bg",
-      "default": "var(--ui-color-bg)",
+      "default": "--ui-color-bg",
       "description": "Background color"
     },
     {
       "name": "--ui-topbar-padding-inline",
-      "default": "var(--ui-space-3)",
+      "default": "--ui-space-3",
       "defaultValue": "24px",
       "description": "Horizontal padding"
     },
     {
       "name": "--ui-topbar-border-color",
-      "default": "var(--ui-color-border)",
+      "default": "--ui-color-border",
       "description": "Border color"
     },
     {
       "name": "--ui-topbar-z",
-      "default": "var(--ui-z-index-sticky)",
+      "default": "--ui-z-index-sticky",
       "defaultValue": "100",
       "description": "Z-index stacking order"
     }

@@ -19,18 +19,18 @@
   "cssVars": [
     {
       "name": "--ui-status-size",
-      "default": "var(--ui-space-1)",
+      "default": "--ui-space-1",
       "defaultValue": "8px",
       "description": "Overall size"
     },
     {
       "name": "--ui-status-color",
-      "default": "var(--ui-color-text-muted)",
+      "default": "--ui-color-text-muted",
       "description": "Text color"
     },
     {
       "name": "--ui-status-gap",
-      "default": "var(--ui-space-1)",
+      "default": "--ui-space-1",
       "defaultValue": "8px",
       "description": "Gap between children"
     }

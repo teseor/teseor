@@ -18,7 +18,7 @@
   "cssVars": [
     {
       "name": "--ui-page-header-padding-block",
-      "default": "var(--ui-space-3)",
+      "default": "--ui-space-3",
       "defaultValue": "24px",
       "description": "Vertical padding"
     },
@@ -29,13 +29,13 @@
     },
     {
       "name": "--ui-page-header-gap",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Gap between children"
     },
     {
       "name": "--ui-page-header-border-color",
-      "default": "var(--ui-color-border)",
+      "default": "--ui-color-border",
       "description": "Border color"
     }
   ]

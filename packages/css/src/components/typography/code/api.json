@@ -15,82 +15,82 @@
   "cssVars": [
     {
       "name": "--ui-code-font-family",
-      "default": "var(--ui-font-mono)",
+      "default": "--ui-font-mono",
       "description": "Font family"
     },
     {
       "name": "--ui-code-line-height",
-      "default": "var(--ui-line-height-tight-sm)",
+      "default": "--ui-line-height-tight-sm",
       "defaultValue": "16px",
       "description": "Line height"
     },
     {
       "name": "--ui-code-border-width",
-      "default": "var(--ui-border-width-sm)",
+      "default": "--ui-border-width-sm",
       "defaultValue": "1px",
       "description": "Border width"
     },
     {
       "name": "--ui-code-font-size",
-      "default": "var(--ui-font-size-sm)",
+      "default": "--ui-font-size-sm",
       "defaultValue": "14px",
       "description": "Font size"
     },
     {
       "name": "--ui-code-bg",
-      "default": "var(--ui-color-bg-muted)",
+      "default": "--ui-color-bg-muted",
       "description": "Background color"
     },
     {
       "name": "--ui-code-padding-x",
-      "default": "var(--ui-space-1)",
+      "default": "--ui-space-1",
       "defaultValue": "8px",
       "description": "Horizontal padding"
     },
     {
       "name": "--ui-code-padding-y",
-      "default": "var(--ui-space-0)",
+      "default": "--ui-space-0",
       "defaultValue": "4px",
       "description": "Vertical padding"
     },
     {
       "name": "--ui-code-radius",
-      "default": "var(--ui-radius-sm)",
+      "default": "--ui-radius-sm",
       "defaultValue": "4px",
       "description": "Corner radius"
     },
     {
       "name": "--ui-code-font-size-sm",
-      "default": "var(--ui-font-size-xs)",
+      "default": "--ui-font-size-xs",
       "defaultValue": "12px",
       "description": "Font size at small size"
     },
     {
       "name": "--ui-code-font-size-block",
-      "default": "var(--ui-font-size-sm)",
+      "default": "--ui-font-size-sm",
       "defaultValue": "14px",
       "description": "Font size block"
     },
     {
       "name": "--ui-code-bg-block",
-      "default": "var(--ui-color-bg-muted)",
+      "default": "--ui-color-bg-muted",
       "description": "Bg block"
     },
     {
       "name": "--ui-code-padding-block",
-      "default": "var(--ui-space-3)",
+      "default": "--ui-space-3",
       "defaultValue": "24px",
       "description": "Vertical padding"
     },
     {
       "name": "--ui-code-radius-block",
-      "default": "var(--ui-radius-md)",
+      "default": "--ui-radius-md",
       "defaultValue": "8px",
       "description": "Radius block"
     },
     {
       "name": "--ui-code-border-color-block",
-      "default": "var(--ui-color-border)",
+      "default": "--ui-color-border",
       "description": "Border color block"
     }
   ]

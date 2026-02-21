@@ -18,35 +18,35 @@
   "cssVars": [
     {
       "name": "--ui-disclosure-trigger-font-weight",
-      "default": "var(--ui-font-weight-medium)",
+      "default": "--ui-font-weight-medium",
       "defaultValue": "500",
       "description": "Trigger font weight"
     },
     {
       "name": "--ui-disclosure-trigger-hover-bg",
-      "default": "var(--ui-color-bg-subtle)",
+      "default": "--ui-color-bg-subtle",
       "description": "Trigger hover background"
     },
     {
       "name": "--ui-disclosure-icon-transition-duration",
-      "default": "var(--ui-duration-fast)",
+      "default": "--ui-duration-fast",
       "defaultValue": "100ms",
       "description": "Icon rotation transition duration"
     },
     {
       "name": "--ui-disclosure-transition-timing",
-      "default": "var(--ui-ease-default)",
+      "default": "--ui-ease-default",
       "description": "Transition timing function"
     },
     {
       "name": "--ui-disclosure-animation-duration",
-      "default": "var(--ui-duration-normal)",
+      "default": "--ui-duration-normal",
       "defaultValue": "200ms",
       "description": "Content animation duration"
     },
     {
       "name": "--ui-disclosure-trigger-gap",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Trigger gap between label and icon"
     },
@@ -57,36 +57,36 @@
     },
     {
       "name": "--ui-disclosure-border-color",
-      "default": "var(--ui-color-border)",
+      "default": "--ui-color-border",
       "description": "Border color"
     },
     {
       "name": "--ui-disclosure-border-width",
-      "default": "var(--ui-border-width-sm)",
+      "default": "--ui-border-width-sm",
       "defaultValue": "1px",
       "description": "Border thickness"
     },
     {
       "name": "--ui-disclosure-radius",
-      "default": "var(--ui-radius-md)",
+      "default": "--ui-radius-md",
       "defaultValue": "8px",
       "description": "Corner radius"
     },
     {
       "name": "--ui-disclosure-trigger-height",
-      "default": "var(--ui-row-3)",
+      "default": "--ui-row-3",
       "defaultValue": "48px",
       "description": "Trigger overall height"
     },
     {
       "name": "--ui-disclosure-padding-x",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Horizontal padding"
     },
     {
       "name": "--ui-disclosure-padding-y",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Vertical padding"
     }

@@ -30,91 +30,91 @@
   "cssVars": [
     {
       "name": "--ui-tabs-list-gap",
-      "default": "var(--ui-space-1)",
+      "default": "--ui-space-1",
       "defaultValue": "8px",
       "description": "List gap"
     },
     {
       "name": "--ui-tabs-border-width",
-      "default": "var(--ui-border-width-sm)",
+      "default": "--ui-border-width-sm",
       "defaultValue": "1px",
       "description": "Border width"
     },
     {
       "name": "--ui-tabs-font-family",
-      "default": "var(--ui-font-sans)",
+      "default": "--ui-font-sans",
       "description": "Font family"
     },
     {
       "name": "--ui-tabs-tab-font-weight",
-      "default": "var(--ui-font-weight-medium)",
+      "default": "--ui-font-weight-medium",
       "defaultValue": "500",
       "description": "Tab font weight"
     },
     {
       "name": "--ui-tabs-tab-color",
-      "default": "var(--ui-color-text-muted)",
+      "default": "--ui-color-text-muted",
       "description": "Tab color"
     },
     {
       "name": "--ui-tabs-indicator-width",
-      "default": "var(--ui-border-width-md)",
+      "default": "--ui-border-width-md",
       "defaultValue": "2px",
       "description": "Indicator width"
     },
     {
       "name": "--ui-tabs-transition-duration",
-      "default": "var(--ui-duration-base)",
+      "default": "--ui-duration-base",
       "defaultValue": "150ms",
       "description": "Transition duration"
     },
     {
       "name": "--ui-tabs-transition-timing",
-      "default": "var(--ui-ease-default)",
+      "default": "--ui-ease-default",
       "description": "Transition timing function"
     },
     {
       "name": "--ui-tabs-tab-hover-color",
-      "default": "var(--ui-color-text)",
+      "default": "--ui-color-text",
       "description": "Tab hover color"
     },
     {
       "name": "--ui-tabs-tab-active-color",
-      "default": "var(--ui-color-primary)",
+      "default": "--ui-color-primary",
       "description": "Tab active color"
     },
     {
       "name": "--ui-tabs-panel-line-height",
-      "default": "var(--ui-row-1)",
+      "default": "--ui-row-1",
       "defaultValue": "16px",
       "description": "Panel line height"
     },
     {
       "name": "--ui-tabs-border-color",
-      "default": "var(--ui-color-border)",
+      "default": "--ui-color-border",
       "description": "Border color"
     },
     {
       "name": "--ui-tabs-tab-height",
-      "default": "var(--ui-row-2)",
+      "default": "--ui-row-2",
       "defaultValue": "32px",
       "description": "Tab height"
     },
     {
       "name": "--ui-tabs-tab-padding-x",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Tab padding x"
     },
     {
       "name": "--ui-tabs-tab-padding-y",
-      "default": "var(--ui-space-1)",
+      "default": "--ui-space-1",
       "defaultValue": "8px",
       "description": "Tab padding y"
     },
     {
       "name": "--ui-tabs-tab-font-size",
-      "default": "var(--ui-font-size-sm)",
+      "default": "--ui-font-size-sm",
       "defaultValue": "14px",
       "description": "Tab font size"
     },
@@ -125,54 +125,54 @@
     },
     {
       "name": "--ui-tabs-tab-bg-active",
-      "default": "var(--ui-color-bg)",
+      "default": "--ui-color-bg",
       "description": "Tab bg active"
     },
     {
       "name": "--ui-tabs-tab-line-height",
-      "default": "var(--ui-line-height-none)",
+      "default": "--ui-line-height-none",
       "defaultValue": "1",
       "description": "Tab line height"
     },
     {
       "name": "--ui-tabs-panel-padding",
-      "default": "var(--ui-space-3)",
+      "default": "--ui-space-3",
       "defaultValue": "24px",
       "description": "Panel padding on all sides"
     },
     {
       "name": "--ui-tabs-tab-height-sm",
-      "default": "var(--ui-row-1)",
+      "default": "--ui-row-1",
       "defaultValue": "16px",
       "description": "Tab height sm"
     },
     {
       "name": "--ui-tabs-tab-padding-x-sm",
-      "default": "var(--ui-space-1)",
+      "default": "--ui-space-1",
       "defaultValue": "8px",
       "description": "Tab padding x sm"
     },
     {
       "name": "--ui-tabs-tab-font-size-sm",
-      "default": "var(--ui-font-size-xs)",
+      "default": "--ui-font-size-xs",
       "defaultValue": "12px",
       "description": "Tab font size sm"
     },
     {
       "name": "--ui-tabs-tab-height-lg",
-      "default": "var(--ui-row-2-5)",
+      "default": "--ui-row-2-5",
       "defaultValue": "40px",
       "description": "Tab height lg"
     },
     {
       "name": "--ui-tabs-tab-padding-x-lg",
-      "default": "var(--ui-space-3)",
+      "default": "--ui-space-3",
       "defaultValue": "24px",
       "description": "Tab padding x lg"
     },
     {
       "name": "--ui-tabs-tab-font-size-lg",
-      "default": "var(--ui-font-size-md)",
+      "default": "--ui-font-size-md",
       "defaultValue": "16px",
       "description": "Tab font size lg"
     }

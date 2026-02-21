@@ -16,76 +16,76 @@
   "cssVars": [
     {
       "name": "--ui-fieldset-line-height",
-      "default": "var(--ui-line-height-tight-sm)",
+      "default": "--ui-line-height-tight-sm",
       "defaultValue": "16px",
       "description": "Line height"
     },
     {
       "name": "--ui-fieldset-legend-inline-padding",
-      "default": "var(--ui-space-half)",
+      "default": "--ui-space-half",
       "description": "Legend inline padding"
     },
     {
       "name": "--ui-fieldset-disabled-opacity",
-      "default": "var(--ui-opacity-disabled)",
+      "default": "--ui-opacity-disabled",
       "defaultValue": "0.5",
       "description": "Disabled opacity"
     },
     {
       "name": "--ui-fieldset-spacing",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Spacing"
     },
     {
       "name": "--ui-fieldset-border-color",
-      "default": "var(--ui-color-border)",
+      "default": "--ui-color-border",
       "description": "Border color"
     },
     {
       "name": "--ui-fieldset-border-width",
-      "default": "var(--ui-border-width-sm)",
+      "default": "--ui-border-width-sm",
       "defaultValue": "1px",
       "description": "Border thickness"
     },
     {
       "name": "--ui-fieldset-border-radius",
-      "default": "var(--ui-radius-md)",
+      "default": "--ui-radius-md",
       "defaultValue": "8px",
       "description": "Border radius"
     },
     {
       "name": "--ui-fieldset-padding",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Padding on all sides"
     },
     {
       "name": "--ui-fieldset-legend-size",
-      "default": "var(--ui-font-size-sm)",
+      "default": "--ui-font-size-sm",
       "defaultValue": "14px",
       "description": "Legend size"
     },
     {
       "name": "--ui-fieldset-legend-weight",
-      "default": "var(--ui-font-weight-medium)",
+      "default": "--ui-font-weight-medium",
       "defaultValue": "500",
       "description": "Legend weight"
     },
     {
       "name": "--ui-fieldset-legend-color",
-      "default": "var(--ui-color-text)",
+      "default": "--ui-color-text",
       "description": "Legend color"
     },
     {
       "name": "--ui-fieldset-spacing-compact",
-      "default": "var(--ui-space-1)",
+      "default": "--ui-space-1",
       "defaultValue": "8px",
       "description": "Spacing compact"
     },
     {
       "name": "--ui-fieldset-padding-compact",
-      "default": "var(--ui-space-1)",
+      "default": "--ui-space-1",
       "defaultValue": "8px",
       "description": "Padding compact"
     }

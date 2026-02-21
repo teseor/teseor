@@ -25,45 +25,45 @@
   "cssVars": [
     {
       "name": "--ui-progress-transition-duration",
-      "default": "var(--ui-duration-normal)",
+      "default": "--ui-duration-normal",
       "defaultValue": "200ms",
       "description": "Transition duration"
     },
     {
       "name": "--ui-progress-transition-timing",
-      "default": "var(--ui-ease-default)",
+      "default": "--ui-ease-default",
       "description": "Transition timing function"
     },
     {
       "name": "--ui-progress-stripe-highlight",
-      "default": "var(--ui-stripe-highlight)",
+      "default": "--ui-stripe-highlight",
       "description": "Stripe highlight color"
     },
     {
       "name": "--ui-progress-stripe-size",
-      "default": "var(--ui-unit)",
+      "default": "--ui-unit",
       "defaultValue": "8px",
       "description": "Stripe size"
     },
     {
       "name": "--ui-progress-height",
-      "default": "var(--ui-space-1)",
+      "default": "--ui-space-1",
       "defaultValue": "8px",
       "description": "Overall height"
     },
     {
       "name": "--ui-progress-bg",
-      "default": "var(--ui-color-bg-inset)",
+      "default": "--ui-color-bg-inset",
       "description": "Background color"
     },
     {
       "name": "--ui-progress-fill",
-      "default": "var(--ui-color-primary)",
+      "default": "--ui-color-primary",
       "description": "Fill"
     },
     {
       "name": "--ui-progress-radius",
-      "default": "var(--ui-radius-full)",
+      "default": "--ui-radius-full",
       "defaultValue": "9999px",
       "description": "Corner radius"
     }
