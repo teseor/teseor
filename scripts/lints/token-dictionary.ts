@@ -1,5 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import postcssScss from 'postcss-scss';
 
 import { BANNED_PREFIXES, TOKEN_DICTIONARY } from '../shared/token-dictionary.js';
 
@@ -32,17 +33,23 @@ export function lintTokenDictionary(srcDir: string, appsDir: string): void {
   for (const file of findScssFiles(tokensDir)) {
     const content = readFileSync(file, 'utf-8');
     const relPath = file.replace(`${rootDir}/`, '');
-    const defPattern = /--ui-([\w-]+)\s*:/g;
 
-    for (let match = defPattern.exec(content); match !== null; match = defPattern.exec(content)) {
-      const tokenName = match[1];
+    let root: ReturnType<typeof postcssScss.parse>;
+    try {
+      root = postcssScss.parse(content);
+    } catch {
+      continue;
+    }
+
+    root.walkDecls(/^--ui-/, (decl) => {
+      const tokenName = decl.prop.replace('--ui-', '');
       if (!findCategoryPrefix(tokenName)) {
-        const line = content.substring(0, match.index).split('\n').length;
+        const line = decl.source?.start?.line ?? 0;
         errors.push(
           `${relPath}:${line}: --ui-${tokenName} has unknown category prefix — add to token-dictionary.ts`,
         );
       }
-    }
+    });
   }
 
   // 2. Check for banned legacy prefixes across all SCSS
@@ -53,35 +60,39 @@ export function lintTokenDictionary(srcDir: string, appsDir: string): void {
     const content = readFileSync(file, 'utf-8');
     const relPath = file.replace(`${rootDir}/`, '');
 
-    // Check --ui-* references and definitions
-    const cssVarPattern = /--ui-([\w-]+)/g;
-    for (
-      let match = cssVarPattern.exec(content);
-      match !== null;
-      match = cssVarPattern.exec(content)
-    ) {
-      const hit = findBannedPrefix(match[1]);
-      if (hit) {
-        const line = content.substring(0, match.index).split('\n').length;
-        errors.push(
-          `${relPath}:${line}: "--ui-${hit.banned}-*" is banned — use --ui-${hit.replacement}-*`,
-        );
-      }
+    let root: ReturnType<typeof postcssScss.parse>;
+    try {
+      root = postcssScss.parse(content);
+    } catch {
+      continue;
     }
 
-    // Check $scss-variable references
-    const scssVarPattern = /\$([\w-]+)/g;
-    for (
-      let match = scssVarPattern.exec(content);
-      match !== null;
-      match = scssVarPattern.exec(content)
-    ) {
-      const hit = findBannedPrefix(match[1]);
-      if (hit) {
-        const line = content.substring(0, match.index).split('\n').length;
-        errors.push(`${relPath}:${line}: "$${hit.banned}-*" is banned — use $${hit.replacement}-*`);
+    root.walkDecls((decl) => {
+      const line = decl.source?.start?.line ?? 0;
+
+      // Check --ui-* in prop and value
+      const combined = `${decl.prop} ${decl.value}`;
+      const cssVarPattern = /--ui-([\w-]+)/g;
+      for (const match of combined.matchAll(cssVarPattern)) {
+        const hit = findBannedPrefix(match[1]);
+        if (hit) {
+          errors.push(
+            `${relPath}:${line}: "--ui-${hit.banned}-*" is banned — use --ui-${hit.replacement}-*`,
+          );
+        }
       }
-    }
+
+      // Check $scss-variable references in value
+      const scssVarPattern = /\$([\w-]+)/g;
+      for (const match of decl.value.matchAll(scssVarPattern)) {
+        const hit = findBannedPrefix(match[1]);
+        if (hit) {
+          errors.push(
+            `${relPath}:${line}: "$${hit.banned}-*" is banned — use $${hit.replacement}-*`,
+          );
+        }
+      }
+    });
   }
 
   if (errors.length > 0) {

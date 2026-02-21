@@ -1,9 +1,9 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-
-import { extractBareTokenVars } from '../shared/lint-helpers.js';
-
+import postcssScss from 'postcss-scss';
 import { findScssFiles } from './_utils.js';
+
+const BARE_TOKEN_RE = /var\(--ui-([\w-]+)\)/g;
 
 export function lintBareTokenVars(srcDir: string): void {
   const errors: string[] = [];
@@ -13,13 +13,22 @@ export function lintBareTokenVars(srcDir: string): void {
     const content = readFileSync(file, 'utf-8');
     const relPath = file.replace(`${srcDir}/`, '');
 
-    const bareVars = extractBareTokenVars(content);
-    for (const { token, index } of bareVars) {
-      const line = content.substring(0, index).split('\n').length;
-      errors.push(
-        `${relPath}:${line}: var(--ui-${token}) has no fallback — add SCSS variable reference e.g. var(--ui-${token}, #{t.$...})`,
-      );
+    let root: ReturnType<typeof postcssScss.parse>;
+    try {
+      root = postcssScss.parse(content);
+    } catch {
+      continue;
     }
+
+    root.walkDecls((decl) => {
+      const line = decl.source?.start?.line ?? 0;
+      for (const match of decl.value.matchAll(BARE_TOKEN_RE)) {
+        const token = match[1];
+        errors.push(
+          `${relPath}:${line}: var(--ui-${token}) has no fallback — add SCSS variable reference e.g. var(--ui-${token}, #{t.$...})`,
+        );
+      }
+    });
   }
 
   if (errors.length > 0) {

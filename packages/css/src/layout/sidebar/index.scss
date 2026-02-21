@@ -17,7 +17,7 @@
     inset-inline-start: 0;
     z-index: var(--_z-sticky);
 
-    block-size: calc(100vh - var(--ui-topbar-height, 0px));
+    block-size: calc(100vh - var(--ui-topbar-height, 0));
     inline-size: var(--ui-sidebar-width, calc(var(--_unit) * 30));
     overflow-y: auto;
 

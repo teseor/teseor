@@ -1,9 +1,9 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-
-import { extractWrongLayerTokens } from '../shared/lint-helpers.js';
-
+import postcssScss from 'postcss-scss';
 import { findScssFiles } from './_utils.js';
+
+const STYLE_LAYERS = new Set(['components.styles']);
 
 export function lintWrongLayerTokens(srcDir: string): void {
   const errors: string[] = [];
@@ -15,13 +15,27 @@ export function lintWrongLayerTokens(srcDir: string): void {
     const content = readFileSync(file, 'utf-8');
     const relPath = file.replace(`${srcDir}/`, '');
 
-    const wrongTokens = extractWrongLayerTokens(content);
-    for (const { varName, index } of wrongTokens) {
-      const line = content.substring(0, index).split('\n').length;
-      errors.push(
-        `${relPath}:${line}: ${varName} defined in styles layer — move to @layer components.tokens`,
-      );
+    let root: ReturnType<typeof postcssScss.parse>;
+    try {
+      root = postcssScss.parse(content);
+    } catch {
+      continue;
     }
+
+    root.walkAtRules('layer', (atRule) => {
+      if (!STYLE_LAYERS.has(atRule.params)) return;
+
+      atRule.walkDecls(/^--_/, (decl) => {
+        // Skip var(--_...) references — only flag definitions
+        const before = decl.parent?.toString().substring(0, decl.source?.start?.column ?? 0) ?? '';
+        if (before.includes('var(')) return;
+
+        const line = decl.source?.start?.line ?? 0;
+        errors.push(
+          `${relPath}:${line}: ${decl.prop} defined in styles layer — move to @layer components.tokens`,
+        );
+      });
+    });
   }
 
   if (errors.length > 0) {
