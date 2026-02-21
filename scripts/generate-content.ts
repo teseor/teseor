@@ -57,11 +57,17 @@ function generateContentYaml(api: ApiJson, sharedKeys: Set<string>): string {
   const lines: string[] = [];
   lines.push(`description: ${AUTO_PREFIX} ${toTitleCase(api.name)} component.`);
   lines.push('');
-  lines.push('sections:');
-
   const modifiers = Object.entries(api.modifiers).filter(
     ([, def]) => def.visibility !== 'internal',
   );
+
+  if (modifiers.length === 0) {
+    lines.push('sections: {}');
+    lines.push('');
+    return lines.join('\n');
+  }
+
+  lines.push('sections:');
 
   for (const [modName, modDef] of modifiers) {
     const key = sectionKeyFromModifier(modName);

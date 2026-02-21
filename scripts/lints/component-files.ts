@@ -12,6 +12,7 @@ interface FileCheck {
 const REQUIRED_FILES: FileCheck[] = [
   { pattern: 'index.scss', description: 'styles', required: true },
   { pattern: 'api.json', description: 'API definition', required: true },
+  { pattern: 'content.yml', description: 'content documentation', required: true },
 ];
 
 function checkGlobPattern(dir: string, pattern: string): boolean {
