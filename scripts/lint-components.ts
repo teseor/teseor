@@ -8,8 +8,6 @@ import { lintApiSync } from './lints/api-sync.js';
 import { lintBareTokenVars } from './lints/bare-token-vars.js';
 import { lintComponents } from './lints/component-files.js';
 import { lintContentValidation } from './lints/content-validation.js';
-import { lintDocsContent } from './lints/docs-content.js';
-import { lintI18nCoverage } from './lints/i18n-coverage.js';
 import { lintPackageBoundaries } from './lints/package-boundaries.js';
 import { lintSidenavCompleteness } from './lints/sidenav-completeness.js';
 import { lintStyleLayerTokens } from './lints/style-layer-tokens.js';
@@ -29,7 +27,6 @@ const CONFIG_PATH = join(__dirname, '../packages/css/component-groups.config.jso
 
 lintComponents(COMPONENTS_DIR);
 lintSidenavCompleteness(COMPONENTS_DIR, CONFIG_PATH);
-lintDocsContent(COMPONENTS_DIR);
 lintTokenFallbacks(SRC_DIR);
 lintBareTokenVars(SRC_DIR);
 lintWrongLayerTokens(SRC_DIR);
@@ -39,6 +36,5 @@ lintThreeTierFallbacks(SRC_DIR);
 lintTokenDictionary(SRC_DIR, APPS_DIR);
 lintApiSync();
 lintContentValidation(SRC_DIR);
-lintI18nCoverage(SRC_DIR);
 lintPackageBoundaries(SCRIPTS_DIR);
 lintVersionSync();

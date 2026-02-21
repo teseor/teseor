@@ -13,16 +13,3 @@ export function findScssFiles(dir: string): string[] {
   }
   return results;
 }
-
-export function findDocsHtmlFiles(dir: string): string[] {
-  const results: string[] = [];
-  for (const entry of readdirSync(dir, { withFileTypes: true })) {
-    const fullPath = join(dir, entry.name);
-    if (entry.isDirectory() && !entry.name.startsWith('.') && entry.name !== 'node_modules') {
-      results.push(...findDocsHtmlFiles(fullPath));
-    } else if (entry.name === 'docs.html' || entry.name.endsWith('.docs.html')) {
-      results.push(fullPath);
-    }
-  }
-  return results;
-}
