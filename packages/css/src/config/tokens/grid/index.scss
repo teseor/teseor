@@ -3,10 +3,19 @@
     --ui-row: calc(var(--ui-unit) * 2);
 
     --ui-row-1: var(--ui-row);
+    --ui-row-1-5: calc(var(--ui-row) * 1.5);
     --ui-row-2: calc(var(--ui-row) * 2);
+    --ui-row-2-5: calc(var(--ui-row) * 2.5);
     --ui-row-3: calc(var(--ui-row) * 3);
     --ui-row-4: calc(var(--ui-row) * 4);
     --ui-row-5: calc(var(--ui-row) * 5);
     --ui-row-6: calc(var(--ui-row) * 6);
+
+    // T-shirt sizes — component height/width scale
+    --ui-size-xs: var(--ui-unit);
+    --ui-size-sm: calc(var(--ui-unit) * 1.5);
+    --ui-size-md: calc(var(--ui-unit) * 2);
+    --ui-size-lg: calc(var(--ui-unit) * 2.5);
+    --ui-size-xl: calc(var(--ui-unit) * 3);
   }
 }

@@ -32,5 +32,14 @@
 
     // Shadow strength — controls opacity of all shadow levels
     --ui-shadow-strength: 12%;
+
+    // Color derivation — mix targets and strengths
+    --ui-color-mix-light: white;
+    --ui-color-mix-dark: black;
+    --ui-color-mix-bg: 8%;
+    --ui-color-mix-bg-hover: 12%;
+    --ui-color-mix-emphasis-hover: 85%;
+    --ui-color-mix-text: 75%;
+    --ui-color-mix-border: 30%;
   }
 }

@@ -16,15 +16,31 @@ $scale: 1;
 $unit: 0.5rem; // 8px (matches --ui-unit at scale 1)
 $row: $unit * 2; // 16px
 $row-1: $row;
+$row-1-5: $row * 1.5; // 24px
 $row-2: $row * 2; // 32px
+$row-2-5: $row * 2.5; // 40px
 $row-3: $row * 3; // 48px
 $row-4: $row * 4;
 $row-5: $row * 5;
 $row-6: $row * 6;
 
+// T-shirt sizes
+$size-xs: $unit;
+$size-sm: $unit * 1.5;
+$size-md: $unit * 2;
+$size-lg: $unit * 2.5;
+$size-xl: $unit * 3;
+
 // ==========================================================================
 // 2. Colors — OKLCH for perceptual uniformity
 // ==========================================================================
+
+// Color derivation knobs
+$color-mix-bg: 8%;
+$color-mix-bg-hover: 12%;
+$color-mix-emphasis-hover: 85%;
+$color-mix-text: 75%;
+$color-mix-border: 30%;
 
 // Base palette
 $color-primary: oklch(55% 0.22 250);
@@ -33,33 +49,7 @@ $color-warning: oklch(75% 0.18 70);
 $color-danger: oklch(60% 0.22 25);
 $color-neutral: oklch(50% 0.02 250);
 
-// Primary shades (CSS uses color-mix)
-$color-primary-light: oklch(75% 0.15 250);
-$color-primary-dark: oklch(40% 0.18 250);
-$color-primary-subtle: oklch(95% 0.03 250);
-$color-primary-hover: oklch(48% 0.20 250);
-
-// Success shades (CSS uses color-mix)
-$color-success-light: oklch(80% 0.12 145);
-$color-success-dark: oklch(45% 0.15 145);
-$color-success-subtle: oklch(95% 0.03 145);
-$color-success-hover: oklch(52% 0.16 145);
-
-// Warning shades (CSS uses color-mix)
-$color-warning-light: oklch(88% 0.12 70);
-$color-warning-dark: oklch(58% 0.15 70);
-$color-warning-subtle: oklch(96% 0.03 70);
-$color-warning-hover: oklch(66% 0.16 70);
-
-// Danger shades (CSS uses color-mix)
-$color-danger-light: oklch(80% 0.14 25);
-$color-danger-dark: oklch(45% 0.18 25);
-$color-danger-subtle: oklch(95% 0.03 25);
-$color-danger-hover: oklch(52% 0.20 25);
-
-// Neutral scale — HSL approximation of color-mix(in oklch, ...) results.
-// CSS tokens use oklch color-mix(); these HSL values are static SCSS
-// fallbacks for when custom properties are unavailable.
+// Neutral scale (defined first — per-hue roles reference neutral-50/900 for -fg)
 $color-neutral-50: hsl(220 10% 98%);
 $color-neutral-100: hsl(220 10% 96%);
 $color-neutral-200: hsl(220 10% 90%);
@@ -71,6 +61,42 @@ $color-neutral-700: hsl(220 10% 25%);
 $color-neutral-800: hsl(220 10% 15%);
 $color-neutral-900: hsl(220 10% 10%);
 
+// Primary semantic roles
+$color-primary-bg: oklch(97% 0.02 250);
+$color-primary-bg-hover: oklch(94% 0.04 250);
+$color-primary-emphasis: $color-primary;
+$color-primary-emphasis-hover: oklch(48% 0.20 250);
+$color-primary-text: oklch(40% 0.18 250);
+$color-primary-border: oklch(82% 0.08 250);
+$color-primary-fg: $color-neutral-50;
+
+// Success semantic roles
+$color-success-bg: oklch(97% 0.02 145);
+$color-success-bg-hover: oklch(94% 0.03 145);
+$color-success-emphasis: $color-success;
+$color-success-emphasis-hover: oklch(52% 0.16 145);
+$color-success-text: oklch(45% 0.15 145);
+$color-success-border: oklch(82% 0.06 145);
+$color-success-fg: $color-neutral-50;
+
+// Warning semantic roles (fg is dark — warning hue is light)
+$color-warning-bg: oklch(97% 0.02 70);
+$color-warning-bg-hover: oklch(95% 0.03 70);
+$color-warning-emphasis: $color-warning;
+$color-warning-emphasis-hover: oklch(66% 0.16 70);
+$color-warning-text: oklch(58% 0.15 70);
+$color-warning-border: oklch(88% 0.06 70);
+$color-warning-fg: $color-neutral-900;
+
+// Danger semantic roles
+$color-danger-bg: oklch(97% 0.02 25);
+$color-danger-bg-hover: oklch(94% 0.04 25);
+$color-danger-emphasis: $color-danger;
+$color-danger-emphasis-hover: oklch(52% 0.20 25);
+$color-danger-text: oklch(45% 0.18 25);
+$color-danger-border: oklch(82% 0.08 25);
+$color-danger-fg: $color-neutral-50;
+
 // ==========================================================================
 // 3. Spacing — derived from $unit
 // ==========================================================================
@@ -81,6 +107,7 @@ $space-1: $unit; // 8px
 $space-2: $unit * 2; // 16px
 $space-3: $unit * 3; // 24px
 $space-4: $unit * 4;
+$space-5: $unit * 5; // 40px
 $space-6: $unit * 6;
 $space-8: $unit * 8;
 
@@ -222,10 +249,15 @@ $color-bg-inset: $color-neutral-300;
 $color-border: $color-neutral-200;
 $color-border-strong: $color-neutral-300;
 
-$color-interactive: $color-primary;
-$color-interactive-hover: $color-primary-dark;
+$color-interactive: $color-primary-emphasis;
+$color-interactive-hover: $color-primary-emphasis-hover;
 
-$color-focus: $color-primary-light;
+$color-focus: oklch(75% 0.15 250);
+
+// Component surfaces — distinct from page backgrounds
+$color-surface: $color-neutral-100;
+$color-surface-hover: $color-neutral-200;
+$color-surface-active: $color-neutral-300;
 
 // State opacity
 $opacity-disabled: 0.5;
@@ -237,6 +269,193 @@ $overlay-bg-light: rgb(255 255 255 / 0.7);
 $overlay-bg-blur: rgb(0 0 0 / 0.3);
 $overlay-bg-subtle: rgb(0 0 0 / 0.1);
 $stripe-highlight: rgb(255 255 255 / 0.15);
+
+// ==========================================================================
+// 11. Token registry — single source of truth for validation + fallbacks
+// The token() mixin validates against this map at compile time.
+// Every --ui-* CSS custom property MUST have an entry here.
+// ==========================================================================
+$tokens: map.merge(
+  (
+    // Grid
+    'unit': $unit,
+    'row': $row,
+    'row-1': $row-1,
+    'row-1-5': $row-1-5,
+    'row-2': $row-2,
+    'row-2-5': $row-2-5,
+    'row-3': $row-3,
+    'row-4': $row-4,
+    'row-5': $row-5,
+    'row-6': $row-6,
+    // Sizes
+    'size-xs': $size-xs,
+    'size-sm': $size-sm,
+    'size-md': $size-md,
+    'size-lg': $size-lg,
+    'size-xl': $size-xl,
+    // Spacing
+    'space-px': $space-px,
+    'space-quarter': $space-quarter,
+    'space-0': $space-0,
+    'space-1': $space-1,
+    'space-2': $space-2,
+    'space-3': $space-3,
+    'space-4': $space-4,
+    'space-5': $space-5,
+    'space-6': $space-6,
+    'space-8': $space-8,
+    // Colors — palette
+    'color-primary': $color-primary,
+    'color-success': $color-success,
+    'color-warning': $color-warning,
+    'color-danger': $color-danger,
+    'color-neutral': $color-neutral,
+    // Colors — primary roles
+    'color-primary-bg': $color-primary-bg,
+    'color-primary-bg-hover': $color-primary-bg-hover,
+    'color-primary-emphasis': $color-primary-emphasis,
+    'color-primary-emphasis-hover': $color-primary-emphasis-hover,
+    'color-primary-text': $color-primary-text,
+    'color-primary-border': $color-primary-border,
+    'color-primary-fg': $color-primary-fg,
+    // Colors — success roles
+    'color-success-bg': $color-success-bg,
+    'color-success-bg-hover': $color-success-bg-hover,
+    'color-success-emphasis': $color-success-emphasis,
+    'color-success-emphasis-hover': $color-success-emphasis-hover,
+    'color-success-text': $color-success-text,
+    'color-success-border': $color-success-border,
+    'color-success-fg': $color-success-fg,
+    // Colors — warning roles
+    'color-warning-bg': $color-warning-bg,
+    'color-warning-bg-hover': $color-warning-bg-hover,
+    'color-warning-emphasis': $color-warning-emphasis,
+    'color-warning-emphasis-hover': $color-warning-emphasis-hover,
+    'color-warning-text': $color-warning-text,
+    'color-warning-border': $color-warning-border,
+    'color-warning-fg': $color-warning-fg,
+    // Colors — danger roles
+    'color-danger-bg': $color-danger-bg,
+    'color-danger-bg-hover': $color-danger-bg-hover,
+    'color-danger-emphasis': $color-danger-emphasis,
+    'color-danger-emphasis-hover': $color-danger-emphasis-hover,
+    'color-danger-text': $color-danger-text,
+    'color-danger-border': $color-danger-border,
+    'color-danger-fg': $color-danger-fg,
+    // Colors — neutral scale
+    'color-neutral-50': $color-neutral-50,
+    'color-neutral-100': $color-neutral-100,
+    'color-neutral-200': $color-neutral-200,
+    'color-neutral-300': $color-neutral-300,
+    'color-neutral-400': $color-neutral-400,
+    'color-neutral-500': $color-neutral-500,
+    'color-neutral-600': $color-neutral-600,
+    'color-neutral-700': $color-neutral-700,
+    'color-neutral-800': $color-neutral-800,
+    'color-neutral-900': $color-neutral-900,
+    // Colors — semantic
+    'color-text': $color-text,
+    'color-text-muted': $color-text-muted,
+    'color-text-inverse': $color-text-inverse,
+    'color-bg': $color-bg,
+    'color-bg-subtle': $color-bg-subtle,
+    'color-bg-muted': $color-bg-muted,
+    'color-bg-inset': $color-bg-inset,
+    'color-surface': $color-surface,
+    'color-surface-hover': $color-surface-hover,
+    'color-surface-active': $color-surface-active,
+    'color-border': $color-border,
+    'color-border-strong': $color-border-strong,
+    'color-interactive': $color-interactive,
+    'color-interactive-hover': $color-interactive-hover,
+    'color-focus': $color-focus,
+  ),
+  (
+    // Typography
+    'font-sans': $font-sans,
+    'font-mono': $font-mono,
+    'font-size-xs': $font-size-xs,
+    'font-size-sm': $font-size-sm,
+    'font-size-md': $font-size-md,
+    'font-size-lg': $font-size-lg,
+    'font-size-xl': $font-size-xl,
+    'font-size-2xl': $font-size-2xl,
+    'font-size-3xl': $font-size-3xl,
+    'font-size-4xl': $font-size-4xl,
+    'font-weight-normal': $font-weight-normal,
+    'font-weight-medium': $font-weight-medium,
+    'font-weight-semibold': $font-weight-semibold,
+    'font-weight-bold': $font-weight-bold,
+    // Radius
+    'radius-sm': $radius-sm,
+    'radius-md': $radius-md,
+    'radius-lg': $radius-lg,
+    'radius-full': $radius-full,
+    // Borders
+    'border-width-sm': $border-width-sm,
+    'border-width-md': $border-width-md,
+    'border-width-lg': $border-width-lg,
+    // Shadows
+    'shadow-sm': $shadow-sm,
+    'shadow-md': $shadow-md,
+    'shadow-lg': $shadow-lg,
+    // Z-index
+    'z-index-base': $z-index-base,
+    'z-index-sticky': $z-index-sticky,
+    'z-index-dropdown': $z-index-dropdown,
+    'z-index-overlay': $z-index-overlay,
+    'z-index-modal': $z-index-modal,
+    'z-index-popover': $z-index-popover,
+    'z-index-tooltip': $z-index-tooltip,
+    'z-index-toast': $z-index-toast,
+    'z-index-drawer': $z-index-drawer,
+    // Motion
+    'duration-instant': $duration-instant,
+    'duration-fast': $duration-fast,
+    'duration-base': $duration-base,
+    'duration-normal': $duration-normal,
+    'duration-slow': $duration-slow,
+    'duration-slower': $duration-slower,
+    'ease-default': $ease-default,
+    // State
+    'opacity-disabled': $opacity-disabled,
+    'opacity-loading': $opacity-loading,
+    // Overlay
+    'overlay-bg': $overlay-bg,
+    'overlay-bg-light': $overlay-bg-light,
+    'overlay-bg-blur': $overlay-bg-blur,
+    'overlay-bg-subtle': $overlay-bg-subtle,
+  ),
+);
+
+// token() mixin — generates three-tier pattern with compile-time validation
+// Usage: @include token(bg, color-primary-emphasis, button);
+// Output: --_bg: var(--ui-button-bg, var(--ui-color-primary-emphasis, <fallback>));
+// Without component name, generates two-tier:
+// Usage: @include token(color-text, color-text);
+// Output: --_color-text: var(--ui-color-text, <fallback>);
+@mixin token($local, $global, $component: null) {
+  @if not map.has-key($tokens, $global) {
+    @error "Unknown token '#{$global}'. Add it to $tokens registry in _variables.scss";
+  }
+  $fallback: map.get($tokens, $global);
+
+  @if $component {
+    --_#{$local}: var(--ui-#{$component}-#{$local}, var(--ui-#{$global}, #{$fallback}));
+  } @else {
+    --_#{$local}: var(--ui-#{$global}, #{$fallback});
+  }
+}
+
+// Shorthand for reading a token fallback value (for use in styles layer)
+@function fallback($name) {
+  @if not map.has-key($tokens, $name) {
+    @error "Unknown token '#{$name}'. Add it to $tokens registry in _variables.scss";
+  }
+
+  @return map.get($tokens, $name);
+}
 
 // ==========================================================================
 // 12. Component defaults
