@@ -144,6 +144,13 @@ $sizes: (
   @return map.get($sizes, $name);
 }
 
+// Compile-time check: component $size-tokens keys must match global $sizes
+@mixin validate-size-tokens($component-sizes) {
+  @if map.keys($component-sizes) != map.keys($sizes) {
+    @error 'Size tokens must cover #{map.keys($sizes)}. Got: #{map.keys($component-sizes)}';
+  }
+}
+
 // ==========================================================================
 // Typography
 // ==========================================================================

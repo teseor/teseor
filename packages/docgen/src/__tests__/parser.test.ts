@@ -68,7 +68,7 @@ describe('parseScssContent', () => {
         @layer components.styles { .button { height: var(--_h); } }
       `;
       const result = parseScssContent(scss, 'button', false);
-      expect(result.modifiers.size).toEqual({ values: ['lg', 'sm'] });
+      expect(result.modifiers.size).toEqual({ values: ['sm', 'lg'] });
     });
 
     it('extracts explicit values from annotation', () => {
@@ -82,7 +82,7 @@ describe('parseScssContent', () => {
         @layer components.styles { .icon { width: var(--_s); } }
       `;
       const result = parseScssContent(scss, 'icon', false);
-      expect(result.modifiers.size).toEqual({ values: ['lg', 'md', 'sm', 'xl', 'xs'] });
+      expect(result.modifiers.size).toEqual({ values: ['xs', 'sm', 'md', 'lg', 'xl'] });
     });
 
     it('excludes pseudo-classes from block modifiers', () => {
@@ -123,7 +123,7 @@ describe('parseScssContent', () => {
         }
       `;
       const result = parseScssContent(scss, 'button', false);
-      expect(result.modifiers.size).toEqual({ values: ['lg', 'sm'] });
+      expect(result.modifiers.size).toEqual({ values: ['sm', 'lg'] });
       expect(result.modifiers.loading).toEqual({ type: 'boolean' });
     });
 
@@ -144,7 +144,7 @@ describe('parseScssContent', () => {
       `;
       const result = parseScssContent(scss, 'badge', false);
       expect(result.modifiers.variant).toEqual({ values: ['danger', 'success'] });
-      expect(result.modifiers.size).toEqual({ values: ['lg', 'sm'] });
+      expect(result.modifiers.size).toEqual({ values: ['sm', 'lg'] });
     });
   });
 
@@ -229,6 +229,7 @@ describe('parseScssContent', () => {
           name: '--ui-button-height',
           default: '--ui-row-2',
           description: 'Overall height',
+          type: 'dimension',
         },
       ]);
     });

@@ -9,7 +9,9 @@ import { fileURLToPath } from 'node:url';
 import {
   type ApiJson,
   buildTokenMap,
+  clearUnmappedTokens,
   generateTypes,
+  getUnmappedTokens,
   normalizeForComparison,
   parseScssContent,
   serializeApi,
@@ -120,6 +122,17 @@ function main(): void {
       console.log(`  updated: ${relative(ROOT, TYPES_PATH)}`);
     }
   }
+
+  // Report unmapped tokens so new entries can be added to TOKEN_TYPE_MAP
+  const unmapped = getUnmappedTokens();
+  if (unmapped.length > 0) {
+    console.warn(`\nWarning: ${unmapped.length} token(s) have no type mapping (assigned "other"):`);
+    for (const t of unmapped) {
+      console.warn(`  - ${t}`);
+    }
+    console.warn('Add entries to TOKEN_TYPE_MAP in packages/docgen/src/parser.ts');
+  }
+  clearUnmappedTokens();
 
   if (checkOnly) {
     if (stale.length > 0) {
