@@ -14,6 +14,14 @@
     "header": {},
     "title": {}
   },
+  "relatedComponents": [
+    {
+      "name": "modal",
+      "elements": {
+        "content": {}
+      }
+    }
+  ],
   "cssVars": [
     {
       "name": "--ui-dialog-body-padding",

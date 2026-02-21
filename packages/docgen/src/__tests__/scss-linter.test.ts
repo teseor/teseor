@@ -1,12 +1,15 @@
 import { describe, expect, it } from 'vitest';
 import {
   lintScss,
+  noBareDeclarations,
   noDerivedVars,
   noScssInStyles,
   parseScss,
+  requireBemSelectors,
   requireComponentAnnotation,
   requireDescOnVars,
   requireElementAnnotation,
+  requireLayerStructure,
   requireModifierAnnotations,
   requireScssFallback,
   requireTokenScope,
@@ -415,6 +418,266 @@ describe('scss-linter', () => {
 }`;
       const root = parseScss(scss);
       expect(noScssInStyles(root)).toEqual([]);
+    });
+  });
+
+  describe('requireLayerStructure', () => {
+    it('passes for valid component structure (tokens then styles)', () => {
+      const scss = `
+// @component button
+// @element button
+@layer components.tokens { .button { --_h: 32px; } }
+@layer components.styles { .button { height: var(--_h); } }
+`;
+      const root = parseScss(scss);
+      expect(requireLayerStructure(root)).toEqual([]);
+    });
+
+    it('passes for valid layout structure (primitives only)', () => {
+      const scss = `
+// @component box
+// @element div
+@layer primitives { .box { display: block; } }
+`;
+      const root = parseScss(scss);
+      expect(requireLayerStructure(root)).toEqual([]);
+    });
+
+    it('fails when no @layer blocks found', () => {
+      const root = parseScss('.button { color: red; }');
+      const diags = requireLayerStructure(root);
+      expect(diags).toHaveLength(1);
+      expect(diags[0].message).toContain('no @layer blocks found');
+    });
+
+    it('fails when components.tokens is after components.styles', () => {
+      const scss = `
+@layer components.styles { .button { height: 32px; } }
+@layer components.tokens { .button { --_h: 32px; } }
+`;
+      const root = parseScss(scss);
+      const diags = requireLayerStructure(root);
+      expect(diags.some((d) => d.message.includes('must appear before'))).toBe(true);
+    });
+
+    it('fails when components.tokens is missing', () => {
+      const scss = `@layer components.styles { .button { height: 32px; } }`;
+      const root = parseScss(scss);
+      const diags = requireLayerStructure(root);
+      expect(diags.some((d) => d.message.includes('missing @layer components.tokens'))).toBe(true);
+    });
+
+    it('fails when components.styles is missing', () => {
+      const scss = `@layer components.tokens { .button { --_h: 32px; } }`;
+      const root = parseScss(scss);
+      const diags = requireLayerStructure(root);
+      expect(diags.some((d) => d.message.includes('missing @layer components.styles'))).toBe(true);
+    });
+
+    it('fails for unexpected layer name', () => {
+      const scss = `@layer components.foo { .button { color: red; } }`;
+      const root = parseScss(scss);
+      const diags = requireLayerStructure(root);
+      expect(diags.some((d) => d.message.includes('unexpected @layer components.foo'))).toBe(true);
+    });
+
+    it('fails when mixing component and layout layers', () => {
+      const scss = `
+@layer components.tokens { .button { --_h: 32px; } }
+@layer primitives { .box { display: block; } }
+`;
+      const root = parseScss(scss);
+      const diags = requireLayerStructure(root);
+      expect(diags.some((d) => d.message.includes('mixes'))).toBe(true);
+    });
+  });
+
+  describe('noBareDeclarations', () => {
+    it('passes when all rules are inside @layer', () => {
+      const scss = `
+@use '../config/tokens/variables' as t;
+// @component button
+// @element button
+@layer components.tokens { .button { --_h: 32px; } }
+@layer components.styles { .button { height: var(--_h); } }
+`;
+      const root = parseScss(scss);
+      expect(noBareDeclarations(root)).toEqual([]);
+    });
+
+    it('allows @use and @forward outside @layer', () => {
+      const scss = `
+@use '../config/tokens/variables' as t;
+@forward '../shared';
+@layer primitives { .box { display: block; } }
+`;
+      const root = parseScss(scss);
+      expect(noBareDeclarations(root)).toEqual([]);
+    });
+
+    it('allows @property outside @layer', () => {
+      const scss = `
+@property --ui-progress-value {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+@layer components.tokens { .progress { --_h: 4px; } }
+@layer components.styles { .progress { height: var(--_h); } }
+`;
+      const root = parseScss(scss);
+      expect(noBareDeclarations(root)).toEqual([]);
+    });
+
+    it('fails when a selector rule is outside @layer', () => {
+      const scss = `
+@layer components.tokens { .button { --_h: 32px; } }
+.button { height: 32px; }
+`;
+      const root = parseScss(scss);
+      const diags = noBareDeclarations(root);
+      expect(diags).toHaveLength(1);
+      expect(diags[0].message).toContain('must be inside an @layer block');
+    });
+
+    it('fails when @keyframes is outside @layer', () => {
+      const scss = `
+@keyframes spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+@layer components.tokens { .spinner { --_s: 24px; } }
+`;
+      const root = parseScss(scss);
+      const diags = noBareDeclarations(root);
+      expect(diags).toHaveLength(1);
+      expect(diags[0].message).toContain('@keyframes');
+    });
+
+    it('allows comments outside @layer', () => {
+      const scss = `
+// This is a comment
+// @component button
+// @element button
+@layer components.tokens { .button { --_h: 32px; } }
+@layer components.styles { .button { height: var(--_h); } }
+`;
+      const root = parseScss(scss);
+      expect(noBareDeclarations(root)).toEqual([]);
+    });
+  });
+
+  describe('requireBemSelectors', () => {
+    it('passes for valid BEM selectors', () => {
+      const scss = `
+// @component button
+// @element button
+@layer components.tokens { .button { --_h: 32px; } }
+@layer components.styles {
+  .button { height: var(--_h); }
+  .button--ghost { background: transparent; }
+  .button__icon { flex-shrink: 0; }
+  .button__icon--start { order: -1; }
+}
+`;
+      const root = parseScss(scss);
+      expect(requireBemSelectors(root)).toEqual([]);
+    });
+
+    it('passes for related component selectors', () => {
+      const scss = `
+// @component accordion
+// @element div
+// @related disclosure
+@layer components.styles {
+  .accordion { display: flex; }
+  .accordion > .disclosure { border: 0; }
+  .disclosure__trigger { cursor: pointer; }
+}
+`;
+      const root = parseScss(scss);
+      expect(requireBemSelectors(root)).toEqual([]);
+    });
+
+    it('passes for SCSS nesting with &', () => {
+      const scss = `
+// @component tabs
+// @element div
+@layer components.styles {
+  .tabs__tab {
+    cursor: pointer;
+    &--active { color: blue; }
+    &:hover { opacity: 0.8; }
+    &::after { content: ''; }
+  }
+}
+`;
+      const root = parseScss(scss);
+      expect(requireBemSelectors(root)).toEqual([]);
+    });
+
+    it('passes for SCSS interpolation in selectors', () => {
+      const scss = `
+// @component button
+// @element button
+@layer components.tokens {
+  .button--#{$name} { --_h: 24px; }
+}
+`;
+      const root = parseScss(scss);
+      expect(requireBemSelectors(root)).toEqual([]);
+    });
+
+    it('fails for selectors from a different component', () => {
+      const scss = `
+// @component button
+// @element button
+@layer components.styles {
+  .button { height: 32px; }
+  .card { padding: 16px; }
+}
+`;
+      const root = parseScss(scss);
+      const diags = requireBemSelectors(root);
+      expect(diags).toHaveLength(1);
+      expect(diags[0].message).toContain('.card');
+      expect(diags[0].message).toContain('not a valid BEM selector');
+    });
+
+    it('fails for non-BEM class names', () => {
+      const scss = `
+// @component button
+// @element button
+@layer components.styles {
+  .button { height: 32px; }
+  .btn-icon { flex-shrink: 0; }
+}
+`;
+      const root = parseScss(scss);
+      const diags = requireBemSelectors(root);
+      expect(diags).toHaveLength(1);
+      expect(diags[0].message).toContain('.btn-icon');
+    });
+
+    it('skips pseudo-class and attribute selectors', () => {
+      const scss = `
+// @component input
+// @element input
+@layer components.styles {
+  .input { height: 32px; }
+  .input:focus-visible { outline: 2px solid blue; }
+  .input[aria-disabled="true"] { opacity: 0.5; }
+}
+`;
+      const root = parseScss(scss);
+      expect(requireBemSelectors(root)).toEqual([]);
+    });
+
+    it('skips without @component', () => {
+      const scss = `
+@layer components.styles {
+  .anything { color: red; }
+}
+`;
+      const root = parseScss(scss);
+      expect(requireBemSelectors(root)).toEqual([]);
     });
   });
 

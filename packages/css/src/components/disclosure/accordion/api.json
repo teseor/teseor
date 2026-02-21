@@ -10,6 +10,15 @@
       "type": "boolean"
     }
   },
+  "relatedComponents": [
+    {
+      "name": "disclosure",
+      "elements": {
+        "content": {},
+        "trigger": {}
+      }
+    }
+  ],
   "cssVars": [
     {
       "name": "--ui-accordion-border-color",

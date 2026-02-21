@@ -16,6 +16,11 @@
       "type": "boolean"
     }
   },
+  "relatedComponents": [
+    {
+      "name": "tooltip-anchor"
+    }
+  ],
   "cssVars": [
     {
       "name": "--ui-tooltip-arrow-size",
