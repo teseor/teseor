@@ -2,22 +2,33 @@
   :root {
     color-scheme: light dark;
 
+    // Text
     --ui-color-text: light-dark(var(--ui-color-neutral-900), var(--ui-color-neutral-100));
     --ui-color-text-muted: light-dark(var(--ui-color-neutral-500), var(--ui-color-neutral-400));
     --ui-color-text-inverse: light-dark(var(--ui-color-neutral-50), var(--ui-color-neutral-900));
 
+    // Page backgrounds
     --ui-color-bg: light-dark(var(--ui-color-neutral-50), var(--ui-color-neutral-900));
     --ui-color-bg-subtle: light-dark(var(--ui-color-neutral-100), var(--ui-color-neutral-800));
     --ui-color-bg-muted: light-dark(var(--ui-color-neutral-200), var(--ui-color-neutral-700));
     --ui-color-bg-inset: light-dark(var(--ui-color-neutral-300), var(--ui-color-neutral-600));
 
+    // Component surfaces — distinct from page bg
+    // Use for slider tracks, toggle tracks, avatar placeholders, card hover
+    --ui-color-surface: light-dark(var(--ui-color-neutral-100), var(--ui-color-neutral-800));
+    --ui-color-surface-hover: light-dark(var(--ui-color-neutral-200), var(--ui-color-neutral-700));
+    --ui-color-surface-active: light-dark(var(--ui-color-neutral-300), var(--ui-color-neutral-600));
+
+    // Borders
     --ui-color-border: light-dark(var(--ui-color-neutral-200), var(--ui-color-neutral-700));
     --ui-color-border-strong: light-dark(var(--ui-color-neutral-300), var(--ui-color-neutral-600));
 
-    --ui-color-interactive: var(--ui-color-primary);
-    --ui-color-interactive-hover: var(--ui-color-primary-dark);
+    // Interactive accent
+    --ui-color-interactive: var(--ui-color-primary-emphasis);
+    --ui-color-interactive-hover: var(--ui-color-primary-emphasis-hover);
 
-    --ui-color-focus: var(--ui-color-primary-light);
+    // Focus ring
+    --ui-color-focus: color-mix(in oklch, var(--ui-color-primary) 50%, white);
 
     // State opacity
     --ui-opacity-disabled: 0.5;

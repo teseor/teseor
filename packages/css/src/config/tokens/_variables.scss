@@ -33,29 +33,41 @@ $color-warning: oklch(75% 0.18 70);
 $color-danger: oklch(60% 0.22 25);
 $color-neutral: oklch(50% 0.02 250);
 
-// Primary shades (CSS uses color-mix)
-$color-primary-light: oklch(75% 0.15 250);
-$color-primary-dark: oklch(40% 0.18 250);
-$color-primary-subtle: oklch(95% 0.03 250);
-$color-primary-hover: oklch(48% 0.20 250);
+// Primary semantic roles (CSS uses color-mix)
+$color-primary-bg: oklch(97% 0.02 250);
+$color-primary-bg-hover: oklch(94% 0.04 250);
+$color-primary-emphasis: $color-primary;
+$color-primary-emphasis-hover: oklch(48% 0.20 250);
+$color-primary-text: oklch(40% 0.18 250);
+$color-primary-border: oklch(82% 0.08 250);
+$color-primary-fg: white;
 
-// Success shades (CSS uses color-mix)
-$color-success-light: oklch(80% 0.12 145);
-$color-success-dark: oklch(45% 0.15 145);
-$color-success-subtle: oklch(95% 0.03 145);
-$color-success-hover: oklch(52% 0.16 145);
+// Success semantic roles
+$color-success-bg: oklch(97% 0.02 145);
+$color-success-bg-hover: oklch(94% 0.03 145);
+$color-success-emphasis: $color-success;
+$color-success-emphasis-hover: oklch(52% 0.16 145);
+$color-success-text: oklch(45% 0.15 145);
+$color-success-border: oklch(82% 0.06 145);
+$color-success-fg: white;
 
-// Warning shades (CSS uses color-mix)
-$color-warning-light: oklch(88% 0.12 70);
-$color-warning-dark: oklch(58% 0.15 70);
-$color-warning-subtle: oklch(96% 0.03 70);
-$color-warning-hover: oklch(66% 0.16 70);
+// Warning semantic roles (fg is dark — warning hue is light)
+$color-warning-bg: oklch(97% 0.02 70);
+$color-warning-bg-hover: oklch(95% 0.03 70);
+$color-warning-emphasis: $color-warning;
+$color-warning-emphasis-hover: oklch(66% 0.16 70);
+$color-warning-text: oklch(58% 0.15 70);
+$color-warning-border: oklch(88% 0.06 70);
+$color-warning-fg: oklch(20% 0.02 70);
 
-// Danger shades (CSS uses color-mix)
-$color-danger-light: oklch(80% 0.14 25);
-$color-danger-dark: oklch(45% 0.18 25);
-$color-danger-subtle: oklch(95% 0.03 25);
-$color-danger-hover: oklch(52% 0.20 25);
+// Danger semantic roles
+$color-danger-bg: oklch(97% 0.02 25);
+$color-danger-bg-hover: oklch(94% 0.04 25);
+$color-danger-emphasis: $color-danger;
+$color-danger-emphasis-hover: oklch(52% 0.20 25);
+$color-danger-text: oklch(45% 0.18 25);
+$color-danger-border: oklch(82% 0.08 25);
+$color-danger-fg: white;
 
 // Neutral scale — HSL approximation of color-mix(in oklch, ...) results.
 // CSS tokens use oklch color-mix(); these HSL values are static SCSS
@@ -222,10 +234,15 @@ $color-bg-inset: $color-neutral-300;
 $color-border: $color-neutral-200;
 $color-border-strong: $color-neutral-300;
 
-$color-interactive: $color-primary;
-$color-interactive-hover: $color-primary-dark;
+$color-interactive: $color-primary-emphasis;
+$color-interactive-hover: $color-primary-emphasis-hover;
 
-$color-focus: $color-primary-light;
+$color-focus: oklch(75% 0.15 250);
+
+// Component surfaces — distinct from page backgrounds
+$color-surface: $color-neutral-100;
+$color-surface-hover: $color-neutral-200;
+$color-surface-active: $color-neutral-300;
 
 // State opacity
 $opacity-disabled: 0.5;
