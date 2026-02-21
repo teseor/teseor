@@ -1,0 +1,16 @@
+---
+import { bemClasses } from '../../bem';
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  variant?: 'info' | 'success' | 'warning' | 'danger';
+  size?: 'sm' | 'lg';
+  dismissible?: boolean;
+}
+
+const { variant, size, dismissible, class: className, ...attrs } = Astro.props;
+const classes = bemClasses('alert', { variant, size, dismissible }, className);
+---
+
+<div class={classes} role="alert" {...attrs}>
+  <div class="ui-alert__content"><slot /></div>
+</div>

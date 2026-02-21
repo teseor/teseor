@@ -1,0 +1,13 @@
+---
+import { bemClasses } from '../../bem';
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  compact?: boolean;
+  striped?: boolean;
+}
+
+const { compact, striped, class: className, ...attrs } = Astro.props;
+const classes = bemClasses('table', { compact, striped }, className);
+---
+
+<table class={classes} {...attrs}><slot /></table>

@@ -1,0 +1,13 @@
+---
+import { bemClasses } from '../../bem';
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  size?: 'sm' | 'lg';
+  vertical?: boolean;
+}
+
+const { size, vertical, class: className, ...attrs } = Astro.props;
+const classes = bemClasses('tabs', { size, vertical }, className);
+---
+
+<div class={classes} {...attrs}><slot /></div>

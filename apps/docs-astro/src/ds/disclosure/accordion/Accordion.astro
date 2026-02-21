@@ -1,0 +1,12 @@
+---
+import { bemClasses } from '../../bem';
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  separated?: boolean;
+}
+
+const { separated, class: className, ...attrs } = Astro.props;
+const classes = bemClasses('accordion', { separated }, className);
+---
+
+<div class={classes} {...attrs}><slot /></div>

@@ -1,0 +1,16 @@
+---
+import { bemClasses } from '../../bem';
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  size?: 'sm' | 'lg';
+  variant?: 'filled' | 'ghost';
+  state?: 'error' | 'success';
+  'auto-size'?: boolean;
+  block?: boolean;
+}
+
+const { size, variant, state, 'auto-size': autoSize, block, class: className, ...attrs } = Astro.props;
+const classes = bemClasses('input', { size, variant, state, 'auto-size': autoSize, block }, className);
+---
+
+<input class={classes} {...attrs} />

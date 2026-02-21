@@ -1,0 +1,16 @@
+---
+import { bemClasses } from '../../bem';
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  variant?: 'subtle' | 'muted';
+  size?: 'sm' | 'lg';
+  flush?: boolean;
+  interactive?: boolean;
+  responsive?: boolean;
+}
+
+const { variant, size, flush, interactive, responsive, class: className, ...attrs } = Astro.props;
+const classes = bemClasses('card', { variant, size, flush, interactive, responsive }, className);
+---
+
+<div class={classes} {...attrs}><slot /></div>

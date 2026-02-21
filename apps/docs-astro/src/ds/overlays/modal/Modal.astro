@@ -1,0 +1,16 @@
+---
+import { bemClasses } from '../../bem';
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  size?: 'sm' | 'lg' | 'full';
+  visible?: boolean;
+  entering?: boolean;
+}
+
+const { size, visible, entering, class: className, ...attrs } = Astro.props;
+const classes = bemClasses('modal', { size, visible, entering }, className);
+---
+
+<div class={classes} {...attrs}>
+  <div class="ui-modal__content"><slot /></div>
+</div>

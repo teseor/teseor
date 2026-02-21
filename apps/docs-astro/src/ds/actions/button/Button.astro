@@ -1,0 +1,17 @@
+---
+import { bemClasses } from '../../bem';
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  variant?: 'secondary' | 'ghost' | 'outline' | 'danger' | 'link';
+  size?: 'sm' | 'md' | 'lg';
+  icon?: boolean;
+  radius?: 'radius-none' | 'radius-sm' | 'radius-lg' | 'radius-full';
+  block?: boolean;
+  loading?: boolean;
+}
+
+const { variant, size, icon, radius, block, loading, class: className, ...attrs } = Astro.props;
+const classes = bemClasses('button', { variant, size, icon, radius, block, loading }, className);
+---
+
+<button class={classes} {...attrs}><slot /></button>

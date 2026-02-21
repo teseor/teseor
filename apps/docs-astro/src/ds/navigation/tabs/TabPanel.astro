@@ -1,0 +1,14 @@
+---
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  active?: boolean;
+}
+
+const { active, class: className, ...attrs } = Astro.props;
+const classes = [
+  'ui-tabs__panel',
+  active && 'ui-tabs__panel--active',
+  className,
+].filter(Boolean).join(' ');
+---
+
+<div class={classes} {...attrs}><slot /></div>

@@ -1,0 +1,13 @@
+---
+import { bemClasses } from '../../bem';
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  size?: 'sm' | 'lg';
+  variant?: 'primary' | 'success' | 'warning' | 'danger';
+}
+
+const { size, variant, class: className, ...attrs } = Astro.props;
+const classes = bemClasses('badge', { size, variant }, className);
+---
+
+<span class={classes} {...attrs}><slot /></span>
