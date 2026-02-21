@@ -8,38 +8,32 @@
     }
   },
   "elements": {
-    "header": {},
+    "badge": {},
     "content": {},
     "footer": {},
     "group": {},
-    "group-label": {},
     "group-items": {},
-    "subgroup": {},
-    "subgroup-label": {},
+    "group-label": {},
+    "header": {},
+    "icon": {},
     "item": {
       "modifiers": {
         "active": {
           "type": "boolean"
         },
-        "nested": {
+        "disabled": {
           "type": "boolean"
         },
-        "disabled": {
+        "nested": {
           "type": "boolean"
         }
       }
     },
-    "icon": {},
     "label": {},
-    "badge": {}
+    "subgroup": {},
+    "subgroup-label": {}
   },
   "cssVars": [
-    {
-      "name": "--ui-sidebar-nav-width",
-      "default": "--ui-unit-30",
-      "defaultValue": "240px",
-      "description": "Overall width"
-    },
     {
       "name": "--ui-sidebar-nav-bg",
       "default": "--ui-color-bg-subtle",
@@ -51,16 +45,26 @@
       "description": "Border color"
     },
     {
-      "name": "--ui-sidebar-nav-padding",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Padding on all sides"
+      "name": "--ui-sidebar-nav-border-width-sm",
+      "default": "--ui-border-width-sm",
+      "defaultValue": "1px"
     },
     {
-      "name": "--ui-sidebar-nav-header-padding",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Header padding on all sides"
+      "name": "--ui-sidebar-nav-color-focus",
+      "default": "--ui-color-focus"
+    },
+    {
+      "name": "--ui-sidebar-nav-color-text-muted",
+      "default": "--ui-color-text-muted"
+    },
+    {
+      "name": "--ui-sidebar-nav-duration-fast",
+      "default": "--ui-duration-fast",
+      "defaultValue": "100ms"
+    },
+    {
+      "name": "--ui-sidebar-nav-easing-default",
+      "default": "--ui-ease-default"
     },
     {
       "name": "--ui-sidebar-nav-footer-padding",
@@ -69,15 +73,25 @@
       "description": "Footer padding on all sides"
     },
     {
+      "name": "--ui-sidebar-nav-group-label-color",
+      "default": "--ui-color-text-muted",
+      "description": "Group label color"
+    },
+    {
+      "name": "--ui-sidebar-nav-group-label-letter-spacing",
+      "default": "normal",
+      "description": "Group label letter-spacing"
+    },
+    {
       "name": "--ui-sidebar-nav-group-label-size",
       "default": "--ui-size-xs",
       "defaultValue": "8px",
       "description": "Group label size"
     },
     {
-      "name": "--ui-sidebar-nav-group-label-color",
-      "default": "--ui-color-text-muted",
-      "description": "Group label color"
+      "name": "--ui-sidebar-nav-group-label-transform",
+      "default": "none",
+      "description": "Group label text-transform"
     },
     {
       "name": "--ui-sidebar-nav-group-label-weight",
@@ -86,53 +100,10 @@
       "description": "Group label weight"
     },
     {
-      "name": "--ui-sidebar-nav-group-label-transform",
-      "default": "none",
-      "description": "Group label text-transform"
-    },
-    {
-      "name": "--ui-sidebar-nav-group-label-letter-spacing",
-      "default": "normal",
-      "description": "Group label letter-spacing"
-    },
-    {
-      "name": "--ui-sidebar-nav-item-height",
-      "default": "--ui-row-2",
-      "defaultValue": "32px",
-      "description": "Item overall height"
-    },
-    {
-      "name": "--ui-sidebar-nav-item-padding-inline",
+      "name": "--ui-sidebar-nav-header-padding",
       "default": "--ui-space-2",
       "defaultValue": "16px",
-      "description": "Item horizontal padding"
-    },
-    {
-      "name": "--ui-sidebar-nav-item-size",
-      "default": "--ui-size-sm",
-      "defaultValue": "12px",
-      "description": "Item overall size"
-    },
-    {
-      "name": "--ui-sidebar-nav-item-color",
-      "default": "--ui-color-text",
-      "description": "Item text color"
-    },
-    {
-      "name": "--ui-sidebar-nav-item-bg",
-      "default": "transparent",
-      "description": "Item background color"
-    },
-    {
-      "name": "--ui-sidebar-nav-item-radius",
-      "default": "--ui-radius-sm",
-      "defaultValue": "4px",
-      "description": "Item corner radius"
-    },
-    {
-      "name": "--ui-sidebar-nav-item-hover-bg",
-      "default": "--ui-color-bg-muted",
-      "description": "Item hover bg"
+      "description": "Header padding on all sides"
     },
     {
       "name": "--ui-sidebar-nav-item-active-bg",
@@ -150,10 +121,95 @@
       "description": "Item active weight"
     },
     {
+      "name": "--ui-sidebar-nav-item-bg",
+      "default": "transparent",
+      "description": "Item background color"
+    },
+    {
+      "name": "--ui-sidebar-nav-item-color",
+      "default": "--ui-color-text",
+      "description": "Item text color"
+    },
+    {
+      "name": "--ui-sidebar-nav-item-height",
+      "default": "--ui-row-2",
+      "defaultValue": "32px",
+      "description": "Item overall height"
+    },
+    {
+      "name": "--ui-sidebar-nav-item-hover-bg",
+      "default": "--ui-color-bg-muted",
+      "description": "Item hover bg"
+    },
+    {
       "name": "--ui-sidebar-nav-item-nested-indent",
       "default": "--ui-space-4",
       "defaultValue": "32px",
       "description": "Item nested indent"
+    },
+    {
+      "name": "--ui-sidebar-nav-item-padding-inline",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Item horizontal padding"
+    },
+    {
+      "name": "--ui-sidebar-nav-item-radius",
+      "default": "--ui-radius-sm",
+      "defaultValue": "4px",
+      "description": "Item corner radius"
+    },
+    {
+      "name": "--ui-sidebar-nav-item-size",
+      "default": "--ui-size-sm",
+      "defaultValue": "12px",
+      "description": "Item overall size"
+    },
+    {
+      "name": "--ui-sidebar-nav-opacity-disabled",
+      "default": "--ui-opacity-disabled",
+      "defaultValue": "0.5"
+    },
+    {
+      "name": "--ui-sidebar-nav-padding",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Padding on all sides"
+    },
+    {
+      "name": "--ui-sidebar-nav-size-md",
+      "default": "--ui-size-md",
+      "defaultValue": "16px"
+    },
+    {
+      "name": "--ui-sidebar-nav-size-xs",
+      "default": "--ui-size-xs",
+      "defaultValue": "8px"
+    },
+    {
+      "name": "--ui-sidebar-nav-space-1",
+      "default": "--ui-space-1",
+      "defaultValue": "8px"
+    },
+    {
+      "name": "--ui-sidebar-nav-space-2",
+      "default": "--ui-space-2",
+      "defaultValue": "16px"
+    },
+    {
+      "name": "--ui-sidebar-nav-space-half",
+      "default": "--ui-space-half"
+    },
+    {
+      "name": "--ui-sidebar-nav-weight-medium",
+      "default": "--ui-font-weight-medium",
+      "defaultValue": "500"
+    },
+    {
+      "name": "--ui-sidebar-nav-width",
+      "default": "--ui-unit-30",
+      "defaultValue": "240px",
+      "description": "Overall width"
     },
     {
       "name": "--ui-sidebar-nav-width-collapsed",

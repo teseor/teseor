@@ -3,35 +3,45 @@
   "name": "topbar",
   "element": "header",
   "modifiers": {
-    "sticky": {
+    "bordered": {
       "type": "boolean"
     },
     "fixed": {
       "type": "boolean"
     },
-    "bordered": {
+    "raised": {
       "type": "boolean"
     },
-    "raised": {
+    "sticky": {
       "type": "boolean"
     }
   },
   "elements": {
-    "start": {},
     "center": {},
-    "end": {}
+    "end": {},
+    "start": {}
   },
   "cssVars": [
+    {
+      "name": "--ui-topbar-bg",
+      "default": "--ui-color-bg",
+      "description": "Background color"
+    },
+    {
+      "name": "--ui-topbar-border-color",
+      "default": "--ui-color-border",
+      "description": "Border color"
+    },
+    {
+      "name": "--ui-topbar-border-width-sm",
+      "default": "--ui-border-width-sm",
+      "defaultValue": "1px"
+    },
     {
       "name": "--ui-topbar-height",
       "default": "--ui-row-3",
       "defaultValue": "48px",
       "description": "Overall height"
-    },
-    {
-      "name": "--ui-topbar-bg",
-      "default": "--ui-color-bg",
-      "description": "Background color"
     },
     {
       "name": "--ui-topbar-padding-inline",
@@ -40,9 +50,13 @@
       "description": "Horizontal padding"
     },
     {
-      "name": "--ui-topbar-border-color",
-      "default": "--ui-color-border",
-      "description": "Border color"
+      "name": "--ui-topbar-shadow-sm",
+      "default": "--ui-shadow-sm"
+    },
+    {
+      "name": "--ui-topbar-space-2",
+      "default": "--ui-space-2",
+      "defaultValue": "16px"
     },
     {
       "name": "--ui-topbar-z",

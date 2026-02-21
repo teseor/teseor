@@ -3,42 +3,25 @@
   "name": "tooltip",
   "element": "div",
   "modifiers": {
-    "position": {
-      "values": ["top", "bottom", "start", "end", "hidden"]
-    },
-    "visible": {
+    "anchored": {
       "type": "boolean"
     },
     "animate": {
       "type": "boolean"
     },
-    "anchored": {
+    "position": {
+      "values": ["bottom", "end", "hidden", "start", "top"]
+    },
+    "visible": {
       "type": "boolean"
     }
   },
   "cssVars": [
     {
-      "name": "--ui-tooltip-transition-duration",
-      "default": "--ui-duration-fast",
-      "defaultValue": "100ms",
-      "description": "Transition duration"
-    },
-    {
-      "name": "--ui-tooltip-transition-timing",
-      "default": "--ui-ease-default",
-      "description": "Transition timing function"
-    },
-    {
-      "name": "--ui-tooltip-max-width",
-      "default": "--ui-unit-25",
-      "defaultValue": "200px",
-      "description": "Max width"
-    },
-    {
-      "name": "--ui-tooltip-line-height",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Line height"
+      "name": "--ui-tooltip-arrow-size",
+      "default": "--ui-space-0",
+      "defaultValue": "4px",
+      "description": "Arrow size"
     },
     {
       "name": "--ui-tooltip-bg",
@@ -51,10 +34,22 @@
       "description": "Text color"
     },
     {
-      "name": "--ui-tooltip-radius",
-      "default": "--ui-radius-sm",
-      "defaultValue": "4px",
-      "description": "Corner radius"
+      "name": "--ui-tooltip-font-size",
+      "default": "--ui-font-size-sm",
+      "defaultValue": "14px",
+      "description": "Font size"
+    },
+    {
+      "name": "--ui-tooltip-line-height",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Line height"
+    },
+    {
+      "name": "--ui-tooltip-max-width",
+      "default": "--ui-unit-25",
+      "defaultValue": "200px",
+      "description": "Max width"
     },
     {
       "name": "--ui-tooltip-padding-x",
@@ -69,22 +64,27 @@
       "description": "Vertical padding"
     },
     {
-      "name": "--ui-tooltip-font-size",
-      "default": "--ui-font-size-sm",
-      "defaultValue": "14px",
-      "description": "Font size"
+      "name": "--ui-tooltip-radius",
+      "default": "--ui-radius-sm",
+      "defaultValue": "4px",
+      "description": "Corner radius"
+    },
+    {
+      "name": "--ui-tooltip-transition-duration",
+      "default": "--ui-duration-fast",
+      "defaultValue": "100ms",
+      "description": "Transition duration"
+    },
+    {
+      "name": "--ui-tooltip-transition-timing",
+      "default": "--ui-ease-default",
+      "description": "Transition timing function"
     },
     {
       "name": "--ui-tooltip-z",
       "default": "--ui-z-index-tooltip",
       "defaultValue": "600",
       "description": "Z-index stacking order"
-    },
-    {
-      "name": "--ui-tooltip-arrow-size",
-      "default": "--ui-space-0",
-      "defaultValue": "4px",
-      "description": "Arrow size"
     }
   ]
 }

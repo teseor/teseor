@@ -8,16 +8,10 @@
     }
   },
   "elements": {
-    "value": {},
-    "label": {}
+    "label": {},
+    "value": {}
   },
   "cssVars": [
-    {
-      "name": "--ui-stat-letter-spacing",
-      "default": "--ui-letter-spacing-display",
-      "defaultValue": "-0.02em",
-      "description": "Letter spacing"
-    },
     {
       "name": "--ui-stat-gap",
       "default": "--ui-space-1",
@@ -25,10 +19,44 @@
       "description": "Gap between children"
     },
     {
+      "name": "--ui-stat-label-color",
+      "default": "--ui-color-text-muted",
+      "description": "Label text color"
+    },
+    {
+      "name": "--ui-stat-label-font-size",
+      "default": "--ui-font-size-sm",
+      "defaultValue": "14px",
+      "description": "Label font size"
+    },
+    {
+      "name": "--ui-stat-label-line-height",
+      "default": "--ui-line-height-sm",
+      "defaultValue": "24px",
+      "description": "Label line height"
+    },
+    {
+      "name": "--ui-stat-letter-spacing",
+      "default": "--ui-letter-spacing-display",
+      "defaultValue": "-0.02em",
+      "description": "Letter spacing"
+    },
+    {
+      "name": "--ui-stat-value-color",
+      "default": "--ui-color-text",
+      "description": "Value display text color"
+    },
+    {
       "name": "--ui-stat-value-font-size",
       "default": "--ui-font-size-3xl",
       "defaultValue": "32px",
       "description": "Value display font size"
+    },
+    {
+      "name": "--ui-stat-value-font-size-sm",
+      "default": "--ui-font-size-xl",
+      "defaultValue": "24px",
+      "description": "Value font size at small size"
     },
     {
       "name": "--ui-stat-value-font-weight",
@@ -41,34 +69,6 @@
       "default": "--ui-line-height-3xl",
       "defaultValue": "40px",
       "description": "Value display line height"
-    },
-    {
-      "name": "--ui-stat-value-color",
-      "default": "--ui-color-text",
-      "description": "Value display text color"
-    },
-    {
-      "name": "--ui-stat-label-font-size",
-      "default": "--ui-font-size-sm",
-      "defaultValue": "14px",
-      "description": "Label font size"
-    },
-    {
-      "name": "--ui-stat-label-color",
-      "default": "--ui-color-text-muted",
-      "description": "Label text color"
-    },
-    {
-      "name": "--ui-stat-label-line-height",
-      "default": "--ui-line-height-sm",
-      "defaultValue": "24px",
-      "description": "Label line height"
-    },
-    {
-      "name": "--ui-stat-value-font-size-sm",
-      "default": "--ui-font-size-xl",
-      "defaultValue": "24px",
-      "description": "Value font size at small size"
     },
     {
       "name": "--ui-stat-value-line-height-sm",

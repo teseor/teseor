@@ -12,10 +12,25 @@
   },
   "cssVars": [
     {
-      "name": "--ui-blockquote-cite-spacing",
-      "default": "--ui-space-1",
-      "defaultValue": "8px",
-      "description": "Citation spacing"
+      "name": "--ui-blockquote-accent-border-color",
+      "default": "--ui-color-primary",
+      "description": "Accent border color"
+    },
+    {
+      "name": "--ui-blockquote-border-color",
+      "default": "--ui-color-border-strong",
+      "description": "Border color"
+    },
+    {
+      "name": "--ui-blockquote-border-width",
+      "default": "--ui-border-width-lg",
+      "defaultValue": "4px",
+      "description": "Border thickness"
+    },
+    {
+      "name": "--ui-blockquote-cite-color",
+      "default": "--ui-color-text-muted",
+      "description": "Citation text color"
     },
     {
       "name": "--ui-blockquote-cite-font-size",
@@ -30,26 +45,10 @@
       "description": "Citation line height"
     },
     {
-      "name": "--ui-blockquote-cite-color",
-      "default": "--ui-color-text-muted",
-      "description": "Citation text color"
-    },
-    {
-      "name": "--ui-blockquote-border-color",
-      "default": "--ui-color-border-strong",
-      "description": "Border color"
-    },
-    {
-      "name": "--ui-blockquote-border-width",
-      "default": "--ui-border-width-lg",
-      "defaultValue": "4px",
-      "description": "Border thickness"
-    },
-    {
-      "name": "--ui-blockquote-padding-inline",
-      "default": "--ui-space-3",
-      "defaultValue": "24px",
-      "description": "Horizontal padding"
+      "name": "--ui-blockquote-cite-spacing",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Citation spacing"
     },
     {
       "name": "--ui-blockquote-color",
@@ -69,9 +68,10 @@
       "description": "Line height"
     },
     {
-      "name": "--ui-blockquote-accent-border-color",
-      "default": "--ui-color-primary",
-      "description": "Accent border color"
+      "name": "--ui-blockquote-padding-inline",
+      "default": "--ui-space-3",
+      "defaultValue": "24px",
+      "description": "Horizontal padding"
     }
   ]
 }

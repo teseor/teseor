@@ -4,25 +4,22 @@
   "element": "div",
   "modifiers": {
     "variant": {
-      "values": ["success", "warning", "danger", "info"]
+      "values": ["danger", "info", "success", "warning"]
     }
   },
   "elements": {
-    "icon": {},
-    "content": {},
-    "title": {},
-    "description": {},
     "action": {},
-    "close": {}
+    "close": {},
+    "content": {},
+    "description": {},
+    "icon": {},
+    "title": {}
   },
   "relatedComponents": [
     {
       "name": "toast-viewport",
       "modifiers": {
-        "top-end": {
-          "type": "boolean"
-        },
-        "top-start": {
+        "bottom-center": {
           "type": "boolean"
         },
         "bottom-end": {
@@ -34,7 +31,10 @@
         "top-center": {
           "type": "boolean"
         },
-        "bottom-center": {
+        "top-end": {
+          "type": "boolean"
+        },
+        "top-start": {
           "type": "boolean"
         }
       }
@@ -42,28 +42,14 @@
   ],
   "cssVars": [
     {
-      "name": "--ui-toast-viewport-z-index",
-      "default": "--ui-z-index-toast",
-      "defaultValue": "700",
-      "description": "Z-index stacking order"
+      "name": "--ui-toast-bg",
+      "default": "--ui-color-bg",
+      "description": "Background color"
     },
     {
-      "name": "--ui-toast-viewport-gap",
-      "default": "--ui-space-1",
-      "defaultValue": "8px",
-      "description": "Viewport gap"
-    },
-    {
-      "name": "--ui-toast-viewport-padding",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Viewport padding"
-    },
-    {
-      "name": "--ui-toast-viewport-max-width",
-      "default": "--ui-toast-viewport-max-width",
-      "defaultValue": "420px",
-      "description": "Viewport max width"
+      "name": "--ui-toast-border-color",
+      "default": "--ui-color-border",
+      "description": "Border color"
     },
     {
       "name": "--ui-toast-border-width",
@@ -72,22 +58,9 @@
       "description": "Border width"
     },
     {
-      "name": "--ui-toast-title-font-weight",
-      "default": "--ui-font-weight-medium",
-      "defaultValue": "500",
-      "description": "Title font weight"
-    },
-    {
-      "name": "--ui-toast-title-line-height",
-      "default": "--ui-row-1",
-      "defaultValue": "16px",
-      "description": "Title line height"
-    },
-    {
-      "name": "--ui-toast-description-font-size",
-      "default": "--ui-font-size-sm",
-      "defaultValue": "14px",
-      "description": "Description font size"
+      "name": "--ui-toast-close-hover-color",
+      "default": "--ui-color-text",
+      "description": "Close hover color"
     },
     {
       "name": "--ui-toast-description-color",
@@ -95,9 +68,10 @@
       "description": "Description color"
     },
     {
-      "name": "--ui-toast-close-hover-color",
-      "default": "--ui-color-text",
-      "description": "Close hover color"
+      "name": "--ui-toast-description-font-size",
+      "default": "--ui-font-size-sm",
+      "defaultValue": "14px",
+      "description": "Description font size"
     },
     {
       "name": "--ui-toast-enter-duration",
@@ -122,16 +96,16 @@
       "description": "Exit timing function"
     },
     {
-      "name": "--ui-toast-padding",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Padding on all sides"
-    },
-    {
       "name": "--ui-toast-gap",
       "default": "--ui-space-1",
       "defaultValue": "8px",
       "description": "Gap between children"
+    },
+    {
+      "name": "--ui-toast-padding",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Padding on all sides"
     },
     {
       "name": "--ui-toast-radius",
@@ -140,19 +114,45 @@
       "description": "Corner radius"
     },
     {
-      "name": "--ui-toast-bg",
-      "default": "--ui-color-bg",
-      "description": "Background color"
-    },
-    {
-      "name": "--ui-toast-border-color",
-      "default": "--ui-color-border",
-      "description": "Border color"
-    },
-    {
       "name": "--ui-toast-shadow",
       "default": "--ui-shadow-lg",
       "description": "Box shadow"
+    },
+    {
+      "name": "--ui-toast-title-font-weight",
+      "default": "--ui-font-weight-medium",
+      "defaultValue": "500",
+      "description": "Title font weight"
+    },
+    {
+      "name": "--ui-toast-title-line-height",
+      "default": "--ui-row-1",
+      "defaultValue": "16px",
+      "description": "Title line height"
+    },
+    {
+      "name": "--ui-toast-viewport-gap",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Viewport gap"
+    },
+    {
+      "name": "--ui-toast-viewport-max-width",
+      "default": "--ui-toast-viewport-max-width",
+      "defaultValue": "420px",
+      "description": "Viewport max width"
+    },
+    {
+      "name": "--ui-toast-viewport-padding",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Viewport padding"
+    },
+    {
+      "name": "--ui-toast-viewport-z-index",
+      "default": "--ui-z-index-toast",
+      "defaultValue": "700",
+      "description": "Z-index stacking order"
     }
   ]
 }

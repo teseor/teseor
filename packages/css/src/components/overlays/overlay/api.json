@@ -3,7 +3,7 @@
   "name": "overlay",
   "element": "div",
   "modifiers": {
-    "light": {
+    "animate": {
       "type": "boolean"
     },
     "blur": {
@@ -12,20 +12,31 @@
     "entering": {
       "type": "boolean"
     },
-    "visible": {
-      "type": "boolean"
-    },
     "exiting": {
       "type": "boolean"
     },
     "hidden": {
       "type": "boolean"
     },
-    "animate": {
+    "light": {
+      "type": "boolean"
+    },
+    "visible": {
       "type": "boolean"
     }
   },
   "cssVars": [
+    {
+      "name": "--ui-overlay-bg",
+      "default": "--ui-overlay-bg",
+      "description": "Background color"
+    },
+    {
+      "name": "--ui-overlay-blur-amount",
+      "default": "--ui-space-0",
+      "defaultValue": "4px",
+      "description": "Blur amount"
+    },
     {
       "name": "--ui-overlay-transition-duration",
       "default": "--ui-duration-normal",
@@ -38,31 +49,10 @@
       "description": "Transition timing function"
     },
     {
-      "name": "--ui-overlay-blur-amount",
-      "default": "--ui-space-0",
-      "defaultValue": "4px",
-      "description": "Blur amount"
-    },
-    {
-      "name": "--ui-overlay-bg",
-      "default": "--ui-overlay-bg",
-      "description": "Background color"
-    },
-    {
       "name": "--ui-overlay-z",
       "default": "--ui-z-index-overlay",
       "defaultValue": "300",
       "description": "Z-index stacking order"
-    },
-    {
-      "name": "--ui-overlay-bg-light",
-      "default": "--ui-overlay-bg-light",
-      "description": "Bg light"
-    },
-    {
-      "name": "--ui-overlay-bg-blur",
-      "default": "--ui-overlay-bg-blur",
-      "description": "Bg blur"
     }
   ]
 }

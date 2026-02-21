@@ -16,6 +16,18 @@
   },
   "cssVars": [
     {
+      "name": "--ui-field-container-threshold",
+      "default": "--ui-container-threshold-sm",
+      "defaultValue": "480px",
+      "description": "Container threshold for responsive layout"
+    },
+    {
+      "name": "--ui-field-control-min-width",
+      "default": "--ui-unit-20",
+      "defaultValue": "160px",
+      "description": "Control min width (horizontal layout)"
+    },
+    {
       "name": "--ui-field-gap",
       "default": "0",
       "description": "Gap between children"
@@ -31,18 +43,6 @@
       "default": "--ui-unit",
       "defaultValue": "8px",
       "description": "Label padding top (horizontal layout)"
-    },
-    {
-      "name": "--ui-field-control-min-width",
-      "default": "--ui-unit-20",
-      "defaultValue": "160px",
-      "description": "Control min width (horizontal layout)"
-    },
-    {
-      "name": "--ui-field-container-threshold",
-      "default": "--ui-container-threshold-sm",
-      "defaultValue": "480px",
-      "description": "Container threshold for responsive layout"
     }
   ]
 }

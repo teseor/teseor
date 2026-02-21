@@ -3,17 +3,17 @@
   "name": "password-input",
   "element": "div",
   "modifiers": {
-    "size": {
-      "values": ["sm", "lg"]
-    },
-    "state": {
-      "values": ["error", "success"]
-    },
     "block": {
       "type": "boolean"
     },
     "disabled": {
       "type": "boolean"
+    },
+    "size": {
+      "values": ["lg", "sm"]
+    },
+    "state": {
+      "values": ["error", "success"]
     }
   },
   "elements": {
@@ -21,93 +21,6 @@
     "toggle": {}
   },
   "cssVars": [
-    {
-      "name": "--ui-password-input-border-width",
-      "default": "--ui-border-width-sm",
-      "defaultValue": "1px",
-      "description": "Border width"
-    },
-    {
-      "name": "--ui-password-input-transition-duration",
-      "default": "--ui-duration-fast",
-      "defaultValue": "100ms",
-      "description": "Transition duration"
-    },
-    {
-      "name": "--ui-password-input-transition-timing",
-      "default": "--ui-ease-default",
-      "description": "Transition timing"
-    },
-    {
-      "name": "--ui-password-input-focus-ring-width",
-      "default": "--ui-border-width-md",
-      "defaultValue": "2px",
-      "description": "Focus ring width"
-    },
-    {
-      "name": "--ui-password-input-focus-ring-color",
-      "default": "--ui-color-focus",
-      "description": "Focus ring color"
-    },
-    {
-      "name": "--ui-password-input-disabled-opacity",
-      "default": "--ui-opacity-disabled",
-      "defaultValue": "0.5",
-      "description": "Disabled opacity"
-    },
-    {
-      "name": "--ui-password-input-toggle-inset-gap",
-      "default": "--ui-space-half",
-      "description": "Toggle inset gap"
-    },
-    {
-      "name": "--ui-password-input-toggle-radius",
-      "default": "--ui-radius-sm",
-      "defaultValue": "4px",
-      "description": "Toggle border radius"
-    },
-    {
-      "name": "--ui-password-input-icon-size",
-      "default": "--ui-size-md",
-      "defaultValue": "16px",
-      "description": "Icon size"
-    },
-    {
-      "name": "--ui-password-input-icon-stroke",
-      "default": "--ui-icon-stroke",
-      "defaultValue": "2",
-      "description": "Icon stroke width"
-    },
-    {
-      "name": "--ui-password-input-focus-ring-offset",
-      "default": "--ui-focus-ring-offset",
-      "defaultValue": "-2px",
-      "description": "Focus ring offset"
-    },
-    {
-      "name": "--ui-password-input-height",
-      "default": "--ui-row-2",
-      "defaultValue": "32px",
-      "description": "Overall height"
-    },
-    {
-      "name": "--ui-password-input-padding-x",
-      "default": "--ui-space-1",
-      "defaultValue": "8px",
-      "description": "Horizontal padding"
-    },
-    {
-      "name": "--ui-password-input-font-size",
-      "default": "--ui-font-size-sm",
-      "defaultValue": "14px",
-      "description": "Font size"
-    },
-    {
-      "name": "--ui-password-input-radius",
-      "default": "--ui-radius-md",
-      "defaultValue": "8px",
-      "description": "Corner radius"
-    },
     {
       "name": "--ui-password-input-bg",
       "default": "--ui-color-bg",
@@ -124,14 +37,119 @@
       "description": "Border color focus"
     },
     {
-      "name": "--ui-password-input-text",
-      "default": "--ui-color-text",
-      "description": "Text"
+      "name": "--ui-password-input-border-width",
+      "default": "--ui-border-width-sm",
+      "defaultValue": "1px",
+      "description": "Border width"
+    },
+    {
+      "name": "--ui-password-input-disabled-opacity",
+      "default": "--ui-opacity-disabled",
+      "defaultValue": "0.5",
+      "description": "Disabled opacity"
+    },
+    {
+      "name": "--ui-password-input-error-border",
+      "default": "--ui-color-danger",
+      "description": "Error border"
+    },
+    {
+      "name": "--ui-password-input-focus-ring-color",
+      "default": "--ui-color-focus",
+      "description": "Focus ring color"
+    },
+    {
+      "name": "--ui-password-input-focus-ring-offset",
+      "default": "--ui-focus-ring-offset",
+      "defaultValue": "-2px",
+      "description": "Focus ring offset"
+    },
+    {
+      "name": "--ui-password-input-focus-ring-width",
+      "default": "--ui-border-width-md",
+      "defaultValue": "2px",
+      "description": "Focus ring width"
+    },
+    {
+      "name": "--ui-password-input-font-size",
+      "default": "--ui-font-size-sm",
+      "defaultValue": "14px",
+      "description": "Font size"
+    },
+    {
+      "name": "--ui-password-input-font-size-lg",
+      "default": "--ui-font-size-md",
+      "defaultValue": "16px",
+      "description": "Font size at large size"
+    },
+    {
+      "name": "--ui-password-input-font-size-sm",
+      "default": "--ui-font-size-xs",
+      "defaultValue": "12px",
+      "description": "Font size at small size"
+    },
+    {
+      "name": "--ui-password-input-height",
+      "default": "--ui-row-2",
+      "defaultValue": "32px",
+      "description": "Overall height"
+    },
+    {
+      "name": "--ui-password-input-height-lg",
+      "default": "--ui-row-2-5",
+      "defaultValue": "40px",
+      "description": "Overall height at large size"
+    },
+    {
+      "name": "--ui-password-input-height-sm",
+      "default": "--ui-row-1-5",
+      "defaultValue": "24px",
+      "description": "Overall height at small size"
+    },
+    {
+      "name": "--ui-password-input-icon-size",
+      "default": "--ui-size-md",
+      "defaultValue": "16px",
+      "description": "Icon size"
+    },
+    {
+      "name": "--ui-password-input-icon-stroke",
+      "default": "--ui-icon-stroke",
+      "defaultValue": "2",
+      "description": "Icon stroke width"
+    },
+    {
+      "name": "--ui-password-input-padding-x",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Horizontal padding"
+    },
+    {
+      "name": "--ui-password-input-padding-x-lg",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Horizontal padding at large size"
     },
     {
       "name": "--ui-password-input-placeholder",
       "default": "--ui-color-text-muted",
       "description": "Placeholder"
+    },
+    {
+      "name": "--ui-password-input-radius",
+      "default": "--ui-radius-md",
+      "defaultValue": "8px",
+      "description": "Corner radius"
+    },
+    {
+      "name": "--ui-password-input-success-border",
+      "default": "--ui-color-success",
+      "description": "Success border"
+    },
+    {
+      "name": "--ui-password-input-text",
+      "default": "--ui-color-text",
+      "description": "Text"
     },
     {
       "name": "--ui-password-input-toggle-color",
@@ -144,44 +162,26 @@
       "description": "Toggle hover bg"
     },
     {
-      "name": "--ui-password-input-height-sm",
-      "default": "--ui-row-1-5",
-      "defaultValue": "24px",
-      "description": "Overall height at small size"
+      "name": "--ui-password-input-toggle-inset-gap",
+      "default": "--ui-space-half",
+      "description": "Toggle inset gap"
     },
     {
-      "name": "--ui-password-input-font-size-sm",
-      "default": "--ui-font-size-xs",
-      "defaultValue": "12px",
-      "description": "Font size at small size"
+      "name": "--ui-password-input-toggle-radius",
+      "default": "--ui-radius-sm",
+      "defaultValue": "4px",
+      "description": "Toggle border radius"
     },
     {
-      "name": "--ui-password-input-height-lg",
-      "default": "--ui-row-2-5",
-      "defaultValue": "40px",
-      "description": "Overall height at large size"
+      "name": "--ui-password-input-transition-duration",
+      "default": "--ui-duration-fast",
+      "defaultValue": "100ms",
+      "description": "Transition duration"
     },
     {
-      "name": "--ui-password-input-padding-x-lg",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Horizontal padding at large size"
-    },
-    {
-      "name": "--ui-password-input-font-size-lg",
-      "default": "--ui-font-size-md",
-      "defaultValue": "16px",
-      "description": "Font size at large size"
-    },
-    {
-      "name": "--ui-password-input-error-border",
-      "default": "--ui-color-danger",
-      "description": "Error border"
-    },
-    {
-      "name": "--ui-password-input-success-border",
-      "default": "--ui-color-success",
-      "description": "Success border"
+      "name": "--ui-password-input-transition-timing",
+      "default": "--ui-ease-default",
+      "description": "Transition timing"
     }
   ]
 }

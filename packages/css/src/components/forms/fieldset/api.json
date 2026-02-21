@@ -3,10 +3,10 @@
   "name": "fieldset",
   "element": "fieldset",
   "modifiers": {
-    "compact": {
+    "bordered": {
       "type": "boolean"
     },
-    "bordered": {
+    "compact": {
       "type": "boolean"
     }
   },
@@ -15,38 +15,9 @@
   },
   "cssVars": [
     {
-      "name": "--ui-fieldset-line-height",
-      "default": "--ui-line-height-tight-sm",
-      "defaultValue": "16px",
-      "description": "Line height"
-    },
-    {
-      "name": "--ui-fieldset-legend-inline-padding",
-      "default": "--ui-space-half",
-      "description": "Legend inline padding"
-    },
-    {
-      "name": "--ui-fieldset-disabled-opacity",
-      "default": "--ui-opacity-disabled",
-      "defaultValue": "0.5",
-      "description": "Disabled opacity"
-    },
-    {
-      "name": "--ui-fieldset-spacing",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Spacing"
-    },
-    {
       "name": "--ui-fieldset-border-color",
       "default": "--ui-color-border",
       "description": "Border color"
-    },
-    {
-      "name": "--ui-fieldset-border-width",
-      "default": "--ui-border-width-sm",
-      "defaultValue": "1px",
-      "description": "Border thickness"
     },
     {
       "name": "--ui-fieldset-border-radius",
@@ -55,10 +26,26 @@
       "description": "Border radius"
     },
     {
-      "name": "--ui-fieldset-padding",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Padding on all sides"
+      "name": "--ui-fieldset-border-width",
+      "default": "--ui-border-width-sm",
+      "defaultValue": "1px",
+      "description": "Border thickness"
+    },
+    {
+      "name": "--ui-fieldset-disabled-opacity",
+      "default": "--ui-opacity-disabled",
+      "defaultValue": "0.5",
+      "description": "Disabled opacity"
+    },
+    {
+      "name": "--ui-fieldset-legend-color",
+      "default": "--ui-color-text",
+      "description": "Legend color"
+    },
+    {
+      "name": "--ui-fieldset-legend-inline-padding",
+      "default": "--ui-space-half",
+      "description": "Legend inline padding"
     },
     {
       "name": "--ui-fieldset-legend-size",
@@ -73,21 +60,34 @@
       "description": "Legend weight"
     },
     {
-      "name": "--ui-fieldset-legend-color",
-      "default": "--ui-color-text",
-      "description": "Legend color"
+      "name": "--ui-fieldset-line-height",
+      "default": "--ui-line-height-tight-sm",
+      "defaultValue": "16px",
+      "description": "Line height"
     },
     {
-      "name": "--ui-fieldset-spacing-compact",
-      "default": "--ui-space-1",
-      "defaultValue": "8px",
-      "description": "Spacing compact"
+      "name": "--ui-fieldset-padding",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Padding on all sides"
     },
     {
       "name": "--ui-fieldset-padding-compact",
       "default": "--ui-space-1",
       "defaultValue": "8px",
       "description": "Padding compact"
+    },
+    {
+      "name": "--ui-fieldset-spacing",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Spacing"
+    },
+    {
+      "name": "--ui-fieldset-spacing-compact",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Spacing compact"
     }
   ]
 }

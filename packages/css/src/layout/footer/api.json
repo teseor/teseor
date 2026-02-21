@@ -3,35 +3,45 @@
   "name": "footer",
   "element": "footer",
   "modifiers": {
-    "sticky": {
+    "bordered": {
       "type": "boolean"
     },
     "fixed": {
       "type": "boolean"
     },
-    "bordered": {
+    "raised": {
       "type": "boolean"
     },
-    "raised": {
+    "sticky": {
       "type": "boolean"
     }
   },
   "elements": {
-    "start": {},
     "center": {},
-    "end": {}
+    "end": {},
+    "start": {}
   },
   "cssVars": [
+    {
+      "name": "--ui-footer-bg",
+      "default": "--ui-color-bg",
+      "description": "Background color"
+    },
+    {
+      "name": "--ui-footer-border-color",
+      "default": "--ui-color-border",
+      "description": "Border color"
+    },
+    {
+      "name": "--ui-footer-border-width-sm",
+      "default": "--ui-border-width-sm",
+      "defaultValue": "1px"
+    },
     {
       "name": "--ui-footer-height",
       "default": "--ui-row-3",
       "defaultValue": "48px",
       "description": "Overall height"
-    },
-    {
-      "name": "--ui-footer-bg",
-      "default": "--ui-color-bg",
-      "description": "Background color"
     },
     {
       "name": "--ui-footer-padding-inline",
@@ -40,9 +50,13 @@
       "description": "Horizontal padding"
     },
     {
-      "name": "--ui-footer-border-color",
-      "default": "--ui-color-border",
-      "description": "Border color"
+      "name": "--ui-footer-shadow-color",
+      "default": "--ui-color-neutral-100"
+    },
+    {
+      "name": "--ui-footer-space-2",
+      "default": "--ui-space-2",
+      "defaultValue": "16px"
     },
     {
       "name": "--ui-footer-z",

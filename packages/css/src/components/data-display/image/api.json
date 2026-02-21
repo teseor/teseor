@@ -3,51 +3,24 @@
   "name": "image",
   "element": "figure",
   "modifiers": {
-    "size": {
-      "values": ["sm", "md", "lg", "xl", "full"]
-    },
-    "rounded": {
-      "type": "boolean"
-    },
     "circle": {
       "type": "boolean"
     },
     "object-fit": {
-      "values": ["cover", "contain"]
+      "values": ["contain", "cover"]
+    },
+    "rounded": {
+      "type": "boolean"
+    },
+    "size": {
+      "values": ["full", "lg", "md", "sm", "xl"]
     }
   },
   "elements": {
-    "img": {},
-    "caption": {}
+    "caption": {},
+    "img": {}
   },
   "cssVars": [
-    {
-      "name": "--ui-image-line-height",
-      "default": "--ui-row-1",
-      "defaultValue": "16px",
-      "description": "Line height"
-    },
-    {
-      "name": "--ui-image-fallback-min-size",
-      "default": "--ui-space-8",
-      "defaultValue": "64px",
-      "description": "Fallback minimum size"
-    },
-    {
-      "name": "--ui-image-size",
-      "default": "auto",
-      "description": "Overall size"
-    },
-    {
-      "name": "--ui-image-radius",
-      "default": "0",
-      "description": "Corner radius"
-    },
-    {
-      "name": "--ui-image-object-fit",
-      "default": "cover",
-      "description": "Object fit"
-    },
     {
       "name": "--ui-image-bg",
       "default": "--ui-color-bg-muted",
@@ -71,28 +44,31 @@
       "description": "Caption spacing"
     },
     {
-      "name": "--ui-image-size-sm",
-      "default": "--ui-unit-12",
-      "defaultValue": "96px",
-      "description": "Overall size at small size"
+      "name": "--ui-image-fallback-min-size",
+      "default": "--ui-space-8",
+      "defaultValue": "64px",
+      "description": "Fallback minimum size"
     },
     {
-      "name": "--ui-image-size-md",
-      "default": "--ui-unit-24",
-      "defaultValue": "192px",
-      "description": "Overall size at medium size"
+      "name": "--ui-image-line-height",
+      "default": "--ui-row-1",
+      "defaultValue": "16px",
+      "description": "Line height"
     },
     {
-      "name": "--ui-image-size-lg",
-      "default": "--ui-unit-40",
-      "defaultValue": "320px",
-      "description": "Overall size at large size"
+      "name": "--ui-image-object-fit",
+      "default": "cover",
+      "description": "Object fit"
     },
     {
-      "name": "--ui-image-size-xl",
-      "default": "--ui-unit-60",
-      "defaultValue": "480px",
-      "description": "Overall size at extra-large size"
+      "name": "--ui-image-radius",
+      "default": "0",
+      "description": "Corner radius"
+    },
+    {
+      "name": "--ui-image-radius-circle",
+      "default": "50%",
+      "description": "Radius circle"
     },
     {
       "name": "--ui-image-radius-rounded",
@@ -101,9 +77,33 @@
       "description": "Radius rounded"
     },
     {
-      "name": "--ui-image-radius-circle",
-      "default": "50%",
-      "description": "Radius circle"
+      "name": "--ui-image-size",
+      "default": "auto",
+      "description": "Overall size"
+    },
+    {
+      "name": "--ui-image-size-lg",
+      "default": "--ui-unit-40",
+      "defaultValue": "320px",
+      "description": "Overall size at large size"
+    },
+    {
+      "name": "--ui-image-size-md",
+      "default": "--ui-unit-24",
+      "defaultValue": "192px",
+      "description": "Overall size at medium size"
+    },
+    {
+      "name": "--ui-image-size-sm",
+      "default": "--ui-unit-12",
+      "defaultValue": "96px",
+      "description": "Overall size at small size"
+    },
+    {
+      "name": "--ui-image-size-xl",
+      "default": "--ui-unit-60",
+      "defaultValue": "480px",
+      "description": "Overall size at extra-large size"
     }
   ]
 }

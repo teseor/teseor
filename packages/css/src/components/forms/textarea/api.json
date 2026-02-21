@@ -3,100 +3,20 @@
   "name": "textarea",
   "element": "textarea",
   "modifiers": {
-    "size": {
-      "values": ["sm", "lg"]
+    "auto-size": {
+      "type": "boolean"
     },
-    "variant": {
-      "values": ["filled", "ghost"]
+    "size": {
+      "values": ["lg", "sm"]
     },
     "state": {
       "values": ["error", "success"]
     },
-    "auto-size": {
-      "type": "boolean"
+    "variant": {
+      "values": ["filled", "ghost"]
     }
   },
   "cssVars": [
-    {
-      "name": "--ui-textarea-line-height",
-      "default": "--ui-row-1",
-      "defaultValue": "16px",
-      "description": "Line height"
-    },
-    {
-      "name": "--ui-textarea-border-width",
-      "default": "--ui-border-width-sm",
-      "defaultValue": "1px",
-      "description": "Border width"
-    },
-    {
-      "name": "--ui-textarea-transition-duration",
-      "default": "--ui-duration-fast",
-      "defaultValue": "100ms",
-      "description": "Transition duration"
-    },
-    {
-      "name": "--ui-textarea-transition-timing",
-      "default": "--ui-ease-default",
-      "description": "Transition timing"
-    },
-    {
-      "name": "--ui-textarea-hover-border-color",
-      "default": "--ui-color-border-strong",
-      "description": "Hover border color"
-    },
-    {
-      "name": "--ui-textarea-focus-ring-width",
-      "default": "--ui-border-width-md",
-      "defaultValue": "2px",
-      "description": "Focus ring width"
-    },
-    {
-      "name": "--ui-textarea-focus-ring-color",
-      "default": "--ui-color-focus",
-      "description": "Focus ring color"
-    },
-    {
-      "name": "--ui-textarea-disabled-opacity",
-      "default": "--ui-opacity-disabled",
-      "defaultValue": "0.5",
-      "description": "Disabled opacity"
-    },
-    {
-      "name": "--ui-textarea-readonly-bg",
-      "default": "--ui-color-bg-subtle",
-      "description": "Read-only background"
-    },
-    {
-      "name": "--ui-textarea-min-height",
-      "default": "--ui-row-4",
-      "defaultValue": "64px",
-      "description": "Minimum height"
-    },
-    {
-      "name": "--ui-textarea-padding-x",
-      "default": "--ui-space-1",
-      "defaultValue": "8px",
-      "description": "Horizontal padding"
-    },
-    {
-      "name": "--ui-textarea-padding-y",
-      "default": "--ui-space-1",
-      "defaultValue": "8px",
-      "description": "Vertical padding"
-    },
-    {
-      "name": "--ui-textarea-font-size",
-      "default": "--ui-font-size-sm",
-      "defaultValue": "14px",
-      "description": "Font size"
-    },
-    {
-      "name": "--ui-textarea-radius",
-      "default": "--ui-radius-md",
-      "defaultValue": "8px",
-      "description": "Corner radius"
-    },
     {
       "name": "--ui-textarea-bg",
       "default": "--ui-color-bg",
@@ -113,44 +33,48 @@
       "description": "Border color focus"
     },
     {
+      "name": "--ui-textarea-border-width",
+      "default": "--ui-border-width-sm",
+      "defaultValue": "1px",
+      "description": "Border width"
+    },
+    {
       "name": "--ui-textarea-color",
       "default": "--ui-color-text",
       "description": "Text color"
     },
     {
-      "name": "--ui-textarea-placeholder",
-      "default": "--ui-color-text-muted",
-      "description": "Placeholder"
+      "name": "--ui-textarea-disabled-opacity",
+      "default": "--ui-opacity-disabled",
+      "defaultValue": "0.5",
+      "description": "Disabled opacity"
     },
     {
-      "name": "--ui-textarea-min-height-sm",
-      "default": "--ui-row-3",
-      "defaultValue": "48px",
-      "description": "Minimum height at small size"
+      "name": "--ui-textarea-error-border",
+      "default": "--ui-color-danger",
+      "description": "Error border"
     },
     {
-      "name": "--ui-textarea-font-size-sm",
-      "default": "--ui-font-size-xs",
-      "defaultValue": "12px",
-      "description": "Font size at small size"
+      "name": "--ui-textarea-filled-bg",
+      "default": "--ui-color-bg-muted",
+      "description": "Filled bg"
     },
     {
-      "name": "--ui-textarea-min-height-lg",
-      "default": "--ui-row-6",
-      "defaultValue": "96px",
-      "description": "Minimum height at large size"
+      "name": "--ui-textarea-focus-ring-color",
+      "default": "--ui-color-focus",
+      "description": "Focus ring color"
     },
     {
-      "name": "--ui-textarea-padding-x-lg",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Horizontal padding at large size"
+      "name": "--ui-textarea-focus-ring-width",
+      "default": "--ui-border-width-md",
+      "defaultValue": "2px",
+      "description": "Focus ring width"
     },
     {
-      "name": "--ui-textarea-padding-y-lg",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Vertical padding at large size"
+      "name": "--ui-textarea-font-size",
+      "default": "--ui-font-size-sm",
+      "defaultValue": "14px",
+      "description": "Font size"
     },
     {
       "name": "--ui-textarea-font-size-lg",
@@ -159,19 +83,95 @@
       "description": "Font size at large size"
     },
     {
-      "name": "--ui-textarea-filled-bg",
-      "default": "--ui-color-bg-muted",
-      "description": "Filled bg"
+      "name": "--ui-textarea-font-size-sm",
+      "default": "--ui-font-size-xs",
+      "defaultValue": "12px",
+      "description": "Font size at small size"
     },
     {
-      "name": "--ui-textarea-error-border",
-      "default": "--ui-color-danger",
-      "description": "Error border"
+      "name": "--ui-textarea-hover-border-color",
+      "default": "--ui-color-border-strong",
+      "description": "Hover border color"
+    },
+    {
+      "name": "--ui-textarea-line-height",
+      "default": "--ui-row-1",
+      "defaultValue": "16px",
+      "description": "Line height"
+    },
+    {
+      "name": "--ui-textarea-min-height",
+      "default": "--ui-row-4",
+      "defaultValue": "64px",
+      "description": "Minimum height"
+    },
+    {
+      "name": "--ui-textarea-min-height-lg",
+      "default": "--ui-row-6",
+      "defaultValue": "96px",
+      "description": "Minimum height at large size"
+    },
+    {
+      "name": "--ui-textarea-min-height-sm",
+      "default": "--ui-row-3",
+      "defaultValue": "48px",
+      "description": "Minimum height at small size"
+    },
+    {
+      "name": "--ui-textarea-padding-x",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Horizontal padding"
+    },
+    {
+      "name": "--ui-textarea-padding-x-lg",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Horizontal padding at large size"
+    },
+    {
+      "name": "--ui-textarea-padding-y",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Vertical padding"
+    },
+    {
+      "name": "--ui-textarea-padding-y-lg",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Vertical padding at large size"
+    },
+    {
+      "name": "--ui-textarea-placeholder",
+      "default": "--ui-color-text-muted",
+      "description": "Placeholder"
+    },
+    {
+      "name": "--ui-textarea-radius",
+      "default": "--ui-radius-md",
+      "defaultValue": "8px",
+      "description": "Corner radius"
+    },
+    {
+      "name": "--ui-textarea-readonly-bg",
+      "default": "--ui-color-bg-subtle",
+      "description": "Read-only background"
     },
     {
       "name": "--ui-textarea-success-border",
       "default": "--ui-color-success",
       "description": "Success border"
+    },
+    {
+      "name": "--ui-textarea-transition-duration",
+      "default": "--ui-duration-fast",
+      "defaultValue": "100ms",
+      "description": "Transition duration"
+    },
+    {
+      "name": "--ui-textarea-transition-timing",
+      "default": "--ui-ease-default",
+      "description": "Transition timing"
     }
   ]
 }

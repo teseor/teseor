@@ -5,27 +5,36 @@
   "modifiers": {},
   "cssVars": [
     {
+      "name": "--ui-kbd-bg",
+      "default": "--ui-color-bg-subtle",
+      "description": "Background color"
+    },
+    {
+      "name": "--ui-kbd-border-color",
+      "default": "--ui-color-border",
+      "description": "Border color"
+    },
+    {
       "name": "--ui-kbd-border-width",
       "default": "--ui-border-width-sm",
       "defaultValue": "1px",
       "description": "Border width"
     },
     {
-      "name": "--ui-kbd-shadow-offset",
-      "default": "--ui-space-quarter",
-      "defaultValue": "2px",
-      "description": "Shadow offset"
+      "name": "--ui-kbd-color",
+      "default": "--ui-color-text",
+      "description": "Text color"
+    },
+    {
+      "name": "--ui-kbd-font-family",
+      "default": "--ui-font-mono",
+      "description": "Font family"
     },
     {
       "name": "--ui-kbd-font-size",
       "default": "--ui-font-size-sm",
       "defaultValue": "14px",
       "description": "Font size"
-    },
-    {
-      "name": "--ui-kbd-font-family",
-      "default": "--ui-font-mono",
-      "description": "Font family"
     },
     {
       "name": "--ui-kbd-padding-x",
@@ -40,25 +49,16 @@
       "description": "Vertical padding"
     },
     {
-      "name": "--ui-kbd-bg",
-      "default": "--ui-color-bg-subtle",
-      "description": "Background color"
-    },
-    {
-      "name": "--ui-kbd-border-color",
-      "default": "--ui-color-border",
-      "description": "Border color"
-    },
-    {
       "name": "--ui-kbd-radius",
       "default": "--ui-radius-sm",
       "defaultValue": "4px",
       "description": "Corner radius"
     },
     {
-      "name": "--ui-kbd-color",
-      "default": "--ui-color-text",
-      "description": "Text color"
+      "name": "--ui-kbd-shadow-offset",
+      "default": "--ui-space-quarter",
+      "defaultValue": "2px",
+      "description": "Shadow offset"
     }
   ]
 }

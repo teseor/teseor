@@ -3,20 +3,20 @@
   "name": "input",
   "element": "input",
   "modifiers": {
-    "size": {
-      "values": ["sm", "lg"]
-    },
-    "variant": {
-      "values": ["filled", "ghost"]
-    },
-    "state": {
-      "values": ["error", "success"]
-    },
     "auto-size": {
       "type": "boolean"
     },
     "block": {
       "type": "boolean"
+    },
+    "size": {
+      "values": ["lg", "sm"]
+    },
+    "state": {
+      "values": ["error", "success"]
+    },
+    "variant": {
+      "values": ["filled", "ghost"]
     }
   },
   "relatedComponents": [
@@ -25,13 +25,13 @@
       "elements": {
         "addon": {
           "modifiers": {
-            "start": {
-              "type": "boolean"
-            },
             "end": {
               "type": "boolean"
             },
             "interactive": {
+              "type": "boolean"
+            },
+            "start": {
               "type": "boolean"
             }
           }
@@ -41,82 +41,14 @@
   ],
   "cssVars": [
     {
-      "name": "--ui-input-border-width",
-      "default": "--ui-border-width-sm",
-      "defaultValue": "1px",
-      "description": "Border width"
-    },
-    {
-      "name": "--ui-input-transition-duration",
-      "default": "--ui-duration-fast",
-      "defaultValue": "100ms",
-      "description": "Transition duration"
-    },
-    {
-      "name": "--ui-input-transition-timing",
-      "default": "--ui-ease-default",
-      "description": "Transition timing"
-    },
-    {
-      "name": "--ui-input-hover-border-color",
-      "default": "--ui-color-border-strong",
-      "description": "Hover border color"
-    },
-    {
-      "name": "--ui-input-focus-ring-width",
-      "default": "--ui-border-width-md",
-      "defaultValue": "2px",
-      "description": "Focus ring width"
-    },
-    {
-      "name": "--ui-input-focus-ring-color",
-      "default": "--ui-color-focus",
-      "description": "Focus ring color"
-    },
-    {
-      "name": "--ui-input-disabled-opacity",
-      "default": "--ui-opacity-disabled",
-      "defaultValue": "0.5",
-      "description": "Disabled opacity"
-    },
-    {
-      "name": "--ui-input-readonly-bg",
-      "default": "--ui-color-bg-subtle",
-      "description": "Read-only background"
-    },
-    {
-      "name": "--ui-input-addon-gap",
-      "default": "--ui-space-half",
-      "description": "Addon gap"
-    },
-    {
       "name": "--ui-input-addon-color",
       "default": "--ui-color-text-muted",
       "description": "Addon color"
     },
     {
-      "name": "--ui-input-height",
-      "default": "--ui-row-2",
-      "defaultValue": "32px",
-      "description": "Overall height"
-    },
-    {
-      "name": "--ui-input-padding-x",
-      "default": "--ui-space-1",
-      "defaultValue": "8px",
-      "description": "Horizontal padding"
-    },
-    {
-      "name": "--ui-input-font-size",
-      "default": "--ui-font-size-sm",
-      "defaultValue": "14px",
-      "description": "Font size"
-    },
-    {
-      "name": "--ui-input-radius",
-      "default": "--ui-radius-md",
-      "defaultValue": "8px",
-      "description": "Corner radius"
+      "name": "--ui-input-addon-gap",
+      "default": "--ui-space-half",
+      "description": "Addon gap"
     },
     {
       "name": "--ui-input-bg",
@@ -134,38 +66,48 @@
       "description": "Border color focus"
     },
     {
+      "name": "--ui-input-border-width",
+      "default": "--ui-border-width-sm",
+      "defaultValue": "1px",
+      "description": "Border width"
+    },
+    {
       "name": "--ui-input-color",
       "default": "--ui-color-text",
       "description": "Text color"
     },
     {
-      "name": "--ui-input-placeholder",
-      "default": "--ui-color-text-muted",
-      "description": "Placeholder"
+      "name": "--ui-input-disabled-opacity",
+      "default": "--ui-opacity-disabled",
+      "defaultValue": "0.5",
+      "description": "Disabled opacity"
     },
     {
-      "name": "--ui-input-height-sm",
-      "default": "--ui-row-1-5",
-      "defaultValue": "24px",
-      "description": "Overall height at small size"
+      "name": "--ui-input-error-border",
+      "default": "--ui-color-danger",
+      "description": "Error border"
     },
     {
-      "name": "--ui-input-font-size-sm",
-      "default": "--ui-font-size-xs",
-      "defaultValue": "12px",
-      "description": "Font size at small size"
+      "name": "--ui-input-filled-bg",
+      "default": "--ui-color-bg-muted",
+      "description": "Filled bg"
     },
     {
-      "name": "--ui-input-height-lg",
-      "default": "--ui-row-2-5",
-      "defaultValue": "40px",
-      "description": "Overall height at large size"
+      "name": "--ui-input-focus-ring-color",
+      "default": "--ui-color-focus",
+      "description": "Focus ring color"
     },
     {
-      "name": "--ui-input-padding-x-lg",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Horizontal padding at large size"
+      "name": "--ui-input-focus-ring-width",
+      "default": "--ui-border-width-md",
+      "defaultValue": "2px",
+      "description": "Focus ring width"
+    },
+    {
+      "name": "--ui-input-font-size",
+      "default": "--ui-font-size-sm",
+      "defaultValue": "14px",
+      "description": "Font size"
     },
     {
       "name": "--ui-input-font-size-lg",
@@ -174,19 +116,77 @@
       "description": "Font size at large size"
     },
     {
-      "name": "--ui-input-filled-bg",
-      "default": "--ui-color-bg-muted",
-      "description": "Filled bg"
+      "name": "--ui-input-font-size-sm",
+      "default": "--ui-font-size-xs",
+      "defaultValue": "12px",
+      "description": "Font size at small size"
     },
     {
-      "name": "--ui-input-error-border",
-      "default": "--ui-color-danger",
-      "description": "Error border"
+      "name": "--ui-input-height",
+      "default": "--ui-row-2",
+      "defaultValue": "32px",
+      "description": "Overall height"
+    },
+    {
+      "name": "--ui-input-height-lg",
+      "default": "--ui-row-2-5",
+      "defaultValue": "40px",
+      "description": "Overall height at large size"
+    },
+    {
+      "name": "--ui-input-height-sm",
+      "default": "--ui-row-1-5",
+      "defaultValue": "24px",
+      "description": "Overall height at small size"
+    },
+    {
+      "name": "--ui-input-hover-border-color",
+      "default": "--ui-color-border-strong",
+      "description": "Hover border color"
+    },
+    {
+      "name": "--ui-input-padding-x",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Horizontal padding"
+    },
+    {
+      "name": "--ui-input-padding-x-lg",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Horizontal padding at large size"
+    },
+    {
+      "name": "--ui-input-placeholder",
+      "default": "--ui-color-text-muted",
+      "description": "Placeholder"
+    },
+    {
+      "name": "--ui-input-radius",
+      "default": "--ui-radius-md",
+      "defaultValue": "8px",
+      "description": "Corner radius"
+    },
+    {
+      "name": "--ui-input-readonly-bg",
+      "default": "--ui-color-bg-subtle",
+      "description": "Read-only background"
     },
     {
       "name": "--ui-input-success-border",
       "default": "--ui-color-success",
       "description": "Success border"
+    },
+    {
+      "name": "--ui-input-transition-duration",
+      "default": "--ui-duration-fast",
+      "defaultValue": "100ms",
+      "description": "Transition duration"
+    },
+    {
+      "name": "--ui-input-transition-timing",
+      "default": "--ui-ease-default",
+      "description": "Transition timing"
     }
   ]
 }

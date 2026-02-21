@@ -3,9 +3,9 @@
 
 // --- shared modifier scales ---
 
-export type Size = 'sm' | 'lg';
+export type Size = 'lg' | 'sm';
 export type State = 'error' | 'success';
-export type Variant = 'info' | 'success' | 'warning' | 'danger';
+export type Variant = 'danger' | 'info' | 'success' | 'warning';
 
 // --- accordion ---
 
@@ -21,16 +21,16 @@ export const accordionElement = 'div' as const;
 // --- alert ---
 
 export interface AlertModifiers {
-  variant?: Variant;
-  size?: Size;
   dismissible?: boolean;
+  size?: Size;
+  variant?: Variant;
 }
 
-export const alertModifierKeys = ['variant', 'size', 'dismissible'] as const;
+export const alertModifierKeys = ['dismissible', 'size', 'variant'] as const;
 
 export const alertElement = 'div' as const;
 
-export const alertElements = ['icon', 'content', 'title', 'description', 'close'] as const;
+export const alertElements = ['close', 'content', 'description', 'icon', 'title'] as const;
 
 // --- app-shell ---
 
@@ -39,7 +39,7 @@ export const appShellElement = 'body' as const;
 // --- aspect-ratio ---
 
 export interface AspectRatioModifiers {
-  ratio?: 'square' | 'video' | 'photo' | 'wide' | 'portrait';
+  ratio?: 'photo' | 'portrait' | 'square' | 'video' | 'wide';
 }
 
 export const aspectRatioModifierKeys = ['ratio'] as const;
@@ -49,7 +49,7 @@ export const aspectRatioElement = 'div' as const;
 // --- avatar ---
 
 export interface AvatarModifiers {
-  size?: 'xs' | 'sm' | 'lg' | 'xl';
+  size?: 'lg' | 'sm' | 'xl' | 'xs';
   square?: boolean;
 }
 
@@ -57,13 +57,13 @@ export const avatarModifierKeys = ['size', 'square'] as const;
 
 export const avatarElement = 'div' as const;
 
-export const avatarElements = ['image', 'fallback'] as const;
+export const avatarElements = ['fallback', 'image'] as const;
 
 // --- badge ---
 
 export interface BadgeModifiers {
   size?: Size;
-  variant?: 'primary' | 'success' | 'warning' | 'danger';
+  variant?: 'danger' | 'primary' | 'success' | 'warning';
 }
 
 export const badgeModifierKeys = ['size', 'variant'] as const;
@@ -85,23 +85,23 @@ export const blockquoteElements = ['cite'] as const;
 // --- box ---
 
 export interface BoxModifiers {
+  'bg-muted'?: boolean;
+  'bg-subtle'?: boolean;
   'p-1'?: boolean;
   'p-2'?: boolean;
   'p-3'?: boolean;
   'p-4'?: boolean;
-  'bg-subtle'?: boolean;
-  'bg-muted'?: boolean;
   rounded?: boolean;
   'rounded-lg'?: boolean;
 }
 
 export const boxModifierKeys = [
+  'bg-muted',
+  'bg-subtle',
   'p-1',
   'p-2',
   'p-3',
   'p-4',
-  'bg-subtle',
-  'bg-muted',
   'rounded',
   'rounded-lg',
 ] as const;
@@ -112,7 +112,7 @@ export const boxElement = 'div' as const;
 
 export const breadcrumbElement = 'div' as const;
 
-export const breadcrumbElements = ['item', 'link', 'current', 'ellipsis'] as const;
+export const breadcrumbElements = ['current', 'ellipsis', 'item', 'link'] as const;
 
 export interface BreadcrumbItemModifiers {
   hidden?: boolean;
@@ -121,21 +121,21 @@ export interface BreadcrumbItemModifiers {
 // --- button ---
 
 export interface ButtonModifiers {
-  size?: 'sm' | 'md' | 'lg';
-  variant?: 'secondary' | 'ghost' | 'outline' | 'danger' | 'link';
-  icon?: boolean;
-  radius?: 'radius-none' | 'radius-sm' | 'radius-lg' | 'radius-full';
   block?: boolean;
+  icon?: boolean;
   loading?: boolean;
+  radius?: 'radius-full' | 'radius-lg' | 'radius-none' | 'radius-sm';
+  size?: 'lg' | 'md' | 'sm';
+  variant?: 'danger' | 'ghost' | 'link' | 'outline' | 'secondary';
 }
 
 export const buttonModifierKeys = [
+  'block',
+  'icon',
+  'loading',
+  'radius',
   'size',
   'variant',
-  'icon',
-  'radius',
-  'block',
-  'loading',
 ] as const;
 
 export const buttonElement = 'button' as const;
@@ -143,8 +143,8 @@ export const buttonElement = 'button' as const;
 export const buttonElements = ['icon'] as const;
 
 export interface ButtonIconModifiers {
-  start?: boolean;
   end?: boolean;
+  start?: boolean;
 }
 
 // --- button-group ---
@@ -160,18 +160,18 @@ export const buttonGroupElement = 'div' as const;
 // --- card ---
 
 export interface CardModifiers {
-  variant?: 'subtle' | 'muted';
-  size?: Size;
   flush?: boolean;
   interactive?: boolean;
   responsive?: boolean;
+  size?: Size;
+  variant?: 'muted' | 'subtle';
 }
 
-export const cardModifierKeys = ['variant', 'size', 'flush', 'interactive', 'responsive'] as const;
+export const cardModifierKeys = ['flush', 'interactive', 'responsive', 'size', 'variant'] as const;
 
 export const cardElement = 'div' as const;
 
-export const cardElements = ['media', 'body'] as const;
+export const cardElements = ['body', 'media'] as const;
 
 // --- center ---
 
@@ -206,7 +206,7 @@ export const checkboxGroupModifierKeys = ['compact', 'error', 'horizontal'] as c
 
 export const checkboxGroupElement = 'fieldset' as const;
 
-export const checkboxGroupElements = ['legend', 'items', 'item'] as const;
+export const checkboxGroupElements = ['item', 'items', 'legend'] as const;
 
 // --- close-button ---
 
@@ -247,7 +247,7 @@ export const codeBlockElements = ['code', 'line', 'line-number'] as const;
 // --- column ---
 
 export interface ColumnModifiers {
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  size?: 'lg' | 'md' | 'sm' | 'xl' | 'xs';
 }
 
 export const columnModifierKeys = ['size'] as const;
@@ -258,7 +258,7 @@ export const columnElement = 'div' as const;
 
 export interface ContainerModifiers {
   center?: boolean;
-  size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  size?: 'full' | 'lg' | 'md' | 'sm' | 'xl';
 }
 
 export const containerModifierKeys = ['center', 'size'] as const;
@@ -268,23 +268,23 @@ export const containerElement = 'div' as const;
 // --- content ---
 
 export interface ContentModifiers {
-  prose?: boolean;
   flush?: boolean;
+  prose?: boolean;
 }
 
-export const contentModifierKeys = ['prose', 'flush'] as const;
+export const contentModifierKeys = ['flush', 'prose'] as const;
 
 export const contentElement = 'div' as const;
 
 // --- data-list ---
 
 export interface DataListModifiers {
-  size?: Size;
   layout?: 'horizontal';
+  size?: Size;
   style?: 'divided' | 'striped';
 }
 
-export const dataListModifierKeys = ['size', 'layout', 'style'] as const;
+export const dataListModifierKeys = ['layout', 'size', 'style'] as const;
 
 export const dataListElement = 'div' as const;
 
@@ -300,67 +300,67 @@ export const dialogModifierKeys = ['borderless'] as const;
 
 export const dialogElement = 'div' as const;
 
-export const dialogElements = ['header', 'title', 'close', 'body', 'footer'] as const;
+export const dialogElements = ['body', 'close', 'footer', 'header', 'title'] as const;
 
 // --- disclosure ---
 
 export interface DisclosureModifiers {
-  borderless?: boolean;
   animate?: boolean;
+  borderless?: boolean;
 }
 
-export const disclosureModifierKeys = ['borderless', 'animate'] as const;
+export const disclosureModifierKeys = ['animate', 'borderless'] as const;
 
 export const disclosureElement = 'div' as const;
 
-export const disclosureElements = ['trigger', 'icon', 'content'] as const;
+export const disclosureElements = ['content', 'icon', 'trigger'] as const;
 
 // --- divider ---
 
 export interface DividerModifiers {
-  vertical?: boolean;
-  position?: 'start' | 'end';
   dashed?: boolean;
+  position?: 'end' | 'start';
+  vertical?: boolean;
 }
 
-export const dividerModifierKeys = ['vertical', 'position', 'dashed'] as const;
+export const dividerModifierKeys = ['dashed', 'position', 'vertical'] as const;
 
 export const dividerElement = 'div' as const;
 
 // --- drawer ---
 
 export interface DrawerModifiers {
-  size?: 'sm' | 'lg' | 'full';
-  position?: 'end' | 'start' | 'top' | 'bottom';
+  position?: 'bottom' | 'end' | 'start' | 'top';
+  size?: 'full' | 'lg' | 'sm';
 }
 
-export const drawerModifierKeys = ['size', 'position'] as const;
+export const drawerModifierKeys = ['position', 'size'] as const;
 
 export const drawerElement = 'div' as const;
 
 export const drawerElements = [
+  'body',
+  'close',
+  'description',
+  'footer',
   'header',
   'title',
-  'description',
-  'close',
-  'body',
-  'footer',
 ] as const;
 
 // --- dropdown-menu ---
 
 export interface DropdownMenuModifiers {
-  open?: boolean;
-  top?: boolean;
   'align-end'?: boolean;
   'full-width'?: boolean;
+  open?: boolean;
+  top?: boolean;
 }
 
-export const dropdownMenuModifierKeys = ['open', 'top', 'align-end', 'full-width'] as const;
+export const dropdownMenuModifierKeys = ['align-end', 'full-width', 'open', 'top'] as const;
 
 export const dropdownMenuElement = 'div' as const;
 
-export const dropdownMenuElements = ['trigger', 'trigger-icon', 'panel'] as const;
+export const dropdownMenuElements = ['panel', 'trigger', 'trigger-icon'] as const;
 
 // --- field ---
 
@@ -378,11 +378,11 @@ export const fieldElements = ['control', 'label'] as const;
 // --- fieldset ---
 
 export interface FieldsetModifiers {
-  compact?: boolean;
   bordered?: boolean;
+  compact?: boolean;
 }
 
-export const fieldsetModifierKeys = ['compact', 'bordered'] as const;
+export const fieldsetModifierKeys = ['bordered', 'compact'] as const;
 
 export const fieldsetElement = 'fieldset' as const;
 
@@ -391,17 +391,17 @@ export const fieldsetElements = ['legend'] as const;
 // --- footer ---
 
 export interface FooterModifiers {
-  sticky?: boolean;
-  fixed?: boolean;
   bordered?: boolean;
+  fixed?: boolean;
   raised?: boolean;
+  sticky?: boolean;
 }
 
-export const footerModifierKeys = ['sticky', 'fixed', 'bordered', 'raised'] as const;
+export const footerModifierKeys = ['bordered', 'fixed', 'raised', 'sticky'] as const;
 
 export const footerElement = 'footer' as const;
 
-export const footerElements = ['start', 'center', 'end'] as const;
+export const footerElements = ['center', 'end', 'start'] as const;
 
 // --- form ---
 
@@ -414,7 +414,7 @@ export const formModifierKeys = ['compact', 'inline'] as const;
 
 export const formElement = 'form' as const;
 
-export const formElements = ['section', 'actions'] as const;
+export const formElements = ['actions', 'section'] as const;
 
 // --- form-error ---
 
@@ -431,18 +431,18 @@ export const formHelperElement = 'div' as const;
 export interface GridModifiers {
   columns?: '2' | '3' | '4' | 'auto';
   subgrid?: boolean;
-  'subgrid-rows'?: boolean;
   'subgrid-both'?: boolean;
+  'subgrid-rows'?: boolean;
 }
 
-export const gridModifierKeys = ['columns', 'subgrid', 'subgrid-rows', 'subgrid-both'] as const;
+export const gridModifierKeys = ['columns', 'subgrid', 'subgrid-both', 'subgrid-rows'] as const;
 
 export const gridElement = 'div' as const;
 
 // --- heading ---
 
 export interface HeadingModifiers {
-  size?: '4xl' | '3xl' | '2xl' | 'xl' | 'lg' | 'md' | 'sm';
+  size?: '2xl' | '3xl' | '4xl' | 'lg' | 'md' | 'sm' | 'xl';
 }
 
 export const headingModifierKeys = ['size'] as const;
@@ -452,42 +452,42 @@ export const headingElement = 'h2' as const;
 // --- icon ---
 
 export interface IconModifiers {
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  stroke?: 'stroke-thin' | 'stroke-thick';
   filled?: boolean;
+  size?: 'lg' | 'md' | 'sm' | 'xl' | 'xs';
   spin?: boolean;
+  stroke?: 'stroke-thick' | 'stroke-thin';
 }
 
-export const iconModifierKeys = ['size', 'stroke', 'filled', 'spin'] as const;
+export const iconModifierKeys = ['filled', 'size', 'spin', 'stroke'] as const;
 
 export const iconElement = 'svg' as const;
 
 // --- image ---
 
 export interface ImageModifiers {
-  size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
-  rounded?: boolean;
   circle?: boolean;
-  'object-fit'?: 'cover' | 'contain';
+  'object-fit'?: 'contain' | 'cover';
+  rounded?: boolean;
+  size?: 'full' | 'lg' | 'md' | 'sm' | 'xl';
 }
 
-export const imageModifierKeys = ['size', 'rounded', 'circle', 'object-fit'] as const;
+export const imageModifierKeys = ['circle', 'object-fit', 'rounded', 'size'] as const;
 
 export const imageElement = 'figure' as const;
 
-export const imageElements = ['img', 'caption'] as const;
+export const imageElements = ['caption', 'img'] as const;
 
 // --- input ---
 
 export interface InputModifiers {
-  size?: Size;
-  variant?: 'filled' | 'ghost';
-  state?: State;
   'auto-size'?: boolean;
   block?: boolean;
+  size?: Size;
+  state?: State;
+  variant?: 'filled' | 'ghost';
 }
 
-export const inputModifierKeys = ['size', 'variant', 'state', 'auto-size', 'block'] as const;
+export const inputModifierKeys = ['auto-size', 'block', 'size', 'state', 'variant'] as const;
 
 export const inputElement = 'input' as const;
 
@@ -505,17 +505,17 @@ export const labelModifierKeys = ['size'] as const;
 
 export const labelElement = 'label' as const;
 
-export const labelElements = ['required', 'optional'] as const;
+export const labelElements = ['optional', 'required'] as const;
 
 // --- link ---
 
 export interface LinkModifiers {
-  variant?: 'muted' | 'subtle';
   disabled?: boolean;
   external?: boolean;
+  variant?: 'muted' | 'subtle';
 }
 
-export const linkModifierKeys = ['variant', 'disabled', 'external'] as const;
+export const linkModifierKeys = ['disabled', 'external', 'variant'] as const;
 
 export const linkElement = 'a' as const;
 
@@ -523,7 +523,7 @@ export const linkElement = 'a' as const;
 
 export interface ListModifiers {
   spacing?: 'compact' | 'loose';
-  style?: 'unstyled' | 'inline';
+  style?: 'inline' | 'unstyled';
 }
 
 export const listModifierKeys = ['spacing', 'style'] as const;
@@ -535,11 +535,11 @@ export const listElements = ['item'] as const;
 // --- main ---
 
 export interface MainModifiers {
-  'sidebar-end'?: boolean;
   full?: boolean;
+  'sidebar-end'?: boolean;
 }
 
-export const mainModifierKeys = ['sidebar-end', 'full'] as const;
+export const mainModifierKeys = ['full', 'sidebar-end'] as const;
 
 export const mainElement = 'main' as const;
 
@@ -553,58 +553,58 @@ export const menuElement = 'div' as const;
 
 export const menuElements = [
   'group',
-  'label',
   'item',
   'item-icon',
-  'item-shortcut',
-  'separator',
   'item-indicator',
+  'item-shortcut',
+  'label',
+  'separator',
 ] as const;
 
 export interface MenuItemModifiers {
+  check?: boolean;
   danger?: boolean;
   disabled?: boolean;
-  check?: boolean;
   radio?: boolean;
 }
 
 // --- modal ---
 
 export interface ModalModifiers {
-  size?: 'sm' | 'lg' | 'full';
+  animate?: boolean;
   entering?: boolean;
-  visible?: boolean;
   exiting?: boolean;
   hidden?: boolean;
-  animate?: boolean;
+  size?: 'full' | 'lg' | 'sm';
+  visible?: boolean;
 }
 
 export const modalModifierKeys = [
-  'size',
+  'animate',
   'entering',
-  'visible',
   'exiting',
   'hidden',
-  'animate',
+  'size',
+  'visible',
 ] as const;
 
 export const modalElement = 'div' as const;
 
-export const modalElements = ['content', 'body'] as const;
+export const modalElements = ['body', 'content'] as const;
 
 // --- nav ---
 
 export interface NavModifiers {
   pills?: 'pills';
-  vertical?: boolean;
   responsive?: boolean;
+  vertical?: boolean;
 }
 
-export const navModifierKeys = ['pills', 'vertical', 'responsive'] as const;
+export const navModifierKeys = ['pills', 'responsive', 'vertical'] as const;
 
 export const navElement = 'nav' as const;
 
-export const navElements = ['list', 'item'] as const;
+export const navElements = ['item', 'list'] as const;
 
 export interface NavItemModifiers {
   active?: boolean;
@@ -621,42 +621,42 @@ export const navRailModifierKeys = ['end'] as const;
 
 export const navRailElement = 'nav' as const;
 
-export const navRailElements = ['items', 'actions'] as const;
+export const navRailElements = ['actions', 'items'] as const;
 
 // --- number-input ---
 
 export interface NumberInputModifiers {
-  size?: Size;
   block?: boolean;
   disabled?: boolean;
+  size?: Size;
 }
 
-export const numberInputModifierKeys = ['size', 'block', 'disabled'] as const;
+export const numberInputModifierKeys = ['block', 'disabled', 'size'] as const;
 
 export const numberInputElement = 'div' as const;
 
-export const numberInputElements = ['field', 'decrement', 'increment'] as const;
+export const numberInputElements = ['decrement', 'field', 'increment'] as const;
 
 // --- overlay ---
 
 export interface OverlayModifiers {
-  light?: boolean;
+  animate?: boolean;
   blur?: boolean;
   entering?: boolean;
-  visible?: boolean;
   exiting?: boolean;
   hidden?: boolean;
-  animate?: boolean;
+  light?: boolean;
+  visible?: boolean;
 }
 
 export const overlayModifierKeys = [
-  'light',
+  'animate',
   'blur',
   'entering',
-  'visible',
   'exiting',
   'hidden',
-  'animate',
+  'light',
+  'visible',
 ] as const;
 
 export const overlayElement = 'div' as const;
@@ -672,7 +672,7 @@ export const pageHeaderModifierKeys = ['bordered', 'sticky'] as const;
 
 export const pageHeaderElement = 'header' as const;
 
-export const pageHeaderElements = ['title', 'actions', 'breadcrumb'] as const;
+export const pageHeaderElements = ['actions', 'breadcrumb', 'title'] as const;
 
 // --- pagination ---
 
@@ -684,7 +684,7 @@ export const paginationModifierKeys = ['size'] as const;
 
 export const paginationElement = 'div' as const;
 
-export const paginationElements = ['list', 'item', 'link', 'prev', 'next', 'ellipsis'] as const;
+export const paginationElements = ['ellipsis', 'item', 'link', 'list', 'next', 'prev'] as const;
 
 export interface PaginationLinkModifiers {
   active?: boolean;
@@ -694,13 +694,13 @@ export interface PaginationLinkModifiers {
 // --- password-input ---
 
 export interface PasswordInputModifiers {
-  size?: Size;
-  state?: State;
   block?: boolean;
   disabled?: boolean;
+  size?: Size;
+  state?: State;
 }
 
-export const passwordInputModifierKeys = ['size', 'state', 'block', 'disabled'] as const;
+export const passwordInputModifierKeys = ['block', 'disabled', 'size', 'state'] as const;
 
 export const passwordInputElement = 'div' as const;
 
@@ -709,7 +709,7 @@ export const passwordInputElements = ['field', 'toggle'] as const;
 // --- popover ---
 
 export interface PopoverModifiers {
-  position?: 'top' | 'bottom' | 'visible' | 'hidden' | 'animate';
+  position?: 'animate' | 'bottom' | 'hidden' | 'top' | 'visible';
 }
 
 export const popoverModifierKeys = ['position'] as const;
@@ -721,19 +721,19 @@ export const popoverElements = ['header', 'title'] as const;
 // --- progress ---
 
 export interface ProgressModifiers {
-  size?: Size;
-  variant?: 'success' | 'warning' | 'danger';
-  indeterminate?: boolean;
-  striped?: boolean;
   animated?: boolean;
+  indeterminate?: boolean;
+  size?: Size;
+  striped?: boolean;
+  variant?: 'danger' | 'success' | 'warning';
 }
 
 export const progressModifierKeys = [
-  'size',
-  'variant',
-  'indeterminate',
-  'striped',
   'animated',
+  'indeterminate',
+  'size',
+  'striped',
+  'variant',
 ] as const;
 
 export const progressElement = 'div' as const;
@@ -743,16 +743,16 @@ export const progressElements = ['bar'] as const;
 // --- progress-circle ---
 
 export interface ProgressCircleModifiers {
-  size?: 'sm' | 'lg' | 'xl';
-  variant?: 'success' | 'warning' | 'danger';
   indeterminate?: boolean;
+  size?: 'lg' | 'sm' | 'xl';
+  variant?: 'danger' | 'success' | 'warning';
 }
 
-export const progressCircleModifierKeys = ['size', 'variant', 'indeterminate'] as const;
+export const progressCircleModifierKeys = ['indeterminate', 'size', 'variant'] as const;
 
 export const progressCircleElement = 'svg' as const;
 
-export const progressCircleElements = ['track', 'fill'] as const;
+export const progressCircleElements = ['fill', 'track'] as const;
 
 // --- radio ---
 
@@ -777,12 +777,12 @@ export const radioGroupModifierKeys = ['compact', 'error', 'horizontal'] as cons
 
 export const radioGroupElement = 'fieldset' as const;
 
-export const radioGroupElements = ['legend', 'items', 'item'] as const;
+export const radioGroupElements = ['item', 'items', 'legend'] as const;
 
 // --- row ---
 
 export interface RowModifiers {
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'start' | 'center' | 'end' | 'between';
+  size?: 'between' | 'center' | 'end' | 'lg' | 'md' | 'sm' | 'start' | 'xs';
 }
 
 export const rowModifierKeys = ['size'] as const;
@@ -792,13 +792,13 @@ export const rowElement = 'div' as const;
 // --- scroll-area ---
 
 export interface ScrollAreaModifiers {
-  size?: 'sm' | 'lg' | 'xl';
-  thin?: boolean;
-  direction?: 'horizontal' | 'both';
   'auto-hide'?: boolean;
+  direction?: 'both' | 'horizontal';
+  size?: 'lg' | 'sm' | 'xl';
+  thin?: boolean;
 }
 
-export const scrollAreaModifierKeys = ['size', 'thin', 'direction', 'auto-hide'] as const;
+export const scrollAreaModifierKeys = ['auto-hide', 'direction', 'size', 'thin'] as const;
 
 export const scrollAreaElement = 'div' as const;
 
@@ -807,39 +807,39 @@ export const scrollAreaElements = ['viewport'] as const;
 // --- search-input ---
 
 export interface SearchInputModifiers {
-  size?: Size;
   block?: boolean;
   disabled?: boolean;
   'has-clear'?: boolean;
+  size?: Size;
 }
 
-export const searchInputModifierKeys = ['size', 'block', 'disabled', 'has-clear'] as const;
+export const searchInputModifierKeys = ['block', 'disabled', 'has-clear', 'size'] as const;
 
 export const searchInputElement = 'div' as const;
 
-export const searchInputElements = ['field', 'icon', 'clear'] as const;
+export const searchInputElements = ['clear', 'field', 'icon'] as const;
 
 // --- select ---
 
 export interface SelectModifiers {
-  size?: Size;
-  variant?: 'filled' | 'ghost';
-  state?: State;
   block?: boolean;
+  size?: Size;
+  state?: State;
+  variant?: 'filled' | 'ghost';
 }
 
-export const selectModifierKeys = ['size', 'variant', 'state', 'block'] as const;
+export const selectModifierKeys = ['block', 'size', 'state', 'variant'] as const;
 
 export const selectElement = 'select' as const;
 
 // --- sidebar ---
 
 export interface SidebarModifiers {
-  size?: 'sm' | 'md' | 'lg';
   end?: boolean;
+  size?: 'lg' | 'md' | 'sm';
 }
 
-export const sidebarModifierKeys = ['size', 'end'] as const;
+export const sidebarModifierKeys = ['end', 'size'] as const;
 
 export const sidebarElement = 'aside' as const;
 
@@ -854,45 +854,45 @@ export const sidebarNavModifierKeys = ['collapsed'] as const;
 export const sidebarNavElement = 'nav' as const;
 
 export const sidebarNavElements = [
-  'header',
+  'badge',
   'content',
   'footer',
   'group',
-  'group-label',
   'group-items',
+  'group-label',
+  'header',
+  'icon',
+  'item',
+  'label',
   'subgroup',
   'subgroup-label',
-  'item',
-  'icon',
-  'label',
-  'badge',
 ] as const;
 
 export interface SidebarNavItemModifiers {
   active?: boolean;
-  nested?: boolean;
   disabled?: boolean;
+  nested?: boolean;
 }
 
 // --- skeleton ---
 
 export interface SkeletonModifiers {
-  variant?: 'text' | 'heading' | 'circle' | 'rect' | 'static';
   pulse?: boolean;
+  variant?: 'circle' | 'heading' | 'rect' | 'static' | 'text';
 }
 
-export const skeletonModifierKeys = ['variant', 'pulse'] as const;
+export const skeletonModifierKeys = ['pulse', 'variant'] as const;
 
 export const skeletonElement = 'div' as const;
 
 // --- slider ---
 
 export interface SliderModifiers {
+  color?: 'danger' | 'success' | 'warning';
   size?: Size;
-  color?: 'success' | 'warning' | 'danger';
 }
 
-export const sliderModifierKeys = ['size', 'color'] as const;
+export const sliderModifierKeys = ['color', 'size'] as const;
 
 export const sliderElement = 'input' as const;
 
@@ -903,7 +903,7 @@ export const spacerElement = 'div' as const;
 // --- spinner ---
 
 export interface SpinnerModifiers {
-  size?: 'xs' | 'sm' | 'lg' | 'xl';
+  size?: 'lg' | 'sm' | 'xl' | 'xs';
 }
 
 export const spinnerModifierKeys = ['size'] as const;
@@ -920,17 +920,17 @@ export const statModifierKeys = ['size'] as const;
 
 export const statElement = 'div' as const;
 
-export const statElements = ['value', 'label'] as const;
+export const statElements = ['label', 'value'] as const;
 
 // --- status ---
 
 export interface StatusModifiers {
-  variant?: Variant;
-  size?: Size;
   pulse?: boolean;
+  size?: Size;
+  variant?: Variant;
 }
 
-export const statusModifierKeys = ['variant', 'size', 'pulse'] as const;
+export const statusModifierKeys = ['pulse', 'size', 'variant'] as const;
 
 export const statusElement = 'div' as const;
 
@@ -958,13 +958,13 @@ export const tabsModifierKeys = ['size', 'vertical'] as const;
 
 export const tabsElement = 'div' as const;
 
-export const tabsElements = ['list', 'tab', 'panel'] as const;
+export const tabsElements = ['list', 'panel', 'tab'] as const;
 
-export interface TabsTabModifiers {
+export interface TabsPanelModifiers {
   active?: boolean;
 }
 
-export interface TabsPanelModifiers {
+export interface TabsTabModifiers {
   active?: boolean;
 }
 
@@ -972,7 +972,7 @@ export interface TabsPanelModifiers {
 
 export interface TagModifiers {
   size?: Size;
-  variant?: 'primary' | 'success' | 'warning' | 'danger';
+  variant?: 'danger' | 'primary' | 'success' | 'warning';
 }
 
 export const tagModifierKeys = ['size', 'variant'] as const;
@@ -984,13 +984,13 @@ export const tagElements = ['remove'] as const;
 // --- textarea ---
 
 export interface TextareaModifiers {
-  size?: Size;
-  variant?: 'filled' | 'ghost';
-  state?: State;
   'auto-size'?: boolean;
+  size?: Size;
+  state?: State;
+  variant?: 'filled' | 'ghost';
 }
 
-export const textareaModifierKeys = ['size', 'variant', 'state', 'auto-size'] as const;
+export const textareaModifierKeys = ['auto-size', 'size', 'state', 'variant'] as const;
 
 export const textareaElement = 'textarea' as const;
 
@@ -1005,12 +1005,12 @@ export const toastModifierKeys = ['variant'] as const;
 export const toastElement = 'div' as const;
 
 export const toastElements = [
-  'icon',
-  'content',
-  'title',
-  'description',
   'action',
   'close',
+  'content',
+  'description',
+  'icon',
+  'title',
 ] as const;
 
 // --- toggle ---
@@ -1023,32 +1023,32 @@ export const toggleModifierKeys = ['size'] as const;
 
 export const toggleElement = 'div' as const;
 
-export const toggleElements = ['input', 'track', 'thumb'] as const;
+export const toggleElements = ['input', 'thumb', 'track'] as const;
 
 // --- tooltip ---
 
 export interface TooltipModifiers {
-  position?: 'top' | 'bottom' | 'start' | 'end' | 'hidden';
-  visible?: boolean;
-  animate?: boolean;
   anchored?: boolean;
+  animate?: boolean;
+  position?: 'bottom' | 'end' | 'hidden' | 'start' | 'top';
+  visible?: boolean;
 }
 
-export const tooltipModifierKeys = ['position', 'visible', 'animate', 'anchored'] as const;
+export const tooltipModifierKeys = ['anchored', 'animate', 'position', 'visible'] as const;
 
 export const tooltipElement = 'div' as const;
 
 // --- topbar ---
 
 export interface TopbarModifiers {
-  sticky?: boolean;
-  fixed?: boolean;
   bordered?: boolean;
+  fixed?: boolean;
   raised?: boolean;
+  sticky?: boolean;
 }
 
-export const topbarModifierKeys = ['sticky', 'fixed', 'bordered', 'raised'] as const;
+export const topbarModifierKeys = ['bordered', 'fixed', 'raised', 'sticky'] as const;
 
 export const topbarElement = 'header' as const;
 
-export const topbarElements = ['start', 'center', 'end'] as const;
+export const topbarElements = ['center', 'end', 'start'] as const;

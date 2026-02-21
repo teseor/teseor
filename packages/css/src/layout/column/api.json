@@ -4,8 +4,34 @@
   "element": "div",
   "modifiers": {
     "size": {
-      "values": ["xs", "sm", "md", "lg", "xl"]
+      "values": ["lg", "md", "sm", "xl", "xs"]
     }
   },
-  "cssVars": []
+  "cssVars": [
+    {
+      "name": "--ui-column-space-1",
+      "default": "--ui-space-1",
+      "defaultValue": "8px"
+    },
+    {
+      "name": "--ui-column-space-2",
+      "default": "--ui-space-2",
+      "defaultValue": "16px"
+    },
+    {
+      "name": "--ui-column-space-4",
+      "default": "--ui-space-4",
+      "defaultValue": "32px"
+    },
+    {
+      "name": "--ui-column-space-6",
+      "default": "--ui-space-6",
+      "defaultValue": "48px"
+    },
+    {
+      "name": "--ui-column-space-8",
+      "default": "--ui-space-8",
+      "defaultValue": "64px"
+    }
+  ]
 }

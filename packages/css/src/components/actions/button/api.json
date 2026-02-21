@@ -3,32 +3,32 @@
   "name": "button",
   "element": "button",
   "modifiers": {
-    "size": {
-      "values": ["sm", "md", "lg"]
-    },
-    "variant": {
-      "values": ["secondary", "ghost", "outline", "danger", "link"]
+    "block": {
+      "type": "boolean"
     },
     "icon": {
       "type": "boolean"
     },
-    "radius": {
-      "values": ["radius-none", "radius-sm", "radius-lg", "radius-full"]
-    },
-    "block": {
-      "type": "boolean"
-    },
     "loading": {
       "type": "boolean"
+    },
+    "radius": {
+      "values": ["radius-full", "radius-lg", "radius-none", "radius-sm"]
+    },
+    "size": {
+      "values": ["lg", "md", "sm"]
+    },
+    "variant": {
+      "values": ["danger", "ghost", "link", "outline", "secondary"]
     }
   },
   "elements": {
     "icon": {
       "modifiers": {
-        "start": {
+        "end": {
           "type": "boolean"
         },
-        "end": {
+        "start": {
           "type": "boolean"
         }
       }
@@ -36,108 +36,9 @@
   },
   "cssVars": [
     {
-      "name": "--ui-button-gap",
-      "default": "--ui-space-1",
-      "defaultValue": "8px",
-      "description": "Gap between children"
-    },
-    {
-      "name": "--ui-button-font-family",
-      "default": "--ui-font-sans",
-      "description": "Font family"
-    },
-    {
-      "name": "--ui-button-transition-duration",
-      "default": "--ui-duration-base",
-      "defaultValue": "150ms",
-      "description": "Transition duration"
-    },
-    {
-      "name": "--ui-button-transition-timing",
-      "default": "--ui-ease-default",
-      "description": "Transition timing function"
-    },
-    {
-      "name": "--ui-button-press-duration",
-      "default": "--ui-duration-fast",
-      "defaultValue": "100ms",
-      "description": "Active press transition duration"
-    },
-    {
-      "name": "--ui-button-focus-ring-width",
-      "default": "--ui-border-width-md",
-      "defaultValue": "2px",
-      "description": "Focus ring width"
-    },
-    {
-      "name": "--ui-button-focus-ring-color",
-      "default": "--ui-color-focus",
-      "description": "Focus ring color"
-    },
-    {
-      "name": "--ui-button-disabled-opacity",
-      "default": "--ui-opacity-disabled",
-      "defaultValue": "0.5",
-      "description": "Disabled opacity"
-    },
-    {
-      "name": "--ui-button-underline-offset",
-      "default": "--ui-space-quarter",
-      "defaultValue": "2px",
-      "description": "Link underline offset"
-    },
-    {
-      "name": "--ui-button-loading-opacity",
-      "default": "--ui-opacity-loading",
-      "defaultValue": "0.7",
-      "description": "Loading state opacity"
-    },
-    {
-      "name": "--ui-button-icon-size",
-      "default": "--ui-icon-size-inline",
-      "defaultValue": "1em",
-      "description": "Icon size"
-    },
-    {
-      "name": "--ui-button-spinner-border-width",
-      "default": "--ui-border-width-md",
-      "defaultValue": "2px",
-      "description": "Loading spinner border width"
-    },
-    {
       "name": "--ui-button-accent",
       "default": "--ui-color-primary",
       "description": "Primary accent color. All shades auto-generated via color-mix."
-    },
-    {
-      "name": "--ui-button-height",
-      "default": "--ui-row-2",
-      "defaultValue": "32px",
-      "description": "Overall height"
-    },
-    {
-      "name": "--ui-button-padding-x",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Horizontal padding"
-    },
-    {
-      "name": "--ui-button-font-size",
-      "default": "--ui-font-size-sm",
-      "defaultValue": "14px",
-      "description": "Font size"
-    },
-    {
-      "name": "--ui-button-font-weight",
-      "default": "--ui-font-weight-medium",
-      "defaultValue": "500",
-      "description": "Font weight"
-    },
-    {
-      "name": "--ui-button-radius",
-      "default": "--ui-radius-md",
-      "defaultValue": "8px",
-      "description": "Corner radius"
     },
     {
       "name": "--ui-button-bg",
@@ -155,22 +56,42 @@
       "description": "Text color"
     },
     {
-      "name": "--ui-button-height-sm",
-      "default": "--ui-row-1-5",
-      "defaultValue": "24px",
-      "description": "Overall height at small size"
+      "name": "--ui-button-color-hover",
+      "default": "--ui-color-text-inverse"
     },
     {
-      "name": "--ui-button-font-size-sm",
-      "default": "--ui-font-size-xs",
-      "defaultValue": "12px",
-      "description": "Font size at small size"
+      "name": "--ui-button-disabled-opacity",
+      "default": "--ui-opacity-disabled",
+      "defaultValue": "0.5",
+      "description": "Disabled opacity"
     },
     {
-      "name": "--ui-button-height-md",
-      "default": "--ui-row-2",
-      "defaultValue": "32px",
-      "description": "Overall height at medium size"
+      "name": "--ui-button-focus-ring-color",
+      "default": "--ui-color-focus",
+      "description": "Focus ring color"
+    },
+    {
+      "name": "--ui-button-focus-ring-width",
+      "default": "--ui-border-width-md",
+      "defaultValue": "2px",
+      "description": "Focus ring width"
+    },
+    {
+      "name": "--ui-button-font-family",
+      "default": "--ui-font-sans",
+      "description": "Font family"
+    },
+    {
+      "name": "--ui-button-font-size",
+      "default": "--ui-font-size-sm",
+      "defaultValue": "14px",
+      "description": "Font size"
+    },
+    {
+      "name": "--ui-button-font-size-lg",
+      "default": "--ui-font-size-md",
+      "defaultValue": "16px",
+      "description": "Font size at large size"
     },
     {
       "name": "--ui-button-font-size-md",
@@ -179,10 +100,64 @@
       "description": "Font size at medium size"
     },
     {
+      "name": "--ui-button-font-size-sm",
+      "default": "--ui-font-size-xs",
+      "defaultValue": "12px",
+      "description": "Font size at small size"
+    },
+    {
+      "name": "--ui-button-font-weight",
+      "default": "--ui-font-weight-medium",
+      "defaultValue": "500",
+      "description": "Font weight"
+    },
+    {
+      "name": "--ui-button-gap",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Gap between children"
+    },
+    {
+      "name": "--ui-button-height",
+      "default": "--ui-row-2",
+      "defaultValue": "32px",
+      "description": "Overall height"
+    },
+    {
       "name": "--ui-button-height-lg",
       "default": "--ui-row-2-5",
       "defaultValue": "40px",
       "description": "Overall height at large size"
+    },
+    {
+      "name": "--ui-button-height-md",
+      "default": "--ui-row-2",
+      "defaultValue": "32px",
+      "description": "Overall height at medium size"
+    },
+    {
+      "name": "--ui-button-height-sm",
+      "default": "--ui-row-1-5",
+      "defaultValue": "24px",
+      "description": "Overall height at small size"
+    },
+    {
+      "name": "--ui-button-icon-size",
+      "default": "--ui-icon-size-inline",
+      "defaultValue": "1em",
+      "description": "Icon size"
+    },
+    {
+      "name": "--ui-button-loading-opacity",
+      "default": "--ui-opacity-loading",
+      "defaultValue": "0.7",
+      "description": "Loading state opacity"
+    },
+    {
+      "name": "--ui-button-padding-x",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Horizontal padding"
     },
     {
       "name": "--ui-button-padding-x-lg",
@@ -191,10 +166,39 @@
       "description": "Horizontal padding at large size"
     },
     {
-      "name": "--ui-button-font-size-lg",
-      "default": "--ui-font-size-md",
-      "defaultValue": "16px",
-      "description": "Font size at large size"
+      "name": "--ui-button-press-duration",
+      "default": "--ui-duration-fast",
+      "defaultValue": "100ms",
+      "description": "Active press transition duration"
+    },
+    {
+      "name": "--ui-button-radius",
+      "default": "--ui-radius-md",
+      "defaultValue": "8px",
+      "description": "Corner radius"
+    },
+    {
+      "name": "--ui-button-spinner-border-width",
+      "default": "--ui-border-width-md",
+      "defaultValue": "2px",
+      "description": "Loading spinner border width"
+    },
+    {
+      "name": "--ui-button-transition-duration",
+      "default": "--ui-duration-base",
+      "defaultValue": "150ms",
+      "description": "Transition duration"
+    },
+    {
+      "name": "--ui-button-transition-timing",
+      "default": "--ui-ease-default",
+      "description": "Transition timing function"
+    },
+    {
+      "name": "--ui-button-underline-offset",
+      "default": "--ui-space-quarter",
+      "defaultValue": "2px",
+      "description": "Link underline offset"
     }
   ]
 }

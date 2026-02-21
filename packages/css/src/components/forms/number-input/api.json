@@ -3,98 +3,22 @@
   "name": "number-input",
   "element": "div",
   "modifiers": {
-    "size": {
-      "values": ["sm", "lg"]
-    },
     "block": {
       "type": "boolean"
     },
     "disabled": {
       "type": "boolean"
+    },
+    "size": {
+      "values": ["lg", "sm"]
     }
   },
   "elements": {
-    "field": {},
     "decrement": {},
+    "field": {},
     "increment": {}
   },
   "cssVars": [
-    {
-      "name": "--ui-number-input-border-width",
-      "default": "--ui-border-width-sm",
-      "defaultValue": "1px",
-      "description": "Border width"
-    },
-    {
-      "name": "--ui-number-input-transition-duration",
-      "default": "--ui-duration-fast",
-      "defaultValue": "100ms",
-      "description": "Transition duration"
-    },
-    {
-      "name": "--ui-number-input-transition-timing",
-      "default": "--ui-ease-default",
-      "description": "Transition timing"
-    },
-    {
-      "name": "--ui-number-input-focus-ring-width",
-      "default": "--ui-border-width-md",
-      "defaultValue": "2px",
-      "description": "Focus ring width"
-    },
-    {
-      "name": "--ui-number-input-focus-ring-color",
-      "default": "--ui-color-focus",
-      "description": "Focus ring color"
-    },
-    {
-      "name": "--ui-number-input-disabled-opacity",
-      "default": "--ui-opacity-disabled",
-      "defaultValue": "0.5",
-      "description": "Disabled opacity"
-    },
-    {
-      "name": "--ui-number-input-icon-size",
-      "default": "--ui-size-sm",
-      "defaultValue": "12px",
-      "description": "Icon size"
-    },
-    {
-      "name": "--ui-number-input-icon-stroke",
-      "default": "--ui-icon-stroke",
-      "defaultValue": "2",
-      "description": "Icon stroke width"
-    },
-    {
-      "name": "--ui-number-input-focus-ring-offset",
-      "default": "--ui-focus-ring-offset",
-      "defaultValue": "-2px",
-      "description": "Focus ring offset"
-    },
-    {
-      "name": "--ui-number-input-height",
-      "default": "--ui-row-2",
-      "defaultValue": "32px",
-      "description": "Overall height"
-    },
-    {
-      "name": "--ui-number-input-padding-x",
-      "default": "--ui-space-1",
-      "defaultValue": "8px",
-      "description": "Horizontal padding"
-    },
-    {
-      "name": "--ui-number-input-font-size",
-      "default": "--ui-font-size-sm",
-      "defaultValue": "14px",
-      "description": "Font size"
-    },
-    {
-      "name": "--ui-number-input-radius",
-      "default": "--ui-radius-md",
-      "defaultValue": "8px",
-      "description": "Corner radius"
-    },
     {
       "name": "--ui-number-input-bg",
       "default": "--ui-color-bg",
@@ -111,14 +35,10 @@
       "description": "Border color focus"
     },
     {
-      "name": "--ui-number-input-text",
-      "default": "--ui-color-text",
-      "description": "Text"
-    },
-    {
-      "name": "--ui-number-input-button-color",
-      "default": "--ui-color-text-muted",
-      "description": "Button color"
+      "name": "--ui-number-input-border-width",
+      "default": "--ui-border-width-sm",
+      "defaultValue": "1px",
+      "description": "Border width"
     },
     {
       "name": "--ui-number-input-button-bg",
@@ -126,15 +46,49 @@
       "description": "Button bg"
     },
     {
+      "name": "--ui-number-input-button-color",
+      "default": "--ui-color-text-muted",
+      "description": "Button color"
+    },
+    {
       "name": "--ui-number-input-button-hover-bg",
       "default": "--ui-color-border",
       "description": "Button hover bg"
     },
     {
-      "name": "--ui-number-input-height-sm",
-      "default": "--ui-row-1-5",
-      "defaultValue": "24px",
-      "description": "Overall height at small size"
+      "name": "--ui-number-input-disabled-opacity",
+      "default": "--ui-opacity-disabled",
+      "defaultValue": "0.5",
+      "description": "Disabled opacity"
+    },
+    {
+      "name": "--ui-number-input-focus-ring-color",
+      "default": "--ui-color-focus",
+      "description": "Focus ring color"
+    },
+    {
+      "name": "--ui-number-input-focus-ring-offset",
+      "default": "--ui-focus-ring-offset",
+      "defaultValue": "-2px",
+      "description": "Focus ring offset"
+    },
+    {
+      "name": "--ui-number-input-focus-ring-width",
+      "default": "--ui-border-width-md",
+      "defaultValue": "2px",
+      "description": "Focus ring width"
+    },
+    {
+      "name": "--ui-number-input-font-size",
+      "default": "--ui-font-size-sm",
+      "defaultValue": "14px",
+      "description": "Font size"
+    },
+    {
+      "name": "--ui-number-input-font-size-lg",
+      "default": "--ui-font-size-md",
+      "defaultValue": "16px",
+      "description": "Font size at large size"
     },
     {
       "name": "--ui-number-input-font-size-sm",
@@ -143,10 +97,40 @@
       "description": "Font size at small size"
     },
     {
+      "name": "--ui-number-input-height",
+      "default": "--ui-row-2",
+      "defaultValue": "32px",
+      "description": "Overall height"
+    },
+    {
       "name": "--ui-number-input-height-lg",
       "default": "--ui-row-2-5",
       "defaultValue": "40px",
       "description": "Overall height at large size"
+    },
+    {
+      "name": "--ui-number-input-height-sm",
+      "default": "--ui-row-1-5",
+      "defaultValue": "24px",
+      "description": "Overall height at small size"
+    },
+    {
+      "name": "--ui-number-input-icon-size",
+      "default": "--ui-size-sm",
+      "defaultValue": "12px",
+      "description": "Icon size"
+    },
+    {
+      "name": "--ui-number-input-icon-stroke",
+      "default": "--ui-icon-stroke",
+      "defaultValue": "2",
+      "description": "Icon stroke width"
+    },
+    {
+      "name": "--ui-number-input-padding-x",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Horizontal padding"
     },
     {
       "name": "--ui-number-input-padding-x-lg",
@@ -155,10 +139,26 @@
       "description": "Horizontal padding at large size"
     },
     {
-      "name": "--ui-number-input-font-size-lg",
-      "default": "--ui-font-size-md",
-      "defaultValue": "16px",
-      "description": "Font size at large size"
+      "name": "--ui-number-input-radius",
+      "default": "--ui-radius-md",
+      "defaultValue": "8px",
+      "description": "Corner radius"
+    },
+    {
+      "name": "--ui-number-input-text",
+      "default": "--ui-color-text",
+      "description": "Text"
+    },
+    {
+      "name": "--ui-number-input-transition-duration",
+      "default": "--ui-duration-fast",
+      "defaultValue": "100ms",
+      "description": "Transition duration"
+    },
+    {
+      "name": "--ui-number-input-transition-timing",
+      "default": "--ui-ease-default",
+      "description": "Transition timing"
     }
   ]
 }

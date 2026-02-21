@@ -3,6 +3,12 @@
   "name": "box",
   "element": "div",
   "modifiers": {
+    "bg-muted": {
+      "type": "boolean"
+    },
+    "bg-subtle": {
+      "type": "boolean"
+    },
     "p-1": {
       "type": "boolean"
     },
@@ -15,12 +21,6 @@
     "p-4": {
       "type": "boolean"
     },
-    "bg-subtle": {
-      "type": "boolean"
-    },
-    "bg-muted": {
-      "type": "boolean"
-    },
     "rounded": {
       "type": "boolean"
     },
@@ -28,5 +28,44 @@
       "type": "boolean"
     }
   },
-  "cssVars": []
+  "cssVars": [
+    {
+      "name": "--ui-box-color-bg-muted",
+      "default": "--ui-color-bg-muted"
+    },
+    {
+      "name": "--ui-box-color-bg-subtle",
+      "default": "--ui-color-bg-subtle"
+    },
+    {
+      "name": "--ui-box-radius-lg",
+      "default": "--ui-radius-lg",
+      "defaultValue": "16px"
+    },
+    {
+      "name": "--ui-box-radius-md",
+      "default": "--ui-radius-md",
+      "defaultValue": "8px"
+    },
+    {
+      "name": "--ui-box-space-1",
+      "default": "--ui-space-1",
+      "defaultValue": "8px"
+    },
+    {
+      "name": "--ui-box-space-2",
+      "default": "--ui-space-2",
+      "defaultValue": "16px"
+    },
+    {
+      "name": "--ui-box-space-3",
+      "default": "--ui-space-3",
+      "defaultValue": "24px"
+    },
+    {
+      "name": "--ui-box-space-4",
+      "default": "--ui-space-4",
+      "defaultValue": "32px"
+    }
+  ]
 }

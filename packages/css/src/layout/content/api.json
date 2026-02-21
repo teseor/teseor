@@ -3,14 +3,20 @@
   "name": "content",
   "element": "div",
   "modifiers": {
-    "prose": {
+    "flush": {
       "type": "boolean"
     },
-    "flush": {
+    "prose": {
       "type": "boolean"
     }
   },
   "cssVars": [
+    {
+      "name": "--ui-content-gap",
+      "default": "--ui-space-3",
+      "defaultValue": "24px",
+      "description": "Gap between children"
+    },
     {
       "name": "--ui-content-padding-block",
       "default": "--ui-space-4",
@@ -24,10 +30,9 @@
       "description": "Horizontal padding"
     },
     {
-      "name": "--ui-content-gap",
-      "default": "--ui-space-3",
-      "defaultValue": "24px",
-      "description": "Gap between children"
+      "name": "--ui-content-unit",
+      "default": "--ui-unit",
+      "defaultValue": "8px"
     }
   ]
 }

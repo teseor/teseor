@@ -8,16 +8,10 @@
     }
   },
   "elements": {
-    "items": {},
-    "actions": {}
+    "actions": {},
+    "items": {}
   },
   "cssVars": [
-    {
-      "name": "--ui-nav-rail-width",
-      "default": "--ui-row-4",
-      "defaultValue": "64px",
-      "description": "Overall width"
-    },
     {
       "name": "--ui-nav-rail-bg",
       "default": "--ui-color-bg-subtle",
@@ -29,10 +23,26 @@
       "description": "Border color"
     },
     {
+      "name": "--ui-nav-rail-border-width-sm",
+      "default": "--ui-border-width-sm",
+      "defaultValue": "1px"
+    },
+    {
       "name": "--ui-nav-rail-gap",
       "default": "--ui-space-1",
       "defaultValue": "8px",
       "description": "Gap between children"
+    },
+    {
+      "name": "--ui-nav-rail-space-2",
+      "default": "--ui-space-2",
+      "defaultValue": "16px"
+    },
+    {
+      "name": "--ui-nav-rail-width",
+      "default": "--ui-row-4",
+      "defaultValue": "64px",
+      "description": "Overall width"
     },
     {
       "name": "--ui-nav-rail-z",

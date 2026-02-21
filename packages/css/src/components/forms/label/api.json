@@ -8,10 +8,33 @@
     }
   },
   "elements": {
-    "required": {},
-    "optional": {}
+    "optional": {},
+    "required": {}
   },
   "cssVars": [
+    {
+      "name": "--ui-label-color",
+      "default": "--ui-color-text",
+      "description": "Text color"
+    },
+    {
+      "name": "--ui-label-disabled-opacity",
+      "default": "--ui-opacity-disabled",
+      "defaultValue": "0.5",
+      "description": "Disabled opacity"
+    },
+    {
+      "name": "--ui-label-font-size",
+      "default": "--ui-font-size-sm",
+      "defaultValue": "14px",
+      "description": "Font size"
+    },
+    {
+      "name": "--ui-label-font-size-lg",
+      "default": "--ui-font-size-md",
+      "defaultValue": "16px",
+      "description": "Font size at large size"
+    },
     {
       "name": "--ui-label-font-weight",
       "default": "--ui-font-weight-medium",
@@ -25,10 +48,9 @@
       "description": "Line height"
     },
     {
-      "name": "--ui-label-disabled-opacity",
-      "default": "--ui-opacity-disabled",
-      "defaultValue": "0.5",
-      "description": "Disabled opacity"
+      "name": "--ui-label-optional-color",
+      "default": "--ui-color-text-muted",
+      "description": "Optional color"
     },
     {
       "name": "--ui-label-optional-font-weight",
@@ -37,31 +59,9 @@
       "description": "Optional font weight"
     },
     {
-      "name": "--ui-label-optional-color",
-      "default": "--ui-color-text-muted",
-      "description": "Optional color"
-    },
-    {
-      "name": "--ui-label-font-size",
-      "default": "--ui-font-size-sm",
-      "defaultValue": "14px",
-      "description": "Font size"
-    },
-    {
-      "name": "--ui-label-color",
-      "default": "--ui-color-text",
-      "description": "Text color"
-    },
-    {
       "name": "--ui-label-required-color",
       "default": "--ui-color-danger",
       "description": "Required color"
-    },
-    {
-      "name": "--ui-label-font-size-lg",
-      "default": "--ui-font-size-md",
-      "defaultValue": "16px",
-      "description": "Font size at large size"
     }
   ]
 }

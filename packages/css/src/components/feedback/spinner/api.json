@@ -4,67 +4,15 @@
   "element": "div",
   "modifiers": {
     "size": {
-      "values": ["xs", "sm", "lg", "xl"]
+      "values": ["lg", "sm", "xl", "xs"]
     }
   },
   "cssVars": [
-    {
-      "name": "--ui-spinner-size",
-      "default": "--ui-space-4",
-      "defaultValue": "32px",
-      "description": "Overall size"
-    },
     {
       "name": "--ui-spinner-border-width",
       "default": "--ui-border-width-md",
       "defaultValue": "2px",
       "description": "Border thickness"
-    },
-    {
-      "name": "--ui-spinner-color",
-      "default": "currentcolor",
-      "description": "Text color"
-    },
-    {
-      "name": "--ui-spinner-track-color",
-      "default": "transparent",
-      "description": "Track text color"
-    },
-    {
-      "name": "--ui-spinner-duration",
-      "default": "--ui-spinner-duration",
-      "defaultValue": "750ms",
-      "description": "Animation duration"
-    },
-    {
-      "name": "--ui-spinner-size-xs",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Overall size at extra-small size"
-    },
-    {
-      "name": "--ui-spinner-border-width-xs",
-      "default": "--ui-border-width-sm",
-      "defaultValue": "1px",
-      "description": "Border thickness at extra-small size"
-    },
-    {
-      "name": "--ui-spinner-size-sm",
-      "default": "--ui-space-3",
-      "defaultValue": "24px",
-      "description": "Overall size at small size"
-    },
-    {
-      "name": "--ui-spinner-border-width-sm",
-      "default": "--ui-border-width-md",
-      "defaultValue": "2px",
-      "description": "Border thickness at small size"
-    },
-    {
-      "name": "--ui-spinner-size-lg",
-      "default": "--ui-space-5",
-      "defaultValue": "40px",
-      "description": "Overall size at large size"
     },
     {
       "name": "--ui-spinner-border-width-lg",
@@ -73,16 +21,68 @@
       "description": "Border thickness at large size"
     },
     {
-      "name": "--ui-spinner-size-xl",
-      "default": "--ui-space-6",
-      "defaultValue": "48px",
-      "description": "Overall size at extra-large size"
+      "name": "--ui-spinner-border-width-sm",
+      "default": "--ui-border-width-md",
+      "defaultValue": "2px",
+      "description": "Border thickness at small size"
     },
     {
       "name": "--ui-spinner-border-width-xl",
       "default": "--ui-border-width-lg",
       "defaultValue": "4px",
       "description": "Border thickness at extra-large size"
+    },
+    {
+      "name": "--ui-spinner-border-width-xs",
+      "default": "--ui-border-width-sm",
+      "defaultValue": "1px",
+      "description": "Border thickness at extra-small size"
+    },
+    {
+      "name": "--ui-spinner-color",
+      "default": "currentcolor",
+      "description": "Text color"
+    },
+    {
+      "name": "--ui-spinner-duration",
+      "default": "--ui-spinner-duration",
+      "defaultValue": "750ms",
+      "description": "Animation duration"
+    },
+    {
+      "name": "--ui-spinner-size",
+      "default": "--ui-space-4",
+      "defaultValue": "32px",
+      "description": "Overall size"
+    },
+    {
+      "name": "--ui-spinner-size-lg",
+      "default": "--ui-space-5",
+      "defaultValue": "40px",
+      "description": "Overall size at large size"
+    },
+    {
+      "name": "--ui-spinner-size-sm",
+      "default": "--ui-space-3",
+      "defaultValue": "24px",
+      "description": "Overall size at small size"
+    },
+    {
+      "name": "--ui-spinner-size-xl",
+      "default": "--ui-space-6",
+      "defaultValue": "48px",
+      "description": "Overall size at extra-large size"
+    },
+    {
+      "name": "--ui-spinner-size-xs",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Overall size at extra-small size"
+    },
+    {
+      "name": "--ui-spinner-track-color",
+      "default": "transparent",
+      "description": "Track text color"
     }
   ]
 }

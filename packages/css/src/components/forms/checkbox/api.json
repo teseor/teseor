@@ -12,52 +12,6 @@
   },
   "cssVars": [
     {
-      "name": "--ui-checkbox-border-width",
-      "default": "--ui-border-width-sm",
-      "defaultValue": "1px",
-      "description": "Border width"
-    },
-    {
-      "name": "--ui-checkbox-transition-duration",
-      "default": "--ui-duration-fast",
-      "defaultValue": "100ms",
-      "description": "Transition duration"
-    },
-    {
-      "name": "--ui-checkbox-transition-timing",
-      "default": "--ui-ease-default",
-      "description": "Transition timing"
-    },
-    {
-      "name": "--ui-checkbox-focus-ring-width",
-      "default": "--ui-border-width-md",
-      "defaultValue": "2px",
-      "description": "Focus ring width"
-    },
-    {
-      "name": "--ui-checkbox-focus-ring-color",
-      "default": "--ui-color-focus",
-      "description": "Focus ring color"
-    },
-    {
-      "name": "--ui-checkbox-disabled-opacity",
-      "default": "--ui-opacity-disabled",
-      "defaultValue": "0.5",
-      "description": "Disabled opacity"
-    },
-    {
-      "name": "--ui-checkbox-size",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Overall size"
-    },
-    {
-      "name": "--ui-checkbox-radius",
-      "default": "--ui-radius-sm",
-      "defaultValue": "4px",
-      "description": "Corner radius"
-    },
-    {
       "name": "--ui-checkbox-bg",
       "default": "--ui-color-bg",
       "description": "Background color"
@@ -78,9 +32,49 @@
       "description": "Border color focus"
     },
     {
+      "name": "--ui-checkbox-border-width",
+      "default": "--ui-border-width-sm",
+      "defaultValue": "1px",
+      "description": "Border width"
+    },
+    {
       "name": "--ui-checkbox-check-color",
       "default": "--ui-color-text-inverse",
       "description": "Check mark text color"
+    },
+    {
+      "name": "--ui-checkbox-disabled-opacity",
+      "default": "--ui-opacity-disabled",
+      "defaultValue": "0.5",
+      "description": "Disabled opacity"
+    },
+    {
+      "name": "--ui-checkbox-error-border",
+      "default": "--ui-color-danger",
+      "description": "Error border"
+    },
+    {
+      "name": "--ui-checkbox-focus-ring-color",
+      "default": "--ui-color-focus",
+      "description": "Focus ring color"
+    },
+    {
+      "name": "--ui-checkbox-focus-ring-width",
+      "default": "--ui-border-width-md",
+      "defaultValue": "2px",
+      "description": "Focus ring width"
+    },
+    {
+      "name": "--ui-checkbox-radius",
+      "default": "--ui-radius-sm",
+      "defaultValue": "4px",
+      "description": "Corner radius"
+    },
+    {
+      "name": "--ui-checkbox-size",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Overall size"
     },
     {
       "name": "--ui-checkbox-size-lg",
@@ -89,14 +83,20 @@
       "description": "Overall size at large size"
     },
     {
-      "name": "--ui-checkbox-error-border",
-      "default": "--ui-color-danger",
-      "description": "Error border"
-    },
-    {
       "name": "--ui-checkbox-success-border",
       "default": "--ui-color-success",
       "description": "Success border"
+    },
+    {
+      "name": "--ui-checkbox-transition-duration",
+      "default": "--ui-duration-fast",
+      "defaultValue": "100ms",
+      "description": "Transition duration"
+    },
+    {
+      "name": "--ui-checkbox-transition-timing",
+      "default": "--ui-ease-default",
+      "description": "Transition timing"
     }
   ]
 }

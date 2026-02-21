@@ -3,52 +3,24 @@
   "name": "disclosure",
   "element": "div",
   "modifiers": {
-    "borderless": {
+    "animate": {
       "type": "boolean"
     },
-    "animate": {
+    "borderless": {
       "type": "boolean"
     }
   },
   "elements": {
-    "trigger": {},
+    "content": {},
     "icon": {},
-    "content": {}
+    "trigger": {}
   },
   "cssVars": [
-    {
-      "name": "--ui-disclosure-trigger-font-weight",
-      "default": "--ui-font-weight-medium",
-      "defaultValue": "500",
-      "description": "Trigger font weight"
-    },
-    {
-      "name": "--ui-disclosure-trigger-hover-bg",
-      "default": "--ui-color-bg-subtle",
-      "description": "Trigger hover background"
-    },
-    {
-      "name": "--ui-disclosure-icon-transition-duration",
-      "default": "--ui-duration-fast",
-      "defaultValue": "100ms",
-      "description": "Icon rotation transition duration"
-    },
-    {
-      "name": "--ui-disclosure-transition-timing",
-      "default": "--ui-ease-default",
-      "description": "Transition timing function"
-    },
     {
       "name": "--ui-disclosure-animation-duration",
       "default": "--ui-duration-normal",
       "defaultValue": "200ms",
       "description": "Content animation duration"
-    },
-    {
-      "name": "--ui-disclosure-trigger-gap",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Trigger gap between label and icon"
     },
     {
       "name": "--ui-disclosure-animation-offset",
@@ -67,16 +39,10 @@
       "description": "Border thickness"
     },
     {
-      "name": "--ui-disclosure-radius",
-      "default": "--ui-radius-md",
-      "defaultValue": "8px",
-      "description": "Corner radius"
-    },
-    {
-      "name": "--ui-disclosure-trigger-height",
-      "default": "--ui-row-3",
-      "defaultValue": "48px",
-      "description": "Trigger overall height"
+      "name": "--ui-disclosure-icon-transition-duration",
+      "default": "--ui-duration-fast",
+      "defaultValue": "100ms",
+      "description": "Icon rotation transition duration"
     },
     {
       "name": "--ui-disclosure-padding-x",
@@ -89,6 +55,40 @@
       "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Vertical padding"
+    },
+    {
+      "name": "--ui-disclosure-radius",
+      "default": "--ui-radius-md",
+      "defaultValue": "8px",
+      "description": "Corner radius"
+    },
+    {
+      "name": "--ui-disclosure-transition-timing",
+      "default": "--ui-ease-default",
+      "description": "Transition timing function"
+    },
+    {
+      "name": "--ui-disclosure-trigger-font-weight",
+      "default": "--ui-font-weight-medium",
+      "defaultValue": "500",
+      "description": "Trigger font weight"
+    },
+    {
+      "name": "--ui-disclosure-trigger-gap",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Trigger gap between label and icon"
+    },
+    {
+      "name": "--ui-disclosure-trigger-height",
+      "default": "--ui-row-3",
+      "defaultValue": "48px",
+      "description": "Trigger overall height"
+    },
+    {
+      "name": "--ui-disclosure-trigger-hover-bg",
+      "default": "--ui-color-bg-subtle",
+      "description": "Trigger hover background"
     }
   ]
 }

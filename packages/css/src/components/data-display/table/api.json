@@ -12,6 +12,11 @@
   },
   "cssVars": [
     {
+      "name": "--ui-table-border-color",
+      "default": "--ui-color-border",
+      "description": "Border color"
+    },
+    {
       "name": "--ui-table-border-width",
       "default": "--ui-border-width-sm",
       "defaultValue": "1px",
@@ -24,37 +29,16 @@
       "description": "Cell line height"
     },
     {
-      "name": "--ui-table-header-font-weight",
-      "default": "--ui-font-weight-medium",
-      "defaultValue": "500",
-      "description": "Header font weight"
-    },
-    {
-      "name": "--ui-table-stripe-bg",
-      "default": "--ui-color-bg-muted",
-      "description": "Stripe background"
-    },
-    {
-      "name": "--ui-table-font-size",
-      "default": "--ui-font-size-sm",
-      "defaultValue": "14px",
-      "description": "Font size"
-    },
-    {
-      "name": "--ui-table-border-color",
-      "default": "--ui-color-border",
-      "description": "Border color"
-    },
-    {
-      "name": "--ui-table-header-bg",
-      "default": "--ui-color-bg-subtle",
-      "description": "Header background color"
-    },
-    {
       "name": "--ui-table-cell-padding-x",
       "default": "--ui-space-2",
       "defaultValue": "16px",
       "description": "Cell padding x"
+    },
+    {
+      "name": "--ui-table-cell-padding-x-compact",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Cell padding x compact"
     },
     {
       "name": "--ui-table-cell-padding-y",
@@ -69,16 +53,32 @@
       "description": "Cell padding y compact"
     },
     {
-      "name": "--ui-table-cell-padding-x-compact",
-      "default": "--ui-space-1",
-      "defaultValue": "8px",
-      "description": "Cell padding x compact"
+      "name": "--ui-table-font-size",
+      "default": "--ui-font-size-sm",
+      "defaultValue": "14px",
+      "description": "Font size"
     },
     {
       "name": "--ui-table-font-size-compact",
       "default": "--ui-font-size-xs",
       "defaultValue": "12px",
       "description": "Font size compact"
+    },
+    {
+      "name": "--ui-table-header-bg",
+      "default": "--ui-color-bg-subtle",
+      "description": "Header background color"
+    },
+    {
+      "name": "--ui-table-header-font-weight",
+      "default": "--ui-font-weight-medium",
+      "defaultValue": "500",
+      "description": "Header font weight"
+    },
+    {
+      "name": "--ui-table-stripe-bg",
+      "default": "--ui-color-bg-muted",
+      "description": "Stripe background"
     }
   ]
 }

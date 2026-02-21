@@ -6,15 +6,14 @@
     "pills": {
       "values": ["pills"]
     },
-    "vertical": {
+    "responsive": {
       "type": "boolean"
     },
-    "responsive": {
+    "vertical": {
       "type": "boolean"
     }
   },
   "elements": {
-    "list": {},
     "item": {
       "modifiers": {
         "active": {
@@ -24,42 +23,20 @@
           "type": "boolean"
         }
       }
-    }
+    },
+    "list": {}
   },
   "cssVars": [
+    {
+      "name": "--ui-nav-border-color",
+      "default": "--ui-color-border",
+      "description": "Border color"
+    },
     {
       "name": "--ui-nav-border-width",
       "default": "--ui-border-width-sm",
       "defaultValue": "1px",
       "description": "Border width"
-    },
-    {
-      "name": "--ui-nav-font-family",
-      "default": "--ui-font-sans",
-      "description": "Font family"
-    },
-    {
-      "name": "--ui-nav-indicator-width",
-      "default": "--ui-border-width-md",
-      "defaultValue": "2px",
-      "description": "Indicator width"
-    },
-    {
-      "name": "--ui-nav-transition-duration",
-      "default": "--ui-duration-base",
-      "defaultValue": "150ms",
-      "description": "Transition duration"
-    },
-    {
-      "name": "--ui-nav-transition-timing",
-      "default": "--ui-ease-default",
-      "description": "Transition timing function"
-    },
-    {
-      "name": "--ui-nav-disabled-opacity",
-      "default": "--ui-opacity-disabled",
-      "defaultValue": "0.5",
-      "description": "Disabled opacity"
     },
     {
       "name": "--ui-nav-container-threshold",
@@ -68,22 +45,52 @@
       "description": "Container threshold for responsive collapse"
     },
     {
+      "name": "--ui-nav-disabled-opacity",
+      "default": "--ui-opacity-disabled",
+      "defaultValue": "0.5",
+      "description": "Disabled opacity"
+    },
+    {
+      "name": "--ui-nav-font-family",
+      "default": "--ui-font-sans",
+      "description": "Font family"
+    },
+    {
       "name": "--ui-nav-gap",
       "default": "--ui-space-1",
       "defaultValue": "8px",
       "description": "Gap between children"
     },
     {
-      "name": "--ui-nav-item-height",
-      "default": "--ui-row-2",
-      "defaultValue": "32px",
-      "description": "Item overall height"
+      "name": "--ui-nav-indicator-width",
+      "default": "--ui-border-width-md",
+      "defaultValue": "2px",
+      "description": "Indicator width"
     },
     {
-      "name": "--ui-nav-item-padding-x",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Item horizontal padding"
+      "name": "--ui-nav-item-bg-active",
+      "default": "--ui-color-primary",
+      "description": "Item bg active"
+    },
+    {
+      "name": "--ui-nav-item-bg-hover",
+      "default": "--ui-color-bg-muted",
+      "description": "Item bg hover"
+    },
+    {
+      "name": "--ui-nav-item-color",
+      "default": "--ui-color-text-muted",
+      "description": "Item text color"
+    },
+    {
+      "name": "--ui-nav-item-color-active",
+      "default": "--ui-color-primary",
+      "description": "Item color active"
+    },
+    {
+      "name": "--ui-nav-item-color-hover",
+      "default": "--ui-color-text",
+      "description": "Item color hover"
     },
     {
       "name": "--ui-nav-item-font-size",
@@ -98,19 +105,16 @@
       "description": "Item font weight"
     },
     {
-      "name": "--ui-nav-item-color",
-      "default": "--ui-color-text-muted",
-      "description": "Item text color"
+      "name": "--ui-nav-item-height",
+      "default": "--ui-row-2",
+      "defaultValue": "32px",
+      "description": "Item overall height"
     },
     {
-      "name": "--ui-nav-item-color-hover",
-      "default": "--ui-color-text",
-      "description": "Item color hover"
-    },
-    {
-      "name": "--ui-nav-item-color-active",
-      "default": "--ui-color-primary",
-      "description": "Item color active"
+      "name": "--ui-nav-item-padding-x",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Item horizontal padding"
     },
     {
       "name": "--ui-nav-item-radius",
@@ -119,19 +123,15 @@
       "description": "Item corner radius"
     },
     {
-      "name": "--ui-nav-border-color",
-      "default": "--ui-color-border",
-      "description": "Border color"
+      "name": "--ui-nav-transition-duration",
+      "default": "--ui-duration-base",
+      "defaultValue": "150ms",
+      "description": "Transition duration"
     },
     {
-      "name": "--ui-nav-item-bg-hover",
-      "default": "--ui-color-bg-muted",
-      "description": "Item bg hover"
-    },
-    {
-      "name": "--ui-nav-item-bg-active",
-      "default": "--ui-color-primary",
-      "description": "Item bg active"
+      "name": "--ui-nav-transition-timing",
+      "default": "--ui-ease-default",
+      "description": "Transition timing function"
     }
   ]
 }

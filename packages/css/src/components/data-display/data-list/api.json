@@ -3,11 +3,11 @@
   "name": "data-list",
   "element": "div",
   "modifiers": {
-    "size": {
-      "values": ["sm", "lg"]
-    },
     "layout": {
       "values": ["horizontal"]
+    },
+    "size": {
+      "values": ["lg", "sm"]
     },
     "style": {
       "values": ["divided", "striped"]
@@ -20,10 +20,61 @@
   },
   "cssVars": [
     {
-      "name": "--ui-data-list-line-height",
-      "default": "--ui-row-1",
+      "name": "--ui-data-list-border-color",
+      "default": "--ui-color-border",
+      "description": "Divider border color"
+    },
+    {
+      "name": "--ui-data-list-border-width",
+      "default": "--ui-border-width-sm",
+      "defaultValue": "1px",
+      "description": "Divider border width"
+    },
+    {
+      "name": "--ui-data-list-gap",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
-      "description": "Line height"
+      "description": "Gap between children"
+    },
+    {
+      "name": "--ui-data-list-gap-lg",
+      "default": "--ui-space-3",
+      "defaultValue": "24px",
+      "description": "Gap at large size"
+    },
+    {
+      "name": "--ui-data-list-gap-sm",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Gap at small size"
+    },
+    {
+      "name": "--ui-data-list-horizontal-gap",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Horizontal item gap"
+    },
+    {
+      "name": "--ui-data-list-item-gap",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Item gap between children"
+    },
+    {
+      "name": "--ui-data-list-item-gap-lg",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Item gap at large size"
+    },
+    {
+      "name": "--ui-data-list-item-gap-sm",
+      "default": "0",
+      "description": "Item gap at small size"
+    },
+    {
+      "name": "--ui-data-list-label-color",
+      "default": "--ui-color-text-muted",
+      "description": "Label text color"
     },
     {
       "name": "--ui-data-list-label-font-size",
@@ -38,32 +89,21 @@
       "description": "Label font weight"
     },
     {
-      "name": "--ui-data-list-border-width",
-      "default": "--ui-border-width-sm",
-      "defaultValue": "1px",
-      "description": "Divider border width"
+      "name": "--ui-data-list-lg-font-size",
+      "default": "--ui-font-size-lg",
+      "defaultValue": "20px",
+      "description": "Large font size"
     },
     {
-      "name": "--ui-data-list-border-color",
-      "default": "--ui-color-border",
-      "description": "Divider border color"
+      "name": "--ui-data-list-line-height",
+      "default": "--ui-row-1",
+      "defaultValue": "16px",
+      "description": "Line height"
     },
     {
       "name": "--ui-data-list-stripe-bg",
       "default": "--ui-color-bg-subtle",
       "description": "Stripe background"
-    },
-    {
-      "name": "--ui-data-list-stripe-radius",
-      "default": "--ui-radius-sm",
-      "defaultValue": "4px",
-      "description": "Stripe border radius"
-    },
-    {
-      "name": "--ui-data-list-lg-font-size",
-      "default": "--ui-font-size-lg",
-      "defaultValue": "20px",
-      "description": "Large font size"
     },
     {
       "name": "--ui-data-list-stripe-padding",
@@ -72,55 +112,15 @@
       "description": "Stripe padding"
     },
     {
-      "name": "--ui-data-list-horizontal-gap",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Horizontal item gap"
-    },
-    {
-      "name": "--ui-data-list-gap",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Gap between children"
-    },
-    {
-      "name": "--ui-data-list-item-gap",
-      "default": "--ui-space-1",
-      "defaultValue": "8px",
-      "description": "Item gap between children"
-    },
-    {
-      "name": "--ui-data-list-label-color",
-      "default": "--ui-color-text-muted",
-      "description": "Label text color"
+      "name": "--ui-data-list-stripe-radius",
+      "default": "--ui-radius-sm",
+      "defaultValue": "4px",
+      "description": "Stripe border radius"
     },
     {
       "name": "--ui-data-list-value-color",
       "default": "--ui-color-text",
       "description": "Value display text color"
-    },
-    {
-      "name": "--ui-data-list-gap-sm",
-      "default": "--ui-space-1",
-      "defaultValue": "8px",
-      "description": "Gap at small size"
-    },
-    {
-      "name": "--ui-data-list-item-gap-sm",
-      "default": "0",
-      "description": "Item gap at small size"
-    },
-    {
-      "name": "--ui-data-list-gap-lg",
-      "default": "--ui-space-3",
-      "defaultValue": "24px",
-      "description": "Gap at large size"
-    },
-    {
-      "name": "--ui-data-list-item-gap-lg",
-      "default": "--ui-space-1",
-      "defaultValue": "8px",
-      "description": "Item gap at large size"
     }
   ]
 }

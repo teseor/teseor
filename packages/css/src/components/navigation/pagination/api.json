@@ -4,11 +4,11 @@
   "element": "div",
   "modifiers": {
     "size": {
-      "values": ["sm", "lg"]
+      "values": ["lg", "sm"]
     }
   },
   "elements": {
-    "list": {},
+    "ellipsis": {},
     "item": {},
     "link": {
       "modifiers": {
@@ -20,28 +20,11 @@
         }
       }
     },
-    "prev": {},
+    "list": {},
     "next": {},
-    "ellipsis": {}
+    "prev": {}
   },
   "cssVars": [
-    {
-      "name": "--ui-pagination-item-font-size",
-      "default": "--ui-font-size-sm",
-      "defaultValue": "14px",
-      "description": "Item font size"
-    },
-    {
-      "name": "--ui-pagination-transition-duration",
-      "default": "--ui-duration-fast",
-      "defaultValue": "100ms",
-      "description": "Transition duration"
-    },
-    {
-      "name": "--ui-pagination-transition-timing",
-      "default": "--ui-ease-default",
-      "description": "Transition timing function"
-    },
     {
       "name": "--ui-pagination-disabled-opacity",
       "default": "--ui-opacity-disabled",
@@ -54,10 +37,59 @@
       "description": "Ellipsis color"
     },
     {
+      "name": "--ui-pagination-gap",
+      "default": "--ui-space-0",
+      "defaultValue": "4px",
+      "description": "Gap between children"
+    },
+    {
+      "name": "--ui-pagination-item-bg",
+      "default": "transparent",
+      "description": "Item background color"
+    },
+    {
+      "name": "--ui-pagination-item-bg-active",
+      "default": "--ui-color-primary",
+      "description": "Item bg active"
+    },
+    {
+      "name": "--ui-pagination-item-bg-hover",
+      "default": "--ui-color-bg-subtle",
+      "description": "Item bg hover"
+    },
+    {
+      "name": "--ui-pagination-item-color",
+      "default": "--ui-color-text",
+      "description": "Item text color"
+    },
+    {
+      "name": "--ui-pagination-item-color-active",
+      "default": "--ui-color-text-inverse",
+      "description": "Item color active"
+    },
+    {
+      "name": "--ui-pagination-item-font-size",
+      "default": "--ui-font-size-sm",
+      "defaultValue": "14px",
+      "description": "Item font size"
+    },
+    {
       "name": "--ui-pagination-item-padding-x",
       "default": "--ui-unit",
       "defaultValue": "8px",
       "description": "Item inline padding"
+    },
+    {
+      "name": "--ui-pagination-item-radius",
+      "default": "--ui-radius-sm",
+      "defaultValue": "4px",
+      "description": "Item corner radius"
+    },
+    {
+      "name": "--ui-pagination-item-size",
+      "default": "--ui-space-4",
+      "defaultValue": "32px",
+      "description": "Item overall size"
     },
     {
       "name": "--ui-pagination-nav-gap",
@@ -72,47 +104,15 @@
       "description": "Prev/next inline padding"
     },
     {
-      "name": "--ui-pagination-gap",
-      "default": "--ui-space-0",
-      "defaultValue": "4px",
-      "description": "Gap between children"
+      "name": "--ui-pagination-transition-duration",
+      "default": "--ui-duration-fast",
+      "defaultValue": "100ms",
+      "description": "Transition duration"
     },
     {
-      "name": "--ui-pagination-item-size",
-      "default": "--ui-space-4",
-      "defaultValue": "32px",
-      "description": "Item overall size"
-    },
-    {
-      "name": "--ui-pagination-item-radius",
-      "default": "--ui-radius-sm",
-      "defaultValue": "4px",
-      "description": "Item corner radius"
-    },
-    {
-      "name": "--ui-pagination-item-bg",
-      "default": "transparent",
-      "description": "Item background color"
-    },
-    {
-      "name": "--ui-pagination-item-bg-hover",
-      "default": "--ui-color-bg-subtle",
-      "description": "Item bg hover"
-    },
-    {
-      "name": "--ui-pagination-item-bg-active",
-      "default": "--ui-color-primary",
-      "description": "Item bg active"
-    },
-    {
-      "name": "--ui-pagination-item-color",
-      "default": "--ui-color-text",
-      "description": "Item text color"
-    },
-    {
-      "name": "--ui-pagination-item-color-active",
-      "default": "--ui-color-text-inverse",
-      "description": "Item color active"
+      "name": "--ui-pagination-transition-timing",
+      "default": "--ui-ease-default",
+      "description": "Transition timing function"
     }
   ]
 }

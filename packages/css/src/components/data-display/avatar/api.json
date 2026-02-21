@@ -4,15 +4,15 @@
   "element": "div",
   "modifiers": {
     "size": {
-      "values": ["xs", "sm", "lg", "xl"]
+      "values": ["lg", "sm", "xl", "xs"]
     },
     "square": {
       "type": "boolean"
     }
   },
   "elements": {
-    "image": {},
-    "fallback": {}
+    "fallback": {},
+    "image": {}
   },
   "relatedComponents": [
     {
@@ -20,29 +20,6 @@
     }
   ],
   "cssVars": [
-    {
-      "name": "--ui-avatar-font-weight",
-      "default": "--ui-font-weight-medium",
-      "defaultValue": "500",
-      "description": "Font weight"
-    },
-    {
-      "name": "--ui-avatar-ring-width",
-      "default": "--ui-border-width-sm",
-      "defaultValue": "1px",
-      "description": "Group ring width"
-    },
-    {
-      "name": "--ui-avatar-ring-color",
-      "default": "--ui-color-bg",
-      "description": "Group ring color"
-    },
-    {
-      "name": "--ui-avatar-size",
-      "default": "--ui-space-5",
-      "defaultValue": "40px",
-      "description": "Overall size"
-    },
     {
       "name": "--ui-avatar-bg",
       "default": "--ui-color-bg-subtle",
@@ -60,27 +37,10 @@
       "description": "Font size"
     },
     {
-      "name": "--ui-avatar-radius",
-      "default": "50%",
-      "description": "Corner radius"
-    },
-    {
-      "name": "--ui-avatar-size-xs",
-      "default": "--ui-space-3",
-      "defaultValue": "24px",
-      "description": "Overall size at extra-small size"
-    },
-    {
-      "name": "--ui-avatar-font-size-xs",
-      "default": "--ui-font-size-xs",
-      "defaultValue": "12px",
-      "description": "Font size at extra-small size"
-    },
-    {
-      "name": "--ui-avatar-size-sm",
-      "default": "--ui-space-4",
-      "defaultValue": "32px",
-      "description": "Overall size at small size"
+      "name": "--ui-avatar-font-size-lg",
+      "default": "--ui-font-size-md",
+      "defaultValue": "16px",
+      "description": "Font size at large size"
     },
     {
       "name": "--ui-avatar-font-size-sm",
@@ -89,16 +49,62 @@
       "description": "Font size at small size"
     },
     {
+      "name": "--ui-avatar-font-size-xl",
+      "default": "--ui-font-size-lg",
+      "defaultValue": "20px",
+      "description": "Font size at extra-large size"
+    },
+    {
+      "name": "--ui-avatar-font-size-xs",
+      "default": "--ui-font-size-xs",
+      "defaultValue": "12px",
+      "description": "Font size at extra-small size"
+    },
+    {
+      "name": "--ui-avatar-font-weight",
+      "default": "--ui-font-weight-medium",
+      "defaultValue": "500",
+      "description": "Font weight"
+    },
+    {
+      "name": "--ui-avatar-radius",
+      "default": "50%",
+      "description": "Corner radius"
+    },
+    {
+      "name": "--ui-avatar-radius-square",
+      "default": "--ui-radius-md",
+      "defaultValue": "8px",
+      "description": "Radius square"
+    },
+    {
+      "name": "--ui-avatar-ring-color",
+      "default": "--ui-color-bg",
+      "description": "Group ring color"
+    },
+    {
+      "name": "--ui-avatar-ring-width",
+      "default": "--ui-border-width-sm",
+      "defaultValue": "1px",
+      "description": "Group ring width"
+    },
+    {
+      "name": "--ui-avatar-size",
+      "default": "--ui-space-5",
+      "defaultValue": "40px",
+      "description": "Overall size"
+    },
+    {
       "name": "--ui-avatar-size-lg",
       "default": "--ui-space-6",
       "defaultValue": "48px",
       "description": "Overall size at large size"
     },
     {
-      "name": "--ui-avatar-font-size-lg",
-      "default": "--ui-font-size-md",
-      "defaultValue": "16px",
-      "description": "Font size at large size"
+      "name": "--ui-avatar-size-sm",
+      "default": "--ui-space-4",
+      "defaultValue": "32px",
+      "description": "Overall size at small size"
     },
     {
       "name": "--ui-avatar-size-xl",
@@ -107,16 +113,10 @@
       "description": "Overall size at extra-large size"
     },
     {
-      "name": "--ui-avatar-font-size-xl",
-      "default": "--ui-font-size-lg",
-      "defaultValue": "20px",
-      "description": "Font size at extra-large size"
-    },
-    {
-      "name": "--ui-avatar-radius-square",
-      "default": "--ui-radius-md",
-      "defaultValue": "8px",
-      "description": "Radius square"
+      "name": "--ui-avatar-size-xs",
+      "default": "--ui-space-3",
+      "defaultValue": "24px",
+      "description": "Overall size at extra-small size"
     }
   ]
 }

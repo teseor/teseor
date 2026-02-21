@@ -4,7 +4,7 @@
   "element": "button",
   "modifiers": {
     "size": {
-      "values": ["sm", "lg"]
+      "values": ["lg", "sm"]
     },
     "subtle": {
       "type": "boolean"
@@ -15,31 +15,14 @@
   },
   "cssVars": [
     {
-      "name": "--ui-close-button-transition-duration",
-      "default": "--ui-duration-base",
-      "defaultValue": "150ms",
-      "description": "Transition duration"
+      "name": "--ui-close-button-bg",
+      "default": "transparent",
+      "description": "Background color"
     },
     {
-      "name": "--ui-close-button-transition-timing",
-      "default": "--ui-ease-default",
-      "description": "Transition timing function"
-    },
-    {
-      "name": "--ui-close-button-hover-color",
-      "default": "--ui-color-text",
-      "description": "Hover text color"
-    },
-    {
-      "name": "--ui-close-button-focus-ring-width",
-      "default": "--ui-border-width-md",
-      "defaultValue": "2px",
-      "description": "Focus ring width"
-    },
-    {
-      "name": "--ui-close-button-focus-ring-color",
-      "default": "--ui-color-focus",
-      "description": "Focus ring color"
+      "name": "--ui-close-button-color",
+      "default": "--ui-color-text-muted",
+      "description": "Icon color"
     },
     {
       "name": "--ui-close-button-disabled-opacity",
@@ -48,16 +31,25 @@
       "description": "Disabled opacity"
     },
     {
-      "name": "--ui-close-button-icon-stroke",
-      "default": "--ui-icon-stroke",
-      "defaultValue": "2",
-      "description": "Icon stroke width"
+      "name": "--ui-close-button-focus-ring-color",
+      "default": "--ui-color-focus",
+      "description": "Focus ring color"
     },
     {
-      "name": "--ui-close-button-size",
-      "default": "--ui-row-2",
-      "defaultValue": "32px",
-      "description": "Overall button size (width and height)"
+      "name": "--ui-close-button-focus-ring-width",
+      "default": "--ui-border-width-md",
+      "defaultValue": "2px",
+      "description": "Focus ring width"
+    },
+    {
+      "name": "--ui-close-button-hover-bg",
+      "default": "--ui-color-bg-muted",
+      "description": "Background color on hover"
+    },
+    {
+      "name": "--ui-close-button-hover-color",
+      "default": "--ui-color-text",
+      "description": "Hover text color"
     },
     {
       "name": "--ui-close-button-icon-size",
@@ -66,31 +58,10 @@
       "description": "Size of the X icon"
     },
     {
-      "name": "--ui-close-button-color",
-      "default": "--ui-color-text-muted",
-      "description": "Icon color"
-    },
-    {
-      "name": "--ui-close-button-bg",
-      "default": "transparent",
-      "description": "Background color"
-    },
-    {
-      "name": "--ui-close-button-hover-bg",
-      "default": "--ui-color-bg-muted",
-      "description": "Background color on hover"
-    },
-    {
-      "name": "--ui-close-button-radius",
-      "default": "--ui-radius-md",
-      "defaultValue": "8px",
-      "description": "Border radius"
-    },
-    {
-      "name": "--ui-close-button-size-sm",
-      "default": "--ui-space-3",
-      "defaultValue": "24px",
-      "description": "Overall size at small size"
+      "name": "--ui-close-button-icon-size-lg",
+      "default": "--ui-size-lg",
+      "defaultValue": "20px",
+      "description": "Icon dimensions at large size"
     },
     {
       "name": "--ui-close-button-icon-size-sm",
@@ -99,16 +70,34 @@
       "description": "Icon dimensions at small size"
     },
     {
+      "name": "--ui-close-button-icon-stroke",
+      "default": "--ui-icon-stroke",
+      "defaultValue": "2",
+      "description": "Icon stroke width"
+    },
+    {
+      "name": "--ui-close-button-radius",
+      "default": "--ui-radius-md",
+      "defaultValue": "8px",
+      "description": "Border radius"
+    },
+    {
+      "name": "--ui-close-button-size",
+      "default": "--ui-row-2",
+      "defaultValue": "32px",
+      "description": "Overall button size (width and height)"
+    },
+    {
       "name": "--ui-close-button-size-lg",
       "default": "--ui-row-3",
       "defaultValue": "48px",
       "description": "Overall size at large size"
     },
     {
-      "name": "--ui-close-button-icon-size-lg",
-      "default": "--ui-size-lg",
-      "defaultValue": "20px",
-      "description": "Icon dimensions at large size"
+      "name": "--ui-close-button-size-sm",
+      "default": "--ui-space-3",
+      "defaultValue": "24px",
+      "description": "Overall size at small size"
     },
     {
       "name": "--ui-close-button-subtle-color",
@@ -119,6 +108,17 @@
       "name": "--ui-close-button-subtle-hover-bg",
       "default": "--ui-color-bg-subtle",
       "description": "Subtle hover bg"
+    },
+    {
+      "name": "--ui-close-button-transition-duration",
+      "default": "--ui-duration-base",
+      "defaultValue": "150ms",
+      "description": "Transition duration"
+    },
+    {
+      "name": "--ui-close-button-transition-timing",
+      "default": "--ui-ease-default",
+      "description": "Transition timing function"
     }
   ]
 }

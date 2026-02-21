@@ -3,20 +3,20 @@
   "name": "drawer",
   "element": "div",
   "modifiers": {
-    "size": {
-      "values": ["sm", "lg", "full"]
-    },
     "position": {
-      "values": ["end", "start", "top", "bottom"]
+      "values": ["bottom", "end", "start", "top"]
+    },
+    "size": {
+      "values": ["full", "lg", "sm"]
     }
   },
   "elements": {
-    "header": {},
-    "title": {},
-    "description": {},
-    "close": {},
     "body": {},
-    "footer": {}
+    "close": {},
+    "description": {},
+    "footer": {},
+    "header": {},
+    "title": {}
   },
   "relatedComponents": [
     {
@@ -25,15 +25,42 @@
   ],
   "cssVars": [
     {
-      "name": "--ui-drawer-z-index",
-      "default": "--ui-z-index-drawer",
-      "defaultValue": "800",
-      "description": "Z-index stacking order"
-    },
-    {
       "name": "--ui-drawer-backdrop-color",
       "default": "--ui-overlay-bg",
       "description": "Backdrop color"
+    },
+    {
+      "name": "--ui-drawer-bg",
+      "default": "--ui-color-bg",
+      "description": "Background color"
+    },
+    {
+      "name": "--ui-drawer-body-padding",
+      "default": "--ui-space-3",
+      "defaultValue": "24px",
+      "description": "Body area padding on all sides"
+    },
+    {
+      "name": "--ui-drawer-border-color",
+      "default": "--ui-color-border",
+      "description": "Border color"
+    },
+    {
+      "name": "--ui-drawer-border-width",
+      "default": "--ui-border-width-sm",
+      "defaultValue": "1px",
+      "description": "Border width"
+    },
+    {
+      "name": "--ui-drawer-description-color",
+      "default": "--ui-color-text-muted",
+      "description": "Description color"
+    },
+    {
+      "name": "--ui-drawer-description-font-size",
+      "default": "--ui-font-size-sm",
+      "defaultValue": "14px",
+      "description": "Description font size"
     },
     {
       "name": "--ui-drawer-enter-duration",
@@ -58,10 +85,56 @@
       "description": "Exit timing function"
     },
     {
-      "name": "--ui-drawer-border-width",
-      "default": "--ui-border-width-sm",
-      "defaultValue": "1px",
-      "description": "Border width"
+      "name": "--ui-drawer-footer-gap",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Footer gap"
+    },
+    {
+      "name": "--ui-drawer-footer-padding-x",
+      "default": "--ui-space-3",
+      "defaultValue": "24px",
+      "description": "Footer horizontal padding"
+    },
+    {
+      "name": "--ui-drawer-footer-padding-y",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Footer padding on all sides"
+    },
+    {
+      "name": "--ui-drawer-header-gap",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Header gap"
+    },
+    {
+      "name": "--ui-drawer-header-padding-x",
+      "default": "--ui-space-3",
+      "defaultValue": "24px",
+      "description": "Header horizontal padding"
+    },
+    {
+      "name": "--ui-drawer-header-padding-y",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Header padding on all sides"
+    },
+    {
+      "name": "--ui-drawer-max-size",
+      "default": "90%",
+      "description": "Max size"
+    },
+    {
+      "name": "--ui-drawer-shadow",
+      "default": "--ui-shadow-lg",
+      "description": "Box shadow"
+    },
+    {
+      "name": "--ui-drawer-size",
+      "default": "--ui-unit-40",
+      "defaultValue": "320px",
+      "description": "Overall size"
     },
     {
       "name": "--ui-drawer-title-font-size",
@@ -82,83 +155,10 @@
       "description": "Title line height"
     },
     {
-      "name": "--ui-drawer-description-font-size",
-      "default": "--ui-font-size-sm",
-      "defaultValue": "14px",
-      "description": "Description font size"
-    },
-    {
-      "name": "--ui-drawer-description-color",
-      "default": "--ui-color-text-muted",
-      "description": "Description color"
-    },
-    {
-      "name": "--ui-drawer-header-gap",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Header gap"
-    },
-    {
-      "name": "--ui-drawer-footer-gap",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Footer gap"
-    },
-    {
-      "name": "--ui-drawer-size",
-      "default": "--ui-unit-40",
-      "defaultValue": "320px",
-      "description": "Overall size"
-    },
-    {
-      "name": "--ui-drawer-max-size",
-      "default": "90%",
-      "description": "Max size"
-    },
-    {
-      "name": "--ui-drawer-bg",
-      "default": "--ui-color-bg",
-      "description": "Background color"
-    },
-    {
-      "name": "--ui-drawer-shadow",
-      "default": "--ui-shadow-lg",
-      "description": "Box shadow"
-    },
-    {
-      "name": "--ui-drawer-header-padding-y",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Header padding on all sides"
-    },
-    {
-      "name": "--ui-drawer-header-padding-x",
-      "default": "--ui-space-3",
-      "defaultValue": "24px",
-      "description": "Header horizontal padding"
-    },
-    {
-      "name": "--ui-drawer-body-padding",
-      "default": "--ui-space-3",
-      "defaultValue": "24px",
-      "description": "Body area padding on all sides"
-    },
-    {
-      "name": "--ui-drawer-footer-padding-y",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Footer padding on all sides"
-    },
-    {
-      "name": "--ui-drawer-footer-padding-x",
-      "default": "--ui-space-3",
-      "defaultValue": "24px",
-      "description": "Footer horizontal padding"
-    },
-    {
-      "name": "--ui-drawer-border-color",
-      "default": "--ui-color-border",
-      "description": "Border color"
+      "name": "--ui-drawer-z-index",
+      "default": "--ui-z-index-drawer",
+      "defaultValue": "800",
+      "description": "Z-index stacking order"
     }
   ]
 }

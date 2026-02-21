@@ -3,56 +3,21 @@
   "name": "divider",
   "element": "div",
   "modifiers": {
-    "vertical": {
+    "dashed": {
       "type": "boolean"
     },
     "position": {
-      "values": ["start", "end"]
+      "values": ["end", "start"]
     },
-    "dashed": {
+    "vertical": {
       "type": "boolean"
     }
   },
   "cssVars": [
     {
-      "name": "--ui-divider-font-size",
-      "default": "--ui-font-size-sm",
-      "defaultValue": "14px",
-      "description": "Font size"
-    },
-    {
-      "name": "--ui-divider-label-color",
-      "default": "--ui-color-text-muted",
-      "description": "Label text color"
-    },
-    {
       "name": "--ui-divider-color",
       "default": "--ui-color-border",
       "description": "Line color"
-    },
-    {
-      "name": "--ui-divider-line-size",
-      "default": "--ui-border-width-sm",
-      "defaultValue": "1px",
-      "description": "Line size"
-    },
-    {
-      "name": "--ui-divider-height",
-      "default": "--ui-unit",
-      "defaultValue": "8px",
-      "description": "Overall height"
-    },
-    {
-      "name": "--ui-divider-gap",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Gap between children"
-    },
-    {
-      "name": "--ui-divider-label-spacing",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Label spacing between text and lines"
     },
     {
       "name": "--ui-divider-dash-size",
@@ -61,10 +26,45 @@
       "description": "Dash pattern repeat size"
     },
     {
+      "name": "--ui-divider-font-size",
+      "default": "--ui-font-size-sm",
+      "defaultValue": "14px",
+      "description": "Font size"
+    },
+    {
+      "name": "--ui-divider-gap",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Gap between children"
+    },
+    {
+      "name": "--ui-divider-height",
+      "default": "--ui-unit",
+      "defaultValue": "8px",
+      "description": "Overall height"
+    },
+    {
       "name": "--ui-divider-height-label",
       "default": "--ui-row-1",
       "defaultValue": "16px",
       "description": "Overall height when text label is present"
+    },
+    {
+      "name": "--ui-divider-label-color",
+      "default": "--ui-color-text-muted",
+      "description": "Label text color"
+    },
+    {
+      "name": "--ui-divider-label-spacing",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Label spacing between text and lines"
+    },
+    {
+      "name": "--ui-divider-line-size",
+      "default": "--ui-border-width-sm",
+      "defaultValue": "1px",
+      "description": "Line size"
     }
   ]
 }

@@ -12,46 +12,6 @@
   },
   "cssVars": [
     {
-      "name": "--ui-radio-border-width",
-      "default": "--ui-border-width-sm",
-      "defaultValue": "1px",
-      "description": "Border width"
-    },
-    {
-      "name": "--ui-radio-transition-duration",
-      "default": "--ui-duration-fast",
-      "defaultValue": "100ms",
-      "description": "Transition duration"
-    },
-    {
-      "name": "--ui-radio-transition-timing",
-      "default": "--ui-ease-default",
-      "description": "Transition timing"
-    },
-    {
-      "name": "--ui-radio-focus-ring-width",
-      "default": "--ui-border-width-md",
-      "defaultValue": "2px",
-      "description": "Focus ring width"
-    },
-    {
-      "name": "--ui-radio-focus-ring-color",
-      "default": "--ui-color-focus",
-      "description": "Focus ring color"
-    },
-    {
-      "name": "--ui-radio-disabled-opacity",
-      "default": "--ui-opacity-disabled",
-      "defaultValue": "0.5",
-      "description": "Disabled opacity"
-    },
-    {
-      "name": "--ui-radio-size",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Overall size"
-    },
-    {
       "name": "--ui-radio-bg",
       "default": "--ui-color-bg",
       "description": "Background color"
@@ -72,9 +32,43 @@
       "description": "Border color focus"
     },
     {
+      "name": "--ui-radio-border-width",
+      "default": "--ui-border-width-sm",
+      "defaultValue": "1px",
+      "description": "Border width"
+    },
+    {
+      "name": "--ui-radio-disabled-opacity",
+      "default": "--ui-opacity-disabled",
+      "defaultValue": "0.5",
+      "description": "Disabled opacity"
+    },
+    {
       "name": "--ui-radio-dot-color",
       "default": "--ui-color-text-inverse",
       "description": "Dot color"
+    },
+    {
+      "name": "--ui-radio-error-border",
+      "default": "--ui-color-danger",
+      "description": "Error border"
+    },
+    {
+      "name": "--ui-radio-focus-ring-color",
+      "default": "--ui-color-focus",
+      "description": "Focus ring color"
+    },
+    {
+      "name": "--ui-radio-focus-ring-width",
+      "default": "--ui-border-width-md",
+      "defaultValue": "2px",
+      "description": "Focus ring width"
+    },
+    {
+      "name": "--ui-radio-size",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Overall size"
     },
     {
       "name": "--ui-radio-size-lg",
@@ -83,14 +77,20 @@
       "description": "Overall size at large size"
     },
     {
-      "name": "--ui-radio-error-border",
-      "default": "--ui-color-danger",
-      "description": "Error border"
-    },
-    {
       "name": "--ui-radio-success-border",
       "default": "--ui-color-success",
       "description": "Success border"
+    },
+    {
+      "name": "--ui-radio-transition-duration",
+      "default": "--ui-duration-fast",
+      "defaultValue": "100ms",
+      "description": "Transition duration"
+    },
+    {
+      "name": "--ui-radio-transition-timing",
+      "default": "--ui-ease-default",
+      "description": "Transition timing"
     }
   ]
 }

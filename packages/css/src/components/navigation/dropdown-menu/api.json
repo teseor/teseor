@@ -3,30 +3,41 @@
   "name": "dropdown-menu",
   "element": "div",
   "modifiers": {
-    "open": {
-      "type": "boolean"
-    },
-    "top": {
-      "type": "boolean"
-    },
     "align-end": {
       "type": "boolean"
     },
     "full-width": {
       "type": "boolean"
+    },
+    "open": {
+      "type": "boolean"
+    },
+    "top": {
+      "type": "boolean"
     }
   },
   "elements": {
+    "panel": {},
     "trigger": {},
-    "trigger-icon": {},
-    "panel": {}
+    "trigger-icon": {}
   },
   "cssVars": [
     {
-      "name": "--ui-dropdown-menu-trigger-gap",
-      "default": "--ui-space-0",
-      "defaultValue": "4px",
-      "description": "Trigger gap"
+      "name": "--ui-dropdown-menu-panel-min-width",
+      "default": "auto",
+      "description": "Panel minimum width"
+    },
+    {
+      "name": "--ui-dropdown-menu-panel-offset",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Panel offset from anchor"
+    },
+    {
+      "name": "--ui-dropdown-menu-panel-slide-offset",
+      "default": "--ui-unit",
+      "defaultValue": "8px",
+      "description": "Panel slide offset"
     },
     {
       "name": "--ui-dropdown-menu-transition-duration",
@@ -40,33 +51,22 @@
       "description": "Transition timing function"
     },
     {
+      "name": "--ui-dropdown-menu-trigger-gap",
+      "default": "--ui-space-0",
+      "defaultValue": "4px",
+      "description": "Trigger gap"
+    },
+    {
       "name": "--ui-dropdown-menu-trigger-icon-font-size",
       "default": "--ui-font-size-relative-xs",
       "defaultValue": "0.6em",
       "description": "Trigger icon font size"
     },
     {
-      "name": "--ui-dropdown-menu-panel-slide-offset",
-      "default": "--ui-unit",
-      "defaultValue": "8px",
-      "description": "Panel slide offset"
-    },
-    {
       "name": "--ui-dropdown-menu-z",
       "default": "--ui-z-index-dropdown",
       "defaultValue": "200",
       "description": "Z-index stacking order"
-    },
-    {
-      "name": "--ui-dropdown-menu-panel-offset",
-      "default": "--ui-space-1",
-      "defaultValue": "8px",
-      "description": "Panel offset from anchor"
-    },
-    {
-      "name": "--ui-dropdown-menu-panel-min-width",
-      "default": "auto",
-      "description": "Panel minimum width"
     }
   ]
 }

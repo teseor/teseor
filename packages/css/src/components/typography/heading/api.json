@@ -4,56 +4,20 @@
   "element": "h2",
   "modifiers": {
     "size": {
-      "values": ["4xl", "3xl", "2xl", "xl", "lg", "md", "sm"]
+      "values": ["2xl", "3xl", "4xl", "lg", "md", "sm", "xl"]
     }
   },
   "cssVars": [
-    {
-      "name": "--ui-heading-font-size",
-      "default": "--ui-font-size-xl",
-      "defaultValue": "24px",
-      "description": "Font size"
-    },
-    {
-      "name": "--ui-heading-line-height",
-      "default": "--ui-line-height-xl",
-      "defaultValue": "32px",
-      "description": "Line height"
-    },
-    {
-      "name": "--ui-heading-weight",
-      "default": "--ui-font-weight-bold",
-      "defaultValue": "700",
-      "description": "Weight"
-    },
     {
       "name": "--ui-heading-color",
       "default": "--ui-color-text",
       "description": "Text color"
     },
     {
-      "name": "--ui-heading-font-size-4xl",
-      "default": "--ui-font-size-4xl",
-      "defaultValue": "40px",
-      "description": "Font size 4xl"
-    },
-    {
-      "name": "--ui-heading-line-height-4xl",
-      "default": "--ui-line-height-4xl",
-      "defaultValue": "48px",
-      "description": "Line height 4xl"
-    },
-    {
-      "name": "--ui-heading-font-size-3xl",
-      "default": "--ui-font-size-3xl",
-      "defaultValue": "32px",
-      "description": "Font size 3xl"
-    },
-    {
-      "name": "--ui-heading-line-height-3xl",
-      "default": "--ui-line-height-3xl",
-      "defaultValue": "40px",
-      "description": "Line height 3xl"
+      "name": "--ui-heading-font-size",
+      "default": "--ui-font-size-xl",
+      "defaultValue": "24px",
+      "description": "Font size"
     },
     {
       "name": "--ui-heading-font-size-2xl",
@@ -62,22 +26,16 @@
       "description": "Font size 2xl"
     },
     {
-      "name": "--ui-heading-line-height-2xl",
-      "default": "--ui-line-height-2xl",
+      "name": "--ui-heading-font-size-3xl",
+      "default": "--ui-font-size-3xl",
       "defaultValue": "32px",
-      "description": "Line height 2xl"
+      "description": "Font size 3xl"
     },
     {
-      "name": "--ui-heading-font-size-xl",
-      "default": "--ui-font-size-xl",
-      "defaultValue": "24px",
-      "description": "Font size at extra-large size"
-    },
-    {
-      "name": "--ui-heading-line-height-xl",
-      "default": "--ui-line-height-xl",
-      "defaultValue": "32px",
-      "description": "Line height at extra-large size"
+      "name": "--ui-heading-font-size-4xl",
+      "default": "--ui-font-size-4xl",
+      "defaultValue": "40px",
+      "description": "Font size 4xl"
     },
     {
       "name": "--ui-heading-font-size-lg",
@@ -86,22 +44,10 @@
       "description": "Font size at large size"
     },
     {
-      "name": "--ui-heading-line-height-lg",
-      "default": "--ui-line-height-lg",
-      "defaultValue": "32px",
-      "description": "Line height at large size"
-    },
-    {
       "name": "--ui-heading-font-size-md",
       "default": "--ui-font-size-md",
       "defaultValue": "16px",
       "description": "Font size at medium size"
-    },
-    {
-      "name": "--ui-heading-line-height-md",
-      "default": "--ui-line-height-tight-md",
-      "defaultValue": "24px",
-      "description": "Line height at medium size"
     },
     {
       "name": "--ui-heading-font-size-sm",
@@ -110,10 +56,64 @@
       "description": "Font size at small size"
     },
     {
+      "name": "--ui-heading-font-size-xl",
+      "default": "--ui-font-size-xl",
+      "defaultValue": "24px",
+      "description": "Font size at extra-large size"
+    },
+    {
+      "name": "--ui-heading-line-height",
+      "default": "--ui-line-height-xl",
+      "defaultValue": "32px",
+      "description": "Line height"
+    },
+    {
+      "name": "--ui-heading-line-height-2xl",
+      "default": "--ui-line-height-2xl",
+      "defaultValue": "32px",
+      "description": "Line height 2xl"
+    },
+    {
+      "name": "--ui-heading-line-height-3xl",
+      "default": "--ui-line-height-3xl",
+      "defaultValue": "40px",
+      "description": "Line height 3xl"
+    },
+    {
+      "name": "--ui-heading-line-height-4xl",
+      "default": "--ui-line-height-4xl",
+      "defaultValue": "48px",
+      "description": "Line height 4xl"
+    },
+    {
+      "name": "--ui-heading-line-height-lg",
+      "default": "--ui-line-height-lg",
+      "defaultValue": "32px",
+      "description": "Line height at large size"
+    },
+    {
+      "name": "--ui-heading-line-height-md",
+      "default": "--ui-line-height-tight-md",
+      "defaultValue": "24px",
+      "description": "Line height at medium size"
+    },
+    {
       "name": "--ui-heading-line-height-sm",
       "default": "--ui-line-height-tight-sm",
       "defaultValue": "16px",
       "description": "Line height at small size"
+    },
+    {
+      "name": "--ui-heading-line-height-xl",
+      "default": "--ui-line-height-xl",
+      "defaultValue": "32px",
+      "description": "Line height at extra-large size"
+    },
+    {
+      "name": "--ui-heading-weight",
+      "default": "--ui-font-weight-bold",
+      "defaultValue": "700",
+      "description": "Weight"
     }
   ]
 }

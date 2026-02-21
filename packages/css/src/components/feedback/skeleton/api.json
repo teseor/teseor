@@ -3,11 +3,11 @@
   "name": "skeleton",
   "element": "div",
   "modifiers": {
-    "variant": {
-      "values": ["text", "heading", "circle", "rect", "static"]
-    },
     "pulse": {
       "type": "boolean"
+    },
+    "variant": {
+      "values": ["circle", "heading", "rect", "static", "text"]
     }
   },
   "cssVars": [
@@ -17,21 +17,10 @@
       "description": "Background color"
     },
     {
-      "name": "--ui-skeleton-shimmer",
-      "default": "--ui-skeleton-shimmer",
-      "description": "Shimmer"
-    },
-    {
-      "name": "--ui-skeleton-radius",
-      "default": "--ui-radius-sm",
-      "defaultValue": "4px",
-      "description": "Corner radius"
-    },
-    {
-      "name": "--ui-skeleton-text-height",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Text line height"
+      "name": "--ui-skeleton-circle-size",
+      "default": "--ui-space-5",
+      "defaultValue": "40px",
+      "description": "Circle size"
     },
     {
       "name": "--ui-skeleton-heading-height",
@@ -40,16 +29,27 @@
       "description": "Heading height"
     },
     {
-      "name": "--ui-skeleton-circle-size",
-      "default": "--ui-space-5",
-      "defaultValue": "40px",
-      "description": "Circle size"
+      "name": "--ui-skeleton-radius",
+      "default": "--ui-radius-sm",
+      "defaultValue": "4px",
+      "description": "Corner radius"
     },
     {
       "name": "--ui-skeleton-rect-height",
       "default": "--ui-unit-20",
       "defaultValue": "160px",
       "description": "Rectangle height"
+    },
+    {
+      "name": "--ui-skeleton-shimmer",
+      "default": "--ui-skeleton-shimmer",
+      "description": "Shimmer"
+    },
+    {
+      "name": "--ui-skeleton-text-height",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Text line height"
     }
   ]
 }

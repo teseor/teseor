@@ -14,28 +14,21 @@
     }
   },
   "elements": {
-    "legend": {},
+    "item": {},
     "items": {},
-    "item": {}
+    "legend": {}
   },
   "cssVars": [
-    {
-      "name": "--ui-checkbox-group-line-height",
-      "default": "--ui-line-height-tight-sm",
-      "defaultValue": "16px",
-      "description": "Line height"
-    },
-    {
-      "name": "--ui-checkbox-group-item-line-height",
-      "default": "--ui-row-1",
-      "defaultValue": "16px",
-      "description": "Item line height"
-    },
     {
       "name": "--ui-checkbox-group-disabled-opacity",
       "default": "--ui-opacity-disabled",
       "defaultValue": "0.5",
       "description": "Disabled opacity"
+    },
+    {
+      "name": "--ui-checkbox-group-error-color",
+      "default": "--ui-color-danger",
+      "description": "Error color"
     },
     {
       "name": "--ui-checkbox-group-horizontal-gap",
@@ -44,10 +37,26 @@
       "description": "Horizontal gap"
     },
     {
-      "name": "--ui-checkbox-group-spacing",
+      "name": "--ui-checkbox-group-item-gap",
       "default": "--ui-space-1",
       "defaultValue": "8px",
-      "description": "Spacing"
+      "description": "Item gap between children"
+    },
+    {
+      "name": "--ui-checkbox-group-item-gap-compact",
+      "default": "0",
+      "description": "Item gap compact"
+    },
+    {
+      "name": "--ui-checkbox-group-item-line-height",
+      "default": "--ui-row-1",
+      "defaultValue": "16px",
+      "description": "Item line height"
+    },
+    {
+      "name": "--ui-checkbox-group-legend-color",
+      "default": "--ui-color-text",
+      "description": "Legend color"
     },
     {
       "name": "--ui-checkbox-group-legend-size",
@@ -56,32 +65,10 @@
       "description": "Legend size"
     },
     {
-      "name": "--ui-checkbox-group-legend-weight",
-      "default": "--ui-font-weight-medium",
-      "defaultValue": "500",
-      "description": "Legend weight"
-    },
-    {
-      "name": "--ui-checkbox-group-legend-color",
-      "default": "--ui-color-text",
-      "description": "Legend color"
-    },
-    {
       "name": "--ui-checkbox-group-legend-spacing",
       "default": "--ui-space-1",
       "defaultValue": "8px",
       "description": "Legend spacing"
-    },
-    {
-      "name": "--ui-checkbox-group-item-gap",
-      "default": "--ui-space-1",
-      "defaultValue": "8px",
-      "description": "Item gap between children"
-    },
-    {
-      "name": "--ui-checkbox-group-spacing-compact",
-      "default": "0",
-      "description": "Spacing compact"
     },
     {
       "name": "--ui-checkbox-group-legend-spacing-compact",
@@ -89,14 +76,27 @@
       "description": "Legend spacing compact"
     },
     {
-      "name": "--ui-checkbox-group-item-gap-compact",
-      "default": "0",
-      "description": "Item gap compact"
+      "name": "--ui-checkbox-group-legend-weight",
+      "default": "--ui-font-weight-medium",
+      "defaultValue": "500",
+      "description": "Legend weight"
     },
     {
-      "name": "--ui-checkbox-group-error-color",
-      "default": "--ui-color-danger",
-      "description": "Error color"
+      "name": "--ui-checkbox-group-line-height",
+      "default": "--ui-line-height-tight-sm",
+      "defaultValue": "16px",
+      "description": "Line height"
+    },
+    {
+      "name": "--ui-checkbox-group-spacing",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Spacing"
+    },
+    {
+      "name": "--ui-checkbox-group-spacing-compact",
+      "default": "0",
+      "description": "Spacing compact"
     }
   ]
 }

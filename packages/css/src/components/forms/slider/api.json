@@ -3,30 +3,23 @@
   "name": "slider",
   "element": "input",
   "modifiers": {
-    "size": {
-      "values": ["sm", "lg"]
-    },
     "color": {
-      "values": ["success", "warning", "danger"]
+      "values": ["danger", "success", "warning"]
+    },
+    "size": {
+      "values": ["lg", "sm"]
     }
   },
   "cssVars": [
     {
-      "name": "--ui-slider-transition-duration",
-      "default": "--ui-duration-fast",
-      "defaultValue": "100ms",
-      "description": "Transition duration"
+      "name": "--ui-slider-danger-thumb-border",
+      "default": "--ui-color-danger",
+      "description": "Danger thumb border"
     },
     {
-      "name": "--ui-slider-transition-timing",
-      "default": "--ui-ease-default",
-      "description": "Transition timing"
-    },
-    {
-      "name": "--ui-slider-focus-ring-width",
-      "default": "--ui-border-width-md",
-      "defaultValue": "2px",
-      "description": "Focus ring width"
+      "name": "--ui-slider-danger-track-fill",
+      "default": "--ui-color-danger",
+      "description": "Danger track fill"
     },
     {
       "name": "--ui-slider-disabled-opacity",
@@ -35,38 +28,48 @@
       "description": "Disabled opacity"
     },
     {
+      "name": "--ui-slider-fill-pct",
+      "default": "50%",
+      "description": "Fill percentage (set via JS for Webkit track fill)"
+    },
+    {
+      "name": "--ui-slider-focus-ring-color",
+      "default": "--ui-color-focus",
+      "description": "Focus ring color"
+    },
+    {
+      "name": "--ui-slider-focus-ring-width",
+      "default": "--ui-border-width-md",
+      "defaultValue": "2px",
+      "description": "Focus ring width"
+    },
+    {
       "name": "--ui-slider-height",
       "default": "--ui-row-2",
       "defaultValue": "32px",
       "description": "Overall height"
     },
     {
-      "name": "--ui-slider-track-height",
-      "default": "--ui-unit",
-      "defaultValue": "8px",
-      "description": "Track height"
+      "name": "--ui-slider-height-lg",
+      "default": "--ui-row-2-5",
+      "defaultValue": "40px",
+      "description": "Overall height at large size"
     },
     {
-      "name": "--ui-slider-track-bg",
-      "default": "--ui-color-bg-inset",
-      "description": "Track background"
+      "name": "--ui-slider-height-sm",
+      "default": "--ui-row-1-5",
+      "defaultValue": "24px",
+      "description": "Overall height at small size"
     },
     {
-      "name": "--ui-slider-track-fill",
-      "default": "--ui-color-primary",
-      "description": "Track fill"
+      "name": "--ui-slider-success-thumb-border",
+      "default": "--ui-color-success",
+      "description": "Success thumb border"
     },
     {
-      "name": "--ui-slider-track-radius",
-      "default": "--ui-radius-full",
-      "defaultValue": "9999px",
-      "description": "Track corner radius"
-    },
-    {
-      "name": "--ui-slider-thumb-size",
-      "default": "--ui-size-lg",
-      "defaultValue": "20px",
-      "description": "Thumb control size"
+      "name": "--ui-slider-success-track-fill",
+      "default": "--ui-color-success",
+      "description": "Success track fill"
     },
     {
       "name": "--ui-slider-thumb-bg",
@@ -96,44 +99,10 @@
       "description": "Thumb control box shadow"
     },
     {
-      "name": "--ui-slider-focus-ring-color",
-      "default": "--ui-color-focus",
-      "description": "Focus ring color"
-    },
-    {
-      "name": "--ui-slider-fill-pct",
-      "default": "50%",
-      "description": "Fill percentage (set via JS for Webkit track fill)"
-    },
-    {
-      "name": "--ui-slider-height-sm",
-      "default": "--ui-row-1-5",
-      "defaultValue": "24px",
-      "description": "Overall height at small size"
-    },
-    {
-      "name": "--ui-slider-track-height-sm",
-      "default": "--ui-space-0",
-      "defaultValue": "4px",
-      "description": "Track height at small size"
-    },
-    {
-      "name": "--ui-slider-thumb-size-sm",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Thumb size at small size"
-    },
-    {
-      "name": "--ui-slider-height-lg",
-      "default": "--ui-row-2-5",
-      "defaultValue": "40px",
-      "description": "Overall height at large size"
-    },
-    {
-      "name": "--ui-slider-track-height-lg",
-      "default": "--ui-size-sm",
-      "defaultValue": "12px",
-      "description": "Track height at large size"
+      "name": "--ui-slider-thumb-size",
+      "default": "--ui-size-lg",
+      "defaultValue": "20px",
+      "description": "Thumb control size"
     },
     {
       "name": "--ui-slider-thumb-size-lg",
@@ -142,19 +111,55 @@
       "description": "Thumb size at large size"
     },
     {
-      "name": "--ui-slider-success-track-fill",
-      "default": "--ui-color-success",
-      "description": "Success track fill"
+      "name": "--ui-slider-thumb-size-sm",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Thumb size at small size"
     },
     {
-      "name": "--ui-slider-success-thumb-border",
-      "default": "--ui-color-success",
-      "description": "Success thumb border"
+      "name": "--ui-slider-track-bg",
+      "default": "--ui-color-bg-inset",
+      "description": "Track background"
     },
     {
-      "name": "--ui-slider-warning-track-fill",
-      "default": "--ui-color-warning",
-      "description": "Warning track fill"
+      "name": "--ui-slider-track-fill",
+      "default": "--ui-color-primary",
+      "description": "Track fill"
+    },
+    {
+      "name": "--ui-slider-track-height",
+      "default": "--ui-unit",
+      "defaultValue": "8px",
+      "description": "Track height"
+    },
+    {
+      "name": "--ui-slider-track-height-lg",
+      "default": "--ui-size-sm",
+      "defaultValue": "12px",
+      "description": "Track height at large size"
+    },
+    {
+      "name": "--ui-slider-track-height-sm",
+      "default": "--ui-space-0",
+      "defaultValue": "4px",
+      "description": "Track height at small size"
+    },
+    {
+      "name": "--ui-slider-track-radius",
+      "default": "--ui-radius-full",
+      "defaultValue": "9999px",
+      "description": "Track corner radius"
+    },
+    {
+      "name": "--ui-slider-transition-duration",
+      "default": "--ui-duration-fast",
+      "defaultValue": "100ms",
+      "description": "Transition duration"
+    },
+    {
+      "name": "--ui-slider-transition-timing",
+      "default": "--ui-ease-default",
+      "description": "Transition timing"
     },
     {
       "name": "--ui-slider-warning-thumb-border",
@@ -162,14 +167,9 @@
       "description": "Warning thumb border"
     },
     {
-      "name": "--ui-slider-danger-track-fill",
-      "default": "--ui-color-danger",
-      "description": "Danger track fill"
-    },
-    {
-      "name": "--ui-slider-danger-thumb-border",
-      "default": "--ui-color-danger",
-      "description": "Danger thumb border"
+      "name": "--ui-slider-warning-track-fill",
+      "default": "--ui-color-warning",
+      "description": "Warning track fill"
     }
   ]
 }

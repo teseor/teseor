@@ -3,17 +3,17 @@
   "name": "icon",
   "element": "svg",
   "modifiers": {
-    "size": {
-      "values": ["xs", "sm", "md", "lg", "xl"]
-    },
-    "stroke": {
-      "values": ["stroke-thin", "stroke-thick"]
-    },
     "filled": {
       "type": "boolean"
     },
+    "size": {
+      "values": ["lg", "md", "sm", "xl", "xs"]
+    },
     "spin": {
       "type": "boolean"
+    },
+    "stroke": {
+      "values": ["stroke-thick", "stroke-thin"]
     }
   },
   "cssVars": [
@@ -23,27 +23,27 @@
       "description": "3-tier: global > context > default"
     },
     {
+      "name": "--ui-icon-size-",
+      "default": "",
+      "description": "Size"
+    },
+    {
       "name": "--ui-icon-stroke",
       "default": "--ui-icon-stroke",
       "defaultValue": "2",
       "description": "Stroke"
     },
     {
-      "name": "--ui-icon-size-",
-      "default": "",
-      "description": "Size"
+      "name": "--ui-icon-stroke-thick",
+      "default": "--ui-icon-stroke-thick",
+      "defaultValue": "2.5",
+      "description": "Stroke thick"
     },
     {
       "name": "--ui-icon-stroke-thin",
       "default": "--ui-icon-stroke-thin",
       "defaultValue": "1",
       "description": "Stroke thin"
-    },
-    {
-      "name": "--ui-icon-stroke-thick",
-      "default": "--ui-icon-stroke-thick",
-      "defaultValue": "2.5",
-      "description": "Stroke thick"
     }
   ]
 }

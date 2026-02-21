@@ -3,16 +3,16 @@
   "name": "scroll-area",
   "element": "div",
   "modifiers": {
-    "size": {
-      "values": ["sm", "lg", "xl"]
-    },
-    "thin": {
+    "auto-hide": {
       "type": "boolean"
     },
     "direction": {
-      "values": ["horizontal", "both"]
+      "values": ["both", "horizontal"]
     },
-    "auto-hide": {
+    "size": {
+      "values": ["lg", "sm", "xl"]
+    },
+    "thin": {
       "type": "boolean"
     }
   },
@@ -21,27 +21,40 @@
   },
   "cssVars": [
     {
-      "name": "--ui-scroll-area-transition-duration",
-      "default": "--ui-duration-fast",
-      "defaultValue": "100ms",
-      "description": "Auto-hide fade transition duration"
-    },
-    {
-      "name": "--ui-scroll-area-transition-timing",
-      "default": "--ui-ease-default",
-      "description": "Auto-hide fade transition timing"
-    },
-    {
       "name": "--ui-scroll-area-max-height",
       "default": "--ui-row-10",
       "defaultValue": "160px",
       "description": "Maximum height"
     },
     {
+      "name": "--ui-scroll-area-max-height-lg",
+      "default": "--ui-row-15",
+      "defaultValue": "240px",
+      "description": "Maximum height at large size"
+    },
+    {
+      "name": "--ui-scroll-area-max-height-sm",
+      "default": "--ui-row-5",
+      "defaultValue": "80px",
+      "description": "Maximum height at small size"
+    },
+    {
+      "name": "--ui-scroll-area-max-height-xl",
+      "default": "--ui-row-20",
+      "defaultValue": "320px",
+      "description": "Maximum height at extra-large size"
+    },
+    {
       "name": "--ui-scroll-area-scrollbar-size",
       "default": "--ui-space-1",
       "defaultValue": "8px",
       "description": "Scrollbar size"
+    },
+    {
+      "name": "--ui-scroll-area-scrollbar-size-thin",
+      "default": "--ui-space-0",
+      "defaultValue": "4px",
+      "description": "Scrollbar size thin"
     },
     {
       "name": "--ui-scroll-area-thumb-color",
@@ -54,39 +67,26 @@
       "description": "Thumb hover color"
     },
     {
-      "name": "--ui-scroll-area-track-color",
-      "default": "transparent",
-      "description": "Track text color"
-    },
-    {
       "name": "--ui-scroll-area-thumb-radius",
       "default": "--ui-radius-full",
       "defaultValue": "9999px",
       "description": "Thumb corner radius"
     },
     {
-      "name": "--ui-scroll-area-max-height-sm",
-      "default": "--ui-row-5",
-      "defaultValue": "80px",
-      "description": "Maximum height at small size"
+      "name": "--ui-scroll-area-track-color",
+      "default": "transparent",
+      "description": "Track text color"
     },
     {
-      "name": "--ui-scroll-area-max-height-lg",
-      "default": "--ui-row-15",
-      "defaultValue": "240px",
-      "description": "Maximum height at large size"
+      "name": "--ui-scroll-area-transition-duration",
+      "default": "--ui-duration-fast",
+      "defaultValue": "100ms",
+      "description": "Auto-hide fade transition duration"
     },
     {
-      "name": "--ui-scroll-area-max-height-xl",
-      "default": "--ui-row-20",
-      "defaultValue": "320px",
-      "description": "Maximum height at extra-large size"
-    },
-    {
-      "name": "--ui-scroll-area-scrollbar-size-thin",
-      "default": "--ui-space-0",
-      "defaultValue": "4px",
-      "description": "Scrollbar size thin"
+      "name": "--ui-scroll-area-transition-timing",
+      "default": "--ui-ease-default",
+      "description": "Auto-hide fade transition timing"
     }
   ]
 }

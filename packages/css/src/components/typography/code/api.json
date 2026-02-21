@@ -14,15 +14,19 @@
   ],
   "cssVars": [
     {
-      "name": "--ui-code-font-family",
-      "default": "--ui-font-mono",
-      "description": "Font family"
+      "name": "--ui-code-bg",
+      "default": "--ui-color-bg-muted",
+      "description": "Background color"
     },
     {
-      "name": "--ui-code-line-height",
-      "default": "--ui-line-height-tight-sm",
-      "defaultValue": "16px",
-      "description": "Line height"
+      "name": "--ui-code-bg-block",
+      "default": "--ui-color-bg-muted",
+      "description": "Bg block"
+    },
+    {
+      "name": "--ui-code-border-color-block",
+      "default": "--ui-color-border",
+      "description": "Border color block"
     },
     {
       "name": "--ui-code-border-width",
@@ -31,15 +35,39 @@
       "description": "Border width"
     },
     {
+      "name": "--ui-code-font-family",
+      "default": "--ui-font-mono",
+      "description": "Font family"
+    },
+    {
       "name": "--ui-code-font-size",
       "default": "--ui-font-size-sm",
       "defaultValue": "14px",
       "description": "Font size"
     },
     {
-      "name": "--ui-code-bg",
-      "default": "--ui-color-bg-muted",
-      "description": "Background color"
+      "name": "--ui-code-font-size-block",
+      "default": "--ui-font-size-sm",
+      "defaultValue": "14px",
+      "description": "Font size block"
+    },
+    {
+      "name": "--ui-code-font-size-sm",
+      "default": "--ui-font-size-xs",
+      "defaultValue": "12px",
+      "description": "Font size at small size"
+    },
+    {
+      "name": "--ui-code-line-height",
+      "default": "--ui-line-height-tight-sm",
+      "defaultValue": "16px",
+      "description": "Line height"
+    },
+    {
+      "name": "--ui-code-padding-block",
+      "default": "--ui-space-3",
+      "defaultValue": "24px",
+      "description": "Vertical padding"
     },
     {
       "name": "--ui-code-padding-x",
@@ -60,38 +88,10 @@
       "description": "Corner radius"
     },
     {
-      "name": "--ui-code-font-size-sm",
-      "default": "--ui-font-size-xs",
-      "defaultValue": "12px",
-      "description": "Font size at small size"
-    },
-    {
-      "name": "--ui-code-font-size-block",
-      "default": "--ui-font-size-sm",
-      "defaultValue": "14px",
-      "description": "Font size block"
-    },
-    {
-      "name": "--ui-code-bg-block",
-      "default": "--ui-color-bg-muted",
-      "description": "Bg block"
-    },
-    {
-      "name": "--ui-code-padding-block",
-      "default": "--ui-space-3",
-      "defaultValue": "24px",
-      "description": "Vertical padding"
-    },
-    {
       "name": "--ui-code-radius-block",
       "default": "--ui-radius-md",
       "defaultValue": "8px",
       "description": "Radius block"
-    },
-    {
-      "name": "--ui-code-border-color-block",
-      "default": "--ui-color-border",
-      "description": "Border color block"
     }
   ]
 }

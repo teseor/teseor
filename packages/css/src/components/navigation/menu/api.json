@@ -5,16 +5,15 @@
   "modifiers": {},
   "elements": {
     "group": {},
-    "label": {},
     "item": {
       "modifiers": {
+        "check": {
+          "type": "boolean"
+        },
         "danger": {
           "type": "boolean"
         },
         "disabled": {
-          "type": "boolean"
-        },
-        "check": {
           "type": "boolean"
         },
         "radio": {
@@ -23,11 +22,22 @@
       }
     },
     "item-icon": {},
+    "item-indicator": {},
     "item-shortcut": {},
-    "separator": {},
-    "item-indicator": {}
+    "label": {},
+    "separator": {}
   },
   "cssVars": [
+    {
+      "name": "--ui-menu-bg",
+      "default": "--ui-color-bg",
+      "description": "Background color"
+    },
+    {
+      "name": "--ui-menu-border-color",
+      "default": "--ui-color-border",
+      "description": "Border color"
+    },
     {
       "name": "--ui-menu-border-width",
       "default": "--ui-border-width-sm",
@@ -35,49 +45,10 @@
       "description": "Border width"
     },
     {
-      "name": "--ui-menu-label-font-size",
-      "default": "--ui-font-size-xs",
-      "defaultValue": "12px",
-      "description": "Label font size"
-    },
-    {
-      "name": "--ui-menu-label-font-weight",
-      "default": "--ui-font-weight-medium",
-      "defaultValue": "500",
-      "description": "Label font weight"
-    },
-    {
-      "name": "--ui-menu-item-line-height",
-      "default": "--ui-row-1",
-      "defaultValue": "16px",
-      "description": "Item line height"
-    },
-    {
-      "name": "--ui-menu-label-color",
-      "default": "--ui-color-text-muted",
-      "description": "Label color"
-    },
-    {
-      "name": "--ui-menu-item-font-size",
-      "default": "--ui-font-size-sm",
-      "defaultValue": "14px",
-      "description": "Item font size"
-    },
-    {
-      "name": "--ui-menu-item-color",
-      "default": "--ui-color-text",
-      "description": "Item text color"
-    },
-    {
-      "name": "--ui-menu-transition-duration",
-      "default": "--ui-duration-fast",
-      "defaultValue": "100ms",
-      "description": "Transition duration"
-    },
-    {
-      "name": "--ui-menu-transition-timing",
-      "default": "--ui-ease-default",
-      "description": "Transition timing function"
+      "name": "--ui-menu-check-padding-start",
+      "default": "--ui-space-4",
+      "defaultValue": "32px",
+      "description": "Check/radio inline padding"
     },
     {
       "name": "--ui-menu-danger-color",
@@ -89,41 +60,6 @@
       "default": "--ui-opacity-disabled",
       "defaultValue": "0.5",
       "description": "Disabled opacity"
-    },
-    {
-      "name": "--ui-menu-separator-color",
-      "default": "--ui-color-border",
-      "description": "Separator color"
-    },
-    {
-      "name": "--ui-menu-label-letter-spacing",
-      "default": "--ui-letter-spacing-wide",
-      "defaultValue": "0.05em",
-      "description": "Label letter spacing"
-    },
-    {
-      "name": "--ui-menu-item-gap",
-      "default": "--ui-unit",
-      "defaultValue": "8px",
-      "description": "Item gap"
-    },
-    {
-      "name": "--ui-menu-item-icon-size",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Item icon size"
-    },
-    {
-      "name": "--ui-menu-separator-height",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Separator height"
-    },
-    {
-      "name": "--ui-menu-check-padding-start",
-      "default": "--ui-space-4",
-      "defaultValue": "32px",
-      "description": "Check/radio inline padding"
     },
     {
       "name": "--ui-menu-indicator-offset",
@@ -138,21 +74,91 @@
       "description": "Indicator size"
     },
     {
-      "name": "--ui-menu-shortcut-color",
-      "default": "--ui-color-text-muted",
-      "description": "Shortcut color"
+      "name": "--ui-menu-item-bg-hover",
+      "default": "--ui-color-bg-subtle",
+      "description": "Item bg hover"
     },
     {
-      "name": "--ui-menu-min-width",
-      "default": "--ui-unit-16",
-      "defaultValue": "128px",
-      "description": "Minimum width"
+      "name": "--ui-menu-item-color",
+      "default": "--ui-color-text",
+      "description": "Item text color"
+    },
+    {
+      "name": "--ui-menu-item-font-size",
+      "default": "--ui-font-size-sm",
+      "defaultValue": "14px",
+      "description": "Item font size"
+    },
+    {
+      "name": "--ui-menu-item-gap",
+      "default": "--ui-unit",
+      "defaultValue": "8px",
+      "description": "Item gap"
+    },
+    {
+      "name": "--ui-menu-item-icon-size",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Item icon size"
+    },
+    {
+      "name": "--ui-menu-item-line-height",
+      "default": "--ui-row-1",
+      "defaultValue": "16px",
+      "description": "Item line height"
+    },
+    {
+      "name": "--ui-menu-item-padding-x",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Item horizontal padding"
+    },
+    {
+      "name": "--ui-menu-item-padding-y",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Item vertical padding"
+    },
+    {
+      "name": "--ui-menu-item-radius",
+      "default": "--ui-radius-sm",
+      "defaultValue": "4px",
+      "description": "Item corner radius"
+    },
+    {
+      "name": "--ui-menu-label-color",
+      "default": "--ui-color-text-muted",
+      "description": "Label color"
+    },
+    {
+      "name": "--ui-menu-label-font-size",
+      "default": "--ui-font-size-xs",
+      "defaultValue": "12px",
+      "description": "Label font size"
+    },
+    {
+      "name": "--ui-menu-label-font-weight",
+      "default": "--ui-font-weight-medium",
+      "defaultValue": "500",
+      "description": "Label font weight"
+    },
+    {
+      "name": "--ui-menu-label-letter-spacing",
+      "default": "--ui-letter-spacing-wide",
+      "defaultValue": "0.05em",
+      "description": "Label letter spacing"
     },
     {
       "name": "--ui-menu-max-height",
       "default": "--ui-unit-40",
       "defaultValue": "320px",
       "description": "Maximum height"
+    },
+    {
+      "name": "--ui-menu-min-width",
+      "default": "--ui-unit-16",
+      "defaultValue": "128px",
+      "description": "Minimum width"
     },
     {
       "name": "--ui-menu-padding",
@@ -167,14 +173,15 @@
       "description": "Corner radius"
     },
     {
-      "name": "--ui-menu-bg",
-      "default": "--ui-color-bg",
-      "description": "Background color"
+      "name": "--ui-menu-separator-color",
+      "default": "--ui-color-border",
+      "description": "Separator color"
     },
     {
-      "name": "--ui-menu-border-color",
-      "default": "--ui-color-border",
-      "description": "Border color"
+      "name": "--ui-menu-separator-height",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Separator height"
     },
     {
       "name": "--ui-menu-shadow",
@@ -182,27 +189,20 @@
       "description": "Box shadow"
     },
     {
-      "name": "--ui-menu-item-padding-y",
-      "default": "--ui-space-1",
-      "defaultValue": "8px",
-      "description": "Item vertical padding"
+      "name": "--ui-menu-shortcut-color",
+      "default": "--ui-color-text-muted",
+      "description": "Shortcut color"
     },
     {
-      "name": "--ui-menu-item-padding-x",
-      "default": "--ui-space-2",
-      "defaultValue": "16px",
-      "description": "Item horizontal padding"
+      "name": "--ui-menu-transition-duration",
+      "default": "--ui-duration-fast",
+      "defaultValue": "100ms",
+      "description": "Transition duration"
     },
     {
-      "name": "--ui-menu-item-radius",
-      "default": "--ui-radius-sm",
-      "defaultValue": "4px",
-      "description": "Item corner radius"
-    },
-    {
-      "name": "--ui-menu-item-bg-hover",
-      "default": "--ui-color-bg-subtle",
-      "description": "Item bg hover"
+      "name": "--ui-menu-transition-timing",
+      "default": "--ui-ease-default",
+      "description": "Transition timing function"
     }
   ]
 }
