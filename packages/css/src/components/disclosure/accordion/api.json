@@ -3,6 +3,9 @@
   "name": "accordion",
   "element": "div",
   "modifiers": {
+    "borderless": {
+      "type": "boolean"
+    },
     "separated": {
       "type": "boolean"
     }

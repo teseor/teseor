@@ -57,7 +57,7 @@
     border-end-end-radius: var(--_radius);
   }
 
-  // Borderless variant
+  // @modifier boolean borderless
   .accordion--borderless {
     border: none;
   }

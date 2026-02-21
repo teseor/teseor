@@ -36,3 +36,6 @@ sections:
               text: Section 2
             - element: div
               text: Content for section 2.
+  borderless:
+    modifier: borderless
+    description: $auto Borderless modifier.

@@ -22,13 +22,17 @@
     --_gap: var(--ui-alert-gap, var(--ui-space-1, #{t.$space-1}));
     // @desc Corner radius
     --_radius: var(--ui-alert-radius, var(--ui-radius-md, #{t.$radius-md}));
+    // @desc Background tinted from accent
     --_bg: color-mix(in oklch, var(--_accent) 8%, white);
+    // @desc Border color derived from accent
     --_border-color: var(--_accent);
     // @desc Text color
     --_color: var(--ui-alert-color, var(--ui-color-text, #{t.$color-text}));
     // @desc Font size
     --_font-size: var(--ui-alert-font-size, inherit);
+    // @desc End padding for dismissible alerts
     --_padding-end: 0;
+    // @desc Icon color derived from accent
     --_icon-color: var(--_accent);
   }
 

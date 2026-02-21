@@ -27,6 +27,7 @@
     --_track-color: var(--ui-progress-circle-track-color, var(--ui-color-border, #{t.$color-border}));
     // @desc Value
     --_value: var(--ui-progress-circle-value, 0);
+    // @desc SVG circle circumference (2 * pi * 45)
     --_circumference: 282.743;
   }
 

@@ -10,10 +10,11 @@ export type Variant = 'info' | 'success' | 'warning' | 'danger';
 // --- accordion ---
 
 export interface AccordionModifiers {
+  borderless?: boolean;
   separated?: boolean;
 }
 
-export const accordionModifierKeys = ['separated'] as const;
+export const accordionModifierKeys = ['borderless', 'separated'] as const;
 
 export const accordionElement = 'div' as const;
 

@@ -30,7 +30,9 @@
     --_font-weight: var(--ui-button-font-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
     // @desc Corner radius
     --_radius: var(--ui-button-radius, var(--ui-radius-md, #{t.$radius-md}));
+    // @desc Background color derived from accent
     --_bg: var(--_accent);
+    // @desc Hover background via color-mix darkening
     --_bg-hover: color-mix(in oklch, var(--_accent) 80%, black);
     // @desc Text color
     --_color: var(--ui-button-color, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
