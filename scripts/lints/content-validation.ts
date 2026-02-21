@@ -1,63 +1,57 @@
-// Validates .content.yml files against their api.json.
+// Validates content.yml files against their api.json.
 // Checks: Zod schema, modifier coverage, shared refs, component names.
 
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
-import { loadContent } from '../../packages/docgen/src/index.js';
-import type { ApiJson } from '../../packages/docgen/src/types.js';
+import {
+  type ApiJson,
+  buildComponentNameSet,
+  loadContentFromParsed,
+  parseSharedYaml,
+} from '@teseor/docgen';
 
-interface ContentFile {
-  componentDir: string;
-  contentPath: string;
-  apiPath: string;
+interface ZodIssue {
+  path: (string | number)[];
+  message: string;
 }
 
-function findContentFiles(baseDir: string): ContentFile[] {
-  const files: ContentFile[] = [];
-  if (!existsSync(baseDir)) return files;
+function walkForFile<T>(
+  baseDir: string,
+  fileName: string,
+  mapFn: (dir: string, filePath: string) => T,
+): T[] {
+  const results: T[] = [];
+  if (!existsSync(baseDir)) return results;
 
   for (const entry of readdirSync(baseDir)) {
     if (entry.startsWith('.')) continue;
-    const p = join(baseDir, entry);
-    if (!statSync(p).isDirectory()) continue;
+    const dir = join(baseDir, entry);
+    if (!statSync(dir).isDirectory()) continue;
 
-    const contentPath = join(p, 'content.yml');
-    if (existsSync(contentPath)) {
-      files.push({
-        componentDir: p,
-        contentPath,
-        apiPath: join(p, 'api.json'),
-      });
+    const filePath = join(dir, fileName);
+    if (existsSync(filePath)) {
+      results.push(mapFn(dir, filePath));
     } else {
-      files.push(...findContentFiles(p));
+      results.push(...walkForFile(dir, fileName, mapFn));
     }
   }
-  return files;
+  return results;
 }
 
-function loadAllApis(srcDir: string): ApiJson[] {
-  const apis: ApiJson[] = [];
-  const dirs = ['components', 'layout'];
-  for (const dir of dirs) {
-    const base = join(srcDir, dir);
-    if (!existsSync(base)) continue;
-    loadApisRecursive(base, apis);
-  }
-  return apis;
+function isZodError(err: unknown): err is { issues: ZodIssue[] } {
+  return (
+    typeof err === 'object' &&
+    err !== null &&
+    'issues' in err &&
+    Array.isArray((err as Record<string, unknown>).issues)
+  );
 }
 
-function loadApisRecursive(dir: string, apis: ApiJson[]): void {
-  for (const entry of readdirSync(dir)) {
-    if (entry.startsWith('.')) continue;
-    const p = join(dir, entry);
-    if (!statSync(p).isDirectory()) continue;
-    const apiPath = join(p, 'api.json');
-    if (existsSync(apiPath)) {
-      apis.push(JSON.parse(readFileSync(apiPath, 'utf-8')));
-    } else {
-      loadApisRecursive(p, apis);
-    }
-  }
+function formatZodIssues(issues: ZodIssue[]): string[] {
+  return issues.map((issue) => {
+    const path = issue.path.length > 0 ? issue.path.join('.') : '(root)';
+    return `${path}: ${issue.message}`;
+  });
 }
 
 export function lintContentValidation(srcDir: string): void {
@@ -67,23 +61,38 @@ export function lintContentValidation(srcDir: string): void {
     return;
   }
 
-  const sharedYaml = readFileSync(sharedPath, 'utf-8');
-  const allApis = loadAllApis(srcDir);
-  const contentFiles = [
-    ...findContentFiles(join(srcDir, 'components')),
-    ...findContentFiles(join(srcDir, 'layout')),
-  ];
+  const shared = parseSharedYaml(readFileSync(sharedPath, 'utf-8'));
+
+  const searchDirs = ['components', 'layout'];
+  const allApis = searchDirs.flatMap((dir) =>
+    walkForFile(
+      join(srcDir, dir),
+      'api.json',
+      (_dir, filePath) => JSON.parse(readFileSync(filePath, 'utf-8')) as ApiJson,
+    ),
+  );
+
+  const knownComponents = buildComponentNameSet(allApis);
+
+  const contentFiles = searchDirs.flatMap((dir) =>
+    walkForFile(join(srcDir, dir), 'content.yml', (componentDir, contentPath) => ({
+      componentDir,
+      contentPath,
+      apiPath: join(componentDir, 'api.json'),
+    })),
+  );
 
   if (contentFiles.length === 0) {
-    console.log('Content validation: no .content.yml files found, skipping.');
+    console.log('Content validation: no content.yml files found, skipping.');
     return;
   }
 
   let totalErrors = 0;
   const errorsByFile: Record<string, string[]> = {};
+  const rootDir = join(srcDir, '..', '..');
 
   for (const { contentPath, apiPath } of contentFiles) {
-    const relPath = relative(join(srcDir, '..', '..'), contentPath);
+    const relPath = relative(rootDir, contentPath);
 
     if (!existsSync(apiPath)) {
       errorsByFile[relPath] = ['missing api.json'];
@@ -95,15 +104,21 @@ export function lintContentValidation(srcDir: string): void {
     const yamlStr = readFileSync(contentPath, 'utf-8');
 
     try {
-      const result = loadContent(yamlStr, api, sharedYaml, allApis);
+      const result = loadContentFromParsed(yamlStr, api, shared, knownComponents);
       if (result.errors.length > 0) {
         errorsByFile[relPath] = result.errors.map((e) => `${e.path}: ${e.message}`);
         totalErrors += result.errors.length;
       }
     } catch (err) {
-      const msg = err instanceof Error ? err.message : String(err);
-      errorsByFile[relPath] = [`parse error: ${msg}`];
-      totalErrors++;
+      if (isZodError(err)) {
+        const formatted = formatZodIssues(err.issues);
+        errorsByFile[relPath] = formatted;
+        totalErrors += formatted.length;
+      } else {
+        const msg = err instanceof Error ? err.message : String(err);
+        errorsByFile[relPath] = [`parse error: ${msg}`];
+        totalErrors++;
+      }
     }
   }
 
@@ -120,5 +135,5 @@ export function lintContentValidation(srcDir: string): void {
     process.exit(1);
   }
 
-  console.log(`Content validation: ${contentFiles.length} .content.yml files passed.`);
+  console.log(`Content validation: ${contentFiles.length} content.yml files passed.`);
 }

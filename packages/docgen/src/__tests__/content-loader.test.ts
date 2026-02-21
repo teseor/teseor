@@ -101,6 +101,8 @@ sections:
       const errors = validateContent(content, api, shared, knownComponents);
       expect(errors).toHaveLength(1);
       expect(errors[0].message).toContain("modifier 'block'");
+      expect(errors[0].message).toContain("visibility: 'internal'");
+      expect(errors[0].message).not.toContain('@nodoc');
     });
 
     it('skips internal modifiers for coverage', () => {
@@ -155,6 +157,72 @@ sections:
 `);
       const errors = validateContent(content, api, shared, knownComponents);
       expect(errors.some((e) => e.message.includes("'badkey'"))).toBe(true);
+    });
+
+    it('errors on invalid combine values', () => {
+      const api = makeApi({
+        modifiers: {
+          size: { values: ['sm', 'lg'] },
+          variant: { values: ['ghost'] },
+        },
+      });
+      const content = parseContentYaml(`
+description: Test.
+sections:
+  sizes:
+    modifier: size
+    combine:
+      - { variant: nonexistent }
+  variants:
+    modifier: variant
+`);
+      const errors = validateContent(content, api, shared, knownComponents);
+      expect(
+        errors.some((e) => e.message.includes("'nonexistent'") && e.message.includes('variant')),
+      ).toBe(true);
+    });
+
+    it('allows empty combine entries', () => {
+      const api = makeApi({
+        modifiers: {
+          size: { values: ['sm', 'lg'] },
+          variant: { values: ['ghost'] },
+        },
+      });
+      const content = parseContentYaml(`
+description: Test.
+sections:
+  sizes:
+    modifier: size
+    combine:
+      - {}
+      - { variant: ghost }
+  variants:
+    modifier: variant
+`);
+      const errors = validateContent(content, api, shared, knownComponents);
+      expect(errors).toHaveLength(0);
+    });
+
+    it('skips value validation for boolean modifiers', () => {
+      const api = makeApi({
+        modifiers: {
+          size: { values: ['sm', 'lg'] },
+          block: { type: 'boolean' },
+        },
+      });
+      const content = parseContentYaml(`
+description: Test.
+sections:
+  sizes:
+    modifier: size
+    combine:
+      - { block: true }
+  block:
+    modifier: block
+`);
+      const errors = validateContent(content, api, shared, knownComponents);
+      expect(errors).toHaveLength(0);
     });
   });
 

@@ -79,7 +79,15 @@ export function validateContent(
   const coveredModifiers = new Set<string>();
 
   for (const [sectionName, section] of Object.entries(content.sections)) {
-    validateSection(sectionName, section, apiModifiers, coveredModifiers, knownComponents, errors);
+    validateSection(
+      sectionName,
+      section,
+      api,
+      apiModifiers,
+      coveredModifiers,
+      knownComponents,
+      errors,
+    );
   }
 
   // Check shared refs
@@ -92,7 +100,7 @@ export function validateContent(
       if (modDef.visibility === 'internal') continue;
       errors.push({
         path: `sections`,
-        message: `modifier '${mod}' from api.json is not documented. Add an auto section or mark as @nodoc in SCSS.`,
+        message: `modifier '${mod}' from api.json is not documented. Add an auto section or set visibility: 'internal' in api.json.`,
       });
     }
   }
@@ -103,6 +111,7 @@ export function validateContent(
 function validateSection(
   name: string,
   section: Section,
+  api: ApiJson,
   apiModifiers: Set<string>,
   coveredModifiers: Set<string>,
   knownComponents: Set<string>,
@@ -120,12 +129,20 @@ function validateSection(
 
     if (section.combine) {
       for (const combo of section.combine) {
-        for (const key of Object.keys(combo)) {
+        for (const [key, value] of Object.entries(combo)) {
           if (!apiModifiers.has(key)) {
             errors.push({
               path: `sections.${name}.combine`,
               message: `combine key '${key}' is not a valid modifier. Available: ${[...apiModifiers].join(', ')}`,
             });
+          } else {
+            const mod = api.modifiers[key];
+            if (mod.values && !mod.values.includes(String(value))) {
+              errors.push({
+                path: `sections.${name}.combine`,
+                message: `combine value '${value}' is not valid for modifier '${key}'. Available: ${mod.values.join(', ')}`,
+              });
+            }
           }
         }
       }
@@ -139,9 +156,7 @@ function validateSection(
         errors,
       );
     }
-  }
-
-  if (isComposeSection(section)) {
+  } else if (isComposeSection(section)) {
     for (let i = 0; i < section.examples.length; i++) {
       validateNodeComponents(
         section.examples[i],
@@ -240,6 +255,18 @@ export function buildComponentNameSet(apis: ApiJson[]): Set<string> {
 
 // --- Full load pipeline ---
 
+export function loadContentFromParsed(
+  yamlStr: string,
+  api: ApiJson,
+  shared: SharedDescriptions,
+  knownComponents: Set<string>,
+): LoadResult {
+  const content = parseContentYaml(yamlStr);
+  const resolved = resolveSharedRefs(content, shared);
+  const errors = validateContent(resolved, api, shared, knownComponents);
+  return { content: resolved, errors };
+}
+
 export function loadContent(
   yamlStr: string,
   api: ApiJson,
@@ -247,9 +274,6 @@ export function loadContent(
   allApis: ApiJson[],
 ): LoadResult {
   const shared = parseSharedYaml(sharedYamlStr);
-  const content = parseContentYaml(yamlStr);
-  const resolved = resolveSharedRefs(content, shared);
   const knownComponents = buildComponentNameSet(allApis);
-  const errors = validateContent(resolved, api, shared, knownComponents);
-  return { content: resolved, errors };
+  return loadContentFromParsed(yamlStr, api, shared, knownComponents);
 }

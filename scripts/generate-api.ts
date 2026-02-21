@@ -13,7 +13,7 @@ import {
   normalizeForComparison,
   parseScssContent,
   serializeApi,
-} from '../packages/docgen/src/index.js';
+} from '@teseor/docgen';
 import { findComponentDirs } from './shared/find-components.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));

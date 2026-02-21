@@ -49,9 +49,11 @@ export const exampleNodeSchema: z.ZodType<ExampleNode> = z.lazy(() =>
       text: z.string().optional(),
       children: z.array(exampleNodeSchema).optional(),
     }),
-    z.object({
-      text: z.string(),
-    }),
+    z
+      .object({
+        text: z.string(),
+      })
+      .strict(),
   ]),
 );
 
@@ -65,6 +67,7 @@ export const autoSectionSchema = z.object({
   description: z.string().optional(),
   text: z.string().optional(),
   include_default: z.boolean().optional(),
+  // TODO: revisit empty {} convention — consider include_default or implicit default
   combine: z.array(z.record(z.string(), propValueSchema)).optional(),
   template: exampleNodeSchema.optional(),
 });

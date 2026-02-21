@@ -39,6 +39,9 @@ importers:
       '@playwright/test':
         specifier: ^1.58.2
         version: 1.58.2
+      '@teseor/docgen':
+        specifier: workspace:*
+        version: link:packages/docgen
       '@types/node':
         specifier: ^25.3.0
         version: 25.3.0

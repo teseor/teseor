@@ -155,6 +155,18 @@ describe('contentFileSchema', () => {
       };
       expect(() => contentFileSchema.parse(data)).toThrow();
     });
+
+    it('rejects text-only node with extra keys (strict mode)', () => {
+      const data = {
+        description: 'Test.',
+        sections: {
+          default: {
+            examples: [{ text: 'hello', compnent: 'Button' }],
+          },
+        },
+      };
+      expect(() => contentFileSchema.parse(data)).toThrow();
+    });
   });
 
   describe('file sections', () => {

@@ -1,6 +1,7 @@
 export {
   buildComponentNameSet,
   loadContent,
+  loadContentFromParsed,
   parseContentYaml,
   parseSharedYaml,
   validateContent,
