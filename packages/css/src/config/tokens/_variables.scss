@@ -297,6 +297,32 @@ $overlay-bg-subtle: rgb(0 0 0 / 0.1);
 $stripe-highlight: rgb(255 255 255 / 0.15);
 
 // ==========================================================================
+// Component defaults — must be above $tokens so they can be referenced
+// ==========================================================================
+
+// Icons
+$icon-stroke: 2;
+$icon-stroke-thin: 1;
+$icon-stroke-thick: 2.5;
+
+// Feedback
+$spinner-duration: 750ms;
+$progress-circle-stroke-width: 8;
+$skeleton-shimmer: rgb(255 255 255 / 0.5);
+
+// Layout
+$container-threshold-sm: 30rem;
+$grid-col-min: 16rem;
+
+// Icon
+$icon-size-inline: 1em;
+
+// Misc
+$slider-thumb-shadow: 0 1px 3px rgb(0 0 0 / 0.2);
+$toast-viewport-max-width: 420px;
+$spacer-size: 1;
+
+// ==========================================================================
 // Token registry — single source of truth for validation + fallbacks
 // The token() mixin validates against this map at compile time.
 // Every --ui-* CSS custom property MUST have an entry here.
@@ -326,6 +352,7 @@ $tokens: map.merge(
     // Spacing
     'space-px': $space-px,
     'space-quarter': $space-quarter,
+    'space-half': $space-0,
     'space-0': $space-0,
     'space-1': $space-1,
     'space-2': $space-2,
@@ -348,6 +375,9 @@ $tokens: map.merge(
     'unit-50': $unit-50,
     'unit-60': $unit-60,
     'unit-80': $unit-80,
+    'unit-neg-eighth': $unit-neg-eighth,
+    // Container
+    'container-threshold-sm': $container-threshold-sm,
     // Colors — palette
     'color-primary': $color-primary,
     'color-success': $color-success,
@@ -413,6 +443,8 @@ $tokens: map.merge(
     'color-interactive': $color-interactive,
     'color-interactive-hover': $color-interactive-hover,
     'color-focus': $color-focus,
+    // Focus ring
+    'focus-ring-offset': $focus-ring-offset,
   ),
   (
     // Typography
@@ -426,6 +458,25 @@ $tokens: map.merge(
     'font-size-2xl': $font-size-2xl,
     'font-size-3xl': $font-size-3xl,
     'font-size-4xl': $font-size-4xl,
+    'font-size-relative-xs': $font-size-relative-xs,
+    'font-size-relative-sm': $font-size-relative-sm,
+    'line-height-none': $line-height-none,
+    'line-height-tight-xs': $line-height-tight-xs,
+    'line-height-tight-sm': $line-height-tight-sm,
+    'line-height-tight-md': $line-height-tight-md,
+    'line-height-tight-lg': $line-height-tight-lg,
+    'line-height-xs': $line-height-xs,
+    'line-height-sm': $line-height-sm,
+    'line-height-md': $line-height-md,
+    'line-height-lg': $line-height-lg,
+    'line-height-xl': $line-height-xl,
+    'line-height-2xl': $line-height-2xl,
+    'line-height-3xl': $line-height-3xl,
+    'line-height-4xl': $line-height-4xl,
+    'letter-spacing-display': $letter-spacing-display,
+    'letter-spacing-body': $letter-spacing-body,
+    'letter-spacing-wide': $letter-spacing-wide,
+    'letter-spacing-caps': $letter-spacing-caps,
     'font-weight-normal': $font-weight-normal,
     'font-weight-medium': $font-weight-medium,
     'font-weight-semibold': $font-weight-semibold,
@@ -443,6 +494,7 @@ $tokens: map.merge(
     'shadow-sm': $shadow-sm,
     'shadow-md': $shadow-md,
     'shadow-lg': $shadow-lg,
+    'slider-thumb-shadow': $slider-thumb-shadow,
     // Z-index
     'z-index-base': $z-index-base,
     'z-index-sticky': $z-index-sticky,
@@ -461,6 +513,9 @@ $tokens: map.merge(
     'duration-slow': $duration-slow,
     'duration-slower': $duration-slower,
     'ease-default': $ease-default,
+    'ease-in': $ease-in,
+    'ease-out': $ease-out,
+    'ease-in-out': $ease-in-out,
     // State
     'opacity-disabled': $opacity-disabled,
     'opacity-loading': $opacity-loading,
@@ -469,10 +524,14 @@ $tokens: map.merge(
     'overlay-bg-light': $overlay-bg-light,
     'overlay-bg-blur': $overlay-bg-blur,
     'overlay-bg-subtle': $overlay-bg-subtle,
+    'stripe-highlight': $stripe-highlight,
     // Viewport constraints
     'viewport-max-height': $viewport-max-height,
     'viewport-max-height-full': $viewport-max-height-full,
     'viewport-max-width-full': $viewport-max-width-full,
+    // Component defaults
+    'icon-size-inline': $icon-size-inline,
+    'icon-stroke': $icon-stroke,
   ),
 );
 
@@ -482,14 +541,22 @@ $tokens: map.merge(
 // Without component name, generates two-tier:
 // Usage: @include token(color-text, color-text);
 // Output: --_color-text: var(--ui-color-text, <fallback>);
-@mixin token($local, $global, $component: null) {
+// With alias (modifier overrides that reuse a base --_ var with a different token suffix):
+// Usage: @include token(border-color, color-danger, input, error-border);
+// Output: --_border-color: var(--ui-input-error-border, var(--ui-color-danger, <fallback>));
+@mixin token($local, $global, $component: null, $alias: null) {
   @if not map.has-key($tokens, $global) {
     @error "Unknown token '#{$global}'. Add it to $tokens registry in _variables.scss";
   }
   $fallback: map.get($tokens, $global);
+  $suffix: $local;
+
+  @if $alias {
+    $suffix: $alias;
+  }
 
   @if $component {
-    --_#{$local}: var(--ui-#{$component}-#{$local}, var(--ui-#{$global}, #{$fallback}));
+    --_#{$local}: var(--ui-#{$component}-#{$suffix}, var(--ui-#{$global}, #{$fallback}));
   } @else {
     --_#{$local}: var(--ui-#{$global}, #{$fallback});
   }
@@ -503,30 +570,4 @@ $tokens: map.merge(
 
   @return map.get($tokens, $name);
 }
-
-// ==========================================================================
-// Component defaults
-// ==========================================================================
-
-// Icons
-$icon-stroke: 2;
-$icon-stroke-thin: 1;
-$icon-stroke-thick: 2.5;
-
-// Feedback
-$spinner-duration: 750ms;
-$progress-circle-stroke-width: 8;
-$skeleton-shimmer: rgb(255 255 255 / 0.5);
-
-// Layout
-$container-threshold-sm: 30rem;
-$grid-col-min: 16rem;
-
-// Icon
-$icon-size-inline: 1em;
-
-// Misc
-$slider-thumb-shadow: 0 1px 3px rgb(0 0 0 / 0.2);
-$toast-viewport-max-width: 420px;
-$spacer-size: 1;
 
