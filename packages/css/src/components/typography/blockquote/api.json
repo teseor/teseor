@@ -19,11 +19,13 @@
     {
       "name": "--ui-blockquote-border-width",
       "default": "var(--ui-border-width-lg)",
+      "defaultValue": "4px",
       "description": "Border thickness"
     },
     {
       "name": "--ui-blockquote-padding-inline",
       "default": "var(--ui-space-3)",
+      "defaultValue": "24px",
       "description": "Horizontal padding"
     },
     {
@@ -34,11 +36,13 @@
     {
       "name": "--ui-blockquote-font-size",
       "default": "var(--ui-font-size-lg)",
+      "defaultValue": "20px",
       "description": "Font size"
     },
     {
       "name": "--ui-blockquote-line-height",
       "default": "var(--ui-line-height-lg)",
+      "defaultValue": "32px",
       "description": "Line height"
     }
   ]

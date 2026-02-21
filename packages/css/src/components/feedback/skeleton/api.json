@@ -24,6 +24,7 @@
     {
       "name": "--ui-skeleton-radius",
       "default": "var(--ui-radius-sm)",
+      "defaultValue": "4px",
       "description": "Corner radius"
     }
   ]

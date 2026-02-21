@@ -15,6 +15,7 @@
     {
       "name": "--ui-label-font-size",
       "default": "var(--ui-font-size-sm)",
+      "defaultValue": "14px",
       "description": "Font size"
     },
     {
@@ -30,6 +31,7 @@
     {
       "name": "--ui-label-font-size-lg",
       "default": "var(--ui-font-size-md)",
+      "defaultValue": "16px",
       "description": "Font size at large size"
     }
   ]

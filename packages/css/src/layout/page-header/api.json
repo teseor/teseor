@@ -19,6 +19,7 @@
     {
       "name": "--ui-page-header-padding-block",
       "default": "var(--ui-space-3)",
+      "defaultValue": "24px",
       "description": "Vertical padding"
     },
     {
@@ -29,6 +30,7 @@
     {
       "name": "--ui-page-header-gap",
       "default": "var(--ui-space-2)",
+      "defaultValue": "16px",
       "description": "Gap between children"
     },
     {

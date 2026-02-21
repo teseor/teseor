@@ -22,6 +22,7 @@
   "main": "dist/index.css",
   "exports": {
     ".": "./dist/index.css",
+    "./types": "./src/types/index.ts",
     "./dist/*": "./dist/*"
   },
   "files": [

@@ -1,5 +1,5 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { dirname, resolve } from 'node:path';
+import { resolve } from 'node:path';
 import type { Page } from '@playwright/test';
 
 const LOSTPIXEL_DIR = resolve(__dirname, '../.lostpixel');
@@ -7,83 +7,6 @@ const LOSTPIXEL_DIR = resolve(__dirname, '../.lostpixel');
 import type { ComponentAPI } from './api-types';
 import { generateVariationsHtml } from './html-generator';
 import { scaffoldCss } from './scaffold';
-
-// Inline HTML doc parser for test-utils (avoids cross-package import from apps/docs-css)
-function parseHtmlDocContent(content: string): {
-  frontmatter: Record<string, unknown>;
-  sections: { id: string; layout: string | null; rawHtml: string }[];
-} {
-  let frontmatter: Record<string, unknown> = {};
-  let body = content;
-
-  const fmMatch = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-  if (fmMatch) {
-    frontmatter = parseSimpleYaml(fmMatch[1]);
-    body = fmMatch[2];
-  }
-
-  const sectionRegex = /<!--\s*@(\w+)(?:\s*\|\s*(\w+))?\s*-->/g;
-  const sections: { id: string; layout: string | null; rawHtml: string }[] = [];
-  let lastIndex = 0;
-  let lastSection: { id: string; layout: string | null } | null = null;
-
-  let match = sectionRegex.exec(body);
-  while (match !== null) {
-    if (lastSection) {
-      sections.push({ ...lastSection, rawHtml: body.substring(lastIndex, match.index).trim() });
-    }
-    lastSection = { id: match[1], layout: match[2] || null };
-    lastIndex = match.index + match[0].length;
-    match = sectionRegex.exec(body);
-  }
-  if (lastSection) {
-    sections.push({ ...lastSection, rawHtml: body.substring(lastIndex).trim() });
-  }
-  if (sections.length === 0 && body.trim()) {
-    sections.push({ id: 'default', layout: null, rawHtml: body.trim() });
-  }
-
-  return { frontmatter, sections };
-}
-
-function parseSimpleYaml(raw: string): Record<string, unknown> {
-  const result: Record<string, unknown> = {};
-  const lines = raw.split('\n');
-  let currentKey: string | null = null;
-  let currentMap: Record<string, string> | null = null;
-
-  for (const line of lines) {
-    if (line.trim() === '' || line.trim().startsWith('#')) continue;
-    const topMatch = line.match(/^(\w[\w-]*):\s*(.*)$/);
-    const mapMatch = line.match(/^\s+(\w[\w-]*):\s*(.*)$/);
-    if (topMatch && !line.startsWith(' ')) {
-      if (currentKey && currentMap) result[currentKey] = currentMap;
-      const [, key, val] = topMatch;
-      if (val.trim() === '') {
-        currentKey = key;
-        currentMap = {};
-      } else {
-        currentKey = null;
-        currentMap = null;
-        result[key] = parseYamlScalar(val.trim());
-      }
-    } else if (mapMatch && currentKey && currentMap) {
-      currentMap[mapMatch[1]] = String(parseYamlScalar(mapMatch[2].trim()));
-    }
-  }
-  if (currentKey && currentMap) result[currentKey] = currentMap;
-  return result;
-}
-
-function parseYamlScalar(val: string): string | number | boolean | null {
-  if (val === 'true') return true;
-  if (val === 'false') return false;
-  if (val === 'null') return null;
-  if (/^-?\d+(\.\d+)?$/.test(val)) return Number(val);
-  if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'")))
-    return val.slice(1, -1);
-  return val;
-}
 
 const DIST_PATH = resolve(__dirname, '../dist');
 
@@ -124,86 +47,6 @@ export async function setupVisualTest(
 export async function setupVisualTestFromApi(page: Page, apiPath: string): Promise<void> {
   const api = loadComponentApi(apiPath);
   const html = generateVariationsHtml(api);
-  await setupVisualTest(page, { html });
-}
-
-// HTML doc support for visual tests
-interface HtmlDocSection {
-  id: string;
-  layout: string | null;
-  rawHtml: string;
-}
-
-interface HtmlDoc {
-  frontmatter: Record<string, unknown>;
-  sections: HtmlDocSection[];
-}
-
-export function loadHtmlDoc(htmlDocPath: string): HtmlDoc {
-  const content = readFileSync(htmlDocPath, 'utf-8');
-  return parseHtmlDocContent(content);
-}
-
-export function generateHtmlFromHtmlDoc(doc: HtmlDoc, apiPath?: string): string {
-  // Load API for Nunjucks template rendering
-  let api: Record<string, unknown> | null = null;
-  if (apiPath) {
-    try {
-      api = JSON.parse(readFileSync(apiPath, 'utf-8'));
-    } catch {
-      // api not found
-    }
-  }
-
-  const labels = (doc.frontmatter.labels as Record<string, string>) || {};
-  const t = (key: string, defaultValue?: string): string => defaultValue ?? key;
-  const sections: string[] = [];
-
-  for (const section of doc.sections) {
-    // Render Nunjucks templates in rawHtml
-    let rendered = section.rawHtml;
-    if (rendered.includes('{%') || rendered.includes('{{')) {
-      try {
-        const nunjucks = require('nunjucks') as {
-          configure: (opts: { autoescape: boolean }) => {
-            renderString: (str: string, ctx: Record<string, unknown>) => string;
-          };
-        };
-        const env = nunjucks.configure({ autoescape: false });
-        rendered = env.renderString(rendered, { api, labels, t });
-      } catch {
-        // nunjucks not available, use raw HTML
-      }
-    }
-
-    // Wrap in layout if specified
-    if (section.layout) {
-      const layoutClass =
-        section.layout === 'row' ? 'ui-row' : section.layout === 'column' ? 'ui-column' : '';
-      if (layoutClass) {
-        rendered = `<div class="${layoutClass}">${rendered}</div>`;
-      }
-    }
-
-    const title = section.id.charAt(0).toUpperCase() + section.id.slice(1).replace(/_/g, ' ');
-
-    sections.push(`
-      <div class="test-section">
-        <div class="test-section-title">${title}</div>
-        <div class="test-example">${rendered}</div>
-      </div>
-    `);
-  }
-
-  return `<div class="test-container">${sections.join('')}</div>`;
-}
-
-export async function setupVisualTestFromHtmlDocs(page: Page, htmlDocsPath: string): Promise<void> {
-  const doc = loadHtmlDoc(htmlDocsPath);
-  const fm = doc.frontmatter;
-  const apiRef = fm.api ? String(fm.api) : './api.json';
-  const apiPath = resolve(dirname(htmlDocsPath), apiRef);
-  const html = generateHtmlFromHtmlDoc(doc, apiPath);
   await setupVisualTest(page, { html });
 }
 

@@ -24,26 +24,31 @@
     {
       "name": "--ui-disclosure-border-width",
       "default": "var(--ui-border-width-sm)",
+      "defaultValue": "1px",
       "description": "Border thickness"
     },
     {
       "name": "--ui-disclosure-radius",
       "default": "var(--ui-radius-md)",
+      "defaultValue": "8px",
       "description": "Corner radius"
     },
     {
       "name": "--ui-disclosure-trigger-height",
       "default": "var(--ui-row-3)",
+      "defaultValue": "48px",
       "description": "Trigger overall height"
     },
     {
       "name": "--ui-disclosure-padding-x",
       "default": "calc(var(--ui-unit) * 2)",
+      "defaultValue": "16px",
       "description": "Horizontal padding"
     },
     {
       "name": "--ui-disclosure-padding-y",
       "default": "calc(var(--ui-unit) * 2)",
+      "defaultValue": "16px",
       "description": "Vertical padding"
     }
   ]

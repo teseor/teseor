@@ -1,0 +1,14 @@
+descriptions:
+  size: Controls the component size.
+  variant: Visual style variant.
+  state: Validation state indicator.
+  block: Stretches to full container width.
+  loading: Shows loading indicator and disables interaction.
+  dismissible: Allows the user to dismiss the component.
+  separated: Adds visual separation between items.
+  interactive: Enables hover and active states.
+  flush: Removes inner padding.
+  vertical: Switches to vertical layout.
+  active: Marks the currently active item.
+  disabled: Disables interaction.
+  icon: Square icon-only mode.

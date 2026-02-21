@@ -14,6 +14,7 @@
     {
       "name": "--ui-radio-size",
       "default": "calc(var(--ui-unit) * 2)",
+      "defaultValue": "16px",
       "description": "Overall size"
     },
     {
@@ -44,6 +45,7 @@
     {
       "name": "--ui-radio-size-lg",
       "default": "calc(var(--ui-unit) * 3)",
+      "defaultValue": "24px",
       "description": "Overall size at large size"
     },
     {

@@ -22,21 +22,25 @@
     {
       "name": "--ui-number-input-height",
       "default": "var(--ui-row-2)",
+      "defaultValue": "32px",
       "description": "Overall height"
     },
     {
       "name": "--ui-number-input-padding-x",
       "default": "var(--ui-space-1)",
+      "defaultValue": "8px",
       "description": "Horizontal padding"
     },
     {
       "name": "--ui-number-input-font-size",
       "default": "var(--ui-font-size-sm)",
+      "defaultValue": "14px",
       "description": "Font size"
     },
     {
       "name": "--ui-number-input-radius",
       "default": "var(--ui-radius-md)",
+      "defaultValue": "8px",
       "description": "Corner radius"
     },
     {
@@ -77,26 +81,31 @@
     {
       "name": "--ui-number-input-height-sm",
       "default": "calc(var(--ui-row) * 1.5)",
+      "defaultValue": "24px",
       "description": "Overall height at small size"
     },
     {
       "name": "--ui-number-input-font-size-sm",
       "default": "var(--ui-font-size-xs)",
+      "defaultValue": "12px",
       "description": "Font size at small size"
     },
     {
       "name": "--ui-number-input-height-lg",
       "default": "calc(var(--ui-row) * 2.5)",
+      "defaultValue": "40px",
       "description": "Overall height at large size"
     },
     {
       "name": "--ui-number-input-padding-x-lg",
       "default": "var(--ui-space-2)",
+      "defaultValue": "16px",
       "description": "Horizontal padding at large size"
     },
     {
       "name": "--ui-number-input-font-size-lg",
       "default": "var(--ui-font-size-md)",
+      "defaultValue": "16px",
       "description": "Font size at large size"
     }
   ]

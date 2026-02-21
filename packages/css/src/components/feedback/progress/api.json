@@ -26,6 +26,7 @@
     {
       "name": "--ui-progress-height",
       "default": "calc(var(--ui-unit) * 1)",
+      "defaultValue": "8px",
       "description": "Overall height"
     },
     {
@@ -41,6 +42,7 @@
     {
       "name": "--ui-progress-radius",
       "default": "var(--ui-radius-full)",
+      "defaultValue": "9999px",
       "description": "Corner radius"
     }
   ]

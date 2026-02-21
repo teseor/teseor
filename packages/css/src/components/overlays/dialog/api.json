@@ -23,6 +23,7 @@
     {
       "name": "--ui-dialog-body-padding",
       "default": "calc(var(--ui-unit) * 3)",
+      "defaultValue": "24px",
       "description": "Body area padding on all sides"
     },
     {
@@ -38,6 +39,7 @@
     {
       "name": "--ui-dialog-border-width",
       "default": "var(--ui-border-width-sm)",
+      "defaultValue": "1px",
       "description": "Border thickness"
     }
   ]

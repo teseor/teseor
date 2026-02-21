@@ -25,6 +25,7 @@
     {
       "name": "--ui-popover-radius",
       "default": "var(--ui-radius-md)",
+      "defaultValue": "8px",
       "description": "Corner radius"
     },
     {
@@ -35,16 +36,19 @@
     {
       "name": "--ui-popover-padding",
       "default": "calc(var(--ui-unit) * 2)",
+      "defaultValue": "16px",
       "description": "Padding on all sides"
     },
     {
       "name": "--ui-popover-max-width",
       "default": "calc(var(--ui-unit) * 40)",
+      "defaultValue": "320px",
       "description": "Maximum width"
     },
     {
       "name": "--ui-popover-z",
       "default": "var(--ui-z-index-popover)",
+      "defaultValue": "500",
       "description": "Z-index stacking order"
     },
     {

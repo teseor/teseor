@@ -11,11 +11,13 @@
     {
       "name": "--ui-button-group-radius",
       "default": "var(--ui-radius-md)",
+      "defaultValue": "8px",
       "description": "Corner radius"
     },
     {
       "name": "--ui-button-group-border-width",
       "default": "var(--ui-border-width-sm)",
+      "defaultValue": "1px",
       "description": "Border thickness"
     }
   ]

@@ -25,6 +25,7 @@
     {
       "name": "--ui-icon-stroke",
       "default": "var(--ui-icon-stroke)",
+      "defaultValue": "2",
       "description": "Stroke"
     },
     {
@@ -35,11 +36,13 @@
     {
       "name": "--ui-icon-stroke-thin",
       "default": "var(--ui-icon-stroke-thin)",
+      "defaultValue": "1",
       "description": "Stroke thin"
     },
     {
       "name": "--ui-icon-stroke-thick",
       "default": "var(--ui-icon-stroke-thick)",
+      "defaultValue": "2.5",
       "description": "Stroke thick"
     }
   ]

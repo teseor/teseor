@@ -8,12 +8,6 @@
     },
     "subtle": {
       "type": "boolean"
-    },
-    "hover": {
-      "type": "boolean"
-    },
-    "focus": {
-      "type": "boolean"
     }
   },
   "elements": {
@@ -23,6 +17,7 @@
     {
       "name": "--ui-close-button-size",
       "default": "var(--ui-row-2)",
+      "defaultValue": "32px",
       "description": "Overall button size (width and height)"
     },
     {
@@ -48,11 +43,13 @@
     {
       "name": "--ui-close-button-radius",
       "default": "var(--ui-radius-md)",
+      "defaultValue": "8px",
       "description": "Border radius"
     },
     {
       "name": "--ui-close-button-size-sm",
       "default": "calc(var(--ui-unit) * 3)",
+      "defaultValue": "24px",
       "description": "Overall size at small size"
     },
     {
@@ -63,6 +60,7 @@
     {
       "name": "--ui-close-button-size-lg",
       "default": "var(--ui-row-3)",
+      "defaultValue": "48px",
       "description": "Overall size at large size"
     },
     {

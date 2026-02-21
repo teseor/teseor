@@ -15,21 +15,25 @@
     {
       "name": "--ui-stat-gap",
       "default": "var(--ui-space-1)",
+      "defaultValue": "8px",
       "description": "Gap between children"
     },
     {
       "name": "--ui-stat-value-font-size",
       "default": "var(--ui-font-size-3xl)",
+      "defaultValue": "32px",
       "description": "Value display font size"
     },
     {
       "name": "--ui-stat-value-font-weight",
       "default": "var(--ui-font-weight-bold)",
+      "defaultValue": "700",
       "description": "Value display font weight"
     },
     {
       "name": "--ui-stat-value-line-height",
       "default": "var(--ui-line-height-3xl)",
+      "defaultValue": "40px",
       "description": "Value display line height"
     },
     {
@@ -40,6 +44,7 @@
     {
       "name": "--ui-stat-label-font-size",
       "default": "var(--ui-font-size-sm)",
+      "defaultValue": "14px",
       "description": "Label font size"
     },
     {
@@ -50,6 +55,7 @@
     {
       "name": "--ui-stat-label-line-height",
       "default": "var(--ui-line-height-sm)",
+      "defaultValue": "24px",
       "description": "Label line height"
     }
   ]

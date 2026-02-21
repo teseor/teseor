@@ -1,0 +1,59 @@
+description: Text input field for user data entry. Heights align to grid rows.
+
+sections:
+  default:
+    examples:
+      - element: input
+        classes: [ui-input]
+        attrs: { type: text, placeholder: "Enter text..." }
+
+  sizes:
+    modifier: size
+    layout: column
+    description: $shared.size
+
+  variants:
+    modifier: variant
+    layout: column
+    description: $shared.variant
+
+  states:
+    modifier: state
+    layout: column
+    description: $shared.state
+    include_default: true
+
+  block:
+    modifier: block
+    description: $shared.block
+
+  auto_size:
+    modifier: auto-size
+    layout: column
+    description: Auto-sizing input grows with content. Requires browser support for field-sizing.
+
+  with_prefix_icon:
+    description: Input with leading icon.
+    examples:
+      - component: InputGroup
+        props: { has-prefix: true }
+        children:
+          - component: InputGroupAddon
+            props: { start: true }
+            icon: search
+          - element: input
+            classes: [ui-input, ui-input--block]
+            attrs: { type: search, placeholder: "Search..." }
+
+  with_suffix_icon:
+    description: Input with trailing icon.
+    examples:
+      - component: InputGroup
+        props: { has-suffix: true }
+        children:
+          - element: input
+            classes: [ui-input, ui-input--block]
+            attrs: { type: email, placeholder: "Email address" }
+          - component: InputGroupAddon
+            props: { end: true }
+            icon: mail

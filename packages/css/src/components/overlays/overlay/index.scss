@@ -41,9 +41,13 @@
     backdrop-filter: blur(calc(#{t.$unit} * 0.5));
   }
 
-  // Animation states (controlled via JS)
-  .overlay--entering,
+  // Animation states (JS-controlled class toggles)
+  // @modifier boolean entering
   // @modifier boolean visible
+  // @modifier boolean exiting
+  // @modifier boolean hidden
+  // @modifier boolean animate
+  .overlay--entering,
   .overlay--visible {
     opacity: 1;
   }
@@ -54,7 +58,6 @@
     pointer-events: none;
   }
 
-  // @modifier boolean animate
   .overlay--animate {
     transition: opacity var(--_duration-normal) var(--_ease-default);
   }

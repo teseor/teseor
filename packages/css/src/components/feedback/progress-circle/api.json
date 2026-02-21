@@ -21,11 +21,13 @@
     {
       "name": "--ui-progress-circle-size",
       "default": "calc(var(--ui-unit) * 6)",
+      "defaultValue": "48px",
       "description": "Overall size"
     },
     {
       "name": "--ui-progress-circle-stroke-width",
       "default": "var(--ui-progress-circle-stroke-width)",
+      "defaultValue": "8",
       "description": "Stroke width"
     },
     {
@@ -46,16 +48,19 @@
     {
       "name": "--ui-progress-circle-size-sm",
       "default": "calc(var(--ui-unit) * 4)",
+      "defaultValue": "32px",
       "description": "Overall size at small size"
     },
     {
       "name": "--ui-progress-circle-size-lg",
       "default": "calc(var(--ui-unit) * 8)",
+      "defaultValue": "64px",
       "description": "Overall size at large size"
     },
     {
       "name": "--ui-progress-circle-size-xl",
       "default": "calc(var(--ui-unit) * 12)",
+      "defaultValue": "96px",
       "description": "Overall size at extra-large size"
     }
   ]

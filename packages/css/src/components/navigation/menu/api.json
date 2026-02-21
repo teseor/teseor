@@ -31,21 +31,25 @@
     {
       "name": "--ui-menu-min-width",
       "default": "calc(var(--ui-unit) * 16)",
+      "defaultValue": "128px",
       "description": "Minimum width"
     },
     {
       "name": "--ui-menu-max-height",
       "default": "calc(var(--ui-unit) * 40)",
+      "defaultValue": "320px",
       "description": "Maximum height"
     },
     {
       "name": "--ui-menu-padding",
       "default": "calc(var(--ui-unit) * 1)",
+      "defaultValue": "8px",
       "description": "Padding on all sides"
     },
     {
       "name": "--ui-menu-radius",
       "default": "var(--ui-radius-md)",
+      "defaultValue": "8px",
       "description": "Corner radius"
     },
     {
@@ -71,6 +75,7 @@
     {
       "name": "--ui-menu-item-radius",
       "default": "var(--ui-radius-sm)",
+      "defaultValue": "4px",
       "description": "Item corner radius"
     },
     {

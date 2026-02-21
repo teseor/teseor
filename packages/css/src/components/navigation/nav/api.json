@@ -30,26 +30,31 @@
     {
       "name": "--ui-nav-gap",
       "default": "var(--ui-space-1)",
+      "defaultValue": "8px",
       "description": "Gap between children"
     },
     {
       "name": "--ui-nav-item-height",
       "default": "var(--ui-row-2)",
+      "defaultValue": "32px",
       "description": "Item overall height"
     },
     {
       "name": "--ui-nav-item-padding-x",
       "default": "var(--ui-space-2)",
+      "defaultValue": "16px",
       "description": "Item horizontal padding"
     },
     {
       "name": "--ui-nav-item-font-size",
       "default": "var(--ui-font-size-sm)",
+      "defaultValue": "14px",
       "description": "Item font size"
     },
     {
       "name": "--ui-nav-item-font-weight",
       "default": "var(--ui-font-weight-medium)",
+      "defaultValue": "500",
       "description": "Item font weight"
     },
     {
@@ -70,6 +75,7 @@
     {
       "name": "--ui-nav-item-radius",
       "default": "var(--ui-radius-sm)",
+      "defaultValue": "4px",
       "description": "Item corner radius"
     },
     {

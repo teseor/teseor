@@ -14,11 +14,13 @@
     {
       "name": "--ui-slider-height",
       "default": "var(--ui-row-2)",
+      "defaultValue": "32px",
       "description": "Overall height"
     },
     {
       "name": "--ui-slider-track-height",
       "default": "var(--ui-unit)",
+      "defaultValue": "8px",
       "description": "Track height"
     },
     {
@@ -34,11 +36,13 @@
     {
       "name": "--ui-slider-track-radius",
       "default": "var(--ui-radius-full)",
+      "defaultValue": "9999px",
       "description": "Track corner radius"
     },
     {
       "name": "--ui-slider-thumb-size",
       "default": "calc(var(--ui-unit) * 2.5)",
+      "defaultValue": "20px",
       "description": "Thumb control size"
     },
     {
@@ -54,11 +58,13 @@
     {
       "name": "--ui-slider-thumb-border-width",
       "default": "var(--ui-border-width-md)",
+      "defaultValue": "2px",
       "description": "Thumb control border thickness"
     },
     {
       "name": "--ui-slider-thumb-radius",
       "default": "var(--ui-radius-full)",
+      "defaultValue": "9999px",
       "description": "Thumb corner radius"
     },
     {
@@ -79,11 +85,13 @@
     {
       "name": "--ui-slider-height-sm",
       "default": "calc(var(--ui-row) * 1.5)",
+      "defaultValue": "24px",
       "description": "Overall height at small size"
     },
     {
       "name": "--ui-slider-height-lg",
       "default": "calc(var(--ui-row) * 2.5)",
+      "defaultValue": "40px",
       "description": "Overall height at large size"
     }
   ]

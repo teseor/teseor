@@ -27,6 +27,7 @@
     {
       "name": "--ui-drawer-size",
       "default": "calc(var(--ui-unit) * 40)",
+      "defaultValue": "320px",
       "description": "Overall size"
     },
     {
@@ -52,6 +53,7 @@
     {
       "name": "--ui-drawer-body-padding",
       "default": "calc(var(--ui-unit) * 3)",
+      "defaultValue": "24px",
       "description": "Body area padding on all sides"
     },
     {

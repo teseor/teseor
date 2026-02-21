@@ -39,26 +39,31 @@
     {
       "name": "--ui-code-block-padding",
       "default": "var(--ui-space-3)",
+      "defaultValue": "24px",
       "description": "Padding on all sides"
     },
     {
       "name": "--ui-code-block-font-size",
       "default": "var(--ui-font-size-sm)",
+      "defaultValue": "14px",
       "description": "Font size"
     },
     {
       "name": "--ui-code-block-line-height",
       "default": "var(--ui-line-height-tight-sm)",
+      "defaultValue": "16px",
       "description": "Line height"
     },
     {
       "name": "--ui-code-block-radius",
       "default": "var(--ui-radius-md)",
+      "defaultValue": "8px",
       "description": "Corner radius"
     },
     {
       "name": "--ui-code-block-padding-compact",
       "default": "var(--ui-space-1)",
+      "defaultValue": "8px",
       "description": "Padding compact"
     },
     {

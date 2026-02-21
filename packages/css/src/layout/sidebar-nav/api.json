@@ -37,6 +37,7 @@
     {
       "name": "--ui-sidebar-nav-width",
       "default": "calc(var(--ui-unit) * 30)",
+      "defaultValue": "240px",
       "description": "Overall width"
     },
     {
@@ -52,16 +53,19 @@
     {
       "name": "--ui-sidebar-nav-padding",
       "default": "var(--ui-space-2)",
+      "defaultValue": "16px",
       "description": "Padding on all sides"
     },
     {
       "name": "--ui-sidebar-nav-header-padding",
       "default": "var(--ui-space-2)",
+      "defaultValue": "16px",
       "description": "Header padding on all sides"
     },
     {
       "name": "--ui-sidebar-nav-footer-padding",
       "default": "var(--ui-space-2)",
+      "defaultValue": "16px",
       "description": "Footer padding on all sides"
     },
     {
@@ -77,6 +81,7 @@
     {
       "name": "--ui-sidebar-nav-group-label-weight",
       "default": "var(--ui-font-weight-semibold)",
+      "defaultValue": "600",
       "description": "Group label weight"
     },
     {
@@ -92,11 +97,13 @@
     {
       "name": "--ui-sidebar-nav-item-height",
       "default": "var(--ui-row-2)",
+      "defaultValue": "32px",
       "description": "Item overall height"
     },
     {
       "name": "--ui-sidebar-nav-item-padding-inline",
       "default": "var(--ui-space-2)",
+      "defaultValue": "16px",
       "description": "Item horizontal padding"
     },
     {
@@ -117,6 +124,7 @@
     {
       "name": "--ui-sidebar-nav-item-radius",
       "default": "var(--ui-radius-sm)",
+      "defaultValue": "4px",
       "description": "Item corner radius"
     },
     {
@@ -142,11 +150,13 @@
     {
       "name": "--ui-sidebar-nav-item-nested-indent",
       "default": "var(--ui-space-4)",
+      "defaultValue": "32px",
       "description": "Item nested indent"
     },
     {
       "name": "--ui-sidebar-nav-width-collapsed",
       "default": "var(--ui-row-3)",
+      "defaultValue": "48px",
       "description": "Width collapsed"
     }
   ]

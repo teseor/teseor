@@ -1,0 +1,107 @@
+description: CSS Grid with column variants, subgrid support, and span utilities.
+
+sections:
+  columns:
+    modifier: columns
+    layout: column
+    description: Fixed column count or auto-fit layout.
+
+  subgrid:
+    modifier: subgrid
+    description: Children inherit parent grid column tracks for cross-item alignment.
+    template:
+      element: div
+      classes: [ui-grid, ui-grid--3]
+      children:
+        - element: div
+          classes: [ui-grid--subgrid]
+          style: { grid-column: "span 3" }
+          children:
+            - element: div
+              classes: [ui-bg-muted, ui-p-2]
+              text: Subgrid child 1
+            - element: div
+              classes: [ui-bg-muted, ui-p-2]
+              text: Subgrid child 2
+            - element: div
+              classes: [ui-bg-muted, ui-p-2]
+              text: Subgrid child 3
+
+  subgrid_rows:
+    modifier: subgrid-rows
+    description: Children inherit parent grid row tracks for vertical alignment.
+    template:
+      element: div
+      classes: [ui-grid, ui-grid--3]
+      style: { grid-template-rows: "auto 1fr auto" }
+      children:
+        - element: div
+          classes: [ui-grid--subgrid-rows]
+          style: { grid-row: "span 3" }
+          children:
+            - element: strong
+              text: Card A
+            - element: p
+              text: Short content.
+            - element: span
+              classes: [ui-text-muted]
+              text: Footer
+
+  subgrid_both:
+    modifier: subgrid-both
+    description: Children inherit both column and row tracks.
+    template:
+      element: div
+      classes: [ui-grid, ui-grid--3]
+      style: { grid-template-rows: "auto auto" }
+      children:
+        - element: div
+          classes: [ui-grid--subgrid-both]
+          style: { grid-column: "span 3", grid-row: "span 2" }
+          children:
+            - element: div
+              classes: [ui-bg-muted, ui-p-2]
+              text: A1
+            - element: div
+              classes: [ui-bg-muted, ui-p-2]
+              text: A2
+            - element: div
+              classes: [ui-bg-muted, ui-p-2]
+              text: A3
+            - element: div
+              classes: [ui-bg-subtle, ui-p-2]
+              text: B1
+            - element: div
+              classes: [ui-bg-subtle, ui-p-2]
+              text: B2
+            - element: div
+              classes: [ui-bg-subtle, ui-p-2]
+              text: B3
+
+  column_span:
+    description: Span multiple columns with grid-column utilities.
+    examples:
+      - element: div
+        classes: [ui-grid, ui-grid--4]
+        children:
+          - element: div
+            classes: [ui-bg-muted, ui-p-2]
+            style: { grid-column: "span 2" }
+            text: Span 2
+          - element: div
+            classes: [ui-bg-subtle, ui-p-2]
+            text: "1"
+          - element: div
+            classes: [ui-bg-subtle, ui-p-2]
+            text: "1"
+          - element: div
+            classes: [ui-bg-subtle, ui-p-2]
+            text: "1"
+          - element: div
+            classes: [ui-bg-muted, ui-p-2]
+            style: { grid-column: "span 3" }
+            text: Span 3
+          - element: div
+            classes: [ui-bg-muted, ui-p-2]
+            style: { grid-column: "1 / -1" }
+            text: Span full

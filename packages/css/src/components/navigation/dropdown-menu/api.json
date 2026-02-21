@@ -25,11 +25,13 @@
     {
       "name": "--ui-dropdown-menu-z",
       "default": "var(--ui-z-index-dropdown)",
+      "defaultValue": "200",
       "description": "Z-index stacking order"
     },
     {
       "name": "--ui-dropdown-menu-panel-offset",
       "default": "var(--ui-space-1)",
+      "defaultValue": "8px",
       "description": "Panel offset from anchor"
     },
     {

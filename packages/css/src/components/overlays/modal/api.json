@@ -4,9 +4,21 @@
   "element": "div",
   "modifiers": {
     "size": {
-      "values": ["sm", "lg", "full", "entering"]
+      "values": ["sm", "lg", "full"]
+    },
+    "entering": {
+      "type": "boolean"
     },
     "visible": {
+      "type": "boolean"
+    },
+    "exiting": {
+      "type": "boolean"
+    },
+    "hidden": {
+      "type": "boolean"
+    },
+    "animate": {
       "type": "boolean"
     }
   },
@@ -23,6 +35,7 @@
     {
       "name": "--ui-modal-radius",
       "default": "var(--ui-radius-lg)",
+      "defaultValue": "16px",
       "description": "Corner radius"
     },
     {
@@ -33,11 +46,13 @@
     {
       "name": "--ui-modal-padding",
       "default": "calc(var(--ui-unit) * 3)",
+      "defaultValue": "24px",
       "description": "Padding on all sides"
     },
     {
       "name": "--ui-modal-max-width",
       "default": "calc(var(--ui-unit) * 60)",
+      "defaultValue": "480px",
       "description": "Maximum width"
     },
     {
@@ -48,16 +63,19 @@
     {
       "name": "--ui-modal-z",
       "default": "var(--ui-z-index-modal)",
+      "defaultValue": "400",
       "description": "Z-index stacking order"
     },
     {
       "name": "--ui-modal-max-width-sm",
       "default": "calc(var(--ui-unit) * 40)",
+      "defaultValue": "320px",
       "description": "Maximum width at small size"
     },
     {
       "name": "--ui-modal-max-width-lg",
       "default": "calc(var(--ui-unit) * 80)",
+      "defaultValue": "640px",
       "description": "Maximum width at large size"
     }
   ]

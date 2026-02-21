@@ -25,12 +25,5 @@ export default defineConfig({
     },
   ],
 
-  // For local dev, start docs server first: pnpm --filter docs-css dev
-  // For CI, uncomment webServer below
-  // webServer: {
-  //   command: 'pnpm --filter docs-css dev',
-  //   url: 'http://localhost:5173',
-  //   reuseExistingServer: !process.env.CI,
-  //   timeout: 120000,
-  // },
+  // webServer will be configured when the new docs app is built
 });

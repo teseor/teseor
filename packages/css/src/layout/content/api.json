@@ -14,16 +14,19 @@
     {
       "name": "--ui-content-padding-block",
       "default": "var(--ui-space-4)",
+      "defaultValue": "32px",
       "description": "Vertical padding"
     },
     {
       "name": "--ui-content-padding-inline",
       "default": "var(--ui-space-4)",
+      "defaultValue": "32px",
       "description": "Horizontal padding"
     },
     {
       "name": "--ui-content-gap",
       "default": "var(--ui-space-3)",
+      "defaultValue": "24px",
       "description": "Gap between children"
     }
   ]

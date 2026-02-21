@@ -1,50 +1,49 @@
 #!/usr/bin/env tsx
-// Generates *.api.json from SCSS annotations and token patterns.
+// Generates *.api.json + types/generated.ts from SCSS via PostCSS AST parser.
 // Run: pnpm generate:api
 // Dry-run (check only): pnpm generate:api -- --check
 
-import { execSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
-
-import { findComponentDirs } from './shared/find-components.js';
 import {
   type ApiJson,
+  buildTokenMap,
+  generateTypes,
   normalizeForComparison,
   parseScssContent,
   serializeApi,
-} from './shared/scss-parser.js';
+} from '@teseor/docgen';
+import { findComponentDirs } from './shared/find-components.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const COMPONENTS_DIR = join(ROOT, 'packages/css/src/components');
 const LAYOUT_DIR = join(ROOT, 'packages/css/src/layout');
+const VARIABLES_PATH = join(ROOT, 'packages/css/src/config/tokens/_variables.scss');
+const TYPES_PATH = join(ROOT, 'packages/css/src/types/generated.ts');
 
-// --- Main parser (thin wrapper with file I/O) ---
+function loadTokenMap(): Map<string, string> {
+  const content = readFileSync(VARIABLES_PATH, 'utf-8');
+  return buildTokenMap(content);
+}
 
-function parseScss(filePath: string, isLayout: boolean): ApiJson {
+function parseScss(filePath: string, isLayout: boolean, tokenMap: Map<string, string>): ApiJson {
   const content = readFileSync(filePath, 'utf-8');
   const dir = dirname(filePath);
   const folderName = basename(dir);
-  return parseScssContent(content, folderName, isLayout);
+  return parseScssContent(content, folderName, isLayout, tokenMap);
 }
-
-// --- Main ---
 
 function findAllScssFiles(): { path: string; isLayout: boolean }[] {
   const files: { path: string; isLayout: boolean }[] = [];
 
-  const componentDirs = findComponentDirs(COMPONENTS_DIR);
-  for (const { path } of componentDirs) {
-    const scssPath = join(path, 'index.scss');
-    files.push({ path: scssPath, isLayout: false });
+  for (const { path } of findComponentDirs(COMPONENTS_DIR)) {
+    files.push({ path: join(path, 'index.scss'), isLayout: false });
   }
 
-  const layoutDirs = findComponentDirs(LAYOUT_DIR);
-  for (const { path } of layoutDirs) {
-    const scssPath = join(path, 'index.scss');
-    files.push({ path: scssPath, isLayout: true });
+  for (const { path } of findComponentDirs(LAYOUT_DIR)) {
+    files.push({ path: join(path, 'index.scss'), isLayout: true });
   }
 
   return files;
@@ -55,7 +54,9 @@ function main(): void {
   const checkOnly = args.includes('--check');
   const verbose = args.includes('--verbose');
 
+  const tokenMap = loadTokenMap();
   const files = findAllScssFiles();
+  const allApis: ApiJson[] = [];
   let generated = 0;
   let unchanged = 0;
   let updated = 0;
@@ -63,7 +64,8 @@ function main(): void {
 
   for (const { path: scssPath, isLayout } of files) {
     try {
-      const api = parseScss(scssPath, isLayout);
+      const api = parseScss(scssPath, isLayout, tokenMap);
+      allApis.push(api);
       const dir = dirname(scssPath);
       const apiPath = join(dir, 'api.json');
 
@@ -100,29 +102,39 @@ function main(): void {
     }
   }
 
+  // Generate TypeScript types
+  const typesContent = generateTypes(allApis);
+  let existingTypes = '';
+  try {
+    existingTypes = readFileSync(TYPES_PATH, 'utf-8');
+  } catch {
+    // File doesn't exist yet
+  }
+
+  const typesChanged = typesContent !== existingTypes;
+  if (typesChanged) {
+    if (checkOnly) {
+      stale.push(relative(ROOT, TYPES_PATH));
+    } else {
+      writeFileSync(TYPES_PATH, typesContent);
+      console.log(`  updated: ${relative(ROOT, TYPES_PATH)}`);
+    }
+  }
+
   if (checkOnly) {
     if (stale.length > 0) {
-      console.error('api.json files are stale:\n');
+      console.error('Generated files are stale:\n');
       for (const f of stale) {
         console.error(`  - ${f}`);
       }
       console.error(`\n${stale.length} file(s) need regeneration. Run: pnpm generate:api`);
       process.exit(1);
     }
-    console.log(`API sync check: ${generated} files up to date.`);
+    console.log(`API sync check: ${generated} files + types up to date.`);
   } else {
-    if (updated > 0) {
-      try {
-        execSync('biome format --write "packages/css/src"', {
-          encoding: 'utf-8',
-          stdio: 'pipe',
-          cwd: ROOT,
-        });
-      } catch {
-        // biome format is best-effort
-      }
-    }
-    console.log(`\nGenerated ${generated} API files (${updated} updated, ${unchanged} unchanged).`);
+    console.log(
+      `\nGenerated ${generated} API files (${updated} updated, ${unchanged} unchanged)${typesChanged ? ' + types' : ''}.`,
+    );
   }
 }
 

@@ -1,8 +1,7 @@
 name: Deploy Docs
 
+# Disabled until new docs app is built
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -21,26 +20,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
-
-      - run: pnpm nx build css
-
-      - name: Build docs
-        run: pnpm --filter docs-css build
-        env:
-          ELEVENTY_PATH_PREFIX: /teseor/
-
-      - uses: actions/configure-pages@v4
-
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: apps/docs-css/dist
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    needs: build
-    steps:
-      - uses: actions/deploy-pages@v4
+      - run: echo "Docs app not yet configured"

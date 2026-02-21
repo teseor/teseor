@@ -13,7 +13,7 @@
       "type": "boolean"
     },
     "object-fit": {
-      "values": ["cover", "contain", "circle"]
+      "values": ["cover", "contain"]
     }
   },
   "elements": {
@@ -49,36 +49,43 @@
     {
       "name": "--ui-image-caption-font-size",
       "default": "var(--ui-font-size-sm)",
+      "defaultValue": "14px",
       "description": "Caption font size"
     },
     {
       "name": "--ui-image-caption-spacing",
       "default": "var(--ui-space-1)",
+      "defaultValue": "8px",
       "description": "Caption spacing"
     },
     {
       "name": "--ui-image-size-sm",
       "default": "calc(var(--ui-unit) * 12)",
+      "defaultValue": "96px",
       "description": "Overall size at small size"
     },
     {
       "name": "--ui-image-size-md",
       "default": "calc(var(--ui-unit) * 24)",
+      "defaultValue": "192px",
       "description": "Overall size at medium size"
     },
     {
       "name": "--ui-image-size-lg",
       "default": "calc(var(--ui-unit) * 40)",
+      "defaultValue": "320px",
       "description": "Overall size at large size"
     },
     {
       "name": "--ui-image-size-xl",
       "default": "calc(var(--ui-unit) * 60)",
+      "defaultValue": "480px",
       "description": "Overall size at extra-large size"
     },
     {
       "name": "--ui-image-radius-rounded",
       "default": "var(--ui-radius-lg)",
+      "defaultValue": "16px",
       "description": "Radius rounded"
     },
     {
