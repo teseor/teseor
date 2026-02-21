@@ -36,6 +36,11 @@ export const TOKEN_DICTIONARY: TokenCategory[] = [
     scales: ['base', 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'],
   },
   {
+    prefix: 'font-size-relative',
+    description: 'Relative font sizes (em-based)',
+    scales: ['xs', 'sm'],
+  },
+  {
     prefix: 'font-weight',
     cssProperty: 'font-weight',
     description: 'Font weights',
@@ -46,7 +51,7 @@ export const TOKEN_DICTIONARY: TokenCategory[] = [
     prefix: 'letter-spacing',
     cssProperty: 'letter-spacing',
     description: 'Letter spacing',
-    scales: ['display', 'body', 'caps'],
+    scales: ['display', 'body', 'caps', 'wide'],
   },
 
   // Visual
@@ -92,6 +97,9 @@ export const TOKEN_DICTIONARY: TokenCategory[] = [
     description: 'Easing functions',
     scales: ['default', 'in', 'out', 'in-out'],
   },
+
+  // Icons
+  { prefix: 'icon-size', description: 'Icon sizing', scales: ['inline'] },
 
   // State
   { prefix: 'opacity', description: 'State opacity', scales: ['disabled', 'loading'] },

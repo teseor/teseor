@@ -25,11 +25,15 @@ export { normalizeForComparison, parseScssContent, serializeApi } from './parser
 export {
   type Diagnostic,
   lintScss,
+  noDerivedVars,
+  noGlobalAliases,
+  noScssInStyles,
   parseScss,
   requireComponentAnnotation,
   requireDescOnVars,
   requireElementAnnotation,
   requireModifierAnnotations,
+  requireScssFallback,
   requireTokenScope,
 } from './scss-linter.js';
 export { buildTokenMap, resolveDefaultValue } from './token-resolver.js';

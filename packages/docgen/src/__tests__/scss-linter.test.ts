@@ -1,11 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import {
   lintScss,
+  noDerivedVars,
+  noScssInStyles,
   parseScss,
   requireComponentAnnotation,
   requireDescOnVars,
   requireElementAnnotation,
   requireModifierAnnotations,
+  requireScssFallback,
   requireTokenScope,
 } from '../scss-linter';
 
@@ -269,6 +272,152 @@ describe('scss-linter', () => {
     });
   });
 
+  describe('noDerivedVars', () => {
+    it('passes when no --_ refs in values', () => {
+      const scss = `
+// @component button
+@layer components.tokens {
+  .button {
+    --_bg: var(--ui-button-bg, var(--ui-color-primary, #{t.$color-primary}));
+  }
+}`;
+      const root = parseScss(scss);
+      expect(noDerivedVars(root)).toEqual([]);
+    });
+
+    it('fails when value references var(--_other)', () => {
+      const scss = `
+// @component button
+@layer components.tokens {
+  .button {
+    --_accent: var(--ui-button-accent, var(--ui-color-primary, #{t.$color-primary}));
+    --_bg: var(--_accent);
+  }
+}`;
+      const root = parseScss(scss);
+      const diags = noDerivedVars(root);
+      expect(diags).toHaveLength(1);
+      expect(diags[0].message).toContain('--_bg');
+      expect(diags[0].message).toContain('references another internal var');
+    });
+
+    it('fails on color-mix with --_ ref', () => {
+      const scss = `
+// @component button
+@layer components.tokens {
+  .button {
+    --_bg-hover: color-mix(in oklch, var(--_accent) 80%, black);
+  }
+}`;
+      const root = parseScss(scss);
+      const diags = noDerivedVars(root);
+      expect(diags).toHaveLength(1);
+      expect(diags[0].message).toContain('--_bg-hover');
+    });
+
+    it('ignores vars outside tokens layer', () => {
+      const scss = `
+@layer components.styles {
+  .button {
+    --_bg: var(--_accent);
+  }
+}`;
+      const root = parseScss(scss);
+      expect(noDerivedVars(root)).toEqual([]);
+    });
+  });
+
+  describe('requireScssFallback', () => {
+    it('passes when SCSS interpolation is present', () => {
+      const scss = `
+// @component button
+@layer components.tokens {
+  .button {
+    --_height: var(--ui-button-height, var(--ui-row-2, #{t.$row-2}));
+  }
+}`;
+      const root = parseScss(scss);
+      expect(requireScssFallback(root)).toEqual([]);
+    });
+
+    it('fails when last fallback is hardcoded', () => {
+      const scss = `
+// @component button
+@layer components.tokens {
+  .button {
+    --_height: var(--ui-button-height, var(--ui-row-2, 32px));
+  }
+}`;
+      const root = parseScss(scss);
+      const diags = requireScssFallback(root);
+      expect(diags).toHaveLength(1);
+      expect(diags[0].message).toContain('--_height');
+      expect(diags[0].message).toContain('SCSS fallback');
+    });
+
+    it('skips vars without component tokens', () => {
+      const scss = `
+// @component button
+@layer components.tokens {
+  .button {
+    --_space-1: var(--ui-space-1, 8px);
+  }
+}`;
+      const root = parseScss(scss);
+      expect(requireScssFallback(root)).toEqual([]);
+    });
+
+    it('skips literal overrides (0, transparent)', () => {
+      const scss = `
+// @component button
+@layer components.tokens {
+  .button--ghost {
+    --_bg: transparent;
+  }
+}`;
+      const root = parseScss(scss);
+      expect(requireScssFallback(root)).toEqual([]);
+    });
+  });
+
+  describe('noScssInStyles', () => {
+    it('passes when styles use only var() references', () => {
+      const scss = `
+@layer components.styles {
+  .button {
+    height: var(--_height);
+    gap: var(--ui-space-1);
+  }
+}`;
+      const root = parseScss(scss);
+      expect(noScssInStyles(root)).toEqual([]);
+    });
+
+    it('fails when SCSS interpolation appears in styles', () => {
+      const scss = `
+@layer components.styles {
+  .button {
+    gap: var(--ui-space-1, #{t.$space-1});
+  }
+}`;
+      const root = parseScss(scss);
+      const diags = noScssInStyles(root);
+      expect(diags).toHaveLength(1);
+      expect(diags[0].message).toContain('SCSS interpolation in styles layer');
+    });
+
+    it('allows SCSS in tokens layer', () => {
+      const scss = `
+@layer components.tokens {
+  .button {
+    --_height: var(--ui-button-height, var(--ui-row-2, #{t.$row-2}));
+  }
+}`;
+      const root = parseScss(scss);
+      expect(noScssInStyles(root)).toEqual([]);
+    });
+  });
+
   describe('lintScss (all rules)', () => {
     it('returns no diagnostics for a well-formed component', () => {
       const scss = `
@@ -277,14 +426,14 @@ describe('scss-linter', () => {
 
 @layer components.tokens {
   .button {
-    --_ease-default: var(--ui-ease-default, ease);
     // @desc Overall height
-    --_height: var(--ui-button-height, 32px);
-    --_bg: var(--_accent);
+    --_height: var(--ui-button-height, var(--ui-row-2, #{t.$row-2}));
+    // @desc Background color
+    --_bg: var(--ui-button-bg, var(--ui-color-primary, #{t.$color-primary}));
   }
   // @modifier size
   .button--sm {
-    --_height: var(--ui-button-height-sm, 24px);
+    --_height: var(--ui-button-height-sm, calc(var(--ui-row, #{t.$row}) * 1.5));
   }
 }
 
