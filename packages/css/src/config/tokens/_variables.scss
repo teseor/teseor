@@ -16,11 +16,20 @@ $scale: 1;
 $unit: 0.5rem; // 8px (matches --ui-unit at scale 1)
 $row: $unit * 2; // 16px
 $row-1: $row;
+$row-1-5: $row * 1.5; // 24px
 $row-2: $row * 2; // 32px
+$row-2-5: $row * 2.5; // 40px
 $row-3: $row * 3; // 48px
 $row-4: $row * 4;
 $row-5: $row * 5;
 $row-6: $row * 6;
+
+// T-shirt sizes
+$size-xs: $unit;
+$size-sm: $unit * 1.5;
+$size-md: $unit * 2;
+$size-lg: $unit * 2.5;
+$size-xl: $unit * 3;
 
 // ==========================================================================
 // 2. Colors — OKLCH for perceptual uniformity
@@ -98,6 +107,7 @@ $space-1: $unit; // 8px
 $space-2: $unit * 2; // 16px
 $space-3: $unit * 3; // 24px
 $space-4: $unit * 4;
+$space-5: $unit * 5; // 40px
 $space-6: $unit * 6;
 $space-8: $unit * 8;
 

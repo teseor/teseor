@@ -11,17 +11,33 @@ export const TOKEN_DICTIONARY: TokenCategory[] = [
 
   // Grid
   { prefix: 'unit', description: 'Base grid unit (8px)', scales: null },
-  { prefix: 'row', description: 'Row height multiples', scales: ['1', '2', '3', '4', '5', '6'] },
+  {
+    prefix: 'row',
+    description: 'Row height multiples',
+    scales: ['1', '1-5', '2', '2-5', '3', '4', '5', '6'],
+  },
+
+  // Sizing
+  {
+    prefix: 'size',
+    description: 'T-shirt component sizes',
+    scales: ['xs', 'sm', 'md', 'lg', 'xl'],
+  },
 
   // Spacing
   {
     prefix: 'space',
     description: 'Spacing scale',
-    scales: ['px', 'quarter', 'half', '0', '1', '2', '3', '4', '6', '8'],
+    scales: ['px', 'quarter', 'half', '0', '1', '2', '3', '4', '5', '6', '8'],
   },
 
   // Color system (open-ended: primary, success, neutral-200, text-muted, etc.)
   { prefix: 'color', description: 'Color tokens', scales: null },
+  {
+    prefix: 'color-mix',
+    description: 'Color derivation knobs',
+    scales: ['light', 'dark', 'bg', 'bg-hover', 'emphasis-hover', 'text', 'border'],
+  },
 
   // Typography — families
   {
