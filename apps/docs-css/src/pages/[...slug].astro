@@ -65,8 +65,7 @@ const compoundTemplates: Record<string, (cls: string, label: string) => string> 
     `<div class="${c}"><details class="ui-disclosure"><summary class="ui-disclosure__trigger">${l}<span class="ui-disclosure__icon">▾</span></summary><div class="ui-disclosure__content"><p>Content</p></div></details></div>`,
   table: (c, l) =>
     `<table class="${c}"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>Item</td><td>${l}</td></tr></tbody></table>`,
-  select: (c, l) =>
-    `<select class="${c}"><option>${l}</option><option>Option 2</option></select>`,
+  select: (c, l) => `<select class="${c}"><option>${l}</option><option>Option 2</option></select>`,
 };
 
 function renderComponentHtml(name: string, element: string, cls: string, label: string): string {
@@ -94,14 +93,19 @@ if (modifiers) {
   for (const [mod, def] of Object.entries(modifiers)) {
     if (def.values) {
       const baseHtml = renderComponentHtml(
-        componentName, apiElement, `ui-${componentName}`, 'Default',
+        componentName,
+        apiElement,
+        `ui-${componentName}`,
+        'Default',
       );
       const items = [
         baseHtml,
         ...def.values.map((v) =>
           renderComponentHtml(
-            componentName, apiElement,
-            `ui-${componentName} ui-${componentName}--${v}`, humanizeValue(v),
+            componentName,
+            apiElement,
+            `ui-${componentName} ui-${componentName}--${v}`,
+            humanizeValue(v),
           ),
         ),
       ];
@@ -112,8 +116,10 @@ if (modifiers) {
       });
     } else if (def.type === 'boolean') {
       const html = renderComponentHtml(
-        componentName, apiElement,
-        `ui-${componentName} ui-${componentName}--${mod}`, humanizeValue(mod),
+        componentName,
+        apiElement,
+        `ui-${componentName} ui-${componentName}--${mod}`,
+        humanizeValue(mod),
       );
       gallery.push({
         id: `modifier-${mod}`,

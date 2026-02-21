@@ -9,8 +9,20 @@ interface Props extends astroHTML.JSX.HTMLAttributes {
   block?: boolean;
 }
 
-const { size, variant, state, 'auto-size': autoSize, block, class: className, ...attrs } = Astro.props;
-const classes = bemClasses('input', { size, variant, state, 'auto-size': autoSize, block }, className);
+const {
+  size,
+  variant,
+  state,
+  'auto-size': autoSize,
+  block,
+  class: className,
+  ...attrs
+} = Astro.props;
+const classes = bemClasses(
+  'input',
+  { size, variant, state, 'auto-size': autoSize, block },
+  className,
+);
 ---
 
 <input class={classes} {...attrs} />
