@@ -125,6 +125,94 @@ export function requireDescOnVars(root: Root): Diagnostic[] {
   return diagnostics;
 }
 
+// --- Rule: --ui-* tokens must be scoped to current @component ---
+// Global tokens (--ui-space-*, --ui-color-*, etc.) are fine.
+// Component tokens must use --ui-{componentName}-*.
+// Flags: wrong component prefix, missing component name (--ui--X), malformed names.
+
+// Known global token prefixes (sorted longest-first for matching)
+const GLOBAL_TOKEN_PREFIXES = [
+  'letter-spacing',
+  'border-width',
+  'font-weight',
+  'line-height',
+  'font-size',
+  'z-index',
+  'body-sm',
+  'caption',
+  'color',
+  'ctx',
+  'duration',
+  'ease',
+  'eyebrow',
+  'font',
+  'heading',
+  'lead',
+  'opacity',
+  'overlay',
+  'radius',
+  'row',
+  'scale',
+  'shadow',
+  'size',
+  'space',
+  'unit',
+  'body',
+];
+
+function isGlobalToken(tokenName: string): boolean {
+  return GLOBAL_TOKEN_PREFIXES.some(
+    (prefix) => tokenName === prefix || tokenName.startsWith(`${prefix}-`),
+  );
+}
+
+export function requireTokenScope(root: Root): Diagnostic[] {
+  const diagnostics: Diagnostic[] = [];
+
+  let componentName: string | null = null;
+  root.walkComments((comment: Comment) => {
+    const match = comment.text.trim().match(/^@component\s+([\w-]+)/);
+    if (match) componentName = match[1];
+  });
+  if (!componentName) return diagnostics;
+
+  const tokensNodes = findLayerContainers(root, 'components.tokens');
+  for (const node of tokensNodes) {
+    if (!node) continue;
+    const container = 'walkDecls' in node ? node : null;
+    if (!container) continue;
+
+    container.walkDecls((decl: Declaration) => {
+      if (!decl.prop.startsWith('--_')) return;
+
+      const uiRefs = [...decl.value.matchAll(/--ui-([\w-]+)/g)];
+      for (const [fullMatch, tokenName] of uiRefs) {
+        // Malformed: --ui- followed by nothing or double dash
+        if (!tokenName || tokenName.startsWith('-')) {
+          diagnostics.push({
+            line: decl.source?.start?.line ?? 0,
+            message: `${fullMatch} is malformed — missing component or category name`,
+          });
+          continue;
+        }
+
+        // Global token — fine
+        if (isGlobalToken(tokenName)) continue;
+
+        // Component token — must start with componentName-
+        if (!componentName || !tokenName.startsWith(`${componentName}-`)) {
+          diagnostics.push({
+            line: decl.source?.start?.line ?? 0,
+            message: `--ui-${tokenName} is not scoped to @component ${componentName} — expected --ui-${componentName}-*`,
+          });
+        }
+      }
+    });
+  }
+
+  return diagnostics;
+}
+
 // --- Rule: @modifier before modifier groups ---
 
 export function requireModifierAnnotations(root: Root): Diagnostic[] {
@@ -199,6 +287,7 @@ export function lintScss(root: Root): Diagnostic[] {
     ...requireComponentAnnotation(root),
     ...requireElementAnnotation(root),
     ...requireDescOnVars(root),
+    ...requireTokenScope(root),
     ...requireModifierAnnotations(root),
   ];
 }

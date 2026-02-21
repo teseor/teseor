@@ -30,6 +30,7 @@ export {
   requireDescOnVars,
   requireElementAnnotation,
   requireModifierAnnotations,
+  requireTokenScope,
 } from './scss-linter.js';
 export { buildTokenMap, resolveDefaultValue } from './token-resolver.js';
 export { generateTypes } from './type-generator.js';

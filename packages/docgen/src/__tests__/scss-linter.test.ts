@@ -6,6 +6,7 @@ import {
   requireDescOnVars,
   requireElementAnnotation,
   requireModifierAnnotations,
+  requireTokenScope,
 } from '../scss-linter';
 
 describe('scss-linter', () => {
@@ -150,6 +151,75 @@ describe('scss-linter', () => {
 }`;
       const root = parseScss(scss);
       expect(requireDescOnVars(root)).toEqual([]);
+    });
+  });
+
+  describe('requireTokenScope', () => {
+    it('passes when tokens are scoped to the component', () => {
+      const scss = `
+// @component badge
+@layer components.tokens {
+  .badge {
+    // @desc Font size
+    --_font-size: var(--ui-badge-font-size, var(--ui-font-size-xs, 12px));
+  }
+}`;
+      const root = parseScss(scss);
+      expect(requireTokenScope(root)).toEqual([]);
+    });
+
+    it('passes global alias tokens', () => {
+      const scss = `
+// @component badge
+@layer components.tokens {
+  .badge {
+    --_space-1: var(--ui-space-1, 8px);
+    --_color-primary: var(--ui-color-primary, blue);
+    --_duration-fast: var(--ui-duration-fast, 150ms);
+  }
+}`;
+      const root = parseScss(scss);
+      expect(requireTokenScope(root)).toEqual([]);
+    });
+
+    it('fails when token uses wrong component scope', () => {
+      const scss = `
+// @component badge
+@layer components.tokens {
+  .badge {
+    --_font-size: var(--ui-avatar-font-size, var(--ui-font-size-xs, 12px));
+  }
+}`;
+      const root = parseScss(scss);
+      const diags = requireTokenScope(root);
+      expect(diags).toHaveLength(1);
+      expect(diags[0].message).toContain('avatar-font-size');
+      expect(diags[0].message).toContain('not scoped to @component badge');
+    });
+
+    it('fails on malformed double-dash token names', () => {
+      const scss = `
+// @component badge
+@layer components.tokens {
+  .badge {
+    --_font-size: var(--ui--font-size, 12px);
+  }
+}`;
+      const root = parseScss(scss);
+      const diags = requireTokenScope(root);
+      expect(diags).toHaveLength(1);
+      expect(diags[0].message).toContain('malformed');
+    });
+
+    it('skips without @component', () => {
+      const scss = `
+@layer components.tokens {
+  .badge {
+    --_font-size: var(--ui-avatar-font-size, 12px);
+  }
+}`;
+      const root = parseScss(scss);
+      expect(requireTokenScope(root)).toEqual([]);
     });
   });
 
