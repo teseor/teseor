@@ -142,7 +142,12 @@ export function resolveDefaultValue(
 
   const trimmed = defaultExpr.trim();
 
-  // Simple var reference: var(--ui-something)
+  // Direct token reference: --ui-something
+  if (trimmed.startsWith('--ui-')) {
+    return tokenMap.get(trimmed) ?? null;
+  }
+
+  // Legacy var() wrapper: var(--ui-something)
   const simpleVar = trimmed.match(/^var\((--ui-[\w-]+)\)$/);
   if (simpleVar) return tokenMap.get(simpleVar[1]) ?? null;
 

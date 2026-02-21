@@ -22,7 +22,7 @@ function esc(s: string): string {
 }
 
 function convertScssToVar(s: string): string {
-  return s.replace(/#\{t\.\$([\w-]+)\}/g, (_m, name) => `var(--ui-${name})`);
+  return s.replace(/#\{t\.\$([\w-]+)\}/g, (_m, name) => `--ui-${name}`);
 }
 
 // --- Annotation types ---
@@ -307,13 +307,13 @@ function extractDefault(fullExpr: string, varName: string): string {
   let fallback = fullExpr.substring(afterComma, pos).trim();
 
   const innerVarMatch = fallback.match(/^var\((--ui-[\w-]+)/);
-  if (innerVarMatch) return `var(${innerVarMatch[1]})`;
+  if (innerVarMatch) return innerVarMatch[1];
 
-  fallback = fallback.replace(/var\((--ui-[\w-]+),\s*[^)]*\)/g, 'var($1)');
+  fallback = fallback.replace(/var\((--ui-[\w-]+),\s*[^)]*\)/g, '$1');
   fallback = convertScssToVar(fallback);
 
   const scssRef = fallback.match(/^#\{t\.\$([\w-]+)\}$/);
-  if (scssRef) return `var(--ui-${scssRef[1]})`;
+  if (scssRef) return `--ui-${scssRef[1]}`;
 
   return fallback;
 }
