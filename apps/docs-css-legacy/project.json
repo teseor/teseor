@@ -1,0 +1,60 @@
+{
+  "name": "docs-css-legacy",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/docs-css-legacy/src",
+  "projectType": "application",
+  "targets": {
+    "dev": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm --filter docs-css-legacy dev"
+      },
+      "dependsOn": ["css:build"]
+    },
+    "validate": {
+      "executor": "nx:run-commands",
+      "inputs": [
+        "{projectRoot}/scripts/**/*.js",
+        "{workspaceRoot}/packages/css/src/**/*.docs.json",
+        "{workspaceRoot}/packages/css/src/**/*.api.json"
+      ],
+      "options": {
+        "command": "node apps/docs-css-legacy/scripts/validate-docs.js"
+      }
+    },
+    "build-docs": {
+      "executor": "nx:run-commands",
+      "inputs": [
+        "{projectRoot}/eleventy.config.js",
+        "{projectRoot}/src/**/*",
+        "{workspaceRoot}/packages/css/src/**/*.docs.json",
+        "{workspaceRoot}/packages/css/src/**/*.api.json"
+      ],
+      "outputs": ["{projectRoot}/dist"],
+      "options": {
+        "command": "pnpm --filter docs-css-legacy build-docs"
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "outputs": ["{projectRoot}/dist"],
+      "options": {
+        "command": "pnpm --filter docs-css-legacy build"
+      },
+      "dependsOn": ["css:build", "validate", "build-docs"]
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -p apps/docs-css-legacy/tsconfig.json --noEmit"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "biome check apps/docs-css-legacy"
+      }
+    }
+  },
+  "tags": ["type:app", "scope:docs-css-legacy"]
+}

@@ -1,0 +1,40 @@
+{
+  "name": "@teseor/astro",
+  "version": "0.1.0",
+  "description": "Astro components for Teseor CSS design system",
+  "license": "MIT",
+  "author": "letanure",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/teseor/teseor.git",
+    "directory": "packages/astro"
+  },
+  "homepage": "https://teseor.com",
+  "bugs": "https://github.com/teseor/teseor/issues",
+  "keywords": [
+    "astro",
+    "components",
+    "design-system",
+    "ui",
+    "css"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./components/*": "./src/*/index.ts"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "test": "vitest run"
+  },
+  "peerDependencies": {
+    "@teseor/css": "workspace:*",
+    "astro": ">=5.0.0"
+  },
+  "devDependencies": {
+    "astro": "^5.17.0",
+    "vitest": "^4.0.0"
+  }
+}

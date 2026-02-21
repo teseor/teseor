@@ -11,42 +11,18 @@
       },
       "dependsOn": ["css:build"]
     },
-    "validate": {
-      "executor": "nx:run-commands",
-      "inputs": [
-        "{projectRoot}/scripts/**/*.js",
-        "{workspaceRoot}/packages/css/src/**/*.docs.json",
-        "{workspaceRoot}/packages/css/src/**/*.api.json"
-      ],
-      "options": {
-        "command": "node apps/docs-css/scripts/validate-docs.js"
-      }
-    },
-    "build-docs": {
-      "executor": "nx:run-commands",
-      "inputs": [
-        "{projectRoot}/eleventy.config.js",
-        "{projectRoot}/src/**/*",
-        "{workspaceRoot}/packages/css/src/**/*.docs.json",
-        "{workspaceRoot}/packages/css/src/**/*.api.json"
-      ],
-      "outputs": ["{projectRoot}/dist"],
-      "options": {
-        "command": "pnpm --filter docs-css build-docs"
-      }
-    },
     "build": {
       "executor": "nx:run-commands",
       "outputs": ["{projectRoot}/dist"],
       "options": {
         "command": "pnpm --filter docs-css build"
       },
-      "dependsOn": ["css:build", "validate", "build-docs"]
+      "dependsOn": ["css:build"]
     },
     "typecheck": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "tsc -p apps/docs-css/tsconfig.json --noEmit"
+        "command": "pnpm --filter docs-css exec astro check"
       }
     },
     "lint": {
