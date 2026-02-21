@@ -17,9 +17,31 @@
   },
   "cssVars": [
     {
+      "name": "--ui-breadcrumb-font-size",
+      "default": "var(--ui-font-size-sm)",
+      "defaultValue": "14px",
+      "description": "Font size"
+    },
+    {
       "name": "--ui-breadcrumb-separator",
       "default": "\"/\"",
       "description": "Separator"
+    },
+    {
+      "name": "--ui-breadcrumb-transition-duration",
+      "default": "var(--ui-duration-fast)",
+      "defaultValue": "100ms",
+      "description": "Transition duration"
+    },
+    {
+      "name": "--ui-breadcrumb-transition-timing",
+      "default": "var(--ui-ease-default)",
+      "description": "Transition timing function"
+    },
+    {
+      "name": "--ui-breadcrumb-link-hover-color",
+      "default": "var(--ui-color-primary)",
+      "description": "Link hover color"
     },
     {
       "name": "--ui-breadcrumb-height",

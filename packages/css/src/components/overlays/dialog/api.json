@@ -16,6 +16,36 @@
   },
   "cssVars": [
     {
+      "name": "--ui-dialog-title-font-size",
+      "default": "var(--ui-font-size-lg)",
+      "defaultValue": "20px",
+      "description": "Title font size"
+    },
+    {
+      "name": "--ui-dialog-title-font-weight",
+      "default": "var(--ui-font-weight-semibold)",
+      "defaultValue": "600",
+      "description": "Title font weight"
+    },
+    {
+      "name": "--ui-dialog-title-line-height",
+      "default": "calc(var(--ui-unit) * 3)",
+      "defaultValue": "24px",
+      "description": "Title line height"
+    },
+    {
+      "name": "--ui-dialog-header-gap",
+      "default": "calc(var(--ui-unit) * 2)",
+      "defaultValue": "16px",
+      "description": "Header gap"
+    },
+    {
+      "name": "--ui-dialog-footer-gap",
+      "default": "calc(var(--ui-unit) * 1.5)",
+      "defaultValue": "12px",
+      "description": "Footer gap"
+    },
+    {
       "name": "--ui-dialog-header-padding",
       "default": "calc(var(--ui-unit) * 2) calc(var(--ui-unit) * 3)",
       "description": "Header padding on all sides"

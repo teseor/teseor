@@ -20,6 +20,30 @@
   ],
   "cssVars": [
     {
+      "name": "--ui-tag-font-weight",
+      "default": "var(--ui-font-weight-medium)",
+      "defaultValue": "500",
+      "description": "Font weight"
+    },
+    {
+      "name": "--ui-tag-disabled-opacity",
+      "default": "var(--ui-opacity-disabled)",
+      "defaultValue": "0.5",
+      "description": "Disabled opacity"
+    },
+    {
+      "name": "--ui-tag-remove-opacity",
+      "default": "var(--ui-opacity-loading)",
+      "defaultValue": "0.7",
+      "description": "Remove button opacity"
+    },
+    {
+      "name": "--ui-tag-group-gap",
+      "default": "calc(var(--ui-unit) * 0.5)",
+      "defaultValue": "4px",
+      "description": "Group gap"
+    },
+    {
       "name": "--ui-tag-height",
       "default": "calc(var(--ui-unit) * 3)",
       "defaultValue": "24px",

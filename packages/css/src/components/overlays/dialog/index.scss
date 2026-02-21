@@ -7,8 +7,16 @@
 
 @layer components.tokens {
   .dialog {
-    --_font-size-lg: var(--ui-font-size-lg, #{t.$font-size-lg});
-    --_weight-semibold: var(--ui-font-weight-semibold, #{t.$font-weight-semibold});
+    // @desc Title font size
+    --_title-font-size: var(--ui-dialog-title-font-size, var(--ui-font-size-lg, #{t.$font-size-lg}));
+    // @desc Title font weight
+    --_title-font-weight: var(--ui-dialog-title-font-weight, var(--ui-font-weight-semibold, #{t.$font-weight-semibold}));
+    // @desc Title line height
+    --_title-line-height: var(--ui-dialog-title-line-height, calc(#{t.$unit} * 3));
+    // @desc Header gap
+    --_header-gap: var(--ui-dialog-header-gap, calc(#{t.$unit} * 2));
+    // @desc Footer gap
+    --_footer-gap: var(--ui-dialog-footer-gap, calc(#{t.$unit} * 1.5));
     // @desc Header padding on all sides
     --_header-padding: var(--ui-dialog-header-padding, calc(#{t.$unit} * 2) calc(#{t.$unit} * 3));
     // @desc Body area padding on all sides
@@ -33,7 +41,7 @@
     flex-shrink: 0;
     align-items: center;
     justify-content: space-between;
-    gap: calc(#{t.$unit} * 2);
+    gap: var(--_header-gap);
 
     padding: var(--_header-padding);
 
@@ -43,9 +51,9 @@
   .dialog__title {
     margin: 0;
 
-    font-size: var(--_font-size-lg);
-    font-weight: var(--_weight-semibold);
-    line-height: calc(#{t.$unit} * 3);
+    font-size: var(--_title-font-size);
+    font-weight: var(--_title-font-weight);
+    line-height: var(--_title-line-height);
   }
 
   .dialog__close {
@@ -66,7 +74,7 @@
     flex-shrink: 0;
     align-items: center;
     justify-content: flex-end;
-    gap: calc(#{t.$unit} * 1.5);
+    gap: var(--_footer-gap);
 
     padding: var(--_footer-padding);
 

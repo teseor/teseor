@@ -19,6 +19,12 @@
       "default": "var(--ui-border-width-sm)",
       "defaultValue": "1px",
       "description": "Border thickness"
+    },
+    {
+      "name": "--ui-button-group-overlap",
+      "default": "calc(var(--ui-unit) / -8)",
+      "defaultValue": "-1px",
+      "description": "Negative overlap between adjacent buttons"
     }
   ]
 }

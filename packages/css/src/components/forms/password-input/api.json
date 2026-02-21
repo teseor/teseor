@@ -22,6 +22,68 @@
   },
   "cssVars": [
     {
+      "name": "--ui-password-input-border-width",
+      "default": "var(--ui-border-width-sm)",
+      "defaultValue": "1px",
+      "description": "Border width"
+    },
+    {
+      "name": "--ui-password-input-transition-duration",
+      "default": "var(--ui-duration-fast)",
+      "defaultValue": "100ms",
+      "description": "Transition duration"
+    },
+    {
+      "name": "--ui-password-input-transition-timing",
+      "default": "var(--ui-ease-default)",
+      "description": "Transition timing"
+    },
+    {
+      "name": "--ui-password-input-focus-ring-width",
+      "default": "var(--ui-border-width-md)",
+      "defaultValue": "2px",
+      "description": "Focus ring width"
+    },
+    {
+      "name": "--ui-password-input-focus-ring-color",
+      "default": "var(--ui-color-focus)",
+      "description": "Focus ring color"
+    },
+    {
+      "name": "--ui-password-input-disabled-opacity",
+      "default": "var(--ui-opacity-disabled)",
+      "defaultValue": "0.5",
+      "description": "Disabled opacity"
+    },
+    {
+      "name": "--ui-password-input-toggle-inset-gap",
+      "default": "var(--ui-space-half)",
+      "description": "Toggle inset gap"
+    },
+    {
+      "name": "--ui-password-input-toggle-radius",
+      "default": "var(--ui-radius-sm)",
+      "defaultValue": "4px",
+      "description": "Toggle border radius"
+    },
+    {
+      "name": "--ui-password-input-icon-size",
+      "default": "var(--ui-size-md)",
+      "description": "Icon size"
+    },
+    {
+      "name": "--ui-password-input-icon-stroke",
+      "default": "var(--ui-icon-stroke)",
+      "defaultValue": "2",
+      "description": "Icon stroke width"
+    },
+    {
+      "name": "--ui-password-input-focus-ring-offset",
+      "default": "var(--ui-focus-ring-offset)",
+      "defaultValue": "-2px",
+      "description": "Focus ring offset"
+    },
+    {
       "name": "--ui-password-input-height",
       "default": "var(--ui-row-2)",
       "defaultValue": "32px",

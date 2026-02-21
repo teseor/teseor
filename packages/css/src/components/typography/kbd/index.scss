@@ -4,8 +4,10 @@
 
 @layer components.tokens {
   .kbd {
-    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
-    --_space-quarter: var(--ui-space-quarter, #{t.$space-quarter});
+    // @desc Border width
+    --_border-width: var(--ui-kbd-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    // @desc Shadow offset
+    --_shadow-offset: var(--ui-kbd-shadow-offset, var(--ui-space-quarter, #{t.$space-quarter}));
     // @desc Font size
     --_font-size: var(--ui-kbd-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     // @desc Font family
@@ -38,8 +40,8 @@
     color: var(--_color);
 
     background: var(--_bg);
-    border: var(--_border-width-sm) solid var(--_border-color);
+    border: var(--_border-width) solid var(--_border-color);
     border-radius: var(--_radius);
-    box-shadow: 0 var(--_space-quarter) 0 var(--_border-color);
+    box-shadow: 0 var(--_shadow-offset) 0 var(--_border-color);
   }
 }

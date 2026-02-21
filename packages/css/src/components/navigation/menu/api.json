@@ -29,6 +29,120 @@
   },
   "cssVars": [
     {
+      "name": "--ui-menu-border-width",
+      "default": "var(--ui-border-width-sm)",
+      "defaultValue": "1px",
+      "description": "Border width"
+    },
+    {
+      "name": "--ui-menu-label-font-size",
+      "default": "var(--ui-font-size-xs)",
+      "defaultValue": "12px",
+      "description": "Label font size"
+    },
+    {
+      "name": "--ui-menu-label-font-weight",
+      "default": "var(--ui-font-weight-medium)",
+      "defaultValue": "500",
+      "description": "Label font weight"
+    },
+    {
+      "name": "--ui-menu-item-line-height",
+      "default": "var(--ui-row-1)",
+      "defaultValue": "16px",
+      "description": "Item line height"
+    },
+    {
+      "name": "--ui-menu-label-color",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Label color"
+    },
+    {
+      "name": "--ui-menu-item-font-size",
+      "default": "var(--ui-font-size-sm)",
+      "defaultValue": "14px",
+      "description": "Item font size"
+    },
+    {
+      "name": "--ui-menu-item-color",
+      "default": "var(--ui-color-text)",
+      "description": "Item text color"
+    },
+    {
+      "name": "--ui-menu-transition-duration",
+      "default": "var(--ui-duration-fast)",
+      "defaultValue": "100ms",
+      "description": "Transition duration"
+    },
+    {
+      "name": "--ui-menu-transition-timing",
+      "default": "var(--ui-ease-default)",
+      "description": "Transition timing function"
+    },
+    {
+      "name": "--ui-menu-danger-color",
+      "default": "var(--ui-color-danger)",
+      "description": "Danger color"
+    },
+    {
+      "name": "--ui-menu-disabled-opacity",
+      "default": "var(--ui-opacity-disabled)",
+      "defaultValue": "0.5",
+      "description": "Disabled opacity"
+    },
+    {
+      "name": "--ui-menu-separator-color",
+      "default": "var(--ui-color-border)",
+      "description": "Separator color"
+    },
+    {
+      "name": "--ui-menu-label-letter-spacing",
+      "default": "var(--ui-letter-spacing-wide)",
+      "defaultValue": "0.05em",
+      "description": "Label letter spacing"
+    },
+    {
+      "name": "--ui-menu-item-gap",
+      "default": "var(--ui-unit)",
+      "defaultValue": "8px",
+      "description": "Item gap"
+    },
+    {
+      "name": "--ui-menu-item-icon-size",
+      "default": "calc(var(--ui-unit) * 2)",
+      "defaultValue": "16px",
+      "description": "Item icon size"
+    },
+    {
+      "name": "--ui-menu-separator-height",
+      "default": "calc(var(--ui-unit) * 2)",
+      "defaultValue": "16px",
+      "description": "Separator height"
+    },
+    {
+      "name": "--ui-menu-check-padding-start",
+      "default": "calc(var(--ui-unit) * 4)",
+      "defaultValue": "32px",
+      "description": "Check/radio inline padding"
+    },
+    {
+      "name": "--ui-menu-indicator-offset",
+      "default": "var(--ui-unit)",
+      "defaultValue": "8px",
+      "description": "Indicator offset"
+    },
+    {
+      "name": "--ui-menu-indicator-size",
+      "default": "calc(var(--ui-unit) * 2)",
+      "defaultValue": "16px",
+      "description": "Indicator size"
+    },
+    {
+      "name": "--ui-menu-shortcut-color",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Shortcut color"
+    },
+    {
       "name": "--ui-menu-min-width",
       "default": "calc(var(--ui-unit) * 16)",
       "defaultValue": "128px",

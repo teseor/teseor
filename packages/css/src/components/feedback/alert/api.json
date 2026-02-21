@@ -22,6 +22,40 @@
   },
   "cssVars": [
     {
+      "name": "--ui-alert-title-font-weight",
+      "default": "var(--ui-font-weight-medium)",
+      "defaultValue": "500",
+      "description": "Title font weight"
+    },
+    {
+      "name": "--ui-alert-title-line-height",
+      "default": "var(--ui-row-1)",
+      "defaultValue": "16px",
+      "description": "Title line height"
+    },
+    {
+      "name": "--ui-alert-description-font-size",
+      "default": "var(--ui-font-size-sm)",
+      "defaultValue": "14px",
+      "description": "Description font size"
+    },
+    {
+      "name": "--ui-alert-description-color",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Description color"
+    },
+    {
+      "name": "--ui-alert-text-color",
+      "default": "var(--ui-color-text)",
+      "description": "Text color"
+    },
+    {
+      "name": "--ui-alert-description-margin",
+      "default": "var(--ui-unit)",
+      "defaultValue": "8px",
+      "description": "Description margin"
+    },
+    {
       "name": "--ui-alert-accent",
       "default": "var(--ui-color-border)",
       "description": "Accent color"
@@ -51,6 +85,16 @@
       "description": "Corner radius"
     },
     {
+      "name": "--ui-alert-bg",
+      "default": "color-mix(in oklch, var(--ui-color-border) 8%, white)",
+      "description": "Background color"
+    },
+    {
+      "name": "--ui-alert-border-color",
+      "default": "var(--ui-color-border)",
+      "description": "Border color"
+    },
+    {
       "name": "--ui-alert-color",
       "default": "var(--ui-color-text)",
       "description": "Text color"
@@ -59,6 +103,11 @@
       "name": "--ui-alert-font-size",
       "default": "inherit",
       "description": "Font size"
+    },
+    {
+      "name": "--ui-alert-icon-color",
+      "default": "var(--ui-color-border)",
+      "description": "Icon color"
     },
     {
       "name": "--ui-alert-padding-sm",

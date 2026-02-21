@@ -18,6 +18,29 @@
   },
   "cssVars": [
     {
+      "name": "--ui-tooltip-transition-duration",
+      "default": "var(--ui-duration-fast)",
+      "defaultValue": "100ms",
+      "description": "Transition duration"
+    },
+    {
+      "name": "--ui-tooltip-transition-timing",
+      "default": "var(--ui-ease-default)",
+      "description": "Transition timing function"
+    },
+    {
+      "name": "--ui-tooltip-max-width",
+      "default": "calc(var(--ui-unit) * 25)",
+      "defaultValue": "200px",
+      "description": "Max width"
+    },
+    {
+      "name": "--ui-tooltip-line-height",
+      "default": "calc(var(--ui-unit) * 2)",
+      "defaultValue": "16px",
+      "description": "Line height"
+    },
+    {
       "name": "--ui-tooltip-bg",
       "default": "var(--ui-color-text)",
       "description": "Background color"

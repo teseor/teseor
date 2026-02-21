@@ -36,6 +36,75 @@
   },
   "cssVars": [
     {
+      "name": "--ui-button-gap",
+      "default": "var(--ui-space-1)",
+      "defaultValue": "8px",
+      "description": "Gap between children"
+    },
+    {
+      "name": "--ui-button-font-family",
+      "default": "var(--ui-font-sans)",
+      "description": "Font family"
+    },
+    {
+      "name": "--ui-button-transition-duration",
+      "default": "var(--ui-duration-base)",
+      "defaultValue": "150ms",
+      "description": "Transition duration"
+    },
+    {
+      "name": "--ui-button-transition-timing",
+      "default": "var(--ui-ease-default)",
+      "description": "Transition timing function"
+    },
+    {
+      "name": "--ui-button-press-duration",
+      "default": "var(--ui-duration-fast)",
+      "defaultValue": "100ms",
+      "description": "Active press transition duration"
+    },
+    {
+      "name": "--ui-button-focus-ring-width",
+      "default": "var(--ui-border-width-md)",
+      "defaultValue": "2px",
+      "description": "Focus ring width"
+    },
+    {
+      "name": "--ui-button-focus-ring-color",
+      "default": "var(--ui-color-focus)",
+      "description": "Focus ring color"
+    },
+    {
+      "name": "--ui-button-disabled-opacity",
+      "default": "var(--ui-opacity-disabled)",
+      "defaultValue": "0.5",
+      "description": "Disabled opacity"
+    },
+    {
+      "name": "--ui-button-underline-offset",
+      "default": "var(--ui-space-quarter)",
+      "defaultValue": "2px",
+      "description": "Link underline offset"
+    },
+    {
+      "name": "--ui-button-loading-opacity",
+      "default": "var(--ui-opacity-loading)",
+      "defaultValue": "0.7",
+      "description": "Loading state opacity"
+    },
+    {
+      "name": "--ui-button-icon-size",
+      "default": "var(--ui-icon-size-inline)",
+      "defaultValue": "1em",
+      "description": "Icon size"
+    },
+    {
+      "name": "--ui-button-spinner-border-width",
+      "default": "var(--ui-border-width-md)",
+      "defaultValue": "2px",
+      "description": "Loading spinner border width"
+    },
+    {
       "name": "--ui-button-accent",
       "default": "var(--ui-color-primary)",
       "description": "Primary accent color. All shades auto-generated via color-mix."
@@ -69,6 +138,16 @@
       "default": "var(--ui-radius-md)",
       "defaultValue": "8px",
       "description": "Corner radius"
+    },
+    {
+      "name": "--ui-button-bg",
+      "default": "var(--ui-color-primary)",
+      "description": "Background color"
+    },
+    {
+      "name": "--ui-button-bg-hover",
+      "default": "color-mix(in oklch, var(--ui-color-primary) 80%, black)",
+      "description": "Background color on hover"
     },
     {
       "name": "--ui-button-color",

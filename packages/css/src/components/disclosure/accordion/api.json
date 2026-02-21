@@ -27,6 +27,12 @@
       "default": "var(--ui-radius-md)",
       "defaultValue": "8px",
       "description": "Corner radius"
+    },
+    {
+      "name": "--ui-accordion-separated-gap",
+      "default": "var(--ui-space-1)",
+      "defaultValue": "8px",
+      "description": "Gap between items in separated variant"
     }
   ]
 }

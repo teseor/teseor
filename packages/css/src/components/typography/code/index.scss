@@ -7,9 +7,12 @@
 @layer components.tokens {
   // Inline code
   .code {
-    --_font-mono: var(--ui-font-mono, #{t.$font-mono});
-    --_leading-tight-sm: var(--ui-line-height-tight-sm, #{t.$line-height-tight-sm});
-    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
+    // @desc Font family
+    --_font-family: var(--ui-code-font-family, var(--ui-font-mono, #{t.$font-mono}));
+    // @desc Line height
+    --_line-height: var(--ui-code-line-height, var(--ui-line-height-tight-sm, #{t.$line-height-tight-sm}));
+    // @desc Border width
+    --_border-width: var(--ui-code-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
     // @desc Font size
     --_font-size: var(--ui-code-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     // @desc Background color
@@ -24,7 +27,8 @@
 
   // @modifier size
   .code--sm {
-    --_font-size: var(--ui-font-size-xs, #{t.$font-size-xs});
+    // @desc Font size at small size
+    --_font-size: var(--ui-code-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
   }
 
   // Code block
@@ -47,9 +51,9 @@
   .code {
     padding: var(--_padding-y) var(--_padding-x);
 
-    font-family: var(--_font-mono);
+    font-family: var(--_font-family);
     font-size: var(--_font-size);
-    line-height: var(--_leading-tight-sm);
+    line-height: var(--_line-height);
 
     background: var(--_bg);
     border-radius: var(--_radius);
@@ -58,16 +62,16 @@
   .code-block {
     display: block;
     // Subtract border from padding to keep total on grid
-    padding: calc(var(--_padding) - var(--_border-width-sm));
+    padding: calc(var(--_padding) - var(--_border-width));
     overflow-x: auto;
 
-    font-family: var(--_font-mono);
+    font-family: var(--_font-family);
     font-size: var(--_font-size);
-    line-height: var(--_leading-tight-sm);
+    line-height: var(--_line-height);
     white-space: pre;
 
     background: var(--_bg);
-    border: var(--_border-width-sm) solid var(--_border-color);
+    border: var(--_border-width) solid var(--_border-color);
     border-radius: var(--_radius);
 
     code {

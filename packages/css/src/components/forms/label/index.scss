@@ -5,11 +5,16 @@
 
 @layer components.tokens {
   .label {
-    --_weight-medium: var(--ui-font-weight-medium, #{t.$font-weight-medium});
-    --_leading-tight-sm: var(--ui-line-height-tight-sm, var(--ui-row-1, #{t.$row-1}));
-    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
-    --_weight-normal: var(--ui-font-weight-normal, #{t.$font-weight-normal});
-    --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
+    // @desc Font weight
+    --_font-weight: var(--ui-label-font-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
+    // @desc Line height
+    --_line-height: var(--ui-label-line-height, var(--ui-line-height-tight-sm, #{t.$line-height-tight-sm}));
+    // @desc Disabled opacity
+    --_disabled-opacity: var(--ui-label-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
+    // @desc Optional font weight
+    --_optional-font-weight: var(--ui-label-optional-font-weight, var(--ui-font-weight-normal, #{t.$font-weight-normal}));
+    // @desc Optional color
+    --_optional-color: var(--ui-label-optional-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
     // @desc Font size
     --_font-size: var(--ui-label-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     // @desc Text color
@@ -32,14 +37,14 @@
     gap: 0;
 
     font-size: var(--_font-size);
-    font-weight: var(--_weight-medium);
-    line-height: var(--_leading-tight-sm);
+    font-weight: var(--_font-weight);
+    line-height: var(--_line-height);
     color: var(--_color);
 
     cursor: pointer;
 
     &[aria-disabled='true'] {
-      opacity: var(--_opacity-disabled);
+      opacity: var(--_disabled-opacity);
       cursor: not-allowed;
     }
   }
@@ -49,7 +54,7 @@
   }
 
   .label__optional {
-    font-weight: var(--_weight-normal);
-    color: var(--_color-text-muted);
+    font-weight: var(--_optional-font-weight);
+    color: var(--_optional-color);
   }
 }

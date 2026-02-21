@@ -6,16 +6,30 @@
 // Token definitions - what makes each variant
 @layer components.tokens {
   .button {
-    --_space-1: var(--ui-space-1, #{t.$space-1});
-    --_font-sans: var(--ui-font-sans, #{t.$font-sans});
-    --_duration-base: var(--ui-duration-base, #{t.$duration-base});
-    --_ease-default: var(--ui-ease-default, #{t.$ease-default});
-    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
-    --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
-    --_color-focus: var(--ui-color-focus, #{t.$color-focus});
-    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
-    --_space-quarter: var(--ui-space-quarter, #{t.$space-quarter});
-    --_opacity-loading: var(--ui-opacity-loading, #{t.$opacity-loading});
+    // @desc Gap between children
+    --_gap: var(--ui-button-gap, var(--ui-space-1, #{t.$space-1}));
+    // @desc Font family
+    --_font-family: var(--ui-button-font-family, var(--ui-font-sans, #{t.$font-sans}));
+    // @desc Transition duration
+    --_transition-duration: var(--ui-button-transition-duration, var(--ui-duration-base, #{t.$duration-base}));
+    // @desc Transition timing function
+    --_transition-timing: var(--ui-button-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    // @desc Active press transition duration
+    --_press-duration: var(--ui-button-press-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    // @desc Focus ring width
+    --_focus-ring-width: var(--ui-button-focus-ring-width, var(--ui-border-width-md, #{t.$border-width-md}));
+    // @desc Focus ring color
+    --_focus-ring-color: var(--ui-button-focus-ring-color, var(--ui-color-focus, #{t.$color-focus}));
+    // @desc Disabled opacity
+    --_disabled-opacity: var(--ui-button-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
+    // @desc Link underline offset
+    --_underline-offset: var(--ui-button-underline-offset, var(--ui-space-quarter, #{t.$space-quarter}));
+    // @desc Loading state opacity
+    --_loading-opacity: var(--ui-button-loading-opacity, var(--ui-opacity-loading, #{t.$opacity-loading}));
+    // @desc Icon size
+    --_icon-size: var(--ui-button-icon-size, var(--ui-icon-size-inline, #{t.$icon-size-inline}));
+    // @desc Loading spinner border width
+    --_spinner-border-width: var(--ui-button-spinner-border-width, var(--ui-border-width-md, #{t.$border-width-md}));
     // Single accent color - all shades derived via color-mix
     // @desc Primary accent color. All shades auto-generated via color-mix.
     --_accent: var(--ui-button-accent, var(--ui-color-primary, #{t.$color-primary}));
@@ -30,8 +44,10 @@
     --_font-weight: var(--ui-button-font-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
     // @desc Corner radius
     --_radius: var(--ui-button-radius, var(--ui-radius-md, #{t.$radius-md}));
-    --_bg: var(--_accent);
-    --_bg-hover: color-mix(in oklch, var(--_accent) 80%, black);
+    // @desc Background color
+    --_bg: var(--ui-button-bg, var(--ui-color-primary, #{t.$color-primary}));
+    // @desc Background color on hover
+    --_bg-hover: var(--ui-button-bg-hover, color-mix(in oklch, var(--ui-color-primary, #{t.$color-primary}) 80%, black));
     // @desc Text color
     --_color: var(--ui-button-color, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
   }
@@ -72,14 +88,14 @@
 
   .button--ghost {
     --_bg: transparent;
-    --_bg-hover: color-mix(in oklch, var(--_accent) 10%, transparent);
-    --_color: var(--_accent);
+    --_bg-hover: color-mix(in oklch, var(--ui-color-primary, #{t.$color-primary}) 10%, transparent);
+    --_color: var(--ui-color-primary, #{t.$color-primary});
   }
 
   .button--outline {
     --_bg: transparent;
-    --_bg-hover: var(--_accent);
-    --_color: var(--_accent);
+    --_bg-hover: var(--ui-color-primary, #{t.$color-primary});
+    --_color: var(--ui-color-primary, #{t.$color-primary});
     --_color-hover: var(--ui-color-text-inverse, #{t.$color-text-inverse});
     --_border: var(--ui-border-width-sm, #{t.$border-width-sm}) solid currentColor;
   }
@@ -87,13 +103,15 @@
   .button--danger {
     // @desc Used by --danger variant as accent color
     --_accent: var(--ui-color-danger, #{t.$color-danger});
+    --_bg: var(--ui-color-danger, #{t.$color-danger});
+    --_bg-hover: color-mix(in oklch, var(--ui-color-danger, #{t.$color-danger}) 80%, black);
   }
 
   .button--link {
     --_bg: transparent;
     --_bg-hover: transparent;
-    --_color: var(--_accent);
-    --_color-hover: color-mix(in oklch, var(--_accent) 70%, black);
+    --_color: var(--ui-color-primary, #{t.$color-primary});
+    --_color-hover: color-mix(in oklch, var(--ui-color-primary, #{t.$color-primary}) 70%, black);
     --_height: auto;
     --_padding-x: 0;
     --_radius: 0;
@@ -132,7 +150,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--_space-1);
+    gap: var(--_gap);
 
     // Size
     block-size: var(--_height);
@@ -142,7 +160,7 @@
     margin: 0;
 
     // Typography
-    font-family: var(--_font-sans);
+    font-family: var(--_font-family);
     font-size: var(--_font-size);
     font-weight: var(--_font-weight);
     line-height: 1;
@@ -157,9 +175,9 @@
 
     // Transitions
     transition:
-      background-color var(--_duration-base) var(--_ease-default),
-      color var(--_duration-base) var(--_ease-default),
-      transform var(--_duration-fast) var(--_ease-default);
+      background-color var(--_transition-duration) var(--_transition-timing),
+      color var(--_transition-duration) var(--_transition-timing),
+      transform var(--_press-duration) var(--_transition-timing);
 
     // States - modifiers mirror pseudo-classes for testing/docs
     &:hover,
@@ -171,8 +189,8 @@
 
     &:focus-visible,
     &--focus {
-      outline: var(--_border-width-md) solid var(--_color-focus);
-      outline-offset: var(--_border-width-md);
+      outline: var(--_focus-ring-width) solid var(--_focus-ring-color);
+      outline-offset: var(--_focus-ring-width);
     }
 
     &:active,
@@ -181,7 +199,7 @@
     }
 
     &:disabled {
-      opacity: var(--_opacity-disabled);
+      opacity: var(--_disabled-opacity);
       cursor: not-allowed;
 
       &:hover {
@@ -203,10 +221,10 @@
     // Link variant underline
     &--link {
       text-decoration: underline;
-      text-underline-offset: var(--_space-quarter);
+      text-underline-offset: var(--_underline-offset);
 
       &:hover {
-        text-decoration-thickness: var(--_space-quarter);
+        text-decoration-thickness: var(--_underline-offset);
       }
     }
 
@@ -214,8 +232,8 @@
     &__icon {
       flex-shrink: 0;
 
-      block-size: #{t.$icon-size-inline};
-      inline-size: #{t.$icon-size-inline};
+      block-size: var(--_icon-size);
+      inline-size: var(--_icon-size);
 
       &--start {
         order: -1;
@@ -230,17 +248,17 @@
     &--loading {
       position: relative;
 
-      opacity: var(--_opacity-loading);
+      opacity: var(--_loading-opacity);
       pointer-events: none;
 
       &::after {
         content: '';
         position: absolute;
 
-        block-size: #{t.$icon-size-inline};
-        inline-size: #{t.$icon-size-inline};
+        block-size: var(--_icon-size);
+        inline-size: var(--_icon-size);
 
-        border: #{t.$border-width-md} solid currentcolor;
+        border: var(--_spinner-border-width) solid currentcolor;
         border-radius: 50%;
 
         animation: button-spin 0.6s linear infinite;

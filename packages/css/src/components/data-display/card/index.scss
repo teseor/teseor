@@ -5,9 +5,12 @@
 
 @layer components.tokens {
   .card {
-    --_row-1: var(--ui-row-1, #{t.$row-1});
-    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
-    --_ease-default: var(--ui-ease-default, #{t.$ease-default});
+    // @desc Line height
+    --_line-height: var(--ui-card-line-height, var(--ui-row-1, #{t.$row-1}));
+    // @desc Transition duration
+    --_transition-duration: var(--ui-card-transition-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    // @desc Transition timing
+    --_transition-timing: var(--ui-card-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
     // @desc Padding on all sides
     --_padding: var(--ui-card-padding, var(--ui-space-4, #{t.$space-4}));
     // @desc Border thickness
@@ -60,7 +63,7 @@
     padding: calc(var(--_padding) - var(--_border-width));
 
     // Grid-aligned line-height for text content
-    line-height: var(--_row-1);
+    line-height: var(--_line-height);
 
     background: var(--_bg);
     border: var(--_border-width) solid var(--_border-color);
@@ -98,8 +101,8 @@
     cursor: pointer;
 
     transition:
-      background-color var(--_duration-fast) var(--_ease-default),
-      border-color var(--_duration-fast) var(--_ease-default),
-      box-shadow var(--_duration-fast) var(--_ease-default);
+      background-color var(--_transition-duration) var(--_transition-timing),
+      border-color var(--_transition-duration) var(--_transition-timing),
+      box-shadow var(--_transition-duration) var(--_transition-timing);
   }
 }

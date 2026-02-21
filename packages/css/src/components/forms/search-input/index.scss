@@ -5,14 +5,26 @@
 
 @layer components.tokens {
   .search-input {
-    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
-    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
-    --_ease-default: var(--ui-ease-default, #{t.$ease-default});
-    --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
-    --_color-focus: var(--ui-color-focus, #{t.$color-focus});
-    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
-    --_space-half: var(--ui-space-half, #{t.$space-0});
-    --_radius-sm: var(--ui-radius-sm, #{t.$radius-sm});
+    // @desc Border width
+    --_border-width: var(--ui-search-input-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    // @desc Transition duration
+    --_transition-duration: var(--ui-search-input-transition-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    // @desc Transition timing
+    --_transition-timing: var(--ui-search-input-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    // @desc Focus ring width
+    --_focus-ring-width: var(--ui-search-input-focus-ring-width, var(--ui-border-width-md, #{t.$border-width-md}));
+    // @desc Focus ring color
+    --_focus-ring-color: var(--ui-search-input-focus-ring-color, var(--ui-color-focus, #{t.$color-focus}));
+    // @desc Disabled opacity
+    --_disabled-opacity: var(--ui-search-input-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
+    // @desc Clear inset gap
+    --_clear-inset-gap: var(--ui-search-input-clear-inset-gap, var(--ui-space-half, #{t.$space-0}));
+    // @desc Clear border radius
+    --_clear-radius: var(--ui-search-input-clear-radius, var(--ui-radius-sm, #{t.$radius-sm}));
+    // @desc Icon stroke width
+    --_icon-stroke: var(--ui-search-input-icon-stroke, #{t.$icon-stroke});
+    // @desc Focus ring offset
+    --_focus-ring-offset: var(--ui-search-input-focus-ring-offset, #{t.$focus-ring-offset});
     // @desc Overall height
     --_height: var(--ui-search-input-height, var(--ui-row-2, #{t.$row-2}));
     // @desc Horizontal padding
@@ -71,18 +83,18 @@
     block-size: var(--_height);
 
     background: var(--_bg);
-    border: var(--_border-width-sm) solid var(--_border-color);
+    border: var(--_border-width) solid var(--_border-color);
     border-radius: var(--_radius);
 
     transition:
-      border-color var(--_duration-fast) var(--_ease-default),
-      box-shadow var(--_duration-fast) var(--_ease-default);
+      border-color var(--_transition-duration) var(--_transition-timing),
+      box-shadow var(--_transition-duration) var(--_transition-timing);
 
     // Focus via inner field
     &:focus-within,
     &--focus {
       border-color: var(--_border-color-focus);
-      box-shadow: 0 0 0 var(--_border-width-md) var(--_color-focus);
+      box-shadow: 0 0 0 var(--_focus-ring-width) var(--_focus-ring-color);
     }
 
     // Full width
@@ -95,7 +107,7 @@
   // @modifier boolean disabled
     &--disabled,
     &:has(.search-input__field:disabled) {
-      opacity: var(--_opacity-disabled);
+      opacity: var(--_disabled-opacity);
       cursor: not-allowed;
     }
   }
@@ -119,7 +131,7 @@
 
       fill: none;
       stroke: currentcolor;
-      stroke-width: #{t.$icon-stroke};
+      stroke-width: var(--_icon-stroke);
       stroke-linecap: round;
       stroke-linejoin: round;
     }
@@ -167,26 +179,26 @@
     align-items: center;
     justify-content: center;
 
-    block-size: calc(var(--_height) - var(--_space-half) * 2);
-    inline-size: calc(var(--_height) - var(--_space-half) * 2);
-    margin-inline-end: calc(var(--_space-half));
+    block-size: calc(var(--_height) - var(--_clear-inset-gap) * 2);
+    inline-size: calc(var(--_height) - var(--_clear-inset-gap) * 2);
+    margin-inline-end: var(--_clear-inset-gap);
 
     color: var(--_clear-color);
 
     background: transparent;
     border: none;
-    border-radius: var(--_radius-sm);
+    border-radius: var(--_clear-radius);
     cursor: pointer;
 
-    transition: background var(--_duration-fast) var(--_ease-default);
+    transition: background var(--_transition-duration) var(--_transition-timing);
 
     &:hover {
       background: var(--_clear-hover-bg);
     }
 
     &:focus-visible {
-      outline: var(--_border-width-md) solid var(--_color-focus);
-      outline-offset: #{t.$focus-ring-offset};
+      outline: var(--_focus-ring-width) solid var(--_focus-ring-color);
+      outline-offset: var(--_focus-ring-offset);
     }
 
     svg {
@@ -195,7 +207,7 @@
 
       fill: none;
       stroke: currentcolor;
-      stroke-width: #{t.$icon-stroke};
+      stroke-width: var(--_icon-stroke);
       stroke-linecap: round;
       stroke-linejoin: round;
     }

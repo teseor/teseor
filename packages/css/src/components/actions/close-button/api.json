@@ -15,6 +15,45 @@
   },
   "cssVars": [
     {
+      "name": "--ui-close-button-transition-duration",
+      "default": "var(--ui-duration-base)",
+      "defaultValue": "150ms",
+      "description": "Transition duration"
+    },
+    {
+      "name": "--ui-close-button-transition-timing",
+      "default": "var(--ui-ease-default)",
+      "description": "Transition timing function"
+    },
+    {
+      "name": "--ui-close-button-hover-color",
+      "default": "var(--ui-color-text)",
+      "description": "Hover text color"
+    },
+    {
+      "name": "--ui-close-button-focus-ring-width",
+      "default": "var(--ui-border-width-md)",
+      "defaultValue": "2px",
+      "description": "Focus ring width"
+    },
+    {
+      "name": "--ui-close-button-focus-ring-color",
+      "default": "var(--ui-color-focus)",
+      "description": "Focus ring color"
+    },
+    {
+      "name": "--ui-close-button-disabled-opacity",
+      "default": "var(--ui-opacity-disabled)",
+      "defaultValue": "0.5",
+      "description": "Disabled opacity"
+    },
+    {
+      "name": "--ui-close-button-icon-stroke",
+      "default": "var(--ui-icon-stroke)",
+      "defaultValue": "2",
+      "description": "Icon stroke width"
+    },
+    {
       "name": "--ui-close-button-size",
       "default": "var(--ui-row-2)",
       "defaultValue": "32px",

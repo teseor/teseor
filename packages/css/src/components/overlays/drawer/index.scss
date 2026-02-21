@@ -8,18 +8,34 @@
 
 @layer components.tokens {
   .drawer {
-    --_z-drawer: var(--ui-z-index-drawer, #{t.$z-index-drawer});
-    --_overlay-bg: var(--ui-overlay-bg, #{t.$overlay-bg});
-    --_duration-normal: var(--ui-duration-normal, #{t.$duration-normal});
-    --_ease-out: var(--ui-ease-out, ease-out);
-    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
-    --_ease-in: var(--ui-ease-in, ease-in);
-    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
-    --_font-size-lg: var(--ui-font-size-lg, #{t.$font-size-lg});
-    --_weight-semibold: var(--ui-font-weight-semibold, #{t.$font-weight-semibold});
-    --_row-1: var(--ui-row-1, #{t.$row});
-    --_font-size-sm: var(--ui-font-size-sm, #{t.$font-size-sm});
-    --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
+    // @desc Z-index stacking order
+    --_z-index: var(--ui-drawer-z-index, var(--ui-z-index-drawer, #{t.$z-index-drawer}));
+    // @desc Backdrop color
+    --_backdrop-color: var(--ui-drawer-backdrop-color, var(--ui-overlay-bg, #{t.$overlay-bg}));
+    // @desc Enter duration
+    --_enter-duration: var(--ui-drawer-enter-duration, var(--ui-duration-normal, #{t.$duration-normal}));
+    // @desc Enter timing function
+    --_enter-timing: var(--ui-drawer-enter-timing, var(--ui-ease-out, #{t.$ease-out}));
+    // @desc Exit duration
+    --_exit-duration: var(--ui-drawer-exit-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    // @desc Exit timing function
+    --_exit-timing: var(--ui-drawer-exit-timing, var(--ui-ease-in, #{t.$ease-in}));
+    // @desc Border width
+    --_border-width: var(--ui-drawer-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    // @desc Title font size
+    --_title-font-size: var(--ui-drawer-title-font-size, var(--ui-font-size-lg, #{t.$font-size-lg}));
+    // @desc Title font weight
+    --_title-font-weight: var(--ui-drawer-title-font-weight, var(--ui-font-weight-semibold, #{t.$font-weight-semibold}));
+    // @desc Title line height
+    --_title-line-height: var(--ui-drawer-title-line-height, var(--ui-row-1, #{t.$row}));
+    // @desc Description font size
+    --_description-font-size: var(--ui-drawer-description-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    // @desc Description color
+    --_description-color: var(--ui-drawer-description-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    // @desc Header gap
+    --_header-gap: var(--ui-drawer-header-gap, calc(#{t.$unit} * 2));
+    // @desc Footer gap
+    --_footer-gap: var(--ui-drawer-footer-gap, calc(#{t.$unit} * 2));
     // @desc Overall size
     --_size: var(--ui-drawer-size, calc(#{t.$unit} * 40));
     // @desc Max size
@@ -58,17 +74,17 @@
   .drawer-overlay {
     position: fixed;
     inset: 0;
-    z-index: var(--_z-drawer);
+    z-index: var(--_z-index);
 
-    background: var(--_overlay-bg);
+    background: var(--_backdrop-color);
   }
 
   .drawer-overlay[data-state="open"] {
-    animation: drawer-overlay-in var(--_duration-normal) var(--_ease-out);
+    animation: drawer-overlay-in var(--_enter-duration) var(--_enter-timing);
   }
 
   .drawer-overlay[data-state="closed"] {
-    animation: drawer-overlay-out var(--_duration-fast) var(--_ease-in);
+    animation: drawer-overlay-out var(--_exit-duration) var(--_exit-timing);
   }
 
   @keyframes drawer-overlay-in {
@@ -89,7 +105,7 @@
     display: flex;
     flex-direction: column;
     position: fixed;
-    z-index: var(--_z-drawer);
+    z-index: var(--_z-index);
 
     background: var(--_bg);
     box-shadow: var(--_shadow);
@@ -104,7 +120,7 @@
     inline-size: var(--_size);
     max-inline-size: var(--_max-size);
 
-    box-shadow: calc(var(--_border-width-sm) * -1) 0 0 var(--_border-color);
+    box-shadow: calc(var(--_border-width) * -1) 0 0 var(--_border-color);
   }
 
   .drawer--start {
@@ -114,7 +130,7 @@
     inline-size: var(--_size);
     max-inline-size: var(--_max-size);
 
-    box-shadow: var(--_border-width-sm) 0 0 var(--_border-color);
+    box-shadow: var(--_border-width) 0 0 var(--_border-color);
   }
 
   .drawer--top {
@@ -124,7 +140,7 @@
     block-size: var(--_size);
     max-block-size: var(--_max-size);
 
-    box-shadow: 0 var(--_border-width-sm) 0 var(--_border-color);
+    box-shadow: 0 var(--_border-width) 0 var(--_border-color);
   }
 
   .drawer--bottom {
@@ -134,40 +150,40 @@
     block-size: var(--_size);
     max-block-size: var(--_max-size);
 
-    box-shadow: 0 calc(var(--_border-width-sm) * -1) 0 var(--_border-color);
+    box-shadow: 0 calc(var(--_border-width) * -1) 0 var(--_border-color);
   }
 
   // Animation states
   .drawer--end[data-state="open"] {
-    animation: drawer-slide-in-end var(--_duration-normal) var(--_ease-out);
+    animation: drawer-slide-in-end var(--_enter-duration) var(--_enter-timing);
   }
 
   .drawer--end[data-state="closed"] {
-    animation: drawer-slide-out-end var(--_duration-fast) var(--_ease-in);
+    animation: drawer-slide-out-end var(--_exit-duration) var(--_exit-timing);
   }
 
   .drawer--start[data-state="open"] {
-    animation: drawer-slide-in-start var(--_duration-normal) var(--_ease-out);
+    animation: drawer-slide-in-start var(--_enter-duration) var(--_enter-timing);
   }
 
   .drawer--start[data-state="closed"] {
-    animation: drawer-slide-out-start var(--_duration-fast) var(--_ease-in);
+    animation: drawer-slide-out-start var(--_exit-duration) var(--_exit-timing);
   }
 
   .drawer--top[data-state="open"] {
-    animation: drawer-slide-in-top var(--_duration-normal) var(--_ease-out);
+    animation: drawer-slide-in-top var(--_enter-duration) var(--_enter-timing);
   }
 
   .drawer--top[data-state="closed"] {
-    animation: drawer-slide-out-top var(--_duration-fast) var(--_ease-in);
+    animation: drawer-slide-out-top var(--_exit-duration) var(--_exit-timing);
   }
 
   .drawer--bottom[data-state="open"] {
-    animation: drawer-slide-in-bottom var(--_duration-normal) var(--_ease-out);
+    animation: drawer-slide-in-bottom var(--_enter-duration) var(--_enter-timing);
   }
 
   .drawer--bottom[data-state="closed"] {
-    animation: drawer-slide-out-bottom var(--_duration-fast) var(--_ease-in);
+    animation: drawer-slide-out-bottom var(--_exit-duration) var(--_exit-timing);
   }
 
   @keyframes drawer-slide-in-end {
@@ -224,27 +240,27 @@
     flex-shrink: 0;
     align-items: center;
     justify-content: space-between;
-    gap: calc(#{t.$unit} * 2);
+    gap: var(--_header-gap);
 
     padding: var(--_header-padding);
 
-    box-shadow: inset 0 calc(var(--_border-width-sm) * -1) 0 var(--_border-color);
+    box-shadow: inset 0 calc(var(--_border-width) * -1) 0 var(--_border-color);
   }
 
   .drawer__title {
     margin: 0;
 
-    font-size: var(--_font-size-lg);
-    font-weight: var(--_weight-semibold);
-    line-height: var(--_row-1);
+    font-size: var(--_title-font-size);
+    font-weight: var(--_title-font-weight);
+    line-height: var(--_title-line-height);
   }
 
   .drawer__description {
     margin: 0;
 
-    font-size: var(--_font-size-sm);
-    line-height: var(--_row-1);
-    color: var(--_color-text-muted);
+    font-size: var(--_description-font-size);
+    line-height: var(--_title-line-height);
+    color: var(--_description-color);
   }
 
   .drawer__close {
@@ -259,7 +275,7 @@
     padding: var(--_body-padding);
     overflow-y: auto;
 
-    line-height: var(--_row-1);
+    line-height: var(--_title-line-height);
   }
 
   .drawer__footer {
@@ -267,11 +283,11 @@
     flex-shrink: 0;
     align-items: center;
     justify-content: flex-end;
-    gap: calc(#{t.$unit} * 2);
+    gap: var(--_footer-gap);
 
     padding: var(--_footer-padding);
 
-    box-shadow: inset 0 var(--_border-width-sm) 0 var(--_border-color);
+    box-shadow: inset 0 var(--_border-width) 0 var(--_border-color);
   }
 
   @media (prefers-reduced-motion: reduce) {

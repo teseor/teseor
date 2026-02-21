@@ -7,8 +7,12 @@
 
 @layer components.tokens {
   .overlay {
-    --_duration-normal: var(--ui-duration-normal, #{t.$duration-normal});
-    --_ease-default: var(--ui-ease-default, ease);
+    // @desc Transition duration
+    --_transition-duration: var(--ui-overlay-transition-duration, var(--ui-duration-normal, #{t.$duration-normal}));
+    // @desc Transition timing function
+    --_transition-timing: var(--ui-overlay-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    // @desc Blur amount
+    --_blur-amount: var(--ui-overlay-blur-amount, calc(#{t.$unit} * 0.5));
     // @desc Background color
     --_bg: var(--ui-overlay-bg, #{t.$overlay-bg});
     // @desc Z-index stacking order
@@ -38,7 +42,7 @@
   }
 
   .overlay--blur {
-    backdrop-filter: blur(calc(#{t.$unit} * 0.5));
+    backdrop-filter: blur(var(--_blur-amount));
   }
 
   // Animation states (JS-controlled class toggles)
@@ -59,6 +63,6 @@
   }
 
   .overlay--animate {
-    transition: opacity var(--_duration-normal) var(--_ease-default);
+    transition: opacity var(--_transition-duration) var(--_transition-timing);
   }
 }

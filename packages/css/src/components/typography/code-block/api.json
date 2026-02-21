@@ -22,6 +22,29 @@
   ],
   "cssVars": [
     {
+      "name": "--ui-code-block-border-width",
+      "default": "var(--ui-border-width-sm)",
+      "defaultValue": "1px",
+      "description": "Border width"
+    },
+    {
+      "name": "--ui-code-block-font-family",
+      "default": "var(--ui-font-mono)",
+      "description": "Font family"
+    },
+    {
+      "name": "--ui-code-block-line-number-width",
+      "default": "var(--ui-space-4)",
+      "defaultValue": "32px",
+      "description": "Line number min width"
+    },
+    {
+      "name": "--ui-code-block-line-number-spacing",
+      "default": "var(--ui-space-2)",
+      "defaultValue": "16px",
+      "description": "Line number spacing"
+    },
+    {
       "name": "--ui-code-block-bg",
       "default": "var(--ui-color-bg-muted)",
       "description": "Background color"

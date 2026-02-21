@@ -5,10 +5,14 @@
 // Token definitions
 @layer components.tokens {
   .table {
-    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
-    --_unit: var(--ui-unit, #{t.$unit});
-    --_weight-medium: var(--ui-font-weight-medium, #{t.$font-weight-medium});
-    --_color-bg-muted: var(--ui-color-bg-muted, #{t.$color-bg-muted});
+    // @desc Border width
+    --_border-width: var(--ui-table-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    // @desc Cell line height
+    --_cell-line-height: var(--ui-table-cell-line-height, calc(#{t.$unit} * 3));
+    // @desc Header font weight
+    --_header-font-weight: var(--ui-table-header-font-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
+    // @desc Stripe background
+    --_stripe-bg: var(--ui-table-stripe-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
     // @desc Font size
     --_font-size: var(--ui-table-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     // @desc Border color
@@ -23,9 +27,12 @@
 
   // @modifier boolean compact
   .table--compact {
-    --_cell-padding-y: var(--ui-space-0, #{t.$space-0});
-    --_cell-padding-x: var(--ui-space-1, #{t.$space-1});
-    --_font-size: var(--ui-font-size-xs, #{t.$font-size-xs});
+    // @desc Cell padding y compact
+    --_cell-padding-y: var(--ui-table-cell-padding-y-compact, var(--ui-space-0, #{t.$space-0}));
+    // @desc Cell padding x compact
+    --_cell-padding-x: var(--ui-table-cell-padding-x-compact, var(--ui-space-1, #{t.$space-1}));
+    // @desc Font size compact
+    --_font-size: var(--ui-table-font-size-compact, var(--ui-font-size-xs, #{t.$font-size-xs}));
   }
 }
 
@@ -43,17 +50,17 @@
     td {
       // Subtract border from bottom padding to keep row on grid
       padding-block-start: var(--_cell-padding-y);
-      padding-block-end: calc(var(--_cell-padding-y) - var(--_border-width-sm));
+      padding-block-end: calc(var(--_cell-padding-y) - var(--_border-width));
       padding-inline: var(--_cell-padding-x);
       // Grid-aligned line-height (3 units = 24px at 8px unit)
-      line-height: calc(var(--_unit) * 3);
+      line-height: var(--_cell-line-height);
       text-align: start;
 
-      border-block-end: var(--_border-width-sm) solid var(--_border-color);
+      border-block-end: var(--_border-width) solid var(--_border-color);
     }
 
     th {
-      font-weight: var(--_weight-medium);
+      font-weight: var(--_header-font-weight);
 
       background: var(--_header-bg);
     }
@@ -62,7 +69,7 @@
   // @modifier boolean striped
     &--striped {
       tbody tr:nth-child(odd) {
-        background: var(--_color-bg-muted);
+        background: var(--_stripe-bg);
       }
 
       th {

@@ -8,6 +8,12 @@
   },
   "cssVars": [
     {
+      "name": "--ui-form-error-line-height",
+      "default": "var(--ui-line-height-tight-sm)",
+      "defaultValue": "16px",
+      "description": "Line height"
+    },
+    {
       "name": "--ui-form-error-color",
       "default": "var(--ui-color-danger)",
       "description": "Text color"

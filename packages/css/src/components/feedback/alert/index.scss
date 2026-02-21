@@ -5,11 +5,18 @@
 
 @layer components.tokens {
   .alert {
-    --_weight-medium: var(--ui-font-weight-medium, #{t.$font-weight-medium});
-    --_row-1: var(--ui-row-1, #{t.$row});
-    --_font-size-sm: var(--ui-font-size-sm, #{t.$font-size-sm});
-    --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
-    --_color-text: var(--ui-color-text, #{t.$color-text});
+    // @desc Title font weight
+    --_title-font-weight: var(--ui-alert-title-font-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
+    // @desc Title line height
+    --_title-line-height: var(--ui-alert-title-line-height, var(--ui-row-1, #{t.$row}));
+    // @desc Description font size
+    --_description-font-size: var(--ui-alert-description-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    // @desc Description color
+    --_description-color: var(--ui-alert-description-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    // @desc Text color
+    --_text-color: var(--ui-alert-text-color, var(--ui-color-text, #{t.$color-text}));
+    // @desc Description margin
+    --_description-margin: var(--ui-alert-description-margin, var(--ui-unit, #{t.$unit}));
     // Single accent color - variants override, bg/border derived via color-mix
     // @desc Accent color
     --_accent: var(--ui-alert-accent, var(--ui-color-border, #{t.$color-border}));
@@ -22,31 +29,46 @@
     --_gap: var(--ui-alert-gap, var(--ui-space-1, #{t.$space-1}));
     // @desc Corner radius
     --_radius: var(--ui-alert-radius, var(--ui-radius-md, #{t.$radius-md}));
-    --_bg: color-mix(in oklch, var(--_accent) 8%, white);
-    --_border-color: var(--_accent);
+    // @desc Background color
+    --_bg: var(--ui-alert-bg, color-mix(in oklch, var(--ui-color-border, #{t.$color-border}) 8%, white));
+    // @desc Border color
+    --_border-color: var(--ui-alert-border-color, var(--ui-color-border, #{t.$color-border}));
     // @desc Text color
     --_color: var(--ui-alert-color, var(--ui-color-text, #{t.$color-text}));
     // @desc Font size
     --_font-size: var(--ui-alert-font-size, inherit);
     --_padding-end: 0;
-    --_icon-color: var(--_accent);
+    // @desc Icon color
+    --_icon-color: var(--ui-alert-icon-color, var(--ui-color-border, #{t.$color-border}));
   }
 
   // @modifier variant
   .alert--info {
     --_accent: var(--ui-color-primary, #{t.$color-primary});
+    --_bg: color-mix(in oklch, var(--ui-color-primary, #{t.$color-primary}) 8%, white);
+    --_border-color: var(--ui-color-primary, #{t.$color-primary});
+    --_icon-color: var(--ui-color-primary, #{t.$color-primary});
   }
 
   .alert--success {
     --_accent: var(--ui-color-success, #{t.$color-success});
+    --_bg: color-mix(in oklch, var(--ui-color-success, #{t.$color-success}) 8%, white);
+    --_border-color: var(--ui-color-success, #{t.$color-success});
+    --_icon-color: var(--ui-color-success, #{t.$color-success});
   }
 
   .alert--warning {
     --_accent: var(--ui-color-warning, #{t.$color-warning});
+    --_bg: color-mix(in oklch, var(--ui-color-warning, #{t.$color-warning}) 8%, white);
+    --_border-color: var(--ui-color-warning, #{t.$color-warning});
+    --_icon-color: var(--ui-color-warning, #{t.$color-warning});
   }
 
   .alert--danger {
     --_accent: var(--ui-color-danger, #{t.$color-danger});
+    --_bg: color-mix(in oklch, var(--ui-color-danger, #{t.$color-danger}) 8%, white);
+    --_border-color: var(--ui-color-danger, #{t.$color-danger});
+    --_icon-color: var(--ui-color-danger, #{t.$color-danger});
   }
 
   // @modifier size
@@ -110,19 +132,19 @@
   .alert__title {
     margin: 0;
 
-    font-weight: var(--_weight-medium);
+    font-weight: var(--_title-font-weight);
     // Line-height aligned to grid (24px = 3 units)
-    line-height: var(--_row-1);
+    line-height: var(--_title-line-height);
   }
 
   .alert__description {
     margin: 0;
-    margin-block-start: calc(#{t.$unit} * 1);
+    margin-block-start: var(--_description-margin);
 
-    font-size: var(--_font-size-sm);
+    font-size: var(--_description-font-size);
     // Line-height aligned to grid (16px = 2 units for smaller text)
-    line-height: var(--_row-1);
-    color: var(--_color-text-muted);
+    line-height: var(--_title-line-height);
+    color: var(--_description-color);
   }
 
   .alert__close {
@@ -131,14 +153,14 @@
 
     padding: 0;
 
-    color: var(--_color-text-muted);
+    color: var(--_description-color);
 
     background: none;
     border: none;
     cursor: pointer;
 
     &:hover {
-      color: var(--_color-text);
+      color: var(--_text-color);
     }
   }
 }

@@ -18,6 +18,56 @@
   },
   "cssVars": [
     {
+      "name": "--ui-textarea-line-height",
+      "default": "var(--ui-row-1)",
+      "defaultValue": "16px",
+      "description": "Line height"
+    },
+    {
+      "name": "--ui-textarea-border-width",
+      "default": "var(--ui-border-width-sm)",
+      "defaultValue": "1px",
+      "description": "Border width"
+    },
+    {
+      "name": "--ui-textarea-transition-duration",
+      "default": "var(--ui-duration-fast)",
+      "defaultValue": "100ms",
+      "description": "Transition duration"
+    },
+    {
+      "name": "--ui-textarea-transition-timing",
+      "default": "var(--ui-ease-default)",
+      "description": "Transition timing"
+    },
+    {
+      "name": "--ui-textarea-hover-border-color",
+      "default": "var(--ui-color-border-strong)",
+      "description": "Hover border color"
+    },
+    {
+      "name": "--ui-textarea-focus-ring-width",
+      "default": "var(--ui-border-width-md)",
+      "defaultValue": "2px",
+      "description": "Focus ring width"
+    },
+    {
+      "name": "--ui-textarea-focus-ring-color",
+      "default": "var(--ui-color-focus)",
+      "description": "Focus ring color"
+    },
+    {
+      "name": "--ui-textarea-disabled-opacity",
+      "default": "var(--ui-opacity-disabled)",
+      "defaultValue": "0.5",
+      "description": "Disabled opacity"
+    },
+    {
+      "name": "--ui-textarea-readonly-bg",
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Read-only background"
+    },
+    {
       "name": "--ui-textarea-min-height",
       "default": "calc(var(--ui-row) * 4)",
       "defaultValue": "64px",

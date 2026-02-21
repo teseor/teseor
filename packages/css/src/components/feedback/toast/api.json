@@ -42,6 +42,12 @@
   ],
   "cssVars": [
     {
+      "name": "--ui-toast-viewport-z-index",
+      "default": "var(--ui-z-index-toast)",
+      "defaultValue": "700",
+      "description": "Z-index stacking order"
+    },
+    {
       "name": "--ui-toast-viewport-gap",
       "default": "calc(var(--ui-unit) * 1)",
       "defaultValue": "8px",
@@ -58,6 +64,62 @@
       "default": "var(--ui-toast-viewport-max-width)",
       "defaultValue": "420px",
       "description": "Viewport max width"
+    },
+    {
+      "name": "--ui-toast-border-width",
+      "default": "var(--ui-border-width-sm)",
+      "defaultValue": "1px",
+      "description": "Border width"
+    },
+    {
+      "name": "--ui-toast-title-font-weight",
+      "default": "var(--ui-font-weight-medium)",
+      "defaultValue": "500",
+      "description": "Title font weight"
+    },
+    {
+      "name": "--ui-toast-title-line-height",
+      "default": "var(--ui-row-1)",
+      "defaultValue": "16px",
+      "description": "Title line height"
+    },
+    {
+      "name": "--ui-toast-description-font-size",
+      "default": "var(--ui-font-size-sm)",
+      "defaultValue": "14px",
+      "description": "Description font size"
+    },
+    {
+      "name": "--ui-toast-description-color",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Description color"
+    },
+    {
+      "name": "--ui-toast-close-hover-color",
+      "default": "var(--ui-color-text)",
+      "description": "Close hover color"
+    },
+    {
+      "name": "--ui-toast-enter-duration",
+      "default": "var(--ui-duration-normal)",
+      "defaultValue": "200ms",
+      "description": "Enter duration"
+    },
+    {
+      "name": "--ui-toast-enter-timing",
+      "default": "var(--ui-ease-out)",
+      "description": "Enter timing function"
+    },
+    {
+      "name": "--ui-toast-exit-duration",
+      "default": "var(--ui-duration-fast)",
+      "defaultValue": "100ms",
+      "description": "Exit duration"
+    },
+    {
+      "name": "--ui-toast-exit-timing",
+      "default": "var(--ui-ease-in)",
+      "description": "Exit timing function"
     },
     {
       "name": "--ui-toast-padding",

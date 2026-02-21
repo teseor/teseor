@@ -15,9 +15,20 @@
   },
   "cssVars": [
     {
+      "name": "--ui-divider-font-size",
+      "default": "var(--ui-font-size-sm)",
+      "defaultValue": "14px",
+      "description": "Font size"
+    },
+    {
+      "name": "--ui-divider-label-color",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Label text color"
+    },
+    {
       "name": "--ui-divider-color",
       "default": "var(--ui-color-border)",
-      "description": "Text color"
+      "description": "Line color"
     },
     {
       "name": "--ui-divider-line-size",
@@ -36,6 +47,24 @@
       "default": "calc(var(--ui-unit) * 2)",
       "defaultValue": "16px",
       "description": "Gap between children"
+    },
+    {
+      "name": "--ui-divider-label-spacing",
+      "default": "calc(var(--ui-unit) * 2)",
+      "defaultValue": "16px",
+      "description": "Label spacing between text and lines"
+    },
+    {
+      "name": "--ui-divider-dash-size",
+      "default": "var(--ui-unit)",
+      "defaultValue": "8px",
+      "description": "Dash pattern repeat size"
+    },
+    {
+      "name": "--ui-divider-height-label",
+      "default": "var(--ui-row-1)",
+      "defaultValue": "16px",
+      "description": "Overall height when text label is present"
     }
   ]
 }

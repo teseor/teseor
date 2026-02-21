@@ -7,12 +7,20 @@
 
 @layer components.tokens {
   .popover {
-    --_row-1: var(--ui-row-1, #{t.$row});
-    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
-    --_font-size-md: var(--ui-font-size-md, #{t.$font-size-md});
-    --_weight-semibold: var(--ui-font-weight-semibold, #{t.$font-weight-semibold});
-    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
-    --_ease-default: var(--ui-ease-default, ease);
+    // @desc Line height
+    --_line-height: var(--ui-popover-line-height, var(--ui-row-1, #{t.$row}));
+    // @desc Border width
+    --_border-width: var(--ui-popover-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    // @desc Title font size
+    --_title-font-size: var(--ui-popover-title-font-size, var(--ui-font-size-md, #{t.$font-size-md}));
+    // @desc Title font weight
+    --_title-font-weight: var(--ui-popover-title-font-weight, var(--ui-font-weight-semibold, #{t.$font-weight-semibold}));
+    // @desc Transition duration
+    --_transition-duration: var(--ui-popover-transition-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    // @desc Transition timing function
+    --_transition-timing: var(--ui-popover-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    // @desc Header spacing
+    --_header-spacing: var(--ui-popover-header-spacing, calc(#{t.$unit} * 2));
     // @desc Background color
     --_bg: var(--ui-popover-bg, var(--ui-color-bg, #{t.$color-bg}));
     // @desc Border color
@@ -40,28 +48,28 @@
     max-inline-size: var(--_max-width);
     padding: var(--_padding);
 
-    line-height: var(--_row-1);
+    line-height: var(--_line-height);
 
     background: var(--_bg);
     border-radius: var(--_radius);
-    outline: var(--_border-width-sm) solid var(--_border-color);
+    outline: var(--_border-width) solid var(--_border-color);
     box-shadow: var(--_shadow);
-    outline-offset: calc(var(--_border-width-sm) * -1);
+    outline-offset: calc(var(--_border-width) * -1);
   }
 
   // Header section
   .popover__header {
-    padding-block-end: calc(#{t.$unit} * 2);
-    margin-block-end: calc(#{t.$unit} * 2);
+    padding-block-end: var(--_header-spacing);
+    margin-block-end: var(--_header-spacing);
 
-    box-shadow: inset 0 calc(var(--_border-width-sm) * -1) 0 var(--_border-color);
+    box-shadow: inset 0 calc(var(--_border-width) * -1) 0 var(--_border-color);
   }
 
   .popover__title {
     margin: 0;
 
-    font-size: var(--_font-size-md);
-    font-weight: var(--_weight-semibold);
+    font-size: var(--_title-font-size);
+    font-weight: var(--_title-font-weight);
   }
 
   // Arrow pointing down (popover above trigger)
@@ -126,6 +134,6 @@
   }
 
   .popover--animate {
-    transition: opacity var(--_duration-fast) var(--_ease-default);
+    transition: opacity var(--_transition-duration) var(--_transition-timing);
   }
 }

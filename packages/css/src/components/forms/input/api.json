@@ -41,6 +41,60 @@
   ],
   "cssVars": [
     {
+      "name": "--ui-input-border-width",
+      "default": "var(--ui-border-width-sm)",
+      "defaultValue": "1px",
+      "description": "Border width"
+    },
+    {
+      "name": "--ui-input-transition-duration",
+      "default": "var(--ui-duration-fast)",
+      "defaultValue": "100ms",
+      "description": "Transition duration"
+    },
+    {
+      "name": "--ui-input-transition-timing",
+      "default": "var(--ui-ease-default)",
+      "description": "Transition timing"
+    },
+    {
+      "name": "--ui-input-hover-border-color",
+      "default": "var(--ui-color-border-strong)",
+      "description": "Hover border color"
+    },
+    {
+      "name": "--ui-input-focus-ring-width",
+      "default": "var(--ui-border-width-md)",
+      "defaultValue": "2px",
+      "description": "Focus ring width"
+    },
+    {
+      "name": "--ui-input-focus-ring-color",
+      "default": "var(--ui-color-focus)",
+      "description": "Focus ring color"
+    },
+    {
+      "name": "--ui-input-disabled-opacity",
+      "default": "var(--ui-opacity-disabled)",
+      "defaultValue": "0.5",
+      "description": "Disabled opacity"
+    },
+    {
+      "name": "--ui-input-readonly-bg",
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Read-only background"
+    },
+    {
+      "name": "--ui-input-addon-gap",
+      "default": "var(--ui-space-half)",
+      "description": "Addon gap"
+    },
+    {
+      "name": "--ui-input-addon-color",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Addon color"
+    },
+    {
       "name": "--ui-input-height",
       "default": "var(--ui-row-2)",
       "defaultValue": "32px",

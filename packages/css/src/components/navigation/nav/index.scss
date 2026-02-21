@@ -5,12 +5,20 @@
 
 @layer components.tokens {
   .nav {
-    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
-    --_font-sans: var(--ui-font-sans, #{t.$font-sans});
-    --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
-    --_duration-base: var(--ui-duration-base, #{t.$duration-base});
-    --_ease-default: var(--ui-ease-default, #{t.$ease-default});
-    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    // @desc Border width
+    --_border-width: var(--ui-nav-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    // @desc Font family
+    --_font-family: var(--ui-nav-font-family, var(--ui-font-sans, #{t.$font-sans}));
+    // @desc Indicator width
+    --_indicator-width: var(--ui-nav-indicator-width, var(--ui-border-width-md, #{t.$border-width-md}));
+    // @desc Transition duration
+    --_transition-duration: var(--ui-nav-transition-duration, var(--ui-duration-base, #{t.$duration-base}));
+    // @desc Transition timing function
+    --_transition-timing: var(--ui-nav-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    // @desc Disabled opacity
+    --_disabled-opacity: var(--ui-nav-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
+    // @desc Container threshold for responsive collapse
+    --_container-threshold: var(--ui-nav-container-threshold, #{t.$container-threshold-sm});
     // @desc Gap between children
     --_gap: var(--ui-nav-gap, var(--ui-space-1, #{t.$space-1}));
     // @desc Item overall height
@@ -62,7 +70,7 @@
     list-style: none;
 
     // Bottom border via box-shadow to avoid height impact
-    box-shadow: inset 0 calc(var(--_border-width-sm) * -1) 0 var(--_border-color);
+    box-shadow: inset 0 calc(var(--_border-width) * -1) 0 var(--_border-color);
   }
 
   .nav__item {
@@ -73,7 +81,7 @@
     block-size: var(--_item-height);
     padding-inline: var(--_item-padding-x);
 
-    font-family: var(--_font-sans);
+    font-family: var(--_font-family);
     font-size: var(--_item-font-size);
     font-weight: var(--_item-font-weight);
     line-height: 1;
@@ -84,13 +92,13 @@
     background: transparent;
     border: none;
     // Underline indicator via box-shadow
-    box-shadow: inset 0 calc(var(--_border-width-md) * -1) 0 transparent;
+    box-shadow: inset 0 calc(var(--_indicator-width) * -1) 0 transparent;
     cursor: pointer;
 
     transition:
-      color var(--_duration-base) var(--_ease-default),
-      background var(--_duration-base) var(--_ease-default),
-      box-shadow var(--_duration-base) var(--_ease-default);
+      color var(--_transition-duration) var(--_transition-timing),
+      background var(--_transition-duration) var(--_transition-timing),
+      box-shadow var(--_transition-duration) var(--_transition-timing);
 
     &:hover {
       color: var(--_item-color-hover);
@@ -99,11 +107,11 @@
     &--active {
       color: var(--_item-color-active);
 
-      box-shadow: inset 0 calc(var(--_border-width-md) * -1) 0 var(--_item-color-active);
+      box-shadow: inset 0 calc(var(--_indicator-width) * -1) 0 var(--_item-color-active);
     }
 
     &--disabled {
-      opacity: var(--_opacity-disabled);
+      opacity: var(--_disabled-opacity);
       pointer-events: none;
     }
   }
@@ -138,14 +146,14 @@
 
       block-size: auto;
 
-      box-shadow: inset calc(var(--_border-width-sm) * -1) 0 0 var(--_border-color);
+      box-shadow: inset calc(var(--_border-width) * -1) 0 0 var(--_border-color);
     }
 
     .nav__item {
-      box-shadow: inset calc(var(--_border-width-md) * -1) 0 0 transparent;
+      box-shadow: inset calc(var(--_indicator-width) * -1) 0 0 transparent;
 
       &--active {
-        box-shadow: inset calc(var(--_border-width-md) * -1) 0 0 var(--_item-color-active);
+        box-shadow: inset calc(var(--_indicator-width) * -1) 0 0 var(--_item-color-active);
       }
     }
   }
@@ -161,14 +169,14 @@
 
         block-size: auto;
 
-        box-shadow: inset calc(var(--_border-width-sm) * -1) 0 0 var(--_border-color);
+        box-shadow: inset calc(var(--_border-width) * -1) 0 0 var(--_border-color);
       }
 
       .nav__item {
-        box-shadow: inset calc(var(--_border-width-md) * -1) 0 0 transparent;
+        box-shadow: inset calc(var(--_indicator-width) * -1) 0 0 transparent;
 
         &--active {
-          box-shadow: inset calc(var(--_border-width-md) * -1) 0 0 var(--_item-color-active);
+          box-shadow: inset calc(var(--_indicator-width) * -1) 0 0 var(--_item-color-active);
         }
       }
     }

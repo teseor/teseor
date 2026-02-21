@@ -7,8 +7,12 @@
 
 @layer components.tokens {
   .modal {
-    --_duration-normal: var(--ui-duration-normal, #{t.$duration-normal});
-    --_ease-default: var(--ui-ease-default, ease);
+    // @desc Transition duration
+    --_transition-duration: var(--ui-modal-transition-duration, var(--ui-duration-normal, #{t.$duration-normal}));
+    // @desc Transition timing function
+    --_transition-timing: var(--ui-modal-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    // @desc Viewport padding
+    --_viewport-padding: var(--ui-modal-viewport-padding, calc(#{t.$unit} * 2));
     // @desc Background color
     --_bg: var(--ui-modal-bg, var(--ui-color-bg, #{t.$color-bg}));
     // @desc Corner radius
@@ -53,7 +57,7 @@
     inset: 0;
     z-index: var(--_z);
 
-    padding: calc(#{t.$unit} * 2);
+    padding: var(--_viewport-padding);
   }
 
   .modal__content {
@@ -100,8 +104,8 @@
 
   .modal--animate .modal__content {
     transition:
-      opacity var(--_duration-normal) var(--_ease-default),
-      transform var(--_duration-normal) var(--_ease-default);
+      opacity var(--_transition-duration) var(--_transition-timing),
+      transform var(--_transition-duration) var(--_transition-timing);
   }
 
   .modal--hidden {

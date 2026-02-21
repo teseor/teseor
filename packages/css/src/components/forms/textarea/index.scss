@@ -5,15 +5,24 @@
 
 @layer components.tokens {
   .textarea {
-    --_row-1: var(--ui-row-1, #{t.$row});
-    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
-    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
-    --_ease-default: var(--ui-ease-default, ease);
-    --_color-border-strong: var(--ui-color-border-strong, #{t.$color-border-strong});
-    --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
-    --_color-focus: var(--ui-color-focus, #{t.$color-focus});
-    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
-    --_color-bg-subtle: var(--ui-color-bg-subtle, #{t.$color-bg-subtle});
+    // @desc Line height
+    --_line-height: var(--ui-textarea-line-height, var(--ui-row-1, #{t.$row}));
+    // @desc Border width
+    --_border-width: var(--ui-textarea-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    // @desc Transition duration
+    --_transition-duration: var(--ui-textarea-transition-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    // @desc Transition timing
+    --_transition-timing: var(--ui-textarea-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    // @desc Hover border color
+    --_hover-border-color: var(--ui-textarea-hover-border-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
+    // @desc Focus ring width
+    --_focus-ring-width: var(--ui-textarea-focus-ring-width, var(--ui-border-width-md, #{t.$border-width-md}));
+    // @desc Focus ring color
+    --_focus-ring-color: var(--ui-textarea-focus-ring-color, var(--ui-color-focus, #{t.$color-focus}));
+    // @desc Disabled opacity
+    --_disabled-opacity: var(--ui-textarea-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
+    // @desc Read-only background
+    --_readonly-bg: var(--ui-textarea-readonly-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
     // @desc Minimum height
     --_min-height: var(--ui-textarea-min-height, calc(#{t.$row} * 4));
     // @desc Horizontal padding
@@ -95,18 +104,18 @@
 
     font-family: inherit;
     font-size: var(--_font-size);
-    line-height: var(--_row-1);
+    line-height: var(--_line-height);
     color: var(--_color);
 
     background: var(--_bg);
     border: none;
     border-radius: var(--_radius);
-    outline: var(--_border-width-sm) solid var(--_border-color);
+    outline: var(--_border-width) solid var(--_border-color);
 
     transition:
-      border-color var(--_duration-fast) var(--_ease-default),
-      box-shadow var(--_duration-fast) var(--_ease-default);
-    outline-offset: calc(var(--_border-width-sm) * -1);
+      border-color var(--_transition-duration) var(--_transition-timing),
+      box-shadow var(--_transition-duration) var(--_transition-timing);
+    outline-offset: calc(var(--_border-width) * -1);
 
     // Default resize behavior
     resize: vertical;
@@ -116,25 +125,25 @@
     }
 
     &:hover:not(:disabled, :focus-visible) {
-      outline-color: var(--_color-border-strong);
+      outline-color: var(--_hover-border-color);
     }
 
     &:focus-visible,
     &--focus {
       outline-color: var(--_border-color-focus);
 
-      box-shadow: 0 0 0 var(--_border-width-md) var(--_color-focus);
+      box-shadow: 0 0 0 var(--_focus-ring-width) var(--_focus-ring-color);
     }
 
     &:disabled,
     &--disabled {
-      opacity: var(--_opacity-disabled);
+      opacity: var(--_disabled-opacity);
       cursor: not-allowed;
       resize: none;
     }
 
     &:read-only {
-      background: var(--_color-bg-subtle);
+      background: var(--_readonly-bg);
       resize: none;
     }
 

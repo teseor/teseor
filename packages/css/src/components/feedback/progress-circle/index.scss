@@ -15,8 +15,10 @@
 
 @layer components.tokens {
   .progress-circle {
-    --_duration-slow: var(--ui-duration-slow, #{t.$duration-slow});
-    --_ease-default: var(--ui-ease-default, #{t.$ease-default});
+    // @desc Transition duration
+    --_transition-duration: var(--ui-progress-circle-transition-duration, var(--ui-duration-slow, #{t.$duration-slow}));
+    // @desc Transition timing function
+    --_transition-timing: var(--ui-progress-circle-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
     // @desc Overall size
     --_size: var(--ui-progress-circle-size, calc(var(--ui-unit, #{t.$unit}) * 6));
     // @desc Stroke width
@@ -87,8 +89,8 @@
     stroke-dashoffset: calc(var(--_circumference) * (1 - var(--_value) / 100));
 
     transition:
-      stroke-dashoffset var(--_duration-slow) var(--_ease-default),
-      --ui-progress-circle-value var(--_duration-slow) var(--_ease-default);
+      stroke-dashoffset var(--_transition-duration) var(--_transition-timing),
+      --ui-progress-circle-value var(--_transition-duration) var(--_transition-timing);
   }
 
   // Indeterminate - rotating partial arc

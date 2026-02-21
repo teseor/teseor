@@ -5,7 +5,10 @@
 
 @layer components.tokens {
   .image {
-    --_row-1: var(--ui-row-1, #{t.$row-1});
+    // @desc Line height
+    --_line-height: var(--ui-image-line-height, var(--ui-row-1, #{t.$row-1}));
+    // @desc Fallback minimum size
+    --_fallback-min-size: var(--ui-image-fallback-min-size, calc(#{t.$unit} * 8));
     // @desc Overall size
     --_size: var(--ui-image-size, auto);
     // @desc Corner radius
@@ -98,15 +101,15 @@
     aspect-ratio: 1 / 1;
 
     // Ensure minimum dimensions for empty state
-    min-block-size: calc(#{t.$unit} * 8);
-    min-inline-size: calc(#{t.$unit} * 8);
+    min-block-size: var(--_fallback-min-size);
+    min-inline-size: var(--_fallback-min-size);
   }
 
   .image__caption {
     margin-block-start: var(--_caption-spacing);
 
     font-size: var(--_caption-font-size);
-    line-height: var(--_row-1);
+    line-height: var(--_line-height);
     color: var(--_caption-color);
   }
 

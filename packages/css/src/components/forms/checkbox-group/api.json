@@ -20,6 +20,30 @@
   },
   "cssVars": [
     {
+      "name": "--ui-checkbox-group-line-height",
+      "default": "var(--ui-line-height-tight-sm)",
+      "defaultValue": "16px",
+      "description": "Line height"
+    },
+    {
+      "name": "--ui-checkbox-group-item-line-height",
+      "default": "var(--ui-row-1)",
+      "defaultValue": "16px",
+      "description": "Item line height"
+    },
+    {
+      "name": "--ui-checkbox-group-disabled-opacity",
+      "default": "var(--ui-opacity-disabled)",
+      "defaultValue": "0.5",
+      "description": "Disabled opacity"
+    },
+    {
+      "name": "--ui-checkbox-group-horizontal-gap",
+      "default": "var(--ui-space-2)",
+      "defaultValue": "16px",
+      "description": "Horizontal gap"
+    },
+    {
       "name": "--ui-checkbox-group-spacing",
       "default": "var(--ui-space-1)",
       "defaultValue": "8px",

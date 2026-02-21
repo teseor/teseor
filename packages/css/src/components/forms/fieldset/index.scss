@@ -7,9 +7,12 @@
 
 @layer components.tokens {
   .fieldset {
-    --_leading-tight-sm: var(--ui-line-height-tight-sm, var(--ui-row-1, #{t.$line-height-tight-sm}));
-    --_space-half: var(--ui-space-half, #{t.$space-0});
-    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    // @desc Line height
+    --_line-height: var(--ui-fieldset-line-height, var(--ui-line-height-tight-sm, #{t.$line-height-tight-sm}));
+    // @desc Legend inline padding
+    --_legend-inline-padding: var(--ui-fieldset-legend-inline-padding, var(--ui-space-half, #{t.$space-0}));
+    // @desc Disabled opacity
+    --_disabled-opacity: var(--ui-fieldset-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
     // @desc Spacing
     --_spacing: var(--ui-fieldset-spacing, var(--ui-space-2, #{t.$space-2}));
     // @desc Border color
@@ -56,7 +59,7 @@
 
     font-size: var(--_legend-size);
     font-weight: var(--_legend-weight);
-    line-height: var(--_leading-tight-sm);
+    line-height: var(--_line-height);
     color: var(--_legend-color);
   }
 
@@ -73,14 +76,14 @@
 
   .fieldset--bordered > .fieldset__legend {
     inline-size: auto;
-    padding-inline: var(--_space-half);
-    margin-inline-start: calc(-1 * var(--_space-half));
+    padding-inline: var(--_legend-inline-padding);
+    margin-inline-start: calc(-1 * var(--_legend-inline-padding));
   }
 
   // Disabled state - fieldset[disabled] natively disables children
   .fieldset:disabled,
   .fieldset[aria-disabled='true'] {
-    opacity: var(--_opacity-disabled);
+    opacity: var(--_disabled-opacity);
     cursor: not-allowed;
   }
 }

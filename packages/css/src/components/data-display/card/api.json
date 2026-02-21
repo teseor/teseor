@@ -25,6 +25,23 @@
   },
   "cssVars": [
     {
+      "name": "--ui-card-line-height",
+      "default": "var(--ui-row-1)",
+      "defaultValue": "16px",
+      "description": "Line height"
+    },
+    {
+      "name": "--ui-card-transition-duration",
+      "default": "var(--ui-duration-fast)",
+      "defaultValue": "100ms",
+      "description": "Transition duration"
+    },
+    {
+      "name": "--ui-card-transition-timing",
+      "default": "var(--ui-ease-default)",
+      "description": "Transition timing"
+    },
+    {
       "name": "--ui-card-padding",
       "default": "var(--ui-space-4)",
       "defaultValue": "32px",

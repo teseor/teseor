@@ -7,11 +7,20 @@
 
 @layer components.tokens {
   .disclosure {
-    --_weight-medium: var(--ui-font-weight-medium, #{t.$font-weight-medium});
-    --_color-bg-subtle: var(--ui-color-bg-subtle, #{t.$color-bg-subtle});
-    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
-    --_ease-default: var(--ui-ease-default, ease);
-    --_duration-normal: var(--ui-duration-normal, #{t.$duration-normal});
+    // @desc Trigger font weight
+    --_trigger-font-weight: var(--ui-disclosure-trigger-font-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
+    // @desc Trigger hover background
+    --_trigger-hover-bg: var(--ui-disclosure-trigger-hover-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
+    // @desc Icon rotation transition duration
+    --_icon-transition-duration: var(--ui-disclosure-icon-transition-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    // @desc Transition timing function
+    --_transition-timing: var(--ui-disclosure-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    // @desc Content animation duration
+    --_animation-duration: var(--ui-disclosure-animation-duration, var(--ui-duration-normal, #{t.$duration-normal}));
+    // @desc Trigger gap between label and icon
+    --_trigger-gap: var(--ui-disclosure-trigger-gap, var(--ui-space-2, #{t.$space-2}));
+    // @desc Animation slide offset
+    --_animation-offset: var(--ui-disclosure-animation-offset, calc(#{t.$unit} * -1));
     // @desc Border color
     --_border-color: var(--ui-disclosure-border-color, var(--ui-color-border, #{t.$color-border}));
     // @desc Border thickness
@@ -51,13 +60,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: calc(#{t.$unit} * 2);
+    gap: var(--_trigger-gap);
 
     block-size: var(--_trigger-height);
     inline-size: 100%;
     padding-inline: var(--_padding-x);
 
-    font-weight: var(--_weight-medium);
+    font-weight: var(--_trigger-font-weight);
     line-height: 1;
     text-align: start;
 
@@ -75,14 +84,14 @@
 
   // Trigger hover state
   .disclosure__trigger:hover {
-    background: var(--_color-bg-subtle);
+    background: var(--_trigger-hover-bg);
   }
 
   // Icon that rotates when open
   .disclosure__icon {
     flex-shrink: 0;
 
-    transition: transform var(--_duration-fast) var(--_ease-default);
+    transition: transform var(--_icon-transition-duration) var(--_transition-timing);
   }
 
   .disclosure[open] .disclosure__icon {
@@ -97,13 +106,13 @@
   // Animation for content
   // @modifier boolean animate
   .disclosure--animate .disclosure__content {
-    animation: disclosure-open var(--_duration-normal) var(--_ease-default);
+    animation: disclosure-open var(--_animation-duration) var(--_transition-timing);
   }
 
   @keyframes disclosure-open {
     from {
       opacity: 0;
-      transform: translateY(calc(#{t.$unit} * -1));
+      transform: translateY(var(--_animation-offset));
     }
 
     to {

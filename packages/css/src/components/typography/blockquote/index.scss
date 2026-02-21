@@ -4,10 +4,14 @@
 
 @layer components.tokens {
   .blockquote {
-    --_space-1: var(--ui-space-1, #{t.$space-1});
-    --_font-size-sm: var(--ui-font-size-sm, #{t.$font-size-sm});
-    --_leading-sm: var(--ui-line-height-sm, #{t.$line-height-sm});
-    --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
+    // @desc Citation spacing
+    --_cite-spacing: var(--ui-blockquote-cite-spacing, var(--ui-space-1, #{t.$space-1}));
+    // @desc Citation font size
+    --_cite-font-size: var(--ui-blockquote-cite-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    // @desc Citation line height
+    --_cite-line-height: var(--ui-blockquote-cite-line-height, var(--ui-line-height-sm, #{t.$line-height-sm}));
+    // @desc Citation text color
+    --_cite-color: var(--ui-blockquote-cite-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
     // @desc Border color
     --_border-color: var(--ui-blockquote-border-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
     // @desc Border thickness
@@ -24,7 +28,8 @@
 
   // @modifier variant
   .blockquote--accent {
-    --_border-color: var(--ui-color-primary, #{t.$color-primary});
+    // @desc Accent border color
+    --_border-color: var(--ui-blockquote-accent-border-color, var(--ui-color-primary, #{t.$color-primary}));
   }
 }
 
@@ -44,11 +49,11 @@
   .blockquote__cite {
     display: block;
 
-    margin-block-start: var(--_space-1);
+    margin-block-start: var(--_cite-spacing);
 
-    font-size: var(--_font-size-sm);
+    font-size: var(--_cite-font-size);
     font-style: normal;
-    line-height: var(--_leading-sm);
-    color: var(--_color-text-muted);
+    line-height: var(--_cite-line-height);
+    color: var(--_cite-color);
   }
 }

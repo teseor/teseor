@@ -27,6 +27,23 @@
   },
   "cssVars": [
     {
+      "name": "--ui-overlay-transition-duration",
+      "default": "var(--ui-duration-normal)",
+      "defaultValue": "200ms",
+      "description": "Transition duration"
+    },
+    {
+      "name": "--ui-overlay-transition-timing",
+      "default": "var(--ui-ease-default)",
+      "description": "Transition timing function"
+    },
+    {
+      "name": "--ui-overlay-blur-amount",
+      "default": "calc(var(--ui-unit) * 0.5)",
+      "defaultValue": "4px",
+      "description": "Blur amount"
+    },
+    {
       "name": "--ui-overlay-bg",
       "default": "var(--ui-overlay-bg)",
       "description": "Background color"

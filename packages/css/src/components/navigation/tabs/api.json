@@ -29,6 +29,67 @@
   },
   "cssVars": [
     {
+      "name": "--ui-tabs-list-gap",
+      "default": "var(--ui-space-1)",
+      "defaultValue": "8px",
+      "description": "List gap"
+    },
+    {
+      "name": "--ui-tabs-border-width",
+      "default": "var(--ui-border-width-sm)",
+      "defaultValue": "1px",
+      "description": "Border width"
+    },
+    {
+      "name": "--ui-tabs-font-family",
+      "default": "var(--ui-font-sans)",
+      "description": "Font family"
+    },
+    {
+      "name": "--ui-tabs-tab-font-weight",
+      "default": "var(--ui-font-weight-medium)",
+      "defaultValue": "500",
+      "description": "Tab font weight"
+    },
+    {
+      "name": "--ui-tabs-tab-color",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Tab color"
+    },
+    {
+      "name": "--ui-tabs-indicator-width",
+      "default": "var(--ui-border-width-md)",
+      "defaultValue": "2px",
+      "description": "Indicator width"
+    },
+    {
+      "name": "--ui-tabs-transition-duration",
+      "default": "var(--ui-duration-base)",
+      "defaultValue": "150ms",
+      "description": "Transition duration"
+    },
+    {
+      "name": "--ui-tabs-transition-timing",
+      "default": "var(--ui-ease-default)",
+      "description": "Transition timing function"
+    },
+    {
+      "name": "--ui-tabs-tab-hover-color",
+      "default": "var(--ui-color-text)",
+      "description": "Tab hover color"
+    },
+    {
+      "name": "--ui-tabs-tab-active-color",
+      "default": "var(--ui-color-primary)",
+      "description": "Tab active color"
+    },
+    {
+      "name": "--ui-tabs-panel-line-height",
+      "default": "var(--ui-row-1)",
+      "defaultValue": "16px",
+      "description": "Panel line height"
+    },
+    {
       "name": "--ui-tabs-border-color",
       "default": "var(--ui-color-border)",
       "description": "Border color"

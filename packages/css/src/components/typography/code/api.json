@@ -14,6 +14,23 @@
   ],
   "cssVars": [
     {
+      "name": "--ui-code-font-family",
+      "default": "var(--ui-font-mono)",
+      "description": "Font family"
+    },
+    {
+      "name": "--ui-code-line-height",
+      "default": "var(--ui-line-height-tight-sm)",
+      "defaultValue": "16px",
+      "description": "Line height"
+    },
+    {
+      "name": "--ui-code-border-width",
+      "default": "var(--ui-border-width-sm)",
+      "defaultValue": "1px",
+      "description": "Border width"
+    },
+    {
       "name": "--ui-code-font-size",
       "default": "var(--ui-font-size-sm)",
       "defaultValue": "14px",
@@ -41,6 +58,12 @@
       "default": "var(--ui-radius-sm)",
       "defaultValue": "4px",
       "description": "Corner radius"
+    },
+    {
+      "name": "--ui-code-font-size-sm",
+      "default": "var(--ui-font-size-xs)",
+      "defaultValue": "12px",
+      "description": "Font size at small size"
     },
     {
       "name": "--ui-code-font-size-block",

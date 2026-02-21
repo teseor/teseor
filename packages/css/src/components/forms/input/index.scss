@@ -6,16 +6,26 @@
 
 @layer components.tokens {
   .input {
-    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
-    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
-    --_ease-default: var(--ui-ease-default, ease);
-    --_color-border-strong: var(--ui-color-border-strong, #{t.$color-border-strong});
-    --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
-    --_color-focus: var(--ui-color-focus, #{t.$color-focus});
-    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
-    --_color-bg-subtle: var(--ui-color-bg-subtle, #{t.$color-bg-subtle});
-    --_space-half: var(--ui-space-half, #{t.$space-0});
-    --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
+    // @desc Border width
+    --_border-width: var(--ui-input-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    // @desc Transition duration
+    --_transition-duration: var(--ui-input-transition-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    // @desc Transition timing
+    --_transition-timing: var(--ui-input-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    // @desc Hover border color
+    --_hover-border-color: var(--ui-input-hover-border-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
+    // @desc Focus ring width
+    --_focus-ring-width: var(--ui-input-focus-ring-width, var(--ui-border-width-md, #{t.$border-width-md}));
+    // @desc Focus ring color
+    --_focus-ring-color: var(--ui-input-focus-ring-color, var(--ui-color-focus, #{t.$color-focus}));
+    // @desc Disabled opacity
+    --_disabled-opacity: var(--ui-input-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
+    // @desc Read-only background
+    --_readonly-bg: var(--ui-input-readonly-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
+    // @desc Addon gap
+    --_addon-gap: var(--ui-input-addon-gap, var(--ui-space-half, #{t.$space-0}));
+    // @desc Addon color
+    --_addon-color: var(--ui-input-addon-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
     // @desc Overall height
     --_height: var(--ui-input-height, var(--ui-row-2, #{t.$row-2}));
     // @desc Horizontal padding
@@ -101,38 +111,38 @@
     color: var(--_color);
 
     background: var(--_bg);
-    border: var(--_border-width-sm) solid var(--_border-color);
+    border: var(--_border-width) solid var(--_border-color);
     border-radius: var(--_radius);
 
     transition:
-      border-color var(--_duration-fast) var(--_ease-default),
-      box-shadow var(--_duration-fast) var(--_ease-default);
+      border-color var(--_transition-duration) var(--_transition-timing),
+      box-shadow var(--_transition-duration) var(--_transition-timing);
 
     &::placeholder {
       color: var(--_placeholder);
     }
 
     &:hover:not(:disabled, :focus-visible) {
-      border-color: var(--_color-border-strong);
+      border-color: var(--_hover-border-color);
     }
 
     &:focus-visible,
     &--focus {
       border-color: var(--_border-color-focus);
-      outline: var(--_border-width-md) solid transparent;
-      outline-offset: var(--_border-width-sm);
+      outline: var(--_focus-ring-width) solid transparent;
+      outline-offset: var(--_border-width);
 
-      box-shadow: 0 0 0 var(--_border-width-md) var(--_color-focus);
+      box-shadow: 0 0 0 var(--_focus-ring-width) var(--_focus-ring-color);
     }
 
     &:disabled,
     &--disabled {
-      opacity: var(--_opacity-disabled);
+      opacity: var(--_disabled-opacity);
       cursor: not-allowed;
     }
 
     &:read-only {
-      background: var(--_color-bg-subtle);
+      background: var(--_readonly-bg);
     }
 
     // Auto-size — textarea/input grows with content
@@ -161,12 +171,12 @@
 
     // With prefix
     &--has-prefix .input {
-      padding-inline-start: calc(var(--_height) + var(--_space-half));
+      padding-inline-start: calc(var(--_height) + var(--_addon-gap));
     }
 
     // With suffix
     &--has-suffix .input {
-      padding-inline-end: calc(var(--_height) + var(--_space-half));
+      padding-inline-end: calc(var(--_height) + var(--_addon-gap));
     }
   }
 
@@ -177,9 +187,9 @@
     position: absolute;
     inset-block: 0;
 
-    inline-size: var(--_height, #{t.$row-2});
+    inline-size: var(--_height);
 
-    color: var(--_color-text-muted);
+    color: var(--_addon-color);
 
     pointer-events: none;
 

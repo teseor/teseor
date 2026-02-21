@@ -7,14 +7,26 @@
 
 @layer components.tokens {
   .data-list {
-    --_row-1: var(--ui-row-1, #{t.$row});
-    --_font-size-sm: var(--ui-font-size-sm, #{t.$font-size-sm});
-    --_weight-medium: var(--ui-font-weight-medium, #{t.$font-weight-medium});
-    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
-    --_color-border: var(--ui-color-border, #{t.$color-border});
-    --_color-bg-subtle: var(--ui-color-bg-subtle, #{t.$color-bg-subtle});
-    --_radius-sm: var(--ui-radius-sm, #{t.$radius-sm});
-    --_font-size-lg: var(--ui-font-size-lg, #{t.$font-size-lg});
+    // @desc Line height
+    --_line-height: var(--ui-data-list-line-height, var(--ui-row-1, #{t.$row}));
+    // @desc Label font size
+    --_label-font-size: var(--ui-data-list-label-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    // @desc Label font weight
+    --_label-font-weight: var(--ui-data-list-label-font-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
+    // @desc Divider border width
+    --_border-width: var(--ui-data-list-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    // @desc Divider border color
+    --_border-color: var(--ui-data-list-border-color, var(--ui-color-border, #{t.$color-border}));
+    // @desc Stripe background
+    --_stripe-bg: var(--ui-data-list-stripe-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
+    // @desc Stripe border radius
+    --_stripe-radius: var(--ui-data-list-stripe-radius, var(--ui-radius-sm, #{t.$radius-sm}));
+    // @desc Large font size
+    --_lg-font-size: var(--ui-data-list-lg-font-size, var(--ui-font-size-lg, #{t.$font-size-lg}));
+    // @desc Stripe padding
+    --_stripe-padding: var(--ui-data-list-stripe-padding, calc(#{t.$unit} * 1));
+    // @desc Horizontal item gap
+    --_horizontal-gap: var(--ui-data-list-horizontal-gap, calc(#{t.$unit} * 2));
     // @desc Gap between children
     --_gap: var(--ui-data-list-gap, calc(#{t.$unit} * 2));
     // @desc Item gap between children
@@ -28,14 +40,18 @@
   // Compact size
   // @modifier size
   .data-list--sm {
-    --_gap: calc(#{t.$unit} * 1);
-    --_item-gap: 0;
+    // @desc Gap at small size
+    --_gap: var(--ui-data-list-gap-sm, calc(#{t.$unit} * 1));
+    // @desc Item gap at small size
+    --_item-gap: var(--ui-data-list-item-gap-sm, 0);
   }
 
   // Large size
   .data-list--lg {
-    --_gap: calc(#{t.$unit} * 3);
-    --_item-gap: calc(#{t.$unit} * 1);
+    // @desc Gap at large size
+    --_gap: var(--ui-data-list-gap-lg, calc(#{t.$unit} * 3));
+    // @desc Item gap at large size
+    --_item-gap: var(--ui-data-list-item-gap-lg, calc(#{t.$unit} * 1));
   }
 }
 
@@ -47,7 +63,7 @@
 
     margin: 0;
 
-    line-height: var(--_row-1);
+    line-height: var(--_line-height);
   }
 
   .data-list__item {
@@ -57,16 +73,16 @@
   }
 
   .data-list__label {
-    font-size: var(--_font-size-sm);
-    font-weight: var(--_weight-medium);
-    line-height: var(--_row-1);
+    font-size: var(--_label-font-size);
+    font-weight: var(--_label-font-weight);
+    line-height: var(--_line-height);
     color: var(--_label-color);
   }
 
   .data-list__value {
     margin: 0;
 
-    line-height: var(--_row-1);
+    line-height: var(--_line-height);
     color: var(--_value-color);
   }
 
@@ -76,7 +92,7 @@
     flex-direction: row;
     align-items: baseline;
     justify-content: space-between;
-    gap: calc(#{t.$unit} * 2);
+    gap: var(--_horizontal-gap);
   }
 
   .data-list--horizontal .data-list__label {
@@ -91,9 +107,9 @@
   // @modifier style
   .data-list--divided .data-list__item {
     // Subtract border from padding to keep total on grid
-    padding-block-end: calc(var(--_gap) - var(--_border-width-sm));
+    padding-block-end: calc(var(--_gap) - var(--_border-width));
 
-    border-block-end: var(--_border-width-sm) solid var(--_color-border);
+    border-block-end: var(--_border-width) solid var(--_border-color);
   }
 
   .data-list--divided .data-list__item:last-child {
@@ -104,20 +120,20 @@
 
   // Striped variant
   .data-list--striped .data-list__item:nth-child(odd) {
-    padding: calc(#{t.$unit} * 1);
+    padding: var(--_stripe-padding);
 
-    background: var(--_color-bg-subtle);
-    border-radius: var(--_radius-sm);
+    background: var(--_stripe-bg);
+    border-radius: var(--_stripe-radius);
   }
 
   // Compact size
   // @modifier size
   .data-list--sm {
-    font-size: var(--_font-size-sm);
+    font-size: var(--_label-font-size);
   }
 
   // Large size
   .data-list--lg {
-    font-size: var(--_font-size-lg);
+    font-size: var(--_lg-font-size);
   }
 }

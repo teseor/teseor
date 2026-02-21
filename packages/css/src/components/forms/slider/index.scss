@@ -5,10 +5,14 @@
 
 @layer components.tokens {
   .slider {
-    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
-    --_ease-default: var(--ui-ease-default, #{t.$ease-default});
-    --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
-    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    // @desc Transition duration
+    --_transition-duration: var(--ui-slider-transition-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    // @desc Transition timing
+    --_transition-timing: var(--ui-slider-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    // @desc Focus ring width
+    --_focus-ring-width: var(--ui-slider-focus-ring-width, var(--ui-border-width-md, #{t.$border-width-md}));
+    // @desc Disabled opacity
+    --_disabled-opacity: var(--ui-slider-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
     // @desc Overall height
     --_height: var(--ui-slider-height, var(--ui-row-2, #{t.$row-2}));
     // @desc Track height
@@ -31,8 +35,8 @@
     --_thumb-radius: var(--ui-slider-thumb-radius, var(--ui-radius-full, #{t.$radius-full}));
     // @desc Thumb control box shadow
     --_thumb-shadow: var(--ui-slider-thumb-shadow, #{t.$slider-thumb-shadow});
-    // @desc Focus ring
-    --_focus-ring: var(--ui-slider-focus-ring, var(--ui-color-focus, #{t.$color-focus}));
+    // @desc Focus ring color
+    --_focus-ring-color: var(--ui-slider-focus-ring-color, var(--ui-color-focus, #{t.$color-focus}));
     // @desc Fill percentage (set via JS for Webkit track fill)
     --_fill-pct: var(--ui-slider-fill-pct, 50%);
   }
@@ -41,31 +45,41 @@
   .slider--sm {
     // @desc Overall height at small size
     --_height: var(--ui-slider-height-sm, calc(#{t.$row} * 1.5));
-    --_track-height: calc(#{t.$unit} * 0.5);
-    --_thumb-size: calc(#{t.$unit} * 2);
+    // @desc Track height at small size
+    --_track-height: var(--ui-slider-track-height-sm, calc(#{t.$unit} * 0.5));
+    // @desc Thumb size at small size
+    --_thumb-size: var(--ui-slider-thumb-size-sm, calc(#{t.$unit} * 2));
   }
 
   .slider--lg {
     // @desc Overall height at large size
     --_height: var(--ui-slider-height-lg, calc(#{t.$row} * 2.5));
-    --_track-height: calc(#{t.$unit} * 1.5);
-    --_thumb-size: calc(#{t.$unit} * 3);
+    // @desc Track height at large size
+    --_track-height: var(--ui-slider-track-height-lg, calc(#{t.$unit} * 1.5));
+    // @desc Thumb size at large size
+    --_thumb-size: var(--ui-slider-thumb-size-lg, calc(#{t.$unit} * 3));
   }
 
   // @modifier color
   .slider--success {
-    --_track-fill: var(--ui-color-success, #{t.$color-success});
-    --_thumb-border-color: var(--ui-color-success, #{t.$color-success});
+    // @desc Success track fill
+    --_track-fill: var(--ui-slider-success-track-fill, var(--ui-color-success, #{t.$color-success}));
+    // @desc Success thumb border
+    --_thumb-border-color: var(--ui-slider-success-thumb-border, var(--ui-color-success, #{t.$color-success}));
   }
 
   .slider--warning {
-    --_track-fill: var(--ui-color-warning, #{t.$color-warning});
-    --_thumb-border-color: var(--ui-color-warning, #{t.$color-warning});
+    // @desc Warning track fill
+    --_track-fill: var(--ui-slider-warning-track-fill, var(--ui-color-warning, #{t.$color-warning}));
+    // @desc Warning thumb border
+    --_thumb-border-color: var(--ui-slider-warning-thumb-border, var(--ui-color-warning, #{t.$color-warning}));
   }
 
   .slider--danger {
-    --_track-fill: var(--ui-color-danger, #{t.$color-danger});
-    --_thumb-border-color: var(--ui-color-danger, #{t.$color-danger});
+    // @desc Danger track fill
+    --_track-fill: var(--ui-slider-danger-track-fill, var(--ui-color-danger, #{t.$color-danger}));
+    // @desc Danger thumb border
+    --_thumb-border-color: var(--ui-slider-danger-thumb-border, var(--ui-color-danger, #{t.$color-danger}));
   }
 }
 
@@ -121,8 +135,8 @@
       appearance: none;
 
       transition:
-        box-shadow var(--_duration-fast) var(--_ease-default),
-        transform var(--_duration-fast) var(--_ease-default);
+        box-shadow var(--_transition-duration) var(--_transition-timing),
+        transform var(--_transition-duration) var(--_transition-timing);
     }
 
     // Firefox thumb
@@ -136,20 +150,20 @@
       box-shadow: var(--_thumb-shadow);
 
       transition:
-        box-shadow var(--_duration-fast) var(--_ease-default),
-        transform var(--_duration-fast) var(--_ease-default);
+        box-shadow var(--_transition-duration) var(--_transition-timing),
+        transform var(--_transition-duration) var(--_transition-timing);
     }
 
     // Focus state
     &:focus-visible {
-      outline: var(--_border-width-md) solid transparent;
+      outline: var(--_focus-ring-width) solid transparent;
 
       &::-webkit-slider-thumb {
-        box-shadow: 0 0 0 var(--_border-width-md) var(--_focus-ring);
+        box-shadow: 0 0 0 var(--_focus-ring-width) var(--_focus-ring-color);
       }
 
       &::-moz-range-thumb {
-        box-shadow: 0 0 0 var(--_border-width-md) var(--_focus-ring);
+        box-shadow: 0 0 0 var(--_focus-ring-width) var(--_focus-ring-color);
       }
     }
 
@@ -166,7 +180,7 @@
 
     // Disabled state
     &:disabled {
-      opacity: var(--_opacity-disabled);
+      opacity: var(--_disabled-opacity);
       cursor: not-allowed;
     }
   }

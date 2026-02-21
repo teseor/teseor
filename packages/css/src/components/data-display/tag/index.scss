@@ -6,9 +6,14 @@
 
 @layer components.tokens {
   .tag {
-    --_weight-medium: var(--ui-font-weight-medium, #{t.$font-weight-medium});
-    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
-    --_opacity-loading: var(--ui-opacity-loading, #{t.$opacity-loading});
+    // @desc Font weight
+    --_font-weight: var(--ui-tag-font-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
+    // @desc Disabled opacity
+    --_disabled-opacity: var(--ui-tag-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
+    // @desc Remove button opacity
+    --_remove-opacity: var(--ui-tag-remove-opacity, var(--ui-opacity-loading, #{t.$opacity-loading}));
+    // @desc Group gap
+    --_group-gap: var(--ui-tag-group-gap, calc(#{t.$unit} * 0.5));
     // @desc Overall height
     --_height: var(--ui-tag-height, calc(#{t.$unit} * 3));
     // @desc Horizontal padding
@@ -84,7 +89,7 @@
     padding-inline: var(--_padding-x);
 
     font-size: var(--_font-size);
-    font-weight: var(--_weight-medium);
+    font-weight: var(--_font-weight);
     line-height: 1;
     white-space: nowrap;
     color: var(--_color);
@@ -94,7 +99,7 @@
 
     &:disabled,
     &[aria-disabled='true'] {
-      opacity: var(--_opacity-disabled);
+      opacity: var(--_disabled-opacity);
       cursor: not-allowed;
     }
   }
@@ -112,7 +117,7 @@
 
     background: none;
     border: none;
-    opacity: var(--_opacity-loading);
+    opacity: var(--_remove-opacity);
     cursor: pointer;
 
     &:hover {
@@ -124,6 +129,6 @@
   .tag-group {
     display: flex;
     flex-wrap: wrap;
-    gap: calc(#{t.$unit} * 0.5);
+    gap: var(--_group-gap);
   }
 }

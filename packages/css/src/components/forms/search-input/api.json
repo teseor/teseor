@@ -23,6 +23,63 @@
   },
   "cssVars": [
     {
+      "name": "--ui-search-input-border-width",
+      "default": "var(--ui-border-width-sm)",
+      "defaultValue": "1px",
+      "description": "Border width"
+    },
+    {
+      "name": "--ui-search-input-transition-duration",
+      "default": "var(--ui-duration-fast)",
+      "defaultValue": "100ms",
+      "description": "Transition duration"
+    },
+    {
+      "name": "--ui-search-input-transition-timing",
+      "default": "var(--ui-ease-default)",
+      "description": "Transition timing"
+    },
+    {
+      "name": "--ui-search-input-focus-ring-width",
+      "default": "var(--ui-border-width-md)",
+      "defaultValue": "2px",
+      "description": "Focus ring width"
+    },
+    {
+      "name": "--ui-search-input-focus-ring-color",
+      "default": "var(--ui-color-focus)",
+      "description": "Focus ring color"
+    },
+    {
+      "name": "--ui-search-input-disabled-opacity",
+      "default": "var(--ui-opacity-disabled)",
+      "defaultValue": "0.5",
+      "description": "Disabled opacity"
+    },
+    {
+      "name": "--ui-search-input-clear-inset-gap",
+      "default": "var(--ui-space-half)",
+      "description": "Clear inset gap"
+    },
+    {
+      "name": "--ui-search-input-clear-radius",
+      "default": "var(--ui-radius-sm)",
+      "defaultValue": "4px",
+      "description": "Clear border radius"
+    },
+    {
+      "name": "--ui-search-input-icon-stroke",
+      "default": "var(--ui-icon-stroke)",
+      "defaultValue": "2",
+      "description": "Icon stroke width"
+    },
+    {
+      "name": "--ui-search-input-focus-ring-offset",
+      "default": "var(--ui-focus-ring-offset)",
+      "defaultValue": "-2px",
+      "description": "Focus ring offset"
+    },
+    {
       "name": "--ui-search-input-height",
       "default": "var(--ui-row-2)",
       "defaultValue": "32px",

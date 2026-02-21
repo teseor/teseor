@@ -5,17 +5,34 @@
 
 @layer components.tokens {
   .link {
-    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
-    --_ease-default: var(--ui-ease-default, #{t.$ease-default});
-    --_color-focus: var(--ui-color-focus, var(--ui-color-primary, #{t.$color-primary}));
-    --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
-    --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
+    // @desc Transition duration
+    --_transition-duration: var(--ui-link-transition-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    // @desc Transition timing
+    --_transition-timing: var(--ui-link-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    // @desc Focus ring color
+    --_focus-color: var(--ui-link-focus-color, var(--ui-color-focus, var(--ui-color-primary, #{t.$color-primary})));
+    // @desc Focus outline width
+    --_focus-outline-width: var(--ui-link-focus-outline-width, var(--ui-border-width-md, #{t.$border-width-md}));
+    // @desc Disabled text color
+    --_disabled-color: var(--ui-link-disabled-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    // @desc Disabled opacity
+    --_disabled-opacity: var(--ui-link-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
+    // @desc Underline offset
+    --_underline-offset: var(--ui-link-underline-offset, calc(#{t.$unit} / 4));
+    // @desc Focus radius
+    --_focus-radius: var(--ui-link-focus-radius, calc(#{t.$unit} / 4));
+    // @desc Focus outline offset
+    --_focus-outline-offset: var(--ui-link-focus-outline-offset, calc(#{t.$unit} / 4));
+    // @desc External indicator spacing
+    --_external-spacing: var(--ui-link-external-spacing, calc(#{t.$unit} / 4));
+    // @desc External indicator font size
+    --_external-font-size: var(--ui-link-external-font-size, var(--ui-font-size-relative-sm, #{t.$font-size-relative-sm}));
     // @desc Text color
     --_color: var(--ui-link-color, var(--ui-color-primary, #{t.$color-primary}));
     // @desc Color hover
-    --_color-hover: var(--ui-link-color-hover, var(--ui-color-primary-hover, color-mix(in srgb, var(--_color) 85%, black)));
+    --_color-hover: var(--ui-link-color-hover, var(--ui-color-primary-hover, color-mix(in srgb, var(--ui-color-primary, #{t.$color-primary}) 85%, black)));
     // @desc Color visited
-    --_color-visited: var(--ui-link-color-visited, var(--_color));
+    --_color-visited: var(--ui-link-color-visited, var(--ui-color-primary, #{t.$color-primary}));
     // @desc Decoration
     --_decoration: var(--ui-link-decoration, underline);
     // @desc Decoration hover
@@ -43,8 +60,8 @@
 
     cursor: pointer;
 
-    transition: color var(--_duration-fast) var(--_ease-default);
-    text-underline-offset: calc(#{t.$unit} / 4);
+    transition: color var(--_transition-duration) var(--_transition-timing);
+    text-underline-offset: var(--_underline-offset);
 
     &:hover {
       text-decoration: var(--_decoration-hover);
@@ -52,9 +69,9 @@
     }
 
     &:focus-visible {
-      border-radius: calc(#{t.$unit} / 4);
-      outline: var(--_border-width-md) solid var(--_color-focus);
-      outline-offset: calc(#{t.$unit} / 4);
+      border-radius: var(--_focus-radius);
+      outline: var(--_focus-outline-width) solid var(--_focus-color);
+      outline-offset: var(--_focus-outline-offset);
     }
 
     &:visited {
@@ -66,9 +83,9 @@
   // @modifier boolean disabled
   .link--disabled,
   .link[aria-disabled="true"] {
-    color: var(--_color-text-muted);
+    color: var(--_disabled-color);
 
-    opacity: #{t.$opacity-disabled};
+    opacity: var(--_disabled-opacity);
     cursor: not-allowed;
     pointer-events: none;
   }
@@ -80,8 +97,8 @@
     content: "\2197"; // ↗
     display: inline-block;
 
-    margin-inline-start: calc(#{t.$unit} / 4);
+    margin-inline-start: var(--_external-spacing);
 
-    font-size: #{t.$font-size-relative-sm};
+    font-size: var(--_external-font-size);
   }
 }
