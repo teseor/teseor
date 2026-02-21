@@ -4,7 +4,7 @@
     "outDir": "./dist",
     "noEmit": true
   },
-  "include": ["test-utils/**/*.ts", "playwright.config.ts"],
+  "include": ["test-utils/**/*.ts", "src/types/**/*.ts", "playwright.config.ts"],
   "exclude": [
     "node_modules",
     "dist",
