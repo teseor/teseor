@@ -1,6 +1,6 @@
 {
   "name": "@teseor/contract",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "TypeScript contract for CSS components — types and class builders",
   "license": "MIT",
   "author": "letanure",
