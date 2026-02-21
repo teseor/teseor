@@ -8,7 +8,7 @@
 export function bemClasses(
   block: string,
   modifiers: Record<string, string | boolean | undefined>,
-  extra?: string,
+  extra?: string | null,
 ): string {
   const base = `ui-${block}`;
   const parts: string[] = [base];
