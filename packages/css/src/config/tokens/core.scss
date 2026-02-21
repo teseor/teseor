@@ -33,6 +33,27 @@
     // Shadow strength — controls opacity of all shadow levels
     --ui-shadow-strength: 12%;
 
+    // Viewport constraints — modal/dialog max sizes
+    --ui-viewport-max-height: 90vh;
+    --ui-viewport-max-height-full: 95vh;
+    --ui-viewport-max-width-full: 95vw;
+    --ui-viewport-padding: calc(var(--ui-unit) * 4);
+
+    // Icon stroke defaults
+    --ui-icon-stroke: 2;
+
+    // Focus ring
+    --ui-focus-ring-offset: calc(var(--ui-border-width-base) * -2);
+
+    // Feedback patterns
+    --ui-stripe-highlight: rgb(255 255 255 / 0.15);
+
+    // Layout constraints
+    --ui-container-threshold-sm: 30rem;
+
+    // Slider
+    --ui-slider-thumb-shadow: 0 1px 3px rgb(0 0 0 / 0.2);
+
     // Color derivation — mix targets and strengths
     --ui-color-mix-light: white;
     --ui-color-mix-dark: black;

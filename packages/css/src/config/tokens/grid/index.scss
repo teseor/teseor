@@ -10,6 +10,25 @@
     --ui-row-4: calc(var(--ui-row) * 4);
     --ui-row-5: calc(var(--ui-row) * 5);
     --ui-row-6: calc(var(--ui-row) * 6);
+    --ui-row-10: calc(var(--ui-row) * 10);
+    --ui-row-15: calc(var(--ui-row) * 15);
+    --ui-row-20: calc(var(--ui-row) * 20);
+
+    // Extended unit scale — component-specific fixed sizes
+    --ui-unit-0-75: calc(var(--ui-unit) * 0.75);
+    --ui-unit-neg-eighth: calc(var(--ui-unit) * -0.125);
+    --ui-unit-3-5: calc(var(--ui-unit) * 3.5);
+    --ui-unit-12: calc(var(--ui-unit) * 12);
+    --ui-unit-15: calc(var(--ui-unit) * 15);
+    --ui-unit-16: calc(var(--ui-unit) * 16);
+    --ui-unit-20: calc(var(--ui-unit) * 20);
+    --ui-unit-24: calc(var(--ui-unit) * 24);
+    --ui-unit-25: calc(var(--ui-unit) * 25);
+    --ui-unit-30: calc(var(--ui-unit) * 30);
+    --ui-unit-40: calc(var(--ui-unit) * 40);
+    --ui-unit-50: calc(var(--ui-unit) * 50);
+    --ui-unit-60: calc(var(--ui-unit) * 60);
+    --ui-unit-80: calc(var(--ui-unit) * 80);
 
     // T-shirt sizes — component height/width scale
     --ui-size-xs: var(--ui-unit);

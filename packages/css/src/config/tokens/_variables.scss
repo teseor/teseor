@@ -6,12 +6,12 @@
 // Section order mirrors config/tokens/index.scss import order.
 
 // ==========================================================================
-// 0. Scale — global density multiplier
+// Scale — global density multiplier
 // ==========================================================================
 $scale: 1;
 
 // ==========================================================================
-// 1. Grid — all derived from $unit
+// Grid — all derived from $unit
 // ==========================================================================
 $unit: 0.5rem; // 8px (matches --ui-unit at scale 1)
 $row: $unit * 2; // 16px
@@ -23,6 +23,9 @@ $row-3: $row * 3; // 48px
 $row-4: $row * 4;
 $row-5: $row * 5;
 $row-6: $row * 6;
+$row-10: $row * 10;
+$row-15: $row * 15;
+$row-20: $row * 20;
 
 // T-shirt sizes
 $size-xs: $unit;
@@ -32,7 +35,7 @@ $size-lg: $unit * 2.5;
 $size-xl: $unit * 3;
 
 // ==========================================================================
-// 2. Colors — OKLCH for perceptual uniformity
+// Colors — OKLCH for perceptual uniformity
 // ==========================================================================
 
 // Color derivation knobs
@@ -98,7 +101,7 @@ $color-danger-border: oklch(82% 0.08 25);
 $color-danger-fg: $color-neutral-50;
 
 // ==========================================================================
-// 3. Spacing — derived from $unit
+// Spacing — derived from $unit
 // ==========================================================================
 $space-px: $unit * 0.125; // 1px - hairline
 $space-quarter: $unit * 0.25; // 2px - micro spacing
@@ -110,6 +113,22 @@ $space-4: $unit * 4;
 $space-5: $unit * 5; // 40px
 $space-6: $unit * 6;
 $space-8: $unit * 8;
+
+// Extended unit scale — component-specific sizes derived from $unit
+$unit-0-75: $unit * 0.75; // 6px
+$unit-3-5: $unit * 3.5; // 28px
+$unit-12: $unit * 12; // 96px
+$unit-15: $unit * 15; // 120px
+$unit-16: $unit * 16; // 128px
+$unit-20: $unit * 20; // 160px
+$unit-24: $unit * 24; // 192px
+$unit-25: $unit * 25; // 200px
+$unit-30: $unit * 30; // 240px
+$unit-40: $unit * 40; // 320px
+$unit-50: $unit * 50; // 400px
+$unit-60: $unit * 60; // 480px
+$unit-80: $unit * 80; // 640px
+$unit-neg-eighth: $unit * -0.125; // -1px
 
 // T-shirt sizes map for looping
 $sizes: (
@@ -126,7 +145,7 @@ $sizes: (
 }
 
 // ==========================================================================
-// 4. Typography
+// Typography
 // ==========================================================================
 
 // Font families (system stack, consumers override via CSS tokens)
@@ -180,7 +199,7 @@ $font-size-relative-xs: 0.6em;
 $font-size-relative-sm: 0.75em;
 
 // ==========================================================================
-// 5. Radius — derived from $radius-base (which defaults to $unit)
+// Radius — derived from $radius-base (which defaults to $unit)
 // ==========================================================================
 $radius-base: $unit; // 8px — theme knob
 $radius-sm: $radius-base * 0.5; // 4px
@@ -189,7 +208,7 @@ $radius-lg: $radius-base * 2; // 16px
 $radius-full: 9999px;
 
 // ==========================================================================
-// 6. Borders — derived from $border-width-base
+// Borders — derived from $border-width-base
 // ==========================================================================
 $border-width-base: $unit * 0.125; // 1px — core knob
 $border-width-sm: $border-width-base; // 1px
@@ -198,7 +217,7 @@ $border-width-lg: $border-width-base * 4; // 4px
 $focus-ring-offset: -$border-width-md;
 
 // ==========================================================================
-// 7. Shadows — geometry from $unit, opacity from $shadow-strength
+// Shadows — geometry from $unit, opacity from $shadow-strength
 // ==========================================================================
 $shadow-strength: 20%; // core knob
 $shadow-sm: 0 ($unit * 0.125) ($unit * 0.25) hsl(220 10% 20% / 0.05);
@@ -206,7 +225,7 @@ $shadow-md: 0 ($unit * 0.5) ($unit * 0.75) hsl(220 10% 20% / 0.1);
 $shadow-lg: 0 ($unit * 1.25) ($unit * 2) hsl(220 10% 20% / 0.15);
 
 // ==========================================================================
-// 8. Z-index scale
+// Z-index scale
 // ==========================================================================
 $z-index-base: 0;
 $z-index-sticky: 100;
@@ -220,7 +239,14 @@ $z-index-drawer: 800;
 $z-index-debug: 9999;
 
 // ==========================================================================
-// 9. Motion
+// Viewport constraints
+// ==========================================================================
+$viewport-max-height: 90vh;
+$viewport-max-height-full: 95vh;
+$viewport-max-width-full: 95vw;
+
+// ==========================================================================
+// Motion
 // ==========================================================================
 $duration-instant: 50ms;
 $duration-fast: 100ms;
@@ -235,7 +261,7 @@ $ease-out: cubic-bezier(0, 0, 0.2, 1);
 $ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
 
 // ==========================================================================
-// 10. Semantic colors (light theme defaults)
+// Semantic colors (light theme defaults)
 // ==========================================================================
 $color-text: $color-neutral-900;
 $color-text-muted: $color-neutral-500;
@@ -271,7 +297,7 @@ $overlay-bg-subtle: rgb(0 0 0 / 0.1);
 $stripe-highlight: rgb(255 255 255 / 0.15);
 
 // ==========================================================================
-// 11. Token registry — single source of truth for validation + fallbacks
+// Token registry — single source of truth for validation + fallbacks
 // The token() mixin validates against this map at compile time.
 // Every --ui-* CSS custom property MUST have an entry here.
 // ==========================================================================
@@ -288,6 +314,9 @@ $tokens: map.merge(
     'row-4': $row-4,
     'row-5': $row-5,
     'row-6': $row-6,
+    'row-10': $row-10,
+    'row-15': $row-15,
+    'row-20': $row-20,
     // Sizes
     'size-xs': $size-xs,
     'size-sm': $size-sm,
@@ -305,6 +334,20 @@ $tokens: map.merge(
     'space-5': $space-5,
     'space-6': $space-6,
     'space-8': $space-8,
+    // Extended unit scale
+    'unit-0-75': $unit-0-75,
+    'unit-3-5': $unit-3-5,
+    'unit-12': $unit-12,
+    'unit-15': $unit-15,
+    'unit-16': $unit-16,
+    'unit-20': $unit-20,
+    'unit-24': $unit-24,
+    'unit-25': $unit-25,
+    'unit-30': $unit-30,
+    'unit-40': $unit-40,
+    'unit-50': $unit-50,
+    'unit-60': $unit-60,
+    'unit-80': $unit-80,
     // Colors — palette
     'color-primary': $color-primary,
     'color-success': $color-success,
@@ -426,6 +469,10 @@ $tokens: map.merge(
     'overlay-bg-light': $overlay-bg-light,
     'overlay-bg-blur': $overlay-bg-blur,
     'overlay-bg-subtle': $overlay-bg-subtle,
+    // Viewport constraints
+    'viewport-max-height': $viewport-max-height,
+    'viewport-max-height-full': $viewport-max-height-full,
+    'viewport-max-width-full': $viewport-max-width-full,
   ),
 );
 
@@ -458,7 +505,7 @@ $tokens: map.merge(
 }
 
 // ==========================================================================
-// 12. Component defaults
+// Component defaults
 // ==========================================================================
 
 // Icons
@@ -482,3 +529,4 @@ $icon-size-inline: 1em;
 $slider-thumb-shadow: 0 1px 3px rgb(0 0 0 / 0.2);
 $toast-viewport-max-width: 420px;
 $spacer-size: 1;
+
