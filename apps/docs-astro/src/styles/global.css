@@ -89,6 +89,10 @@
 }
 
 @layer docs {
+  .gallery-modifier {
+    margin-block-end: var(--ui-space-2);
+  }
+
   .code-preview__code {
     position: relative;
   }

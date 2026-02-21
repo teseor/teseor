@@ -1,0 +1,45 @@
+---
+// biome-ignore lint/style/useImportType: Code is used in template
+import { Code } from 'astro:components';
+
+interface Props {
+  title?: string;
+  layout?: 'row' | 'column';
+}
+
+const { title, layout } = Astro.props;
+const rawHtml = await Astro.slots.render('default');
+
+// Strip Astro internal attributes for clean code display
+const cleanHtml = rawHtml
+  .replace(/\s*data-astro-source-file="[^"]*"/g, '')
+  .replace(/\s*data-astro-source-loc="[^"]*"/g, '')
+  .trim();
+
+const layoutClass = layout === 'row'
+  ? 'ui-row ui-row--sm ui-wrap'
+  : layout === 'column'
+    ? 'ui-column ui-column--sm'
+    : undefined;
+---
+
+<section class="ui-docs-section">
+  {title && <h2 class="ui-heading ui-heading--lg">{title}</h2>}
+  <div class="ui-card">
+    <div class="ui-card__body" data-preview>
+      <div class={layoutClass} set:html={rawHtml} />
+    </div>
+    <details class="ui-disclosure">
+      <summary class="ui-disclosure__trigger">Show code</summary>
+      <div class="code-preview__code">
+        <button
+          class="ui-button ui-button--ghost ui-button--sm copy-btn"
+          type="button"
+          data-copy
+          aria-label="Copy code"
+        >Copy</button>
+        <Code code={cleanHtml} lang="html" theme="github-dark" />
+      </div>
+    </details>
+  </div>
+</section>
