@@ -1,7 +1,7 @@
 import { readdirSync, statSync } from 'node:fs';
 import { basename, dirname, join, resolve } from 'node:path';
 import { expect, test } from '@playwright/test';
-import { saveForLostPixel, setupVisualTestFromHtmlDocs, validateGridRhythm } from '.';
+import { saveForLostPixel, setupVisualTestFromApi, validateGridRhythm } from '.';
 
 const SRC_DIR = resolve(__dirname, '../src');
 const SEARCH_DIRS = [join(SRC_DIR, 'components'), join(SRC_DIR, 'layout')];
@@ -19,25 +19,25 @@ const SKIP_GRID = new Set([
   'sidebar-nav',
 ]);
 
-function findDocsFiles(dir: string): Array<{ name: string; path: string }> {
+function findApiFiles(dir: string): Array<{ name: string; path: string }> {
   const results: Array<{ name: string; path: string }> = [];
   for (const entry of readdirSync(dir)) {
     const full = join(dir, entry);
     if (statSync(full).isDirectory()) {
-      results.push(...findDocsFiles(full));
-    } else if (entry === 'docs.html') {
+      results.push(...findApiFiles(full));
+    } else if (entry.endsWith('.api.json')) {
       results.push({ name: basename(dirname(full)), path: full });
     }
   }
   return results;
 }
 
-const allDocs = SEARCH_DIRS.flatMap((d) => findDocsFiles(d));
+const allApis = SEARCH_DIRS.flatMap((d) => findApiFiles(d));
 
-for (const { name, path } of allDocs) {
+for (const { name, path } of allApis) {
   test.describe(`${name} visual regression`, () => {
     test('all variations', async ({ page }) => {
-      await setupVisualTestFromHtmlDocs(page, path);
+      await setupVisualTestFromApi(page, path);
       if (!SKIP_GRID.has(name)) {
         await validateGridRhythm(page, name);
       }
