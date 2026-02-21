@@ -1,18 +1,20 @@
+@use '../../config/tokens/variables' as t;
+
 // @component main
 // @element main
 
 @layer primitives {
   .main {
-    --_unit: var(--ui-unit);
-    padding-block-start: var(--topbar-height, 0);
-    margin-inline-start: var(--sidebar-width, calc(var(--_unit) * 30));
+    @include t.token(unit, unit);
+    padding-block-start: var(--ui-topbar-height, 0);
+    margin-inline-start: var(--ui-sidebar-width, calc(var(--_unit) * 30));
   }
 
   // When sidebar is on the end
   // @modifier boolean sidebar-end
   .main--sidebar-end {
     margin-inline-start: 0;
-    margin-inline-end: var(--sidebar-width, calc(var(--_unit) * 30));
+    margin-inline-end: var(--ui-sidebar-width, calc(var(--_unit) * 30));
   }
 
   // No sidebar

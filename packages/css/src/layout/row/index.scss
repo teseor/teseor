@@ -1,12 +1,14 @@
+@use '../../config/tokens/variables' as t;
+
 // @component row
 // @element div
 
 @layer primitives {
   .row {
-    --_space-2: var(--ui-space-2);
-    --_space-1: var(--ui-space-1);
-    --_space-4: var(--ui-space-4);
-    --_space-6: var(--ui-space-6);
+    @include t.token(space-2, space-2);
+    @include t.token(space-1, space-1);
+    @include t.token(space-4, space-4);
+    @include t.token(space-6, space-6);
     display: flex;
     flex-wrap: wrap;
     align-items: center;

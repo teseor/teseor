@@ -1,33 +1,35 @@
+@use '../../config/tokens/variables' as t;
+
 // @component sidebar
 // @element aside
 
 @layer primitives {
   .sidebar {
-    --_z-sticky: var(--ui-z-index-sticky);
-    --_unit: var(--ui-unit);
-    --_color-bg-subtle: var(--ui-color-bg-subtle);
-    --_border-width-sm: var(--ui-border-width-sm);
-    --_color-border: var(--ui-color-border);
+    @include t.token(z-sticky, z-index-sticky);
+    @include t.token(unit, unit);
+    @include t.token(bg, color-bg-subtle);
+    @include t.token(border-width-sm, border-width-sm);
+    @include t.token(border-color, color-border);
     display: flex;
     flex-direction: column;
     position: fixed;
-    inset-block-start: var(--topbar-height, 0);
+    inset-block-start: var(--ui-topbar-height, 0);
     inset-inline-start: 0;
     z-index: var(--_z-sticky);
 
-    block-size: calc(100vh - var(--topbar-height, 0px));
-    inline-size: var(--sidebar-width, calc(var(--_unit) * 30));
+    block-size: calc(100vh - var(--ui-topbar-height, 0px));
+    inline-size: var(--ui-sidebar-width, calc(var(--_unit) * 30));
     overflow-y: auto;
 
-    background: var(--_color-bg-subtle);
-    box-shadow: inset calc(var(--_border-width-sm) * -1) 0 0 0 var(--_color-border);
+    background: var(--_bg);
+    box-shadow: inset calc(var(--_border-width-sm) * -1) 0 0 0 var(--_border-color);
   }
 
   // Width modifiers
   // @modifier size
-  .sidebar--sm { --sidebar-width: calc(var(--_unit) * 24); }
-  .sidebar--md { --sidebar-width: calc(var(--_unit) * 30); }
-  .sidebar--lg { --sidebar-width: calc(var(--_unit) * 40); }
+  .sidebar--sm { --ui-sidebar-width: calc(var(--_unit) * 24); }
+  .sidebar--md { --ui-sidebar-width: calc(var(--_unit) * 30); }
+  .sidebar--lg { --ui-sidebar-width: calc(var(--_unit) * 40); }
 
   // Position modifier - sidebar on end (right in LTR)
   // @modifier boolean end
@@ -35,6 +37,6 @@
     inset-inline-start: auto;
     inset-inline-end: 0;
 
-    box-shadow: inset var(--_border-width-sm) 0 0 0 var(--_color-border);
+    box-shadow: inset var(--_border-width-sm) 0 0 0 var(--_border-color);
   }
 }

@@ -1,21 +1,23 @@
+@use '../../config/tokens/variables' as t;
+
 // @component topbar
 // @element header
 
 @layer primitives {
   .topbar {
-    --_space-2: var(--ui-space-2);
-    --_border-width-sm: var(--ui-border-width-sm);
-    --_shadow-sm: var(--ui-shadow-sm);
+    @include t.token(space-2, space-2);
+    @include t.token(border-width-sm, border-width-sm);
+    @include t.token(shadow-sm, shadow-sm);
     // @desc Overall height
-    --_height: var(--ui-topbar-height, var(--ui-row-3));
+    @include t.token(height, row-3, topbar);
     // @desc Background color
-    --_bg: var(--ui-topbar-bg, var(--ui-color-bg));
+    @include t.token(bg, color-bg, topbar);
     // @desc Horizontal padding
-    --_padding-inline: var(--ui-topbar-padding-inline, var(--ui-space-3));
+    @include t.token(padding-inline, space-3, topbar);
     // @desc Border color
-    --_border-color: var(--ui-topbar-border-color, var(--ui-color-border));
+    @include t.token(border-color, color-border, topbar);
     // @desc Z-index stacking order
-    --_z: var(--ui-topbar-z, var(--ui-z-index-sticky));
+    @include t.token(z, z-index-sticky, topbar);
 
     display: flex;
     align-items: center;

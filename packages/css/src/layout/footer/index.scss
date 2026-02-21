@@ -4,19 +4,19 @@
 
 @layer primitives {
   .footer {
-    --_space-2: var(--ui-space-2);
-    --_border-width-sm: var(--ui-border-width-sm);
-    --_shadow-color: var(--ui-color-neutral-100, #{t.$color-neutral-100});
+    @include t.token(space-2, space-2);
+    @include t.token(border-width-sm, border-width-sm);
+    @include t.token(shadow-color, color-neutral-100);
     // @desc Overall height
-    --_height: var(--ui-footer-height, var(--ui-row-3));
+    @include t.token(height, row-3, footer);
     // @desc Background color
-    --_bg: var(--ui-footer-bg, var(--ui-color-bg));
+    @include t.token(bg, color-bg, footer);
     // @desc Horizontal padding
-    --_padding-inline: var(--ui-footer-padding-inline, var(--ui-space-3));
+    @include t.token(padding-inline, space-3, footer);
     // @desc Border color
-    --_border-color: var(--ui-footer-border-color, var(--ui-color-border));
+    @include t.token(border-color, color-border, footer);
     // @desc Z-index stacking order
-    --_z: var(--ui-footer-z, var(--ui-z-index-sticky));
+    @include t.token(z, z-index-sticky, footer);
 
     display: flex;
     align-items: center;

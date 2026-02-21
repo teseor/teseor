@@ -1,15 +1,17 @@
+@use '../../config/tokens/variables' as t;
+
 // @component content
 // @element div
 
 @layer primitives {
   .content {
-    --_unit: var(--ui-unit);
+    @include t.token(unit, unit);
     // @desc Vertical padding
-    --_padding-block: var(--ui-content-padding-block, var(--ui-space-4));
+    @include t.token(padding-block, space-4, content);
     // @desc Horizontal padding
-    --_padding-inline: var(--ui-content-padding-inline, var(--ui-space-4));
+    @include t.token(padding-inline, space-4, content);
     // @desc Gap between children
-    --_gap: var(--ui-content-gap, var(--ui-space-3));
+    @include t.token(gap, space-3, content);
 
     display: flex;
     flex-direction: column;
