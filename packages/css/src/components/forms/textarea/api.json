@@ -69,7 +69,7 @@
     },
     {
       "name": "--ui-textarea-min-height",
-      "default": "calc(var(--ui-row) * 4)",
+      "default": "var(--ui-row-4)",
       "defaultValue": "64px",
       "description": "Minimum height"
     },
@@ -124,7 +124,7 @@
     },
     {
       "name": "--ui-textarea-min-height-sm",
-      "default": "calc(var(--ui-row) * 3)",
+      "default": "var(--ui-row-3)",
       "defaultValue": "48px",
       "description": "Minimum height at small size"
     },
@@ -136,7 +136,7 @@
     },
     {
       "name": "--ui-textarea-min-height-lg",
-      "default": "calc(var(--ui-row) * 6)",
+      "default": "var(--ui-row-6)",
       "defaultValue": "96px",
       "description": "Minimum height at large size"
     },

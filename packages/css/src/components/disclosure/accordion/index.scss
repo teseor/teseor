@@ -12,7 +12,7 @@
     // @desc Border thickness
     --_border-width: var(--ui-accordion-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
     // @desc Corner radius
-    --_radius: var(--ui-accordion-radius, var(--ui-radius-md, calc(#{t.$unit} * 1)));
+    --_radius: var(--ui-accordion-radius, var(--ui-radius-md, var(--ui-space-1, #{t.$space-1})));
     // @desc Gap between items in separated variant
     --_separated-gap: var(--ui-accordion-separated-gap, var(--ui-space-1, #{t.$space-1}));
   }

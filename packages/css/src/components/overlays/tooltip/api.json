@@ -30,13 +30,13 @@
     },
     {
       "name": "--ui-tooltip-max-width",
-      "default": "calc(var(--ui-unit) * 25)",
+      "default": "var(--ui-unit-25)",
       "defaultValue": "200px",
       "description": "Max width"
     },
     {
       "name": "--ui-tooltip-line-height",
-      "default": "calc(var(--ui-unit) * 2)",
+      "default": "var(--ui-space-2)",
       "defaultValue": "16px",
       "description": "Line height"
     },
@@ -58,13 +58,13 @@
     },
     {
       "name": "--ui-tooltip-padding-x",
-      "default": "calc(var(--ui-unit) * 1)",
+      "default": "var(--ui-space-1)",
       "defaultValue": "8px",
       "description": "Horizontal padding"
     },
     {
       "name": "--ui-tooltip-padding-y",
-      "default": "calc(var(--ui-unit) / 2)",
+      "default": "var(--ui-space-0)",
       "defaultValue": "4px",
       "description": "Vertical padding"
     },
@@ -82,7 +82,7 @@
     },
     {
       "name": "--ui-tooltip-arrow-size",
-      "default": "calc(var(--ui-unit) / 2)",
+      "default": "var(--ui-space-0)",
       "defaultValue": "4px",
       "description": "Arrow size"
     }

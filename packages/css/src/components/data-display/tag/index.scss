@@ -13,13 +13,13 @@
     // @desc Remove button opacity
     --_remove-opacity: var(--ui-tag-remove-opacity, var(--ui-opacity-loading, #{t.$opacity-loading}));
     // @desc Group gap
-    --_group-gap: var(--ui-tag-group-gap, calc(#{t.$unit} * 0.5));
+    --_group-gap: var(--ui-tag-group-gap, var(--ui-space-0, #{t.$space-0}));
     // @desc Overall height
-    --_height: var(--ui-tag-height, calc(#{t.$unit} * 3));
+    --_height: var(--ui-tag-height, var(--ui-space-3, #{t.$space-3}));
     // @desc Horizontal padding
     --_padding-x: var(--ui-tag-padding-x, var(--ui-space-1, #{t.$space-1}));
     // @desc Gap between children
-    --_gap: var(--ui-tag-gap, calc(#{t.$unit} * 0.5));
+    --_gap: var(--ui-tag-gap, var(--ui-space-0, #{t.$space-0}));
     // @desc Corner radius
     --_radius: var(--ui-tag-radius, var(--ui-radius-full, #{t.$radius-full}));
     // @desc Font size
@@ -33,16 +33,16 @@
   // @modifier size
   .tag--sm {
     // @desc Overall height at small size
-    --_height: var(--ui-tag-height-sm, calc(#{t.$unit} * 2));
+    --_height: var(--ui-tag-height-sm, var(--ui-space-2, #{t.$space-2}));
     // @desc Horizontal padding at small size
-    --_padding-x: var(--ui-tag-padding-x-sm, calc(#{t.$unit} * 1));
+    --_padding-x: var(--ui-tag-padding-x-sm, var(--ui-space-1, #{t.$space-1}));
     // @desc Font size at small size
     --_font-size: var(--ui-tag-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
   }
 
   .tag--lg {
     // @desc Overall height at large size
-    --_height: var(--ui-tag-height-lg, calc(#{t.$unit} * 4));
+    --_height: var(--ui-tag-height-lg, var(--ui-space-4, #{t.$space-4}));
     // @desc Horizontal padding at large size
     --_padding-x: var(--ui-tag-padding-x-lg, var(--ui-space-2, #{t.$space-2}));
     // @desc Font size at large size

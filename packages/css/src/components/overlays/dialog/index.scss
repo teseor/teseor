@@ -12,17 +12,21 @@
     // @desc Title font weight
     --_title-font-weight: var(--ui-dialog-title-font-weight, var(--ui-font-weight-semibold, #{t.$font-weight-semibold}));
     // @desc Title line height
-    --_title-line-height: var(--ui-dialog-title-line-height, calc(#{t.$unit} * 3));
+    --_title-line-height: var(--ui-dialog-title-line-height, var(--ui-space-3, #{t.$space-3}));
     // @desc Header gap
-    --_header-gap: var(--ui-dialog-header-gap, calc(#{t.$unit} * 2));
+    --_header-gap: var(--ui-dialog-header-gap, var(--ui-space-2, #{t.$space-2}));
     // @desc Footer gap
-    --_footer-gap: var(--ui-dialog-footer-gap, calc(#{t.$unit} * 1.5));
-    // @desc Header padding on all sides
-    --_header-padding: var(--ui-dialog-header-padding, calc(#{t.$unit} * 2) calc(#{t.$unit} * 3));
+    --_footer-gap: var(--ui-dialog-footer-gap, var(--ui-size-sm, #{t.$size-sm}));
+    // @desc Header vertical padding
+    --_header-padding-y: var(--ui-dialog-header-padding-y, var(--ui-space-2, #{t.$space-2}));
+    // @desc Header horizontal padding
+    --_header-padding-x: var(--ui-dialog-header-padding-x, var(--ui-space-3, #{t.$space-3}));
     // @desc Body area padding on all sides
-    --_body-padding: var(--ui-dialog-body-padding, calc(#{t.$unit} * 3));
-    // @desc Footer padding on all sides
-    --_footer-padding: var(--ui-dialog-footer-padding, calc(#{t.$unit} * 2) calc(#{t.$unit} * 3));
+    --_body-padding: var(--ui-dialog-body-padding, var(--ui-space-3, #{t.$space-3}));
+    // @desc Footer vertical padding
+    --_footer-padding-y: var(--ui-dialog-footer-padding-y, var(--ui-space-2, #{t.$space-2}));
+    // @desc Footer horizontal padding
+    --_footer-padding-x: var(--ui-dialog-footer-padding-x, var(--ui-space-3, #{t.$space-3}));
     // @desc Border color
     --_border-color: var(--ui-dialog-border-color, var(--ui-color-border, #{t.$color-border}));
     // @desc Border thickness
@@ -43,7 +47,7 @@
     justify-content: space-between;
     gap: var(--_header-gap);
 
-    padding: var(--_header-padding);
+    padding: var(--_header-padding-y) var(--_header-padding-x);
 
     border-block-end: var(--_border-width) solid var(--_border-color);
   }
@@ -76,7 +80,7 @@
     justify-content: flex-end;
     gap: var(--_footer-gap);
 
-    padding: var(--_footer-padding);
+    padding: var(--_footer-padding-y) var(--_footer-padding-x);
 
     border-block-start: var(--_border-width) solid var(--_border-color);
   }

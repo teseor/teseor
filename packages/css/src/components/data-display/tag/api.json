@@ -39,13 +39,13 @@
     },
     {
       "name": "--ui-tag-group-gap",
-      "default": "calc(var(--ui-unit) * 0.5)",
+      "default": "var(--ui-space-0)",
       "defaultValue": "4px",
       "description": "Group gap"
     },
     {
       "name": "--ui-tag-height",
-      "default": "calc(var(--ui-unit) * 3)",
+      "default": "var(--ui-space-3)",
       "defaultValue": "24px",
       "description": "Overall height"
     },
@@ -57,7 +57,7 @@
     },
     {
       "name": "--ui-tag-gap",
-      "default": "calc(var(--ui-unit) * 0.5)",
+      "default": "var(--ui-space-0)",
       "defaultValue": "4px",
       "description": "Gap between children"
     },
@@ -85,13 +85,13 @@
     },
     {
       "name": "--ui-tag-height-sm",
-      "default": "calc(var(--ui-unit) * 2)",
+      "default": "var(--ui-space-2)",
       "defaultValue": "16px",
       "description": "Overall height at small size"
     },
     {
       "name": "--ui-tag-padding-x-sm",
-      "default": "calc(var(--ui-unit) * 1)",
+      "default": "var(--ui-space-1)",
       "defaultValue": "8px",
       "description": "Horizontal padding at small size"
     },
@@ -103,7 +103,7 @@
     },
     {
       "name": "--ui-tag-height-lg",
-      "default": "calc(var(--ui-unit) * 4)",
+      "default": "var(--ui-space-4)",
       "defaultValue": "32px",
       "description": "Overall height at large size"
     },

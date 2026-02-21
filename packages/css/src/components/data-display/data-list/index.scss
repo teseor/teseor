@@ -8,7 +8,7 @@
 @layer components.tokens {
   .data-list {
     // @desc Line height
-    --_line-height: var(--ui-data-list-line-height, var(--ui-row-1, #{t.$row}));
+    --_line-height: var(--ui-data-list-line-height, var(--ui-row-1, var(--ui-row, #{t.$row})));
     // @desc Label font size
     --_label-font-size: var(--ui-data-list-label-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     // @desc Label font weight
@@ -24,13 +24,13 @@
     // @desc Large font size
     --_lg-font-size: var(--ui-data-list-lg-font-size, var(--ui-font-size-lg, #{t.$font-size-lg}));
     // @desc Stripe padding
-    --_stripe-padding: var(--ui-data-list-stripe-padding, calc(#{t.$unit} * 1));
+    --_stripe-padding: var(--ui-data-list-stripe-padding, var(--ui-space-1, #{t.$space-1}));
     // @desc Horizontal item gap
-    --_horizontal-gap: var(--ui-data-list-horizontal-gap, calc(#{t.$unit} * 2));
+    --_horizontal-gap: var(--ui-data-list-horizontal-gap, var(--ui-space-2, #{t.$space-2}));
     // @desc Gap between children
-    --_gap: var(--ui-data-list-gap, calc(#{t.$unit} * 2));
+    --_gap: var(--ui-data-list-gap, var(--ui-space-2, #{t.$space-2}));
     // @desc Item gap between children
-    --_item-gap: var(--ui-data-list-item-gap, calc(#{t.$unit} * 1));
+    --_item-gap: var(--ui-data-list-item-gap, var(--ui-space-1, #{t.$space-1}));
     // @desc Label text color
     --_label-color: var(--ui-data-list-label-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
     // @desc Value display text color
@@ -41,7 +41,7 @@
   // @modifier size
   .data-list--sm {
     // @desc Gap at small size
-    --_gap: var(--ui-data-list-gap-sm, calc(#{t.$unit} * 1));
+    --_gap: var(--ui-data-list-gap-sm, var(--ui-space-1, #{t.$space-1}));
     // @desc Item gap at small size
     --_item-gap: var(--ui-data-list-item-gap-sm, 0);
   }
@@ -49,9 +49,9 @@
   // Large size
   .data-list--lg {
     // @desc Gap at large size
-    --_gap: var(--ui-data-list-gap-lg, calc(#{t.$unit} * 3));
+    --_gap: var(--ui-data-list-gap-lg, var(--ui-space-3, #{t.$space-3}));
     // @desc Item gap at large size
-    --_item-gap: var(--ui-data-list-item-gap-lg, calc(#{t.$unit} * 1));
+    --_item-gap: var(--ui-data-list-item-gap-lg, var(--ui-space-1, #{t.$space-1}));
   }
 }
 

@@ -62,6 +62,7 @@
     {
       "name": "--ui-close-button-icon-size",
       "default": "var(--ui-size-md)",
+      "defaultValue": "16px",
       "description": "Size of the X icon"
     },
     {
@@ -87,13 +88,14 @@
     },
     {
       "name": "--ui-close-button-size-sm",
-      "default": "calc(var(--ui-unit) * 3)",
+      "default": "var(--ui-space-3)",
       "defaultValue": "24px",
       "description": "Overall size at small size"
     },
     {
       "name": "--ui-close-button-icon-size-sm",
       "default": "var(--ui-size-sm)",
+      "defaultValue": "12px",
       "description": "Icon dimensions at small size"
     },
     {
@@ -105,6 +107,7 @@
     {
       "name": "--ui-close-button-icon-size-lg",
       "default": "var(--ui-size-lg)",
+      "defaultValue": "20px",
       "description": "Icon dimensions at large size"
     },
     {

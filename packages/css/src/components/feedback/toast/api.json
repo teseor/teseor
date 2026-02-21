@@ -49,13 +49,13 @@
     },
     {
       "name": "--ui-toast-viewport-gap",
-      "default": "calc(var(--ui-unit) * 1)",
+      "default": "var(--ui-space-1)",
       "defaultValue": "8px",
       "description": "Viewport gap"
     },
     {
       "name": "--ui-toast-viewport-padding",
-      "default": "calc(var(--ui-unit) * 2)",
+      "default": "var(--ui-space-2)",
       "defaultValue": "16px",
       "description": "Viewport padding"
     },
@@ -123,13 +123,13 @@
     },
     {
       "name": "--ui-toast-padding",
-      "default": "calc(var(--ui-unit) * 2)",
+      "default": "var(--ui-space-2)",
       "defaultValue": "16px",
       "description": "Padding on all sides"
     },
     {
       "name": "--ui-toast-gap",
-      "default": "calc(var(--ui-unit) * 1)",
+      "default": "var(--ui-space-1)",
       "defaultValue": "8px",
       "description": "Gap between children"
     },

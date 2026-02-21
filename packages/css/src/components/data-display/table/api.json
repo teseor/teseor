@@ -19,7 +19,7 @@
     },
     {
       "name": "--ui-table-cell-line-height",
-      "default": "calc(var(--ui-unit) * 3)",
+      "default": "var(--ui-space-3)",
       "defaultValue": "24px",
       "description": "Cell line height"
     },

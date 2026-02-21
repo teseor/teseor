@@ -40,7 +40,7 @@
     },
     {
       "name": "--ui-modal-viewport-padding",
-      "default": "calc(var(--ui-unit) * 2)",
+      "default": "var(--ui-space-2)",
       "defaultValue": "16px",
       "description": "Viewport padding"
     },
@@ -57,24 +57,24 @@
     },
     {
       "name": "--ui-modal-shadow",
-      "default": "0 calc(var(--ui-unit) * 3) calc(var(--ui-unit) * 6) rgb(0 0 0 / 0.25)",
+      "default": "var(--ui-shadow-lg)",
       "description": "Box shadow"
     },
     {
       "name": "--ui-modal-padding",
-      "default": "calc(var(--ui-unit) * 3)",
+      "default": "var(--ui-space-3)",
       "defaultValue": "24px",
       "description": "Padding on all sides"
     },
     {
       "name": "--ui-modal-max-width",
-      "default": "calc(var(--ui-unit) * 60)",
+      "default": "var(--ui-unit-60)",
       "defaultValue": "480px",
       "description": "Maximum width"
     },
     {
       "name": "--ui-modal-max-height",
-      "default": "calc(100vh - var(--ui-unit) * 8)",
+      "default": "var(--ui-viewport-max-height)",
       "description": "Maximum height"
     },
     {
@@ -85,13 +85,13 @@
     },
     {
       "name": "--ui-modal-max-width-sm",
-      "default": "calc(var(--ui-unit) * 40)",
+      "default": "var(--ui-unit-40)",
       "defaultValue": "320px",
       "description": "Maximum width at small size"
     },
     {
       "name": "--ui-modal-max-width-lg",
-      "default": "calc(var(--ui-unit) * 80)",
+      "default": "var(--ui-unit-80)",
       "defaultValue": "640px",
       "description": "Maximum width at large size"
     }

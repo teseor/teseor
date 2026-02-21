@@ -6,7 +6,7 @@
   .footer {
     --_space-2: var(--ui-space-2);
     --_border-width-sm: var(--ui-border-width-sm);
-    --_shadow-color: color-mix(in oklch, var(--ui-color-neutral, #{t.$color-neutral}) 8%, transparent);
+    --_shadow-color: var(--ui-color-neutral-100, #{t.$color-neutral-100});
     // @desc Overall height
     --_height: var(--ui-footer-height, var(--ui-row-3));
     // @desc Background color

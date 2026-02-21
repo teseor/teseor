@@ -18,9 +18,9 @@
     // @desc Link hover color
     --_link-hover-color: var(--ui-breadcrumb-link-hover-color, var(--ui-color-primary, #{t.$color-primary}));
     // @desc Overall height
-    --_height: var(--ui-breadcrumb-height, var(--ui-row-1, #{t.$row}));
+    --_height: var(--ui-breadcrumb-height, var(--ui-row-1, var(--ui-row, #{t.$row})));
     // @desc Gap between children
-    --_gap: var(--ui-breadcrumb-gap, calc(#{t.$unit} * 1));
+    --_gap: var(--ui-breadcrumb-gap, var(--ui-space-1, #{t.$space-1}));
     // @desc Separator text color
     --_separator-color: var(--ui-breadcrumb-separator-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
     // @desc Link text color

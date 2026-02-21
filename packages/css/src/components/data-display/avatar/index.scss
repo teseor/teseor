@@ -13,7 +13,7 @@
     // @desc Group ring color
     --_ring-color: var(--ui-avatar-ring-color, var(--ui-color-bg, #{t.$color-bg}));
     // @desc Overall size
-    --_size: var(--ui-avatar-size, calc(#{t.$unit} * 5));
+    --_size: var(--ui-avatar-size, var(--ui-space-5, #{t.$space-5}));
     // @desc Background color
     --_bg: var(--ui-avatar-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
     // @desc Text color
@@ -27,28 +27,28 @@
   // @modifier size
   .avatar--xs {
     // @desc Overall size at extra-small size
-    --_size: var(--ui-avatar-size-xs, calc(#{t.$unit} * 3));
+    --_size: var(--ui-avatar-size-xs, var(--ui-space-3, #{t.$space-3}));
     // @desc Font size at extra-small size
     --_font-size: var(--ui-avatar-font-size-xs, var(--ui-font-size-xs, #{t.$font-size-xs}));
   }
 
   .avatar--sm {
     // @desc Overall size at small size
-    --_size: var(--ui-avatar-size-sm, calc(#{t.$unit} * 4));
+    --_size: var(--ui-avatar-size-sm, var(--ui-space-4, #{t.$space-4}));
     // @desc Font size at small size
     --_font-size: var(--ui-avatar-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
   }
 
   .avatar--lg {
     // @desc Overall size at large size
-    --_size: var(--ui-avatar-size-lg, calc(#{t.$unit} * 6));
+    --_size: var(--ui-avatar-size-lg, var(--ui-space-6, #{t.$space-6}));
     // @desc Font size at large size
     --_font-size: var(--ui-avatar-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
   }
 
   .avatar--xl {
     // @desc Overall size at extra-large size
-    --_size: var(--ui-avatar-size-xl, calc(#{t.$unit} * 8));
+    --_size: var(--ui-avatar-size-xl, var(--ui-space-8, #{t.$space-8}));
     // @desc Font size at extra-large size
     --_font-size: var(--ui-avatar-font-size-xl, var(--ui-font-size-lg, #{t.$font-size-lg}));
   }

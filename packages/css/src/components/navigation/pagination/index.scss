@@ -20,13 +20,13 @@
     // @desc Item inline padding
     --_item-padding-x: var(--ui-pagination-item-padding-x, var(--ui-unit, #{t.$unit}));
     // @desc Prev/next gap
-    --_nav-gap: var(--ui-pagination-nav-gap, calc(#{t.$unit} * 0.5));
+    --_nav-gap: var(--ui-pagination-nav-gap, var(--ui-space-0, #{t.$space-0}));
     // @desc Prev/next inline padding
-    --_nav-padding-x: var(--ui-pagination-nav-padding-x, calc(#{t.$unit} * 1.5));
+    --_nav-padding-x: var(--ui-pagination-nav-padding-x, var(--ui-size-sm, #{t.$size-sm}));
     // @desc Gap between children
-    --_gap: var(--ui-pagination-gap, calc(#{t.$unit} * 0.5));
+    --_gap: var(--ui-pagination-gap, var(--ui-space-0, #{t.$space-0}));
     // @desc Item overall size
-    --_item-size: var(--ui-pagination-item-size, calc(#{t.$unit} * 4));
+    --_item-size: var(--ui-pagination-item-size, var(--ui-space-4, #{t.$space-4}));
     // @desc Item corner radius
     --_item-radius: var(--ui-pagination-item-radius, var(--ui-radius-sm, #{t.$radius-sm}));
     // @desc Item background color
@@ -44,13 +44,13 @@
   // Size variants
   // @modifier size
   .pagination--sm {
-    --_item-size: calc(#{t.$unit} * 3);
-    --_gap: calc(#{t.$unit} * 0.25);
+    --_item-size: #{t.$space-3};
+    --_gap: #{t.$space-quarter};
   }
 
   .pagination--lg {
-    --_item-size: calc(#{t.$unit} * 5);
-    --_gap: calc(#{t.$unit} * 0.75);
+    --_item-size: #{t.$space-5};
+    --_gap: #{t.$unit-0-75};
   }
 }
 

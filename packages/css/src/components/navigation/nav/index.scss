@@ -18,7 +18,7 @@
     // @desc Disabled opacity
     --_disabled-opacity: var(--ui-nav-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
     // @desc Container threshold for responsive collapse
-    --_container-threshold: var(--ui-nav-container-threshold, #{t.$container-threshold-sm});
+    --_container-threshold: var(--ui-nav-container-threshold, var(--ui-container-threshold-sm, #{t.$container-threshold-sm}));
     // @desc Gap between children
     --_gap: var(--ui-nav-gap, var(--ui-space-1, #{t.$space-1}));
     // @desc Item overall height

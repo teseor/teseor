@@ -10,7 +10,7 @@
     // @desc Line height
     --_line-height: var(--ui-fieldset-line-height, var(--ui-line-height-tight-sm, #{t.$line-height-tight-sm}));
     // @desc Legend inline padding
-    --_legend-inline-padding: var(--ui-fieldset-legend-inline-padding, var(--ui-space-half, #{t.$space-0}));
+    --_legend-inline-padding: var(--ui-fieldset-legend-inline-padding, var(--ui-space-half, var(--ui-space-0, #{t.$space-0})));
     // @desc Disabled opacity
     --_disabled-opacity: var(--ui-fieldset-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
     // @desc Spacing

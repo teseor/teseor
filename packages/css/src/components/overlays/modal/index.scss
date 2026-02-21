@@ -12,19 +12,19 @@
     // @desc Transition timing function
     --_transition-timing: var(--ui-modal-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
     // @desc Viewport padding
-    --_viewport-padding: var(--ui-modal-viewport-padding, calc(#{t.$unit} * 2));
+    --_viewport-padding: var(--ui-modal-viewport-padding, var(--ui-space-2, #{t.$space-2}));
     // @desc Background color
     --_bg: var(--ui-modal-bg, var(--ui-color-bg, #{t.$color-bg}));
     // @desc Corner radius
-    --_radius: var(--ui-modal-radius, var(--ui-radius-lg, calc(#{t.$unit} * 1.5)));
+    --_radius: var(--ui-modal-radius, var(--ui-radius-lg, var(--ui-size-sm, #{t.$size-sm})));
     // @desc Box shadow
-    --_shadow: var(--ui-modal-shadow, 0 calc(#{t.$unit} * 3) calc(#{t.$unit} * 6) rgb(0 0 0 / 0.25));
+    --_shadow: var(--ui-modal-shadow, var(--ui-shadow-lg, #{t.$shadow-lg}));
     // @desc Padding on all sides
-    --_padding: var(--ui-modal-padding, calc(#{t.$unit} * 3));
+    --_padding: var(--ui-modal-padding, var(--ui-space-3, #{t.$space-3}));
     // @desc Maximum width
-    --_max-width: var(--ui-modal-max-width, calc(#{t.$unit} * 60));
+    --_max-width: var(--ui-modal-max-width, var(--ui-unit-60, #{t.$unit-60}));
     // @desc Maximum height
-    --_max-height: var(--ui-modal-max-height, calc(100vh - #{t.$unit} * 8));
+    --_max-height: var(--ui-modal-max-height, var(--ui-viewport-max-height, #{t.$viewport-max-height}));
     // @desc Z-index stacking order
     --_z: var(--ui-modal-z, var(--ui-z-index-modal, #{t.$z-index-modal}));
   }
@@ -32,17 +32,17 @@
   // @modifier size
   .modal--sm {
     // @desc Maximum width at small size
-    --_max-width: var(--ui-modal-max-width-sm, calc(#{t.$unit} * 40));
+    --_max-width: var(--ui-modal-max-width-sm, var(--ui-unit-40, #{t.$unit-40}));
   }
 
   .modal--lg {
     // @desc Maximum width at large size
-    --_max-width: var(--ui-modal-max-width-lg, calc(#{t.$unit} * 80));
+    --_max-width: var(--ui-modal-max-width-lg, var(--ui-unit-80, #{t.$unit-80}));
   }
 
   .modal--full {
-    --_max-width: calc(100vw - #{t.$unit} * 4);
-    --_max-height: calc(100vh - #{t.$unit} * 4);
+    --_max-width: #{t.$viewport-max-width-full};
+    --_max-height: #{t.$viewport-max-height-full};
     --_radius: 0;
   }
 }

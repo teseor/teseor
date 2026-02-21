@@ -14,50 +14,50 @@
     // @desc Focus ring width
     --_focus-ring-width: var(--ui-toggle-focus-ring-width, var(--ui-border-width-md, #{t.$border-width-md}));
     // @desc Focus ring offset
-    --_focus-ring-offset: var(--ui-toggle-focus-ring-offset, calc(#{t.$unit} / 4));
+    --_focus-ring-offset: var(--ui-toggle-focus-ring-offset, var(--ui-space-quarter, #{t.$space-quarter}));
     // @desc Disabled opacity
     --_disabled-opacity: var(--ui-toggle-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
     // @desc Thumb shadow
-    --_thumb-shadow: var(--ui-toggle-thumb-shadow, #{t.$slider-thumb-shadow});
+    --_thumb-shadow: var(--ui-toggle-thumb-shadow, var(--ui-slider-thumb-shadow, #{t.$slider-thumb-shadow}));
     // @desc Track width
-    --_track-width: var(--ui-toggle-track-width, calc(#{t.$unit} * 5));
+    --_track-width: var(--ui-toggle-track-width, var(--ui-space-5, #{t.$space-5}));
     // @desc Track height
-    --_track-height: var(--ui-toggle-track-height, calc(#{t.$unit} * 3));
+    --_track-height: var(--ui-toggle-track-height, var(--ui-space-3, #{t.$space-3}));
     // @desc Track background
     --_track-bg: var(--ui-toggle-track-bg, var(--ui-color-bg-inset, #{t.$color-bg-inset}));
     // @desc Track bg checked
     --_track-bg-checked: var(--ui-toggle-track-bg-checked, var(--ui-color-primary, #{t.$color-primary}));
     // @desc Track corner radius
-    --_track-radius: var(--ui-toggle-track-radius, calc(#{t.$unit} * 1.5));
+    --_track-radius: var(--ui-toggle-track-radius, var(--ui-size-sm, #{t.$size-sm}));
     // @desc Thumb control size
-    --_thumb-size: var(--ui-toggle-thumb-size, calc(#{t.$unit} * 2.5));
+    --_thumb-size: var(--ui-toggle-thumb-size, var(--ui-size-lg, #{t.$size-lg}));
     // @desc Thumb background
     --_thumb-bg: var(--ui-toggle-thumb-bg, var(--ui-color-bg, #{t.$color-bg}));
     // @desc Thumb control offset from anchor
-    --_thumb-offset: var(--ui-toggle-thumb-offset, calc(#{t.$unit} / 4));
+    --_thumb-offset: var(--ui-toggle-thumb-offset, var(--ui-space-quarter, #{t.$space-quarter}));
   }
 
   // @modifier size
   .toggle--sm {
     // @desc Track width at small size
-    --_track-width: var(--ui-toggle-track-width-sm, calc(#{t.$unit} * 4));
+    --_track-width: var(--ui-toggle-track-width-sm, var(--ui-space-4, #{t.$space-4}));
     // @desc Track height at small size
-    --_track-height: var(--ui-toggle-track-height-sm, calc(#{t.$unit} * 2));
+    --_track-height: var(--ui-toggle-track-height-sm, var(--ui-space-2, #{t.$space-2}));
     // @desc Track radius at small size
     --_track-radius: var(--ui-toggle-track-radius-sm, var(--ui-unit, #{t.$unit}));
     // @desc Thumb size at small size
-    --_thumb-size: var(--ui-toggle-thumb-size-sm, calc(#{t.$unit} * 1.5));
+    --_thumb-size: var(--ui-toggle-thumb-size-sm, var(--ui-size-sm, #{t.$size-sm}));
   }
 
   .toggle--lg {
     // @desc Track width at large size
-    --_track-width: var(--ui-toggle-track-width-lg, calc(#{t.$unit} * 6));
+    --_track-width: var(--ui-toggle-track-width-lg, var(--ui-space-6, #{t.$space-6}));
     // @desc Track height at large size
-    --_track-height: var(--ui-toggle-track-height-lg, calc(#{t.$unit} * 4));
+    --_track-height: var(--ui-toggle-track-height-lg, var(--ui-space-4, #{t.$space-4}));
     // @desc Track radius at large size
-    --_track-radius: var(--ui-toggle-track-radius-lg, calc(#{t.$unit} * 2));
+    --_track-radius: var(--ui-toggle-track-radius-lg, var(--ui-space-2, #{t.$space-2}));
     // @desc Thumb size at large size
-    --_thumb-size: var(--ui-toggle-thumb-size-lg, calc(#{t.$unit} * 3.5));
+    --_thumb-size: var(--ui-toggle-thumb-size-lg, var(--ui-unit-3-5, #{t.$unit-3-5}));
   }
 }
 

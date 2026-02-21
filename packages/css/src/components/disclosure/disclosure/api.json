@@ -52,8 +52,7 @@
     },
     {
       "name": "--ui-disclosure-animation-offset",
-      "default": "calc(var(--ui-unit) * -1)",
-      "defaultValue": "-8px",
+      "default": "#{-(t.$unit)}",
       "description": "Animation slide offset"
     },
     {
@@ -81,13 +80,13 @@
     },
     {
       "name": "--ui-disclosure-padding-x",
-      "default": "calc(var(--ui-unit) * 2)",
+      "default": "var(--ui-space-2)",
       "defaultValue": "16px",
       "description": "Horizontal padding"
     },
     {
       "name": "--ui-disclosure-padding-y",
-      "default": "calc(var(--ui-unit) * 2)",
+      "default": "var(--ui-space-2)",
       "defaultValue": "16px",
       "description": "Vertical padding"
     }

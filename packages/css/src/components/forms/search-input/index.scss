@@ -18,13 +18,13 @@
     // @desc Disabled opacity
     --_disabled-opacity: var(--ui-search-input-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
     // @desc Clear inset gap
-    --_clear-inset-gap: var(--ui-search-input-clear-inset-gap, var(--ui-space-half, #{t.$space-0}));
+    --_clear-inset-gap: var(--ui-search-input-clear-inset-gap, var(--ui-space-half, var(--ui-space-0, #{t.$space-0})));
     // @desc Clear border radius
     --_clear-radius: var(--ui-search-input-clear-radius, var(--ui-radius-sm, #{t.$radius-sm}));
     // @desc Icon stroke width
-    --_icon-stroke: var(--ui-search-input-icon-stroke, #{t.$icon-stroke});
+    --_icon-stroke: var(--ui-search-input-icon-stroke, var(--ui-icon-stroke, #{t.$icon-stroke}));
     // @desc Focus ring offset
-    --_focus-ring-offset: var(--ui-search-input-focus-ring-offset, #{t.$focus-ring-offset});
+    --_focus-ring-offset: var(--ui-search-input-focus-ring-offset, var(--ui-focus-ring-offset, #{t.$focus-ring-offset}));
     // @desc Overall height
     --_height: var(--ui-search-input-height, var(--ui-row-2, #{t.$row-2}));
     // @desc Horizontal padding
@@ -56,7 +56,7 @@
   // @modifier size
   .search-input--sm {
     // @desc Overall height at small size
-    --_height: var(--ui-search-input-height-sm, calc(#{t.$row} * 1.5));
+    --_height: var(--ui-search-input-height-sm, var(--ui-row-1-5, #{t.$row-1-5}));
     // @desc Font size at small size
     --_font-size: var(--ui-search-input-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
     // @desc Icon dimensions at small size
@@ -65,7 +65,7 @@
 
   .search-input--lg {
     // @desc Overall height at large size
-    --_height: var(--ui-search-input-height-lg, calc(#{t.$row} * 2.5));
+    --_height: var(--ui-search-input-height-lg, var(--ui-row-2-5, #{t.$row-2-5}));
     // @desc Horizontal padding at large size
     --_padding-x: var(--ui-search-input-padding-x-lg, var(--ui-space-2, #{t.$space-2}));
     // @desc Font size at large size

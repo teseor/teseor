@@ -8,7 +8,7 @@
 @layer components.tokens {
   .popover {
     // @desc Line height
-    --_line-height: var(--ui-popover-line-height, var(--ui-row-1, #{t.$row}));
+    --_line-height: var(--ui-popover-line-height, var(--ui-row-1, var(--ui-row, #{t.$row})));
     // @desc Border width
     --_border-width: var(--ui-popover-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
     // @desc Title font size
@@ -20,23 +20,23 @@
     // @desc Transition timing function
     --_transition-timing: var(--ui-popover-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
     // @desc Header spacing
-    --_header-spacing: var(--ui-popover-header-spacing, calc(#{t.$unit} * 2));
+    --_header-spacing: var(--ui-popover-header-spacing, var(--ui-space-2, #{t.$space-2}));
     // @desc Background color
     --_bg: var(--ui-popover-bg, var(--ui-color-bg, #{t.$color-bg}));
     // @desc Border color
     --_border-color: var(--ui-popover-border-color, var(--ui-color-border, #{t.$color-border}));
     // @desc Corner radius
-    --_radius: var(--ui-popover-radius, var(--ui-radius-md, calc(#{t.$unit} * 1)));
+    --_radius: var(--ui-popover-radius, var(--ui-radius-md, var(--ui-space-1, #{t.$space-1})));
     // @desc Box shadow
-    --_shadow: var(--ui-popover-shadow, 0 calc(#{t.$unit} / 2) calc(#{t.$unit} * 2) rgb(0 0 0 / 0.15));
+    --_shadow: var(--ui-popover-shadow, var(--ui-shadow-md, #{t.$shadow-md}));
     // @desc Padding on all sides
-    --_padding: var(--ui-popover-padding, calc(#{t.$unit} * 2));
+    --_padding: var(--ui-popover-padding, var(--ui-space-2, #{t.$space-2}));
     // @desc Maximum width
-    --_max-width: var(--ui-popover-max-width, calc(#{t.$unit} * 40));
+    --_max-width: var(--ui-popover-max-width, var(--ui-unit-40, #{t.$unit-40}));
     // @desc Z-index stacking order
     --_z: var(--ui-popover-z, var(--ui-z-index-popover, #{t.$z-index-popover}));
     // @desc Arrow size
-    --_arrow-size: var(--ui-popover-arrow-size, calc(#{t.$unit}));
+    --_arrow-size: var(--ui-popover-arrow-size, var(--ui-unit, #{t.$unit}));
   }
 }
 

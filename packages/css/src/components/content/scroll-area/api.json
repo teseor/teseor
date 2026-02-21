@@ -33,13 +33,13 @@
     },
     {
       "name": "--ui-scroll-area-max-height",
-      "default": "calc(var(--ui-row) * 10)",
+      "default": "var(--ui-row-10)",
       "defaultValue": "160px",
       "description": "Maximum height"
     },
     {
       "name": "--ui-scroll-area-scrollbar-size",
-      "default": "calc(var(--ui-unit) * 1)",
+      "default": "var(--ui-space-1)",
       "defaultValue": "8px",
       "description": "Scrollbar size"
     },
@@ -66,25 +66,25 @@
     },
     {
       "name": "--ui-scroll-area-max-height-sm",
-      "default": "calc(var(--ui-row) * 5)",
+      "default": "var(--ui-row-5)",
       "defaultValue": "80px",
       "description": "Maximum height at small size"
     },
     {
       "name": "--ui-scroll-area-max-height-lg",
-      "default": "calc(var(--ui-row) * 15)",
+      "default": "var(--ui-row-15)",
       "defaultValue": "240px",
       "description": "Maximum height at large size"
     },
     {
       "name": "--ui-scroll-area-max-height-xl",
-      "default": "calc(var(--ui-row) * 20)",
+      "default": "var(--ui-row-20)",
       "defaultValue": "320px",
       "description": "Maximum height at extra-large size"
     },
     {
       "name": "--ui-scroll-area-scrollbar-size-thin",
-      "default": "calc(var(--ui-unit) * 0.5)",
+      "default": "var(--ui-space-0)",
       "defaultValue": "4px",
       "description": "Scrollbar size thin"
     }

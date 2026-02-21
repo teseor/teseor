@@ -109,19 +109,19 @@
     },
     {
       "name": "--ui-menu-item-icon-size",
-      "default": "calc(var(--ui-unit) * 2)",
+      "default": "var(--ui-space-2)",
       "defaultValue": "16px",
       "description": "Item icon size"
     },
     {
       "name": "--ui-menu-separator-height",
-      "default": "calc(var(--ui-unit) * 2)",
+      "default": "var(--ui-space-2)",
       "defaultValue": "16px",
       "description": "Separator height"
     },
     {
       "name": "--ui-menu-check-padding-start",
-      "default": "calc(var(--ui-unit) * 4)",
+      "default": "var(--ui-space-4)",
       "defaultValue": "32px",
       "description": "Check/radio inline padding"
     },
@@ -133,7 +133,7 @@
     },
     {
       "name": "--ui-menu-indicator-size",
-      "default": "calc(var(--ui-unit) * 2)",
+      "default": "var(--ui-space-2)",
       "defaultValue": "16px",
       "description": "Indicator size"
     },
@@ -144,19 +144,19 @@
     },
     {
       "name": "--ui-menu-min-width",
-      "default": "calc(var(--ui-unit) * 16)",
+      "default": "var(--ui-unit-16)",
       "defaultValue": "128px",
       "description": "Minimum width"
     },
     {
       "name": "--ui-menu-max-height",
-      "default": "calc(var(--ui-unit) * 40)",
+      "default": "var(--ui-unit-40)",
       "defaultValue": "320px",
       "description": "Maximum height"
     },
     {
       "name": "--ui-menu-padding",
-      "default": "calc(var(--ui-unit) * 1)",
+      "default": "var(--ui-space-1)",
       "defaultValue": "8px",
       "description": "Padding on all sides"
     },
@@ -182,9 +182,16 @@
       "description": "Box shadow"
     },
     {
-      "name": "--ui-menu-item-padding",
-      "default": "calc(var(--ui-unit) * 1) calc(var(--ui-unit) * 2)",
-      "description": "Item padding on all sides"
+      "name": "--ui-menu-item-padding-y",
+      "default": "var(--ui-space-1)",
+      "defaultValue": "8px",
+      "description": "Item vertical padding"
+    },
+    {
+      "name": "--ui-menu-item-padding-x",
+      "default": "var(--ui-space-2)",
+      "defaultValue": "16px",
+      "description": "Item horizontal padding"
     },
     {
       "name": "--ui-menu-item-radius",

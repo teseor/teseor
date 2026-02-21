@@ -27,17 +27,17 @@
     // @desc Title font weight
     --_title-font-weight: var(--ui-drawer-title-font-weight, var(--ui-font-weight-semibold, #{t.$font-weight-semibold}));
     // @desc Title line height
-    --_title-line-height: var(--ui-drawer-title-line-height, var(--ui-row-1, #{t.$row}));
+    --_title-line-height: var(--ui-drawer-title-line-height, var(--ui-row-1, var(--ui-row, #{t.$row})));
     // @desc Description font size
     --_description-font-size: var(--ui-drawer-description-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     // @desc Description color
     --_description-color: var(--ui-drawer-description-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
     // @desc Header gap
-    --_header-gap: var(--ui-drawer-header-gap, calc(#{t.$unit} * 2));
+    --_header-gap: var(--ui-drawer-header-gap, var(--ui-space-2, #{t.$space-2}));
     // @desc Footer gap
-    --_footer-gap: var(--ui-drawer-footer-gap, calc(#{t.$unit} * 2));
+    --_footer-gap: var(--ui-drawer-footer-gap, var(--ui-space-2, #{t.$space-2}));
     // @desc Overall size
-    --_size: var(--ui-drawer-size, calc(#{t.$unit} * 40));
+    --_size: var(--ui-drawer-size, var(--ui-unit-40, #{t.$unit-40}));
     // @desc Max size
     --_max-size: var(--ui-drawer-max-size, 90%);
     // @desc Background color
@@ -45,22 +45,26 @@
     // @desc Box shadow
     --_shadow: var(--ui-drawer-shadow, var(--ui-shadow-lg, #{t.$shadow-lg}));
     // @desc Header padding on all sides
-    --_header-padding: var(--ui-drawer-header-padding, calc(#{t.$unit} * 2) calc(#{t.$unit} * 3));
+    --_header-padding-y: var(--ui-drawer-header-padding-y, var(--ui-space-2, #{t.$space-2}));
+    // @desc Header horizontal padding
+    --_header-padding-x: var(--ui-drawer-header-padding-x, var(--ui-space-3, #{t.$space-3}));
     // @desc Body area padding on all sides
-    --_body-padding: var(--ui-drawer-body-padding, calc(#{t.$unit} * 3));
+    --_body-padding: var(--ui-drawer-body-padding, var(--ui-space-3, #{t.$space-3}));
     // @desc Footer padding on all sides
-    --_footer-padding: var(--ui-drawer-footer-padding, calc(#{t.$unit} * 2) calc(#{t.$unit} * 3));
+    --_footer-padding-y: var(--ui-drawer-footer-padding-y, var(--ui-space-2, #{t.$space-2}));
+    // @desc Footer horizontal padding
+    --_footer-padding-x: var(--ui-drawer-footer-padding-x, var(--ui-space-3, #{t.$space-3}));
     // @desc Border color
     --_border-color: var(--ui-drawer-border-color, var(--ui-color-border, #{t.$color-border}));
   }
 
   // @modifier size
   .drawer--sm {
-    --_size: calc(#{t.$unit} * 30);
+    --_size: #{t.$unit-30};
   }
 
   .drawer--lg {
-    --_size: calc(#{t.$unit} * 50);
+    --_size: #{t.$unit-50};
   }
 
   .drawer--full {
@@ -242,7 +246,7 @@
     justify-content: space-between;
     gap: var(--_header-gap);
 
-    padding: var(--_header-padding);
+    padding: var(--_header-padding-y) var(--_header-padding-x);
 
     box-shadow: inset 0 calc(var(--_border-width) * -1) 0 var(--_border-color);
   }
@@ -285,7 +289,7 @@
     justify-content: flex-end;
     gap: var(--_footer-gap);
 
-    padding: var(--_footer-padding);
+    padding: var(--_footer-padding-y) var(--_footer-padding-x);
 
     box-shadow: inset 0 var(--_border-width) 0 var(--_border-color);
   }

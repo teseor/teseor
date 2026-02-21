@@ -64,7 +64,7 @@
     },
     {
       "name": "--ui-slider-thumb-size",
-      "default": "calc(var(--ui-unit) * 2.5)",
+      "default": "var(--ui-size-lg)",
       "defaultValue": "20px",
       "description": "Thumb control size"
     },
@@ -107,37 +107,37 @@
     },
     {
       "name": "--ui-slider-height-sm",
-      "default": "calc(var(--ui-row) * 1.5)",
+      "default": "var(--ui-row-1-5)",
       "defaultValue": "24px",
       "description": "Overall height at small size"
     },
     {
       "name": "--ui-slider-track-height-sm",
-      "default": "calc(var(--ui-unit) * 0.5)",
+      "default": "var(--ui-space-0)",
       "defaultValue": "4px",
       "description": "Track height at small size"
     },
     {
       "name": "--ui-slider-thumb-size-sm",
-      "default": "calc(var(--ui-unit) * 2)",
+      "default": "var(--ui-space-2)",
       "defaultValue": "16px",
       "description": "Thumb size at small size"
     },
     {
       "name": "--ui-slider-height-lg",
-      "default": "calc(var(--ui-row) * 2.5)",
+      "default": "var(--ui-row-2-5)",
       "defaultValue": "40px",
       "description": "Overall height at large size"
     },
     {
       "name": "--ui-slider-track-height-lg",
-      "default": "calc(var(--ui-unit) * 1.5)",
+      "default": "var(--ui-size-sm)",
       "defaultValue": "12px",
       "description": "Track height at large size"
     },
     {
       "name": "--ui-slider-thumb-size-lg",
-      "default": "calc(var(--ui-unit) * 3)",
+      "default": "var(--ui-space-3)",
       "defaultValue": "24px",
       "description": "Thumb size at large size"
     },

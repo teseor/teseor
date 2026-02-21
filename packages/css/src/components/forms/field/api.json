@@ -22,7 +22,7 @@
     },
     {
       "name": "--ui-field-label-min-width",
-      "default": "calc(var(--ui-unit) * 15)",
+      "default": "var(--ui-unit-15)",
       "defaultValue": "120px",
       "description": "Label min width (horizontal layout)"
     },
@@ -34,7 +34,7 @@
     },
     {
       "name": "--ui-field-control-min-width",
-      "default": "calc(var(--ui-unit) * 20)",
+      "default": "var(--ui-unit-20)",
       "defaultValue": "160px",
       "description": "Control min width (horizontal layout)"
     },

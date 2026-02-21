@@ -39,7 +39,7 @@
     },
     {
       "name": "--ui-overlay-blur-amount",
-      "default": "calc(var(--ui-unit) * 0.5)",
+      "default": "var(--ui-space-0)",
       "defaultValue": "4px",
       "description": "Blur amount"
     },

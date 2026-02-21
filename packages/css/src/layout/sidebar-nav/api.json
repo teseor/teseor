@@ -36,7 +36,7 @@
   "cssVars": [
     {
       "name": "--ui-sidebar-nav-width",
-      "default": "calc(var(--ui-unit) * 30)",
+      "default": "var(--ui-unit-30)",
       "defaultValue": "240px",
       "description": "Overall width"
     },
@@ -71,6 +71,7 @@
     {
       "name": "--ui-sidebar-nav-group-label-size",
       "default": "var(--ui-size-xs)",
+      "defaultValue": "8px",
       "description": "Group label size"
     },
     {
@@ -109,6 +110,7 @@
     {
       "name": "--ui-sidebar-nav-item-size",
       "default": "var(--ui-size-sm)",
+      "defaultValue": "12px",
       "description": "Item overall size"
     },
     {

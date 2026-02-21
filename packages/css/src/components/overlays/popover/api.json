@@ -49,7 +49,7 @@
     },
     {
       "name": "--ui-popover-header-spacing",
-      "default": "calc(var(--ui-unit) * 2)",
+      "default": "var(--ui-space-2)",
       "defaultValue": "16px",
       "description": "Header spacing"
     },
@@ -71,18 +71,18 @@
     },
     {
       "name": "--ui-popover-shadow",
-      "default": "0 calc(var(--ui-unit) / 2) calc(var(--ui-unit) * 2) rgb(0 0 0 / 0.15)",
+      "default": "var(--ui-shadow-md)",
       "description": "Box shadow"
     },
     {
       "name": "--ui-popover-padding",
-      "default": "calc(var(--ui-unit) * 2)",
+      "default": "var(--ui-space-2)",
       "defaultValue": "16px",
       "description": "Padding on all sides"
     },
     {
       "name": "--ui-popover-max-width",
-      "default": "calc(var(--ui-unit) * 40)",
+      "default": "var(--ui-unit-40)",
       "defaultValue": "320px",
       "description": "Maximum width"
     },
@@ -94,7 +94,8 @@
     },
     {
       "name": "--ui-popover-arrow-size",
-      "default": "calc(var(--ui-unit))",
+      "default": "var(--ui-unit)",
+      "defaultValue": "8px",
       "description": "Arrow size"
     }
   ]

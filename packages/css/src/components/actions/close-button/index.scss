@@ -18,7 +18,7 @@
     // @desc Disabled opacity
     --_disabled-opacity: var(--ui-close-button-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
     // @desc Icon stroke width
-    --_icon-stroke: var(--ui-close-button-icon-stroke, #{t.$icon-stroke});
+    --_icon-stroke: var(--ui-close-button-icon-stroke, var(--ui-icon-stroke, #{t.$icon-stroke}));
     // @desc Overall button size (width and height)
     --_size: var(--ui-close-button-size, var(--ui-row-2, #{t.$row-2}));
     // @desc Size of the X icon
@@ -36,7 +36,7 @@
   // @modifier size
   .close-button--sm {
     // @desc Overall size at small size
-    --_size: var(--ui-close-button-size-sm, calc(#{t.$unit} * 3));
+    --_size: var(--ui-close-button-size-sm, var(--ui-space-3, #{t.$space-3}));
     // @desc Icon dimensions at small size
     --_icon-size: var(--ui-close-button-icon-size-sm, var(--ui-size-sm, #{t.size(sm)}));
   }

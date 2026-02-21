@@ -14,7 +14,7 @@
     // @desc Label font weight
     --_label-font-weight: var(--ui-menu-label-font-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
     // @desc Item line height
-    --_item-line-height: var(--ui-menu-item-line-height, var(--ui-row-1, #{t.$row}));
+    --_item-line-height: var(--ui-menu-item-line-height, var(--ui-row-1, var(--ui-row, #{t.$row})));
     // @desc Label color
     --_label-color: var(--ui-menu-label-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
     // @desc Item font size
@@ -36,23 +36,23 @@
     // @desc Item gap
     --_item-gap: var(--ui-menu-item-gap, var(--ui-unit, #{t.$unit}));
     // @desc Item icon size
-    --_item-icon-size: var(--ui-menu-item-icon-size, calc(#{t.$unit} * 2));
+    --_item-icon-size: var(--ui-menu-item-icon-size, var(--ui-space-2, #{t.$space-2}));
     // @desc Separator height
-    --_separator-height: var(--ui-menu-separator-height, calc(#{t.$unit} * 2));
+    --_separator-height: var(--ui-menu-separator-height, var(--ui-space-2, #{t.$space-2}));
     // @desc Check/radio inline padding
-    --_check-padding-start: var(--ui-menu-check-padding-start, calc(#{t.$unit} * 4));
+    --_check-padding-start: var(--ui-menu-check-padding-start, var(--ui-space-4, #{t.$space-4}));
     // @desc Indicator offset
     --_indicator-offset: var(--ui-menu-indicator-offset, var(--ui-unit, #{t.$unit}));
     // @desc Indicator size
-    --_indicator-size: var(--ui-menu-indicator-size, calc(#{t.$unit} * 2));
+    --_indicator-size: var(--ui-menu-indicator-size, var(--ui-space-2, #{t.$space-2}));
     // @desc Shortcut color
     --_shortcut-color: var(--ui-menu-shortcut-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
     // @desc Minimum width
-    --_min-width: var(--ui-menu-min-width, calc(#{t.$unit} * 16));
+    --_min-width: var(--ui-menu-min-width, var(--ui-unit-16, #{t.$unit-16}));
     // @desc Maximum height
-    --_max-height: var(--ui-menu-max-height, calc(#{t.$unit} * 40));
+    --_max-height: var(--ui-menu-max-height, var(--ui-unit-40, #{t.$unit-40}));
     // @desc Padding on all sides
-    --_padding: var(--ui-menu-padding, calc(#{t.$unit} * 1));
+    --_padding: var(--ui-menu-padding, var(--ui-space-1, #{t.$space-1}));
     // @desc Corner radius
     --_radius: var(--ui-menu-radius, var(--ui-radius-md, #{t.$radius-md}));
     // @desc Background color
@@ -61,8 +61,10 @@
     --_border-color: var(--ui-menu-border-color, var(--ui-color-border, #{t.$color-border}));
     // @desc Box shadow
     --_shadow: var(--ui-menu-shadow, var(--ui-shadow-lg, #{t.$shadow-lg}));
-    // @desc Item padding on all sides
-    --_item-padding: var(--ui-menu-item-padding, calc(#{t.$unit} * 1) calc(#{t.$unit} * 2));
+    // @desc Item vertical padding
+    --_item-padding-y: var(--ui-menu-item-padding-y, var(--ui-space-1, #{t.$space-1}));
+    // @desc Item horizontal padding
+    --_item-padding-x: var(--ui-menu-item-padding-x, var(--ui-space-2, #{t.$space-2}));
     // @desc Item corner radius
     --_item-radius: var(--ui-menu-item-radius, var(--ui-radius-sm, #{t.$radius-sm}));
     // @desc Item bg hover
@@ -92,7 +94,7 @@
   }
 
   .menu__label {
-    padding: var(--_item-padding);
+    padding: var(--_item-padding-y) var(--_item-padding-x);
 
     font-size: var(--_label-font-size);
     font-weight: var(--_label-font-weight);
@@ -107,7 +109,7 @@
     align-items: center;
     gap: var(--_item-gap);
 
-    padding: var(--_item-padding);
+    padding: var(--_item-padding-y) var(--_item-padding-x);
 
     font-size: var(--_item-font-size);
     line-height: var(--_item-line-height);

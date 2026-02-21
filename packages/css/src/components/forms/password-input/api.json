@@ -69,6 +69,7 @@
     {
       "name": "--ui-password-input-icon-size",
       "default": "var(--ui-size-md)",
+      "defaultValue": "16px",
       "description": "Icon size"
     },
     {
@@ -144,7 +145,7 @@
     },
     {
       "name": "--ui-password-input-height-sm",
-      "default": "calc(var(--ui-row) * 1.5)",
+      "default": "var(--ui-row-1-5)",
       "defaultValue": "24px",
       "description": "Overall height at small size"
     },
@@ -156,7 +157,7 @@
     },
     {
       "name": "--ui-password-input-height-lg",
-      "default": "calc(var(--ui-row) * 2.5)",
+      "default": "var(--ui-row-2-5)",
       "defaultValue": "40px",
       "description": "Overall height at large size"
     },

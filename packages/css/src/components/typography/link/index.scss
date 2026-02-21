@@ -18,19 +18,19 @@
     // @desc Disabled opacity
     --_disabled-opacity: var(--ui-link-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
     // @desc Underline offset
-    --_underline-offset: var(--ui-link-underline-offset, calc(#{t.$unit} / 4));
+    --_underline-offset: var(--ui-link-underline-offset, var(--ui-space-quarter, #{t.$space-quarter}));
     // @desc Focus radius
-    --_focus-radius: var(--ui-link-focus-radius, calc(#{t.$unit} / 4));
+    --_focus-radius: var(--ui-link-focus-radius, var(--ui-space-quarter, #{t.$space-quarter}));
     // @desc Focus outline offset
-    --_focus-outline-offset: var(--ui-link-focus-outline-offset, calc(#{t.$unit} / 4));
+    --_focus-outline-offset: var(--ui-link-focus-outline-offset, var(--ui-space-quarter, #{t.$space-quarter}));
     // @desc External indicator spacing
-    --_external-spacing: var(--ui-link-external-spacing, calc(#{t.$unit} / 4));
+    --_external-spacing: var(--ui-link-external-spacing, var(--ui-space-quarter, #{t.$space-quarter}));
     // @desc External indicator font size
     --_external-font-size: var(--ui-link-external-font-size, var(--ui-font-size-relative-sm, #{t.$font-size-relative-sm}));
     // @desc Text color
     --_color: var(--ui-link-color, var(--ui-color-primary, #{t.$color-primary}));
     // @desc Color hover
-    --_color-hover: var(--ui-link-color-hover, var(--ui-color-primary-hover, color-mix(in srgb, var(--ui-color-primary, #{t.$color-primary}) 85%, black)));
+    --_color-hover: var(--ui-link-color-hover, var(--ui-color-primary-emphasis-hover, #{t.$color-primary-emphasis-hover}));
     // @desc Color visited
     --_color-visited: var(--ui-link-color-visited, var(--ui-color-primary, #{t.$color-primary}));
     // @desc Decoration

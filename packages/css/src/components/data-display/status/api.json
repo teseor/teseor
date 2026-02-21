@@ -19,7 +19,7 @@
   "cssVars": [
     {
       "name": "--ui-status-size",
-      "default": "calc(var(--ui-unit) * 1)",
+      "default": "var(--ui-space-1)",
       "defaultValue": "8px",
       "description": "Overall size"
     },
@@ -30,7 +30,7 @@
     },
     {
       "name": "--ui-status-gap",
-      "default": "calc(var(--ui-unit) * 1)",
+      "default": "var(--ui-space-1)",
       "defaultValue": "8px",
       "description": "Gap between children"
     }

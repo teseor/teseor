@@ -16,9 +16,9 @@
     // @desc Overall height
     --_height: var(--ui-divider-height, var(--ui-unit, #{t.$unit}));
     // @desc Gap between children
-    --_gap: var(--ui-divider-gap, calc(#{t.$unit} * 2));
+    --_gap: var(--ui-divider-gap, var(--ui-space-2, #{t.$space-2}));
     // @desc Label spacing between text and lines
-    --_label-spacing: var(--ui-divider-label-spacing, calc(#{t.$unit} * 2));
+    --_label-spacing: var(--ui-divider-label-spacing, var(--ui-space-2, #{t.$space-2}));
     // @desc Dash pattern repeat size
     --_dash-size: var(--ui-divider-dash-size, var(--ui-unit, #{t.$unit}));
   }
@@ -26,7 +26,7 @@
   // With text label - taller to accommodate text
   .divider:not(:empty) {
     // @desc Overall height when text label is present
-    --_height: var(--ui-divider-height-label, var(--ui-row-1, #{t.$row}));
+    --_height: var(--ui-divider-height-label, var(--ui-row-1, var(--ui-row, #{t.$row})));
   }
 }
 

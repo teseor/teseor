@@ -39,7 +39,7 @@
     },
     {
       "name": "--ui-avatar-size",
-      "default": "calc(var(--ui-unit) * 5)",
+      "default": "var(--ui-space-5)",
       "defaultValue": "40px",
       "description": "Overall size"
     },
@@ -66,7 +66,7 @@
     },
     {
       "name": "--ui-avatar-size-xs",
-      "default": "calc(var(--ui-unit) * 3)",
+      "default": "var(--ui-space-3)",
       "defaultValue": "24px",
       "description": "Overall size at extra-small size"
     },
@@ -78,7 +78,7 @@
     },
     {
       "name": "--ui-avatar-size-sm",
-      "default": "calc(var(--ui-unit) * 4)",
+      "default": "var(--ui-space-4)",
       "defaultValue": "32px",
       "description": "Overall size at small size"
     },
@@ -90,7 +90,7 @@
     },
     {
       "name": "--ui-avatar-size-lg",
-      "default": "calc(var(--ui-unit) * 6)",
+      "default": "var(--ui-space-6)",
       "defaultValue": "48px",
       "description": "Overall size at large size"
     },
@@ -102,7 +102,7 @@
     },
     {
       "name": "--ui-avatar-size-xl",
-      "default": "calc(var(--ui-unit) * 8)",
+      "default": "var(--ui-space-8)",
       "defaultValue": "64px",
       "description": "Overall size at extra-large size"
     },

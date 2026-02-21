@@ -18,7 +18,7 @@
     // @desc Disabled opacity
     --_disabled-opacity: var(--ui-checkbox-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
     // @desc Overall size
-    --_size: var(--ui-checkbox-size, calc(#{t.$unit} * 2));
+    --_size: var(--ui-checkbox-size, var(--ui-space-2, #{t.$space-2}));
     // @desc Corner radius
     --_radius: var(--ui-checkbox-radius, var(--ui-radius-sm, #{t.$radius-sm}));
     // @desc Background color
@@ -36,7 +36,7 @@
   // @modifier size
   .checkbox--lg {
     // @desc Overall size at large size
-    --_size: var(--ui-checkbox-size-lg, calc(#{t.$unit} * 3));
+    --_size: var(--ui-checkbox-size-lg, var(--ui-space-3, #{t.$space-3}));
   }
 
   // @modifier state

@@ -21,7 +21,7 @@
     --_size-md: var(--ui-size-md);
     // Tokens
     // @desc Overall width
-    --_width: var(--ui-sidebar-nav-width, calc(var(--ui-unit) * 30));
+    --_width: var(--ui-sidebar-nav-width, var(--ui-unit-30, #{t.$unit-30}));
     // @desc Background color
     --_bg: var(--ui-sidebar-nav-bg, var(--ui-color-bg-subtle));
     // @desc Border color

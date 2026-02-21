@@ -49,25 +49,25 @@
     },
     {
       "name": "--ui-link-underline-offset",
-      "default": "calc(var(--ui-unit) / 4)",
+      "default": "var(--ui-space-quarter)",
       "defaultValue": "2px",
       "description": "Underline offset"
     },
     {
       "name": "--ui-link-focus-radius",
-      "default": "calc(var(--ui-unit) / 4)",
+      "default": "var(--ui-space-quarter)",
       "defaultValue": "2px",
       "description": "Focus radius"
     },
     {
       "name": "--ui-link-focus-outline-offset",
-      "default": "calc(var(--ui-unit) / 4)",
+      "default": "var(--ui-space-quarter)",
       "defaultValue": "2px",
       "description": "Focus outline offset"
     },
     {
       "name": "--ui-link-external-spacing",
-      "default": "calc(var(--ui-unit) / 4)",
+      "default": "var(--ui-space-quarter)",
       "defaultValue": "2px",
       "description": "External indicator spacing"
     },
@@ -84,7 +84,7 @@
     },
     {
       "name": "--ui-link-color-hover",
-      "default": "var(--ui-color-primary-hover)",
+      "default": "var(--ui-color-primary-emphasis-hover)",
       "description": "Color hover"
     },
     {

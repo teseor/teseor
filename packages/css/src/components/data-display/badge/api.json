@@ -18,7 +18,7 @@
     },
     {
       "name": "--ui-badge-height",
-      "default": "calc(var(--ui-row) * 1.5)",
+      "default": "var(--ui-row-1-5)",
       "defaultValue": "24px",
       "description": "Overall height"
     },
@@ -70,8 +70,8 @@
     },
     {
       "name": "--ui-badge-font-size-sm",
-      "default": "calc(var(--ui-font-size-xs) * 0.85)",
-      "defaultValue": "10.2px",
+      "default": "var(--ui-font-size-relative-sm)",
+      "defaultValue": "0.75em",
       "description": "Font size at small size"
     },
     {

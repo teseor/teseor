@@ -6,7 +6,7 @@
 @layer components.tokens {
   .textarea {
     // @desc Line height
-    --_line-height: var(--ui-textarea-line-height, var(--ui-row-1, #{t.$row}));
+    --_line-height: var(--ui-textarea-line-height, var(--ui-row-1, var(--ui-row, #{t.$row})));
     // @desc Border width
     --_border-width: var(--ui-textarea-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
     // @desc Transition duration
@@ -24,7 +24,7 @@
     // @desc Read-only background
     --_readonly-bg: var(--ui-textarea-readonly-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
     // @desc Minimum height
-    --_min-height: var(--ui-textarea-min-height, calc(#{t.$row} * 4));
+    --_min-height: var(--ui-textarea-min-height, var(--ui-row-4, #{t.$row-4}));
     // @desc Horizontal padding
     --_padding-x: var(--ui-textarea-padding-x, var(--ui-space-1, #{t.$space-1}));
     // @desc Vertical padding
@@ -48,14 +48,14 @@
   // @modifier size
   .textarea--sm {
     // @desc Minimum height at small size
-    --_min-height: var(--ui-textarea-min-height-sm, calc(#{t.$row} * 3));
+    --_min-height: var(--ui-textarea-min-height-sm, var(--ui-row-3, #{t.$row-3}));
     // @desc Font size at small size
     --_font-size: var(--ui-textarea-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
   }
 
   .textarea--lg {
     // @desc Minimum height at large size
-    --_min-height: var(--ui-textarea-min-height-lg, calc(#{t.$row} * 6));
+    --_min-height: var(--ui-textarea-min-height-lg, var(--ui-row-6, #{t.$row-6}));
     // @desc Horizontal padding at large size
     --_padding-x: var(--ui-textarea-padding-x-lg, var(--ui-space-2, #{t.$space-2}));
     // @desc Vertical padding at large size

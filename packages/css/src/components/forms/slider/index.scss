@@ -24,7 +24,7 @@
     // @desc Track corner radius
     --_track-radius: var(--ui-slider-track-radius, var(--ui-radius-full, #{t.$radius-full}));
     // @desc Thumb control size
-    --_thumb-size: var(--ui-slider-thumb-size, calc(#{t.$unit} * 2.5));
+    --_thumb-size: var(--ui-slider-thumb-size, var(--ui-size-lg, #{t.$size-lg}));
     // @desc Thumb background
     --_thumb-bg: var(--ui-slider-thumb-bg, var(--ui-color-bg, #{t.$color-bg}));
     // @desc Thumb control border color
@@ -44,20 +44,20 @@
   // @modifier size
   .slider--sm {
     // @desc Overall height at small size
-    --_height: var(--ui-slider-height-sm, calc(#{t.$row} * 1.5));
+    --_height: var(--ui-slider-height-sm, var(--ui-row-1-5, #{t.$row-1-5}));
     // @desc Track height at small size
-    --_track-height: var(--ui-slider-track-height-sm, calc(#{t.$unit} * 0.5));
+    --_track-height: var(--ui-slider-track-height-sm, var(--ui-space-0, #{t.$space-0}));
     // @desc Thumb size at small size
-    --_thumb-size: var(--ui-slider-thumb-size-sm, calc(#{t.$unit} * 2));
+    --_thumb-size: var(--ui-slider-thumb-size-sm, var(--ui-space-2, #{t.$space-2}));
   }
 
   .slider--lg {
     // @desc Overall height at large size
-    --_height: var(--ui-slider-height-lg, calc(#{t.$row} * 2.5));
+    --_height: var(--ui-slider-height-lg, var(--ui-row-2-5, #{t.$row-2-5}));
     // @desc Track height at large size
-    --_track-height: var(--ui-slider-track-height-lg, calc(#{t.$unit} * 1.5));
+    --_track-height: var(--ui-slider-track-height-lg, var(--ui-size-sm, #{t.$size-sm}));
     // @desc Thumb size at large size
-    --_thumb-size: var(--ui-slider-thumb-size-lg, calc(#{t.$unit} * 3));
+    --_thumb-size: var(--ui-slider-thumb-size-lg, var(--ui-space-3, #{t.$space-3}));
   }
 
   // @modifier color

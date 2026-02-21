@@ -8,7 +8,7 @@
     // @desc Line height
     --_line-height: var(--ui-image-line-height, var(--ui-row-1, #{t.$row-1}));
     // @desc Fallback minimum size
-    --_fallback-min-size: var(--ui-image-fallback-min-size, calc(#{t.$unit} * 8));
+    --_fallback-min-size: var(--ui-image-fallback-min-size, var(--ui-space-8, #{t.$space-8}));
     // @desc Overall size
     --_size: var(--ui-image-size, auto);
     // @desc Corner radius
@@ -28,22 +28,22 @@
   // @modifier size
   .image--sm {
     // @desc Overall size at small size
-    --_size: var(--ui-image-size-sm, calc(#{t.$unit} * 12));
+    --_size: var(--ui-image-size-sm, var(--ui-unit-12, #{t.$unit-12}));
   }
 
   .image--md {
     // @desc Overall size at medium size
-    --_size: var(--ui-image-size-md, calc(#{t.$unit} * 24));
+    --_size: var(--ui-image-size-md, var(--ui-unit-24, #{t.$unit-24}));
   }
 
   .image--lg {
     // @desc Overall size at large size
-    --_size: var(--ui-image-size-lg, calc(#{t.$unit} * 40));
+    --_size: var(--ui-image-size-lg, var(--ui-unit-40, #{t.$unit-40}));
   }
 
   .image--xl {
     // @desc Overall size at extra-large size
-    --_size: var(--ui-image-size-xl, calc(#{t.$unit} * 60));
+    --_size: var(--ui-image-size-xl, var(--ui-unit-60, #{t.$unit-60}));
   }
 
   .image--full {

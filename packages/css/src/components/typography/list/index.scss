@@ -22,7 +22,7 @@
   }
 
   .list--loose {
-    --_spacing: calc(#{t.$unit} * 2);
+    --_spacing: #{t.$space-2};
   }
 }
 

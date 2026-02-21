@@ -18,7 +18,7 @@
     // @desc Disabled opacity
     --_disabled-opacity: var(--ui-radio-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
     // @desc Overall size
-    --_size: var(--ui-radio-size, calc(#{t.$unit} * 2));
+    --_size: var(--ui-radio-size, var(--ui-space-2, #{t.$space-2}));
     // @desc Background color
     --_bg: var(--ui-radio-bg, var(--ui-color-bg, #{t.$color-bg}));
     // @desc Bg checked
@@ -34,7 +34,7 @@
   // @modifier size
   .radio--lg {
     // @desc Overall size at large size
-    --_size: var(--ui-radio-size-lg, calc(#{t.$unit} * 3));
+    --_size: var(--ui-radio-size-lg, var(--ui-space-3, #{t.$space-3}));
   }
 
   // @modifier state

@@ -61,25 +61,25 @@
     },
     {
       "name": "--ui-pagination-nav-gap",
-      "default": "calc(var(--ui-unit) * 0.5)",
+      "default": "var(--ui-space-0)",
       "defaultValue": "4px",
       "description": "Prev/next gap"
     },
     {
       "name": "--ui-pagination-nav-padding-x",
-      "default": "calc(var(--ui-unit) * 1.5)",
+      "default": "var(--ui-size-sm)",
       "defaultValue": "12px",
       "description": "Prev/next inline padding"
     },
     {
       "name": "--ui-pagination-gap",
-      "default": "calc(var(--ui-unit) * 0.5)",
+      "default": "var(--ui-space-0)",
       "defaultValue": "4px",
       "description": "Gap between children"
     },
     {
       "name": "--ui-pagination-item-size",
-      "default": "calc(var(--ui-unit) * 4)",
+      "default": "var(--ui-space-4)",
       "defaultValue": "32px",
       "description": "Item overall size"
     },

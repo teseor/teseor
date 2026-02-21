@@ -12,7 +12,7 @@
     // @desc Transition timing function
     --_transition-timing: var(--ui-overlay-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
     // @desc Blur amount
-    --_blur-amount: var(--ui-overlay-blur-amount, calc(#{t.$unit} * 0.5));
+    --_blur-amount: var(--ui-overlay-blur-amount, var(--ui-space-0, #{t.$space-0}));
     // @desc Background color
     --_bg: var(--ui-overlay-bg, #{t.$overlay-bg});
     // @desc Z-index stacking order

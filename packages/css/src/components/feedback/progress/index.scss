@@ -21,11 +21,11 @@
     // @desc Transition timing function
     --_transition-timing: var(--ui-progress-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
     // @desc Stripe highlight color
-    --_stripe-highlight: var(--ui-progress-stripe-highlight, #{t.$stripe-highlight});
+    --_stripe-highlight: var(--ui-progress-stripe-highlight, var(--ui-stripe-highlight, #{t.$stripe-highlight}));
     // @desc Stripe size
     --_stripe-size: var(--ui-progress-stripe-size, var(--ui-unit, #{t.$unit}));
     // @desc Overall height
-    --_height: var(--ui-progress-height, calc(#{t.$unit} * 1));
+    --_height: var(--ui-progress-height, var(--ui-space-1, #{t.$space-1}));
     // @desc Background color
     --_bg: var(--ui-progress-bg, var(--ui-color-bg-inset, #{t.$color-bg-inset}));
     // @desc Fill
@@ -36,11 +36,11 @@
 
   // @modifier size
   .progress--sm {
-    --_height: calc(#{t.$unit} * 1);
+    --_height: #{t.$space-1};
   }
 
   .progress--lg {
-    --_height: calc(#{t.$unit} * 2);
+    --_height: #{t.$space-2};
   }
 
   // Color variants

@@ -117,7 +117,7 @@
     },
     {
       "name": "--ui-select-height-sm",
-      "default": "calc(var(--ui-row) * 1.5)",
+      "default": "var(--ui-row-1-5)",
       "defaultValue": "24px",
       "description": "Overall height at small size"
     },
@@ -129,7 +129,7 @@
     },
     {
       "name": "--ui-select-height-lg",
-      "default": "calc(var(--ui-row) * 2.5)",
+      "default": "var(--ui-row-2-5)",
       "defaultValue": "40px",
       "description": "Overall height at large size"
     },

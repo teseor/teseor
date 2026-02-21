@@ -8,11 +8,11 @@
 @layer components.tokens {
   .status {
     // @desc Overall size
-    --_size: var(--ui-status-size, calc(#{t.$unit} * 1));
+    --_size: var(--ui-status-size, var(--ui-space-1, #{t.$space-1}));
     // @desc Text color
     --_color: var(--ui-status-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
     // @desc Gap between children
-    --_gap: var(--ui-status-gap, calc(#{t.$unit} * 1));
+    --_gap: var(--ui-status-gap, var(--ui-space-1, #{t.$space-1}));
   }
 
   // @modifier variant
@@ -35,13 +35,13 @@
   // Size variants
   // @modifier size
   .status--sm {
-    --_size: calc(#{t.$unit} * 0.75);
-    --_gap: calc(#{t.$unit} * 0.75);
+    --_size: #{t.$unit-0-75};
+    --_gap: #{t.$unit-0-75};
   }
 
   .status--lg {
-    --_size: calc(#{t.$unit} * 1.5);
-    --_gap: calc(#{t.$unit} * 1.5);
+    --_size: #{t.$size-sm};
+    --_gap: #{t.$size-sm};
   }
 }
 

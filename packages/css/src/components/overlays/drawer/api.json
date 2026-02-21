@@ -94,19 +94,19 @@
     },
     {
       "name": "--ui-drawer-header-gap",
-      "default": "calc(var(--ui-unit) * 2)",
+      "default": "var(--ui-space-2)",
       "defaultValue": "16px",
       "description": "Header gap"
     },
     {
       "name": "--ui-drawer-footer-gap",
-      "default": "calc(var(--ui-unit) * 2)",
+      "default": "var(--ui-space-2)",
       "defaultValue": "16px",
       "description": "Footer gap"
     },
     {
       "name": "--ui-drawer-size",
-      "default": "calc(var(--ui-unit) * 40)",
+      "default": "var(--ui-unit-40)",
       "defaultValue": "320px",
       "description": "Overall size"
     },
@@ -126,20 +126,34 @@
       "description": "Box shadow"
     },
     {
-      "name": "--ui-drawer-header-padding",
-      "default": "calc(var(--ui-unit) * 2) calc(var(--ui-unit) * 3)",
+      "name": "--ui-drawer-header-padding-y",
+      "default": "var(--ui-space-2)",
+      "defaultValue": "16px",
       "description": "Header padding on all sides"
     },
     {
+      "name": "--ui-drawer-header-padding-x",
+      "default": "var(--ui-space-3)",
+      "defaultValue": "24px",
+      "description": "Header horizontal padding"
+    },
+    {
       "name": "--ui-drawer-body-padding",
-      "default": "calc(var(--ui-unit) * 3)",
+      "default": "var(--ui-space-3)",
       "defaultValue": "24px",
       "description": "Body area padding on all sides"
     },
     {
-      "name": "--ui-drawer-footer-padding",
-      "default": "calc(var(--ui-unit) * 2) calc(var(--ui-unit) * 3)",
+      "name": "--ui-drawer-footer-padding-y",
+      "default": "var(--ui-space-2)",
+      "defaultValue": "16px",
       "description": "Footer padding on all sides"
+    },
+    {
+      "name": "--ui-drawer-footer-padding-x",
+      "default": "var(--ui-space-3)",
+      "defaultValue": "24px",
+      "description": "Footer horizontal padding"
     },
     {
       "name": "--ui-drawer-border-color",

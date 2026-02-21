@@ -20,7 +20,7 @@
     // @desc Transition timing function
     --_transition-timing: var(--ui-progress-circle-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
     // @desc Overall size
-    --_size: var(--ui-progress-circle-size, calc(var(--ui-unit, #{t.$unit}) * 6));
+    --_size: var(--ui-progress-circle-size, var(--ui-space-6, #{t.$space-6}));
     // @desc Stroke width
     --_stroke-width: var(--ui-progress-circle-stroke-width, #{t.$progress-circle-stroke-width});
     // @desc Fill area text color
@@ -35,17 +35,17 @@
   // @modifier size
   .progress-circle--sm {
     // @desc Overall size at small size
-    --_size: var(--ui-progress-circle-size-sm, calc(var(--ui-unit, #{t.$unit}) * 4));
+    --_size: var(--ui-progress-circle-size-sm, var(--ui-space-4, #{t.$space-4}));
   }
 
   .progress-circle--lg {
     // @desc Overall size at large size
-    --_size: var(--ui-progress-circle-size-lg, calc(var(--ui-unit, #{t.$unit}) * 8));
+    --_size: var(--ui-progress-circle-size-lg, var(--ui-space-8, #{t.$space-8}));
   }
 
   .progress-circle--xl {
     // @desc Overall size at extra-large size
-    --_size: var(--ui-progress-circle-size-xl, calc(var(--ui-unit, #{t.$unit}) * 12));
+    --_size: var(--ui-progress-circle-size-xl, var(--ui-unit-12, #{t.$unit-12}));
   }
 
   // @modifier variant

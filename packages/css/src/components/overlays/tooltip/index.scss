@@ -12,25 +12,25 @@
     // @desc Transition timing function
     --_transition-timing: var(--ui-tooltip-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
     // @desc Max width
-    --_max-width: var(--ui-tooltip-max-width, calc(#{t.$unit} * 25));
+    --_max-width: var(--ui-tooltip-max-width, var(--ui-unit-25, #{t.$unit-25}));
     // @desc Line height
-    --_line-height: var(--ui-tooltip-line-height, calc(#{t.$unit} * 2));
+    --_line-height: var(--ui-tooltip-line-height, var(--ui-space-2, #{t.$space-2}));
     // @desc Background color
     --_bg: var(--ui-tooltip-bg, var(--ui-color-text, #{t.$color-text}));
     // @desc Text color
     --_color: var(--ui-tooltip-color, var(--ui-color-bg, #{t.$color-bg}));
     // @desc Corner radius
-    --_radius: var(--ui-tooltip-radius, var(--ui-radius-sm, calc(#{t.$unit} / 2)));
+    --_radius: var(--ui-tooltip-radius, var(--ui-radius-sm, var(--ui-space-0, #{t.$space-0})));
     // @desc Horizontal padding
-    --_padding-x: var(--ui-tooltip-padding-x, calc(#{t.$unit} * 1));
+    --_padding-x: var(--ui-tooltip-padding-x, var(--ui-space-1, #{t.$space-1}));
     // @desc Vertical padding
-    --_padding-y: var(--ui-tooltip-padding-y, calc(#{t.$unit} / 2));
+    --_padding-y: var(--ui-tooltip-padding-y, var(--ui-space-0, #{t.$space-0}));
     // @desc Font size
     --_font-size: var(--ui-tooltip-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     // @desc Z-index stacking order
     --_z: var(--ui-tooltip-z, var(--ui-z-index-tooltip, #{t.$z-index-tooltip}));
     // @desc Arrow size
-    --_arrow-size: var(--ui-tooltip-arrow-size, calc(#{t.$unit} / 2));
+    --_arrow-size: var(--ui-tooltip-arrow-size, var(--ui-space-0, #{t.$space-0}));
   }
 }
 

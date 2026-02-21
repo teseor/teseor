@@ -160,7 +160,7 @@
     },
     {
       "name": "--ui-tabs-tab-height-lg",
-      "default": "calc(var(--ui-row) * 2.5)",
+      "default": "var(--ui-row-2-5)",
       "defaultValue": "40px",
       "description": "Tab height lg"
     },

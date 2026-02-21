@@ -145,7 +145,7 @@
     },
     {
       "name": "--ui-input-height-sm",
-      "default": "calc(var(--ui-row) * 1.5)",
+      "default": "var(--ui-row-1-5)",
       "defaultValue": "24px",
       "description": "Overall height at small size"
     },
@@ -157,7 +157,7 @@
     },
     {
       "name": "--ui-input-height-lg",
-      "default": "calc(var(--ui-row) * 2.5)",
+      "default": "var(--ui-row-2-5)",
       "defaultValue": "40px",
       "description": "Overall height at large size"
     },

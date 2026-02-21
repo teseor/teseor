@@ -8,7 +8,7 @@
     // @desc Border width
     --_border-width: var(--ui-table-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
     // @desc Cell line height
-    --_cell-line-height: var(--ui-table-cell-line-height, calc(#{t.$unit} * 3));
+    --_cell-line-height: var(--ui-table-cell-line-height, var(--ui-space-3, #{t.$space-3}));
     // @desc Header font weight
     --_header-font-weight: var(--ui-table-header-font-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
     // @desc Stripe background

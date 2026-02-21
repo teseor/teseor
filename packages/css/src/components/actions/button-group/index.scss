@@ -8,11 +8,11 @@
 @layer components.tokens {
   .button-group {
     // @desc Corner radius
-    --_radius: var(--ui-button-group-radius, var(--ui-radius-md, calc(#{t.$unit} / 2)));
+    --_radius: var(--ui-button-group-radius, var(--ui-radius-md, var(--ui-space-0, #{t.$space-0})));
     // @desc Border thickness
     --_border-width: var(--ui-button-group-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
     // @desc Negative overlap between adjacent buttons
-    --_overlap: var(--ui-button-group-overlap, calc(#{t.$unit} / -8));
+    --_overlap: var(--ui-button-group-overlap, var(--ui-unit-neg-eighth, #{t.$unit-neg-eighth}));
   }
 }
 

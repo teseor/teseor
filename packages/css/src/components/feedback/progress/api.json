@@ -47,7 +47,7 @@
     },
     {
       "name": "--ui-progress-height",
-      "default": "calc(var(--ui-unit) * 1)",
+      "default": "var(--ui-space-1)",
       "defaultValue": "8px",
       "description": "Overall height"
     },

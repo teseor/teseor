@@ -44,13 +44,13 @@
     },
     {
       "name": "--ui-divider-gap",
-      "default": "calc(var(--ui-unit) * 2)",
+      "default": "var(--ui-space-2)",
       "defaultValue": "16px",
       "description": "Gap between children"
     },
     {
       "name": "--ui-divider-label-spacing",
-      "default": "calc(var(--ui-unit) * 2)",
+      "default": "var(--ui-space-2)",
       "defaultValue": "16px",
       "description": "Label spacing between text and lines"
     },

@@ -22,7 +22,7 @@
     },
     {
       "name": "--ui-button-group-overlap",
-      "default": "calc(var(--ui-unit) / -8)",
+      "default": "var(--ui-unit-neg-eighth)",
       "defaultValue": "-1px",
       "description": "Negative overlap between adjacent buttons"
     }

@@ -51,7 +51,7 @@
     },
     {
       "name": "--ui-breadcrumb-gap",
-      "default": "calc(var(--ui-unit) * 1)",
+      "default": "var(--ui-space-1)",
       "defaultValue": "8px",
       "description": "Gap between children"
     },

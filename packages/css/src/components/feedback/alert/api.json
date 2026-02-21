@@ -86,7 +86,7 @@
     },
     {
       "name": "--ui-alert-bg",
-      "default": "color-mix(in oklch, var(--ui-color-border) 8%, white)",
+      "default": "var(--ui-color-bg-subtle)",
       "description": "Background color"
     },
     {
@@ -117,7 +117,7 @@
     },
     {
       "name": "--ui-alert-gap-sm",
-      "default": "calc(var(--ui-unit) * 0.5)",
+      "default": "var(--ui-space-0)",
       "defaultValue": "4px",
       "description": "Gap between children at small size"
     },
@@ -147,7 +147,7 @@
     },
     {
       "name": "--ui-alert-padding-end",
-      "default": "calc(var(--ui-unit) * 5)",
+      "default": "var(--ui-space-5)",
       "defaultValue": "40px",
       "description": "Padding end"
     }

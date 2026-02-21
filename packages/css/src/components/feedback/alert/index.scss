@@ -8,7 +8,7 @@
     // @desc Title font weight
     --_title-font-weight: var(--ui-alert-title-font-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
     // @desc Title line height
-    --_title-line-height: var(--ui-alert-title-line-height, var(--ui-row-1, #{t.$row}));
+    --_title-line-height: var(--ui-alert-title-line-height, var(--ui-row-1, var(--ui-row, #{t.$row})));
     // @desc Description font size
     --_description-font-size: var(--ui-alert-description-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     // @desc Description color
@@ -30,7 +30,7 @@
     // @desc Corner radius
     --_radius: var(--ui-alert-radius, var(--ui-radius-md, #{t.$radius-md}));
     // @desc Background color
-    --_bg: var(--ui-alert-bg, color-mix(in oklch, var(--ui-color-border, #{t.$color-border}) 8%, white));
+    --_bg: var(--ui-alert-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
     // @desc Border color
     --_border-color: var(--ui-alert-border-color, var(--ui-color-border, #{t.$color-border}));
     // @desc Text color
@@ -45,28 +45,28 @@
   // @modifier variant
   .alert--info {
     --_accent: var(--ui-color-primary, #{t.$color-primary});
-    --_bg: color-mix(in oklch, var(--ui-color-primary, #{t.$color-primary}) 8%, white);
+    --_bg: var(--ui-color-primary-bg, #{t.$color-primary-bg});
     --_border-color: var(--ui-color-primary, #{t.$color-primary});
     --_icon-color: var(--ui-color-primary, #{t.$color-primary});
   }
 
   .alert--success {
     --_accent: var(--ui-color-success, #{t.$color-success});
-    --_bg: color-mix(in oklch, var(--ui-color-success, #{t.$color-success}) 8%, white);
+    --_bg: var(--ui-color-success-bg, #{t.$color-success-bg});
     --_border-color: var(--ui-color-success, #{t.$color-success});
     --_icon-color: var(--ui-color-success, #{t.$color-success});
   }
 
   .alert--warning {
     --_accent: var(--ui-color-warning, #{t.$color-warning});
-    --_bg: color-mix(in oklch, var(--ui-color-warning, #{t.$color-warning}) 8%, white);
+    --_bg: var(--ui-color-warning-bg, #{t.$color-warning-bg});
     --_border-color: var(--ui-color-warning, #{t.$color-warning});
     --_icon-color: var(--ui-color-warning, #{t.$color-warning});
   }
 
   .alert--danger {
     --_accent: var(--ui-color-danger, #{t.$color-danger});
-    --_bg: color-mix(in oklch, var(--ui-color-danger, #{t.$color-danger}) 8%, white);
+    --_bg: var(--ui-color-danger-bg, #{t.$color-danger-bg});
     --_border-color: var(--ui-color-danger, #{t.$color-danger});
     --_icon-color: var(--ui-color-danger, #{t.$color-danger});
   }
@@ -76,7 +76,7 @@
     // @desc Padding on all sides at small size
     --_padding: var(--ui-alert-padding-sm, var(--ui-space-1, #{t.$space-1}));
     // @desc Gap between children at small size
-    --_gap: var(--ui-alert-gap-sm, calc(#{t.$unit} * 0.5));
+    --_gap: var(--ui-alert-gap-sm, var(--ui-space-0, #{t.$space-0}));
     // @desc Font size at small size
     --_font-size: var(--ui-alert-font-size-sm, var(--ui-font-size-sm, #{t.$font-size-sm}));
   }
@@ -93,7 +93,7 @@
   // @modifier boolean dismissible
   .alert--dismissible {
     // @desc Padding end
-    --_padding-end: var(--ui-alert-padding-end, calc(#{t.$unit} * 5));
+    --_padding-end: var(--ui-alert-padding-end, var(--ui-space-5, #{t.$space-5}));
   }
 }
 
