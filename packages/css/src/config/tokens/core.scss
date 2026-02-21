@@ -27,6 +27,9 @@
     // Base border width — sm/md/lg derive from this
     --ui-border-width-base: calc(var(--ui-unit) * 0.125);
 
+    // Inline icon size — em-relative, scales with font context
+    --ui-icon-size-inline: 1em;
+
     // Shadow strength — controls opacity of all shadow levels
     --ui-shadow-strength: 12%;
   }
