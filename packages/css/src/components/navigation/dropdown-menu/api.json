@@ -23,6 +23,35 @@
   },
   "cssVars": [
     {
+      "name": "--ui-dropdown-menu-trigger-gap",
+      "default": "var(--ui-space-0)",
+      "defaultValue": "4px",
+      "description": "Trigger gap"
+    },
+    {
+      "name": "--ui-dropdown-menu-transition-duration",
+      "default": "var(--ui-duration-fast)",
+      "defaultValue": "100ms",
+      "description": "Transition duration"
+    },
+    {
+      "name": "--ui-dropdown-menu-transition-timing",
+      "default": "var(--ui-ease-default)",
+      "description": "Transition timing function"
+    },
+    {
+      "name": "--ui-dropdown-menu-trigger-icon-font-size",
+      "default": "var(--ui-font-size-relative-xs)",
+      "defaultValue": "0.6em",
+      "description": "Trigger icon font size"
+    },
+    {
+      "name": "--ui-dropdown-menu-panel-slide-offset",
+      "default": "var(--ui-unit)",
+      "defaultValue": "8px",
+      "description": "Panel slide offset"
+    },
+    {
       "name": "--ui-dropdown-menu-z",
       "default": "var(--ui-z-index-dropdown)",
       "defaultValue": "200",

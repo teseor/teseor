@@ -7,12 +7,16 @@
 
 @layer components.tokens {
   .breadcrumb {
-    --_font-size-sm: var(--ui-font-size-sm, #{t.$font-size-sm});
+    // @desc Font size
+    --_font-size: var(--ui-breadcrumb-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
     // @desc Separator
     --_breadcrumb-separator: var(--ui-breadcrumb-separator, "/");
-    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
-    --_ease-default: var(--ui-ease-default, #{t.$ease-default});
-    --_color-primary: var(--ui-color-primary, #{t.$color-primary});
+    // @desc Transition duration
+    --_transition-duration: var(--ui-breadcrumb-transition-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    // @desc Transition timing function
+    --_transition-timing: var(--ui-breadcrumb-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    // @desc Link hover color
+    --_link-hover-color: var(--ui-breadcrumb-link-hover-color, var(--ui-color-primary, #{t.$color-primary}));
     // @desc Overall height
     --_height: var(--ui-breadcrumb-height, var(--ui-row-1, #{t.$row}));
     // @desc Gap between children
@@ -37,7 +41,7 @@
     padding: 0;
     margin: 0;
 
-    font-size: var(--_font-size-sm);
+    font-size: var(--_font-size);
     line-height: 1;
 
     list-style: none;
@@ -63,11 +67,11 @@
     text-decoration: none;
     color: var(--_link-color);
 
-    transition: color var(--_duration-fast) var(--_ease-default);
+    transition: color var(--_transition-duration) var(--_transition-timing);
 
     &:hover {
       text-decoration: underline;
-      color: var(--_color-primary);
+      color: var(--_link-hover-color);
     }
   }
 

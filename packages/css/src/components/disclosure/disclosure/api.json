@@ -17,6 +17,46 @@
   },
   "cssVars": [
     {
+      "name": "--ui-disclosure-trigger-font-weight",
+      "default": "var(--ui-font-weight-medium)",
+      "defaultValue": "500",
+      "description": "Trigger font weight"
+    },
+    {
+      "name": "--ui-disclosure-trigger-hover-bg",
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Trigger hover background"
+    },
+    {
+      "name": "--ui-disclosure-icon-transition-duration",
+      "default": "var(--ui-duration-fast)",
+      "defaultValue": "100ms",
+      "description": "Icon rotation transition duration"
+    },
+    {
+      "name": "--ui-disclosure-transition-timing",
+      "default": "var(--ui-ease-default)",
+      "description": "Transition timing function"
+    },
+    {
+      "name": "--ui-disclosure-animation-duration",
+      "default": "var(--ui-duration-normal)",
+      "defaultValue": "200ms",
+      "description": "Content animation duration"
+    },
+    {
+      "name": "--ui-disclosure-trigger-gap",
+      "default": "var(--ui-space-2)",
+      "defaultValue": "16px",
+      "description": "Trigger gap between label and icon"
+    },
+    {
+      "name": "--ui-disclosure-animation-offset",
+      "default": "calc(var(--ui-unit) * -1)",
+      "defaultValue": "-8px",
+      "description": "Animation slide offset"
+    },
+    {
       "name": "--ui-disclosure-border-color",
       "default": "var(--ui-color-border)",
       "description": "Border color"

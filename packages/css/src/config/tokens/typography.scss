@@ -45,11 +45,18 @@
     --ui-font-weight-bold: 700;
 
     // ==========================================================================
+    // PRIMITIVE TOKENS - Relative Font Sizes (em-based, context-dependent)
+    // ==========================================================================
+    --ui-font-size-relative-xs: 0.6em;
+    --ui-font-size-relative-sm: 0.75em;
+
+    // ==========================================================================
     // PRIMITIVE TOKENS - Letter Spacing
     // ==========================================================================
     --ui-letter-spacing-display: -0.02em;
     --ui-letter-spacing-body: 0;
     --ui-letter-spacing-caps: 0.08em;
+    --ui-letter-spacing-wide: 0.05em;
   }
 }
 

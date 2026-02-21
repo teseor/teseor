@@ -28,6 +28,23 @@
   },
   "cssVars": [
     {
+      "name": "--ui-modal-transition-duration",
+      "default": "var(--ui-duration-normal)",
+      "defaultValue": "200ms",
+      "description": "Transition duration"
+    },
+    {
+      "name": "--ui-modal-transition-timing",
+      "default": "var(--ui-ease-default)",
+      "description": "Transition timing function"
+    },
+    {
+      "name": "--ui-modal-viewport-padding",
+      "default": "calc(var(--ui-unit) * 2)",
+      "defaultValue": "16px",
+      "description": "Viewport padding"
+    },
+    {
       "name": "--ui-modal-bg",
       "default": "var(--ui-color-bg)",
       "description": "Background color"

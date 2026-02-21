@@ -20,6 +20,64 @@
   },
   "cssVars": [
     {
+      "name": "--ui-data-list-line-height",
+      "default": "var(--ui-row-1)",
+      "defaultValue": "16px",
+      "description": "Line height"
+    },
+    {
+      "name": "--ui-data-list-label-font-size",
+      "default": "var(--ui-font-size-sm)",
+      "defaultValue": "14px",
+      "description": "Label font size"
+    },
+    {
+      "name": "--ui-data-list-label-font-weight",
+      "default": "var(--ui-font-weight-medium)",
+      "defaultValue": "500",
+      "description": "Label font weight"
+    },
+    {
+      "name": "--ui-data-list-border-width",
+      "default": "var(--ui-border-width-sm)",
+      "defaultValue": "1px",
+      "description": "Divider border width"
+    },
+    {
+      "name": "--ui-data-list-border-color",
+      "default": "var(--ui-color-border)",
+      "description": "Divider border color"
+    },
+    {
+      "name": "--ui-data-list-stripe-bg",
+      "default": "var(--ui-color-bg-subtle)",
+      "description": "Stripe background"
+    },
+    {
+      "name": "--ui-data-list-stripe-radius",
+      "default": "var(--ui-radius-sm)",
+      "defaultValue": "4px",
+      "description": "Stripe border radius"
+    },
+    {
+      "name": "--ui-data-list-lg-font-size",
+      "default": "var(--ui-font-size-lg)",
+      "defaultValue": "20px",
+      "description": "Large font size"
+    },
+    {
+      "name": "--ui-data-list-stripe-padding",
+      "default": "calc(var(--ui-unit) * 1)",
+      "defaultValue": "8px",
+      "description": "Stripe padding"
+    },
+    {
+      "name": "--ui-data-list-horizontal-gap",
+      "default": "calc(var(--ui-unit) * 2)",
+      "defaultValue": "16px",
+      "description": "Horizontal item gap"
+    },
+    {
       "name": "--ui-data-list-gap",
       "default": "calc(var(--ui-unit) * 2)",
       "defaultValue": "16px",
@@ -40,6 +98,29 @@
       "name": "--ui-data-list-value-color",
       "default": "var(--ui-color-text)",
       "description": "Value display text color"
+    },
+    {
+      "name": "--ui-data-list-gap-sm",
+      "default": "calc(var(--ui-unit) * 1)",
+      "defaultValue": "8px",
+      "description": "Gap at small size"
+    },
+    {
+      "name": "--ui-data-list-item-gap-sm",
+      "default": "0",
+      "description": "Item gap at small size"
+    },
+    {
+      "name": "--ui-data-list-gap-lg",
+      "default": "calc(var(--ui-unit) * 3)",
+      "defaultValue": "24px",
+      "description": "Gap at large size"
+    },
+    {
+      "name": "--ui-data-list-item-gap-lg",
+      "default": "calc(var(--ui-unit) * 1)",
+      "defaultValue": "8px",
+      "description": "Item gap at large size"
     }
   ]
 }

@@ -5,6 +5,18 @@
   "modifiers": {},
   "cssVars": [
     {
+      "name": "--ui-kbd-border-width",
+      "default": "var(--ui-border-width-sm)",
+      "defaultValue": "1px",
+      "description": "Border width"
+    },
+    {
+      "name": "--ui-kbd-shadow-offset",
+      "default": "var(--ui-space-quarter)",
+      "defaultValue": "2px",
+      "description": "Shadow offset"
+    },
+    {
       "name": "--ui-kbd-font-size",
       "default": "var(--ui-font-size-sm)",
       "defaultValue": "14px",

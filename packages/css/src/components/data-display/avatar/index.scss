@@ -6,9 +6,12 @@
 
 @layer components.tokens {
   .avatar {
-    --_weight-medium: var(--ui-font-weight-medium, #{t.$font-weight-medium});
-    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
-    --_color-bg: var(--ui-color-bg, #{t.$color-bg});
+    // @desc Font weight
+    --_font-weight: var(--ui-avatar-font-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
+    // @desc Group ring width
+    --_ring-width: var(--ui-avatar-ring-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    // @desc Group ring color
+    --_ring-color: var(--ui-avatar-ring-color, var(--ui-color-bg, #{t.$color-bg}));
     // @desc Overall size
     --_size: var(--ui-avatar-size, calc(#{t.$unit} * 5));
     // @desc Background color
@@ -71,7 +74,7 @@
     overflow: hidden;
 
     font-size: var(--_font-size);
-    font-weight: var(--_weight-medium);
+    font-weight: var(--_font-weight);
     line-height: 1;
     text-transform: uppercase;
     color: var(--_color);
@@ -112,7 +115,7 @@
     > .avatar {
       margin-inline-start: calc(var(--_size) * -0.25);
 
-      border: var(--_border-width-sm) solid var(--_color-bg);
+      border: var(--_ring-width) solid var(--_ring-color);
 
       &:last-child {
         margin-inline-start: 0;

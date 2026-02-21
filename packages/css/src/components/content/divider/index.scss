@@ -5,9 +5,11 @@
 
 @layer components.tokens {
   .divider {
-    --_font-size-sm: var(--ui-font-size-sm, #{t.$font-size-sm});
-    --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
-    // @desc Text color
+    // @desc Font size
+    --_font-size: var(--ui-divider-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    // @desc Label text color
+    --_label-color: var(--ui-divider-label-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    // @desc Line color
     --_color: var(--ui-divider-color, var(--ui-color-border, #{t.$color-border}));
     // @desc Line size
     --_line-size: var(--ui-divider-line-size, var(--ui-border-width-sm, #{t.$border-width-sm}));
@@ -15,11 +17,16 @@
     --_height: var(--ui-divider-height, var(--ui-unit, #{t.$unit}));
     // @desc Gap between children
     --_gap: var(--ui-divider-gap, calc(#{t.$unit} * 2));
+    // @desc Label spacing between text and lines
+    --_label-spacing: var(--ui-divider-label-spacing, calc(#{t.$unit} * 2));
+    // @desc Dash pattern repeat size
+    --_dash-size: var(--ui-divider-dash-size, var(--ui-unit, #{t.$unit}));
   }
 
   // With text label - taller to accommodate text
   .divider:not(:empty) {
-    --_height: var(--ui-row-1, #{t.$row});
+    // @desc Overall height when text label is present
+    --_height: var(--ui-divider-height-label, var(--ui-row-1, #{t.$row}));
   }
 }
 
@@ -31,9 +38,9 @@
     block-size: var(--_height);
     margin: var(--_gap) 0;
 
-    font-size: var(--_font-size-sm);
+    font-size: var(--_font-size);
     line-height: 1;
-    color: var(--_color-text-muted);
+    color: var(--_label-color);
 
     // Reset <hr> defaults so it works as semantic separator
     border: none;
@@ -52,11 +59,11 @@
   }
 
   .divider:not(:empty)::before {
-    margin-inline-end: calc(#{t.$unit} * 2);
+    margin-inline-end: var(--_label-spacing);
   }
 
   .divider:not(:empty)::after {
-    margin-inline-start: calc(#{t.$unit} * 2);
+    margin-inline-start: var(--_label-spacing);
   }
 
   // Without text - single line
@@ -89,7 +96,7 @@
   }
 
   .divider--start:not(:empty)::after {
-    margin-inline-start: calc(#{t.$unit} * 2);
+    margin-inline-start: var(--_label-spacing);
   }
 
   .divider--end::after {
@@ -97,7 +104,7 @@
   }
 
   .divider--end:not(:empty)::before {
-    margin-inline-end: calc(#{t.$unit} * 2);
+    margin-inline-end: var(--_label-spacing);
   }
 
   // @modifier boolean dashed
@@ -106,9 +113,9 @@
     background: repeating-linear-gradient(
       90deg,
       var(--_color) 0,
-      var(--_color) calc(#{t.$unit} / 2),
-      transparent calc(#{t.$unit} / 2),
-      transparent #{t.$unit}
+      var(--_color) calc(var(--_dash-size) / 2),
+      transparent calc(var(--_dash-size) / 2),
+      transparent var(--_dash-size)
     );
   }
 
@@ -117,9 +124,9 @@
     background: repeating-linear-gradient(
       180deg,
       var(--_color) 0,
-      var(--_color) calc(#{t.$unit} / 2),
-      transparent calc(#{t.$unit} / 2),
-      transparent #{t.$unit}
+      var(--_color) calc(var(--_dash-size) / 2),
+      transparent calc(var(--_dash-size) / 2),
+      transparent var(--_dash-size)
     );
   }
 }

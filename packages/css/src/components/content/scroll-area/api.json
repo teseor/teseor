@@ -21,6 +21,17 @@
   },
   "cssVars": [
     {
+      "name": "--ui-scroll-area-transition-duration",
+      "default": "var(--ui-duration-fast)",
+      "defaultValue": "100ms",
+      "description": "Auto-hide fade transition duration"
+    },
+    {
+      "name": "--ui-scroll-area-transition-timing",
+      "default": "var(--ui-ease-default)",
+      "description": "Auto-hide fade transition timing"
+    },
+    {
       "name": "--ui-scroll-area-max-height",
       "default": "calc(var(--ui-row) * 10)",
       "defaultValue": "160px",

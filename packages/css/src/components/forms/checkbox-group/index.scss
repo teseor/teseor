@@ -5,10 +5,14 @@
 
 @layer components.tokens {
   .checkbox-group {
-    --_leading-tight-sm: var(--ui-line-height-tight-sm, var(--ui-row-1, #{t.$line-height-tight-sm}));
-    --_row-1: var(--ui-row-1, #{t.$row-1});
-    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
-    --_space-2: var(--ui-space-2, #{t.$space-2});
+    // @desc Line height
+    --_line-height: var(--ui-checkbox-group-line-height, var(--ui-line-height-tight-sm, #{t.$line-height-tight-sm}));
+    // @desc Item line height
+    --_item-line-height: var(--ui-checkbox-group-item-line-height, var(--ui-row-1, #{t.$row-1}));
+    // @desc Disabled opacity
+    --_disabled-opacity: var(--ui-checkbox-group-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
+    // @desc Horizontal gap
+    --_horizontal-gap: var(--ui-checkbox-group-horizontal-gap, var(--ui-space-2, #{t.$space-2}));
     // @desc Spacing
     --_spacing: var(--ui-checkbox-group-spacing, var(--ui-space-1, #{t.$space-1}));
     // @desc Legend size
@@ -59,7 +63,7 @@
 
     font-size: var(--_legend-size);
     font-weight: var(--_legend-weight);
-    line-height: var(--_leading-tight-sm);
+    line-height: var(--_line-height);
     color: var(--_legend-color);
   }
 
@@ -74,13 +78,13 @@
     align-items: center;
     gap: var(--_item-gap);
 
-    line-height: var(--_row-1);
+    line-height: var(--_item-line-height);
 
     cursor: pointer;
   }
 
   .checkbox-group__item:has(:disabled) {
-    opacity: var(--_opacity-disabled);
+    opacity: var(--_disabled-opacity);
     cursor: not-allowed;
   }
 
@@ -89,13 +93,13 @@
   .checkbox-group--horizontal > .checkbox-group__items {
     flex-direction: row;
     flex-wrap: wrap;
-    gap: var(--_space-2);
+    gap: var(--_horizontal-gap);
   }
 
   // Disabled group
   .checkbox-group:disabled,
   .checkbox-group[aria-disabled='true'] {
-    opacity: var(--_opacity-disabled);
+    opacity: var(--_disabled-opacity);
     cursor: not-allowed;
   }
 }

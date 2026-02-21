@@ -47,6 +47,11 @@
       "description": "Corner radius"
     },
     {
+      "name": "--ui-badge-bg",
+      "default": "var(--ui-color-bg-muted)",
+      "description": "Background color"
+    },
+    {
       "name": "--ui-badge-color",
       "default": "var(--ui-color-text)",
       "description": "Text color"

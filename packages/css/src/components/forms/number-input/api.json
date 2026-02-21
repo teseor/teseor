@@ -20,6 +20,57 @@
   },
   "cssVars": [
     {
+      "name": "--ui-number-input-border-width",
+      "default": "var(--ui-border-width-sm)",
+      "defaultValue": "1px",
+      "description": "Border width"
+    },
+    {
+      "name": "--ui-number-input-transition-duration",
+      "default": "var(--ui-duration-fast)",
+      "defaultValue": "100ms",
+      "description": "Transition duration"
+    },
+    {
+      "name": "--ui-number-input-transition-timing",
+      "default": "var(--ui-ease-default)",
+      "description": "Transition timing"
+    },
+    {
+      "name": "--ui-number-input-focus-ring-width",
+      "default": "var(--ui-border-width-md)",
+      "defaultValue": "2px",
+      "description": "Focus ring width"
+    },
+    {
+      "name": "--ui-number-input-focus-ring-color",
+      "default": "var(--ui-color-focus)",
+      "description": "Focus ring color"
+    },
+    {
+      "name": "--ui-number-input-disabled-opacity",
+      "default": "var(--ui-opacity-disabled)",
+      "defaultValue": "0.5",
+      "description": "Disabled opacity"
+    },
+    {
+      "name": "--ui-number-input-icon-size",
+      "default": "var(--ui-size-sm)",
+      "description": "Icon size"
+    },
+    {
+      "name": "--ui-number-input-icon-stroke",
+      "default": "var(--ui-icon-stroke)",
+      "defaultValue": "2",
+      "description": "Icon stroke width"
+    },
+    {
+      "name": "--ui-number-input-focus-ring-offset",
+      "default": "var(--ui-focus-ring-offset)",
+      "defaultValue": "-2px",
+      "description": "Focus ring offset"
+    },
+    {
       "name": "--ui-number-input-height",
       "default": "var(--ui-row-2)",
       "defaultValue": "32px",

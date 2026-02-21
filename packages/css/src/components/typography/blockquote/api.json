@@ -12,6 +12,29 @@
   },
   "cssVars": [
     {
+      "name": "--ui-blockquote-cite-spacing",
+      "default": "var(--ui-space-1)",
+      "defaultValue": "8px",
+      "description": "Citation spacing"
+    },
+    {
+      "name": "--ui-blockquote-cite-font-size",
+      "default": "var(--ui-font-size-sm)",
+      "defaultValue": "14px",
+      "description": "Citation font size"
+    },
+    {
+      "name": "--ui-blockquote-cite-line-height",
+      "default": "var(--ui-line-height-sm)",
+      "defaultValue": "24px",
+      "description": "Citation line height"
+    },
+    {
+      "name": "--ui-blockquote-cite-color",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Citation text color"
+    },
+    {
       "name": "--ui-blockquote-border-color",
       "default": "var(--ui-color-border-strong)",
       "description": "Border color"
@@ -44,6 +67,11 @@
       "default": "var(--ui-line-height-lg)",
       "defaultValue": "32px",
       "description": "Line height"
+    },
+    {
+      "name": "--ui-blockquote-accent-border-color",
+      "default": "var(--ui-color-primary)",
+      "description": "Accent border color"
     }
   ]
 }

@@ -4,6 +4,7 @@
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { lintAnnotationCompleteness } from './lints/annotation-completeness.js';
 import { lintApiSync } from './lints/api-sync.js';
 import { lintBareTokenVars } from './lints/bare-token-vars.js';
 import { lintComponents } from './lints/component-files.js';
@@ -35,6 +36,7 @@ lintStyleLayerTokens(SRC_DIR);
 lintTokenNames(SRC_DIR);
 lintThreeTierFallbacks(SRC_DIR);
 lintTokenDictionary(SRC_DIR, APPS_DIR);
+lintAnnotationCompleteness(COMPONENTS_DIR);
 lintApiSync();
 lintContentSync();
 lintContentValidation(SRC_DIR);

@@ -5,8 +5,10 @@
 
 @layer components.tokens {
   .scroll-area {
-    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
-    --_ease-default: var(--ui-ease-default, ease);
+    // @desc Auto-hide fade transition duration
+    --_transition-duration: var(--ui-scroll-area-transition-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    // @desc Auto-hide fade transition timing
+    --_transition-timing: var(--ui-scroll-area-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
     // @desc Maximum height
     --_max-height: var(--ui-scroll-area-max-height, calc(#{t.$row} * 10));
     // @desc Scrollbar size
@@ -97,7 +99,7 @@
   .scroll-area--auto-hide > .scroll-area__viewport::-webkit-scrollbar-thumb {
     background: transparent;
 
-    transition: background var(--_duration-fast) var(--_ease-default);
+    transition: background var(--_transition-duration) var(--_transition-timing);
   }
 
   .scroll-area--auto-hide > .scroll-area__viewport:hover::-webkit-scrollbar-thumb {

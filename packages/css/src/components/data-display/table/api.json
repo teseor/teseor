@@ -12,6 +12,29 @@
   },
   "cssVars": [
     {
+      "name": "--ui-table-border-width",
+      "default": "var(--ui-border-width-sm)",
+      "defaultValue": "1px",
+      "description": "Border width"
+    },
+    {
+      "name": "--ui-table-cell-line-height",
+      "default": "calc(var(--ui-unit) * 3)",
+      "defaultValue": "24px",
+      "description": "Cell line height"
+    },
+    {
+      "name": "--ui-table-header-font-weight",
+      "default": "var(--ui-font-weight-medium)",
+      "defaultValue": "500",
+      "description": "Header font weight"
+    },
+    {
+      "name": "--ui-table-stripe-bg",
+      "default": "var(--ui-color-bg-muted)",
+      "description": "Stripe background"
+    },
+    {
       "name": "--ui-table-font-size",
       "default": "var(--ui-font-size-sm)",
       "defaultValue": "14px",
@@ -38,6 +61,24 @@
       "default": "var(--ui-space-1)",
       "defaultValue": "8px",
       "description": "Cell padding y"
+    },
+    {
+      "name": "--ui-table-cell-padding-y-compact",
+      "default": "var(--ui-space-0)",
+      "defaultValue": "4px",
+      "description": "Cell padding y compact"
+    },
+    {
+      "name": "--ui-table-cell-padding-x-compact",
+      "default": "var(--ui-space-1)",
+      "defaultValue": "8px",
+      "description": "Cell padding x compact"
+    },
+    {
+      "name": "--ui-table-font-size-compact",
+      "default": "var(--ui-font-size-xs)",
+      "defaultValue": "12px",
+      "description": "Font size compact"
     }
   ]
 }

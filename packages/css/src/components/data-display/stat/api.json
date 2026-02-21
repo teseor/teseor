@@ -13,6 +13,12 @@
   },
   "cssVars": [
     {
+      "name": "--ui-stat-letter-spacing",
+      "default": "var(--ui-letter-spacing-display)",
+      "defaultValue": "-0.02em",
+      "description": "Letter spacing"
+    },
+    {
       "name": "--ui-stat-gap",
       "default": "var(--ui-space-1)",
       "defaultValue": "8px",
@@ -57,6 +63,18 @@
       "default": "var(--ui-line-height-sm)",
       "defaultValue": "24px",
       "description": "Label line height"
+    },
+    {
+      "name": "--ui-stat-value-font-size-sm",
+      "default": "var(--ui-font-size-xl)",
+      "defaultValue": "24px",
+      "description": "Value font size at small size"
+    },
+    {
+      "name": "--ui-stat-value-line-height-sm",
+      "default": "var(--ui-line-height-xl)",
+      "defaultValue": "32px",
+      "description": "Value line height at small size"
     }
   ]
 }

@@ -21,6 +21,23 @@
   ],
   "cssVars": [
     {
+      "name": "--ui-avatar-font-weight",
+      "default": "var(--ui-font-weight-medium)",
+      "defaultValue": "500",
+      "description": "Font weight"
+    },
+    {
+      "name": "--ui-avatar-ring-width",
+      "default": "var(--ui-border-width-sm)",
+      "defaultValue": "1px",
+      "description": "Group ring width"
+    },
+    {
+      "name": "--ui-avatar-ring-color",
+      "default": "var(--ui-color-bg)",
+      "description": "Group ring color"
+    },
+    {
       "name": "--ui-avatar-size",
       "default": "calc(var(--ui-unit) * 5)",
       "defaultValue": "40px",

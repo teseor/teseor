@@ -15,6 +15,69 @@
   },
   "cssVars": [
     {
+      "name": "--ui-link-transition-duration",
+      "default": "var(--ui-duration-fast)",
+      "defaultValue": "100ms",
+      "description": "Transition duration"
+    },
+    {
+      "name": "--ui-link-transition-timing",
+      "default": "var(--ui-ease-default)",
+      "description": "Transition timing"
+    },
+    {
+      "name": "--ui-link-focus-color",
+      "default": "var(--ui-color-focus)",
+      "description": "Focus ring color"
+    },
+    {
+      "name": "--ui-link-focus-outline-width",
+      "default": "var(--ui-border-width-md)",
+      "defaultValue": "2px",
+      "description": "Focus outline width"
+    },
+    {
+      "name": "--ui-link-disabled-color",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Disabled text color"
+    },
+    {
+      "name": "--ui-link-disabled-opacity",
+      "default": "var(--ui-opacity-disabled)",
+      "defaultValue": "0.5",
+      "description": "Disabled opacity"
+    },
+    {
+      "name": "--ui-link-underline-offset",
+      "default": "calc(var(--ui-unit) / 4)",
+      "defaultValue": "2px",
+      "description": "Underline offset"
+    },
+    {
+      "name": "--ui-link-focus-radius",
+      "default": "calc(var(--ui-unit) / 4)",
+      "defaultValue": "2px",
+      "description": "Focus radius"
+    },
+    {
+      "name": "--ui-link-focus-outline-offset",
+      "default": "calc(var(--ui-unit) / 4)",
+      "defaultValue": "2px",
+      "description": "Focus outline offset"
+    },
+    {
+      "name": "--ui-link-external-spacing",
+      "default": "calc(var(--ui-unit) / 4)",
+      "defaultValue": "2px",
+      "description": "External indicator spacing"
+    },
+    {
+      "name": "--ui-link-external-font-size",
+      "default": "var(--ui-font-size-relative-sm)",
+      "defaultValue": "0.75em",
+      "description": "External indicator font size"
+    },
+    {
       "name": "--ui-link-color",
       "default": "var(--ui-color-primary)",
       "description": "Text color"
@@ -26,7 +89,7 @@
     },
     {
       "name": "--ui-link-color-visited",
-      "default": "var(--_color)",
+      "default": "var(--ui-color-primary)",
       "description": "Color visited"
     },
     {

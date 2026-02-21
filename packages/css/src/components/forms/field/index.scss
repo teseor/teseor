@@ -9,6 +9,14 @@
   .field {
     // @desc Gap between children
     --_gap: var(--ui-field-gap, 0);
+    // @desc Label min width (horizontal layout)
+    --_label-min-width: var(--ui-field-label-min-width, calc(#{t.$unit} * 15));
+    // @desc Label padding top (horizontal layout)
+    --_label-padding-top: var(--ui-field-label-padding-top, var(--ui-unit, #{t.$unit}));
+    // @desc Control min width (horizontal layout)
+    --_control-min-width: var(--ui-field-control-min-width, calc(#{t.$unit} * 20));
+    // @desc Container threshold for responsive layout
+    --_container-threshold: var(--ui-field-container-threshold, #{t.$container-threshold-sm});
   }
 }
 
@@ -36,14 +44,14 @@
   .field--horizontal > .field__label {
     flex: 0 0 auto;
 
-    min-inline-size: calc(#{t.$unit} * 15);
-    padding-block-start: calc(#{t.$unit} * 1);
+    min-inline-size: var(--_label-min-width);
+    padding-block-start: var(--_label-padding-top);
   }
 
   .field--horizontal > .field__control {
     flex: 1 1 0;
 
-    min-inline-size: calc(#{t.$unit} * 20);
+    min-inline-size: var(--_control-min-width);
   }
 
   // Auto-switch to horizontal when container is wide enough
@@ -62,8 +70,8 @@
     @container (inline-size >= #{t.$container-threshold-sm}) {
       flex: 0 0 auto;
 
-      min-inline-size: calc(#{t.$unit} * 15);
-      padding-block-start: calc(#{t.$unit} * 1);
+      min-inline-size: var(--_label-min-width);
+      padding-block-start: var(--_label-padding-top);
     }
   }
 
@@ -71,7 +79,7 @@
     @container (inline-size >= #{t.$container-threshold-sm}) {
       flex: 1 1 0;
 
-      min-inline-size: calc(#{t.$unit} * 20);
+      min-inline-size: var(--_control-min-width);
     }
   }
 }

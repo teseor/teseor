@@ -7,11 +7,22 @@
 
 @layer components.tokens {
   .pagination {
-    --_font-size-sm: var(--ui-font-size-sm, #{t.$font-size-sm});
-    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
-    --_ease-default: var(--ui-ease-default, ease);
-    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
-    --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
+    // @desc Item font size
+    --_item-font-size: var(--ui-pagination-item-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    // @desc Transition duration
+    --_transition-duration: var(--ui-pagination-transition-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    // @desc Transition timing function
+    --_transition-timing: var(--ui-pagination-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    // @desc Disabled opacity
+    --_disabled-opacity: var(--ui-pagination-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
+    // @desc Ellipsis color
+    --_ellipsis-color: var(--ui-pagination-ellipsis-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    // @desc Item inline padding
+    --_item-padding-x: var(--ui-pagination-item-padding-x, var(--ui-unit, #{t.$unit}));
+    // @desc Prev/next gap
+    --_nav-gap: var(--ui-pagination-nav-gap, calc(#{t.$unit} * 0.5));
+    // @desc Prev/next inline padding
+    --_nav-padding-x: var(--ui-pagination-nav-padding-x, calc(#{t.$unit} * 1.5));
     // @desc Gap between children
     --_gap: var(--ui-pagination-gap, calc(#{t.$unit} * 0.5));
     // @desc Item overall size
@@ -72,9 +83,9 @@
 
     block-size: var(--_item-size);
     min-inline-size: var(--_item-size);
-    padding-inline: calc(#{t.$unit} * 1);
+    padding-inline: var(--_item-padding-x);
 
-    font-size: var(--_font-size-sm);
+    font-size: var(--_item-font-size);
     text-decoration: none;
     color: var(--_item-color);
 
@@ -82,8 +93,8 @@
     border-radius: var(--_item-radius);
 
     transition:
-      background var(--_duration-fast) var(--_ease-default),
-      color var(--_duration-fast) var(--_ease-default);
+      background var(--_transition-duration) var(--_transition-timing),
+      color var(--_transition-duration) var(--_transition-timing);
 
     &:hover {
       background: var(--_item-bg-hover);
@@ -102,7 +113,7 @@
   // Disabled state
   .pagination__link[aria-disabled="true"],
   .pagination__link--disabled {
-    opacity: var(--_opacity-disabled);
+    opacity: var(--_disabled-opacity);
     pointer-events: none;
   }
 
@@ -111,9 +122,9 @@
   .pagination__next {
     display: inline-flex;
     align-items: center;
-    gap: calc(#{t.$unit} * 0.5);
+    gap: var(--_nav-gap);
 
-    padding-inline: calc(#{t.$unit} * 1.5);
+    padding-inline: var(--_nav-padding-x);
   }
 
   // Ellipsis
@@ -125,6 +136,6 @@
     block-size: var(--_item-size);
     min-inline-size: var(--_item-size);
 
-    color: var(--_color-text-muted);
+    color: var(--_ellipsis-color);
   }
 }

@@ -6,9 +6,16 @@
 
 @layer components.tokens {
   .dropdown-menu {
-    --_space-0: var(--ui-space-0, #{t.$space-0});
-    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
-    --_ease-default: var(--ui-ease-default, #{t.$ease-default});
+    // @desc Trigger gap
+    --_trigger-gap: var(--ui-dropdown-menu-trigger-gap, var(--ui-space-0, #{t.$space-0}));
+    // @desc Transition duration
+    --_transition-duration: var(--ui-dropdown-menu-transition-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    // @desc Transition timing function
+    --_transition-timing: var(--ui-dropdown-menu-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    // @desc Trigger icon font size
+    --_trigger-icon-font-size: var(--ui-dropdown-menu-trigger-icon-font-size, var(--ui-font-size-relative-xs, #{t.$font-size-relative-xs}));
+    // @desc Panel slide offset
+    --_panel-slide-offset: var(--ui-dropdown-menu-panel-slide-offset, var(--ui-unit, #{t.$unit}));
     // @desc Z-index stacking order
     --_z: var(--ui-dropdown-menu-z, var(--ui-z-index-dropdown, #{t.$z-index-dropdown}));
     // @desc Panel offset from anchor
@@ -27,15 +34,15 @@
   .dropdown-menu__trigger {
     display: inline-flex;
     align-items: center;
-    gap: var(--_space-0);
+    gap: var(--_trigger-gap);
   }
 
   .dropdown-menu__trigger-icon {
     display: inline-flex;
 
-    font-size: #{t.$font-size-relative-xs};
+    font-size: var(--_trigger-icon-font-size);
 
-    transition: transform var(--_duration-fast) var(--_ease-default);
+    transition: transform var(--_transition-duration) var(--_transition-timing);
   }
 
   // @modifier boolean open
@@ -53,11 +60,11 @@
 
     opacity: 0;
     pointer-events: none;
-    transform: translateY(calc(#{t.$unit} * -1));
+    transform: translateY(calc(var(--_panel-slide-offset) * -1));
 
     transition:
-      opacity var(--_duration-fast) var(--_ease-default),
-      transform var(--_duration-fast) var(--_ease-default);
+      opacity var(--_transition-duration) var(--_transition-timing),
+      transform var(--_transition-duration) var(--_transition-timing);
   }
 
   .dropdown-menu--open .dropdown-menu__panel {
@@ -72,7 +79,7 @@
     inset-block-start: auto;
     inset-block-end: calc(100% + var(--_panel-offset));
 
-    transform: translateY(#{t.$unit});
+    transform: translateY(var(--_panel-slide-offset));
   }
 
   .dropdown-menu--top.dropdown-menu--open .dropdown-menu__panel {

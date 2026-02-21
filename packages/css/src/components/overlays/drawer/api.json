@@ -25,6 +25,86 @@
   ],
   "cssVars": [
     {
+      "name": "--ui-drawer-z-index",
+      "default": "var(--ui-z-index-drawer)",
+      "defaultValue": "800",
+      "description": "Z-index stacking order"
+    },
+    {
+      "name": "--ui-drawer-backdrop-color",
+      "default": "var(--ui-overlay-bg)",
+      "description": "Backdrop color"
+    },
+    {
+      "name": "--ui-drawer-enter-duration",
+      "default": "var(--ui-duration-normal)",
+      "defaultValue": "200ms",
+      "description": "Enter duration"
+    },
+    {
+      "name": "--ui-drawer-enter-timing",
+      "default": "var(--ui-ease-out)",
+      "description": "Enter timing function"
+    },
+    {
+      "name": "--ui-drawer-exit-duration",
+      "default": "var(--ui-duration-fast)",
+      "defaultValue": "100ms",
+      "description": "Exit duration"
+    },
+    {
+      "name": "--ui-drawer-exit-timing",
+      "default": "var(--ui-ease-in)",
+      "description": "Exit timing function"
+    },
+    {
+      "name": "--ui-drawer-border-width",
+      "default": "var(--ui-border-width-sm)",
+      "defaultValue": "1px",
+      "description": "Border width"
+    },
+    {
+      "name": "--ui-drawer-title-font-size",
+      "default": "var(--ui-font-size-lg)",
+      "defaultValue": "20px",
+      "description": "Title font size"
+    },
+    {
+      "name": "--ui-drawer-title-font-weight",
+      "default": "var(--ui-font-weight-semibold)",
+      "defaultValue": "600",
+      "description": "Title font weight"
+    },
+    {
+      "name": "--ui-drawer-title-line-height",
+      "default": "var(--ui-row-1)",
+      "defaultValue": "16px",
+      "description": "Title line height"
+    },
+    {
+      "name": "--ui-drawer-description-font-size",
+      "default": "var(--ui-font-size-sm)",
+      "defaultValue": "14px",
+      "description": "Description font size"
+    },
+    {
+      "name": "--ui-drawer-description-color",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Description color"
+    },
+    {
+      "name": "--ui-drawer-header-gap",
+      "default": "calc(var(--ui-unit) * 2)",
+      "defaultValue": "16px",
+      "description": "Header gap"
+    },
+    {
+      "name": "--ui-drawer-footer-gap",
+      "default": "calc(var(--ui-unit) * 2)",
+      "defaultValue": "16px",
+      "description": "Footer gap"
+    },
+    {
       "name": "--ui-drawer-size",
       "default": "calc(var(--ui-unit) * 40)",
       "defaultValue": "320px",

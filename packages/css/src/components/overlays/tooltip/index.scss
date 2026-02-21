@@ -7,8 +7,14 @@
 
 @layer components.tokens {
   .tooltip {
-    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
-    --_ease-default: var(--ui-ease-default, ease);
+    // @desc Transition duration
+    --_transition-duration: var(--ui-tooltip-transition-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    // @desc Transition timing function
+    --_transition-timing: var(--ui-tooltip-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    // @desc Max width
+    --_max-width: var(--ui-tooltip-max-width, calc(#{t.$unit} * 25));
+    // @desc Line height
+    --_line-height: var(--ui-tooltip-line-height, calc(#{t.$unit} * 2));
     // @desc Background color
     --_bg: var(--ui-tooltip-bg, var(--ui-color-text, #{t.$color-text}));
     // @desc Text color
@@ -33,11 +39,11 @@
     position: absolute;
     z-index: var(--_z);
 
-    max-inline-size: calc(#{t.$unit} * 25);
+    max-inline-size: var(--_max-width);
     padding: var(--_padding-y) var(--_padding-x);
 
     font-size: var(--_font-size);
-    line-height: calc(#{t.$unit} * 2);
+    line-height: var(--_line-height);
     text-align: center;
     white-space: nowrap;
     color: var(--_color);
@@ -112,7 +118,7 @@
 
   // @modifier boolean animate
   .tooltip--animate {
-    transition: opacity var(--_duration-fast) var(--_ease-default);
+    transition: opacity var(--_transition-duration) var(--_transition-timing);
   }
 
   // Anchor-positioned tooltip (progressive enhancement)

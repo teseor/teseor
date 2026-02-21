@@ -13,6 +13,35 @@
   },
   "cssVars": [
     {
+      "name": "--ui-label-font-weight",
+      "default": "var(--ui-font-weight-medium)",
+      "defaultValue": "500",
+      "description": "Font weight"
+    },
+    {
+      "name": "--ui-label-line-height",
+      "default": "var(--ui-line-height-tight-sm)",
+      "defaultValue": "16px",
+      "description": "Line height"
+    },
+    {
+      "name": "--ui-label-disabled-opacity",
+      "default": "var(--ui-opacity-disabled)",
+      "defaultValue": "0.5",
+      "description": "Disabled opacity"
+    },
+    {
+      "name": "--ui-label-optional-font-weight",
+      "default": "var(--ui-font-weight-normal)",
+      "defaultValue": "400",
+      "description": "Optional font weight"
+    },
+    {
+      "name": "--ui-label-optional-color",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Optional color"
+    },
+    {
       "name": "--ui-label-font-size",
       "default": "var(--ui-font-size-sm)",
       "defaultValue": "14px",

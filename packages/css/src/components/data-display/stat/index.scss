@@ -4,7 +4,8 @@
 
 @layer components.tokens {
   .stat {
-    --_tracking-display: var(--ui-letter-spacing-display, #{t.$letter-spacing-display});
+    // @desc Letter spacing
+    --_letter-spacing: var(--ui-stat-letter-spacing, var(--ui-letter-spacing-display, #{t.$letter-spacing-display}));
     // @desc Gap between children
     --_gap: var(--ui-stat-gap, var(--ui-space-1, #{t.$space-1}));
   }
@@ -31,8 +32,10 @@
 
   // @modifier size
   .stat--sm .stat__value {
-    --_font-size: var(--ui-font-size-xl, #{t.$font-size-xl});
-    --_line-height: var(--ui-line-height-xl, #{t.$line-height-xl});
+    // @desc Value font size at small size
+    --_font-size: var(--ui-stat-value-font-size-sm, var(--ui-font-size-xl, #{t.$font-size-xl}));
+    // @desc Value line height at small size
+    --_line-height: var(--ui-stat-value-line-height-sm, var(--ui-line-height-xl, #{t.$line-height-xl}));
   }
 }
 
@@ -47,7 +50,7 @@
     font-size: var(--_font-size);
     font-weight: var(--_font-weight);
     line-height: var(--_line-height);
-    letter-spacing: var(--_tracking-display);
+    letter-spacing: var(--_letter-spacing);
     color: var(--_color);
   }
 

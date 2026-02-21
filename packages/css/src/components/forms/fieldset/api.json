@@ -15,6 +15,23 @@
   },
   "cssVars": [
     {
+      "name": "--ui-fieldset-line-height",
+      "default": "var(--ui-line-height-tight-sm)",
+      "defaultValue": "16px",
+      "description": "Line height"
+    },
+    {
+      "name": "--ui-fieldset-legend-inline-padding",
+      "default": "var(--ui-space-half)",
+      "description": "Legend inline padding"
+    },
+    {
+      "name": "--ui-fieldset-disabled-opacity",
+      "default": "var(--ui-opacity-disabled)",
+      "defaultValue": "0.5",
+      "description": "Disabled opacity"
+    },
+    {
       "name": "--ui-fieldset-spacing",
       "default": "var(--ui-space-2)",
       "defaultValue": "16px",

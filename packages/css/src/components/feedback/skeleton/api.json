@@ -26,6 +26,30 @@
       "default": "var(--ui-radius-sm)",
       "defaultValue": "4px",
       "description": "Corner radius"
+    },
+    {
+      "name": "--ui-skeleton-text-height",
+      "default": "calc(var(--ui-unit) * 2)",
+      "defaultValue": "16px",
+      "description": "Text line height"
+    },
+    {
+      "name": "--ui-skeleton-heading-height",
+      "default": "calc(var(--ui-unit) * 3)",
+      "defaultValue": "24px",
+      "description": "Heading height"
+    },
+    {
+      "name": "--ui-skeleton-circle-size",
+      "default": "calc(var(--ui-unit) * 5)",
+      "defaultValue": "40px",
+      "description": "Circle size"
+    },
+    {
+      "name": "--ui-skeleton-rect-height",
+      "default": "calc(var(--ui-unit) * 20)",
+      "defaultValue": "160px",
+      "description": "Rectangle height"
     }
   ]
 }

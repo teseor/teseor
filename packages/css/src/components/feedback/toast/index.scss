@@ -8,7 +8,8 @@
 
 @layer components.tokens {
   .toast-viewport {
-    --_z-toast: var(--ui-z-index-toast, #{t.$z-index-toast});
+    // @desc Z-index stacking order
+    --_z-index: var(--ui-toast-viewport-z-index, var(--ui-z-index-toast, #{t.$z-index-toast}));
     // @desc Viewport gap
     --_gap: var(--ui-toast-viewport-gap, calc(#{t.$unit} * 1));
     // @desc Viewport padding
@@ -18,16 +19,26 @@
   }
 
   .toast {
-    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
-    --_weight-medium: var(--ui-font-weight-medium, #{t.$font-weight-medium});
-    --_row-1: var(--ui-row-1, #{t.$row});
-    --_font-size-sm: var(--ui-font-size-sm, #{t.$font-size-sm});
-    --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
-    --_color-text: var(--ui-color-text, #{t.$color-text});
-    --_duration-normal: var(--ui-duration-normal, #{t.$duration-normal});
-    --_ease-out: var(--ui-ease-out, ease-out);
-    --_duration-fast: var(--ui-duration-fast, #{t.$duration-fast});
-    --_ease-in: var(--ui-ease-in, ease-in);
+    // @desc Border width
+    --_border-width: var(--ui-toast-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    // @desc Title font weight
+    --_title-font-weight: var(--ui-toast-title-font-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
+    // @desc Title line height
+    --_title-line-height: var(--ui-toast-title-line-height, var(--ui-row-1, #{t.$row}));
+    // @desc Description font size
+    --_description-font-size: var(--ui-toast-description-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    // @desc Description color
+    --_description-color: var(--ui-toast-description-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    // @desc Close hover color
+    --_close-hover-color: var(--ui-toast-close-hover-color, var(--ui-color-text, #{t.$color-text}));
+    // @desc Enter duration
+    --_enter-duration: var(--ui-toast-enter-duration, var(--ui-duration-normal, #{t.$duration-normal}));
+    // @desc Enter timing function
+    --_enter-timing: var(--ui-toast-enter-timing, var(--ui-ease-out, #{t.$ease-out}));
+    // @desc Exit duration
+    --_exit-duration: var(--ui-toast-exit-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    // @desc Exit timing function
+    --_exit-timing: var(--ui-toast-exit-timing, var(--ui-ease-in, #{t.$ease-in}));
     // @desc Padding on all sides
     --_padding: var(--ui-toast-padding, calc(#{t.$unit} * 2));
     // @desc Gap between children
@@ -68,7 +79,7 @@
     flex-direction: column;
     gap: var(--_gap);
     position: fixed;
-    z-index: var(--_z-toast);
+    z-index: var(--_z-index);
 
     max-inline-size: var(--_max-width);
     padding: var(--_padding);
@@ -123,10 +134,10 @@
 
     background: var(--_bg);
     border-radius: var(--_radius);
-    outline: var(--_border-width-sm) solid var(--_border-color);
+    outline: var(--_border-width) solid var(--_border-color);
     box-shadow: var(--_shadow);
     pointer-events: auto;
-    outline-offset: calc(var(--_border-width-sm) * -1);
+    outline-offset: calc(var(--_border-width) * -1);
   }
 
   .toast__icon {
@@ -142,16 +153,16 @@
   .toast__title {
     margin: 0;
 
-    font-weight: var(--_weight-medium);
-    line-height: var(--_row-1);
+    font-weight: var(--_title-font-weight);
+    line-height: var(--_title-line-height);
   }
 
   .toast__description {
     margin: 0;
 
-    font-size: var(--_font-size-sm);
-    line-height: var(--_row-1);
-    color: var(--_color-text-muted);
+    font-size: var(--_description-font-size);
+    line-height: var(--_title-line-height);
+    color: var(--_description-color);
   }
 
   .toast__action {
@@ -164,28 +175,28 @@
     align-items: center;
     justify-content: center;
 
-    block-size: var(--_row-1);
-    inline-size: var(--_row-1);
+    block-size: var(--_title-line-height);
+    inline-size: var(--_title-line-height);
     padding: 0;
 
-    color: var(--_color-text-muted);
+    color: var(--_description-color);
 
     background: none;
     border: none;
     cursor: pointer;
 
     &:hover {
-      color: var(--_color-text);
+      color: var(--_close-hover-color);
     }
   }
 
   // Animation states
   .toast[data-state="open"] {
-    animation: toast-slide-in var(--_duration-normal) var(--_ease-out);
+    animation: toast-slide-in var(--_enter-duration) var(--_enter-timing);
   }
 
   .toast[data-state="closed"] {
-    animation: toast-slide-out var(--_duration-fast) var(--_ease-in);
+    animation: toast-slide-out var(--_exit-duration) var(--_exit-timing);
   }
 
   @keyframes toast-slide-in {

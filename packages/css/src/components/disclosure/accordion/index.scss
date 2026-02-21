@@ -13,6 +13,8 @@
     --_border-width: var(--ui-accordion-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
     // @desc Corner radius
     --_radius: var(--ui-accordion-radius, var(--ui-radius-md, calc(#{t.$unit} * 1)));
+    // @desc Gap between items in separated variant
+    --_separated-gap: var(--ui-accordion-separated-gap, var(--ui-space-1, #{t.$space-1}));
   }
 
   // Remove individual borders from nested disclosures
@@ -57,7 +59,7 @@
     border-end-end-radius: var(--_radius);
   }
 
-  // Borderless variant
+  // @modifier boolean borderless
   .accordion--borderless {
     border: none;
   }
@@ -71,7 +73,7 @@
   .accordion--separated {
     display: flex;
     flex-direction: column;
-    gap: calc(#{t.$unit} * 1);
+    gap: var(--_separated-gap);
 
     border: none;
   }

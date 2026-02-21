@@ -18,6 +18,55 @@
   },
   "cssVars": [
     {
+      "name": "--ui-select-arrow-inset",
+      "default": "var(--ui-space-half)",
+      "description": "Arrow inset"
+    },
+    {
+      "name": "--ui-select-border-width",
+      "default": "var(--ui-border-width-sm)",
+      "defaultValue": "1px",
+      "description": "Border width"
+    },
+    {
+      "name": "--ui-select-transition-duration",
+      "default": "var(--ui-duration-fast)",
+      "defaultValue": "100ms",
+      "description": "Transition duration"
+    },
+    {
+      "name": "--ui-select-transition-timing",
+      "default": "var(--ui-ease-default)",
+      "description": "Transition timing"
+    },
+    {
+      "name": "--ui-select-hover-border-color",
+      "default": "var(--ui-color-border-strong)",
+      "description": "Hover border color"
+    },
+    {
+      "name": "--ui-select-focus-ring-width",
+      "default": "var(--ui-border-width-md)",
+      "defaultValue": "2px",
+      "description": "Focus ring width"
+    },
+    {
+      "name": "--ui-select-focus-ring-color",
+      "default": "var(--ui-color-focus)",
+      "description": "Focus ring color"
+    },
+    {
+      "name": "--ui-select-disabled-opacity",
+      "default": "var(--ui-opacity-disabled)",
+      "defaultValue": "0.5",
+      "description": "Disabled opacity"
+    },
+    {
+      "name": "--ui-select-placeholder-color",
+      "default": "var(--ui-color-text-muted)",
+      "description": "Placeholder color"
+    },
+    {
       "name": "--ui-select-height",
       "default": "var(--ui-row-2)",
       "defaultValue": "32px",

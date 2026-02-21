@@ -5,12 +5,20 @@
 
 @layer components.tokens {
   .close-button {
-    --_duration-base: var(--ui-duration-base, #{t.$duration-base});
-    --_ease-default: var(--ui-ease-default, ease);
-    --_color-text: var(--ui-color-text, #{t.$color-text});
-    --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
-    --_color-focus: var(--ui-color-focus, #{t.$color-focus});
-    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
+    // @desc Transition duration
+    --_transition-duration: var(--ui-close-button-transition-duration, var(--ui-duration-base, #{t.$duration-base}));
+    // @desc Transition timing function
+    --_transition-timing: var(--ui-close-button-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    // @desc Hover text color
+    --_hover-color: var(--ui-close-button-hover-color, var(--ui-color-text, #{t.$color-text}));
+    // @desc Focus ring width
+    --_focus-ring-width: var(--ui-close-button-focus-ring-width, var(--ui-border-width-md, #{t.$border-width-md}));
+    // @desc Focus ring color
+    --_focus-ring-color: var(--ui-close-button-focus-ring-color, var(--ui-color-focus, #{t.$color-focus}));
+    // @desc Disabled opacity
+    --_disabled-opacity: var(--ui-close-button-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
+    // @desc Icon stroke width
+    --_icon-stroke: var(--ui-close-button-icon-stroke, #{t.$icon-stroke});
     // @desc Overall button size (width and height)
     --_size: var(--ui-close-button-size, var(--ui-row-2, #{t.$row-2}));
     // @desc Size of the X icon
@@ -70,13 +78,13 @@
     appearance: none;
 
     transition:
-      background-color var(--_duration-base) var(--_ease-default),
-      color var(--_duration-base) var(--_ease-default);
+      background-color var(--_transition-duration) var(--_transition-timing),
+      color var(--_transition-duration) var(--_transition-timing);
 
     &:hover,
   // @modifier boolean hover
     &--hover {
-      color: var(--_color-text);
+      color: var(--_hover-color);
 
       background: var(--_hover-bg);
     }
@@ -84,8 +92,8 @@
     &:focus-visible,
   // @modifier boolean focus
     &--focus {
-      outline: var(--_border-width-md) solid var(--_color-focus);
-      outline-offset: var(--_border-width-md);
+      outline: var(--_focus-ring-width) solid var(--_focus-ring-color);
+      outline-offset: var(--_focus-ring-width);
     }
 
     &:active,
@@ -94,7 +102,7 @@
     }
 
     &:disabled {
-      opacity: var(--_opacity-disabled);
+      opacity: var(--_disabled-opacity);
       cursor: not-allowed;
 
       &:hover {
@@ -114,7 +122,7 @@
 
     fill: none;
     stroke: currentcolor;
-    stroke-width: #{t.$icon-stroke};
+    stroke-width: var(--_icon-stroke);
     stroke-linecap: round;
     stroke-linejoin: round;
   }

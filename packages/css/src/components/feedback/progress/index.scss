@@ -16,8 +16,14 @@
 
 @layer components.tokens {
   .progress {
-    --_duration-normal: var(--ui-duration-normal, #{t.$duration-normal});
-    --_ease-default: var(--ui-ease-default, #{t.$ease-default});
+    // @desc Transition duration
+    --_transition-duration: var(--ui-progress-transition-duration, var(--ui-duration-normal, #{t.$duration-normal}));
+    // @desc Transition timing function
+    --_transition-timing: var(--ui-progress-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    // @desc Stripe highlight color
+    --_stripe-highlight: var(--ui-progress-stripe-highlight, #{t.$stripe-highlight});
+    // @desc Stripe size
+    --_stripe-size: var(--ui-progress-stripe-size, var(--ui-unit, #{t.$unit}));
     // @desc Overall height
     --_height: var(--ui-progress-height, calc(#{t.$unit} * 1));
     // @desc Background color
@@ -73,8 +79,8 @@
     border-radius: var(--_radius);
 
     transition:
-      inline-size var(--_duration-normal) var(--_ease-default),
-      --ui-progress-value var(--_duration-normal) var(--_ease-default);
+      inline-size var(--_transition-duration) var(--_transition-timing),
+      --ui-progress-value var(--_transition-duration) var(--_transition-timing);
   }
 
   // Indeterminate state - animated stripe
@@ -100,15 +106,15 @@
   .progress--striped .progress__bar {
     background-image: linear-gradient(
       45deg,
-      #{t.$stripe-highlight} 25%,
+      var(--_stripe-highlight) 25%,
       transparent 25%,
       transparent 50%,
-      #{t.$stripe-highlight} 50%,
-      #{t.$stripe-highlight} 75%,
+      var(--_stripe-highlight) 50%,
+      var(--_stripe-highlight) 75%,
       transparent 75%,
       transparent
     );
-    background-size: #{t.$unit} #{t.$unit};
+    background-size: var(--_stripe-size) var(--_stripe-size);
   }
 
   // Animated stripes
@@ -119,7 +125,7 @@
 
   @keyframes progress-stripes {
     from {
-      background-position: #{t.$unit} 0;
+      background-position: var(--_stripe-size) 0;
     }
 
     to {

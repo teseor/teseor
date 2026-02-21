@@ -13,6 +13,14 @@
     --_shimmer: var(--ui-skeleton-shimmer, #{t.$skeleton-shimmer});
     // @desc Corner radius
     --_radius: var(--ui-skeleton-radius, var(--ui-radius-sm, calc(#{t.$unit} / 2)));
+    // @desc Text line height
+    --_text-height: var(--ui-skeleton-text-height, calc(#{t.$unit} * 2));
+    // @desc Heading height
+    --_heading-height: var(--ui-skeleton-heading-height, calc(#{t.$unit} * 3));
+    // @desc Circle size
+    --_circle-size: var(--ui-skeleton-circle-size, calc(#{t.$unit} * 5));
+    // @desc Rectangle height
+    --_rect-height: var(--ui-skeleton-rect-height, calc(#{t.$unit} * 20));
   }
 }
 
@@ -54,27 +62,27 @@
   // Text line variant
   // @modifier variant
   .skeleton--text {
-    block-size: calc(#{t.$unit} * 2);
+    block-size: var(--_text-height);
     inline-size: 100%;
   }
 
   // Heading variant
   .skeleton--heading {
-    block-size: calc(#{t.$unit} * 3);
+    block-size: var(--_heading-height);
     inline-size: 60%;
   }
 
   // Avatar/circle variant
   .skeleton--circle {
-    block-size: calc(#{t.$unit} * 5);
-    inline-size: calc(#{t.$unit} * 5);
+    block-size: var(--_circle-size);
+    inline-size: var(--_circle-size);
 
     border-radius: 50%;
   }
 
   // Image/rectangle variant
   .skeleton--rect {
-    block-size: calc(#{t.$unit} * 20);
+    block-size: var(--_rect-height);
     inline-size: 100%;
   }
 

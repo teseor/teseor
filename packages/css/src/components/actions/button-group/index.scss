@@ -11,6 +11,8 @@
     --_radius: var(--ui-button-group-radius, var(--ui-radius-md, calc(#{t.$unit} / 2)));
     // @desc Border thickness
     --_border-width: var(--ui-button-group-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    // @desc Negative overlap between adjacent buttons
+    --_overlap: var(--ui-button-group-overlap, calc(#{t.$unit} / -8));
   }
 }
 
@@ -36,7 +38,7 @@
 
   // Prevent double borders
   .button-group > .button + .button {
-    margin-inline-start: calc(#{t.$unit} / -8);
+    margin-inline-start: var(--_overlap);
   }
 
   // Ensure focused button is on top

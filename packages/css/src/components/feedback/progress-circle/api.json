@@ -19,6 +19,17 @@
   },
   "cssVars": [
     {
+      "name": "--ui-progress-circle-transition-duration",
+      "default": "var(--ui-duration-slow)",
+      "defaultValue": "250ms",
+      "description": "Transition duration"
+    },
+    {
+      "name": "--ui-progress-circle-transition-timing",
+      "default": "var(--ui-ease-default)",
+      "description": "Transition timing function"
+    },
+    {
       "name": "--ui-progress-circle-size",
       "default": "calc(var(--ui-unit) * 6)",
       "defaultValue": "48px",

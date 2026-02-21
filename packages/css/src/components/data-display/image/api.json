@@ -22,6 +22,18 @@
   },
   "cssVars": [
     {
+      "name": "--ui-image-line-height",
+      "default": "var(--ui-row-1)",
+      "defaultValue": "16px",
+      "description": "Line height"
+    },
+    {
+      "name": "--ui-image-fallback-min-size",
+      "default": "calc(var(--ui-unit) * 8)",
+      "defaultValue": "64px",
+      "description": "Fallback minimum size"
+    },
+    {
       "name": "--ui-image-size",
       "default": "auto",
       "description": "Overall size"

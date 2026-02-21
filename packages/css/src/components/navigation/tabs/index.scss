@@ -5,17 +5,28 @@
 // Token definitions
 @layer components.tokens {
   .tabs {
-    --_space-1: var(--ui-space-1, #{t.$space-1});
-    --_border-width-sm: var(--ui-border-width-sm, #{t.$border-width-sm});
-    --_font-sans: var(--ui-font-sans, #{t.$font-sans});
-    --_weight-medium: var(--ui-font-weight-medium, #{t.$font-weight-medium});
-    --_color-text-muted: var(--ui-color-text-muted, #{t.$color-text-muted});
-    --_border-width-md: var(--ui-border-width-md, #{t.$border-width-md});
-    --_duration-base: var(--ui-duration-base, #{t.$duration-base});
-    --_ease-default: var(--ui-ease-default, #{t.$ease-default});
-    --_color-text: var(--ui-color-text, #{t.$color-text});
-    --_color-primary: var(--ui-color-primary, #{t.$color-primary});
-    --_row-1: var(--ui-row-1, #{t.$row});
+    // @desc List gap
+    --_list-gap: var(--ui-tabs-list-gap, var(--ui-space-1, #{t.$space-1}));
+    // @desc Border width
+    --_border-width: var(--ui-tabs-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    // @desc Font family
+    --_font-family: var(--ui-tabs-font-family, var(--ui-font-sans, #{t.$font-sans}));
+    // @desc Tab font weight
+    --_tab-font-weight: var(--ui-tabs-tab-font-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
+    // @desc Tab color
+    --_tab-color: var(--ui-tabs-tab-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    // @desc Indicator width
+    --_indicator-width: var(--ui-tabs-indicator-width, var(--ui-border-width-md, #{t.$border-width-md}));
+    // @desc Transition duration
+    --_transition-duration: var(--ui-tabs-transition-duration, var(--ui-duration-base, #{t.$duration-base}));
+    // @desc Transition timing function
+    --_transition-timing: var(--ui-tabs-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    // @desc Tab hover color
+    --_tab-hover-color: var(--ui-tabs-tab-hover-color, var(--ui-color-text, #{t.$color-text}));
+    // @desc Tab active color
+    --_tab-active-color: var(--ui-tabs-tab-active-color, var(--ui-color-primary, #{t.$color-primary}));
+    // @desc Panel line height
+    --_panel-line-height: var(--ui-tabs-panel-line-height, var(--ui-row-1, #{t.$row}));
     // @desc Border color
     --_border-color: var(--ui-tabs-border-color, var(--ui-color-border, #{t.$color-border}));
     // @desc Tab height
@@ -61,13 +72,13 @@
   .tabs__list {
     display: flex;
     align-items: stretch;
-    gap: var(--_space-1);
+    gap: var(--_list-gap);
 
     box-sizing: border-box;
     block-size: var(--_tab-height);
 
     // Use box-shadow instead of border to avoid affecting height
-    box-shadow: inset 0 calc(var(--_border-width-sm) * -1) 0 var(--_border-color);
+    box-shadow: inset 0 calc(var(--_border-width) * -1) 0 var(--_border-color);
   }
 
   .tabs__tab {
@@ -79,31 +90,31 @@
     padding-inline: var(--_tab-padding-x);
     margin: 0;
 
-    font-family: var(--_font-sans);
+    font-family: var(--_font-family);
     font-size: var(--_tab-font-size);
-    font-weight: var(--_weight-medium);
+    font-weight: var(--_tab-font-weight);
     line-height: var(--_tab-line-height);
-    color: var(--_color-text-muted);
+    color: var(--_tab-color);
 
     background: var(--_tab-bg);
     border: none;
     // Use box-shadow for indicator to avoid affecting height
-    box-shadow: inset 0 calc(var(--_border-width-md) * -1) 0 transparent;
+    box-shadow: inset 0 calc(var(--_indicator-width) * -1) 0 transparent;
     cursor: pointer;
 
     transition:
-      color var(--_duration-base) var(--_ease-default),
-      box-shadow var(--_duration-base) var(--_ease-default);
+      color var(--_transition-duration) var(--_transition-timing),
+      box-shadow var(--_transition-duration) var(--_transition-timing);
 
     &:hover {
-      color: var(--_color-text);
+      color: var(--_tab-hover-color);
     }
 
     &--active {
-      color: var(--_color-primary);
+      color: var(--_tab-active-color);
 
       background: var(--_tab-bg-active);
-      box-shadow: inset 0 calc(var(--_border-width-md) * -1) 0 var(--_color-primary);
+      box-shadow: inset 0 calc(var(--_indicator-width) * -1) 0 var(--_tab-active-color);
     }
   }
 
@@ -112,7 +123,7 @@
 
     padding: var(--_panel-padding);
 
-    line-height: var(--_row-1);
+    line-height: var(--_panel-line-height);
 
     &--active {
       display: block;
@@ -131,16 +142,16 @@
       inline-size: auto;
 
       // Move indicator to inline-start instead of block-end
-      box-shadow: inset calc(var(--_border-width-sm) * -1) 0 0 var(--_border-color);
+      box-shadow: inset calc(var(--_border-width) * -1) 0 0 var(--_border-color);
     }
 
     > .tabs__list > .tabs__tab {
       block-size: var(--_tab-height);
 
-      box-shadow: inset calc(var(--_border-width-md) * -1) 0 0 transparent;
+      box-shadow: inset calc(var(--_indicator-width) * -1) 0 0 transparent;
 
       &--active {
-        box-shadow: inset calc(var(--_border-width-md) * -1) 0 0 var(--_color-primary);
+        box-shadow: inset calc(var(--_indicator-width) * -1) 0 0 var(--_tab-active-color);
       }
     }
 
