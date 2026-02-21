@@ -80,9 +80,13 @@
     overflow-y: auto;
   }
 
-  // Animation states
-  .modal--entering .modal__content,
+  // Animation states (JS-controlled class toggles)
+  // @modifier boolean entering
   // @modifier boolean visible
+  // @modifier boolean exiting
+  // @modifier boolean hidden
+  // @modifier boolean animate
+  .modal--entering .modal__content,
   .modal--visible .modal__content {
     opacity: 1;
     transform: scale(1);
@@ -100,7 +104,6 @@
       transform var(--_duration-normal) var(--_ease-default);
   }
 
-  // Hidden state hides entire modal
   .modal--hidden {
     visibility: hidden;
     pointer-events: none;

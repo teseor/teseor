@@ -22,14 +22,6 @@
   "relatedComponents": [
     {
       "name": "input-group",
-      "modifiers": {
-        "has-prefix": {
-          "type": "boolean"
-        },
-        "has-suffix": {
-          "type": "boolean"
-        }
-      },
       "elements": {
         "addon": {
           "modifiers": {

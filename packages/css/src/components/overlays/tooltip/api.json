@@ -4,7 +4,7 @@
   "element": "div",
   "modifiers": {
     "position": {
-      "values": ["top", "bottom", "start", "end"]
+      "values": ["top", "bottom", "start", "end", "hidden"]
     },
     "visible": {
       "type": "boolean"

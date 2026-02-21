@@ -13,7 +13,7 @@
       "type": "boolean"
     },
     "object-fit": {
-      "values": ["cover", "contain", "circle"]
+      "values": ["cover", "contain"]
     }
   },
   "elements": {

@@ -9,7 +9,16 @@
     "blur": {
       "type": "boolean"
     },
+    "entering": {
+      "type": "boolean"
+    },
     "visible": {
+      "type": "boolean"
+    },
+    "exiting": {
+      "type": "boolean"
+    },
+    "hidden": {
       "type": "boolean"
     },
     "animate": {

@@ -38,6 +38,9 @@ temp
 *.tmp
 *.log
 
+# Astro generated
+.astro
+
 # Docs
 CLAUDE.md
 .docs.local

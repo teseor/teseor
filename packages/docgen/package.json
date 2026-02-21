@@ -1,0 +1,32 @@
+{
+  "name": "@teseor/docgen",
+  "version": "0.1.0",
+  "description": "CSS AST parser and code generator for Teseor design system",
+  "license": "MIT",
+  "author": "letanure",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/teseor/teseor.git",
+    "directory": "packages/docgen"
+  },
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./parser": "./src/parser.ts"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "postcss": "^8.5.6",
+    "postcss-scss": "^4.0.9"
+  },
+  "devDependencies": {
+    "vitest": "^4.0.0",
+    "typescript": "^5.9.3"
+  }
+}

@@ -4,9 +4,21 @@
   "element": "div",
   "modifiers": {
     "size": {
-      "values": ["sm", "lg", "full", "entering"]
+      "values": ["sm", "lg", "full"]
+    },
+    "entering": {
+      "type": "boolean"
     },
     "visible": {
+      "type": "boolean"
+    },
+    "exiting": {
+      "type": "boolean"
+    },
+    "hidden": {
+      "type": "boolean"
+    },
+    "animate": {
       "type": "boolean"
     }
   },

@@ -8,12 +8,6 @@
     },
     "subtle": {
       "type": "boolean"
-    },
-    "hover": {
-      "type": "boolean"
-    },
-    "focus": {
-      "type": "boolean"
     }
   },
   "elements": {

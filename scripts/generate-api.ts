@@ -1,5 +1,5 @@
 #!/usr/bin/env tsx
-// Generates *.api.json from SCSS annotations and token patterns.
+// Generates *.api.json from SCSS via PostCSS AST parser.
 // Run: pnpm generate:api
 // Dry-run (check only): pnpm generate:api -- --check
 
@@ -7,21 +7,18 @@ import { execSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
-
-import { findComponentDirs } from './shared/find-components.js';
 import {
   type ApiJson,
   normalizeForComparison,
   parseScssContent,
   serializeApi,
-} from './shared/scss-parser.js';
+} from '../packages/docgen/src/index.js';
+import { findComponentDirs } from './shared/find-components.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const COMPONENTS_DIR = join(ROOT, 'packages/css/src/components');
 const LAYOUT_DIR = join(ROOT, 'packages/css/src/layout');
-
-// --- Main parser (thin wrapper with file I/O) ---
 
 function parseScss(filePath: string, isLayout: boolean): ApiJson {
   const content = readFileSync(filePath, 'utf-8');
@@ -30,21 +27,15 @@ function parseScss(filePath: string, isLayout: boolean): ApiJson {
   return parseScssContent(content, folderName, isLayout);
 }
 
-// --- Main ---
-
 function findAllScssFiles(): { path: string; isLayout: boolean }[] {
   const files: { path: string; isLayout: boolean }[] = [];
 
-  const componentDirs = findComponentDirs(COMPONENTS_DIR);
-  for (const { path } of componentDirs) {
-    const scssPath = join(path, 'index.scss');
-    files.push({ path: scssPath, isLayout: false });
+  for (const { path } of findComponentDirs(COMPONENTS_DIR)) {
+    files.push({ path: join(path, 'index.scss'), isLayout: false });
   }
 
-  const layoutDirs = findComponentDirs(LAYOUT_DIR);
-  for (const { path } of layoutDirs) {
-    const scssPath = join(path, 'index.scss');
-    files.push({ path: scssPath, isLayout: true });
+  for (const { path } of findComponentDirs(LAYOUT_DIR)) {
+    files.push({ path: join(path, 'index.scss'), isLayout: true });
   }
 
   return files;

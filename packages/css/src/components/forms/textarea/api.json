@@ -12,9 +12,6 @@
     "state": {
       "values": ["error", "success"]
     },
-    "resize": {
-      "values": ["resize-none", "resize-horizontal", "resize-both"]
-    },
     "auto-size": {
       "type": "boolean"
     }
