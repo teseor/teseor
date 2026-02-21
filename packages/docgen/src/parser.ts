@@ -263,7 +263,12 @@ function buildCssVars(
   const prefix = `--ui-${componentName}-`;
   const varPattern = new RegExp(`var\\(${esc(prefix)}([\\w-]+)`, 'g');
 
+  // Pattern for @include t.token(local, global, component, alias)
+  const tokenMixinRe =
+    /^t\.token\(\s*([\w-]+)\s*,\s*([\w-]+)\s*(?:,\s*([\w-]+)\s*)?(?:,\s*([\w-]+)\s*)?\)$/;
+
   for (const container of containers) {
+    // Extract from raw --_ declarations
     container.walkDecls((decl: Declaration) => {
       for (const match of decl.value.matchAll(varPattern)) {
         const varName = `${prefix}${match[1]}`;
@@ -284,6 +289,34 @@ function buildCssVars(
 
         vars.push(cssVar);
       }
+    });
+
+    // Extract from @include t.token() mixin calls
+    container.walkAtRules('include', (atRule) => {
+      const match = atRule.params.match(tokenMixinRe);
+      if (!match) return;
+
+      const [, localName, globalName, compName, aliasName] = match;
+      const resolvedComp = compName ?? componentName;
+      const suffix = aliasName ?? localName;
+      const varName = `--ui-${resolvedComp}-${suffix}`;
+
+      if (seen.has(varName)) return;
+      seen.add(varName);
+
+      const defaultVal = `--ui-${globalName}`;
+      const cssVar: CssVar = { name: varName, default: defaultVal };
+
+      if (tokenMap) {
+        const resolved = resolveDefaultValue(defaultVal, tokenMap);
+        if (resolved) cssVar.defaultValue = resolved;
+      }
+
+      const descLine = (atRule.source?.start?.line ?? 0) - 1;
+      const desc = descsByLine.get(descLine);
+      if (desc) cssVar.description = desc;
+
+      vars.push(cssVar);
     });
   }
 
@@ -427,7 +460,7 @@ export function parseScssContent(
   const elementsResult = buildElements(isLayout ? tokens : styles, name);
   const relatedResult = buildRelatedComponents(all, annotations.relatedNames);
 
-  return {
+  return sortApi({
     $schema: SCHEMA,
     name,
     element,
@@ -435,6 +468,72 @@ export function parseScssContent(
     ...(elementsResult ? { elements: elementsResult } : {}),
     ...(relatedResult ? { relatedComponents: relatedResult } : {}),
     cssVars: buildCssVars(tokens, name, annotations.descsByLine, tokenMap),
+  });
+}
+
+// --- Deterministic ordering ---
+
+function sortKeys<T>(obj: Record<string, T>): Record<string, T> {
+  const sorted: Record<string, T> = {};
+  for (const key of Object.keys(obj).sort()) {
+    sorted[key] = obj[key];
+  }
+  return sorted;
+}
+
+function sortModifier(mod: Modifier): Modifier {
+  const sorted: Modifier = {};
+  if (mod.type !== undefined) sorted.type = mod.type;
+  if (mod.values) sorted.values = [...mod.values].sort();
+  if (mod.visibility !== undefined) sorted.visibility = mod.visibility;
+  return sorted;
+}
+
+function sortModifiers(mods: Record<string, Modifier>): Record<string, Modifier> {
+  const sorted = sortKeys(mods);
+  for (const [key, mod] of Object.entries(sorted)) {
+    sorted[key] = sortModifier(mod);
+  }
+  return sorted;
+}
+
+function sortElements(elems: Record<string, ElementDef>): Record<string, ElementDef> {
+  const sorted = sortKeys(elems);
+  for (const [key, elem] of Object.entries(sorted)) {
+    if (elem.modifiers) {
+      sorted[key] = { ...elem, modifiers: sortModifiers(elem.modifiers) };
+    }
+  }
+  return sorted;
+}
+
+function sortApi(api: ApiJson): ApiJson {
+  return {
+    $schema: api.$schema,
+    name: api.name,
+    element: api.element,
+    modifiers: sortModifiers(api.modifiers),
+    ...(api.elements ? { elements: sortElements(api.elements) } : {}),
+    ...(api.relatedComponents
+      ? {
+          relatedComponents: api.relatedComponents
+            .map((rc) => {
+              const sorted: RelatedComponent = { name: rc.name };
+              if (rc.modifiers) sorted.modifiers = sortModifiers(rc.modifiers);
+              if (rc.elements) sorted.elements = sortElements(rc.elements);
+              return sorted;
+            })
+            .sort((a, b) => a.name.localeCompare(b.name)),
+        }
+      : {}),
+    cssVars: [...api.cssVars]
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .map((v) => {
+        const sorted: CssVar = { name: v.name, default: v.default };
+        if (v.defaultValue !== undefined) sorted.defaultValue = v.defaultValue;
+        if (v.description !== undefined) sorted.description = v.description;
+        return sorted;
+      }),
   };
 }
 
