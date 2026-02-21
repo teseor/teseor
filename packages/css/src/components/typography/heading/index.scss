@@ -15,54 +15,25 @@
     @include t.token(color, color-text, heading);
   }
 
-  // @modifier size
-  .heading--4xl {
-    // @desc Font size 4xl
-    @include t.token(font-size, font-size-4xl, heading, font-size-4xl);
-    // @desc Line height 4xl
-    @include t.token(line-height, line-height-4xl, heading, line-height-4xl);
-  }
+  // Typography scale — non-standard sizes (not xs-xl)
+  $size-tokens: (
+    sm:  (font-size: font-size-sm,  line-height: line-height-tight-sm),
+    md:  (font-size: font-size-md,  line-height: line-height-tight-md),
+    lg:  (font-size: font-size-lg,  line-height: line-height-lg),
+    xl:  (font-size: font-size-xl,  line-height: line-height-xl),
+    2xl: (font-size: font-size-2xl, line-height: line-height-2xl),
+    3xl: (font-size: font-size-3xl, line-height: line-height-3xl),
+    4xl: (font-size: font-size-4xl, line-height: line-height-4xl),
+  );
 
-  .heading--3xl {
-    // @desc Font size 3xl
-    @include t.token(font-size, font-size-3xl, heading, font-size-3xl);
-    // @desc Line height 3xl
-    @include t.token(line-height, line-height-3xl, heading, line-height-3xl);
-  }
-
-  .heading--2xl {
-    // @desc Font size 2xl
-    @include t.token(font-size, font-size-2xl, heading, font-size-2xl);
-    // @desc Line height 2xl
-    @include t.token(line-height, line-height-2xl, heading, line-height-2xl);
-  }
-
-  .heading--xl {
-    // @desc Font size at extra-large size
-    @include t.token(font-size, font-size-xl, heading, font-size-xl);
-    // @desc Line height at extra-large size
-    @include t.token(line-height, line-height-xl, heading, line-height-xl);
-  }
-
-  .heading--lg {
-    // @desc Font size at large size
-    @include t.token(font-size, font-size-lg, heading, font-size-lg);
-    // @desc Line height at large size
-    @include t.token(line-height, line-height-lg, heading, line-height-lg);
-  }
-
-  .heading--md {
-    // @desc Font size at medium size
-    @include t.token(font-size, font-size-md, heading, font-size-md);
-    // @desc Line height at medium size
-    @include t.token(line-height, line-height-tight-md, heading, line-height-md);
-  }
-
-  .heading--sm {
-    // @desc Font size at small size
-    @include t.token(font-size, font-size-sm, heading, font-size-sm);
-    // @desc Line height at small size
-    @include t.token(line-height, line-height-tight-sm, heading, line-height-sm);
+  // @modifier size sm, md, lg, xl, 2xl, 3xl, 4xl
+  @each $name, $tokens in $size-tokens {
+    .heading--#{$name} {
+      @each $prop, $global in $tokens {
+        // @desc Override
+        @include t.token($prop, $global, heading, #{$prop}-#{$name});
+      }
+    }
   }
 }
 

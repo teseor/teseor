@@ -33,10 +33,23 @@
     @include t.token(check-color, color-text-inverse, checkbox);
   }
 
-  // @modifier size
-  .checkbox--lg {
-    // @desc Overall size at large size
-    @include t.token(size, space-3, checkbox, size-lg);
+  $size-tokens: (
+    xs:  (size: size-sm),
+    sm:  (size: size-md),
+    md:  (size: space-2),
+    lg:  (size: space-3),
+    xl:  (size: space-4),
+  );
+  @include t.validate-size-tokens($size-tokens);
+
+  // @modifier size xs, sm, md, lg, xl
+  @each $name, $tokens in $size-tokens {
+    .checkbox--#{$name} {
+      @each $prop, $global in $tokens {
+        // @desc Override
+        @include t.token($prop, $global, checkbox, #{$prop}-#{$name});
+      }
+    }
   }
 
   // @modifier state

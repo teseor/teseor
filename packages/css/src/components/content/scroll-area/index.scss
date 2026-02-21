@@ -23,20 +23,23 @@
     @include t.token(thumb-radius, radius-full, scroll-area);
   }
 
-  // @modifier size
-  .scroll-area--sm {
-    // @desc Maximum height at small size
-    @include t.token(max-height, row-5, scroll-area, max-height-sm);
-  }
+  $size-tokens: (
+    xs:  (max-height: row-3),
+    sm:  (max-height: row-5),
+    md:  (max-height: row-10),
+    lg:  (max-height: row-15),
+    xl:  (max-height: row-20),
+  );
+  @include t.validate-size-tokens($size-tokens);
 
-  .scroll-area--lg {
-    // @desc Maximum height at large size
-    @include t.token(max-height, row-15, scroll-area, max-height-lg);
-  }
-
-  .scroll-area--xl {
-    // @desc Maximum height at extra-large size
-    @include t.token(max-height, row-20, scroll-area, max-height-xl);
+  // @modifier size xs, sm, md, lg, xl
+  @each $name, $tokens in $size-tokens {
+    .scroll-area--#{$name} {
+      @each $prop, $global in $tokens {
+        // @desc Override
+        @include t.token($prop, $global, scroll-area, #{$prop}-#{$name});
+      }
+    }
   }
 
   // @modifier boolean thin

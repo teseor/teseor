@@ -34,13 +34,23 @@
     @include t.token(radius, radius-full, progress);
   }
 
-  // @modifier size
-  .progress--sm {
-    --_height: #{t.$space-1}; // token-lint-ignore
-  }
+  $size-tokens: (
+    xs:  (height: space-quarter),
+    sm:  (height: space-0),
+    md:  (height: space-1),
+    lg:  (height: space-2),
+    xl:  (height: space-3),
+  );
+  @include t.validate-size-tokens($size-tokens);
 
-  .progress--lg {
-    --_height: #{t.$space-2}; // token-lint-ignore
+  // @modifier size xs, sm, md, lg, xl
+  @each $name, $tokens in $size-tokens {
+    .progress--#{$name} {
+      @each $prop, $global in $tokens {
+        // @desc Override
+        @include t.token($prop, $global, progress, #{$prop}-#{$name});
+      }
+    }
   }
 
   // Color variants

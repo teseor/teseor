@@ -47,23 +47,23 @@
     @include t.token(panel-padding, space-3, tabs);
   }
 
-  // @modifier size
-  .tabs--sm {
-    // @desc Tab height sm
-    @include t.token(tab-height, row-1, tabs, tab-height-sm);
-    // @desc Tab padding x sm
-    @include t.token(tab-padding-x, space-1, tabs, tab-padding-x-sm);
-    // @desc Tab font size sm
-    @include t.token(tab-font-size, font-size-xs, tabs, tab-font-size-sm);
-  }
+  $size-tokens: (
+    xs:  (tab-height: row,     tab-padding-x: space-0, tab-font-size: font-size-xs),
+    sm:  (tab-height: row-1,   tab-padding-x: space-1, tab-font-size: font-size-xs),
+    md:  (tab-height: row-2,   tab-padding-x: space-2, tab-font-size: font-size-sm),
+    lg:  (tab-height: row-2-5, tab-padding-x: space-3, tab-font-size: font-size-md),
+    xl:  (tab-height: row-3,   tab-padding-x: space-4, tab-font-size: font-size-lg),
+  );
+  @include t.validate-size-tokens($size-tokens);
 
-  .tabs--lg {
-    // @desc Tab height lg
-    @include t.token(tab-height, row-2-5, tabs, tab-height-lg);
-    // @desc Tab padding x lg
-    @include t.token(tab-padding-x, space-3, tabs, tab-padding-x-lg);
-    // @desc Tab font size lg
-    @include t.token(tab-font-size, font-size-md, tabs, tab-font-size-lg);
+  // @modifier size xs, sm, md, lg, xl
+  @each $name, $tokens in $size-tokens {
+    .tabs--#{$name} {
+      @each $prop, $global in $tokens {
+        // @desc Override
+        @include t.token($prop, $global, tabs, #{$prop}-#{$name});
+      }
+    }
   }
 }
 

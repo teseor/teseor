@@ -29,15 +29,23 @@
     @include t.token(z, z-index-modal, modal);
   }
 
-  // @modifier size
-  .modal--sm {
-    // @desc Maximum width at small size
-    @include t.token(max-width, unit-40, modal, max-width-sm);
-  }
+  $size-tokens: (
+    xs:  (max-width: unit-25),
+    sm:  (max-width: unit-40),
+    md:  (max-width: unit-60),
+    lg:  (max-width: unit-80),
+    xl:  (max-width: unit-80),
+  );
+  @include t.validate-size-tokens($size-tokens);
 
-  .modal--lg {
-    // @desc Maximum width at large size
-    @include t.token(max-width, unit-80, modal, max-width-lg);
+  // @modifier size xs, sm, md, lg, xl
+  @each $name, $tokens in $size-tokens {
+    .modal--#{$name} {
+      @each $prop, $global in $tokens {
+        // @desc Override
+        @include t.token($prop, $global, modal, #{$prop}-#{$name});
+      }
+    }
   }
 
   .modal--full {

@@ -32,16 +32,23 @@
     @include t.token(color, color-primary);
   }
 
-  // Size variants
-  // @modifier size
-  .status--sm {
-    --_size: #{t.$unit-0-75}; // token-lint-ignore
-    --_gap: #{t.$unit-0-75}; // token-lint-ignore
-  }
+  $size-tokens: (
+    xs:  (size: space-quarter, gap: space-quarter),
+    sm:  (size: space-0,       gap: space-0),
+    md:  (size: space-1,       gap: space-1),
+    lg:  (size: size-sm,       gap: size-sm),
+    xl:  (size: space-2,       gap: space-2),
+  );
+  @include t.validate-size-tokens($size-tokens);
 
-  .status--lg {
-    --_size: #{t.$size-sm}; // token-lint-ignore
-    --_gap: #{t.$size-sm}; // token-lint-ignore
+  // @modifier size xs, sm, md, lg, xl
+  @each $name, $tokens in $size-tokens {
+    .status--#{$name} {
+      @each $prop, $global in $tokens {
+        // @desc Override
+        @include t.token($prop, $global, status, #{$prop}-#{$name});
+      }
+    }
   }
 }
 

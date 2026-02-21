@@ -46,21 +46,23 @@
     @include t.token(placeholder, color-text-muted, input);
   }
 
-  // @modifier size
-  .input--sm {
-    // @desc Overall height at small size
-    @include t.token(height, row-1-5, input, height-sm);
-    // @desc Font size at small size
-    @include t.token(font-size, font-size-xs, input, font-size-sm);
-  }
+  $size-tokens: (
+    xs:  (height: row,     padding-x: space-1, font-size: font-size-xs),
+    sm:  (height: row-1-5, padding-x: space-1, font-size: font-size-xs),
+    md:  (height: row-2,   padding-x: space-1, font-size: font-size-sm),
+    lg:  (height: row-2-5, padding-x: space-2, font-size: font-size-md),
+    xl:  (height: row-3,   padding-x: space-3, font-size: font-size-lg),
+  );
+  @include t.validate-size-tokens($size-tokens);
 
-  .input--lg {
-    // @desc Overall height at large size
-    @include t.token(height, row-2-5, input, height-lg);
-    // @desc Horizontal padding at large size
-    @include t.token(padding-x, space-2, input, padding-x-lg);
-    // @desc Font size at large size
-    @include t.token(font-size, font-size-md, input, font-size-lg);
+  // @modifier size xs, sm, md, lg, xl
+  @each $name, $tokens in $size-tokens {
+    .input--#{$name} {
+      @each $prop, $global in $tokens {
+        // @desc Override
+        @include t.token($prop, $global, input, #{$prop}-#{$name});
+      }
+    }
   }
 
   // @modifier variant

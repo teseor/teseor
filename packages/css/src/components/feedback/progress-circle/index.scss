@@ -32,20 +32,23 @@
     --_circumference: 282.743; // token-lint-ignore
   }
 
-  // @modifier size
-  .progress-circle--sm {
-    // @desc Overall size at small size
-    @include t.token(size, space-4, progress-circle, size-sm);
-  }
+  $size-tokens: (
+    xs:  (size: space-3),
+    sm:  (size: space-4),
+    md:  (size: space-6),
+    lg:  (size: space-8),
+    xl:  (size: unit-12),
+  );
+  @include t.validate-size-tokens($size-tokens);
 
-  .progress-circle--lg {
-    // @desc Overall size at large size
-    @include t.token(size, space-8, progress-circle, size-lg);
-  }
-
-  .progress-circle--xl {
-    // @desc Overall size at extra-large size
-    @include t.token(size, unit-12, progress-circle, size-xl);
+  // @modifier size xs, sm, md, lg, xl
+  @each $name, $tokens in $size-tokens {
+    .progress-circle--#{$name} {
+      @each $prop, $global in $tokens {
+        // @desc Override
+        @include t.token($prop, $global, progress-circle, #{$prop}-#{$name});
+      }
+    }
   }
 
   // @modifier variant

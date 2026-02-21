@@ -37,27 +37,23 @@
     @include t.token(thumb-offset, space-quarter, toggle);
   }
 
-  // @modifier size
-  .toggle--sm {
-    // @desc Track width at small size
-    @include t.token(track-width, space-4, toggle, track-width-sm);
-    // @desc Track height at small size
-    @include t.token(track-height, space-2, toggle, track-height-sm);
-    // @desc Track radius at small size
-    @include t.token(track-radius, unit, toggle, track-radius-sm);
-    // @desc Thumb size at small size
-    @include t.token(thumb-size, size-sm, toggle, thumb-size-sm);
-  }
+  $size-tokens: (
+    xs:  (track-width: space-3, track-height: space-2, track-radius: unit,    thumb-size: size-xs),
+    sm:  (track-width: space-4, track-height: space-2, track-radius: unit,    thumb-size: size-sm),
+    md:  (track-width: space-5, track-height: space-3, track-radius: size-sm, thumb-size: size-lg),
+    lg:  (track-width: space-6, track-height: space-4, track-radius: space-2, thumb-size: unit-3-5),
+    xl:  (track-width: space-8, track-height: space-5, track-radius: space-3, thumb-size: space-4),
+  );
+  @include t.validate-size-tokens($size-tokens);
 
-  .toggle--lg {
-    // @desc Track width at large size
-    @include t.token(track-width, space-6, toggle, track-width-lg);
-    // @desc Track height at large size
-    @include t.token(track-height, space-4, toggle, track-height-lg);
-    // @desc Track radius at large size
-    @include t.token(track-radius, space-2, toggle, track-radius-lg);
-    // @desc Thumb size at large size
-    @include t.token(thumb-size, unit-3-5, toggle, thumb-size-lg);
+  // @modifier size xs, sm, md, lg, xl
+  @each $name, $tokens in $size-tokens {
+    .toggle--#{$name} {
+      @each $prop, $global in $tokens {
+        // @desc Override
+        @include t.token($prop, $global, toggle, #{$prop}-#{$name});
+      }
+    }
   }
 }
 

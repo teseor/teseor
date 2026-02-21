@@ -15,10 +15,16 @@
     gap: var(--column-gap, var(--_space-2));
   }
 
-  // @modifier size
-  .column--xs { --column-gap: var(--_space-1); }
-  .column--sm { --column-gap: var(--_space-2); }
-  .column--md { --column-gap: var(--_space-4); }
-  .column--lg { --column-gap: var(--_space-6); }
-  .column--xl { --column-gap: var(--_space-8); }
+  $size-gaps: (
+    xs: var(--_space-1),
+    sm: var(--_space-2),
+    md: var(--_space-4),
+    lg: var(--_space-6),
+    xl: var(--_space-8),
+  );
+
+  // @modifier size xs, sm, md, lg, xl
+  @each $name, $gap in $size-gaps {
+    .column--#{$name} { --column-gap: #{$gap}; }
+  }
 }

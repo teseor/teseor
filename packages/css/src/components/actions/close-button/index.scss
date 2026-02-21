@@ -33,19 +33,23 @@
     @include t.token(radius, radius-md, close-button);
   }
 
-  // @modifier size
-  .close-button--sm {
-    // @desc Overall size at small size
-    @include t.token(size, space-3, close-button, size-sm);
-    // @desc Icon dimensions at small size
-    @include t.token(icon-size, size-sm, close-button, icon-size-sm);
-  }
+  $size-tokens: (
+    xs:  (size: space-2, icon-size: size-xs),
+    sm:  (size: space-3, icon-size: size-sm),
+    md:  (size: row-2,   icon-size: size-md),
+    lg:  (size: row-3,   icon-size: size-lg),
+    xl:  (size: space-6, icon-size: space-3),
+  );
+  @include t.validate-size-tokens($size-tokens);
 
-  .close-button--lg {
-    // @desc Overall size at large size
-    @include t.token(size, row-3, close-button, size-lg);
-    // @desc Icon dimensions at large size
-    @include t.token(icon-size, size-lg, close-button, icon-size-lg);
+  // @modifier size xs, sm, md, lg, xl
+  @each $name, $tokens in $size-tokens {
+    .close-button--#{$name} {
+      @each $prop, $global in $tokens {
+        // @desc Override
+        @include t.token($prop, $global, close-button, #{$prop}-#{$name});
+      }
+    }
   }
 
   // @modifier boolean subtle

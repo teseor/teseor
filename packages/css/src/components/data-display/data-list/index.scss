@@ -37,21 +37,23 @@
     @include t.token(value-color, color-text, data-list);
   }
 
-  // Compact size
-  // @modifier size
-  .data-list--sm {
-    // @desc Gap at small size
-    @include t.token(gap, space-1, data-list, gap-sm);
-    // @desc Item gap at small size
-    --_item-gap: var(--ui-data-list-item-gap-sm, 0); // token-lint-ignore
-  }
+  $size-tokens: (
+    xs:  (gap: space-0,  item-gap: space-quarter),
+    sm:  (gap: space-1,  item-gap: space-quarter),
+    md:  (gap: space-2,  item-gap: space-1),
+    lg:  (gap: space-3,  item-gap: space-1),
+    xl:  (gap: space-4,  item-gap: space-2),
+  );
+  @include t.validate-size-tokens($size-tokens);
 
-  // Large size
-  .data-list--lg {
-    // @desc Gap at large size
-    @include t.token(gap, space-3, data-list, gap-lg);
-    // @desc Item gap at large size
-    @include t.token(item-gap, space-1, data-list, item-gap-lg);
+  // @modifier size xs, sm, md, lg, xl
+  @each $name, $tokens in $size-tokens {
+    .data-list--#{$name} {
+      @each $prop, $global in $tokens {
+        // @desc Override
+        @include t.token($prop, $global, data-list, #{$prop}-#{$name});
+      }
+    }
   }
 }
 

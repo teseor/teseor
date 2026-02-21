@@ -29,11 +29,24 @@
   // @desc Bg muted
   .card--muted { @include t.token(bg, color-bg-muted, card, bg-muted); }
 
-  // @modifier size
-  // @desc Padding on all sides at small size
-  .card--sm { @include t.token(padding, space-2, card, padding-sm); }
-  // @desc Padding on all sides at large size
-  .card--lg { @include t.token(padding, space-6, card, padding-lg); }
+  $size-tokens: (
+    xs:  (padding: space-1),
+    sm:  (padding: space-2),
+    md:  (padding: space-4),
+    lg:  (padding: space-6),
+    xl:  (padding: space-8),
+  );
+  @include t.validate-size-tokens($size-tokens);
+
+  // @modifier size xs, sm, md, lg, xl
+  @each $name, $tokens in $size-tokens {
+    .card--#{$name} {
+      @each $prop, $global in $tokens {
+        // @desc Override
+        @include t.token($prop, $global, card, #{$prop}-#{$name});
+      }
+    }
+  }
 
   // @modifier boolean flush
   .card--flush {
