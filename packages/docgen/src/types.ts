@@ -4,6 +4,7 @@
 export interface CssVar {
   name: string;
   default: string;
+  defaultValue?: string;
   description?: string;
 }
 

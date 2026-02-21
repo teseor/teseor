@@ -3,6 +3,7 @@
 
 import postcss, { type Comment, type Declaration, type Rule } from 'postcss';
 import postcssScss from 'postcss-scss';
+import { resolveDefaultValue } from './token-resolver.js';
 import type { ApiJson, CssVar, ElementDef, Modifier, RelatedComponent } from './types.js';
 
 // Block-level pseudo-classes — filtered from modifier extraction.
@@ -255,6 +256,7 @@ function buildCssVars(
   containers: postcss.Container[],
   componentName: string,
   descsByLine: Map<number, string>,
+  tokenMap?: Map<string, string>,
 ): CssVar[] {
   const vars: CssVar[] = [];
   const seen = new Set<string>();
@@ -270,6 +272,11 @@ function buildCssVars(
 
         const defaultVal = extractDefault(decl.value, varName);
         const cssVar: CssVar = { name: varName, default: defaultVal };
+
+        if (tokenMap) {
+          const resolved = resolveDefaultValue(defaultVal, tokenMap);
+          if (resolved) cssVar.defaultValue = resolved;
+        }
 
         const descLine = (decl.source?.start?.line ?? 0) - 1;
         const desc = descsByLine.get(descLine);
@@ -396,7 +403,12 @@ function findLayers(root: postcss.Root, layerName: string): postcss.Container[] 
 
 // --- Main entry point ---
 
-export function parseScssContent(content: string, folderName: string, isLayout: boolean): ApiJson {
+export function parseScssContent(
+  content: string,
+  folderName: string,
+  isLayout: boolean,
+  tokenMap?: Map<string, string>,
+): ApiJson {
   const root = postcss().process(content, { syntax: postcssScss }).root;
   const annotations = parseAnnotations(root);
 
@@ -422,7 +434,7 @@ export function parseScssContent(content: string, folderName: string, isLayout: 
     modifiers: buildModifiers(all, name, annotations),
     ...(elementsResult ? { elements: elementsResult } : {}),
     ...(relatedResult ? { relatedComponents: relatedResult } : {}),
-    cssVars: buildCssVars(tokens, name, annotations.descsByLine),
+    cssVars: buildCssVars(tokens, name, annotations.descsByLine, tokenMap),
   };
 }
 

@@ -9,6 +9,7 @@ import { basename, dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   type ApiJson,
+  buildTokenMap,
   normalizeForComparison,
   parseScssContent,
   serializeApi,
@@ -19,12 +20,18 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const COMPONENTS_DIR = join(ROOT, 'packages/css/src/components');
 const LAYOUT_DIR = join(ROOT, 'packages/css/src/layout');
+const VARIABLES_PATH = join(ROOT, 'packages/css/src/config/tokens/_variables.scss');
 
-function parseScss(filePath: string, isLayout: boolean): ApiJson {
+function loadTokenMap(): Map<string, string> {
+  const content = readFileSync(VARIABLES_PATH, 'utf-8');
+  return buildTokenMap(content);
+}
+
+function parseScss(filePath: string, isLayout: boolean, tokenMap: Map<string, string>): ApiJson {
   const content = readFileSync(filePath, 'utf-8');
   const dir = dirname(filePath);
   const folderName = basename(dir);
-  return parseScssContent(content, folderName, isLayout);
+  return parseScssContent(content, folderName, isLayout, tokenMap);
 }
 
 function findAllScssFiles(): { path: string; isLayout: boolean }[] {
@@ -46,6 +53,7 @@ function main(): void {
   const checkOnly = args.includes('--check');
   const verbose = args.includes('--verbose');
 
+  const tokenMap = loadTokenMap();
   const files = findAllScssFiles();
   let generated = 0;
   let unchanged = 0;
@@ -54,7 +62,7 @@ function main(): void {
 
   for (const { path: scssPath, isLayout } of files) {
     try {
-      const api = parseScss(scssPath, isLayout);
+      const api = parseScss(scssPath, isLayout, tokenMap);
       const dir = dirname(scssPath);
       const apiPath = join(dir, 'api.json');
 
