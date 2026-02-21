@@ -1,0 +1,15 @@
+description: $auto Dropdown Menu component.
+
+sections:
+  open:
+    modifier: open
+    description: $auto Open modifier.
+  top:
+    modifier: top
+    description: $auto Top modifier.
+  align_end:
+    modifier: align-end
+    description: $auto Align End modifier.
+  full_width:
+    modifier: full-width
+    description: $auto Full Width modifier.

@@ -1,0 +1,11 @@
+description: $auto Drawer component.
+
+sections:
+  size:
+    modifier: size
+    layout: row
+    description: $shared.size
+  position:
+    modifier: position
+    layout: row
+    description: $auto Position modifier.

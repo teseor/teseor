@@ -1,0 +1,10 @@
+description: $auto Close Button component.
+
+sections:
+  size:
+    modifier: size
+    layout: row
+    description: $shared.size
+  subtle:
+    modifier: subtle
+    description: $auto Subtle modifier.

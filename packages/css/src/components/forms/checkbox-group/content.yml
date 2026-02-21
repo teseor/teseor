@@ -1,0 +1,12 @@
+description: $auto Checkbox Group component.
+
+sections:
+  compact:
+    modifier: compact
+    description: $auto Compact modifier.
+  error:
+    modifier: error
+    description: $auto Error modifier.
+  horizontal:
+    modifier: horizontal
+    description: $auto Horizontal modifier.

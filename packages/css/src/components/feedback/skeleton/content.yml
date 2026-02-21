@@ -1,0 +1,11 @@
+description: $auto Skeleton component.
+
+sections:
+  variant:
+    modifier: variant
+    layout: row
+    include_default: true
+    description: $shared.variant
+  pulse:
+    modifier: pulse
+    description: $auto Pulse modifier.

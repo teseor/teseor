@@ -1,0 +1,15 @@
+description: $auto Data List component.
+
+sections:
+  size:
+    modifier: size
+    layout: row
+    description: $shared.size
+  layout:
+    modifier: layout
+    layout: row
+    description: $auto Layout modifier.
+  style:
+    modifier: style
+    layout: row
+    description: $auto Style modifier.

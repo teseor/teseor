@@ -1,0 +1,16 @@
+description: $auto Tooltip component.
+
+sections:
+  position:
+    modifier: position
+    layout: row
+    description: $auto Position modifier.
+  visible:
+    modifier: visible
+    description: $auto Visible modifier.
+  animate:
+    modifier: animate
+    description: $auto Animate modifier.
+  anchored:
+    modifier: anchored
+    description: $auto Anchored modifier.

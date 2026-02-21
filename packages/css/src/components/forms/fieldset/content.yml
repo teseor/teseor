@@ -1,0 +1,9 @@
+description: $auto Fieldset component.
+
+sections:
+  compact:
+    modifier: compact
+    description: $auto Compact modifier.
+  bordered:
+    modifier: bordered
+    description: $auto Bordered modifier.

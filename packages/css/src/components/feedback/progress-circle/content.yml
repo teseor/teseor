@@ -1,0 +1,15 @@
+description: $auto Progress Circle component.
+
+sections:
+  size:
+    modifier: size
+    layout: row
+    description: $shared.size
+  variant:
+    modifier: variant
+    layout: row
+    include_default: true
+    description: $shared.variant
+  indeterminate:
+    modifier: indeterminate
+    description: $auto Indeterminate modifier.

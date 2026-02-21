@@ -1,0 +1,21 @@
+description: $auto Progress component.
+
+sections:
+  size:
+    modifier: size
+    layout: row
+    description: $shared.size
+  variant:
+    modifier: variant
+    layout: row
+    include_default: true
+    description: $shared.variant
+  indeterminate:
+    modifier: indeterminate
+    description: $auto Indeterminate modifier.
+  striped:
+    modifier: striped
+    description: $auto Striped modifier.
+  animated:
+    modifier: animated
+    description: $auto Animated modifier.

@@ -1,0 +1,12 @@
+description: $auto Checkbox component.
+
+sections:
+  size:
+    modifier: size
+    layout: row
+    description: $shared.size
+  state:
+    modifier: state
+    layout: row
+    include_default: true
+    description: $shared.state
