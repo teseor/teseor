@@ -13,7 +13,7 @@
       "type": "boolean"
     },
     "size": {
-      "values": ["full", "lg", "md", "sm", "xl"]
+      "values": ["xs", "sm", "md", "lg", "xl"]
     }
   },
   "elements": {
@@ -24,36 +24,42 @@
     {
       "name": "--ui-image-bg",
       "default": "--ui-color-bg-muted",
-      "description": "Background color"
+      "description": "Background color",
+      "type": "color"
     },
     {
       "name": "--ui-image-caption-color",
       "default": "--ui-color-text-muted",
-      "description": "Caption color"
+      "description": "Caption color",
+      "type": "color"
     },
     {
       "name": "--ui-image-caption-font-size",
       "default": "--ui-font-size-sm",
       "defaultValue": "14px",
-      "description": "Caption font size"
+      "description": "Caption font size",
+      "type": "font-size"
     },
     {
       "name": "--ui-image-caption-spacing",
       "default": "--ui-space-1",
       "defaultValue": "8px",
-      "description": "Caption spacing"
+      "description": "Caption spacing",
+      "type": "dimension"
     },
     {
       "name": "--ui-image-fallback-min-size",
       "default": "--ui-space-8",
       "defaultValue": "64px",
-      "description": "Fallback minimum size"
+      "description": "Fallback minimum size",
+      "type": "dimension"
     },
     {
       "name": "--ui-image-line-height",
       "default": "--ui-row-1",
       "defaultValue": "16px",
-      "description": "Line height"
+      "description": "Line height",
+      "type": "dimension"
     },
     {
       "name": "--ui-image-object-fit",
@@ -74,7 +80,8 @@
       "name": "--ui-image-radius-rounded",
       "default": "--ui-radius-lg",
       "defaultValue": "16px",
-      "description": "Radius rounded"
+      "description": "Radius rounded",
+      "type": "radius"
     },
     {
       "name": "--ui-image-size",
@@ -82,28 +89,34 @@
       "description": "Overall size"
     },
     {
-      "name": "--ui-image-size-lg",
-      "default": "--ui-unit-40",
-      "defaultValue": "320px",
-      "description": "Overall size at large size"
-    },
-    {
-      "name": "--ui-image-size-md",
-      "default": "--ui-unit-24",
-      "defaultValue": "192px",
-      "description": "Overall size at medium size"
+      "name": "--ui-image-size-xs",
+      "default": "--ui-space-8",
+      "defaultValue": "64px",
+      "type": "dimension"
     },
     {
       "name": "--ui-image-size-sm",
       "default": "--ui-unit-12",
       "defaultValue": "96px",
-      "description": "Overall size at small size"
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-image-size-md",
+      "default": "--ui-unit-24",
+      "defaultValue": "192px",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-image-size-lg",
+      "default": "--ui-unit-40",
+      "defaultValue": "320px",
+      "type": "dimension"
     },
     {
       "name": "--ui-image-size-xl",
       "default": "--ui-unit-60",
       "defaultValue": "480px",
-      "description": "Overall size at extra-large size"
+      "type": "dimension"
     }
   ]
 }

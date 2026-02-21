@@ -17,54 +17,63 @@
     {
       "name": "--ui-divider-color",
       "default": "--ui-color-border",
-      "description": "Line color"
+      "description": "Line color",
+      "type": "color"
     },
     {
       "name": "--ui-divider-dash-size",
       "default": "--ui-unit",
       "defaultValue": "8px",
-      "description": "Dash pattern repeat size"
+      "description": "Dash pattern repeat size",
+      "type": "dimension"
     },
     {
       "name": "--ui-divider-font-size",
       "default": "--ui-font-size-sm",
       "defaultValue": "14px",
-      "description": "Font size"
+      "description": "Font size",
+      "type": "font-size"
     },
     {
       "name": "--ui-divider-gap",
       "default": "--ui-space-2",
       "defaultValue": "16px",
-      "description": "Gap between children"
+      "description": "Gap between children",
+      "type": "dimension"
     },
     {
       "name": "--ui-divider-height",
       "default": "--ui-unit",
       "defaultValue": "8px",
-      "description": "Overall height"
+      "description": "Overall height",
+      "type": "dimension"
     },
     {
       "name": "--ui-divider-height-label",
       "default": "--ui-row-1",
       "defaultValue": "16px",
-      "description": "Overall height when text label is present"
+      "description": "Overall height when text label is present",
+      "type": "dimension"
     },
     {
       "name": "--ui-divider-label-color",
       "default": "--ui-color-text-muted",
-      "description": "Label text color"
+      "description": "Label text color",
+      "type": "color"
     },
     {
       "name": "--ui-divider-label-spacing",
       "default": "--ui-space-2",
       "defaultValue": "16px",
-      "description": "Label spacing between text and lines"
+      "description": "Label spacing between text and lines",
+      "type": "dimension"
     },
     {
       "name": "--ui-divider-line-size",
       "default": "--ui-border-width-sm",
       "defaultValue": "1px",
-      "description": "Line size"
+      "description": "Line size",
+      "type": "border-width"
     }
   ]
 }

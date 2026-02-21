@@ -20,7 +20,8 @@
     {
       "name": "--ui-grid-space-4",
       "default": "--ui-space-4",
-      "defaultValue": "32px"
+      "defaultValue": "32px",
+      "type": "dimension"
     }
   ]
 }

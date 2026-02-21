@@ -30,108 +30,127 @@
     {
       "name": "--ui-nav-border-color",
       "default": "--ui-color-border",
-      "description": "Border color"
+      "description": "Border color",
+      "type": "color"
     },
     {
       "name": "--ui-nav-border-width",
       "default": "--ui-border-width-sm",
       "defaultValue": "1px",
-      "description": "Border width"
+      "description": "Border width",
+      "type": "border-width"
     },
     {
       "name": "--ui-nav-container-threshold",
       "default": "--ui-container-threshold-sm",
       "defaultValue": "480px",
-      "description": "Container threshold for responsive collapse"
+      "description": "Container threshold for responsive collapse",
+      "type": "dimension"
     },
     {
       "name": "--ui-nav-disabled-opacity",
       "default": "--ui-opacity-disabled",
       "defaultValue": "0.5",
-      "description": "Disabled opacity"
+      "description": "Disabled opacity",
+      "type": "opacity"
     },
     {
       "name": "--ui-nav-font-family",
       "default": "--ui-font-sans",
-      "description": "Font family"
+      "description": "Font family",
+      "type": "font-family"
     },
     {
       "name": "--ui-nav-gap",
       "default": "--ui-space-1",
       "defaultValue": "8px",
-      "description": "Gap between children"
+      "description": "Gap between children",
+      "type": "dimension"
     },
     {
       "name": "--ui-nav-indicator-width",
       "default": "--ui-border-width-md",
       "defaultValue": "2px",
-      "description": "Indicator width"
+      "description": "Indicator width",
+      "type": "border-width"
     },
     {
       "name": "--ui-nav-item-bg-active",
       "default": "--ui-color-primary",
-      "description": "Item bg active"
+      "description": "Item bg active",
+      "type": "color"
     },
     {
       "name": "--ui-nav-item-bg-hover",
       "default": "--ui-color-bg-muted",
-      "description": "Item bg hover"
+      "description": "Item bg hover",
+      "type": "color"
     },
     {
       "name": "--ui-nav-item-color",
       "default": "--ui-color-text-muted",
-      "description": "Item text color"
+      "description": "Item text color",
+      "type": "color"
     },
     {
       "name": "--ui-nav-item-color-active",
       "default": "--ui-color-primary",
-      "description": "Item color active"
+      "description": "Item color active",
+      "type": "color"
     },
     {
       "name": "--ui-nav-item-color-hover",
       "default": "--ui-color-text",
-      "description": "Item color hover"
+      "description": "Item color hover",
+      "type": "color"
     },
     {
       "name": "--ui-nav-item-font-size",
       "default": "--ui-font-size-sm",
       "defaultValue": "14px",
-      "description": "Item font size"
+      "description": "Item font size",
+      "type": "font-size"
     },
     {
       "name": "--ui-nav-item-font-weight",
       "default": "--ui-font-weight-medium",
       "defaultValue": "500",
-      "description": "Item font weight"
+      "description": "Item font weight",
+      "type": "font-weight"
     },
     {
       "name": "--ui-nav-item-height",
       "default": "--ui-row-2",
       "defaultValue": "32px",
-      "description": "Item overall height"
+      "description": "Item overall height",
+      "type": "dimension"
     },
     {
       "name": "--ui-nav-item-padding-x",
       "default": "--ui-space-2",
       "defaultValue": "16px",
-      "description": "Item horizontal padding"
+      "description": "Item horizontal padding",
+      "type": "dimension"
     },
     {
       "name": "--ui-nav-item-radius",
       "default": "--ui-radius-sm",
       "defaultValue": "4px",
-      "description": "Item corner radius"
+      "description": "Item corner radius",
+      "type": "radius"
     },
     {
       "name": "--ui-nav-transition-duration",
       "default": "--ui-duration-base",
       "defaultValue": "150ms",
-      "description": "Transition duration"
+      "description": "Transition duration",
+      "type": "duration"
     },
     {
       "name": "--ui-nav-transition-timing",
       "default": "--ui-ease-default",
-      "description": "Transition timing function"
+      "description": "Transition timing function",
+      "type": "easing"
     }
   ]
 }

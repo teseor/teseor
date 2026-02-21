@@ -19,72 +19,84 @@
       "name": "--ui-dialog-body-padding",
       "default": "--ui-space-3",
       "defaultValue": "24px",
-      "description": "Body area padding on all sides"
+      "description": "Body area padding on all sides",
+      "type": "dimension"
     },
     {
       "name": "--ui-dialog-border-color",
       "default": "--ui-color-border",
-      "description": "Border color"
+      "description": "Border color",
+      "type": "color"
     },
     {
       "name": "--ui-dialog-border-width",
       "default": "--ui-border-width-sm",
       "defaultValue": "1px",
-      "description": "Border thickness"
+      "description": "Border thickness",
+      "type": "border-width"
     },
     {
       "name": "--ui-dialog-footer-gap",
       "default": "--ui-size-sm",
       "defaultValue": "12px",
-      "description": "Footer gap"
+      "description": "Footer gap",
+      "type": "dimension"
     },
     {
       "name": "--ui-dialog-footer-padding-x",
       "default": "--ui-space-3",
       "defaultValue": "24px",
-      "description": "Footer horizontal padding"
+      "description": "Footer horizontal padding",
+      "type": "dimension"
     },
     {
       "name": "--ui-dialog-footer-padding-y",
       "default": "--ui-space-2",
       "defaultValue": "16px",
-      "description": "Footer vertical padding"
+      "description": "Footer vertical padding",
+      "type": "dimension"
     },
     {
       "name": "--ui-dialog-header-gap",
       "default": "--ui-space-2",
       "defaultValue": "16px",
-      "description": "Header gap"
+      "description": "Header gap",
+      "type": "dimension"
     },
     {
       "name": "--ui-dialog-header-padding-x",
       "default": "--ui-space-3",
       "defaultValue": "24px",
-      "description": "Header horizontal padding"
+      "description": "Header horizontal padding",
+      "type": "dimension"
     },
     {
       "name": "--ui-dialog-header-padding-y",
       "default": "--ui-space-2",
       "defaultValue": "16px",
-      "description": "Header vertical padding"
+      "description": "Header vertical padding",
+      "type": "dimension"
     },
     {
       "name": "--ui-dialog-title-font-size",
       "default": "--ui-font-size-lg",
       "defaultValue": "20px",
-      "description": "Title font size"
+      "description": "Title font size",
+      "type": "font-size"
     },
     {
       "name": "--ui-dialog-title-font-weight",
       "default": "--ui-font-weight-semibold",
       "defaultValue": "600",
-      "description": "Title font weight"
+      "description": "Title font weight",
+      "type": "font-weight"
     },
     {
       "name": "--ui-dialog-title-line-height",
       "default": "--ui-space-3",
       "defaultValue": "24px",
-      "description": "Title line height"
+      "description": "Title line height",
+      "type": "dimension"
     }
   ]
 }

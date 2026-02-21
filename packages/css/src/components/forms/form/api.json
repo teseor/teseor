@@ -27,31 +27,36 @@
       "name": "--ui-form-actions-gap",
       "default": "--ui-space-2",
       "defaultValue": "16px",
-      "description": "Actions gap"
+      "description": "Actions gap",
+      "type": "dimension"
     },
     {
       "name": "--ui-form-section-spacing",
       "default": "--ui-space-4",
       "defaultValue": "32px",
-      "description": "Section spacing"
+      "description": "Section spacing",
+      "type": "dimension"
     },
     {
       "name": "--ui-form-section-spacing-compact",
       "default": "--ui-space-3",
       "defaultValue": "24px",
-      "description": "Section spacing compact"
+      "description": "Section spacing compact",
+      "type": "dimension"
     },
     {
       "name": "--ui-form-spacing",
       "default": "--ui-space-3",
       "defaultValue": "24px",
-      "description": "Spacing"
+      "description": "Spacing",
+      "type": "dimension"
     },
     {
       "name": "--ui-form-spacing-compact",
       "default": "--ui-space-2",
       "defaultValue": "16px",
-      "description": "Spacing compact"
+      "description": "Spacing compact",
+      "type": "dimension"
     }
   ]
 }

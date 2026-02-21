@@ -3,7 +3,7 @@
 
 // --- shared modifier scales ---
 
-export type Size = 'lg' | 'sm';
+export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type State = 'error' | 'success';
 export type Variant = 'danger' | 'info' | 'success' | 'warning';
 
@@ -49,7 +49,7 @@ export const aspectRatioElement = 'div' as const;
 // --- avatar ---
 
 export interface AvatarModifiers {
-  size?: 'lg' | 'sm' | 'xl' | 'xs';
+  size?: Size;
   square?: boolean;
 }
 
@@ -125,7 +125,7 @@ export interface ButtonModifiers {
   icon?: boolean;
   loading?: boolean;
   radius?: 'radius-full' | 'radius-lg' | 'radius-none' | 'radius-sm';
-  size?: 'lg' | 'md' | 'sm';
+  size?: Size;
   variant?: 'danger' | 'ghost' | 'link' | 'outline' | 'secondary';
 }
 
@@ -186,7 +186,7 @@ export const centerElement = 'div' as const;
 // --- checkbox ---
 
 export interface CheckboxModifiers {
-  size?: 'lg';
+  size?: Size;
   state?: State;
 }
 
@@ -224,7 +224,7 @@ export const closeButtonElements = ['icon'] as const;
 // --- code ---
 
 export interface CodeModifiers {
-  size?: 'sm';
+  size?: Size;
 }
 
 export const codeModifierKeys = ['size'] as const;
@@ -247,7 +247,7 @@ export const codeBlockElements = ['code', 'line', 'line-number'] as const;
 // --- column ---
 
 export interface ColumnModifiers {
-  size?: 'lg' | 'md' | 'sm' | 'xl' | 'xs';
+  size?: Size;
 }
 
 export const columnModifierKeys = ['size'] as const;
@@ -258,7 +258,7 @@ export const columnElement = 'div' as const;
 
 export interface ContainerModifiers {
   center?: boolean;
-  size?: 'full' | 'lg' | 'md' | 'sm' | 'xl';
+  size?: Size;
 }
 
 export const containerModifierKeys = ['center', 'size'] as const;
@@ -280,7 +280,7 @@ export const contentElement = 'div' as const;
 
 export interface DataListModifiers {
   layout?: 'horizontal';
-  size?: Size;
+  size?: 'sm' | 'lg';
   style?: 'divided' | 'striped';
 }
 
@@ -331,7 +331,7 @@ export const dividerElement = 'div' as const;
 
 export interface DrawerModifiers {
   position?: 'bottom' | 'end' | 'start' | 'top';
-  size?: 'full' | 'lg' | 'sm';
+  size?: Size;
 }
 
 export const drawerModifierKeys = ['position', 'size'] as const;
@@ -442,7 +442,7 @@ export const gridElement = 'div' as const;
 // --- heading ---
 
 export interface HeadingModifiers {
-  size?: '2xl' | '3xl' | '4xl' | 'lg' | 'md' | 'sm' | 'xl';
+  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
 }
 
 export const headingModifierKeys = ['size'] as const;
@@ -453,7 +453,7 @@ export const headingElement = 'h2' as const;
 
 export interface IconModifiers {
   filled?: boolean;
-  size?: 'lg' | 'md' | 'sm' | 'xl' | 'xs';
+  size?: Size;
   spin?: boolean;
   stroke?: 'stroke-thick' | 'stroke-thin';
 }
@@ -468,7 +468,7 @@ export interface ImageModifiers {
   circle?: boolean;
   'object-fit'?: 'contain' | 'cover';
   rounded?: boolean;
-  size?: 'full' | 'lg' | 'md' | 'sm' | 'xl';
+  size?: Size;
 }
 
 export const imageModifierKeys = ['circle', 'object-fit', 'rounded', 'size'] as const;
@@ -498,7 +498,7 @@ export const kbdElement = 'kbd' as const;
 // --- label ---
 
 export interface LabelModifiers {
-  size?: 'lg';
+  size?: Size;
 }
 
 export const labelModifierKeys = ['size'] as const;
@@ -575,7 +575,7 @@ export interface ModalModifiers {
   entering?: boolean;
   exiting?: boolean;
   hidden?: boolean;
-  size?: 'full' | 'lg' | 'sm';
+  size?: Size;
   visible?: boolean;
 }
 
@@ -744,7 +744,7 @@ export const progressElements = ['bar'] as const;
 
 export interface ProgressCircleModifiers {
   indeterminate?: boolean;
-  size?: 'lg' | 'sm' | 'xl';
+  size?: Size;
   variant?: 'danger' | 'success' | 'warning';
 }
 
@@ -757,7 +757,7 @@ export const progressCircleElements = ['fill', 'track'] as const;
 // --- radio ---
 
 export interface RadioModifiers {
-  size?: 'lg';
+  size?: Size;
   state?: State;
 }
 
@@ -782,7 +782,7 @@ export const radioGroupElements = ['item', 'items', 'legend'] as const;
 // --- row ---
 
 export interface RowModifiers {
-  size?: 'between' | 'center' | 'end' | 'lg' | 'md' | 'sm' | 'start' | 'xs';
+  size?: Size;
 }
 
 export const rowModifierKeys = ['size'] as const;
@@ -794,7 +794,7 @@ export const rowElement = 'div' as const;
 export interface ScrollAreaModifiers {
   'auto-hide'?: boolean;
   direction?: 'both' | 'horizontal';
-  size?: 'lg' | 'sm' | 'xl';
+  size?: Size;
   thin?: boolean;
 }
 
@@ -836,7 +836,7 @@ export const selectElement = 'select' as const;
 
 export interface SidebarModifiers {
   end?: boolean;
-  size?: 'lg' | 'md' | 'sm';
+  size?: Size;
 }
 
 export const sidebarModifierKeys = ['end', 'size'] as const;
@@ -903,7 +903,7 @@ export const spacerElement = 'div' as const;
 // --- spinner ---
 
 export interface SpinnerModifiers {
-  size?: 'lg' | 'sm' | 'xl' | 'xs';
+  size?: Size;
 }
 
 export const spinnerModifierKeys = ['size'] as const;
@@ -913,7 +913,7 @@ export const spinnerElement = 'div' as const;
 // --- stat ---
 
 export interface StatModifiers {
-  size?: 'sm';
+  size?: Size;
 }
 
 export const statModifierKeys = ['size'] as const;

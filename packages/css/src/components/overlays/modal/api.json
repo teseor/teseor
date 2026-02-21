@@ -16,7 +16,7 @@
       "type": "boolean"
     },
     "size": {
-      "values": ["full", "lg", "sm"]
+      "values": ["xs", "sm", "md", "lg", "xl"]
     },
     "visible": {
       "type": "boolean"
@@ -30,70 +30,103 @@
     {
       "name": "--ui-modal-bg",
       "default": "--ui-color-bg",
-      "description": "Background color"
+      "description": "Background color",
+      "type": "color"
     },
     {
       "name": "--ui-modal-max-height",
       "default": "--ui-viewport-max-height",
-      "description": "Maximum height"
+      "description": "Maximum height",
+      "type": "dimension"
     },
     {
       "name": "--ui-modal-max-width",
       "default": "--ui-unit-60",
       "defaultValue": "480px",
-      "description": "Maximum width"
+      "description": "Maximum width",
+      "type": "dimension"
     },
     {
-      "name": "--ui-modal-max-width-lg",
-      "default": "--ui-unit-80",
-      "defaultValue": "640px",
-      "description": "Maximum width at large size"
+      "name": "--ui-modal-max-width-xs",
+      "default": "--ui-unit-25",
+      "defaultValue": "200px",
+      "description": "Maximum width at xs size",
+      "type": "dimension"
     },
     {
       "name": "--ui-modal-max-width-sm",
       "default": "--ui-unit-40",
       "defaultValue": "320px",
-      "description": "Maximum width at small size"
+      "description": "Maximum width at sm size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-modal-max-width-md",
+      "default": "--ui-unit-60",
+      "defaultValue": "480px",
+      "description": "Maximum width at md size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-modal-max-width-lg",
+      "default": "--ui-unit-80",
+      "defaultValue": "640px",
+      "description": "Maximum width at lg size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-modal-max-width-xl",
+      "default": "--ui-unit-80",
+      "defaultValue": "640px",
+      "description": "Maximum width at xl size",
+      "type": "dimension"
     },
     {
       "name": "--ui-modal-padding",
       "default": "--ui-space-3",
       "defaultValue": "24px",
-      "description": "Padding on all sides"
+      "description": "Padding on all sides",
+      "type": "dimension"
     },
     {
       "name": "--ui-modal-radius",
       "default": "--ui-radius-lg",
       "defaultValue": "16px",
-      "description": "Corner radius"
+      "description": "Corner radius",
+      "type": "radius"
     },
     {
       "name": "--ui-modal-shadow",
       "default": "--ui-shadow-lg",
-      "description": "Box shadow"
+      "description": "Box shadow",
+      "type": "shadow"
     },
     {
       "name": "--ui-modal-transition-duration",
       "default": "--ui-duration-normal",
       "defaultValue": "200ms",
-      "description": "Transition duration"
+      "description": "Transition duration",
+      "type": "duration"
     },
     {
       "name": "--ui-modal-transition-timing",
       "default": "--ui-ease-default",
-      "description": "Transition timing function"
+      "description": "Transition timing function",
+      "type": "easing"
     },
     {
       "name": "--ui-modal-viewport-padding",
       "default": "--ui-space-2",
       "defaultValue": "16px",
-      "description": "Viewport padding"
+      "description": "Viewport padding",
+      "type": "dimension"
     },
     {
       "name": "--ui-modal-z",
       "default": "--ui-z-index-modal",
       "defaultValue": "400",
-      "description": "Z-index stacking order"
+      "description": "Z-index stacking order",
+      "type": "z-index"
     }
   ]
 }

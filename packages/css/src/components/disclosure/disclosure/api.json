@@ -20,7 +20,8 @@
       "name": "--ui-disclosure-animation-duration",
       "default": "--ui-duration-normal",
       "defaultValue": "200ms",
-      "description": "Content animation duration"
+      "description": "Content animation duration",
+      "type": "duration"
     },
     {
       "name": "--ui-disclosure-animation-offset",
@@ -30,65 +31,76 @@
     {
       "name": "--ui-disclosure-border-color",
       "default": "--ui-color-border",
-      "description": "Border color"
+      "description": "Border color",
+      "type": "color"
     },
     {
       "name": "--ui-disclosure-border-width",
       "default": "--ui-border-width-sm",
       "defaultValue": "1px",
-      "description": "Border thickness"
+      "description": "Border thickness",
+      "type": "border-width"
     },
     {
       "name": "--ui-disclosure-icon-transition-duration",
       "default": "--ui-duration-fast",
       "defaultValue": "100ms",
-      "description": "Icon rotation transition duration"
+      "description": "Icon rotation transition duration",
+      "type": "duration"
     },
     {
       "name": "--ui-disclosure-padding-x",
       "default": "--ui-space-2",
       "defaultValue": "16px",
-      "description": "Horizontal padding"
+      "description": "Horizontal padding",
+      "type": "dimension"
     },
     {
       "name": "--ui-disclosure-padding-y",
       "default": "--ui-space-2",
       "defaultValue": "16px",
-      "description": "Vertical padding"
+      "description": "Vertical padding",
+      "type": "dimension"
     },
     {
       "name": "--ui-disclosure-radius",
       "default": "--ui-radius-md",
       "defaultValue": "8px",
-      "description": "Corner radius"
+      "description": "Corner radius",
+      "type": "radius"
     },
     {
       "name": "--ui-disclosure-transition-timing",
       "default": "--ui-ease-default",
-      "description": "Transition timing function"
+      "description": "Transition timing function",
+      "type": "easing"
     },
     {
       "name": "--ui-disclosure-trigger-font-weight",
       "default": "--ui-font-weight-medium",
       "defaultValue": "500",
-      "description": "Trigger font weight"
+      "description": "Trigger font weight",
+      "type": "font-weight"
     },
     {
       "name": "--ui-disclosure-trigger-gap",
       "default": "--ui-space-2",
       "defaultValue": "16px",
-      "description": "Trigger gap between label and icon"
+      "description": "Trigger gap between label and icon",
+      "type": "dimension"
     },
     {
       "name": "--ui-disclosure-trigger-height",
       "default": "--ui-row-3",
       "defaultValue": "48px",
-      "description": "Trigger overall height"
+      "description": "Trigger overall height",
+      "type": "dimension"
     },
     {
       "name": "--ui-disclosure-trigger-hover-bg",
       "default": "--ui-color-bg-subtle",
-      "description": "Trigger hover background"
+      "description": "Trigger hover background",
+      "type": "color"
     }
   ]
 }

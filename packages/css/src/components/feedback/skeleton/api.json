@@ -14,42 +14,49 @@
     {
       "name": "--ui-skeleton-bg",
       "default": "--ui-color-bg-inset",
-      "description": "Background color"
+      "description": "Background color",
+      "type": "color"
     },
     {
       "name": "--ui-skeleton-circle-size",
       "default": "--ui-space-5",
       "defaultValue": "40px",
-      "description": "Circle size"
+      "description": "Circle size",
+      "type": "dimension"
     },
     {
       "name": "--ui-skeleton-heading-height",
       "default": "--ui-space-3",
       "defaultValue": "24px",
-      "description": "Heading height"
+      "description": "Heading height",
+      "type": "dimension"
     },
     {
       "name": "--ui-skeleton-radius",
       "default": "--ui-radius-sm",
       "defaultValue": "4px",
-      "description": "Corner radius"
+      "description": "Corner radius",
+      "type": "radius"
     },
     {
       "name": "--ui-skeleton-rect-height",
       "default": "--ui-unit-20",
       "defaultValue": "160px",
-      "description": "Rectangle height"
+      "description": "Rectangle height",
+      "type": "dimension"
     },
     {
       "name": "--ui-skeleton-shimmer",
       "default": "--ui-skeleton-shimmer",
-      "description": "Shimmer"
+      "description": "Shimmer",
+      "type": "other"
     },
     {
       "name": "--ui-skeleton-text-height",
       "default": "--ui-space-2",
       "defaultValue": "16px",
-      "description": "Text line height"
+      "description": "Text line height",
+      "type": "dimension"
     }
   ]
 }

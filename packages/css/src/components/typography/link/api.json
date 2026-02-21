@@ -17,27 +17,32 @@
     {
       "name": "--ui-link-color",
       "default": "--ui-color-primary",
-      "description": "Text color"
+      "description": "Text color",
+      "type": "color"
     },
     {
       "name": "--ui-link-color-hover",
       "default": "--ui-color-primary-emphasis-hover",
-      "description": "Color hover"
+      "description": "Color hover",
+      "type": "color"
     },
     {
       "name": "--ui-link-color-muted",
       "default": "--ui-color-text-muted",
-      "description": "Color muted"
+      "description": "Color muted",
+      "type": "color"
     },
     {
       "name": "--ui-link-color-muted-hover",
       "default": "--ui-color-text",
-      "description": "Color muted hover"
+      "description": "Color muted hover",
+      "type": "color"
     },
     {
       "name": "--ui-link-color-visited",
       "default": "--ui-color-primary",
-      "description": "Color visited"
+      "description": "Color visited",
+      "type": "color"
     },
     {
       "name": "--ui-link-decoration",
@@ -52,65 +57,76 @@
     {
       "name": "--ui-link-disabled-color",
       "default": "--ui-color-text-muted",
-      "description": "Disabled text color"
+      "description": "Disabled text color",
+      "type": "color"
     },
     {
       "name": "--ui-link-disabled-opacity",
       "default": "--ui-opacity-disabled",
       "defaultValue": "0.5",
-      "description": "Disabled opacity"
+      "description": "Disabled opacity",
+      "type": "opacity"
     },
     {
       "name": "--ui-link-external-font-size",
       "default": "--ui-font-size-relative-sm",
       "defaultValue": "0.75em",
-      "description": "External indicator font size"
+      "description": "External indicator font size",
+      "type": "font-size"
     },
     {
       "name": "--ui-link-external-spacing",
       "default": "--ui-space-quarter",
       "defaultValue": "2px",
-      "description": "External indicator spacing"
+      "description": "External indicator spacing",
+      "type": "dimension"
     },
     {
       "name": "--ui-link-focus-color",
       "default": "--ui-color-focus",
-      "description": "Focus ring color"
+      "description": "Focus ring color",
+      "type": "color"
     },
     {
       "name": "--ui-link-focus-outline-offset",
       "default": "--ui-space-quarter",
       "defaultValue": "2px",
-      "description": "Focus outline offset"
+      "description": "Focus outline offset",
+      "type": "dimension"
     },
     {
       "name": "--ui-link-focus-outline-width",
       "default": "--ui-border-width-md",
       "defaultValue": "2px",
-      "description": "Focus outline width"
+      "description": "Focus outline width",
+      "type": "border-width"
     },
     {
       "name": "--ui-link-focus-radius",
       "default": "--ui-space-quarter",
       "defaultValue": "2px",
-      "description": "Focus radius"
+      "description": "Focus radius",
+      "type": "dimension"
     },
     {
       "name": "--ui-link-transition-duration",
       "default": "--ui-duration-fast",
       "defaultValue": "100ms",
-      "description": "Transition duration"
+      "description": "Transition duration",
+      "type": "duration"
     },
     {
       "name": "--ui-link-transition-timing",
       "default": "--ui-ease-default",
-      "description": "Transition timing"
+      "description": "Transition timing",
+      "type": "easing"
     },
     {
       "name": "--ui-link-underline-offset",
       "default": "--ui-space-quarter",
       "defaultValue": "2px",
-      "description": "Underline offset"
+      "description": "Underline offset",
+      "type": "dimension"
     }
   ]
 }

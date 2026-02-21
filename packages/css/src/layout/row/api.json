@@ -4,29 +4,39 @@
   "element": "div",
   "modifiers": {
     "size": {
-      "values": ["between", "center", "end", "lg", "md", "sm", "start", "xs"]
+      "values": ["xs", "sm", "md", "lg", "xl"]
     }
   },
   "cssVars": [
     {
       "name": "--ui-row-space-1",
       "default": "--ui-space-1",
-      "defaultValue": "8px"
+      "defaultValue": "8px",
+      "type": "dimension"
     },
     {
       "name": "--ui-row-space-2",
       "default": "--ui-space-2",
-      "defaultValue": "16px"
+      "defaultValue": "16px",
+      "type": "dimension"
     },
     {
       "name": "--ui-row-space-4",
       "default": "--ui-space-4",
-      "defaultValue": "32px"
+      "defaultValue": "32px",
+      "type": "dimension"
     },
     {
       "name": "--ui-row-space-6",
       "default": "--ui-space-6",
-      "defaultValue": "48px"
+      "defaultValue": "48px",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-row-space-8",
+      "default": "--ui-space-8",
+      "defaultValue": "64px",
+      "type": "dimension"
     }
   ]
 }

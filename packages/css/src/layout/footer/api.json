@@ -25,44 +25,52 @@
     {
       "name": "--ui-footer-bg",
       "default": "--ui-color-bg",
-      "description": "Background color"
+      "description": "Background color",
+      "type": "color"
     },
     {
       "name": "--ui-footer-border-color",
       "default": "--ui-color-border",
-      "description": "Border color"
+      "description": "Border color",
+      "type": "color"
     },
     {
       "name": "--ui-footer-border-width-sm",
       "default": "--ui-border-width-sm",
-      "defaultValue": "1px"
+      "defaultValue": "1px",
+      "type": "border-width"
     },
     {
       "name": "--ui-footer-height",
       "default": "--ui-row-3",
       "defaultValue": "48px",
-      "description": "Overall height"
+      "description": "Overall height",
+      "type": "dimension"
     },
     {
       "name": "--ui-footer-padding-inline",
       "default": "--ui-space-3",
       "defaultValue": "24px",
-      "description": "Horizontal padding"
+      "description": "Horizontal padding",
+      "type": "dimension"
     },
     {
       "name": "--ui-footer-shadow-color",
-      "default": "--ui-color-neutral-100"
+      "default": "--ui-color-neutral-100",
+      "type": "color"
     },
     {
       "name": "--ui-footer-space-2",
       "default": "--ui-space-2",
-      "defaultValue": "16px"
+      "defaultValue": "16px",
+      "type": "dimension"
     },
     {
       "name": "--ui-footer-z",
       "default": "--ui-z-index-sticky",
       "defaultValue": "100",
-      "description": "Z-index stacking order"
+      "description": "Z-index stacking order",
+      "type": "z-index"
     }
   ]
 }

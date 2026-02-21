@@ -7,7 +7,8 @@
     {
       "name": "--ui-form-helper-color",
       "default": "--ui-color-text-muted",
-      "description": "Text color"
+      "description": "Text color",
+      "type": "color"
     },
     {
       "name": "--ui-form-helper-gap",
@@ -18,13 +19,15 @@
       "name": "--ui-form-helper-line-height",
       "default": "--ui-line-height-tight-sm",
       "defaultValue": "16px",
-      "description": "Line height"
+      "description": "Line height",
+      "type": "line-height"
     },
     {
       "name": "--ui-form-helper-size",
       "default": "--ui-font-size-sm",
       "defaultValue": "14px",
-      "description": "Overall size"
+      "description": "Overall size",
+      "type": "font-size"
     }
   ]
 }

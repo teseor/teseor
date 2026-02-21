@@ -31,42 +31,49 @@
       "name": "--ui-dropdown-menu-panel-offset",
       "default": "--ui-space-1",
       "defaultValue": "8px",
-      "description": "Panel offset from anchor"
+      "description": "Panel offset from anchor",
+      "type": "dimension"
     },
     {
       "name": "--ui-dropdown-menu-panel-slide-offset",
       "default": "--ui-unit",
       "defaultValue": "8px",
-      "description": "Panel slide offset"
+      "description": "Panel slide offset",
+      "type": "dimension"
     },
     {
       "name": "--ui-dropdown-menu-transition-duration",
       "default": "--ui-duration-fast",
       "defaultValue": "100ms",
-      "description": "Transition duration"
+      "description": "Transition duration",
+      "type": "duration"
     },
     {
       "name": "--ui-dropdown-menu-transition-timing",
       "default": "--ui-ease-default",
-      "description": "Transition timing function"
+      "description": "Transition timing function",
+      "type": "easing"
     },
     {
       "name": "--ui-dropdown-menu-trigger-gap",
       "default": "--ui-space-0",
       "defaultValue": "4px",
-      "description": "Trigger gap"
+      "description": "Trigger gap",
+      "type": "dimension"
     },
     {
       "name": "--ui-dropdown-menu-trigger-icon-font-size",
       "default": "--ui-font-size-relative-xs",
       "defaultValue": "0.6em",
-      "description": "Trigger icon font size"
+      "description": "Trigger icon font size",
+      "type": "font-size"
     },
     {
       "name": "--ui-dropdown-menu-z",
       "default": "--ui-z-index-dropdown",
       "defaultValue": "200",
-      "description": "Z-index stacking order"
+      "description": "Z-index stacking order",
+      "type": "z-index"
     }
   ]
 }

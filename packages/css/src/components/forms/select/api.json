@@ -7,7 +7,7 @@
       "type": "boolean"
     },
     "size": {
-      "values": ["lg", "sm"]
+      "values": ["xs", "sm", "md", "lg", "xl"]
     },
     "state": {
       "values": ["error", "success"]
@@ -20,145 +20,241 @@
     {
       "name": "--ui-select-arrow-inset",
       "default": "--ui-space-half",
-      "description": "Arrow inset"
+      "description": "Arrow inset",
+      "type": "dimension"
     },
     {
       "name": "--ui-select-bg",
       "default": "--ui-color-bg",
-      "description": "Background color"
+      "description": "Background color",
+      "type": "color"
     },
     {
       "name": "--ui-select-border-color",
       "default": "--ui-color-border-strong",
-      "description": "Border color"
+      "description": "Border color",
+      "type": "color"
     },
     {
       "name": "--ui-select-border-color-focus",
       "default": "--ui-color-primary",
-      "description": "Border color focus"
+      "description": "Border color focus",
+      "type": "color"
     },
     {
       "name": "--ui-select-border-width",
       "default": "--ui-border-width-sm",
       "defaultValue": "1px",
-      "description": "Border width"
+      "description": "Border width",
+      "type": "border-width"
     },
     {
       "name": "--ui-select-color",
       "default": "--ui-color-text",
-      "description": "Text color"
+      "description": "Text color",
+      "type": "color"
     },
     {
       "name": "--ui-select-disabled-opacity",
       "default": "--ui-opacity-disabled",
       "defaultValue": "0.5",
-      "description": "Disabled opacity"
+      "description": "Disabled opacity",
+      "type": "opacity"
     },
     {
       "name": "--ui-select-error-border",
       "default": "--ui-color-danger",
-      "description": "Error border"
+      "description": "Error border",
+      "type": "color"
     },
     {
       "name": "--ui-select-filled-bg",
       "default": "--ui-color-bg-muted",
-      "description": "Filled bg"
+      "description": "Filled bg",
+      "type": "color"
     },
     {
       "name": "--ui-select-focus-ring-color",
       "default": "--ui-color-focus",
-      "description": "Focus ring color"
+      "description": "Focus ring color",
+      "type": "color"
     },
     {
       "name": "--ui-select-focus-ring-width",
       "default": "--ui-border-width-md",
       "defaultValue": "2px",
-      "description": "Focus ring width"
+      "description": "Focus ring width",
+      "type": "border-width"
     },
     {
       "name": "--ui-select-font-size",
       "default": "--ui-font-size-sm",
       "defaultValue": "14px",
-      "description": "Font size"
+      "description": "Font size",
+      "type": "font-size"
     },
     {
-      "name": "--ui-select-font-size-lg",
-      "default": "--ui-font-size-md",
-      "defaultValue": "16px",
-      "description": "Font size at large size"
+      "name": "--ui-select-font-size-xs",
+      "default": "--ui-font-size-xs",
+      "defaultValue": "12px",
+      "description": "Font size at xs size",
+      "type": "font-size"
     },
     {
       "name": "--ui-select-font-size-sm",
       "default": "--ui-font-size-xs",
       "defaultValue": "12px",
-      "description": "Font size at small size"
+      "description": "Font size at sm size",
+      "type": "font-size"
+    },
+    {
+      "name": "--ui-select-font-size-md",
+      "default": "--ui-font-size-sm",
+      "defaultValue": "14px",
+      "description": "Font size at md size",
+      "type": "font-size"
+    },
+    {
+      "name": "--ui-select-font-size-lg",
+      "default": "--ui-font-size-md",
+      "defaultValue": "16px",
+      "description": "Font size at lg size",
+      "type": "font-size"
+    },
+    {
+      "name": "--ui-select-font-size-xl",
+      "default": "--ui-font-size-lg",
+      "defaultValue": "20px",
+      "description": "Font size at xl size",
+      "type": "font-size"
     },
     {
       "name": "--ui-select-height",
       "default": "--ui-row-2",
       "defaultValue": "32px",
-      "description": "Overall height"
+      "description": "Overall height",
+      "type": "dimension"
     },
     {
-      "name": "--ui-select-height-lg",
-      "default": "--ui-row-2-5",
-      "defaultValue": "40px",
-      "description": "Overall height at large size"
+      "name": "--ui-select-height-xs",
+      "default": "--ui-row",
+      "defaultValue": "16px",
+      "description": "Overall height at xs size",
+      "type": "dimension"
     },
     {
       "name": "--ui-select-height-sm",
       "default": "--ui-row-1-5",
       "defaultValue": "24px",
-      "description": "Overall height at small size"
+      "description": "Overall height at sm size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-select-height-md",
+      "default": "--ui-row-2",
+      "defaultValue": "32px",
+      "description": "Overall height at md size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-select-height-lg",
+      "default": "--ui-row-2-5",
+      "defaultValue": "40px",
+      "description": "Overall height at lg size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-select-height-xl",
+      "default": "--ui-row-3",
+      "defaultValue": "48px",
+      "description": "Overall height at xl size",
+      "type": "dimension"
     },
     {
       "name": "--ui-select-hover-border-color",
       "default": "--ui-color-border-strong",
-      "description": "Hover border color"
+      "description": "Hover border color",
+      "type": "color"
     },
     {
       "name": "--ui-select-icon-color",
       "default": "--ui-color-text-muted",
-      "description": "Icon color"
+      "description": "Icon color",
+      "type": "color"
     },
     {
       "name": "--ui-select-padding-x",
       "default": "--ui-space-1",
       "defaultValue": "8px",
-      "description": "Horizontal padding"
+      "description": "Horizontal padding",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-select-padding-x-xs",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Horizontal padding at xs size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-select-padding-x-sm",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Horizontal padding at sm size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-select-padding-x-md",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Horizontal padding at md size",
+      "type": "dimension"
     },
     {
       "name": "--ui-select-padding-x-lg",
       "default": "--ui-space-2",
       "defaultValue": "16px",
-      "description": "Horizontal padding at large size"
+      "description": "Horizontal padding at lg size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-select-padding-x-xl",
+      "default": "--ui-space-3",
+      "defaultValue": "24px",
+      "description": "Horizontal padding at xl size",
+      "type": "dimension"
     },
     {
       "name": "--ui-select-placeholder-color",
       "default": "--ui-color-text-muted",
-      "description": "Placeholder color"
+      "description": "Placeholder color",
+      "type": "color"
     },
     {
       "name": "--ui-select-radius",
       "default": "--ui-radius-md",
       "defaultValue": "8px",
-      "description": "Corner radius"
+      "description": "Corner radius",
+      "type": "radius"
     },
     {
       "name": "--ui-select-success-border",
       "default": "--ui-color-success",
-      "description": "Success border"
+      "description": "Success border",
+      "type": "color"
     },
     {
       "name": "--ui-select-transition-duration",
       "default": "--ui-duration-fast",
       "defaultValue": "100ms",
-      "description": "Transition duration"
+      "description": "Transition duration",
+      "type": "duration"
     },
     {
       "name": "--ui-select-transition-timing",
       "default": "--ui-ease-default",
-      "description": "Transition timing"
+      "description": "Transition timing",
+      "type": "easing"
     }
   ]
 }

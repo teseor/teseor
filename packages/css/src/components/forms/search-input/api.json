@@ -13,7 +13,7 @@
       "type": "boolean"
     },
     "size": {
-      "values": ["lg", "sm"]
+      "values": ["xs", "sm", "md", "lg", "xl"]
     }
   },
   "elements": {
@@ -25,171 +25,292 @@
     {
       "name": "--ui-search-input-bg",
       "default": "--ui-color-bg",
-      "description": "Background color"
+      "description": "Background color",
+      "type": "color"
     },
     {
       "name": "--ui-search-input-border-color",
       "default": "--ui-color-border-strong",
-      "description": "Border color"
+      "description": "Border color",
+      "type": "color"
     },
     {
       "name": "--ui-search-input-border-color-focus",
       "default": "--ui-color-primary",
-      "description": "Border color focus"
+      "description": "Border color focus",
+      "type": "color"
     },
     {
       "name": "--ui-search-input-border-width",
       "default": "--ui-border-width-sm",
       "defaultValue": "1px",
-      "description": "Border width"
+      "description": "Border width",
+      "type": "border-width"
     },
     {
       "name": "--ui-search-input-clear-color",
       "default": "--ui-color-text-muted",
-      "description": "Clear color"
+      "description": "Clear color",
+      "type": "color"
     },
     {
       "name": "--ui-search-input-clear-hover-bg",
       "default": "--ui-color-bg-muted",
-      "description": "Clear hover bg"
+      "description": "Clear hover bg",
+      "type": "color"
     },
     {
       "name": "--ui-search-input-clear-inset-gap",
       "default": "--ui-space-half",
-      "description": "Clear inset gap"
+      "description": "Clear inset gap",
+      "type": "dimension"
     },
     {
       "name": "--ui-search-input-clear-radius",
       "default": "--ui-radius-sm",
       "defaultValue": "4px",
-      "description": "Clear border radius"
+      "description": "Clear border radius",
+      "type": "radius"
     },
     {
       "name": "--ui-search-input-disabled-opacity",
       "default": "--ui-opacity-disabled",
       "defaultValue": "0.5",
-      "description": "Disabled opacity"
+      "description": "Disabled opacity",
+      "type": "opacity"
     },
     {
       "name": "--ui-search-input-focus-ring-color",
       "default": "--ui-color-focus",
-      "description": "Focus ring color"
+      "description": "Focus ring color",
+      "type": "color"
     },
     {
       "name": "--ui-search-input-focus-ring-offset",
       "default": "--ui-focus-ring-offset",
       "defaultValue": "-2px",
-      "description": "Focus ring offset"
+      "description": "Focus ring offset",
+      "type": "dimension"
     },
     {
       "name": "--ui-search-input-focus-ring-width",
       "default": "--ui-border-width-md",
       "defaultValue": "2px",
-      "description": "Focus ring width"
+      "description": "Focus ring width",
+      "type": "border-width"
     },
     {
       "name": "--ui-search-input-font-size",
       "default": "--ui-font-size-sm",
       "defaultValue": "14px",
-      "description": "Font size"
+      "description": "Font size",
+      "type": "font-size"
     },
     {
-      "name": "--ui-search-input-font-size-lg",
-      "default": "--ui-font-size-md",
-      "defaultValue": "16px",
-      "description": "Font size at large size"
+      "name": "--ui-search-input-font-size-xs",
+      "default": "--ui-font-size-xs",
+      "defaultValue": "12px",
+      "description": "Font size at xs size",
+      "type": "font-size"
     },
     {
       "name": "--ui-search-input-font-size-sm",
       "default": "--ui-font-size-xs",
       "defaultValue": "12px",
-      "description": "Font size at small size"
+      "description": "Font size at sm size",
+      "type": "font-size"
+    },
+    {
+      "name": "--ui-search-input-font-size-md",
+      "default": "--ui-font-size-sm",
+      "defaultValue": "14px",
+      "description": "Font size at md size",
+      "type": "font-size"
+    },
+    {
+      "name": "--ui-search-input-font-size-lg",
+      "default": "--ui-font-size-md",
+      "defaultValue": "16px",
+      "description": "Font size at lg size",
+      "type": "font-size"
+    },
+    {
+      "name": "--ui-search-input-font-size-xl",
+      "default": "--ui-font-size-lg",
+      "defaultValue": "20px",
+      "description": "Font size at xl size",
+      "type": "font-size"
     },
     {
       "name": "--ui-search-input-height",
       "default": "--ui-row-2",
       "defaultValue": "32px",
-      "description": "Overall height"
+      "description": "Overall height",
+      "type": "dimension"
     },
     {
-      "name": "--ui-search-input-height-lg",
-      "default": "--ui-row-2-5",
-      "defaultValue": "40px",
-      "description": "Overall height at large size"
+      "name": "--ui-search-input-height-xs",
+      "default": "--ui-row",
+      "defaultValue": "16px",
+      "description": "Overall height at xs size",
+      "type": "dimension"
     },
     {
       "name": "--ui-search-input-height-sm",
       "default": "--ui-row-1-5",
       "defaultValue": "24px",
-      "description": "Overall height at small size"
+      "description": "Overall height at sm size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-search-input-height-md",
+      "default": "--ui-row-2",
+      "defaultValue": "32px",
+      "description": "Overall height at md size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-search-input-height-lg",
+      "default": "--ui-row-2-5",
+      "defaultValue": "40px",
+      "description": "Overall height at lg size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-search-input-height-xl",
+      "default": "--ui-row-3",
+      "defaultValue": "48px",
+      "description": "Overall height at xl size",
+      "type": "dimension"
     },
     {
       "name": "--ui-search-input-icon-color",
       "default": "--ui-color-text-muted",
-      "description": "Icon color"
+      "description": "Icon color",
+      "type": "color"
     },
     {
       "name": "--ui-search-input-icon-size",
       "default": "--ui-size-md",
       "defaultValue": "16px",
-      "description": "Icon dimensions"
+      "description": "Icon dimensions",
+      "type": "dimension"
     },
     {
-      "name": "--ui-search-input-icon-size-lg",
-      "default": "--ui-size-lg",
-      "defaultValue": "20px",
-      "description": "Icon dimensions at large size"
+      "name": "--ui-search-input-icon-size-xs",
+      "default": "--ui-size-xs",
+      "defaultValue": "8px",
+      "description": "Icon dimensions at xs size",
+      "type": "dimension"
     },
     {
       "name": "--ui-search-input-icon-size-sm",
       "default": "--ui-size-sm",
       "defaultValue": "12px",
-      "description": "Icon dimensions at small size"
+      "description": "Icon dimensions at sm size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-search-input-icon-size-md",
+      "default": "--ui-size-md",
+      "defaultValue": "16px",
+      "description": "Icon dimensions at md size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-search-input-icon-size-lg",
+      "default": "--ui-size-lg",
+      "defaultValue": "20px",
+      "description": "Icon dimensions at lg size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-search-input-icon-size-xl",
+      "default": "--ui-size-xl",
+      "defaultValue": "24px",
+      "description": "Icon dimensions at xl size",
+      "type": "dimension"
     },
     {
       "name": "--ui-search-input-icon-stroke",
       "default": "--ui-icon-stroke",
       "defaultValue": "2",
-      "description": "Icon stroke width"
+      "description": "Icon stroke width",
+      "type": "dimension"
     },
     {
       "name": "--ui-search-input-padding-x",
       "default": "--ui-space-1",
       "defaultValue": "8px",
-      "description": "Horizontal padding"
+      "description": "Horizontal padding",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-search-input-padding-x-xs",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Horizontal padding at xs size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-search-input-padding-x-sm",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Horizontal padding at sm size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-search-input-padding-x-md",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Horizontal padding at md size",
+      "type": "dimension"
     },
     {
       "name": "--ui-search-input-padding-x-lg",
       "default": "--ui-space-2",
       "defaultValue": "16px",
-      "description": "Horizontal padding at large size"
+      "description": "Horizontal padding at lg size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-search-input-padding-x-xl",
+      "default": "--ui-space-3",
+      "defaultValue": "24px",
+      "description": "Horizontal padding at xl size",
+      "type": "dimension"
     },
     {
       "name": "--ui-search-input-placeholder",
       "default": "--ui-color-text-muted",
-      "description": "Placeholder"
+      "description": "Placeholder",
+      "type": "color"
     },
     {
       "name": "--ui-search-input-radius",
       "default": "--ui-radius-md",
       "defaultValue": "8px",
-      "description": "Corner radius"
+      "description": "Corner radius",
+      "type": "radius"
     },
     {
       "name": "--ui-search-input-text",
       "default": "--ui-color-text",
-      "description": "Text"
+      "description": "Text",
+      "type": "color"
     },
     {
       "name": "--ui-search-input-transition-duration",
       "default": "--ui-duration-fast",
       "defaultValue": "100ms",
-      "description": "Transition duration"
+      "description": "Transition duration",
+      "type": "duration"
     },
     {
       "name": "--ui-search-input-transition-timing",
       "default": "--ui-ease-default",
-      "description": "Transition timing"
+      "description": "Transition timing",
+      "type": "easing"
     }
   ]
 }

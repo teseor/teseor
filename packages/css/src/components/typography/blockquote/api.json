@@ -14,64 +14,75 @@
     {
       "name": "--ui-blockquote-accent-border-color",
       "default": "--ui-color-primary",
-      "description": "Accent border color"
+      "description": "Accent border color",
+      "type": "color"
     },
     {
       "name": "--ui-blockquote-border-color",
       "default": "--ui-color-border-strong",
-      "description": "Border color"
+      "description": "Border color",
+      "type": "color"
     },
     {
       "name": "--ui-blockquote-border-width",
       "default": "--ui-border-width-lg",
       "defaultValue": "4px",
-      "description": "Border thickness"
+      "description": "Border thickness",
+      "type": "border-width"
     },
     {
       "name": "--ui-blockquote-cite-color",
       "default": "--ui-color-text-muted",
-      "description": "Citation text color"
+      "description": "Citation text color",
+      "type": "color"
     },
     {
       "name": "--ui-blockquote-cite-font-size",
       "default": "--ui-font-size-sm",
       "defaultValue": "14px",
-      "description": "Citation font size"
+      "description": "Citation font size",
+      "type": "font-size"
     },
     {
       "name": "--ui-blockquote-cite-line-height",
       "default": "--ui-line-height-sm",
       "defaultValue": "24px",
-      "description": "Citation line height"
+      "description": "Citation line height",
+      "type": "line-height"
     },
     {
       "name": "--ui-blockquote-cite-spacing",
       "default": "--ui-space-1",
       "defaultValue": "8px",
-      "description": "Citation spacing"
+      "description": "Citation spacing",
+      "type": "dimension"
     },
     {
       "name": "--ui-blockquote-color",
       "default": "--ui-color-text-muted",
-      "description": "Text color"
+      "description": "Text color",
+      "type": "color"
     },
     {
       "name": "--ui-blockquote-font-size",
       "default": "--ui-font-size-lg",
       "defaultValue": "20px",
-      "description": "Font size"
+      "description": "Font size",
+      "type": "font-size"
     },
     {
       "name": "--ui-blockquote-line-height",
       "default": "--ui-line-height-lg",
       "defaultValue": "32px",
-      "description": "Line height"
+      "description": "Line height",
+      "type": "line-height"
     },
     {
       "name": "--ui-blockquote-padding-inline",
       "default": "--ui-space-3",
       "defaultValue": "24px",
-      "description": "Horizontal padding"
+      "description": "Horizontal padding",
+      "type": "dimension"
     }
   ]
 }

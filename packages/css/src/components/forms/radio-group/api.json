@@ -23,24 +23,28 @@
       "name": "--ui-radio-group-disabled-opacity",
       "default": "--ui-opacity-disabled",
       "defaultValue": "0.5",
-      "description": "Disabled opacity"
+      "description": "Disabled opacity",
+      "type": "opacity"
     },
     {
       "name": "--ui-radio-group-error-color",
       "default": "--ui-color-danger",
-      "description": "Error color"
+      "description": "Error color",
+      "type": "color"
     },
     {
       "name": "--ui-radio-group-horizontal-gap",
       "default": "--ui-space-2",
       "defaultValue": "16px",
-      "description": "Horizontal gap"
+      "description": "Horizontal gap",
+      "type": "dimension"
     },
     {
       "name": "--ui-radio-group-item-gap",
       "default": "--ui-space-1",
       "defaultValue": "8px",
-      "description": "Item gap between children"
+      "description": "Item gap between children",
+      "type": "dimension"
     },
     {
       "name": "--ui-radio-group-item-gap-compact",
@@ -51,24 +55,28 @@
       "name": "--ui-radio-group-item-line-height",
       "default": "--ui-row-1",
       "defaultValue": "16px",
-      "description": "Item line height"
+      "description": "Item line height",
+      "type": "dimension"
     },
     {
       "name": "--ui-radio-group-legend-color",
       "default": "--ui-color-text",
-      "description": "Legend color"
+      "description": "Legend color",
+      "type": "color"
     },
     {
       "name": "--ui-radio-group-legend-size",
       "default": "--ui-font-size-sm",
       "defaultValue": "14px",
-      "description": "Legend size"
+      "description": "Legend size",
+      "type": "font-size"
     },
     {
       "name": "--ui-radio-group-legend-spacing",
       "default": "--ui-space-1",
       "defaultValue": "8px",
-      "description": "Legend spacing"
+      "description": "Legend spacing",
+      "type": "dimension"
     },
     {
       "name": "--ui-radio-group-legend-spacing-compact",
@@ -79,19 +87,22 @@
       "name": "--ui-radio-group-legend-weight",
       "default": "--ui-font-weight-medium",
       "defaultValue": "500",
-      "description": "Legend weight"
+      "description": "Legend weight",
+      "type": "font-weight"
     },
     {
       "name": "--ui-radio-group-line-height",
       "default": "--ui-line-height-tight-sm",
       "defaultValue": "16px",
-      "description": "Line height"
+      "description": "Line height",
+      "type": "line-height"
     },
     {
       "name": "--ui-radio-group-spacing",
       "default": "--ui-space-1",
       "defaultValue": "8px",
-      "description": "Spacing"
+      "description": "Spacing",
+      "type": "dimension"
     },
     {
       "name": "--ui-radio-group-spacing-compact",

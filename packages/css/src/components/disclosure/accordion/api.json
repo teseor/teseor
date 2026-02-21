@@ -14,25 +14,29 @@
     {
       "name": "--ui-accordion-border-color",
       "default": "--ui-color-border",
-      "description": "Border color"
+      "description": "Border color",
+      "type": "color"
     },
     {
       "name": "--ui-accordion-border-width",
       "default": "--ui-border-width-sm",
       "defaultValue": "1px",
-      "description": "Border thickness"
+      "description": "Border thickness",
+      "type": "border-width"
     },
     {
       "name": "--ui-accordion-radius",
       "default": "--ui-radius-md",
       "defaultValue": "8px",
-      "description": "Corner radius"
+      "description": "Corner radius",
+      "type": "radius"
     },
     {
       "name": "--ui-accordion-separated-gap",
       "default": "--ui-space-1",
       "defaultValue": "8px",
-      "description": "Gap between items in separated variant"
+      "description": "Gap between items in separated variant",
+      "type": "dimension"
     }
   ]
 }

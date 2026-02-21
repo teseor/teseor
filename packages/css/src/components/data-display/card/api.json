@@ -13,7 +13,7 @@
       "type": "boolean"
     },
     "size": {
-      "values": ["lg", "sm"]
+      "values": ["xs", "sm", "md", "lg", "xl"]
     },
     "variant": {
       "values": ["muted", "subtle"]
@@ -27,84 +27,120 @@
     {
       "name": "--ui-card-bg",
       "default": "--ui-color-bg",
-      "description": "Background color"
+      "description": "Background color",
+      "type": "color"
     },
     {
       "name": "--ui-card-bg-active",
       "default": "--ui-color-bg-muted",
-      "description": "Bg active"
+      "description": "Bg active",
+      "type": "color"
     },
     {
       "name": "--ui-card-bg-hover",
       "default": "--ui-color-bg-subtle",
-      "description": "Bg hover"
+      "description": "Bg hover",
+      "type": "color"
     },
     {
       "name": "--ui-card-bg-muted",
       "default": "--ui-color-bg-muted",
-      "description": "Bg muted"
+      "description": "Bg muted",
+      "type": "color"
     },
     {
       "name": "--ui-card-bg-subtle",
       "default": "--ui-color-bg-subtle",
-      "description": "Bg subtle"
+      "description": "Bg subtle",
+      "type": "color"
     },
     {
       "name": "--ui-card-border-color",
       "default": "--ui-color-border",
-      "description": "Border color"
+      "description": "Border color",
+      "type": "color"
     },
     {
       "name": "--ui-card-border-color-hover",
       "default": "--ui-color-border-strong",
-      "description": "Border color hover"
+      "description": "Border color hover",
+      "type": "color"
     },
     {
       "name": "--ui-card-border-width",
       "default": "--ui-border-width-sm",
       "defaultValue": "1px",
-      "description": "Border thickness"
+      "description": "Border thickness",
+      "type": "border-width"
     },
     {
       "name": "--ui-card-line-height",
       "default": "--ui-row-1",
       "defaultValue": "16px",
-      "description": "Line height"
+      "description": "Line height",
+      "type": "dimension"
     },
     {
       "name": "--ui-card-padding",
       "default": "--ui-space-4",
       "defaultValue": "32px",
-      "description": "Padding on all sides"
+      "description": "Padding on all sides",
+      "type": "dimension"
     },
     {
-      "name": "--ui-card-padding-lg",
-      "default": "--ui-space-6",
-      "defaultValue": "48px",
-      "description": "Padding on all sides at large size"
+      "name": "--ui-card-padding-xs",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Padding on all sides at xs size",
+      "type": "dimension"
     },
     {
       "name": "--ui-card-padding-sm",
       "default": "--ui-space-2",
       "defaultValue": "16px",
-      "description": "Padding on all sides at small size"
+      "description": "Padding on all sides at sm size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-card-padding-md",
+      "default": "--ui-space-4",
+      "defaultValue": "32px",
+      "description": "Padding on all sides at md size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-card-padding-lg",
+      "default": "--ui-space-6",
+      "defaultValue": "48px",
+      "description": "Padding on all sides at lg size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-card-padding-xl",
+      "default": "--ui-space-8",
+      "defaultValue": "64px",
+      "description": "Padding on all sides at xl size",
+      "type": "dimension"
     },
     {
       "name": "--ui-card-radius",
       "default": "--ui-radius-md",
       "defaultValue": "8px",
-      "description": "Corner radius"
+      "description": "Corner radius",
+      "type": "radius"
     },
     {
       "name": "--ui-card-transition-duration",
       "default": "--ui-duration-fast",
       "defaultValue": "100ms",
-      "description": "Transition duration"
+      "description": "Transition duration",
+      "type": "duration"
     },
     {
       "name": "--ui-card-transition-timing",
       "default": "--ui-ease-default",
-      "description": "Transition timing"
+      "description": "Transition timing",
+      "type": "easing"
     }
   ]
 }

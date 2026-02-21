@@ -8,7 +8,8 @@
       "name": "--ui-spacer-size",
       "default": "--ui-spacer-size",
       "defaultValue": "1",
-      "description": "Overall size"
+      "description": "Overall size",
+      "type": "dimension"
     }
   ]
 }

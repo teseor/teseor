@@ -24,80 +24,94 @@
     {
       "name": "--ui-code-block-bg",
       "default": "--ui-color-bg-muted",
-      "description": "Background color"
+      "description": "Background color",
+      "type": "color"
     },
     {
       "name": "--ui-code-block-border-color",
       "default": "--ui-color-border",
-      "description": "Border color"
+      "description": "Border color",
+      "type": "color"
     },
     {
       "name": "--ui-code-block-border-width",
       "default": "--ui-border-width-sm",
       "defaultValue": "1px",
-      "description": "Border width"
+      "description": "Border width",
+      "type": "border-width"
     },
     {
       "name": "--ui-code-block-color",
       "default": "--ui-color-text",
-      "description": "Text color"
+      "description": "Text color",
+      "type": "color"
     },
     {
       "name": "--ui-code-block-font-family",
       "default": "--ui-font-mono",
-      "description": "Font family"
+      "description": "Font family",
+      "type": "font-family"
     },
     {
       "name": "--ui-code-block-font-size",
       "default": "--ui-font-size-sm",
       "defaultValue": "14px",
-      "description": "Font size"
+      "description": "Font size",
+      "type": "font-size"
     },
     {
       "name": "--ui-code-block-line-height",
       "default": "--ui-line-height-tight-sm",
       "defaultValue": "16px",
-      "description": "Line height"
+      "description": "Line height",
+      "type": "line-height"
     },
     {
       "name": "--ui-code-block-line-number-border-color",
       "default": "--ui-color-border",
-      "description": "Line number border color"
+      "description": "Line number border color",
+      "type": "color"
     },
     {
       "name": "--ui-code-block-line-number-color",
       "default": "--ui-color-text-muted",
-      "description": "Line number color"
+      "description": "Line number color",
+      "type": "color"
     },
     {
       "name": "--ui-code-block-line-number-spacing",
       "default": "--ui-space-2",
       "defaultValue": "16px",
-      "description": "Line number spacing"
+      "description": "Line number spacing",
+      "type": "dimension"
     },
     {
       "name": "--ui-code-block-line-number-width",
       "default": "--ui-space-4",
       "defaultValue": "32px",
-      "description": "Line number min width"
+      "description": "Line number min width",
+      "type": "dimension"
     },
     {
       "name": "--ui-code-block-padding",
       "default": "--ui-space-3",
       "defaultValue": "24px",
-      "description": "Padding on all sides"
+      "description": "Padding on all sides",
+      "type": "dimension"
     },
     {
       "name": "--ui-code-block-padding-compact",
       "default": "--ui-space-1",
       "defaultValue": "8px",
-      "description": "Padding compact"
+      "description": "Padding compact",
+      "type": "dimension"
     },
     {
       "name": "--ui-code-block-radius",
       "default": "--ui-radius-md",
       "defaultValue": "8px",
-      "description": "Corner radius"
+      "description": "Corner radius",
+      "type": "radius"
     }
   ]
 }

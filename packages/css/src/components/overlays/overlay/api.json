@@ -29,30 +29,35 @@
     {
       "name": "--ui-overlay-bg",
       "default": "--ui-overlay-bg",
-      "description": "Background color"
+      "description": "Background color",
+      "type": "color"
     },
     {
       "name": "--ui-overlay-blur-amount",
       "default": "--ui-space-0",
       "defaultValue": "4px",
-      "description": "Blur amount"
+      "description": "Blur amount",
+      "type": "dimension"
     },
     {
       "name": "--ui-overlay-transition-duration",
       "default": "--ui-duration-normal",
       "defaultValue": "200ms",
-      "description": "Transition duration"
+      "description": "Transition duration",
+      "type": "duration"
     },
     {
       "name": "--ui-overlay-transition-timing",
       "default": "--ui-ease-default",
-      "description": "Transition timing function"
+      "description": "Transition timing function",
+      "type": "easing"
     },
     {
       "name": "--ui-overlay-z",
       "default": "--ui-z-index-overlay",
       "defaultValue": "300",
-      "description": "Z-index stacking order"
+      "description": "Z-index stacking order",
+      "type": "z-index"
     }
   ]
 }

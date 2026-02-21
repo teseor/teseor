@@ -7,7 +7,7 @@
       "type": "boolean"
     },
     "size": {
-      "values": ["lg", "md", "sm", "xl", "xs"]
+      "values": ["xs", "sm", "md", "lg", "xl"]
     },
     "spin": {
       "type": "boolean"
@@ -20,7 +20,8 @@
     {
       "name": "--ui-icon-size",
       "default": "--ui-ctx-size",
-      "description": "3-tier: global > context > default"
+      "description": "3-tier: global > context > default",
+      "type": "dimension"
     },
     {
       "name": "--ui-icon-size-",
@@ -31,19 +32,22 @@
       "name": "--ui-icon-stroke",
       "default": "--ui-icon-stroke",
       "defaultValue": "2",
-      "description": "Stroke"
+      "description": "Stroke",
+      "type": "dimension"
     },
     {
       "name": "--ui-icon-stroke-thick",
       "default": "--ui-icon-stroke-thick",
       "defaultValue": "2.5",
-      "description": "Stroke thick"
+      "description": "Stroke thick",
+      "type": "dimension"
     },
     {
       "name": "--ui-icon-stroke-thin",
       "default": "--ui-icon-stroke-thin",
       "defaultValue": "1",
-      "description": "Stroke thin"
+      "description": "Stroke thin",
+      "type": "dimension"
     }
   ]
 }

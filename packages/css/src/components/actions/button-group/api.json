@@ -12,19 +12,22 @@
       "name": "--ui-button-group-border-width",
       "default": "--ui-border-width-sm",
       "defaultValue": "1px",
-      "description": "Border thickness"
+      "description": "Border thickness",
+      "type": "border-width"
     },
     {
       "name": "--ui-button-group-overlap",
       "default": "--ui-unit-neg-eighth",
       "defaultValue": "-1px",
-      "description": "Negative overlap between adjacent buttons"
+      "description": "Negative overlap between adjacent buttons",
+      "type": "dimension"
     },
     {
       "name": "--ui-button-group-radius",
       "default": "--ui-radius-md",
       "defaultValue": "8px",
-      "description": "Corner radius"
+      "description": "Corner radius",
+      "type": "radius"
     }
   ]
 }
