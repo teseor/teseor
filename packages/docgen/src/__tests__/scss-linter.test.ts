@@ -38,7 +38,7 @@ describe('scss-linter', () => {
   });
 
   describe('requireDescOnVars', () => {
-    it('passes when component tokens have @desc', () => {
+    it('passes when public tokens have @desc', () => {
       const scss = `
 // @component button
 @layer components.tokens {
@@ -53,7 +53,7 @@ describe('scss-linter', () => {
       expect(requireDescOnVars(root)).toEqual([]);
     });
 
-    it('fails when a component token is missing @desc', () => {
+    it('fails when a public token is missing @desc', () => {
       const scss = `
 // @component button
 @layer components.tokens {
@@ -67,10 +67,9 @@ describe('scss-linter', () => {
       const diags = requireDescOnVars(root);
       expect(diags).toHaveLength(1);
       expect(diags[0].message).toContain('--_padding-x');
-      expect(diags[0].message).toContain('missing @desc');
     });
 
-    it('skips global alias vars', () => {
+    it('skips global alias vars (no component token)', () => {
       const scss = `
 // @component button
 @layer components.tokens {
@@ -78,25 +77,24 @@ describe('scss-linter', () => {
     --_space-1: var(--ui-space-1, 8px);
     --_duration-fast: var(--ui-duration-fast, 150ms);
     --_ease-default: var(--ui-ease-default, ease);
-    --_border-width-md: var(--ui-border-width-md, 2px);
   }
 }`;
       const root = parseScss(scss);
       expect(requireDescOnVars(root)).toEqual([]);
     });
 
-    it('requires @desc on derived values', () => {
+    it('skips derived/internal-only vars', () => {
       const scss = `
 // @component button
 @layer components.tokens {
   .button {
     --_bg: var(--_accent);
     --_bg-hover: color-mix(in oklch, var(--_accent) 80%, black);
+    --_circumference: 282.743;
   }
 }`;
       const root = parseScss(scss);
-      const diags = requireDescOnVars(root);
-      expect(diags).toHaveLength(2);
+      expect(requireDescOnVars(root)).toEqual([]);
     });
 
     it('skips modifier overrides', () => {
@@ -105,22 +103,26 @@ describe('scss-linter', () => {
 @layer components.tokens {
   .button {
     // @desc Overall height
-    --_height: 32px;
+    --_height: var(--ui-button-height, 32px);
   }
   .button--sm {
-    --_height: 24px;
+    --_height: var(--ui-button-height-sm, 24px);
   }
 }`;
       const root = parseScss(scss);
       expect(requireDescOnVars(root)).toEqual([]);
     });
 
-    it('skips non-token vars', () => {
+    it('skips child/compound selectors', () => {
       const scss = `
-// @component button
+// @component accordion
 @layer components.tokens {
-  .button {
-    --random-var: red;
+  .accordion {
+    // @desc Border thickness
+    --_border-width: var(--ui-accordion-border-width, 1px);
+  }
+  .accordion > .disclosure {
+    --_border-width: 0;
   }
 }`;
       const root = parseScss(scss);
@@ -132,7 +134,18 @@ describe('scss-linter', () => {
 // @component button
 @layer components.styles {
   .button {
-    --_height: 32px;
+    --_height: var(--ui-button-height, 32px);
+  }
+}`;
+      const root = parseScss(scss);
+      expect(requireDescOnVars(root)).toEqual([]);
+    });
+
+    it('ignores files without @component', () => {
+      const scss = `
+@layer components.tokens {
+  .button {
+    --_height: var(--ui-button-height, 32px);
   }
 }`;
       const root = parseScss(scss);
@@ -197,10 +210,11 @@ describe('scss-linter', () => {
     --_ease-default: var(--ui-ease-default, ease);
     // @desc Overall height
     --_height: var(--ui-button-height, 32px);
+    --_bg: var(--_accent);
   }
   // @modifier size
   .button--sm {
-    --_height: 24px;
+    --_height: var(--ui-button-height-sm, 24px);
   }
 }
 
@@ -218,14 +232,14 @@ describe('scss-linter', () => {
       const scss = `
 @layer components.tokens {
   .button {
-    --_bg: var(--_accent);
+    --_height: var(--ui-button-height, 32px);
   }
 }
 `;
       const root = parseScss(scss);
       const diags = lintScss(root);
-      // Missing @component, @element, @desc on derived var
-      expect(diags.length).toBeGreaterThanOrEqual(3);
+      // Missing @component, @element — @desc not checked without @component
+      expect(diags.length).toBeGreaterThanOrEqual(2);
     });
   });
 });

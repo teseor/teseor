@@ -19,7 +19,6 @@
     --_font-weight: var(--ui-badge-font-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
     // @desc Corner radius
     --_radius: var(--ui-badge-radius, var(--ui-radius-full, #{t.$radius-full}));
-    // @desc Background color derived from accent
     --_bg: var(--_accent);
     // @desc Text color
     --_color: var(--ui-badge-color, var(--ui-color-text, #{t.$color-text}));
