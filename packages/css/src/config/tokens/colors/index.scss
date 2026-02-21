@@ -1,51 +1,30 @@
+@mixin color-roles($hue, $fg-color: var(--ui-color-neutral-50)) {
+  --ui-color-#{$hue}-bg: color-mix(in oklch, var(--ui-color-#{$hue}) var(--ui-color-mix-bg), var(--ui-color-mix-light));
+  --ui-color-#{$hue}-bg-hover: color-mix(in oklch, var(--ui-color-#{$hue}) var(--ui-color-mix-bg-hover), var(--ui-color-mix-light));
+  --ui-color-#{$hue}-emphasis: var(--ui-color-#{$hue});
+  --ui-color-#{$hue}-emphasis-hover: color-mix(in oklch, var(--ui-color-#{$hue}) var(--ui-color-mix-emphasis-hover), var(--ui-color-mix-dark));
+  --ui-color-#{$hue}-text: color-mix(in oklch, var(--ui-color-#{$hue}) var(--ui-color-mix-text), var(--ui-color-mix-dark));
+  --ui-color-#{$hue}-border: color-mix(in oklch, var(--ui-color-#{$hue}) var(--ui-color-mix-border), var(--ui-color-mix-light));
+  --ui-color-#{$hue}-fg: #{$fg-color};
+}
+
 @layer tokens.scale {
   :root {
-    // Primary — 7 semantic roles derived from core palette
-    --ui-color-primary-bg: color-mix(in oklch, var(--ui-color-primary) 8%, white);
-    --ui-color-primary-bg-hover: color-mix(in oklch, var(--ui-color-primary) 12%, white);
-    --ui-color-primary-emphasis: var(--ui-color-primary);
-    --ui-color-primary-emphasis-hover: color-mix(in oklch, var(--ui-color-primary) 85%, black);
-    --ui-color-primary-text: color-mix(in oklch, var(--ui-color-primary) 75%, black);
-    --ui-color-primary-border: color-mix(in oklch, var(--ui-color-primary) 30%, white);
-    --ui-color-primary-fg: white;
+    @include color-roles(primary);
+    @include color-roles(success);
+    @include color-roles(warning, var(--ui-color-neutral-900));
+    @include color-roles(danger);
 
-    // Success — 7 semantic roles
-    --ui-color-success-bg: color-mix(in oklch, var(--ui-color-success) 8%, white);
-    --ui-color-success-bg-hover: color-mix(in oklch, var(--ui-color-success) 12%, white);
-    --ui-color-success-emphasis: var(--ui-color-success);
-    --ui-color-success-emphasis-hover: color-mix(in oklch, var(--ui-color-success) 85%, black);
-    --ui-color-success-text: color-mix(in oklch, var(--ui-color-success) 75%, black);
-    --ui-color-success-border: color-mix(in oklch, var(--ui-color-success) 30%, white);
-    --ui-color-success-fg: white;
-
-    // Warning — fg is dark because warning hue is light
-    --ui-color-warning-bg: color-mix(in oklch, var(--ui-color-warning) 8%, white);
-    --ui-color-warning-bg-hover: color-mix(in oklch, var(--ui-color-warning) 12%, white);
-    --ui-color-warning-emphasis: var(--ui-color-warning);
-    --ui-color-warning-emphasis-hover: color-mix(in oklch, var(--ui-color-warning) 85%, black);
-    --ui-color-warning-text: color-mix(in oklch, var(--ui-color-warning) 75%, black);
-    --ui-color-warning-border: color-mix(in oklch, var(--ui-color-warning) 30%, white);
-    --ui-color-warning-fg: var(--ui-color-neutral-900);
-
-    // Danger — 7 semantic roles
-    --ui-color-danger-bg: color-mix(in oklch, var(--ui-color-danger) 8%, white);
-    --ui-color-danger-bg-hover: color-mix(in oklch, var(--ui-color-danger) 12%, white);
-    --ui-color-danger-emphasis: var(--ui-color-danger);
-    --ui-color-danger-emphasis-hover: color-mix(in oklch, var(--ui-color-danger) 85%, black);
-    --ui-color-danger-text: color-mix(in oklch, var(--ui-color-danger) 75%, black);
-    --ui-color-danger-border: color-mix(in oklch, var(--ui-color-danger) 30%, white);
-    --ui-color-danger-fg: white;
-
-    // Neutral scale — structural grays
-    --ui-color-neutral-50: color-mix(in oklch, var(--ui-color-neutral) 3%, white);
-    --ui-color-neutral-100: color-mix(in oklch, var(--ui-color-neutral) 6%, white);
-    --ui-color-neutral-200: color-mix(in oklch, var(--ui-color-neutral) 12%, white);
-    --ui-color-neutral-300: color-mix(in oklch, var(--ui-color-neutral) 25%, white);
-    --ui-color-neutral-400: color-mix(in oklch, var(--ui-color-neutral) 50%, white);
+    // Neutral scale
+    --ui-color-neutral-50: color-mix(in oklch, var(--ui-color-neutral) 3%, var(--ui-color-mix-light));
+    --ui-color-neutral-100: color-mix(in oklch, var(--ui-color-neutral) 6%, var(--ui-color-mix-light));
+    --ui-color-neutral-200: color-mix(in oklch, var(--ui-color-neutral) 12%, var(--ui-color-mix-light));
+    --ui-color-neutral-300: color-mix(in oklch, var(--ui-color-neutral) 25%, var(--ui-color-mix-light));
+    --ui-color-neutral-400: color-mix(in oklch, var(--ui-color-neutral) 50%, var(--ui-color-mix-light));
     --ui-color-neutral-500: var(--ui-color-neutral);
-    --ui-color-neutral-600: color-mix(in oklch, var(--ui-color-neutral) 85%, black);
-    --ui-color-neutral-700: color-mix(in oklch, var(--ui-color-neutral) 70%, black);
-    --ui-color-neutral-800: color-mix(in oklch, var(--ui-color-neutral) 50%, black);
-    --ui-color-neutral-900: color-mix(in oklch, var(--ui-color-neutral) 35%, black);
+    --ui-color-neutral-600: color-mix(in oklch, var(--ui-color-neutral) 85%, var(--ui-color-mix-dark));
+    --ui-color-neutral-700: color-mix(in oklch, var(--ui-color-neutral) 70%, var(--ui-color-mix-dark));
+    --ui-color-neutral-800: color-mix(in oklch, var(--ui-color-neutral) 50%, var(--ui-color-mix-dark));
+    --ui-color-neutral-900: color-mix(in oklch, var(--ui-color-neutral) 35%, var(--ui-color-mix-dark));
   }
 }

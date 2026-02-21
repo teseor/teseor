@@ -26,6 +26,13 @@ $row-6: $row * 6;
 // 2. Colors — OKLCH for perceptual uniformity
 // ==========================================================================
 
+// Color derivation knobs
+$color-mix-bg: 8%;
+$color-mix-bg-hover: 12%;
+$color-mix-emphasis-hover: 85%;
+$color-mix-text: 75%;
+$color-mix-border: 30%;
+
 // Base palette
 $color-primary: oklch(55% 0.22 250);
 $color-success: oklch(60% 0.18 145);
@@ -33,45 +40,7 @@ $color-warning: oklch(75% 0.18 70);
 $color-danger: oklch(60% 0.22 25);
 $color-neutral: oklch(50% 0.02 250);
 
-// Primary semantic roles (CSS uses color-mix)
-$color-primary-bg: oklch(97% 0.02 250);
-$color-primary-bg-hover: oklch(94% 0.04 250);
-$color-primary-emphasis: $color-primary;
-$color-primary-emphasis-hover: oklch(48% 0.20 250);
-$color-primary-text: oklch(40% 0.18 250);
-$color-primary-border: oklch(82% 0.08 250);
-$color-primary-fg: white;
-
-// Success semantic roles
-$color-success-bg: oklch(97% 0.02 145);
-$color-success-bg-hover: oklch(94% 0.03 145);
-$color-success-emphasis: $color-success;
-$color-success-emphasis-hover: oklch(52% 0.16 145);
-$color-success-text: oklch(45% 0.15 145);
-$color-success-border: oklch(82% 0.06 145);
-$color-success-fg: white;
-
-// Warning semantic roles (fg is dark — warning hue is light)
-$color-warning-bg: oklch(97% 0.02 70);
-$color-warning-bg-hover: oklch(95% 0.03 70);
-$color-warning-emphasis: $color-warning;
-$color-warning-emphasis-hover: oklch(66% 0.16 70);
-$color-warning-text: oklch(58% 0.15 70);
-$color-warning-border: oklch(88% 0.06 70);
-$color-warning-fg: oklch(20% 0.02 70);
-
-// Danger semantic roles
-$color-danger-bg: oklch(97% 0.02 25);
-$color-danger-bg-hover: oklch(94% 0.04 25);
-$color-danger-emphasis: $color-danger;
-$color-danger-emphasis-hover: oklch(52% 0.20 25);
-$color-danger-text: oklch(45% 0.18 25);
-$color-danger-border: oklch(82% 0.08 25);
-$color-danger-fg: white;
-
-// Neutral scale — HSL approximation of color-mix(in oklch, ...) results.
-// CSS tokens use oklch color-mix(); these HSL values are static SCSS
-// fallbacks for when custom properties are unavailable.
+// Neutral scale (defined first — per-hue roles reference neutral-50/900 for -fg)
 $color-neutral-50: hsl(220 10% 98%);
 $color-neutral-100: hsl(220 10% 96%);
 $color-neutral-200: hsl(220 10% 90%);
@@ -82,6 +51,42 @@ $color-neutral-600: hsl(220 10% 35%);
 $color-neutral-700: hsl(220 10% 25%);
 $color-neutral-800: hsl(220 10% 15%);
 $color-neutral-900: hsl(220 10% 10%);
+
+// Primary semantic roles
+$color-primary-bg: oklch(97% 0.02 250);
+$color-primary-bg-hover: oklch(94% 0.04 250);
+$color-primary-emphasis: $color-primary;
+$color-primary-emphasis-hover: oklch(48% 0.20 250);
+$color-primary-text: oklch(40% 0.18 250);
+$color-primary-border: oklch(82% 0.08 250);
+$color-primary-fg: $color-neutral-50;
+
+// Success semantic roles
+$color-success-bg: oklch(97% 0.02 145);
+$color-success-bg-hover: oklch(94% 0.03 145);
+$color-success-emphasis: $color-success;
+$color-success-emphasis-hover: oklch(52% 0.16 145);
+$color-success-text: oklch(45% 0.15 145);
+$color-success-border: oklch(82% 0.06 145);
+$color-success-fg: $color-neutral-50;
+
+// Warning semantic roles (fg is dark — warning hue is light)
+$color-warning-bg: oklch(97% 0.02 70);
+$color-warning-bg-hover: oklch(95% 0.03 70);
+$color-warning-emphasis: $color-warning;
+$color-warning-emphasis-hover: oklch(66% 0.16 70);
+$color-warning-text: oklch(58% 0.15 70);
+$color-warning-border: oklch(88% 0.06 70);
+$color-warning-fg: $color-neutral-900;
+
+// Danger semantic roles
+$color-danger-bg: oklch(97% 0.02 25);
+$color-danger-bg-hover: oklch(94% 0.04 25);
+$color-danger-emphasis: $color-danger;
+$color-danger-emphasis-hover: oklch(52% 0.20 25);
+$color-danger-text: oklch(45% 0.18 25);
+$color-danger-border: oklch(82% 0.08 25);
+$color-danger-fg: $color-neutral-50;
 
 // ==========================================================================
 // 3. Spacing — derived from $unit

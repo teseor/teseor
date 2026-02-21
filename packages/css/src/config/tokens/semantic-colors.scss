@@ -28,7 +28,7 @@
     --ui-color-interactive-hover: var(--ui-color-primary-emphasis-hover);
 
     // Focus ring
-    --ui-color-focus: color-mix(in oklch, var(--ui-color-primary) 50%, white);
+    --ui-color-focus: color-mix(in oklch, var(--ui-color-primary) 50%, var(--ui-color-mix-light));
 
     // State opacity
     --ui-opacity-disabled: 0.5;
