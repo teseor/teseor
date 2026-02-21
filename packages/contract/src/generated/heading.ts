@@ -1,7 +1,7 @@
 // Auto-generated from api.json. Do not edit — run: pnpm generate:contract
 import { cx } from '../cx';
 
-export type HeadingSize = '4xl' | '3xl' | '2xl' | 'xl' | 'lg' | 'md' | 'sm';
+export type HeadingSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
 
 export interface HeadingProps {
   size?: HeadingSize;

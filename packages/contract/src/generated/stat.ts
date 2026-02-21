@@ -1,7 +1,7 @@
 // Auto-generated from api.json. Do not edit — run: pnpm generate:contract
 import { cx } from '../cx';
 
-export type StatSize = 'sm';
+export type StatSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface StatProps {
   size?: StatSize;
@@ -15,7 +15,7 @@ export const stat = Object.assign(
     });
   },
   {
-    value: (): string => cx('stat__value'),
     label: (): string => cx('stat__label'),
+    value: (): string => cx('stat__value'),
   },
 );

@@ -1,7 +1,7 @@
 // Auto-generated from api.json. Do not edit — run: pnpm generate:contract
 import { cx } from '../cx';
 
-export type SpinnerSize = 'xs' | 'sm' | 'lg' | 'xl';
+export type SpinnerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface SpinnerProps {
   size?: SpinnerSize;

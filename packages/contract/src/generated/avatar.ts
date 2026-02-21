@@ -1,7 +1,7 @@
 // Auto-generated from api.json. Do not edit — run: pnpm generate:contract
 import { cx } from '../cx';
 
-export type AvatarSize = 'xs' | 'sm' | 'lg' | 'xl';
+export type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface AvatarProps {
   size?: AvatarSize;
@@ -17,8 +17,8 @@ export const avatar = Object.assign(
     });
   },
   {
-    image: (): string => cx('avatar__image'),
     fallback: (): string => cx('avatar__fallback'),
+    image: (): string => cx('avatar__image'),
   },
 );
 

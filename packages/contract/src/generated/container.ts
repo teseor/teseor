@@ -1,7 +1,7 @@
 // Auto-generated from api.json. Do not edit — run: pnpm generate:contract
 import { cx } from '../cx';
 
-export type ContainerSize = 'sm' | 'md' | 'lg' | 'xl' | 'full';
+export type ContainerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface ContainerProps {
   center?: boolean;

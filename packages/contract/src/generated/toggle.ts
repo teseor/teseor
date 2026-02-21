@@ -1,7 +1,7 @@
 // Auto-generated from api.json. Do not edit — run: pnpm generate:contract
 import { cx } from '../cx';
 
-export type ToggleSize = 'sm' | 'lg';
+export type ToggleSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface ToggleProps {
   size?: ToggleSize;
@@ -16,7 +16,7 @@ export const toggle = Object.assign(
   },
   {
     input: (): string => cx('toggle__input'),
-    track: (): string => cx('toggle__track'),
     thumb: (): string => cx('toggle__thumb'),
+    track: (): string => cx('toggle__track'),
   },
 );

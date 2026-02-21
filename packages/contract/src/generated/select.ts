@@ -1,23 +1,23 @@
 // Auto-generated from api.json. Do not edit — run: pnpm generate:contract
 import { cx } from '../cx';
 
-export type SelectSize = 'sm' | 'lg';
-export type SelectVariant = 'filled' | 'ghost';
+export type SelectSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type SelectState = 'error' | 'success';
+export type SelectVariant = 'filled' | 'ghost';
 
 export interface SelectProps {
-  size?: SelectSize;
-  variant?: SelectVariant;
-  state?: SelectState;
   block?: boolean;
+  size?: SelectSize;
+  state?: SelectState;
+  variant?: SelectVariant;
 }
 
 export function select(props?: SelectProps): string {
   if (!props) return cx('select');
   return cx('select', {
-    size: props.size,
-    variant: props.variant,
-    state: props.state,
     block: props.block,
+    size: props.size,
+    state: props.state,
+    variant: props.variant,
   });
 }

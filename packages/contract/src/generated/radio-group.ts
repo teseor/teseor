@@ -17,8 +17,8 @@ export const radioGroup = Object.assign(
     });
   },
   {
-    legend: (): string => cx('radio-group__legend'),
-    items: (): string => cx('radio-group__items'),
     item: (): string => cx('radio-group__item'),
+    items: (): string => cx('radio-group__items'),
+    legend: (): string => cx('radio-group__legend'),
   },
 );

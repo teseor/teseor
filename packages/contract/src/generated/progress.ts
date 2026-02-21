@@ -1,26 +1,26 @@
 // Auto-generated from api.json. Do not edit — run: pnpm generate:contract
 import { cx } from '../cx';
 
-export type ProgressSize = 'sm' | 'lg';
-export type ProgressVariant = 'success' | 'warning' | 'danger';
+export type ProgressSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type ProgressVariant = 'danger' | 'success' | 'warning';
 
 export interface ProgressProps {
-  size?: ProgressSize;
-  variant?: ProgressVariant;
-  indeterminate?: boolean;
-  striped?: boolean;
   animated?: boolean;
+  indeterminate?: boolean;
+  size?: ProgressSize;
+  striped?: boolean;
+  variant?: ProgressVariant;
 }
 
 export const progress = Object.assign(
   (props?: ProgressProps): string => {
     if (!props) return cx('progress');
     return cx('progress', {
-      size: props.size,
-      variant: props.variant,
-      indeterminate: props.indeterminate,
-      striped: props.striped,
       animated: props.animated,
+      indeterminate: props.indeterminate,
+      size: props.size,
+      striped: props.striped,
+      variant: props.variant,
     });
   },
   {

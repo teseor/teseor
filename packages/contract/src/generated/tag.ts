@@ -1,8 +1,8 @@
 // Auto-generated from api.json. Do not edit — run: pnpm generate:contract
 import { cx } from '../cx';
 
-export type TagSize = 'sm' | 'lg';
-export type TagVariant = 'primary' | 'success' | 'warning' | 'danger';
+export type TagSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type TagVariant = 'danger' | 'primary' | 'success' | 'warning';
 
 export interface TagProps {
   size?: TagSize;

@@ -1,7 +1,7 @@
 // Auto-generated from api.json. Do not edit — run: pnpm generate:contract
 import { cx } from '../cx';
 
-export type AspectRatioRatio = 'square' | 'video' | 'photo' | 'wide' | 'portrait';
+export type AspectRatioRatio = 'photo' | 'portrait' | 'square' | 'video' | 'wide';
 
 export interface AspectRatioProps {
   ratio?: AspectRatioRatio;

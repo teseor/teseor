@@ -1,42 +1,42 @@
 // Auto-generated from api.json. Do not edit — run: pnpm generate:contract
 import { cx } from '../cx';
 
-export type ButtonSize = 'sm' | 'md' | 'lg';
-export type ButtonVariant = 'secondary' | 'ghost' | 'outline' | 'danger' | 'link';
-export type ButtonRadius = 'radius-none' | 'radius-sm' | 'radius-lg' | 'radius-full';
+export type ButtonRadius = 'radius-full' | 'radius-lg' | 'radius-none' | 'radius-sm';
+export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type ButtonVariant = 'danger' | 'ghost' | 'link' | 'outline' | 'secondary';
 
 export interface ButtonProps {
+  block?: boolean;
+  icon?: boolean;
+  loading?: boolean;
+  radius?: ButtonRadius;
   size?: ButtonSize;
   variant?: ButtonVariant;
-  icon?: boolean;
-  radius?: ButtonRadius;
-  block?: boolean;
-  loading?: boolean;
 }
 
 export interface ButtonIconProps {
-  start?: boolean;
   end?: boolean;
+  start?: boolean;
 }
 
 export const button = Object.assign(
   (props?: ButtonProps): string => {
     if (!props) return cx('button');
     return cx('button', {
+      block: props.block,
+      icon: props.icon,
+      loading: props.loading,
+      radius: props.radius,
       size: props.size,
       variant: props.variant,
-      icon: props.icon,
-      radius: props.radius,
-      block: props.block,
-      loading: props.loading,
     });
   },
   {
     icon: (props?: ButtonIconProps): string => {
       if (!props) return cx('button__icon');
       return cx('button__icon', {
-        start: props.start,
         end: props.end,
+        start: props.start,
       });
     },
   },

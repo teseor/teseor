@@ -17,8 +17,8 @@ export const checkboxGroup = Object.assign(
     });
   },
   {
-    legend: (): string => cx('checkbox-group__legend'),
-    items: (): string => cx('checkbox-group__items'),
     item: (): string => cx('checkbox-group__item'),
+    items: (): string => cx('checkbox-group__items'),
+    legend: (): string => cx('checkbox-group__legend'),
   },
 );

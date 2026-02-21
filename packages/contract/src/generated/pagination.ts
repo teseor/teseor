@@ -1,7 +1,7 @@
 // Auto-generated from api.json. Do not edit — run: pnpm generate:contract
 import { cx } from '../cx';
 
-export type PaginationSize = 'sm' | 'lg';
+export type PaginationSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface PaginationProps {
   size?: PaginationSize;
@@ -20,7 +20,7 @@ export const pagination = Object.assign(
     });
   },
   {
-    list: (): string => cx('pagination__list'),
+    ellipsis: (): string => cx('pagination__ellipsis'),
     item: (): string => cx('pagination__item'),
     link: (props?: PaginationLinkProps): string => {
       if (!props) return cx('pagination__link');
@@ -29,8 +29,8 @@ export const pagination = Object.assign(
         disabled: props.disabled,
       });
     },
-    prev: (): string => cx('pagination__prev'),
+    list: (): string => cx('pagination__list'),
     next: (): string => cx('pagination__next'),
-    ellipsis: (): string => cx('pagination__ellipsis'),
+    prev: (): string => cx('pagination__prev'),
   },
 );

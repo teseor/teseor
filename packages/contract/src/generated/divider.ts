@@ -1,19 +1,19 @@
 // Auto-generated from api.json. Do not edit — run: pnpm generate:contract
 import { cx } from '../cx';
 
-export type DividerPosition = 'start' | 'end';
+export type DividerPosition = 'end' | 'start';
 
 export interface DividerProps {
-  vertical?: boolean;
-  position?: DividerPosition;
   dashed?: boolean;
+  position?: DividerPosition;
+  vertical?: boolean;
 }
 
 export function divider(props?: DividerProps): string {
   if (!props) return cx('divider');
   return cx('divider', {
-    vertical: props.vertical,
-    position: props.position,
     dashed: props.dashed,
+    position: props.position,
+    vertical: props.vertical,
   });
 }

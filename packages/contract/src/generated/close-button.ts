@@ -1,13 +1,11 @@
 // Auto-generated from api.json. Do not edit — run: pnpm generate:contract
 import { cx } from '../cx';
 
-export type CloseButtonSize = 'sm' | 'lg';
+export type CloseButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface CloseButtonProps {
   size?: CloseButtonSize;
   subtle?: boolean;
-  hover?: boolean;
-  focus?: boolean;
 }
 
 export const closeButton = Object.assign(
@@ -16,8 +14,6 @@ export const closeButton = Object.assign(
     return cx('close-button', {
       size: props.size,
       subtle: props.subtle,
-      hover: props.hover,
-      focus: props.focus,
     });
   },
   {

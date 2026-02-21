@@ -2,14 +2,14 @@
 import { cx } from '../cx';
 
 export interface MainProps {
-  sidebarEnd?: boolean;
   full?: boolean;
+  sidebarEnd?: boolean;
 }
 
 export function main(props?: MainProps): string {
   if (!props) return cx('main');
   return cx('main', {
-    'sidebar-end': props.sidebarEnd,
     full: props.full,
+    'sidebar-end': props.sidebarEnd,
   });
 }

@@ -2,25 +2,25 @@
 import { cx } from '../cx';
 
 export interface TopbarProps {
-  sticky?: boolean;
-  fixed?: boolean;
   bordered?: boolean;
+  fixed?: boolean;
   raised?: boolean;
+  sticky?: boolean;
 }
 
 export const topbar = Object.assign(
   (props?: TopbarProps): string => {
     if (!props) return cx('topbar');
     return cx('topbar', {
-      sticky: props.sticky,
-      fixed: props.fixed,
       bordered: props.bordered,
+      fixed: props.fixed,
       raised: props.raised,
+      sticky: props.sticky,
     });
   },
   {
-    start: (): string => cx('topbar__start'),
     center: (): string => cx('topbar__center'),
     end: (): string => cx('topbar__end'),
+    start: (): string => cx('topbar__start'),
   },
 );

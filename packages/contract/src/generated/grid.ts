@@ -6,8 +6,8 @@ export type GridColumns = '2' | '3' | '4' | 'auto';
 export interface GridProps {
   columns?: GridColumns;
   subgrid?: boolean;
-  subgridRows?: boolean;
   subgridBoth?: boolean;
+  subgridRows?: boolean;
 }
 
 export function grid(props?: GridProps): string {
@@ -15,7 +15,7 @@ export function grid(props?: GridProps): string {
   return cx('grid', {
     columns: props.columns,
     subgrid: props.subgrid,
-    'subgrid-rows': props.subgridRows,
     'subgrid-both': props.subgridBoth,
+    'subgrid-rows': props.subgridRows,
   });
 }

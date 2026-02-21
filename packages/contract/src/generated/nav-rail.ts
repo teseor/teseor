@@ -13,7 +13,7 @@ export const navRail = Object.assign(
     });
   },
   {
-    items: (): string => cx('nav-rail__items'),
     actions: (): string => cx('nav-rail__actions'),
+    items: (): string => cx('nav-rail__items'),
   },
 );

@@ -1,7 +1,7 @@
 // Auto-generated from api.json. Do not edit — run: pnpm generate:contract
 import { cx } from '../cx';
 
-export type LabelSize = 'lg';
+export type LabelSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface LabelProps {
   size?: LabelSize;
@@ -15,7 +15,7 @@ export const label = Object.assign(
     });
   },
   {
-    required: (): string => cx('label__required'),
     optional: (): string => cx('label__optional'),
+    required: (): string => cx('label__required'),
   },
 );
