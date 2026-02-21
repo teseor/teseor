@@ -22,11 +22,13 @@
     {
       "name": "--ui-data-list-gap",
       "default": "calc(var(--ui-unit) * 2)",
+      "defaultValue": "16px",
       "description": "Gap between children"
     },
     {
       "name": "--ui-data-list-item-gap",
       "default": "calc(var(--ui-unit) * 1)",
+      "defaultValue": "8px",
       "description": "Item gap between children"
     },
     {

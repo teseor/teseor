@@ -25,6 +25,7 @@
     {
       "name": "--ui-footer-height",
       "default": "var(--ui-row-3)",
+      "defaultValue": "48px",
       "description": "Overall height"
     },
     {
@@ -35,6 +36,7 @@
     {
       "name": "--ui-footer-padding-inline",
       "default": "var(--ui-space-3)",
+      "defaultValue": "24px",
       "description": "Horizontal padding"
     },
     {
@@ -45,6 +47,7 @@
     {
       "name": "--ui-footer-z",
       "default": "var(--ui-z-index-sticky)",
+      "defaultValue": "100",
       "description": "Z-index stacking order"
     }
   ]

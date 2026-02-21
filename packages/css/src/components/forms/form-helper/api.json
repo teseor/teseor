@@ -12,6 +12,7 @@
     {
       "name": "--ui-form-helper-size",
       "default": "var(--ui-font-size-sm)",
+      "defaultValue": "14px",
       "description": "Overall size"
     },
     {

@@ -22,16 +22,19 @@
     {
       "name": "--ui-divider-line-size",
       "default": "var(--ui-border-width-sm)",
+      "defaultValue": "1px",
       "description": "Line size"
     },
     {
       "name": "--ui-divider-height",
       "default": "var(--ui-unit)",
+      "defaultValue": "8px",
       "description": "Overall height"
     },
     {
       "name": "--ui-divider-gap",
       "default": "calc(var(--ui-unit) * 2)",
+      "defaultValue": "16px",
       "description": "Gap between children"
     }
   ]

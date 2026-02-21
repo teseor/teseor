@@ -16,11 +16,13 @@
     {
       "name": "--ui-accordion-border-width",
       "default": "var(--ui-border-width-sm)",
+      "defaultValue": "1px",
       "description": "Border thickness"
     },
     {
       "name": "--ui-accordion-radius",
       "default": "var(--ui-radius-md)",
+      "defaultValue": "8px",
       "description": "Corner radius"
     }
   ]

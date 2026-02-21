@@ -7,6 +7,7 @@
     {
       "name": "--ui-kbd-font-size",
       "default": "var(--ui-font-size-sm)",
+      "defaultValue": "14px",
       "description": "Font size"
     },
     {
@@ -17,11 +18,13 @@
     {
       "name": "--ui-kbd-padding-x",
       "default": "var(--ui-space-0)",
+      "defaultValue": "4px",
       "description": "Horizontal padding"
     },
     {
       "name": "--ui-kbd-padding-y",
       "default": "var(--ui-space-0)",
+      "defaultValue": "4px",
       "description": "Vertical padding"
     },
     {
@@ -37,6 +40,7 @@
     {
       "name": "--ui-kbd-radius",
       "default": "var(--ui-radius-sm)",
+      "defaultValue": "4px",
       "description": "Corner radius"
     },
     {

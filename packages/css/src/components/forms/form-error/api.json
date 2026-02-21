@@ -15,6 +15,7 @@
     {
       "name": "--ui-form-error-size",
       "default": "var(--ui-font-size-sm)",
+      "defaultValue": "14px",
       "description": "Overall size"
     },
     {

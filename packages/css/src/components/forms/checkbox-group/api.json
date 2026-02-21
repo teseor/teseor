@@ -22,16 +22,19 @@
     {
       "name": "--ui-checkbox-group-spacing",
       "default": "var(--ui-space-1)",
+      "defaultValue": "8px",
       "description": "Spacing"
     },
     {
       "name": "--ui-checkbox-group-legend-size",
       "default": "var(--ui-font-size-sm)",
+      "defaultValue": "14px",
       "description": "Legend size"
     },
     {
       "name": "--ui-checkbox-group-legend-weight",
       "default": "var(--ui-font-weight-medium)",
+      "defaultValue": "500",
       "description": "Legend weight"
     },
     {
@@ -42,11 +45,13 @@
     {
       "name": "--ui-checkbox-group-legend-spacing",
       "default": "var(--ui-space-1)",
+      "defaultValue": "8px",
       "description": "Legend spacing"
     },
     {
       "name": "--ui-checkbox-group-item-gap",
       "default": "var(--ui-space-1)",
+      "defaultValue": "8px",
       "description": "Item gap between children"
     },
     {

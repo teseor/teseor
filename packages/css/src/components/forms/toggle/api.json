@@ -16,11 +16,13 @@
     {
       "name": "--ui-toggle-track-width",
       "default": "calc(var(--ui-unit) * 5)",
+      "defaultValue": "40px",
       "description": "Track width"
     },
     {
       "name": "--ui-toggle-track-height",
       "default": "calc(var(--ui-unit) * 3)",
+      "defaultValue": "24px",
       "description": "Track height"
     },
     {
@@ -36,11 +38,13 @@
     {
       "name": "--ui-toggle-track-radius",
       "default": "calc(var(--ui-unit) * 1.5)",
+      "defaultValue": "12px",
       "description": "Track corner radius"
     },
     {
       "name": "--ui-toggle-thumb-size",
       "default": "calc(var(--ui-unit) * 2.5)",
+      "defaultValue": "20px",
       "description": "Thumb control size"
     },
     {
@@ -51,6 +55,7 @@
     {
       "name": "--ui-toggle-thumb-offset",
       "default": "calc(var(--ui-unit) / 4)",
+      "defaultValue": "2px",
       "description": "Thumb control offset from anchor"
     }
   ]

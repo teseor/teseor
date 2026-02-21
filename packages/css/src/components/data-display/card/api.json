@@ -27,11 +27,13 @@
     {
       "name": "--ui-card-padding",
       "default": "var(--ui-space-4)",
+      "defaultValue": "32px",
       "description": "Padding on all sides"
     },
     {
       "name": "--ui-card-border-width",
       "default": "var(--ui-border-width-sm)",
+      "defaultValue": "1px",
       "description": "Border thickness"
     },
     {
@@ -47,6 +49,7 @@
     {
       "name": "--ui-card-radius",
       "default": "var(--ui-radius-md)",
+      "defaultValue": "8px",
       "description": "Corner radius"
     },
     {
@@ -62,11 +65,13 @@
     {
       "name": "--ui-card-padding-sm",
       "default": "var(--ui-space-2)",
+      "defaultValue": "16px",
       "description": "Padding on all sides at small size"
     },
     {
       "name": "--ui-card-padding-lg",
       "default": "var(--ui-space-6)",
+      "defaultValue": "48px",
       "description": "Padding on all sides at large size"
     },
     {

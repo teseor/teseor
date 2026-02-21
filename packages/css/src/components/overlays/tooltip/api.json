@@ -30,31 +30,37 @@
     {
       "name": "--ui-tooltip-radius",
       "default": "var(--ui-radius-sm)",
+      "defaultValue": "4px",
       "description": "Corner radius"
     },
     {
       "name": "--ui-tooltip-padding-x",
       "default": "calc(var(--ui-unit) * 1)",
+      "defaultValue": "8px",
       "description": "Horizontal padding"
     },
     {
       "name": "--ui-tooltip-padding-y",
       "default": "calc(var(--ui-unit) / 2)",
+      "defaultValue": "4px",
       "description": "Vertical padding"
     },
     {
       "name": "--ui-tooltip-font-size",
       "default": "var(--ui-font-size-sm)",
+      "defaultValue": "14px",
       "description": "Font size"
     },
     {
       "name": "--ui-tooltip-z",
       "default": "var(--ui-z-index-tooltip)",
+      "defaultValue": "600",
       "description": "Z-index stacking order"
     },
     {
       "name": "--ui-tooltip-arrow-size",
       "default": "calc(var(--ui-unit) / 2)",
+      "defaultValue": "4px",
       "description": "Arrow size"
     }
   ]

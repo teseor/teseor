@@ -19,26 +19,31 @@
     {
       "name": "--ui-badge-height",
       "default": "calc(var(--ui-row) * 1.5)",
+      "defaultValue": "24px",
       "description": "Overall height"
     },
     {
       "name": "--ui-badge-padding-x",
       "default": "var(--ui-space-1)",
+      "defaultValue": "8px",
       "description": "Horizontal padding"
     },
     {
       "name": "--ui-badge-font-size",
       "default": "var(--ui-font-size-xs)",
+      "defaultValue": "12px",
       "description": "Font size"
     },
     {
       "name": "--ui-badge-font-weight",
       "default": "var(--ui-font-weight-medium)",
+      "defaultValue": "500",
       "description": "Font weight"
     },
     {
       "name": "--ui-badge-radius",
       "default": "var(--ui-radius-full)",
+      "defaultValue": "9999px",
       "description": "Corner radius"
     },
     {
@@ -49,31 +54,37 @@
     {
       "name": "--ui-badge-height-sm",
       "default": "var(--ui-row)",
+      "defaultValue": "16px",
       "description": "Overall height at small size"
     },
     {
       "name": "--ui-badge-padding-x-sm",
       "default": "var(--ui-space-0)",
+      "defaultValue": "4px",
       "description": "Horizontal padding at small size"
     },
     {
       "name": "--ui-badge-font-size-sm",
       "default": "calc(var(--ui-font-size-xs) * 0.85)",
+      "defaultValue": "10.2px",
       "description": "Font size at small size"
     },
     {
       "name": "--ui-badge-height-lg",
       "default": "var(--ui-row-2)",
+      "defaultValue": "32px",
       "description": "Overall height at large size"
     },
     {
       "name": "--ui-badge-padding-x-lg",
       "default": "var(--ui-space-2)",
+      "defaultValue": "16px",
       "description": "Horizontal padding at large size"
     },
     {
       "name": "--ui-badge-font-size-lg",
       "default": "var(--ui-font-size-md)",
+      "defaultValue": "16px",
       "description": "Font size at large size"
     }
   ]

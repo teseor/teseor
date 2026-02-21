@@ -14,11 +14,13 @@
     {
       "name": "--ui-checkbox-size",
       "default": "calc(var(--ui-unit) * 2)",
+      "defaultValue": "16px",
       "description": "Overall size"
     },
     {
       "name": "--ui-checkbox-radius",
       "default": "var(--ui-radius-sm)",
+      "defaultValue": "4px",
       "description": "Corner radius"
     },
     {
@@ -49,6 +51,7 @@
     {
       "name": "--ui-checkbox-size-lg",
       "default": "calc(var(--ui-unit) * 3)",
+      "defaultValue": "24px",
       "description": "Overall size at large size"
     },
     {

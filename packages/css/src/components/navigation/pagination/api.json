@@ -28,16 +28,19 @@
     {
       "name": "--ui-pagination-gap",
       "default": "calc(var(--ui-unit) * 0.5)",
+      "defaultValue": "4px",
       "description": "Gap between children"
     },
     {
       "name": "--ui-pagination-item-size",
       "default": "calc(var(--ui-unit) * 4)",
+      "defaultValue": "32px",
       "description": "Item overall size"
     },
     {
       "name": "--ui-pagination-item-radius",
       "default": "var(--ui-radius-sm)",
+      "defaultValue": "4px",
       "description": "Item corner radius"
     },
     {

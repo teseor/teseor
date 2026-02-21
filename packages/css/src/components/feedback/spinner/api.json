@@ -11,11 +11,13 @@
     {
       "name": "--ui-spinner-size",
       "default": "calc(var(--ui-unit) * 4)",
+      "defaultValue": "32px",
       "description": "Overall size"
     },
     {
       "name": "--ui-spinner-border-width",
       "default": "var(--ui-border-width-md)",
+      "defaultValue": "2px",
       "description": "Border thickness"
     },
     {
@@ -31,46 +33,55 @@
     {
       "name": "--ui-spinner-duration",
       "default": "var(--ui-spinner-duration)",
+      "defaultValue": "750ms",
       "description": "Animation duration"
     },
     {
       "name": "--ui-spinner-size-xs",
       "default": "calc(var(--ui-unit) * 2)",
+      "defaultValue": "16px",
       "description": "Overall size at extra-small size"
     },
     {
       "name": "--ui-spinner-border-width-xs",
       "default": "var(--ui-border-width-sm)",
+      "defaultValue": "1px",
       "description": "Border thickness at extra-small size"
     },
     {
       "name": "--ui-spinner-size-sm",
       "default": "calc(var(--ui-unit) * 3)",
+      "defaultValue": "24px",
       "description": "Overall size at small size"
     },
     {
       "name": "--ui-spinner-border-width-sm",
       "default": "var(--ui-border-width-md)",
+      "defaultValue": "2px",
       "description": "Border thickness at small size"
     },
     {
       "name": "--ui-spinner-size-lg",
       "default": "calc(var(--ui-unit) * 5)",
+      "defaultValue": "40px",
       "description": "Overall size at large size"
     },
     {
       "name": "--ui-spinner-border-width-lg",
       "default": "var(--ui-border-width-md)",
+      "defaultValue": "2px",
       "description": "Border thickness at large size"
     },
     {
       "name": "--ui-spinner-size-xl",
       "default": "calc(var(--ui-unit) * 6)",
+      "defaultValue": "48px",
       "description": "Overall size at extra-large size"
     },
     {
       "name": "--ui-spinner-border-width-xl",
       "default": "var(--ui-border-width-lg)",
+      "defaultValue": "4px",
       "description": "Border thickness at extra-large size"
     }
   ]

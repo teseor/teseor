@@ -7,6 +7,7 @@
     {
       "name": "--ui-spacer-size",
       "default": "var(--ui-spacer-size)",
+      "defaultValue": "1",
       "description": "Overall size"
     }
   ]

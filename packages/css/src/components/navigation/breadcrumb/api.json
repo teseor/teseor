@@ -24,11 +24,13 @@
     {
       "name": "--ui-breadcrumb-height",
       "default": "var(--ui-row-1)",
+      "defaultValue": "16px",
       "description": "Overall height"
     },
     {
       "name": "--ui-breadcrumb-gap",
       "default": "calc(var(--ui-unit) * 1)",
+      "defaultValue": "8px",
       "description": "Gap between children"
     },
     {

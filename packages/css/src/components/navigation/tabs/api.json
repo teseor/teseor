@@ -36,21 +36,25 @@
     {
       "name": "--ui-tabs-tab-height",
       "default": "var(--ui-row-2)",
+      "defaultValue": "32px",
       "description": "Tab height"
     },
     {
       "name": "--ui-tabs-tab-padding-x",
       "default": "var(--ui-space-2)",
+      "defaultValue": "16px",
       "description": "Tab padding x"
     },
     {
       "name": "--ui-tabs-tab-padding-y",
       "default": "var(--ui-space-1)",
+      "defaultValue": "8px",
       "description": "Tab padding y"
     },
     {
       "name": "--ui-tabs-tab-font-size",
       "default": "var(--ui-font-size-sm)",
+      "defaultValue": "14px",
       "description": "Tab font size"
     },
     {
@@ -66,41 +70,49 @@
     {
       "name": "--ui-tabs-tab-line-height",
       "default": "var(--ui-line-height-none)",
+      "defaultValue": "1",
       "description": "Tab line height"
     },
     {
       "name": "--ui-tabs-panel-padding",
       "default": "var(--ui-space-3)",
+      "defaultValue": "24px",
       "description": "Panel padding on all sides"
     },
     {
       "name": "--ui-tabs-tab-height-sm",
       "default": "var(--ui-row-1)",
+      "defaultValue": "16px",
       "description": "Tab height sm"
     },
     {
       "name": "--ui-tabs-tab-padding-x-sm",
       "default": "var(--ui-space-1)",
+      "defaultValue": "8px",
       "description": "Tab padding x sm"
     },
     {
       "name": "--ui-tabs-tab-font-size-sm",
       "default": "var(--ui-font-size-xs)",
+      "defaultValue": "12px",
       "description": "Tab font size sm"
     },
     {
       "name": "--ui-tabs-tab-height-lg",
       "default": "calc(var(--ui-row) * 2.5)",
+      "defaultValue": "40px",
       "description": "Tab height lg"
     },
     {
       "name": "--ui-tabs-tab-padding-x-lg",
       "default": "var(--ui-space-3)",
+      "defaultValue": "24px",
       "description": "Tab padding x lg"
     },
     {
       "name": "--ui-tabs-tab-font-size-lg",
       "default": "var(--ui-font-size-md)",
+      "defaultValue": "16px",
       "description": "Tab font size lg"
     }
   ]

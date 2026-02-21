@@ -14,6 +14,7 @@
     {
       "name": "--ui-table-font-size",
       "default": "var(--ui-font-size-sm)",
+      "defaultValue": "14px",
       "description": "Font size"
     },
     {
@@ -29,11 +30,13 @@
     {
       "name": "--ui-table-cell-padding-x",
       "default": "var(--ui-space-2)",
+      "defaultValue": "16px",
       "description": "Cell padding x"
     },
     {
       "name": "--ui-table-cell-padding-y",
       "default": "var(--ui-space-1)",
+      "defaultValue": "8px",
       "description": "Cell padding y"
     }
   ]
