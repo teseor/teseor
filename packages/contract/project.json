@@ -1,0 +1,29 @@
+{
+  "name": "contract",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/contract/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "outputs": ["{projectRoot}/dist"],
+      "options": {
+        "command": "pnpm --filter @teseor/contract build"
+      },
+      "dependsOn": ["generate"]
+    },
+    "generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsx scripts/generate-contract.ts"
+      }
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -p packages/contract/tsconfig.json --noEmit"
+      }
+    }
+  },
+  "tags": ["type:ts", "scope:library"]
+}
