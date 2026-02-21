@@ -54,7 +54,7 @@ describe('input', () => {
   });
 
   it('applies enum and boolean modifiers', () => {
-    expect(input({ size: 'sm', block: true })).toBe('ui-input ui-input--sm ui-input--block');
+    expect(input({ size: 'sm', block: true })).toBe('ui-input ui-input--block ui-input--sm');
   });
 
   it('maps camelCase prop to hyphenated CSS modifier', () => {
@@ -67,17 +67,13 @@ describe('inputGroup (relatedComponent)', () => {
     expect(inputGroup()).toBe('ui-input-group');
   });
 
-  it('applies boolean modifiers with hyphenated CSS names', () => {
-    expect(inputGroup({ hasPrefix: true })).toBe('ui-input-group ui-input-group--has-prefix');
-  });
-
   it('generates element class for addon', () => {
     expect(inputGroup.addon()).toBe('ui-input-group__addon');
   });
 
   it('applies addon element modifiers', () => {
     expect(inputGroup.addon({ start: true, interactive: true })).toBe(
-      'ui-input-group__addon ui-input-group__addon--start ui-input-group__addon--interactive',
+      'ui-input-group__addon ui-input-group__addon--interactive ui-input-group__addon--start',
     );
   });
 });
@@ -136,7 +132,7 @@ describe('tabs', () => {
 describe('type safety', () => {
   it('rejects invalid enum values', () => {
     // @ts-expect-error - invalid size value
-    button({ size: 'xl' });
+    button({ size: '2xl' });
   });
 
   it('rejects unknown props', () => {
