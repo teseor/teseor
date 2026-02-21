@@ -6,49 +6,49 @@
 @layer components.tokens {
   .nav {
     // @desc Border width
-    --_border-width: var(--ui-nav-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    @include t.token(border-width, border-width-sm, nav);
     // @desc Font family
-    --_font-family: var(--ui-nav-font-family, var(--ui-font-sans, #{t.$font-sans}));
+    @include t.token(font-family, font-sans, nav);
     // @desc Indicator width
-    --_indicator-width: var(--ui-nav-indicator-width, var(--ui-border-width-md, #{t.$border-width-md}));
+    @include t.token(indicator-width, border-width-md, nav);
     // @desc Transition duration
-    --_transition-duration: var(--ui-nav-transition-duration, var(--ui-duration-base, #{t.$duration-base}));
+    @include t.token(transition-duration, duration-base, nav);
     // @desc Transition timing function
-    --_transition-timing: var(--ui-nav-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    @include t.token(transition-timing, ease-default, nav);
     // @desc Disabled opacity
-    --_disabled-opacity: var(--ui-nav-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
+    @include t.token(disabled-opacity, opacity-disabled, nav);
     // @desc Container threshold for responsive collapse
-    --_container-threshold: var(--ui-nav-container-threshold, var(--ui-container-threshold-sm, #{t.$container-threshold-sm}));
+    @include t.token(container-threshold, container-threshold-sm, nav);
     // @desc Gap between children
-    --_gap: var(--ui-nav-gap, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(gap, space-1, nav);
     // @desc Item overall height
-    --_item-height: var(--ui-nav-item-height, var(--ui-row-2, #{t.$row-2}));
+    @include t.token(item-height, row-2, nav);
     // @desc Item horizontal padding
-    --_item-padding-x: var(--ui-nav-item-padding-x, var(--ui-space-2, #{t.$space-2}));
+    @include t.token(item-padding-x, space-2, nav);
     // @desc Item font size
-    --_item-font-size: var(--ui-nav-item-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    @include t.token(item-font-size, font-size-sm, nav);
     // @desc Item font weight
-    --_item-font-weight: var(--ui-nav-item-font-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
+    @include t.token(item-font-weight, font-weight-medium, nav);
     // @desc Item text color
-    --_item-color: var(--ui-nav-item-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    @include t.token(item-color, color-text-muted, nav);
     // @desc Item color hover
-    --_item-color-hover: var(--ui-nav-item-color-hover, var(--ui-color-text, #{t.$color-text}));
+    @include t.token(item-color-hover, color-text, nav);
     // @desc Item color active
-    --_item-color-active: var(--ui-nav-item-color-active, var(--ui-color-primary, #{t.$color-primary}));
+    @include t.token(item-color-active, color-primary, nav);
     // @desc Item corner radius
-    --_item-radius: var(--ui-nav-item-radius, var(--ui-radius-sm, #{t.$radius-sm}));
+    @include t.token(item-radius, radius-sm, nav);
     // @desc Border color
-    --_border-color: var(--ui-nav-border-color, var(--ui-color-border, #{t.$color-border}));
+    @include t.token(border-color, color-border, nav);
   }
 
   // @modifier pills
   .nav--pills {
     // @desc Item bg hover
-    --_item-bg-hover: var(--ui-nav-item-bg-hover, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+    @include t.token(item-bg-hover, color-bg-muted, nav);
     // @desc Item bg active
-    --_item-bg-active: var(--ui-nav-item-bg-active, var(--ui-color-primary, #{t.$color-primary}));
+    @include t.token(item-bg-active, color-primary, nav);
     // @desc Item color active
-    --_item-color-active: var(--ui-nav-item-color-active, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
+    @include t.token(item-color-active, color-text-inverse, nav);
   }
 
   // @modifier boolean vertical

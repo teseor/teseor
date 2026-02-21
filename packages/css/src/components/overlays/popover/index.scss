@@ -8,35 +8,35 @@
 @layer components.tokens {
   .popover {
     // @desc Line height
-    --_line-height: var(--ui-popover-line-height, var(--ui-row-1, var(--ui-row, #{t.$row})));
+    @include t.token(line-height, row-1, popover);
     // @desc Border width
-    --_border-width: var(--ui-popover-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    @include t.token(border-width, border-width-sm, popover);
     // @desc Title font size
-    --_title-font-size: var(--ui-popover-title-font-size, var(--ui-font-size-md, #{t.$font-size-md}));
+    @include t.token(title-font-size, font-size-md, popover);
     // @desc Title font weight
-    --_title-font-weight: var(--ui-popover-title-font-weight, var(--ui-font-weight-semibold, #{t.$font-weight-semibold}));
+    @include t.token(title-font-weight, font-weight-semibold, popover);
     // @desc Transition duration
-    --_transition-duration: var(--ui-popover-transition-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    @include t.token(transition-duration, duration-fast, popover);
     // @desc Transition timing function
-    --_transition-timing: var(--ui-popover-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    @include t.token(transition-timing, ease-default, popover);
     // @desc Header spacing
-    --_header-spacing: var(--ui-popover-header-spacing, var(--ui-space-2, #{t.$space-2}));
+    @include t.token(header-spacing, space-2, popover);
     // @desc Background color
-    --_bg: var(--ui-popover-bg, var(--ui-color-bg, #{t.$color-bg}));
+    @include t.token(bg, color-bg, popover);
     // @desc Border color
-    --_border-color: var(--ui-popover-border-color, var(--ui-color-border, #{t.$color-border}));
+    @include t.token(border-color, color-border, popover);
     // @desc Corner radius
-    --_radius: var(--ui-popover-radius, var(--ui-radius-md, var(--ui-space-1, #{t.$space-1})));
+    @include t.token(radius, radius-md, popover);
     // @desc Box shadow
-    --_shadow: var(--ui-popover-shadow, var(--ui-shadow-md, #{t.$shadow-md}));
+    @include t.token(shadow, shadow-md, popover);
     // @desc Padding on all sides
-    --_padding: var(--ui-popover-padding, var(--ui-space-2, #{t.$space-2}));
+    @include t.token(padding, space-2, popover);
     // @desc Maximum width
-    --_max-width: var(--ui-popover-max-width, var(--ui-unit-40, #{t.$unit-40}));
+    @include t.token(max-width, unit-40, popover);
     // @desc Z-index stacking order
-    --_z: var(--ui-popover-z, var(--ui-z-index-popover, #{t.$z-index-popover}));
+    @include t.token(z, z-index-popover, popover);
     // @desc Arrow size
-    --_arrow-size: var(--ui-popover-arrow-size, var(--ui-unit, #{t.$unit}));
+    @include t.token(arrow-size, unit, popover);
   }
 }
 

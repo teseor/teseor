@@ -8,50 +8,50 @@
 @layer components.tokens {
   .data-list {
     // @desc Line height
-    --_line-height: var(--ui-data-list-line-height, var(--ui-row-1, var(--ui-row, #{t.$row})));
+    @include t.token(line-height, row-1, data-list);
     // @desc Label font size
-    --_label-font-size: var(--ui-data-list-label-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    @include t.token(label-font-size, font-size-sm, data-list);
     // @desc Label font weight
-    --_label-font-weight: var(--ui-data-list-label-font-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
+    @include t.token(label-font-weight, font-weight-medium, data-list);
     // @desc Divider border width
-    --_border-width: var(--ui-data-list-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    @include t.token(border-width, border-width-sm, data-list);
     // @desc Divider border color
-    --_border-color: var(--ui-data-list-border-color, var(--ui-color-border, #{t.$color-border}));
+    @include t.token(border-color, color-border, data-list);
     // @desc Stripe background
-    --_stripe-bg: var(--ui-data-list-stripe-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
+    @include t.token(stripe-bg, color-bg-subtle, data-list);
     // @desc Stripe border radius
-    --_stripe-radius: var(--ui-data-list-stripe-radius, var(--ui-radius-sm, #{t.$radius-sm}));
+    @include t.token(stripe-radius, radius-sm, data-list);
     // @desc Large font size
-    --_lg-font-size: var(--ui-data-list-lg-font-size, var(--ui-font-size-lg, #{t.$font-size-lg}));
+    @include t.token(lg-font-size, font-size-lg, data-list);
     // @desc Stripe padding
-    --_stripe-padding: var(--ui-data-list-stripe-padding, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(stripe-padding, space-1, data-list);
     // @desc Horizontal item gap
-    --_horizontal-gap: var(--ui-data-list-horizontal-gap, var(--ui-space-2, #{t.$space-2}));
+    @include t.token(horizontal-gap, space-2, data-list);
     // @desc Gap between children
-    --_gap: var(--ui-data-list-gap, var(--ui-space-2, #{t.$space-2}));
+    @include t.token(gap, space-2, data-list);
     // @desc Item gap between children
-    --_item-gap: var(--ui-data-list-item-gap, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(item-gap, space-1, data-list);
     // @desc Label text color
-    --_label-color: var(--ui-data-list-label-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    @include t.token(label-color, color-text-muted, data-list);
     // @desc Value display text color
-    --_value-color: var(--ui-data-list-value-color, var(--ui-color-text, #{t.$color-text}));
+    @include t.token(value-color, color-text, data-list);
   }
 
   // Compact size
   // @modifier size
   .data-list--sm {
     // @desc Gap at small size
-    --_gap: var(--ui-data-list-gap-sm, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(gap, space-1, data-list, gap-sm);
     // @desc Item gap at small size
-    --_item-gap: var(--ui-data-list-item-gap-sm, 0);
+    --_item-gap: var(--ui-data-list-item-gap-sm, 0); // token-lint-ignore
   }
 
   // Large size
   .data-list--lg {
     // @desc Gap at large size
-    --_gap: var(--ui-data-list-gap-lg, var(--ui-space-3, #{t.$space-3}));
+    @include t.token(gap, space-3, data-list, gap-lg);
     // @desc Item gap at large size
-    --_item-gap: var(--ui-data-list-item-gap-lg, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(item-gap, space-1, data-list, item-gap-lg);
   }
 }
 

@@ -6,42 +6,42 @@
 @layer components.tokens {
   .checkbox-group {
     // @desc Line height
-    --_line-height: var(--ui-checkbox-group-line-height, var(--ui-line-height-tight-sm, #{t.$line-height-tight-sm}));
+    @include t.token(line-height, line-height-tight-sm, checkbox-group);
     // @desc Item line height
-    --_item-line-height: var(--ui-checkbox-group-item-line-height, var(--ui-row-1, #{t.$row-1}));
+    @include t.token(item-line-height, row-1, checkbox-group);
     // @desc Disabled opacity
-    --_disabled-opacity: var(--ui-checkbox-group-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
+    @include t.token(disabled-opacity, opacity-disabled, checkbox-group);
     // @desc Horizontal gap
-    --_horizontal-gap: var(--ui-checkbox-group-horizontal-gap, var(--ui-space-2, #{t.$space-2}));
+    @include t.token(horizontal-gap, space-2, checkbox-group);
     // @desc Spacing
-    --_spacing: var(--ui-checkbox-group-spacing, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(spacing, space-1, checkbox-group);
     // @desc Legend size
-    --_legend-size: var(--ui-checkbox-group-legend-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    @include t.token(legend-size, font-size-sm, checkbox-group);
     // @desc Legend weight
-    --_legend-weight: var(--ui-checkbox-group-legend-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
+    @include t.token(legend-weight, font-weight-medium, checkbox-group);
     // @desc Legend color
-    --_legend-color: var(--ui-checkbox-group-legend-color, var(--ui-color-text, #{t.$color-text}));
+    @include t.token(legend-color, color-text, checkbox-group);
     // @desc Legend spacing
-    --_legend-spacing: var(--ui-checkbox-group-legend-spacing, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(legend-spacing, space-1, checkbox-group);
     // @desc Item gap between children
-    --_item-gap: var(--ui-checkbox-group-item-gap, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(item-gap, space-1, checkbox-group);
   }
 
   // @modifier boolean compact
   .checkbox-group--compact {
     // @desc Spacing compact
-    --_spacing: var(--ui-checkbox-group-spacing-compact, 0);
+    --_spacing: var(--ui-checkbox-group-spacing-compact, 0); // token-lint-ignore
     // @desc Legend spacing compact
-    --_legend-spacing: var(--ui-checkbox-group-legend-spacing-compact, 0);
+    --_legend-spacing: var(--ui-checkbox-group-legend-spacing-compact, 0); // token-lint-ignore
     // @desc Item gap compact
-    --_item-gap: var(--ui-checkbox-group-item-gap-compact, 0);
+    --_item-gap: var(--ui-checkbox-group-item-gap-compact, 0); // token-lint-ignore
   }
 
   // @modifier state
   // @modifier boolean error
   .checkbox-group--error {
     // @desc Error color
-    --_legend-color: var(--ui-checkbox-group-error-color, var(--ui-color-danger, #{t.$color-danger}));
+    @include t.token(legend-color, color-danger, checkbox-group, error-color);
   }
 }
 

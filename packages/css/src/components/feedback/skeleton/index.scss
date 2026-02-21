@@ -8,19 +8,19 @@
 @layer components.tokens {
   .skeleton {
     // @desc Background color
-    --_bg: var(--ui-skeleton-bg, var(--ui-color-bg-inset, #{t.$color-bg-inset}));
+    @include t.token(bg, color-bg-inset, skeleton);
     // @desc Shimmer
-    --_shimmer: var(--ui-skeleton-shimmer, #{t.$skeleton-shimmer});
+    --_shimmer: var(--ui-skeleton-shimmer, #{t.$skeleton-shimmer}); // token-lint-ignore
     // @desc Corner radius
-    --_radius: var(--ui-skeleton-radius, var(--ui-radius-sm, var(--ui-space-0, #{t.$space-0})));
+    @include t.token(radius, radius-sm, skeleton);
     // @desc Text line height
-    --_text-height: var(--ui-skeleton-text-height, var(--ui-space-2, #{t.$space-2}));
+    @include t.token(text-height, space-2, skeleton);
     // @desc Heading height
-    --_heading-height: var(--ui-skeleton-heading-height, var(--ui-space-3, #{t.$space-3}));
+    @include t.token(heading-height, space-3, skeleton);
     // @desc Circle size
-    --_circle-size: var(--ui-skeleton-circle-size, var(--ui-space-5, #{t.$space-5}));
+    @include t.token(circle-size, space-5, skeleton);
     // @desc Rectangle height
-    --_rect-height: var(--ui-skeleton-rect-height, var(--ui-unit-20, #{t.$unit-20}));
+    @include t.token(rect-height, unit-20, skeleton);
   }
 }
 

@@ -6,64 +6,64 @@
 @layer components.tokens {
   .tabs {
     // @desc List gap
-    --_list-gap: var(--ui-tabs-list-gap, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(list-gap, space-1, tabs);
     // @desc Border width
-    --_border-width: var(--ui-tabs-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    @include t.token(border-width, border-width-sm, tabs);
     // @desc Font family
-    --_font-family: var(--ui-tabs-font-family, var(--ui-font-sans, #{t.$font-sans}));
+    @include t.token(font-family, font-sans, tabs);
     // @desc Tab font weight
-    --_tab-font-weight: var(--ui-tabs-tab-font-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
+    @include t.token(tab-font-weight, font-weight-medium, tabs);
     // @desc Tab color
-    --_tab-color: var(--ui-tabs-tab-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    @include t.token(tab-color, color-text-muted, tabs);
     // @desc Indicator width
-    --_indicator-width: var(--ui-tabs-indicator-width, var(--ui-border-width-md, #{t.$border-width-md}));
+    @include t.token(indicator-width, border-width-md, tabs);
     // @desc Transition duration
-    --_transition-duration: var(--ui-tabs-transition-duration, var(--ui-duration-base, #{t.$duration-base}));
+    @include t.token(transition-duration, duration-base, tabs);
     // @desc Transition timing function
-    --_transition-timing: var(--ui-tabs-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    @include t.token(transition-timing, ease-default, tabs);
     // @desc Tab hover color
-    --_tab-hover-color: var(--ui-tabs-tab-hover-color, var(--ui-color-text, #{t.$color-text}));
+    @include t.token(tab-hover-color, color-text, tabs);
     // @desc Tab active color
-    --_tab-active-color: var(--ui-tabs-tab-active-color, var(--ui-color-primary, #{t.$color-primary}));
+    @include t.token(tab-active-color, color-primary, tabs);
     // @desc Panel line height
-    --_panel-line-height: var(--ui-tabs-panel-line-height, var(--ui-row-1, var(--ui-row, #{t.$row})));
+    @include t.token(panel-line-height, row-1, tabs);
     // @desc Border color
-    --_border-color: var(--ui-tabs-border-color, var(--ui-color-border, #{t.$color-border}));
+    @include t.token(border-color, color-border, tabs);
     // @desc Tab height
-    --_tab-height: var(--ui-tabs-tab-height, var(--ui-row-2, #{t.$row-2}));
+    @include t.token(tab-height, row-2, tabs);
     // @desc Tab padding x
-    --_tab-padding-x: var(--ui-tabs-tab-padding-x, var(--ui-space-2, #{t.$space-2}));
+    @include t.token(tab-padding-x, space-2, tabs);
     // @desc Tab padding y
-    --_tab-padding-y: var(--ui-tabs-tab-padding-y, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(tab-padding-y, space-1, tabs);
     // @desc Tab font size
-    --_tab-font-size: var(--ui-tabs-tab-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    @include t.token(tab-font-size, font-size-sm, tabs);
     // @desc Tab bg
-    --_tab-bg: var(--ui-tabs-tab-bg, transparent);
+    --_tab-bg: var(--ui-tabs-tab-bg, transparent); // token-lint-ignore
     // @desc Tab bg active
-    --_tab-bg-active: var(--ui-tabs-tab-bg-active, var(--ui-color-bg, #{t.$color-bg}));
+    @include t.token(tab-bg-active, color-bg, tabs);
     // @desc Tab line height
-    --_tab-line-height: var(--ui-tabs-tab-line-height, var(--ui-line-height-none, #{t.$line-height-none}));
+    @include t.token(tab-line-height, line-height-none, tabs);
     // @desc Panel padding on all sides
-    --_panel-padding: var(--ui-tabs-panel-padding, var(--ui-space-3, #{t.$space-3}));
+    @include t.token(panel-padding, space-3, tabs);
   }
 
   // @modifier size
   .tabs--sm {
     // @desc Tab height sm
-    --_tab-height: var(--ui-tabs-tab-height-sm, var(--ui-row-1, var(--ui-row, #{t.$row})));
+    @include t.token(tab-height, row-1, tabs, tab-height-sm);
     // @desc Tab padding x sm
-    --_tab-padding-x: var(--ui-tabs-tab-padding-x-sm, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(tab-padding-x, space-1, tabs, tab-padding-x-sm);
     // @desc Tab font size sm
-    --_tab-font-size: var(--ui-tabs-tab-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
+    @include t.token(tab-font-size, font-size-xs, tabs, tab-font-size-sm);
   }
 
   .tabs--lg {
     // @desc Tab height lg
-    --_tab-height: var(--ui-tabs-tab-height-lg, var(--ui-row-2-5, #{t.$row-2-5}));
+    @include t.token(tab-height, row-2-5, tabs, tab-height-lg);
     // @desc Tab padding x lg
-    --_tab-padding-x: var(--ui-tabs-tab-padding-x-lg, var(--ui-space-3, #{t.$space-3}));
+    @include t.token(tab-padding-x, space-3, tabs, tab-padding-x-lg);
     // @desc Tab font size lg
-    --_tab-font-size: var(--ui-tabs-tab-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
+    @include t.token(tab-font-size, font-size-md, tabs, tab-font-size-lg);
   }
 }
 

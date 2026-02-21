@@ -5,37 +5,37 @@
 @layer components.tokens {
   .stat {
     // @desc Letter spacing
-    --_letter-spacing: var(--ui-stat-letter-spacing, var(--ui-letter-spacing-display, #{t.$letter-spacing-display}));
+    @include t.token(letter-spacing, letter-spacing-display, stat);
     // @desc Gap between children
-    --_gap: var(--ui-stat-gap, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(gap, space-1, stat);
   }
 
   .stat__value {
     // @desc Value display font size
-    --_font-size: var(--ui-stat-value-font-size, var(--ui-font-size-3xl, #{t.$font-size-3xl}));
+    @include t.token(font-size, font-size-3xl, stat-value);
     // @desc Value display font weight
-    --_font-weight: var(--ui-stat-value-font-weight, var(--ui-font-weight-bold, #{t.$font-weight-bold}));
+    @include t.token(font-weight, font-weight-bold, stat-value);
     // @desc Value display line height
-    --_line-height: var(--ui-stat-value-line-height, var(--ui-line-height-3xl, #{t.$line-height-3xl}));
+    @include t.token(line-height, line-height-3xl, stat-value);
     // @desc Value display text color
-    --_color: var(--ui-stat-value-color, var(--ui-color-text, #{t.$color-text}));
+    @include t.token(color, color-text, stat-value);
   }
 
   .stat__label {
     // @desc Label font size
-    --_font-size: var(--ui-stat-label-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    @include t.token(font-size, font-size-sm, stat-label);
     // @desc Label text color
-    --_color: var(--ui-stat-label-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    @include t.token(color, color-text-muted, stat-label);
     // @desc Label line height
-    --_line-height: var(--ui-stat-label-line-height, var(--ui-line-height-sm, #{t.$line-height-sm}));
+    @include t.token(line-height, line-height-sm, stat-label);
   }
 
   // @modifier size
   .stat--sm .stat__value {
     // @desc Value font size at small size
-    --_font-size: var(--ui-stat-value-font-size-sm, var(--ui-font-size-xl, #{t.$font-size-xl}));
+    @include t.token(font-size, font-size-xl, stat, value-font-size-sm);
     // @desc Value line height at small size
-    --_line-height: var(--ui-stat-value-line-height-sm, var(--ui-line-height-xl, #{t.$line-height-xl}));
+    @include t.token(line-height, line-height-xl, stat, value-line-height-sm);
   }
 }
 

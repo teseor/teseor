@@ -8,49 +8,49 @@
 @layer components.tokens {
   .pagination {
     // @desc Item font size
-    --_item-font-size: var(--ui-pagination-item-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    @include t.token(item-font-size, font-size-sm, pagination);
     // @desc Transition duration
-    --_transition-duration: var(--ui-pagination-transition-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    @include t.token(transition-duration, duration-fast, pagination);
     // @desc Transition timing function
-    --_transition-timing: var(--ui-pagination-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    @include t.token(transition-timing, ease-default, pagination);
     // @desc Disabled opacity
-    --_disabled-opacity: var(--ui-pagination-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
+    @include t.token(disabled-opacity, opacity-disabled, pagination);
     // @desc Ellipsis color
-    --_ellipsis-color: var(--ui-pagination-ellipsis-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    @include t.token(ellipsis-color, color-text-muted, pagination);
     // @desc Item inline padding
-    --_item-padding-x: var(--ui-pagination-item-padding-x, var(--ui-unit, #{t.$unit}));
+    @include t.token(item-padding-x, unit, pagination);
     // @desc Prev/next gap
-    --_nav-gap: var(--ui-pagination-nav-gap, var(--ui-space-0, #{t.$space-0}));
+    @include t.token(nav-gap, space-0, pagination);
     // @desc Prev/next inline padding
-    --_nav-padding-x: var(--ui-pagination-nav-padding-x, var(--ui-size-sm, #{t.$size-sm}));
+    @include t.token(nav-padding-x, size-sm, pagination);
     // @desc Gap between children
-    --_gap: var(--ui-pagination-gap, var(--ui-space-0, #{t.$space-0}));
+    @include t.token(gap, space-0, pagination);
     // @desc Item overall size
-    --_item-size: var(--ui-pagination-item-size, var(--ui-space-4, #{t.$space-4}));
+    @include t.token(item-size, space-4, pagination);
     // @desc Item corner radius
-    --_item-radius: var(--ui-pagination-item-radius, var(--ui-radius-sm, #{t.$radius-sm}));
+    @include t.token(item-radius, radius-sm, pagination);
     // @desc Item background color
-    --_item-bg: var(--ui-pagination-item-bg, transparent);
+    --_item-bg: var(--ui-pagination-item-bg, transparent); // token-lint-ignore
     // @desc Item bg hover
-    --_item-bg-hover: var(--ui-pagination-item-bg-hover, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
+    @include t.token(item-bg-hover, color-bg-subtle, pagination);
     // @desc Item bg active
-    --_item-bg-active: var(--ui-pagination-item-bg-active, var(--ui-color-primary, #{t.$color-primary}));
+    @include t.token(item-bg-active, color-primary, pagination);
     // @desc Item text color
-    --_item-color: var(--ui-pagination-item-color, var(--ui-color-text, #{t.$color-text}));
+    @include t.token(item-color, color-text, pagination);
     // @desc Item color active
-    --_item-color-active: var(--ui-pagination-item-color-active, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
+    @include t.token(item-color-active, color-text-inverse, pagination);
   }
 
   // Size variants
   // @modifier size
   .pagination--sm {
-    --_item-size: #{t.$space-3};
-    --_gap: #{t.$space-quarter};
+    --_item-size: #{t.$space-3}; // token-lint-ignore
+    --_gap: #{t.$space-quarter}; // token-lint-ignore
   }
 
   .pagination--lg {
-    --_item-size: #{t.$space-5};
-    --_gap: #{t.$unit-0-75};
+    --_item-size: #{t.$space-5}; // token-lint-ignore
+    --_gap: #{t.$unit-0-75}; // token-lint-ignore
   }
 }
 

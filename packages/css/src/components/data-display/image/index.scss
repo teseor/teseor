@@ -6,69 +6,69 @@
 @layer components.tokens {
   .image {
     // @desc Line height
-    --_line-height: var(--ui-image-line-height, var(--ui-row-1, #{t.$row-1}));
+    @include t.token(line-height, row-1, image);
     // @desc Fallback minimum size
-    --_fallback-min-size: var(--ui-image-fallback-min-size, var(--ui-space-8, #{t.$space-8}));
+    @include t.token(fallback-min-size, space-8, image);
     // @desc Overall size
-    --_size: var(--ui-image-size, auto);
+    --_size: var(--ui-image-size, auto); // token-lint-ignore
     // @desc Corner radius
-    --_radius: var(--ui-image-radius, 0);
+    --_radius: var(--ui-image-radius, 0); // token-lint-ignore
     // @desc Object fit
-    --_object-fit: var(--ui-image-object-fit, cover);
+    --_object-fit: var(--ui-image-object-fit, cover); // token-lint-ignore
     // @desc Background color
-    --_bg: var(--ui-image-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+    @include t.token(bg, color-bg-muted, image);
     // @desc Caption color
-    --_caption-color: var(--ui-image-caption-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    @include t.token(caption-color, color-text-muted, image);
     // @desc Caption font size
-    --_caption-font-size: var(--ui-image-caption-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    @include t.token(caption-font-size, font-size-sm, image);
     // @desc Caption spacing
-    --_caption-spacing: var(--ui-image-caption-spacing, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(caption-spacing, space-1, image);
   }
 
   // @modifier size
   .image--sm {
     // @desc Overall size at small size
-    --_size: var(--ui-image-size-sm, var(--ui-unit-12, #{t.$unit-12}));
+    @include t.token(size, unit-12, image, size-sm);
   }
 
   .image--md {
     // @desc Overall size at medium size
-    --_size: var(--ui-image-size-md, var(--ui-unit-24, #{t.$unit-24}));
+    @include t.token(size, unit-24, image, size-md);
   }
 
   .image--lg {
     // @desc Overall size at large size
-    --_size: var(--ui-image-size-lg, var(--ui-unit-40, #{t.$unit-40}));
+    @include t.token(size, unit-40, image, size-lg);
   }
 
   .image--xl {
     // @desc Overall size at extra-large size
-    --_size: var(--ui-image-size-xl, var(--ui-unit-60, #{t.$unit-60}));
+    @include t.token(size, unit-60, image, size-xl);
   }
 
   .image--full {
-    --_size: 100%;
+    --_size: 100%; // token-lint-ignore
   }
 
   // @modifier boolean rounded
   .image--rounded {
     // @desc Radius rounded
-    --_radius: var(--ui-image-radius-rounded, var(--ui-radius-lg, #{t.$radius-lg}));
+    @include t.token(radius, radius-lg, image, radius-rounded);
   }
 
   // @modifier boolean circle
   .image--circle {
     // @desc Radius circle
-    --_radius: var(--ui-image-radius-circle, 50%);
+    --_radius: var(--ui-image-radius-circle, 50%); // token-lint-ignore
   }
 
   // @modifier object-fit
   .image--cover {
-    --_object-fit: cover;
+    --_object-fit: cover; // token-lint-ignore
   }
 
   .image--contain {
-    --_object-fit: contain;
+    --_object-fit: contain; // token-lint-ignore
   }
 }
 

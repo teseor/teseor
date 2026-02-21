@@ -17,44 +17,44 @@
 @layer components.tokens {
   .progress {
     // @desc Transition duration
-    --_transition-duration: var(--ui-progress-transition-duration, var(--ui-duration-normal, #{t.$duration-normal}));
+    @include t.token(transition-duration, duration-normal, progress);
     // @desc Transition timing function
-    --_transition-timing: var(--ui-progress-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    @include t.token(transition-timing, ease-default, progress);
     // @desc Stripe highlight color
-    --_stripe-highlight: var(--ui-progress-stripe-highlight, var(--ui-stripe-highlight, #{t.$stripe-highlight}));
+    @include t.token(stripe-highlight, stripe-highlight, progress);
     // @desc Stripe size
-    --_stripe-size: var(--ui-progress-stripe-size, var(--ui-unit, #{t.$unit}));
+    @include t.token(stripe-size, unit, progress);
     // @desc Overall height
-    --_height: var(--ui-progress-height, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(height, space-1, progress);
     // @desc Background color
-    --_bg: var(--ui-progress-bg, var(--ui-color-bg-inset, #{t.$color-bg-inset}));
+    @include t.token(bg, color-bg-inset, progress);
     // @desc Fill
-    --_fill: var(--ui-progress-fill, var(--ui-color-primary, #{t.$color-primary}));
+    @include t.token(fill, color-primary, progress);
     // @desc Corner radius
-    --_radius: var(--ui-progress-radius, var(--ui-radius-full, #{t.$radius-full}));
+    @include t.token(radius, radius-full, progress);
   }
 
   // @modifier size
   .progress--sm {
-    --_height: #{t.$space-1};
+    --_height: #{t.$space-1}; // token-lint-ignore
   }
 
   .progress--lg {
-    --_height: #{t.$space-2};
+    --_height: #{t.$space-2}; // token-lint-ignore
   }
 
   // Color variants
   // @modifier variant
   .progress--success {
-    --_fill: var(--ui-color-success, #{t.$color-success});
+    @include t.token(fill, color-success);
   }
 
   .progress--warning {
-    --_fill: var(--ui-color-warning, #{t.$color-warning});
+    @include t.token(fill, color-warning);
   }
 
   .progress--danger {
-    --_fill: var(--ui-color-danger, #{t.$color-danger});
+    @include t.token(fill, color-danger);
   }
 }
 

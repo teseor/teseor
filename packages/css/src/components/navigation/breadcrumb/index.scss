@@ -8,25 +8,25 @@
 @layer components.tokens {
   .breadcrumb {
     // @desc Font size
-    --_font-size: var(--ui-breadcrumb-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    @include t.token(font-size, font-size-sm, breadcrumb);
     // @desc Separator
-    --_breadcrumb-separator: var(--ui-breadcrumb-separator, "/");
+    --_breadcrumb-separator: var(--ui-breadcrumb-separator, "/"); // token-lint-ignore
     // @desc Transition duration
-    --_transition-duration: var(--ui-breadcrumb-transition-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    @include t.token(transition-duration, duration-fast, breadcrumb);
     // @desc Transition timing function
-    --_transition-timing: var(--ui-breadcrumb-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    @include t.token(transition-timing, ease-default, breadcrumb);
     // @desc Link hover color
-    --_link-hover-color: var(--ui-breadcrumb-link-hover-color, var(--ui-color-primary, #{t.$color-primary}));
+    @include t.token(link-hover-color, color-primary, breadcrumb);
     // @desc Overall height
-    --_height: var(--ui-breadcrumb-height, var(--ui-row-1, var(--ui-row, #{t.$row})));
+    @include t.token(height, row-1, breadcrumb);
     // @desc Gap between children
-    --_gap: var(--ui-breadcrumb-gap, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(gap, space-1, breadcrumb);
     // @desc Separator text color
-    --_separator-color: var(--ui-breadcrumb-separator-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    @include t.token(separator-color, color-text-muted, breadcrumb);
     // @desc Link text color
-    --_link-color: var(--ui-breadcrumb-link-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    @include t.token(link-color, color-text-muted, breadcrumb);
     // @desc Current color
-    --_current-color: var(--ui-breadcrumb-current-color, var(--ui-color-text, #{t.$color-text}));
+    @include t.token(current-color, color-text, breadcrumb);
   }
 }
 

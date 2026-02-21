@@ -6,54 +6,54 @@
 @layer components.tokens {
   .close-button {
     // @desc Transition duration
-    --_transition-duration: var(--ui-close-button-transition-duration, var(--ui-duration-base, #{t.$duration-base}));
+    @include t.token(transition-duration, duration-base, close-button);
     // @desc Transition timing function
-    --_transition-timing: var(--ui-close-button-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    @include t.token(transition-timing, ease-default, close-button);
     // @desc Hover text color
-    --_hover-color: var(--ui-close-button-hover-color, var(--ui-color-text, #{t.$color-text}));
+    @include t.token(hover-color, color-text, close-button);
     // @desc Focus ring width
-    --_focus-ring-width: var(--ui-close-button-focus-ring-width, var(--ui-border-width-md, #{t.$border-width-md}));
+    @include t.token(focus-ring-width, border-width-md, close-button);
     // @desc Focus ring color
-    --_focus-ring-color: var(--ui-close-button-focus-ring-color, var(--ui-color-focus, #{t.$color-focus}));
+    @include t.token(focus-ring-color, color-focus, close-button);
     // @desc Disabled opacity
-    --_disabled-opacity: var(--ui-close-button-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
+    @include t.token(disabled-opacity, opacity-disabled, close-button);
     // @desc Icon stroke width
-    --_icon-stroke: var(--ui-close-button-icon-stroke, var(--ui-icon-stroke, #{t.$icon-stroke}));
+    @include t.token(icon-stroke, icon-stroke, close-button);
     // @desc Overall button size (width and height)
-    --_size: var(--ui-close-button-size, var(--ui-row-2, #{t.$row-2}));
+    @include t.token(size, row-2, close-button);
     // @desc Size of the X icon
-    --_icon-size: var(--ui-close-button-icon-size, var(--ui-size-md, #{t.size(md)}));
+    @include t.token(icon-size, size-md, close-button);
     // @desc Icon color
-    --_color: var(--ui-close-button-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    @include t.token(color, color-text-muted, close-button);
     // @desc Background color
-    --_bg: var(--ui-close-button-bg, transparent);
+    --_bg: var(--ui-close-button-bg, transparent); // token-lint-ignore
     // @desc Background color on hover
-    --_hover-bg: var(--ui-close-button-hover-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+    @include t.token(hover-bg, color-bg-muted, close-button);
     // @desc Border radius
-    --_radius: var(--ui-close-button-radius, var(--ui-radius-md, #{t.$radius-md}));
+    @include t.token(radius, radius-md, close-button);
   }
 
   // @modifier size
   .close-button--sm {
     // @desc Overall size at small size
-    --_size: var(--ui-close-button-size-sm, var(--ui-space-3, #{t.$space-3}));
+    @include t.token(size, space-3, close-button, size-sm);
     // @desc Icon dimensions at small size
-    --_icon-size: var(--ui-close-button-icon-size-sm, var(--ui-size-sm, #{t.size(sm)}));
+    @include t.token(icon-size, size-sm, close-button, icon-size-sm);
   }
 
   .close-button--lg {
     // @desc Overall size at large size
-    --_size: var(--ui-close-button-size-lg, var(--ui-row-3, #{t.$row-3}));
+    @include t.token(size, row-3, close-button, size-lg);
     // @desc Icon dimensions at large size
-    --_icon-size: var(--ui-close-button-icon-size-lg, var(--ui-size-lg, #{t.size(lg)}));
+    @include t.token(icon-size, size-lg, close-button, icon-size-lg);
   }
 
   // @modifier boolean subtle
   .close-button--subtle {
     // @desc Subtle color
-    --_color: var(--ui-close-button-subtle-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
+    @include t.token(color, color-border-strong, close-button, subtle-color);
     // @desc Subtle hover bg
-    --_hover-bg: var(--ui-close-button-subtle-hover-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
+    @include t.token(hover-bg, color-bg-subtle, close-button, subtle-hover-bg);
   }
 }
 

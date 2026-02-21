@@ -5,25 +5,25 @@
 @layer components.tokens {
   .kbd {
     // @desc Border width
-    --_border-width: var(--ui-kbd-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    @include t.token(border-width, border-width-sm, kbd);
     // @desc Shadow offset
-    --_shadow-offset: var(--ui-kbd-shadow-offset, var(--ui-space-quarter, #{t.$space-quarter}));
+    @include t.token(shadow-offset, space-quarter, kbd);
     // @desc Font size
-    --_font-size: var(--ui-kbd-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    @include t.token(font-size, font-size-sm, kbd);
     // @desc Font family
-    --_font-family: var(--ui-kbd-font-family, var(--ui-font-mono, #{t.$font-mono}));
+    @include t.token(font-family, font-mono, kbd);
     // @desc Horizontal padding
-    --_padding-x: var(--ui-kbd-padding-x, var(--ui-space-0, #{t.$space-0}));
+    @include t.token(padding-x, space-0, kbd);
     // @desc Vertical padding
-    --_padding-y: var(--ui-kbd-padding-y, var(--ui-space-0, #{t.$space-0}));
+    @include t.token(padding-y, space-0, kbd);
     // @desc Background color
-    --_bg: var(--ui-kbd-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
+    @include t.token(bg, color-bg-subtle, kbd);
     // @desc Border color
-    --_border-color: var(--ui-kbd-border-color, var(--ui-color-border, #{t.$color-border}));
+    @include t.token(border-color, color-border, kbd);
     // @desc Corner radius
-    --_radius: var(--ui-kbd-radius, var(--ui-radius-sm, #{t.$radius-sm}));
+    @include t.token(radius, radius-sm, kbd);
     // @desc Text color
-    --_color: var(--ui-kbd-color, var(--ui-color-text, #{t.$color-text}));
+    @include t.token(color, color-text, kbd);
   }
 }
 

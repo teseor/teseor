@@ -6,43 +6,43 @@
 @layer components.tokens {
   .scroll-area {
     // @desc Auto-hide fade transition duration
-    --_transition-duration: var(--ui-scroll-area-transition-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    @include t.token(transition-duration, duration-fast, scroll-area);
     // @desc Auto-hide fade transition timing
-    --_transition-timing: var(--ui-scroll-area-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    @include t.token(transition-timing, ease-default, scroll-area);
     // @desc Maximum height
-    --_max-height: var(--ui-scroll-area-max-height, var(--ui-row-10, #{t.$row-10}));
+    @include t.token(max-height, row-10, scroll-area);
     // @desc Scrollbar size
-    --_scrollbar-size: var(--ui-scroll-area-scrollbar-size, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(scrollbar-size, space-1, scroll-area);
     // @desc Thumb control text color
-    --_thumb-color: var(--ui-scroll-area-thumb-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
+    @include t.token(thumb-color, color-border-strong, scroll-area);
     // @desc Thumb hover color
-    --_thumb-hover-color: var(--ui-scroll-area-thumb-hover-color, var(--ui-color-neutral-400, #{t.$color-neutral-400}));
+    @include t.token(thumb-hover-color, color-neutral-400, scroll-area);
     // @desc Track text color
-    --_track-color: var(--ui-scroll-area-track-color, transparent);
+    --_track-color: var(--ui-scroll-area-track-color, transparent); // token-lint-ignore
     // @desc Thumb corner radius
-    --_thumb-radius: var(--ui-scroll-area-thumb-radius, var(--ui-radius-full, #{t.$radius-full}));
+    @include t.token(thumb-radius, radius-full, scroll-area);
   }
 
   // @modifier size
   .scroll-area--sm {
     // @desc Maximum height at small size
-    --_max-height: var(--ui-scroll-area-max-height-sm, var(--ui-row-5, #{t.$row-5}));
+    @include t.token(max-height, row-5, scroll-area, max-height-sm);
   }
 
   .scroll-area--lg {
     // @desc Maximum height at large size
-    --_max-height: var(--ui-scroll-area-max-height-lg, var(--ui-row-15, #{t.$row-15}));
+    @include t.token(max-height, row-15, scroll-area, max-height-lg);
   }
 
   .scroll-area--xl {
     // @desc Maximum height at extra-large size
-    --_max-height: var(--ui-scroll-area-max-height-xl, var(--ui-row-20, #{t.$row-20}));
+    @include t.token(max-height, row-20, scroll-area, max-height-xl);
   }
 
   // @modifier boolean thin
   .scroll-area--thin {
     // @desc Scrollbar size thin
-    --_scrollbar-size: var(--ui-scroll-area-scrollbar-size-thin, var(--ui-space-0, #{t.$space-0}));
+    @include t.token(scrollbar-size, space-0, scroll-area, scrollbar-size-thin);
   }
 }
 

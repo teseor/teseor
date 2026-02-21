@@ -5,7 +5,7 @@
 @layer components.tokens {
   .spacer {
     // @desc Overall size
-    --_size: var(--ui-spacer-size, #{t.$spacer-size});
+    --_size: var(--ui-spacer-size, #{t.$spacer-size}); // token-lint-ignore
   }
 }
 

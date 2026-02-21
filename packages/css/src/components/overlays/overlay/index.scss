@@ -8,27 +8,27 @@
 @layer components.tokens {
   .overlay {
     // @desc Transition duration
-    --_transition-duration: var(--ui-overlay-transition-duration, var(--ui-duration-normal, #{t.$duration-normal}));
+    @include t.token(transition-duration, duration-normal, overlay);
     // @desc Transition timing function
-    --_transition-timing: var(--ui-overlay-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    @include t.token(transition-timing, ease-default, overlay);
     // @desc Blur amount
-    --_blur-amount: var(--ui-overlay-blur-amount, var(--ui-space-0, #{t.$space-0}));
+    @include t.token(blur-amount, space-0, overlay);
     // @desc Background color
-    --_bg: var(--ui-overlay-bg, #{t.$overlay-bg});
+    @include t.token(bg, overlay-bg);
     // @desc Z-index stacking order
-    --_z: var(--ui-overlay-z, var(--ui-z-index-overlay, #{t.$z-index-overlay}));
+    @include t.token(z, z-index-overlay, overlay);
   }
 
   // @modifier boolean light
   .overlay--light {
     // @desc Bg light
-    --_bg: var(--ui-overlay-bg-light, #{t.$overlay-bg-light});
+    @include t.token(bg, overlay-bg-light);
   }
 
   // @modifier boolean blur
   .overlay--blur {
     // @desc Bg blur
-    --_bg: var(--ui-overlay-bg-blur, #{t.$overlay-bg-blur});
+    @include t.token(bg, overlay-bg-blur);
   }
 }
 

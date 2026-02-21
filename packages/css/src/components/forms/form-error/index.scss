@@ -8,13 +8,13 @@
 @layer components.tokens {
   .form-error {
     // @desc Line height
-    --_line-height: var(--ui-form-error-line-height, var(--ui-line-height-tight-sm, #{t.$line-height-tight-sm}));
+    @include t.token(line-height, line-height-tight-sm, form-error);
     // @desc Text color
-    --_color: var(--ui-form-error-color, var(--ui-color-danger, #{t.$color-danger}));
+    @include t.token(color, color-danger, form-error);
     // @desc Overall size
-    --_size: var(--ui-form-error-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    @include t.token(size, font-size-sm, form-error);
     // @desc Gap between children
-    --_gap: var(--ui-form-error-gap, 0);
+    --_gap: var(--ui-form-error-gap, 0); // token-lint-ignore
   }
 }
 

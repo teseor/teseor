@@ -6,50 +6,50 @@
 @layer components.tokens {
   .link {
     // @desc Transition duration
-    --_transition-duration: var(--ui-link-transition-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    @include t.token(transition-duration, duration-fast, link);
     // @desc Transition timing
-    --_transition-timing: var(--ui-link-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    @include t.token(transition-timing, ease-default, link);
     // @desc Focus ring color
-    --_focus-color: var(--ui-link-focus-color, var(--ui-color-focus, var(--ui-color-primary, #{t.$color-primary})));
+    @include t.token(focus-color, color-focus, link);
     // @desc Focus outline width
-    --_focus-outline-width: var(--ui-link-focus-outline-width, var(--ui-border-width-md, #{t.$border-width-md}));
+    @include t.token(focus-outline-width, border-width-md, link);
     // @desc Disabled text color
-    --_disabled-color: var(--ui-link-disabled-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    @include t.token(disabled-color, color-text-muted, link);
     // @desc Disabled opacity
-    --_disabled-opacity: var(--ui-link-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
+    @include t.token(disabled-opacity, opacity-disabled, link);
     // @desc Underline offset
-    --_underline-offset: var(--ui-link-underline-offset, var(--ui-space-quarter, #{t.$space-quarter}));
+    @include t.token(underline-offset, space-quarter, link);
     // @desc Focus radius
-    --_focus-radius: var(--ui-link-focus-radius, var(--ui-space-quarter, #{t.$space-quarter}));
+    @include t.token(focus-radius, space-quarter, link);
     // @desc Focus outline offset
-    --_focus-outline-offset: var(--ui-link-focus-outline-offset, var(--ui-space-quarter, #{t.$space-quarter}));
+    @include t.token(focus-outline-offset, space-quarter, link);
     // @desc External indicator spacing
-    --_external-spacing: var(--ui-link-external-spacing, var(--ui-space-quarter, #{t.$space-quarter}));
+    @include t.token(external-spacing, space-quarter, link);
     // @desc External indicator font size
-    --_external-font-size: var(--ui-link-external-font-size, var(--ui-font-size-relative-sm, #{t.$font-size-relative-sm}));
+    @include t.token(external-font-size, font-size-relative-sm, link);
     // @desc Text color
-    --_color: var(--ui-link-color, var(--ui-color-primary, #{t.$color-primary}));
+    @include t.token(color, color-primary, link);
     // @desc Color hover
-    --_color-hover: var(--ui-link-color-hover, var(--ui-color-primary-emphasis-hover, #{t.$color-primary-emphasis-hover}));
+    @include t.token(color-hover, color-primary-emphasis-hover, link);
     // @desc Color visited
-    --_color-visited: var(--ui-link-color-visited, var(--ui-color-primary, #{t.$color-primary}));
+    @include t.token(color-visited, color-primary, link);
     // @desc Decoration
-    --_decoration: var(--ui-link-decoration, underline);
+    --_decoration: var(--ui-link-decoration, underline); // token-lint-ignore
     // @desc Decoration hover
-    --_decoration-hover: var(--ui-link-decoration-hover, underline);
+    --_decoration-hover: var(--ui-link-decoration-hover, underline); // token-lint-ignore
   }
 
   // @modifier variant
   .link--muted {
     // @desc Color muted
-    --_color: var(--ui-link-color-muted, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    @include t.token(color, color-text-muted, link, color-muted);
     // @desc Color muted hover
-    --_color-hover: var(--ui-link-color-muted-hover, var(--ui-color-text, #{t.$color-text}));
+    @include t.token(color-hover, color-text, link, color-muted-hover);
   }
 
   .link--subtle {
-    --_decoration: none;
-    --_decoration-hover: underline;
+    --_decoration: none; // token-lint-ignore
+    --_decoration-hover: underline; // token-lint-ignore
   }
 }
 

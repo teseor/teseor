@@ -9,20 +9,20 @@
 @layer components.tokens {
   .form {
     // @desc Spacing
-    --_spacing: var(--ui-form-spacing, var(--ui-space-3, #{t.$space-3}));
+    @include t.token(spacing, space-3, form);
     // @desc Actions gap
-    --_actions-gap: var(--ui-form-actions-gap, var(--ui-space-2, #{t.$space-2}));
+    @include t.token(actions-gap, space-2, form);
     // @desc Section spacing
-    --_section-spacing: var(--ui-form-section-spacing, var(--ui-space-4, #{t.$space-4}));
+    @include t.token(section-spacing, space-4, form);
   }
 
   // Compact variant - tighter spacing
   // @modifier boolean compact
   .form--compact {
     // @desc Spacing compact
-    --_spacing: var(--ui-form-spacing-compact, var(--ui-space-2, #{t.$space-2}));
+    @include t.token(spacing, space-2, form, spacing-compact);
     // @desc Section spacing compact
-    --_section-spacing: var(--ui-form-section-spacing-compact, var(--ui-space-3, #{t.$space-3}));
+    @include t.token(section-spacing, space-3, form, section-spacing-compact);
   }
 }
 

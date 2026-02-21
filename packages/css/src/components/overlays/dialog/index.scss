@@ -8,29 +8,29 @@
 @layer components.tokens {
   .dialog {
     // @desc Title font size
-    --_title-font-size: var(--ui-dialog-title-font-size, var(--ui-font-size-lg, #{t.$font-size-lg}));
+    @include t.token(title-font-size, font-size-lg, dialog);
     // @desc Title font weight
-    --_title-font-weight: var(--ui-dialog-title-font-weight, var(--ui-font-weight-semibold, #{t.$font-weight-semibold}));
+    @include t.token(title-font-weight, font-weight-semibold, dialog);
     // @desc Title line height
-    --_title-line-height: var(--ui-dialog-title-line-height, var(--ui-space-3, #{t.$space-3}));
+    @include t.token(title-line-height, space-3, dialog);
     // @desc Header gap
-    --_header-gap: var(--ui-dialog-header-gap, var(--ui-space-2, #{t.$space-2}));
+    @include t.token(header-gap, space-2, dialog);
     // @desc Footer gap
-    --_footer-gap: var(--ui-dialog-footer-gap, var(--ui-size-sm, #{t.$size-sm}));
+    @include t.token(footer-gap, size-sm, dialog);
     // @desc Header vertical padding
-    --_header-padding-y: var(--ui-dialog-header-padding-y, var(--ui-space-2, #{t.$space-2}));
+    @include t.token(header-padding-y, space-2, dialog);
     // @desc Header horizontal padding
-    --_header-padding-x: var(--ui-dialog-header-padding-x, var(--ui-space-3, #{t.$space-3}));
+    @include t.token(header-padding-x, space-3, dialog);
     // @desc Body area padding on all sides
-    --_body-padding: var(--ui-dialog-body-padding, var(--ui-space-3, #{t.$space-3}));
+    @include t.token(body-padding, space-3, dialog);
     // @desc Footer vertical padding
-    --_footer-padding-y: var(--ui-dialog-footer-padding-y, var(--ui-space-2, #{t.$space-2}));
+    @include t.token(footer-padding-y, space-2, dialog);
     // @desc Footer horizontal padding
-    --_footer-padding-x: var(--ui-dialog-footer-padding-x, var(--ui-space-3, #{t.$space-3}));
+    @include t.token(footer-padding-x, space-3, dialog);
     // @desc Border color
-    --_border-color: var(--ui-dialog-border-color, var(--ui-color-border, #{t.$color-border}));
+    @include t.token(border-color, color-border, dialog);
     // @desc Border thickness
-    --_border-width: var(--ui-dialog-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    @include t.token(border-width, border-width-sm, dialog);
   }
 }
 

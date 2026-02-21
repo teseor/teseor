@@ -8,35 +8,35 @@
 @layer components.tokens {
   .fieldset {
     // @desc Line height
-    --_line-height: var(--ui-fieldset-line-height, var(--ui-line-height-tight-sm, #{t.$line-height-tight-sm}));
+    @include t.token(line-height, line-height-tight-sm, fieldset);
     // @desc Legend inline padding
-    --_legend-inline-padding: var(--ui-fieldset-legend-inline-padding, var(--ui-space-half, var(--ui-space-0, #{t.$space-0})));
+    @include t.token(legend-inline-padding, space-half, fieldset);
     // @desc Disabled opacity
-    --_disabled-opacity: var(--ui-fieldset-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
+    @include t.token(disabled-opacity, opacity-disabled, fieldset);
     // @desc Spacing
-    --_spacing: var(--ui-fieldset-spacing, var(--ui-space-2, #{t.$space-2}));
+    @include t.token(spacing, space-2, fieldset);
     // @desc Border color
-    --_border-color: var(--ui-fieldset-border-color, var(--ui-color-border, #{t.$color-border}));
+    @include t.token(border-color, color-border, fieldset);
     // @desc Border thickness
-    --_border-width: var(--ui-fieldset-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    @include t.token(border-width, border-width-sm, fieldset);
     // @desc Border radius
-    --_border-radius: var(--ui-fieldset-border-radius, var(--ui-radius-md, #{t.$radius-md}));
+    @include t.token(border-radius, radius-md, fieldset);
     // @desc Padding on all sides
-    --_padding: var(--ui-fieldset-padding, var(--ui-space-2, #{t.$space-2}));
+    @include t.token(padding, space-2, fieldset);
     // @desc Legend size
-    --_legend-size: var(--ui-fieldset-legend-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    @include t.token(legend-size, font-size-sm, fieldset);
     // @desc Legend weight
-    --_legend-weight: var(--ui-fieldset-legend-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
+    @include t.token(legend-weight, font-weight-medium, fieldset);
     // @desc Legend color
-    --_legend-color: var(--ui-fieldset-legend-color, var(--ui-color-text, #{t.$color-text}));
+    @include t.token(legend-color, color-text, fieldset);
   }
 
   // @modifier boolean compact
   .fieldset--compact {
     // @desc Spacing compact
-    --_spacing: var(--ui-fieldset-spacing-compact, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(spacing, space-1, fieldset, spacing-compact);
     // @desc Padding compact
-    --_padding: var(--ui-fieldset-padding-compact, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(padding, space-1, fieldset, padding-compact);
   }
 }
 

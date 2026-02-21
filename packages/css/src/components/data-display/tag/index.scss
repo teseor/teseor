@@ -7,75 +7,75 @@
 @layer components.tokens {
   .tag {
     // @desc Font weight
-    --_font-weight: var(--ui-tag-font-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
+    @include t.token(font-weight, font-weight-medium, tag);
     // @desc Disabled opacity
-    --_disabled-opacity: var(--ui-tag-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
+    @include t.token(disabled-opacity, opacity-disabled, tag);
     // @desc Remove button opacity
-    --_remove-opacity: var(--ui-tag-remove-opacity, var(--ui-opacity-loading, #{t.$opacity-loading}));
+    @include t.token(remove-opacity, opacity-loading, tag);
     // @desc Group gap
-    --_group-gap: var(--ui-tag-group-gap, var(--ui-space-0, #{t.$space-0}));
+    @include t.token(group-gap, space-0, tag);
     // @desc Overall height
-    --_height: var(--ui-tag-height, var(--ui-space-3, #{t.$space-3}));
+    @include t.token(height, space-3, tag);
     // @desc Horizontal padding
-    --_padding-x: var(--ui-tag-padding-x, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(padding-x, space-1, tag);
     // @desc Gap between children
-    --_gap: var(--ui-tag-gap, var(--ui-space-0, #{t.$space-0}));
+    @include t.token(gap, space-0, tag);
     // @desc Corner radius
-    --_radius: var(--ui-tag-radius, var(--ui-radius-full, #{t.$radius-full}));
+    @include t.token(radius, radius-full, tag);
     // @desc Font size
-    --_font-size: var(--ui-tag-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    @include t.token(font-size, font-size-sm, tag);
     // @desc Background color
-    --_bg: var(--ui-tag-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+    @include t.token(bg, color-bg-muted, tag);
     // @desc Text color
-    --_color: var(--ui-tag-color, var(--ui-color-text, #{t.$color-text}));
+    @include t.token(color, color-text, tag);
   }
 
   // @modifier size
   .tag--sm {
     // @desc Overall height at small size
-    --_height: var(--ui-tag-height-sm, var(--ui-space-2, #{t.$space-2}));
+    @include t.token(height, space-2, tag, height-sm);
     // @desc Horizontal padding at small size
-    --_padding-x: var(--ui-tag-padding-x-sm, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(padding-x, space-1, tag, padding-x-sm);
     // @desc Font size at small size
-    --_font-size: var(--ui-tag-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
+    @include t.token(font-size, font-size-xs, tag, font-size-sm);
   }
 
   .tag--lg {
     // @desc Overall height at large size
-    --_height: var(--ui-tag-height-lg, var(--ui-space-4, #{t.$space-4}));
+    @include t.token(height, space-4, tag, height-lg);
     // @desc Horizontal padding at large size
-    --_padding-x: var(--ui-tag-padding-x-lg, var(--ui-space-2, #{t.$space-2}));
+    @include t.token(padding-x, space-2, tag, padding-x-lg);
     // @desc Font size at large size
-    --_font-size: var(--ui-tag-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
+    @include t.token(font-size, font-size-md, tag, font-size-lg);
   }
 
   // @modifier variant
   .tag--primary {
     // @desc Primary bg
-    --_bg: var(--ui-tag-primary-bg, var(--ui-color-primary, #{t.$color-primary}));
+    @include t.token(bg, color-primary, tag, primary-bg);
     // @desc Primary color
-    --_color: var(--ui-tag-primary-color, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
+    @include t.token(color, color-text-inverse, tag, primary-color);
   }
 
   .tag--success {
     // @desc Success bg
-    --_bg: var(--ui-tag-success-bg, var(--ui-color-success, #{t.$color-success}));
+    @include t.token(bg, color-success, tag, success-bg);
     // @desc Success color
-    --_color: var(--ui-tag-success-color, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
+    @include t.token(color, color-text-inverse, tag, success-color);
   }
 
   .tag--warning {
     // @desc Warning bg
-    --_bg: var(--ui-tag-warning-bg, var(--ui-color-warning, #{t.$color-warning}));
+    @include t.token(bg, color-warning, tag, warning-bg);
     // @desc Warning color
-    --_color: var(--ui-tag-warning-color, var(--ui-color-text, #{t.$color-text}));
+    @include t.token(color, color-text, tag, warning-color);
   }
 
   .tag--danger {
     // @desc Danger bg
-    --_bg: var(--ui-tag-danger-bg, var(--ui-color-danger, #{t.$color-danger}));
+    @include t.token(bg, color-danger, tag, danger-bg);
     // @desc Danger color
-    --_color: var(--ui-tag-danger-color, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
+    @include t.token(color, color-text-inverse, tag, danger-color);
   }
 }
 

@@ -6,53 +6,53 @@
 @layer components.tokens {
   .card {
     // @desc Line height
-    --_line-height: var(--ui-card-line-height, var(--ui-row-1, #{t.$row-1}));
+    @include t.token(line-height, row-1, card);
     // @desc Transition duration
-    --_transition-duration: var(--ui-card-transition-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    @include t.token(transition-duration, duration-fast, card);
     // @desc Transition timing
-    --_transition-timing: var(--ui-card-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    @include t.token(transition-timing, ease-default, card);
     // @desc Padding on all sides
-    --_padding: var(--ui-card-padding, var(--ui-space-4, #{t.$space-4}));
+    @include t.token(padding, space-4, card);
     // @desc Border thickness
-    --_border-width: var(--ui-card-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    @include t.token(border-width, border-width-sm, card);
     // @desc Background color
-    --_bg: var(--ui-card-bg, var(--ui-color-bg, #{t.$color-bg}));
+    @include t.token(bg, color-bg, card);
     // @desc Border color
-    --_border-color: var(--ui-card-border-color, var(--ui-color-border, #{t.$color-border}));
+    @include t.token(border-color, color-border, card);
     // @desc Corner radius
-    --_radius: var(--ui-card-radius, var(--ui-radius-md, #{t.$radius-md}));
+    @include t.token(radius, radius-md, card);
   }
 
   // @modifier variant
   // @desc Bg subtle
-  .card--subtle { --_bg: var(--ui-card-bg-subtle, var(--ui-color-bg-subtle, #{t.$color-bg-subtle})); }
+  .card--subtle { @include t.token(bg, color-bg-subtle, card, bg-subtle); }
   // @desc Bg muted
-  .card--muted { --_bg: var(--ui-card-bg-muted, var(--ui-color-bg-muted, #{t.$color-bg-muted})); }
+  .card--muted { @include t.token(bg, color-bg-muted, card, bg-muted); }
 
   // @modifier size
   // @desc Padding on all sides at small size
-  .card--sm { --_padding: var(--ui-card-padding-sm, var(--ui-space-2, #{t.$space-2})); }
+  .card--sm { @include t.token(padding, space-2, card, padding-sm); }
   // @desc Padding on all sides at large size
-  .card--lg { --_padding: var(--ui-card-padding-lg, var(--ui-space-6, #{t.$space-6})); }
+  .card--lg { @include t.token(padding, space-6, card, padding-lg); }
 
   // @modifier boolean flush
   .card--flush {
-    --_padding: 0;
-    --_border-width: 0;
+    --_padding: 0; // token-lint-ignore
+    --_border-width: 0; // token-lint-ignore
   }
 
   // @modifier boolean interactive
   .card--interactive {
     &:hover {
       // @desc Bg hover
-      --_bg: var(--ui-card-bg-hover, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
+      @include t.token(bg, color-bg-subtle, card, bg-hover);
       // @desc Border color hover
-      --_border-color: var(--ui-card-border-color-hover, var(--ui-color-border-strong, #{t.$color-border-strong}));
+      @include t.token(border-color, color-border-strong, card, border-color-hover);
     }
 
     &:active {
       // @desc Bg active
-      --_bg: var(--ui-card-bg-active, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+      @include t.token(bg, color-bg-muted, card, bg-active);
     }
   }
 }

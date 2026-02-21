@@ -6,94 +6,94 @@
 @layer components.tokens {
   .alert {
     // @desc Title font weight
-    --_title-font-weight: var(--ui-alert-title-font-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
+    @include t.token(title-font-weight, font-weight-medium, alert);
     // @desc Title line height
-    --_title-line-height: var(--ui-alert-title-line-height, var(--ui-row-1, var(--ui-row, #{t.$row})));
+    @include t.token(title-line-height, row-1, alert);
     // @desc Description font size
-    --_description-font-size: var(--ui-alert-description-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    @include t.token(description-font-size, font-size-sm, alert);
     // @desc Description color
-    --_description-color: var(--ui-alert-description-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    @include t.token(description-color, color-text-muted, alert);
     // @desc Text color
-    --_text-color: var(--ui-alert-text-color, var(--ui-color-text, #{t.$color-text}));
+    @include t.token(text-color, color-text, alert);
     // @desc Description margin
-    --_description-margin: var(--ui-alert-description-margin, var(--ui-unit, #{t.$unit}));
+    @include t.token(description-margin, unit, alert);
     // Single accent color - variants override, bg/border derived via color-mix
     // @desc Accent color
-    --_accent: var(--ui-alert-accent, var(--ui-color-border, #{t.$color-border}));
+    @include t.token(accent, color-border, alert);
 
     // @desc Padding on all sides
-    --_padding: var(--ui-alert-padding, var(--ui-space-2, #{t.$space-2}));
+    @include t.token(padding, space-2, alert);
     // @desc Border thickness
-    --_border-width: var(--ui-alert-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    @include t.token(border-width, border-width-sm, alert);
     // @desc Gap between children
-    --_gap: var(--ui-alert-gap, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(gap, space-1, alert);
     // @desc Corner radius
-    --_radius: var(--ui-alert-radius, var(--ui-radius-md, #{t.$radius-md}));
+    @include t.token(radius, radius-md, alert);
     // @desc Background color
-    --_bg: var(--ui-alert-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
+    @include t.token(bg, color-bg-subtle, alert);
     // @desc Border color
-    --_border-color: var(--ui-alert-border-color, var(--ui-color-border, #{t.$color-border}));
+    @include t.token(border-color, color-border, alert);
     // @desc Text color
-    --_color: var(--ui-alert-color, var(--ui-color-text, #{t.$color-text}));
+    @include t.token(color, color-text, alert);
     // @desc Font size
-    --_font-size: var(--ui-alert-font-size, inherit);
-    --_padding-end: 0;
+    --_font-size: var(--ui-alert-font-size, inherit); // token-lint-ignore
+    --_padding-end: 0; // token-lint-ignore
     // @desc Icon color
-    --_icon-color: var(--ui-alert-icon-color, var(--ui-color-border, #{t.$color-border}));
+    @include t.token(icon-color, color-border, alert);
   }
 
   // @modifier variant
   .alert--info {
-    --_accent: var(--ui-color-primary, #{t.$color-primary});
-    --_bg: var(--ui-color-primary-bg, #{t.$color-primary-bg});
-    --_border-color: var(--ui-color-primary, #{t.$color-primary});
-    --_icon-color: var(--ui-color-primary, #{t.$color-primary});
+    @include t.token(accent, color-primary);
+    @include t.token(bg, color-primary-bg);
+    @include t.token(border-color, color-primary);
+    @include t.token(icon-color, color-primary);
   }
 
   .alert--success {
-    --_accent: var(--ui-color-success, #{t.$color-success});
-    --_bg: var(--ui-color-success-bg, #{t.$color-success-bg});
-    --_border-color: var(--ui-color-success, #{t.$color-success});
-    --_icon-color: var(--ui-color-success, #{t.$color-success});
+    @include t.token(accent, color-success);
+    @include t.token(bg, color-success-bg);
+    @include t.token(border-color, color-success);
+    @include t.token(icon-color, color-success);
   }
 
   .alert--warning {
-    --_accent: var(--ui-color-warning, #{t.$color-warning});
-    --_bg: var(--ui-color-warning-bg, #{t.$color-warning-bg});
-    --_border-color: var(--ui-color-warning, #{t.$color-warning});
-    --_icon-color: var(--ui-color-warning, #{t.$color-warning});
+    @include t.token(accent, color-warning);
+    @include t.token(bg, color-warning-bg);
+    @include t.token(border-color, color-warning);
+    @include t.token(icon-color, color-warning);
   }
 
   .alert--danger {
-    --_accent: var(--ui-color-danger, #{t.$color-danger});
-    --_bg: var(--ui-color-danger-bg, #{t.$color-danger-bg});
-    --_border-color: var(--ui-color-danger, #{t.$color-danger});
-    --_icon-color: var(--ui-color-danger, #{t.$color-danger});
+    @include t.token(accent, color-danger);
+    @include t.token(bg, color-danger-bg);
+    @include t.token(border-color, color-danger);
+    @include t.token(icon-color, color-danger);
   }
 
   // @modifier size
   .alert--sm {
     // @desc Padding on all sides at small size
-    --_padding: var(--ui-alert-padding-sm, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(padding, space-1, alert, padding-sm);
     // @desc Gap between children at small size
-    --_gap: var(--ui-alert-gap-sm, var(--ui-space-0, #{t.$space-0}));
+    @include t.token(gap, space-0, alert, gap-sm);
     // @desc Font size at small size
-    --_font-size: var(--ui-alert-font-size-sm, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    @include t.token(font-size, font-size-sm, alert, font-size-sm);
   }
 
   .alert--lg {
     // @desc Padding on all sides at large size
-    --_padding: var(--ui-alert-padding-lg, var(--ui-space-4, #{t.$space-4}));
+    @include t.token(padding, space-4, alert, padding-lg);
     // @desc Gap between children at large size
-    --_gap: var(--ui-alert-gap-lg, var(--ui-space-2, #{t.$space-2}));
+    @include t.token(gap, space-2, alert, gap-lg);
     // @desc Font size at large size
-    --_font-size: var(--ui-alert-font-size-lg, var(--ui-font-size-lg, #{t.$font-size-lg}));
+    @include t.token(font-size, font-size-lg, alert, font-size-lg);
   }
 
   // @modifier boolean dismissible
   .alert--dismissible {
     // @desc Padding end
-    --_padding-end: var(--ui-alert-padding-end, var(--ui-space-5, #{t.$space-5}));
+    @include t.token(padding-end, space-5, alert);
   }
 }
 

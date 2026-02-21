@@ -7,22 +7,22 @@
 @layer components.tokens {
   .list {
     // @desc Spacing
-    --_spacing: var(--ui-list-spacing, var(--ui-unit, #{t.$unit}));
+    @include t.token(spacing, unit, list);
     // @desc Marker color
-    --_marker-color: var(--ui-list-marker-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    @include t.token(marker-color, color-text-muted, list);
     // @desc Indent
-    --_indent: var(--ui-list-indent, var(--ui-space-3, #{t.$space-3}));
+    @include t.token(indent, space-3, list);
     // @desc Line height
-    --_line-height: var(--ui-list-line-height, var(--ui-line-height-md, #{t.$line-height-md}));
+    @include t.token(line-height, line-height-md, list);
   }
 
   // @modifier spacing
   .list--compact {
-    --_spacing: 0;
+    --_spacing: 0; // token-lint-ignore
   }
 
   .list--loose {
-    --_spacing: #{t.$space-2};
+    --_spacing: #{t.$space-2}; // token-lint-ignore
   }
 }
 

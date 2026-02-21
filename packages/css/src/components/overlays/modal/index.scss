@@ -8,42 +8,42 @@
 @layer components.tokens {
   .modal {
     // @desc Transition duration
-    --_transition-duration: var(--ui-modal-transition-duration, var(--ui-duration-normal, #{t.$duration-normal}));
+    @include t.token(transition-duration, duration-normal, modal);
     // @desc Transition timing function
-    --_transition-timing: var(--ui-modal-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    @include t.token(transition-timing, ease-default, modal);
     // @desc Viewport padding
-    --_viewport-padding: var(--ui-modal-viewport-padding, var(--ui-space-2, #{t.$space-2}));
+    @include t.token(viewport-padding, space-2, modal);
     // @desc Background color
-    --_bg: var(--ui-modal-bg, var(--ui-color-bg, #{t.$color-bg}));
+    @include t.token(bg, color-bg, modal);
     // @desc Corner radius
-    --_radius: var(--ui-modal-radius, var(--ui-radius-lg, var(--ui-size-sm, #{t.$size-sm})));
+    @include t.token(radius, radius-lg, modal);
     // @desc Box shadow
-    --_shadow: var(--ui-modal-shadow, var(--ui-shadow-lg, #{t.$shadow-lg}));
+    @include t.token(shadow, shadow-lg, modal);
     // @desc Padding on all sides
-    --_padding: var(--ui-modal-padding, var(--ui-space-3, #{t.$space-3}));
+    @include t.token(padding, space-3, modal);
     // @desc Maximum width
-    --_max-width: var(--ui-modal-max-width, var(--ui-unit-60, #{t.$unit-60}));
+    @include t.token(max-width, unit-60, modal);
     // @desc Maximum height
-    --_max-height: var(--ui-modal-max-height, var(--ui-viewport-max-height, #{t.$viewport-max-height}));
+    @include t.token(max-height, viewport-max-height, modal);
     // @desc Z-index stacking order
-    --_z: var(--ui-modal-z, var(--ui-z-index-modal, #{t.$z-index-modal}));
+    @include t.token(z, z-index-modal, modal);
   }
 
   // @modifier size
   .modal--sm {
     // @desc Maximum width at small size
-    --_max-width: var(--ui-modal-max-width-sm, var(--ui-unit-40, #{t.$unit-40}));
+    @include t.token(max-width, unit-40, modal, max-width-sm);
   }
 
   .modal--lg {
     // @desc Maximum width at large size
-    --_max-width: var(--ui-modal-max-width-lg, var(--ui-unit-80, #{t.$unit-80}));
+    @include t.token(max-width, unit-80, modal, max-width-lg);
   }
 
   .modal--full {
-    --_max-width: #{t.$viewport-max-width-full};
-    --_max-height: #{t.$viewport-max-height-full};
-    --_radius: 0;
+    --_max-width: #{t.$viewport-max-width-full}; // token-lint-ignore
+    --_max-height: #{t.$viewport-max-height-full}; // token-lint-ignore
+    --_radius: 0; // token-lint-ignore
   }
 }
 

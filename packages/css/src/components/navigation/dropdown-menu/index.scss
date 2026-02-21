@@ -7,21 +7,21 @@
 @layer components.tokens {
   .dropdown-menu {
     // @desc Trigger gap
-    --_trigger-gap: var(--ui-dropdown-menu-trigger-gap, var(--ui-space-0, #{t.$space-0}));
+    @include t.token(trigger-gap, space-0, dropdown-menu);
     // @desc Transition duration
-    --_transition-duration: var(--ui-dropdown-menu-transition-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    @include t.token(transition-duration, duration-fast, dropdown-menu);
     // @desc Transition timing function
-    --_transition-timing: var(--ui-dropdown-menu-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    @include t.token(transition-timing, ease-default, dropdown-menu);
     // @desc Trigger icon font size
-    --_trigger-icon-font-size: var(--ui-dropdown-menu-trigger-icon-font-size, var(--ui-font-size-relative-xs, #{t.$font-size-relative-xs}));
+    @include t.token(trigger-icon-font-size, font-size-relative-xs, dropdown-menu);
     // @desc Panel slide offset
-    --_panel-slide-offset: var(--ui-dropdown-menu-panel-slide-offset, var(--ui-unit, #{t.$unit}));
+    @include t.token(panel-slide-offset, unit, dropdown-menu);
     // @desc Z-index stacking order
-    --_z: var(--ui-dropdown-menu-z, var(--ui-z-index-dropdown, #{t.$z-index-dropdown}));
+    @include t.token(z, z-index-dropdown, dropdown-menu);
     // @desc Panel offset from anchor
-    --_panel-offset: var(--ui-dropdown-menu-panel-offset, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(panel-offset, space-1, dropdown-menu);
     // @desc Panel minimum width
-    --_panel-min-width: var(--ui-dropdown-menu-panel-min-width, auto);
+    --_panel-min-width: var(--ui-dropdown-menu-panel-min-width, auto); // token-lint-ignore
   }
 }
 

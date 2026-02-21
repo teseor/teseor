@@ -8,29 +8,29 @@
 @layer components.tokens {
   .tooltip {
     // @desc Transition duration
-    --_transition-duration: var(--ui-tooltip-transition-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    @include t.token(transition-duration, duration-fast, tooltip);
     // @desc Transition timing function
-    --_transition-timing: var(--ui-tooltip-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    @include t.token(transition-timing, ease-default, tooltip);
     // @desc Max width
-    --_max-width: var(--ui-tooltip-max-width, var(--ui-unit-25, #{t.$unit-25}));
+    @include t.token(max-width, unit-25, tooltip);
     // @desc Line height
-    --_line-height: var(--ui-tooltip-line-height, var(--ui-space-2, #{t.$space-2}));
+    @include t.token(line-height, space-2, tooltip);
     // @desc Background color
-    --_bg: var(--ui-tooltip-bg, var(--ui-color-text, #{t.$color-text}));
+    @include t.token(bg, color-text, tooltip);
     // @desc Text color
-    --_color: var(--ui-tooltip-color, var(--ui-color-bg, #{t.$color-bg}));
+    @include t.token(color, color-bg, tooltip);
     // @desc Corner radius
-    --_radius: var(--ui-tooltip-radius, var(--ui-radius-sm, var(--ui-space-0, #{t.$space-0})));
+    @include t.token(radius, radius-sm, tooltip);
     // @desc Horizontal padding
-    --_padding-x: var(--ui-tooltip-padding-x, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(padding-x, space-1, tooltip);
     // @desc Vertical padding
-    --_padding-y: var(--ui-tooltip-padding-y, var(--ui-space-0, #{t.$space-0}));
+    @include t.token(padding-y, space-0, tooltip);
     // @desc Font size
-    --_font-size: var(--ui-tooltip-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    @include t.token(font-size, font-size-sm, tooltip);
     // @desc Z-index stacking order
-    --_z: var(--ui-tooltip-z, var(--ui-z-index-tooltip, #{t.$z-index-tooltip}));
+    @include t.token(z, z-index-tooltip, tooltip);
     // @desc Arrow size
-    --_arrow-size: var(--ui-tooltip-arrow-size, var(--ui-space-0, #{t.$space-0}));
+    @include t.token(arrow-size, space-0, tooltip);
   }
 }
 

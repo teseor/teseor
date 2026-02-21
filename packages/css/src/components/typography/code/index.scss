@@ -8,41 +8,41 @@
   // Inline code
   .code {
     // @desc Font family
-    --_font-family: var(--ui-code-font-family, var(--ui-font-mono, #{t.$font-mono}));
+    @include t.token(font-family, font-mono, code);
     // @desc Line height
-    --_line-height: var(--ui-code-line-height, var(--ui-line-height-tight-sm, #{t.$line-height-tight-sm}));
+    @include t.token(line-height, line-height-tight-sm, code);
     // @desc Border width
-    --_border-width: var(--ui-code-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    @include t.token(border-width, border-width-sm, code);
     // @desc Font size
-    --_font-size: var(--ui-code-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    @include t.token(font-size, font-size-sm, code);
     // @desc Background color
-    --_bg: var(--ui-code-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+    @include t.token(bg, color-bg-muted, code);
     // @desc Horizontal padding
-    --_padding-x: var(--ui-code-padding-x, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(padding-x, space-1, code);
     // @desc Vertical padding
-    --_padding-y: var(--ui-code-padding-y, var(--ui-space-0, #{t.$space-0}));
+    @include t.token(padding-y, space-0, code);
     // @desc Corner radius
-    --_radius: var(--ui-code-radius, var(--ui-radius-sm, #{t.$radius-sm}));
+    @include t.token(radius, radius-sm, code);
   }
 
   // @modifier size
   .code--sm {
     // @desc Font size at small size
-    --_font-size: var(--ui-code-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
+    @include t.token(font-size, font-size-xs, code, font-size-sm);
   }
 
   // Code block
   .code-block {
     // @desc Font size block
-    --_font-size: var(--ui-code-font-size-block, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    @include t.token(font-size, font-size-sm, code, font-size-block);
     // @desc Bg block
-    --_bg: var(--ui-code-bg-block, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+    @include t.token(bg, color-bg-muted, code, bg-block);
     // @desc Vertical padding
-    --_padding: var(--ui-code-padding-block, var(--ui-space-3, #{t.$space-3}));
+    @include t.token(padding, space-3, code, padding-block);
     // @desc Radius block
-    --_radius: var(--ui-code-radius-block, var(--ui-radius-md, #{t.$radius-md}));
+    @include t.token(radius, radius-md, code, radius-block);
     // @desc Border color block
-    --_border-color: var(--ui-code-border-color-block, var(--ui-color-border, #{t.$color-border}));
+    @include t.token(border-color, color-border, code, border-color-block);
   }
 }
 

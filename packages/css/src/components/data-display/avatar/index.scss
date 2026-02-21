@@ -7,56 +7,56 @@
 @layer components.tokens {
   .avatar {
     // @desc Font weight
-    --_font-weight: var(--ui-avatar-font-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
+    @include t.token(font-weight, font-weight-medium, avatar);
     // @desc Group ring width
-    --_ring-width: var(--ui-avatar-ring-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    @include t.token(ring-width, border-width-sm, avatar);
     // @desc Group ring color
-    --_ring-color: var(--ui-avatar-ring-color, var(--ui-color-bg, #{t.$color-bg}));
+    @include t.token(ring-color, color-bg, avatar);
     // @desc Overall size
-    --_size: var(--ui-avatar-size, var(--ui-space-5, #{t.$space-5}));
+    @include t.token(size, space-5, avatar);
     // @desc Background color
-    --_bg: var(--ui-avatar-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
+    @include t.token(bg, color-bg-subtle, avatar);
     // @desc Text color
-    --_color: var(--ui-avatar-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    @include t.token(color, color-text-muted, avatar);
     // @desc Font size
-    --_font-size: var(--ui-avatar-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    @include t.token(font-size, font-size-sm, avatar);
     // @desc Corner radius
-    --_radius: var(--ui-avatar-radius, 50%);
+    --_radius: var(--ui-avatar-radius, 50%); // token-lint-ignore
   }
 
   // @modifier size
   .avatar--xs {
     // @desc Overall size at extra-small size
-    --_size: var(--ui-avatar-size-xs, var(--ui-space-3, #{t.$space-3}));
+    @include t.token(size, space-3, avatar, size-xs);
     // @desc Font size at extra-small size
-    --_font-size: var(--ui-avatar-font-size-xs, var(--ui-font-size-xs, #{t.$font-size-xs}));
+    @include t.token(font-size, font-size-xs, avatar, font-size-xs);
   }
 
   .avatar--sm {
     // @desc Overall size at small size
-    --_size: var(--ui-avatar-size-sm, var(--ui-space-4, #{t.$space-4}));
+    @include t.token(size, space-4, avatar, size-sm);
     // @desc Font size at small size
-    --_font-size: var(--ui-avatar-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
+    @include t.token(font-size, font-size-xs, avatar, font-size-sm);
   }
 
   .avatar--lg {
     // @desc Overall size at large size
-    --_size: var(--ui-avatar-size-lg, var(--ui-space-6, #{t.$space-6}));
+    @include t.token(size, space-6, avatar, size-lg);
     // @desc Font size at large size
-    --_font-size: var(--ui-avatar-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
+    @include t.token(font-size, font-size-md, avatar, font-size-lg);
   }
 
   .avatar--xl {
     // @desc Overall size at extra-large size
-    --_size: var(--ui-avatar-size-xl, var(--ui-space-8, #{t.$space-8}));
+    @include t.token(size, space-8, avatar, size-xl);
     // @desc Font size at extra-large size
-    --_font-size: var(--ui-avatar-font-size-xl, var(--ui-font-size-lg, #{t.$font-size-lg}));
+    @include t.token(font-size, font-size-lg, avatar, font-size-xl);
   }
 
   // @modifier boolean square
   .avatar--square {
     // @desc Radius square
-    --_radius: var(--ui-avatar-radius-square, var(--ui-radius-md, #{t.$radius-md}));
+    @include t.token(radius, radius-md, avatar, radius-square);
   }
 }
 

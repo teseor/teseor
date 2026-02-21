@@ -5,15 +5,15 @@
 @layer components.tokens {
   .mark {
     // @desc Background color
-    --_bg: var(--ui-mark-bg, var(--ui-color-warning, #{t.$color-warning}));
+    @include t.token(bg, color-warning, mark);
     // @desc Text color
-    --_color: var(--ui-mark-color, var(--ui-color-text, #{t.$color-text}));
+    @include t.token(color, color-text, mark);
     // @desc Horizontal padding
-    --_padding-x: var(--ui-mark-padding-x, var(--ui-space-quarter, #{t.$space-quarter}));
+    @include t.token(padding-x, space-quarter, mark);
     // @desc Vertical padding
-    --_padding-y: var(--ui-mark-padding-y, 0);
+    --_padding-y: var(--ui-mark-padding-y, 0); // token-lint-ignore
     // @desc Corner radius
-    --_radius: var(--ui-mark-radius, var(--ui-radius-sm, #{t.$radius-sm}));
+    @include t.token(radius, radius-sm, mark);
   }
 }
 

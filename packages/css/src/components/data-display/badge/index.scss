@@ -7,66 +7,66 @@
   .badge {
     // Single accent color - variants override this
     // @desc Accent color
-    --_accent: var(--ui-badge-accent, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+    @include t.token(accent, color-bg-muted, badge);
 
     // @desc Overall height
-    --_height: var(--ui-badge-height, var(--ui-row-1-5, #{t.$row-1-5}));
+    @include t.token(height, row-1-5, badge);
     // @desc Horizontal padding
-    --_padding-x: var(--ui-badge-padding-x, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(padding-x, space-1, badge);
     // @desc Font size
-    --_font-size: var(--ui-badge-font-size, var(--ui-font-size-xs, #{t.$font-size-xs}));
+    @include t.token(font-size, font-size-xs, badge);
     // @desc Font weight
-    --_font-weight: var(--ui-badge-font-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
+    @include t.token(font-weight, font-weight-medium, badge);
     // @desc Corner radius
-    --_radius: var(--ui-badge-radius, var(--ui-radius-full, #{t.$radius-full}));
+    @include t.token(radius, radius-full, badge);
     // @desc Background color
-    --_bg: var(--ui-badge-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+    @include t.token(bg, color-bg-muted, badge);
     // @desc Text color
-    --_color: var(--ui-badge-color, var(--ui-color-text, #{t.$color-text}));
+    @include t.token(color, color-text, badge);
   }
 
   // @modifier size
   .badge--sm {
     // @desc Overall height at small size
-    --_height: var(--ui-badge-height-sm, var(--ui-row, #{t.$row}));
+    @include t.token(height, row, badge, height-sm);
     // @desc Horizontal padding at small size
-    --_padding-x: var(--ui-badge-padding-x-sm, var(--ui-space-0, #{t.$space-0}));
+    @include t.token(padding-x, space-0, badge, padding-x-sm);
     // @desc Font size at small size
-    --_font-size: var(--ui-badge-font-size-sm, var(--ui-font-size-relative-sm, #{t.$font-size-relative-sm}));
+    @include t.token(font-size, font-size-relative-sm, badge, font-size-sm);
   }
 
   .badge--lg {
     // @desc Overall height at large size
-    --_height: var(--ui-badge-height-lg, var(--ui-row-2, #{t.$row-2}));
+    @include t.token(height, row-2, badge, height-lg);
     // @desc Horizontal padding at large size
-    --_padding-x: var(--ui-badge-padding-x-lg, var(--ui-space-2, #{t.$space-2}));
+    @include t.token(padding-x, space-2, badge, padding-x-lg);
     // @desc Font size at large size
-    --_font-size: var(--ui-badge-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
+    @include t.token(font-size, font-size-md, badge, font-size-lg);
   }
 
   // @modifier variant
   .badge--primary {
-    --_accent: var(--ui-color-primary, #{t.$color-primary});
-    --_bg: var(--ui-color-primary, #{t.$color-primary});
-    --_color: var(--ui-color-text-inverse, #{t.$color-text-inverse});
+    @include t.token(accent, color-primary);
+    @include t.token(bg, color-primary);
+    @include t.token(color, color-text-inverse);
   }
 
   .badge--success {
-    --_accent: var(--ui-color-success, #{t.$color-success});
-    --_bg: var(--ui-color-success, #{t.$color-success});
-    --_color: var(--ui-color-text-inverse, #{t.$color-text-inverse});
+    @include t.token(accent, color-success);
+    @include t.token(bg, color-success);
+    @include t.token(color, color-text-inverse);
   }
 
   .badge--warning {
-    --_accent: var(--ui-color-warning, #{t.$color-warning});
-    --_bg: var(--ui-color-warning, #{t.$color-warning});
-    --_color: var(--ui-color-text, #{t.$color-text});
+    @include t.token(accent, color-warning);
+    @include t.token(bg, color-warning);
+    @include t.token(color, color-text);
   }
 
   .badge--danger {
-    --_accent: var(--ui-color-danger, #{t.$color-danger});
-    --_bg: var(--ui-color-danger, #{t.$color-danger});
-    --_color: var(--ui-color-text-inverse, #{t.$color-text-inverse});
+    @include t.token(accent, color-danger);
+    @include t.token(bg, color-danger);
+    @include t.token(color, color-text-inverse);
   }
 }
 

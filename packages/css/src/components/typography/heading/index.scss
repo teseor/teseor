@@ -6,65 +6,64 @@
 @layer components.tokens {
   .heading {
     // @desc Font size
-    --_font-size: var(--ui-heading-font-size, var(--ui-font-size-xl, #{t.$font-size-xl}));
+    @include t.token(font-size, font-size-xl, heading);
     // @desc Line height
-    --_line-height: var(--ui-heading-line-height, var(--ui-line-height-xl, #{t.$line-height-xl}));
+    @include t.token(line-height, line-height-xl, heading);
     // @desc Weight
-    --_weight: var(--ui-heading-weight, var(--ui-font-weight-bold, #{t.$font-weight-bold}));
+    @include t.token(weight, font-weight-bold, heading);
     // @desc Text color
-    --_color: var(--ui-heading-color, var(--ui-color-text, #{t.$color-text}));
+    @include t.token(color, color-text, heading);
   }
 
   // @modifier size
   .heading--4xl {
     // @desc Font size 4xl
-    --_font-size: var(--ui-heading-font-size-4xl, var(--ui-font-size-4xl, #{t.$font-size-4xl}));
+    @include t.token(font-size, font-size-4xl, heading, font-size-4xl);
     // @desc Line height 4xl
-    --_line-height: var(--ui-heading-line-height-4xl, var(--ui-line-height-4xl, #{t.$line-height-4xl}));
+    @include t.token(line-height, line-height-4xl, heading, line-height-4xl);
   }
 
   .heading--3xl {
     // @desc Font size 3xl
-    --_font-size: var(--ui-heading-font-size-3xl, var(--ui-font-size-3xl, #{t.$font-size-3xl}));
+    @include t.token(font-size, font-size-3xl, heading, font-size-3xl);
     // @desc Line height 3xl
-    --_line-height: var(--ui-heading-line-height-3xl, var(--ui-line-height-3xl, #{t.$line-height-3xl}));
+    @include t.token(line-height, line-height-3xl, heading, line-height-3xl);
   }
 
   .heading--2xl {
     // @desc Font size 2xl
-    --_font-size: var(--ui-heading-font-size-2xl, var(--ui-font-size-2xl, #{t.$font-size-2xl}));
+    @include t.token(font-size, font-size-2xl, heading, font-size-2xl);
     // @desc Line height 2xl
-    --_line-height: var(--ui-heading-line-height-2xl, var(--ui-line-height-2xl, #{t.$line-height-2xl}));
+    @include t.token(line-height, line-height-2xl, heading, line-height-2xl);
   }
 
   .heading--xl {
     // @desc Font size at extra-large size
-    --_font-size: var(--ui-heading-font-size-xl, var(--ui-font-size-xl, #{t.$font-size-xl}));
+    @include t.token(font-size, font-size-xl, heading, font-size-xl);
     // @desc Line height at extra-large size
-    --_line-height: var(--ui-heading-line-height-xl, var(--ui-line-height-xl, #{t.$line-height-xl}));
+    @include t.token(line-height, line-height-xl, heading, line-height-xl);
   }
 
   .heading--lg {
     // @desc Font size at large size
-    --_font-size: var(--ui-heading-font-size-lg, var(--ui-font-size-lg, #{t.$font-size-lg}));
+    @include t.token(font-size, font-size-lg, heading, font-size-lg);
     // @desc Line height at large size
-    --_line-height: var(--ui-heading-line-height-lg, var(--ui-line-height-lg, #{t.$line-height-lg}));
+    @include t.token(line-height, line-height-lg, heading, line-height-lg);
   }
 
   .heading--md {
     // @desc Font size at medium size
-    --_font-size: var(--ui-heading-font-size-md, var(--ui-font-size-md, #{t.$font-size-md}));
+    @include t.token(font-size, font-size-md, heading, font-size-md);
     // @desc Line height at medium size
-    --_line-height: var(--ui-heading-line-height-md, var(--ui-line-height-tight-md, #{t.$line-height-tight-md}));
+    @include t.token(line-height, line-height-tight-md, heading, line-height-md);
   }
 
   .heading--sm {
     // @desc Font size at small size
-    --_font-size: var(--ui-heading-font-size-sm, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    @include t.token(font-size, font-size-sm, heading, font-size-sm);
     // @desc Line height at small size
-    --_line-height: var(--ui-heading-line-height-sm, var(--ui-line-height-tight-sm, #{t.$line-height-tight-sm}));
+    @include t.token(line-height, line-height-tight-sm, heading, line-height-sm);
   }
-
 }
 
 @layer components.styles {

@@ -9,65 +9,65 @@
 @layer components.tokens {
   .toast-viewport {
     // @desc Z-index stacking order
-    --_z-index: var(--ui-toast-viewport-z-index, var(--ui-z-index-toast, #{t.$z-index-toast}));
+    @include t.token(z-index, z-index-toast, toast-viewport);
     // @desc Viewport gap
-    --_gap: var(--ui-toast-viewport-gap, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(gap, space-1, toast-viewport);
     // @desc Viewport padding
-    --_padding: var(--ui-toast-viewport-padding, var(--ui-space-2, #{t.$space-2}));
+    @include t.token(padding, space-2, toast-viewport);
     // @desc Viewport max width
-    --_max-width: var(--ui-toast-viewport-max-width, #{t.$toast-viewport-max-width});
+    --_max-width: var(--ui-toast-viewport-max-width, #{t.$toast-viewport-max-width}); // token-lint-ignore
   }
 
   .toast {
     // @desc Border width
-    --_border-width: var(--ui-toast-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    @include t.token(border-width, border-width-sm, toast);
     // @desc Title font weight
-    --_title-font-weight: var(--ui-toast-title-font-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
+    @include t.token(title-font-weight, font-weight-medium, toast);
     // @desc Title line height
-    --_title-line-height: var(--ui-toast-title-line-height, var(--ui-row-1, var(--ui-row, #{t.$row})));
+    @include t.token(title-line-height, row-1, toast);
     // @desc Description font size
-    --_description-font-size: var(--ui-toast-description-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    @include t.token(description-font-size, font-size-sm, toast);
     // @desc Description color
-    --_description-color: var(--ui-toast-description-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    @include t.token(description-color, color-text-muted, toast);
     // @desc Close hover color
-    --_close-hover-color: var(--ui-toast-close-hover-color, var(--ui-color-text, #{t.$color-text}));
+    @include t.token(close-hover-color, color-text, toast);
     // @desc Enter duration
-    --_enter-duration: var(--ui-toast-enter-duration, var(--ui-duration-normal, #{t.$duration-normal}));
+    @include t.token(enter-duration, duration-normal, toast);
     // @desc Enter timing function
-    --_enter-timing: var(--ui-toast-enter-timing, var(--ui-ease-out, #{t.$ease-out}));
+    @include t.token(enter-timing, ease-out, toast);
     // @desc Exit duration
-    --_exit-duration: var(--ui-toast-exit-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    @include t.token(exit-duration, duration-fast, toast);
     // @desc Exit timing function
-    --_exit-timing: var(--ui-toast-exit-timing, var(--ui-ease-in, #{t.$ease-in}));
+    @include t.token(exit-timing, ease-in, toast);
     // @desc Padding on all sides
-    --_padding: var(--ui-toast-padding, var(--ui-space-2, #{t.$space-2}));
+    @include t.token(padding, space-2, toast);
     // @desc Gap between children
-    --_gap: var(--ui-toast-gap, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(gap, space-1, toast);
     // @desc Corner radius
-    --_radius: var(--ui-toast-radius, var(--ui-radius-md, #{t.$radius-md}));
+    @include t.token(radius, radius-md, toast);
     // @desc Background color
-    --_bg: var(--ui-toast-bg, var(--ui-color-bg, #{t.$color-bg}));
+    @include t.token(bg, color-bg, toast);
     // @desc Border color
-    --_border-color: var(--ui-toast-border-color, var(--ui-color-border, #{t.$color-border}));
+    @include t.token(border-color, color-border, toast);
     // @desc Box shadow
-    --_shadow: var(--ui-toast-shadow, var(--ui-shadow-lg, #{t.$shadow-lg}));
+    @include t.token(shadow, shadow-lg, toast);
   }
 
   // @modifier variant
   .toast--success {
-    --_border-color: var(--ui-color-success, #{t.$color-success});
+    @include t.token(border-color, color-success);
   }
 
   .toast--warning {
-    --_border-color: var(--ui-color-warning, #{t.$color-warning});
+    @include t.token(border-color, color-warning);
   }
 
   .toast--danger {
-    --_border-color: var(--ui-color-danger, #{t.$color-danger});
+    @include t.token(border-color, color-danger);
   }
 
   .toast--info {
-    --_border-color: var(--ui-color-primary, #{t.$color-primary});
+    @include t.token(border-color, color-primary);
   }
 }
 
