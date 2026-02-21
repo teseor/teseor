@@ -21,11 +21,11 @@ function findContentFiles(baseDir: string): ContentFile[] {
     const p = join(baseDir, entry);
     if (!statSync(p).isDirectory()) continue;
 
-    const contentFiles = readdirSync(p).filter((f) => f.endsWith('.content.yml'));
-    if (contentFiles.length > 0) {
+    const contentPath = join(p, 'content.yml');
+    if (existsSync(contentPath)) {
       files.push({
         componentDir: p,
-        contentPath: join(p, contentFiles[0]),
+        contentPath,
         apiPath: join(p, 'api.json'),
       });
     } else {
