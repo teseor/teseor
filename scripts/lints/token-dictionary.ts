@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { BANNED_PREFIXES, TOKEN_DICTIONARY } from '../shared/token-dictionary.js';
@@ -46,7 +46,8 @@ export function lintTokenDictionary(srcDir: string, appsDir: string): void {
   }
 
   // 2. Check for banned legacy prefixes across all SCSS
-  const allFiles = [...findScssFiles(srcDir), ...findScssFiles(appsDir)];
+  const appFiles = existsSync(appsDir) ? findScssFiles(appsDir) : [];
+  const allFiles = [...findScssFiles(srcDir), ...appFiles];
 
   for (const file of allFiles) {
     const content = readFileSync(file, 'utf-8');
