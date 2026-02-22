@@ -1,11 +1,13 @@
+@use '../../config/tokens/variables' as t;
+
 // @component container
 // @element div
 
 @layer primitives {
   .container {
-    --_unit: var(--ui-unit);
-    --_space-4: var(--ui-space-4);
-    max-inline-size: var(--container-width, calc(var(--_unit) * 120));
+    @include t.token(unit, unit);
+    @include t.token(space-4, space-4);
+    max-inline-size: var(--ui-container-width, calc(var(--_unit) * 120));
     padding-inline: var(--_space-4);
   }
 
@@ -14,11 +16,18 @@
     margin-inline: auto;
   }
 
-  // Size modifiers
-  // @modifier size
-  .container--sm { --container-width: calc(var(--_unit) * 80); }
-  .container--md { --container-width: calc(var(--_unit) * 100); }
-  .container--lg { --container-width: calc(var(--_unit) * 120); }
-  .container--xl { --container-width: calc(var(--_unit) * 160); }
+  $size-widths: (
+    xs: calc(var(--_unit) * 60),
+    sm: calc(var(--_unit) * 80),
+    md: calc(var(--_unit) * 100),
+    lg: calc(var(--_unit) * 120),
+    xl: calc(var(--_unit) * 160),
+  );
+
+  // @modifier size xs, sm, md, lg, xl
+  @each $name, $width in $size-widths {
+    .container--#{$name} { --ui-container-width: #{$width}; }
+  }
+
   .container--full { max-inline-size: none; }
 }

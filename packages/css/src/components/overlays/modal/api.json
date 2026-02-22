@@ -3,13 +3,10 @@
   "name": "modal",
   "element": "div",
   "modifiers": {
-    "size": {
-      "values": ["sm", "lg", "full"]
-    },
-    "entering": {
+    "animate": {
       "type": "boolean"
     },
-    "visible": {
+    "entering": {
       "type": "boolean"
     },
     "exiting": {
@@ -18,82 +15,118 @@
     "hidden": {
       "type": "boolean"
     },
-    "animate": {
+    "size": {
+      "values": ["xs", "sm", "md", "lg", "xl"]
+    },
+    "visible": {
       "type": "boolean"
     }
   },
   "elements": {
-    "content": {},
-    "body": {}
+    "body": {},
+    "content": {}
   },
   "cssVars": [
     {
-      "name": "--ui-modal-transition-duration",
-      "default": "var(--ui-duration-normal)",
-      "defaultValue": "200ms",
-      "description": "Transition duration"
-    },
-    {
-      "name": "--ui-modal-transition-timing",
-      "default": "var(--ui-ease-default)",
-      "description": "Transition timing function"
-    },
-    {
-      "name": "--ui-modal-viewport-padding",
-      "default": "calc(var(--ui-unit) * 2)",
-      "defaultValue": "16px",
-      "description": "Viewport padding"
-    },
-    {
       "name": "--ui-modal-bg",
-      "default": "var(--ui-color-bg)",
-      "description": "Background color"
-    },
-    {
-      "name": "--ui-modal-radius",
-      "default": "var(--ui-radius-lg)",
-      "defaultValue": "16px",
-      "description": "Corner radius"
-    },
-    {
-      "name": "--ui-modal-shadow",
-      "default": "0 calc(var(--ui-unit) * 3) calc(var(--ui-unit) * 6) rgb(0 0 0 / 0.25)",
-      "description": "Box shadow"
-    },
-    {
-      "name": "--ui-modal-padding",
-      "default": "calc(var(--ui-unit) * 3)",
-      "defaultValue": "24px",
-      "description": "Padding on all sides"
-    },
-    {
-      "name": "--ui-modal-max-width",
-      "default": "calc(var(--ui-unit) * 60)",
-      "defaultValue": "480px",
-      "description": "Maximum width"
+      "default": "--ui-color-bg",
+      "description": "Background color",
+      "type": "color"
     },
     {
       "name": "--ui-modal-max-height",
-      "default": "calc(100vh - var(--ui-unit) * 8)",
-      "description": "Maximum height"
+      "default": "--ui-viewport-max-height",
+      "description": "Maximum height",
+      "type": "dimension"
     },
     {
-      "name": "--ui-modal-z",
-      "default": "var(--ui-z-index-modal)",
-      "defaultValue": "400",
-      "description": "Z-index stacking order"
+      "name": "--ui-modal-max-width",
+      "default": "--ui-unit-60",
+      "defaultValue": "480px",
+      "description": "Maximum width",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-modal-max-width-xs",
+      "default": "--ui-unit-25",
+      "defaultValue": "200px",
+      "description": "Maximum width at xs size",
+      "type": "dimension"
     },
     {
       "name": "--ui-modal-max-width-sm",
-      "default": "calc(var(--ui-unit) * 40)",
+      "default": "--ui-unit-40",
       "defaultValue": "320px",
-      "description": "Maximum width at small size"
+      "description": "Maximum width at sm size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-modal-max-width-md",
+      "default": "--ui-unit-60",
+      "defaultValue": "480px",
+      "description": "Maximum width at md size",
+      "type": "dimension"
     },
     {
       "name": "--ui-modal-max-width-lg",
-      "default": "calc(var(--ui-unit) * 80)",
+      "default": "--ui-unit-80",
       "defaultValue": "640px",
-      "description": "Maximum width at large size"
+      "description": "Maximum width at lg size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-modal-max-width-xl",
+      "default": "--ui-unit-80",
+      "defaultValue": "640px",
+      "description": "Maximum width at xl size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-modal-padding",
+      "default": "--ui-space-3",
+      "defaultValue": "24px",
+      "description": "Padding on all sides",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-modal-radius",
+      "default": "--ui-radius-lg",
+      "defaultValue": "16px",
+      "description": "Corner radius",
+      "type": "radius"
+    },
+    {
+      "name": "--ui-modal-shadow",
+      "default": "--ui-shadow-lg",
+      "description": "Box shadow",
+      "type": "shadow"
+    },
+    {
+      "name": "--ui-modal-transition-duration",
+      "default": "--ui-duration-normal",
+      "defaultValue": "200ms",
+      "description": "Transition duration",
+      "type": "duration"
+    },
+    {
+      "name": "--ui-modal-transition-timing",
+      "default": "--ui-ease-default",
+      "description": "Transition timing function",
+      "type": "easing"
+    },
+    {
+      "name": "--ui-modal-viewport-padding",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Viewport padding",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-modal-z",
+      "default": "--ui-z-index-modal",
+      "defaultValue": "400",
+      "description": "Z-index stacking order",
+      "type": "z-index"
     }
   ]
 }

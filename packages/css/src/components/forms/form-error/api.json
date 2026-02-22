@@ -8,26 +8,29 @@
   },
   "cssVars": [
     {
-      "name": "--ui-form-error-line-height",
-      "default": "var(--ui-line-height-tight-sm)",
-      "defaultValue": "16px",
-      "description": "Line height"
-    },
-    {
       "name": "--ui-form-error-color",
-      "default": "var(--ui-color-danger)",
-      "description": "Text color"
-    },
-    {
-      "name": "--ui-form-error-size",
-      "default": "var(--ui-font-size-sm)",
-      "defaultValue": "14px",
-      "description": "Overall size"
+      "default": "--ui-color-danger",
+      "description": "Text color",
+      "type": "color"
     },
     {
       "name": "--ui-form-error-gap",
       "default": "0",
       "description": "Gap between children"
+    },
+    {
+      "name": "--ui-form-error-line-height",
+      "default": "--ui-line-height-tight-sm",
+      "defaultValue": "16px",
+      "description": "Line height",
+      "type": "line-height"
+    },
+    {
+      "name": "--ui-form-error-size",
+      "default": "--ui-font-size-sm",
+      "defaultValue": "14px",
+      "description": "Overall size",
+      "type": "font-size"
     }
   ]
 }

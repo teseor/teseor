@@ -16,49 +16,52 @@
 @layer components.tokens {
   .progress-circle {
     // @desc Transition duration
-    --_transition-duration: var(--ui-progress-circle-transition-duration, var(--ui-duration-slow, #{t.$duration-slow}));
+    @include t.token(transition-duration, duration-slow, progress-circle);
     // @desc Transition timing function
-    --_transition-timing: var(--ui-progress-circle-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    @include t.token(transition-timing, ease-default, progress-circle);
     // @desc Overall size
-    --_size: var(--ui-progress-circle-size, calc(var(--ui-unit, #{t.$unit}) * 6));
+    @include t.token(size, space-6, progress-circle);
     // @desc Stroke width
-    --_stroke-width: var(--ui-progress-circle-stroke-width, #{t.$progress-circle-stroke-width});
+    --_stroke-width: var(--ui-progress-circle-stroke-width, #{t.$progress-circle-stroke-width}); // token-lint-ignore
     // @desc Fill area text color
-    --_fill-color: var(--ui-progress-circle-fill-color, var(--ui-color-primary, #{t.$color-primary}));
+    @include t.token(fill-color, color-primary, progress-circle);
     // @desc Track text color
-    --_track-color: var(--ui-progress-circle-track-color, var(--ui-color-border, #{t.$color-border}));
+    @include t.token(track-color, color-border, progress-circle);
     // @desc Value
-    --_value: var(--ui-progress-circle-value, 0);
-    --_circumference: 282.743;
+    --_value: var(--ui-progress-circle-value, 0); // token-lint-ignore
+    --_circumference: 282.743; // token-lint-ignore
   }
 
-  // @modifier size
-  .progress-circle--sm {
-    // @desc Overall size at small size
-    --_size: var(--ui-progress-circle-size-sm, calc(var(--ui-unit, #{t.$unit}) * 4));
-  }
+  $size-tokens: (
+    xs:  (size: space-3),
+    sm:  (size: space-4),
+    md:  (size: space-6),
+    lg:  (size: space-8),
+    xl:  (size: unit-12),
+  );
+  @include t.validate-size-tokens($size-tokens);
 
-  .progress-circle--lg {
-    // @desc Overall size at large size
-    --_size: var(--ui-progress-circle-size-lg, calc(var(--ui-unit, #{t.$unit}) * 8));
-  }
-
-  .progress-circle--xl {
-    // @desc Overall size at extra-large size
-    --_size: var(--ui-progress-circle-size-xl, calc(var(--ui-unit, #{t.$unit}) * 12));
+  // @modifier size xs, sm, md, lg, xl
+  @each $name, $tokens in $size-tokens {
+    .progress-circle--#{$name} {
+      @each $prop, $global in $tokens {
+        // @desc Override
+        @include t.token($prop, $global, progress-circle, #{$prop}-#{$name});
+      }
+    }
   }
 
   // @modifier variant
   .progress-circle--success {
-    --_fill-color: var(--ui-color-success, #{t.$color-success});
+    @include t.token(fill-color, color-success);
   }
 
   .progress-circle--warning {
-    --_fill-color: var(--ui-color-warning, #{t.$color-warning});
+    @include t.token(fill-color, color-warning);
   }
 
   .progress-circle--danger {
-    --_fill-color: var(--ui-color-danger, #{t.$color-danger});
+    @include t.token(fill-color, color-danger);
   }
 }
 

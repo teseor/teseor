@@ -4,7 +4,7 @@
   "element": "div",
   "modifiers": {
     "position": {
-      "values": ["top", "bottom", "visible", "hidden", "animate"]
+      "values": ["animate", "bottom", "hidden", "top", "visible"]
     }
   },
   "elements": {
@@ -13,89 +13,105 @@
   },
   "cssVars": [
     {
-      "name": "--ui-popover-line-height",
-      "default": "var(--ui-row-1)",
-      "defaultValue": "16px",
-      "description": "Line height"
-    },
-    {
-      "name": "--ui-popover-border-width",
-      "default": "var(--ui-border-width-sm)",
-      "defaultValue": "1px",
-      "description": "Border width"
-    },
-    {
-      "name": "--ui-popover-title-font-size",
-      "default": "var(--ui-font-size-md)",
-      "defaultValue": "16px",
-      "description": "Title font size"
-    },
-    {
-      "name": "--ui-popover-title-font-weight",
-      "default": "var(--ui-font-weight-semibold)",
-      "defaultValue": "600",
-      "description": "Title font weight"
-    },
-    {
-      "name": "--ui-popover-transition-duration",
-      "default": "var(--ui-duration-fast)",
-      "defaultValue": "100ms",
-      "description": "Transition duration"
-    },
-    {
-      "name": "--ui-popover-transition-timing",
-      "default": "var(--ui-ease-default)",
-      "description": "Transition timing function"
-    },
-    {
-      "name": "--ui-popover-header-spacing",
-      "default": "calc(var(--ui-unit) * 2)",
-      "defaultValue": "16px",
-      "description": "Header spacing"
+      "name": "--ui-popover-arrow-size",
+      "default": "--ui-unit",
+      "defaultValue": "8px",
+      "description": "Arrow size",
+      "type": "dimension"
     },
     {
       "name": "--ui-popover-bg",
-      "default": "var(--ui-color-bg)",
-      "description": "Background color"
+      "default": "--ui-color-bg",
+      "description": "Background color",
+      "type": "color"
     },
     {
       "name": "--ui-popover-border-color",
-      "default": "var(--ui-color-border)",
-      "description": "Border color"
+      "default": "--ui-color-border",
+      "description": "Border color",
+      "type": "color"
     },
     {
-      "name": "--ui-popover-radius",
-      "default": "var(--ui-radius-md)",
-      "defaultValue": "8px",
-      "description": "Corner radius"
+      "name": "--ui-popover-border-width",
+      "default": "--ui-border-width-sm",
+      "defaultValue": "1px",
+      "description": "Border width",
+      "type": "border-width"
     },
     {
-      "name": "--ui-popover-shadow",
-      "default": "0 calc(var(--ui-unit) / 2) calc(var(--ui-unit) * 2) rgb(0 0 0 / 0.15)",
-      "description": "Box shadow"
-    },
-    {
-      "name": "--ui-popover-padding",
-      "default": "calc(var(--ui-unit) * 2)",
+      "name": "--ui-popover-header-spacing",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
-      "description": "Padding on all sides"
+      "description": "Header spacing",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-popover-line-height",
+      "default": "--ui-row-1",
+      "defaultValue": "16px",
+      "description": "Line height",
+      "type": "dimension"
     },
     {
       "name": "--ui-popover-max-width",
-      "default": "calc(var(--ui-unit) * 40)",
+      "default": "--ui-unit-40",
       "defaultValue": "320px",
-      "description": "Maximum width"
+      "description": "Maximum width",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-popover-padding",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Padding on all sides",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-popover-radius",
+      "default": "--ui-radius-md",
+      "defaultValue": "8px",
+      "description": "Corner radius",
+      "type": "radius"
+    },
+    {
+      "name": "--ui-popover-shadow",
+      "default": "--ui-shadow-md",
+      "description": "Box shadow",
+      "type": "shadow"
+    },
+    {
+      "name": "--ui-popover-title-font-size",
+      "default": "--ui-font-size-md",
+      "defaultValue": "16px",
+      "description": "Title font size",
+      "type": "font-size"
+    },
+    {
+      "name": "--ui-popover-title-font-weight",
+      "default": "--ui-font-weight-semibold",
+      "defaultValue": "600",
+      "description": "Title font weight",
+      "type": "font-weight"
+    },
+    {
+      "name": "--ui-popover-transition-duration",
+      "default": "--ui-duration-fast",
+      "defaultValue": "100ms",
+      "description": "Transition duration",
+      "type": "duration"
+    },
+    {
+      "name": "--ui-popover-transition-timing",
+      "default": "--ui-ease-default",
+      "description": "Transition timing function",
+      "type": "easing"
     },
     {
       "name": "--ui-popover-z",
-      "default": "var(--ui-z-index-popover)",
+      "default": "--ui-z-index-popover",
       "defaultValue": "500",
-      "description": "Z-index stacking order"
-    },
-    {
-      "name": "--ui-popover-arrow-size",
-      "default": "calc(var(--ui-unit))",
-      "description": "Arrow size"
+      "description": "Z-index stacking order",
+      "type": "z-index"
     }
   ]
 }

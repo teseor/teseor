@@ -6,42 +6,42 @@
 @layer components.tokens {
   .radio-group {
     // @desc Line height
-    --_line-height: var(--ui-radio-group-line-height, var(--ui-line-height-tight-sm, #{t.$line-height-tight-sm}));
+    @include t.token(line-height, line-height-tight-sm, radio-group);
     // @desc Item line height
-    --_item-line-height: var(--ui-radio-group-item-line-height, var(--ui-row-1, #{t.$row-1}));
+    @include t.token(item-line-height, row-1, radio-group);
     // @desc Disabled opacity
-    --_disabled-opacity: var(--ui-radio-group-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
+    @include t.token(disabled-opacity, opacity-disabled, radio-group);
     // @desc Horizontal gap
-    --_horizontal-gap: var(--ui-radio-group-horizontal-gap, var(--ui-space-2, #{t.$space-2}));
+    @include t.token(horizontal-gap, space-2, radio-group);
     // @desc Spacing
-    --_spacing: var(--ui-radio-group-spacing, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(spacing, space-1, radio-group);
     // @desc Legend size
-    --_legend-size: var(--ui-radio-group-legend-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    @include t.token(legend-size, font-size-sm, radio-group);
     // @desc Legend weight
-    --_legend-weight: var(--ui-radio-group-legend-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
+    @include t.token(legend-weight, font-weight-medium, radio-group);
     // @desc Legend color
-    --_legend-color: var(--ui-radio-group-legend-color, var(--ui-color-text, #{t.$color-text}));
+    @include t.token(legend-color, color-text, radio-group);
     // @desc Legend spacing
-    --_legend-spacing: var(--ui-radio-group-legend-spacing, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(legend-spacing, space-1, radio-group);
     // @desc Item gap between children
-    --_item-gap: var(--ui-radio-group-item-gap, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(item-gap, space-1, radio-group);
   }
 
   // @modifier boolean compact
   .radio-group--compact {
     // @desc Spacing compact
-    --_spacing: var(--ui-radio-group-spacing-compact, 0);
+    --_spacing: var(--ui-radio-group-spacing-compact, 0); // token-lint-ignore
     // @desc Legend spacing compact
-    --_legend-spacing: var(--ui-radio-group-legend-spacing-compact, 0);
+    --_legend-spacing: var(--ui-radio-group-legend-spacing-compact, 0); // token-lint-ignore
     // @desc Item gap compact
-    --_item-gap: var(--ui-radio-group-item-gap-compact, 0);
+    --_item-gap: var(--ui-radio-group-item-gap-compact, 0); // token-lint-ignore
   }
 
   // @modifier state
   // @modifier boolean error
   .radio-group--error {
     // @desc Error color
-    --_legend-color: var(--ui-radio-group-error-color, var(--ui-color-danger, #{t.$color-danger}));
+    @include t.token(legend-color, color-danger, radio-group, error-color);
   }
 }
 

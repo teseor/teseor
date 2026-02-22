@@ -1,7 +1,7 @@
 // Auto-generated from api.json. Do not edit — run: pnpm generate:contract
 import { cx } from '../cx';
 
-export type RowSize = 'xs' | 'sm' | 'md' | 'lg' | 'start' | 'center' | 'end' | 'between';
+export type RowSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface RowProps {
   size?: RowSize;

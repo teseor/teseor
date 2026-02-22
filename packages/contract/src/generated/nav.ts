@@ -5,8 +5,8 @@ export type NavPills = 'pills';
 
 export interface NavProps {
   pills?: NavPills;
-  vertical?: boolean;
   responsive?: boolean;
+  vertical?: boolean;
 }
 
 export interface NavItemProps {
@@ -19,12 +19,11 @@ export const nav = Object.assign(
     if (!props) return cx('nav');
     return cx('nav', {
       pills: props.pills,
-      vertical: props.vertical,
       responsive: props.responsive,
+      vertical: props.vertical,
     });
   },
   {
-    list: (): string => cx('nav__list'),
     item: (props?: NavItemProps): string => {
       if (!props) return cx('nav__item');
       return cx('nav__item', {
@@ -32,5 +31,6 @@ export const nav = Object.assign(
         disabled: props.disabled,
       });
     },
+    list: (): string => cx('nav__list'),
   },
 );

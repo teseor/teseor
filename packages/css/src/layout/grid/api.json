@@ -9,12 +9,19 @@
     "subgrid": {
       "type": "boolean"
     },
-    "subgrid-rows": {
+    "subgrid-both": {
       "type": "boolean"
     },
-    "subgrid-both": {
+    "subgrid-rows": {
       "type": "boolean"
     }
   },
-  "cssVars": []
+  "cssVars": [
+    {
+      "name": "--ui-grid-space-4",
+      "default": "--ui-space-4",
+      "defaultValue": "32px",
+      "type": "dimension"
+    }
+  ]
 }

@@ -8,37 +8,37 @@
 @layer components.tokens {
   .disclosure {
     // @desc Trigger font weight
-    --_trigger-font-weight: var(--ui-disclosure-trigger-font-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
+    @include t.token(trigger-font-weight, font-weight-medium, disclosure);
     // @desc Trigger hover background
-    --_trigger-hover-bg: var(--ui-disclosure-trigger-hover-bg, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
+    @include t.token(trigger-hover-bg, color-bg-subtle, disclosure);
     // @desc Icon rotation transition duration
-    --_icon-transition-duration: var(--ui-disclosure-icon-transition-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    @include t.token(icon-transition-duration, duration-fast, disclosure);
     // @desc Transition timing function
-    --_transition-timing: var(--ui-disclosure-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    @include t.token(transition-timing, ease-default, disclosure);
     // @desc Content animation duration
-    --_animation-duration: var(--ui-disclosure-animation-duration, var(--ui-duration-normal, #{t.$duration-normal}));
+    @include t.token(animation-duration, duration-normal, disclosure);
     // @desc Trigger gap between label and icon
-    --_trigger-gap: var(--ui-disclosure-trigger-gap, var(--ui-space-2, #{t.$space-2}));
+    @include t.token(trigger-gap, space-2, disclosure);
     // @desc Animation slide offset
-    --_animation-offset: var(--ui-disclosure-animation-offset, calc(#{t.$unit} * -1));
+    --_animation-offset: var(--ui-disclosure-animation-offset, #{-(t.$unit)}); // token-lint-ignore
     // @desc Border color
-    --_border-color: var(--ui-disclosure-border-color, var(--ui-color-border, #{t.$color-border}));
+    @include t.token(border-color, color-border, disclosure);
     // @desc Border thickness
-    --_border-width: var(--ui-disclosure-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    @include t.token(border-width, border-width-sm, disclosure);
     // @desc Corner radius
-    --_radius: var(--ui-disclosure-radius, var(--ui-radius-md, calc(#{t.$unit} * 1)));
+    @include t.token(radius, radius-md, disclosure);
     // @desc Trigger overall height
-    --_trigger-height: var(--ui-disclosure-trigger-height, var(--ui-row-3, calc(#{t.$row} * 3)));
+    @include t.token(trigger-height, row-3, disclosure);
     // @desc Horizontal padding
-    --_padding-x: var(--ui-disclosure-padding-x, calc(#{t.$unit} * 2));
+    @include t.token(padding-x, space-2, disclosure);
     // @desc Vertical padding
-    --_padding-y: var(--ui-disclosure-padding-y, calc(#{t.$unit} * 2));
+    @include t.token(padding-y, space-2, disclosure);
   }
 
   // Borderless variant
   // @modifier boolean borderless
   .disclosure--borderless {
-    --_border-width: 0;
+    --_border-width: 0; // token-lint-ignore
   }
 }
 

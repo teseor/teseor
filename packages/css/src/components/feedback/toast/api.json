@@ -4,25 +4,22 @@
   "element": "div",
   "modifiers": {
     "variant": {
-      "values": ["success", "warning", "danger", "info"]
+      "values": ["danger", "info", "success", "warning"]
     }
   },
   "elements": {
-    "icon": {},
-    "content": {},
-    "title": {},
-    "description": {},
     "action": {},
-    "close": {}
+    "close": {},
+    "content": {},
+    "description": {},
+    "icon": {},
+    "title": {}
   },
   "relatedComponents": [
     {
       "name": "toast-viewport",
       "modifiers": {
-        "top-end": {
-          "type": "boolean"
-        },
-        "top-start": {
+        "bottom-center": {
           "type": "boolean"
         },
         "bottom-end": {
@@ -34,7 +31,10 @@
         "top-center": {
           "type": "boolean"
         },
-        "bottom-center": {
+        "top-end": {
+          "type": "boolean"
+        },
+        "top-start": {
           "type": "boolean"
         }
       }
@@ -42,117 +42,137 @@
   ],
   "cssVars": [
     {
-      "name": "--ui-toast-viewport-z-index",
-      "default": "var(--ui-z-index-toast)",
-      "defaultValue": "700",
-      "description": "Z-index stacking order"
-    },
-    {
-      "name": "--ui-toast-viewport-gap",
-      "default": "calc(var(--ui-unit) * 1)",
-      "defaultValue": "8px",
-      "description": "Viewport gap"
-    },
-    {
-      "name": "--ui-toast-viewport-padding",
-      "default": "calc(var(--ui-unit) * 2)",
-      "defaultValue": "16px",
-      "description": "Viewport padding"
-    },
-    {
-      "name": "--ui-toast-viewport-max-width",
-      "default": "var(--ui-toast-viewport-max-width)",
-      "defaultValue": "420px",
-      "description": "Viewport max width"
-    },
-    {
-      "name": "--ui-toast-border-width",
-      "default": "var(--ui-border-width-sm)",
-      "defaultValue": "1px",
-      "description": "Border width"
-    },
-    {
-      "name": "--ui-toast-title-font-weight",
-      "default": "var(--ui-font-weight-medium)",
-      "defaultValue": "500",
-      "description": "Title font weight"
-    },
-    {
-      "name": "--ui-toast-title-line-height",
-      "default": "var(--ui-row-1)",
-      "defaultValue": "16px",
-      "description": "Title line height"
-    },
-    {
-      "name": "--ui-toast-description-font-size",
-      "default": "var(--ui-font-size-sm)",
-      "defaultValue": "14px",
-      "description": "Description font size"
-    },
-    {
-      "name": "--ui-toast-description-color",
-      "default": "var(--ui-color-text-muted)",
-      "description": "Description color"
-    },
-    {
-      "name": "--ui-toast-close-hover-color",
-      "default": "var(--ui-color-text)",
-      "description": "Close hover color"
-    },
-    {
-      "name": "--ui-toast-enter-duration",
-      "default": "var(--ui-duration-normal)",
-      "defaultValue": "200ms",
-      "description": "Enter duration"
-    },
-    {
-      "name": "--ui-toast-enter-timing",
-      "default": "var(--ui-ease-out)",
-      "description": "Enter timing function"
-    },
-    {
-      "name": "--ui-toast-exit-duration",
-      "default": "var(--ui-duration-fast)",
-      "defaultValue": "100ms",
-      "description": "Exit duration"
-    },
-    {
-      "name": "--ui-toast-exit-timing",
-      "default": "var(--ui-ease-in)",
-      "description": "Exit timing function"
-    },
-    {
-      "name": "--ui-toast-padding",
-      "default": "calc(var(--ui-unit) * 2)",
-      "defaultValue": "16px",
-      "description": "Padding on all sides"
-    },
-    {
-      "name": "--ui-toast-gap",
-      "default": "calc(var(--ui-unit) * 1)",
-      "defaultValue": "8px",
-      "description": "Gap between children"
-    },
-    {
-      "name": "--ui-toast-radius",
-      "default": "var(--ui-radius-md)",
-      "defaultValue": "8px",
-      "description": "Corner radius"
-    },
-    {
       "name": "--ui-toast-bg",
-      "default": "var(--ui-color-bg)",
-      "description": "Background color"
+      "default": "--ui-color-bg",
+      "description": "Background color",
+      "type": "color"
     },
     {
       "name": "--ui-toast-border-color",
-      "default": "var(--ui-color-border)",
-      "description": "Border color"
+      "default": "--ui-color-border",
+      "description": "Border color",
+      "type": "color"
+    },
+    {
+      "name": "--ui-toast-border-width",
+      "default": "--ui-border-width-sm",
+      "defaultValue": "1px",
+      "description": "Border width",
+      "type": "border-width"
+    },
+    {
+      "name": "--ui-toast-close-hover-color",
+      "default": "--ui-color-text",
+      "description": "Close hover color",
+      "type": "color"
+    },
+    {
+      "name": "--ui-toast-description-color",
+      "default": "--ui-color-text-muted",
+      "description": "Description color",
+      "type": "color"
+    },
+    {
+      "name": "--ui-toast-description-font-size",
+      "default": "--ui-font-size-sm",
+      "defaultValue": "14px",
+      "description": "Description font size",
+      "type": "font-size"
+    },
+    {
+      "name": "--ui-toast-enter-duration",
+      "default": "--ui-duration-normal",
+      "defaultValue": "200ms",
+      "description": "Enter duration",
+      "type": "duration"
+    },
+    {
+      "name": "--ui-toast-enter-timing",
+      "default": "--ui-ease-out",
+      "description": "Enter timing function",
+      "type": "easing"
+    },
+    {
+      "name": "--ui-toast-exit-duration",
+      "default": "--ui-duration-fast",
+      "defaultValue": "100ms",
+      "description": "Exit duration",
+      "type": "duration"
+    },
+    {
+      "name": "--ui-toast-exit-timing",
+      "default": "--ui-ease-in",
+      "description": "Exit timing function",
+      "type": "easing"
+    },
+    {
+      "name": "--ui-toast-gap",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Gap between children",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-toast-padding",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Padding on all sides",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-toast-radius",
+      "default": "--ui-radius-md",
+      "defaultValue": "8px",
+      "description": "Corner radius",
+      "type": "radius"
     },
     {
       "name": "--ui-toast-shadow",
-      "default": "var(--ui-shadow-lg)",
-      "description": "Box shadow"
+      "default": "--ui-shadow-lg",
+      "description": "Box shadow",
+      "type": "shadow"
+    },
+    {
+      "name": "--ui-toast-title-font-weight",
+      "default": "--ui-font-weight-medium",
+      "defaultValue": "500",
+      "description": "Title font weight",
+      "type": "font-weight"
+    },
+    {
+      "name": "--ui-toast-title-line-height",
+      "default": "--ui-row-1",
+      "defaultValue": "16px",
+      "description": "Title line height",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-toast-viewport-gap",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Viewport gap",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-toast-viewport-max-width",
+      "default": "--ui-toast-viewport-max-width",
+      "defaultValue": "420px",
+      "description": "Viewport max width",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-toast-viewport-padding",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Viewport padding",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-toast-viewport-z-index",
+      "default": "--ui-z-index-toast",
+      "defaultValue": "700",
+      "description": "Z-index stacking order",
+      "type": "z-index"
     }
   ]
 }

@@ -5,19 +5,19 @@
   "modifiers": {},
   "relatedComponents": [
     {
-      "name": "topbar"
+      "name": "container"
     },
     {
-      "name": "sidebar"
+      "name": "footer"
     },
     {
       "name": "main"
     },
     {
-      "name": "container"
+      "name": "sidebar"
     },
     {
-      "name": "footer"
+      "name": "topbar"
     }
   ],
   "cssVars": []

@@ -1,7 +1,7 @@
 // Auto-generated from api.json. Do not edit — run: pnpm generate:contract
 import { cx } from '../cx';
 
-export type ToastVariant = 'success' | 'warning' | 'danger' | 'info';
+export type ToastVariant = 'danger' | 'info' | 'success' | 'warning';
 
 export interface ToastProps {
   variant?: ToastVariant;
@@ -15,32 +15,32 @@ export const toast = Object.assign(
     });
   },
   {
-    icon: (): string => cx('toast__icon'),
-    content: (): string => cx('toast__content'),
-    title: (): string => cx('toast__title'),
-    description: (): string => cx('toast__description'),
     action: (): string => cx('toast__action'),
     close: (): string => cx('toast__close'),
+    content: (): string => cx('toast__content'),
+    description: (): string => cx('toast__description'),
+    icon: (): string => cx('toast__icon'),
+    title: (): string => cx('toast__title'),
   },
 );
 
 export interface ToastViewportProps {
-  topEnd?: boolean;
-  topStart?: boolean;
+  bottomCenter?: boolean;
   bottomEnd?: boolean;
   bottomStart?: boolean;
   topCenter?: boolean;
-  bottomCenter?: boolean;
+  topEnd?: boolean;
+  topStart?: boolean;
 }
 
 export function toastViewport(props?: ToastViewportProps): string {
   if (!props) return cx('toast-viewport');
   return cx('toast-viewport', {
-    'top-end': props.topEnd,
-    'top-start': props.topStart,
+    'bottom-center': props.bottomCenter,
     'bottom-end': props.bottomEnd,
     'bottom-start': props.bottomStart,
     'top-center': props.topCenter,
-    'bottom-center': props.bottomCenter,
+    'top-end': props.topEnd,
+    'top-start': props.topStart,
   });
 }

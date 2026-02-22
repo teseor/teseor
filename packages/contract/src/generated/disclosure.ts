@@ -2,21 +2,21 @@
 import { cx } from '../cx';
 
 export interface DisclosureProps {
-  borderless?: boolean;
   animate?: boolean;
+  borderless?: boolean;
 }
 
 export const disclosure = Object.assign(
   (props?: DisclosureProps): string => {
     if (!props) return cx('disclosure');
     return cx('disclosure', {
-      borderless: props.borderless,
       animate: props.animate,
+      borderless: props.borderless,
     });
   },
   {
-    trigger: (): string => cx('disclosure__trigger'),
-    icon: (): string => cx('disclosure__icon'),
     content: (): string => cx('disclosure__content'),
+    icon: (): string => cx('disclosure__icon'),
+    trigger: (): string => cx('disclosure__trigger'),
   },
 );

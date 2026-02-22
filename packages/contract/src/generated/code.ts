@@ -1,7 +1,7 @@
 // Auto-generated from api.json. Do not edit — run: pnpm generate:contract
 import { cx } from '../cx';
 
-export type CodeSize = 'sm';
+export type CodeSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface CodeProps {
   size?: CodeSize;

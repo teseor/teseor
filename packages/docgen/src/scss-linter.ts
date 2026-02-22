@@ -190,23 +190,26 @@ export function noGlobalAliases(root: Root): Diagnostic[] {
 
 // Known global token prefixes (sorted longest-first for matching)
 const GLOBAL_TOKEN_PREFIXES = [
-  'letter-spacing',
   'border-width',
-  'font-weight',
-  'icon-size',
-  'line-height',
-  'font-size',
-  'z-index',
+  'body',
   'body-sm',
   'caption',
   'color',
+  'container',
   'ctx',
   'duration',
   'ease',
   'eyebrow',
+  'focus-ring',
   'font',
+  'font-size',
+  'font-weight',
   'heading',
+  'icon-size',
+  'icon-stroke',
   'lead',
+  'letter-spacing',
+  'line-height',
   'opacity',
   'overlay',
   'radius',
@@ -214,9 +217,12 @@ const GLOBAL_TOKEN_PREFIXES = [
   'scale',
   'shadow',
   'size',
+  'slider',
   'space',
+  'stripe',
   'unit',
-  'body',
+  'viewport',
+  'z-index',
 ];
 
 function isGlobalToken(tokenName: string): boolean {
@@ -447,12 +453,229 @@ export function noScssInStyles(root: Root): Diagnostic[] {
   return diagnostics;
 }
 
+// --- Rule: layer structure enforcement ---
+// Components must have components.tokens then components.styles (in order).
+// Layouts must have a single primitives layer.
+// No unexpected layer names.
+
+const COMPONENT_LAYERS = ['components.tokens', 'components.styles'];
+const LAYOUT_LAYERS = ['primitives'];
+const ALLOWED_LAYERS = new Set([...COMPONENT_LAYERS, ...LAYOUT_LAYERS]);
+
+export function requireLayerStructure(root: Root): Diagnostic[] {
+  const diagnostics: Diagnostic[] = [];
+  const layers: { name: string; line: number }[] = [];
+
+  for (const node of root.nodes ?? []) {
+    if (node.type === 'atrule' && node.name === 'layer') {
+      layers.push({
+        name: node.params,
+        line: node.source?.start?.line ?? 0,
+      });
+    }
+  }
+
+  if (layers.length === 0) {
+    diagnostics.push({ line: 1, message: 'no @layer blocks found' });
+    return diagnostics;
+  }
+
+  // Check for unexpected layer names
+  for (const layer of layers) {
+    if (!ALLOWED_LAYERS.has(layer.name)) {
+      diagnostics.push({
+        line: layer.line,
+        message: `unexpected @layer ${layer.name} — expected ${[...ALLOWED_LAYERS].join(', ')}`,
+      });
+    }
+  }
+
+  const layerNames = layers.map((l) => l.name);
+  const isLayout = layerNames.includes('primitives');
+  const isComponent =
+    layerNames.includes('components.tokens') || layerNames.includes('components.styles');
+
+  if (isLayout && isComponent) {
+    diagnostics.push({
+      line: layers[0].line,
+      message: 'file mixes component layers and primitives layer',
+    });
+    return diagnostics;
+  }
+
+  if (isComponent) {
+    const compLayers = layers.filter((l) => COMPONENT_LAYERS.includes(l.name));
+    const names = compLayers.map((l) => l.name);
+
+    if (!names.includes('components.tokens')) {
+      diagnostics.push({ line: 1, message: 'missing @layer components.tokens' });
+    }
+    if (!names.includes('components.styles')) {
+      diagnostics.push({ line: 1, message: 'missing @layer components.styles' });
+    }
+
+    // Check order: tokens before styles
+    const tokensIdx = names.indexOf('components.tokens');
+    const stylesIdx = names.indexOf('components.styles');
+    if (tokensIdx !== -1 && stylesIdx !== -1 && tokensIdx > stylesIdx) {
+      diagnostics.push({
+        line: compLayers[tokensIdx].line,
+        message: '@layer components.tokens must appear before @layer components.styles',
+      });
+    }
+  }
+
+  if (isLayout) {
+    const primLayers = layers.filter((l) => l.name === 'primitives');
+    if (primLayers.length > 1) {
+      diagnostics.push({
+        line: primLayers[1].line,
+        message: 'layouts should have a single @layer primitives block',
+      });
+    }
+  }
+
+  return diagnostics;
+}
+
+// --- Rule: no bare declarations outside @layer ---
+// All CSS rules must live inside @layer blocks. Allowed outside: @use, @forward, comments, SCSS vars.
+
+export function noBareDeclarations(root: Root): Diagnostic[] {
+  const diagnostics: Diagnostic[] = [];
+
+  for (const node of root.nodes ?? []) {
+    if (node.type === 'comment') continue;
+
+    if (node.type === 'atrule') {
+      const name = node.name;
+      // Allow @use, @forward, @layer, @property (CSS registered properties must be at root)
+      if (name === 'use' || name === 'forward' || name === 'layer' || name === 'property') continue;
+      diagnostics.push({
+        line: node.source?.start?.line ?? 0,
+        message: `@${name} must be inside an @layer block`,
+      });
+      continue;
+    }
+
+    if (node.type === 'rule') {
+      diagnostics.push({
+        line: node.source?.start?.line ?? 0,
+        message: `selector ${node.selector} must be inside an @layer block`,
+      });
+      continue;
+    }
+
+    // Declaration at root level (SCSS $var is fine — PostCSS sees them as declarations)
+    if (node.type === 'decl') {
+      // SCSS variables ($var) compile away — allow them
+      if (node.prop.startsWith('$')) continue;
+      diagnostics.push({
+        line: node.source?.start?.line ?? 0,
+        message: `${node.prop} declaration must be inside an @layer block`,
+      });
+    }
+  }
+
+  return diagnostics;
+}
+
+// --- Rule: BEM selector validation ---
+// All class selectors must match the component's BEM namespace.
+// Valid: .{name}, .{name}--{mod}, .{name}__{elem}, .{name}__{elem}--{mod}
+// SCSS nesting (&), interpolation (#{...}), pseudo-classes/elements, attribute selectors are allowed.
+
+function extractClassNames(selector: string): string[] {
+  const classes: string[] = [];
+  // Match class selectors, but stop at pseudo/attribute/combinator boundaries
+  // Skip selectors containing SCSS interpolation
+  if (selector.includes('#{')) return classes;
+
+  const parts = selector.split(/(?=[.#[:])|(?<=\s[>+~]\s)|\s+/);
+  for (const part of parts) {
+    const trimmed = part.trim();
+    if (!trimmed.startsWith('.')) continue;
+    // Skip & references (SCSS parent selector)
+    if (trimmed.startsWith('.&') || trimmed === '.') continue;
+    // Extract class name (stop at pseudo, attribute, or combinator)
+    const className = trimmed.slice(1).split(/[:[\s>+~(]/)[0];
+    if (className && !className.includes('&') && !className.includes('#')) {
+      classes.push(className);
+    }
+  }
+  return classes;
+}
+
+function isValidBemSelector(className: string, validBlocks: Set<string>): boolean {
+  for (const block of validBlocks) {
+    // Exact match: .component
+    if (className === block) return true;
+    // Modifier: .component--modifier
+    if (className.startsWith(`${block}--`)) return true;
+    // Element: .component__element or .component__element--modifier
+    if (className.startsWith(`${block}__`)) return true;
+  }
+  return false;
+}
+
+export function requireBemSelectors(root: Root): Diagnostic[] {
+  const diagnostics: Diagnostic[] = [];
+
+  // Extract component name
+  let componentName: string | null = null;
+  root.walkComments((comment: Comment) => {
+    const match = comment.text.trim().match(/^@component\s+([\w-]+)/);
+    if (match) componentName = match[1];
+  });
+  if (!componentName) return diagnostics;
+
+  // Extract related component names
+  const relatedNames: string[] = [];
+  root.walkComments((comment: Comment) => {
+    const match = comment.text.trim().match(/^@related\s+([\w-]+)/);
+    if (match) relatedNames.push(match[1]);
+  });
+
+  // Build set of valid block names
+  const validBlocks = new Set([componentName, ...relatedNames]);
+
+  // Walk all rules inside @layer blocks
+  const reported = new Set<string>();
+
+  root.walkAtRules('layer', (atRule) => {
+    atRule.walkRules((rule) => {
+      for (const selector of rule.selectors) {
+        // Skip selectors that are pure SCSS nesting (& references)
+        const trimmed = selector.trim();
+        if (trimmed.startsWith('&') || trimmed.startsWith(':') || trimmed.startsWith('[')) continue;
+
+        const classes = extractClassNames(selector);
+        for (const cls of classes) {
+          if (!isValidBemSelector(cls, validBlocks)) {
+            const key = `${rule.source?.start?.line}:${cls}`;
+            if (reported.has(key)) continue;
+            reported.add(key);
+            diagnostics.push({
+              line: rule.source?.start?.line ?? 0,
+              message: `.${cls} is not a valid BEM selector for @component ${componentName} — expected .${componentName}, .${componentName}--*, or .${componentName}__*`,
+            });
+          }
+        }
+      }
+    });
+  });
+
+  return diagnostics;
+}
+
 // --- Run all rules ---
 
 export function lintScss(root: Root): Diagnostic[] {
   return [
     ...requireComponentAnnotation(root),
     ...requireElementAnnotation(root),
+    ...requireLayerStructure(root),
+    ...noBareDeclarations(root),
     ...requireDescOnVars(root),
     ...noGlobalAliases(root),
     ...noDerivedVars(root),
@@ -460,5 +683,6 @@ export function lintScss(root: Root): Diagnostic[] {
     ...noScssInStyles(root),
     ...requireTokenScope(root),
     ...requireModifierAnnotations(root),
+    ...requireBemSelectors(root),
   ];
 }

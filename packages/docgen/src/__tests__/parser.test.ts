@@ -143,7 +143,7 @@ describe('parseScssContent', () => {
         @layer components.styles { .badge { background: var(--_bg); } }
       `;
       const result = parseScssContent(scss, 'badge', false);
-      expect(result.modifiers.variant).toEqual({ values: ['success', 'danger'] });
+      expect(result.modifiers.variant).toEqual({ values: ['danger', 'success'] });
       expect(result.modifiers.size).toEqual({ values: ['sm', 'lg'] });
     });
   });
@@ -227,8 +227,9 @@ describe('parseScssContent', () => {
       expect(result.cssVars).toEqual([
         {
           name: '--ui-button-height',
-          default: 'var(--ui-row-2)',
+          default: '--ui-row-2',
           description: 'Overall height',
+          type: 'dimension',
         },
       ]);
     });

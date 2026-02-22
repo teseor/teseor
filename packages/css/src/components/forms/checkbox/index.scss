@@ -6,52 +6,65 @@
 @layer components.tokens {
   .checkbox {
     // @desc Border width
-    --_border-width: var(--ui-checkbox-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    @include t.token(border-width, border-width-sm, checkbox);
     // @desc Transition duration
-    --_transition-duration: var(--ui-checkbox-transition-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    @include t.token(transition-duration, duration-fast, checkbox);
     // @desc Transition timing
-    --_transition-timing: var(--ui-checkbox-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    @include t.token(transition-timing, ease-default, checkbox);
     // @desc Focus ring width
-    --_focus-ring-width: var(--ui-checkbox-focus-ring-width, var(--ui-border-width-md, #{t.$border-width-md}));
+    @include t.token(focus-ring-width, border-width-md, checkbox);
     // @desc Focus ring color
-    --_focus-ring-color: var(--ui-checkbox-focus-ring-color, var(--ui-color-focus, #{t.$color-focus}));
+    @include t.token(focus-ring-color, color-focus, checkbox);
     // @desc Disabled opacity
-    --_disabled-opacity: var(--ui-checkbox-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
+    @include t.token(disabled-opacity, opacity-disabled, checkbox);
     // @desc Overall size
-    --_size: var(--ui-checkbox-size, calc(#{t.$unit} * 2));
+    @include t.token(size, space-2, checkbox);
     // @desc Corner radius
-    --_radius: var(--ui-checkbox-radius, var(--ui-radius-sm, #{t.$radius-sm}));
+    @include t.token(radius, radius-sm, checkbox);
     // @desc Background color
-    --_bg: var(--ui-checkbox-bg, var(--ui-color-bg, #{t.$color-bg}));
+    @include t.token(bg, color-bg, checkbox);
     // @desc Bg checked
-    --_bg-checked: var(--ui-checkbox-bg-checked, var(--ui-color-primary, #{t.$color-primary}));
+    @include t.token(bg-checked, color-primary, checkbox);
     // @desc Border color
-    --_border-color: var(--ui-checkbox-border-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
+    @include t.token(border-color, color-border-strong, checkbox);
     // @desc Border color focus
-    --_border-color-focus: var(--ui-checkbox-border-color-focus, var(--ui-color-primary, #{t.$color-primary}));
+    @include t.token(border-color-focus, color-primary, checkbox);
     // @desc Check mark text color
-    --_check-color: var(--ui-checkbox-check-color, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
+    @include t.token(check-color, color-text-inverse, checkbox);
   }
 
-  // @modifier size
-  .checkbox--lg {
-    // @desc Overall size at large size
-    --_size: var(--ui-checkbox-size-lg, calc(#{t.$unit} * 3));
+  $size-tokens: (
+    xs:  (size: size-sm),
+    sm:  (size: size-md),
+    md:  (size: space-2),
+    lg:  (size: space-3),
+    xl:  (size: space-4),
+  );
+  @include t.validate-size-tokens($size-tokens);
+
+  // @modifier size xs, sm, md, lg, xl
+  @each $name, $tokens in $size-tokens {
+    .checkbox--#{$name} {
+      @each $prop, $global in $tokens {
+        // @desc Override
+        @include t.token($prop, $global, checkbox, #{$prop}-#{$name});
+      }
+    }
   }
 
   // @modifier state
   .checkbox--error {
     // @desc Error border
-    --_border-color: var(--ui-checkbox-error-border, var(--ui-color-danger, #{t.$color-danger}));
+    @include t.token(border-color, color-danger, checkbox, error-border);
     // @desc Error border
-    --_border-color-focus: var(--ui-checkbox-error-border, var(--ui-color-danger, #{t.$color-danger}));
+    @include t.token(border-color-focus, color-danger, checkbox, error-border);
   }
 
   .checkbox--success {
     // @desc Success border
-    --_border-color: var(--ui-checkbox-success-border, var(--ui-color-success, #{t.$color-success}));
+    @include t.token(border-color, color-success, checkbox, success-border);
     // @desc Success border
-    --_border-color-focus: var(--ui-checkbox-success-border, var(--ui-color-success, #{t.$color-success}));
+    @include t.token(border-color-focus, color-success, checkbox, success-border);
   }
 }
 

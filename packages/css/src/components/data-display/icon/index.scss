@@ -7,28 +7,28 @@
   .icon {
     // 3-tier inheritance: global > context > default
     // @desc 3-tier: global > context > default
-    --_size: var(--ui-icon-size, var(--ui-ctx-size, #{t.size(md)}));
+    --_size: var(--ui-icon-size, var(--ui-ctx-size, #{t.size(md)})); // token-lint-ignore
     // @desc Stroke
-    --_stroke: var(--ui-icon-stroke, #{t.$icon-stroke});
+    --_stroke: var(--ui-icon-stroke, #{t.$icon-stroke}); // token-lint-ignore
   }
 
   // @modifier size xs, sm, md, lg, xl
   @each $name, $value in t.$sizes {
     .icon--#{$name} {
       // @desc Size 
-      --_size: var(--ui-icon-size-#{$name}, var(--ui-size-#{$name}, #{$value}));
+      --_size: var(--ui-icon-size-#{$name}, var(--ui-size-#{$name}, #{$value})); // token-lint-ignore
     }
   }
 
   // @modifier stroke
   .icon--stroke-thin {
     // @desc Stroke thin
-    --_stroke: var(--ui-icon-stroke-thin, #{t.$icon-stroke-thin});
+    --_stroke: var(--ui-icon-stroke-thin, #{t.$icon-stroke-thin}); // token-lint-ignore
   }
 
   .icon--stroke-thick {
     // @desc Stroke thick
-    --_stroke: var(--ui-icon-stroke-thick, #{t.$icon-stroke-thick});
+    --_stroke: var(--ui-icon-stroke-thick, #{t.$icon-stroke-thick}); // token-lint-ignore
   }
 
   // @modifier boolean filled

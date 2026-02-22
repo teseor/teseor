@@ -6,58 +6,54 @@
 @layer components.tokens {
   .toggle {
     // @desc Transition duration
-    --_transition-duration: var(--ui-toggle-transition-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    @include t.token(transition-duration, duration-fast, toggle);
     // @desc Transition timing
-    --_transition-timing: var(--ui-toggle-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    @include t.token(transition-timing, ease-default, toggle);
     // @desc Focus ring color
-    --_focus-ring-color: var(--ui-toggle-focus-ring-color, var(--ui-color-focus, #{t.$color-focus}));
+    @include t.token(focus-ring-color, color-focus, toggle);
     // @desc Focus ring width
-    --_focus-ring-width: var(--ui-toggle-focus-ring-width, var(--ui-border-width-md, #{t.$border-width-md}));
+    @include t.token(focus-ring-width, border-width-md, toggle);
     // @desc Focus ring offset
-    --_focus-ring-offset: var(--ui-toggle-focus-ring-offset, calc(#{t.$unit} / 4));
+    @include t.token(focus-ring-offset, space-quarter, toggle);
     // @desc Disabled opacity
-    --_disabled-opacity: var(--ui-toggle-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
+    @include t.token(disabled-opacity, opacity-disabled, toggle);
     // @desc Thumb shadow
-    --_thumb-shadow: var(--ui-toggle-thumb-shadow, #{t.$slider-thumb-shadow});
+    @include t.token(thumb-shadow, slider-thumb-shadow, toggle);
     // @desc Track width
-    --_track-width: var(--ui-toggle-track-width, calc(#{t.$unit} * 5));
+    @include t.token(track-width, space-5, toggle);
     // @desc Track height
-    --_track-height: var(--ui-toggle-track-height, calc(#{t.$unit} * 3));
+    @include t.token(track-height, space-3, toggle);
     // @desc Track background
-    --_track-bg: var(--ui-toggle-track-bg, var(--ui-color-bg-inset, #{t.$color-bg-inset}));
+    @include t.token(track-bg, color-bg-inset, toggle);
     // @desc Track bg checked
-    --_track-bg-checked: var(--ui-toggle-track-bg-checked, var(--ui-color-primary, #{t.$color-primary}));
+    @include t.token(track-bg-checked, color-primary, toggle);
     // @desc Track corner radius
-    --_track-radius: var(--ui-toggle-track-radius, calc(#{t.$unit} * 1.5));
+    @include t.token(track-radius, size-sm, toggle);
     // @desc Thumb control size
-    --_thumb-size: var(--ui-toggle-thumb-size, calc(#{t.$unit} * 2.5));
+    @include t.token(thumb-size, size-lg, toggle);
     // @desc Thumb background
-    --_thumb-bg: var(--ui-toggle-thumb-bg, var(--ui-color-bg, #{t.$color-bg}));
+    @include t.token(thumb-bg, color-bg, toggle);
     // @desc Thumb control offset from anchor
-    --_thumb-offset: var(--ui-toggle-thumb-offset, calc(#{t.$unit} / 4));
+    @include t.token(thumb-offset, space-quarter, toggle);
   }
 
-  // @modifier size
-  .toggle--sm {
-    // @desc Track width at small size
-    --_track-width: var(--ui-toggle-track-width-sm, calc(#{t.$unit} * 4));
-    // @desc Track height at small size
-    --_track-height: var(--ui-toggle-track-height-sm, calc(#{t.$unit} * 2));
-    // @desc Track radius at small size
-    --_track-radius: var(--ui-toggle-track-radius-sm, var(--ui-unit, #{t.$unit}));
-    // @desc Thumb size at small size
-    --_thumb-size: var(--ui-toggle-thumb-size-sm, calc(#{t.$unit} * 1.5));
-  }
+  $size-tokens: (
+    xs:  (track-width: space-3, track-height: space-2, track-radius: unit,    thumb-size: size-xs),
+    sm:  (track-width: space-4, track-height: space-2, track-radius: unit,    thumb-size: size-sm),
+    md:  (track-width: space-5, track-height: space-3, track-radius: size-sm, thumb-size: size-lg),
+    lg:  (track-width: space-6, track-height: space-4, track-radius: space-2, thumb-size: unit-3-5),
+    xl:  (track-width: space-8, track-height: space-5, track-radius: space-3, thumb-size: space-4),
+  );
+  @include t.validate-size-tokens($size-tokens);
 
-  .toggle--lg {
-    // @desc Track width at large size
-    --_track-width: var(--ui-toggle-track-width-lg, calc(#{t.$unit} * 6));
-    // @desc Track height at large size
-    --_track-height: var(--ui-toggle-track-height-lg, calc(#{t.$unit} * 4));
-    // @desc Track radius at large size
-    --_track-radius: var(--ui-toggle-track-radius-lg, calc(#{t.$unit} * 2));
-    // @desc Thumb size at large size
-    --_thumb-size: var(--ui-toggle-thumb-size-lg, calc(#{t.$unit} * 3.5));
+  // @modifier size xs, sm, md, lg, xl
+  @each $name, $tokens in $size-tokens {
+    .toggle--#{$name} {
+      @each $prop, $global in $tokens {
+        // @desc Override
+        @include t.token($prop, $global, toggle, #{$prop}-#{$name});
+      }
+    }
   }
 }
 

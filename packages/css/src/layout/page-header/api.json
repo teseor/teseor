@@ -11,16 +11,47 @@
     }
   },
   "elements": {
-    "title": {},
     "actions": {},
-    "breadcrumb": {}
+    "breadcrumb": {},
+    "title": {}
   },
   "cssVars": [
     {
-      "name": "--ui-page-header-padding-block",
-      "default": "var(--ui-space-3)",
+      "name": "--ui-page-header-body-line-height",
+      "default": "--ui-line-height-md",
       "defaultValue": "24px",
-      "description": "Vertical padding"
+      "type": "line-height"
+    },
+    {
+      "name": "--ui-page-header-border-color",
+      "default": "--ui-color-border",
+      "description": "Border color",
+      "type": "color"
+    },
+    {
+      "name": "--ui-page-header-border-width-sm",
+      "default": "--ui-border-width-sm",
+      "defaultValue": "1px",
+      "type": "border-width"
+    },
+    {
+      "name": "--ui-page-header-color-bg",
+      "default": "--ui-color-bg",
+      "type": "color"
+    },
+    {
+      "name": "--ui-page-header-gap",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Gap between children",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-page-header-padding-block",
+      "default": "--ui-space-3",
+      "defaultValue": "24px",
+      "description": "Vertical padding",
+      "type": "dimension"
     },
     {
       "name": "--ui-page-header-padding-inline",
@@ -28,15 +59,22 @@
       "description": "Horizontal padding"
     },
     {
-      "name": "--ui-page-header-gap",
-      "default": "var(--ui-space-2)",
-      "defaultValue": "16px",
-      "description": "Gap between children"
+      "name": "--ui-page-header-space-1",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "type": "dimension"
     },
     {
-      "name": "--ui-page-header-border-color",
-      "default": "var(--ui-color-border)",
-      "description": "Border color"
+      "name": "--ui-page-header-space-2",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-page-header-z-sticky",
+      "default": "--ui-z-index-sticky",
+      "defaultValue": "100",
+      "type": "z-index"
     }
   ]
 }

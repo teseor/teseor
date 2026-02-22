@@ -8,37 +8,54 @@
     }
   },
   "elements": {
-    "items": {},
-    "actions": {}
+    "actions": {},
+    "items": {}
   },
   "cssVars": [
     {
-      "name": "--ui-nav-rail-width",
-      "default": "var(--ui-row-4)",
-      "defaultValue": "64px",
-      "description": "Overall width"
-    },
-    {
       "name": "--ui-nav-rail-bg",
-      "default": "var(--ui-color-bg-subtle)",
-      "description": "Background color"
+      "default": "--ui-color-bg-subtle",
+      "description": "Background color",
+      "type": "color"
     },
     {
       "name": "--ui-nav-rail-border-color",
-      "default": "var(--ui-color-border)",
-      "description": "Border color"
+      "default": "--ui-color-border",
+      "description": "Border color",
+      "type": "color"
+    },
+    {
+      "name": "--ui-nav-rail-border-width-sm",
+      "default": "--ui-border-width-sm",
+      "defaultValue": "1px",
+      "type": "border-width"
     },
     {
       "name": "--ui-nav-rail-gap",
-      "default": "var(--ui-space-1)",
+      "default": "--ui-space-1",
       "defaultValue": "8px",
-      "description": "Gap between children"
+      "description": "Gap between children",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-nav-rail-space-2",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-nav-rail-width",
+      "default": "--ui-row-4",
+      "defaultValue": "64px",
+      "description": "Overall width",
+      "type": "dimension"
     },
     {
       "name": "--ui-nav-rail-z",
-      "default": "var(--ui-z-index-sticky)",
+      "default": "--ui-z-index-sticky",
       "defaultValue": "100",
-      "description": "Z-index stacking order"
+      "description": "Z-index stacking order",
+      "type": "z-index"
     }
   ]
 }

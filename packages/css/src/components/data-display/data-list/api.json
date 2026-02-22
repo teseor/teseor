@@ -3,11 +3,11 @@
   "name": "data-list",
   "element": "div",
   "modifiers": {
-    "size": {
-      "values": ["sm", "lg"]
-    },
     "layout": {
       "values": ["horizontal"]
+    },
+    "size": {
+      "values": ["sm", "lg"]
     },
     "style": {
       "values": ["divided", "striped"]
@@ -20,107 +20,168 @@
   },
   "cssVars": [
     {
-      "name": "--ui-data-list-line-height",
-      "default": "var(--ui-row-1)",
-      "defaultValue": "16px",
-      "description": "Line height"
-    },
-    {
-      "name": "--ui-data-list-label-font-size",
-      "default": "var(--ui-font-size-sm)",
-      "defaultValue": "14px",
-      "description": "Label font size"
-    },
-    {
-      "name": "--ui-data-list-label-font-weight",
-      "default": "var(--ui-font-weight-medium)",
-      "defaultValue": "500",
-      "description": "Label font weight"
+      "name": "--ui-data-list-border-color",
+      "default": "--ui-color-border",
+      "description": "Divider border color",
+      "type": "color"
     },
     {
       "name": "--ui-data-list-border-width",
-      "default": "var(--ui-border-width-sm)",
+      "default": "--ui-border-width-sm",
       "defaultValue": "1px",
-      "description": "Divider border width"
-    },
-    {
-      "name": "--ui-data-list-border-color",
-      "default": "var(--ui-color-border)",
-      "description": "Divider border color"
-    },
-    {
-      "name": "--ui-data-list-stripe-bg",
-      "default": "var(--ui-color-bg-subtle)",
-      "description": "Stripe background"
-    },
-    {
-      "name": "--ui-data-list-stripe-radius",
-      "default": "var(--ui-radius-sm)",
-      "defaultValue": "4px",
-      "description": "Stripe border radius"
-    },
-    {
-      "name": "--ui-data-list-lg-font-size",
-      "default": "var(--ui-font-size-lg)",
-      "defaultValue": "20px",
-      "description": "Large font size"
-    },
-    {
-      "name": "--ui-data-list-stripe-padding",
-      "default": "calc(var(--ui-unit) * 1)",
-      "defaultValue": "8px",
-      "description": "Stripe padding"
-    },
-    {
-      "name": "--ui-data-list-horizontal-gap",
-      "default": "calc(var(--ui-unit) * 2)",
-      "defaultValue": "16px",
-      "description": "Horizontal item gap"
+      "description": "Divider border width",
+      "type": "border-width"
     },
     {
       "name": "--ui-data-list-gap",
-      "default": "calc(var(--ui-unit) * 2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
-      "description": "Gap between children"
+      "description": "Gap between children",
+      "type": "dimension"
     },
     {
-      "name": "--ui-data-list-item-gap",
-      "default": "calc(var(--ui-unit) * 1)",
-      "defaultValue": "8px",
-      "description": "Item gap between children"
-    },
-    {
-      "name": "--ui-data-list-label-color",
-      "default": "var(--ui-color-text-muted)",
-      "description": "Label text color"
-    },
-    {
-      "name": "--ui-data-list-value-color",
-      "default": "var(--ui-color-text)",
-      "description": "Value display text color"
+      "name": "--ui-data-list-gap-xs",
+      "default": "--ui-space-0",
+      "defaultValue": "4px",
+      "description": "Gap between children at xs size",
+      "type": "dimension"
     },
     {
       "name": "--ui-data-list-gap-sm",
-      "default": "calc(var(--ui-unit) * 1)",
+      "default": "--ui-space-1",
       "defaultValue": "8px",
-      "description": "Gap at small size"
+      "description": "Gap between children at sm size",
+      "type": "dimension"
     },
     {
-      "name": "--ui-data-list-item-gap-sm",
-      "default": "0",
-      "description": "Item gap at small size"
+      "name": "--ui-data-list-gap-md",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Gap between children at md size",
+      "type": "dimension"
     },
     {
       "name": "--ui-data-list-gap-lg",
-      "default": "calc(var(--ui-unit) * 3)",
+      "default": "--ui-space-3",
       "defaultValue": "24px",
-      "description": "Gap at large size"
+      "description": "Gap between children at lg size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-data-list-gap-xl",
+      "default": "--ui-space-4",
+      "defaultValue": "32px",
+      "description": "Gap between children at xl size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-data-list-horizontal-gap",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Horizontal item gap",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-data-list-item-gap",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Item gap between children",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-data-list-item-gap-xs",
+      "default": "--ui-space-quarter",
+      "defaultValue": "2px",
+      "description": "Item gap between children at xs size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-data-list-item-gap-sm",
+      "default": "--ui-space-quarter",
+      "defaultValue": "2px",
+      "description": "Item gap between children at sm size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-data-list-item-gap-md",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Item gap between children at md size",
+      "type": "dimension"
     },
     {
       "name": "--ui-data-list-item-gap-lg",
-      "default": "calc(var(--ui-unit) * 1)",
+      "default": "--ui-space-1",
       "defaultValue": "8px",
-      "description": "Item gap at large size"
+      "description": "Item gap between children at lg size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-data-list-item-gap-xl",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Item gap between children at xl size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-data-list-label-color",
+      "default": "--ui-color-text-muted",
+      "description": "Label text color",
+      "type": "color"
+    },
+    {
+      "name": "--ui-data-list-label-font-size",
+      "default": "--ui-font-size-sm",
+      "defaultValue": "14px",
+      "description": "Label font size",
+      "type": "font-size"
+    },
+    {
+      "name": "--ui-data-list-label-font-weight",
+      "default": "--ui-font-weight-medium",
+      "defaultValue": "500",
+      "description": "Label font weight",
+      "type": "font-weight"
+    },
+    {
+      "name": "--ui-data-list-lg-font-size",
+      "default": "--ui-font-size-lg",
+      "defaultValue": "20px",
+      "description": "Large font size",
+      "type": "font-size"
+    },
+    {
+      "name": "--ui-data-list-line-height",
+      "default": "--ui-row-1",
+      "defaultValue": "16px",
+      "description": "Line height",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-data-list-stripe-bg",
+      "default": "--ui-color-bg-subtle",
+      "description": "Stripe background",
+      "type": "color"
+    },
+    {
+      "name": "--ui-data-list-stripe-padding",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Stripe padding",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-data-list-stripe-radius",
+      "default": "--ui-radius-sm",
+      "defaultValue": "4px",
+      "description": "Stripe border radius",
+      "type": "radius"
+    },
+    {
+      "name": "--ui-data-list-value-color",
+      "default": "--ui-color-text",
+      "description": "Value display text color",
+      "type": "color"
     }
   ]
 }

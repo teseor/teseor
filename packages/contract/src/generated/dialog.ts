@@ -13,10 +13,10 @@ export const dialog = Object.assign(
     });
   },
   {
+    body: (): string => cx('dialog__body'),
+    close: (): string => cx('dialog__close'),
+    footer: (): string => cx('dialog__footer'),
     header: (): string => cx('dialog__header'),
     title: (): string => cx('dialog__title'),
-    close: (): string => cx('dialog__close'),
-    body: (): string => cx('dialog__body'),
-    footer: (): string => cx('dialog__footer'),
   },
 );

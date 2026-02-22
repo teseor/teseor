@@ -3,94 +3,46 @@
   "name": "link",
   "element": "a",
   "modifiers": {
-    "variant": {
-      "values": ["muted", "subtle"]
-    },
     "disabled": {
       "type": "boolean"
     },
     "external": {
       "type": "boolean"
+    },
+    "variant": {
+      "values": ["muted", "subtle"]
     }
   },
   "cssVars": [
     {
-      "name": "--ui-link-transition-duration",
-      "default": "var(--ui-duration-fast)",
-      "defaultValue": "100ms",
-      "description": "Transition duration"
-    },
-    {
-      "name": "--ui-link-transition-timing",
-      "default": "var(--ui-ease-default)",
-      "description": "Transition timing"
-    },
-    {
-      "name": "--ui-link-focus-color",
-      "default": "var(--ui-color-focus)",
-      "description": "Focus ring color"
-    },
-    {
-      "name": "--ui-link-focus-outline-width",
-      "default": "var(--ui-border-width-md)",
-      "defaultValue": "2px",
-      "description": "Focus outline width"
-    },
-    {
-      "name": "--ui-link-disabled-color",
-      "default": "var(--ui-color-text-muted)",
-      "description": "Disabled text color"
-    },
-    {
-      "name": "--ui-link-disabled-opacity",
-      "default": "var(--ui-opacity-disabled)",
-      "defaultValue": "0.5",
-      "description": "Disabled opacity"
-    },
-    {
-      "name": "--ui-link-underline-offset",
-      "default": "calc(var(--ui-unit) / 4)",
-      "defaultValue": "2px",
-      "description": "Underline offset"
-    },
-    {
-      "name": "--ui-link-focus-radius",
-      "default": "calc(var(--ui-unit) / 4)",
-      "defaultValue": "2px",
-      "description": "Focus radius"
-    },
-    {
-      "name": "--ui-link-focus-outline-offset",
-      "default": "calc(var(--ui-unit) / 4)",
-      "defaultValue": "2px",
-      "description": "Focus outline offset"
-    },
-    {
-      "name": "--ui-link-external-spacing",
-      "default": "calc(var(--ui-unit) / 4)",
-      "defaultValue": "2px",
-      "description": "External indicator spacing"
-    },
-    {
-      "name": "--ui-link-external-font-size",
-      "default": "var(--ui-font-size-relative-sm)",
-      "defaultValue": "0.75em",
-      "description": "External indicator font size"
-    },
-    {
       "name": "--ui-link-color",
-      "default": "var(--ui-color-primary)",
-      "description": "Text color"
+      "default": "--ui-color-primary",
+      "description": "Text color",
+      "type": "color"
     },
     {
       "name": "--ui-link-color-hover",
-      "default": "var(--ui-color-primary-hover)",
-      "description": "Color hover"
+      "default": "--ui-color-primary-emphasis-hover",
+      "description": "Color hover",
+      "type": "color"
+    },
+    {
+      "name": "--ui-link-color-muted",
+      "default": "--ui-color-text-muted",
+      "description": "Color muted",
+      "type": "color"
+    },
+    {
+      "name": "--ui-link-color-muted-hover",
+      "default": "--ui-color-text",
+      "description": "Color muted hover",
+      "type": "color"
     },
     {
       "name": "--ui-link-color-visited",
-      "default": "var(--ui-color-primary)",
-      "description": "Color visited"
+      "default": "--ui-color-primary",
+      "description": "Color visited",
+      "type": "color"
     },
     {
       "name": "--ui-link-decoration",
@@ -103,14 +55,78 @@
       "description": "Decoration hover"
     },
     {
-      "name": "--ui-link-color-muted",
-      "default": "var(--ui-color-text-muted)",
-      "description": "Color muted"
+      "name": "--ui-link-disabled-color",
+      "default": "--ui-color-text-muted",
+      "description": "Disabled text color",
+      "type": "color"
     },
     {
-      "name": "--ui-link-color-muted-hover",
-      "default": "var(--ui-color-text)",
-      "description": "Color muted hover"
+      "name": "--ui-link-disabled-opacity",
+      "default": "--ui-opacity-disabled",
+      "defaultValue": "0.5",
+      "description": "Disabled opacity",
+      "type": "opacity"
+    },
+    {
+      "name": "--ui-link-external-font-size",
+      "default": "--ui-font-size-relative-sm",
+      "defaultValue": "0.75em",
+      "description": "External indicator font size",
+      "type": "font-size"
+    },
+    {
+      "name": "--ui-link-external-spacing",
+      "default": "--ui-space-quarter",
+      "defaultValue": "2px",
+      "description": "External indicator spacing",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-link-focus-color",
+      "default": "--ui-color-focus",
+      "description": "Focus ring color",
+      "type": "color"
+    },
+    {
+      "name": "--ui-link-focus-outline-offset",
+      "default": "--ui-space-quarter",
+      "defaultValue": "2px",
+      "description": "Focus outline offset",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-link-focus-outline-width",
+      "default": "--ui-border-width-md",
+      "defaultValue": "2px",
+      "description": "Focus outline width",
+      "type": "border-width"
+    },
+    {
+      "name": "--ui-link-focus-radius",
+      "default": "--ui-space-quarter",
+      "defaultValue": "2px",
+      "description": "Focus radius",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-link-transition-duration",
+      "default": "--ui-duration-fast",
+      "defaultValue": "100ms",
+      "description": "Transition duration",
+      "type": "duration"
+    },
+    {
+      "name": "--ui-link-transition-timing",
+      "default": "--ui-ease-default",
+      "description": "Transition timing",
+      "type": "easing"
+    },
+    {
+      "name": "--ui-link-underline-offset",
+      "default": "--ui-space-quarter",
+      "defaultValue": "2px",
+      "description": "Underline offset",
+      "type": "dimension"
     }
   ]
 }

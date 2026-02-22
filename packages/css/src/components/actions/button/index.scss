@@ -7,136 +7,130 @@
 @layer components.tokens {
   .button {
     // @desc Gap between children
-    --_gap: var(--ui-button-gap, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(gap, space-1, button);
     // @desc Font family
-    --_font-family: var(--ui-button-font-family, var(--ui-font-sans, #{t.$font-sans}));
+    @include t.token(font-family, font-sans, button);
     // @desc Transition duration
-    --_transition-duration: var(--ui-button-transition-duration, var(--ui-duration-base, #{t.$duration-base}));
+    @include t.token(transition-duration, duration-base, button);
     // @desc Transition timing function
-    --_transition-timing: var(--ui-button-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    @include t.token(transition-timing, ease-default, button);
     // @desc Active press transition duration
-    --_press-duration: var(--ui-button-press-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    @include t.token(press-duration, duration-fast, button);
     // @desc Focus ring width
-    --_focus-ring-width: var(--ui-button-focus-ring-width, var(--ui-border-width-md, #{t.$border-width-md}));
+    @include t.token(focus-ring-width, border-width-md, button);
     // @desc Focus ring color
-    --_focus-ring-color: var(--ui-button-focus-ring-color, var(--ui-color-focus, #{t.$color-focus}));
+    @include t.token(focus-ring-color, color-focus, button);
     // @desc Disabled opacity
-    --_disabled-opacity: var(--ui-button-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
+    @include t.token(disabled-opacity, opacity-disabled, button);
     // @desc Link underline offset
-    --_underline-offset: var(--ui-button-underline-offset, var(--ui-space-quarter, #{t.$space-quarter}));
+    @include t.token(underline-offset, space-quarter, button);
     // @desc Loading state opacity
-    --_loading-opacity: var(--ui-button-loading-opacity, var(--ui-opacity-loading, #{t.$opacity-loading}));
+    @include t.token(loading-opacity, opacity-loading, button);
     // @desc Icon size
-    --_icon-size: var(--ui-button-icon-size, var(--ui-icon-size-inline, #{t.$icon-size-inline}));
+    @include t.token(icon-size, icon-size-inline, button);
     // @desc Loading spinner border width
-    --_spinner-border-width: var(--ui-button-spinner-border-width, var(--ui-border-width-md, #{t.$border-width-md}));
+    @include t.token(spinner-border-width, border-width-md, button);
     // Single accent color - all shades derived via color-mix
     // @desc Primary accent color. All shades auto-generated via color-mix.
-    --_accent: var(--ui-button-accent, var(--ui-color-primary, #{t.$color-primary}));
+    @include t.token(accent, color-primary, button);
 
     // @desc Overall height
-    --_height: var(--ui-button-height, var(--ui-row-2, #{t.$row-2}));
+    @include t.token(height, row-2, button);
     // @desc Horizontal padding
-    --_padding-x: var(--ui-button-padding-x, var(--ui-space-2, #{t.$space-2}));
+    @include t.token(padding-x, space-2, button);
     // @desc Font size
-    --_font-size: var(--ui-button-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    @include t.token(font-size, font-size-sm, button);
     // @desc Font weight
-    --_font-weight: var(--ui-button-font-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
+    @include t.token(font-weight, font-weight-medium, button);
     // @desc Corner radius
-    --_radius: var(--ui-button-radius, var(--ui-radius-md, #{t.$radius-md}));
+    @include t.token(radius, radius-md, button);
     // @desc Background color
-    --_bg: var(--ui-button-bg, var(--ui-color-primary, #{t.$color-primary}));
+    @include t.token(bg, color-primary, button);
     // @desc Background color on hover
-    --_bg-hover: var(--ui-button-bg-hover, color-mix(in oklch, var(--ui-color-primary, #{t.$color-primary}) 80%, black));
+    @include t.token(bg-hover, color-primary-emphasis-hover, button);
     // @desc Text color
-    --_color: var(--ui-button-color, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
+    @include t.token(color, color-text-inverse, button);
   }
 
-  // @modifier size
-  .button--sm {
-    --ui-ctx-size: var(--ui-size-sm, #{t.size(sm)});
-    // @desc Overall height at small size
-    --_height: var(--ui-button-height-sm, calc(var(--ui-row, #{t.$row}) * 1.5));
-    // @desc Font size at small size
-    --_font-size: var(--ui-button-font-size-sm, var(--ui-font-size-xs, #{t.$font-size-xs}));
-  }
+  $size-tokens: (
+    xs:  (height: row,     padding-x: space-1, font-size: font-size-xs),
+    sm:  (height: row-1-5, padding-x: space-1, font-size: font-size-xs),
+    md:  (height: row-2,   padding-x: space-2, font-size: font-size-sm),
+    lg:  (height: row-2-5, padding-x: space-3, font-size: font-size-md),
+    xl:  (height: row-3,   padding-x: space-4, font-size: font-size-lg),
+  );
+  @include t.validate-size-tokens($size-tokens);
 
-  .button--md {
-    --ui-ctx-size: var(--ui-size-md, #{t.size(md)});
-    // @desc Overall height at medium size
-    --_height: var(--ui-button-height-md, var(--ui-row-2, #{t.$row-2}));
-    // @desc Font size at medium size
-    --_font-size: var(--ui-button-font-size-md, var(--ui-font-size-sm, #{t.$font-size-sm}));
-  }
+  // @modifier size xs, sm, md, lg, xl
+  @each $name, $tokens in $size-tokens {
+    .button--#{$name} {
+      --ui-ctx-size: var(--ui-size-#{$name}, #{t.size($name)});
 
-  .button--lg {
-    --ui-ctx-size: var(--ui-size-lg, #{t.size(lg)});
-    // @desc Overall height at large size
-    --_height: var(--ui-button-height-lg, calc(var(--ui-row, #{t.$row}) * 2.5));
-    // @desc Horizontal padding at large size
-    --_padding-x: var(--ui-button-padding-x-lg, var(--ui-space-3, #{t.$space-3}));
-    // @desc Font size at large size
-    --_font-size: var(--ui-button-font-size-lg, var(--ui-font-size-md, #{t.$font-size-md}));
+      @each $prop, $global in $tokens {
+        // @desc Override
+        @include t.token($prop, $global, button, #{$prop}-#{$name});
+      }
+    }
   }
 
   // @modifier variant
   .button--secondary {
-    --_bg: var(--ui-color-bg-muted, #{t.$color-bg-muted});
-    --_bg-hover: var(--ui-color-border-strong, #{t.$color-border-strong});
-    --_color: var(--ui-color-text, #{t.$color-text});
+    @include t.token(bg, color-bg-muted);
+    @include t.token(bg-hover, color-border-strong);
+    @include t.token(color, color-text);
   }
 
   .button--ghost {
-    --_bg: transparent;
-    --_bg-hover: color-mix(in oklch, var(--ui-color-primary, #{t.$color-primary}) 10%, transparent);
-    --_color: var(--ui-color-primary, #{t.$color-primary});
+    --_bg: transparent; // token-lint-ignore
+    @include t.token(bg-hover, color-primary-bg);
+    @include t.token(color, color-primary);
   }
 
   .button--outline {
-    --_bg: transparent;
-    --_bg-hover: var(--ui-color-primary, #{t.$color-primary});
-    --_color: var(--ui-color-primary, #{t.$color-primary});
-    --_color-hover: var(--ui-color-text-inverse, #{t.$color-text-inverse});
-    --_border: var(--ui-border-width-sm, #{t.$border-width-sm}) solid currentColor;
+    --_bg: transparent; // token-lint-ignore
+    @include t.token(bg-hover, color-primary);
+    @include t.token(color, color-primary);
+    @include t.token(color-hover, color-text-inverse);
+    --_border: var(--ui-border-width-sm, #{t.$border-width-sm}) solid currentColor; // token-lint-ignore
   }
 
   .button--danger {
     // @desc Used by --danger variant as accent color
-    --_accent: var(--ui-color-danger, #{t.$color-danger});
-    --_bg: var(--ui-color-danger, #{t.$color-danger});
-    --_bg-hover: color-mix(in oklch, var(--ui-color-danger, #{t.$color-danger}) 80%, black);
+    @include t.token(accent, color-danger);
+    @include t.token(bg, color-danger);
+    @include t.token(bg-hover, color-danger-emphasis-hover);
   }
 
   .button--link {
-    --_bg: transparent;
-    --_bg-hover: transparent;
-    --_color: var(--ui-color-primary, #{t.$color-primary});
-    --_color-hover: color-mix(in oklch, var(--ui-color-primary, #{t.$color-primary}) 70%, black);
-    --_height: auto;
-    --_padding-x: 0;
-    --_radius: 0;
+    --_bg: transparent; // token-lint-ignore
+    --_bg-hover: transparent; // token-lint-ignore
+    @include t.token(color, color-primary);
+    @include t.token(color-hover, color-primary-text);
+    --_height: auto; // token-lint-ignore
+    --_padding-x: 0; // token-lint-ignore
+    --_radius: 0; // token-lint-ignore
   }
 
   // @modifier boolean icon
   .button--icon {
-    --_padding-x: 0;
+    --_padding-x: 0; // token-lint-ignore
   }
 
   // @modifier radius
   .button--radius-none {
-    --_radius: 0;
+    --_radius: 0; // token-lint-ignore
   }
 
   .button--radius-sm {
-    --_radius: var(--ui-radius-sm, #{t.$radius-sm});
+    @include t.token(radius, radius-sm);
   }
 
   .button--radius-lg {
-    --_radius: var(--ui-radius-lg, #{t.$radius-lg});
+    @include t.token(radius, radius-lg);
   }
 
   .button--radius-full {
-    --_radius: #{t.$radius-full};
+    --_radius: #{t.$radius-full}; // token-lint-ignore
   }
 
   // @modifier boolean block

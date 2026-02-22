@@ -1,7 +1,7 @@
 // Auto-generated from api.json. Do not edit — run: pnpm generate:contract
 import { cx } from '../cx';
 
-export type PopoverPosition = 'top' | 'bottom' | 'visible' | 'hidden' | 'animate';
+export type PopoverPosition = 'animate' | 'bottom' | 'hidden' | 'top' | 'visible';
 
 export interface PopoverProps {
   position?: PopoverPosition;

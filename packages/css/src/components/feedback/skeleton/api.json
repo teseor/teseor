@@ -3,53 +3,60 @@
   "name": "skeleton",
   "element": "div",
   "modifiers": {
-    "variant": {
-      "values": ["text", "heading", "circle", "rect", "static"]
-    },
     "pulse": {
       "type": "boolean"
+    },
+    "variant": {
+      "values": ["circle", "heading", "rect", "static", "text"]
     }
   },
   "cssVars": [
     {
       "name": "--ui-skeleton-bg",
-      "default": "var(--ui-color-bg-inset)",
-      "description": "Background color"
-    },
-    {
-      "name": "--ui-skeleton-shimmer",
-      "default": "var(--ui-skeleton-shimmer)",
-      "description": "Shimmer"
-    },
-    {
-      "name": "--ui-skeleton-radius",
-      "default": "var(--ui-radius-sm)",
-      "defaultValue": "4px",
-      "description": "Corner radius"
-    },
-    {
-      "name": "--ui-skeleton-text-height",
-      "default": "calc(var(--ui-unit) * 2)",
-      "defaultValue": "16px",
-      "description": "Text line height"
-    },
-    {
-      "name": "--ui-skeleton-heading-height",
-      "default": "calc(var(--ui-unit) * 3)",
-      "defaultValue": "24px",
-      "description": "Heading height"
+      "default": "--ui-color-bg-inset",
+      "description": "Background color",
+      "type": "color"
     },
     {
       "name": "--ui-skeleton-circle-size",
-      "default": "calc(var(--ui-unit) * 5)",
+      "default": "--ui-space-5",
       "defaultValue": "40px",
-      "description": "Circle size"
+      "description": "Circle size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-skeleton-heading-height",
+      "default": "--ui-space-3",
+      "defaultValue": "24px",
+      "description": "Heading height",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-skeleton-radius",
+      "default": "--ui-radius-sm",
+      "defaultValue": "4px",
+      "description": "Corner radius",
+      "type": "radius"
     },
     {
       "name": "--ui-skeleton-rect-height",
-      "default": "calc(var(--ui-unit) * 20)",
+      "default": "--ui-unit-20",
       "defaultValue": "160px",
-      "description": "Rectangle height"
+      "description": "Rectangle height",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-skeleton-shimmer",
+      "default": "--ui-skeleton-shimmer",
+      "description": "Shimmer",
+      "type": "other"
+    },
+    {
+      "name": "--ui-skeleton-text-height",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Text line height",
+      "type": "dimension"
     }
   ]
 }

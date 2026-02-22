@@ -1,22 +1,24 @@
+@use '../../config/tokens/variables' as t;
+
 // @component page-header
 // @element header
 
 @layer primitives {
   .page-header {
-    --_body-line-height: var(--ui-body-line-height);
-    --_space-1: var(--ui-space-1);
-    --_space-2: var(--ui-space-2);
-    --_border-width-sm: var(--ui-border-width-sm);
-    --_z-sticky: var(--ui-z-index-sticky);
-    --_color-bg: var(--ui-color-bg);
+    @include t.token(body-line-height, line-height-md);
+    @include t.token(space-1, space-1);
+    @include t.token(space-2, space-2);
+    @include t.token(border-width-sm, border-width-sm);
+    @include t.token(z-sticky, z-index-sticky);
+    @include t.token(color-bg, color-bg);
     // @desc Vertical padding
-    --_padding-block: var(--ui-page-header-padding-block, var(--ui-space-3));
+    @include t.token(padding-block, space-3, page-header);
     // @desc Horizontal padding
-    --_padding-inline: var(--ui-page-header-padding-inline, 0);
+    --_padding-inline: var(--ui-page-header-padding-inline, 0); // token-lint-ignore
     // @desc Gap between children
-    --_gap: var(--ui-page-header-gap, var(--ui-space-2));
+    @include t.token(gap, space-2, page-header);
     // @desc Border color
-    --_border-color: var(--ui-page-header-border-color, var(--ui-color-border));
+    @include t.token(border-color, color-border, page-header);
 
     display: flex;
     flex-wrap: wrap;

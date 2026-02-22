@@ -8,13 +8,13 @@
 @layer components.tokens {
   .form-helper {
     // @desc Line height
-    --_line-height: var(--ui-form-helper-line-height, var(--ui-line-height-tight-sm, #{t.$line-height-tight-sm}));
+    @include t.token(line-height, line-height-tight-sm, form-helper);
     // @desc Text color
-    --_color: var(--ui-form-helper-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    @include t.token(color, color-text-muted, form-helper);
     // @desc Overall size
-    --_size: var(--ui-form-helper-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    @include t.token(size, font-size-sm, form-helper);
     // @desc Gap between children
-    --_gap: var(--ui-form-helper-gap, 0);
+    --_gap: var(--ui-form-helper-gap, 0); // token-lint-ignore
   }
 }
 

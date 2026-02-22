@@ -9,63 +9,77 @@
 @layer components.tokens {
   .drawer {
     // @desc Z-index stacking order
-    --_z-index: var(--ui-drawer-z-index, var(--ui-z-index-drawer, #{t.$z-index-drawer}));
+    @include t.token(z-index, z-index-drawer, drawer);
     // @desc Backdrop color
-    --_backdrop-color: var(--ui-drawer-backdrop-color, var(--ui-overlay-bg, #{t.$overlay-bg}));
+    @include t.token(backdrop-color, overlay-bg, drawer);
     // @desc Enter duration
-    --_enter-duration: var(--ui-drawer-enter-duration, var(--ui-duration-normal, #{t.$duration-normal}));
+    @include t.token(enter-duration, duration-normal, drawer);
     // @desc Enter timing function
-    --_enter-timing: var(--ui-drawer-enter-timing, var(--ui-ease-out, #{t.$ease-out}));
+    @include t.token(enter-timing, ease-out, drawer);
     // @desc Exit duration
-    --_exit-duration: var(--ui-drawer-exit-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    @include t.token(exit-duration, duration-fast, drawer);
     // @desc Exit timing function
-    --_exit-timing: var(--ui-drawer-exit-timing, var(--ui-ease-in, #{t.$ease-in}));
+    @include t.token(exit-timing, ease-in, drawer);
     // @desc Border width
-    --_border-width: var(--ui-drawer-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    @include t.token(border-width, border-width-sm, drawer);
     // @desc Title font size
-    --_title-font-size: var(--ui-drawer-title-font-size, var(--ui-font-size-lg, #{t.$font-size-lg}));
+    @include t.token(title-font-size, font-size-lg, drawer);
     // @desc Title font weight
-    --_title-font-weight: var(--ui-drawer-title-font-weight, var(--ui-font-weight-semibold, #{t.$font-weight-semibold}));
+    @include t.token(title-font-weight, font-weight-semibold, drawer);
     // @desc Title line height
-    --_title-line-height: var(--ui-drawer-title-line-height, var(--ui-row-1, #{t.$row}));
+    @include t.token(title-line-height, row-1, drawer);
     // @desc Description font size
-    --_description-font-size: var(--ui-drawer-description-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    @include t.token(description-font-size, font-size-sm, drawer);
     // @desc Description color
-    --_description-color: var(--ui-drawer-description-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    @include t.token(description-color, color-text-muted, drawer);
     // @desc Header gap
-    --_header-gap: var(--ui-drawer-header-gap, calc(#{t.$unit} * 2));
+    @include t.token(header-gap, space-2, drawer);
     // @desc Footer gap
-    --_footer-gap: var(--ui-drawer-footer-gap, calc(#{t.$unit} * 2));
+    @include t.token(footer-gap, space-2, drawer);
     // @desc Overall size
-    --_size: var(--ui-drawer-size, calc(#{t.$unit} * 40));
+    @include t.token(size, unit-40, drawer);
     // @desc Max size
-    --_max-size: var(--ui-drawer-max-size, 90%);
+    --_max-size: var(--ui-drawer-max-size, 90%); // token-lint-ignore
     // @desc Background color
-    --_bg: var(--ui-drawer-bg, var(--ui-color-bg, #{t.$color-bg}));
+    @include t.token(bg, color-bg, drawer);
     // @desc Box shadow
-    --_shadow: var(--ui-drawer-shadow, var(--ui-shadow-lg, #{t.$shadow-lg}));
+    @include t.token(shadow, shadow-lg, drawer);
     // @desc Header padding on all sides
-    --_header-padding: var(--ui-drawer-header-padding, calc(#{t.$unit} * 2) calc(#{t.$unit} * 3));
+    @include t.token(header-padding-y, space-2, drawer);
+    // @desc Header horizontal padding
+    @include t.token(header-padding-x, space-3, drawer);
     // @desc Body area padding on all sides
-    --_body-padding: var(--ui-drawer-body-padding, calc(#{t.$unit} * 3));
+    @include t.token(body-padding, space-3, drawer);
     // @desc Footer padding on all sides
-    --_footer-padding: var(--ui-drawer-footer-padding, calc(#{t.$unit} * 2) calc(#{t.$unit} * 3));
+    @include t.token(footer-padding-y, space-2, drawer);
+    // @desc Footer horizontal padding
+    @include t.token(footer-padding-x, space-3, drawer);
     // @desc Border color
-    --_border-color: var(--ui-drawer-border-color, var(--ui-color-border, #{t.$color-border}));
+    @include t.token(border-color, color-border, drawer);
   }
 
-  // @modifier size
-  .drawer--sm {
-    --_size: calc(#{t.$unit} * 30);
-  }
+  $size-tokens: (
+    xs:  (size: unit-20),
+    sm:  (size: unit-30),
+    md:  (size: unit-40),
+    lg:  (size: unit-50),
+    xl:  (size: unit-60),
+  );
+  @include t.validate-size-tokens($size-tokens);
 
-  .drawer--lg {
-    --_size: calc(#{t.$unit} * 50);
+  // @modifier size xs, sm, md, lg, xl
+  @each $name, $tokens in $size-tokens {
+    .drawer--#{$name} {
+      @each $prop, $global in $tokens {
+        // @desc Override
+        @include t.token($prop, $global, drawer, #{$prop}-#{$name});
+      }
+    }
   }
 
   .drawer--full {
-    --_size: 100%;
-    --_max-size: 100%;
+    --_size: 100%; // token-lint-ignore
+    --_max-size: 100%; // token-lint-ignore
   }
 }
 
@@ -242,7 +256,7 @@
     justify-content: space-between;
     gap: var(--_header-gap);
 
-    padding: var(--_header-padding);
+    padding: var(--_header-padding-y) var(--_header-padding-x);
 
     box-shadow: inset 0 calc(var(--_border-width) * -1) 0 var(--_border-color);
   }
@@ -285,7 +299,7 @@
     justify-content: flex-end;
     gap: var(--_footer-gap);
 
-    padding: var(--_footer-padding);
+    padding: var(--_footer-padding-y) var(--_footer-padding-x);
 
     box-shadow: inset 0 var(--_border-width) 0 var(--_border-color);
   }

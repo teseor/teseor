@@ -6,80 +6,80 @@
 @layer components.tokens {
   .slider {
     // @desc Transition duration
-    --_transition-duration: var(--ui-slider-transition-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    @include t.token(transition-duration, duration-fast, slider);
     // @desc Transition timing
-    --_transition-timing: var(--ui-slider-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    @include t.token(transition-timing, ease-default, slider);
     // @desc Focus ring width
-    --_focus-ring-width: var(--ui-slider-focus-ring-width, var(--ui-border-width-md, #{t.$border-width-md}));
+    @include t.token(focus-ring-width, border-width-md, slider);
     // @desc Disabled opacity
-    --_disabled-opacity: var(--ui-slider-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
+    @include t.token(disabled-opacity, opacity-disabled, slider);
     // @desc Overall height
-    --_height: var(--ui-slider-height, var(--ui-row-2, #{t.$row-2}));
+    @include t.token(height, row-2, slider);
     // @desc Track height
-    --_track-height: var(--ui-slider-track-height, var(--ui-unit, #{t.$unit}));
+    @include t.token(track-height, unit, slider);
     // @desc Track background
-    --_track-bg: var(--ui-slider-track-bg, var(--ui-color-bg-inset, #{t.$color-bg-inset}));
+    @include t.token(track-bg, color-bg-inset, slider);
     // @desc Track fill
-    --_track-fill: var(--ui-slider-track-fill, var(--ui-color-primary, #{t.$color-primary}));
+    @include t.token(track-fill, color-primary, slider);
     // @desc Track corner radius
-    --_track-radius: var(--ui-slider-track-radius, var(--ui-radius-full, #{t.$radius-full}));
+    @include t.token(track-radius, radius-full, slider);
     // @desc Thumb control size
-    --_thumb-size: var(--ui-slider-thumb-size, calc(#{t.$unit} * 2.5));
+    @include t.token(thumb-size, size-lg, slider);
     // @desc Thumb background
-    --_thumb-bg: var(--ui-slider-thumb-bg, var(--ui-color-bg, #{t.$color-bg}));
+    @include t.token(thumb-bg, color-bg, slider);
     // @desc Thumb control border color
-    --_thumb-border-color: var(--ui-slider-thumb-border-color, var(--ui-color-primary, #{t.$color-primary}));
+    @include t.token(thumb-border-color, color-primary, slider);
     // @desc Thumb control border thickness
-    --_thumb-border-width: var(--ui-slider-thumb-border-width, var(--ui-border-width-md, #{t.$border-width-md}));
+    @include t.token(thumb-border-width, border-width-md, slider);
     // @desc Thumb corner radius
-    --_thumb-radius: var(--ui-slider-thumb-radius, var(--ui-radius-full, #{t.$radius-full}));
+    @include t.token(thumb-radius, radius-full, slider);
     // @desc Thumb control box shadow
-    --_thumb-shadow: var(--ui-slider-thumb-shadow, #{t.$slider-thumb-shadow});
+    --_thumb-shadow: var(--ui-slider-thumb-shadow, #{t.$slider-thumb-shadow}); // token-lint-ignore
     // @desc Focus ring color
-    --_focus-ring-color: var(--ui-slider-focus-ring-color, var(--ui-color-focus, #{t.$color-focus}));
+    @include t.token(focus-ring-color, color-focus, slider);
     // @desc Fill percentage (set via JS for Webkit track fill)
-    --_fill-pct: var(--ui-slider-fill-pct, 50%);
+    --_fill-pct: var(--ui-slider-fill-pct, 50%); // token-lint-ignore
   }
 
-  // @modifier size
-  .slider--sm {
-    // @desc Overall height at small size
-    --_height: var(--ui-slider-height-sm, calc(#{t.$row} * 1.5));
-    // @desc Track height at small size
-    --_track-height: var(--ui-slider-track-height-sm, calc(#{t.$unit} * 0.5));
-    // @desc Thumb size at small size
-    --_thumb-size: var(--ui-slider-thumb-size-sm, calc(#{t.$unit} * 2));
-  }
+  $size-tokens: (
+    xs:  (height: row,     track-height: space-quarter, thumb-size: space-2),
+    sm:  (height: row-1-5, track-height: space-0,       thumb-size: space-2),
+    md:  (height: row-2,   track-height: unit,           thumb-size: size-lg),
+    lg:  (height: row-2-5, track-height: size-sm,        thumb-size: space-3),
+    xl:  (height: row-3,   track-height: space-1,        thumb-size: space-4),
+  );
+  @include t.validate-size-tokens($size-tokens);
 
-  .slider--lg {
-    // @desc Overall height at large size
-    --_height: var(--ui-slider-height-lg, calc(#{t.$row} * 2.5));
-    // @desc Track height at large size
-    --_track-height: var(--ui-slider-track-height-lg, calc(#{t.$unit} * 1.5));
-    // @desc Thumb size at large size
-    --_thumb-size: var(--ui-slider-thumb-size-lg, calc(#{t.$unit} * 3));
+  // @modifier size xs, sm, md, lg, xl
+  @each $name, $tokens in $size-tokens {
+    .slider--#{$name} {
+      @each $prop, $global in $tokens {
+        // @desc Override
+        @include t.token($prop, $global, slider, #{$prop}-#{$name});
+      }
+    }
   }
 
   // @modifier color
   .slider--success {
     // @desc Success track fill
-    --_track-fill: var(--ui-slider-success-track-fill, var(--ui-color-success, #{t.$color-success}));
+    @include t.token(track-fill, color-success, slider, success-track-fill);
     // @desc Success thumb border
-    --_thumb-border-color: var(--ui-slider-success-thumb-border, var(--ui-color-success, #{t.$color-success}));
+    @include t.token(thumb-border-color, color-success, slider, success-thumb-border);
   }
 
   .slider--warning {
     // @desc Warning track fill
-    --_track-fill: var(--ui-slider-warning-track-fill, var(--ui-color-warning, #{t.$color-warning}));
+    @include t.token(track-fill, color-warning, slider, warning-track-fill);
     // @desc Warning thumb border
-    --_thumb-border-color: var(--ui-slider-warning-thumb-border, var(--ui-color-warning, #{t.$color-warning}));
+    @include t.token(thumb-border-color, color-warning, slider, warning-thumb-border);
   }
 
   .slider--danger {
     // @desc Danger track fill
-    --_track-fill: var(--ui-slider-danger-track-fill, var(--ui-color-danger, #{t.$color-danger}));
+    @include t.token(track-fill, color-danger, slider, danger-track-fill);
     // @desc Danger thumb border
-    --_thumb-border-color: var(--ui-slider-danger-thumb-border, var(--ui-color-danger, #{t.$color-danger}));
+    @include t.token(thumb-border-color, color-danger, slider, danger-thumb-border);
   }
 }
 

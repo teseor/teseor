@@ -1,7 +1,7 @@
 // Auto-generated from api.json. Do not edit — run: pnpm generate:contract
 import { cx } from '../cx';
 
-export type CheckboxSize = 'lg';
+export type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type CheckboxState = 'error' | 'success';
 
 export interface CheckboxProps {

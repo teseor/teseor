@@ -8,40 +8,47 @@
 @layer components.tokens {
   .status {
     // @desc Overall size
-    --_size: var(--ui-status-size, calc(#{t.$unit} * 1));
+    @include t.token(size, space-1, status);
     // @desc Text color
-    --_color: var(--ui-status-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    @include t.token(color, color-text-muted, status);
     // @desc Gap between children
-    --_gap: var(--ui-status-gap, calc(#{t.$unit} * 1));
+    @include t.token(gap, space-1, status);
   }
 
   // @modifier variant
   .status--success {
-    --_color: var(--ui-color-success, #{t.$color-success});
+    @include t.token(color, color-success);
   }
 
   .status--warning {
-    --_color: var(--ui-color-warning, #{t.$color-warning});
+    @include t.token(color, color-warning);
   }
 
   .status--danger {
-    --_color: var(--ui-color-danger, #{t.$color-danger});
+    @include t.token(color, color-danger);
   }
 
   .status--info {
-    --_color: var(--ui-color-primary, #{t.$color-primary});
+    @include t.token(color, color-primary);
   }
 
-  // Size variants
-  // @modifier size
-  .status--sm {
-    --_size: calc(#{t.$unit} * 0.75);
-    --_gap: calc(#{t.$unit} * 0.75);
-  }
+  $size-tokens: (
+    xs:  (size: space-quarter, gap: space-quarter),
+    sm:  (size: space-0,       gap: space-0),
+    md:  (size: space-1,       gap: space-1),
+    lg:  (size: size-sm,       gap: size-sm),
+    xl:  (size: space-2,       gap: space-2),
+  );
+  @include t.validate-size-tokens($size-tokens);
 
-  .status--lg {
-    --_size: calc(#{t.$unit} * 1.5);
-    --_gap: calc(#{t.$unit} * 1.5);
+  // @modifier size xs, sm, md, lg, xl
+  @each $name, $tokens in $size-tokens {
+    .status--#{$name} {
+      @each $prop, $global in $tokens {
+        // @desc Override
+        @include t.token($prop, $global, status, #{$prop}-#{$name});
+      }
+    }
   }
 }
 

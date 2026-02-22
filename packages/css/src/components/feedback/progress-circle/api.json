@@ -3,76 +3,99 @@
   "name": "progress-circle",
   "element": "svg",
   "modifiers": {
-    "size": {
-      "values": ["sm", "lg", "xl"]
-    },
-    "variant": {
-      "values": ["success", "warning", "danger"]
-    },
     "indeterminate": {
       "type": "boolean"
+    },
+    "size": {
+      "values": ["xs", "sm", "md", "lg", "xl"]
+    },
+    "variant": {
+      "values": ["danger", "success", "warning"]
     }
   },
   "elements": {
-    "track": {},
-    "fill": {}
+    "fill": {},
+    "track": {}
   },
   "cssVars": [
     {
-      "name": "--ui-progress-circle-transition-duration",
-      "default": "var(--ui-duration-slow)",
-      "defaultValue": "250ms",
-      "description": "Transition duration"
-    },
-    {
-      "name": "--ui-progress-circle-transition-timing",
-      "default": "var(--ui-ease-default)",
-      "description": "Transition timing function"
+      "name": "--ui-progress-circle-fill-color",
+      "default": "--ui-color-primary",
+      "description": "Fill area text color",
+      "type": "color"
     },
     {
       "name": "--ui-progress-circle-size",
-      "default": "calc(var(--ui-unit) * 6)",
+      "default": "--ui-space-6",
       "defaultValue": "48px",
-      "description": "Overall size"
+      "description": "Overall size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-progress-circle-size-xs",
+      "default": "--ui-space-3",
+      "defaultValue": "24px",
+      "description": "Overall size at xs size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-progress-circle-size-sm",
+      "default": "--ui-space-4",
+      "defaultValue": "32px",
+      "description": "Overall size at sm size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-progress-circle-size-md",
+      "default": "--ui-space-6",
+      "defaultValue": "48px",
+      "description": "Overall size at md size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-progress-circle-size-lg",
+      "default": "--ui-space-8",
+      "defaultValue": "64px",
+      "description": "Overall size at lg size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-progress-circle-size-xl",
+      "default": "--ui-unit-12",
+      "defaultValue": "96px",
+      "description": "Overall size at xl size",
+      "type": "dimension"
     },
     {
       "name": "--ui-progress-circle-stroke-width",
-      "default": "var(--ui-progress-circle-stroke-width)",
+      "default": "--ui-progress-circle-stroke-width",
       "defaultValue": "8",
-      "description": "Stroke width"
-    },
-    {
-      "name": "--ui-progress-circle-fill-color",
-      "default": "var(--ui-color-primary)",
-      "description": "Fill area text color"
+      "description": "Stroke width",
+      "type": "dimension"
     },
     {
       "name": "--ui-progress-circle-track-color",
-      "default": "var(--ui-color-border)",
-      "description": "Track text color"
+      "default": "--ui-color-border",
+      "description": "Track text color",
+      "type": "color"
+    },
+    {
+      "name": "--ui-progress-circle-transition-duration",
+      "default": "--ui-duration-slow",
+      "defaultValue": "250ms",
+      "description": "Transition duration",
+      "type": "duration"
+    },
+    {
+      "name": "--ui-progress-circle-transition-timing",
+      "default": "--ui-ease-default",
+      "description": "Transition timing function",
+      "type": "easing"
     },
     {
       "name": "--ui-progress-circle-value",
       "default": "0",
       "description": "Value"
-    },
-    {
-      "name": "--ui-progress-circle-size-sm",
-      "default": "calc(var(--ui-unit) * 4)",
-      "defaultValue": "32px",
-      "description": "Overall size at small size"
-    },
-    {
-      "name": "--ui-progress-circle-size-lg",
-      "default": "calc(var(--ui-unit) * 8)",
-      "defaultValue": "64px",
-      "description": "Overall size at large size"
-    },
-    {
-      "name": "--ui-progress-circle-size-xl",
-      "default": "calc(var(--ui-unit) * 12)",
-      "defaultValue": "96px",
-      "description": "Overall size at extra-large size"
     }
   ]
 }

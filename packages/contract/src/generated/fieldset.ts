@@ -2,16 +2,16 @@
 import { cx } from '../cx';
 
 export interface FieldsetProps {
-  compact?: boolean;
   bordered?: boolean;
+  compact?: boolean;
 }
 
 export const fieldset = Object.assign(
   (props?: FieldsetProps): string => {
     if (!props) return cx('fieldset');
     return cx('fieldset', {
-      compact: props.compact,
       bordered: props.bordered,
+      compact: props.compact,
     });
   },
   {

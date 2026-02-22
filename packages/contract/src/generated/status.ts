@@ -1,22 +1,22 @@
 // Auto-generated from api.json. Do not edit — run: pnpm generate:contract
 import { cx } from '../cx';
 
-export type StatusVariant = 'success' | 'warning' | 'danger' | 'info';
-export type StatusSize = 'sm' | 'lg';
+export type StatusSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type StatusVariant = 'danger' | 'info' | 'success' | 'warning';
 
 export interface StatusProps {
-  variant?: StatusVariant;
-  size?: StatusSize;
   pulse?: boolean;
+  size?: StatusSize;
+  variant?: StatusVariant;
 }
 
 export const status = Object.assign(
   (props?: StatusProps): string => {
     if (!props) return cx('status');
     return cx('status', {
-      variant: props.variant,
-      size: props.size,
       pulse: props.pulse,
+      size: props.size,
+      variant: props.variant,
     });
   },
   {

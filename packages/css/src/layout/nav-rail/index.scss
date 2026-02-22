@@ -1,26 +1,28 @@
+@use '../../config/tokens/variables' as t;
+
 // @component nav-rail
 // @element nav
 
 @layer primitives {
   .nav-rail {
-    --_space-2: var(--ui-space-2);
-    --_border-width-sm: var(--ui-border-width-sm);
+    @include t.token(space-2, space-2);
+    @include t.token(border-width-sm, border-width-sm);
     // @desc Overall width
-    --_width: var(--ui-nav-rail-width, var(--ui-row-4));
+    @include t.token(width, row-4, nav-rail);
     // @desc Background color
-    --_bg: var(--ui-nav-rail-bg, var(--ui-color-bg-subtle));
+    @include t.token(bg, color-bg-subtle, nav-rail);
     // @desc Border color
-    --_border-color: var(--ui-nav-rail-border-color, var(--ui-color-border));
+    @include t.token(border-color, color-border, nav-rail);
     // @desc Gap between children
-    --_gap: var(--ui-nav-rail-gap, var(--ui-space-1));
+    @include t.token(gap, space-1, nav-rail);
     // @desc Z-index stacking order
-    --_z: var(--ui-nav-rail-z, var(--ui-z-index-sticky));
+    @include t.token(z, z-index-sticky, nav-rail);
 
     display: flex;
     flex-direction: column;
     align-items: center;
     position: fixed;
-    inset-block: var(--topbar-height, 0);
+    inset-block: var(--ui-topbar-height, 0);
     inset-inline-start: 0;
     z-index: var(--_z);
 

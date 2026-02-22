@@ -8,42 +8,50 @@
 @layer components.tokens {
   .modal {
     // @desc Transition duration
-    --_transition-duration: var(--ui-modal-transition-duration, var(--ui-duration-normal, #{t.$duration-normal}));
+    @include t.token(transition-duration, duration-normal, modal);
     // @desc Transition timing function
-    --_transition-timing: var(--ui-modal-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    @include t.token(transition-timing, ease-default, modal);
     // @desc Viewport padding
-    --_viewport-padding: var(--ui-modal-viewport-padding, calc(#{t.$unit} * 2));
+    @include t.token(viewport-padding, space-2, modal);
     // @desc Background color
-    --_bg: var(--ui-modal-bg, var(--ui-color-bg, #{t.$color-bg}));
+    @include t.token(bg, color-bg, modal);
     // @desc Corner radius
-    --_radius: var(--ui-modal-radius, var(--ui-radius-lg, calc(#{t.$unit} * 1.5)));
+    @include t.token(radius, radius-lg, modal);
     // @desc Box shadow
-    --_shadow: var(--ui-modal-shadow, 0 calc(#{t.$unit} * 3) calc(#{t.$unit} * 6) rgb(0 0 0 / 0.25));
+    @include t.token(shadow, shadow-lg, modal);
     // @desc Padding on all sides
-    --_padding: var(--ui-modal-padding, calc(#{t.$unit} * 3));
+    @include t.token(padding, space-3, modal);
     // @desc Maximum width
-    --_max-width: var(--ui-modal-max-width, calc(#{t.$unit} * 60));
+    @include t.token(max-width, unit-60, modal);
     // @desc Maximum height
-    --_max-height: var(--ui-modal-max-height, calc(100vh - #{t.$unit} * 8));
+    @include t.token(max-height, viewport-max-height, modal);
     // @desc Z-index stacking order
-    --_z: var(--ui-modal-z, var(--ui-z-index-modal, #{t.$z-index-modal}));
+    @include t.token(z, z-index-modal, modal);
   }
 
-  // @modifier size
-  .modal--sm {
-    // @desc Maximum width at small size
-    --_max-width: var(--ui-modal-max-width-sm, calc(#{t.$unit} * 40));
-  }
+  $size-tokens: (
+    xs:  (max-width: unit-25),
+    sm:  (max-width: unit-40),
+    md:  (max-width: unit-60),
+    lg:  (max-width: unit-80),
+    xl:  (max-width: unit-80),
+  );
+  @include t.validate-size-tokens($size-tokens);
 
-  .modal--lg {
-    // @desc Maximum width at large size
-    --_max-width: var(--ui-modal-max-width-lg, calc(#{t.$unit} * 80));
+  // @modifier size xs, sm, md, lg, xl
+  @each $name, $tokens in $size-tokens {
+    .modal--#{$name} {
+      @each $prop, $global in $tokens {
+        // @desc Override
+        @include t.token($prop, $global, modal, #{$prop}-#{$name});
+      }
+    }
   }
 
   .modal--full {
-    --_max-width: calc(100vw - #{t.$unit} * 4);
-    --_max-height: calc(100vh - #{t.$unit} * 4);
-    --_radius: 0;
+    --_max-width: #{t.$viewport-max-width-full}; // token-lint-ignore
+    --_max-height: #{t.$viewport-max-height-full}; // token-lint-ignore
+    --_radius: 0; // token-lint-ignore
   }
 }
 

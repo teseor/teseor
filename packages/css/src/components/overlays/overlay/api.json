@@ -3,7 +3,7 @@
   "name": "overlay",
   "element": "div",
   "modifiers": {
-    "light": {
+    "animate": {
       "type": "boolean"
     },
     "blur": {
@@ -12,57 +12,52 @@
     "entering": {
       "type": "boolean"
     },
-    "visible": {
-      "type": "boolean"
-    },
     "exiting": {
       "type": "boolean"
     },
     "hidden": {
       "type": "boolean"
     },
-    "animate": {
+    "light": {
+      "type": "boolean"
+    },
+    "visible": {
       "type": "boolean"
     }
   },
   "cssVars": [
     {
-      "name": "--ui-overlay-transition-duration",
-      "default": "var(--ui-duration-normal)",
-      "defaultValue": "200ms",
-      "description": "Transition duration"
-    },
-    {
-      "name": "--ui-overlay-transition-timing",
-      "default": "var(--ui-ease-default)",
-      "description": "Transition timing function"
+      "name": "--ui-overlay-bg",
+      "default": "--ui-overlay-bg",
+      "description": "Background color",
+      "type": "color"
     },
     {
       "name": "--ui-overlay-blur-amount",
-      "default": "calc(var(--ui-unit) * 0.5)",
+      "default": "--ui-space-0",
       "defaultValue": "4px",
-      "description": "Blur amount"
+      "description": "Blur amount",
+      "type": "dimension"
     },
     {
-      "name": "--ui-overlay-bg",
-      "default": "var(--ui-overlay-bg)",
-      "description": "Background color"
+      "name": "--ui-overlay-transition-duration",
+      "default": "--ui-duration-normal",
+      "defaultValue": "200ms",
+      "description": "Transition duration",
+      "type": "duration"
+    },
+    {
+      "name": "--ui-overlay-transition-timing",
+      "default": "--ui-ease-default",
+      "description": "Transition timing function",
+      "type": "easing"
     },
     {
       "name": "--ui-overlay-z",
-      "default": "var(--ui-z-index-overlay)",
+      "default": "--ui-z-index-overlay",
       "defaultValue": "300",
-      "description": "Z-index stacking order"
-    },
-    {
-      "name": "--ui-overlay-bg-light",
-      "default": "var(--ui-overlay-bg-light)",
-      "description": "Bg light"
-    },
-    {
-      "name": "--ui-overlay-bg-blur",
-      "default": "var(--ui-overlay-bg-blur)",
-      "description": "Bg blur"
+      "description": "Z-index stacking order",
+      "type": "z-index"
     }
   ]
 }

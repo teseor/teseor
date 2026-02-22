@@ -1,26 +1,23 @@
 // Auto-generated from api.json. Do not edit — run: pnpm generate:contract
 import { cx } from '../cx';
 
-export type TextareaSize = 'sm' | 'lg';
-export type TextareaVariant = 'filled' | 'ghost';
+export type TextareaSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type TextareaState = 'error' | 'success';
-export type TextareaResize = 'resize-none' | 'resize-horizontal' | 'resize-both';
+export type TextareaVariant = 'filled' | 'ghost';
 
 export interface TextareaProps {
-  size?: TextareaSize;
-  variant?: TextareaVariant;
-  state?: TextareaState;
-  resize?: TextareaResize;
   autoSize?: boolean;
+  size?: TextareaSize;
+  state?: TextareaState;
+  variant?: TextareaVariant;
 }
 
 export function textarea(props?: TextareaProps): string {
   if (!props) return cx('textarea');
   return cx('textarea', {
-    size: props.size,
-    variant: props.variant,
-    state: props.state,
-    resize: props.resize,
     'auto-size': props.autoSize,
+    size: props.size,
+    state: props.state,
+    variant: props.variant,
   });
 }

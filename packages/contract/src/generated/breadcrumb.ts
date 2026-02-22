@@ -6,6 +6,8 @@ export interface BreadcrumbItemProps {
 }
 
 export const breadcrumb = Object.assign((): string => cx('breadcrumb'), {
+  current: (): string => cx('breadcrumb__current'),
+  ellipsis: (): string => cx('breadcrumb__ellipsis'),
   item: (props?: BreadcrumbItemProps): string => {
     if (!props) return cx('breadcrumb__item');
     return cx('breadcrumb__item', {
@@ -13,6 +15,4 @@ export const breadcrumb = Object.assign((): string => cx('breadcrumb'), {
     });
   },
   link: (): string => cx('breadcrumb__link'),
-  current: (): string => cx('breadcrumb__current'),
-  ellipsis: (): string => cx('breadcrumb__ellipsis'),
 });

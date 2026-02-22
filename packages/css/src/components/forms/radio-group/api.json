@@ -14,79 +14,37 @@
     }
   },
   "elements": {
-    "legend": {},
+    "item": {},
     "items": {},
-    "item": {}
+    "legend": {}
   },
   "cssVars": [
     {
-      "name": "--ui-radio-group-line-height",
-      "default": "var(--ui-line-height-tight-sm)",
-      "defaultValue": "16px",
-      "description": "Line height"
-    },
-    {
-      "name": "--ui-radio-group-item-line-height",
-      "default": "var(--ui-row-1)",
-      "defaultValue": "16px",
-      "description": "Item line height"
-    },
-    {
       "name": "--ui-radio-group-disabled-opacity",
-      "default": "var(--ui-opacity-disabled)",
+      "default": "--ui-opacity-disabled",
       "defaultValue": "0.5",
-      "description": "Disabled opacity"
+      "description": "Disabled opacity",
+      "type": "opacity"
+    },
+    {
+      "name": "--ui-radio-group-error-color",
+      "default": "--ui-color-danger",
+      "description": "Error color",
+      "type": "color"
     },
     {
       "name": "--ui-radio-group-horizontal-gap",
-      "default": "var(--ui-space-2)",
+      "default": "--ui-space-2",
       "defaultValue": "16px",
-      "description": "Horizontal gap"
-    },
-    {
-      "name": "--ui-radio-group-spacing",
-      "default": "var(--ui-space-1)",
-      "defaultValue": "8px",
-      "description": "Spacing"
-    },
-    {
-      "name": "--ui-radio-group-legend-size",
-      "default": "var(--ui-font-size-sm)",
-      "defaultValue": "14px",
-      "description": "Legend size"
-    },
-    {
-      "name": "--ui-radio-group-legend-weight",
-      "default": "var(--ui-font-weight-medium)",
-      "defaultValue": "500",
-      "description": "Legend weight"
-    },
-    {
-      "name": "--ui-radio-group-legend-color",
-      "default": "var(--ui-color-text)",
-      "description": "Legend color"
-    },
-    {
-      "name": "--ui-radio-group-legend-spacing",
-      "default": "var(--ui-space-1)",
-      "defaultValue": "8px",
-      "description": "Legend spacing"
+      "description": "Horizontal gap",
+      "type": "dimension"
     },
     {
       "name": "--ui-radio-group-item-gap",
-      "default": "var(--ui-space-1)",
+      "default": "--ui-space-1",
       "defaultValue": "8px",
-      "description": "Item gap between children"
-    },
-    {
-      "name": "--ui-radio-group-spacing-compact",
-      "default": "0",
-      "description": "Spacing compact"
-    },
-    {
-      "name": "--ui-radio-group-legend-spacing-compact",
-      "default": "0",
-      "description": "Legend spacing compact"
+      "description": "Item gap between children",
+      "type": "dimension"
     },
     {
       "name": "--ui-radio-group-item-gap-compact",
@@ -94,9 +52,62 @@
       "description": "Item gap compact"
     },
     {
-      "name": "--ui-radio-group-error-color",
-      "default": "var(--ui-color-danger)",
-      "description": "Error color"
+      "name": "--ui-radio-group-item-line-height",
+      "default": "--ui-row-1",
+      "defaultValue": "16px",
+      "description": "Item line height",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-radio-group-legend-color",
+      "default": "--ui-color-text",
+      "description": "Legend color",
+      "type": "color"
+    },
+    {
+      "name": "--ui-radio-group-legend-size",
+      "default": "--ui-font-size-sm",
+      "defaultValue": "14px",
+      "description": "Legend size",
+      "type": "font-size"
+    },
+    {
+      "name": "--ui-radio-group-legend-spacing",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Legend spacing",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-radio-group-legend-spacing-compact",
+      "default": "0",
+      "description": "Legend spacing compact"
+    },
+    {
+      "name": "--ui-radio-group-legend-weight",
+      "default": "--ui-font-weight-medium",
+      "defaultValue": "500",
+      "description": "Legend weight",
+      "type": "font-weight"
+    },
+    {
+      "name": "--ui-radio-group-line-height",
+      "default": "--ui-line-height-tight-sm",
+      "defaultValue": "16px",
+      "description": "Line height",
+      "type": "line-height"
+    },
+    {
+      "name": "--ui-radio-group-spacing",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Spacing",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-radio-group-spacing-compact",
+      "default": "0",
+      "description": "Spacing compact"
     }
   ]
 }

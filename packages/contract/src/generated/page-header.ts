@@ -15,8 +15,8 @@ export const pageHeader = Object.assign(
     });
   },
   {
-    title: (): string => cx('page-header__title'),
     actions: (): string => cx('page-header__actions'),
     breadcrumb: (): string => cx('page-header__breadcrumb'),
+    title: (): string => cx('page-header__title'),
   },
 );

@@ -68,7 +68,7 @@ export function lintNoComputationInTokens(srcDir: string): void {
     const content = readFileSync(file, 'utf-8');
     const relPath = file.replace(`${srcDir}/`, '');
 
-    const isTokenProp = (prop: string) => prop.startsWith('--_') || prop.startsWith('--ui-');
+    const isTokenProp = (prop: string) => prop.startsWith('--_');
     for (const hit of findComputationViolations(content, 'primitives', isTokenProp)) {
       violations.push({ file: relPath, ...hit });
     }

@@ -8,65 +8,67 @@
 @layer components.tokens {
   .menu {
     // @desc Border width
-    --_border-width: var(--ui-menu-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    @include t.token(border-width, border-width-sm, menu);
     // @desc Label font size
-    --_label-font-size: var(--ui-menu-label-font-size, var(--ui-font-size-xs, #{t.$font-size-xs}));
+    @include t.token(label-font-size, font-size-xs, menu);
     // @desc Label font weight
-    --_label-font-weight: var(--ui-menu-label-font-weight, var(--ui-font-weight-medium, #{t.$font-weight-medium}));
+    @include t.token(label-font-weight, font-weight-medium, menu);
     // @desc Item line height
-    --_item-line-height: var(--ui-menu-item-line-height, var(--ui-row-1, #{t.$row}));
+    @include t.token(item-line-height, row-1, menu);
     // @desc Label color
-    --_label-color: var(--ui-menu-label-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    @include t.token(label-color, color-text-muted, menu);
     // @desc Item font size
-    --_item-font-size: var(--ui-menu-item-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    @include t.token(item-font-size, font-size-sm, menu);
     // @desc Item text color
-    --_item-color: var(--ui-menu-item-color, var(--ui-color-text, #{t.$color-text}));
+    @include t.token(item-color, color-text, menu);
     // @desc Transition duration
-    --_transition-duration: var(--ui-menu-transition-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    @include t.token(transition-duration, duration-fast, menu);
     // @desc Transition timing function
-    --_transition-timing: var(--ui-menu-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    @include t.token(transition-timing, ease-default, menu);
     // @desc Danger color
-    --_danger-color: var(--ui-menu-danger-color, var(--ui-color-danger, #{t.$color-danger}));
+    @include t.token(danger-color, color-danger, menu);
     // @desc Disabled opacity
-    --_disabled-opacity: var(--ui-menu-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
+    @include t.token(disabled-opacity, opacity-disabled, menu);
     // @desc Separator color
-    --_separator-color: var(--ui-menu-separator-color, var(--ui-color-border, #{t.$color-border}));
+    @include t.token(separator-color, color-border, menu);
     // @desc Label letter spacing
-    --_label-letter-spacing: var(--ui-menu-label-letter-spacing, var(--ui-letter-spacing-wide, #{t.$letter-spacing-wide}));
+    @include t.token(label-letter-spacing, letter-spacing-wide, menu);
     // @desc Item gap
-    --_item-gap: var(--ui-menu-item-gap, var(--ui-unit, #{t.$unit}));
+    @include t.token(item-gap, unit, menu);
     // @desc Item icon size
-    --_item-icon-size: var(--ui-menu-item-icon-size, calc(#{t.$unit} * 2));
+    @include t.token(item-icon-size, space-2, menu);
     // @desc Separator height
-    --_separator-height: var(--ui-menu-separator-height, calc(#{t.$unit} * 2));
+    @include t.token(separator-height, space-2, menu);
     // @desc Check/radio inline padding
-    --_check-padding-start: var(--ui-menu-check-padding-start, calc(#{t.$unit} * 4));
+    @include t.token(check-padding-start, space-4, menu);
     // @desc Indicator offset
-    --_indicator-offset: var(--ui-menu-indicator-offset, var(--ui-unit, #{t.$unit}));
+    @include t.token(indicator-offset, unit, menu);
     // @desc Indicator size
-    --_indicator-size: var(--ui-menu-indicator-size, calc(#{t.$unit} * 2));
+    @include t.token(indicator-size, space-2, menu);
     // @desc Shortcut color
-    --_shortcut-color: var(--ui-menu-shortcut-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    @include t.token(shortcut-color, color-text-muted, menu);
     // @desc Minimum width
-    --_min-width: var(--ui-menu-min-width, calc(#{t.$unit} * 16));
+    @include t.token(min-width, unit-16, menu);
     // @desc Maximum height
-    --_max-height: var(--ui-menu-max-height, calc(#{t.$unit} * 40));
+    @include t.token(max-height, unit-40, menu);
     // @desc Padding on all sides
-    --_padding: var(--ui-menu-padding, calc(#{t.$unit} * 1));
+    @include t.token(padding, space-1, menu);
     // @desc Corner radius
-    --_radius: var(--ui-menu-radius, var(--ui-radius-md, #{t.$radius-md}));
+    @include t.token(radius, radius-md, menu);
     // @desc Background color
-    --_bg: var(--ui-menu-bg, var(--ui-color-bg, #{t.$color-bg}));
+    @include t.token(bg, color-bg, menu);
     // @desc Border color
-    --_border-color: var(--ui-menu-border-color, var(--ui-color-border, #{t.$color-border}));
+    @include t.token(border-color, color-border, menu);
     // @desc Box shadow
-    --_shadow: var(--ui-menu-shadow, var(--ui-shadow-lg, #{t.$shadow-lg}));
-    // @desc Item padding on all sides
-    --_item-padding: var(--ui-menu-item-padding, calc(#{t.$unit} * 1) calc(#{t.$unit} * 2));
+    @include t.token(shadow, shadow-lg, menu);
+    // @desc Item vertical padding
+    @include t.token(item-padding-y, space-1, menu);
+    // @desc Item horizontal padding
+    @include t.token(item-padding-x, space-2, menu);
     // @desc Item corner radius
-    --_item-radius: var(--ui-menu-item-radius, var(--ui-radius-sm, #{t.$radius-sm}));
+    @include t.token(item-radius, radius-sm, menu);
     // @desc Item bg hover
-    --_item-bg-hover: var(--ui-menu-item-bg-hover, var(--ui-color-bg-subtle, #{t.$color-bg-subtle}));
+    @include t.token(item-bg-hover, color-bg-subtle, menu);
   }
 }
 
@@ -92,7 +94,7 @@
   }
 
   .menu__label {
-    padding: var(--_item-padding);
+    padding: var(--_item-padding-y) var(--_item-padding-x);
 
     font-size: var(--_label-font-size);
     font-weight: var(--_label-font-weight);
@@ -107,7 +109,7 @@
     align-items: center;
     gap: var(--_item-gap);
 
-    padding: var(--_item-padding);
+    padding: var(--_item-padding-y) var(--_item-padding-x);
 
     font-size: var(--_item-font-size);
     line-height: var(--_item-line-height);

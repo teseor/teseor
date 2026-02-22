@@ -1,8 +1,8 @@
 // Auto-generated from api.json. Do not edit — run: pnpm generate:contract
 import { cx } from '../cx';
 
-export type BadgeSize = 'sm' | 'lg';
-export type BadgeVariant = 'primary' | 'success' | 'warning' | 'danger';
+export type BadgeSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type BadgeVariant = 'danger' | 'primary' | 'success' | 'warning';
 
 export interface BadgeProps {
   size?: BadgeSize;

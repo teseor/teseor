@@ -14,7 +14,7 @@ export const TOKEN_DICTIONARY: TokenCategory[] = [
   {
     prefix: 'row',
     description: 'Row height multiples',
-    scales: ['1', '1-5', '2', '2-5', '3', '4', '5', '6'],
+    scales: ['1', '1-5', '2', '2-5', '3', '4', '5', '6', '10', '15', '20'],
   },
 
   // Sizing
@@ -116,6 +116,26 @@ export const TOKEN_DICTIONARY: TokenCategory[] = [
 
   // Icons
   { prefix: 'icon-size', description: 'Icon sizing', scales: ['inline'] },
+  { prefix: 'icon-stroke', description: 'Icon stroke widths', scales: null },
+
+  // Focus
+  { prefix: 'focus-ring', description: 'Focus ring styling', scales: ['offset'] },
+
+  // Patterns
+  { prefix: 'stripe', description: 'Stripe pattern tokens', scales: ['highlight'] },
+
+  // Layout constraints
+  { prefix: 'container', description: 'Container layout tokens', scales: ['threshold-sm'] },
+
+  // Slider
+  { prefix: 'slider', description: 'Slider component tokens', scales: null },
+
+  // Viewport constraints
+  {
+    prefix: 'viewport',
+    description: 'Viewport-relative constraints',
+    scales: ['max-height', 'max-height-full', 'max-width-full', 'padding'],
+  },
 
   // State
   { prefix: 'opacity', description: 'State opacity', scales: ['disabled', 'loading'] },

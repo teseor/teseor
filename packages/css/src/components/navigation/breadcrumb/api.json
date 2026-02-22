@@ -4,6 +4,8 @@
   "element": "div",
   "modifiers": {},
   "elements": {
+    "current": {},
+    "ellipsis": {},
     "item": {
       "modifiers": {
         "hidden": {
@@ -11,16 +13,47 @@
         }
       }
     },
-    "link": {},
-    "current": {},
-    "ellipsis": {}
+    "link": {}
   },
   "cssVars": [
     {
+      "name": "--ui-breadcrumb-current-color",
+      "default": "--ui-color-text",
+      "description": "Current color",
+      "type": "color"
+    },
+    {
       "name": "--ui-breadcrumb-font-size",
-      "default": "var(--ui-font-size-sm)",
+      "default": "--ui-font-size-sm",
       "defaultValue": "14px",
-      "description": "Font size"
+      "description": "Font size",
+      "type": "font-size"
+    },
+    {
+      "name": "--ui-breadcrumb-gap",
+      "default": "--ui-space-1",
+      "defaultValue": "8px",
+      "description": "Gap between children",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-breadcrumb-height",
+      "default": "--ui-row-1",
+      "defaultValue": "16px",
+      "description": "Overall height",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-breadcrumb-link-color",
+      "default": "--ui-color-text-muted",
+      "description": "Link text color",
+      "type": "color"
+    },
+    {
+      "name": "--ui-breadcrumb-link-hover-color",
+      "default": "--ui-color-primary",
+      "description": "Link hover color",
+      "type": "color"
     },
     {
       "name": "--ui-breadcrumb-separator",
@@ -28,47 +61,23 @@
       "description": "Separator"
     },
     {
+      "name": "--ui-breadcrumb-separator-color",
+      "default": "--ui-color-text-muted",
+      "description": "Separator text color",
+      "type": "color"
+    },
+    {
       "name": "--ui-breadcrumb-transition-duration",
-      "default": "var(--ui-duration-fast)",
+      "default": "--ui-duration-fast",
       "defaultValue": "100ms",
-      "description": "Transition duration"
+      "description": "Transition duration",
+      "type": "duration"
     },
     {
       "name": "--ui-breadcrumb-transition-timing",
-      "default": "var(--ui-ease-default)",
-      "description": "Transition timing function"
-    },
-    {
-      "name": "--ui-breadcrumb-link-hover-color",
-      "default": "var(--ui-color-primary)",
-      "description": "Link hover color"
-    },
-    {
-      "name": "--ui-breadcrumb-height",
-      "default": "var(--ui-row-1)",
-      "defaultValue": "16px",
-      "description": "Overall height"
-    },
-    {
-      "name": "--ui-breadcrumb-gap",
-      "default": "calc(var(--ui-unit) * 1)",
-      "defaultValue": "8px",
-      "description": "Gap between children"
-    },
-    {
-      "name": "--ui-breadcrumb-separator-color",
-      "default": "var(--ui-color-text-muted)",
-      "description": "Separator text color"
-    },
-    {
-      "name": "--ui-breadcrumb-link-color",
-      "default": "var(--ui-color-text-muted)",
-      "description": "Link text color"
-    },
-    {
-      "name": "--ui-breadcrumb-current-color",
-      "default": "var(--ui-color-text)",
-      "description": "Current color"
+      "default": "--ui-ease-default",
+      "description": "Transition timing function",
+      "type": "easing"
     }
   ]
 }

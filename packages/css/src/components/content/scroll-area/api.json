@@ -3,16 +3,16 @@
   "name": "scroll-area",
   "element": "div",
   "modifiers": {
-    "size": {
-      "values": ["sm", "lg", "xl"]
-    },
-    "thin": {
+    "auto-hide": {
       "type": "boolean"
     },
     "direction": {
-      "values": ["horizontal", "both"]
+      "values": ["both", "horizontal"]
     },
-    "auto-hide": {
+    "size": {
+      "values": ["xs", "sm", "md", "lg", "xl"]
+    },
+    "thin": {
       "type": "boolean"
     }
   },
@@ -21,72 +21,98 @@
   },
   "cssVars": [
     {
-      "name": "--ui-scroll-area-transition-duration",
-      "default": "var(--ui-duration-fast)",
-      "defaultValue": "100ms",
-      "description": "Auto-hide fade transition duration"
-    },
-    {
-      "name": "--ui-scroll-area-transition-timing",
-      "default": "var(--ui-ease-default)",
-      "description": "Auto-hide fade transition timing"
-    },
-    {
       "name": "--ui-scroll-area-max-height",
-      "default": "calc(var(--ui-row) * 10)",
+      "default": "--ui-row-10",
       "defaultValue": "160px",
-      "description": "Maximum height"
+      "description": "Maximum height",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-scroll-area-max-height-xs",
+      "default": "--ui-row-3",
+      "defaultValue": "48px",
+      "description": "Maximum height at xs size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-scroll-area-max-height-sm",
+      "default": "--ui-row-5",
+      "defaultValue": "80px",
+      "description": "Maximum height at sm size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-scroll-area-max-height-md",
+      "default": "--ui-row-10",
+      "defaultValue": "160px",
+      "description": "Maximum height at md size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-scroll-area-max-height-lg",
+      "default": "--ui-row-15",
+      "defaultValue": "240px",
+      "description": "Maximum height at lg size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-scroll-area-max-height-xl",
+      "default": "--ui-row-20",
+      "defaultValue": "320px",
+      "description": "Maximum height at xl size",
+      "type": "dimension"
     },
     {
       "name": "--ui-scroll-area-scrollbar-size",
-      "default": "calc(var(--ui-unit) * 1)",
+      "default": "--ui-space-1",
       "defaultValue": "8px",
-      "description": "Scrollbar size"
+      "description": "Scrollbar size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-scroll-area-scrollbar-size-thin",
+      "default": "--ui-space-0",
+      "defaultValue": "4px",
+      "description": "Scrollbar size thin",
+      "type": "dimension"
     },
     {
       "name": "--ui-scroll-area-thumb-color",
-      "default": "var(--ui-color-border-strong)",
-      "description": "Thumb control text color"
+      "default": "--ui-color-border-strong",
+      "description": "Thumb control text color",
+      "type": "color"
     },
     {
       "name": "--ui-scroll-area-thumb-hover-color",
-      "default": "var(--ui-color-neutral-400)",
-      "description": "Thumb hover color"
+      "default": "--ui-color-neutral-400",
+      "description": "Thumb hover color",
+      "type": "color"
+    },
+    {
+      "name": "--ui-scroll-area-thumb-radius",
+      "default": "--ui-radius-full",
+      "defaultValue": "9999px",
+      "description": "Thumb corner radius",
+      "type": "radius"
     },
     {
       "name": "--ui-scroll-area-track-color",
       "default": "transparent",
-      "description": "Track text color"
+      "description": "Track text color",
+      "type": "color"
     },
     {
-      "name": "--ui-scroll-area-thumb-radius",
-      "default": "var(--ui-radius-full)",
-      "defaultValue": "9999px",
-      "description": "Thumb corner radius"
+      "name": "--ui-scroll-area-transition-duration",
+      "default": "--ui-duration-fast",
+      "defaultValue": "100ms",
+      "description": "Auto-hide fade transition duration",
+      "type": "duration"
     },
     {
-      "name": "--ui-scroll-area-max-height-sm",
-      "default": "calc(var(--ui-row) * 5)",
-      "defaultValue": "80px",
-      "description": "Maximum height at small size"
-    },
-    {
-      "name": "--ui-scroll-area-max-height-lg",
-      "default": "calc(var(--ui-row) * 15)",
-      "defaultValue": "240px",
-      "description": "Maximum height at large size"
-    },
-    {
-      "name": "--ui-scroll-area-max-height-xl",
-      "default": "calc(var(--ui-row) * 20)",
-      "defaultValue": "320px",
-      "description": "Maximum height at extra-large size"
-    },
-    {
-      "name": "--ui-scroll-area-scrollbar-size-thin",
-      "default": "calc(var(--ui-unit) * 0.5)",
-      "defaultValue": "4px",
-      "description": "Scrollbar size thin"
+      "name": "--ui-scroll-area-transition-timing",
+      "default": "--ui-ease-default",
+      "description": "Auto-hide fade transition timing",
+      "type": "easing"
     }
   ]
 }

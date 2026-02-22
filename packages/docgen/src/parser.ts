@@ -4,13 +4,114 @@
 import postcss, { type Comment, type Declaration, type Rule } from 'postcss';
 import postcssScss from 'postcss-scss';
 import { resolveDefaultValue } from './token-resolver.js';
-import type { ApiJson, CssVar, ElementDef, Modifier, RelatedComponent } from './types.js';
+import type {
+  ApiJson,
+  CssVar,
+  ElementDef,
+  Modifier,
+  RelatedComponent,
+  TokenType,
+} from './types.js';
 
 // Block-level pseudo-classes — filtered from modifier extraction.
 // Note: 'active' is excluded here because .tabs__tab--active is a real modifier.
 // Element-level filtering only skips 'hover' and 'focus'.
 const BLOCK_PSEUDO = new Set(['hover', 'focus', 'active', 'disabled']);
 const ELEM_PSEUDO = new Set(['hover', 'focus']);
+
+// --- Token type inference ---
+// Maps global token name prefixes to semantic types for theme builder use.
+// Order matters: first match wins, so more specific prefixes come first.
+const TOKEN_TYPE_MAP: [string, TokenType][] = [
+  // Colors
+  ['color-', 'color'],
+  ['overlay-bg', 'color'],
+  ['stripe-highlight', 'color'],
+  ['transparent', 'color'],
+  ['currentcolor', 'color'],
+  // Typography
+  ['font-size-', 'font-size'],
+  ['font-weight-', 'font-weight'],
+  ['font-', 'font-family'],
+  ['line-height-', 'line-height'],
+  ['letter-spacing-', 'letter-spacing'],
+  // Borders & radius
+  ['radius-', 'radius'],
+  ['border-width-', 'border-width'],
+  // Effects
+  ['opacity-', 'opacity'],
+  ['shadow-', 'shadow'],
+  ['slider-thumb-shadow', 'shadow'],
+  ['skeleton-shimmer', 'other'],
+  // Motion
+  ['duration-', 'duration'],
+  ['spinner-duration', 'duration'],
+  ['ease-', 'easing'],
+  // Layout
+  ['z-index-', 'z-index'],
+  // Dimensions
+  ['space-', 'dimension'],
+  ['size-', 'dimension'],
+  ['row-', 'dimension'],
+  ['row', 'dimension'],
+  ['unit-', 'dimension'],
+  ['unit', 'dimension'],
+  ['icon-stroke', 'dimension'],
+  ['icon-size-inline', 'dimension'],
+  ['viewport-', 'dimension'],
+  ['progress-circle-stroke-width', 'dimension'],
+  ['spacer-size', 'dimension'],
+  ['toast-viewport-max-width', 'dimension'],
+  ['container-threshold-', 'dimension'],
+  ['focus-ring-offset', 'dimension'],
+  ['ctx-size', 'dimension'],
+];
+
+// Literal CSS values that aren't token references — skip type inference
+const LITERAL_VALUES = new Set([
+  '0',
+  '50%',
+  '90%',
+  '100%',
+  'auto',
+  'cover',
+  'inherit',
+  'none',
+  'normal',
+  'underline',
+  '/',
+]);
+
+// Track unmapped tokens for warnings
+const unmappedTokens = new Set<string>();
+
+function inferTokenType(globalDefault: string): TokenType | undefined {
+  // Strip --ui- prefix to get the global token name
+  const token = globalDefault.startsWith('--ui-') ? globalDefault.slice(5) : globalDefault;
+
+  if (!token) return undefined;
+
+  // Skip literal CSS values and expressions (not token references)
+  if (LITERAL_VALUES.has(token)) return undefined;
+  if (token.startsWith('calc(') || token.startsWith('#{') || token.startsWith('"')) {
+    return undefined;
+  }
+
+  for (const [prefix, type] of TOKEN_TYPE_MAP) {
+    if (token.startsWith(prefix) || token === prefix) return type;
+  }
+
+  unmappedTokens.add(token);
+  return 'other';
+}
+
+export function getUnmappedTokens(): string[] {
+  return [...unmappedTokens].sort();
+}
+
+export function clearUnmappedTokens(): void {
+  unmappedTokens.clear();
+}
 
 const SCHEMA =
   'Auto-generated from index.scss annotations. Do not edit manually — run: pnpm generate:api';
@@ -21,8 +122,58 @@ function esc(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+// Split a string by delimiter, respecting nested parentheses
+function splitAtTopLevel(s: string, delimiter: string): string[] {
+  const parts: string[] = [];
+  let current = '';
+  let depth = 0;
+  for (const char of s) {
+    if (char === '(') depth++;
+    else if (char === ')') depth--;
+    if (char === delimiter && depth === 0) {
+      if (current.trim()) parts.push(current.trim());
+      current = '';
+    } else {
+      current += char;
+    }
+  }
+  if (current.trim()) parts.push(current.trim());
+  return parts;
+}
+
+// Parse a SCSS map-of-maps literal: (xs: (height: row, ...), sm: (...))
+function parseSCSSMapLiteral(raw: string): Map<string, Map<string, string>> {
+  const trimmed = raw.trim();
+  if (!trimmed.startsWith('(') || !trimmed.endsWith(')')) return new Map();
+
+  const inner = trimmed.slice(1, -1).trim();
+  const outerEntries = splitAtTopLevel(inner, ',');
+  const result = new Map<string, Map<string, string>>();
+
+  for (const entry of outerEntries) {
+    const colonIdx = entry.indexOf(':');
+    if (colonIdx === -1) continue;
+    const key = entry.slice(0, colonIdx).trim();
+    const value = entry.slice(colonIdx + 1).trim();
+
+    if (value.startsWith('(')) {
+      const innerContent = value.slice(1, value.lastIndexOf(')')).trim();
+      const innerEntries = splitAtTopLevel(innerContent, ',');
+      const innerMap = new Map<string, string>();
+      for (const ie of innerEntries) {
+        const ic = ie.indexOf(':');
+        if (ic === -1) continue;
+        innerMap.set(ie.slice(0, ic).trim(), ie.slice(ic + 1).trim());
+      }
+      result.set(key, innerMap);
+    }
+  }
+
+  return result;
+}
+
 function convertScssToVar(s: string): string {
-  return s.replace(/#\{t\.\$([\w-]+)\}/g, (_m, name) => `var(--ui-${name})`);
+  return s.replace(/#\{t\.\$([\w-]+)\}/g, (_m, name) => `--ui-${name}`);
 }
 
 // --- Annotation types ---
@@ -263,7 +414,15 @@ function buildCssVars(
   const prefix = `--ui-${componentName}-`;
   const varPattern = new RegExp(`var\\(${esc(prefix)}([\\w-]+)`, 'g');
 
+  // Pattern for @include t.token(local, global, component, alias)
+  const tokenMixinRe =
+    /^t\.token\(\s*([\w-]+)\s*,\s*([\w-]+)\s*(?:,\s*([\w-]+)\s*)?(?:,\s*([\w-]+)\s*)?\)$/;
+
+  // Track base token descriptions for $size-tokens expansion
+  const propDescMap = new Map<string, string>();
+
   for (const container of containers) {
+    // Extract from raw --_ declarations
     container.walkDecls((decl: Declaration) => {
       for (const match of decl.value.matchAll(varPattern)) {
         const varName = `${prefix}${match[1]}`;
@@ -272,6 +431,9 @@ function buildCssVars(
 
         const defaultVal = extractDefault(decl.value, varName);
         const cssVar: CssVar = { name: varName, default: defaultVal };
+
+        const tokenType = inferTokenType(defaultVal);
+        if (tokenType) cssVar.type = tokenType;
 
         if (tokenMap) {
           const resolved = resolveDefaultValue(defaultVal, tokenMap);
@@ -283,6 +445,75 @@ function buildCssVars(
         if (desc) cssVar.description = desc;
 
         vars.push(cssVar);
+      }
+    });
+
+    // Extract from @include t.token() mixin calls
+    container.walkAtRules('include', (atRule) => {
+      const match = atRule.params.match(tokenMixinRe);
+      if (!match) return;
+
+      const [, localName, globalName, compName, aliasName] = match;
+      const resolvedComp = compName ?? componentName;
+      const suffix = aliasName ?? localName;
+      const varName = `--ui-${resolvedComp}-${suffix}`;
+
+      if (seen.has(varName)) return;
+      seen.add(varName);
+
+      const defaultVal = `--ui-${globalName}`;
+      const cssVar: CssVar = { name: varName, default: defaultVal };
+
+      const tokenType = inferTokenType(defaultVal);
+      if (tokenType) cssVar.type = tokenType;
+
+      if (tokenMap) {
+        const resolved = resolveDefaultValue(defaultVal, tokenMap);
+        if (resolved) cssVar.defaultValue = resolved;
+      }
+
+      const descLine = (atRule.source?.start?.line ?? 0) - 1;
+      const desc = descsByLine.get(descLine);
+      if (desc) {
+        cssVar.description = desc;
+        // Track base token descriptions by local prop name (no alias = base token)
+        if (!aliasName) propDescMap.set(localName, desc);
+      }
+
+      vars.push(cssVar);
+    });
+  }
+
+  // Expand $size-tokens SCSS map declarations into per-size cssVars
+  for (const container of containers) {
+    container.walkDecls((decl: Declaration) => {
+      if (decl.prop !== '$size-tokens') return;
+
+      const sizeMap = parseSCSSMapLiteral(decl.value);
+      for (const [size, tokens] of sizeMap) {
+        for (const [prop, global] of tokens) {
+          const varName = `--ui-${componentName}-${prop}-${size}`;
+          if (seen.has(varName)) continue;
+          seen.add(varName);
+
+          const defaultVal = `--ui-${global}`;
+          const cssVar: CssVar = { name: varName, default: defaultVal };
+
+          const tokenType = inferTokenType(defaultVal);
+          if (tokenType) cssVar.type = tokenType;
+
+          if (tokenMap) {
+            const resolved = resolveDefaultValue(defaultVal, tokenMap);
+            if (resolved) cssVar.defaultValue = resolved;
+          }
+
+          const baseDesc = propDescMap.get(prop);
+          if (baseDesc) {
+            cssVar.description = `${baseDesc} at ${size} size`;
+          }
+
+          vars.push(cssVar);
+        }
       }
     });
   }
@@ -307,13 +538,13 @@ function extractDefault(fullExpr: string, varName: string): string {
   let fallback = fullExpr.substring(afterComma, pos).trim();
 
   const innerVarMatch = fallback.match(/^var\((--ui-[\w-]+)/);
-  if (innerVarMatch) return `var(${innerVarMatch[1]})`;
+  if (innerVarMatch) return innerVarMatch[1];
 
-  fallback = fallback.replace(/var\((--ui-[\w-]+),\s*[^)]*\)/g, 'var($1)');
+  fallback = fallback.replace(/var\((--ui-[\w-]+),\s*[^)]*\)/g, '$1');
   fallback = convertScssToVar(fallback);
 
   const scssRef = fallback.match(/^#\{t\.\$([\w-]+)\}$/);
-  if (scssRef) return `var(--ui-${scssRef[1]})`;
+  if (scssRef) return `--ui-${scssRef[1]}`;
 
   return fallback;
 }
@@ -427,7 +658,7 @@ export function parseScssContent(
   const elementsResult = buildElements(isLayout ? tokens : styles, name);
   const relatedResult = buildRelatedComponents(all, annotations.relatedNames);
 
-  return {
+  return sortApi({
     $schema: SCHEMA,
     name,
     element,
@@ -435,6 +666,108 @@ export function parseScssContent(
     ...(elementsResult ? { elements: elementsResult } : {}),
     ...(relatedResult ? { relatedComponents: relatedResult } : {}),
     cssVars: buildCssVars(tokens, name, annotations.descsByLine, tokenMap),
+  });
+}
+
+// --- Deterministic ordering ---
+
+function sortKeys<T>(obj: Record<string, T>): Record<string, T> {
+  const sorted: Record<string, T> = {};
+  for (const key of Object.keys(obj).sort()) {
+    sorted[key] = obj[key];
+  }
+  return sorted;
+}
+
+function sortModifier(mod: Modifier, key: string): Modifier {
+  const sorted: Modifier = {};
+  if (mod.type !== undefined) sorted.type = mod.type;
+  if (mod.values) {
+    sorted.values =
+      key === 'size'
+        ? [...mod.values].sort(
+            (a, b) =>
+              (SIZE_ORDER.indexOf(a) === -1 ? 999 : SIZE_ORDER.indexOf(a)) -
+              (SIZE_ORDER.indexOf(b) === -1 ? 999 : SIZE_ORDER.indexOf(b)),
+          )
+        : [...mod.values].sort();
+  }
+  if (mod.visibility !== undefined) sorted.visibility = mod.visibility;
+  return sorted;
+}
+
+function sortModifiers(mods: Record<string, Modifier>): Record<string, Modifier> {
+  const sorted = sortKeys(mods);
+  for (const [key, mod] of Object.entries(sorted)) {
+    sorted[key] = sortModifier(mod, key);
+  }
+  return sorted;
+}
+
+function sortElements(elems: Record<string, ElementDef>): Record<string, ElementDef> {
+  const sorted = sortKeys(elems);
+  for (const [key, elem] of Object.entries(sorted)) {
+    if (elem.modifiers) {
+      sorted[key] = { ...elem, modifiers: sortModifiers(elem.modifiers) };
+    }
+  }
+  return sorted;
+}
+
+const SIZE_ORDER = ['xs', 'sm', 'md', 'lg', 'xl'];
+
+function extractSizeSuffix(name: string): { base: string; sizeIndex: number } {
+  for (let i = 0; i < SIZE_ORDER.length; i++) {
+    const suffix = `-${SIZE_ORDER[i]}`;
+    if (name.endsWith(suffix)) {
+      return { base: name.slice(0, -suffix.length), sizeIndex: i };
+    }
+  }
+  return { base: name, sizeIndex: -1 };
+}
+
+function compareCssVars(a: CssVar, b: CssVar): number {
+  const pa = extractSizeSuffix(a.name);
+  const pb = extractSizeSuffix(b.name);
+
+  // Same base token — sort by size order
+  if (pa.base === pb.base) {
+    // Base (no suffix) comes before sized variants
+    if (pa.sizeIndex === -1) return -1;
+    if (pb.sizeIndex === -1) return 1;
+    return pa.sizeIndex - pb.sizeIndex;
+  }
+
+  // Different base tokens — sort bases alphabetically
+  return pa.base.localeCompare(pb.base);
+}
+
+function sortApi(api: ApiJson): ApiJson {
+  return {
+    $schema: api.$schema,
+    name: api.name,
+    element: api.element,
+    modifiers: sortModifiers(api.modifiers),
+    ...(api.elements ? { elements: sortElements(api.elements) } : {}),
+    ...(api.relatedComponents
+      ? {
+          relatedComponents: api.relatedComponents
+            .map((rc) => {
+              const sorted: RelatedComponent = { name: rc.name };
+              if (rc.modifiers) sorted.modifiers = sortModifiers(rc.modifiers);
+              if (rc.elements) sorted.elements = sortElements(rc.elements);
+              return sorted;
+            })
+            .sort((a, b) => a.name.localeCompare(b.name)),
+        }
+      : {}),
+    cssVars: [...api.cssVars].sort(compareCssVars).map((v) => {
+      const sorted: CssVar = { name: v.name, default: v.default };
+      if (v.defaultValue !== undefined) sorted.defaultValue = v.defaultValue;
+      if (v.description !== undefined) sorted.description = v.description;
+      if (v.type !== undefined) sorted.type = v.type;
+      return sorted;
+    }),
   };
 }
 

@@ -3,52 +3,74 @@
   "name": "topbar",
   "element": "header",
   "modifiers": {
-    "sticky": {
+    "bordered": {
       "type": "boolean"
     },
     "fixed": {
       "type": "boolean"
     },
-    "bordered": {
+    "raised": {
       "type": "boolean"
     },
-    "raised": {
+    "sticky": {
       "type": "boolean"
     }
   },
   "elements": {
-    "start": {},
     "center": {},
-    "end": {}
+    "end": {},
+    "start": {}
   },
   "cssVars": [
     {
-      "name": "--ui-topbar-height",
-      "default": "var(--ui-row-3)",
-      "defaultValue": "48px",
-      "description": "Overall height"
-    },
-    {
       "name": "--ui-topbar-bg",
-      "default": "var(--ui-color-bg)",
-      "description": "Background color"
-    },
-    {
-      "name": "--ui-topbar-padding-inline",
-      "default": "var(--ui-space-3)",
-      "defaultValue": "24px",
-      "description": "Horizontal padding"
+      "default": "--ui-color-bg",
+      "description": "Background color",
+      "type": "color"
     },
     {
       "name": "--ui-topbar-border-color",
-      "default": "var(--ui-color-border)",
-      "description": "Border color"
+      "default": "--ui-color-border",
+      "description": "Border color",
+      "type": "color"
+    },
+    {
+      "name": "--ui-topbar-border-width-sm",
+      "default": "--ui-border-width-sm",
+      "defaultValue": "1px",
+      "type": "border-width"
+    },
+    {
+      "name": "--ui-topbar-height",
+      "default": "--ui-row-3",
+      "defaultValue": "48px",
+      "description": "Overall height",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-topbar-padding-inline",
+      "default": "--ui-space-3",
+      "defaultValue": "24px",
+      "description": "Horizontal padding",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-topbar-shadow-sm",
+      "default": "--ui-shadow-sm",
+      "type": "shadow"
+    },
+    {
+      "name": "--ui-topbar-space-2",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "type": "dimension"
     },
     {
       "name": "--ui-topbar-z",
-      "default": "var(--ui-z-index-sticky)",
+      "default": "--ui-z-index-sticky",
       "defaultValue": "100",
-      "description": "Z-index stacking order"
+      "description": "Z-index stacking order",
+      "type": "z-index"
     }
   ]
 }

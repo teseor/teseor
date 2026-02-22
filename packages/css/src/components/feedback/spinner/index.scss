@@ -6,44 +6,34 @@
 @layer components.tokens {
   .spinner {
     // @desc Overall size
-    --_size: var(--ui-spinner-size, calc(var(--ui-unit, #{t.$unit}) * 4));
+    @include t.token(size, space-4, spinner);
     // @desc Border thickness
-    --_border-width: var(--ui-spinner-border-width, var(--ui-border-width-md, #{t.$border-width-md}));
+    @include t.token(border-width, border-width-md, spinner);
     // @desc Text color
-    --_color: var(--ui-spinner-color, currentcolor);
+    --_color: var(--ui-spinner-color, currentcolor); // token-lint-ignore
     // @desc Track text color
-    --_track-color: var(--ui-spinner-track-color, transparent);
+    --_track-color: var(--ui-spinner-track-color, transparent); // token-lint-ignore
     // @desc Animation duration
-    --_duration: var(--ui-spinner-duration, #{t.$spinner-duration});
+    --_duration: var(--ui-spinner-duration, #{t.$spinner-duration}); // token-lint-ignore
   }
 
-  // @modifier size
-  .spinner--xs {
-    // @desc Overall size at extra-small size
-    --_size: var(--ui-spinner-size-xs, calc(var(--ui-unit, #{t.$unit}) * 2));
-    // @desc Border thickness at extra-small size
-    --_border-width: var(--ui-spinner-border-width-xs, var(--ui-border-width-sm, #{t.$border-width-sm}));
-  }
+  $size-tokens: (
+    xs:  (size: space-2, border-width: border-width-sm),
+    sm:  (size: space-3, border-width: border-width-md),
+    md:  (size: space-4, border-width: border-width-md),
+    lg:  (size: space-5, border-width: border-width-md),
+    xl:  (size: space-6, border-width: border-width-lg),
+  );
+  @include t.validate-size-tokens($size-tokens);
 
-  .spinner--sm {
-    // @desc Overall size at small size
-    --_size: var(--ui-spinner-size-sm, calc(var(--ui-unit, #{t.$unit}) * 3));
-    // @desc Border thickness at small size
-    --_border-width: var(--ui-spinner-border-width-sm, var(--ui-border-width-md, #{t.$border-width-md}));
-  }
-
-  .spinner--lg {
-    // @desc Overall size at large size
-    --_size: var(--ui-spinner-size-lg, calc(var(--ui-unit, #{t.$unit}) * 5));
-    // @desc Border thickness at large size
-    --_border-width: var(--ui-spinner-border-width-lg, var(--ui-border-width-md, #{t.$border-width-md}));
-  }
-
-  .spinner--xl {
-    // @desc Overall size at extra-large size
-    --_size: var(--ui-spinner-size-xl, calc(var(--ui-unit, #{t.$unit}) * 6));
-    // @desc Border thickness at extra-large size
-    --_border-width: var(--ui-spinner-border-width-xl, var(--ui-border-width-lg, #{t.$border-width-lg}));
+  // @modifier size xs, sm, md, lg, xl
+  @each $name, $tokens in $size-tokens {
+    .spinner--#{$name} {
+      @each $prop, $global in $tokens {
+        // @desc Override
+        @include t.token($prop, $global, spinner, #{$prop}-#{$name});
+      }
+    }
   }
 }
 

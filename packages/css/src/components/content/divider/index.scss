@@ -6,27 +6,27 @@
 @layer components.tokens {
   .divider {
     // @desc Font size
-    --_font-size: var(--ui-divider-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    @include t.token(font-size, font-size-sm, divider);
     // @desc Label text color
-    --_label-color: var(--ui-divider-label-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    @include t.token(label-color, color-text-muted, divider);
     // @desc Line color
-    --_color: var(--ui-divider-color, var(--ui-color-border, #{t.$color-border}));
+    @include t.token(color, color-border, divider);
     // @desc Line size
-    --_line-size: var(--ui-divider-line-size, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    @include t.token(line-size, border-width-sm, divider);
     // @desc Overall height
-    --_height: var(--ui-divider-height, var(--ui-unit, #{t.$unit}));
+    @include t.token(height, unit, divider);
     // @desc Gap between children
-    --_gap: var(--ui-divider-gap, calc(#{t.$unit} * 2));
+    @include t.token(gap, space-2, divider);
     // @desc Label spacing between text and lines
-    --_label-spacing: var(--ui-divider-label-spacing, calc(#{t.$unit} * 2));
+    @include t.token(label-spacing, space-2, divider);
     // @desc Dash pattern repeat size
-    --_dash-size: var(--ui-divider-dash-size, var(--ui-unit, #{t.$unit}));
+    @include t.token(dash-size, unit, divider);
   }
 
   // With text label - taller to accommodate text
   .divider:not(:empty) {
     // @desc Overall height when text label is present
-    --_height: var(--ui-divider-height-label, var(--ui-row-1, #{t.$row}));
+    @include t.token(height, row-1, divider, height-label);
   }
 }
 

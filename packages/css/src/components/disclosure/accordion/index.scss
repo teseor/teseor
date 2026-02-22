@@ -1,6 +1,7 @@
 @use '../../../config/tokens/variables' as t;
 // @component accordion
 // @element div
+// @related disclosure
 
 // Accordion - grouped expandable sections
 // Container for multiple disclosure items
@@ -8,18 +9,18 @@
 @layer components.tokens {
   .accordion {
     // @desc Border color
-    --_border-color: var(--ui-accordion-border-color, var(--ui-color-border, #{t.$color-border}));
+    @include t.token(border-color, color-border, accordion);
     // @desc Border thickness
-    --_border-width: var(--ui-accordion-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    @include t.token(border-width, border-width-sm, accordion);
     // @desc Corner radius
-    --_radius: var(--ui-accordion-radius, var(--ui-radius-md, calc(#{t.$unit} * 1)));
+    @include t.token(radius, radius-md, accordion);
     // @desc Gap between items in separated variant
-    --_separated-gap: var(--ui-accordion-separated-gap, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(separated-gap, space-1, accordion);
   }
 
   // Remove individual borders from nested disclosures
   .accordion > .disclosure {
-    --_border-width: 0;
+    --_border-width: 0; // token-lint-ignore
   }
 }
 

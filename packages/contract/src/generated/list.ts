@@ -2,7 +2,7 @@
 import { cx } from '../cx';
 
 export type ListSpacing = 'compact' | 'loose';
-export type ListStyle = 'unstyled' | 'inline';
+export type ListStyle = 'inline' | 'unstyled';
 
 export interface ListProps {
   spacing?: ListSpacing;

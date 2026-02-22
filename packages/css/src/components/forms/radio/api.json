@@ -4,7 +4,7 @@
   "element": "input",
   "modifiers": {
     "size": {
-      "values": ["lg"]
+      "values": ["xs", "sm", "md", "lg", "xl"]
     },
     "state": {
       "values": ["error", "success"]
@@ -12,85 +12,128 @@
   },
   "cssVars": [
     {
-      "name": "--ui-radio-border-width",
-      "default": "var(--ui-border-width-sm)",
-      "defaultValue": "1px",
-      "description": "Border width"
-    },
-    {
-      "name": "--ui-radio-transition-duration",
-      "default": "var(--ui-duration-fast)",
-      "defaultValue": "100ms",
-      "description": "Transition duration"
-    },
-    {
-      "name": "--ui-radio-transition-timing",
-      "default": "var(--ui-ease-default)",
-      "description": "Transition timing"
-    },
-    {
-      "name": "--ui-radio-focus-ring-width",
-      "default": "var(--ui-border-width-md)",
-      "defaultValue": "2px",
-      "description": "Focus ring width"
-    },
-    {
-      "name": "--ui-radio-focus-ring-color",
-      "default": "var(--ui-color-focus)",
-      "description": "Focus ring color"
-    },
-    {
-      "name": "--ui-radio-disabled-opacity",
-      "default": "var(--ui-opacity-disabled)",
-      "defaultValue": "0.5",
-      "description": "Disabled opacity"
-    },
-    {
-      "name": "--ui-radio-size",
-      "default": "calc(var(--ui-unit) * 2)",
-      "defaultValue": "16px",
-      "description": "Overall size"
-    },
-    {
       "name": "--ui-radio-bg",
-      "default": "var(--ui-color-bg)",
-      "description": "Background color"
+      "default": "--ui-color-bg",
+      "description": "Background color",
+      "type": "color"
     },
     {
       "name": "--ui-radio-bg-checked",
-      "default": "var(--ui-color-primary)",
-      "description": "Bg checked"
+      "default": "--ui-color-primary",
+      "description": "Bg checked",
+      "type": "color"
     },
     {
       "name": "--ui-radio-border-color",
-      "default": "var(--ui-color-border-strong)",
-      "description": "Border color"
+      "default": "--ui-color-border-strong",
+      "description": "Border color",
+      "type": "color"
     },
     {
       "name": "--ui-radio-border-color-focus",
-      "default": "var(--ui-color-primary)",
-      "description": "Border color focus"
+      "default": "--ui-color-primary",
+      "description": "Border color focus",
+      "type": "color"
+    },
+    {
+      "name": "--ui-radio-border-width",
+      "default": "--ui-border-width-sm",
+      "defaultValue": "1px",
+      "description": "Border width",
+      "type": "border-width"
+    },
+    {
+      "name": "--ui-radio-disabled-opacity",
+      "default": "--ui-opacity-disabled",
+      "defaultValue": "0.5",
+      "description": "Disabled opacity",
+      "type": "opacity"
     },
     {
       "name": "--ui-radio-dot-color",
-      "default": "var(--ui-color-text-inverse)",
-      "description": "Dot color"
-    },
-    {
-      "name": "--ui-radio-size-lg",
-      "default": "calc(var(--ui-unit) * 3)",
-      "defaultValue": "24px",
-      "description": "Overall size at large size"
+      "default": "--ui-color-text-inverse",
+      "description": "Dot color",
+      "type": "color"
     },
     {
       "name": "--ui-radio-error-border",
-      "default": "var(--ui-color-danger)",
-      "description": "Error border"
+      "default": "--ui-color-danger",
+      "description": "Error border",
+      "type": "color"
+    },
+    {
+      "name": "--ui-radio-focus-ring-color",
+      "default": "--ui-color-focus",
+      "description": "Focus ring color",
+      "type": "color"
+    },
+    {
+      "name": "--ui-radio-focus-ring-width",
+      "default": "--ui-border-width-md",
+      "defaultValue": "2px",
+      "description": "Focus ring width",
+      "type": "border-width"
+    },
+    {
+      "name": "--ui-radio-size",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Overall size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-radio-size-xs",
+      "default": "--ui-size-sm",
+      "defaultValue": "12px",
+      "description": "Overall size at xs size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-radio-size-sm",
+      "default": "--ui-size-md",
+      "defaultValue": "16px",
+      "description": "Overall size at sm size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-radio-size-md",
+      "default": "--ui-space-2",
+      "defaultValue": "16px",
+      "description": "Overall size at md size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-radio-size-lg",
+      "default": "--ui-space-3",
+      "defaultValue": "24px",
+      "description": "Overall size at lg size",
+      "type": "dimension"
+    },
+    {
+      "name": "--ui-radio-size-xl",
+      "default": "--ui-space-4",
+      "defaultValue": "32px",
+      "description": "Overall size at xl size",
+      "type": "dimension"
     },
     {
       "name": "--ui-radio-success-border",
-      "default": "var(--ui-color-success)",
-      "description": "Success border"
+      "default": "--ui-color-success",
+      "description": "Success border",
+      "type": "color"
+    },
+    {
+      "name": "--ui-radio-transition-duration",
+      "default": "--ui-duration-fast",
+      "defaultValue": "100ms",
+      "description": "Transition duration",
+      "type": "duration"
+    },
+    {
+      "name": "--ui-radio-transition-timing",
+      "default": "--ui-ease-default",
+      "description": "Transition timing",
+      "type": "easing"
     }
   ]
 }

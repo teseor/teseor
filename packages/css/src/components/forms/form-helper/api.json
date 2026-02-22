@@ -5,26 +5,29 @@
   "modifiers": {},
   "cssVars": [
     {
-      "name": "--ui-form-helper-line-height",
-      "default": "var(--ui-line-height-tight-sm)",
-      "defaultValue": "16px",
-      "description": "Line height"
-    },
-    {
       "name": "--ui-form-helper-color",
-      "default": "var(--ui-color-text-muted)",
-      "description": "Text color"
-    },
-    {
-      "name": "--ui-form-helper-size",
-      "default": "var(--ui-font-size-sm)",
-      "defaultValue": "14px",
-      "description": "Overall size"
+      "default": "--ui-color-text-muted",
+      "description": "Text color",
+      "type": "color"
     },
     {
       "name": "--ui-form-helper-gap",
       "default": "0",
       "description": "Gap between children"
+    },
+    {
+      "name": "--ui-form-helper-line-height",
+      "default": "--ui-line-height-tight-sm",
+      "defaultValue": "16px",
+      "description": "Line height",
+      "type": "line-height"
+    },
+    {
+      "name": "--ui-form-helper-size",
+      "default": "--ui-font-size-sm",
+      "defaultValue": "14px",
+      "description": "Overall size",
+      "type": "font-size"
     }
   ]
 }

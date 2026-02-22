@@ -7,41 +7,41 @@
 @layer components.tokens {
   .code-block {
     // @desc Border width
-    --_border-width: var(--ui-code-block-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    @include t.token(border-width, border-width-sm, code-block);
     // @desc Font family
-    --_font-family: var(--ui-code-block-font-family, var(--ui-font-mono, #{t.$font-mono}));
+    @include t.token(font-family, font-mono, code-block);
     // @desc Line number min width
-    --_line-number-width: var(--ui-code-block-line-number-width, var(--ui-space-4, #{t.$space-4}));
+    @include t.token(line-number-width, space-4, code-block);
     // @desc Line number spacing
-    --_line-number-spacing: var(--ui-code-block-line-number-spacing, var(--ui-space-2, #{t.$space-2}));
+    @include t.token(line-number-spacing, space-2, code-block);
     // @desc Background color
-    --_bg: var(--ui-code-block-bg, var(--ui-color-bg-muted, #{t.$color-bg-muted}));
+    @include t.token(bg, color-bg-muted, code-block);
     // @desc Text color
-    --_color: var(--ui-code-block-color, var(--ui-color-text, #{t.$color-text}));
+    @include t.token(color, color-text, code-block);
     // @desc Border color
-    --_border-color: var(--ui-code-block-border-color, var(--ui-color-border, #{t.$color-border}));
+    @include t.token(border-color, color-border, code-block);
     // @desc Padding on all sides
-    --_padding: var(--ui-code-block-padding, var(--ui-space-3, #{t.$space-3}));
+    @include t.token(padding, space-3, code-block);
     // @desc Font size
-    --_font-size: var(--ui-code-block-font-size, var(--ui-font-size-sm, #{t.$font-size-sm}));
+    @include t.token(font-size, font-size-sm, code-block);
     // @desc Line height
-    --_line-height: var(--ui-code-block-line-height, var(--ui-line-height-tight-sm, #{t.$line-height-tight-sm}));
+    @include t.token(line-height, line-height-tight-sm, code-block);
     // @desc Corner radius
-    --_radius: var(--ui-code-block-radius, var(--ui-radius-md, #{t.$radius-md}));
+    @include t.token(radius, radius-md, code-block);
   }
 
   // @modifier boolean compact
   .code-block--compact {
     // @desc Padding compact
-    --_padding: var(--ui-code-block-padding-compact, var(--ui-space-1, #{t.$space-1}));
+    @include t.token(padding, space-1, code-block, padding-compact);
   }
 
   // @modifier boolean line-numbers
   .code-block--line-numbers {
     // @desc Line number color
-    --_line-number-color: var(--ui-code-block-line-number-color, var(--ui-color-text-muted, #{t.$color-text-muted}));
+    @include t.token(line-number-color, color-text-muted, code-block);
     // @desc Line number border color
-    --_line-number-border-color: var(--ui-code-block-line-number-border-color, var(--ui-color-border, #{t.$color-border}));
+    @include t.token(line-number-border-color, color-border, code-block);
   }
 }
 

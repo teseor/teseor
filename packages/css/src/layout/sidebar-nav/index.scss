@@ -7,27 +7,27 @@
 
 @layer primitives {
   .sidebar-nav {
-    --_border-width-sm: var(--ui-border-width-sm);
-    --_space-2: var(--ui-space-2);
-    --_space-1: var(--ui-space-1);
-    --_space-half: var(--ui-space-half);
-    --_size-xs: var(--ui-size-xs);
-    --_weight-medium: var(--ui-font-weight-medium);
-    --_color-text-muted: var(--ui-color-text-muted);
-    --_duration-fast: var(--ui-duration-fast);
-    --_easing-default: var(--ui-easing-default);
-    --_color-focus: var(--ui-color-focus);
-    --_opacity-disabled: var(--ui-opacity-disabled, #{t.$opacity-disabled});
-    --_size-md: var(--ui-size-md);
+    @include t.token(border-width-sm, border-width-sm);
+    @include t.token(space-2, space-2);
+    @include t.token(space-1, space-1);
+    @include t.token(space-half, space-half);
+    @include t.token(size-xs, size-xs);
+    @include t.token(weight-medium, font-weight-medium);
+    @include t.token(color-text-muted, color-text-muted);
+    @include t.token(duration-fast, duration-fast);
+    @include t.token(easing-default, ease-default);
+    @include t.token(color-focus, color-focus);
+    @include t.token(opacity-disabled, opacity-disabled);
+    @include t.token(size-md, size-md);
     // Tokens
     // @desc Overall width
-    --_width: var(--ui-sidebar-nav-width, calc(var(--ui-unit) * 30));
+    @include t.token(width, unit-30, sidebar-nav);
     // @desc Background color
-    --_bg: var(--ui-sidebar-nav-bg, var(--ui-color-bg-subtle));
+    @include t.token(bg, color-bg-subtle, sidebar-nav);
     // @desc Border color
-    --_border-color: var(--ui-sidebar-nav-border-color, var(--ui-color-border));
+    @include t.token(border-color, color-border, sidebar-nav);
     // @desc Padding on all sides
-    --_padding: var(--ui-sidebar-nav-padding, var(--ui-space-2));
+    @include t.token(padding, space-2, sidebar-nav);
 
     // Styles
     display: flex;
@@ -42,7 +42,7 @@
   // Header - sticky at top
   .sidebar-nav__header {
     // @desc Header padding on all sides
-    --_padding: var(--ui-sidebar-nav-header-padding, var(--ui-space-2));
+    @include t.token(padding, space-2, sidebar-nav, header-padding);
 
     flex-shrink: 0;
 
@@ -62,7 +62,7 @@
   // Footer - sticky at bottom
   .sidebar-nav__footer {
     // @desc Footer padding on all sides
-    --_padding: var(--ui-sidebar-nav-footer-padding, var(--ui-space-2));
+    @include t.token(padding, space-2, sidebar-nav, footer-padding);
 
     flex-shrink: 0;
 
@@ -79,15 +79,15 @@
   // Group label (section heading)
   .sidebar-nav__group-label {
     // @desc Group label size
-    --_font-size: var(--ui-sidebar-nav-group-label-size, var(--ui-size-xs));
+    @include t.token(font-size, size-xs, sidebar-nav, group-label-size);
     // @desc Group label color
-    --_color: var(--ui-sidebar-nav-group-label-color, var(--ui-color-text-muted));
+    @include t.token(color, color-text-muted, sidebar-nav, group-label-color);
     // @desc Group label weight
-    --_weight: var(--ui-sidebar-nav-group-label-weight, var(--ui-font-weight-semibold));
+    @include t.token(weight, font-weight-semibold, sidebar-nav, group-label-weight);
     // @desc Group label text-transform
-    --_transform: var(--ui-sidebar-nav-group-label-transform, none);
+    --_transform: var(--ui-sidebar-nav-group-label-transform, none); // token-lint-ignore
     // @desc Group label letter-spacing
-    --_letter-spacing: var(--ui-sidebar-nav-group-label-letter-spacing, normal);
+    --_letter-spacing: var(--ui-sidebar-nav-group-label-letter-spacing, normal); // token-lint-ignore
 
     display: block;
 
@@ -141,17 +141,17 @@
   // Nav item (link wrapper)
   .sidebar-nav__item {
     // @desc Item overall height
-    --_height: var(--ui-sidebar-nav-item-height, var(--ui-row-2));
+    @include t.token(height, row-2, sidebar-nav, item-height);
     // @desc Item horizontal padding
-    --_padding-inline: var(--ui-sidebar-nav-item-padding-inline, var(--ui-space-2));
+    @include t.token(padding-inline, space-2, sidebar-nav, item-padding-inline);
     // @desc Item overall size
-    --_font-size: var(--ui-sidebar-nav-item-size, var(--ui-size-sm));
+    @include t.token(font-size, size-sm, sidebar-nav, item-size);
     // @desc Item text color
-    --_color: var(--ui-sidebar-nav-item-color, var(--ui-color-text));
+    @include t.token(color, color-text, sidebar-nav, item-color);
     // @desc Item background color
-    --_bg: var(--ui-sidebar-nav-item-bg, transparent);
+    --_bg: var(--ui-sidebar-nav-item-bg, transparent); // token-lint-ignore
     // @desc Item corner radius
-    --_radius: var(--ui-sidebar-nav-item-radius, var(--ui-radius-sm));
+    @include t.token(radius, radius-sm, sidebar-nav, item-radius);
 
     display: flex;
     align-items: center;
@@ -178,7 +178,7 @@
 
   .sidebar-nav__item:hover {
     // @desc Item hover bg
-    --_bg: var(--ui-sidebar-nav-item-hover-bg, var(--ui-color-bg-muted));
+    @include t.token(bg, color-bg-muted, sidebar-nav, item-hover-bg);
   }
 
   .sidebar-nav__item:visited {
@@ -193,17 +193,17 @@
   // Active state
   .sidebar-nav__item--active {
     // @desc Item active bg
-    --_bg: var(--ui-sidebar-nav-item-active-bg, var(--ui-color-bg-muted));
+    @include t.token(bg, color-bg-muted, sidebar-nav, item-active-bg);
     // @desc Item active color
-    --_color: var(--ui-sidebar-nav-item-active-color, var(--ui-color-primary));
+    @include t.token(color, color-primary, sidebar-nav, item-active-color);
     // @desc Item active weight
-    --_weight: var(--ui-sidebar-nav-item-active-weight, normal);
+    --_weight: var(--ui-sidebar-nav-item-active-weight, normal); // token-lint-ignore
   }
 
   // Nested item indent
   .sidebar-nav__item--nested {
     // @desc Item nested indent
-    --_padding-inline-start: var(--ui-sidebar-nav-item-nested-indent, var(--ui-space-4));
+    @include t.token(padding-inline-start, space-4, sidebar-nav, item-nested-indent);
 
     padding-inline-start: var(--_padding-inline-start);
   }
@@ -248,7 +248,7 @@
   // @modifier boolean collapsed
   .sidebar-nav--collapsed {
     // @desc Width collapsed
-    --_width: var(--ui-sidebar-nav-width-collapsed, var(--ui-row-3));
+    @include t.token(width, row-3, sidebar-nav, width-collapsed);
 
     .sidebar-nav__label,
     .sidebar-nav__badge,

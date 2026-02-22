@@ -6,50 +6,63 @@
 @layer components.tokens {
   .radio {
     // @desc Border width
-    --_border-width: var(--ui-radio-border-width, var(--ui-border-width-sm, #{t.$border-width-sm}));
+    @include t.token(border-width, border-width-sm, radio);
     // @desc Transition duration
-    --_transition-duration: var(--ui-radio-transition-duration, var(--ui-duration-fast, #{t.$duration-fast}));
+    @include t.token(transition-duration, duration-fast, radio);
     // @desc Transition timing
-    --_transition-timing: var(--ui-radio-transition-timing, var(--ui-ease-default, #{t.$ease-default}));
+    @include t.token(transition-timing, ease-default, radio);
     // @desc Focus ring width
-    --_focus-ring-width: var(--ui-radio-focus-ring-width, var(--ui-border-width-md, #{t.$border-width-md}));
+    @include t.token(focus-ring-width, border-width-md, radio);
     // @desc Focus ring color
-    --_focus-ring-color: var(--ui-radio-focus-ring-color, var(--ui-color-focus, #{t.$color-focus}));
+    @include t.token(focus-ring-color, color-focus, radio);
     // @desc Disabled opacity
-    --_disabled-opacity: var(--ui-radio-disabled-opacity, var(--ui-opacity-disabled, #{t.$opacity-disabled}));
+    @include t.token(disabled-opacity, opacity-disabled, radio);
     // @desc Overall size
-    --_size: var(--ui-radio-size, calc(#{t.$unit} * 2));
+    @include t.token(size, space-2, radio);
     // @desc Background color
-    --_bg: var(--ui-radio-bg, var(--ui-color-bg, #{t.$color-bg}));
+    @include t.token(bg, color-bg, radio);
     // @desc Bg checked
-    --_bg-checked: var(--ui-radio-bg-checked, var(--ui-color-primary, #{t.$color-primary}));
+    @include t.token(bg-checked, color-primary, radio);
     // @desc Border color
-    --_border-color: var(--ui-radio-border-color, var(--ui-color-border-strong, #{t.$color-border-strong}));
+    @include t.token(border-color, color-border-strong, radio);
     // @desc Border color focus
-    --_border-color-focus: var(--ui-radio-border-color-focus, var(--ui-color-primary, #{t.$color-primary}));
+    @include t.token(border-color-focus, color-primary, radio);
     // @desc Dot color
-    --_dot-color: var(--ui-radio-dot-color, var(--ui-color-text-inverse, #{t.$color-text-inverse}));
+    @include t.token(dot-color, color-text-inverse, radio);
   }
 
-  // @modifier size
-  .radio--lg {
-    // @desc Overall size at large size
-    --_size: var(--ui-radio-size-lg, calc(#{t.$unit} * 3));
+  $size-tokens: (
+    xs:  (size: size-sm),
+    sm:  (size: size-md),
+    md:  (size: space-2),
+    lg:  (size: space-3),
+    xl:  (size: space-4),
+  );
+  @include t.validate-size-tokens($size-tokens);
+
+  // @modifier size xs, sm, md, lg, xl
+  @each $name, $tokens in $size-tokens {
+    .radio--#{$name} {
+      @each $prop, $global in $tokens {
+        // @desc Override
+        @include t.token($prop, $global, radio, #{$prop}-#{$name});
+      }
+    }
   }
 
   // @modifier state
   .radio--error {
     // @desc Error border
-    --_border-color: var(--ui-radio-error-border, var(--ui-color-danger, #{t.$color-danger}));
+    @include t.token(border-color, color-danger, radio, error-border);
     // @desc Error border
-    --_border-color-focus: var(--ui-radio-error-border, var(--ui-color-danger, #{t.$color-danger}));
+    @include t.token(border-color-focus, color-danger, radio, error-border);
   }
 
   .radio--success {
     // @desc Success border
-    --_border-color: var(--ui-radio-success-border, var(--ui-color-success, #{t.$color-success}));
+    @include t.token(border-color, color-success, radio, success-border);
     // @desc Success border
-    --_border-color-focus: var(--ui-radio-success-border, var(--ui-color-success, #{t.$color-success}));
+    @include t.token(border-color-focus, color-success, radio, success-border);
   }
 }
 

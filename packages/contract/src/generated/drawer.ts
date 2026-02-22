@@ -1,29 +1,29 @@
 // Auto-generated from api.json. Do not edit — run: pnpm generate:contract
 import { cx } from '../cx';
 
-export type DrawerSize = 'sm' | 'lg' | 'full';
-export type DrawerPosition = 'end' | 'start' | 'top' | 'bottom';
+export type DrawerPosition = 'bottom' | 'end' | 'start' | 'top';
+export type DrawerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface DrawerProps {
-  size?: DrawerSize;
   position?: DrawerPosition;
+  size?: DrawerSize;
 }
 
 export const drawer = Object.assign(
   (props?: DrawerProps): string => {
     if (!props) return cx('drawer');
     return cx('drawer', {
-      size: props.size,
       position: props.position,
+      size: props.size,
     });
   },
   {
+    body: (): string => cx('drawer__body'),
+    close: (): string => cx('drawer__close'),
+    description: (): string => cx('drawer__description'),
+    footer: (): string => cx('drawer__footer'),
     header: (): string => cx('drawer__header'),
     title: (): string => cx('drawer__title'),
-    description: (): string => cx('drawer__description'),
-    close: (): string => cx('drawer__close'),
-    body: (): string => cx('drawer__body'),
-    footer: (): string => cx('drawer__footer'),
   },
 );
 

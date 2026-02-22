@@ -15,7 +15,7 @@ export const form = Object.assign(
     });
   },
   {
-    section: (): string => cx('form__section'),
     actions: (): string => cx('form__actions'),
+    section: (): string => cx('form__section'),
   },
 );

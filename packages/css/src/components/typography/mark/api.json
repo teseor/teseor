@@ -6,19 +6,22 @@
   "cssVars": [
     {
       "name": "--ui-mark-bg",
-      "default": "var(--ui-color-warning)",
-      "description": "Background color"
+      "default": "--ui-color-warning",
+      "description": "Background color",
+      "type": "color"
     },
     {
       "name": "--ui-mark-color",
-      "default": "var(--ui-color-text)",
-      "description": "Text color"
+      "default": "--ui-color-text",
+      "description": "Text color",
+      "type": "color"
     },
     {
       "name": "--ui-mark-padding-x",
-      "default": "var(--ui-space-quarter)",
+      "default": "--ui-space-quarter",
       "defaultValue": "2px",
-      "description": "Horizontal padding"
+      "description": "Horizontal padding",
+      "type": "dimension"
     },
     {
       "name": "--ui-mark-padding-y",
@@ -27,9 +30,10 @@
     },
     {
       "name": "--ui-mark-radius",
-      "default": "var(--ui-radius-sm)",
+      "default": "--ui-radius-sm",
       "defaultValue": "4px",
-      "description": "Corner radius"
+      "description": "Corner radius",
+      "type": "radius"
     }
   ]
 }
