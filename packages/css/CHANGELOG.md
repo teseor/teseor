@@ -1,5 +1,17 @@
 # @teseor/css
 
+## 2.6.0
+
+### Minor Changes
+
+- 3a4d1c6: Replace regex SCSS parser with PostCSS AST parser, add content schemas and YAML loader, delete legacy docs system
+- 4c99c70: Auto-generate content.yml for all 62 components, enforce as required file, add content sync CI check
+- dddd951: Enforce 3-tier token pattern, migrate to t.token() mixin, centralize size modifiers with @each loops, add token type inference to api.json
+
+### Patch Changes
+
+- e1eb07e: Add AST-based SCSS annotation lint rules enforcing @component, @element, @desc, and @modifier annotations
+
 ## 2.5.2
 
 ### Patch Changes
