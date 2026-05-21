@@ -1,0 +1,164 @@
+name: button
+description: A trigger that performs an action when activated.
+kind: atomic
+dependencies: []
+element: button
+rootClass: t-button
+file: components/button/button.css
+
+variants:
+  solid:
+    description: Filled background with intent color; default visual weight.
+  outline:
+    description: Transparent background, intent-colored border and label; for secondary actions.
+  ghost:
+    description: Transparent background with no border; for tertiary actions inside dense layouts or toolbars.
+  link:
+    description: Renders as text with an underline; for navigation-shaped triggers that still need button semantics.
+
+intents:
+  primary:
+    description: The page's most important action. One primary per surface.
+    tokens:
+      bg: --t-accent
+      fg: --t-on-accent
+  neutral:
+    description: Default action. Non-emphasized; used when no intent is needed.
+    tokens:
+      bg: --t-surface
+      fg: --t-on-surface
+  success:
+    description: Confirms a positive outcome (save, publish, accept).
+    tokens:
+      bg: --t-success
+      fg: --t-on-success
+  warning:
+    description: Indicates an action that needs attention but isn't destructive.
+    tokens:
+      bg: --t-warning
+      fg: --t-on-warning
+  danger:
+    description: Destructive or irreversible action (delete, cancel subscription).
+    tokens:
+      bg: --t-danger
+      fg: --t-on-danger
+
+sizes:
+  sm:
+    description: Compact density; safe at breakpoints above the mobile floor.
+    tokens:
+      height: --t-row-2
+      pad-x: --t-space-3
+  md:
+    description: Default size.
+    tokens:
+      height: --t-row-3
+      pad-x: --t-space-4
+  lg:
+    description: Emphatic; for hero CTAs and primary actions in mobile-first layouts.
+    tokens:
+      height: --t-row-4
+      pad-x: --t-space-5
+
+states:
+  - hover
+  - focus
+  - active
+  - disabled
+  - loading
+
+props:
+  as:
+    type: string
+    default: button
+    responsive: false
+    description: Polymorphic root element. Defaults to `button`; set to `a` for link-shaped triggers (paired with `variant: link`).
+  disabled:
+    type: boolean
+    default: false
+    responsive: false
+    description: Disables interaction and applies the disabled visual state. Mapped to the native `disabled` attribute on `button`, `aria-disabled="true"` otherwise.
+  loading:
+    type: boolean
+    default: false
+    responsive: false
+    description: Shows a spinner in place of the label and disables interaction. The original label stays in the accessibility tree.
+  iconLeft:
+    type: string
+    default: null
+    responsive: false
+    description: Icon name rendered before the label. Slot size scales with `size`. Requires the icon component once it lands.
+  iconRight:
+    type: string
+    default: null
+    responsive: false
+    description: Icon name rendered after the label.
+  block:
+    type: boolean
+    default: false
+    responsive: true
+    description: Stretches the button to the inline-size of its container. Responsive so layouts can pin block-width on mobile and shrink to content above.
+
+tokens:
+  height:
+    fallback: --t-row
+    desc: Control height; the size variant overrides this.
+  bg:
+    fallback: --t-accent
+    desc: Background fill; the intent variant overrides this.
+  fg:
+    fallback: --t-on-accent
+    desc: Foreground color (label and icon); pairs with `bg`.
+  pad-x:
+    fallback: --t-pad-x
+    desc: Inline padding; the size variant overrides this.
+  radius:
+    fallback: --t-radius-md
+    desc: Corner radius.
+  dur:
+    fallback: --t-dur-fast
+    desc: Transition duration; multiplied by `--t-motion-scale` at the call site.
+
+private:
+  - --_h
+  - --_bg
+  - --_fg
+  - --_pad-x
+  - --_radius
+  - --_dur
+
+a11y:
+  role: button
+  keyboard:
+    Enter: activate
+    Space: activate
+
+constraints:
+  - when: { variant: link }
+    forbid: { intent: [danger, warning, success] }
+    reason: "Link variant is text-colored; non-neutral intent fills have no surface to apply to."
+  - when: { loading: true }
+    forbid: { disabled: true }
+    reason: "Loading already disables interaction; disabling on top is redundant."
+
+examples:
+  - id: solid-primary
+    props: { variant: solid, intent: primary }
+  - id: solid-danger-md
+    props: { variant: solid, intent: danger, size: md }
+  - id: outline-neutral
+    props: { variant: outline, intent: neutral }
+  - id: ghost-with-icon
+    props: { variant: ghost, intent: neutral, iconLeft: arrow-left }
+  - id: link-primary
+    props: { variant: link, intent: primary, as: a }
+  - id: loading
+    props: { variant: solid, intent: primary, loading: true }
+  - id: block-mobile
+    props: { variant: solid, intent: primary, block: true, size: lg }
+
+motion:
+  transitions:
+    - background-color
+    - color
+    - transform
