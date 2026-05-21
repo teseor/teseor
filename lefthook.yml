@@ -1,0 +1,26 @@
+min_version: 2.1.0
+
+commit-msg:
+  commands:
+    conventional:
+      run: node scripts/verify-commit.js {1}
+
+pre-commit:
+  parallel: true
+  commands:
+    biome:
+      glob: '*.{ts,tsx,js,mjs,cjs,json}'
+      run: pnpm exec biome check --no-errors-on-unmatched --files-ignore-unknown=true {staged_files}
+    stylelint:
+      glob: '*.css'
+      run: pnpm exec stylelint --allow-empty-input {staged_files}
+    spec:
+      glob: 'specs/*.yaml'
+      run: pnpm lint:spec
+
+pre-push:
+  commands:
+    typecheck:
+      run: pnpm typecheck
+    test:
+      run: pnpm test:unit
