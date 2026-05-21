@@ -1,0 +1,92 @@
+/* Tailwind v4 @theme bridge — exposes Teseor's --t-* semantic tokens as
+ * Tailwind v4 theme variables. Consumers get bg-accent / text-on-accent /
+ * p-4 / rounded-md / shadow-lg etc. derived from Teseor scale.
+ *
+ * Usage:
+ *   @import "tailwindcss";
+ *   @import "@teseor/css/tailwind.css";
+ *
+ * Note: @theme must be top-level — cannot be inside @layer (Tailwind v4 rule).
+ * tokens.css is imported here so the var() references resolve standalone.
+ */
+
+@import "./tokens.css";
+
+@theme {
+  /* ===== Colors — semantic Teseor roles ===== */
+  --color-bg: var(--t-bg);
+  --color-fg: var(--t-fg);
+  --color-surface: var(--t-surface);
+  --color-on-bg: var(--t-on-bg);
+  --color-on-fg: var(--t-on-fg);
+  --color-on-surface: var(--t-on-surface);
+
+  --color-accent: var(--t-accent);
+  --color-on-accent: var(--t-on-accent);
+  --color-success: var(--t-success);
+  --color-on-success: var(--t-on-success);
+  --color-warning: var(--t-warning);
+  --color-on-warning: var(--t-on-warning);
+  --color-danger: var(--t-danger);
+  --color-on-danger: var(--t-on-danger);
+  --color-info: var(--t-info);
+  --color-on-info: var(--t-on-info);
+
+  --color-border: var(--t-border);
+  --color-border-strong: var(--t-border-strong);
+
+  /* ===== Spacing — maps to p-*, m-*, gap-*, w-*, h-* ===== */
+  --spacing-0: var(--t-space-0);
+  --spacing-1: var(--t-space-1);
+  --spacing-2: var(--t-space-2);
+  --spacing-3: var(--t-space-3);
+  --spacing-4: var(--t-space-4);
+  --spacing-5: var(--t-space-5);
+  --spacing-6: var(--t-space-6);
+  --spacing-7: var(--t-space-7);
+  --spacing-8: var(--t-space-8);
+
+  /* ===== Radius — maps to rounded-* ===== */
+  --radius-none: var(--t-radius-none);
+  --radius-sm: var(--t-radius-sm);
+  --radius-md: var(--t-radius-md);
+  --radius-lg: var(--t-radius-lg);
+  --radius-xl: var(--t-radius-xl);
+  --radius-full: var(--t-radius-full);
+
+  /* ===== Font families — maps to font-sans / font-mono ===== */
+  --font-sans: var(--t-font-sans);
+  --font-mono: var(--t-font-mono);
+
+  /* ===== Font sizes — maps to text-xs … text-3xl ===== */
+  --text-xs: var(--t-text-xs);
+  --text-sm: var(--t-text-sm);
+  --text-base: var(--t-text-base);
+  --text-lg: var(--t-text-lg);
+  --text-xl: var(--t-text-xl);
+  --text-2xl: var(--t-text-2xl);
+  --text-3xl: var(--t-text-3xl);
+
+  /* ===== Line heights — maps to leading-* ===== */
+  --leading-tight: var(--t-leading-tight);
+  --leading-normal: var(--t-leading-normal);
+  --leading-loose: var(--t-leading-loose);
+
+  /* ===== Shadows — maps to shadow-* ===== */
+  --shadow-sm: var(--t-shadow-sm);
+  --shadow-md: var(--t-shadow-md);
+  --shadow-lg: var(--t-shadow-lg);
+  --shadow-xl: var(--t-shadow-xl);
+
+  /* ===== Breakpoints — maps to sm:/md:/lg:/xl:/2xl: variants ===== */
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
+
+  /* ===== Easings — maps to ease-* ===== */
+  --ease-standard: var(--t-ease-standard);
+  --ease-out: var(--t-ease-out);
+  --ease-in: var(--t-ease-in);
+  --ease-spring: var(--t-ease-spring);
+}
