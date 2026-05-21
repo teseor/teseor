@@ -1,4 +1,33 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(pnpm lint)",
+      "Bash(pnpm lint:*)",
+      "Bash(pnpm typecheck)",
+      "Bash(pnpm test)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm gen)",
+      "Bash(pnpm build)",
+      "Bash(pnpm build:*)",
+      "Bash(pnpm size)",
+      "Bash(node scripts/check-comments.js:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git branch:*)",
+      "Bash(git fetch:*)",
+      "Bash(gh issue view:*)",
+      "Bash(gh issue list:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr list:*)",
+      "Bash(gh pr checks:*)",
+      "Bash(gh run view:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh api:*)",
+      "Bash(gh label list:*)"
+    ]
+  },
   "hooks": {
     "Stop": [
       {
