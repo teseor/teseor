@@ -1,13 +1,10 @@
 #!/usr/bin/env bash
-# Configure the "Protect main" repository ruleset for the v0.1 required status checks.
+# Configure the "Protect main" repository ruleset on the target repo.
 # Idempotent: every run replaces the ruleset's rules with the canonical set defined below.
 #
 # Usage:
 #   scripts/protect-main.sh                # operates on teseor/teseor
 #   TESEOR_REPO=org/fork scripts/protect-main.sh
-#
-# Pre-v1.0 the maintainer self-merges; required_approving_review_count is 0.
-# Bump to 1 once the v1.0 review policy lands.
 
 set -euo pipefail
 
@@ -81,14 +78,8 @@ gh api -X PUT "repos/${REPO}/rulesets/${ruleset_id}" \
   --jq '"Updated ruleset \"" + .name + "\" with " + (.rules | length | tostring) + " rules."'
 
 echo "Required status checks configured for ${REPO}/main:"
-echo "  ci.yml          → lint, typecheck, test-unit, gen-drift, changeset"
-echo "  visual-tests    → visual"
-echo "  pr-discipline   → linked-issue, title-format, body-sections (labeler is a side effect, not gated)"
-echo "  size-data       → measure"
-echo "  CodeQL          → Analyze (javascript-typescript)"
-echo
-echo "Aspirational checks not yet gated (workflows scaffolded but trigger on workflow_run, not PR):"
-echo "  lighthouse / audit       — runs after deploy-docs succeeds (v0.2)"
-echo "  size-report / report     — runs after size-data uploads an artifact (v0.2)"
-echo "  showcase-purity          — workflow lands with the first apps/showcase-*/ in v0.4"
-echo "Add these contexts to the script and re-run when each one starts firing on PRs."
+echo "  ci.yml          lint, typecheck, test-unit, gen-drift, changeset"
+echo "  visual-tests    visual"
+echo "  pr-discipline   linked-issue, title-format, body-sections"
+echo "  size-data       measure"
+echo "  CodeQL          Analyze (javascript-typescript)"
