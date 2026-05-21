@@ -15,6 +15,7 @@ The bare-verb defaults are the verbs you reach for daily: `dev`, `build`, `test`
 | `pnpm build:docs` | Docs site only (Eleventy + Pagefind index) | When iterating on docs UX | Developer |
 | `pnpm test` | All tests: unit + visual + a11y | Before commit; in CI | Developer + CI |
 | `pnpm test:unit` | Vitest only | Fast inner-loop | Developer |
+| `pnpm test:e2e` | Playwright functional suite (`tests/*.spec.ts`) | Before commit when interactions changed; in CI | Developer + CI |
 | `pnpm test:visual` | Playwright in Docker (same `PLAYWRIGHT_IMAGE` as CI) | When visuals changed | Developer + CI |
 | `pnpm test:a11y` | axe-core via Playwright (subset of visual) | When ARIA / keyboard map changed | Developer |
 | `pnpm lint` | Biome + Stylelint + spec validator | Before commit, in CI, via lefthook | Developer + CI + lefthook |

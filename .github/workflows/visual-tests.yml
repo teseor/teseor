@@ -31,7 +31,7 @@ jobs:
       - if: steps.snapshots.outputs.have_snapshots == 'true'
         name: Run Playwright in Docker
         env:
-          PLAYWRIGHT_IMAGE: mcr.microsoft.com/playwright:v1.55.0-jammy
+          PLAYWRIGHT_IMAGE: mcr.microsoft.com/playwright:v1.60.0-jammy
         run: |
           docker run --rm \
             -v "$PWD:/work" -w /work \

@@ -31,7 +31,8 @@
     "src"
   ],
   "scripts": {
-    "build": "echo 'build:css pipeline lands at v0.2 with the first component' && exit 0"
+    "build": "echo 'build:css pipeline lands at v0.2 with the first component' && exit 0",
+    "test": "vitest run"
   },
   "publishConfig": {
     "access": "public",

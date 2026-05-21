@@ -57,6 +57,7 @@ payload="$(cat <<'JSON'
           { "context": "lint" },
           { "context": "typecheck" },
           { "context": "test-unit" },
+          { "context": "test-e2e" },
           { "context": "gen-drift" },
           { "context": "changeset" },
           { "context": "visual" },
@@ -78,7 +79,7 @@ gh api -X PUT "repos/${REPO}/rulesets/${ruleset_id}" \
   --jq '"Updated ruleset \"" + .name + "\" with " + (.rules | length | tostring) + " rules."'
 
 echo "Required status checks configured for ${REPO}/main:"
-echo "  ci.yml          lint, typecheck, test-unit, gen-drift, changeset"
+echo "  ci.yml          lint, typecheck, test-unit, test-e2e, gen-drift, changeset"
 echo "  visual-tests    visual"
 echo "  pr-discipline   linked-issue, title-format, body-sections"
 echo "  size-data       measure"

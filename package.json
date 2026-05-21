@@ -14,6 +14,7 @@
     "build:docs": "echo 'build:docs: lands at v0.2 with the docs site' && exit 0",
     "test": "pnpm -r --if-present run test",
     "test:unit": "pnpm -r --if-present run test:unit",
+    "test:e2e": "playwright test",
     "test:visual": "echo 'test:visual: lands at v0.2' && exit 0",
     "test:a11y": "echo 'test:a11y: lands at v0.2' && exit 0",
     "lint": "pnpm lint:ts && pnpm lint:css && pnpm lint:spec",
@@ -33,12 +34,14 @@
     "@biomejs/biome": "^2.4.15",
     "@changesets/changelog-git": "^0.2.1",
     "@changesets/cli": "^2.31.0",
+    "@playwright/test": "^1.60.0",
     "@size-limit/file": "^12.1.0",
     "@types/node": "^24.12.4",
     "lefthook": "^2.1.8",
     "size-limit": "^12.1.0",
     "stylelint": "^17.12.0",
     "stylelint-config-standard": "^40.0.0",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.7"
   }
 }

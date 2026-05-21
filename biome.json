@@ -50,5 +50,17 @@
         "noDefaultExport": "error"
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      "includes": ["vitest.config.ts", "playwright.config.ts"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noDefaultExport": "off"
+          }
+        }
+      }
+    }
+  ]
 }

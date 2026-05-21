@@ -13,6 +13,8 @@ node_modules/
 # Test artifacts
 coverage/
 tests/**/__diff__/
+test-results/
+playwright-report/
 
 # Editor / OS
 .DS_Store
