@@ -1,6 +1,6 @@
 {
   "name": "@teseor/css",
-  "version": "3.0.0",
+  "version": "0.0.0",
   "description": "Teseor design system — CSS source of truth",
   "type": "module",
   "sideEffects": false,
