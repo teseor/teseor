@@ -1,0 +1,30 @@
+name: stale
+
+on:
+  schedule:
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+
+permissions:
+  pull-requests: write
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v10
+        with:
+          stale-pr-message: >-
+            This PR has been inactive for 10 days. Comment, push, or remove
+            the staleness with the `do-not-stale` label — otherwise it will
+            close in 4 days.
+          close-pr-message: >-
+            Closed after 14 days of inactivity. Reopen with a comment if the
+            work is still relevant.
+          days-before-pr-stale: 10
+          days-before-pr-close: 4
+          days-before-issue-stale: -1
+          days-before-issue-close: -1
+          exempt-pr-labels: do-not-stale
+          delete-branch: true
+          operations-per-run: 100
