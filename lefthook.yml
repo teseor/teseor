@@ -17,6 +17,9 @@ pre-commit:
     spec:
       glob: 'specs/*.yaml'
       run: pnpm lint:spec
+    no-plan-markers:
+      glob: '*.{ts,tsx,js,jsx,mjs,cjs,css,scss,yaml,yml,sh,md}'
+      run: node scripts/check-comments.js {staged_files}
 
 pre-push:
   commands:
