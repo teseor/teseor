@@ -1,0 +1,43 @@
+{
+  "name": "@teseor/css",
+  "version": "3.0.0",
+  "description": "Teseor design system — CSS source of truth",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "style": "./dist/teseor.css",
+      "default": "./dist/teseor.css"
+    },
+    "./tokens.css": {
+      "style": "./dist/tokens.css",
+      "default": "./dist/tokens.css"
+    },
+    "./utilities.css": {
+      "style": "./dist/utilities.css",
+      "default": "./dist/utilities.css"
+    },
+    "./tailwind.css": {
+      "style": "./dist/tailwind.css",
+      "default": "./dist/tailwind.css"
+    },
+    "./*": {
+      "style": "./dist/*",
+      "default": "./dist/*"
+    }
+  },
+  "files": ["dist", "src"],
+  "scripts": {
+    "build": "echo 'build:css pipeline lands at v0.2 with the first component' && exit 0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teseor/teseor.git",
+    "directory": "packages/css"
+  }
+}

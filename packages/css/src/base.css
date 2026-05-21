@@ -1,0 +1,77 @@
+@layer base {
+  body {
+    font-family: var(--t-font-sans);
+    font-size: var(--t-text-base);
+    line-height: var(--t-leading-normal);
+    color: var(--t-fg);
+    background: var(--t-bg);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 600;
+    line-height: var(--t-leading-tight);
+    color: var(--t-fg);
+  }
+
+  h1 {
+    font-size: var(--t-text-3xl);
+  }
+  h2 {
+    font-size: var(--t-text-2xl);
+  }
+  h3 {
+    font-size: var(--t-text-xl);
+  }
+  h4 {
+    font-size: var(--t-text-lg);
+  }
+  h5 {
+    font-size: var(--t-text-base);
+  }
+  h6 {
+    font-size: var(--t-text-sm);
+  }
+
+  p {
+    margin-block-end: var(--t-space-3);
+  }
+
+  a {
+    color: var(--t-accent);
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  code,
+  kbd,
+  samp,
+  pre {
+    font-family: var(--t-font-mono);
+    font-size: 0.9em;
+  }
+
+  pre {
+    overflow-x: auto;
+    padding: var(--t-space-3);
+    background: var(--t-surface);
+    border-radius: var(--t-radius-md);
+  }
+
+  hr {
+    border: 0;
+    border-block-start: var(--t-border-thin) solid var(--t-border);
+    margin-block: var(--t-space-5);
+  }
+
+  *:focus-visible {
+    outline: 2px solid var(--t-focus-ring);
+    outline-offset: 2px;
+  }
+}
