@@ -1,0 +1,45 @@
+name: visual-tests
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: visual-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  visual:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - id: snapshots
+        name: Look for committed snapshots
+        run: |
+          if find tests -type d -name __snapshots__ 2>/dev/null | grep -q .; then
+            echo "have_snapshots=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "have_snapshots=false" >> "$GITHUB_OUTPUT"
+            echo "No committed snapshots yet; visual gate trivially passes."
+          fi
+      - if: steps.snapshots.outputs.have_snapshots == 'true'
+        uses: ./.github/actions/setup
+      - if: steps.snapshots.outputs.have_snapshots == 'true'
+        name: Run Playwright in Docker
+        env:
+          PLAYWRIGHT_IMAGE: mcr.microsoft.com/playwright:v1.55.0-jammy
+        run: |
+          docker run --rm \
+            -v "$PWD:/work" -w /work \
+            "$PLAYWRIGHT_IMAGE" \
+            sh -c 'corepack enable && pnpm install --frozen-lockfile && pnpm test:visual'
+      - if: failure() && steps.snapshots.outputs.have_snapshots == 'true'
+        uses: actions/upload-artifact@v5
+        with:
+          name: playwright-diffs
+          path: tests/**/__diff__/**
+          if-no-files-found: ignore

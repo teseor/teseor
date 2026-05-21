@@ -11,8 +11,8 @@
   }
 
   html {
-    -webkit-text-size-adjust: 100%;
-    text-rendering: optimizeLegibility;
+    text-size-adjust: 100%;
+    text-rendering: optimizelegibility;
   }
 
   body {

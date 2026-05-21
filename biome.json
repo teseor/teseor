@@ -8,15 +8,16 @@
   "files": {
     "includes": [
       "**",
-      "!**/dist/**",
-      "!**/node_modules/**",
-      "!**/__snapshots__/**",
-      "!packages/react/src/**",
-      "!packages/vue/src/**",
-      "!packages/svelte/src/**",
-      "!packages/angular/src/**",
-      "!packages/webc/src/**",
-      "!packages/contract/src/**"
+      "!**/dist",
+      "!**/node_modules",
+      "!**/__snapshots__",
+      "!**/*.css",
+      "!packages/react/src",
+      "!packages/vue/src",
+      "!packages/svelte/src",
+      "!packages/angular/src",
+      "!packages/webc/src",
+      "!packages/contract/src"
     ]
   },
   "formatter": {

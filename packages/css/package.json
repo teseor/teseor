@@ -26,7 +26,10 @@
       "default": "./dist/*"
     }
   },
-  "files": ["dist", "src"],
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "build": "echo 'build:css pipeline lands at v0.2 with the first component' && exit 0"
   },

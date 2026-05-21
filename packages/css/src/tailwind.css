@@ -10,7 +10,7 @@
  * tokens.css is imported here so the var() references resolve standalone.
  */
 
-@import "./tokens.css";
+@import url("./tokens.css");
 
 @theme {
   /* ===== Colors — semantic Teseor roles ===== */
@@ -20,7 +20,6 @@
   --color-on-bg: var(--t-on-bg);
   --color-on-fg: var(--t-on-fg);
   --color-on-surface: var(--t-on-surface);
-
   --color-accent: var(--t-accent);
   --color-on-accent: var(--t-on-accent);
   --color-success: var(--t-success);
@@ -31,7 +30,6 @@
   --color-on-danger: var(--t-on-danger);
   --color-info: var(--t-info);
   --color-on-info: var(--t-on-info);
-
   --color-border: var(--t-border);
   --color-border-strong: var(--t-border-strong);
 

@@ -21,18 +21,23 @@
   h1 {
     font-size: var(--t-text-3xl);
   }
+
   h2 {
     font-size: var(--t-text-2xl);
   }
+
   h3 {
     font-size: var(--t-text-xl);
   }
+
   h4 {
     font-size: var(--t-text-lg);
   }
+
   h5 {
     font-size: var(--t-text-base);
   }
+
   h6 {
     font-size: var(--t-text-sm);
   }

@@ -1,0 +1,37 @@
+name: deploy-docs
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  deployments: write
+
+concurrency:
+  group: deploy-docs-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup
+      - run: pnpm build:docs
+      - id: dist
+        name: Check for built docs
+        run: |
+          if [ -d apps/docs/dist ] && [ "$(ls -A apps/docs/dist 2>/dev/null)" ]; then
+            echo "have_dist=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "have_dist=false" >> "$GITHUB_OUTPUT"
+            echo "No apps/docs/dist output yet; skipping deploy."
+          fi
+      - if: steps.dist.outputs.have_dist == 'true'
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy apps/docs/dist --project-name=teseor-docs --branch=${{ github.ref_name }}

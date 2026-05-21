@@ -1,0 +1,12 @@
+name: setup
+description: Install Node, pnpm, and project dependencies with pnpm cache
+runs:
+  using: composite
+  steps:
+    - uses: pnpm/action-setup@v6
+    - uses: actions/setup-node@v6
+      with:
+        node-version-file: .node-version
+        cache: pnpm
+    - run: pnpm install --frozen-lockfile --ignore-scripts
+      shell: bash
