@@ -23,6 +23,8 @@
     "gen": "echo 'gen: codegen lands at v0.2' && exit 0",
     "typecheck": "tsc --noEmit",
     "size": "size-limit",
+    "migrate-specs": "node scripts/migrate-specs.ts",
+    "verify:no-dev-leak": "node scripts/verify-no-dev-leak.js",
     "changeset": "changeset",
     "release": "changeset publish",
     "prepare": "lefthook install"

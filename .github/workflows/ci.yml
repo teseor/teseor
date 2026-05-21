@@ -48,6 +48,14 @@ jobs:
             exit 1
           fi
 
+  verify-no-dev-leak:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup
+      - run: pnpm -r --if-present run build
+      - run: pnpm verify:no-dev-leak
+
   changeset:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
