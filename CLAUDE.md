@@ -24,6 +24,9 @@ configs (`biome.json`, `.stylelintrc.cjs`, `tsconfig.json`, `lefthook.yml`,
 - Capture mid-session TODOs via `/issue-this <description>`, never as inline
   comments in committed files.
 - Significant decisions land as ADRs under `docs/ADR/`, not as inline notes.
+- Cross-session state lives in `.claude/handover.md` (`Done` / `In progress` /
+  `Settled — do not re-decide` / `Next`). Refresh it after each chunk of work;
+  read it before starting one. The file is gitignored — maintainer-only.
 
 ## Ask before
 
