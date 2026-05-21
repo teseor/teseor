@@ -1,0 +1,22 @@
+# Working / maintainer-only
+.local/
+.claude/handover.md
+.claude/settings.local.json
+
+# Toolchain
+node_modules/
+.pnpm-store/
+
+# Build output
+**/dist/
+
+# Test artifacts
+coverage/
+tests/**/__diff__/
+
+# Editor / OS
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example
