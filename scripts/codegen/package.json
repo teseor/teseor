@@ -1,0 +1,13 @@
+{
+  "name": "@teseor/codegen",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Teseor codegen — registry-driven entrypoint for spec-derived artifacts.",
+  "type": "module",
+  "scripts": {
+    "gen": "node src/cli.ts"
+  },
+  "files": [
+    "src"
+  ]
+}

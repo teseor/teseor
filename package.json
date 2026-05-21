@@ -20,7 +20,7 @@
     "lint:ts": "biome check .",
     "lint:css": "stylelint 'packages/**/*.css'",
     "lint:spec": "echo 'lint:spec: lands when specs/ has content' && exit 0",
-    "gen": "echo 'gen: codegen lands at v0.2' && exit 0",
+    "gen": "pnpm --filter @teseor/codegen run gen",
     "typecheck": "tsc --noEmit",
     "size": "size-limit",
     "migrate-specs": "node scripts/migrate-specs.ts",
