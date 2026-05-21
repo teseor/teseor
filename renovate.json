@@ -1,0 +1,52 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "schedule": ["* * * * 0,6"],
+  "labels": ["dep"],
+  "commitMessageTopic": "{{depName}}",
+  "commitMessageExtra": "{{currentVersion}} → {{newVersion}}",
+  "semanticCommits": "enabled",
+  "semanticCommitType": "chore",
+  "semanticCommitScope": "deps",
+  "prHourlyLimit": 4,
+  "prConcurrentLimit": 10,
+  "automerge": false,
+  "rangeStrategy": "bump",
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["* * 1 * *"]
+  },
+  "packageRules": [
+    {
+      "matchDatasources": ["npm"],
+      "matchPackageNames": [
+        "react",
+        "react-dom",
+        "@types/react",
+        "@types/react-dom",
+        "vue",
+        "@vue/**",
+        "svelte",
+        "@sveltejs/**",
+        "@angular/**"
+      ],
+      "groupName": "frameworks"
+    },
+    {
+      "matchDatasources": ["npm"],
+      "matchPackageNames": [
+        "@biomejs/**",
+        "stylelint",
+        "stylelint-**",
+        "@playwright/test",
+        "playwright"
+      ],
+      "groupName": "dev tooling"
+    },
+    {
+      "matchDatasources": ["npm"],
+      "matchPackageNames": ["postcss", "postcss-**", "vite", "@vitejs/**", "vite-plugin-**"],
+      "groupName": "build tooling"
+    }
+  ]
+}

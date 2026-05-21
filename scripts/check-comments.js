@@ -44,6 +44,7 @@ const EXEMPT_PATH_RES = [
   /^CLAUDE\.md$/,
   /^README\.md$/i,
   /^CONTRIBUTING\.md$/i,
+  /^CODE_OF_CONDUCT\.md$/i,
   /^CHANGELOG\.md$/i,
   /(^|\/)\.changeset\//,
 ];

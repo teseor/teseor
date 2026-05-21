@@ -36,3 +36,7 @@
 - name: no-issue
   color: cccccc
   description: PR intentionally without a closing issue; bypasses linked-issue gate
+
+- name: dep
+  color: 0366d6
+  description: Renovate-driven dependency update
