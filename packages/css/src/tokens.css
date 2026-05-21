@@ -1,0 +1,249 @@
+/* Teseor tokens — Tier 1 scale + Tier 2 semantic aliases.
+ * Per docs/architecture/three-tier-tokens.md and layer-order.md.
+ * Tier 3 (component-private --_x) lives in component files.
+ */
+
+@layer tokens.scale {
+  :root {
+    /* ===== Colors — oklch throughout (Baseline 2024) ===== */
+
+    /* Neutral — 0 lightest, 100 darkest */
+    --t-neutral-0: oklch(1 0 0);
+    --t-neutral-10: oklch(0.97 0 0);
+    --t-neutral-20: oklch(0.92 0 0);
+    --t-neutral-30: oklch(0.85 0 0);
+    --t-neutral-40: oklch(0.75 0 0);
+    --t-neutral-50: oklch(0.65 0 0);
+    --t-neutral-60: oklch(0.55 0 0);
+    --t-neutral-70: oklch(0.42 0 0);
+    --t-neutral-80: oklch(0.3 0 0);
+    --t-neutral-90: oklch(0.18 0 0);
+    --t-neutral-100: oklch(0 0 0);
+
+    /* Accent — blue, hue 250 */
+    --t-accent-50: oklch(0.97 0.02 250);
+    --t-accent-100: oklch(0.93 0.05 250);
+    --t-accent-200: oklch(0.86 0.09 250);
+    --t-accent-300: oklch(0.78 0.13 250);
+    --t-accent-400: oklch(0.71 0.16 250);
+    --t-accent-500: oklch(0.65 0.18 250);
+    --t-accent-600: oklch(0.55 0.18 250);
+    --t-accent-700: oklch(0.45 0.16 250);
+    --t-accent-800: oklch(0.35 0.13 250);
+    --t-accent-900: oklch(0.25 0.1 250);
+
+    /* Success — green, hue 155 */
+    --t-success-50: oklch(0.97 0.02 155);
+    --t-success-100: oklch(0.93 0.05 155);
+    --t-success-200: oklch(0.86 0.09 155);
+    --t-success-300: oklch(0.78 0.13 155);
+    --t-success-400: oklch(0.71 0.16 155);
+    --t-success-500: oklch(0.65 0.18 155);
+    --t-success-600: oklch(0.55 0.18 155);
+    --t-success-700: oklch(0.45 0.16 155);
+    --t-success-800: oklch(0.35 0.13 155);
+    --t-success-900: oklch(0.25 0.1 155);
+
+    /* Warning — amber, hue 80 */
+    --t-warning-50: oklch(0.97 0.02 80);
+    --t-warning-100: oklch(0.93 0.05 80);
+    --t-warning-200: oklch(0.86 0.09 80);
+    --t-warning-300: oklch(0.82 0.13 80);
+    --t-warning-400: oklch(0.78 0.16 80);
+    --t-warning-500: oklch(0.75 0.18 80);
+    --t-warning-600: oklch(0.65 0.18 80);
+    --t-warning-700: oklch(0.55 0.16 80);
+    --t-warning-800: oklch(0.4 0.13 80);
+    --t-warning-900: oklch(0.3 0.1 80);
+
+    /* Danger — red, hue 25 */
+    --t-danger-50: oklch(0.97 0.02 25);
+    --t-danger-100: oklch(0.93 0.05 25);
+    --t-danger-200: oklch(0.86 0.09 25);
+    --t-danger-300: oklch(0.78 0.13 25);
+    --t-danger-400: oklch(0.7 0.16 25);
+    --t-danger-500: oklch(0.62 0.2 25);
+    --t-danger-600: oklch(0.52 0.2 25);
+    --t-danger-700: oklch(0.42 0.18 25);
+    --t-danger-800: oklch(0.33 0.14 25);
+    --t-danger-900: oklch(0.24 0.1 25);
+
+    /* Info — cyan, hue 210 */
+    --t-info-50: oklch(0.97 0.02 210);
+    --t-info-100: oklch(0.93 0.05 210);
+    --t-info-200: oklch(0.86 0.09 210);
+    --t-info-300: oklch(0.78 0.13 210);
+    --t-info-400: oklch(0.71 0.15 210);
+    --t-info-500: oklch(0.65 0.17 210);
+    --t-info-600: oklch(0.55 0.17 210);
+    --t-info-700: oklch(0.45 0.15 210);
+    --t-info-800: oklch(0.35 0.12 210);
+    --t-info-900: oklch(0.25 0.09 210);
+
+    /* ===== Spacing — 4px-based modular ladder ===== */
+    --t-space-0: 0;
+    --t-space-1: 0.25rem;
+    --t-space-2: 0.5rem;
+    --t-space-3: 0.75rem;
+    --t-space-4: 1rem;
+    --t-space-5: 1.5rem;
+    --t-space-6: 2rem;
+    --t-space-7: 3rem;
+    --t-space-8: 4rem;
+
+    /* ===== Row heights (touch-friendly) ===== */
+    --t-row-1: 1.5rem;
+    --t-row-2: 2rem;
+    --t-row-3: 2.5rem;
+    --t-row-4: 3rem;
+
+    /* ===== Typography — ratio 1.125, base = 1rem ===== */
+    --t-text-xs: 0.79rem;
+    --t-text-sm: 0.89rem;
+    --t-text-base: 1rem;
+    --t-text-lg: 1.125rem;
+    --t-text-xl: 1.27rem;
+    --t-text-2xl: 1.42rem;
+    --t-text-3xl: 1.6rem;
+
+    --t-leading-tight: 1.2;
+    --t-leading-normal: 1.5;
+    --t-leading-loose: 1.75;
+
+    --t-font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      "Helvetica Neue", Arial, sans-serif;
+    --t-font-mono: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono",
+      "Courier New", monospace;
+
+    /* ===== Borders ===== */
+    --t-border-0: 0;
+    --t-border-thin: 1px;
+    --t-border-medium: 2px;
+    --t-border-thick: 4px;
+
+    /* ===== Radius ===== */
+    --t-radius-none: 0;
+    --t-radius-sm: 0.25rem;
+    --t-radius-md: 0.5rem;
+    --t-radius-lg: 0.75rem;
+    --t-radius-xl: 1rem;
+    --t-radius-full: 9999px;
+
+    /* ===== Shadows — oklch with alpha so they reskin with theme ===== */
+    --t-shadow-none: none;
+    --t-shadow-sm: 0 1px 2px 0 oklch(0 0 0 / 0.05);
+    --t-shadow-md: 0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1);
+    --t-shadow-lg: 0 10px 15px -3px oklch(0 0 0 / 0.1), 0 4px 6px -4px oklch(0 0 0 / 0.1);
+    --t-shadow-xl: 0 20px 25px -5px oklch(0 0 0 / 0.1), 0 8px 10px -6px oklch(0 0 0 / 0.1);
+
+    /* ===== Motion — durations + easings ===== */
+    --t-dur-instant: 0ms;
+    --t-dur-fast: 120ms;
+    --t-dur-base: 200ms;
+    --t-dur-slow: 320ms;
+    --t-dur-glacial: 500ms;
+
+    --t-dur-enter-fast: var(--t-dur-fast);
+    --t-dur-enter-base: var(--t-dur-base);
+    --t-dur-enter-slow: var(--t-dur-slow);
+    --t-dur-exit-fast: calc(var(--t-dur-fast) * 0.65);
+    --t-dur-exit-base: calc(var(--t-dur-base) * 0.65);
+    --t-dur-exit-slow: calc(var(--t-dur-slow) * 0.65);
+
+    --t-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+    --t-ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --t-ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --t-ease-spring: cubic-bezier(0.5, 1.5, 0.7, 1);
+    --t-ease-linear: linear;
+
+    /* Motion scale — gated by prefers-reduced-motion below */
+    --t-motion-scale: 1;
+
+    /* ===== Z-index ===== */
+    --t-z-base: 0;
+    --t-z-dropdown: 10;
+    --t-z-sticky: 20;
+    --t-z-fixed: 30;
+    --t-z-overlay: 40;
+    --t-z-modal: 50;
+    --t-z-popover: 60;
+    --t-z-toast: 70;
+    --t-z-tooltip: 80;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --t-motion-scale: 0;
+    }
+  }
+}
+
+@layer tokens.semantic {
+  :root {
+    /* ===== Semantic surfaces ===== */
+    --t-fg: var(--t-neutral-90);
+    --t-on-fg: var(--t-neutral-0);
+    --t-bg: var(--t-neutral-0);
+    --t-on-bg: var(--t-neutral-90);
+    --t-surface: var(--t-neutral-10);
+    --t-on-surface: var(--t-neutral-90);
+
+    /* ===== Borders ===== */
+    --t-border: var(--t-neutral-20);
+    --t-border-strong: var(--t-neutral-40);
+
+    /* ===== Intents — pairs every fill with --t-on-<role> ===== */
+    --t-accent: var(--t-accent-500);
+    --t-on-accent: var(--t-neutral-0);
+    --t-success: var(--t-success-500);
+    --t-on-success: var(--t-neutral-0);
+    --t-warning: var(--t-warning-500);
+    --t-on-warning: var(--t-neutral-100);
+    --t-danger: var(--t-danger-500);
+    --t-on-danger: var(--t-neutral-0);
+    --t-info: var(--t-info-500);
+    --t-on-info: var(--t-neutral-0);
+
+    /* ===== Focus ===== */
+    --t-focus-ring: var(--t-accent-500);
+
+    /* ===== Spacing shorthands ===== */
+    --t-pad-x: var(--t-space-4);
+    --t-pad-y: var(--t-space-2);
+    --t-gap: var(--t-space-3);
+    --t-row: var(--t-row-2);
+  }
+
+  /* Forced-colors remap — postcss-teseor-floor double-walks this branch
+   * when inlining literal floors. See ADR-0003 § "Forced-colors resolution". */
+  @media (forced-colors: active) {
+    :root {
+      --t-fg: CanvasText;
+      --t-on-fg: Canvas;
+      --t-bg: Canvas;
+      --t-on-bg: CanvasText;
+      --t-surface: Canvas;
+      --t-on-surface: CanvasText;
+      --t-border: ButtonBorder;
+      --t-border-strong: ButtonText;
+      --t-accent: ButtonText;
+      --t-on-accent: ButtonFace;
+      --t-success: ButtonText;
+      --t-on-success: ButtonFace;
+      --t-warning: ButtonText;
+      --t-on-warning: ButtonFace;
+      --t-danger: ButtonText;
+      --t-on-danger: ButtonFace;
+      --t-info: ButtonText;
+      --t-on-info: ButtonFace;
+      --t-focus-ring: Highlight;
+    }
+  }
+
+  /* Breakpoints — defined here so components write @media (--md) { … }.
+   * postcss-custom-media inlines the actual min-width at build time. */
+  @custom-media --md (min-width: 48rem);
+  @custom-media --lg (min-width: 64rem);
+  @custom-media --xl (min-width: 80rem);
+  @custom-media --2xl (min-width: 96rem);
+}
