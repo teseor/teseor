@@ -31,7 +31,7 @@
     "src"
   ],
   "scripts": {
-    "build": "echo 'build:css pipeline lands at v0.2 with the first component' && exit 0",
+    "build": "node build.mjs",
     "test": "vitest run"
   },
   "publishConfig": {
@@ -43,5 +43,11 @@
     "type": "git",
     "url": "git+https://github.com/teseor/teseor.git",
     "directory": "packages/css"
+  },
+  "devDependencies": {
+    "postcss": "^8.5.15",
+    "postcss-custom-media": "^12.0.1",
+    "postcss-each": "^1.1.0",
+    "postcss-import": "^16.1.1"
   }
 }
