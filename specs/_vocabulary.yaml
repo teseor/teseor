@@ -1,0 +1,134 @@
+# Canonical vocabulary for component specs.
+
+components:
+  # Atoms
+  - Button
+  - Anchor
+  - Input
+  - Select
+  - Textarea
+  - Checkbox
+  - Radio
+  - Switch
+  - Badge
+  - Avatar
+  - Icon
+  - Kbd
+  - Divider
+  - Dot
+  - Code
+
+  # Surfaces and feedback
+  - Card
+  - Alert
+  - Banner
+  - Skeleton
+  - Progress
+
+  # Navigation
+  - Tabs
+  - Segmented
+  - Breadcrumb
+  - Pagination
+  - Menu
+
+  # Overlays
+  - Tooltip
+  - Popover
+  - Modal
+  - Drawer
+  - Toast
+  - Backdrop
+
+  # Composite forms and data
+  - Combobox
+  - DatePicker
+  - Slider
+  - Stepper
+  - Table
+  - Tree
+  - Accordion
+
+  # Layout primitives
+  - Stack
+  - Cluster
+  - Center
+  - Sidebar
+
+# Standard prop names.
+props:
+  - size
+  - variant
+  - intent
+  - disabled
+  - loading
+  - error
+  - density
+  - layout
+  - align
+
+# Variant values (visual hierarchy).
+variants:
+  - solid
+  - outline
+  - ghost
+  - link
+
+# Intent values (semantic color role).
+intents:
+  - neutral
+  - accent
+  - danger
+  - success
+  - warning
+  - info
+
+# Sizes (t-shirt scale).
+sizes:
+  - sm
+  - md
+  - lg
+
+# Size mapping: component size → token suffix.
+sizeMap:
+  sm: 2
+  md: 4
+  lg: 6
+
+# State names (aligned with ARIA where ARIA defines a name).
+states:
+  - disabled
+  - loading
+  - error
+  - success
+  - selected
+  - expanded
+  - pressed
+  - checked
+
+# BEM element-parts.
+parts:
+  - __header
+  - __body
+  - __footer
+  - __title
+  - __description
+  - __icon
+  - __label
+  - __close
+  - __trigger
+  - __panel
+  - __list
+  - __item
+
+# Event verbs (spec form).
+events:
+  - click
+  - submit
+  - dismiss
+  - change
+  - select
+  - open
+  - close
+  - focus
+  - blur
