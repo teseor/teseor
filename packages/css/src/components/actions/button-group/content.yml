@@ -1,6 +1,0 @@
-description: $auto Button Group component.
-
-sections:
-  vertical:
-    modifier: vertical
-    description: $shared.vertical

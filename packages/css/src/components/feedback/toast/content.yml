@@ -1,8 +1,0 @@
-description: $auto Toast component.
-
-sections:
-  variant:
-    modifier: variant
-    layout: row
-    include_default: true
-    description: $shared.variant

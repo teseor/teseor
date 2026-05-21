@@ -1,7 +1,0 @@
-description: $auto Pagination component.
-
-sections:
-  size:
-    modifier: size
-    layout: row
-    description: $shared.size

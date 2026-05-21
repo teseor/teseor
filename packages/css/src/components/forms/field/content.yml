@@ -1,9 +1,0 @@
-description: $auto Field component.
-
-sections:
-  horizontal:
-    modifier: horizontal
-    description: $auto Horizontal modifier.
-  responsive:
-    modifier: responsive
-    description: $auto Responsive modifier.

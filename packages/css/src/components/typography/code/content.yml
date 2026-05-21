@@ -1,7 +1,0 @@
-description: $auto Code component.
-
-sections:
-  size:
-    modifier: size
-    layout: row
-    description: $shared.size

@@ -1,9 +1,0 @@
-// @component app-shell
-// @element body
-// @related topbar, sidebar, main, container, footer
-
-@layer primitives {
-  .app-shell {
-    min-block-size: 100vh;
-  }
-}

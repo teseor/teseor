@@ -1,8 +1,0 @@
-description: Loading indicator for asynchronous operations.
-
-sections:
-  sizes:
-    modifier: size
-    layout: row
-    include_default: true
-    description: $shared.size

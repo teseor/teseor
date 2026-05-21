@@ -1,9 +1,0 @@
-description: $auto Code Block component.
-
-sections:
-  compact:
-    modifier: compact
-    description: $auto Compact modifier.
-  line_numbers:
-    modifier: line-numbers
-    description: $auto Line Numbers modifier.

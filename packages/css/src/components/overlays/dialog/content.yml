@@ -1,6 +1,0 @@
-description: $auto Dialog component.
-
-sections:
-  borderless:
-    modifier: borderless
-    description: $auto Borderless modifier.

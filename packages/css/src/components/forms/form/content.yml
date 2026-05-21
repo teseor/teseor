@@ -1,9 +1,0 @@
-description: $auto Form component.
-
-sections:
-  compact:
-    modifier: compact
-    description: $auto Compact modifier.
-  inline:
-    modifier: inline
-    description: $auto Inline modifier.

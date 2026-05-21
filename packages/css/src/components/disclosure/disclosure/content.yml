@@ -1,9 +1,0 @@
-description: $auto Disclosure component.
-
-sections:
-  borderless:
-    modifier: borderless
-    description: $auto Borderless modifier.
-  animate:
-    modifier: animate
-    description: $auto Animate modifier.
