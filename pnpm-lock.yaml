@@ -43,6 +43,8 @@ importers:
 
   packages/css: {}
 
+  scripts/codegen: {}
+
 packages:
 
   '@babel/code-frame@7.29.0':
