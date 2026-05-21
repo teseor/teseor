@@ -1,28 +1,29 @@
 # Teseor — Claude operating manual
 
-This file is a thin navigation index, not a copy of the rules. When `CLAUDE.md` and
-`docs/` disagree, `docs/` wins — open a PR to fix whichever drifted.
+`docs/` is the source of truth. This file lists the few behaviors a session has
+to honor before opening any other file. Tooling enforces the rest — read the
+configs (`biome.json`, `.stylelintrc.cjs`, `tsconfig.json`, `lefthook.yml`,
+`.github/workflows/`) to learn the constraints, not this file.
 
-## Non-negotiables
+## Behaviors tooling can't enforce
 
-- lefthook for git hooks. Never Husky.
-- Stylelint never bypassed. `--no-verify` is forbidden.
+- Never bypass hooks or linters (`--no-verify`, deleting checks, etc.). If a
+  hook fails, fix the underlying issue.
 - No emojis. No AI-tool references in code, commits, PRs, or docs.
-- Named exports only. No default exports.
-- All code, comments, and docs in English.
+- All artifacts in English.
 
-## Always do
+## PR shape
 
-- Every PR: link an issue (`Closes #N`), include a changeset when `packages/`
-  changes, pass CI, squash-merge.
-- Every PR: ≤ 500 LOC handwritten, 1–3 issues closed, conventional-commit title
-  using a Teseor scope.
-- Every PR body fills these sections, non-empty: `What`, `Why`, `Test plan`,
-  `Out of scope`.
-- Capture mid-session TODOs with `/issue-this <description>` — never leave them
-  as `TODO` comments in committed files.
-- Significant decisions land as ADRs in `docs/ADR/`, not as inline notes in
-  code or scattered prose.
+- Closes ≥ 1 issue (`Closes #N`). File one first if none exists.
+- Conventional-commit title with a project scope.
+- Body sections non-empty: `What`, `Why`, `Test plan`, `Out of scope`.
+- Squash-merge.
+
+## Workflow
+
+- Capture mid-session TODOs via `/issue-this <description>`, never as inline
+  comments in committed files.
+- Significant decisions land as ADRs under `docs/ADR/`, not as inline notes.
 
 ## Ask before
 
@@ -33,17 +34,12 @@ This file is a thin navigation index, not a copy of the rules. When `CLAUDE.md` 
 
 ## Pointers
 
-- Canonical rules → `docs/rules/`
+- Rules → `docs/rules/`
 - Architecture → `docs/architecture/`
 - Process → `docs/process/`
 - Roadmap → `docs/roadmap.md`
 - Slash commands → `.claude/commands/`
-- Contribution paths → `docs/process/contribution-paths.md`
-- Migration walkthrough → `docs/process/migrations-end-to-end.md`
-- RFC template → `docs/RFC/_template.md`
 
 ## Drift policy
 
-If `CLAUDE.md` and `docs/` disagree, `docs/` wins. Treat anything here that
-contradicts a current `docs/` file as the bug, and open a PR fixing whichever
-is stale.
+If this file disagrees with `docs/`, the file is stale. Open a PR fixing it.
