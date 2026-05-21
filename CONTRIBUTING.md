@@ -32,10 +32,25 @@ pnpm install
 pnpm dev        # docs site and watchers
 pnpm lint       # Biome, Stylelint, spec validator
 pnpm typecheck  # tsc --noEmit
-pnpm test       # unit, visual, a11y
+pnpm test       # Vitest across packages
+pnpm test:e2e   # Playwright suite (see Playwright browsers below)
 ```
 
 See `docs/process/dev-scripts.md` for the full script catalog.
+
+### Playwright browsers
+
+`pnpm test:e2e` and `pnpm test:visual` need a Chromium install before they can
+run locally:
+
+```bash
+pnpm exec playwright install --with-deps chromium
+```
+
+CI installs browsers per-job: the `test-e2e` job in `ci.yml` runs
+`pnpm exec playwright install --with-deps chromium` ahead of `pnpm test:e2e`;
+the `visual-tests` workflow runs everything inside
+`mcr.microsoft.com/playwright:v1.60.0-jammy`, which ships browsers already.
 
 ## Path-specific guidance
 
