@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en" data-theme="default" data-mode="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Teseor preview</title>
+  <link rel="stylesheet" href="../../packages/css/src/tokens.css">
+  <link rel="stylesheet" href="../../packages/css/src/reset.css">
+  <link rel="stylesheet" href="../../packages/css/src/base.css">
+  <style>
+    body {
+      max-inline-size: 56rem;
+      margin-inline: auto;
+      padding-inline: var(--t-space-5);
+      padding-block: var(--t-space-6);
+    }
+    section + section {
+      margin-block-start: var(--t-space-6);
+      padding-block-start: var(--t-space-5);
+      border-block-start: var(--t-border-thin) solid var(--t-border);
+    }
+    .palette {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--t-space-2);
+      align-items: center;
+      margin-block-start: var(--t-space-3);
+    }
+    .swatch {
+      inline-size: 4rem;
+      block-size: 2.5rem;
+      border-radius: var(--t-radius-sm);
+      box-shadow: inset 0 0 0 1px oklch(0 0 0 / 0.08);
+      display: inline-flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-block-end: var(--t-space-1);
+      font-family: var(--t-font-mono);
+      font-size: 0.65rem;
+      color: oklch(0 0 0 / 0.6);
+    }
+    .swatch[data-dark] { color: oklch(1 0 0 / 0.8); }
+    .scale-spacing {
+      display: flex;
+      flex-direction: column;
+      gap: var(--t-space-2);
+    }
+    .scale-spacing > div {
+      display: flex;
+      align-items: center;
+      gap: var(--t-space-3);
+      font-family: var(--t-font-mono);
+      font-size: var(--t-text-sm);
+    }
+    .scale-spacing .bar {
+      block-size: var(--t-space-3);
+      background: var(--t-accent);
+      border-radius: var(--t-radius-sm);
+    }
+    .radius-row {
+      display: flex;
+      gap: var(--t-space-3);
+      align-items: flex-end;
+      margin-block-start: var(--t-space-3);
+    }
+    .radius-row > div {
+      inline-size: 3rem;
+      block-size: 3rem;
+      background: var(--t-surface);
+      border: var(--t-border-thin) solid var(--t-border);
+      font-family: var(--t-font-mono);
+      font-size: 0.65rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--t-fg);
+    }
+    .intent-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+      gap: var(--t-space-3);
+      margin-block-start: var(--t-space-3);
+    }
+    .intent-row > div {
+      padding-block: var(--t-space-3);
+      padding-inline: var(--t-space-4);
+      border-radius: var(--t-radius-md);
+      font-family: var(--t-font-sans);
+      font-size: var(--t-text-sm);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Teseor preview</h1>
+    <p>tokens + reset + base. Open <code>apps/preview/index.html</code>.</p>
+  </header>
+
+  <section>
+    <h2>Type scale</h2>
+    <h1>H1 — 3xl</h1>
+    <h2>H2 — 2xl</h2>
+    <h3>H3 — xl</h3>
+    <h4>H4 — lg</h4>
+    <h5>H5 — base</h5>
+    <h6>H6 — sm</h6>
+    <p>Body text in <code>--t-text-base</code> with <code>--t-leading-normal</code>. Anchors render in <a href="#">--t-accent</a>.</p>
+    <p><code>inline code</code> uses <code>--t-font-mono</code>.</p>
+    <pre>pre block
+runs in --t-font-mono
+on --t-surface
+with --t-radius-md</pre>
+  </section>
+
+  <section>
+    <h2>Neutral 0..100</h2>
+    <div class="palette">
+      <div class="swatch" style="background: var(--t-neutral-0)">0</div>
+      <div class="swatch" style="background: var(--t-neutral-10)">10</div>
+      <div class="swatch" style="background: var(--t-neutral-20)">20</div>
+      <div class="swatch" style="background: var(--t-neutral-30)">30</div>
+      <div class="swatch" style="background: var(--t-neutral-40)">40</div>
+      <div class="swatch" style="background: var(--t-neutral-50)" data-dark>50</div>
+      <div class="swatch" style="background: var(--t-neutral-60)" data-dark>60</div>
+      <div class="swatch" style="background: var(--t-neutral-70)" data-dark>70</div>
+      <div class="swatch" style="background: var(--t-neutral-80)" data-dark>80</div>
+      <div class="swatch" style="background: var(--t-neutral-90)" data-dark>90</div>
+      <div class="swatch" style="background: var(--t-neutral-100)" data-dark>100</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Intent ramps</h2>
+    <h3>Accent (hue 250)</h3>
+    <div class="palette">
+      <div class="swatch" style="background: var(--t-accent-50)">50</div>
+      <div class="swatch" style="background: var(--t-accent-100)">100</div>
+      <div class="swatch" style="background: var(--t-accent-200)">200</div>
+      <div class="swatch" style="background: var(--t-accent-300)">300</div>
+      <div class="swatch" style="background: var(--t-accent-400)">400</div>
+      <div class="swatch" style="background: var(--t-accent-500)" data-dark>500</div>
+      <div class="swatch" style="background: var(--t-accent-600)" data-dark>600</div>
+      <div class="swatch" style="background: var(--t-accent-700)" data-dark>700</div>
+      <div class="swatch" style="background: var(--t-accent-800)" data-dark>800</div>
+      <div class="swatch" style="background: var(--t-accent-900)" data-dark>900</div>
+    </div>
+    <h3>Success (hue 155)</h3>
+    <div class="palette">
+      <div class="swatch" style="background: var(--t-success-50)">50</div>
+      <div class="swatch" style="background: var(--t-success-100)">100</div>
+      <div class="swatch" style="background: var(--t-success-200)">200</div>
+      <div class="swatch" style="background: var(--t-success-300)">300</div>
+      <div class="swatch" style="background: var(--t-success-400)">400</div>
+      <div class="swatch" style="background: var(--t-success-500)" data-dark>500</div>
+      <div class="swatch" style="background: var(--t-success-600)" data-dark>600</div>
+      <div class="swatch" style="background: var(--t-success-700)" data-dark>700</div>
+      <div class="swatch" style="background: var(--t-success-800)" data-dark>800</div>
+      <div class="swatch" style="background: var(--t-success-900)" data-dark>900</div>
+    </div>
+    <h3>Warning (hue 80)</h3>
+    <div class="palette">
+      <div class="swatch" style="background: var(--t-warning-50)">50</div>
+      <div class="swatch" style="background: var(--t-warning-100)">100</div>
+      <div class="swatch" style="background: var(--t-warning-200)">200</div>
+      <div class="swatch" style="background: var(--t-warning-300)">300</div>
+      <div class="swatch" style="background: var(--t-warning-400)">400</div>
+      <div class="swatch" style="background: var(--t-warning-500)">500</div>
+      <div class="swatch" style="background: var(--t-warning-600)" data-dark>600</div>
+      <div class="swatch" style="background: var(--t-warning-700)" data-dark>700</div>
+      <div class="swatch" style="background: var(--t-warning-800)" data-dark>800</div>
+      <div class="swatch" style="background: var(--t-warning-900)" data-dark>900</div>
+    </div>
+    <h3>Danger (hue 25)</h3>
+    <div class="palette">
+      <div class="swatch" style="background: var(--t-danger-50)">50</div>
+      <div class="swatch" style="background: var(--t-danger-100)">100</div>
+      <div class="swatch" style="background: var(--t-danger-200)">200</div>
+      <div class="swatch" style="background: var(--t-danger-300)">300</div>
+      <div class="swatch" style="background: var(--t-danger-400)">400</div>
+      <div class="swatch" style="background: var(--t-danger-500)" data-dark>500</div>
+      <div class="swatch" style="background: var(--t-danger-600)" data-dark>600</div>
+      <div class="swatch" style="background: var(--t-danger-700)" data-dark>700</div>
+      <div class="swatch" style="background: var(--t-danger-800)" data-dark>800</div>
+      <div class="swatch" style="background: var(--t-danger-900)" data-dark>900</div>
+    </div>
+    <h3>Info (hue 210)</h3>
+    <div class="palette">
+      <div class="swatch" style="background: var(--t-info-50)">50</div>
+      <div class="swatch" style="background: var(--t-info-100)">100</div>
+      <div class="swatch" style="background: var(--t-info-200)">200</div>
+      <div class="swatch" style="background: var(--t-info-300)">300</div>
+      <div class="swatch" style="background: var(--t-info-400)">400</div>
+      <div class="swatch" style="background: var(--t-info-500)" data-dark>500</div>
+      <div class="swatch" style="background: var(--t-info-600)" data-dark>600</div>
+      <div class="swatch" style="background: var(--t-info-700)" data-dark>700</div>
+      <div class="swatch" style="background: var(--t-info-800)" data-dark>800</div>
+      <div class="swatch" style="background: var(--t-info-900)" data-dark>900</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Semantic intents (Tier 2)</h2>
+    <div class="intent-row">
+      <div style="background: var(--t-accent); color: var(--t-on-accent)">accent / on-accent</div>
+      <div style="background: var(--t-success); color: var(--t-on-success)">success / on-success</div>
+      <div style="background: var(--t-warning); color: var(--t-on-warning)">warning / on-warning</div>
+      <div style="background: var(--t-danger); color: var(--t-on-danger)">danger / on-danger</div>
+      <div style="background: var(--t-info); color: var(--t-on-info)">info / on-info</div>
+      <div style="background: var(--t-surface); color: var(--t-on-surface); border: var(--t-border-thin) solid var(--t-border)">surface / on-surface</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Spacing scale</h2>
+    <div class="scale-spacing">
+      <div><span style="inline-size: 5rem">--t-space-1</span><span class="bar" style="inline-size: var(--t-space-1)"></span><span>0.25rem</span></div>
+      <div><span style="inline-size: 5rem">--t-space-2</span><span class="bar" style="inline-size: var(--t-space-2)"></span><span>0.5rem</span></div>
+      <div><span style="inline-size: 5rem">--t-space-3</span><span class="bar" style="inline-size: var(--t-space-3)"></span><span>0.75rem</span></div>
+      <div><span style="inline-size: 5rem">--t-space-4</span><span class="bar" style="inline-size: var(--t-space-4)"></span><span>1rem</span></div>
+      <div><span style="inline-size: 5rem">--t-space-5</span><span class="bar" style="inline-size: var(--t-space-5)"></span><span>1.5rem</span></div>
+      <div><span style="inline-size: 5rem">--t-space-6</span><span class="bar" style="inline-size: var(--t-space-6)"></span><span>2rem</span></div>
+      <div><span style="inline-size: 5rem">--t-space-7</span><span class="bar" style="inline-size: var(--t-space-7)"></span><span>3rem</span></div>
+      <div><span style="inline-size: 5rem">--t-space-8</span><span class="bar" style="inline-size: var(--t-space-8)"></span><span>4rem</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Radius scale</h2>
+    <div class="radius-row">
+      <div style="border-radius: var(--t-radius-none)">none</div>
+      <div style="border-radius: var(--t-radius-sm)">sm</div>
+      <div style="border-radius: var(--t-radius-md)">md</div>
+      <div style="border-radius: var(--t-radius-lg)">lg</div>
+      <div style="border-radius: var(--t-radius-xl)">xl</div>
+      <div style="border-radius: var(--t-radius-full)">full</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Shadows</h2>
+    <div class="intent-row">
+      <div style="background: var(--t-bg); box-shadow: var(--t-shadow-sm)">shadow-sm</div>
+      <div style="background: var(--t-bg); box-shadow: var(--t-shadow-md)">shadow-md</div>
+      <div style="background: var(--t-bg); box-shadow: var(--t-shadow-lg)">shadow-lg</div>
+      <div style="background: var(--t-bg); box-shadow: var(--t-shadow-xl)">shadow-xl</div>
+    </div>
+  </section>
+</body>
+</html>
