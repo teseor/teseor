@@ -21,8 +21,18 @@ const PATTERNS = [
   },
   {
     label: "doc-path pointer",
-    re: /(see docs\/|per ADR-\d+|audit [A-Z]\d+)/i,
-    hint: "Paths and ADR numbers rot during refactors; describe the file directly.",
+    re: /\bdocs\/[a-z]/i,
+    hint: "Paths to docs/ rot during refactors; describe the file directly.",
+  },
+  {
+    label: "ADR reference",
+    re: /\bADR-\d+/,
+    hint: "ADR numbers re-number during merges; describe the constraint inline.",
+  },
+  {
+    label: "audit code",
+    re: /\baudit [A-Z]\d+\b/,
+    hint: "Audit codes only resolve with the handover open; strip from artifacts.",
   },
 ];
 

@@ -1,7 +1,4 @@
-/* Teseor tokens — Tier 1 scale + Tier 2 semantic aliases.
- * Per docs/architecture/three-tier-tokens.md and layer-order.md.
- * Tier 3 (component-private --_x) lives in component files.
- */
+/* Teseor tokens — Tier 1 scale + Tier 2 semantic aliases. */
 
 @layer tokens.scale {
   :root {
@@ -210,8 +207,7 @@
     --t-row: var(--t-row-2);
   }
 
-  /* Forced-colors remap — postcss-teseor-floor double-walks this branch
-   * when inlining literal floors. See ADR-0003 § "Forced-colors resolution". */
+  /* Forced-colors remap to CSS system colors. */
   @media (forced-colors: active) {
     :root {
       --t-fg: CanvasText;
@@ -236,8 +232,7 @@
     }
   }
 
-  /* Breakpoints — defined here so components write @media (--md) { … }.
-   * postcss-custom-media inlines the actual min-width at build time. */
+  /* Breakpoint aliases. */
   @custom-media --md (min-width: 48rem);
   @custom-media --lg (min-width: 64rem);
   @custom-media --xl (min-width: 80rem);
