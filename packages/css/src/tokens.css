@@ -8,77 +8,77 @@
     /* ===== Colors — oklch throughout (Baseline 2024) ===== */
 
     /* Neutral — 0 lightest, 100 darkest */
-    --t-neutral-0: oklch(1 0 0);
-    --t-neutral-10: oklch(0.97 0 0);
-    --t-neutral-20: oklch(0.92 0 0);
-    --t-neutral-30: oklch(0.85 0 0);
-    --t-neutral-40: oklch(0.75 0 0);
-    --t-neutral-50: oklch(0.65 0 0);
-    --t-neutral-60: oklch(0.55 0 0);
-    --t-neutral-70: oklch(0.42 0 0);
-    --t-neutral-80: oklch(0.3 0 0);
-    --t-neutral-90: oklch(0.18 0 0);
-    --t-neutral-100: oklch(0 0 0);
+    --t-neutral-0: oklch(100% 0 0deg);
+    --t-neutral-10: oklch(97% 0 0deg);
+    --t-neutral-20: oklch(92% 0 0deg);
+    --t-neutral-30: oklch(85% 0 0deg);
+    --t-neutral-40: oklch(75% 0 0deg);
+    --t-neutral-50: oklch(65% 0 0deg);
+    --t-neutral-60: oklch(55% 0 0deg);
+    --t-neutral-70: oklch(42% 0 0deg);
+    --t-neutral-80: oklch(30% 0 0deg);
+    --t-neutral-90: oklch(18% 0 0deg);
+    --t-neutral-100: oklch(0% 0 0deg);
 
     /* Accent — blue, hue 250 */
-    --t-accent-50: oklch(0.97 0.02 250);
-    --t-accent-100: oklch(0.93 0.05 250);
-    --t-accent-200: oklch(0.86 0.09 250);
-    --t-accent-300: oklch(0.78 0.13 250);
-    --t-accent-400: oklch(0.71 0.16 250);
-    --t-accent-500: oklch(0.65 0.18 250);
-    --t-accent-600: oklch(0.55 0.18 250);
-    --t-accent-700: oklch(0.45 0.16 250);
-    --t-accent-800: oklch(0.35 0.13 250);
-    --t-accent-900: oklch(0.25 0.1 250);
+    --t-accent-50: oklch(97% 0.02 250deg);
+    --t-accent-100: oklch(93% 0.05 250deg);
+    --t-accent-200: oklch(86% 0.09 250deg);
+    --t-accent-300: oklch(78% 0.13 250deg);
+    --t-accent-400: oklch(71% 0.16 250deg);
+    --t-accent-500: oklch(65% 0.18 250deg);
+    --t-accent-600: oklch(55% 0.18 250deg);
+    --t-accent-700: oklch(45% 0.16 250deg);
+    --t-accent-800: oklch(35% 0.13 250deg);
+    --t-accent-900: oklch(25% 0.1 250deg);
 
     /* Success — green, hue 155 */
-    --t-success-50: oklch(0.97 0.02 155);
-    --t-success-100: oklch(0.93 0.05 155);
-    --t-success-200: oklch(0.86 0.09 155);
-    --t-success-300: oklch(0.78 0.13 155);
-    --t-success-400: oklch(0.71 0.16 155);
-    --t-success-500: oklch(0.65 0.18 155);
-    --t-success-600: oklch(0.55 0.18 155);
-    --t-success-700: oklch(0.45 0.16 155);
-    --t-success-800: oklch(0.35 0.13 155);
-    --t-success-900: oklch(0.25 0.1 155);
+    --t-success-50: oklch(97% 0.02 155deg);
+    --t-success-100: oklch(93% 0.05 155deg);
+    --t-success-200: oklch(86% 0.09 155deg);
+    --t-success-300: oklch(78% 0.13 155deg);
+    --t-success-400: oklch(71% 0.16 155deg);
+    --t-success-500: oklch(65% 0.18 155deg);
+    --t-success-600: oklch(55% 0.18 155deg);
+    --t-success-700: oklch(45% 0.16 155deg);
+    --t-success-800: oklch(35% 0.13 155deg);
+    --t-success-900: oklch(25% 0.1 155deg);
 
     /* Warning — amber, hue 80 */
-    --t-warning-50: oklch(0.97 0.02 80);
-    --t-warning-100: oklch(0.93 0.05 80);
-    --t-warning-200: oklch(0.86 0.09 80);
-    --t-warning-300: oklch(0.82 0.13 80);
-    --t-warning-400: oklch(0.78 0.16 80);
-    --t-warning-500: oklch(0.75 0.18 80);
-    --t-warning-600: oklch(0.65 0.18 80);
-    --t-warning-700: oklch(0.55 0.16 80);
-    --t-warning-800: oklch(0.4 0.13 80);
-    --t-warning-900: oklch(0.3 0.1 80);
+    --t-warning-50: oklch(97% 0.02 80deg);
+    --t-warning-100: oklch(93% 0.05 80deg);
+    --t-warning-200: oklch(86% 0.09 80deg);
+    --t-warning-300: oklch(82% 0.13 80deg);
+    --t-warning-400: oklch(78% 0.16 80deg);
+    --t-warning-500: oklch(75% 0.18 80deg);
+    --t-warning-600: oklch(65% 0.18 80deg);
+    --t-warning-700: oklch(55% 0.16 80deg);
+    --t-warning-800: oklch(40% 0.13 80deg);
+    --t-warning-900: oklch(30% 0.1 80deg);
 
     /* Danger — red, hue 25 */
-    --t-danger-50: oklch(0.97 0.02 25);
-    --t-danger-100: oklch(0.93 0.05 25);
-    --t-danger-200: oklch(0.86 0.09 25);
-    --t-danger-300: oklch(0.78 0.13 25);
-    --t-danger-400: oklch(0.7 0.16 25);
-    --t-danger-500: oklch(0.62 0.2 25);
-    --t-danger-600: oklch(0.52 0.2 25);
-    --t-danger-700: oklch(0.42 0.18 25);
-    --t-danger-800: oklch(0.33 0.14 25);
-    --t-danger-900: oklch(0.24 0.1 25);
+    --t-danger-50: oklch(97% 0.02 25deg);
+    --t-danger-100: oklch(93% 0.05 25deg);
+    --t-danger-200: oklch(86% 0.09 25deg);
+    --t-danger-300: oklch(78% 0.13 25deg);
+    --t-danger-400: oklch(70% 0.16 25deg);
+    --t-danger-500: oklch(62% 0.2 25deg);
+    --t-danger-600: oklch(52% 0.2 25deg);
+    --t-danger-700: oklch(42% 0.18 25deg);
+    --t-danger-800: oklch(33% 0.14 25deg);
+    --t-danger-900: oklch(24% 0.1 25deg);
 
     /* Info — cyan, hue 210 */
-    --t-info-50: oklch(0.97 0.02 210);
-    --t-info-100: oklch(0.93 0.05 210);
-    --t-info-200: oklch(0.86 0.09 210);
-    --t-info-300: oklch(0.78 0.13 210);
-    --t-info-400: oklch(0.71 0.15 210);
-    --t-info-500: oklch(0.65 0.17 210);
-    --t-info-600: oklch(0.55 0.17 210);
-    --t-info-700: oklch(0.45 0.15 210);
-    --t-info-800: oklch(0.35 0.12 210);
-    --t-info-900: oklch(0.25 0.09 210);
+    --t-info-50: oklch(97% 0.02 210deg);
+    --t-info-100: oklch(93% 0.05 210deg);
+    --t-info-200: oklch(86% 0.09 210deg);
+    --t-info-300: oklch(78% 0.13 210deg);
+    --t-info-400: oklch(71% 0.15 210deg);
+    --t-info-500: oklch(65% 0.17 210deg);
+    --t-info-600: oklch(55% 0.17 210deg);
+    --t-info-700: oklch(45% 0.15 210deg);
+    --t-info-800: oklch(35% 0.12 210deg);
+    --t-info-900: oklch(25% 0.09 210deg);
 
     /* ===== Spacing — 4px-based modular ladder ===== */
     --t-space-0: 0;
@@ -105,14 +105,12 @@
     --t-text-xl: 1.27rem;
     --t-text-2xl: 1.42rem;
     --t-text-3xl: 1.6rem;
-
     --t-leading-tight: 1.2;
     --t-leading-normal: 1.5;
     --t-leading-loose: 1.75;
-
-    --t-font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      "Helvetica Neue", Arial, sans-serif;
-    --t-font-mono: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono",
+    --t-font-sans: ui-sans-serif, system-ui, -apple-system, blinkmacsystemfont, "Segoe UI", roboto,
+      "Helvetica Neue", arial, sans-serif;
+    --t-font-mono: ui-monospace, "SF Mono", menlo, monaco, consolas, "Liberation Mono",
       "Courier New", monospace;
 
     /* ===== Borders ===== */
@@ -131,10 +129,10 @@
 
     /* ===== Shadows — oklch with alpha so they reskin with theme ===== */
     --t-shadow-none: none;
-    --t-shadow-sm: 0 1px 2px 0 oklch(0 0 0 / 0.05);
-    --t-shadow-md: 0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1);
-    --t-shadow-lg: 0 10px 15px -3px oklch(0 0 0 / 0.1), 0 4px 6px -4px oklch(0 0 0 / 0.1);
-    --t-shadow-xl: 0 20px 25px -5px oklch(0 0 0 / 0.1), 0 8px 10px -6px oklch(0 0 0 / 0.1);
+    --t-shadow-sm: 0 1px 2px 0 oklch(0% 0 0deg / 5%);
+    --t-shadow-md: 0 4px 6px -1px oklch(0% 0 0deg / 10%), 0 2px 4px -2px oklch(0% 0 0deg / 10%);
+    --t-shadow-lg: 0 10px 15px -3px oklch(0% 0 0deg / 10%), 0 4px 6px -4px oklch(0% 0 0deg / 10%);
+    --t-shadow-xl: 0 20px 25px -5px oklch(0% 0 0deg / 10%), 0 8px 10px -6px oklch(0% 0 0deg / 10%);
 
     /* ===== Motion — durations + easings ===== */
     --t-dur-instant: 0ms;
@@ -142,14 +140,12 @@
     --t-dur-base: 200ms;
     --t-dur-slow: 320ms;
     --t-dur-glacial: 500ms;
-
     --t-dur-enter-fast: var(--t-dur-fast);
     --t-dur-enter-base: var(--t-dur-base);
     --t-dur-enter-slow: var(--t-dur-slow);
     --t-dur-exit-fast: calc(var(--t-dur-fast) * 0.65);
     --t-dur-exit-base: calc(var(--t-dur-base) * 0.65);
     --t-dur-exit-slow: calc(var(--t-dur-slow) * 0.65);
-
     --t-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
     --t-ease-out: cubic-bezier(0, 0, 0.2, 1);
     --t-ease-in: cubic-bezier(0.4, 0, 1, 1);
