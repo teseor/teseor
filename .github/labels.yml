@@ -1,0 +1,38 @@
+- name: type:feature
+  color: 0e8a16
+  description: New functionality
+- name: type:fix
+  color: d73a4a
+  description: Bug fix
+- name: type:docs
+  color: 0075ca
+  description: Docs-only change
+- name: type:chore
+  color: ededed
+  description: Tooling, config, infrastructure
+
+- name: area:css
+  color: 1d76db
+  description: packages/css/
+- name: area:repo
+  color: 5319e7
+  description: Root configs, meta files
+- name: area:ci
+  color: fbca04
+  description: GitHub Actions, branch protection
+- name: area:docs
+  color: bfd4f2
+  description: docs/
+- name: area:spec
+  color: c5def5
+  description: specs/
+- name: area:claude
+  color: f9d0c4
+  description: .claude/
+- name: area:scripts
+  color: c2e0c6
+  description: scripts/
+
+- name: no-issue
+  color: cccccc
+  description: PR intentionally without a closing issue; bypasses linked-issue gate

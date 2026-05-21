@@ -1,0 +1,50 @@
+name: Bug
+description: Something is broken or behaves unexpectedly
+title: 'bug: '
+labels:
+  - type:fix
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What is the problem in one or two sentences?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Minimal steps or a link to a runnable reproduction.
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected
+      description: What should happen?
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual
+      description: What happens instead?
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Package version, browser, OS, Node version.
+      placeholder: |
+        @teseor/css: 3.0.0
+        Browser: Chrome 126
+        OS: macOS 15.0
+        Node: 24.x
+    validations:
+      required: true
