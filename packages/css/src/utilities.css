@@ -1,0 +1,73 @@
+@layer utilities {
+  /* Spacing utilities — driven by the --t-space-* scale (tokens.scale).
+   * Shorthand and block/inline logical pairs only; directional forms
+   * (padding-inline-start etc.) are applied per-rule by components. */
+
+  @each $i in 0, 1, 2, 3, 4, 5, 6, 7, 8 {
+    .t-p-$(i) {
+      padding: var(--t-space-$(i));
+    }
+
+    .t-px-$(i) {
+      padding-inline: var(--t-space-$(i));
+    }
+
+    .t-py-$(i) {
+      padding-block: var(--t-space-$(i));
+    }
+
+    .t-m-$(i) {
+      margin: var(--t-space-$(i));
+    }
+
+    .t-mx-$(i) {
+      margin-inline: var(--t-space-$(i));
+    }
+
+    .t-my-$(i) {
+      margin-block: var(--t-space-$(i));
+    }
+
+    .t-gap-$(i) {
+      gap: var(--t-space-$(i));
+    }
+  }
+
+  /* Display utilities — no scale, fixed set. */
+
+  .t-block {
+    display: block;
+  }
+
+  .t-inline {
+    display: inline;
+  }
+
+  .t-inline-block {
+    display: inline-block;
+  }
+
+  .t-flex {
+    display: flex;
+  }
+
+  .t-inline-flex {
+    display: inline-flex;
+  }
+
+  .t-grid {
+    display: grid;
+  }
+
+  .t-inline-grid {
+    display: inline-grid;
+  }
+
+  .t-contents {
+    display: contents;
+  }
+
+  .t-hidden {
+    display: none;
+  }
+}
