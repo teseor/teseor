@@ -1,0 +1,39 @@
+name: lighthouse
+
+on:
+  workflow_run:
+    workflows: [deploy-docs]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      url:
+        description: URL to audit
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup
+      - id: target
+        name: Resolve target URL
+        env:
+          DISPATCH_URL: ${{ inputs.url }}
+        run: |
+          if [ -n "$DISPATCH_URL" ]; then
+            echo "url=$DISPATCH_URL" >> "$GITHUB_OUTPUT"
+          else
+            echo "url=https://teseor.dev/" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: treosh/lighthouse-ci-action@12.6.2
+        with:
+          urls: ${{ steps.target.outputs.url }}
+          configPath: ./lighthouserc.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true

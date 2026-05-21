@@ -1,0 +1,46 @@
+name: update-snapshots
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: Branch to update snapshots on
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.branch }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - id: snapshots
+        name: Look for committed snapshots
+        run: |
+          if find tests -type d -name __snapshots__ 2>/dev/null | grep -q .; then
+            echo "have_snapshots=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "have_snapshots=false" >> "$GITHUB_OUTPUT"
+            echo "No committed snapshots yet; nothing to update."
+          fi
+      - if: steps.snapshots.outputs.have_snapshots == 'true'
+        uses: ./.github/actions/setup
+      - if: steps.snapshots.outputs.have_snapshots == 'true'
+        name: Regenerate snapshots in Docker
+        env:
+          PLAYWRIGHT_IMAGE: mcr.microsoft.com/playwright:v1.55.0-jammy
+        run: |
+          docker run --rm \
+            -v "$PWD:/work" -w /work \
+            "$PLAYWRIGHT_IMAGE" \
+            sh -c 'corepack enable && pnpm install --frozen-lockfile && pnpm test:visual -- --update-snapshots'
+      - if: steps.snapshots.outputs.have_snapshots == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: 'test(visual): regenerate snapshots'
+          file_pattern: 'tests/**/__snapshots__/**'
