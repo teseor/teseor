@@ -41,6 +41,7 @@ const EXEMPT_PATH_RES = [
   /^\.claude\//,
   /^\.local\//,
   /^scripts\/check-comments\.js$/,
+  /^CLAUDE\.md$/,
   /^README\.md$/i,
   /^CONTRIBUTING\.md$/i,
   /^CHANGELOG\.md$/i,
