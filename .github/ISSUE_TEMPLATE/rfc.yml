@@ -1,0 +1,26 @@
+name: RFC
+description: A design proposal that needs review before implementation
+title: 'RFC: '
+labels:
+  - type:chore
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Copy `docs/RFC/_template.md` into a new file under `docs/RFC/` and open a PR with the draft.
+        Use this issue to coordinate review and link the PR once it exists.
+  - type: input
+    id: rfc-file
+    attributes:
+      label: Draft RFC file
+      description: Path of the RFC draft in this repo, e.g. `docs/RFC/0005-foo.md`.
+      placeholder: docs/RFC/NNNN-slug.md
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: One paragraph on what the RFC proposes and why.
+    validations:
+      required: true

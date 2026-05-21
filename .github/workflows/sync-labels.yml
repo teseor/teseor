@@ -1,0 +1,38 @@
+name: sync-labels
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/labels.yml
+      - .github/labeler.yml
+      - specs/**
+      - scripts/sync-labels.ts
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .node-version
+      - name: Regenerate labeler.yml AUTO region from specs
+        run: node scripts/sync-labels.ts --mode=labeler
+      - name: Fail if labeler.yml drifted from specs
+        run: |
+          if ! git diff --quiet -- .github/labeler.yml; then
+            echo ".github/labeler.yml AUTO region is out of date. Run: node scripts/sync-labels.ts --mode=labeler"
+            git --no-pager diff -- .github/labeler.yml
+            exit 1
+          fi
+      - name: Upsert labels from labels.yml
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/sync-labels.ts --mode=upsert

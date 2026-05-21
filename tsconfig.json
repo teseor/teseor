@@ -12,6 +12,7 @@
     "skipLibCheck": true,
     "allowJs": true,
     "resolveJsonModule": true,
+    "types": ["node"],
 
     "strict": true,
     "noUncheckedIndexedAccess": true,

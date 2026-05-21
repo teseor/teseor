@@ -1,0 +1,107 @@
+name: pr-discipline
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened, labeled, unlabeled]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  linked-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Body links a closing issue
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+          LABELS_JSON: ${{ toJson(github.event.pull_request.labels) }}
+        run: |
+          if echo "$LABELS_JSON" | grep -q '"name": "no-issue"'; then
+            echo "Bypass via label no-issue."
+            exit 0
+          fi
+          if [ -z "$PR_BODY" ]; then
+            echo "PR body is empty; expected '(Closes|Fixes|Refs) #<n>'."
+            exit 1
+          fi
+          if ! echo "$PR_BODY" | grep -Eq '\b(Closes|Fixes|Refs)[[:space:]]+#[0-9]+'; then
+            echo "PR body must contain 'Closes #<n>', 'Fixes #<n>', or 'Refs #<n>'."
+            echo "Add the label 'no-issue' to bypass."
+            exit 1
+          fi
+
+  title-format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Build allowed scope list and validate title
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          set -e
+          fixed='token theme codegen showcase css wrapper i18n ci repo claude scripts docs spec'
+          components=''
+          shopt -s nullglob
+          for spec in specs/*.yaml; do
+            base="$(basename "$spec" .yaml)"
+            [ "$base" = "_vocabulary" ] && continue
+            components="$components $base"
+          done
+          scopes="$(printf '%s\n%s\n' "$fixed" "$components" | tr ' ' '\n' | sed '/^$/d' | sort -u | tr '\n' '|' | sed 's/|$//')"
+          pattern="^(feat|fix|perf|refactor|docs|chore|test)\\((${scopes})\\): .+"
+          echo "Allowed scopes: ${scopes}"
+          echo "Pattern: ${pattern}"
+          echo "Title: ${PR_TITLE}"
+          if ! echo "$PR_TITLE" | grep -Eq "$pattern"; then
+            echo "PR title must match: type(scope): subject"
+            echo "Allowed types: feat, fix, perf, refactor, docs, chore, test"
+            echo "Allowed scopes: ${scopes}"
+            exit 1
+          fi
+
+  body-sections:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Body has all required sections with content
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          set -e
+          required='What Why Test plan Out of scope'
+          if [ -z "$PR_BODY" ]; then
+            echo "PR body is empty."
+            exit 1
+          fi
+          body_file="$(mktemp)"
+          printf '%s\n' "$PR_BODY" > "$body_file"
+          fail=0
+          IFS='|'
+          for section in What Why "Test plan" "Out of scope"; do
+            if ! grep -Eq "^## ${section}[[:space:]]*$" "$body_file"; then
+              echo "Missing section: ## ${section}"
+              fail=1
+              continue
+            fi
+            content=$(awk -v sec="## ${section}" '
+              $0 == sec { capture=1; next }
+              capture && /^## / { capture=0 }
+              capture { print }
+            ' "$body_file" | sed '/^[[:space:]]*$/d')
+            if [ -z "$content" ]; then
+              echo "Empty section: ## ${section}"
+              fail=1
+            fi
+          done
+          rm -f "$body_file"
+          exit "$fail"
+
+  labeler:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/labeler@v6
+        with:
+          configuration-path: .github/labeler.yml
