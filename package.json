@@ -22,6 +22,7 @@
     "lint:spec": "echo 'lint:spec: lands when specs/ has content' && exit 0",
     "gen": "echo 'gen: codegen lands at v0.2' && exit 0",
     "typecheck": "tsc --noEmit",
+    "size": "size-limit",
     "changeset": "changeset",
     "release": "changeset publish",
     "prepare": "lefthook install"
@@ -30,8 +31,10 @@
     "@biomejs/biome": "^2.4.15",
     "@changesets/changelog-git": "^0.2.1",
     "@changesets/cli": "^2.31.0",
+    "@size-limit/file": "^12.1.0",
     "@types/node": "^24.12.4",
     "lefthook": "^2.1.8",
+    "size-limit": "^12.1.0",
     "stylelint": "^17.12.0",
     "stylelint-config-standard": "^40.0.0",
     "typescript": "^6.0.3"

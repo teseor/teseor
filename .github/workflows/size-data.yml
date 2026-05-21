@@ -1,0 +1,39 @@
+name: size-data
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup
+      - run: pnpm build:css
+      - id: dist
+        name: Look for built artifacts
+        run: |
+          if [ -d packages/css/dist ] && [ -n "$(ls -A packages/css/dist 2>/dev/null)" ]; then
+            echo "have_dist=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "have_dist=false" >> "$GITHUB_OUTPUT"
+            echo "No built artifacts yet; size measurement skipped."
+          fi
+      - if: steps.dist.outputs.have_dist == 'true'
+        run: pnpm exec size-limit --json > size-current.json
+      - if: steps.dist.outputs.have_dist == 'true'
+        name: Record PR number for the report job
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: echo "$PR_NUMBER" > pr-number.txt
+      - if: steps.dist.outputs.have_dist == 'true'
+        uses: actions/upload-artifact@v7
+        with:
+          name: size-data
+          path: |
+            size-current.json
+            pr-number.txt
+          if-no-files-found: error

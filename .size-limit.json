@@ -1,0 +1,14 @@
+[
+  {
+    "name": "teseor.css (full bundle)",
+    "path": "packages/css/dist/teseor.css",
+    "limit": "12 KB",
+    "gzip": true
+  },
+  {
+    "name": "tokens.css",
+    "path": "packages/css/dist/tokens.css",
+    "limit": "2.5 KB",
+    "gzip": true
+  }
+]
