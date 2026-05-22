@@ -12,7 +12,7 @@ const DOCS_PAGES_DIR = resolve(REPO_ROOT, "apps", "docs", "src", "pages", "compo
 
 /** Spec fields the docs page reads beyond the shared generator subset. */
 type DocsSpec = Spec & {
-  states?: string[];
+  states?: Record<string, { description?: string }>;
   tokens?: Record<string, { fallback?: string; desc?: string }>;
   a11y?: { role?: string; keyboard?: Record<string, string> };
 };
@@ -134,9 +134,12 @@ function renderNamed(
 }
 
 function renderStates(spec: DocsSpec): string {
-  if (!spec.states || spec.states.length === 0) return "";
-  const items = spec.states.map((state) => `        <li><code>${esc(state)}</code></li>`);
-  return section("States", `      <ul>\n${items.join("\n")}\n      </ul>`);
+  if (!spec.states || Object.keys(spec.states).length === 0) return "";
+  const rows = Object.entries(spec.states).map(([name, def]) => [
+    `<code>${esc(name)}</code>`,
+    esc(def.description ?? ""),
+  ]);
+  return section("States", renderTable(["State", "Description"], rows));
 }
 
 function renderTokens(spec: DocsSpec): string {
