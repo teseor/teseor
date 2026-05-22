@@ -2,7 +2,9 @@
 
 const RESPONSIVE_KEYS = ["base", "md", "lg", "xl", "2xl"] as const;
 
-export type Responsive<T> = T | Partial<Record<(typeof RESPONSIVE_KEYS)[number], T>>;
+type Breakpoint = (typeof RESPONSIVE_KEYS)[number];
+
+export type Responsive<T> = T | Partial<Record<Breakpoint, T>>;
 
 export function responsiveDataAttrs(
   name: string,

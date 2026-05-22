@@ -262,7 +262,9 @@ function renderRuntime(breakpoints: string[]): string {
 
 const RESPONSIVE_KEYS = [${keys}] as const;
 
-export type Responsive<T> = T | Partial<Record<(typeof RESPONSIVE_KEYS)[number], T>>;
+type Breakpoint = (typeof RESPONSIVE_KEYS)[number];
+
+export type Responsive<T> = T | Partial<Record<Breakpoint, T>>;
 
 export function responsiveDataAttrs(
   name: string,
