@@ -15,7 +15,9 @@
       "!packages/vue/src",
       "!packages/svelte/src",
       "!packages/angular/src",
-      "!packages/webc/src"
+      "!packages/webc/src",
+      "!apps/harness/src/fixtures",
+      "!tests/contract"
     ]
   },
   "formatter": {
