@@ -1,6 +1,13 @@
 name: sync-labels
 
 on:
+  pull_request:
+    paths:
+      - .github/labels.yml
+      - .github/labeler.yml
+      - specs/**
+      - scripts/sync-labels.ts
+      - scripts/check-label-sync.ts
   push:
     branches: [main]
     paths:
@@ -8,30 +15,44 @@ on:
       - .github/labeler.yml
       - specs/**
       - scripts/sync-labels.ts
+      - scripts/check-label-sync.ts
   workflow_dispatch:
 
 permissions:
-  contents: write
-  issues: write
-  pull-requests: write
+  contents: read
 
 jobs:
-  sync:
+  check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
         with:
           node-version-file: .node-version
-      - name: Regenerate labeler.yml AUTO region from specs
-        run: node scripts/sync-labels.ts --mode=labeler
-      - name: Fail if labeler.yml drifted from specs
+      - name: Regenerate AUTO regions from specs
+        run: node scripts/sync-labels.ts --mode=generate
+      - name: Fail if labeler.yml or labels.yml drifted from specs
         run: |
-          if ! git diff --quiet -- .github/labeler.yml; then
-            echo ".github/labeler.yml AUTO region is out of date. Run: node scripts/sync-labels.ts --mode=labeler"
-            git --no-pager diff -- .github/labeler.yml
+          if ! git diff --quiet -- .github/labeler.yml .github/labels.yml; then
+            echo "AUTO regions are out of date. Run: node scripts/sync-labels.ts --mode=generate"
+            git --no-pager diff -- .github/labeler.yml .github/labels.yml
             exit 1
           fi
+      - name: Validate labeler.yml references resolve to labels.yml
+        run: node scripts/check-label-sync.ts
+
+  upsert:
+    needs: check
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .node-version
       - name: Upsert labels from labels.yml
         env:
           GH_TOKEN: ${{ github.token }}
