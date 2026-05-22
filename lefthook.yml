@@ -29,6 +29,9 @@ pre-commit:
     component-css:
       glob: 'packages/css/src/components/**/*.css'
       run: node scripts/check-component-css.ts
+    motion:
+      glob: 'packages/css/src/components/**/*.css'
+      run: node scripts/check-motion-scale.ts
     aggregators:
       glob: '{**/package.json,pnpm-workspace.yaml}'
       run: node scripts/check-script-aggregators.ts
