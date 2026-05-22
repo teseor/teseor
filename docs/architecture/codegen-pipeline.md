@@ -76,7 +76,7 @@ motion:
 
 The `motion:` field is required at the atomic milestone. See `rules/motion.md` for the full rule set.
 
-### Maps, not lists (M8)
+### Maps, not lists
 
 `variants`, `intents`, and `sizes` are **maps** keyed on the value name, not bare lists. Every key carries a required `description:` field. Intents and sizes also carry a `tokens:` map binding the value to the semantic tokens the CSS layer reads. `gen-docs` surfaces the descriptions directly on the docs page; `gen-contract` ignores them.
 
