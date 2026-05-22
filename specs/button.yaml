@@ -72,7 +72,7 @@ props:
     type: string
     default: button
     responsive: false
-    description: Polymorphic root element. Defaults to `button`; set to `a` for link-shaped triggers (paired with `variant: link`).
+    description: "Polymorphic root element. Defaults to `button`; set to `a` for link-shaped triggers (paired with `variant: link`)."
   disabled:
     type: boolean
     default: false
