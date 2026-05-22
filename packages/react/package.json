@@ -18,6 +18,9 @@
     "url": "git+https://github.com/teseor/teseor.git",
     "directory": "packages/react"
   },
+  "dependencies": {
+    "@teseor/css": "workspace:*"
+  },
   "peerDependencies": {
     "react": ">=18"
   },

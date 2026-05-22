@@ -91,6 +91,10 @@ importers:
         version: 16.1.1(postcss@8.5.15)
 
   packages/react:
+    dependencies:
+      '@teseor/css':
+        specifier: workspace:*
+        version: link:../css
     devDependencies:
       '@types/react':
         specifier: ^19.2.15
