@@ -65,6 +65,9 @@ rootClass: t-button
 variants:
   solid:   { description: Filled background. }
   outline: { description: Transparent background. }
+intents:
+  primary: { description: Most important action., tokens: { bg: --t-accent, fg: --t-on-accent } }
+  neutral: { description: Default action.,        tokens: { bg: --t-surface, fg: --t-on-surface } }
 sizes:
   sm: { description: Compact density., tokens: { height: --t-row-2 } }
   md: { description: Default size.,    tokens: { height: --t-row-3 } }
