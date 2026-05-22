@@ -4,6 +4,7 @@ import { describe, expect, test } from "vitest";
 import { parse as parseYaml } from "yaml";
 import type { Spec } from "../src/generators/gen-contract.ts";
 import {
+  renderContractHarness,
   renderReactBarrel,
   renderReactFixtureFile,
   renderSpecFile,
@@ -40,6 +41,10 @@ describe("gen-tests", () => {
   test("renders the Playwright spec", async () => {
     const spec = await loadSpec("button");
     expect(renderSpecFile(spec)).toMatchSnapshot();
+  });
+
+  test("renders the contract harness", () => {
+    expect(renderContractHarness()).toMatchSnapshot();
   });
 
   test("renders the React fixtures barrel", () => {
@@ -80,6 +85,15 @@ describe("gen-tests", () => {
     const generated = renderSpecFile(spec);
     const committed = await readFile(
       resolve(REPO_ROOT, "tests", "contract", "button.spec.ts"),
+      "utf8",
+    );
+    expect(generated).toBe(committed);
+  });
+
+  test("matches the committed _contract.ts", async () => {
+    const generated = renderContractHarness();
+    const committed = await readFile(
+      resolve(REPO_ROOT, "tests", "contract", "_contract.ts"),
       "utf8",
     );
     expect(generated).toBe(committed);
