@@ -92,6 +92,25 @@ describe("checkTokenContract", () => {
     expect(issues).toHaveLength(1);
     expect(issues[0]?.message).toMatch(/missing or unreadable/);
   });
+
+  test("treats a spec name with regex metacharacters as a literal", () => {
+    const spec = { ...makeButton(), name: "a.b" } as Spec;
+    const css = `.t-a-b { background: var(--t-a-b-bg, var(--t-accent)); color: var(--t-a-b-fg, var(--t-on-accent)); }`;
+    // Without escaping, `.` would match any character and the contract check
+    // would pass against `.t-a-b` despite the literal slot being `--t-a.b-*`.
+    const issues = checkTokenContract(spec, css);
+    expect(issues.length).toBeGreaterThan(0);
+  });
+
+  test("matches a slot key that contains an underscore", () => {
+    const spec = makeButton({
+      tokens: {
+        font_size: { fallback: "--t-text-base", desc: "Font size." },
+      },
+    });
+    const css = `.t-button { font-size: var(--t-button-font_size, var(--t-text-base)); }`;
+    expect(checkTokenContract(spec, css)).toEqual([]);
+  });
 });
 
 describe("checkExamplesReferences", () => {

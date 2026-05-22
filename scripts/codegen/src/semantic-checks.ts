@@ -93,7 +93,8 @@ function suggestionFragment(name: string, options: readonly string[]): string {
  */
 function extractPublicSlots(css: string, specName: string): Set<string> {
   const slots = new Set<string>();
-  const pattern = new RegExp(`--t-${specName}-([A-Za-z0-9-]+)`, "g");
+  const escapedName = specName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const pattern = new RegExp(`--t-${escapedName}-([A-Za-z0-9_-]+)`, "g");
   for (const match of css.matchAll(pattern)) {
     if (match[1] !== undefined) slots.add(match[1]);
   }
