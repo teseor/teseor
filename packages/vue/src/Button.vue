@@ -21,7 +21,7 @@
  */
 import "@teseor/css/components/button.css";
 import { computed, type VNode } from "vue";
-import { dataAttrs } from "./_runtime.ts";
+import { responsiveDataAttrs } from "./_runtime.ts";
 
 type ButtonVariant = "solid" | "outline" | "ghost" | "link";
 
@@ -68,8 +68,8 @@ const inactive = computed(() => disabled || loading);
 const attrs = computed(() => ({
   "data-variant": variant,
   "data-intent": intent,
-  ...dataAttrs("size", size),
-  ...dataAttrs("block", block),
+  ...responsiveDataAttrs("size", size),
+  ...responsiveDataAttrs("block", block),
   "data-loading": loading ? "true" : undefined,
   disabled: isButton.value ? inactive.value : undefined,
   "aria-disabled": !isButton.value && inactive.value ? "true" : undefined,

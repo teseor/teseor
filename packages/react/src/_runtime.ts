@@ -2,7 +2,10 @@
 
 const RESPONSIVE_KEYS = ["base", "md", "lg", "xl", "2xl"] as const;
 
-export function dataAttrs(name: string, value: unknown): Record<string, string | undefined> {
+export function responsiveDataAttrs(
+  name: string,
+  value: unknown,
+): Record<string, string | undefined> {
   if (value == null || value === false) return {};
   if (typeof value === "object") {
     const obj = value as Record<string, unknown>;

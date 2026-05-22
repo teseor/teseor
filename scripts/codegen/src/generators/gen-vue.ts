@@ -222,7 +222,7 @@ function renderAttrEntries(
   return [
     spec.variants ? `  "data-variant": variant,` : null,
     spec.intents ? `  "data-intent": intent,` : null,
-    ...responsiveProps.map((name) => `  ...dataAttrs(${quote(name)}, ${name}),`),
+    ...responsiveProps.map((name) => `  ...responsiveDataAttrs(${quote(name)}, ${name}),`),
     hasLoading ? `  "data-loading": loading ? "true" : undefined,` : null,
     hasDisabled && hasAs ? `  disabled: isButton.value ? inactive.value : undefined,` : null,
     hasDisabled && hasAs
@@ -267,7 +267,10 @@ function renderRuntime(breakpoints: string[]): string {
 
 const RESPONSIVE_KEYS = [${keys}] as const;
 
-export function dataAttrs(name: string, value: unknown): Record<string, string | undefined> {
+export function responsiveDataAttrs(
+  name: string,
+  value: unknown,
+): Record<string, string | undefined> {
   if (value == null || value === false) return {};
   if (typeof value === "object") {
     const obj = value as Record<string, unknown>;
@@ -341,7 +344,7 @@ function renderWrapper(
 ${renderComponentJsDoc(spec, Name)}
 import "@teseor/css/components/${spec.name}.css";
 import { computed, type VNode } from "vue";
-import { dataAttrs } from "./_runtime.ts";
+import { responsiveDataAttrs } from "./_runtime.ts";
 
 ${typeBlock}
 ${renderPropsType(spec, Name, sizeIsResponsive, breakpoints, propDescriptions)}

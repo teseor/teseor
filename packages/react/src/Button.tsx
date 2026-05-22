@@ -5,7 +5,7 @@
 
 import "@teseor/css/components/button.css";
 import type { ComponentProps, ElementType, ReactNode, Ref } from "react";
-import { dataAttrs } from "./_runtime.ts";
+import { responsiveDataAttrs } from "./_runtime.ts";
 
 type ButtonVariant = "solid" | "outline" | "ghost" | "link";
 
@@ -87,8 +87,8 @@ export function Button(props: ButtonProps) {
       className={mergedClassName}
       data-variant={variant}
       data-intent={intent}
-      {...dataAttrs("size", size)}
-      {...dataAttrs("block", block)}
+      {...responsiveDataAttrs("size", size)}
+      {...responsiveDataAttrs("block", block)}
       data-loading={loading === true ? "true" : undefined}
       disabled={isButton ? inactive : undefined}
       aria-disabled={!isButton && inactive ? "true" : undefined}

@@ -167,7 +167,7 @@ function renderDataAttrs(spec: Spec, responsiveProps: string[], hasLoading: bool
   return [
     spec.variants ? `      data-variant={variant}` : null,
     spec.intents ? `      data-intent={intent}` : null,
-    ...responsiveProps.map((name) => `      {...dataAttrs(${quote(name)}, ${name})}`),
+    ...responsiveProps.map((name) => `      {...responsiveDataAttrs(${quote(name)}, ${name})}`),
     hasLoading ? `      data-loading={loading === true ? "true" : undefined}` : null,
   ]
     .filter((line): line is string => line !== null)
@@ -323,7 +323,7 @@ function renderWrapper(
 
 import "@teseor/css/components/${spec.name}.css";
 import type { ComponentProps${hasAs ? ", ElementType" : ""}, ReactNode, Ref } from "react";
-import { dataAttrs } from "./_runtime.ts";
+import { responsiveDataAttrs } from "./_runtime.ts";
 
 ${typeBlock}
 ${renderOwnProps(spec, Name, sizeIsResponsive, breakpoints, propDescriptions)}
@@ -361,7 +361,10 @@ function renderRuntime(breakpoints: string[]): string {
 
 const RESPONSIVE_KEYS = [${keys}] as const;
 
-export function dataAttrs(name: string, value: unknown): Record<string, string | undefined> {
+export function responsiveDataAttrs(
+  name: string,
+  value: unknown,
+): Record<string, string | undefined> {
   if (value == null || value === false) return {};
   if (typeof value === "object") {
     const obj = value as Record<string, unknown>;

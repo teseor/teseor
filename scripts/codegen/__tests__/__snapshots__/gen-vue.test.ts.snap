@@ -24,7 +24,7 @@ exports[`gen-vue > renders the Button SFC 1`] = `
  */
 import "@teseor/css/components/button.css";
 import { computed, type VNode } from "vue";
-import { dataAttrs } from "./_runtime.ts";
+import { responsiveDataAttrs } from "./_runtime.ts";
 
 type ButtonVariant = "solid" | "outline" | "ghost" | "link";
 
@@ -71,8 +71,8 @@ const inactive = computed(() => disabled || loading);
 const attrs = computed(() => ({
   "data-variant": variant,
   "data-intent": intent,
-  ...dataAttrs("size", size),
-  ...dataAttrs("block", block),
+  ...responsiveDataAttrs("size", size),
+  ...responsiveDataAttrs("block", block),
   "data-loading": loading ? "true" : undefined,
   disabled: isButton.value ? inactive.value : undefined,
   "aria-disabled": !isButton.value && inactive.value ? "true" : undefined,
@@ -107,7 +107,10 @@ exports[`gen-vue > renders the runtime helper 1`] = `
 
 const RESPONSIVE_KEYS = ["base", "md", "lg", "xl", "2xl"] as const;
 
-export function dataAttrs(name: string, value: unknown): Record<string, string | undefined> {
+export function responsiveDataAttrs(
+  name: string,
+  value: unknown,
+): Record<string, string | undefined> {
   if (value == null || value === false) return {};
   if (typeof value === "object") {
     const obj = value as Record<string, unknown>;
