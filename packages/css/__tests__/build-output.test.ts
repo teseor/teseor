@@ -1,10 +1,13 @@
 import { execSync } from "node:child_process";
-import { readdirSync, readFileSync } from "node:fs";
+import { mkdtempSync, readdirSync, readFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { beforeAll, expect, test } from "vitest";
 
 const cssRoot = resolve(import.meta.dirname, "..");
-const distDir = resolve(cssRoot, "dist");
+// Build into a per-process temp dir — `pnpm -r` runs this file under two
+// vitest invocations in parallel; a shared dist/ would race.
+const distDir = mkdtempSync(join(tmpdir(), "teseor-css-dist-"));
 
 const LAYER_ORDER =
   "@layer reset, tokens.scale, tokens.semantic, base, primitives, components.tokens, components.styles, utilities, themes;";
@@ -23,7 +26,11 @@ function cssFiles(dir: string): string[] {
 }
 
 beforeAll(() => {
-  execSync("node build.mjs", { cwd: cssRoot, stdio: "ignore" });
+  execSync("node build.mjs", {
+    cwd: cssRoot,
+    stdio: "ignore",
+    env: { ...process.env, TESEOR_CSS_DIST: distDir },
+  });
 });
 
 test("every emitted CSS file declares the full @layer order first", () => {
@@ -48,4 +55,16 @@ test("shipped component CSS floors every token reference (acid test)", () => {
 test("shipped component CSS inlines the literal resolved from tokens.css", () => {
   const button = readFileSync(join(distDir, "components", "button.css"), "utf8");
   expect(button).toContain("var(--t-accent, oklch(65% 0.18 250deg))");
+});
+
+test("motion.css ships keyframes and a reduced-motion block", () => {
+  const motion = readFileSync(join(distDir, "motion.css"), "utf8");
+  expect(motion).toContain("@keyframes spin");
+  expect(motion).toContain("@keyframes fade-in");
+  expect(motion).toContain("@media (prefers-reduced-motion: reduce)");
+});
+
+test("the bundle includes the motion keyframes", () => {
+  const bundle = readFileSync(join(distDir, "teseor.css"), "utf8");
+  expect(bundle).toContain("@keyframes scale-in");
 });

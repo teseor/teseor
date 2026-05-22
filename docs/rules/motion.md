@@ -37,7 +37,7 @@ Shared `@keyframes` live in `packages/css/src/motion.css`:
 @keyframes spin       { to { transform: rotate(1turn); } }
 ```
 
-No `@layer` wrapper — keyframes are identified by name in a global namespace, not by selectors entering the cascade (we settled this in C).
+No `@layer` wrapper — keyframes are identified by name in a global namespace, not by selectors entering the cascade.
 
 **Reduced-motion variants** live in the same file:
 
@@ -50,13 +50,21 @@ No `@layer` wrapper — keyframes are identified by name in a global namespace, 
 }
 ```
 
-Components reference keyframes by name and multiply duration through `--t-motion-scale`:
+A component references a keyframe by name through a `--_*` token — per ADR-0008 a `[data-*]` modifier reassigns vars, never declares a property — and multiplies the duration through `--t-motion-scale`:
 
 ```css
-.t-modal[data-state="open"] {
-  animation: scale-in calc(var(--t-dur-enter-base) * var(--t-motion-scale)) var(--t-ease-out);
+.t-modal {
+  --_animation: none;
+
+  animation: var(--_animation);
+
+  &:where([data-state="open"]) {
+    --_animation: scale-in calc(var(--t-dur-enter-base) * var(--t-motion-scale)) var(--t-ease-out);
+  }
 }
 ```
+
+How a shared keyframe reaches a per-component CSS file without breaking that file's self-containment (the `component-shape.md` acid test) is unresolved — tracked under #613. Until it is settled, a component that needs a continuous animation defines its keyframe locally; see `button`'s spinner.
 
 ## Spec field
 

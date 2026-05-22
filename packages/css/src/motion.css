@@ -1,0 +1,100 @@
+/* Shared keyframes — identified by name in a global namespace, never cascaded,
+   so they sit outside @layer. The reduced-motion block redefines the entrance
+   keyframes to an immediate jump; continuous motion (spin) is neutralized by
+   --t-motion-scale zeroing the animation duration at the call site. */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slide-up-in {
+  from {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@keyframes slide-down-out {
+  from {
+    transform: none;
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@keyframes scale-out {
+  from {
+    transform: none;
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @keyframes fade-in {
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-up-in {
+    to {
+      transform: none;
+      opacity: 1;
+    }
+  }
+
+  @keyframes scale-in {
+    to {
+      transform: none;
+      opacity: 1;
+    }
+  }
+}
