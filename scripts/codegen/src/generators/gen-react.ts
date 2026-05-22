@@ -112,6 +112,10 @@ function renderOwnProps(
     ? renderCanonicalProp("intent", `${Name}Intent`, propDescriptions)
     : [];
   const sizeLines = spec.sizes ? renderCanonicalProp("size", sizeType, propDescriptions) : [];
+  const hasAs = "as" in (spec.props ?? {});
+  const refType = hasAs
+    ? "Ref<HTMLElement>"
+    : `Ref<HTMLElementTagNameMap[${quote(spec.element ?? "div")}]>`;
   return [
     `type ${Name}OwnProps = {`,
     ...variantLines,
@@ -119,27 +123,41 @@ function renderOwnProps(
     ...sizeLines,
     ...propLines,
     `  children?: ReactNode;`,
-    `  ref?: Ref<HTMLElement>;`,
+    `  ref?: ${refType};`,
     `};`,
   ].join("\n");
 }
 
+const LINE_WIDTH = 100;
+
 function renderDestructure(spec: Spec): string {
-  const propNames = Object.keys(spec.props ?? {}).map((n) => `    ${n},`);
+  const names = [
+    spec.variants ? "variant" : null,
+    spec.intents ? "intent" : null,
+    spec.sizes ? "size" : null,
+    ...Object.keys(spec.props ?? {}),
+    "children",
+    "ref",
+    "className",
+    "...rest",
+  ].filter((n): n is string => n !== null);
+  const oneLine = `  const { ${names.join(", ")} } = props;`;
+  if (oneLine.length <= LINE_WIDTH) return oneLine;
   return [
     "  const {",
-    spec.variants ? `    variant,` : null,
-    spec.intents ? `    intent,` : null,
-    spec.sizes ? `    size,` : null,
-    ...propNames,
-    `    children,`,
-    `    ref,`,
-    `    className,`,
-    `    ...rest`,
-    `  } = props;`,
-  ]
-    .filter((l): l is string => l !== null)
-    .join("\n");
+    ...names.map((n) => `    ${n}${n.startsWith("...") ? "" : ","}`),
+    "  } = props;",
+  ].join("\n");
+}
+
+function renderPropsTypeIntersection(Name: string, element: string): string {
+  const oneLine = `export type ${Name}Props = Readonly<${Name}OwnProps & Omit<ComponentProps<"${element}">, keyof ${Name}OwnProps>>;`;
+  if (oneLine.length <= LINE_WIDTH) return oneLine;
+  return [
+    `export type ${Name}Props = Readonly<`,
+    `  ${Name}OwnProps & Omit<ComponentProps<"${element}">, keyof ${Name}OwnProps>`,
+    `>;`,
+  ].join("\n");
 }
 
 type SlotInfo = { propName: string; part: string; position?: "start" | "end" };
@@ -315,6 +333,8 @@ function renderWrapper(
     .join("\n");
 
   const bodyBlock = renderBody(spec, slots, hasLoading);
+  const typeBlockPrefix = typeBlock ? `${typeBlock}\n` : "";
+  const propsTypeLine = renderPropsTypeIntersection(Name, spec.element ?? "div");
 
   return `"use client";
 
@@ -325,12 +345,9 @@ import "@teseor/css/components/${spec.name}.css";
 import type { ComponentProps${hasAs ? ", ElementType" : ""}, ReactNode, Ref } from "react";
 import { responsiveDataAttrs } from "./_runtime.ts";
 
-${typeBlock}
-${renderOwnProps(spec, Name, sizeIsResponsive, breakpoints, propDescriptions)}
+${typeBlockPrefix}${renderOwnProps(spec, Name, sizeIsResponsive, breakpoints, propDescriptions)}
 
-export type ${Name}Props = Readonly<
-  ${Name}OwnProps & Omit<ComponentProps<"${spec.element ?? "div"}">, keyof ${Name}OwnProps>
->;
+${propsTypeLine}
 
 ${renderComponentJsDoc(spec, Name)}export function ${Name}(props: ${Name}Props) {
 ${renderDestructure(spec)}
