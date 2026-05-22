@@ -15,7 +15,7 @@ The system has to be real before any component matters.
 - `reset.css`, `base.css`, `@layer` declaration in `teseor.css`.
 - `@teseor/css` package publishable.
 
-Done when PR #1 from the first-ten list merges.
+**Shipped.**
 
 ## v0.2 — First component end-to-end
 
@@ -23,16 +23,16 @@ Prove the codegen loop.
 
 - `specs/button.yaml`.
 - `packages/css/src/components/button/button.css`.
-- Generators landed: `gen-contract.ts`, `gen-react.ts`, `gen-vue.ts`, `gen-tests.ts`. Remaining for v0.2: `gen-docs.ts`. Other framework generators (`gen-svelte.ts`, `gen-angular.ts`, `gen-webc.ts`) deferred — the spec-driven shape is proven; adding frameworks is mechanical follow-up. `gen-webc` is the priority follow-up (tracked under #584) since web components are the framework-neutral target — same DOM contract, no runtime, consumable from any stack.
+- Generators landed: `gen-contract.ts`, `gen-react.ts`, `gen-vue.ts`, `gen-tests.ts`, `gen-docs.ts`. Other framework generators (`gen-svelte.ts`, `gen-angular.ts`, `gen-webc.ts`) deferred — the spec-driven shape is proven; adding frameworks is mechanical follow-up. `gen-webc` is the priority follow-up (tracked under #584) since web components are the framework-neutral target — same DOM contract, no runtime, consumable from any stack.
 - Two wrapper packages publishable for v0.2: `@teseor/react`, `@teseor/vue`. Post-v0.2: `@teseor/webc` (#584), then `@teseor/svelte` and `@teseor/angular`.
 - **Cross-framework contract tests** — `tests/contract/<name>.spec.ts` asserts React and Vue render byte-equal DOM for every `spec.examples` entry, run by Playwright against `apps/harness/`. Pixel-diff visual baselines deferred to a later phase. Matrix expansion tracked under #581, behavior tests under #582.
 - Docs page for Button generated from spec.
 - **Layout primitive components: Stack + Cluster** (specs + wrappers + docs). Button uses Stack internally for icon+label layout.
-- **Code component** (inline + block) — needed for L2 demo blocks on the docs site once a Button page exists.
+- **Code component** (inline + block) — needed for L2 demo blocks on the docs site. Slipped v0.2; tracked under #589.
 - **Utilities at v0.2: spacing + display.** Emitted via `postcss-each` from spacing tokens.
 - `motion.css` shipped with the keyframes, bundled into `teseor.css`.
 
-Done when PR #2-3 merge. The system is real after this — everything else is repetition.
+**Shipped.** The system is real — everything else is repetition.
 
 ## v0.3 — Atoms + first headless
 
@@ -53,8 +53,6 @@ Phase 1 components, generated wrappers, generated docs. **Primitives package pul
 - **Combinatorial coverage for contract tests** (#581). `matrix:` block in specs expands to cartesian or pairwise fixtures so DOM-parity catches every variant × intent × size combo, not just hand-picked examples.
 - RTL CI gate: every component renders with `dir="rtl"` and visual-tests pass.
 
-Done when PRs #4–#7 land.
-
 ## v0.4 — Surfaces + remaining overlays
 
 Composable surfaces, navigation, and the rest of the overlay set. Codegen extends to handle composite components (multiple dependencies declared in `spec.dependencies`).
@@ -65,8 +63,6 @@ Composable surfaces, navigation, and the rest of the overlay set. Codegen extend
 - First showcase: `apps/showcase-linear/` — Linear-style data-dense + keyboard-driven dashboard. `workspace:*` deps against `@teseor/*`. `"private": true`. **Only Teseor inside** — single `theme.css` (token overrides only), enforced by Stylelint + a CI check that `apps/showcase-*/` contains exactly one CSS file.
 - **Benchmark suite ships:** `scripts/benchmark.ts` compares Teseor against Material 3, Polaris, Bootstrap on 6 metrics; `BENCHMARK.md` committed at the repo root, regenerated on release. Nightly cron + per-release-branch; self-regressions block.
 - **`@teseor/contract` class-name literal types:** `gen-contract` emits `type TeseorClass = "t-button" | "t-card" | ...` from `_vocabulary.yaml` + spec list. Enables type-safe className usage in consumer code.
-
-Done when PRs #8–#10 land.
 
 ## v0.5 — Composite forms, advanced (was v0.6+)
 
