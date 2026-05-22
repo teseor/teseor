@@ -1,0 +1,43 @@
+name: stack
+description: A vertical layout primitive. Stacks children on the block axis with consistent spacing.
+kind: atomic
+dependencies: []
+element: div
+rootClass: t-stack
+file: components/stack/stack.css
+
+props:
+  gap:
+    type: string
+    default: null
+    responsive: true
+    description: "Spacing between children. Accepts a token suffix from the `--t-space-*` scale (`0`–`8`)."
+  align:
+    type: string
+    default: null
+    responsive: true
+    description: "Inline-axis alignment of children. One of `start`, `center`, `end`, `stretch`."
+
+tokens:
+  gap:
+    fallback: --t-space-3
+    desc: Default child spacing when `gap` is unset; overridable via `--t-stack-gap`.
+
+private:
+  - --_gap
+
+examples:
+  - id: gap-3
+    props: { gap: "3" }
+  - id: gap-0
+    props: { gap: "0" }
+  - id: align-center
+    props: { gap: "4", align: center }
+  - id: align-stretch
+    props: { gap: "2", align: stretch }
+  - id: responsive-gap
+    props: { gap: { base: "2", md: "4", lg: "6" } }
+  - id: responsive-align
+    props: { gap: "3", align: { base: start, md: center } }
+  - id: gap-and-align
+    props: { gap: "5", align: end }
