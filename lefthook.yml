@@ -40,9 +40,10 @@ pre-push:
       run: pnpm test
     gen-drift:
       run: |
-        before=$(git status --porcelain)
+        set -e
+        before="$(git status --porcelain)$(git diff HEAD)"
         pnpm gen
-        if [ "$before" != "$(git status --porcelain)" ]; then
+        if [ "$before" != "$(git status --porcelain)$(git diff HEAD)" ]; then
           echo "pnpm gen changed generated output — commit the regenerated files."
           git --no-pager diff
           exit 1
