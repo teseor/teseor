@@ -6,6 +6,7 @@ import postcss from "postcss";
 import postcssCustomMedia from "postcss-custom-media";
 import postcssEach from "postcss-each";
 import postcssImport from "postcss-import";
+import { buildTokenMap, teseorFloor } from "./postcss-teseor-floor.ts";
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const SRC = resolve(ROOT, "src");
@@ -28,21 +29,23 @@ const TOP_LEVEL_ENTRIES = [
   { from: "tailwind.css", to: "tailwind.css" },
 ];
 
-function buildPlugins() {
-  return [postcssImport(), postcssEach(), postcssCustomMedia()];
-}
-
-async function buildOne(inputPath, outputPath) {
+// Pass 1 expands @import/@each/@custom-media. Pass 2 (postcss-teseor-floor)
+// then sees concrete var() chains and appends each token's literal floor.
+async function buildOne(inputPath, outputPath, tokens) {
   const css = await readFile(inputPath, "utf8");
-  const result = await postcss(buildPlugins()).process(css, {
+  const expanded = await postcss([postcssImport(), postcssEach(), postcssCustomMedia()]).process(
+    css,
+    { from: inputPath, to: outputPath, map: false },
+  );
+  const floored = await postcss([teseorFloor({ tokens })]).process(expanded.css, {
     from: inputPath,
     to: outputPath,
     map: false,
   });
-  for (const warn of result.warnings()) {
+  for (const warn of [...expanded.warnings(), ...floored.warnings()]) {
     process.stderr.write(`build-css ${inputPath}: ${warn.toString()}\n`);
   }
-  await writeFile(outputPath, `${LAYER_ORDER}\n\n${result.css.trimEnd()}\n`, "utf8");
+  await writeFile(outputPath, `${LAYER_ORDER}\n\n${floored.css.trimEnd()}\n`, "utf8");
 }
 
 async function listComponents() {
@@ -57,10 +60,11 @@ async function listComponents() {
 
 async function main() {
   await mkdir(DIST, { recursive: true });
+  const tokens = buildTokenMap(await readFile(resolve(SRC, "tokens.css"), "utf8"));
   for (const entry of TOP_LEVEL_ENTRIES) {
     const inputPath = resolve(SRC, entry.from);
     const outputPath = resolve(DIST, entry.to);
-    await buildOne(inputPath, outputPath);
+    await buildOne(inputPath, outputPath, tokens);
     process.stdout.write(`build-css: ${entry.from} -> dist/${entry.to}\n`);
   }
 
@@ -70,7 +74,7 @@ async function main() {
     for (const name of components) {
       const inputPath = resolve(COMPONENTS_SRC, name, `${name}.css`);
       const outputPath = resolve(COMPONENTS_DIST, `${name}.css`);
-      await buildOne(inputPath, outputPath);
+      await buildOne(inputPath, outputPath, tokens);
       process.stdout.write(
         `build-css: components/${name}/${name}.css -> dist/components/${name}.css\n`,
       );
