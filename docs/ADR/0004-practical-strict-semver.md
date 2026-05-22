@@ -38,6 +38,7 @@ The interpretation we're rejecting: literal pre-1.0 SemVer where minor and patch
 The argument for literal pre-1.0 SemVer is "we need freedom to iterate the API." Practical-strict gives us the same freedom — we just commit to it by bumping major when we change shape.
 
 In the v0.x range, frequent major bumps are normal. `0.4 → 0.5 → 0.6` is healthy iteration. Each bump:
+
 - Is announced via the changelog
 - Ships migration docs auto-built from changeset frontmatter (see `process/versioning.md` § "Migration guides")
 - Ships a codemod for mechanical renames (see `process/versioning.md` § "Codemods")

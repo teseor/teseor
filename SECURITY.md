@@ -5,7 +5,7 @@
 **Do not file a public issue or pull request for security findings.**
 
 Report the issue through GitHub's private security advisory flow:
-https://github.com/teseor/teseor/security/advisories/new
+<https://github.com/teseor/teseor/security/advisories/new>
 
 Include:
 

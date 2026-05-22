@@ -117,4 +117,3 @@ None of these block v1.0. They show up in `roadmap.md` only so they're not lost.
 - API stability commitment: no major bumps without 90-day deprecation window via `deprecated:` field in specs.
 - Docs site at `docs.teseor.dev` (or wherever) deployed via `.github/workflows/deploy-docs.yml`.
 - Public RFC process for new components (`docs/RFC/`).
-

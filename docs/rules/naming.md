@@ -86,7 +86,7 @@ Same verb in spec = same conceptual event across all wrappers. Consumers learn t
 
 Validation failure includes a Levenshtein-distance suggestion:
 
-```
+```text
 specs/popover.yaml:8  intent 'destructive' not in vocabulary.
   Did you mean 'danger'?
 ```

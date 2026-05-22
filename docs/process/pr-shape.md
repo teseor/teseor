@@ -52,7 +52,7 @@ This is the order of the first PRs. Each one is a worked example of the rules ab
 
 ## PR body template
 
-```
+```text
 ## What
 One sentence.
 

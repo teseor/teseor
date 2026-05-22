@@ -6,7 +6,7 @@ Thanks for considering a contribution.
 
 Every PR closes at least one issue. If none exists, file one with the
 appropriate template (`Bug`, `Feature`, `RFC`) at
-https://github.com/teseor/teseor/issues/new/choose.
+<https://github.com/teseor/teseor/issues/new/choose>.
 
 ## Open a PR
 

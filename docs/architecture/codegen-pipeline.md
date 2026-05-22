@@ -235,7 +235,7 @@ The bar has no dedicated CI gate — `lint` and `typecheck` cover correctness an
 
 ## Invocation
 
-```
+```bash
 pnpm gen                       # regenerate all wrappers, docs, types, tests
 pnpm gen --component=button    # one component
 pnpm gen --target=react        # one wrapper across all components
@@ -285,6 +285,7 @@ Per-component files each carry their inlined literal floor and render correctly 
 Playwright's `webServer` block boots the harness automatically. The harness is never published; it only exists to give Playwright a real browser environment that loads the CSS foundation and renders the wrappers exactly as a consuming app would.
 
 Canonicalization rules in the test:
+
 - Element attributes are sorted alphabetically before serialization.
 - Whitespace-only text nodes are stripped (React and Vue differ in how they preserve template whitespace).
 - Attribute values are HTML-escaped for `&` and `"`.
@@ -294,6 +295,7 @@ This catches DOM shape regressions across frameworks. Behavior (clicks, focus, k
 ## Drift detection
 
 The CI job `gen-drift`:
+
 1. Checks out the PR.
 2. Runs `pnpm gen`.
 3. Runs `git diff --exit-code` across the whole tree (generated outputs live in `packages/`, `apps/docs/`, `apps/harness/src/fixtures/`, and `tests/contract/`).
@@ -312,5 +314,3 @@ A failed `gen-drift` means somebody edited a generated file by hand. The fix is 
 - `examples:` references valid combinations of `variants/intents/sizes`.
 - `a11y.keyboard` keys are well-known names (Enter, Space, ArrowLeft, …).
 - **Vocabulary check** — `name:`, `variants:`, `intents:`, `sizes:`, `props.*.name:`, `events:`, and `__*` class parts all belong to `specs/_vocabulary.yaml`. Non-canonical names fail with a Levenshtein-distance suggestion. See `rules/naming.md`.
-
-

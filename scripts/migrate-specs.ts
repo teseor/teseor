@@ -29,10 +29,10 @@ export type { MigrationReport, Migrator, MigratorContext };
 export { registerMigrator };
 
 function printUsage(): void {
-  process.stdout.write(`Usage: pnpm migrate-specs --from <oldSchema> --to <newSchema> [--rule <id>] [extra args]
+  process.stdout.write(`Usage: pnpm migrate:specs --from <oldSchema> --to <newSchema> [--rule <id>] [extra args]
 
 Examples:
-  pnpm migrate-specs --from 0.5 --to 0.6 --rule class-rename --old t-btn --new t-button
+  pnpm migrate:specs --from 0.5 --to 0.6 --rule class-rename --old t-btn --new t-button
 
 Available migrators:
 ${
@@ -87,7 +87,7 @@ async function main(): Promise<void> {
 
   if (REGISTRY.length === 0) {
     process.stdout.write(
-      `migrate-specs: no migrators registered. from=${from} to=${to}${rule ? ` rule=${rule}` : ""}\n`,
+      `migrate:specs: no migrators registered. from=${from} to=${to}${rule ? ` rule=${rule}` : ""}\n`,
     );
     process.stdout.write("Nothing to do. Register a migrator before running.\n");
     process.exit(0);
@@ -97,21 +97,21 @@ async function main(): Promise<void> {
   const selected = rule ? REGISTRY.filter((m) => m.id === rule) : REGISTRY;
 
   if (selected.length === 0) {
-    process.stderr.write(`migrate-specs: no migrator matches rule="${rule}"\n`);
+    process.stderr.write(`migrate:specs: no migrator matches rule="${rule}"\n`);
     process.stderr.write(`Registered: ${REGISTRY.map((m) => m.id).join(", ")}\n`);
     process.exit(1);
   }
 
   const totalChanges: string[] = [];
   for (const migrator of selected) {
-    process.stdout.write(`migrate-specs: running ${migrator.id}\n`);
+    process.stdout.write(`migrate:specs: running ${migrator.id}\n`);
     const report = await migrator.run(ctx);
     totalChanges.push(...report.filesChanged);
     for (const note of report.notes) process.stdout.write(`  ${note}\n`);
   }
 
   process.stdout.write(
-    `\nmigrate-specs: ${totalChanges.length} file${totalChanges.length === 1 ? "" : "s"} changed\n`,
+    `\nmigrate:specs: ${totalChanges.length} file${totalChanges.length === 1 ? "" : "s"} changed\n`,
   );
   if (totalChanges.length > 0) {
     process.stdout.write("Run pnpm gen and commit the regenerated output.\n");
@@ -119,6 +119,6 @@ async function main(): Promise<void> {
 }
 
 main().catch((err) => {
-  process.stderr.write(`migrate-specs: ${err instanceof Error ? err.message : String(err)}\n`);
+  process.stderr.write(`migrate:specs: ${err instanceof Error ? err.message : String(err)}\n`);
   process.exit(1);
 });

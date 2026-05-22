@@ -22,7 +22,7 @@ The codegen pipeline needs a source-of-truth that's:
 
 Per-component YAML at `specs/<name>.yaml`.
 
-```
+```text
 specs/
 ├── button.yaml
 ├── input.yaml

@@ -137,4 +137,3 @@ Scoped overrides are a consumer escape hatch, not a packaged surface. The `theme
 ## Custom themes (community)
 
 Post-v1.0, consumers and the community submit themes as PRs to `themes/<slug>.css`. The CSS comment metadata + the file-structure lint rule mean review is shallow: check the slug, check the metadata, check it lints. The theme runs through visual-tests against every component automatically.
-

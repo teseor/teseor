@@ -36,6 +36,9 @@ jobs:
             echo ''
             echo '| Artifact | Size | Gzip | Limit |'
             echo '| --- | --- | --- | --- |'
+            # The node script is single-quoted on purpose: ${...} are JS template
+            # expressions for node, not shell parameters.
+            # shellcheck disable=SC2016
             node -e '
               const data = JSON.parse(require("fs").readFileSync("size-current.json", "utf8"));
               for (const entry of data) {

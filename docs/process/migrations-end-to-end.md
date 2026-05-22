@@ -92,7 +92,7 @@ Pick the affected packages (the whole `@teseor/*` fixed group bumps
 together — see `process/release.md`). Pick **major**. Write the
 changeset entry with a `migration:` block:
 
-```md
+````md
 ---
 "@teseor/css": major
 "@teseor/react": major
@@ -109,7 +109,7 @@ migration: |
 
   Codemod available:
 
-  ```
+  ```bash
   npx @teseor/codemods/<from>-to-<to> --rule=class-rename
   ```
 
@@ -118,7 +118,7 @@ migration: |
 ---
 
 Renames the Button root class to align with the spec contract.
-```
+````
 
 The build step concatenates every breaking changeset's `migration:` block
 into one document at `docs/migrations/v<from>-to-v<to>.md` on release. See
@@ -130,7 +130,7 @@ The codemod is a separate file under `packages/codemods/`. It ships in the
 same PR as the breaking change, so consumers can run it the moment the new
 version publishes.
 
-```
+```text
 packages/codemods/
 ├── src/
 │   └── <from>-to-<to>/
@@ -153,7 +153,7 @@ HTML/JSX, a regex over class selectors for CSS. Use `jscodeshift` for
 JS/TS so AST scoping is right; use the in-house CSS transformer for
 `.css` and `.scss`. Both are wired up in `packages/codemods/src/runner.ts`.
 
-**Testing**
+### Testing
 
 Two fixtures per file type: one input that should change, one input that
 shouldn't (idempotency). The test runner asserts:

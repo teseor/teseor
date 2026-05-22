@@ -1,0 +1,10 @@
+{
+  // Markdown lint for the documentation set. Long-line prose is intentional —
+  // the docs are not hard-wrapped — so MD013 (line-length) is off.
+  "config": {
+    "default": true,
+    "MD013": false
+  },
+  "globs": ["docs/**/*.md", "*.md"],
+  "ignores": ["**/node_modules/**"]
+}

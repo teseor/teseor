@@ -4,7 +4,7 @@ proposed: YYYY-MM-DD
 decided:
 ---
 
-# <NNNN> — <short title>
+# `NNNN` — `short title`
 
 > Copy this file to `docs/RFC/<NNNN>-<short-slug>.md`. Pick the next free
 > number. Fill every section. "Unresolved questions" can be substantive —

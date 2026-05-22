@@ -26,7 +26,6 @@ Declared early enough that any layered rule, anywhere, lands in its slot. Later 
 
 **`tokens.scale` vs `tokens.semantic`** — themes need to override aliases without touching the scale. Splitting the slot prevents a theme from accidentally redefining `--t-neutral-90`.
 
-
 **`themes` last** — semantic overrides win over component declarations. Apps never need `!important` to swap themes.
 
 ## Rules
@@ -39,4 +38,3 @@ Declared early enough that any layered rule, anywhere, lands in its slot. Later 
 ## Why no `animations` layer
 
 `@keyframes` are identified by *name* in a global namespace, not by selectors entering the cascade — a dedicated layer wouldn't change their resolution. Per-component transitions live in `components.styles` (motion belongs with the rule that triggers it). `prefers-reduced-motion` is handled at the token tier (`--t-motion-scale: 0` in `tokens.semantic` via `@media`), not via a separate layer. Shared keyframes sit in a `motion.css` file with bare `@keyframes` declarations — no `@layer` wrapper because none is needed.
-
