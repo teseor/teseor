@@ -11,6 +11,7 @@ import {
 } from "../src/generators/gen-react.ts";
 
 const REPO_ROOT = resolve(import.meta.dirname, "..", "..", "..");
+const BREAKPOINTS = ["md", "lg", "xl", "2xl"];
 
 async function loadSpec(name: string): Promise<Spec> {
   const raw = await readFile(resolve(REPO_ROOT, "specs", `${name}.yaml`), "utf8");
@@ -20,7 +21,7 @@ async function loadSpec(name: string): Promise<Spec> {
 describe("gen-react", () => {
   test("renders the Button wrapper", async () => {
     const spec = await loadSpec("button");
-    expect(renderWrapper(spec)).toMatchSnapshot();
+    expect(renderWrapper(spec, BREAKPOINTS)).toMatchSnapshot();
   });
 
   test("renders the barrel", () => {
@@ -28,17 +29,17 @@ describe("gen-react", () => {
   });
 
   test("renders the runtime helper", () => {
-    expect(renderRuntime()).toMatchSnapshot();
+    expect(renderRuntime(BREAKPOINTS)).toMatchSnapshot();
   });
 
   test("wrapper is identical on repeated calls", async () => {
     const spec = await loadSpec("button");
-    expect(renderWrapper(spec)).toBe(renderWrapper(spec));
+    expect(renderWrapper(spec, BREAKPOINTS)).toBe(renderWrapper(spec, BREAKPOINTS));
   });
 
   test("matches the committed Button.tsx", async () => {
     const spec = await loadSpec("button");
-    const generated = renderWrapper(spec);
+    const generated = renderWrapper(spec, BREAKPOINTS);
     const committed = await readFile(
       resolve(REPO_ROOT, "packages", "react", "src", "Button.tsx"),
       "utf8",
@@ -56,7 +57,7 @@ describe("gen-react", () => {
   });
 
   test("matches the committed _runtime.ts", async () => {
-    const generated = renderRuntime();
+    const generated = renderRuntime(BREAKPOINTS);
     const committed = await readFile(
       resolve(REPO_ROOT, "packages", "react", "src", "_runtime.ts"),
       "utf8",

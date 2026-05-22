@@ -42,7 +42,7 @@ const EXEMPT_PATH_RES = [
   /^\.local\//,
   /^scripts\/check-comments\.js$/,
   /^CLAUDE\.md$/,
-  /^README\.md$/i,
+  /(^|\/)README\.md$/i,
   /^CONTRIBUTING\.md$/i,
   /^CODE_OF_CONDUCT\.md$/i,
   /^CHANGELOG\.md$/i,
