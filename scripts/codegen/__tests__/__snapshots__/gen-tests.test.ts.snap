@@ -61,9 +61,17 @@ for (const id of FIXTURE_IDS) {
     const reactHtml = await capture(page, "react", id);
     const vueHtml = await capture(page, "vue", id);
     expect(vueHtml).toBe(reactHtml);
-    expect(reactHtml).toMatchSnapshot(\`\${COMPONENT}-\${id}.html\`);
   });
 }
+
+test(\`\${COMPONENT} — combined DOM snapshot\`, async ({ page }) => {
+  const sections: string[] = [];
+  for (const id of FIXTURE_IDS) {
+    const reactHtml = await capture(page, "react", id);
+    sections.push(\`<!-- \${id} -->\\n\${reactHtml}\`);
+  }
+  expect(\`\${sections.join("\\n\\n")}\\n\`).toMatchSnapshot(\`\${COMPONENT}.html\`);
+});
 "
 `;
 
