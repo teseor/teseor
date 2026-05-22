@@ -28,7 +28,7 @@ props:
 tokens:
   gap:
     fallback: --t-space-3
-    desc: Default child spacing when `gap` is unset; overridable via `--t-cluster-gap.
+    desc: Default child spacing when `gap` is unset; overridable via `--t-cluster-gap`.
   align:
     fallback: --t-align-stretch
     desc: Default block-axis alignment when `align` is unset; overridable via `--t-cluster-align`.
