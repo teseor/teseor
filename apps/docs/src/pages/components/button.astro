@@ -1,0 +1,22 @@
+---
+import { Button } from "@teseor/react";
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Button — Teseor">
+  <main class="t-stack" data-gap="5">
+    <h1>Button</h1>
+    <p>
+      Placeholder component page. It proves the routing pattern and that the
+      docs render real <code>@teseor/react</code> components to static HTML at
+      build time — no client runtime. Generated per-component pages land with
+      gen-docs.
+    </p>
+
+    <div class="t-cluster" data-gap="3">
+      <Button variant="solid" intent="primary">Primary</Button>
+      <Button variant="outline" intent="neutral">Neutral</Button>
+      <Button variant="ghost" intent="neutral">Ghost</Button>
+    </div>
+  </main>
+</Base>

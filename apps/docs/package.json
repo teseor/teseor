@@ -1,0 +1,27 @@
+{
+  "name": "@teseor/docs",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Teseor documentation site. Astro, built with the Teseor design system.",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@teseor/css": "workspace:*",
+    "@teseor/react": "workspace:*",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@astrojs/react": "^5.0.5",
+    "@types/react": "^19.2.15",
+    "@types/react-dom": "^19.2.3",
+    "astro": "^6.3.7",
+    "typescript": "^6.0.3"
+  }
+}

@@ -2,3 +2,8 @@ packages:
   - 'packages/*'
   - 'apps/*'
   - 'scripts/codegen'
+allowBuilds:
+  esbuild: false
+  sharp: false
+minimumReleaseAgeExclude:
+  - astro@6.3.7
