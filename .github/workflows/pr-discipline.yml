@@ -68,7 +68,6 @@ jobs:
           PR_BODY: ${{ github.event.pull_request.body }}
         run: |
           set -e
-          required='What Why Test plan Out of scope'
           if [ -z "$PR_BODY" ]; then
             echo "PR body is empty."
             exit 1

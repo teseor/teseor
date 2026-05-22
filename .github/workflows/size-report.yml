@@ -36,6 +36,7 @@ jobs:
             echo ''
             echo '| Artifact | Size | Gzip | Limit |'
             echo '| --- | --- | --- | --- |'
+            # shellcheck disable=SC2016 -- the node script is intentionally single-quoted; ${...} are JS template expressions
             node -e '
               const data = JSON.parse(require("fs").readFileSync("size-current.json", "utf8"));
               for (const entry of data) {
