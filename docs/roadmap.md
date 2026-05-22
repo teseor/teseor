@@ -23,8 +23,8 @@ Prove the codegen loop.
 
 - `specs/button.yaml`.
 - `packages/css/src/components/button/button.css`.
-- Generators landed: `gen-contract.ts`, `gen-react.ts`, `gen-vue.ts`, `gen-tests.ts`. Remaining for v0.2: `gen-docs.ts`. Other framework generators (`gen-svelte.ts`, `gen-angular.ts`, `gen-webc.ts`) deferred — the spec-driven shape is proven; adding frameworks is mechanical follow-up.
-- Two wrapper packages publishable for v0.2: `@teseor/react`, `@teseor/vue`. Svelte/Angular/webc inherit the pipeline post-v0.2.
+- Generators landed: `gen-contract.ts`, `gen-react.ts`, `gen-vue.ts`, `gen-tests.ts`. Remaining for v0.2: `gen-docs.ts`. Other framework generators (`gen-svelte.ts`, `gen-angular.ts`, `gen-webc.ts`) deferred — the spec-driven shape is proven; adding frameworks is mechanical follow-up. `gen-webc` is the priority follow-up (tracked under #584) since web components are the framework-neutral target — same DOM contract, no runtime, consumable from any stack.
+- Two wrapper packages publishable for v0.2: `@teseor/react`, `@teseor/vue`. Post-v0.2: `@teseor/webc` (#584), then `@teseor/svelte` and `@teseor/angular`.
 - **Cross-framework contract tests** — `tests/contract/<name>.spec.ts` asserts React and Vue render byte-equal DOM for every `spec.examples` entry, run by Playwright against `apps/harness/`. Pixel-diff visual baselines deferred to a later phase. Matrix expansion tracked under #581, behavior tests under #582.
 - Docs page for Button generated from spec.
 - **Layout primitive components: Stack + Cluster** (specs + wrappers + docs). Button uses Stack internally for icon+label layout.
