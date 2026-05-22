@@ -356,6 +356,21 @@ describe("checkResponsiveExplicit", () => {
     });
     expect(checkResponsiveExplicit(spec)).toEqual([]);
   });
+
+  test("walks composite parts", () => {
+    const spec: Spec = {
+      name: "popover",
+      kind: "composite",
+      parts: {
+        content: {
+          props: { open: { type: "boolean", description: "Open." } },
+        },
+      },
+    };
+    const issues = checkResponsiveExplicit(spec);
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.path).toBe("parts.content.props.open.responsive");
+  });
 });
 
 describe("checkVariantChoiceKeys", () => {

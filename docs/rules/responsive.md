@@ -30,7 +30,7 @@ props:
   variant:  { type: enum, values: [solid, outline, ghost, link], responsive: false }
 ```
 
-**Explicit per prop.** Every non-slot prop declares `responsive:` explicitly — `true` or `false`. `validate-spec.ts` rejects omission. Slot props (children, `iconStart`, `iconEnd`) are exempt because they pass through content and have no breakpoint-variant rendering surface. The rule makes the decision deliberate and visible in review; a prop is never non-responsive by accident.
+**Explicit per prop.** Every non-slot prop declares `responsive:` explicitly — `true` or `false`. `validate-spec.ts` rejects omission, on the atomic root and on every composite part (`parts.<name>.props.*`). Slot props (children, `iconStart`, `iconEnd`) are exempt because they pass through content and have no breakpoint-variant rendering surface. The rule makes the decision deliberate and visible in review; a prop is never non-responsive by accident.
 
 Two prop categories:
 
