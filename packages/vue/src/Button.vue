@@ -21,7 +21,7 @@
  */
 import "@teseor/css/components/button.css";
 import { computed, type VNode } from "vue";
-import { responsiveDataAttrs } from "./_runtime.ts";
+import { type Responsive, responsiveDataAttrs } from "./_runtime.ts";
 
 type ButtonVariant = "solid" | "outline" | "ghost" | "link";
 
@@ -35,7 +35,7 @@ type ButtonProps = {
   /** Semantic color. */
   intent?: ButtonIntent;
   /** Size scale. */
-  size?: ButtonSize | Partial<Record<"base" | "md" | "lg" | "xl" | "2xl", ButtonSize>>;
+  size?: Responsive<ButtonSize>;
   /** Polymorphic root element. Defaults to `button`; set to `a` for link-shaped triggers (paired with `variant: link`). */
   as?: string;
   /** Disables interaction and applies the disabled visual state. Mapped to the native `disabled` attribute on `button`, `aria-disabled="true"` otherwise. */
@@ -43,7 +43,7 @@ type ButtonProps = {
   /** Shows a spinner in place of the label and disables interaction. The original label stays in the accessibility tree. */
   loading?: boolean;
   /** Stretches the button to the inline-size of its container. Responsive so layouts can pin block-width on mobile and shrink to content above. */
-  block?: boolean | Partial<Record<"base" | "md" | "lg" | "xl" | "2xl", boolean>>;
+  block?: Responsive<boolean>;
 };
 
 const {

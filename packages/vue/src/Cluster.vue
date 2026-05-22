@@ -21,7 +21,7 @@
  */
 import "@teseor/css/components/cluster.css";
 import { computed, type VNode } from "vue";
-import { responsiveDataAttrs } from "./_runtime.ts";
+import { type Responsive, responsiveDataAttrs } from "./_runtime.ts";
 
 type ClusterAlign = "start" | "center" | "end" | "stretch" | "baseline";
 
@@ -29,11 +29,11 @@ type ClusterJustify = "start" | "center" | "end" | "between" | "around";
 
 type ClusterProps = {
   /** Spacing between children. Accepts a token suffix from the `--t-space-*` scale (`0`–`8`). */
-  gap?: string | Partial<Record<"base" | "md" | "lg" | "xl" | "2xl", string>>;
+  gap?: Responsive<string>;
   /** Block-axis alignment of children. */
-  align?: ClusterAlign | Partial<Record<"base" | "md" | "lg" | "xl" | "2xl", ClusterAlign>>;
+  align?: Responsive<ClusterAlign>;
   /** Inline-axis distribution of children. */
-  justify?: ClusterJustify | Partial<Record<"base" | "md" | "lg" | "xl" | "2xl", ClusterJustify>>;
+  justify?: Responsive<ClusterJustify>;
 };
 
 const {
