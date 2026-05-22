@@ -4,7 +4,6 @@
 import { Cluster } from "@teseor/react";
 import type { ReactNode } from "react";
 
-const SLOT = (name: string): ReactNode => <span data-fixture-slot={name} />;
 const LABEL = "Label";
 
 export const fixtures: Record<string, () => ReactNode> = {

@@ -4,7 +4,6 @@
 import { h, type VNode } from "vue";
 import { Stack } from "@teseor/vue";
 
-const SLOT = (name: string) => () => h("span", { "data-fixture-slot": name });
 const LABEL = () => "Label";
 
 export const fixtures: Record<string, () => VNode> = {

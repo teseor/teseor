@@ -102,4 +102,28 @@ describe("gen-tests", () => {
     );
     expect(generated).toBe(committed);
   });
+
+  test("fixture files never declare a helper they don't use", async () => {
+    const names = await listSpecNames();
+    for (const name of names) {
+      const spec = await loadSpec(name);
+      const react = renderReactFixtureFile(spec);
+      const vue = renderVueFixtureFile(spec);
+      for (const [framework, content] of [
+        ["react", react],
+        ["vue", vue],
+      ] as const) {
+        for (const helper of ["SLOT", "LABEL"]) {
+          const declared = new RegExp(`\\bconst ${helper}\\b`).test(content);
+          if (!declared) continue;
+          const body = content.replace(new RegExp(`const ${helper}[^\\n]*\\n`), "");
+          const used = new RegExp(`\\b${helper}\\b`).test(body);
+          expect(
+            used,
+            `${framework} fixtures for "${name}" declare ${helper} but never use it`,
+          ).toBe(true);
+        }
+      }
+    }
+  });
 });
