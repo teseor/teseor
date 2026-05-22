@@ -1,0 +1,340 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`gen-docs > renders the Button docs page 1`] = `
+"---
+import { Button } from "@teseor/react";
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Button — Teseor">
+  <main class="t-stack" data-gap="6">
+    <h1>Button</h1>
+    <p>A trigger that performs an action when activated.</p>
+    <section class="t-stack" data-gap="3">
+      <h2>Examples</h2>
+      <div class="t-stack" data-gap="2">
+        <h3>solid-primary</h3>
+        <div class="t-cluster" data-gap="3">
+          <Button variant="solid" intent="primary">Button</Button>
+        </div>
+        <code>variant="solid" intent="primary"</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>solid-danger-md</h3>
+        <div class="t-cluster" data-gap="3">
+          <Button variant="solid" intent="danger" size="md">Button</Button>
+        </div>
+        <code>variant="solid" intent="danger" size="md"</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>outline-neutral</h3>
+        <div class="t-cluster" data-gap="3">
+          <Button variant="outline" intent="neutral">Button</Button>
+        </div>
+        <code>variant="outline" intent="neutral"</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>ghost-with-icon</h3>
+        <div class="t-cluster" data-gap="3">
+          <Button variant="ghost" intent="neutral">Button</Button>
+        </div>
+        <code>variant="ghost" intent="neutral" iconStart="arrow-left"</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>link-primary</h3>
+        <div class="t-cluster" data-gap="3">
+          <Button variant="link" intent="primary" as="a">Button</Button>
+        </div>
+        <code>variant="link" intent="primary" as="a"</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>loading</h3>
+        <div class="t-cluster" data-gap="3">
+          <Button variant="solid" intent="primary" loading>Button</Button>
+        </div>
+        <code>variant="solid" intent="primary" loading</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>block-mobile</h3>
+        <div class="t-cluster" data-gap="3">
+          <Button variant="solid" intent="primary" block size="lg">Button</Button>
+        </div>
+        <code>variant="solid" intent="primary" block size="lg"</code>
+      </div>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Props</h2>
+      <table>
+        <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><code>as</code></td><td><code>string</code></td><td><code>button</code></td><td>Polymorphic root element. Defaults to \`button\`; set to \`a\` for link-shaped triggers (paired with \`variant: link\`).</td></tr>
+        <tr><td><code>disabled</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Disables interaction and applies the disabled visual state. Mapped to the native \`disabled\` attribute on \`button\`, \`aria-disabled="true"\` otherwise.</td></tr>
+        <tr><td><code>loading</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Shows a spinner in place of the label and disables interaction. The original label stays in the accessibility tree.</td></tr>
+        <tr><td><code>iconStart</code></td><td><code>string, slot</code></td><td><code>null</code></td><td>Icon rendered before the label in the inline direction. Slot size scales with \`size\`. Accepts any node (icon component, SVG, etc.).</td></tr>
+        <tr><td><code>iconEnd</code></td><td><code>string, slot</code></td><td><code>null</code></td><td>Icon rendered after the label in the inline direction. Accepts any node.</td></tr>
+        <tr><td><code>block</code></td><td><code>boolean, responsive</code></td><td><code>false</code></td><td>Stretches the button to the inline-size of its container. Responsive so layouts can pin block-width on mobile and shrink to content above.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Variants</h2>
+      <table>
+        <thead><tr><th>Name</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><code>solid</code></td><td>Filled background with intent color; default visual weight.</td></tr>
+        <tr><td><code>outline</code></td><td>Transparent background, intent-colored border and label; for secondary actions.</td></tr>
+        <tr><td><code>ghost</code></td><td>Transparent background with no border; for tertiary actions inside dense layouts or toolbars.</td></tr>
+        <tr><td><code>link</code></td><td>Renders as text with an underline; for navigation-shaped triggers that still need button semantics.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Intents</h2>
+      <table>
+        <thead><tr><th>Name</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><code>primary</code></td><td>The page's most important action. One primary per surface.</td></tr>
+        <tr><td><code>neutral</code></td><td>Default action. Non-emphasized; used when no intent is needed.</td></tr>
+        <tr><td><code>success</code></td><td>Confirms a positive outcome (save, publish, accept).</td></tr>
+        <tr><td><code>warning</code></td><td>Indicates an action that needs attention but isn't destructive.</td></tr>
+        <tr><td><code>danger</code></td><td>Destructive or irreversible action (delete, cancel subscription).</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Sizes</h2>
+      <table>
+        <thead><tr><th>Name</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><code>sm</code></td><td>Compact density; safe at breakpoints above the mobile floor.</td></tr>
+        <tr><td><code>md</code></td><td>Default size.</td></tr>
+        <tr><td><code>lg</code></td><td>Emphatic; for hero CTAs and primary actions in mobile-first layouts.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>States</h2>
+      <ul>
+        <li><code>hover</code></li>
+        <li><code>focus</code></li>
+        <li><code>active</code></li>
+        <li><code>disabled</code></li>
+        <li><code>loading</code></li>
+      </ul>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Tokens</h2>
+      <table>
+        <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><code>--t-button-height</code></td><td><code>--t-row</code></td><td>Control height; the size variant overrides this.</td></tr>
+        <tr><td><code>--t-button-bg</code></td><td><code>--t-accent</code></td><td>Background fill; the intent variant overrides this.</td></tr>
+        <tr><td><code>--t-button-fg</code></td><td><code>--t-on-accent</code></td><td>Foreground color (label and icon); pairs with \`bg\`.</td></tr>
+        <tr><td><code>--t-button-pad-x</code></td><td><code>--t-pad-x</code></td><td>Inline padding; the size variant overrides this.</td></tr>
+        <tr><td><code>--t-button-radius</code></td><td><code>--t-radius-md</code></td><td>Corner radius.</td></tr>
+        <tr><td><code>--t-button-dur</code></td><td><code>--t-dur-fast</code></td><td>Transition duration; multiplied by \`--t-motion-scale\` at the call site.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Accessibility</h2>
+      <p>Role: <code>button</code></p>
+      <table>
+        <thead><tr><th>Key</th><th>Action</th></tr></thead>
+        <tbody>
+        <tr><td><code>Enter</code></td><td>activate</td></tr>
+        <tr><td><code>Space</code></td><td>activate</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Constraints</h2>
+      <ul>
+        <li>Link variant is text-colored; non-neutral intent fills have no surface to apply to.</li>
+        <li>Loading already disables interaction; disabling on top is redundant.</li>
+      </ul>
+    </section>
+  </main>
+</Base>
+"
+`;
+
+exports[`gen-docs > renders the Cluster docs page 1`] = `
+"---
+import { Cluster } from "@teseor/react";
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Cluster — Teseor">
+  <main class="t-stack" data-gap="6">
+    <h1>Cluster</h1>
+    <p>A horizontal layout primitive. Wraps children on the inline axis with consistent spacing.</p>
+    <section class="t-stack" data-gap="3">
+      <h2>Examples</h2>
+      <div class="t-stack" data-gap="2">
+        <h3>gap-3</h3>
+        <div class="t-cluster" data-gap="3">
+          <Cluster gap="3">Cluster</Cluster>
+        </div>
+        <code>gap="3"</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>gap-0</h3>
+        <div class="t-cluster" data-gap="3">
+          <Cluster gap="0">Cluster</Cluster>
+        </div>
+        <code>gap="0"</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>justify-between</h3>
+        <div class="t-cluster" data-gap="3">
+          <Cluster gap="3" justify="between">Cluster</Cluster>
+        </div>
+        <code>gap="3" justify="between"</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>justify-around</h3>
+        <div class="t-cluster" data-gap="3">
+          <Cluster gap="2" justify="around">Cluster</Cluster>
+        </div>
+        <code>gap="2" justify="around"</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>align-center</h3>
+        <div class="t-cluster" data-gap="3">
+          <Cluster gap="3" align="center">Cluster</Cluster>
+        </div>
+        <code>gap="3" align="center"</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>align-baseline</h3>
+        <div class="t-cluster" data-gap="3">
+          <Cluster gap="2" align="baseline">Cluster</Cluster>
+        </div>
+        <code>gap="2" align="baseline"</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>responsive-gap</h3>
+        <div class="t-cluster" data-gap="3">
+          <Cluster gap={{ base: "2", md: "4" }}>Cluster</Cluster>
+        </div>
+        <code>gap=&lbrace;&lbrace; base: "2", md: "4" &rbrace;&rbrace;</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>responsive-justify</h3>
+        <div class="t-cluster" data-gap="3">
+          <Cluster gap="3" justify={{ base: "start", md: "between" }}>Cluster</Cluster>
+        </div>
+        <code>gap="3" justify=&lbrace;&lbrace; base: "start", md: "between" &rbrace;&rbrace;</code>
+      </div>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Props</h2>
+      <table>
+        <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><code>gap</code></td><td><code>string, responsive</code></td><td><code>null</code></td><td>Spacing between children. Accepts a token suffix from the \`--t-space-*\` scale (\`0\`–\`8\`).</td></tr>
+        <tr><td><code>align</code></td><td><code>string, responsive</code></td><td><code>null</code></td><td>Block-axis alignment of children.</td></tr>
+        <tr><td><code>justify</code></td><td><code>string, responsive</code></td><td><code>null</code></td><td>Inline-axis distribution of children.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Tokens</h2>
+      <table>
+        <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><code>--t-cluster-gap</code></td><td><code>--t-space-3</code></td><td>Default child spacing when \`gap\` is unset; overridable via \`--t-cluster-gap\`.</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</Base>
+"
+`;
+
+exports[`gen-docs > renders the Stack docs page with responsive examples 1`] = `
+"---
+import { Stack } from "@teseor/react";
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Stack — Teseor">
+  <main class="t-stack" data-gap="6">
+    <h1>Stack</h1>
+    <p>A vertical layout primitive. Stacks children on the block axis with consistent spacing.</p>
+    <section class="t-stack" data-gap="3">
+      <h2>Examples</h2>
+      <div class="t-stack" data-gap="2">
+        <h3>gap-3</h3>
+        <div class="t-cluster" data-gap="3">
+          <Stack gap="3">Stack</Stack>
+        </div>
+        <code>gap="3"</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>gap-0</h3>
+        <div class="t-cluster" data-gap="3">
+          <Stack gap="0">Stack</Stack>
+        </div>
+        <code>gap="0"</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>align-center</h3>
+        <div class="t-cluster" data-gap="3">
+          <Stack gap="4" align="center">Stack</Stack>
+        </div>
+        <code>gap="4" align="center"</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>align-stretch</h3>
+        <div class="t-cluster" data-gap="3">
+          <Stack gap="2" align="stretch">Stack</Stack>
+        </div>
+        <code>gap="2" align="stretch"</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>responsive-gap</h3>
+        <div class="t-cluster" data-gap="3">
+          <Stack gap={{ base: "2", md: "4", lg: "6" }}>Stack</Stack>
+        </div>
+        <code>gap=&lbrace;&lbrace; base: "2", md: "4", lg: "6" &rbrace;&rbrace;</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>responsive-align</h3>
+        <div class="t-cluster" data-gap="3">
+          <Stack gap="3" align={{ base: "start", md: "center" }}>Stack</Stack>
+        </div>
+        <code>gap="3" align=&lbrace;&lbrace; base: "start", md: "center" &rbrace;&rbrace;</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>gap-and-align</h3>
+        <div class="t-cluster" data-gap="3">
+          <Stack gap="5" align="end">Stack</Stack>
+        </div>
+        <code>gap="5" align="end"</code>
+      </div>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Props</h2>
+      <table>
+        <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><code>gap</code></td><td><code>string, responsive</code></td><td><code>null</code></td><td>Spacing between children. Accepts a token suffix from the \`--t-space-*\` scale (\`0\`–\`8\`).</td></tr>
+        <tr><td><code>align</code></td><td><code>string, responsive</code></td><td><code>null</code></td><td>Inline-axis alignment of children.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Tokens</h2>
+      <table>
+        <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><code>--t-stack-gap</code></td><td><code>--t-space-3</code></td><td>Default child spacing when \`gap\` is unset; overridable via \`--t-stack-gap\`.</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</Base>
+"
+`;

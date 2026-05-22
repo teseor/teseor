@@ -1,0 +1,90 @@
+---
+import { Cluster } from "@teseor/react";
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Cluster — Teseor">
+  <main class="t-stack" data-gap="6">
+    <h1>Cluster</h1>
+    <p>A horizontal layout primitive. Wraps children on the inline axis with consistent spacing.</p>
+    <section class="t-stack" data-gap="3">
+      <h2>Examples</h2>
+      <div class="t-stack" data-gap="2">
+        <h3>gap-3</h3>
+        <div class="t-cluster" data-gap="3">
+          <Cluster gap="3">Cluster</Cluster>
+        </div>
+        <code>gap="3"</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>gap-0</h3>
+        <div class="t-cluster" data-gap="3">
+          <Cluster gap="0">Cluster</Cluster>
+        </div>
+        <code>gap="0"</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>justify-between</h3>
+        <div class="t-cluster" data-gap="3">
+          <Cluster gap="3" justify="between">Cluster</Cluster>
+        </div>
+        <code>gap="3" justify="between"</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>justify-around</h3>
+        <div class="t-cluster" data-gap="3">
+          <Cluster gap="2" justify="around">Cluster</Cluster>
+        </div>
+        <code>gap="2" justify="around"</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>align-center</h3>
+        <div class="t-cluster" data-gap="3">
+          <Cluster gap="3" align="center">Cluster</Cluster>
+        </div>
+        <code>gap="3" align="center"</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>align-baseline</h3>
+        <div class="t-cluster" data-gap="3">
+          <Cluster gap="2" align="baseline">Cluster</Cluster>
+        </div>
+        <code>gap="2" align="baseline"</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>responsive-gap</h3>
+        <div class="t-cluster" data-gap="3">
+          <Cluster gap={{ base: "2", md: "4" }}>Cluster</Cluster>
+        </div>
+        <code>gap=&lbrace;&lbrace; base: "2", md: "4" &rbrace;&rbrace;</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>responsive-justify</h3>
+        <div class="t-cluster" data-gap="3">
+          <Cluster gap="3" justify={{ base: "start", md: "between" }}>Cluster</Cluster>
+        </div>
+        <code>gap="3" justify=&lbrace;&lbrace; base: "start", md: "between" &rbrace;&rbrace;</code>
+      </div>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Props</h2>
+      <table>
+        <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><code>gap</code></td><td><code>string, responsive</code></td><td><code>null</code></td><td>Spacing between children. Accepts a token suffix from the `--t-space-*` scale (`0`–`8`).</td></tr>
+        <tr><td><code>align</code></td><td><code>string, responsive</code></td><td><code>null</code></td><td>Block-axis alignment of children.</td></tr>
+        <tr><td><code>justify</code></td><td><code>string, responsive</code></td><td><code>null</code></td><td>Inline-axis distribution of children.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Tokens</h2>
+      <table>
+        <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><code>--t-cluster-gap</code></td><td><code>--t-space-3</code></td><td>Default child spacing when `gap` is unset; overridable via `--t-cluster-gap`.</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</Base>

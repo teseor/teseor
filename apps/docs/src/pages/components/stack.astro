@@ -1,0 +1,82 @@
+---
+import { Stack } from "@teseor/react";
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Stack — Teseor">
+  <main class="t-stack" data-gap="6">
+    <h1>Stack</h1>
+    <p>A vertical layout primitive. Stacks children on the block axis with consistent spacing.</p>
+    <section class="t-stack" data-gap="3">
+      <h2>Examples</h2>
+      <div class="t-stack" data-gap="2">
+        <h3>gap-3</h3>
+        <div class="t-cluster" data-gap="3">
+          <Stack gap="3">Stack</Stack>
+        </div>
+        <code>gap="3"</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>gap-0</h3>
+        <div class="t-cluster" data-gap="3">
+          <Stack gap="0">Stack</Stack>
+        </div>
+        <code>gap="0"</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>align-center</h3>
+        <div class="t-cluster" data-gap="3">
+          <Stack gap="4" align="center">Stack</Stack>
+        </div>
+        <code>gap="4" align="center"</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>align-stretch</h3>
+        <div class="t-cluster" data-gap="3">
+          <Stack gap="2" align="stretch">Stack</Stack>
+        </div>
+        <code>gap="2" align="stretch"</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>responsive-gap</h3>
+        <div class="t-cluster" data-gap="3">
+          <Stack gap={{ base: "2", md: "4", lg: "6" }}>Stack</Stack>
+        </div>
+        <code>gap=&lbrace;&lbrace; base: "2", md: "4", lg: "6" &rbrace;&rbrace;</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>responsive-align</h3>
+        <div class="t-cluster" data-gap="3">
+          <Stack gap="3" align={{ base: "start", md: "center" }}>Stack</Stack>
+        </div>
+        <code>gap="3" align=&lbrace;&lbrace; base: "start", md: "center" &rbrace;&rbrace;</code>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>gap-and-align</h3>
+        <div class="t-cluster" data-gap="3">
+          <Stack gap="5" align="end">Stack</Stack>
+        </div>
+        <code>gap="5" align="end"</code>
+      </div>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Props</h2>
+      <table>
+        <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><code>gap</code></td><td><code>string, responsive</code></td><td><code>null</code></td><td>Spacing between children. Accepts a token suffix from the `--t-space-*` scale (`0`–`8`).</td></tr>
+        <tr><td><code>align</code></td><td><code>string, responsive</code></td><td><code>null</code></td><td>Inline-axis alignment of children.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Tokens</h2>
+      <table>
+        <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><code>--t-stack-gap</code></td><td><code>--t-space-3</code></td><td>Default child spacing when `gap` is unset; overridable via `--t-stack-gap`.</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</Base>
