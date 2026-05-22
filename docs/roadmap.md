@@ -49,13 +49,14 @@ Phase 1 components, generated wrappers, generated docs. **Primitives package pul
 - **Figma Variables export:** `dist/figma-variables.json` generated from `tokens.css` by `gen-figma.ts`. Themes map to Figma modes. Designers import via Tokens Studio plugin.
 - **Visual baselines for every component × wrapper × theme** (pulled from v0.2 where pixel diff was deferred). Pixelmatch threshold 0.1%. Lands once Stack + Cluster + first atoms give a stable surface to baseline against.
 - **`a11y` CI gate** (pulled from v0.2). axe-core inside Playwright runs against every spec example with zero violations against WCAG 2.2 AA. Tied to the visual gate's Playwright run.
+- **Spec validator (`validate-spec.ts`)** ships (#636). Enforces the v0.3 schema (RFC 0001 / ADR-0009 / ADR-0010): identity layer + recursive `ComponentNode`, open `kind:` discriminated union, spec-to-CSS token contract, vocabulary, `matrix:` and `examples:` constraint checks. Replaces the `lint:spec` no-op stub. `parts:` activates with the same PR so Tooltip and Popover can be authored as composite specs.
 - **Behavior tests** (#582). `interactions:` block in specs becomes `tests/behavior/<name>.spec.ts` — clicks, focus, keyboard. Wrapper-agnostic; runs against both `/react/` and `/vue/` harness routes.
-- **Combinatorial coverage for contract tests** (#581). `matrix:` block in specs expands to cartesian or pairwise fixtures so DOM-parity catches every variant × intent × size combo, not just hand-picked examples.
+- **Combinatorial coverage for contract tests** (#581). `matrix:` block in specs expands to a pairwise covering set of fixtures (ADR-0010) so DOM-parity catches every variant × intent × size pair, not just hand-picked examples.
 - RTL CI gate: every component renders with `dir="rtl"` and visual-tests pass.
 
 ## v0.4 — Surfaces + remaining overlays
 
-Composable surfaces, navigation, and the rest of the overlay set. Codegen extends to handle composite components (multiple dependencies declared in `spec.dependencies`).
+Composable surfaces, navigation, and the rest of the overlay set.
 
 - Phase 2 components: Card, Alert, Banner, Skeleton, Progress, Tabs, Segmented, Breadcrumb, Pagination, Menu/MenuItem/MenuDivider.
 - **Remaining overlays** (pulled forward from v0.5): Modal, Drawer, Toast, Backdrop. With Tooltip + Popover already shipped at v0.3, the overlay set completes here.
