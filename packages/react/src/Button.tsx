@@ -105,7 +105,7 @@ export function Button(props: ButtonProps) {
           {iconEnd}
         </span>
       ) : null}
-      <span data-button-spinner="" aria-hidden="true" />
+      {loading ? <span data-button-spinner="" aria-hidden="true" /> : null}
     </Component>
   );
 }

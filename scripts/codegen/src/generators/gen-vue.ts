@@ -243,7 +243,9 @@ function renderBody(spec: Spec, slots: SlotInfo[], hasLoading: boolean): string 
     ...slots.filter((s) => s.position === undefined).map((s) => renderSlot(spec, s)),
     hasLoading ? `    <span data-${spec.name}-label=""><slot /></span>` : `    <slot />`,
     ...slots.filter((s) => s.position === "end").map((s) => renderSlot(spec, s)),
-    hasLoading ? `    <span data-${spec.name}-spinner="" aria-hidden="true" />` : null,
+    hasLoading
+      ? `    <span v-if="loading" data-${spec.name}-spinner="" aria-hidden="true" />`
+      : null,
   ]
     .filter((l): l is string => l !== null)
     .join("\n");

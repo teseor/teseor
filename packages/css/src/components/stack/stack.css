@@ -11,10 +11,6 @@
     flex-direction: column;
     gap: var(--_gap);
 
-    & * {
-      box-sizing: border-box;
-    }
-
     @each $i in 0, 1, 2, 3, 4, 5, 6, 7, 8 {
       &:where([data-gap="$(i)"]) {
         --_gap: var(--t-space-$(i));

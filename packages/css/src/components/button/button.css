@@ -37,7 +37,9 @@
       box-shadow calc(var(--_dur) * var(--t-motion-scale)) var(--_ease),
       transform calc(var(--_dur) * var(--t-motion-scale)) var(--_ease);
 
-    & * {
+    & [data-button-label],
+    & [data-button-spinner],
+    & [data-button-icon] {
       box-sizing: border-box;
     }
 
@@ -124,11 +126,7 @@
     }
 
     &:where([data-loading="true"]) [data-button-label] {
-      visibility: hidden;
-    }
-
-    &:where(:not([data-loading="true"])) [data-button-spinner] {
-      display: none;
+      opacity: 0;
     }
 
     &:where([data-loading="true"]) [data-button-spinner] {

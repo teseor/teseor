@@ -29,4 +29,12 @@ module.exports = {
     "custom-property-pattern": null,
     "custom-media-pattern": "^[a-z0-9-]+$",
   },
+  overrides: [
+    {
+      files: ["packages/css/src/components/**/*.css"],
+      rules: {
+        "selector-max-universal": 0,
+      },
+    },
+  ],
 };
