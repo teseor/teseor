@@ -1,16 +1,16 @@
 # Docs site
 
-The docs site is itself a Teseor showcase. Its layout, nav, and per-component pages are built with `.t-*` classes — no Astro/Vitepress/Docusaurus theming, no parallel styling system. Dogfood rule (H3).
+The docs site is itself a Teseor showcase. Its layout, nav, and per-component pages are built with `.t-*` classes — no themed doc framework, no parallel styling system. Dogfood rule (H3).
 
 ## Stack
 
-- **Eleventy + Nunjucks** — static HTML generator. Unopinionated about styling so Teseor owns all visuals.
+- **Astro** — static-site builder with no built-in theme, so Teseor owns every visual. Renders `@teseor/*` component packages to static HTML at build time (zero client JS unless a `client:*` directive opts in) — the docs consume the real generated wrappers. See ADR-0007.
 - **Shiki** — build-time syntax highlighting. Zero runtime cost.
 - **Pagefind** — self-hosted search, indexed at build time from emitted HTML. No SaaS, no client-side bundle weight.
 - **Vanilla JS** — tab switching, theme switching, copy-to-clipboard. ~100 lines total. No framework runtime.
 - **Deploy:** Cloudflare Pages at `teseor.dev`. Git-push-to-deploy, preview deployments per PR.
 
-We rejected Astro+Starlight, Vitepress, and Docusaurus: each ships its own theme that fights the dogfood rule. Hand-rolled was rejected as "false simplicity" — reinventing search and syntax highlighting consumes the budget we save on stack weight.
+We rejected Starlight, Vitepress, and Docusaurus: each ships its own theme that fights the dogfood rule. Plain Astro ships no theme — it is the unopinionated builder we wanted, and unlike Eleventy it renders the DS's own component packages. Hand-rolled was rejected as "false simplicity" — reinventing search and syntax highlighting consumes the budget we save on stack weight.
 
 ## Per-component page anatomy
 
@@ -30,7 +30,7 @@ Every component's page follows a fixed section order, generated from `specs/<nam
 12. **Common mistakes** — from `spec.guidance.commonMistakes`
 13. **Recipes** — links to `docs/recipes/`
 
-Sections are skipped when the corresponding spec field is empty. `gen-docs` reads the spec and emits the data file Eleventy consumes.
+Sections are skipped when the corresponding spec field is empty. `gen-docs` reads the spec and emits the data file Astro consumes.
 
 **Quality bar:** a junior designer reading only sections 2, 3, and 6 (When / Variant / Content) makes correct choices 90% of the time. If they get it wrong, the doc has failed — rewrite those three sections, don't add caveats elsewhere.
 
@@ -107,7 +107,7 @@ Pagefind covers prose; the AST page covers structured introspection. Build artif
 
 ## SEO: sitemap
 
-`sitemap.xml` generated at build time via the standard Eleventy sitemap plugin from the page set. Linked from `robots.txt` at the site root. Ships with v0.3 deployment. Cheap, standard, helps the docs site rank on its own keywords (`teseor button`, `teseor tokens`, etc.) rather than ceding ground to third-party tutorial sites.
+`sitemap.xml` generated at build time via `@astrojs/sitemap` from the page set. Linked from `robots.txt` at the site root. Ships with v0.3 deployment. Cheap, standard, helps the docs site rank on its own keywords (`teseor button`, `teseor tokens`, etc.) rather than ceding ground to third-party tutorial sites.
 
 ## Auto-generated navigation
 
@@ -126,5 +126,5 @@ Recipes ship starting v0.5 (the first phase where overlays make compositions int
 
 ## Re-skin gallery
 
-A single marketing page at `teseor.dev/themes` shows the same showcase app (probably `showcase-linear`) rendered with 5–6 themes side-by-side. Ships post-v0.4 once ≥2 themes exist. Proves the theming claim visually in one screen. Built using the same Eleventy + Teseor stack as the rest of the docs; no extra tooling.
+A single marketing page at `teseor.dev/themes` shows the same showcase app (probably `showcase-linear`) rendered with 5–6 themes side-by-side. Ships post-v0.4 once ≥2 themes exist. Proves the theming claim visually in one screen. Built using the same Astro + Teseor stack as the rest of the docs; no extra tooling.
 

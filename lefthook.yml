@@ -23,6 +23,9 @@ pre-commit:
     logical-naming:
       glob: '*.{ts,tsx,js,yaml,yml}'
       run: node scripts/check-logical-naming.js {staged_files}
+    dogfood:
+      glob: 'apps/docs/**'
+      run: node scripts/check-dogfood.ts
 
 pre-push:
   commands:

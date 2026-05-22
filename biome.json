@@ -12,6 +12,7 @@
       "!**/node_modules",
       "!**/__snapshots__",
       "!**/*.css",
+      "!**/*.astro",
       "!packages/vue/src",
       "!packages/svelte/src",
       "!packages/angular/src",
@@ -53,7 +54,12 @@
   },
   "overrides": [
     {
-      "includes": ["vitest.config.ts", "playwright.config.ts", "**/vite.config.ts"],
+      "includes": [
+        "vitest.config.ts",
+        "playwright.config.ts",
+        "**/vite.config.ts",
+        "**/astro.config.mjs"
+      ],
       "linter": {
         "rules": {
           "style": {
