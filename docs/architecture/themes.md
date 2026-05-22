@@ -1,6 +1,6 @@
 # Themes
 
-A theme is a CSS file that overrides Tier 2 semantic tokens. Nothing else. No class selectors, no element selectors, no attribute selectors, no `!important`. A theme that touches anything outside semantic tokens is a bug — Stylelint catches it.
+A theme is a CSS file that overrides Tier 2 semantic tokens. Nothing else. No class selectors, no element selectors, no attribute selectors, no `!important`. A theme that touches anything outside semantic tokens is a bug — the `themes/` lint rule under § "Hard rule" is designed to catch it.
 
 ## File shape
 
@@ -80,15 +80,15 @@ So `tokens.css` ships the default theme inline. Additional themes (`themes/edito
 
 We rejected bootstrap/material/terminal style "cosplay themes" for the v1.0 pair. They prove "Teseor can look like X" but not "Teseor can look like *anything*." Cosplay themes are welcome as community submissions post-v1.0, but they're not the right shape for the headline pair.
 
-## Hard rule (lint-enforced)
+## Hard rule
 
-Stylelint rule on `themes/*.css` files: only `--t-*` custom-property declarations allowed; no class selectors, no element selectors, no attribute selectors beyond `[data-theme]`/`[data-mode]`, no `!important`, no `@import`. The rule blocks the `themes/` directory from becoming a CSS escape hatch.
+A theme file may contain **only** `--t-*` custom-property declarations: no class selectors, no element selectors, no attribute selectors beyond `[data-theme]`/`[data-mode]`, no `!important`, no `@import`. This is what stops the `themes/` directory from becoming a CSS escape hatch.
 
-See `process/ci-gates.md` for the rule wiring.
+The rule is **not yet lint-enforced**. Themes land at v1.0 (§ "v1.0 minimum: two themes"), and the `themes/` directory does not exist before then — `.stylelintrc.cjs` carries a component-scoped override today but nothing for `themes/`. When the directory lands, a Stylelint override scoped to `themes/*.css` will enforce the restriction; until then it is a review convention. See `process/ci-gates.md` for the intended wiring.
 
 ## Consumer overrides
 
-Apps that need to tweak Teseor for their brand write a single `theme.css` in their own repo, following the same token-only rule as shipped themes. The shared Stylelint config (`@teseor/stylelint-config`, lands with PR #1) extends the same restriction to consumer files matching `**/theme.css`.
+Apps that need to tweak Teseor for their brand write a single `theme.css` in their own repo, following the same token-only rule as shipped themes. The shared Stylelint config (`@teseor/stylelint-config`) is planned to extend the same restriction to consumer files matching `**/theme.css`.
 
 ```ts
 // app entry
