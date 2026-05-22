@@ -13,6 +13,12 @@ const DIST = resolve(ROOT, "dist");
 const COMPONENTS_SRC = resolve(SRC, "components");
 const COMPONENTS_DIST = resolve(DIST, "components");
 
+// Prepended to every emitted file. CSS @layer precedence is fixed by first
+// encounter, so each file must declare the full order — otherwise whichever
+// loads first decides it. Idempotent across files.
+const LAYER_ORDER =
+  "@layer reset, tokens.scale, tokens.semantic, base, primitives, components.tokens, components.styles, utilities, themes;";
+
 const TOP_LEVEL_ENTRIES = [
   { from: "teseor.css", to: "teseor.css" },
   { from: "tokens.css", to: "tokens.css" },
@@ -36,7 +42,7 @@ async function buildOne(inputPath, outputPath) {
   for (const warn of result.warnings()) {
     process.stderr.write(`build-css ${inputPath}: ${warn.toString()}\n`);
   }
-  await writeFile(outputPath, `${result.css.trimEnd()}\n`, "utf8");
+  await writeFile(outputPath, `${LAYER_ORDER}\n\n${result.css.trimEnd()}\n`, "utf8");
 }
 
 async function listComponents() {

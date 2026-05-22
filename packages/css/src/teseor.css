@@ -1,5 +1,3 @@
-@layer reset, tokens.scale, tokens.semantic, base, primitives, components.tokens, components.styles, utilities, themes;
-
 @import url("./reset.css");
 @import url("./tokens.css");
 @import url("./base.css");
