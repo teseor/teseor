@@ -20,7 +20,7 @@
  * ```
  */
 import "@teseor/css/components/button.css";
-import { computed } from "vue";
+import { computed, type VNode } from "vue";
 import { dataAttrs } from "./_runtime.ts";
 
 type ButtonVariant = "solid" | "outline" | "ghost" | "link";
@@ -57,9 +57,9 @@ const {
 } = defineProps<ButtonProps>();
 
 defineSlots<{
-  default?(): any;
-  iconStart?(): any;
-  iconEnd?(): any;
+  default?(): VNode[];
+  iconStart?(): VNode[];
+  iconEnd?(): VNode[];
 }>();
 
 const isButton = computed(() => as === "button");

@@ -208,8 +208,8 @@ ${lines.join("\n")}
 }
 
 function renderSlotsType(slots: SlotInfo[]): string {
-  const slotLines = slots.map((s) => `  ${s.propName}?(): any;`);
-  return [`defineSlots<{`, `  default?(): any;`, ...slotLines, `}>();`].join("\n");
+  const slotLines = slots.map((s) => `  ${s.propName}?(): VNode[];`);
+  return [`defineSlots<{`, `  default?(): VNode[];`, ...slotLines, `}>();`].join("\n");
 }
 
 function renderAttrEntries(
@@ -340,7 +340,7 @@ function renderWrapper(
 <script setup lang="ts">
 ${renderComponentJsDoc(spec, Name)}
 import "@teseor/css/components/${spec.name}.css";
-import { computed } from "vue";
+import { computed, type VNode } from "vue";
 import { dataAttrs } from "./_runtime.ts";
 
 ${typeBlock}
