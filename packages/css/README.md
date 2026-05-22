@@ -13,10 +13,15 @@ npm install @teseor/css
 
 | Import | What it ships |
 | --- | --- |
-| `@teseor/css` | Full bundle: reset + tokens + base + utilities, in layer order. |
+| `@teseor/css` | Full bundle: reset + tokens + base + utilities + every component, in layer order. |
+| `@teseor/css/reset.css` | Reset only. |
 | `@teseor/css/tokens.css` | Tokens only (`--t-*` scale + semantic aliases). |
+| `@teseor/css/base.css` | Base element styles only. |
 | `@teseor/css/utilities.css` | Utility classes only. |
+| `@teseor/css/components/<name>.css` | Per-component CSS. The framework wrappers (`@teseor/react` etc.) auto-import these, so consumers using a wrapper don't need to. |
 | `@teseor/css/tailwind.css` | Tailwind v4 `@theme` bridge mapping `--t-*` to `--color-*` / `--spacing-*` / `--radius-*`. |
+
+The foundation pattern for framework users: import `reset.css` + `tokens.css` + `base.css` (+ optionally `utilities.css`) once in your app entry. Component CSS arrives automatically when you import a wrapper.
 
 ## Utility classes
 

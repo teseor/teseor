@@ -1,8 +1,8 @@
 {
-  "name": "@teseor/contract",
+  "name": "@teseor/react",
   "version": "3.0.0",
   "private": true,
-  "description": "Generated TypeScript contracts for Teseor components.",
+  "description": "React wrappers for Teseor components.",
   "type": "module",
   "sideEffects": false,
   "exports": {
@@ -19,6 +19,16 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/teseor/teseor.git",
-    "directory": "packages/contract"
+    "directory": "packages/react"
+  },
+  "dependencies": {
+    "@teseor/css": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.15",
+    "react": "^19.2.6"
   }
 }

@@ -12,12 +12,10 @@
       "!**/node_modules",
       "!**/__snapshots__",
       "!**/*.css",
-      "!packages/react/src",
       "!packages/vue/src",
       "!packages/svelte/src",
       "!packages/angular/src",
-      "!packages/webc/src",
-      "!packages/contract/src"
+      "!packages/webc/src"
     ]
   },
   "formatter": {
@@ -53,7 +51,7 @@
   },
   "overrides": [
     {
-      "includes": ["vitest.config.ts", "playwright.config.ts"],
+      "includes": ["vitest.config.ts", "playwright.config.ts", "**/vite.config.ts"],
       "linter": {
         "rules": {
           "style": {

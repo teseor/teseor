@@ -1,0 +1,392 @@
+import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+import { parse as parseYaml } from "yaml";
+import type { GeneratorContext, GeneratorReport } from "../registry.ts";
+import { registerGenerator } from "../registry.ts";
+import type { Spec, SpecProp } from "./gen-contract.ts";
+
+const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..", "..", "..");
+const SPECS_DIR = resolve(REPO_ROOT, "specs");
+const REACT_SRC_DIR = resolve(REPO_ROOT, "packages", "react", "src");
+const BREAKPOINTS_PATH = resolve(SPECS_DIR, "_breakpoints.yaml");
+
+const RESPONSIVE_ENUM_PROPS = new Set(["size"]);
+
+type BreakpointsConfig = { breakpoints: string[] };
+
+let cachedBreakpoints: string[] | null = null;
+async function loadBreakpoints(): Promise<string[]> {
+  if (cachedBreakpoints) return cachedBreakpoints;
+  const raw = await readFile(BREAKPOINTS_PATH, "utf8");
+  const parsed = parseYaml(raw) as BreakpointsConfig;
+  cachedBreakpoints = parsed.breakpoints;
+  return cachedBreakpoints;
+}
+
+function pascalCase(name: string): string {
+  return name
+    .split(/[-_\s]+/)
+    .map((part) => (part.length === 0 ? part : part.charAt(0).toUpperCase() + part.slice(1)))
+    .join("");
+}
+
+function quote(value: string): string {
+  return `"${value.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`;
+}
+
+function mapPropType(specType: string): string {
+  switch (specType) {
+    case "boolean":
+      return "boolean";
+    case "string":
+      return "string";
+    case "number":
+      return "number";
+    default:
+      return "unknown";
+  }
+}
+
+function responsiveType(baseType: string, breakpoints: string[]): string {
+  const keys = ["base", ...breakpoints].map(quote).join(" | ");
+  return `${baseType} | Partial<Record<${keys}, ${baseType}>>`;
+}
+
+function reactPropType(propName: string, propDef: SpecProp): string {
+  if (propName === "as") return "ElementType";
+  if (propDef.slot === true) return "ReactNode";
+  return mapPropType(propDef.type);
+}
+
+function renderEnumType(
+  Name: string,
+  kind: "Variant" | "Intent" | "Size",
+  values: string[],
+): string {
+  if (values.length === 0) return "";
+  return `type ${Name}${kind} = ${values.map(quote).join(" | ")};\n`;
+}
+
+function renderOwnProps(
+  spec: Spec,
+  Name: string,
+  sizeIsResponsive: boolean,
+  breakpoints: string[],
+): string {
+  const lines: string[] = [`type ${Name}OwnProps = {`];
+  if (spec.variants) lines.push(`  variant?: ${Name}Variant;`);
+  if (spec.intents) lines.push(`  intent?: ${Name}Intent;`);
+  if (spec.sizes) {
+    const sizeType = sizeIsResponsive ? responsiveType(`${Name}Size`, breakpoints) : `${Name}Size`;
+    lines.push(`  size?: ${sizeType};`);
+  }
+  if (spec.props) {
+    for (const [propName, propDef] of Object.entries(spec.props)) {
+      const baseType = reactPropType(propName, propDef);
+      const tsType = propDef.responsive === true ? responsiveType(baseType, breakpoints) : baseType;
+      if (propDef.description) lines.push(`  /** ${propDef.description} */`);
+      lines.push(`  ${propName}?: ${tsType};`);
+    }
+  }
+  lines.push(`  children?: ReactNode;`);
+  lines.push(`  ref?: Ref<HTMLElement>;`);
+  lines.push(`};`);
+  return lines.join("\n");
+}
+
+function renderDestructure(spec: Spec): string {
+  const lines: string[] = ["  const {"];
+  if (spec.variants) lines.push(`    variant,`);
+  if (spec.intents) lines.push(`    intent,`);
+  if (spec.sizes) lines.push(`    size,`);
+  if (spec.props) {
+    for (const propName of Object.keys(spec.props)) {
+      lines.push(`    ${propName},`);
+    }
+  }
+  lines.push(`    children,`);
+  lines.push(`    ref,`);
+  lines.push(`    className,`);
+  lines.push(`    ...rest`);
+  lines.push(`  } = props;`);
+  return lines.join("\n");
+}
+
+function renderDataAttrs(spec: Spec, responsiveProps: string[]): string {
+  const lines: string[] = [];
+  if (spec.variants) lines.push(`      data-variant={variant}`);
+  if (spec.intents) lines.push(`      data-intent={intent}`);
+  for (const name of responsiveProps) {
+    lines.push(`      {...dataAttrs(${quote(name)}, ${name})}`);
+  }
+  lines.push(`      data-loading={loading === true ? "true" : undefined}`);
+  return lines.join("\n");
+}
+
+function renderWrapper(spec: Spec, breakpoints: string[]): string {
+  const Name = pascalCase(spec.name);
+  const rootClass = spec.rootClass ?? `t-${spec.name}`;
+
+  const responsiveProps: string[] = [];
+  const sizeIsResponsive = Boolean(spec.sizes) && RESPONSIVE_ENUM_PROPS.has("size");
+  if (sizeIsResponsive) responsiveProps.push("size");
+  if (spec.props) {
+    for (const [propName, propDef] of Object.entries(spec.props)) {
+      if (propDef.responsive === true) responsiveProps.push(propName);
+    }
+  }
+
+  const variantType = renderEnumType(Name, "Variant", Object.keys(spec.variants ?? {}));
+  const intentType = renderEnumType(Name, "Intent", Object.keys(spec.intents ?? {}));
+  const sizeType = renderEnumType(Name, "Size", Object.keys(spec.sizes ?? {}));
+
+  return `"use client";
+
+// AUTOGENERATED by gen-react. Do not edit.
+// Source: specs/${spec.name}.yaml
+
+import "@teseor/css/components/${spec.name}.css";
+import type { ComponentProps, ElementType, ReactNode, Ref } from "react";
+import { dataAttrs } from "./_runtime.ts";
+
+${[variantType, intentType, sizeType].filter(Boolean).join("\n")}
+${renderOwnProps(spec, Name, sizeIsResponsive, breakpoints)}
+
+export type ${Name}Props = Readonly<
+  ${Name}OwnProps & Omit<ComponentProps<"button">, keyof ${Name}OwnProps>
+>;
+
+export function ${Name}(props: ${Name}Props) {
+${renderDestructure(spec)}
+
+  const Component = as ?? "button";
+  const isButton = Component === "button";
+  const inactive = disabled === true || loading === true;
+  const mergedClassName = className ? \`${rootClass} \${className}\` : "${rootClass}";
+
+  return (
+    <Component
+      {...rest}
+      ref={ref}
+      className={mergedClassName}
+${renderDataAttrs(spec, responsiveProps)}
+      disabled={isButton ? inactive : undefined}
+      aria-disabled={!isButton && inactive ? "true" : undefined}
+      aria-busy={loading === true ? "true" : undefined}
+    >
+      {iconStart != null ? (
+        <span data-button-icon="" data-position="start">
+          {iconStart}
+        </span>
+      ) : null}
+      <span data-button-label="">{children}</span>
+      {iconEnd != null ? (
+        <span data-button-icon="" data-position="end">
+          {iconEnd}
+        </span>
+      ) : null}
+      <span data-button-spinner="" aria-hidden="true" />
+    </Component>
+  );
+}
+`;
+}
+
+function renderCssShim(): string {
+  return `// AUTOGENERATED by gen-react. Do not edit.
+
+declare module "*.css";
+`;
+}
+
+function renderRuntime(breakpoints: string[]): string {
+  const keys = ["base", ...breakpoints].map(quote).join(", ");
+  return `// AUTOGENERATED by gen-react. Do not edit.
+
+const RESPONSIVE_KEYS = [${keys}] as const;
+
+export function dataAttrs(name: string, value: unknown): Record<string, string | undefined> {
+  if (value == null || value === false) return {};
+  if (typeof value === "object") {
+    const obj = value as Record<string, unknown>;
+    const out: Record<string, string | undefined> = {};
+    for (const key of RESPONSIVE_KEYS) {
+      const v = obj[key];
+      if (v == null || v === false) continue;
+      const attr = key === "base" ? \`data-\${name}\` : \`data-\${name}-\${key}\`;
+      out[attr] = v === true ? "true" : String(v);
+    }
+    return out;
+  }
+  return { [\`data-\${name}\`]: value === true ? "true" : String(value) };
+}
+`;
+}
+
+function renderReadme(specs: Spec[]): string {
+  const componentList = specs
+    .map((spec) => {
+      const Name = pascalCase(spec.name);
+      const desc = spec.description ?? "";
+      return `- \`${Name}\` — ${desc}`;
+    })
+    .join("\n");
+
+  const firstSpec = specs[0];
+  const exampleName = firstSpec ? pascalCase(firstSpec.name) : "Button";
+
+  return `<!-- AUTOGENERATED by gen-react. Do not edit. -->
+
+# @teseor/react
+
+React wrappers for Teseor components. Generated from \`specs/*.yaml\`.
+
+## Install
+
+\`\`\`
+pnpm add @teseor/react @teseor/css react
+\`\`\`
+
+## Setup
+
+Import the CSS foundation once in your app entry. Components pull in their own per-component CSS automatically.
+
+\`\`\`tsx
+import "@teseor/css/reset.css";
+import "@teseor/css/tokens.css";
+import "@teseor/css/base.css";
+import "@teseor/css/utilities.css";
+\`\`\`
+
+## Usage
+
+\`\`\`tsx
+import { ${exampleName} } from "@teseor/react";
+
+<${exampleName} variant="solid" intent="primary" onClick={save}>
+  Save
+</${exampleName}>
+\`\`\`
+
+## Components
+
+${componentList}
+
+## Tests
+
+Component behavior is verified framework-agnostically against the rendered DOM, in \`tests/<name>/\` (Playwright). The wrapper code itself is autogenerated; correctness of the emission is verified by snapshot tests in \`scripts/codegen/__tests__/\`.
+
+Per-framework unit tests are not used — the DOM is the contract, and the same behavior tests run against every wrapper.
+
+## Generated content
+
+Files in \`src/\` are autogenerated from \`specs/*.yaml\`. Do not edit them — your changes will be overwritten on the next \`pnpm gen\`. The generator is \`scripts/codegen/src/generators/gen-react.ts\`.
+`;
+}
+
+function renderBarrel(names: string[]): string {
+  const lines = ["// AUTOGENERATED by gen-react. Do not edit.", ""];
+  for (const name of names) {
+    const Name = pascalCase(name);
+    lines.push(`export { ${Name}, type ${Name}Props } from "./${Name}.tsx";`);
+  }
+  lines.push("");
+  return lines.join("\n");
+}
+
+async function loadSpec(name: string): Promise<Spec> {
+  const path = resolve(SPECS_DIR, `${name}.yaml`);
+  const raw = await readFile(path, "utf8");
+  const parsed = parseYaml(raw) as Spec;
+  if (parsed.name !== name) {
+    throw new Error(`spec name "${parsed.name}" in ${name}.yaml does not match file basename`);
+  }
+  return parsed;
+}
+
+async function listSpecNames(): Promise<string[]> {
+  const entries = await readdir(SPECS_DIR);
+  return entries
+    .filter((f) => f.endsWith(".yaml") && !f.startsWith("_"))
+    .map((f) => f.slice(0, -5))
+    .sort();
+}
+
+async function emitWrapper(name: string, breakpoints: string[]): Promise<string> {
+  const spec = await loadSpec(name);
+  const content = renderWrapper(spec, breakpoints);
+  const outPath = resolve(REACT_SRC_DIR, `${pascalCase(name)}.tsx`);
+  await mkdir(REACT_SRC_DIR, { recursive: true });
+  await writeFile(outPath, content, "utf8");
+  return outPath;
+}
+
+async function emitBarrel(names: string[]): Promise<string> {
+  const content = renderBarrel(names);
+  const outPath = resolve(REACT_SRC_DIR, `index.ts`);
+  await mkdir(REACT_SRC_DIR, { recursive: true });
+  await writeFile(outPath, content, "utf8");
+  return outPath;
+}
+
+async function emitRuntime(breakpoints: string[]): Promise<string> {
+  const content = renderRuntime(breakpoints);
+  const outPath = resolve(REACT_SRC_DIR, `_runtime.ts`);
+  await mkdir(REACT_SRC_DIR, { recursive: true });
+  await writeFile(outPath, content, "utf8");
+  return outPath;
+}
+
+async function emitCssShim(): Promise<string> {
+  const content = renderCssShim();
+  const outPath = resolve(REACT_SRC_DIR, `_css.d.ts`);
+  await mkdir(REACT_SRC_DIR, { recursive: true });
+  await writeFile(outPath, content, "utf8");
+  return outPath;
+}
+
+async function emitReadme(specs: Spec[]): Promise<string> {
+  const content = renderReadme(specs);
+  const outPath = resolve(REPO_ROOT, "packages", "react", "README.md");
+  await writeFile(outPath, content, "utf8");
+  return outPath;
+}
+
+async function reactGenerator(ctx: GeneratorContext): Promise<GeneratorReport> {
+  const requested = ctx.positionals[0];
+  const allNames = await listSpecNames();
+  const targets = requested ? [requested] : allNames;
+  const breakpoints = await loadBreakpoints();
+
+  const filesWritten: string[] = [];
+  const notes: string[] = [];
+  for (const name of targets) {
+    const path = await emitWrapper(name, breakpoints);
+    filesWritten.push(path);
+    notes.push(`react: ${name} -> ${path.replace(`${REPO_ROOT}/`, "")}`);
+  }
+
+  const runtimePath = await emitRuntime(breakpoints);
+  filesWritten.push(runtimePath);
+  notes.push(`react: runtime -> ${runtimePath.replace(`${REPO_ROOT}/`, "")}`);
+
+  const cssShimPath = await emitCssShim();
+  filesWritten.push(cssShimPath);
+  notes.push(`react: css-shim -> ${cssShimPath.replace(`${REPO_ROOT}/`, "")}`);
+
+  const barrelPath = await emitBarrel(allNames);
+  filesWritten.push(barrelPath);
+  notes.push(`react: barrel -> ${barrelPath.replace(`${REPO_ROOT}/`, "")}`);
+
+  const allSpecs = await Promise.all(allNames.map(loadSpec));
+  const readmePath = await emitReadme(allSpecs);
+  filesWritten.push(readmePath);
+  notes.push(`react: readme -> ${readmePath.replace(`${REPO_ROOT}/`, "")}`);
+
+  return { filesWritten, notes };
+}
+
+registerGenerator("react", reactGenerator);
+
+export { renderBarrel, renderCssShim, renderReadme, renderRuntime, renderWrapper };
