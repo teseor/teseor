@@ -31,19 +31,19 @@ describe("gen-react", () => {
   test("renders the Button wrapper", async () => {
     const spec = await loadSpec("button");
     const vocab = await loadVocabulary();
-    expect(renderWrapper(spec, BREAKPOINTS, vocab.propDescriptions)).toMatchSnapshot();
+    expect(renderWrapper(spec, vocab.propDescriptions)).toMatchSnapshot();
   });
 
   test("renders the Stack wrapper with an enum-typed prop", async () => {
     const spec = await loadSpec("stack");
     const vocab = await loadVocabulary();
-    expect(renderWrapper(spec, BREAKPOINTS, vocab.propDescriptions)).toMatchSnapshot();
+    expect(renderWrapper(spec, vocab.propDescriptions)).toMatchSnapshot();
   });
 
   test("renders the Cluster wrapper with multiple enum-typed props", async () => {
     const spec = await loadSpec("cluster");
     const vocab = await loadVocabulary();
-    expect(renderWrapper(spec, BREAKPOINTS, vocab.propDescriptions)).toMatchSnapshot();
+    expect(renderWrapper(spec, vocab.propDescriptions)).toMatchSnapshot();
   });
 
   test("renders the barrel", () => {
@@ -57,15 +57,15 @@ describe("gen-react", () => {
   test("wrapper is identical on repeated calls", async () => {
     const spec = await loadSpec("button");
     const vocab = await loadVocabulary();
-    expect(renderWrapper(spec, BREAKPOINTS, vocab.propDescriptions)).toBe(
-      renderWrapper(spec, BREAKPOINTS, vocab.propDescriptions),
+    expect(renderWrapper(spec, vocab.propDescriptions)).toBe(
+      renderWrapper(spec, vocab.propDescriptions),
     );
   });
 
   test("matches the committed Button.tsx", async () => {
     const spec = await loadSpec("button");
     const vocab = await loadVocabulary();
-    const generated = renderWrapper(spec, BREAKPOINTS, vocab.propDescriptions);
+    const generated = renderWrapper(spec, vocab.propDescriptions);
     const committed = await readFile(
       resolve(REPO_ROOT, "packages", "react", "src", "Button.tsx"),
       "utf8",
