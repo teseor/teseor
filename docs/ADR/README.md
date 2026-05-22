@@ -16,6 +16,7 @@ a numbered, durable file.
 | [0006](0006-enum-typed-string-props.md) | Enum-typed string props | Accepted |
 | [0007](0007-astro-for-the-docs-site.md) | Astro for the docs site | Accepted |
 | [0008](0008-token-driven-component-css.md) | Token-driven component CSS | Accepted |
+| [0009](0009-spec-schema-and-validation.md) | Spec schema and validation | Proposed |
 
 ## When to write one
 
