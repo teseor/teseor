@@ -106,10 +106,10 @@ props:
 | `props[*].responsive: true` | Marks a prop as responsive (emits data-attribute breakpoint variants); valid on visual props only, rejected on `variant`/`intent` | v0.2 (Button) |
 | `props[*].pattern: controllable` | Marks a value-bearing prop as a controlled/uncontrolled pair; codegen expands it into the Radix-style triple (value, default, change callback) | v0.3 (atoms) |
 | `behavior:` + `primitives:` | Component behavior tier and required primitives (focus-trap, portal, …) | v0.3 (overlays) |
-| `stability:` | `alpha` / `beta` / `stable` / `deprecated`; surfaces as badge in docs, JSDoc `@experimental`/`@deprecated`, and `teseor-ast.json` | v0.3 |
-| `parts:` | Sub-components in the same family (Accordion.Root / .Item / .Trigger / .Panel) | v0.4 (surfaces) |
+| `parts:` | Sub-components in the same family (Tooltip / Popover / Accordion.Root / .Item / .Trigger / .Panel) | v0.3 (overlays) |
+| `stability:` | `alpha` / `beta` / `stable` / `deprecated`; surfaces as badge in docs, JSDoc `@experimental`/`@deprecated`, and `teseor-ast.json` | deferred (RFC 0001) |
 
-The schema is frozen for v0.1 (atomic-only components). It re-opens at each milestone above to add the relevant slot, then refreezes. `validate-spec.ts` rejects unknown fields until they're added.
+The schema reopens per milestone to activate a reserved slot, then refreezes for the milestone window. `validate-spec.ts` rejects unknown fields until they're added.
 
 ### `constraints:` shape (v0.2 design)
 
@@ -305,12 +305,37 @@ A failed `gen-drift` means somebody edited a generated file by hand. The fix is 
 
 ## Spec validation
 
-`scripts/codegen/validate-spec.ts` runs on every PR via the `lint` job. Checks:
+`scripts/codegen/src/validate-spec.ts` runs on every PR via the `lint:spec` job
+(in the `lint` chain) and on pre-commit when a spec file is staged. Two layers
+per ADR-0009:
 
-- Spec parses against the YAML schema.
-- Every token listed in `tokens:` is declared as `--t-<name>-<key>:` in the CSS file.
-- Every `--t-<name>-*` declared in the CSS is listed in `tokens:`.
-- `dependencies:` references existing components.
-- `examples:` references valid combinations of `variants/intents/sizes`.
-- `a11y.keyboard` keys are well-known names (Enter, Space, ArrowLeft, …).
-- **Vocabulary check** — `name:`, `variants:`, `intents:`, `sizes:`, `props.*.name:`, `events:`, and `__*` class parts all belong to `specs/_vocabulary.yaml`. Non-canonical names fail with a Levenshtein-distance suggestion. See `rules/naming.md`.
+**Shape (Zod).** Each spec parses against `scripts/codegen/src/schema.ts` — an
+identity layer (`name`, `kind`, `description`, `dependencies`, `file`,
+`behavior`, `primitives`, `guidance`, `examples`, `matrix`) plus a recursive
+`ComponentNode` (`element`, `rootClass`, `variants`, `intents`, `sizes`,
+`props`, `tokens`, `private`, `states`, `a11y`, `constraints`, `motion`,
+optional `parts:` map of nested `ComponentNode`s). `kind:` is a discriminated
+union over an open set: `atomic` inlines the node flat; `composite` carries
+the `parts:` map. Strict objects reject unknown keys at every depth.
+
+**Semantic cross-checks (`scripts/codegen/src/semantic-checks.ts`).** What the
+schema cannot express:
+
+- every `tokens:` entry has a `--t-<name>-<key>` reference in the component
+  CSS, and every `--t-<name>-*` slot referenced in the CSS is listed in
+  `tokens:` — closes the spec-to-CSS hole in both directions;
+- `examples:` reference real variant / intent / size values;
+- `constraints:` hold against every `examples:` entry and every
+  cartesian-expanded `matrix:` cell;
+- vocabulary names (component, variants, intents, sizes, props, states) are
+  in `specs/_vocabulary.yaml`, with Levenshtein-distance suggestions on
+  typos (see `rules/naming.md`);
+- `motion.enters` and `motion.exits` are declared symmetrically on every
+  rendering node (root or sub-part) — `rules/motion.md` rule 5;
+- `dependencies:` graph is acyclic and every `@import` line in the component
+  CSS targets a component listed in `dependencies:` — `rules/component-shape.md`;
+- `guidance.variantChoice` keys equal `spec.variants` exactly (no missing
+  variants, no orphan keys) — `architecture/docs-site.md`.
+
+Composite-spec semantic checks (per-part token contracts, cross-part
+examples) extend the current set when the first composite (Popover) lands.
