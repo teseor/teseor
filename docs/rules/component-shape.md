@@ -19,9 +19,12 @@ Every component is one CSS file. It looks like this — every line is intentiona
 }
 
 @layer components.styles {
-  /* Scoped reset. Only touches descendants of .t-button. */
+  /* Box-size the component and its own named parts — never `*`. A
+     universal descendant reaches consumer content and nested components.
+     Enforced by Stylelint (selector-max-universal: 0). */
   .t-button,
-  .t-button * {
+  .t-button [data-button-label],
+  .t-button [data-button-spinner] {
     box-sizing: border-box;
   }
 
@@ -68,7 +71,7 @@ Every component is one CSS file. It looks like this — every line is intentiona
 ## Anatomy
 
 1. **Two sublayers.** `components.tokens` declares `--_*` variables on the root selector. `components.styles` writes rule bodies. Splitting them lets themes override token values without specificity wars (see `architecture/layer-order.md`).
-2. **Scoped reset.** Two-selector reset (`.t-button, .t-button *`) — small enough to be free, big enough to immunize the component against global element styles.
+2. **Box-sizing — self and named parts.** A component box-sizes itself and its own named parts (`[data-<name>-*]`) — never a universal descendant (`.t-component *`), which reaches consumer content and nested components. A layout primitive (Stack, Cluster) has no internal parts and box-sizes only itself. Stylelint's `selector-max-universal: 0` enforces it on component CSS.
 3. **Three-tier `var()` chain at runtime.** Authored as `var(--t-button-x, var(--t-semantic))`; the build inlines the resolved literal from `tokens.css` as the third position, so the shipped CSS is `var(--t-button-x, var(--t-semantic, <literal>))`. Changing a design value is one edit in `tokens.css` (ADR-0003). The literal floor is the failsafe — if both tokens are absent the component still renders correctly.
 4. **Logical properties.** `block-size`, `padding-inline`, `padding-block`. No `width`, `height`, `padding-left`, `padding-right`.
 5. **Motion via tokens × scale.** Every transition multiplies the duration token by `var(--t-motion-scale)`. Apps that set `--t-motion-scale: 0` get instant transitions.
