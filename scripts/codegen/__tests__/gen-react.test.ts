@@ -34,6 +34,18 @@ describe("gen-react", () => {
     expect(renderWrapper(spec, BREAKPOINTS, vocab.propDescriptions)).toMatchSnapshot();
   });
 
+  test("renders the Stack wrapper with an enum-typed prop", async () => {
+    const spec = await loadSpec("stack");
+    const vocab = await loadVocabulary();
+    expect(renderWrapper(spec, BREAKPOINTS, vocab.propDescriptions)).toMatchSnapshot();
+  });
+
+  test("renders the Cluster wrapper with multiple enum-typed props", async () => {
+    const spec = await loadSpec("cluster");
+    const vocab = await loadVocabulary();
+    expect(renderWrapper(spec, BREAKPOINTS, vocab.propDescriptions)).toMatchSnapshot();
+  });
+
   test("renders the barrel", () => {
     expect(renderBarrel(["button"])).toMatchSnapshot();
   });
