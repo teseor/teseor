@@ -111,13 +111,16 @@ import Base from "../../layouts/Base.astro";
     </section>
     <section class="t-stack" data-gap="3">
       <h2>States</h2>
-      <ul>
-        <li><code>hover</code></li>
-        <li><code>focus</code></li>
-        <li><code>active</code></li>
-        <li><code>disabled</code></li>
-        <li><code>loading</code></li>
-      </ul>
+      <table>
+        <thead><tr><th>State</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><code>hover</code></td><td>Pointer is over the button.</td></tr>
+        <tr><td><code>focus</code></td><td>Keyboard focus is on the button; the focus ring is visible.</td></tr>
+        <tr><td><code>active</code></td><td>Button is being pressed.</td></tr>
+        <tr><td><code>disabled</code></td><td>Interaction is suppressed; the disabled visual state is applied.</td></tr>
+        <tr><td><code>loading</code></td><td>A spinner replaces the label and interaction is suppressed; the original label stays in the accessibility tree.</td></tr>
+        </tbody>
+      </table>
     </section>
     <section class="t-stack" data-gap="3">
       <h2>Tokens</h2>
@@ -130,6 +133,8 @@ import Base from "../../layouts/Base.astro";
         <tr><td><code>--t-button-pad-x</code></td><td><code>--t-pad-x</code></td><td>Inline padding; the size variant overrides this.</td></tr>
         <tr><td><code>--t-button-radius</code></td><td><code>--t-radius-md</code></td><td>Corner radius.</td></tr>
         <tr><td><code>--t-button-dur</code></td><td><code>--t-dur-fast</code></td><td>Transition duration; multiplied by `--t-motion-scale` at the call site.</td></tr>
+        <tr><td><code>--t-button-ease</code></td><td><code>--t-ease-out</code></td><td>Transition easing curve.</td></tr>
+        <tr><td><code>--t-button-gap</code></td><td><code>--t-space-2</code></td><td>Inline spacing between label and icons.</td></tr>
         </tbody>
       </table>
     </section>

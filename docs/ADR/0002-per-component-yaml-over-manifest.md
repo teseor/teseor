@@ -15,7 +15,7 @@ The codegen pipeline needs a source-of-truth that's:
 
 - Single-purpose per component (so adding a component is a self-contained PR).
 - Human-readable (specs get reviewed during PRs by people who don't want to read JSON syntax with quoted keys).
-- Easy to validate (Zod schema runs in `validate-spec.ts`).
+- Easy to validate (Zod schema runs in `validate-spec.ts`; see ADR-0009).
 - Linkable from issues, PRs, docs (`specs/button.yaml#L42` is meaningful).
 
 ## Decision
@@ -59,27 +59,36 @@ See `architecture/codegen-pipeline.md` for the full schema. The essentials:
 
 ```yaml
 name: button
-kind: atomic           # atomic | composite
+kind: atomic           # atomic | composite — per ADR-0009 the discriminator is open
 element: button
 rootClass: t-button
-variants: [solid, outline, ghost, link]
-intents:  [neutral, accent, danger, success, warning]
-sizes:    [sm, md, lg]
+variants:
+  solid:   { description: Filled background. }
+  outline: { description: Transparent background. }
+intents:
+  primary: { description: Most important action., tokens: { bg: --t-accent, fg: --t-on-accent } }
+  neutral: { description: Default action.,        tokens: { bg: --t-surface, fg: --t-on-surface } }
+sizes:
+  sm: { description: Compact density., tokens: { height: --t-row-2 } }
+  md: { description: Default size.,    tokens: { height: --t-row-3 } }
 props:
-  loading:  { type: boolean, default: false }
+  loading: { type: boolean, default: false, description: Shows a spinner. }
 tokens:
-  height:   { fallback: --t-row, desc: control height }
+  height: { fallback: --t-row, desc: Control height. }
 private: [--_h, --_bg]
 a11y:
   role: button
   keyboard: { Enter: activate, Space: activate }
 examples:
-  - id: solid-accent
-    props: { variant: solid, intent: accent }
+  - id: solid-primary
+    props: { variant: solid, intent: primary }
 ```
+
+`variants:`, `intents:`, `sizes:`, and `states:` are maps keyed on the value
+name, each carrying a `description:`. ADR-0009 records the full schema.
 
 ## Consequences
 
 - Adding a new field to the spec schema is a `validate-spec.ts` change + a spec-migration pass (touch all current specs to add the field with a default). Same shape as a schema migration.
 - Removing a spec field is a schema change with a deprecation window (`deprecated: true` in the schema for two minor releases, matching the consumer API deprecation policy in `process/versioning.md`, then removed).
-- **Schema freezes per milestone.** The v0.1 schema is frozen for atomic components only. It re-opens at three later points to add reserved slots: `constraints:` at v0.2 (Button reveals the first real mutex rules), `behavior:` + `primitives:` at v0.3 (overlays force a behavior tier), `parts:` at v0.4 (Accordion-style families need sub-component declarations). See `architecture/codegen-pipeline.md` § "Reserved fields" and § "Composition" for the planned shapes. Until each milestone designs the field, `validate-spec.ts` rejects it as unknown.
+- **Schema freezes per milestone.** The v0.1 schema is frozen for atomic components only. It re-opens at three later points to add reserved slots: `constraints:` at v0.2 (Button reveals the first real mutex rules), `behavior:` + `primitives:` and `parts:` at v0.3 (overlays force a behavior tier and the first composite families — `parts:` was pulled in from v0.4 per RFC 0001), `stability:` deferred. See `architecture/codegen-pipeline.md` § "Reserved fields" and § "Composition" for the planned shapes, and ADR-0009 for the schema model. Until each milestone designs the field, `validate-spec.ts` rejects it as unknown.

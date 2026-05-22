@@ -26,7 +26,7 @@ The bare-verb defaults are the verbs you reach for daily: `dev`, `build`, `test`
 | `pnpm lint` | Runs every `lint:*` check below in sequence | Before push; in CI; via lefthook | Developer + CI + lefthook |
 | `pnpm lint:ts` | Biome — TS / JS / JSON | When iterating on TS | Developer |
 | `pnpm lint:css` | Stylelint over `packages/**/*.css` | When iterating on CSS | Developer |
-| `pnpm lint:spec` | Placeholder — the spec validator lands when `specs/` has content | When iterating on specs | Developer |
+| `pnpm lint:spec` | Spec validator — Zod shape + semantic cross-checks (`scripts/codegen/src/validate-spec.ts`) | When iterating on specs | Developer + CI + lefthook |
 | `pnpm lint:naming` | Logical-naming check (`check-logical-naming.js`) | When touching names / vocabulary | Developer + CI + lefthook |
 | `pnpm lint:dogfood` | Verifies `apps/docs/` uses only the design system (`check-dogfood.ts`) | When touching the docs app | Developer + CI + lefthook |
 | `pnpm lint:component-css` | Enforces the token-driven component-CSS model (`check-component-css.ts`) | When touching component CSS | Developer + CI + lefthook |

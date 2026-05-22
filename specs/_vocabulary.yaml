@@ -92,7 +92,7 @@ variants:
 # Intent values (semantic color role).
 intents:
   - neutral
-  - accent
+  - primary
   - danger
   - success
   - warning
