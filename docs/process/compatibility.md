@@ -33,6 +33,7 @@ We do not use features outside Baseline 2024 in shipped CSS. Anything cutting-ed
 **None.** We ship zero polyfills. The `dist/` output uses Baseline 2024 features and assumes they're available.
 
 Consumers with broader browser-support needs:
+
 - Run Autoprefixer over Teseor's `dist/` output to back-port vendor prefixes.
 - Compile Teseor's source CSS themselves with a different PostCSS preset.
 - Pin a Teseor version that matches their support window and stop upgrading.

@@ -63,10 +63,12 @@ Windows High Contrast / Forced Colors mode replaces author colors with user-defi
 ## Screen readers
 
 **Automated:**
+
 - axe-core runs inside every Playwright visual test — zero violations gate.
 - Playwright's accessibility-tree assertions verify role/name/state for every example: `expect(page.getByRole('button', { name: 'Save' })).toBeVisible()`. Catches the high-impact bugs (wrong role, missing accessible name, broken aria-label wiring).
 
 **Manual:**
+
 - Per-release smoke test on NVDA (Windows) + VoiceOver (macOS). Checklist generated from the components touched in the release.
 - ~30 min per release for atomic phases; longer for stateful ones.
 - JAWS deferred post-v1.0 — costly license; NVDA covers ~90% of JAWS-relevant regressions.

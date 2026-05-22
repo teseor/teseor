@@ -14,7 +14,7 @@ The cost is upfront: codegen has to be real before more than one wrapper exists.
 
 ## Per-component artifacts
 
-```
+```text
 packages/css/src/components/button/
 ├── button.css            # handwritten — source of truth
 └── button.visual.spec.ts # handwritten — Playwright visual baseline
@@ -49,5 +49,3 @@ Generated files are committed to the repo (so consumers see them, CI can diff th
 - **You cannot change a public class name without a major version bump.** Class names are API (rule 9 in `rules/hard-rules.md`).
 - **CI fails if generated files drift from their sources.** Drift means somebody edited the wrong file. See `process/ci-gates.md`.
 - **Wrappers cannot import other wrappers.** A React Button doesn't import a React Icon — both are independent codegen outputs from the same spec layer.
-
-

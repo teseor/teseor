@@ -6,7 +6,8 @@ Every PR runs the same gates. A PR cannot merge with any gate red.
 
 | Job | Tool | Fails when |
 | --- | --- | --- |
-| **lint** | Biome + Stylelint + `validate-spec.ts` | Code, CSS, or spec violates rules |
+| **lint** | Biome, Stylelint, markdownlint, `validate-spec.ts`, and the script/CSS checks | Code, CSS, docs, or a spec violates a rule |
+| **actionlint** | actionlint | A `.github/workflows/*.yml` file has an error |
 | **typecheck** | `tsc --noEmit` | TS errors anywhere |
 | **test-unit** | Vitest | Unit/integration tests fail |
 | **test-e2e** | Playwright against the harness (`apps/harness`) | Any cross-framework DOM-parity assertion fails, or a snapshot diverges from baseline |
@@ -33,6 +34,11 @@ Every PR runs the same gates. A PR cannot merge with any gate red.
   - **Theme files (`themes/*.css`) — token-only rule (planned).** A custom in-house Stylelint rule will block any declaration that isn't a `--t-*` custom property. Allowed selectors: `:root`, `[data-theme="…"]`, `[data-theme="…"][data-mode="…"]`, `@media (prefers-color-scheme: …) { :root, [data-theme="…"] }`. Disallowed: class selectors, element selectors, any `@import`, any `!important`. Not yet wired — themes land at v1.0 and the `themes/` directory does not exist before then. See `architecture/themes.md` § "Hard rule".
 - **Motion — `check-motion-scale.ts`** (a `pnpm lint` check, not a Stylelint rule). Fails any component `transition` / `animation` / `transition-duration` / `animation-duration` whose duration is not `calc(… * var(--t-motion-scale))` — see `rules/motion.md` rule 1. The transitionable-property allow-list (rule 4) is not yet enforced; it is planned (#628) and holds by review until then.
 - **`validate-spec.ts`** — every `specs/*.yaml` parses against the schema and matches its CSS file's `--t-*` declarations.
+- **markdownlint** — `markdownlint-cli2` over `docs/**/*.md` and root `*.md`. Config in `.markdownlint-cli2.jsonc`; line-length (MD013) is off because the docs are not hard-wrapped.
+
+## actionlint
+
+A separate job runs [`actionlint`](https://github.com/rhysd/actionlint) over `.github/workflows/*.yml` — it validates the workflow schema and shellchecks embedded `run:` scripts. It is not part of `pnpm lint` (actionlint is a standalone binary, not an npm package), so it runs only in CI.
 
 ## typecheck
 
@@ -61,11 +67,9 @@ Playwright + pixelmatch. Every component × every wrapper × every theme renders
 
 **Status:** gate is wired (`visual-tests.yml`) but trivially passes until a component lands a committed `__snapshots__/` directory. Pixel diff activates at v0.3 once Stack + Cluster + first atoms give a stable surface to baseline against. DOM-parity (`test-e2e`) is the load-bearing gate until then.
 
-
-
 Failure-comment template (no emoji, no "don't worry" softening, no AI references):
 
-```
+```text
 Visual tests failed on {{count}} snapshot(s).
 
 [Regenerate baselines]({{workflow_url}}) (one click; force-pushes to this PR.)
@@ -127,7 +131,6 @@ The build pipeline runs in this order: `postcss-import` (bundle), `postcss-each`
 
 ## changeset
 
-
 ## lighthouse
 
 Runs against 4 representative docs pages on every PR. Scores: performance ≥ 0.8, accessibility ≥ 1.0 (every docs page must be perfect), best practices ≥ 0.9, SEO ≥ 0.9. Config in `lighthouserc.json`.
@@ -153,8 +156,7 @@ Emergency override: maintainers can merge with a failing check (auditable in Git
 
 ## Workflow files
 
-
-```
+```text
 .github/
 ├── actions/
 │   ├── setup/action.yml              # install node, pnpm, cache

@@ -47,7 +47,7 @@ Each `spec.examples` entry renders as one demo block. Four richness levels exist
 
 L2 layout per demo block:
 
-```
+```text
 ┌─────────────────────────────────────┐
 │  [ rendered example, static HTML ]   │
 ├─────────────────────────────────────┤
@@ -127,4 +127,3 @@ Recipes ship starting v0.5 (the first phase where overlays make compositions int
 ## Re-skin gallery
 
 A single marketing page at `teseor.dev/themes` shows the same showcase app (probably `showcase-linear`) rendered with 5–6 themes side-by-side. Ships post-v0.4 once ≥2 themes exist. Proves the theming claim visually in one screen. Built using the same Astro + Teseor stack as the rest of the docs; no extra tooling.
-

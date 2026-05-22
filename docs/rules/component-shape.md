@@ -60,14 +60,14 @@ mutable surface; the base reads it; modifiers and states only reassign it
 
 ## Conventions
 
-5. **Two sublayers.** `components.tokens` declares the `--_*` vars; `components.styles` writes the rule bodies. Splitting them lets themes override token values without specificity wars (`architecture/layer-order.md`).
-6. **A component owns its box model.** It declares its own `box-sizing` and `margin` on the root — never leaning on `reset.css`. A `<button>` carries a UA margin; the component zeroes it. The acid test is "renders correctly with only its own file loaded."
-7. **Box-sizing — self and named parts.** A component box-sizes itself and its own named parts (`[data-<name>-*]`) — never a universal descendant (`& *`), which reaches consumer content and nested components. A layout primitive (Stack, Cluster) has no internal parts and box-sizes only itself. Stylelint's `selector-max-universal: 0` enforces it.
-8. **Token references — real token or own slot.** Every `--t-*` a component reads is either declared in `tokens.css` or matches `--t-{component}-*`, its public override slot. Nothing else — a typo'd `--t-buton-bg` is otherwise indistinguishable from a real slot.
-9. **Three-tier `var()` chain at runtime.** A public token reads `var(--t-button-x, var(--t-semantic))`; the build inlines the resolved literal from `tokens.css` as the third position (ADR-0003), so the shipped CSS is `var(--t-button-x, var(--t-semantic, <literal>))`. The literal floor is the failsafe — if both tokens are absent the component still renders.
-10. **Logical properties.** `block-size`, `padding-inline`, `padding-block`. No `width`, `height`, `padding-left`, `padding-right`.
-11. **Motion via tokens × scale.** Every transition multiplies the duration token by `var(--t-motion-scale)`. Apps that set `--t-motion-scale: 0` get instant transitions.
-12. **`:where()` for modifier selectors** keeps specificity at `0,1,0` however many modifiers stack. **`:is([disabled], [aria-disabled="true"])`** covers both real `<button disabled>` and ARIA-disabled non-button elements.
+1. **Two sublayers.** `components.tokens` declares the `--_*` vars; `components.styles` writes the rule bodies. Splitting them lets themes override token values without specificity wars (`architecture/layer-order.md`).
+2. **A component owns its box model.** It declares its own `box-sizing` and `margin` on the root — never leaning on `reset.css`. A `<button>` carries a UA margin; the component zeroes it. The acid test is "renders correctly with only its own file loaded."
+3. **Box-sizing — self and named parts.** A component box-sizes itself and its own named parts (`[data-<name>-*]`) — never a universal descendant (`& *`), which reaches consumer content and nested components. A layout primitive (Stack, Cluster) has no internal parts and box-sizes only itself. Stylelint's `selector-max-universal: 0` enforces it.
+4. **Token references — real token or own slot.** Every `--t-*` a component reads is either declared in `tokens.css` or matches `--t-{component}-*`, its public override slot. Nothing else — a typo'd `--t-buton-bg` is otherwise indistinguishable from a real slot.
+5. **Three-tier `var()` chain at runtime.** A public token reads `var(--t-button-x, var(--t-semantic))`; the build inlines the resolved literal from `tokens.css` as the third position (ADR-0003), so the shipped CSS is `var(--t-button-x, var(--t-semantic, <literal>))`. The literal floor is the failsafe — if both tokens are absent the component still renders.
+6. **Logical properties.** `block-size`, `padding-inline`, `padding-block`. No `width`, `height`, `padding-left`, `padding-right`.
+7. **Motion via tokens × scale.** Every transition multiplies the duration token by `var(--t-motion-scale)`. Apps that set `--t-motion-scale: 0` get instant transitions.
+8. **`:where()` for modifier selectors** keeps specificity at `0,1,0` however many modifiers stack. **`:is([disabled], [aria-disabled="true"])`** covers both real `<button disabled>` and ARIA-disabled non-button elements.
 
 ## What's not in the component
 

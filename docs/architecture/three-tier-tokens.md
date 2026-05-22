@@ -92,7 +92,6 @@ Why a build step at all (we considered dropping it):
 
 The cost (build step exists, debugging maps source to output) is paid once at the toolchain layer. The win (no value lives in two places) shows up every time a designer says "actually, let's bump the base spacing unit."
 
-
 ## Naming
 
 - Public token: `--t-<component>-<part>` (e.g. `--t-button-height`).

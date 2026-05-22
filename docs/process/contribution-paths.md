@@ -19,7 +19,7 @@ path is recoverable; an unscoped PR is not.
 When the change introduces a new component, or adds variants/intents/sizes to
 an existing one.
 
-**What to file**
+### Component — what to file
 
 - `specs/<name>.yaml` — declares variants, intents, sizes, props, tokens, a11y
   contract, examples, motion. See `architecture/codegen-pipeline.md` for the
@@ -36,17 +36,17 @@ an existing one.
 - A changeset — `pnpm changeset` — at the level dictated by the change:
   new component → minor, new variant → minor, bug fix → patch.
 
-**What gets reviewed**
+### Component — what gets reviewed
 
 - Spec follows the schema and uses canonical vocabulary (`_vocabulary.yaml`).
 - CSS obeys hard rules (`rules/hard-rules.md`), motion rules
   (`rules/motion.md`), and the responsive contract (`rules/responsive.md`).
 - a11y: keyboard map + ARIA contract listed in spec match what the Playwright
-  + axe tests assert.
+  - axe tests assert.
 - Visual snapshots: new examples have baselines; existing baselines unchanged.
 - Bundle delta is reasonable for the added surface.
 
-**Out of scope on this path**
+### Component — out of scope
 
 Refactors of unrelated components, token additions, or theme tweaks. Bundle
 those separately.
@@ -55,7 +55,7 @@ those separately.
 
 When the change adds or updates a `[data-theme="…"]` skin.
 
-**What to file**
+### Theme — what to file
 
 - One file at `themes/<theme>.css` (or edits to an existing one).
 - Token-only. The Stylelint theme-purity rule blocks any declaration that
@@ -65,7 +65,7 @@ When the change adds or updates a `[data-theme="…"]` skin.
   `architecture/themes.md` for the canonical file shape.
 - A changeset (minor — a new theme is consumer-facing surface).
 
-**What gets reviewed**
+### Theme — what gets reviewed
 
 - Every token in the public contract has a value (no missing variables once
   the theme is active).
@@ -74,7 +74,7 @@ When the change adds or updates a `[data-theme="…"]` skin.
 - The fallback chain still resolves when the theme is partially supported
   (older browsers).
 
-**Out of scope**
+### Theme — out of scope
 
 Component-shape changes, new tokens. Theme files consume the token contract;
 they don't extend it. Adding a token is a separate PR against `tokens.css`.
@@ -84,7 +84,7 @@ they don't extend it. Adding a token is a separate PR against `tokens.css`.
 When the change adds a term to the shared vocabulary (variant names, intent
 names, size names, prop names, slot names).
 
-**What to file**
+### Vocabulary addition — what to file
 
 - A PR against `specs/_vocabulary.yaml` adding the term and a one-line
   rationale.
@@ -92,7 +92,7 @@ names, size names, prop names, slot names).
   PRs that adopt the value follow — but the vocabulary PR is independent and
   reviewable on its own.
 
-**What gets reviewed**
+### Vocabulary addition — what gets reviewed
 
 - The term doesn't already exist under a different name.
 - It composes with the rest of the vocabulary (a new intent should pair with
@@ -100,7 +100,7 @@ names, size names, prop names, slot names).
 - Naming follows `rules/naming.md` — short, lowercase, kebab where multi-word,
   no abbreviations that aren't already in the vocabulary.
 
-**Out of scope**
+### Vocabulary addition — out of scope
 
 Adopting the new term in components. Land vocabulary first, then the
 component PRs that use it. This keeps each PR small and reverts clean.
@@ -110,7 +110,7 @@ component PRs that use it. This keeps each PR small and reverts clean.
 When a breaking change ships and a mechanical rewrite covers most consumer
 code paths.
 
-**What to file**
+### Codemod — what to file
 
 - A new transform in `packages/codemods/src/<from>-to-<to>/<rule>.ts`.
 - Fixtures: paired `input.<ext>` / `output.<ext>` in
@@ -122,7 +122,7 @@ code paths.
 - A changeset against `@teseor/codemods` (minor or patch — codemods don't
   bump the design-system version).
 
-**What gets reviewed**
+### Codemod — what gets reviewed
 
 - Transform covers the documented cases (the migration guide lists them).
 - Tests include at least one fixture where the transform is a no-op
@@ -132,13 +132,13 @@ code paths.
 - Edge cases that can't be transformed are detected and reported, not silently
   passed through.
 
-**Out of scope**
+### Codemod — out of scope
 
 Judgment-required transformations — anything that changes the *meaning* of
 the code rather than just renaming or restructuring it. Those go into the
 migration guide as prose, not as a codemod.
 
-**See also**
+### Codemod — see also
 
 `process/versioning.md` § "Codemods" for the mechanical / judgment-required
 split, and `process/migrations-end-to-end.md` for the full lifecycle of a
@@ -155,7 +155,7 @@ before implementation. Use the RFC path when:
   generator, a new build pipeline).
 - Reasonable contributors might disagree on the right shape.
 
-**What to file**
+### RFC — what to file
 
 - Copy `docs/RFC/_template.md` to `docs/RFC/<NNNN>-<short-slug>.md`. Pick the
   next free number.
@@ -164,7 +164,7 @@ before implementation. Use the RFC path when:
 - Open a PR. The PR's only purpose is landing the RFC in `draft` (or
   `proposed`); implementation is a follow-up PR.
 
-**What gets reviewed**
+### RFC — what gets reviewed
 
 - Motivation is concrete (a problem someone has hit, not "we should be more
   consistent").
@@ -176,7 +176,7 @@ before implementation. Use the RFC path when:
 - The proposal is bounded. "What this *doesn't* propose" is as important as
   what it does.
 
-**After landing in `draft`**
+### After landing in `draft`
 
 - Discussion happens on the PR (or, if it's settled, on follow-up PRs that
   reference the RFC by file path — never by number, since RFCs renumber on
@@ -186,7 +186,7 @@ before implementation. Use the RFC path when:
   if a later RFC replaces it. `rejected` is a valid terminal state — closed
   RFCs are kept, not deleted, so the reasoning survives.
 
-**Out of scope on this path**
+### RFC — out of scope
 
 Implementation. Land the RFC first, file the implementation issue from it,
 then ship the implementation in a normal component / theme / codemod PR.

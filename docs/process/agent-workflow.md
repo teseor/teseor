@@ -60,6 +60,7 @@ The file is intentionally a thin index. Claude reads `CLAUDE.md` first, then the
 Five commands at `.claude/commands/*.md`. Each is a Markdown file with a brief workflow Claude follows when invoked, plus a `## Failure modes` section. Project-local, version-controlled, reviewed in PRs.
 
 ### `/work-on <issue-number>`
+
 - Read the issue (`gh issue view <n>`)
 - Confirm scope with the user
 - Create a branch named `feat/<n>-<slug>` or appropriate type
@@ -67,6 +68,7 @@ Five commands at `.claude/commands/*.md`. Each is a Markdown file with a brief w
 - Begin the work, posting incremental updates
 
 ### `/done`
+
 - Run `pnpm lint && pnpm typecheck && pnpm test` (lefthook covers locally but verify)
 - Run `pnpm changeset` and write the changeset entry
 - Push the branch
@@ -74,12 +76,14 @@ Five commands at `.claude/commands/*.md`. Each is a Markdown file with a brief w
 - Confirm CI is green before requesting review
 
 ### `/ship`
+
 - Verify CI green + reviews approved
 - Squash-merge via `gh pr merge --squash --delete-branch`
 - Close linked issues
 - Post a brief confirmation
 
 ### `/issue-this <description>`
+
 - Draft a title and body from the description
 - Confirm with the user
 - Run `gh issue create --title ... --body ... --label "type:chore"` (or appropriate type)
@@ -87,6 +91,7 @@ Five commands at `.claude/commands/*.md`. Each is a Markdown file with a brief w
 - Used to capture mid-session TODOs before they become tech debt in `TODO` comments
 
 ### `/new-component <name>`
+
 - Reads `docs/rules/component-shape.md` + `specs/_vocabulary.yaml` for the canonical structure
 - Asks the user `kind: atomic` or `composite` (and any other contextual choices)
 - Creates: `specs/<name>.yaml` (with required fields + canonical vocabulary), `packages/css/src/components/<name>/<name>.css` (skeleton with both sublayers + scoped reset + acid-test-passing fallback chain), placeholder Vitest + Playwright tests
@@ -203,6 +208,7 @@ Configured once via GitHub repo settings (or `gh api` script in repo setup):
 ## Combined effect
 
 A PR cannot land on `main` if any of these is wrong:
+
 - Missing `Closes #N` in body
 - PR title not conventional-commit
 - Missing body sections
