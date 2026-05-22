@@ -1,15 +1,18 @@
 @layer components.tokens {
   .t-stack {
     --_gap: var(--t-stack-gap, var(--t-space-3));
+    --_align: var(--t-stack-align, stretch);
   }
 }
 
 @layer components.styles {
   .t-stack {
     box-sizing: border-box;
+    margin: 0;
     display: flex;
     flex-direction: column;
     gap: var(--_gap);
+    align-items: var(--_align);
 
     @each $i in 0, 1, 2, 3, 4, 5, 6, 7, 8 {
       &:where([data-gap="$(i)"]) {
@@ -18,19 +21,19 @@
     }
 
     &:where([data-align="start"]) {
-      align-items: flex-start;
+      --_align: flex-start;
     }
 
     &:where([data-align="center"]) {
-      align-items: center;
+      --_align: center;
     }
 
     &:where([data-align="end"]) {
-      align-items: flex-end;
+      --_align: flex-end;
     }
 
     &:where([data-align="stretch"]) {
-      align-items: stretch;
+      --_align: stretch;
     }
 
     @each $bp in md, lg, xl, 2xl {
@@ -43,19 +46,19 @@
         }
 
         &:where([data-align-$(bp)="start"]) {
-          align-items: flex-start;
+          --_align: flex-start;
         }
 
         &:where([data-align-$(bp)="center"]) {
-          align-items: center;
+          --_align: center;
         }
 
         &:where([data-align-$(bp)="end"]) {
-          align-items: flex-end;
+          --_align: flex-end;
         }
 
         &:where([data-align-$(bp)="stretch"]) {
-          align-items: stretch;
+          --_align: stretch;
         }
       }
     }
