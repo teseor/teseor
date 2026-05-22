@@ -15,6 +15,7 @@ a numbered, durable file.
 | [0005](0005-adrs-are-the-decision-log.md) | ADRs are the decision log | Accepted |
 | [0006](0006-enum-typed-string-props.md) | Enum-typed string props | Accepted |
 | [0007](0007-astro-for-the-docs-site.md) | Astro for the docs site | Accepted |
+| [0008](0008-token-driven-component-css.md) | Token-driven component CSS | Accepted |
 
 ## When to write one
 

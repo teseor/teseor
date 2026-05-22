@@ -26,6 +26,9 @@ pre-commit:
     dogfood:
       glob: 'apps/docs/**'
       run: node scripts/check-dogfood.ts
+    component-css:
+      glob: 'packages/css/src/components/**/*.css'
+      run: node scripts/check-component-css.ts
 
 pre-push:
   commands:

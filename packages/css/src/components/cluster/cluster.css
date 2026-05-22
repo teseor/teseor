@@ -1,15 +1,20 @@
 @layer components.tokens {
   .t-cluster {
     --_gap: var(--t-cluster-gap, var(--t-space-3));
+    --_align: var(--t-cluster-align, stretch);
+    --_justify: var(--t-cluster-justify, flex-start);
   }
 }
 
 @layer components.styles {
   .t-cluster {
     box-sizing: border-box;
+    margin: 0;
     display: flex;
     flex-flow: row wrap;
     gap: var(--_gap);
+    align-items: var(--_align);
+    justify-content: var(--_justify);
 
     @each $i in 0, 1, 2, 3, 4, 5, 6, 7, 8 {
       &:where([data-gap="$(i)"]) {
@@ -18,43 +23,43 @@
     }
 
     &:where([data-align="start"]) {
-      align-items: flex-start;
+      --_align: flex-start;
     }
 
     &:where([data-align="center"]) {
-      align-items: center;
+      --_align: center;
     }
 
     &:where([data-align="end"]) {
-      align-items: flex-end;
+      --_align: flex-end;
     }
 
     &:where([data-align="stretch"]) {
-      align-items: stretch;
+      --_align: stretch;
     }
 
     &:where([data-align="baseline"]) {
-      align-items: baseline;
+      --_align: baseline;
     }
 
     &:where([data-justify="start"]) {
-      justify-content: flex-start;
+      --_justify: flex-start;
     }
 
     &:where([data-justify="center"]) {
-      justify-content: center;
+      --_justify: center;
     }
 
     &:where([data-justify="end"]) {
-      justify-content: flex-end;
+      --_justify: flex-end;
     }
 
     &:where([data-justify="between"]) {
-      justify-content: space-between;
+      --_justify: space-between;
     }
 
     &:where([data-justify="around"]) {
-      justify-content: space-around;
+      --_justify: space-around;
     }
 
     @each $bp in md, lg, xl, 2xl {
@@ -67,43 +72,43 @@
         }
 
         &:where([data-align-$(bp)="start"]) {
-          align-items: flex-start;
+          --_align: flex-start;
         }
 
         &:where([data-align-$(bp)="center"]) {
-          align-items: center;
+          --_align: center;
         }
 
         &:where([data-align-$(bp)="end"]) {
-          align-items: flex-end;
+          --_align: flex-end;
         }
 
         &:where([data-align-$(bp)="stretch"]) {
-          align-items: stretch;
+          --_align: stretch;
         }
 
         &:where([data-align-$(bp)="baseline"]) {
-          align-items: baseline;
+          --_align: baseline;
         }
 
         &:where([data-justify-$(bp)="start"]) {
-          justify-content: flex-start;
+          --_justify: flex-start;
         }
 
         &:where([data-justify-$(bp)="center"]) {
-          justify-content: center;
+          --_justify: center;
         }
 
         &:where([data-justify-$(bp)="end"]) {
-          justify-content: flex-end;
+          --_justify: flex-end;
         }
 
         &:where([data-justify-$(bp)="between"]) {
-          justify-content: space-between;
+          --_justify: space-between;
         }
 
         &:where([data-justify-$(bp)="around"]) {
-          justify-content: space-around;
+          --_justify: space-around;
         }
       }
     }
