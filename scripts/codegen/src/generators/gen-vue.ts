@@ -183,22 +183,33 @@ function renderComponentJsDoc(spec: Spec, Name: string): string {
 }
 
 function renderPropsBlock(spec: Spec, Name: string): string {
-  const defaultLines = Object.entries(spec.props ?? {})
-    .filter(([, def]) => def.default !== undefined && def.default !== null && def.slot !== true)
-    .map(([name, def]) => {
-      const v = def.default;
-      const value = typeof v === "string" ? quote(v as string) : String(v);
-      return `  ${name}: ${value},`;
-    });
-  if (defaultLines.length === 0) return `const props = defineProps<${Name}Props>();`;
-  return `const props = withDefaults(defineProps<${Name}Props>(), {
-${defaultLines.join("\n")}
-});`;
+  const nonSlotProps = Object.entries(spec.props ?? {}).filter(([, def]) => def.slot !== true);
+  const enumPropNames: string[] = [];
+  if (spec.variants) enumPropNames.push("variant");
+  if (spec.intents) enumPropNames.push("intent");
+  if (spec.sizes) enumPropNames.push("size");
+  if (enumPropNames.length === 0 && nonSlotProps.length === 0) {
+    return `defineProps<${Name}Props>();`;
+  }
+  const lines = [
+    ...enumPropNames.map((n) => `  ${n},`),
+    ...nonSlotProps.map(([name, def]) => {
+      if (def.default !== undefined && def.default !== null) {
+        const v = def.default;
+        const value = typeof v === "string" ? quote(v as string) : String(v);
+        return `  ${name} = ${value},`;
+      }
+      return `  ${name},`;
+    }),
+  ];
+  return `const {
+${lines.join("\n")}
+} = defineProps<${Name}Props>();`;
 }
 
 function renderSlotsType(slots: SlotInfo[]): string {
-  const slotLines = slots.map((s) => `  ${s.propName}?(): unknown;`);
-  return [`defineSlots<{`, `  default?(): unknown;`, ...slotLines, `}>();`].join("\n");
+  const slotLines = slots.map((s) => `  ${s.propName}?(): any;`);
+  return [`defineSlots<{`, `  default?(): any;`, ...slotLines, `}>();`].join("\n");
 }
 
 function renderAttrEntries(
@@ -209,16 +220,16 @@ function renderAttrEntries(
   hasAs: boolean,
 ): string {
   return [
-    spec.variants ? `    "data-variant": props.variant,` : null,
-    spec.intents ? `    "data-intent": props.intent,` : null,
-    ...responsiveProps.map((name) => `    ...dataAttrs(${quote(name)}, props.${name}),`),
-    hasLoading ? `    "data-loading": props.loading === true ? "true" : undefined,` : null,
-    hasDisabled && hasAs ? `    disabled: isButton.value ? inactive.value : undefined,` : null,
+    spec.variants ? `  "data-variant": variant,` : null,
+    spec.intents ? `  "data-intent": intent,` : null,
+    ...responsiveProps.map((name) => `  ...dataAttrs(${quote(name)}, ${name}),`),
+    hasLoading ? `  "data-loading": loading ? "true" : undefined,` : null,
+    hasDisabled && hasAs ? `  disabled: isButton.value ? inactive.value : undefined,` : null,
     hasDisabled && hasAs
-      ? `    "aria-disabled": !isButton.value && inactive.value ? "true" : undefined,`
+      ? `  "aria-disabled": !isButton.value && inactive.value ? "true" : undefined,`
       : null,
-    hasDisabled && !hasAs ? `    disabled: inactive.value,` : null,
-    hasLoading ? `    "aria-busy": props.loading === true ? "true" : undefined,` : null,
+    hasDisabled && !hasAs ? `  disabled: inactive.value,` : null,
+    hasLoading ? `  "aria-busy": loading ? "true" : undefined,` : null,
   ]
     .filter((l): l is string => l !== null)
     .join("\n");
@@ -295,19 +306,14 @@ function renderWrapper(
       .map(([n]) => n),
   ];
 
-  const inactiveExpr = [
-    hasDisabled ? "props.disabled === true" : null,
-    hasLoading ? "props.loading === true" : null,
-  ]
+  const inactiveExpr = [hasDisabled ? "disabled" : null, hasLoading ? "loading" : null]
     .filter((p): p is string => p !== null)
     .join(" || ");
 
   const componentTag = hasAs ? "component" : (spec.element ?? "div");
-  const elementForIs = hasAs ? `:is="component"` : null;
 
-  const computedLines = [
-    hasAs ? `const component = computed(() => props.as ?? ${quote(spec.element ?? "div")});` : null,
-    hasDisabled && hasAs ? `const isButton = computed(() => component.value === "button");` : null,
+  const helperLines = [
+    hasDisabled && hasAs ? `const isButton = computed(() => as === "button");` : null,
     inactiveExpr ? `const inactive = computed(() => ${inactiveExpr});` : null,
   ]
     .filter((l): l is string => l !== null)
@@ -325,7 +331,7 @@ function renderWrapper(
 
   const bodyBlock = renderBody(spec, slots, hasLoading);
   const rootOpen = hasAs
-    ? `<component ${elementForIs} class="${rootClass}" v-bind="attrs">`
+    ? `<component :is="as" class="${rootClass}" v-bind="attrs">`
     : `<${componentTag} class="${rootClass}" v-bind="attrs">`;
   const rootClose = hasAs ? `</component>` : `</${componentTag}>`;
 
@@ -341,9 +347,10 @@ ${typeBlock}
 ${renderPropsType(spec, Name, sizeIsResponsive, breakpoints, propDescriptions)}
 
 ${renderPropsBlock(spec, Name)}
+
 ${renderSlotsType(slots)}
 
-${computedLines}
+${helperLines}
 
 const attrs = computed(() => ({
 ${attrEntries}

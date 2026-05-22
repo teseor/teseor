@@ -46,36 +46,39 @@ type ButtonProps = {
   block?: boolean | Partial<Record<"base" | "md" | "lg" | "xl" | "2xl", boolean>>;
 };
 
-const props = withDefaults(defineProps<ButtonProps>(), {
-  as: "button",
-  disabled: false,
-  loading: false,
-  block: false,
-});
+const {
+  variant,
+  intent,
+  size,
+  as = "button",
+  disabled = false,
+  loading = false,
+  block = false,
+} = defineProps<ButtonProps>();
+
 defineSlots<{
-  default?(): unknown;
-  iconStart?(): unknown;
-  iconEnd?(): unknown;
+  default?(): any;
+  iconStart?(): any;
+  iconEnd?(): any;
 }>();
 
-const component = computed(() => props.as ?? "button");
-const isButton = computed(() => component.value === "button");
-const inactive = computed(() => props.disabled === true || props.loading === true);
+const isButton = computed(() => as === "button");
+const inactive = computed(() => disabled || loading);
 
 const attrs = computed(() => ({
-    "data-variant": props.variant,
-    "data-intent": props.intent,
-    ...dataAttrs("size", props.size),
-    ...dataAttrs("block", props.block),
-    "data-loading": props.loading === true ? "true" : undefined,
-    disabled: isButton.value ? inactive.value : undefined,
-    "aria-disabled": !isButton.value && inactive.value ? "true" : undefined,
-    "aria-busy": props.loading === true ? "true" : undefined,
+  "data-variant": variant,
+  "data-intent": intent,
+  ...dataAttrs("size", size),
+  ...dataAttrs("block", block),
+  "data-loading": loading ? "true" : undefined,
+  disabled: isButton.value ? inactive.value : undefined,
+  "aria-disabled": !isButton.value && inactive.value ? "true" : undefined,
+  "aria-busy": loading ? "true" : undefined,
 }));
 </script>
 
 <template>
-  <component :is="component" class="t-button" v-bind="attrs">
+  <component :is="as" class="t-button" v-bind="attrs">
     <span v-if="$slots.iconStart" data-button-icon="" data-position="start">
       <slot name="iconStart" />
     </span>
