@@ -23,7 +23,7 @@ props: [size, variant, intent, disabled, loading, error, density, layout, align]
 variants: [solid, outline, ghost, link]
 
 # Intent values (semantic color role)
-intents: [neutral, accent, danger, success, warning, info]
+intents: [neutral, primary, danger, success, warning, info]
 
 # Sizes — t-shirt for component props
 sizes: [sm, md, lg]

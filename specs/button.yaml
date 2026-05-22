@@ -61,11 +61,16 @@ sizes:
       pad-x: --t-space-5
 
 states:
-  - hover
-  - focus
-  - active
-  - disabled
-  - loading
+  hover:
+    description: Pointer is over the button.
+  focus:
+    description: Keyboard focus is on the button; the focus ring is visible.
+  active:
+    description: Button is being pressed.
+  disabled:
+    description: Interaction is suppressed; the disabled visual state is applied.
+  loading:
+    description: A spinner replaces the label and interaction is suppressed; the original label stays in the accessibility tree.
 
 props:
   as:
@@ -120,6 +125,12 @@ tokens:
   dur:
     fallback: --t-dur-fast
     desc: Transition duration; multiplied by `--t-motion-scale` at the call site.
+  ease:
+    fallback: --t-ease-out
+    desc: Transition easing curve.
+  gap:
+    fallback: --t-space-2
+    desc: Inline spacing between label and icons.
 
 private:
   - --_h
