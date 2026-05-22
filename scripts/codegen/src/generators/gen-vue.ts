@@ -9,7 +9,7 @@ import type { Spec, SpecProp } from "./gen-contract.ts";
 
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..", "..", "..");
 const SPECS_DIR = resolve(REPO_ROOT, "specs");
-const REACT_SRC_DIR = resolve(REPO_ROOT, "packages", "react", "src");
+const VUE_SRC_DIR = resolve(REPO_ROOT, "packages", "vue", "src");
 const BREAKPOINTS_PATH = resolve(SPECS_DIR, "_breakpoints.yaml");
 
 const RESPONSIVE_ENUM_PROPS = new Set(["size"]);
@@ -54,92 +54,10 @@ function responsiveType(baseType: string, breakpoints: string[]): string {
   return `${baseType} | Partial<Record<${keys}, ${baseType}>>`;
 }
 
-function reactPropType(propName: string, propDef: SpecProp): string {
-  if (propName === "as") return "ElementType";
-  if (propDef.slot === true) return "ReactNode";
+function vuePropType(propName: string, propDef: SpecProp): string {
+  if (propName === "as") return "string";
+  if (propDef.slot === true) return "never";
   return mapPropType(propDef.type);
-}
-
-function renderEnumType(
-  Name: string,
-  kind: "Variant" | "Intent" | "Size",
-  values: string[],
-): string {
-  if (values.length === 0) return "";
-  return `type ${Name}${kind} = ${values.map(quote).join(" | ")};\n`;
-}
-
-function renderPropLine(
-  propName: string,
-  propDef: SpecProp,
-  breakpoints: string[],
-  propDescriptions: Record<string, string>,
-): string[] {
-  const baseType = reactPropType(propName, propDef);
-  const tsType = propDef.responsive === true ? responsiveType(baseType, breakpoints) : baseType;
-  const desc = propDef.description ?? propDescriptions[propName];
-  return [desc ? `  /** ${desc} */` : null, `  ${propName}?: ${tsType};`].filter(
-    (l): l is string => l !== null,
-  );
-}
-
-function renderCanonicalProp(
-  name: string,
-  tsType: string,
-  descriptions: Record<string, string>,
-): string[] {
-  const desc = descriptions[name];
-  return [desc ? `  /** ${desc} */` : null, `  ${name}?: ${tsType};`].filter(
-    (l): l is string => l !== null,
-  );
-}
-
-function renderOwnProps(
-  spec: Spec,
-  Name: string,
-  sizeIsResponsive: boolean,
-  breakpoints: string[],
-  propDescriptions: Record<string, string>,
-): string {
-  const sizeType = sizeIsResponsive ? responsiveType(`${Name}Size`, breakpoints) : `${Name}Size`;
-  const propLines = Object.entries(spec.props ?? {}).flatMap(([n, d]) =>
-    renderPropLine(n, d, breakpoints, propDescriptions),
-  );
-  const variantLines = spec.variants
-    ? renderCanonicalProp("variant", `${Name}Variant`, propDescriptions)
-    : [];
-  const intentLines = spec.intents
-    ? renderCanonicalProp("intent", `${Name}Intent`, propDescriptions)
-    : [];
-  const sizeLines = spec.sizes ? renderCanonicalProp("size", sizeType, propDescriptions) : [];
-  return [
-    `type ${Name}OwnProps = {`,
-    ...variantLines,
-    ...intentLines,
-    ...sizeLines,
-    ...propLines,
-    `  children?: ReactNode;`,
-    `  ref?: Ref<HTMLElement>;`,
-    `};`,
-  ].join("\n");
-}
-
-function renderDestructure(spec: Spec): string {
-  const propNames = Object.keys(spec.props ?? {}).map((n) => `    ${n},`);
-  return [
-    "  const {",
-    spec.variants ? `    variant,` : null,
-    spec.intents ? `    intent,` : null,
-    spec.sizes ? `    size,` : null,
-    ...propNames,
-    `    children,`,
-    `    ref,`,
-    `    className,`,
-    `    ...rest`,
-    `  } = props;`,
-  ]
-    .filter((l): l is string => l !== null)
-    .join("\n");
 }
 
 type SlotInfo = { propName: string; part: string; position?: "start" | "end" };
@@ -155,57 +73,65 @@ function parseSlot(propName: string): SlotInfo {
 }
 
 function collectSlots(spec: Spec): SlotInfo[] {
-  const slots: SlotInfo[] = [];
-  if (!spec.props) return slots;
-  for (const [propName, propDef] of Object.entries(spec.props)) {
-    if (propDef.slot === true) slots.push(parseSlot(propName));
-  }
-  return slots;
+  if (!spec.props) return [];
+  return Object.entries(spec.props)
+    .filter(([, def]) => def.slot === true)
+    .map(([name]) => parseSlot(name));
 }
 
-function renderDataAttrs(spec: Spec, responsiveProps: string[], hasLoading: boolean): string {
+function renderEnumType(
+  Name: string,
+  kind: "Variant" | "Intent" | "Size",
+  values: string[],
+): string {
+  if (values.length === 0) return "";
+  return `type ${Name}${kind} = ${values.map(quote).join(" | ")};\n`;
+}
+
+function renderCanonicalProp(
+  name: string,
+  tsType: string,
+  descriptions: Record<string, string>,
+): string[] {
+  const desc = descriptions[name];
+  return [desc ? `  /** ${desc} */` : null, `  ${name}?: ${tsType};`].filter(
+    (l): l is string => l !== null,
+  );
+}
+
+function renderPropsType(
+  spec: Spec,
+  Name: string,
+  sizeIsResponsive: boolean,
+  breakpoints: string[],
+  propDescriptions: Record<string, string>,
+): string {
+  const sizeType = sizeIsResponsive ? responsiveType(`${Name}Size`, breakpoints) : `${Name}Size`;
+  const lines = Object.entries(spec.props ?? {})
+    .filter(([, def]) => def.slot !== true)
+    .flatMap(([propName, propDef]) => {
+      const baseType = vuePropType(propName, propDef);
+      const tsType = propDef.responsive === true ? responsiveType(baseType, breakpoints) : baseType;
+      const desc = propDef.description ?? propDescriptions[propName];
+      return [desc ? `  /** ${desc} */` : null, `  ${propName}?: ${tsType};`].filter(
+        (l): l is string => l !== null,
+      );
+    });
+  const variantLines = spec.variants
+    ? renderCanonicalProp("variant", `${Name}Variant`, propDescriptions)
+    : [];
+  const intentLines = spec.intents
+    ? renderCanonicalProp("intent", `${Name}Intent`, propDescriptions)
+    : [];
+  const sizeLines = spec.sizes ? renderCanonicalProp("size", sizeType, propDescriptions) : [];
   return [
-    spec.variants ? `      data-variant={variant}` : null,
-    spec.intents ? `      data-intent={intent}` : null,
-    ...responsiveProps.map((name) => `      {...responsiveDataAttrs(${quote(name)}, ${name})}`),
-    hasLoading ? `      data-loading={loading === true ? "true" : undefined}` : null,
-  ]
-    .filter((line): line is string => line !== null)
-    .join("\n");
-}
-
-function renderStateAttrs(hasAs: boolean, hasDisabled: boolean, hasLoading: boolean): string {
-  return [
-    hasDisabled && hasAs ? `      disabled={isButton ? inactive : undefined}` : null,
-    hasDisabled && hasAs
-      ? `      aria-disabled={!isButton && inactive ? "true" : undefined}`
-      : null,
-    hasDisabled && !hasAs ? `      disabled={inactive}` : null,
-    hasLoading ? `      aria-busy={loading === true ? "true" : undefined}` : null,
-  ]
-    .filter((line): line is string => line !== null)
-    .join("\n");
-}
-
-function renderSlot(spec: Spec, slot: SlotInfo): string {
-  const posAttr = slot.position ? ` data-position="${slot.position}"` : "";
-  return `      {${slot.propName} != null ? (
-        <span data-${spec.name}-${slot.part}=""${posAttr}>
-          {${slot.propName}}
-        </span>
-      ) : null}`;
-}
-
-function renderBody(spec: Spec, slots: SlotInfo[], hasLoading: boolean): string {
-  return [
-    ...slots.filter((s) => s.position === "start").map((s) => renderSlot(spec, s)),
-    ...slots.filter((s) => s.position === undefined).map((s) => renderSlot(spec, s)),
-    hasLoading ? `      <span data-${spec.name}-label="">{children}</span>` : `      {children}`,
-    ...slots.filter((s) => s.position === "end").map((s) => renderSlot(spec, s)),
-    hasLoading ? `      <span data-${spec.name}-spinner="" aria-hidden="true" />` : null,
-  ]
-    .filter((line): line is string => line !== null)
-    .join("\n");
+    `type ${Name}Props = {`,
+    ...variantLines,
+    ...intentLines,
+    ...sizeLines,
+    ...lines,
+    `};`,
+  ].join("\n");
 }
 
 function renderExampleProps(props: Record<string, unknown> | undefined): string {
@@ -214,7 +140,7 @@ function renderExampleProps(props: Record<string, unknown> | undefined): string 
     .map(([k, v]) => {
       if (typeof v === "string") return ` ${k}=${quote(v)}`;
       if (typeof v === "boolean" && v === true) return ` ${k}`;
-      return ` ${k}={${JSON.stringify(v)}}`;
+      return ` :${k}="${JSON.stringify(v)}"`;
     })
     .join("");
 }
@@ -234,7 +160,7 @@ function renderExampleBlock(
   const title = example.id ? ` ${titleCase(example.id)}` : "";
   return [
     ` * @example${title}`,
-    ` * \`\`\`tsx`,
+    ` * \`\`\`vue`,
     ` * <${Name}${propString}>Label</${Name}>`,
     ` * \`\`\``,
   ];
@@ -253,103 +179,83 @@ function renderComponentJsDoc(spec: Spec, Name: string): string {
     lines.push(...renderExampleBlock(example, Name));
   }
   lines.push(" */");
-  return `${lines.join("\n")}\n`;
+  return lines.join("\n");
 }
 
-function renderWrapper(
-  spec: Spec,
-  breakpoints: string[],
-  propDescriptions: Record<string, string>,
-): string {
-  const Name = pascalCase(spec.name);
-  const rootClass = spec.rootClass ?? `t-${spec.name}`;
-  const propMap = spec.props ?? {};
-  const hasAs = "as" in propMap;
-  const hasDisabled = "disabled" in propMap;
-  const hasLoading = "loading" in propMap;
-  const slots = collectSlots(spec);
-
-  const sizeIsResponsive = Boolean(spec.sizes) && RESPONSIVE_ENUM_PROPS.has("size");
-  const responsiveProps: string[] = [
-    ...(sizeIsResponsive ? ["size"] : []),
-    ...Object.entries(propMap)
-      .filter(([, d]) => d.responsive === true)
-      .map(([n]) => n),
+function renderPropsBlock(spec: Spec, Name: string): string {
+  const nonSlotProps = Object.entries(spec.props ?? {}).filter(([, def]) => def.slot !== true);
+  const enumPropNames: string[] = [];
+  if (spec.variants) enumPropNames.push("variant");
+  if (spec.intents) enumPropNames.push("intent");
+  if (spec.sizes) enumPropNames.push("size");
+  if (enumPropNames.length === 0 && nonSlotProps.length === 0) {
+    return `defineProps<${Name}Props>();`;
+  }
+  const lines = [
+    ...enumPropNames.map((n) => `  ${n},`),
+    ...nonSlotProps.map(([name, def]) => {
+      if (def.default !== undefined && def.default !== null) {
+        const v = def.default;
+        const value = typeof v === "string" ? quote(v as string) : String(v);
+        return `  ${name} = ${value},`;
+      }
+      return `  ${name},`;
+    }),
   ];
+  return `const {
+${lines.join("\n")}
+} = defineProps<${Name}Props>();`;
+}
 
-  const inactiveExpr = [
-    hasDisabled ? "disabled === true" : null,
-    hasLoading ? "loading === true" : null,
-  ]
-    .filter((p): p is string => p !== null)
-    .join(" || ");
+function renderSlotsType(slots: SlotInfo[]): string {
+  const slotLines = slots.map((s) => `  ${s.propName}?(): VNode[];`);
+  return [`defineSlots<{`, `  default?(): VNode[];`, ...slotLines, `}>();`].join("\n");
+}
 
-  const rootExpr = hasAs ? `as ?? ${quote(spec.element ?? "div")}` : quote(spec.element ?? "div");
-  const componentTag = hasAs ? "Component" : (spec.element ?? "div");
-
-  const helperBlock = [
-    hasAs ? `  const Component = ${rootExpr};` : null,
-    hasDisabled && hasAs ? `  const isButton = Component === "button";` : null,
-    inactiveExpr ? `  const inactive = ${inactiveExpr};` : null,
-    `  const mergedClassName = className ? \`${rootClass} \${className}\` : "${rootClass}";`,
+function renderAttrEntries(
+  spec: Spec,
+  responsiveProps: string[],
+  hasLoading: boolean,
+  hasDisabled: boolean,
+  hasAs: boolean,
+): string {
+  return [
+    spec.variants ? `  "data-variant": variant,` : null,
+    spec.intents ? `  "data-intent": intent,` : null,
+    ...responsiveProps.map((name) => `  ...responsiveDataAttrs(${quote(name)}, ${name}),`),
+    hasLoading ? `  "data-loading": loading ? "true" : undefined,` : null,
+    hasDisabled && hasAs ? `  disabled: isButton.value ? inactive.value : undefined,` : null,
+    hasDisabled && hasAs
+      ? `  "aria-disabled": !isButton.value && inactive.value ? "true" : undefined,`
+      : null,
+    hasDisabled && !hasAs ? `  disabled: inactive.value,` : null,
+    hasLoading ? `  "aria-busy": loading ? "true" : undefined,` : null,
   ]
     .filter((l): l is string => l !== null)
     .join("\n");
-
-  const attrBlock = [
-    `      {...rest}`,
-    `      ref={ref}`,
-    `      className={mergedClassName}`,
-    renderDataAttrs(spec, responsiveProps, hasLoading) || null,
-    renderStateAttrs(hasAs, hasDisabled, hasLoading) || null,
-  ]
-    .filter((l): l is string => l !== null && l !== "")
-    .join("\n");
-
-  const typeBlock = [
-    renderEnumType(Name, "Variant", Object.keys(spec.variants ?? {})),
-    renderEnumType(Name, "Intent", Object.keys(spec.intents ?? {})),
-    renderEnumType(Name, "Size", Object.keys(spec.sizes ?? {})),
-  ]
-    .filter(Boolean)
-    .join("\n");
-
-  const bodyBlock = renderBody(spec, slots, hasLoading);
-
-  return `"use client";
-
-// AUTOGENERATED by gen-react. Do not edit.
-// Source: specs/${spec.name}.yaml
-
-import "@teseor/css/components/${spec.name}.css";
-import type { ComponentProps${hasAs ? ", ElementType" : ""}, ReactNode, Ref } from "react";
-import { responsiveDataAttrs } from "./_runtime.ts";
-
-${typeBlock}
-${renderOwnProps(spec, Name, sizeIsResponsive, breakpoints, propDescriptions)}
-
-export type ${Name}Props = Readonly<
-  ${Name}OwnProps & Omit<ComponentProps<"${spec.element ?? "div"}">, keyof ${Name}OwnProps>
->;
-
-${renderComponentJsDoc(spec, Name)}export function ${Name}(props: ${Name}Props) {
-${renderDestructure(spec)}
-
-${helperBlock}
-
-  return (
-    <${componentTag}
-${attrBlock}
-    >
-${bodyBlock}
-    </${componentTag}>
-  );
 }
-`;
+
+function renderSlot(spec: Spec, slot: SlotInfo): string {
+  const posAttr = slot.position ? ` data-position="${slot.position}"` : "";
+  return `    <span v-if="$slots.${slot.propName}" data-${spec.name}-${slot.part}=""${posAttr}>
+      <slot name="${slot.propName}" />
+    </span>`;
+}
+
+function renderBody(spec: Spec, slots: SlotInfo[], hasLoading: boolean): string {
+  return [
+    ...slots.filter((s) => s.position === "start").map((s) => renderSlot(spec, s)),
+    ...slots.filter((s) => s.position === undefined).map((s) => renderSlot(spec, s)),
+    hasLoading ? `    <span data-${spec.name}-label=""><slot /></span>` : `    <slot />`,
+    ...slots.filter((s) => s.position === "end").map((s) => renderSlot(spec, s)),
+    hasLoading ? `    <span data-${spec.name}-spinner="" aria-hidden="true" />` : null,
+  ]
+    .filter((l): l is string => l !== null)
+    .join("\n");
 }
 
 function renderCssShim(): string {
-  return `// AUTOGENERATED by gen-react. Do not edit.
+  return `// AUTOGENERATED by gen-vue. Do not edit.
 
 declare module "*.css";
 `;
@@ -357,7 +263,7 @@ declare module "*.css";
 
 function renderRuntime(breakpoints: string[]): string {
   const keys = ["base", ...breakpoints].map(quote).join(", ");
-  return `// AUTOGENERATED by gen-react. Do not edit.
+  return `// AUTOGENERATED by gen-vue. Do not edit.
 
 const RESPONSIVE_KEYS = [${keys}] as const;
 
@@ -382,6 +288,96 @@ export function responsiveDataAttrs(
 `;
 }
 
+function renderWrapper(
+  spec: Spec,
+  breakpoints: string[],
+  propDescriptions: Record<string, string>,
+): string {
+  const Name = pascalCase(spec.name);
+  const rootClass = spec.rootClass ?? `t-${spec.name}`;
+  const propMap = spec.props ?? {};
+  const hasAs = "as" in propMap;
+  const hasDisabled = "disabled" in propMap;
+  const hasLoading = "loading" in propMap;
+  const slots = collectSlots(spec);
+
+  const sizeIsResponsive = Boolean(spec.sizes) && RESPONSIVE_ENUM_PROPS.has("size");
+  const responsiveProps: string[] = [
+    ...(sizeIsResponsive ? ["size"] : []),
+    ...Object.entries(propMap)
+      .filter(([, d]) => d.responsive === true)
+      .map(([n]) => n),
+  ];
+
+  const inactiveExpr = [hasDisabled ? "disabled" : null, hasLoading ? "loading" : null]
+    .filter((p): p is string => p !== null)
+    .join(" || ");
+
+  const componentTag = hasAs ? "component" : (spec.element ?? "div");
+
+  const helperLines = [
+    hasDisabled && hasAs ? `const isButton = computed(() => as === "button");` : null,
+    inactiveExpr ? `const inactive = computed(() => ${inactiveExpr});` : null,
+  ]
+    .filter((l): l is string => l !== null)
+    .join("\n");
+
+  const attrEntries = renderAttrEntries(spec, responsiveProps, hasLoading, hasDisabled, hasAs);
+
+  const typeBlock = [
+    renderEnumType(Name, "Variant", Object.keys(spec.variants ?? {})),
+    renderEnumType(Name, "Intent", Object.keys(spec.intents ?? {})),
+    renderEnumType(Name, "Size", Object.keys(spec.sizes ?? {})),
+  ]
+    .filter(Boolean)
+    .join("\n");
+
+  const bodyBlock = renderBody(spec, slots, hasLoading);
+  const rootOpen = hasAs
+    ? `<component :is="as" class="${rootClass}" v-bind="attrs">`
+    : `<${componentTag} class="${rootClass}" v-bind="attrs">`;
+  const rootClose = hasAs ? `</component>` : `</${componentTag}>`;
+
+  return `<!-- AUTOGENERATED by gen-vue. Do not edit. -->
+<!-- Source: specs/${spec.name}.yaml -->
+<script setup lang="ts">
+${renderComponentJsDoc(spec, Name)}
+import "@teseor/css/components/${spec.name}.css";
+import { computed, type VNode } from "vue";
+import { responsiveDataAttrs } from "./_runtime.ts";
+
+${typeBlock}
+${renderPropsType(spec, Name, sizeIsResponsive, breakpoints, propDescriptions)}
+
+${renderPropsBlock(spec, Name)}
+
+${renderSlotsType(slots)}
+
+${helperLines}
+
+const attrs = computed(() => ({
+${attrEntries}
+}));
+</script>
+
+<template>
+  ${rootOpen}
+${bodyBlock}
+  ${rootClose}
+</template>
+`;
+}
+
+function renderBarrel(names: string[]): string {
+  const lines = ["// AUTOGENERATED by gen-vue. Do not edit.", ""];
+  for (const name of names) {
+    const Name = pascalCase(name);
+    lines.push(`export { default as ${Name} } from "./${Name}.vue";`);
+  }
+  lines.push("");
+  return lines.join("\n");
+}
+
 function renderReadme(specs: Spec[]): string {
   const componentList = specs
     .map((spec) => {
@@ -394,23 +390,23 @@ function renderReadme(specs: Spec[]): string {
   const firstSpec = specs[0];
   const exampleName = firstSpec ? pascalCase(firstSpec.name) : "Button";
 
-  return `<!-- AUTOGENERATED by gen-react. Do not edit. -->
+  return `<!-- AUTOGENERATED by gen-vue. Do not edit. -->
 
-# @teseor/react
+# @teseor/vue
 
-React wrappers for Teseor components. Generated from \`specs/*.yaml\`.
+Vue 3 wrappers for Teseor components. Generated from \`specs/*.yaml\`.
 
 ## Install
 
 \`\`\`
-pnpm add @teseor/react @teseor/css react
+pnpm add @teseor/vue @teseor/css vue
 \`\`\`
 
 ## Setup
 
 Import the CSS foundation once in your app entry. Components pull in their own per-component CSS automatically.
 
-\`\`\`tsx
+\`\`\`ts
 import "@teseor/css/reset.css";
 import "@teseor/css/tokens.css";
 import "@teseor/css/base.css";
@@ -419,12 +415,16 @@ import "@teseor/css/utilities.css";
 
 ## Usage
 
-\`\`\`tsx
-import { ${exampleName} } from "@teseor/react";
+\`\`\`vue
+<script setup lang="ts">
+import { ${exampleName} } from "@teseor/vue";
+</script>
 
-<${exampleName} variant="solid" intent="primary" onClick={save}>
-  Save
-</${exampleName}>
+<template>
+  <${exampleName} variant="solid" intent="primary" @click="save">
+    Save
+  </${exampleName}>
+</template>
 \`\`\`
 
 ## Components
@@ -435,22 +435,10 @@ ${componentList}
 
 Component behavior is verified framework-agnostically against the rendered DOM, in \`tests/<name>/\` (Playwright). The wrapper code itself is autogenerated; correctness of the emission is verified by snapshot tests in \`scripts/codegen/__tests__/\`.
 
-Per-framework unit tests are not used — the DOM is the contract, and the same behavior tests run against every wrapper.
-
 ## Generated content
 
-Files in \`src/\` are autogenerated from \`specs/*.yaml\`. Do not edit them — your changes will be overwritten on the next \`pnpm gen\`. The generator is \`scripts/codegen/src/generators/gen-react.ts\`.
+Files in \`src/\` are autogenerated from \`specs/*.yaml\`. Do not edit them. The generator is \`scripts/codegen/src/generators/gen-vue.ts\`.
 `;
-}
-
-function renderBarrel(names: string[]): string {
-  const lines = ["// AUTOGENERATED by gen-react. Do not edit.", ""];
-  for (const name of names) {
-    const Name = pascalCase(name);
-    lines.push(`export { ${Name}, type ${Name}Props } from "./${Name}.tsx";`);
-  }
-  lines.push("");
-  return lines.join("\n");
 }
 
 async function loadSpec(name: string): Promise<Spec> {
@@ -478,44 +466,44 @@ async function emitWrapper(
 ): Promise<string> {
   const spec = await loadSpec(name);
   const content = renderWrapper(spec, breakpoints, propDescriptions);
-  const outPath = resolve(REACT_SRC_DIR, `${pascalCase(name)}.tsx`);
-  await mkdir(REACT_SRC_DIR, { recursive: true });
-  await writeFile(outPath, content, "utf8");
-  return outPath;
-}
-
-async function emitBarrel(names: string[]): Promise<string> {
-  const content = renderBarrel(names);
-  const outPath = resolve(REACT_SRC_DIR, `index.ts`);
-  await mkdir(REACT_SRC_DIR, { recursive: true });
+  const outPath = resolve(VUE_SRC_DIR, `${pascalCase(name)}.vue`);
+  await mkdir(VUE_SRC_DIR, { recursive: true });
   await writeFile(outPath, content, "utf8");
   return outPath;
 }
 
 async function emitRuntime(breakpoints: string[]): Promise<string> {
   const content = renderRuntime(breakpoints);
-  const outPath = resolve(REACT_SRC_DIR, `_runtime.ts`);
-  await mkdir(REACT_SRC_DIR, { recursive: true });
+  const outPath = resolve(VUE_SRC_DIR, `_runtime.ts`);
+  await mkdir(VUE_SRC_DIR, { recursive: true });
   await writeFile(outPath, content, "utf8");
   return outPath;
 }
 
 async function emitCssShim(): Promise<string> {
   const content = renderCssShim();
-  const outPath = resolve(REACT_SRC_DIR, `_css.d.ts`);
-  await mkdir(REACT_SRC_DIR, { recursive: true });
+  const outPath = resolve(VUE_SRC_DIR, `_css.d.ts`);
+  await mkdir(VUE_SRC_DIR, { recursive: true });
+  await writeFile(outPath, content, "utf8");
+  return outPath;
+}
+
+async function emitBarrel(names: string[]): Promise<string> {
+  const content = renderBarrel(names);
+  const outPath = resolve(VUE_SRC_DIR, `index.ts`);
+  await mkdir(VUE_SRC_DIR, { recursive: true });
   await writeFile(outPath, content, "utf8");
   return outPath;
 }
 
 async function emitReadme(specs: Spec[]): Promise<string> {
   const content = renderReadme(specs);
-  const outPath = resolve(REPO_ROOT, "packages", "react", "README.md");
+  const outPath = resolve(REPO_ROOT, "packages", "vue", "README.md");
   await writeFile(outPath, content, "utf8");
   return outPath;
 }
 
-async function reactGenerator(ctx: GeneratorContext): Promise<GeneratorReport> {
+async function vueGenerator(ctx: GeneratorContext): Promise<GeneratorReport> {
   const requested = ctx.positionals[0];
   const allNames = await listSpecNames();
   const targets = requested ? [requested] : allNames;
@@ -528,29 +516,29 @@ async function reactGenerator(ctx: GeneratorContext): Promise<GeneratorReport> {
   for (const name of targets) {
     const path = await emitWrapper(name, breakpoints, propDescriptions);
     filesWritten.push(path);
-    notes.push(`react: ${name} -> ${path.replace(`${REPO_ROOT}/`, "")}`);
+    notes.push(`vue: ${name} -> ${path.replace(`${REPO_ROOT}/`, "")}`);
   }
 
   const runtimePath = await emitRuntime(breakpoints);
   filesWritten.push(runtimePath);
-  notes.push(`react: runtime -> ${runtimePath.replace(`${REPO_ROOT}/`, "")}`);
+  notes.push(`vue: runtime -> ${runtimePath.replace(`${REPO_ROOT}/`, "")}`);
 
   const cssShimPath = await emitCssShim();
   filesWritten.push(cssShimPath);
-  notes.push(`react: css-shim -> ${cssShimPath.replace(`${REPO_ROOT}/`, "")}`);
+  notes.push(`vue: css-shim -> ${cssShimPath.replace(`${REPO_ROOT}/`, "")}`);
 
   const barrelPath = await emitBarrel(allNames);
   filesWritten.push(barrelPath);
-  notes.push(`react: barrel -> ${barrelPath.replace(`${REPO_ROOT}/`, "")}`);
+  notes.push(`vue: barrel -> ${barrelPath.replace(`${REPO_ROOT}/`, "")}`);
 
   const allSpecs = await Promise.all(allNames.map(loadSpec));
   const readmePath = await emitReadme(allSpecs);
   filesWritten.push(readmePath);
-  notes.push(`react: readme -> ${readmePath.replace(`${REPO_ROOT}/`, "")}`);
+  notes.push(`vue: readme -> ${readmePath.replace(`${REPO_ROOT}/`, "")}`);
 
   return { filesWritten, notes };
 }
 
-registerGenerator("react", reactGenerator);
+registerGenerator("vue", vueGenerator);
 
 export { renderBarrel, renderCssShim, renderReadme, renderRuntime, renderWrapper };

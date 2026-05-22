@@ -67,6 +67,21 @@ props:
   - layout
   - align
 
+# Canonical descriptions for props with fixed meaning across components.
+# Per-spec props override these in spec.props.<name>.description.
+propDescriptions:
+  variant: Visual style.
+  intent: Semantic color.
+  size: Size scale.
+  density: Visual density.
+  layout: Layout direction.
+  align: Cross-axis alignment.
+  gap: Child spacing (--t-space-* scale).
+  justify: Main-axis distribution.
+  disabled: Disables interaction.
+  loading: Shows loading; disables interaction.
+  error: Error state.
+
 # Variant values (visual hierarchy).
 variants:
   - solid

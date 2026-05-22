@@ -5,7 +5,7 @@
 
 import "@teseor/css/components/button.css";
 import type { ComponentProps, ElementType, ReactNode, Ref } from "react";
-import { dataAttrs } from "./_runtime.ts";
+import { responsiveDataAttrs } from "./_runtime.ts";
 
 type ButtonVariant = "solid" | "outline" | "ghost" | "link";
 
@@ -14,8 +14,11 @@ type ButtonIntent = "primary" | "neutral" | "success" | "warning" | "danger";
 type ButtonSize = "sm" | "md" | "lg";
 
 type ButtonOwnProps = {
+  /** Visual style. */
   variant?: ButtonVariant;
+  /** Semantic color. */
   intent?: ButtonIntent;
+  /** Size scale. */
   size?: ButtonSize | Partial<Record<"base" | "md" | "lg" | "xl" | "2xl", ButtonSize>>;
   /** Polymorphic root element. Defaults to `button`; set to `a` for link-shaped triggers (paired with `variant: link`). */
   as?: ElementType;
@@ -37,6 +40,24 @@ export type ButtonProps = Readonly<
   ButtonOwnProps & Omit<ComponentProps<"button">, keyof ButtonOwnProps>
 >;
 
+/**
+ * A trigger that performs an action when activated.
+ *
+ * @example Solid Primary
+ * ```tsx
+ * <Button variant="solid" intent="primary">Label</Button>
+ * ```
+ *
+ * @example Solid Danger Md
+ * ```tsx
+ * <Button variant="solid" intent="danger" size="md">Label</Button>
+ * ```
+ *
+ * @example Outline Neutral
+ * ```tsx
+ * <Button variant="outline" intent="neutral">Label</Button>
+ * ```
+ */
 export function Button(props: ButtonProps) {
   const {
     variant,
@@ -66,8 +87,8 @@ export function Button(props: ButtonProps) {
       className={mergedClassName}
       data-variant={variant}
       data-intent={intent}
-      {...dataAttrs("size", size)}
-      {...dataAttrs("block", block)}
+      {...responsiveDataAttrs("size", size)}
+      {...responsiveDataAttrs("block", block)}
       data-loading={loading === true ? "true" : undefined}
       disabled={isButton ? inactive : undefined}
       aria-disabled={!isButton && inactive ? "true" : undefined}
