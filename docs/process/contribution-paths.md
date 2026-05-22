@@ -41,8 +41,7 @@ an existing one.
 - Spec follows the schema and uses canonical vocabulary (`_vocabulary.yaml`).
 - CSS obeys hard rules (`rules/hard-rules.md`), motion rules
   (`rules/motion.md`), and the responsive contract (`rules/responsive.md`).
-- a11y: keyboard map + ARIA contract listed in spec match what the Playwright
-  - axe tests assert.
+- a11y: keyboard map + ARIA contract listed in spec match what the Playwright + axe tests assert.
 - Visual snapshots: new examples have baselines; existing baselines unchanged.
 - Bundle delta is reasonable for the added surface.
 

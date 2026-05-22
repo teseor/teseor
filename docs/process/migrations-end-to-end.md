@@ -92,7 +92,7 @@ Pick the affected packages (the whole `@teseor/*` fixed group bumps
 together — see `process/release.md`). Pick **major**. Write the
 changeset entry with a `migration:` block:
 
-```md
+````md
 ---
 "@teseor/css": major
 "@teseor/react": major
@@ -109,18 +109,16 @@ migration: |
 
   Codemod available:
 
+  ```bash
+  npx @teseor/codemods/<from>-to-<to> --rule=class-rename
   ```
-
-  npx @teseor/codemods/`<from>`-to-`<to>` --rule=class-rename
-
-  ```md
 
   The codemod rewrites `.t-btn` occurrences in `.html`, `.tsx`, `.jsx`,
   `.vue`, `.svelte`, and `.css` files under the working directory.
 ---
 
 Renames the Button root class to align with the spec contract.
-```
+````
 
 The build step concatenates every breaking changeset's `migration:` block
 into one document at `docs/migrations/v<from>-to-v<to>.md` on release. See
