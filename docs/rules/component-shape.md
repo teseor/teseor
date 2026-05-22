@@ -1,82 +1,73 @@
 # Component shape
 
-Every component is one CSS file. It looks like this — every line is intentional.
+Every component is one CSS file. `components.tokens` is the component's complete
+mutable surface; the base reads it; modifiers and states only reassign it
+(ADR-0008). Trimmed example:
 
 ```css
-/* packages/css/src/components/button/button.css */
+/* packages/css/src/components/button/button.css — trimmed */
 
 @layer components.tokens {
   .t-button {
-    /* Component-private tokens. Authored as two var() levels;
-       the build inlines a third literal floor from tokens.css. ADR-0003. */
-    --_h:     var(--t-button-height,  var(--t-row));
-    --_bg:    var(--t-button-bg,      var(--t-accent));
-    --_fg:    var(--t-button-fg,      var(--t-on-accent));
-    --_pad-x: var(--t-button-pad-x,   var(--t-pad-x));
-    --_radius:var(--t-button-radius,  var(--t-radius-md));
-    --_dur:   var(--t-button-dur,     var(--t-dur-fast));
+    /* The complete mutable surface. A public slot falls back to a semantic
+       token; the build inlines a literal floor as the third tier. */
+    --_h:       var(--t-button-height, var(--t-row-3));
+    --_fill:    var(--t-button-bg, var(--t-accent));
+    --_on-fill: var(--t-button-fg, var(--t-on-accent));
+    --_bg:      var(--_fill);
+    --_fg:      var(--_on-fill);
   }
 }
 
 @layer components.styles {
-  /* Box-size the component and its own named parts — never `*`. A
-     universal descendant reaches consumer content and nested components.
-     Enforced by Stylelint (selector-max-universal: 0). */
-  .t-button,
-  .t-button [data-button-label],
-  .t-button [data-button-spinner] {
-    box-sizing: border-box;
-  }
-
   .t-button {
+    box-sizing: border-box;
+    margin: 0;                       /* owns its box model — never the reset */
     display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--t-space-2);
-
     block-size: var(--_h);
-    padding-inline: var(--_pad-x);
-    padding-block: 0;
-
-    background: var(--_bg);
+    background: var(--_bg);          /* the base reads --_* vars */
     color: var(--_fg);
-    border: 0;
-    border-radius: var(--_radius);
 
-    font: inherit;
-    cursor: pointer;
-    transition:
-      background-color calc(var(--_dur) * var(--t-motion-scale)) var(--t-ease-out),
-      transform        calc(var(--_dur) * var(--t-motion-scale)) var(--t-ease-out);
-  }
+    & [data-button-label] {          /* box-size own named parts, never `& *` */
+      box-sizing: border-box;
+    }
 
-  .t-button:where([data-variant="outline"]) {
-    background: transparent;
-    box-shadow: inset 0 0 0 1px currentcolor;
-    color: var(--_bg);
-  }
+    &:where([data-intent="danger"]) {
+      --_fill: var(--t-danger);      /* a modifier reassigns vars only */
+      --_on-fill: var(--t-on-danger);
+    }
 
-  .t-button:focus-visible {
-    outline: 2px solid var(--t-focus-ring);
-    outline-offset: 2px;
-  }
+    &:where(:hover):not([disabled], [aria-disabled="true"]) {
+      --_bg: color-mix(in oklch, var(--_fill) 92%, black);
+    }
 
-  .t-button:is([disabled], [aria-disabled="true"]) {
-    cursor: not-allowed;
-    opacity: 0.6;
+    &:focus-visible {
+      outline: 2px solid var(--t-focus-ring);  /* fixed structure — direct */
+      outline-offset: 2px;
+    }
   }
 }
 ```
 
-## Anatomy
+## The model
 
-1. **Two sublayers.** `components.tokens` declares `--_*` variables on the root selector. `components.styles` writes rule bodies. Splitting them lets themes override token values without specificity wars (see `architecture/layer-order.md`).
-2. **Box-sizing — self and named parts.** A component box-sizes itself and its own named parts (`[data-<name>-*]`) — never a universal descendant (`.t-component *`), which reaches consumer content and nested components. A layout primitive (Stack, Cluster) has no internal parts and box-sizes only itself. Stylelint's `selector-max-universal: 0` enforces it on component CSS.
-3. **Three-tier `var()` chain at runtime.** Authored as `var(--t-button-x, var(--t-semantic))`; the build inlines the resolved literal from `tokens.css` as the third position, so the shipped CSS is `var(--t-button-x, var(--t-semantic, <literal>))`. Changing a design value is one edit in `tokens.css` (ADR-0003). The literal floor is the failsafe — if both tokens are absent the component still renders correctly.
-4. **Logical properties.** `block-size`, `padding-inline`, `padding-block`. No `width`, `height`, `padding-left`, `padding-right`.
-5. **Motion via tokens × scale.** Every transition multiplies the duration token by `var(--t-motion-scale)`. Apps that set `--t-motion-scale: 0` get instant transitions.
-6. **`:where()` for variant selectors.** Specificity stays at `0,1,0` regardless of how many variants stack. Stylelint's specificity cap (rule 7) lets this stay clean.
-7. **`:is([disabled], [aria-disabled="true"])`** — covers both real `<button disabled>` and ARIA-disabled non-button elements.
+1. **`components.tokens` declares every mutable value** as a `--_*` custom property on the root. If a value varies — across variants, intents, sizes, states, or themes — it is a token here. The block is the component's manifest of everything it exposes.
+2. **The base class and descendant selectors declare the properties**, each reading a `--_*` var (`background: var(--_bg)`). The base is a "var manifold" — that is the intended shape, not a smell.
+3. **`[data-*]` modifiers reassign vars only.** `&:where([data-intent="danger"])` is a block of `--_*` reassignments — never a real property. Because modifiers only move tokens, stacking `variant + intent + size` is conflict-free: `:where()` flattens specificity, source order settles "last wins" per token, non-colliding tokens never interact.
+4. **State rules** (`:hover`, `:focus-visible`, `[disabled]`, …) reassign vars for what they change. Genuinely-fixed structure — the focus outline — may be declared directly.
+
+`scripts/check-component-css.ts` enforces points 3, 6, and 8.
+
+## Conventions
+
+5. **Two sublayers.** `components.tokens` declares the `--_*` vars; `components.styles` writes the rule bodies. Splitting them lets themes override token values without specificity wars (`architecture/layer-order.md`).
+6. **A component owns its box model.** It declares its own `box-sizing` and `margin` on the root — never leaning on `reset.css`. A `<button>` carries a UA margin; the component zeroes it. The acid test is "renders correctly with only its own file loaded."
+7. **Box-sizing — self and named parts.** A component box-sizes itself and its own named parts (`[data-<name>-*]`) — never a universal descendant (`& *`), which reaches consumer content and nested components. A layout primitive (Stack, Cluster) has no internal parts and box-sizes only itself. Stylelint's `selector-max-universal: 0` enforces it.
+8. **Token references — real token or own slot.** Every `--t-*` a component reads is either declared in `tokens.css` or matches `--t-{component}-*`, its public override slot. Nothing else — a typo'd `--t-buton-bg` is otherwise indistinguishable from a real slot.
+9. **Three-tier `var()` chain at runtime.** A public token reads `var(--t-button-x, var(--t-semantic))`; the build inlines the resolved literal from `tokens.css` as the third position (ADR-0003), so the shipped CSS is `var(--t-button-x, var(--t-semantic, <literal>))`. The literal floor is the failsafe — if both tokens are absent the component still renders.
+10. **Logical properties.** `block-size`, `padding-inline`, `padding-block`. No `width`, `height`, `padding-left`, `padding-right`.
+11. **Motion via tokens × scale.** Every transition multiplies the duration token by `var(--t-motion-scale)`. Apps that set `--t-motion-scale: 0` get instant transitions.
+12. **`:where()` for modifier selectors** keeps specificity at `0,1,0` however many modifiers stack. **`:is([disabled], [aria-disabled="true"])`** covers both real `<button disabled>` and ARIA-disabled non-button elements.
 
 ## What's not in the component
 
@@ -160,14 +151,15 @@ We do NOT cap dependency depth. A composite may depend on other composites. The 
 
 > Would the **shipped** form of this file render correctly with nothing else loaded?
 
-After the build inlines the literal floors, the answer for an atomic component must be **yes** — the third-tier literal in every `var()` chain is the failsafe. `tokens.css` and theme files only improve the result; their absence doesn't break it.
+After the build inlines the literal floors, the answer for an atomic component must be **yes** — the third-tier literal in every `var()` chain is the failsafe, and the component declares its own box model. `tokens.css`, `reset.css`, and theme files only improve the result; their absence doesn't break it.
 
 For a composite, the answer is "yes if its declared dependencies (per `specs/<name>.yaml`) are also loaded."
 
 Failure modes the test catches:
 
 - `var(--something)` with no fallback (single-tier) — fails the test, fails Stylelint.
+- A `--t-*` referenced in the component but not declared in `tokens.css` and not the component's own `--t-{component}-*` slot — fails `check-component-css.ts`.
+- A `[data-*]` modifier that declares a real property — fails `check-component-css.ts`.
+- A root missing `box-sizing` or `margin` — leans on the reset; fails `check-component-css.ts`.
 - A reference to another component's `--_x` — fails the test, fails the spec validator.
 - A rule outside `@layer` — fails Stylelint.
-- A `--t-*` referenced in the component but not declared in `tokens.css` — the build can't resolve a literal, fails the build.
-
