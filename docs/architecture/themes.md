@@ -107,6 +107,33 @@ import "./theme.css";        // consumer token overrides (last wins)
 
 Showcase apps follow this pattern — see `docs/roadmap.md` § "v0.4 — Surfaces" for the "only Teseor inside" rule and the `showcase-purity` CI gate that enforces it.
 
+## Scoped overrides
+
+Both mechanisms above are document-wide because they sit on `<html>`. Neither has to. `--t-*` tokens cascade like any custom property, and the `data-theme` / `data-mode` selectors are attribute matchers — so both work on any element. Set them on a subtree root and only that subtree is re-themed.
+
+Two forms, smallest first:
+
+```css
+/* One token, one region — a promo band with a warmer accent */
+.promo {
+  --t-accent: oklch(0.62 0.2 30);
+}
+```
+
+```html
+<!-- A whole named theme, scoped to one region -->
+<main data-theme="editorial">
+  <!-- editorial tokens apply here -->
+  <aside data-theme="default" data-mode="dark">
+    <!-- a dark default island, nested inside the editorial region -->
+  </aside>
+</main>
+```
+
+Because tokens cascade, an inner scope overrides an outer one, and a sibling outside the scope is untouched. The token-only rule still holds: a scoped override reassigns `--t-*` values and nothing else.
+
+Scoped overrides are a consumer escape hatch, not a packaged surface. The `themes/` and `**/theme.css` lint guard (§ "Hard rule") only ever inspects theme *files* — it never sees a `--t-*` override buried in component CSS or an inline style. Keep them rare: if the same override recurs it wants to be a real theme, not copied into ten subtrees.
+
 ## Custom themes (community)
 
 Post-v1.0, consumers and the community submit themes as PRs to `themes/<slug>.css`. The CSS comment metadata + the file-structure lint rule mean review is shallow: check the slug, check the metadata, check it lints. The theme runs through visual-tests against every component automatically.
