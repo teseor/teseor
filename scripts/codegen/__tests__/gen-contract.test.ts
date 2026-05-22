@@ -17,6 +17,16 @@ describe("gen-contract", () => {
     expect(renderContract(spec)).toMatchSnapshot();
   });
 
+  test("renders the Stack contract with an enum-typed prop", async () => {
+    const spec = await loadSpec("stack");
+    expect(renderContract(spec)).toMatchSnapshot();
+  });
+
+  test("renders the Cluster contract with multiple enum-typed props", async () => {
+    const spec = await loadSpec("cluster");
+    expect(renderContract(spec)).toMatchSnapshot();
+  });
+
   test("renders identically on repeated calls", async () => {
     const spec = await loadSpec("button");
     expect(renderContract(spec)).toBe(renderContract(spec));

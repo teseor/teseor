@@ -54,9 +54,10 @@ function responsiveType(baseType: string, breakpoints: string[]): string {
   return `${baseType} | Partial<Record<${keys}, ${baseType}>>`;
 }
 
-function vuePropType(propName: string, propDef: SpecProp): string {
+function vuePropType(propName: string, propDef: SpecProp, Name: string): string {
   if (propName === "as") return "string";
   if (propDef.slot === true) return "never";
+  if (propDef.values && propDef.values.length > 0) return `${Name}${pascalCase(propName)}`;
   return mapPropType(propDef.type);
 }
 
@@ -79,11 +80,7 @@ function collectSlots(spec: Spec): SlotInfo[] {
     .map(([name]) => parseSlot(name));
 }
 
-function renderEnumType(
-  Name: string,
-  kind: "Variant" | "Intent" | "Size",
-  values: string[],
-): string {
+function renderEnumType(Name: string, kind: string, values: string[]): string {
   if (values.length === 0) return "";
   return `type ${Name}${kind} = ${values.map(quote).join(" | ")};\n`;
 }
@@ -110,7 +107,7 @@ function renderPropsType(
   const lines = Object.entries(spec.props ?? {})
     .filter(([, def]) => def.slot !== true)
     .flatMap(([propName, propDef]) => {
-      const baseType = vuePropType(propName, propDef);
+      const baseType = vuePropType(propName, propDef, Name);
       const tsType = propDef.responsive === true ? responsiveType(baseType, breakpoints) : baseType;
       const desc = propDef.description ?? propDescriptions[propName];
       return [desc ? `  /** ${desc} */` : null, `  ${propName}?: ${tsType};`].filter(
@@ -324,10 +321,15 @@ function renderWrapper(
 
   const attrEntries = renderAttrEntries(spec, responsiveProps, hasLoading, hasDisabled, hasAs);
 
+  const propEnumTypes = Object.entries(spec.props ?? {})
+    .filter(([, d]) => Array.isArray(d.values) && d.values.length > 0)
+    .map(([propName, d]) => renderEnumType(Name, pascalCase(propName), d.values ?? []));
+
   const typeBlock = [
     renderEnumType(Name, "Variant", Object.keys(spec.variants ?? {})),
     renderEnumType(Name, "Intent", Object.keys(spec.intents ?? {})),
     renderEnumType(Name, "Size", Object.keys(spec.sizes ?? {})),
+    ...propEnumTypes,
   ]
     .filter(Boolean)
     .join("\n");

@@ -7,13 +7,17 @@ import "@teseor/css/components/cluster.css";
 import type { ComponentProps, ReactNode, Ref } from "react";
 import { responsiveDataAttrs } from "./_runtime.ts";
 
+type ClusterAlign = "start" | "center" | "end" | "stretch" | "baseline";
+
+type ClusterJustify = "start" | "center" | "end" | "between" | "around";
+
 type ClusterOwnProps = {
   /** Spacing between children. Accepts a token suffix from the `--t-space-*` scale (`0`–`8`). */
   gap?: string | Partial<Record<"base" | "md" | "lg" | "xl" | "2xl", string>>;
-  /** Block-axis alignment of children. One of `start`, `center`, `end`, `stretch`, `baseline`. */
-  align?: string | Partial<Record<"base" | "md" | "lg" | "xl" | "2xl", string>>;
-  /** Inline-axis distribution. One of `start`, `center`, `end`, `between`, `around`. */
-  justify?: string | Partial<Record<"base" | "md" | "lg" | "xl" | "2xl", string>>;
+  /** Block-axis alignment of children. */
+  align?: ClusterAlign | Partial<Record<"base" | "md" | "lg" | "xl" | "2xl", ClusterAlign>>;
+  /** Inline-axis distribution of children. */
+  justify?: ClusterJustify | Partial<Record<"base" | "md" | "lg" | "xl" | "2xl", ClusterJustify>>;
   children?: ReactNode;
   ref?: Ref<HTMLElementTagNameMap["div"]>;
 };

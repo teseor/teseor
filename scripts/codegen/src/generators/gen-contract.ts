@@ -14,6 +14,7 @@ type SpecProp = {
   description?: string;
   responsive?: boolean;
   slot?: boolean;
+  values?: string[];
 };
 type SpecConstraint = {
   when?: Record<string, unknown>;
@@ -100,6 +101,18 @@ function renderContract(spec: Spec): string {
     lines.push("");
   }
 
+  if (spec.props) {
+    for (const [propName, propDef] of Object.entries(spec.props)) {
+      const values = propDef.values ?? [];
+      if (values.length > 0) {
+        lines.push(
+          `export type ${Name}${pascalCase(propName)} = ${values.map(quote).join(" | ")};`,
+        );
+        lines.push("");
+      }
+    }
+  }
+
   const propLines: string[] = [];
   if (spec.variants) propLines.push(`  variant?: ${Name}Variant;`);
   if (spec.intents) propLines.push(`  intent?: ${Name}Intent;`);
@@ -107,7 +120,13 @@ function renderContract(spec: Spec): string {
 
   if (spec.props) {
     for (const [propName, propDef] of Object.entries(spec.props)) {
-      const tsType = propDef.slot === true ? "unknown" : mapPropType(propDef.type);
+      const propValues = propDef.values ?? [];
+      const tsType =
+        propDef.slot === true
+          ? "unknown"
+          : propValues.length > 0
+            ? `${Name}${pascalCase(propName)}`
+            : mapPropType(propDef.type);
       if (propDef.description) {
         propLines.push(`  /** ${propDef.description} */`);
       }

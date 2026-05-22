@@ -82,6 +82,21 @@ The `motion:` field is required at the atomic milestone. See `rules/motion.md` f
 
 The same `description:` requirement applies to every entry under `props:`. `validate-spec.ts` rejects a spec where any `prop`, `variant`, or `intent` is missing a `description:`. The rule exists because the docs page (`gen-docs`) is generated from these descriptions — leaving one blank leaves a hole in the public surface.
 
+### Enum-typed props
+
+A `props:` entry of `type: string` may declare `values:` — a closed set of accepted strings:
+
+```yaml
+props:
+  align:
+    type: string
+    values: [start, center, end, stretch]
+    responsive: true
+    description: Inline-axis alignment of children.
+```
+
+`gen-contract`, `gen-react`, and `gen-vue` then emit a typed union — `type StackAlign = "start" | "center" | "end" | "stretch"` — and type the prop with it instead of bare `string`, so the value set is enforced at the consumer's call site. Omit `values:` for props that accept an open set: `gap` takes any spacing-token suffix, so it stays `type: string`. See ADR-0006.
+
 **Reserved fields (designed at later milestones, not yet usable):**
 
 | Field | Purpose | Designed at |
