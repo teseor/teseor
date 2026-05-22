@@ -49,3 +49,15 @@ test("shipped component CSS inlines the literal resolved from tokens.css", () =>
   const button = readFileSync(join(distDir, "components", "button.css"), "utf8");
   expect(button).toContain("var(--t-accent, oklch(65% 0.18 250deg))");
 });
+
+test("motion.css ships keyframes and a reduced-motion block", () => {
+  const motion = readFileSync(join(distDir, "motion.css"), "utf8");
+  expect(motion).toContain("@keyframes spin");
+  expect(motion).toContain("@keyframes fade-in");
+  expect(motion).toContain("@media (prefers-reduced-motion: reduce)");
+});
+
+test("the bundle includes the motion keyframes", () => {
+  const bundle = readFileSync(join(distDir, "teseor.css"), "utf8");
+  expect(bundle).toContain("@keyframes scale-in");
+});

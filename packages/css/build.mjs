@@ -23,6 +23,7 @@ const LAYER_ORDER =
 const TOP_LEVEL_ENTRIES = [
   { from: "teseor.css", to: "teseor.css" },
   { from: "tokens.css", to: "tokens.css" },
+  { from: "motion.css", to: "motion.css" },
   { from: "reset.css", to: "reset.css" },
   { from: "base.css", to: "base.css" },
   { from: "utilities.css", to: "utilities.css" },
