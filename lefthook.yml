@@ -32,9 +32,24 @@ pre-commit:
 
 pre-push:
   commands:
+    lint:
+      run: pnpm lint
     typecheck:
       run: pnpm typecheck
     test:
-      run: pnpm test:unit
+      run: pnpm test
+    gen-drift:
+      run: |
+        before=$(git status --porcelain)
+        pnpm gen
+        if [ "$before" != "$(git status --porcelain)" ]; then
+          echo "pnpm gen changed generated output — commit the regenerated files."
+          git --no-pager diff
+          exit 1
+        fi
+    verify-no-dev-leak:
+      run: pnpm -r --if-present run build && pnpm verify:no-dev-leak
+    measure:
+      run: pnpm build:css && pnpm size
     changeset:
       run: node scripts/check-changeset.js
