@@ -29,6 +29,12 @@ pre-commit:
     component-css:
       glob: 'packages/css/src/components/**/*.css'
       run: node scripts/check-component-css.ts
+    aggregators:
+      glob: '{**/package.json,pnpm-workspace.yaml}'
+      run: node scripts/check-script-aggregators.ts
+    catalog:
+      glob: '{package.json,docs/process/dev-scripts.md}'
+      run: node scripts/check-script-catalog.ts
 
 pre-push:
   commands:
