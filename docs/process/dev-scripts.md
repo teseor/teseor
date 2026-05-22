@@ -30,6 +30,7 @@ The bare-verb defaults are the verbs you reach for daily: `dev`, `build`, `test`
 | `pnpm lint:naming` | Logical-naming check (`check-logical-naming.js`) | When touching names / vocabulary | Developer + CI + lefthook |
 | `pnpm lint:dogfood` | Verifies `apps/docs/` uses only the design system (`check-dogfood.ts`) | When touching the docs app | Developer + CI + lefthook |
 | `pnpm lint:component-css` | Enforces the token-driven component-CSS model (`check-component-css.ts`) | When touching component CSS | Developer + CI + lefthook |
+| `pnpm lint:motion` | Checks every component transition/animation gates on `--t-motion-scale` (`check-motion-scale.ts`) | When touching component motion | Developer + CI + lefthook |
 | `pnpm lint:aggregators` | Fails on a dead `pnpm -r` script aggregator (`check-script-aggregators.ts`) | When touching `package.json` scripts | Developer + CI + lefthook |
 | `pnpm lint:catalog` | Checks script naming and package.json/catalog sync (`check-script-catalog.ts`) | When touching `package.json` scripts or this table | Developer + CI + lefthook |
 | `pnpm typecheck` | `tsc --noEmit` at the root plus recursive `typecheck` across packages | Before push; in CI; via lefthook | Developer + CI + lefthook |

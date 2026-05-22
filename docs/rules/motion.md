@@ -1,6 +1,6 @@
 # Motion
 
-Motion is token-driven, scale-gated, and lint-bounded. The rules below are enforced by Stylelint + spec validator where possible, by code review where not.
+Motion is token-driven, scale-gated, and lint-bounded. The rules below are enforced by dedicated lint checks and the spec validator where possible, by code review where not.
 
 ## Token surface
 
@@ -13,15 +13,30 @@ See `architecture/three-tier-tokens.md` for the full token table. The motion-rel
 
 ## Five rules
 
-**1. Every transition multiplies by `var(--t-motion-scale)`.** The duration in `transition: <prop> <dur> <ease>` is `calc(var(--t-dur-*) * var(--t-motion-scale))`, never the bare token. Stylelint rejects bare durations on `transition` and `transition-duration`. This is *the* reduced-motion mechanism — without it, the kill switch doesn't work.
+**1. Every transition and animation multiplies its duration by `var(--t-motion-scale)`.** The duration in `transition: <prop> <dur> <ease>` and `animation: <name> <dur> …` is `calc(var(--t-dur-*) * var(--t-motion-scale))`, never the bare token. `check-motion-scale.ts` — run by `pnpm lint` and the pre-commit hook — fails any `transition`, `animation`, `transition-duration`, or `animation-duration` in component CSS whose duration is not scaled, following a `--_*` token where a modifier reassigns it. This is *the* reduced-motion mechanism: with `--t-motion-scale: 0` under `prefers-reduced-motion`, an unscaled duration silently ignores the kill switch.
 
 **2. Exits are 65% of enters.** When a component animates directional motion (modal open/close, drawer slide-in/out, popover show/hide), the exit duration uses `--t-dur-exit-*` and the enter uses `--t-dur-enter-*`. Symmetric motion (hover, focus, color shifts) uses `--t-dur-base` for both. The 65% ratio is encoded in the paired tokens so component authors don't do math.
 
 **3. `--t-ease-spring` is reserved for macro motion.** Drawer open, modal scale-in, large translate animations — fine. Hover color shift, focus ring fade-in, button press — not fine. Bouncy easing on micro-interactions feels twitchy. Enforced by review, not lint (the boundary is contextual).
 
-**4. Only transform-equivalent properties are transitionable.** The allowed list: `transform`, `opacity`, `filter`, `background-color`, `color`, `border-color`, `box-shadow`, `outline-color`. Properties that affect layout (`width`, `height`, `block-size`, `inline-size`, `padding`, `margin`, `top`, `left`, …) cause reflows; transitioning them is banned at the lint layer. Stylelint's `declaration-property-value-allowed-list` enforces.
+**4. Only transform-equivalent properties are transitionable.** The allowed list: `transform`, `opacity`, `filter`, `background-color`, `color`, `border-color`, `box-shadow`, `outline-color`. Properties that affect layout (`width`, `height`, `block-size`, `inline-size`, `padding`, `margin`, `top`, `left`, …) cause reflows; transitioning them is off-limits. This is **not yet lint-enforced** — a `transition-property` allow-list is planned (tracked under #628); until it lands the rule holds by code review.
 
 **5. In/out symmetry.** A component spec that declares `motion.enters: [open]` MUST also declare `motion.exits: [close]`. The validator (`validate-spec.ts`) rejects asymmetric declarations. Symmetry of *existence*, not of *duration* — rule 2 already says exits are faster.
+
+## Rejected: a global reduced-motion reset
+
+A widespread reduced-motion pattern is a blanket reset:
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+```
+
+Teseor does not ship it. The reset needs `!important` to override component rules, and `.stylelintrc.cjs` sets `declaration-no-important: true` — it would be the one declaration that breaks the project's own lint. Rule 1 reaches the same outcome without `!important`: `--t-motion-scale: 0` collapses every scaled duration to zero, and `check-motion-scale.ts` guarantees every duration is scaled.
 
 ## Reusable keyframes
 
