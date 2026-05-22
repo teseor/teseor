@@ -3,7 +3,12 @@ import { resolve } from "node:path";
 import { describe, expect, test } from "vitest";
 import { parse as parseYaml } from "yaml";
 import type { Spec } from "../src/generators/gen-contract.ts";
-import { renderBarrel, renderRuntime, renderWrapper } from "../src/generators/gen-react.ts";
+import {
+  renderBarrel,
+  renderCssShim,
+  renderRuntime,
+  renderWrapper,
+} from "../src/generators/gen-react.ts";
 
 const REPO_ROOT = resolve(import.meta.dirname, "..", "..", "..");
 
@@ -54,6 +59,15 @@ describe("gen-react", () => {
     const generated = renderRuntime();
     const committed = await readFile(
       resolve(REPO_ROOT, "packages", "react", "src", "_runtime.ts"),
+      "utf8",
+    );
+    expect(generated).toBe(committed);
+  });
+
+  test("matches the committed _css.d.ts", async () => {
+    const generated = renderCssShim();
+    const committed = await readFile(
+      resolve(REPO_ROOT, "packages", "react", "src", "_css.d.ts"),
       "utf8",
     );
     expect(generated).toBe(committed);

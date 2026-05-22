@@ -4,7 +4,7 @@
 // Source: specs/button.yaml
 
 import "@teseor/css/components/button.css";
-import { type ComponentProps, type ElementType, type ReactNode, type Ref } from "react";
+import type { ComponentProps, ElementType, ReactNode, Ref } from "react";
 import { dataAttrs } from "./_runtime.ts";
 
 type ButtonVariant = "solid" | "outline" | "ghost" | "link";

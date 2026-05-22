@@ -166,5 +166,5 @@ async function contractGenerator(ctx: GeneratorContext): Promise<GeneratorReport
 
 registerGenerator("contract", contractGenerator);
 
-export type { Spec };
+export type { Spec, SpecProp };
 export { renderContract };

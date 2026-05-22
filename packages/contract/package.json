@@ -12,6 +12,9 @@
   "files": [
     "src"
   ],
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
