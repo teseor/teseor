@@ -9,6 +9,7 @@ import {
   checkExamplesReferences,
   checkMatrixShape,
   checkMotionSymmetry,
+  checkResponsiveExplicit,
   checkTokenContract,
   checkVariantChoiceKeys,
   checkVocabulary,
@@ -316,6 +317,59 @@ describe("checkCssImportAllowlist", () => {
     const spec = makeButton({ dependencies: ["icon"] });
     const css = `@import "../icon/icon.css";\n.t-button {}`;
     expect(checkCssImportAllowlist(spec, css)).toEqual([]);
+  });
+});
+
+describe("checkResponsiveExplicit", () => {
+  test("flags a non-slot prop that omits `responsive:`", () => {
+    const spec = makeButton({
+      props: { loading: { type: "boolean", description: "Loading." } },
+    });
+    const issues = checkResponsiveExplicit(spec);
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.path).toBe("props.loading.responsive");
+  });
+
+  test("accepts `responsive: false`", () => {
+    const spec = makeButton({
+      props: {
+        loading: { type: "boolean", responsive: false, description: "Loading." },
+      },
+    });
+    expect(checkResponsiveExplicit(spec)).toEqual([]);
+  });
+
+  test("accepts `responsive: true`", () => {
+    const spec = makeButton({
+      props: {
+        block: { type: "boolean", responsive: true, description: "Block layout." },
+      },
+    });
+    expect(checkResponsiveExplicit(spec)).toEqual([]);
+  });
+
+  test("exempts a slot prop", () => {
+    const spec = makeButton({
+      props: {
+        iconStart: { type: "string", slot: true, description: "Start icon." },
+      },
+    });
+    expect(checkResponsiveExplicit(spec)).toEqual([]);
+  });
+
+  test("walks composite parts", () => {
+    const spec: Spec = {
+      name: "popover",
+      kind: "composite",
+      parts: {
+        content: {
+          props: { open: { type: "boolean", description: "Open." } },
+        },
+      },
+    };
+    const issues = checkResponsiveExplicit(spec);
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.path).toBe("parts.content.props.open.responsive");
   });
 });
 

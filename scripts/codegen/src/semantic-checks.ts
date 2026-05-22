@@ -550,6 +550,36 @@ export function checkCssImportAllowlist(spec: Spec, css: string | undefined): Is
   return issues;
 }
 
+// ── Responsive: explicit per-prop decision (#594) ───────────────────────────
+
+/**
+ * Every non-slot prop must declare `responsive:` explicitly (`true` or
+ * `false`). Omission silently defaults to non-responsive — making the
+ * decision invisible in review. Slot props are exempt: they pass through
+ * children / VNodes and have no breakpoint-variant rendering surface.
+ * Walks composite parts so `parts.<name>.props.<prop>` is covered too.
+ */
+export function checkResponsiveExplicit(spec: Spec): Issue[] {
+  const issues: Issue[] = [];
+  visitNodes(spec, (node, path) => {
+    for (const [propName, propDef] of Object.entries(node.props ?? {})) {
+      if (propDef.slot === true) continue;
+      if (propDef.responsive === undefined) {
+        const propPath =
+          path === "" ? `props.${propName}.responsive` : `${path}.props.${propName}.responsive`;
+        issues.push(
+          issue(
+            spec.name,
+            propPath,
+            "non-slot prop must declare `responsive:` explicitly (`true` or `false`)",
+          ),
+        );
+      }
+    }
+  });
+  return issues;
+}
+
 // ── `guidance.variantChoice` keys === `spec.variants` exactly ───────────────
 
 export function checkVariantChoiceKeys(spec: Spec): Issue[] {
@@ -599,6 +629,7 @@ export function runSemanticChecks(
     ...checkMotionSymmetry(spec),
     ...checkCssImportAllowlist(spec, ctx.css),
     ...checkVariantChoiceKeys(spec),
+    ...checkResponsiveExplicit(spec),
   ];
 }
 

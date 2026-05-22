@@ -6,6 +6,10 @@ Scaffold a new component spec + CSS file + placeholder tests. Argument: the comp
    never rely on a remembered template.
 2. Ask the user: `kind: atomic | composite`, plus any other contextual
    choices the component requires (initial variants, intents, etc.).
+   For every non-slot prop the user lists, ask whether it is responsive
+   (`responsive: true` or `false`) — `docs/rules/responsive.md` requires the
+   decision to be explicit and the validator rejects omission. Slot props
+   (children, `iconStart`, `iconEnd`) are exempt.
 3. Confirm the slugged name (kebab-case) is in the canonical vocabulary
    (`specs/_vocabulary.yaml` `components:` list). If not, ask the user
    whether to add it to vocabulary first — do not silently mint a new name.
