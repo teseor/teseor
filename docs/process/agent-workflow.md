@@ -57,7 +57,7 @@ The file is intentionally a thin index. Claude reads `CLAUDE.md` first, then the
 
 ## Slash commands
 
-Four commands at `.claude/commands/*.md`. Each is a Markdown file with a brief workflow Claude follows when invoked. Project-local, version-controlled, reviewed in PRs.
+Five commands at `.claude/commands/*.md`. Each is a Markdown file with a brief workflow Claude follows when invoked, plus a `## Failure modes` section. Project-local, version-controlled, reviewed in PRs.
 
 ### `/work-on <issue-number>`
 - Read the issue (`gh issue view <n>`)
@@ -92,6 +92,19 @@ Four commands at `.claude/commands/*.md`. Each is a Markdown file with a brief w
 - Creates: `specs/<name>.yaml` (with required fields + canonical vocabulary), `packages/css/src/components/<name>/<name>.css` (skeleton with both sublayers + scoped reset + acid-test-passing fallback chain), placeholder Vitest + Playwright tests
 - Replaces the dropped standalone `pnpm new:component` scaffolder (see `process/dev-scripts.md` § "What we dropped") — agent reads current docs, never a stale embedded template
 - Does NOT run codegen. The author edits the spec + CSS, then runs `pnpm gen` when ready
+
+### Failure modes
+
+Each command file ends with a `## Failure modes` section — the snag cases the command must stop on rather than guess through. They cluster into four kinds:
+
+| Kind | Example | Response |
+| --- | --- | --- |
+| **Precondition unmet** | issue closed, branch already exists, name absent from `specs/_vocabulary.yaml` | stop, confirm with the user before proceeding |
+| **Destructive-action guard** | overwriting existing files, force-push, `gh pr merge --admin` | never default to it; require explicit confirmation |
+| **Gate failure** | CI red after push, missing changeset, missing `Closes #N` | fix the cause — never `--no-verify` or `--admin` around it |
+| **Ambiguous input** | description too vague to draft, duplicate issue exists, wrong PR resolved | ask one clarifying question, or search before creating |
+
+The per-command specifics stay in the command files; this doc does not restate them — two copies of a rule drift (see § "Project `CLAUDE.md`"). The constant across all four kinds: stop and surface to the user, never paper over.
 
 These are the only sanctioned shortcuts. PRs created outside `/done` still pass the same gates — they just take more manual steps.
 

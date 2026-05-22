@@ -1,6 +1,6 @@
 # Themes
 
-A theme is a CSS file that overrides Tier 2 semantic tokens. Nothing else. No class selectors, no element selectors, no attribute selectors, no `!important`. A theme that touches anything outside semantic tokens is a bug — Stylelint catches it.
+A theme is a CSS file that overrides Tier 2 semantic tokens. Nothing else. No class selectors, no element selectors, no attribute selectors, no `!important`. A theme that touches anything outside semantic tokens is a bug — the `themes/` lint rule under § "Hard rule" is designed to catch it.
 
 ## File shape
 
@@ -80,15 +80,15 @@ So `tokens.css` ships the default theme inline. Additional themes (`themes/edito
 
 We rejected bootstrap/material/terminal style "cosplay themes" for the v1.0 pair. They prove "Teseor can look like X" but not "Teseor can look like *anything*." Cosplay themes are welcome as community submissions post-v1.0, but they're not the right shape for the headline pair.
 
-## Hard rule (lint-enforced)
+## Hard rule
 
-Stylelint rule on `themes/*.css` files: only `--t-*` custom-property declarations allowed; no class selectors, no element selectors, no attribute selectors beyond `[data-theme]`/`[data-mode]`, no `!important`, no `@import`. The rule blocks the `themes/` directory from becoming a CSS escape hatch.
+A theme file may contain **only** `--t-*` custom-property declarations: no class selectors, no element selectors, no attribute selectors beyond `[data-theme]`/`[data-mode]`, no `!important`, no `@import`. This is what stops the `themes/` directory from becoming a CSS escape hatch.
 
-See `process/ci-gates.md` for the rule wiring.
+The rule is **not yet lint-enforced**. Themes land at v1.0 (§ "v1.0 minimum: two themes"), and the `themes/` directory does not exist before then — `.stylelintrc.cjs` carries a component-scoped override today but nothing for `themes/`. When the directory lands, a Stylelint override scoped to `themes/*.css` will enforce the restriction; until then it is a review convention. See `process/ci-gates.md` for the intended wiring.
 
 ## Consumer overrides
 
-Apps that need to tweak Teseor for their brand write a single `theme.css` in their own repo, following the same token-only rule as shipped themes. The shared Stylelint config (`@teseor/stylelint-config`, lands with PR #1) extends the same restriction to consumer files matching `**/theme.css`.
+Apps that need to tweak Teseor for their brand write a single `theme.css` in their own repo, following the same token-only rule as shipped themes. The shared Stylelint config (`@teseor/stylelint-config`) is planned to extend the same restriction to consumer files matching `**/theme.css`.
 
 ```ts
 // app entry
@@ -106,6 +106,33 @@ import "./theme.css";        // consumer token overrides (last wins)
 ```
 
 Showcase apps follow this pattern — see `docs/roadmap.md` § "v0.4 — Surfaces" for the "only Teseor inside" rule and the `showcase-purity` CI gate that enforces it.
+
+## Scoped overrides
+
+Both mechanisms above are document-wide because they sit on `<html>`. Neither has to. `--t-*` tokens cascade like any custom property, and the `data-theme` / `data-mode` selectors are attribute matchers — so both work on any element. Set them on a subtree root and only that subtree is re-themed.
+
+Two forms, smallest first:
+
+```css
+/* One token, one region — a promo band with a warmer accent */
+.promo {
+  --t-accent: oklch(0.62 0.2 30);
+}
+```
+
+```html
+<!-- A whole named theme, scoped to one region -->
+<main data-theme="editorial">
+  <!-- editorial tokens apply here -->
+  <aside data-theme="default" data-mode="dark">
+    <!-- a dark default island, nested inside the editorial region -->
+  </aside>
+</main>
+```
+
+Because tokens cascade, an inner scope overrides an outer one, and a sibling outside the scope is untouched. The token-only rule still holds: a scoped override reassigns `--t-*` values and nothing else.
+
+Scoped overrides are a consumer escape hatch, not a packaged surface. The `themes/` and `**/theme.css` lint guard (§ "Hard rule") only ever inspects theme *files* — it never sees a `--t-*` override buried in component CSS or an inline style. Keep them rare: if the same override recurs it wants to be a real theme, not copied into ten subtrees.
 
 ## Custom themes (community)
 

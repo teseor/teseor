@@ -44,7 +44,7 @@ This is the order of the first PRs. Each one is a worked example of the rules ab
 | 3 | `feat(codegen): vue, svelte, angular, webc wrappers` | ~400 handwritten generators. Same Button, four more wrappers. |
 | 4 | `chore(specs): migrate phase 1 components` | ~80 LOC code + bulk YAML. Pure data migration. No new CSS. |
 | 5 | `feat(codegen): generate all phase 1 wrappers` | ~50 handwritten (orchestration). Wrappers all generated. |
-| 6 | `feat(docs): generate docs from specs` | ~450 (eleventy + gen-docs + button page parity). Replaces handwritten button doc with generated equivalent. |
+| 6 | `feat(docs): generate docs from specs` | ~450 (astro + gen-docs + button page parity). Replaces handwritten button doc with generated equivalent. |
 | 7 | `feat(i18n): in-house ICU-like message framework` | ~400. ~20-line message framework + tests. |
 | 8 | `feat(components): phase 2 surfaces (Card, Alert, Banner, Skeleton, Progress)` | ~500 across five components. |
 | 9 | `feat(components): phase 2 surfaces (Tabs, Segmented, Breadcrumb, Pagination, Menu)` | ~500. |

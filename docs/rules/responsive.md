@@ -9,6 +9,16 @@ Two distinct mechanisms, two distinct concerns:
 
 Plus visibility utilities (`.t-hidden-md`, `.t-show-md`) for show/hide at breakpoints — see `utilities.md`.
 
+## Decision rubric
+
+Take these in order; stop at the first yes.
+
+1. **Is it purely show/hide at a breakpoint?** → visibility utility (`.t-hidden-md`, `.t-show-md`; see `utilities.md`). No prop, no query.
+2. **Does the right value depend on the viewport, and should each usage decide it?** → responsive prop. The consumer sets it at the call site: `size={{ base: "sm", md: "lg" }}`.
+3. **Does the shape depend on the space the component is actually given?** → container query in the component's CSS. The author decides; the consumer never has to know the container width.
+
+The split between 2 and 3 is *who owns the decision*. A responsive prop hands it to the consumer — right when the same component should look different across products. A container query keeps it with the component — right when the shape should always follow its box, so the component stays correct wherever it is dropped. When a case looks like both, default to the container query: it needs no consumer cooperation and cannot be set wrong.
+
 ## Responsive props
 
 A prop becomes responsive by setting `responsive: true` in the spec:
