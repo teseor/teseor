@@ -8,11 +8,12 @@ The bare-verb defaults are the verbs you reach for daily: `dev`, `build`, `test`
 
 | Script | What it does | When to use | For who |
 | --- | --- | --- | --- |
-| `pnpm dev` | Docs site with Eleventy serve + spec/CSS watchers; hot reload | During work | Developer |
+| `pnpm dev` | Preview app (Vite) — hand-check tokens, base styles, wrappers; hot reload | During work | Developer |
 | `pnpm build` | Full build: codegen + CSS pipeline + docs site | Before release, rare locally | CI mostly, devs occasionally |
 | `pnpm build:css` | CSS pipeline only (PostCSS) | When iterating on tokens or components | Developer |
 | `pnpm build:wrappers` | Codegen only (all framework targets) | When iterating on generators | Developer |
-| `pnpm build:docs` | Docs site only (Eleventy + Pagefind index) | When iterating on docs UX | Developer |
+| `pnpm dev:docs` | Docs site dev server (Astro; runs `build:css` first) | When iterating on docs UX | Developer |
+| `pnpm build:docs` | Docs site production build (Astro; runs `build:css` first) | Before release; in CI | Developer + CI |
 | `pnpm test` | All tests: unit + visual + a11y | Before commit; in CI | Developer + CI |
 | `pnpm test:unit` | Vitest only | Fast inner-loop | Developer |
 | `pnpm test:e2e` | Playwright functional suite (`tests/*.spec.ts`) | Before commit when interactions changed; in CI | Developer + CI |
@@ -55,8 +56,8 @@ The bare-verb defaults are the verbs you reach for daily: `dev`, `build`, `test`
 | `axe-core` | visual | Inside Playwright tests |
 | `size-limit` | bundle | Per-component + bundle budgets |
 | `@changesets/cli`, `@changesets/changelog-git`, `changesets/action@v1` | release | Versioning + publishing (fixed-mode) |
-| `eleventy` + `nunjucks` | docs | Static docs site, consumed by `gen-docs.ts` |
-| `shiki` | docs | Build-time syntax highlighting |
+| `astro` + `@astrojs/react` | docs | Static docs site; renders the real component packages and consumes `gen-docs` output (ADR-0007) |
+| `shiki` | docs | Build-time syntax highlighting (bundled in Astro) |
 | `pagefind` | docs | Self-hosted search, indexed at build from emitted HTML |
 | `lefthook` | git hooks | Parallel pre-commit, commit-msg, pre-push |
 | `renovate` | dependency updates | Weekly batched PRs |
