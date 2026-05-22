@@ -86,6 +86,6 @@ const attrs = computed(() => ({
     <span v-if="$slots.iconEnd" data-button-icon="" data-position="end">
       <slot name="iconEnd" />
     </span>
-    <span data-button-spinner="" aria-hidden="true" />
+    <span v-if="loading" data-button-spinner="" aria-hidden="true" />
   </component>
 </template>

@@ -71,6 +71,8 @@ Windows High Contrast / Forced Colors mode replaces author colors with user-defi
 - ~30 min per release for atomic phases; longer for stateful ones.
 - JAWS deferred post-v1.0 — costly license; NVDA covers ~90% of JAWS-relevant regressions.
 
+**Visually hiding accessible content.** `visibility: hidden` and `display: none` remove an element from the accessibility tree. To hide something visually while keeping it for assistive tech — e.g. a button's label behind a loading spinner — use `opacity: 0` (keeps the node, its layout box, and its accessible name) or a clip-based visually-hidden utility.
+
 ## Documentation
 
 Every component's docs page surfaces its a11y story (per `spec.a11y` and `docs-site.md` section 11):

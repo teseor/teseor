@@ -215,7 +215,9 @@ function renderBody(spec: Spec, slots: SlotInfo[], hasLoading: boolean): string 
     ...slots.filter((s) => s.position === undefined).map((s) => renderSlot(spec, s)),
     hasLoading ? `      <span data-${spec.name}-label="">{children}</span>` : `      {children}`,
     ...slots.filter((s) => s.position === "end").map((s) => renderSlot(spec, s)),
-    hasLoading ? `      <span data-${spec.name}-spinner="" aria-hidden="true" />` : null,
+    hasLoading
+      ? `      {loading ? <span data-${spec.name}-spinner="" aria-hidden="true" /> : null}`
+      : null,
   ]
     .filter((line): line is string => line !== null)
     .join("\n");
