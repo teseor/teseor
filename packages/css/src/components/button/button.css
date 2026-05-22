@@ -1,0 +1,181 @@
+@layer components.tokens {
+  .t-button {
+    --_h: var(--t-button-height, var(--t-row-3));
+    --_pad-x: var(--t-button-pad-x, var(--t-space-4));
+    --_bg: var(--t-button-bg, var(--t-accent));
+    --_fg: var(--t-button-fg, var(--t-on-accent));
+    --_radius: var(--t-button-radius, var(--t-radius-md));
+    --_dur: var(--t-button-dur, var(--t-dur-fast));
+    --_ease: var(--t-button-ease, var(--t-ease-out));
+  }
+}
+
+@layer components.styles {
+  .t-button,
+  .t-button * {
+    box-sizing: border-box;
+  }
+
+  .t-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    gap: var(--t-space-2);
+    block-size: var(--_h);
+    padding-inline: var(--_pad-x);
+    padding-block: 0;
+    background: var(--_bg);
+    color: var(--_fg);
+    border: 0;
+    border-radius: var(--_radius);
+    font: inherit;
+    font-weight: 500;
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    transition:
+      background-color calc(var(--_dur) * var(--t-motion-scale)) var(--_ease),
+      color calc(var(--_dur) * var(--t-motion-scale)) var(--_ease),
+      box-shadow calc(var(--_dur) * var(--t-motion-scale)) var(--_ease),
+      transform calc(var(--_dur) * var(--t-motion-scale)) var(--_ease);
+  }
+
+  .t-button:where([data-size="sm"]) {
+    --_h: var(--t-row-2);
+    --_pad-x: var(--t-space-3);
+
+    font-size: var(--t-text-sm);
+  }
+
+  .t-button:where([data-size="md"]) {
+    --_h: var(--t-row-3);
+    --_pad-x: var(--t-space-4);
+
+    font-size: var(--t-text-base);
+  }
+
+  .t-button:where([data-size="lg"]) {
+    --_h: var(--t-row-4);
+    --_pad-x: var(--t-space-5);
+
+    font-size: var(--t-text-lg);
+  }
+
+  .t-button:where([data-intent="primary"]) {
+    --_bg: var(--t-accent);
+    --_fg: var(--t-on-accent);
+  }
+
+  .t-button:where([data-intent="neutral"]) {
+    --_bg: var(--t-surface);
+    --_fg: var(--t-on-surface);
+  }
+
+  .t-button:where([data-intent="success"]) {
+    --_bg: var(--t-success);
+    --_fg: var(--t-on-success);
+  }
+
+  .t-button:where([data-intent="warning"]) {
+    --_bg: var(--t-warning);
+    --_fg: var(--t-on-warning);
+  }
+
+  .t-button:where([data-intent="danger"]) {
+    --_bg: var(--t-danger);
+    --_fg: var(--t-on-danger);
+  }
+
+  .t-button:where([data-variant="outline"]) {
+    background: transparent;
+    color: var(--_bg);
+    box-shadow: inset 0 0 0 1px currentcolor;
+  }
+
+  .t-button:where([data-variant="ghost"]) {
+    background: transparent;
+    color: var(--_bg);
+  }
+
+  .t-button:where([data-variant="link"]) {
+    block-size: auto;
+    padding-inline: 0;
+    padding-block: 0;
+    background: transparent;
+    color: var(--_bg);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .t-button:where([data-block="true"]) {
+    inline-size: 100%;
+  }
+
+  .t-button:where([data-loading="true"]) {
+    cursor: progress;
+  }
+
+  .t-button:where([data-loading="true"]) [data-button-label] {
+    visibility: hidden;
+  }
+
+  .t-button:where(:not([data-loading="true"])) [data-button-spinner] {
+    display: none;
+  }
+
+  .t-button:where([data-loading="true"]) [data-button-spinner] {
+    position: absolute;
+    inline-size: 1em;
+    block-size: 1em;
+    border: 2px solid currentcolor;
+    border-block-start-color: transparent;
+    border-radius: 50%;
+    animation: t-button-spin calc(800ms * var(--t-motion-scale)) linear infinite;
+  }
+
+  .t-button > svg,
+  .t-button [data-button-icon] {
+    flex-shrink: 0;
+    inline-size: 1em;
+    block-size: 1em;
+  }
+
+  .t-button:where(:hover):not([disabled], [aria-disabled="true"]) {
+    background-color: color-mix(in oklch, var(--_bg) 92%, black);
+  }
+
+  .t-button:where(:active):not([disabled], [aria-disabled="true"]) {
+    background-color: color-mix(in oklch, var(--_bg) 84%, black);
+    transform: translateY(1px);
+  }
+
+  .t-button:focus-visible {
+    outline: 2px solid var(--t-focus-ring);
+    outline-offset: 2px;
+  }
+
+  .t-button:is([disabled], [aria-disabled="true"]) {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  .t-button:where(
+    [data-variant="outline"],
+    [data-variant="ghost"]
+  ):hover:not([disabled], [aria-disabled="true"]) {
+    background-color: color-mix(in oklch, var(--_bg) 12%, transparent);
+  }
+
+  .t-button:where([data-variant="link"]):hover:not([disabled], [aria-disabled="true"]) {
+    background: transparent;
+    text-decoration-thickness: 2px;
+  }
+}
+
+@keyframes t-button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
