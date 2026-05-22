@@ -34,3 +34,18 @@ test("every emitted CSS file declares the full @layer order first", () => {
     expect(content.startsWith(LAYER_ORDER), file).toBe(true);
   }
 });
+
+test("shipped component CSS floors every token reference (acid test)", () => {
+  const bareToken = /var\(\s*--t-[\w-]+\s*\)/;
+  const files = cssFiles(join(distDir, "components"));
+  expect(files.length).toBeGreaterThan(0);
+  for (const file of files) {
+    const css = readFileSync(file, "utf8");
+    expect(bareToken.test(css), `${file}: token reference with no literal floor`).toBe(false);
+  }
+});
+
+test("shipped component CSS inlines the literal resolved from tokens.css", () => {
+  const button = readFileSync(join(distDir, "components", "button.css"), "utf8");
+  expect(button).toContain("var(--t-accent, oklch(65% 0.18 250deg))");
+});
