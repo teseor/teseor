@@ -38,6 +38,9 @@ pre-commit:
     catalog:
       glob: '{package.json,docs/process/dev-scripts.md}'
       run: node scripts/check-script-catalog.ts
+    markdown:
+      glob: '*.md'
+      run: pnpm exec markdownlint-cli2
 
 pre-push:
   commands:
