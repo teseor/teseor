@@ -170,7 +170,7 @@ Codegen emits one wrapper module with sub-components attached: `Accordion.Item`,
 | `gen-webc.ts` | LitElement web-component | `packages/webc/src/t-button.ts` |
 | `gen-contract.ts` | TypeScript types | `packages/contract/src/Button.ts` |
 | `gen-docs.ts` | Eleventy + Nunjucks input data | `apps/docs/src/components/button/` |
-| `gen-tests.ts` | Playwright spec scaffold | `tests/<name>/<example>.spec.ts` |
+| `gen-tests.ts` | Playwright spec + harness fixtures (React + Vue) | `tests/contract/<name>.spec.ts`, `apps/harness/src/fixtures/<Name>.{react.tsx,vue.ts}` |
 | `gen-ast.ts` | Structured JSON of the whole DS (every component, every public token, every variant) | `apps/docs/src/_data/teseor-ast.json`, also republished as `packages/contract/dist/ast.json` |
 
 
@@ -214,12 +214,30 @@ Codegen has a drift gate (`gen-drift`): `pnpm gen` then `git diff --exit-code`. 
 
 Per-component files each carry their inlined literal floor and render correctly without the full bundle (the acid test, `rules/component-shape.md`).
 
+## Cross-framework contract tests
+
+`gen-tests` emits a Playwright spec per component at `tests/contract/<name>.spec.ts` plus matching fixture files at `apps/harness/src/fixtures/<Name>.{react.tsx,vue.ts}`. For every `spec.examples` entry the test visits two harness routes, captures canonicalized DOM, and asserts byte-equal output. A snapshot baseline catches accidental drift even when both frameworks regress in the same direction.
+
+`apps/harness/` is a private Vite app with both `@vitejs/plugin-react` and `@vitejs/plugin-vue`. Routes:
+
+- `/react/<component>?fixture=<id>` mounts the React wrapper with props from the named fixture.
+- `/vue/<component>?fixture=<id>` mounts the Vue wrapper with the same props (slot fixtures resolve to placeholder spans).
+
+Playwright's `webServer` block boots the harness automatically. The harness is never published; it only exists to give Playwright a real browser environment that loads the CSS foundation and renders the wrappers exactly as a consuming app would.
+
+Canonicalization rules in the test:
+- Element attributes are sorted alphabetically before serialization.
+- Whitespace-only text nodes are stripped (React and Vue differ in how they preserve template whitespace).
+- Attribute values are HTML-escaped for `&` and `"`.
+
+This catches DOM shape regressions across frameworks. Behavior (clicks, focus, keyboard) and pixel rendering are separate concerns — see `process/ci-gates.md`.
+
 ## Drift detection
 
 The CI job `gen-drift`:
 1. Checks out the PR.
 2. Runs `pnpm gen`.
-3. Runs `git diff --exit-code -- packages/ apps/docs/ tests/`.
+3. Runs `git diff --exit-code` across the whole tree (generated outputs live in `packages/`, `apps/docs/`, `apps/harness/src/fixtures/`, and `tests/contract/`).
 4. Fails if anything changed.
 
 A failed `gen-drift` means somebody edited a generated file by hand. The fix is "run `pnpm gen` locally, commit the result, and edit the spec next time."
