@@ -2,9 +2,14 @@ import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { describe, expect, test } from "vitest";
 import { parse as parseYaml } from "yaml";
-import { renderContract, type Spec } from "../src/generators/gen-contract.ts";
+import {
+  renderContract,
+  renderResponsiveModule,
+  type Spec,
+} from "../src/generators/gen-contract.ts";
 
 const REPO_ROOT = resolve(import.meta.dirname, "..", "..", "..");
+const BREAKPOINTS = ["md", "lg", "xl", "2xl"];
 
 async function loadSpec(name: string): Promise<Spec> {
   const raw = await readFile(resolve(REPO_ROOT, "specs", `${name}.yaml`), "utf8");
@@ -37,6 +42,19 @@ describe("gen-contract", () => {
     const generated = renderContract(spec);
     const committed = await readFile(
       resolve(REPO_ROOT, "packages", "contract", "src", "Button.ts"),
+      "utf8",
+    );
+    expect(generated).toBe(committed);
+  });
+
+  test("renders the responsive type module", () => {
+    expect(renderResponsiveModule(BREAKPOINTS)).toMatchSnapshot();
+  });
+
+  test("matches the committed _responsive.ts", async () => {
+    const generated = renderResponsiveModule(BREAKPOINTS);
+    const committed = await readFile(
+      resolve(REPO_ROOT, "packages", "contract", "src", "_responsive.ts"),
       "utf8",
     );
     expect(generated).toBe(committed);

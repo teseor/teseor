@@ -21,15 +21,15 @@
  */
 import "@teseor/css/components/stack.css";
 import { computed, type VNode } from "vue";
-import { responsiveDataAttrs } from "./_runtime.ts";
+import { type Responsive, responsiveDataAttrs } from "./_runtime.ts";
 
 type StackAlign = "start" | "center" | "end" | "stretch";
 
 type StackProps = {
   /** Spacing between children. Accepts a token suffix from the `--t-space-*` scale (`0`–`8`). */
-  gap?: string | Partial<Record<"base" | "md" | "lg" | "xl" | "2xl", string>>;
+  gap?: Responsive<string>;
   /** Inline-axis alignment of children. */
-  align?: StackAlign | Partial<Record<"base" | "md" | "lg" | "xl" | "2xl", StackAlign>>;
+  align?: Responsive<StackAlign>;
 };
 
 const {

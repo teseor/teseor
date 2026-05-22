@@ -5,7 +5,7 @@
 
 import "@teseor/css/components/button.css";
 import type { ComponentProps, ElementType, ReactNode, Ref } from "react";
-import { responsiveDataAttrs } from "./_runtime.ts";
+import { type Responsive, responsiveDataAttrs } from "./_runtime.ts";
 
 type ButtonVariant = "solid" | "outline" | "ghost" | "link";
 
@@ -19,7 +19,7 @@ type ButtonOwnProps = {
   /** Semantic color. */
   intent?: ButtonIntent;
   /** Size scale. */
-  size?: ButtonSize | Partial<Record<"base" | "md" | "lg" | "xl" | "2xl", ButtonSize>>;
+  size?: Responsive<ButtonSize>;
   /** Polymorphic root element. Defaults to `button`; set to `a` for link-shaped triggers (paired with `variant: link`). */
   as?: ElementType;
   /** Disables interaction and applies the disabled visual state. Mapped to the native `disabled` attribute on `button`, `aria-disabled="true"` otherwise. */
@@ -31,7 +31,7 @@ type ButtonOwnProps = {
   /** Icon rendered after the label in the inline direction. Accepts any node. */
   iconEnd?: ReactNode;
   /** Stretches the button to the inline-size of its container. Responsive so layouts can pin block-width on mobile and shrink to content above. */
-  block?: boolean | Partial<Record<"base" | "md" | "lg" | "xl" | "2xl", boolean>>;
+  block?: Responsive<boolean>;
   children?: ReactNode;
   ref?: Ref<HTMLElement>;
 };
