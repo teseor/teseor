@@ -11,24 +11,47 @@ One spec per component. Many outputs. CI fails if the outputs drift from the spe
 
 ```yaml
 name: button
-description: A trigger for an action.
+description: A trigger that performs an action when activated.
 kind: atomic           # atomic | composite
 dependencies: []       # ["icon"] for composites
 element: button        # default semantic tag
 rootClass: t-button
 file: components/button/button.css
 
-variants: [solid, outline, ghost, link]
-intents:  [neutral, accent, danger, success, warning]
-sizes:    [sm, md, lg]
+variants:
+  solid:   { description: Filled background with intent color. }
+  outline: { description: Transparent background, intent-colored border. }
+  ghost:   { description: Transparent background, no border. }
+  link:    { description: Renders as text with an underline. }
+
+intents:
+  primary: { description: Most important action on the surface., tokens: { bg: --t-accent,  fg: --t-on-accent } }
+  neutral: { description: Default action; non-emphasized.,        tokens: { bg: --t-surface, fg: --t-on-surface } }
+  success: { description: Confirms a positive outcome.,           tokens: { bg: --t-success, fg: --t-on-success } }
+  warning: { description: Needs attention but isn't destructive., tokens: { bg: --t-warning, fg: --t-on-warning } }
+  danger:  { description: Destructive or irreversible action.,    tokens: { bg: --t-danger,  fg: --t-on-danger  } }
+
+sizes:
+  sm: { description: Compact density., tokens: { height: --t-row-2, pad-x: --t-space-3 } }
+  md: { description: Default size.,    tokens: { height: --t-row-3, pad-x: --t-space-4 } }
+  lg: { description: Emphatic CTA.,    tokens: { height: --t-row-4, pad-x: --t-space-5 } }
 
 props:
-  loading:  { type: boolean, default: false, responsive: false }
-  disabled: { type: boolean, default: false, responsive: false }
+  loading:
+    type: boolean
+    default: false
+    responsive: false
+    description: Shows a spinner in place of the label and disables interaction.
+  disabled:
+    type: boolean
+    default: false
+    responsive: false
+    description: Disables interaction; mapped to native `disabled` on `button`, `aria-disabled="true"` otherwise.
 
 tokens:                 # public token contract (--t-button-*)
-  height:   { fallback: --t-row, desc: control height }
-  bg:       { fallback: --t-accent, desc: background fill }
+  height: { fallback: --t-row,       desc: Control height. }
+  bg:     { fallback: --t-accent,    desc: Background fill. }
+  fg:     { fallback: --t-on-accent, desc: Foreground color (label and icon). }
 
 private: [--_h, --_bg, --_pad-x]   # documented for reference, not API
 
@@ -39,8 +62,8 @@ a11y:
     Space: activate
 
 examples:
-  - id: solid-accent
-    props: { variant: solid, intent: accent }
+  - id: solid-primary
+    props: { variant: solid, intent: primary }
   - id: loading
     props: { loading: true }
 
@@ -51,7 +74,13 @@ motion:
   # exits:  [close]
 ```
 
-The `motion:` field is required at v0.2. See `rules/motion.md` for the full rule set.
+The `motion:` field is required at the atomic milestone. See `rules/motion.md` for the full rule set.
+
+### Maps, not lists
+
+`variants`, `intents`, and `sizes` are **maps** keyed on the value name, not bare lists. Every key carries a required `description:` field. Intents and sizes also carry a `tokens:` map binding the value to the semantic tokens the CSS layer reads. `gen-docs` surfaces the descriptions directly on the docs page; `gen-contract` ignores them.
+
+The same `description:` requirement applies to every entry under `props:`. `validate-spec.ts` rejects a spec where any `prop`, `variant`, or `intent` is missing a `description:`. The rule exists because the docs page (`gen-docs`) is generated from these descriptions — leaving one blank leaves a hole in the public surface.
 
 **Reserved fields (designed at later milestones, not yet usable):**
 

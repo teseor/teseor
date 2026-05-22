@@ -62,3 +62,91 @@ The bare-verb defaults are the verbs you reach for daily: `dev`, `build`, `test`
 | `renovate` | dependency updates | Weekly batched PRs |
 | `lit` | webc | Authoring base for generated web-components |
 | Lighthouse CI | docs gate | `lighthouserc.json` |
+
+## Renovate policy
+
+Configured in `renovate.json`. The policy keeps Renovate honest without
+drowning the queue:
+
+- **Schedule**: weekends only (`* * * * 0,6`). Workweek inboxes stay quiet.
+- **Preset**: `config:recommended` (not the deprecated `config:base`).
+- **Commits**: `semanticCommits: enabled`, scope `deps`, type `chore` —
+  every Renovate PR lands as `chore(deps): <pkg> <old> → <new>`.
+- **Labels**: every PR tagged `dep` so triage queries (`is:pr label:dep`)
+  pull the whole stream.
+- **Automerge**: off. Every dependency PR runs through the same review
+  gates as a human PR. Worth the friction; turn this on only after the
+  test surface is mature enough to catch regressions reliably.
+- **Range strategy**: `bump`. PRs update the `^` range, not lockfile-only,
+  so package.json drift stays visible.
+- **Throughput limits**: `prHourlyLimit: 4`, `prConcurrentLimit: 10`. Bursts
+  capped, queue depth bounded.
+- **Lockfile maintenance**: monthly (first of the month). Keeps the
+  resolved tree fresh without weekly noise.
+
+### Grouped updates
+
+Three named groups keep semantically-related bumps together:
+
+| Group | Members |
+| --- | --- |
+| `frameworks` | `react`, `react-dom`, `vue`, `@vue/**`, `svelte`, `@sveltejs/**`, `@angular/**`, matching `@types/react*` |
+| `dev tooling` | `@biomejs/**`, `stylelint`, `stylelint-**`, `@playwright/test`, `playwright` |
+| `build tooling` | `postcss`, `postcss-**`, `vite`, `@vitejs/**`, `vite-plugin-**` |
+
+A change to any member opens one PR for the group, so a Stylelint bump
+that touches `stylelint-config-standard` doesn't queue two PRs that race
+each other.
+
+### Out of scope
+
+The Playwright container image (`mcr.microsoft.com/playwright:vX.Y-jammy`
+in `.github/workflows/visual-tests.yml` and `ci.yml`) is **not** governed by
+Renovate — it's a Docker image, not an npm dep. Bump it manually together
+with `@playwright/test` whenever the dev-tooling group fires; the
+container tag must match the installed Playwright minor.
+
+## Perf budgets
+
+Two tiers: hard CI gates and soft targets.
+
+### Hard gates
+
+| Surface | Tool | Where the budget lives |
+| --- | --- | --- |
+| Per-entry CSS bundle | `size-limit` (`@size-limit/file`) | `package.json` → `"size-limit"` array |
+| Codegen drift | `pnpm gen && git diff --exit-code` | `.github/workflows/ci.yml` → `gen-drift` |
+| Dev-only marker leak | `pnpm verify:no-dev-leak` | `scripts/verify-no-dev-leak.js` |
+
+Current `size-limit` budgets (brotli-compressed, set in root
+`package.json`):
+
+| Entry | Budget |
+| --- | --- |
+| `@teseor/css` (full bundle) | 8 kB |
+| `@teseor/css/tokens.css` | 4 kB |
+| `@teseor/css/utilities.css` | 2 kB |
+| `@teseor/css/tailwind.css` | 6 kB |
+
+Budgets carry ~2–3× headroom over the current floor. Per-component
+budgets land alongside the first per-component CSS files emit from the
+build (≤4 kB minified / ≤1.5 kB brotli per component, per
+`process/ci-gates.md` § "bundle").
+
+### Soft targets
+
+Soft targets aren't CI gates; missing one earns a discussion, not a
+failed PR. Tracked via Lighthouse CI (`lighthouserc.json`) against the
+docs site:
+
+| Metric | Target | Source |
+| --- | --- | --- |
+| LCP | < 2.0 s on 3G | Lighthouse `largest-contentful-paint` |
+| CLS | < 0.05 | Lighthouse `cumulative-layout-shift` |
+| INP | < 200 ms | Lighthouse `interaction-to-next-paint` |
+| JS payload (docs site) | < 50 kB gzipped | Lighthouse `total-byte-weight` minus images |
+| First component-page load | < 1.5 s on 3G | Lighthouse `speed-index` |
+
+Targets are calibrated against the docs site (the only thing Teseor
+itself ships at runtime); consumers' targets depend on their own surface
+and aren't enforced here.
