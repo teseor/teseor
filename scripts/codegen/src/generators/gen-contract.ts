@@ -20,15 +20,18 @@ type SpecConstraint = {
   forbid?: Record<string, unknown>;
   reason?: string;
 };
+type SpecExample = { id?: string; props?: Record<string, unknown> };
 type Spec = {
   name: string;
   description?: string;
+  element?: string;
   rootClass?: string;
   variants?: Record<string, SpecVariant>;
   intents?: Record<string, SpecIntent>;
   sizes?: Record<string, SpecSize>;
   props?: Record<string, SpecProp>;
   constraints?: SpecConstraint[];
+  examples?: SpecExample[];
 };
 
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..", "..", "..");

@@ -8,7 +8,7 @@ import {
   renderCssShim,
   renderRuntime,
   renderWrapper,
-} from "../src/generators/gen-react.ts";
+} from "../src/generators/gen-vue.ts";
 import { loadVocabulary } from "../src/lib/vocabulary.ts";
 
 const REPO_ROOT = resolve(import.meta.dirname, "..", "..", "..");
@@ -19,8 +19,8 @@ async function loadSpec(name: string): Promise<Spec> {
   return parseYaml(raw) as Spec;
 }
 
-describe("gen-react", () => {
-  test("renders the Button wrapper", async () => {
+describe("gen-vue", () => {
+  test("renders the Button SFC", async () => {
     const spec = await loadSpec("button");
     const vocab = await loadVocabulary();
     expect(renderWrapper(spec, BREAKPOINTS, vocab.propDescriptions)).toMatchSnapshot();
@@ -42,12 +42,12 @@ describe("gen-react", () => {
     );
   });
 
-  test("matches the committed Button.tsx", async () => {
+  test("matches the committed Button.vue", async () => {
     const spec = await loadSpec("button");
     const vocab = await loadVocabulary();
     const generated = renderWrapper(spec, BREAKPOINTS, vocab.propDescriptions);
     const committed = await readFile(
-      resolve(REPO_ROOT, "packages", "react", "src", "Button.tsx"),
+      resolve(REPO_ROOT, "packages", "vue", "src", "Button.vue"),
       "utf8",
     );
     expect(generated).toBe(committed);
@@ -56,7 +56,7 @@ describe("gen-react", () => {
   test("matches the committed index.ts", async () => {
     const generated = renderBarrel(["button"]);
     const committed = await readFile(
-      resolve(REPO_ROOT, "packages", "react", "src", "index.ts"),
+      resolve(REPO_ROOT, "packages", "vue", "src", "index.ts"),
       "utf8",
     );
     expect(generated).toBe(committed);
@@ -65,7 +65,7 @@ describe("gen-react", () => {
   test("matches the committed _runtime.ts", async () => {
     const generated = renderRuntime(BREAKPOINTS);
     const committed = await readFile(
-      resolve(REPO_ROOT, "packages", "react", "src", "_runtime.ts"),
+      resolve(REPO_ROOT, "packages", "vue", "src", "_runtime.ts"),
       "utf8",
     );
     expect(generated).toBe(committed);
@@ -74,7 +74,7 @@ describe("gen-react", () => {
   test("matches the committed _css.d.ts", async () => {
     const generated = renderCssShim();
     const committed = await readFile(
-      resolve(REPO_ROOT, "packages", "react", "src", "_css.d.ts"),
+      resolve(REPO_ROOT, "packages", "vue", "src", "_css.d.ts"),
       "utf8",
     );
     expect(generated).toBe(committed);
