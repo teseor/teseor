@@ -172,6 +172,114 @@
     background: transparent;
     text-decoration-thickness: 2px;
   }
+
+  @media (--md) {
+    .t-button:where([data-size-md="sm"]) {
+      --_h: var(--t-row-2);
+      --_pad-x: var(--t-space-3);
+
+      font-size: var(--t-text-sm);
+    }
+
+    .t-button:where([data-size-md="md"]) {
+      --_h: var(--t-row-3);
+      --_pad-x: var(--t-space-4);
+
+      font-size: var(--t-text-base);
+    }
+
+    .t-button:where([data-size-md="lg"]) {
+      --_h: var(--t-row-4);
+      --_pad-x: var(--t-space-5);
+
+      font-size: var(--t-text-lg);
+    }
+
+    .t-button:where([data-block-md="true"]) {
+      inline-size: 100%;
+    }
+  }
+
+  @media (--lg) {
+    .t-button:where([data-size-lg="sm"]) {
+      --_h: var(--t-row-2);
+      --_pad-x: var(--t-space-3);
+
+      font-size: var(--t-text-sm);
+    }
+
+    .t-button:where([data-size-lg="md"]) {
+      --_h: var(--t-row-3);
+      --_pad-x: var(--t-space-4);
+
+      font-size: var(--t-text-base);
+    }
+
+    .t-button:where([data-size-lg="lg"]) {
+      --_h: var(--t-row-4);
+      --_pad-x: var(--t-space-5);
+
+      font-size: var(--t-text-lg);
+    }
+
+    .t-button:where([data-block-lg="true"]) {
+      inline-size: 100%;
+    }
+  }
+
+  @media (--xl) {
+    .t-button:where([data-size-xl="sm"]) {
+      --_h: var(--t-row-2);
+      --_pad-x: var(--t-space-3);
+
+      font-size: var(--t-text-sm);
+    }
+
+    .t-button:where([data-size-xl="md"]) {
+      --_h: var(--t-row-3);
+      --_pad-x: var(--t-space-4);
+
+      font-size: var(--t-text-base);
+    }
+
+    .t-button:where([data-size-xl="lg"]) {
+      --_h: var(--t-row-4);
+      --_pad-x: var(--t-space-5);
+
+      font-size: var(--t-text-lg);
+    }
+
+    .t-button:where([data-block-xl="true"]) {
+      inline-size: 100%;
+    }
+  }
+
+  @media (--2xl) {
+    .t-button:where([data-size-2xl="sm"]) {
+      --_h: var(--t-row-2);
+      --_pad-x: var(--t-space-3);
+
+      font-size: var(--t-text-sm);
+    }
+
+    .t-button:where([data-size-2xl="md"]) {
+      --_h: var(--t-row-3);
+      --_pad-x: var(--t-space-4);
+
+      font-size: var(--t-text-base);
+    }
+
+    .t-button:where([data-size-2xl="lg"]) {
+      --_h: var(--t-row-4);
+      --_pad-x: var(--t-space-5);
+
+      font-size: var(--t-text-lg);
+    }
+
+    .t-button:where([data-block-2xl="true"]) {
+      inline-size: 100%;
+    }
+  }
 }
 
 @keyframes t-button-spin {

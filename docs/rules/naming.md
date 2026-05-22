@@ -102,6 +102,21 @@ This catches drift the moment a contributor (or Claude) coins a new word. The vo
 
 This is the only path. There is no "experimental" vocabulary slot.
 
+## Logical, not physical
+
+Every name that refers to position uses **inline-start / inline-end / block-start / block-end** semantics, not **left / right / top / bottom**. Buttons have `iconStart` and `iconEnd`. Data-attributes use `data-position="start"` and `data-position="end"`. CSS uses `padding-inline`, `block-size`, `border-inline-start`.
+
+The reason is RTL: in right-to-left writing modes, `start` is on the right and `end` is on the left. A prop named `iconLeft` either lies about its position in RTL or forces consumers to swap props at the call site. Logical naming keeps the prop honest and removes the per-locale conditional.
+
+`scripts/check-logical-naming.js` (wired into pre-commit and CI) rejects:
+
+- YAML prop keys ending in `Left|Right|Top|Bottom` (e.g. `iconLeft`, `marginRight`).
+- `data-position="left"` or `data-position="right"` string literals in generator scripts.
+
+Stylelint's `property-disallowed-list` in `.stylelintrc.cjs` rejects the physical CSS spacing properties (`margin-*`, `padding-*`).
+
+Icon names (`arrow-left`, `chevron-right`) are exempt — they describe the glyph itself, not a position in a layout.
+
 ## Sources
 
 - ARIA 1.2 (W3C Recommendation) — state-name reuse

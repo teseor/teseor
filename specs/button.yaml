@@ -83,16 +83,18 @@ props:
     default: false
     responsive: false
     description: Shows a spinner in place of the label and disables interaction. The original label stays in the accessibility tree.
-  iconLeft:
+  iconStart:
     type: string
+    slot: true
     default: null
     responsive: false
-    description: Icon name rendered before the label. Slot size scales with `size`. Requires the icon component once it lands.
-  iconRight:
+    description: Icon rendered before the label in the inline direction. Slot size scales with `size`. Accepts any node (icon component, SVG, etc.).
+  iconEnd:
     type: string
+    slot: true
     default: null
     responsive: false
-    description: Icon name rendered after the label.
+    description: Icon rendered after the label in the inline direction. Accepts any node.
   block:
     type: boolean
     default: false
@@ -149,7 +151,7 @@ examples:
   - id: outline-neutral
     props: { variant: outline, intent: neutral }
   - id: ghost-with-icon
-    props: { variant: ghost, intent: neutral, iconLeft: arrow-left }
+    props: { variant: ghost, intent: neutral, iconStart: arrow-left }
   - id: link-primary
     props: { variant: link, intent: primary, as: a }
   - id: loading

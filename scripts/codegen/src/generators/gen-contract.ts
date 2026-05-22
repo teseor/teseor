@@ -13,6 +13,7 @@ type SpecProp = {
   default?: unknown;
   description?: string;
   responsive?: boolean;
+  slot?: boolean;
 };
 type SpecConstraint = {
   when?: Record<string, unknown>;
@@ -22,6 +23,7 @@ type SpecConstraint = {
 type Spec = {
   name: string;
   description?: string;
+  rootClass?: string;
   variants?: Record<string, SpecVariant>;
   intents?: Record<string, SpecIntent>;
   sizes?: Record<string, SpecSize>;
@@ -102,7 +104,7 @@ function renderContract(spec: Spec): string {
 
   if (spec.props) {
     for (const [propName, propDef] of Object.entries(spec.props)) {
-      const tsType = mapPropType(propDef.type);
+      const tsType = propDef.slot === true ? "unknown" : mapPropType(propDef.type);
       if (propDef.description) {
         propLines.push(`  /** ${propDef.description} */`);
       }

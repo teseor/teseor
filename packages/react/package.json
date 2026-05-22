@@ -1,0 +1,28 @@
+{
+  "name": "@teseor/react",
+  "version": "3.0.0",
+  "private": true,
+  "description": "React wrappers for Teseor components.",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*"
+  },
+  "files": [
+    "src"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teseor/teseor.git",
+    "directory": "packages/react"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.15",
+    "react": "^19.2.6"
+  }
+}

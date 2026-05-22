@@ -20,6 +20,9 @@ pre-commit:
     no-plan-markers:
       glob: '*.{ts,tsx,js,jsx,mjs,cjs,css,scss,yaml,yml,sh,md}'
       run: node scripts/check-comments.js {staged_files}
+    logical-naming:
+      glob: '*.{ts,tsx,js,yaml,yml}'
+      run: node scripts/check-logical-naming.js {staged_files}
 
 pre-push:
   commands:

@@ -2,5 +2,23 @@
   "name": "@teseor/preview",
   "version": "0.0.0",
   "private": true,
-  "description": "Static preview page for hand-checking tokens, reset, and base styles."
+  "description": "Preview app for hand-checking tokens, reset, base styles, and component wrappers.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@teseor/css": "workspace:*",
+    "@teseor/react": "workspace:*",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.15",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.2",
+    "vite": "^8.0.14"
+  }
 }
