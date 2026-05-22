@@ -1,0 +1,67 @@
+@layer components.tokens {
+  .t-stack {
+    --_gap: var(--t-stack-gap, var(--t-space-3));
+  }
+}
+
+@layer components.styles {
+  .t-stack {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: var(--_gap);
+
+    & * {
+      box-sizing: border-box;
+    }
+
+    @each $i in 0, 1, 2, 3, 4, 5, 6, 7, 8 {
+      &:where([data-gap="$(i)"]) {
+        --_gap: var(--t-space-$(i));
+      }
+    }
+
+    &:where([data-align="start"]) {
+      align-items: flex-start;
+    }
+
+    &:where([data-align="center"]) {
+      align-items: center;
+    }
+
+    &:where([data-align="end"]) {
+      align-items: flex-end;
+    }
+
+    &:where([data-align="stretch"]) {
+      align-items: stretch;
+    }
+
+    @each $bp in md, lg, xl, 2xl {
+      /* stylelint-disable-next-line media-query-no-invalid */
+      @media (--$(bp)) {
+        @each $i in 0, 1, 2, 3, 4, 5, 6, 7, 8 {
+          &:where([data-gap-$(bp)="$(i)"]) {
+            --_gap: var(--t-space-$(i));
+          }
+        }
+
+        &:where([data-align-$(bp)="start"]) {
+          align-items: flex-start;
+        }
+
+        &:where([data-align-$(bp)="center"]) {
+          align-items: center;
+        }
+
+        &:where([data-align-$(bp)="end"]) {
+          align-items: flex-end;
+        }
+
+        &:where([data-align-$(bp)="stretch"]) {
+          align-items: stretch;
+        }
+      }
+    }
+  }
+}

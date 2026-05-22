@@ -30,3 +30,5 @@ pre-push:
       run: pnpm typecheck
     test:
       run: pnpm test:unit
+    changeset:
+      run: node scripts/check-changeset.js
