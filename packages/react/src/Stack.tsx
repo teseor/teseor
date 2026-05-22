@@ -7,11 +7,13 @@ import "@teseor/css/components/stack.css";
 import type { ComponentProps, ReactNode, Ref } from "react";
 import { responsiveDataAttrs } from "./_runtime.ts";
 
+type StackAlign = "start" | "center" | "end" | "stretch";
+
 type StackOwnProps = {
   /** Spacing between children. Accepts a token suffix from the `--t-space-*` scale (`0`–`8`). */
   gap?: string | Partial<Record<"base" | "md" | "lg" | "xl" | "2xl", string>>;
-  /** Inline-axis alignment of children. One of `start`, `center`, `end`, `stretch`. */
-  align?: string | Partial<Record<"base" | "md" | "lg" | "xl" | "2xl", string>>;
+  /** Inline-axis alignment of children. */
+  align?: StackAlign | Partial<Record<"base" | "md" | "lg" | "xl" | "2xl", StackAlign>>;
   children?: ReactNode;
   ref?: Ref<HTMLElementTagNameMap["div"]>;
 };

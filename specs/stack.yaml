@@ -14,9 +14,10 @@ props:
     description: "Spacing between children. Accepts a token suffix from the `--t-space-*` scale (`0`–`8`)."
   align:
     type: string
+    values: [start, center, end, stretch]
     default: null
     responsive: true
-    description: "Inline-axis alignment of children. One of `start`, `center`, `end`, `stretch`."
+    description: "Inline-axis alignment of children."
 
 tokens:
   gap:

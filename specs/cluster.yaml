@@ -14,14 +14,16 @@ props:
     description: "Spacing between children. Accepts a token suffix from the `--t-space-*` scale (`0`–`8`)."
   align:
     type: string
+    values: [start, center, end, stretch, baseline]
     default: null
     responsive: true
-    description: "Block-axis alignment of children. One of `start`, `center`, `end`, `stretch`, `baseline`."
+    description: "Block-axis alignment of children."
   justify:
     type: string
+    values: [start, center, end, between, around]
     default: null
     responsive: true
-    description: "Inline-axis distribution. One of `start`, `center`, `end`, `between`, `around`."
+    description: "Inline-axis distribution of children."
 
 tokens:
   gap:
