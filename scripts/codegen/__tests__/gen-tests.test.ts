@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { describe, expect, test } from "vitest";
 import { parse as parseYaml } from "yaml";
@@ -16,6 +16,14 @@ const REPO_ROOT = resolve(import.meta.dirname, "..", "..", "..");
 async function loadSpec(name: string): Promise<Spec> {
   const raw = await readFile(resolve(REPO_ROOT, "specs", `${name}.yaml`), "utf8");
   return parseYaml(raw) as Spec;
+}
+
+async function listSpecNames(): Promise<string[]> {
+  const entries = await readdir(resolve(REPO_ROOT, "specs"));
+  return entries
+    .filter((f) => f.endsWith(".yaml") && !f.startsWith("_"))
+    .map((f) => f.slice(0, -5))
+    .sort();
 }
 
 describe("gen-tests", () => {
@@ -78,7 +86,7 @@ describe("gen-tests", () => {
   });
 
   test("matches the committed index.react.ts", async () => {
-    const generated = renderReactBarrel(["button"]);
+    const generated = renderReactBarrel(await listSpecNames());
     const committed = await readFile(
       resolve(REPO_ROOT, "apps", "harness", "src", "fixtures", "index.react.ts"),
       "utf8",
@@ -87,7 +95,7 @@ describe("gen-tests", () => {
   });
 
   test("matches the committed index.vue.ts", async () => {
-    const generated = renderVueBarrel(["button"]);
+    const generated = renderVueBarrel(await listSpecNames());
     const committed = await readFile(
       resolve(REPO_ROOT, "apps", "harness", "src", "fixtures", "index.vue.ts"),
       "utf8",

@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { describe, expect, test } from "vitest";
 import { parse as parseYaml } from "yaml";
@@ -17,6 +17,14 @@ const BREAKPOINTS = ["md", "lg", "xl", "2xl"];
 async function loadSpec(name: string): Promise<Spec> {
   const raw = await readFile(resolve(REPO_ROOT, "specs", `${name}.yaml`), "utf8");
   return parseYaml(raw) as Spec;
+}
+
+async function listSpecNames(): Promise<string[]> {
+  const entries = await readdir(resolve(REPO_ROOT, "specs"));
+  return entries
+    .filter((f) => f.endsWith(".yaml") && !f.startsWith("_"))
+    .map((f) => f.slice(0, -5))
+    .sort();
 }
 
 describe("gen-react", () => {
@@ -54,7 +62,7 @@ describe("gen-react", () => {
   });
 
   test("matches the committed index.ts", async () => {
-    const generated = renderBarrel(["button"]);
+    const generated = renderBarrel(await listSpecNames());
     const committed = await readFile(
       resolve(REPO_ROOT, "packages", "react", "src", "index.ts"),
       "utf8",
