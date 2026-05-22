@@ -2,7 +2,11 @@
 
 import type { VNode } from "vue";
 import { fixtures as buttonFixtures } from "./Button.vue.ts";
+import { fixtures as clusterFixtures } from "./Cluster.vue.ts";
+import { fixtures as stackFixtures } from "./Stack.vue.ts";
 
 export const vueFixtures: Record<string, Record<string, () => VNode>> = {
   button: buttonFixtures,
+  cluster: clusterFixtures,
+  stack: stackFixtures,
 };

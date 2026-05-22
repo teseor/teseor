@@ -38,6 +38,8 @@ import { Button } from "@teseor/vue";
 ## Components
 
 - `Button` — A trigger that performs an action when activated.
+- `Cluster` — A horizontal layout primitive. Wraps children on the inline axis with consistent spacing.
+- `Stack` — A vertical layout primitive. Stacks children on the block axis with consistent spacing.
 
 ## Tests
 
