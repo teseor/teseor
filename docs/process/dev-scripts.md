@@ -9,26 +9,36 @@ The bare-verb defaults are the verbs you reach for daily: `dev`, `build`, `test`
 | Script | What it does | When to use | For who |
 | --- | --- | --- | --- |
 | `pnpm dev` | Preview app (Vite) — hand-check tokens, base styles, wrappers; hot reload | During work | Developer |
-| `pnpm build` | Full build: codegen + CSS pipeline + docs site | Before release, rare locally | CI mostly, devs occasionally |
-| `pnpm build:css` | CSS pipeline only (PostCSS) | When iterating on tokens or components | Developer |
-| `pnpm build:wrappers` | Codegen only (all framework targets) | When iterating on generators | Developer |
 | `pnpm dev:docs` | Docs site dev server (Astro; runs `build:css` first) | When iterating on docs UX | Developer |
+| `pnpm build` | Recursive `build` across every workspace package | Before release; in CI | CI mostly |
+| `pnpm build:css` | CSS pipeline for `@teseor/css` (PostCSS) | When iterating on tokens or components | Developer |
+| `pnpm build:wrappers` | Builds the framework wrapper packages (react, vue, …) — package build, not codegen | When iterating on a wrapper package | Developer |
+| `pnpm build:preview` | Production build of the preview app | Checking the preview bundle | Developer |
 | `pnpm build:docs` | Docs site production build (Astro; runs `build:css` first) | Before release; in CI | Developer + CI |
-| `pnpm test` | All tests: unit + visual + a11y | Before commit; in CI | Developer + CI |
-| `pnpm test:unit` | Vitest only | Fast inner-loop | Developer |
-| `pnpm test:e2e` | Playwright functional suite (`tests/*.spec.ts`) | Before commit when interactions changed; in CI | Developer + CI |
-| `pnpm test:visual` | Playwright in Docker (same `PLAYWRIGHT_IMAGE` as CI) | When visuals changed | Developer + CI |
-| `pnpm test:a11y` | axe-core via Playwright (subset of visual) | When ARIA / keyboard map changed | Developer |
-| `pnpm lint` | Biome + Stylelint + spec validator | Before commit, in CI, via lefthook | Developer + CI + lefthook |
-| `pnpm lint:ts` | Biome only | When iterating on TS | Developer |
-| `pnpm lint:css` | Stylelint only | When iterating on CSS | Developer |
-| `pnpm lint:spec [<name>]` | Spec validator only (same code as CI gate, Levenshtein suggestions) | When iterating on specs | Developer |
+| `pnpm preview` | Serves the built preview app | After `build:preview` | Developer |
 | `pnpm gen` | All codegen (wrappers + contract + docs + tests) | After spec changes | Developer + CI |
 | `pnpm gen --component=<name>` | Regen one component, all targets | Inner loop on a spec | Developer |
 | `pnpm gen --target=<react\|vue\|...>` | One target, all components | Debugging a generator | Developer |
-| `pnpm typecheck` | `tsc --noEmit` across all packages | Before commit; in CI; via lefthook | Developer + CI + lefthook |
-| `pnpm changeset` | Interactive changesets CLI (writes `.changeset/<slug>.md`) | After implementation | Developer |
+| `pnpm test` | Recursive `test` across packages — the Vitest suite (unit + integration) | Before push; in CI | Developer + CI |
+| `pnpm test:e2e` | Playwright DOM-contract suite (`tests/*.spec.ts`) | When wrappers or interactions changed; in CI | Developer + CI |
+| `pnpm test:visual` | Placeholder — the pixel-diff suite lands with the visual gate | When visuals changed | Developer + CI |
+| `pnpm test:a11y` | Placeholder — the axe-core suite lands with the a11y gate | When ARIA / keyboard map changed | Developer |
+| `pnpm lint` | Runs every `lint:*` check below in sequence | Before push; in CI; via lefthook | Developer + CI + lefthook |
+| `pnpm lint:ts` | Biome — TS / JS / JSON | When iterating on TS | Developer |
+| `pnpm lint:css` | Stylelint over `packages/**/*.css` | When iterating on CSS | Developer |
+| `pnpm lint:spec` | Placeholder — the spec validator lands when `specs/` has content | When iterating on specs | Developer |
+| `pnpm lint:naming` | Logical-naming check (`check-logical-naming.js`) | When touching names / vocabulary | Developer + CI + lefthook |
+| `pnpm lint:dogfood` | Verifies `apps/docs/` uses only the design system (`check-dogfood.ts`) | When touching the docs app | Developer + CI + lefthook |
+| `pnpm lint:component-css` | Enforces the token-driven component-CSS model (`check-component-css.ts`) | When touching component CSS | Developer + CI + lefthook |
+| `pnpm lint:aggregators` | Fails on a dead `pnpm -r` script aggregator (`check-script-aggregators.ts`) | When touching `package.json` scripts | Developer + CI + lefthook |
+| `pnpm lint:catalog` | Checks script naming and package.json/catalog sync (`check-script-catalog.ts`) | When touching `package.json` scripts or this table | Developer + CI + lefthook |
+| `pnpm typecheck` | `tsc --noEmit` at the root plus recursive `typecheck` across packages | Before push; in CI; via lefthook | Developer + CI + lefthook |
+| `pnpm size` | `size-limit` — per-entry CSS bundle budgets | When bundle size may have moved | Developer + CI |
+| `pnpm migrate:specs` | One-off spec migration (`migrate-specs.ts`) | Rare — bulk spec-format changes | Maintainer |
+| `pnpm verify:no-dev-leak` | Fails if a dev-only marker reached a built artifact | After a build; in CI | Developer + CI |
+| `pnpm changeset` | Changesets CLI — writes a release entry to `.changeset/<slug>.md` | After implementation | Developer |
 | `pnpm release` | Publish to npm with provenance | CI only (errors locally) | CI |
+| `pnpm prepare` | Lifecycle hook — runs `lefthook install` on `pnpm install` | Automatic; not run directly | — |
 
 ## What we dropped
 
