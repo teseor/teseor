@@ -5,9 +5,13 @@
   "description": "Teseor codegen — registry-driven entrypoint for spec-derived artifacts.",
   "type": "module",
   "scripts": {
-    "gen": "node src/cli.ts"
+    "gen": "node src/cli.ts",
+    "test": "vitest run --root ../.."
   },
   "files": [
     "src"
-  ]
+  ],
+  "dependencies": {
+    "yaml": "^2.9.0"
+  }
 }

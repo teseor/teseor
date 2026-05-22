@@ -1,0 +1,21 @@
+{
+  "name": "@teseor/contract",
+  "version": "3.0.0",
+  "private": true,
+  "description": "Generated TypeScript contracts for Teseor components.",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*"
+  },
+  "files": [
+    "src"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teseor/teseor.git",
+    "directory": "packages/contract"
+  }
+}
