@@ -14,6 +14,7 @@ a numbered, durable file.
 | [0004](0004-practical-strict-semver.md) | Practical strict semver | Accepted |
 | [0005](0005-adrs-are-the-decision-log.md) | ADRs are the decision log | Accepted |
 | [0006](0006-enum-typed-string-props.md) | Enum-typed string props | Accepted |
+| [0007](0007-astro-for-the-docs-site.md) | Astro for the docs site | Accepted |
 
 ## When to write one
 

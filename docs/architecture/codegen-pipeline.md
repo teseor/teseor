@@ -184,7 +184,7 @@ Codegen emits one wrapper module with sub-components attached: `Accordion.Item`,
 | `gen-angular.ts` | Angular | `packages/angular/src/button.component.ts` |
 | `gen-webc.ts` | LitElement web-component | `packages/webc/src/t-button.ts` |
 | `gen-contract.ts` | TypeScript types | `packages/contract/src/Button.ts` |
-| `gen-docs.ts` | Eleventy + Nunjucks input data | `apps/docs/src/components/button/` |
+| `gen-docs.ts` | Astro page data | `apps/docs/src/components/button/` |
 | `gen-tests.ts` | Playwright spec + harness fixtures (React + Vue) | `tests/contract/<name>.spec.ts`, `apps/harness/src/fixtures/<Name>.{react.tsx,vue.ts}` |
 | `gen-ast.ts` | Structured JSON of the whole DS (every component, every public token, every variant) | `apps/docs/src/_data/teseor-ast.json`, also republished as `packages/contract/dist/ast.json` |
 
