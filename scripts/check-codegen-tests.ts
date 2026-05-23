@@ -15,10 +15,12 @@ import { execSync } from "node:child_process";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
+const SCRIPT_PATH = fileURLToPath(import.meta.url);
+
 // `dirname` first so the `..` is taken from the script's directory (`scripts/`),
 // not the file path. Equivalent to the old `resolve(file, "..", "..")` but
 // reads as "scripts/'s parent" — unambiguous if the script ever moves.
-const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const REPO_ROOT = resolve(dirname(SCRIPT_PATH), "..");
 
 /** Files that, when changed, demand a corresponding test-side change. */
 function isProductionCodegen(path: string): boolean {
@@ -65,8 +67,18 @@ function resolveBase(baseInput: string): string {
  *  `GITHUB_BASE_REF`; locally we fall back to `main`. Three-dot syntax is
  *  the PR-equivalent diff (excludes commits added to base after the branch
  *  point), matching what reviewers see on GitHub. */
+function pickBaseInput(env: NodeJS.ProcessEnv): string {
+  const candidates = [env.BASE_REF, env.GITHUB_BASE_REF, "main"];
+  for (const candidate of candidates) {
+    if (typeof candidate !== "string") continue;
+    const trimmed = candidate.trim();
+    if (trimmed.length > 0) return trimmed;
+  }
+  return "main";
+}
+
 function getChangedFiles(): string[] {
-  const baseInput = process.env.BASE_REF ?? process.env.GITHUB_BASE_REF ?? "main";
+  const baseInput = pickBaseInput(process.env);
   const base = resolveBase(baseInput);
   const output = execSync(`git diff --name-only ${base}...HEAD`, {
     cwd: REPO_ROOT,
@@ -109,4 +121,8 @@ function main(): void {
   process.exit(1);
 }
 
-main();
+if (process.argv[1] === SCRIPT_PATH) {
+  main();
+}
+
+export { getChangedFiles, isProductionCodegen, isTestChange, pickBaseInput, resolveBase };
