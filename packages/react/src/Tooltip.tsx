@@ -5,13 +5,9 @@
 
 import "@teseor/css/components/tooltip.css";
 import { type CSSProperties, type ReactNode, useMemo } from "react";
-import {
-  type OverlayInteraction,
-  type Responsive,
-  responsiveDataAttrs,
-  Slot,
-  useOverlay,
-} from "./_runtime.ts";
+import { type Responsive, responsiveDataAttrs } from "./_runtime.ts";
+import { Slot } from "./components/Slot.tsx";
+import { type OverlayInteraction, useOverlay } from "./hooks/useOverlay.ts";
 
 type TooltipPlacement = "top" | "right" | "bottom" | "left";
 
