@@ -1,0 +1,46 @@
+{
+  "name": "@teseor/primitives",
+  "version": "3.0.0",
+  "private": true,
+  "description": "Headless behavior primitives for Teseor — focus trap, portal, dismissable layer, anchor positioning. Vanilla functions with React and Vue adapters.",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts",
+    "./react": "./src/react.ts",
+    "./vue": "./src/vue.ts",
+    "./*": "./src/*"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teseor/teseor.git",
+    "directory": "packages/primitives"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "vue": ">=3.5"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.15",
+    "@types/react-dom": "^19.2.3",
+    "happy-dom": "^20.9.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "vue": "^3.5.34"
+  }
+}
