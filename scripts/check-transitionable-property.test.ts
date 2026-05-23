@@ -71,4 +71,16 @@ describe("findDisallowedTransitions", () => {
     }`;
     expect(findDisallowedTransitions(css)).toEqual([]);
   });
+
+  it("recognises leading-dot durations (`.2s`) when they precede the property", () => {
+    // Shorthand allows duration-first ordering; `.2s` must not be misread as
+    // the transitioned property.
+    expect(findDisallowedTransitions(`.t-x { transition: .2s opacity ease; }`)).toEqual([]);
+  });
+
+  it("recognises negative delays (`-100ms`) without confusing them for properties", () => {
+    expect(findDisallowedTransitions(`.t-x { transition: opacity 200ms -100ms ease; }`)).toEqual(
+      [],
+    );
+  });
 });

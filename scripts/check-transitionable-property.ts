@@ -22,10 +22,11 @@ const ALLOW = new Set([
 const CSS_WIDE = new Set(["none", "inherit", "initial", "unset", "revert", "revert-layer", ""]);
 
 // Tokens that may appear in a `transition` layer; the property is the first
-// non-time, non-easing token. We match a duration / delay (e.g. `200ms`,
-// `0.2s`, or `calc(…)`) and the standard easing keywords so we can skip them
-// when scanning for the property.
-const TIME_RE = /^(?:\d+(?:\.\d+)?(?:ms|s)|calc\(.*\))$/;
+// non-time, non-easing token. We match a duration / delay — `200ms`, `0.2s`,
+// `.2s` (leading-zero omitted), and `calc(…)` — plus the standard easing
+// keywords, so we can skip them when scanning for the property. Negative
+// values are accepted because `transition-delay` legitimately allows them.
+const TIME_RE = /^-?(?:\d*\.?\d+)(?:ms|s)$|^calc\(.*\)$/;
 const EASING = new Set([
   "linear",
   "ease",
