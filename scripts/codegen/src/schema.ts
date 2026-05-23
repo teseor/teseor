@@ -80,10 +80,12 @@ const componentNodeFields = {
 // own `parts:` map. `parts:` only appears on composite roots and on inner
 // nodes; atomic specs reject it (the atomic branch omits the field).
 //
-// `fromChildren: true` marks a part whose DOM is the consumer's React children
-// (or Vue slot), not rendered by the wrapper. The generator decorates it via
-// cloneElement / scoped slot — attaching classes, attributes, and event
-// handlers — instead of emitting an element.
+// `fromChildren: true` marks a part whose DOM comes from the consumer's
+// React children (or Vue default slot). The generator wraps that content in
+// a thin element (a <span> by default) that carries the part's class,
+// attributes, and event handlers — `cloneElement` is intentionally NOT used
+// because Astro slots and similar non-React-children contexts make it
+// unreliable across framework boundaries.
 type ComponentPart = {
   element?: string;
   rootClass?: string;
@@ -141,14 +143,15 @@ const popoverBlock = z.strictObject({
 });
 
 // Declarative event → state-change rule. `on.target` references a part name
-// or the special `document` / `window` sinks. `delay` references a prop with
-// `type: number`. `when` references a state (currently only `open`, the
+// or the special `document` / `window` sinks — required, so a missing target
+// can't compile into a silent no-op interaction. `delay` references a prop
+// with `type: number`. `when` references a state (currently only `open`, the
 // canonical name for the controlled/uncontrolled boolean emitted by
 // `pattern: controllable`).
 const interactionRule = z.strictObject({
   on: z.strictObject({
     event: z.string().min(1),
-    target: z.string().optional(),
+    target: z.string().min(1),
     key: z.string().optional(),
   }),
   do: z.enum(["open", "close", "toggle"]),

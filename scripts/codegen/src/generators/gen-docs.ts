@@ -82,21 +82,27 @@ function renderExamples(spec: DocsSpec, Name: string): string {
   const trigger = isComposite ? `<Button variant="solid" intent="primary">Trigger</Button>` : null;
   const blocks = spec.examples.map((example) => {
     const props = example.props ?? {};
-    const rendered = Object.entries(props)
+    // Attrs applied to the rendered example — drop `false` props and (for
+    // atomic specs) drop slot props since those become children, not attrs.
+    const renderedAttrs = Object.entries(props)
       .filter(([key]) => {
         if (props[key] === false) return false;
         if (isComposite) return true;
         return spec.props?.[key]?.slot !== true;
       })
       .map(([key, value]) => attr(key, value));
-    const openTag = [Name, ...rendered].join(" ");
-    // Source code shown to the consumer: the full JSX they'd paste, not just
-    // the props string. Composites include the wrapped trigger; atomics
-    // include the children placeholder. Matches the rendered example 1:1.
+    const renderedOpenTag = [Name, ...renderedAttrs].join(" ");
+    // Source code shown to the consumer: the full JSX they'd paste, including
+    // slot props (slot values surface in the code block even when the rendered
+    // example needs them as children — the consumer can pattern-match).
+    const sourceAttrs = Object.entries(props)
+      .filter(([, value]) => value !== false)
+      .map(([key, value]) => attr(key, value));
+    const sourceOpenTag = [Name, ...sourceAttrs].join(" ");
     const sourceLines =
       isComposite && trigger
-        ? [`<${openTag}>`, `  ${trigger}`, `</${Name}>`]
-        : [`<${openTag}>${Name}</${Name}>`];
+        ? [`<${sourceOpenTag}>`, `  ${trigger}`, `</${Name}>`]
+        : [`<${sourceOpenTag}>${Name}</${Name}>`];
     const source = sourceLines.join("\n");
     if (isComposite && trigger) {
       // Composite components carry runtime behavior (state machine, event
@@ -107,7 +113,7 @@ function renderExamples(spec: DocsSpec, Name: string): string {
         `      <div class="t-stack" data-gap="2">`,
         `        <h3>${esc(example.id ?? "example")}</h3>`,
         `        <div class="t-cluster" data-gap="3">`,
-        `          <${openTag} client:visible>`,
+        `          <${renderedOpenTag} client:visible>`,
         `            ${trigger}`,
         `          </${Name}>`,
         `        </div>`,
@@ -119,7 +125,7 @@ function renderExamples(spec: DocsSpec, Name: string): string {
       `      <div class="t-stack" data-gap="2">`,
       `        <h3>${esc(example.id ?? "example")}</h3>`,
       `        <div class="t-cluster" data-gap="3">`,
-      `          <${openTag}>${Name}</${Name}>`,
+      `          <${renderedOpenTag}>${Name}</${Name}>`,
       `        </div>`,
       `        <pre><code>${esc(source)}</code></pre>`,
       `      </div>`,
@@ -140,19 +146,53 @@ function renderTable(headers: string[], rows: string[][]): string {
   ].join("\n");
 }
 
+function pascalCaseLocal(name: string): string {
+  return name
+    .split(/[-_\s]+/)
+    .map((part) => (part.length === 0 ? part : part.charAt(0).toUpperCase() + part.slice(1)))
+    .join("");
+}
+
 function renderProps(spec: DocsSpec): string {
   if (!spec.props || Object.keys(spec.props).length === 0) return "";
-  const rows = Object.entries(spec.props).map(([name, def]) => {
+  // `pattern: controllable` expands to a triple (`name`, `defaultName`,
+  // `onNameChange`) in every emitted wrapper / contract. The docs table
+  // mirrors that expansion so the documented API matches the consumer's
+  // type-completed surface.
+  const rows: string[][] = [];
+  for (const [name, def] of Object.entries(spec.props)) {
+    if (def.pattern === "controllable" && def.type === "boolean") {
+      const PName = pascalCaseLocal(name);
+      rows.push([
+        `<code>${esc(name)}</code>`,
+        `<code>boolean, controlled</code>`,
+        `<code>${esc(formatValue(def.default))}</code>`,
+        esc(def.description ?? ""),
+      ]);
+      rows.push([
+        `<code>default${esc(PName)}</code>`,
+        `<code>boolean</code>`,
+        `<code>${esc(formatValue(def.default))}</code>`,
+        `Initial open state (uncontrolled).`,
+      ]);
+      rows.push([
+        `<code>on${esc(PName)}Change</code>`,
+        `<code>(${esc(name)}: boolean) =&gt; void</code>`,
+        `<code>null</code>`,
+        `Fires when the open state changes.`,
+      ]);
+      continue;
+    }
     const type = [def.type, def.slot ? "slot" : "", def.responsive ? "responsive" : ""]
       .filter(Boolean)
       .join(", ");
-    return [
+    rows.push([
       `<code>${esc(name)}</code>`,
       `<code>${esc(type)}</code>`,
       `<code>${esc(formatValue(def.default))}</code>`,
       esc(def.description ?? ""),
-    ];
-  });
+    ]);
+  }
   return section("Props", renderTable(["Prop", "Type", "Default", "Description"], rows));
 }
 

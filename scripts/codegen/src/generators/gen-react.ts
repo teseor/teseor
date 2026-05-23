@@ -395,13 +395,15 @@ ${bodyBlock}
 
 /**
  * Emits a React wrapper for a composite spec — currently the
- * "overlay-with-anchor" shape: one `fromChildren` part (decorated via
- * cloneElement) and one rendered part bound by `popover:` + `interactions:`.
+ * "overlay-with-anchor" shape: one `fromChildren` part (rendered as a thin
+ * `<span>` wrapper around the consumer's children) and one rendered part
+ * bound by `popover:` + `interactions:`.
  *
  * The runtime hook `useOverlay` (in `_runtime.ts`) drives the state machine,
  * popover toggling, anchor binding, and event listener wiring. The emitted
- * wrapper does the JSX-shape work: cloneElement on the trigger child,
- * rendering the floating part with the right attributes.
+ * wrapper does the JSX-shape work: wrapping `children` in the trigger span
+ * (the wrapper-element pattern; works across React + Astro slots, no
+ * `cloneElement`) and rendering the floating part with the right attributes.
  */
 function renderCompositeWrapper(spec: Spec, propDescriptions: Record<string, string>): string {
   const Name = pascalCase(spec.name);

@@ -25,7 +25,14 @@ function walk(dir: string): string[] {
   return out;
 }
 
-const EXEMPT_MARKER = /dogfood-allow:\s*([^\n*-]+)/;
+// Anchored to the first ~10 lines (frontmatter area) so a `dogfood-allow:`
+// buried mid-file can't silently exempt a violation. The reason captures up
+// to the first newline / `*` / `-` so the message stays single-line.
+function readExemptReason(text: string): string | undefined {
+  const head = text.split("\n", 10).join("\n");
+  const match = head.match(/dogfood-allow:\s*([^\n*-]+)/);
+  return match?.[1]?.trim();
+}
 
 const violations: string[] = [];
 const exempted: { rel: string; reason: string }[] = [];
@@ -37,9 +44,9 @@ for (const file of walk(docsSrc)) {
     continue;
   }
   const text = readFileSync(file, "utf8");
-  const exemptMatch = text.match(EXEMPT_MARKER);
-  if (exemptMatch) {
-    exempted.push({ rel, reason: (exemptMatch[1] ?? "").trim() });
+  const exemptReason = readExemptReason(text);
+  if (exemptReason !== undefined) {
+    exempted.push({ rel, reason: exemptReason });
     continue;
   }
   if (/<style[\s>]/.test(text)) {

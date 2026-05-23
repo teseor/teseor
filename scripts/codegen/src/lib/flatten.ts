@@ -159,6 +159,11 @@ export function flattenSpec(spec: Spec): FlatSpec {
       tokens[name] = { ...def, __part: partName };
     }
     for (const [name, def] of Object.entries(part.states ?? {})) {
+      if (states[name]) {
+        throw new Error(
+          `composite spec '${spec.name}' has a state name collision on '${name}' across parts`,
+        );
+      }
       states[name] = { ...def, __part: partName };
     }
     if (part.privateTokens) privateTokens.push(...part.privateTokens);
