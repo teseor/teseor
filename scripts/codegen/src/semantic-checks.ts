@@ -555,8 +555,10 @@ export function checkCssImportAllowlist(spec: Spec, css: string | undefined): Is
 /**
  * The polymorphic `as` prop is a semantic element swap — Button is realistically
  * `button` or `a`, not "any HTML tag." Enforce that a spec declaring an `as`
- * prop also declares `values:` (a curated string-list), and that the type is
- * `string`. Walks composite parts.
+ * prop also declares `values:` (a curated string-list), `type: string`, and
+ * that `values:` covers the fallback element (the node's `element:`, which
+ * codegen falls back to via `as ?? element`) and the prop's `default:` if set.
+ * Walks composite parts.
  */
 export function checkAsIsConstrained(spec: Spec): Issue[] {
   const issues: Issue[] = [];
@@ -579,6 +581,25 @@ export function checkAsIsConstrained(spec: Spec): Issue[] {
           spec.name,
           `${propPath}.values`,
           "`as` must declare `values:` (a curated list of element names); custom components are not allowed",
+        ),
+      );
+      return;
+    }
+    if (typeof node.element === "string" && !asProp.values.includes(node.element)) {
+      issues.push(
+        issue(
+          spec.name,
+          `${propPath}.values`,
+          `must include the fallback element '${node.element}' (codegen falls back to it when \`as\` is omitted)`,
+        ),
+      );
+    }
+    if (typeof asProp.default === "string" && !asProp.values.includes(asProp.default)) {
+      issues.push(
+        issue(
+          spec.name,
+          `${propPath}.default`,
+          `default '${asProp.default}' is not in values: [${asProp.values.join(", ")}]`,
         ),
       );
     }

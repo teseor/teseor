@@ -386,18 +386,50 @@ describe("checkAsIsConstrained", () => {
     expect(issues[0]?.path).toBe("props.as.values");
   });
 
-  test("accepts `as` with a closed values: list", () => {
+  test("accepts `as` with a closed values: list that includes the fallback element", () => {
     const spec = makeButton({
       props: {
         as: {
           type: "string",
           values: ["button", "a"],
+          default: "button",
           responsive: false,
           description: "Polymorphic root.",
         },
       },
     });
     expect(checkAsIsConstrained(spec)).toEqual([]);
+  });
+
+  test("flags `values:` that omits the fallback element", () => {
+    const spec = makeButton({
+      props: {
+        as: {
+          type: "string",
+          values: ["a", "span"],
+          responsive: false,
+          description: "Polymorphic root.",
+        },
+      },
+    });
+    const issues = checkAsIsConstrained(spec);
+    expect(issues.some((i) => i.message.includes("'button'"))).toBe(true);
+  });
+
+  test("flags a `default:` that is not in `values:`", () => {
+    const spec = makeButton({
+      props: {
+        as: {
+          type: "string",
+          values: ["button", "a"],
+          default: "div",
+          responsive: false,
+          description: "Polymorphic root.",
+        },
+      },
+    });
+    const issues = checkAsIsConstrained(spec);
+    expect(issues.some((i) => i.path === "props.as.default")).toBe(true);
   });
 
   test("flags `as` declared as a non-string type", () => {
