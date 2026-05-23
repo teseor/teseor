@@ -1,0 +1,103 @@
+---
+import { Tooltip, Button } from "@teseor/react";
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Tooltip — Teseor">
+  <main class="t-stack" data-gap="6">
+    <h1>Tooltip</h1>
+    <p>A non-interactive hint that appears when its trigger is hovered or focused.</p>
+    <section class="t-stack" data-gap="3">
+      <h2>Examples</h2>
+      <div class="t-stack" data-gap="2">
+        <h3>default</h3>
+        <div class="t-cluster" data-gap="3">
+          <Tooltip text="Saves your changes." client:visible>
+            <Button variant="solid" intent="primary">Trigger</Button>
+          </Tooltip>
+        </div>
+        <pre><code>&lt;Tooltip text="Saves your changes."&gt;
+  &lt;Button variant="solid" intent="primary"&gt;Trigger&lt;/Button&gt;
+&lt;/Tooltip&gt;</code></pre>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>placement-right</h3>
+        <div class="t-cluster" data-gap="3">
+          <Tooltip text="Settings" placement="right" client:visible>
+            <Button variant="solid" intent="primary">Trigger</Button>
+          </Tooltip>
+        </div>
+        <pre><code>&lt;Tooltip text="Settings" placement="right"&gt;
+  &lt;Button variant="solid" intent="primary"&gt;Trigger&lt;/Button&gt;
+&lt;/Tooltip&gt;</code></pre>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>placement-bottom</h3>
+        <div class="t-cluster" data-gap="3">
+          <Tooltip text="More options" placement="bottom" client:visible>
+            <Button variant="solid" intent="primary">Trigger</Button>
+          </Tooltip>
+        </div>
+        <pre><code>&lt;Tooltip text="More options" placement="bottom"&gt;
+  &lt;Button variant="solid" intent="primary"&gt;Trigger&lt;/Button&gt;
+&lt;/Tooltip&gt;</code></pre>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>hide-on-mobile</h3>
+        <div class="t-cluster" data-gap="3">
+          <Tooltip text="⌘S" disabled={{ base: true, md: false }} client:visible>
+            <Button variant="solid" intent="primary">Trigger</Button>
+          </Tooltip>
+        </div>
+        <pre><code>&lt;Tooltip text="⌘S" disabled=&lbrace;&lbrace; base: true, md: false &rbrace;&rbrace;&gt;
+  &lt;Button variant="solid" intent="primary"&gt;Trigger&lt;/Button&gt;
+&lt;/Tooltip&gt;</code></pre>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>controlled-open</h3>
+        <div class="t-cluster" data-gap="3">
+          <Tooltip text="Step 1: click here" open client:visible>
+            <Button variant="solid" intent="primary">Trigger</Button>
+          </Tooltip>
+        </div>
+        <pre><code>&lt;Tooltip text="Step 1: click here" open&gt;
+  &lt;Button variant="solid" intent="primary"&gt;Trigger&lt;/Button&gt;
+&lt;/Tooltip&gt;</code></pre>
+      </div>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Props</h2>
+      <table>
+        <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><code>open</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Open state. Uncontrolled by default; pass `open` and optionally `onOpenChange` to drive it from the consumer (e.g. guided tours).</td></tr>
+        <tr><td><code>disabled</code></td><td><code>boolean, responsive</code></td><td><code>false</code></td><td>Suppresses the tooltip entirely. Responsive so the tooltip can be hidden at narrow viewports (e.g. `disabled: &lbrace; base: true, md: false &rbrace;`).</td></tr>
+        <tr><td><code>openDelay</code></td><td><code>number</code></td><td><code>300</code></td><td>Milliseconds before the tooltip opens after hover or focus. Prevents flicker during cursor scanning.</td></tr>
+        <tr><td><code>closeDelay</code></td><td><code>number</code></td><td><code>0</code></td><td>Milliseconds before the tooltip closes after leave or blur.</td></tr>
+        <tr><td><code>text</code></td><td><code>string, slot</code></td><td><code>null</code></td><td>Tooltip content. Plain text; use Popover for interactive content.</td></tr>
+        <tr><td><code>placement</code></td><td><code>string, responsive</code></td><td><code>top</code></td><td>Preferred side relative to the trigger. CSS `position-try-fallbacks` auto-flips on overflow.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Tokens</h2>
+      <table>
+        <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><code>--t-tooltip-bg</code></td><td><code>--t-neutral-90</code></td><td>Background fill. Defaults to a dark neutral; consumers override via `--t-tooltip-bg`.</td></tr>
+        <tr><td><code>--t-tooltip-fg</code></td><td><code>--t-neutral-10</code></td><td>Text color. Pairs with `bg`.</td></tr>
+        <tr><td><code>--t-tooltip-pad-x</code></td><td><code>--t-space-3</code></td><td>Inline padding.</td></tr>
+        <tr><td><code>--t-tooltip-pad-y</code></td><td><code>--t-space-2</code></td><td>Block padding.</td></tr>
+        <tr><td><code>--t-tooltip-radius</code></td><td><code>--t-radius-sm</code></td><td>Corner radius.</td></tr>
+        <tr><td><code>--t-tooltip-gap</code></td><td><code>--t-space-2</code></td><td>Distance from the trigger.</td></tr>
+        <tr><td><code>--t-tooltip-dur</code></td><td><code>--t-dur-fast</code></td><td>Entry and exit duration.</td></tr>
+        <tr><td><code>--t-tooltip-ease</code></td><td><code>--t-ease-out</code></td><td>Entry and exit easing.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Accessibility</h2>
+      <p>Role: <code>tooltip</code></p>
+    </section>
+  </main>
+</Base>

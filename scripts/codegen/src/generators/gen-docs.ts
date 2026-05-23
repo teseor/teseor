@@ -2,8 +2,10 @@ import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse as parseYaml } from "yaml";
+import { flattenSpec } from "../lib/flatten.ts";
 import type { GeneratorContext, GeneratorReport } from "../registry.ts";
 import { registerGenerator } from "../registry.ts";
+import { Spec as SpecSchema } from "../schema.ts";
 import type { Spec } from "./gen-contract.ts";
 
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..", "..", "..");
@@ -71,22 +73,55 @@ function section(title: string, body: string): string {
 
 function renderExamples(spec: DocsSpec, Name: string): string {
   if (!spec.examples || spec.examples.length === 0) return "";
+  const isComposite = spec.kind === "composite";
+  // Composite components with a `fromChildren` part don't render an element
+  // themselves; the docs example wraps a Button as the trigger so the
+  // composite has a real child to decorate (Tooltip + Popover pattern).
+  // For composite specs, slot props (e.g. Tooltip's `text`) render as
+  // attributes since they're string content, not child elements.
+  const trigger = isComposite ? `<Button variant="solid" intent="primary">Trigger</Button>` : null;
   const blocks = spec.examples.map((example) => {
     const props = example.props ?? {};
     const rendered = Object.entries(props)
-      .filter(([key]) => spec.props?.[key]?.slot !== true && props[key] !== false)
+      .filter(([key]) => {
+        if (props[key] === false) return false;
+        if (isComposite) return true;
+        return spec.props?.[key]?.slot !== true;
+      })
       .map(([key, value]) => attr(key, value));
-    const open = [Name, ...rendered].join(" ");
-    const code = Object.entries(props)
-      .map(([key, value]) => attr(key, value))
-      .join(" ");
+    const openTag = [Name, ...rendered].join(" ");
+    // Source code shown to the consumer: the full JSX they'd paste, not just
+    // the props string. Composites include the wrapped trigger; atomics
+    // include the children placeholder. Matches the rendered example 1:1.
+    const sourceLines =
+      isComposite && trigger
+        ? [`<${openTag}>`, `  ${trigger}`, `</${Name}>`]
+        : [`<${openTag}>${Name}</${Name}>`];
+    const source = sourceLines.join("\n");
+    if (isComposite && trigger) {
+      // Composite components carry runtime behavior (state machine, event
+      // handlers, popover toggling) so the Astro island needs to hydrate.
+      // `client:visible` defers JS to first viewport entry — cheap and
+      // matches the "no flash until visible" UX of the docs site.
+      return [
+        `      <div class="t-stack" data-gap="2">`,
+        `        <h3>${esc(example.id ?? "example")}</h3>`,
+        `        <div class="t-cluster" data-gap="3">`,
+        `          <${openTag} client:visible>`,
+        `            ${trigger}`,
+        `          </${Name}>`,
+        `        </div>`,
+        `        <pre><code>${esc(source)}</code></pre>`,
+        `      </div>`,
+      ].join("\n");
+    }
     return [
       `      <div class="t-stack" data-gap="2">`,
       `        <h3>${esc(example.id ?? "example")}</h3>`,
       `        <div class="t-cluster" data-gap="3">`,
-      `          <${open}>${Name}</${Name}>`,
+      `          <${openTag}>${Name}</${Name}>`,
       `        </div>`,
-      `        <code>${esc(code)}</code>`,
+      `        <pre><code>${esc(source)}</code></pre>`,
       `      </div>`,
     ].join("\n");
   });
@@ -195,8 +230,10 @@ function renderDocsPage(spec: DocsSpec): string {
     renderConstraints(spec),
   ].filter((part) => part.length > 0);
 
+  const isComposite = spec.kind === "composite";
+  const importNames = isComposite ? [Name, "Button"] : [Name];
   const imports = [
-    ...(hasExamples ? [`import { ${Name} } from "@teseor/react";`] : []),
+    ...(hasExamples ? [`import { ${importNames.join(", ")} } from "@teseor/react";`] : []),
     `import Base from "../../layouts/Base.astro";`,
   ];
   const intro = spec.description ? `    <p>${esc(spec.description)}</p>\n` : "";
@@ -218,11 +255,18 @@ function renderDocsPage(spec: DocsSpec): string {
 
 async function loadSpec(name: string): Promise<DocsSpec> {
   const raw = await readFile(resolve(SPECS_DIR, `${name}.yaml`), "utf8");
-  const parsed = parseYaml(raw) as DocsSpec;
-  if (parsed.name !== name) {
-    throw new Error(`spec name "${parsed.name}" in ${name}.yaml does not match file basename`);
+  const parsed = parseYaml(raw);
+  const result = SpecSchema.safeParse(parsed);
+  if (!result.success) {
+    const messages = result.error.issues
+      .map((i) => `  ${i.path.join(".")}: ${i.message}`)
+      .join("\n");
+    throw new Error(`spec ${name}.yaml failed schema validation:\n${messages}`);
   }
-  return parsed;
+  if (result.data.name !== name) {
+    throw new Error(`spec name "${result.data.name}" in ${name}.yaml does not match file basename`);
+  }
+  return flattenSpec(result.data) as DocsSpec;
 }
 
 async function listSpecNames(): Promise<string[]> {
