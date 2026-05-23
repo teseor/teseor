@@ -664,6 +664,7 @@ import {
   Children,
   cloneElement,
   type ElementType,
+  Fragment,
   isValidElement,
   type ReactElement,
   type ReactNode,
@@ -825,8 +826,8 @@ function mergeSlotProps(
  * Used by composite wrappers when \`asChild\` is true — \`aria-describedby\`,
  * event handlers, and the anchor binding land on the consumer's element
  * instead of an extra \`<span>\` wrapper. Warns and renders nothing if
- * \`children\` isn't exactly one valid React element (fragment, multiple
- * children, or null all hit the warn path — never throws).
+ * \`children\` isn't exactly one valid React element (Fragment, multiple
+ * children, null, or bare text all hit the warn path — never throws).
  */
 export function Slot({ children, ...slotProps }: SlotProps): ReactElement | null {
   const elements = Children.toArray(children).filter(isValidElement);
@@ -839,6 +840,16 @@ export function Slot({ children, ...slotProps }: SlotProps): ReactElement | null
     return null;
   }
   const child = elements[0] as ReactElement<Record<string, unknown>>;
+  // \`Children.toArray\` doesn't flatten Fragments — a Fragment slips past the
+  // length check, then \`cloneElement\` silently drops slot props on it.
+  if (child.type === Fragment) {
+    if (typeof console !== "undefined") {
+      console.warn(
+        "Slot: expected a single element child but got a Fragment. Pass a single element (e.g. <button>...</button>) or drop \`asChild\`.",
+      );
+    }
+    return null;
+  }
   // Astro wraps slotted children in \`<astro-slot>\`. \`cloneElement\` merges
   // props onto that wrapper, not the element inside, so handlers and
   // \`aria-describedby\` never reach the consumer's button. Warn loudly —

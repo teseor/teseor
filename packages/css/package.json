@@ -32,8 +32,7 @@
   ],
   "scripts": {
     "build": "node build.mjs",
-    "typecheck": "tsc --noEmit",
-    "test": "vitest run --root ../.."
+    "typecheck": "tsc --noEmit"
   },
   "publishConfig": {
     "access": "public",

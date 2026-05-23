@@ -7,10 +7,14 @@
   "sideEffects": false,
   "exports": {
     ".": "./src/index.ts",
+    "./_dom-polyfills": null,
+    "./_runtime.test": null,
     "./*": "./src/*"
   },
   "files": [
-    "src"
+    "src",
+    "!src/**/*.test.*",
+    "!src/_dom-polyfills.ts"
   ],
   "scripts": {
     "typecheck": "tsc --noEmit"
@@ -28,7 +32,11 @@
     "react": ">=18"
   },
   "devDependencies": {
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/react": "^16.3.2",
     "@types/react": "^19.2.15",
-    "react": "^19.2.6"
+    "@types/react-dom": "^19.2.3",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
   }
 }

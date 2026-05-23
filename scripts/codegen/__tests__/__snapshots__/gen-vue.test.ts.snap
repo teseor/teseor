@@ -237,7 +237,6 @@ import {
   cloneVNode,
   computed,
   defineComponent,
-  mergeProps,
   onBeforeUnmount,
   onMounted,
   type Ref,
@@ -363,8 +362,9 @@ export const Slot = defineComponent({
   inheritAttrs: false,
   setup(_, { slots, attrs }) {
     return () => {
-      // Filter out comment/text-only vnodes (v-if false branches, whitespace)
-      // so the single-child invariant matches the React Slot's behavior.
+      // Drop symbol-typed VNodes (Comment, Text, Fragment) so v-if branches,
+      // whitespace, and \`<><a/><b/></>\` wrappers don't pass the single-child
+      // invariant. cloneVNode on a Fragment silently drops slot props.
       const vnodes = (slots.default?.() ?? []).filter((v) => typeof v.type !== "symbol");
       if (vnodes.length !== 1) {
         if (typeof console !== "undefined") {
@@ -376,7 +376,9 @@ export const Slot = defineComponent({
       }
       const child = vnodes[0];
       if (!child) return null;
-      return cloneVNode(child, mergeProps(child.props ?? {}, attrs));
+      // \`cloneVNode\` itself calls \`mergeProps(child.props, extraProps)\` —
+      // pre-merging here doubles event handlers (child's onClick fires twice).
+      return cloneVNode(child, attrs);
     };
   },
 });
