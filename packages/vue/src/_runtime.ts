@@ -47,7 +47,11 @@ type OverlayInteraction = {
 };
 
 type OverlayConfig = {
-  open?: boolean;
+  /** Reactive getter for the controlled `open` prop. Passed as a function
+   *  so the composable re-reads it via `config.open()` on every render —
+   *  capturing the value at setup-time (Vue's setup runs once) would lose
+   *  every later parent prop change. `undefined` means uncontrolled. */
+  open?: () => boolean | undefined;
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
   anchorVar: string;
@@ -80,14 +84,17 @@ function sanitizeId(id: string): string {
  * `@teseor/react`; both consume the same spec-derived config.
  */
 export function useOverlay(config: OverlayConfig): OverlayReturn {
-  const controlled = config.open !== undefined;
   const internalOpen = ref<boolean>(config.defaultOpen ?? false);
-  const open = computed<boolean>(() =>
-    controlled ? Boolean(config.open) : internalOpen.value,
-  );
+  // Re-evaluated each render via the getter pattern. When the consumer's
+  // `open` prop changes, the computed re-runs and the popover state updates.
+  const open = computed<boolean>(() => {
+    const fromProp = config.open?.();
+    return fromProp !== undefined ? fromProp : internalOpen.value;
+  });
 
   const setOpen = (next: boolean) => {
-    if (!controlled) internalOpen.value = next;
+    const fromProp = config.open?.();
+    if (fromProp === undefined) internalOpen.value = next;
     config.onOpenChange?.(next);
   };
 

@@ -4,8 +4,13 @@
 // Source: specs/tooltip.yaml
 
 import "@teseor/css/components/tooltip.css";
-import type { CSSProperties, ReactNode } from "react";
-import { type Responsive, responsiveDataAttrs, useOverlay } from "./_runtime.ts";
+import { type CSSProperties, type ReactNode, useMemo } from "react";
+import {
+  type OverlayInteraction,
+  type Responsive,
+  responsiveDataAttrs,
+  useOverlay,
+} from "./_runtime.ts";
 
 type TooltipPlacement = "top" | "right" | "bottom" | "left";
 
@@ -62,19 +67,24 @@ export function Tooltip(props: TooltipProps) {
     children,
   } = props;
 
-  const overlay = useOverlay<HTMLElementTagNameMap["div"]>({
-    open: openProp,
-    defaultOpen,
-    onOpenChange,
-    anchorVar: "--t-tooltip-anchor",
-    popoverMode: "manual",
-    interactions: [
+  const interactions = useMemo<OverlayInteraction[]>(
+    () => [
       { on: { event: "pointerenter", target: "trigger" }, do: "open", delayMs: openDelay },
       { on: { event: "focusin", target: "trigger" }, do: "open", delayMs: openDelay },
       { on: { event: "pointerleave", target: "trigger" }, do: "close", delayMs: closeDelay },
       { on: { event: "focusout", target: "trigger" }, do: "close", delayMs: closeDelay },
       { on: { event: "keydown", target: "document", key: "Escape" }, do: "close", when: "open" },
     ],
+    [openDelay, closeDelay],
+  );
+
+  const overlay = useOverlay<HTMLElementTagNameMap["div"]>({
+    open: openProp,
+    defaultOpen,
+    onOpenChange,
+    anchorVar: "--t-tooltip-anchor",
+    popoverMode: "manual",
+    interactions,
   });
 
   // The trigger is rendered as a wrapper element around `children` rather

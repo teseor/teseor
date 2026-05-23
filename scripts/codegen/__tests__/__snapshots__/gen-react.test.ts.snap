@@ -296,7 +296,7 @@ export function asElement(value: ElementType): ElementType {
 
 // ── Overlay hook — used by composite overlay components ────────────────────
 
-type OverlayInteraction = {
+export type OverlayInteraction = {
   on: { event: string; target?: string; key?: string };
   do: "open" | "close" | "toggle";
   /** Numeric ms delay. Resolved at the call site from the consumer's delay
@@ -464,8 +464,10 @@ export function useOverlay<T extends HTMLElement = HTMLElement>(
     };
   }, [interactions, schedule]);
 
-  // Trigger-bound interactions become React handlers spread onto the cloned
-  // trigger child. Multiple rules on the same event merge into one handler.
+  // Trigger-bound interactions become React handlers spread onto the
+  // wrapper element that the generated composite renders around \`children\`
+  // (the wrapper-element pattern — no cloneElement, works in Astro slots).
+  // Multiple rules on the same event merge into one composed handler.
   const triggerHandlers: OverlayHandlers = {};
   for (const rule of interactions) {
     if (rule.on.target !== "trigger") continue;

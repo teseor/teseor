@@ -504,16 +504,26 @@ function renderCompositeWrapper(spec: Spec, propDescriptions: Record<string, str
   });
 
   // Hook arguments. The controllable triple feeds in as named keys; popover +
-  // interactions describe the behavior.
+  // interactions describe the behavior. Interactions are memoized on the
+  // wrapper side so the document-listener effect inside useOverlay doesn't
+  // tear down + rebind on every parent re-render — the inline array literal
+  // would otherwise have a fresh identity every render.
+  const memoDeps = Array.from(delayProps).join(", ");
   const hookConfig = [
     `    ${controllableName}: ${controllableName}Prop,`,
     `    default${ControllableName},`,
     `    on${ControllableName}Change,`,
     `    anchorVar: ${quote(popover.anchorVar)},`,
     `    popoverMode: ${quote(popover.mode)},`,
-    `    interactions: [`,
-    ...interactionItems,
+    `    interactions,`,
+  ].join("\n");
+  const interactionsMemo = [
+    `  const interactions = useMemo<OverlayInteraction[]>(`,
+    `    () => [`,
+    ...interactionItems.map((line) => `  ${line}`),
     `    ],`,
+    `    [${memoDeps}],`,
+    `  );`,
   ].join("\n");
 
   const propControlled = `${controllableName}: ${controllableName}Prop`;
@@ -532,8 +542,8 @@ function renderCompositeWrapper(spec: Spec, propDescriptions: Record<string, str
 
   const importsLines = [
     `import "@teseor/css/components/${spec.name}.css";`,
-    `import type { CSSProperties, ReactNode } from "react";`,
-    `import { responsiveDataAttrs, type Responsive, useOverlay } from "./_runtime.ts";`,
+    `import { type CSSProperties, type ReactNode, useMemo } from "react";`,
+    `import { type OverlayInteraction, responsiveDataAttrs, type Responsive, useOverlay } from "./_runtime.ts";`,
   ].join("\n");
 
   const contentRoleAttr = contentRole ? `        role=${quote(contentRole)}` : null;
@@ -559,6 +569,8 @@ ${renderComponentJsDoc(spec, Name)}export function ${Name}(props: ${Name}Props) 
     on${ControllableName}Change,
 ${destructureNames.map((n) => `    ${n},`).join("\n")}
   } = props;
+
+${interactionsMemo}
 
   const overlay = useOverlay<HTMLElementTagNameMap[${quote(contentElement)}]>({
 ${hookConfig}
@@ -654,7 +666,7 @@ export function asElement(value: ElementType): ElementType {
 
 // ── Overlay hook — used by composite overlay components ────────────────────
 
-type OverlayInteraction = {
+export type OverlayInteraction = {
   on: { event: string; target?: string; key?: string };
   do: "open" | "close" | "toggle";
   /** Numeric ms delay. Resolved at the call site from the consumer's delay
@@ -822,8 +834,10 @@ export function useOverlay<T extends HTMLElement = HTMLElement>(
     };
   }, [interactions, schedule]);
 
-  // Trigger-bound interactions become React handlers spread onto the cloned
-  // trigger child. Multiple rules on the same event merge into one handler.
+  // Trigger-bound interactions become React handlers spread onto the
+  // wrapper element that the generated composite renders around \`children\`
+  // (the wrapper-element pattern — no cloneElement, works in Astro slots).
+  // Multiple rules on the same event merge into one composed handler.
   const triggerHandlers: OverlayHandlers = {};
   for (const rule of interactions) {
     if (rule.on.target !== "trigger") continue;

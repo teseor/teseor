@@ -16,4 +16,4 @@ Spec language additions:
 - `parts.<name>.fromChildren: true` marks a part rendered as a wrapper around the consumer's children (no `cloneElement` — works in pure-React and Astro slots).
 - `pattern: controllable` on a boolean prop now expands to the `open` / `defaultOpen` / `onOpenChange` triple.
 
-`@teseor/css` ships `t-tooltip-trigger` + `t-tooltip` with placement variants and `@starting-style` entry animation. Vue composite wrapper emission lands in a follow-up.
+`@teseor/css` ships `t-tooltip-trigger` + `t-tooltip` with placement variants and `@starting-style` entry animation. Both `@teseor/react` and `@teseor/vue` ship Tooltip together — Vue gets a mirrored `useOverlay` composable in `_runtime.ts` and a generated `Tooltip.vue` SFC.
