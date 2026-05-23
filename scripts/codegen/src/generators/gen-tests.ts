@@ -2,9 +2,22 @@ import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse as parseYaml } from "yaml";
+import {
+  type Cell,
+  type Dimension,
+  expandPairwise,
+  matrixFixtureId,
+  type Constraint as PairwiseConstraint,
+} from "../pairwise.ts";
 import type { GeneratorContext, GeneratorReport } from "../registry.ts";
 import { registerGenerator } from "../registry.ts";
 import type { Spec, SpecProp } from "./gen-contract.ts";
+
+/** Spec fields gen-tests reads beyond gen-contract's loose Spec type. */
+type TestsSpec = Spec & {
+  states?: Record<string, { description?: string }>;
+  matrix?: Record<string, true | readonly string[]>;
+};
 
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..", "..", "..");
 const SPECS_DIR = resolve(REPO_ROOT, "specs");
@@ -89,16 +102,92 @@ function hasSlotProps(spec: Spec): boolean {
   return Object.values(spec.props ?? {}).some((def) => def.slot === true);
 }
 
+// ── Matrix expansion (pairwise) ───────────────────────────────────────────
+
+function declaredValues(spec: TestsSpec, dimName: string): readonly string[] {
+  switch (dimName) {
+    case "variant":
+      return Object.keys(spec.variants ?? {});
+    case "intent":
+      return Object.keys(spec.intents ?? {});
+    case "size":
+      return Object.keys(spec.sizes ?? {});
+    case "states":
+      return Object.keys(spec.states ?? {});
+    default: {
+      const def = spec.props?.[dimName];
+      return def?.values ?? [];
+    }
+  }
+}
+
+function collectMatrixDimensions(spec: TestsSpec): Dimension[] {
+  const matrix = spec.matrix;
+  if (!matrix) return [];
+  const out: Dimension[] = [];
+  for (const [name, declaration] of Object.entries(matrix)) {
+    const declared = declaredValues(spec, name);
+    if (declared.length === 0) continue;
+    const values =
+      declaration === true ? declared : declaration.filter((v) => declared.includes(v));
+    if (values.length === 0) continue;
+    out.push({ name, values });
+  }
+  return out;
+}
+
+function collectConstraints(spec: TestsSpec): PairwiseConstraint[] {
+  const out: PairwiseConstraint[] = [];
+  for (const c of spec.constraints ?? []) {
+    const when: Record<string, string> = {};
+    const forbid: Record<string, string[]> = {};
+    for (const [k, v] of Object.entries(c.when ?? {})) {
+      if (typeof v === "string") when[k] = v;
+    }
+    for (const [k, v] of Object.entries(c.forbid ?? {})) {
+      forbid[k] = Array.isArray(v) ? v.map(String) : [String(v)];
+    }
+    out.push({ when, forbid });
+  }
+  return out;
+}
+
+/** Translate a pairwise cell into a fixture props object. `states` cells
+ * (e.g. `disabled`) map to the matching boolean prop (`disabled: true`); the
+ * rest pass through as `{ <dim>: <value> }`. */
+function cellToProps(cell: Cell): Record<string, unknown> {
+  const props: Record<string, unknown> = {};
+  for (const [dim, value] of Object.entries(cell)) {
+    if (dim === "states") props[value] = true;
+    else props[dim] = value;
+  }
+  return props;
+}
+
+type MatrixFixture = { id: string; props: Record<string, unknown> };
+
+function matrixFixtures(spec: TestsSpec): MatrixFixture[] {
+  const dimensions = collectMatrixDimensions(spec);
+  if (dimensions.length === 0) return [];
+  const constraints = collectConstraints(spec);
+  const cells = expandPairwise(dimensions, constraints);
+  return cells.map((cell) => ({
+    id: matrixFixtureId(cell, dimensions),
+    props: cellToProps(cell),
+  }));
+}
+
 function renderReactFixtureFile(spec: Spec): string {
   const Name = pascalCase(spec.name);
   const examples = spec.examples ?? [];
-  const entries = examples
+  const matrix = matrixFixtures(spec as TestsSpec);
+  const exampleEntries = examples
     .filter((e): e is { id: string; props?: Record<string, unknown> } => typeof e.id === "string")
-    .map((e) => {
-      const body = renderReactFixtureBody(spec, Name, e.props ?? {});
-      return `  ${quote(e.id)}: () => ${body},`;
-    })
-    .join("\n");
+    .map((e) => `  ${quote(e.id)}: () => ${renderReactFixtureBody(spec, Name, e.props ?? {})},`);
+  const matrixEntries = matrix.map(
+    (m) => `  ${quote(m.id)}: () => ${renderReactFixtureBody(spec, Name, m.props)},`,
+  );
+  const entries = [...exampleEntries, ...matrixEntries].join("\n");
   const slotHelper = hasSlotProps(spec)
     ? `const SLOT = (name: string): ReactNode => <span data-fixture-slot={name} />;\n`
     : "";
@@ -119,13 +208,14 @@ ${entries}
 function renderVueFixtureFile(spec: Spec): string {
   const Name = pascalCase(spec.name);
   const examples = spec.examples ?? [];
-  const entries = examples
+  const matrix = matrixFixtures(spec as TestsSpec);
+  const exampleEntries = examples
     .filter((e): e is { id: string; props?: Record<string, unknown> } => typeof e.id === "string")
-    .map((e) => {
-      const body = renderVueFixtureBody(spec, Name, e.props ?? {});
-      return `  ${quote(e.id)}: () => ${body},`;
-    })
-    .join("\n");
+    .map((e) => `  ${quote(e.id)}: () => ${renderVueFixtureBody(spec, Name, e.props ?? {})},`);
+  const matrixEntries = matrix.map(
+    (m) => `  ${quote(m.id)}: () => ${renderVueFixtureBody(spec, Name, m.props)},`,
+  );
+  const entries = [...exampleEntries, ...matrixEntries].join("\n");
   const slotHelper = hasSlotProps(spec)
     ? `const SLOT = (name: string) => () => h("span", { "data-fixture-slot": name });\n`
     : "";
@@ -250,10 +340,11 @@ export function defineContractTests(options: ContractTestOptions): void {
 
 function renderSpecFile(spec: Spec): string {
   const rootClass = spec.rootClass ?? `t-${spec.name}`;
-  const ids = (spec.examples ?? [])
+  const exampleIds = (spec.examples ?? [])
     .map((e) => e.id)
     .filter((id): id is string => typeof id === "string");
-  const idList = ids.map((id) => `    ${quote(id)},`).join("\n");
+  const matrixIds = matrixFixtures(spec as TestsSpec).map((m) => m.id);
+  const idList = [...exampleIds, ...matrixIds].map((id) => `    ${quote(id)},`).join("\n");
   return `// AUTOGENERATED by gen-tests. Do not edit.
 // Source: specs/${spec.name}.yaml
 
