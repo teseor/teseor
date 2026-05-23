@@ -219,4 +219,36 @@ describe("createDismissableLayer", () => {
     expect(onEscapeKeyDown).toHaveBeenCalledTimes(1);
     layer2.destroy();
   });
+
+  it("scopes stack and listeners per ownerDocument", () => {
+    // A layer in another document (iframe-like) is isolated: events in the
+    // main document don't fire its callbacks, and events in its own document
+    // don't fire callbacks for layers in the main document.
+    const otherDoc = document.implementation.createHTMLDocument();
+    if (!otherDoc.body) throw new Error("createHTMLDocument did not produce a body");
+    const otherEl = otherDoc.createElement("div");
+    otherDoc.body.appendChild(otherEl);
+
+    const mainEl = document.createElement("div");
+    document.body.appendChild(mainEl);
+
+    const onMain = vi.fn();
+    const onOther = vi.fn();
+    const mainLayer = createDismissableLayer(mainEl, { onEscapeKeyDown: onMain });
+    const otherLayer = createDismissableLayer(otherEl, { onEscapeKeyDown: onOther });
+
+    // Escape in the main document → only main fires.
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
+    expect(onMain).toHaveBeenCalledTimes(1);
+    expect(onOther).not.toHaveBeenCalled();
+
+    // Escape in the other document → only other fires.
+    otherDoc.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
+    expect(onMain).toHaveBeenCalledTimes(1);
+    expect(onOther).toHaveBeenCalledTimes(1);
+
+    mainLayer.destroy();
+    otherLayer.destroy();
+    mainEl.remove();
+  });
 });
