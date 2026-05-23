@@ -16,6 +16,9 @@ afterAll(uninstallDomPolyfills);
 afterEach(() => {
   cleanup();
   resetDomPolyfills();
+  // `warnOnce` dedups per key on `window.__teseor_warned`; clear it so each
+  // test sees a fresh warning rather than the first test silencing the rest.
+  delete (window as unknown as { __teseor_warned?: Set<string> }).__teseor_warned;
 });
 
 describe("Slot", () => {

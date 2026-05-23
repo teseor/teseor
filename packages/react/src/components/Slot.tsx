@@ -1,3 +1,4 @@
+import { warnOnce } from "@teseor/primitives";
 import {
   Children,
   cloneElement,
@@ -59,22 +60,20 @@ function mergeSlotProps(
 export function Slot({ children, ...slotProps }: SlotProps): ReactElement | null {
   const elements = Children.toArray(children).filter(isValidElement);
   if (elements.length !== 1) {
-    if (typeof console !== "undefined") {
-      console.warn(
-        `Slot: expected exactly one React element child, got ${elements.length}. Pass a single element (e.g. <button>...</button>) or drop \`asChild\`.`,
-      );
-    }
+    warnOnce(
+      "slot.multi-child",
+      `Slot: expected exactly one React element child, got ${elements.length}. Pass a single element (e.g. <button>...</button>) or drop \`asChild\`.`,
+    );
     return null;
   }
   const child = elements[0] as ReactElement<Record<string, unknown>>;
   // `Children.toArray` doesn't flatten Fragments — a Fragment slips past the
   // length check, then `cloneElement` silently drops slot props on it.
   if (child.type === Fragment) {
-    if (typeof console !== "undefined") {
-      console.warn(
-        "Slot: expected a single element child but got a Fragment. Pass a single element (e.g. <button>...</button>) or drop `asChild`.",
-      );
-    }
+    warnOnce(
+      "slot.fragment",
+      "Slot: expected a single element child but got a Fragment. Pass a single element (e.g. <button>...</button>) or drop `asChild`.",
+    );
     return null;
   }
   // Astro wraps slotted children in `<astro-slot>`. `cloneElement` merges
@@ -82,11 +81,10 @@ export function Slot({ children, ...slotProps }: SlotProps): ReactElement | null
   // `aria-describedby` never reach the consumer's button. Warn loudly —
   // there is no workaround at the React layer.
   if (typeof child.type === "string" && child.type.startsWith("astro-")) {
-    if (typeof console !== "undefined") {
-      console.warn(
-        "Slot: `asChild` does not work inside Astro slots — children arrive wrapped in <astro-slot>. Drop `asChild` (use the default wrapper) when rendering this component from a .astro file.",
-      );
-    }
+    warnOnce(
+      "slot.astro",
+      "Slot: `asChild` does not work inside Astro slots — children arrive wrapped in <astro-slot>. Drop `asChild` (use the default wrapper) when rendering this component from a .astro file.",
+    );
     return cloneElement(child, mergeSlotProps(child.props ?? {}, slotProps));
   }
   return cloneElement(child, mergeSlotProps(child.props ?? {}, slotProps));

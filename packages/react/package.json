@@ -24,7 +24,8 @@
     "directory": "packages/react"
   },
   "dependencies": {
-    "@teseor/css": "workspace:*"
+    "@teseor/css": "workspace:*",
+    "@teseor/primitives": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18"
