@@ -129,12 +129,15 @@ function renderContract(spec: FlatSpec): string {
       continue;
     }
     const propValues = propDef.values ?? [];
+    // Slot props with a concrete `type:` (e.g. Tooltip's `text: { type:
+    // "string", slot: true }`) keep their declared scalar type in the
+    // contract — `unknown` is reserved for slots that legitimately accept
+    // arbitrary content (ReactNode-style slots whose `type:` would otherwise
+    // be meaningless; those would set `type: "string"` and we still emit
+    // string in the framework-agnostic contract since framework wrappers
+    // widen to ReactNode / VNode[] at their own layer).
     const baseType =
-      propDef.slot === true
-        ? "unknown"
-        : propValues.length > 0
-          ? `${Name}${pascalCase(propName)}`
-          : mapPropType(propDef.type);
+      propValues.length > 0 ? `${Name}${pascalCase(propName)}` : mapPropType(propDef.type);
     const tsType =
       propDef.responsive === true && propDef.slot !== true ? responsiveType(baseType) : baseType;
     if (propDef.description) propLines.push(`  /** ${propDef.description} */`);

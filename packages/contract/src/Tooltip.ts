@@ -19,7 +19,7 @@ export type TooltipProps = {
   /** Milliseconds before the tooltip closes after leave or blur. */
   closeDelay?: number;
   /** Tooltip content. Plain text; use Popover for interactive content. */
-  text?: unknown;
+  text?: string;
   /** Preferred side relative to the trigger. CSS `position-try-fallbacks` auto-flips on overflow. */
   placement?: Responsive<TooltipPlacement>;
 };

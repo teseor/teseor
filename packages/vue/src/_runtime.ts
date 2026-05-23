@@ -24,13 +24,21 @@ export function responsiveDataAttrs(
 ): Record<string, string | undefined> {
   if (value == null || value === false) return {};
   if (typeof value === "object") {
+    // Responsive object: emit every declared breakpoint, including `false`.
+    // The CSS for responsive overrides reads explicit `data-${name}-${bp}`
+    // attributes (e.g. `[data-disabled-md="false"]` reverts the base
+    // `[data-disabled="true"]` at md+); dropping `false` here breaks the
+    // override and the base value sticks across every breakpoint.
     const obj = value as Record<string, unknown>;
     const out: Record<string, string | undefined> = {};
     for (const key of RESPONSIVE_KEYS) {
       const v = obj[key];
-      if (v == null || v === false) continue;
+      if (v == null) continue;
+      // Drop `false` only at the `base` slot — its CSS rule is "absence of
+      // the attribute"; emitting `data-disabled="false"` would never match.
+      if (key === "base" && v === false) continue;
       const attr = key === "base" ? `data-${name}` : `data-${name}-${key}`;
-      out[attr] = v === true ? "true" : String(v);
+      out[attr] = v === true ? "true" : v === false ? "false" : String(v);
     }
     return out;
   }
@@ -129,24 +137,32 @@ export function useOverlay(config: OverlayConfig): OverlayReturn {
 
   onBeforeUnmount(() => clearTimers());
 
-  // Sync popover state with the reactive `open` value.
-  watch(open, (current) => {
-    const node = contentRef.value;
-    if (!node) return;
-    if (current && !node.matches(":popover-open")) {
-      try {
-        node.showPopover();
-      } catch {
-        // Popover API unsupported or display:none — degrade silently.
+  // Sync popover state with the reactive `open` value. `immediate: true`
+  // ensures the initial `defaultOpen: true` / controlled `open: true` calls
+  // `showPopover()` after the first mount instead of waiting for a change.
+  // `flush: 'post'` defers each callback to after the DOM update, so the
+  // popover element exists when we toggle it.
+  watch(
+    open,
+    (current) => {
+      const node = contentRef.value;
+      if (!node) return;
+      if (current && !node.matches(":popover-open")) {
+        try {
+          node.showPopover();
+        } catch {
+          // Popover API unsupported or display:none — degrade silently.
+        }
+      } else if (!current && node.matches(":popover-open")) {
+        try {
+          node.hidePopover();
+        } catch {
+          // Popover API unsupported — degrade silently.
+        }
       }
-    } else if (!current && node.matches(":popover-open")) {
-      try {
-        node.hidePopover();
-      } catch {
-        // Popover API unsupported — degrade silently.
-      }
-    }
-  });
+    },
+    { immediate: true, flush: "post" },
+  );
 
   // Document/window-bound interactions. Listeners attach on mount and unmount.
   const cleanups: Array<() => void> = [];

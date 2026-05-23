@@ -14,13 +14,21 @@ export function responsiveDataAttrs(
 ): Record<string, string | undefined> {
   if (value == null || value === false) return {};
   if (typeof value === "object") {
+    // Responsive object: emit every declared breakpoint, including `false`.
+    // The CSS for responsive overrides reads explicit `data-${name}-${bp}`
+    // attributes (e.g. `[data-disabled-md="false"]` reverts the base
+    // `[data-disabled="true"]` at md+); dropping `false` here breaks the
+    // override and the base value sticks across every breakpoint.
     const obj = value as Record<string, unknown>;
     const out: Record<string, string | undefined> = {};
     for (const key of RESPONSIVE_KEYS) {
       const v = obj[key];
-      if (v == null || v === false) continue;
+      if (v == null) continue;
+      // Drop `false` only at the `base` slot — its CSS rule is "absence of
+      // the attribute"; emitting `data-disabled="false"` would never match.
+      if (key === "base" && v === false) continue;
       const attr = key === "base" ? `data-${name}` : `data-${name}-${key}`;
-      out[attr] = v === true ? "true" : String(v);
+      out[attr] = v === true ? "true" : v === false ? "false" : String(v);
     }
     return out;
   }
