@@ -14,4 +14,8 @@ export const fixtures: Record<string, () => VNode> = {
   "responsive-gap": () => h(Stack, { "gap": { "base": "2", "md": "4", "lg": "6" } }, { default: LABEL }),
   "responsive-align": () => h(Stack, { "gap": "3", "align": { "base": "start", "md": "center" } }, { default: LABEL }),
   "gap-and-align": () => h(Stack, { "gap": "5", "align": "end" }, { default: LABEL }),
+  "cov-center": () => h(Stack, { "align": "center" }, { default: LABEL }),
+  "cov-end": () => h(Stack, { "align": "end" }, { default: LABEL }),
+  "cov-start": () => h(Stack, { "align": "start" }, { default: LABEL }),
+  "cov-stretch": () => h(Stack, { "align": "stretch" }, { default: LABEL }),
 };

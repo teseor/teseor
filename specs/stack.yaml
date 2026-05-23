@@ -30,6 +30,9 @@ tokens:
 privateTokens:
   - --_gap
 
+a11y:
+  role: generic
+
 examples:
   - id: gap-3
     props: { gap: "3" }
@@ -45,3 +48,6 @@ examples:
     props: { gap: "3", align: { base: start, md: center } }
   - id: gap-and-align
     props: { gap: "5", align: end }
+
+coverage:
+  align: true

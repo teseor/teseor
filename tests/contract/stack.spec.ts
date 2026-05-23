@@ -14,5 +14,9 @@ defineContractTests({
     "responsive-gap",
     "responsive-align",
     "gap-and-align",
+    "cov-center",
+    "cov-end",
+    "cov-start",
+    "cov-stretch",
   ],
 });
