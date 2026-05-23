@@ -2,38 +2,15 @@ import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse as parseYaml } from "yaml";
+import { type FlatProp, type FlatSpec, flattenSpec } from "../lib/flatten.ts";
 import type { GeneratorContext, GeneratorReport } from "../registry.ts";
 import { registerGenerator } from "../registry.ts";
+import { Spec as SpecSchema } from "../schema.ts";
 
-type SpecVariant = { description?: string };
-type SpecIntent = { description?: string; tokens?: Record<string, string> };
-type SpecSize = { description?: string; tokens?: Record<string, string> };
-type SpecProp = {
-  type: string;
-  default?: unknown;
-  description?: string;
-  responsive?: boolean;
-  slot?: boolean;
-  values?: string[];
-};
-type SpecConstraint = {
-  when?: Record<string, unknown>;
-  forbid?: Record<string, unknown>;
-  reason?: string;
-};
-type SpecExample = { id?: string; props?: Record<string, unknown> };
-type Spec = {
-  name: string;
-  description?: string;
-  element?: string;
-  rootClass?: string;
-  variants?: Record<string, SpecVariant>;
-  intents?: Record<string, SpecIntent>;
-  sizes?: Record<string, SpecSize>;
-  props?: Record<string, SpecProp>;
-  constraints?: SpecConstraint[];
-  examples?: SpecExample[];
-};
+/** Re-exported for downstream generators that imported the old atomic-only
+ *  shape. The flat shape is a superset; existing usages still resolve. */
+export type Spec = FlatSpec;
+export type SpecProp = FlatProp;
 
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..", "..", "..");
 const SPECS_DIR = resolve(REPO_ROOT, "specs");
@@ -79,21 +56,7 @@ function responsiveType(baseType: string): string {
   return `Responsive<${baseType}>`;
 }
 
-function formatConstraintJsDoc(constraints: SpecConstraint[]): string[] {
-  if (constraints.length === 0) return [];
-  const out: string[] = ["/**", " * Runtime constraints (enforced in dev builds):"];
-  for (const c of constraints) {
-    const when = JSON.stringify(c.when ?? {});
-    const forbid = JSON.stringify(c.forbid ?? {});
-    const reason = c.reason ?? "";
-    out.push(` *   when ${when} forbid ${forbid}`);
-    if (reason) out.push(` *     ${reason}`);
-  }
-  out.push(" */");
-  return out;
-}
-
-function renderContract(spec: Spec): string {
+function renderContract(spec: FlatSpec): string {
   const Name = pascalCase(spec.name);
   const lines: string[] = [];
 
@@ -101,7 +64,7 @@ function renderContract(spec: Spec): string {
   lines.push(`// Source: specs/${spec.name}.yaml`);
   lines.push("");
 
-  const hasResponsive = Object.values(spec.props ?? {}).some(
+  const hasResponsive = Object.values(spec.props).some(
     (d) => d.responsive === true && d.slot !== true,
   );
   if (hasResponsive) {
@@ -125,15 +88,11 @@ function renderContract(spec: Spec): string {
     lines.push("");
   }
 
-  if (spec.props) {
-    for (const [propName, propDef] of Object.entries(spec.props)) {
-      const values = propDef.values ?? [];
-      if (values.length > 0) {
-        lines.push(
-          `export type ${Name}${pascalCase(propName)} = ${values.map(quote).join(" | ")};`,
-        );
-        lines.push("");
-      }
+  for (const [propName, propDef] of Object.entries(spec.props)) {
+    const values = propDef.values ?? [];
+    if (values.length > 0) {
+      lines.push(`export type ${Name}${pascalCase(propName)} = ${values.map(quote).join(" | ")};`);
+      lines.push("");
     }
   }
 
@@ -142,27 +101,46 @@ function renderContract(spec: Spec): string {
   if (spec.intents) propLines.push(`  intent?: ${Name}Intent;`);
   if (spec.sizes) propLines.push(`  size?: ${Name}Size;`);
 
-  if (spec.props) {
-    for (const [propName, propDef] of Object.entries(spec.props)) {
-      const propValues = propDef.values ?? [];
-      const baseType =
-        propDef.slot === true
-          ? "unknown"
-          : propValues.length > 0
-            ? `${Name}${pascalCase(propName)}`
-            : mapPropType(propDef.type);
-      const tsType =
-        propDef.responsive === true && propDef.slot !== true ? responsiveType(baseType) : baseType;
-      if (propDef.description) {
-        propLines.push(`  /** ${propDef.description} */`);
-      }
-      propLines.push(`  ${propName}?: ${tsType};`);
+  // Atomic specs declare `constraints` at the root; surface them in the
+  // contract's JSDoc so consumers see the runtime invariants. Composite specs
+  // don't carry constraints at the root.
+  if (spec.constraints && spec.constraints.length > 0) {
+    lines.push("/**");
+    lines.push(" * Runtime constraints (enforced in dev builds):");
+    for (const c of spec.constraints) {
+      const when = JSON.stringify(c.when ?? {});
+      const forbid = JSON.stringify(c.forbid ?? {});
+      lines.push(` *   when ${when} forbid ${forbid}`);
+      if (c.reason) lines.push(` *     ${c.reason}`);
     }
+    lines.push(" */");
   }
 
-  if (spec.constraints && spec.constraints.length > 0) {
-    lines.push(...formatConstraintJsDoc(spec.constraints));
+  for (const [propName, propDef] of Object.entries(spec.props)) {
+    if (propDef.pattern === "controllable" && propDef.type === "boolean") {
+      // Expand the controllable triple — `name` + `defaultName` + `onNameChange`.
+      const PName = pascalCase(propName);
+      if (propDef.description) propLines.push(`  /** ${propDef.description} */`);
+      propLines.push(`  ${propName}?: boolean;`);
+      propLines.push(`  /** Initial open state (uncontrolled). */`);
+      propLines.push(`  default${PName}?: boolean;`);
+      propLines.push(`  /** Fires when the open state changes. */`);
+      propLines.push(`  on${PName}Change?: (${propName}: boolean) => void;`);
+      continue;
+    }
+    const propValues = propDef.values ?? [];
+    const baseType =
+      propDef.slot === true
+        ? "unknown"
+        : propValues.length > 0
+          ? `${Name}${pascalCase(propName)}`
+          : mapPropType(propDef.type);
+    const tsType =
+      propDef.responsive === true && propDef.slot !== true ? responsiveType(baseType) : baseType;
+    if (propDef.description) propLines.push(`  /** ${propDef.description} */`);
+    propLines.push(`  ${propName}?: ${tsType};`);
   }
+
   lines.push(`export type ${Name}Props = {`);
   for (const line of propLines) lines.push(line);
   lines.push("};");
@@ -171,14 +149,21 @@ function renderContract(spec: Spec): string {
   return lines.join("\n");
 }
 
-async function loadSpec(name: string): Promise<Spec> {
+async function loadFlatSpec(name: string): Promise<FlatSpec> {
   const path = resolve(SPECS_DIR, `${name}.yaml`);
   const raw = await readFile(path, "utf8");
-  const parsed = parseYaml(raw) as Spec;
-  if (parsed.name !== name) {
-    throw new Error(`spec name "${parsed.name}" in ${name}.yaml does not match file basename`);
+  const parsed = parseYaml(raw);
+  const result = SpecSchema.safeParse(parsed);
+  if (!result.success) {
+    const messages = result.error.issues
+      .map((i) => `  ${i.path.join(".")}: ${i.message}`)
+      .join("\n");
+    throw new Error(`spec ${name}.yaml failed schema validation:\n${messages}`);
   }
-  return parsed;
+  if (result.data.name !== name) {
+    throw new Error(`spec name "${result.data.name}" in ${name}.yaml does not match file basename`);
+  }
+  return flattenSpec(result.data);
 }
 
 async function listSpecNames(): Promise<string[]> {
@@ -190,7 +175,7 @@ async function listSpecNames(): Promise<string[]> {
 }
 
 async function emitContract(name: string): Promise<string> {
-  const spec = await loadSpec(name);
+  const spec = await loadFlatSpec(name);
   const content = renderContract(spec);
   const outPath = resolve(CONTRACT_SRC_DIR, `${pascalCase(name)}.ts`);
   await mkdir(CONTRACT_SRC_DIR, { recursive: true });
@@ -216,7 +201,7 @@ async function emitResponsiveModule(breakpoints: string[]): Promise<string> {
   return outPath;
 }
 
-function renderReadme(specs: Spec[]): string {
+function renderReadme(specs: FlatSpec[]): string {
   const componentList = specs
     .map((spec) => {
       const Name = pascalCase(spec.name);
@@ -266,7 +251,7 @@ Files in \`src/\` are autogenerated from \`specs/*.yaml\`. Do not edit them. The
 `;
 }
 
-async function emitReadme(specs: Spec[]): Promise<string> {
+async function emitReadme(specs: FlatSpec[]): Promise<string> {
   const content = renderReadme(specs);
   const outPath = resolve(REPO_ROOT, "packages", "contract", "README.md");
   await writeFile(outPath, content, "utf8");
@@ -291,7 +276,7 @@ async function contractGenerator(ctx: GeneratorContext): Promise<GeneratorReport
   filesWritten.push(responsivePath);
   notes.push(`contract: responsive module -> ${responsivePath.replace(`${REPO_ROOT}/`, "")}`);
 
-  const allSpecs = await Promise.all(allNames.map(loadSpec));
+  const allSpecs = await Promise.all(allNames.map(loadFlatSpec));
   const readmePath = await emitReadme(allSpecs);
   filesWritten.push(readmePath);
   notes.push(`contract: readme -> ${readmePath.replace(`${REPO_ROOT}/`, "")}`);
@@ -301,5 +286,4 @@ async function contractGenerator(ctx: GeneratorContext): Promise<GeneratorReport
 
 registerGenerator("contract", contractGenerator);
 
-export type { Spec, SpecProp };
-export { renderContract, renderResponsiveModule };
+export { loadFlatSpec, renderContract, renderResponsiveModule };
