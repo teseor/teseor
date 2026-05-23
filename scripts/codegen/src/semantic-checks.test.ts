@@ -9,6 +9,7 @@ import {
   checkCssImportAllowlist,
   checkDependencyCycles,
   checkExamplesReferences,
+  checkInteractionRefs,
   checkMotionSymmetry,
   checkResponsiveExplicit,
   checkTokenContract,
@@ -493,5 +494,97 @@ describe("checkVariantChoiceKeys", () => {
     const issues = checkVariantChoiceKeys(spec);
     expect(issues).toHaveLength(1);
     expect(issues[0]?.path).toBe("guidance.variantChoice.extra");
+  });
+});
+
+describe("checkInteractionRefs", () => {
+  function makeOverlay(overrides: Partial<Spec> = {}): Spec {
+    return {
+      name: "tooltip",
+      kind: "composite",
+      parts: {
+        tooltip: {
+          props: {
+            openDelay: { type: "number", responsive: false, description: "Open delay." },
+            closeDelay: { type: "number", responsive: false, description: "Close delay." },
+          },
+        },
+      },
+      ...overrides,
+    } as Spec;
+  }
+
+  test("passes when `delay` names a declared numeric prop", () => {
+    const spec = makeOverlay({
+      interactions: [
+        { on: { event: "pointerenter", target: "trigger" }, do: "open", delay: "openDelay" },
+      ],
+    });
+    expect(checkInteractionRefs(spec)).toEqual([]);
+  });
+
+  test("flags `delay` referencing an undeclared prop", () => {
+    const spec = makeOverlay({
+      interactions: [
+        { on: { event: "pointerenter", target: "trigger" }, do: "open", delay: "ghostDelay" },
+      ],
+    });
+    const issues = checkInteractionRefs(spec);
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.path).toBe("interactions[0].delay");
+    expect(issues[0]?.message).toMatch(/'ghostDelay' is not a declared numeric prop/);
+  });
+
+  test("flags `delay` referencing a non-numeric prop", () => {
+    const spec = makeOverlay({
+      parts: {
+        tooltip: {
+          props: {
+            label: { type: "string", responsive: false, description: "Label." },
+          },
+        },
+      },
+      interactions: [
+        { on: { event: "pointerenter", target: "trigger" }, do: "open", delay: "label" },
+      ],
+    });
+    const issues = checkInteractionRefs(spec);
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.path).toBe("interactions[0].delay");
+  });
+
+  test("accepts `when: open` (canonical state)", () => {
+    const spec = makeOverlay({
+      interactions: [
+        { on: { event: "keydown", target: "document", key: "Escape" }, do: "close", when: "open" },
+      ],
+    });
+    expect(checkInteractionRefs(spec)).toEqual([]);
+  });
+
+  test("flags unknown `when` state", () => {
+    const spec = makeOverlay({
+      interactions: [
+        {
+          on: { event: "keydown", target: "document", key: "Escape" },
+          do: "close",
+          when: "closed",
+        },
+      ],
+    });
+    const issues = checkInteractionRefs(spec);
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.path).toBe("interactions[0].when");
+    expect(issues[0]?.message).toMatch(/'closed' is not a known state/);
+  });
+
+  test("walks atomic-spec props for delay refs", () => {
+    const spec = makeButton({
+      props: {
+        openDelay: { type: "number", responsive: false, description: "Delay." },
+      },
+      interactions: [{ on: { event: "click", target: "trigger" }, do: "open", delay: "openDelay" }],
+    });
+    expect(checkInteractionRefs(spec)).toEqual([]);
   });
 });

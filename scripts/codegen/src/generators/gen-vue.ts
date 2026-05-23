@@ -56,7 +56,9 @@ function responsiveType(baseType: string): string {
 }
 
 function vuePropType(propName: string, propDef: SpecProp, Name: string): string {
-  if (propDef.slot === true) return "never";
+  // Atomic slots flow via `<slot name="…" />` (prop unsettable → `never`).
+  // Composite-part slots are inline scalars — keep the declared type.
+  if (propDef.slot === true) return !propDef.__part ? "never" : mapPropType(propDef.type);
   if (propDef.values && propDef.values.length > 0) return `${Name}${pascalCase(propName)}`;
   return mapPropType(propDef.type);
 }
@@ -599,12 +601,7 @@ function renderCompositeWrapper(spec: Spec, _propDescriptions: Record<string, st
       propTypeLines.push(`  on${PName}Change?: (${propName}: boolean) => void;`);
       continue;
     }
-    const baseType =
-      propDef.slot === true
-        ? "string"
-        : propDef.values && propDef.values.length > 0
-          ? `${Name}${pascalCase(propName)}`
-          : mapPropType(propDef.type);
+    const baseType = vuePropType(propName, propDef, Name);
     const tsType = propDef.responsive === true ? responsiveType(baseType) : baseType;
     if (propDef.description) propTypeLines.push(`  /** ${propDef.description} */`);
     propTypeLines.push(`  ${propName}?: ${tsType};`);
