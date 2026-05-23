@@ -242,7 +242,7 @@ pnpm gen --target=react        # one wrapper across all components
 pnpm build:css                 # PostCSS pipeline → packages/css/dist/teseor.css
 ```
 
-Scripts live in `scripts/codegen/` and are plain TypeScript run with `tsx`. The CSS build pipeline lives at `scripts/build-css.ts` and runs PostCSS with the plugin set defined in ADR-0003.
+Scripts live in `scripts/codegen/` and are plain TypeScript run with `tsx`. The CSS build pipeline lives at `packages/css/build.mjs` and runs PostCSS with the plugin set defined in ADR-0003.
 
 ## Workspace tooling
 

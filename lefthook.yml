@@ -44,6 +44,9 @@ pre-commit:
     markdown:
       glob: '*.md'
       run: pnpm exec markdownlint-cli2
+    doc-paths:
+      glob: '*.md'
+      run: node scripts/check-doc-paths.ts
 
 pre-push:
   commands:
