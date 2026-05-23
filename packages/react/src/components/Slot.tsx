@@ -61,7 +61,7 @@ export function Slot({ children, ...slotProps }: SlotProps): ReactElement | null
   const elements = Children.toArray(children).filter(isValidElement);
   if (elements.length !== 1) {
     warnOnce(
-      "slot.multi-child",
+      "react.slot.multi-child",
       `Slot: expected exactly one React element child, got ${elements.length}. Pass a single element (e.g. <button>...</button>) or drop \`asChild\`.`,
     );
     return null;
@@ -71,7 +71,7 @@ export function Slot({ children, ...slotProps }: SlotProps): ReactElement | null
   // length check, then `cloneElement` silently drops slot props on it.
   if (child.type === Fragment) {
     warnOnce(
-      "slot.fragment",
+      "react.slot.fragment",
       "Slot: expected a single element child but got a Fragment. Pass a single element (e.g. <button>...</button>) or drop `asChild`.",
     );
     return null;
@@ -82,7 +82,7 @@ export function Slot({ children, ...slotProps }: SlotProps): ReactElement | null
   // there is no workaround at the React layer.
   if (typeof child.type === "string" && child.type.startsWith("astro-")) {
     warnOnce(
-      "slot.astro",
+      "react.slot.astro",
       "Slot: `asChild` does not work inside Astro slots — children arrive wrapped in <astro-slot>. Drop `asChild` (use the default wrapper) when rendering this component from a .astro file.",
     );
     return cloneElement(child, mergeSlotProps(child.props ?? {}, slotProps));

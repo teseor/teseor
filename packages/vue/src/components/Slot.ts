@@ -20,7 +20,7 @@ export const Slot = defineComponent({
       const vnodes = (slots.default?.() ?? []).filter((v) => typeof v.type !== "symbol");
       if (vnodes.length !== 1) {
         warnOnce(
-          "slot.multi-child",
+          "vue.slot.multi-child",
           `Slot: expected exactly one VNode child, got ${vnodes.length}. Pass a single element or drop \`asChild\`.`,
         );
         return null;

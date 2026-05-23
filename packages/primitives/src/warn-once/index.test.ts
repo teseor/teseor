@@ -56,12 +56,11 @@ describe("warnOnce", () => {
     expect(warnSpy).toHaveBeenNthCalledWith(2, "[teseor] second");
   });
 
-  it("is SSR-safe — no-op when `window` is undefined", () => {
+  it("still emits when `window` is undefined (SSR-safe, no crash)", () => {
     const originalWindow = globalThis.window;
     delete (globalThis as { window?: Window }).window;
     try {
       expect(() => warnOnce("test.ssr", "msg")).not.toThrow();
-      // Still writes to console in SSR (helpful for build-time warnings).
       expect(warnSpy).toHaveBeenCalledWith("[teseor] msg");
     } finally {
       globalThis.window = originalWindow;
@@ -81,7 +80,7 @@ describe("warnOnce", () => {
     }
   });
 
-  it("is a no-op when `console` is undefined", () => {
+  it("is a no-op when `console` is undefined — dedup set is not mutated", () => {
     const originalConsole = globalThis.console;
     delete (globalThis as { console?: Console }).console;
     try {
@@ -89,5 +88,9 @@ describe("warnOnce", () => {
     } finally {
       globalThis.console = originalConsole;
     }
+    // The key was NOT recorded, so a subsequent call with the same key fires.
+    warnOnce("test.no-console", "msg");
+    expect(warnSpy).toHaveBeenCalledOnce();
+    expect(warnSpy).toHaveBeenCalledWith("[teseor] msg");
   });
 });
