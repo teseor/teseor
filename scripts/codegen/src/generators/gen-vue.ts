@@ -54,7 +54,6 @@ function responsiveType(baseType: string): string {
 }
 
 function vuePropType(propName: string, propDef: SpecProp, Name: string): string {
-  if (propName === "as") return "string";
   if (propDef.slot === true) return "never";
   if (propDef.values && propDef.values.length > 0) return `${Name}${pascalCase(propName)}`;
   return mapPropType(propDef.type);
