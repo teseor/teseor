@@ -75,6 +75,10 @@ Windows High Contrast / Forced Colors mode replaces author colors with user-defi
 
 **Visually hiding accessible content.** `visibility: hidden` and `display: none` remove an element from the accessibility tree. To hide something visually while keeping it for assistive tech — e.g. a button's label behind a loading spinner — use `opacity: 0` (keeps the node, its layout box, and its accessible name) or a clip-based visually-hidden utility.
 
+## Non-interactive primitives
+
+Layout primitives and other components that contribute no semantic meaning declare `a11y: { role: generic }` explicitly. The schema accepts omitting the block, but explicit is grep-able: a reviewer can see the spec asserts no role rather than guessing whether the omission was intentional. Keyboard maps and ARIA states are omitted only when the component has none — the keys themselves are optional in the schema.
+
 ## Documentation
 
 Every component's docs page surfaces its a11y story (per `spec.a11y` and `docs-site.md` section 11):

@@ -50,6 +50,51 @@ an existing one.
 Refactors of unrelated components, token additions, or theme tweaks. Bundle
 those separately.
 
+### Component — worked example: stack
+
+The actual files an author touches when introducing a layout primitive, in
+the order the validator and generators expect them. `stack` is the reference
+because it exercises responsive props, coverage, and the
+non-interactive `a11y` shape without any overlay or interaction surface.
+
+1. **Spec** — [`specs/stack.yaml`](../../specs/stack.yaml). Identity at the
+   top (`name`, `kind`, `element`, `rootClass`, `cssFile`), then `props:`
+   with `responsive: true` on every per-call dimension. `tokens:` and
+   `privateTokens:` describe the public token contract and the build-time
+   custom properties the CSS uses. `a11y: { role: generic }` declares the
+   component contributes no semantic meaning (see
+   [`rules/accessibility.md`](../rules/accessibility.md) § "Non-interactive
+   primitives"). `examples:` is hand-curated for responsive shape;
+   `coverage:` is the combinatorial supplement — `align: true` expands
+   every value of `align` into a `cov-*` fixture so the contract suite
+   catches DOM drift on values the curated examples skip.
+2. **CSS** —
+   [`packages/css/src/components/stack/stack.css`](../../packages/css/src/components/stack/stack.css).
+   Hand-written, token-only. Every `--t-stack-*` it declares appears in
+   the spec's `tokens:` block; the validator enforces both directions, so
+   adding a custom property without adding it to the spec fails
+   `pnpm lint:spec`.
+3. **Regenerate** — `pnpm gen` regenerates `packages/react/src/Stack.tsx`,
+   `packages/vue/src/Stack.vue`, the contract types, the harness fixtures
+   under `apps/harness/src/fixtures/`, and the contract spec at
+   `tests/contract/stack.spec.ts`. Commit the regenerated output; the
+   `gen-drift` CI gate fails if any file changes when it runs.
+4. **Refresh the contract snapshot** — `pnpm test:e2e -u --grep stack`
+   regenerates `tests/contract/stack.spec.ts-snapshots/stack.html` to
+   include any new fixture sections.
+   `check-contract-snapshots` (in `pnpm lint`) catches the fixture-id ↔
+   snapshot-section mismatch at pre-commit, before the browser-dependent
+   half of the gate ever runs in CI.
+5. **Changeset** — `pnpm changeset` at the level dictated by the change.
+   A new component is `minor`; adding a coverage dimension is `patch`.
+6. **Verify** — `pnpm lint && pnpm typecheck && pnpm test` green locally,
+   then push.
+
+The shape is the same for any atomic component; an interactive component
+adds a `keyboard:` map and `states:` to the `a11y:` block, and (once
+[#582](https://github.com/teseor/teseor/issues/582) lands) an
+`interactions:` block for behavior tests.
+
 ## Theme
 
 When the change adds or updates a `[data-theme="…"]` skin.
