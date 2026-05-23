@@ -1,3 +1,4 @@
+import { warnOnce } from "@teseor/primitives";
 import { cloneVNode, defineComponent } from "vue";
 
 /**
@@ -18,11 +19,10 @@ export const Slot = defineComponent({
     return () => {
       const vnodes = (slots.default?.() ?? []).filter((v) => typeof v.type !== "symbol");
       if (vnodes.length !== 1) {
-        if (typeof console !== "undefined") {
-          console.warn(
-            `Slot: expected exactly one VNode child, got ${vnodes.length}. Pass a single element or drop \`asChild\`.`,
-          );
-        }
+        warnOnce(
+          "vue.slot.multi-child",
+          `Slot: expected exactly one VNode child, got ${vnodes.length}. Pass a single element or drop \`asChild\`.`,
+        );
         return null;
       }
       const child = vnodes[0];

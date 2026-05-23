@@ -208,6 +208,9 @@ importers:
       '@teseor/css':
         specifier: workspace:*
         version: link:../css
+      '@teseor/primitives':
+        specifier: workspace:*
+        version: link:../primitives
     devDependencies:
       '@teseor/test-internals':
         specifier: workspace:*
@@ -238,6 +241,9 @@ importers:
       '@teseor/css':
         specifier: workspace:*
         version: link:../css
+      '@teseor/primitives':
+        specifier: workspace:*
+        version: link:../primitives
     devDependencies:
       '@teseor/test-internals':
         specifier: workspace:*

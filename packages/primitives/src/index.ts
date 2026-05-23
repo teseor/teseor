@@ -11,3 +11,4 @@ export {
   getFocusableElements,
 } from "./focus-trap/index.ts";
 export { createPortal, type Portal, type PortalOptions } from "./portal/index.ts";
+export { warnOnce } from "./warn-once/index.ts";

@@ -24,7 +24,8 @@
     "directory": "packages/vue"
   },
   "dependencies": {
-    "@teseor/css": "workspace:*"
+    "@teseor/css": "workspace:*",
+    "@teseor/primitives": "workspace:*"
   },
   "peerDependencies": {
     "vue": ">=3.5"
