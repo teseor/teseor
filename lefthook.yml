@@ -47,6 +47,9 @@ pre-commit:
     doc-paths:
       glob: '**/*.{md,mdx}'
       run: node scripts/check-doc-paths.ts
+    contract-snapshots:
+      glob: '{tests/contract/**,specs/**,apps/harness/src/fixtures/**}'
+      run: node scripts/check-contract-snapshots.ts
 
 pre-push:
   commands:
