@@ -33,27 +33,42 @@ function isTestChange(path: string): boolean {
   return false;
 }
 
-/** The diff scope we check against. In CI, GitHub provides BASE_SHA via
- *  `GITHUB_BASE_REF` for PR runs and falls back to `main`. Local pre-push
- *  uses the same fallback — `main...HEAD` covers the entire branch. */
-function getChangedFiles(): string[] {
-  const base = process.env.BASE_REF ?? process.env.GITHUB_BASE_REF ?? "main";
-  // `git diff --name-only <base>...HEAD` lists every file changed on the
-  // current branch since it diverged from `base`. Three-dot syntax is the
-  // PR-equivalent diff (excludes commits added to base after the branch
-  // point), which matches what reviewers see on GitHub.
-  let output: string;
-  try {
-    output = execSync(`git diff --name-only ${base}...HEAD`, {
-      cwd: REPO_ROOT,
-      encoding: "utf8",
-    });
-  } catch {
-    // No diff against base (e.g. fresh clone, base ref missing). Skip the
-    // check rather than crash — the CI version with a known base will catch
-    // the real cases.
-    return [];
+/** Resolve the base ref against the local repo. Tries the bare name first
+ *  (local pre-push: `main` is a real branch) then `origin/<base>` (CI:
+ *  shallow checkouts only populate `refs/remotes/origin/*`). Failing loud
+ *  is mandatory — a missing base ref used to silently skip the entire
+ *  check, defeating the guardrail in any CI that didn't `fetch-depth: 0`. */
+function resolveBase(baseInput: string): string {
+  for (const candidate of [baseInput, `origin/${baseInput}`]) {
+    try {
+      execSync(`git rev-parse --verify ${candidate}^{commit}`, {
+        cwd: REPO_ROOT,
+        stdio: "ignore",
+      });
+      return candidate;
+    } catch {
+      // Try next candidate.
+    }
   }
+  process.stderr.write(
+    `check-codegen-tests: base ref '${baseInput}' not found locally or as 'origin/${baseInput}'.\n` +
+      `CI must check out with 'fetch-depth: 0' and run 'git fetch origin ${baseInput}' before lint.\n` +
+      `Locally, ensure '${baseInput}' exists as a branch or as a remote-tracking ref.\n`,
+  );
+  process.exit(1);
+}
+
+/** The diff scope we check against. In CI, GitHub provides the PR base via
+ *  `GITHUB_BASE_REF`; locally we fall back to `main`. Three-dot syntax is
+ *  the PR-equivalent diff (excludes commits added to base after the branch
+ *  point), matching what reviewers see on GitHub. */
+function getChangedFiles(): string[] {
+  const baseInput = process.env.BASE_REF ?? process.env.GITHUB_BASE_REF ?? "main";
+  const base = resolveBase(baseInput);
+  const output = execSync(`git diff --name-only ${base}...HEAD`, {
+    cwd: REPO_ROOT,
+    encoding: "utf8",
+  });
   return output
     .split("\n")
     .map((line) => line.trim())
@@ -63,7 +78,7 @@ function getChangedFiles(): string[] {
 function main(): void {
   const changed = getChangedFiles();
   if (changed.length === 0) {
-    process.stdout.write("check-codegen-tests: no diff against base — skipped\n");
+    process.stdout.write("check-codegen-tests: no files changed against base — ok\n");
     return;
   }
   const productionChanges = changed.filter(isProductionCodegen);
