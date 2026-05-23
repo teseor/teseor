@@ -18,6 +18,8 @@ afterAll(uninstallDomPolyfills);
 afterEach(() => {
   cleanup();
   resetDomPolyfills();
+  // `warnOnce` dedups per key on `window.__teseor_warned`; reset between tests.
+  delete (window as unknown as { __teseor_warned?: Set<string> }).__teseor_warned;
 });
 
 type UseOverlayConfig = Parameters<typeof useOverlay>[0];
@@ -230,6 +232,67 @@ describe("useOverlay", () => {
     };
     expect(() => render(<Harness />)).not.toThrow();
     // popoverIsOpen returned undefined → showPopover ran (open && !== true).
+  });
+
+  it("warns once when showPopover throws (Popover API unsupported / display:none)", () => {
+    const htmlProto = HTMLElement.prototype as unknown as {
+      showPopover: () => void;
+      hidePopover: () => void;
+    };
+    const originalShow = htmlProto.showPopover;
+    htmlProto.showPopover = () => {
+      throw new Error("not supported");
+    };
+    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const Harness = () => {
+      const o = useOverlay<HTMLDivElement>({ ...BASE_CONFIG, defaultOpen: true });
+      return (
+        <div ref={o.contentRef} popover="auto" id={o.popoverId} data-testid="content">
+          x
+        </div>
+      );
+    };
+    try {
+      render(<Harness />);
+      render(<Harness />);
+      expect(warnSpy).toHaveBeenCalledOnce();
+      expect(String(warnSpy.mock.calls[0]?.[0])).toContain("[teseor]");
+      expect(String(warnSpy.mock.calls[0]?.[0])).toContain("showPopover");
+    } finally {
+      htmlProto.showPopover = originalShow;
+      warnSpy.mockRestore();
+    }
+  });
+
+  it("warns once when hidePopover throws", () => {
+    const htmlProto = HTMLElement.prototype as unknown as {
+      showPopover: () => void;
+      hidePopover: () => void;
+    };
+    const originalHide = htmlProto.hidePopover;
+    htmlProto.hidePopover = () => {
+      throw new Error("not supported");
+    };
+    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const Harness = ({ open }: { open: boolean }) => {
+      const o = useOverlay<HTMLDivElement>({ ...BASE_CONFIG, open });
+      return (
+        <div ref={o.contentRef} popover="auto" id={o.popoverId} data-testid="content">
+          x
+        </div>
+      );
+    };
+    try {
+      const { rerender } = render(<Harness open={true} />);
+      rerender(<Harness open={false} />);
+      rerender(<Harness open={true} />);
+      rerender(<Harness open={false} />);
+      expect(warnSpy).toHaveBeenCalledOnce();
+      expect(String(warnSpy.mock.calls[0]?.[0])).toContain("hidePopover");
+    } finally {
+      htmlProto.hidePopover = originalHide;
+      warnSpy.mockRestore();
+    }
   });
 
   it("gates schedule() against disabled at the active breakpoint (PR #660: responsive disabled shape)", () => {

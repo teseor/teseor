@@ -1,3 +1,4 @@
+import { warnOnce } from "@teseor/primitives";
 import { type Ref, useCallback, useEffect, useId, useRef, useState } from "react";
 import { isActiveAt, type Responsive, useActiveBreakpoint } from "../_runtime.ts";
 
@@ -167,11 +168,21 @@ export function useOverlay<T extends HTMLElement = HTMLElement>(
     if (open && popoverState !== true) {
       try {
         contentNode.showPopover();
-      } catch {}
+      } catch (err) {
+        warnOnce(
+          "react.overlay.show-popover-failed",
+          `useOverlay: showPopover() failed on <${contentNode.tagName.toLowerCase()}>. Popover API may be unsupported (Baseline 2026) or the element is display:none. Underlying error: ${err}`,
+        );
+      }
     } else if (!open && popoverState !== false) {
       try {
         contentNode.hidePopover();
-      } catch {}
+      } catch (err) {
+        warnOnce(
+          "react.overlay.hide-popover-failed",
+          `useOverlay: hidePopover() failed on <${contentNode.tagName.toLowerCase()}>. Popover API may be unsupported (Baseline 2026). Underlying error: ${err}`,
+        );
+      }
     }
   }, [open, contentNode]);
 
