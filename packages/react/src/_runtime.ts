@@ -162,18 +162,22 @@ function mergeSlotProps(
  * Clone-into-child: merges slot props onto a single React element child.
  * Used by composite wrappers when `asChild` is true — `aria-describedby`,
  * event handlers, and the anchor binding land on the consumer's element
- * instead of an extra `<span>` wrapper.
+ * instead of an extra `<span>` wrapper. Warns and renders nothing if
+ * `children` isn't exactly one valid React element (fragment, multiple
+ * children, or null all hit the warn path — never throws).
  */
 export function Slot({ children, ...slotProps }: SlotProps): ReactElement | null {
-  const child = Children.only(children);
-  if (!isValidElement(child)) {
+  const elements = Children.toArray(children).filter(isValidElement);
+  if (elements.length !== 1) {
     if (typeof console !== "undefined") {
-      console.warn("Slot: expected a single valid React element child.");
+      console.warn(
+        `Slot: expected exactly one React element child, got ${elements.length}. Pass a single element (e.g. <button>...</button>) or drop \`asChild\`.`,
+      );
     }
     return null;
   }
-  const typed = child as ReactElement<Record<string, unknown>>;
-  return cloneElement(typed, mergeSlotProps(typed.props ?? {}, slotProps));
+  const child = elements[0] as ReactElement<Record<string, unknown>>;
+  return cloneElement(child, mergeSlotProps(child.props ?? {}, slotProps));
 }
 
 // ── Overlay hook — used by composite overlay components ────────────────────
