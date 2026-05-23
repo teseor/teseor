@@ -1,3 +1,4 @@
+import { warnOnce } from "@teseor/primitives";
 import {
   computed,
   onBeforeUnmount,
@@ -139,11 +140,21 @@ export function useOverlay(config: OverlayConfig): OverlayReturn {
       if (current && popoverState !== true) {
         try {
           node.showPopover();
-        } catch {}
+        } catch (err) {
+          warnOnce(
+            "vue.overlay.show-popover-failed",
+            `useOverlay: showPopover() failed on <${node.tagName.toLowerCase()}>. Popover API may be unsupported (Baseline 2026) or the element is display:none. Underlying error: ${err}`,
+          );
+        }
       } else if (!current && popoverState !== false) {
         try {
           node.hidePopover();
-        } catch {}
+        } catch (err) {
+          warnOnce(
+            "vue.overlay.hide-popover-failed",
+            `useOverlay: hidePopover() failed on <${node.tagName.toLowerCase()}>. Popover API may be unsupported (Baseline 2026). Underlying error: ${err}`,
+          );
+        }
       }
     },
     { immediate: true, flush: "post" },
