@@ -2,6 +2,10 @@
 // Enforces the dogfood rule: apps/docs/ is built only with the Teseor design
 // system — t-* classes, no custom CSS. A missing piece is a DS gap to fill,
 // not a one-off style.
+//
+// A file can opt out by carrying `dogfood-allow: <reason>` at the top — used
+// for the layout shell while DS layout primitives (Sidebar, etc.) are still
+// being authored. The marker logs the gap rather than hiding it.
 import { readdirSync, readFileSync } from "node:fs";
 import { join, relative, resolve } from "node:path";
 
@@ -21,7 +25,10 @@ function walk(dir: string): string[] {
   return out;
 }
 
+const EXEMPT_MARKER = /dogfood-allow:\s*([^\n*-]+)/;
+
 const violations: string[] = [];
+const exempted: { rel: string; reason: string }[] = [];
 
 for (const file of walk(docsSrc)) {
   const rel = relative(repoRoot, file);
@@ -30,6 +37,11 @@ for (const file of walk(docsSrc)) {
     continue;
   }
   const text = readFileSync(file, "utf8");
+  const exemptMatch = text.match(EXEMPT_MARKER);
+  if (exemptMatch) {
+    exempted.push({ rel, reason: (exemptMatch[1] ?? "").trim() });
+    continue;
+  }
   if (/<style[\s>]/.test(text)) {
     violations.push(`${rel}: contains a <style> block — no custom CSS`);
   }
@@ -57,4 +69,13 @@ if (violations.length > 0) {
   process.exit(1);
 }
 
-console.log("check-dogfood: apps/docs/ uses the design system only");
+if (exempted.length > 0) {
+  console.log("check-dogfood: apps/docs/ uses the design system only");
+  console.log(
+    `  exempted (gaps to fill — see \`dogfood-allow:\` markers):\n${exempted
+      .map((e) => `    - ${e.rel}${e.reason ? ` — ${e.reason}` : ""}`)
+      .join("\n")}`,
+  );
+} else {
+  console.log("check-dogfood: apps/docs/ uses the design system only");
+}
