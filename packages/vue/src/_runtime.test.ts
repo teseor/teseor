@@ -1,6 +1,6 @@
 // @vitest-environment happy-dom
 import { flushPromises, mount, type VueWrapper } from "@vue/test-utils";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   type App,
   type Component,
@@ -29,7 +29,10 @@ import {
   useOverlay,
 } from "./_runtime";
 
-installDomPolyfills();
+// Patch globals only for this file's lifetime so vitest workers running
+// multiple files don't leak Element.prototype / window.matchMedia changes.
+beforeAll(installDomPolyfills);
+afterAll(uninstallDomPolyfills);
 
 // Per-test teardown — happy-dom keeps the document across tests otherwise.
 const teardown: Array<() => void> = [];
@@ -51,7 +54,12 @@ function mountTracked<C extends Component>(
   return wrapper;
 }
 
-/** Mount a composable in a throwaway component so lifecycle hooks fire. */
+/**
+ * Mount a composable in a throwaway component so lifecycle hooks fire. The
+ * returned `unmount` is idempotent — tests that call it manually still get
+ * cleaned up by the `afterEach` teardown without `app.unmount()` running
+ * twice (which would emit Vue warnings).
+ */
 function withSetup<T>(composable: () => T): { api: T; app: App; unmount: () => void } {
   let api: T | undefined;
   const app = createApp(
@@ -65,7 +73,10 @@ function withSetup<T>(composable: () => T): { api: T; app: App; unmount: () => v
   const host = document.createElement("div");
   document.body.appendChild(host);
   app.mount(host);
+  let unmounted = false;
   const unmount = () => {
+    if (unmounted) return;
+    unmounted = true;
     app.unmount();
     host.remove();
   };
