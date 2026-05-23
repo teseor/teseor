@@ -14,7 +14,7 @@ component node, recursively. Validation runs in a real `validate-spec.ts`
 (replacing the current `lint:spec` no-op stub), in two layers: a **Zod schema**
 enforces shape and rejects unknown fields, and a hand-rolled semantic pass
 cross-checks the spec against the component CSS, the `examples:` entries, the
-`matrix:` cells, and the vocabulary.
+`coverage:` cells, and the vocabulary.
 
 The full design and its alternatives are recorded in
 [RFC 0001](../RFC/0001-v0.3-spec-format.md).
@@ -27,7 +27,7 @@ The full design and its alternatives are recorded in
   the codebase. The validator is the only place that contract gets enforced.
 - **Identity / `ComponentNode` split.** A part *is* the same structural unit
   as a component — an element with styling, optionally nested. The identity
-  layer (`name`, `kind`, `examples`, `matrix`, `guidance`, `dependencies`) is
+  layer (`name`, `kind`, `examples`, `coverage`, `guidance`, `dependencies`) is
   meaningless for a sub-part. Splitting them lets one recursive sub-schema
   cover atomic specs and parts of any depth.
 - **Open `kind:` discriminator.** The full component inventory shows a third

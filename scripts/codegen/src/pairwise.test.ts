@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { type Constraint, type Dimension, expandPairwise, matrixFixtureId } from "./pairwise.ts";
+import { type Constraint, coverageFixtureId, type Dimension, expandPairwise } from "./pairwise.ts";
 
 function uniquePairs(cells: readonly Record<string, string>[], dimNames: string[]): Set<string> {
   const pairs = new Set<string>();
@@ -101,15 +101,15 @@ describe("expandPairwise", () => {
   });
 });
 
-describe("matrixFixtureId", () => {
+describe("coverageFixtureId", () => {
   it("composes the id from dimension values in declaration order", () => {
     const dims: Dimension[] = [
       { name: "variant", values: ["solid"] },
       { name: "intent", values: ["primary"] },
       { name: "size", values: ["md"] },
     ];
-    expect(matrixFixtureId({ variant: "solid", intent: "primary", size: "md" }, dims)).toBe(
-      "m-solid-primary-md",
+    expect(coverageFixtureId({ variant: "solid", intent: "primary", size: "md" }, dims)).toBe(
+      "cov-solid-primary-md",
     );
   });
 });

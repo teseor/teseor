@@ -3,12 +3,12 @@ import type { Vocabulary } from "./lib/vocabulary.ts";
 import type { Spec } from "./schema.ts";
 import {
   checkAsIsConstrained,
+  checkConstraintsAgainstCoverage,
   checkConstraintsAgainstExamples,
-  checkConstraintsAgainstMatrix,
+  checkCoverageShape,
   checkCssImportAllowlist,
   checkDependencyCycles,
   checkExamplesReferences,
-  checkMatrixShape,
   checkMotionSymmetry,
   checkResponsiveExplicit,
   checkTokenContract,
@@ -165,10 +165,10 @@ describe("checkConstraintsAgainstExamples", () => {
   });
 });
 
-describe("checkMatrixShape", () => {
-  test("flags a matrix dimension the spec does not declare", () => {
-    const spec = makeButton({ matrix: { density: true } });
-    const issues = checkMatrixShape(spec);
+describe("checkCoverageShape", () => {
+  test("flags a coverage dimension the spec does not declare", () => {
+    const spec = makeButton({ coverage: { density: true } });
+    const issues = checkCoverageShape(spec);
     expect(issues).toHaveLength(1);
     expect(issues[0]?.message).toMatch(/not declared on the spec/);
   });
@@ -176,21 +176,21 @@ describe("checkMatrixShape", () => {
   test("flags a list dimension referencing an unknown value", () => {
     const spec = makeButton({
       states: { disabled: { description: "Disabled." } },
-      matrix: { states: ["disabled", "loading"] },
+      coverage: { states: ["disabled", "loading"] },
     });
-    const issues = checkMatrixShape(spec);
+    const issues = checkCoverageShape(spec);
     expect(issues).toHaveLength(1);
     expect(issues[0]?.message).toMatch(/'loading' is not a declared value of 'states'/);
   });
 
   test("passes a `true` dimension that exists on the spec", () => {
-    const spec = makeButton({ matrix: { variant: true, intent: true } });
-    expect(checkMatrixShape(spec)).toEqual([]);
+    const spec = makeButton({ coverage: { variant: true, intent: true } });
+    expect(checkCoverageShape(spec)).toEqual([]);
   });
 });
 
-describe("checkConstraintsAgainstMatrix", () => {
-  test("prunes constraint-violating cells (matrix expansion drops them)", () => {
+describe("checkConstraintsAgainstCoverage", () => {
+  test("prunes constraint-violating cells (coverage expansion drops them)", () => {
     const spec = makeButton({
       constraints: [
         {
@@ -199,15 +199,15 @@ describe("checkConstraintsAgainstMatrix", () => {
           reason: "No surface.",
         },
       ],
-      matrix: { variant: true, intent: true },
+      coverage: { variant: true, intent: true },
     });
-    // Per the matrix-expansion ADR, constraints prune the cell set before
-    // expansion. The check walks the pruned set and the violating cell
-    // (outline × danger) is excluded, so the check is silent.
-    expect(checkConstraintsAgainstMatrix(spec)).toEqual([]);
+    // Constraints prune the cell set before expansion. The check walks the
+    // pruned set; the violating cell (outline × danger) is excluded, so the
+    // check is silent.
+    expect(checkConstraintsAgainstCoverage(spec)).toEqual([]);
   });
 
-  test("does not flag a matrix that constraints leave alone", () => {
+  test("does not flag a coverage block that constraints leave alone", () => {
     const spec = makeButton({
       constraints: [
         {
@@ -216,9 +216,9 @@ describe("checkConstraintsAgainstMatrix", () => {
           reason: "n/a",
         },
       ],
-      matrix: { variant: ["solid"], intent: true },
+      coverage: { variant: ["solid"], intent: true },
     });
-    expect(checkConstraintsAgainstMatrix(spec)).toEqual([]);
+    expect(checkConstraintsAgainstCoverage(spec)).toEqual([]);
   });
 });
 

@@ -1,6 +1,6 @@
 // Semantic cross-checks the Zod schema cannot express: the spec ↔ CSS token
 // contract (both directions), example references, constraint enforcement
-// across `examples:` and the cartesian-expanded `matrix:` cells, vocabulary
+// across `examples:` and the cartesian-expanded `coverage:` cells, vocabulary
 // drift with Levenshtein suggestions, motion in/out symmetry, dependency
 // cycles, the `@import` allowlist driven by `dependencies:`, and
 // `guidance.variantChoice` key equality with `spec.variants`.
@@ -188,7 +188,7 @@ export function checkExamplesReferences(spec: Spec): Issue[] {
   return issues;
 }
 
-// ── Constraint enforcement (examples + matrix cells) ────────────────────────
+// ── Constraint enforcement (examples + coverage cells) ──────────────────────
 
 type Constraint = NonNullable<AtomicSpec["constraints"]>[number];
 
@@ -244,17 +244,18 @@ export function checkConstraintsAgainstExamples(spec: Spec): Issue[] {
 }
 
 /**
- * Cartesian-expand `matrix:` into cells, pulling each dimension's values from
- * the spec's `variants:` / `intents:` / `sizes:` / `props:` declarations.
- * Dimensions declared as a string-list (e.g. `states: [disabled, loading]`)
- * use that subset; `true` means "every declared value". Pairwise reduction is
- * deferred to #581's codegen path — for validation a cartesian walk is fine.
+ * Cartesian-expand `coverage:` into cells, pulling each dimension's values
+ * from the spec's `variants:` / `intents:` / `sizes:` / `props:` / `states:`
+ * declarations. Dimensions declared as a string-list (e.g.
+ * `states: [disabled, loading]`) use that subset; `true` means "every
+ * declared value". The codegen path uses pairwise reduction for fixtures; a
+ * cartesian walk is fine here because we only need it for constraint checks.
  */
-function expandMatrix(spec: AtomicSpec): Record<string, unknown>[] {
-  const matrix = spec.matrix;
-  if (!matrix) return [];
+function expandCoverage(spec: AtomicSpec): Record<string, unknown>[] {
+  const coverage = spec.coverage;
+  if (!coverage) return [];
   const dimensions: { name: string; values: unknown[] }[] = [];
-  for (const [dimName, declaration] of Object.entries(matrix)) {
+  for (const [dimName, declaration] of Object.entries(coverage)) {
     const declared = collectDimensionValues(spec, dimName);
     const values = declaration === true ? declared : Array.isArray(declaration) ? declaration : [];
     if (values.length === 0) continue;
@@ -290,18 +291,18 @@ function collectDimensionValues(spec: AtomicSpec, dim: string): string[] {
   }
 }
 
-export function checkMatrixShape(spec: Spec): Issue[] {
+export function checkCoverageShape(spec: Spec): Issue[] {
   const issues: Issue[] = [];
   if (!isAtomic(spec)) return issues;
-  const matrix = spec.matrix;
-  if (!matrix) return issues;
-  for (const [dimName, declaration] of Object.entries(matrix)) {
+  const coverage = spec.coverage;
+  if (!coverage) return issues;
+  for (const [dimName, declaration] of Object.entries(coverage)) {
     const declared = collectDimensionValues(spec, dimName);
     if (declared.length === 0) {
       issues.push(
         issue(
           spec.name,
-          `matrix.${dimName}`,
+          `coverage.${dimName}`,
           `dimension '${dimName}' is not declared on the spec (no variants/intents/sizes/states/props entry)`,
         ),
       );
@@ -313,7 +314,7 @@ export function checkMatrixShape(spec: Spec): Issue[] {
           issues.push(
             issue(
               spec.name,
-              `matrix.${dimName}`,
+              `coverage.${dimName}`,
               `'${value}' is not a declared value of '${dimName}'.${suggestionFragment(value, declared)}`,
             ),
           );
@@ -325,18 +326,18 @@ export function checkMatrixShape(spec: Spec): Issue[] {
 }
 
 /**
- * Asserts the matrix expansion is internally consistent with constraints.
- * Per the matrix-expansion ADR, constraints prune the cell set BEFORE
- * expansion (forbidden cells never enter the candidate set). This check
- * walks the post-pruning cells and confirms none violate a constraint — a
- * defensive sanity gate that catches a future regression in pruning logic.
+ * Asserts the coverage expansion is internally consistent with constraints.
+ * Constraints prune the cell set before expansion — forbidden cells never
+ * enter the candidate set. This check walks the post-pruning cells and
+ * confirms none violate a constraint: a defensive sanity gate that catches
+ * a future regression in pruning logic.
  */
-export function checkConstraintsAgainstMatrix(spec: Spec): Issue[] {
+export function checkConstraintsAgainstCoverage(spec: Spec): Issue[] {
   const issues: Issue[] = [];
   if (!isAtomic(spec)) return issues;
   const constraints = spec.constraints ?? [];
   if (constraints.length === 0) return issues;
-  const cells = expandMatrix(spec).filter(
+  const cells = expandCoverage(spec).filter(
     (cell) => !constraints.some((c) => violation(cell, c) !== undefined),
   );
   for (const cell of cells) {
@@ -349,7 +350,7 @@ export function checkConstraintsAgainstMatrix(spec: Spec): Issue[] {
         issues.push(
           issue(
             spec.name,
-            "matrix",
+            "coverage",
             `expanded cell {${cellStr}} violates ${describeConstraint(constraint)}; '${v.prop}=${JSON.stringify(v.value)}' is forbidden`,
           ),
         );
@@ -689,8 +690,8 @@ export function runSemanticChecks(
     ...checkTokenContract(spec, ctx.css),
     ...checkExamplesReferences(spec),
     ...checkConstraintsAgainstExamples(spec),
-    ...checkMatrixShape(spec),
-    ...checkConstraintsAgainstMatrix(spec),
+    ...checkCoverageShape(spec),
+    ...checkConstraintsAgainstCoverage(spec),
     ...checkVocabulary(spec, ctx.vocabulary),
     ...checkMotionSymmetry(spec),
     ...checkCssImportAllowlist(spec, ctx.css),

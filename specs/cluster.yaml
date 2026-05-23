@@ -4,7 +4,7 @@ kind: atomic
 dependencies: []
 element: div
 rootClass: t-cluster
-file: components/cluster/cluster.css
+cssFile: components/cluster/cluster.css
 
 props:
   gap:
@@ -36,7 +36,7 @@ tokens:
     fallback: --t-justify-flex-start
     desc: Default inline-axis distribution when `justify` is unset; overridable via `--t-cluster-justify`.
 
-private:
+privateTokens:
   - --_gap
 
 examples:

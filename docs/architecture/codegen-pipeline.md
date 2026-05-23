@@ -311,7 +311,7 @@ per ADR-0009:
 
 **Shape (Zod).** Each spec parses against `scripts/codegen/src/schema.ts` — an
 identity layer (`name`, `kind`, `description`, `dependencies`, `file`,
-`behavior`, `primitives`, `guidance`, `examples`, `matrix`) plus a recursive
+`behavior`, `primitives`, `guidance`, `examples`, `coverage`) plus a recursive
 `ComponentNode` (`element`, `rootClass`, `variants`, `intents`, `sizes`,
 `props`, `tokens`, `private`, `states`, `a11y`, `constraints`, `motion`,
 optional `parts:` map of nested `ComponentNode`s). `kind:` is a discriminated
@@ -326,7 +326,7 @@ schema cannot express:
   `tokens:` — closes the spec-to-CSS hole in both directions;
 - `examples:` reference real variant / intent / size values;
 - `constraints:` hold against every `examples:` entry and every
-  cartesian-expanded `matrix:` cell;
+  cartesian-expanded `coverage:` cell;
 - vocabulary names (component, variants, intents, sizes, props, states) are
   in `specs/_vocabulary.yaml`, with Levenshtein-distance suggestions on
   typos (see `rules/naming.md`);

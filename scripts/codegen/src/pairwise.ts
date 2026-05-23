@@ -1,24 +1,29 @@
-// Pairwise covering-array expansion for the spec `matrix:` block.
+// Pairwise covering-array expansion for the spec `coverage:` block.
 //
 // Generates a fixture set that covers every (dim_i_value, dim_j_value) pair
-// at least once. For Button (4 variants × 5 intents × 3 sizes = 60 cartesian),
-// pairwise yields ~12–15 cells. Greedy construction: iterate candidate cells
-// in deterministic order, pick the one that covers the most still-uncovered
+// at least once. For Button (4 variants × 5 intents × 3 sizes = 60 cartesian,
+// 47 reachable pairs, 17 after the link↔non-neutral-intent constraint),
+// greedy pairwise yields 18 cells. Construction: iterate candidate cells in
+// deterministic order, pick the one that covers the most still-uncovered
 // pairs, repeat until all reachable pairs are covered. Lexicographic
 // tiebreaking and a final sort keep the output stable across runs.
 //
-// `constraints:` are applied before expansion (per the matrix-expansion ADR):
-// cells violating a constraint are excluded from the candidate set, and the
-// pairs they would have covered are removed from the target set. This keeps
-// the pair-coverage guarantee intact instead of generating-then-filtering.
+// `constraints:` are applied before expansion: cells violating a constraint
+// are excluded from the candidate set, and the pairs they would have covered
+// are removed from the target set. This keeps the pair-coverage guarantee
+// intact instead of generating-then-filtering. An optional `translate`
+// callback maps each raw cell (dimension keys only) to its full props shape
+// before constraints are evaluated — needed when a constraint references a
+// prop that the dimension layer expresses indirectly (e.g. a `states:`
+// dimension cell `"loading"` maps to `loading: true`).
 
 export type Dimension = { name: string; values: readonly string[] };
 
 export type Cell = Record<string, string>;
 
 export type Constraint = {
-  when: Record<string, string>;
-  forbid: Record<string, readonly string[]>;
+  when: Record<string, unknown>;
+  forbid: Record<string, unknown>;
 };
 
 type PairKey = string;
@@ -56,13 +61,15 @@ function cartesian(dimensions: readonly Dimension[]): Cell[] {
   return acc;
 }
 
-function violates(cell: Cell, constraint: Constraint): boolean {
+function violates(props: Record<string, unknown>, constraint: Constraint): boolean {
   for (const [prop, expected] of Object.entries(constraint.when)) {
-    if (cell[prop] !== expected) return false;
+    if (props[prop] !== expected) return false;
   }
-  for (const [prop, forbidden] of Object.entries(constraint.forbid)) {
-    const value = cell[prop];
-    if (value !== undefined && forbidden.includes(value)) return true;
+  for (const [prop, forbid] of Object.entries(constraint.forbid)) {
+    const value = props[prop];
+    if (value === undefined) continue;
+    const list = Array.isArray(forbid) ? forbid : [forbid];
+    if (list.some((v) => v === value)) return true;
   }
   return false;
 }
@@ -77,12 +84,13 @@ function cellKey(cell: Cell): string {
 export function expandPairwise(
   dimensions: readonly Dimension[],
   constraints: readonly Constraint[] = [],
+  translate: (cell: Cell) => Record<string, unknown> = (cell) => cell,
 ): Cell[] {
   const cleanDims = dimensions.filter((d) => d.values.length > 0);
   if (cleanDims.length === 0) return [];
 
   const candidates = cartesian(cleanDims)
-    .filter((cell) => !constraints.some((c) => violates(cell, c)))
+    .filter((cell) => !constraints.some((c) => violates(translate(cell), c)))
     .sort((a, b) => cellKey(a).localeCompare(cellKey(b)));
 
   if (cleanDims.length === 1) return candidates;
@@ -112,11 +120,11 @@ export function expandPairwise(
   return out;
 }
 
-/** Stable fixture ID for a matrix cell: `m-<value1>-<value2>-…` in the order
- * dimensions were declared. */
-export function matrixFixtureId(cell: Cell, dimensions: readonly Dimension[]): string {
+/** Stable fixture ID for a coverage cell: `cov-<value1>-<value2>-…` in the
+ * order dimensions were declared. */
+export function coverageFixtureId(cell: Cell, dimensions: readonly Dimension[]): string {
   const parts = dimensions
     .map((d) => cell[d.name])
     .filter((v): v is string => typeof v === "string");
-  return `m-${parts.join("-")}`;
+  return `cov-${parts.join("-")}`;
 }

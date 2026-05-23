@@ -4,7 +4,7 @@ kind: atomic
 dependencies: []
 element: div
 rootClass: t-stack
-file: components/stack/stack.css
+cssFile: components/stack/stack.css
 
 props:
   gap:
@@ -27,7 +27,7 @@ tokens:
     fallback: --t-align-stretch
     desc: Default inline-axis alignment when `align` is unset; overridable via `--t-stack-align`.
 
-private:
+privateTokens:
   - --_gap
 
 examples:
