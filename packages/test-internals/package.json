@@ -1,0 +1,20 @@
+{
+  "name": "@teseor/test-internals",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Test-only helpers shared across wrapper packages (DOM polyfills, fixtures).",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teseor/teseor.git",
+    "directory": "packages/test-internals"
+  }
+}
