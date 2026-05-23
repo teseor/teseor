@@ -1,7 +1,5 @@
 // @vitest-environment happy-dom
-import { act, cleanup, fireEvent, render, renderHook } from "@testing-library/react";
-import { createElement, Fragment, type MouseEvent } from "react";
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
+
 import {
   installDomPolyfills,
   isPopoverShown,
@@ -9,7 +7,10 @@ import {
   setMatchingMediaQueries,
   setSupportsPopoverOpenSelector,
   uninstallDomPolyfills,
-} from "./_dom-polyfills";
+} from "@teseor/test-internals";
+import { act, cleanup, fireEvent, render, renderHook } from "@testing-library/react";
+import { createElement, Fragment, type MouseEvent } from "react";
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   isActiveAt,
   resolveResponsive,
@@ -192,10 +193,11 @@ describe("Slot", () => {
   it("warns and renders nothing on fragment with multiple children", () => {
     const { container } = render(
       <Slot>
-        <>
+        {/* biome-ignore lint/complexity/noUselessFragments: deliberate — the test exercises Slot's Fragment-child detection */}
+        <Fragment>
           <button type="button">a</button>
           <button type="button">b</button>
-        </>
+        </Fragment>
       </Slot>,
     );
     expect(container.firstChild).toBeNull();

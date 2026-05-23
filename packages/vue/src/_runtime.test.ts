@@ -19,7 +19,7 @@ import {
   setMatchingMediaQueries,
   setSupportsPopoverOpenSelector,
   uninstallDomPolyfills,
-} from "./_dom-polyfills";
+} from "@teseor/test-internals";
 import {
   isActiveAt,
   resolveResponsive,
