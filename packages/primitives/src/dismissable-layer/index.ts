@@ -42,13 +42,16 @@ function handleKeyDown(event: KeyboardEvent): void {
 }
 
 function handlePointerDown(event: PointerEvent): void {
-  const target = event.target;
-  if (!(target instanceof Node)) return;
+  // composedPath() crosses Shadow DOM boundaries — event.target is retargeted
+  // to the shadow host for listeners on document, so contains() would
+  // misclassify a click inside a shadow-rooted layer as outside.
+  const path = event.composedPath();
+  if (path.length === 0) return;
   // Snapshot so a callback that destroys a layer doesn't perturb iteration.
   const snapshot = [...stack];
   for (const layer of snapshot) {
     if (layer.destroyed) continue;
-    if (layer.element.contains(target)) continue;
+    if (path.includes(layer.element)) continue;
     layer.options.onPointerDownOutside?.(event);
     layer.options.onInteractOutside?.(event);
   }

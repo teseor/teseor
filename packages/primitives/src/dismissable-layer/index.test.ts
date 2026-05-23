@@ -77,6 +77,28 @@ describe("createDismissableLayer", () => {
     layer.destroy();
   });
 
+  it("does not misclassify Shadow DOM clicks as outside (uses composedPath)", () => {
+    // A layer rendered inside a shadow root receives clicks whose event.target
+    // is retargeted to the shadow host at document level. composedPath()
+    // exposes the real path; element.contains(retargetedTarget) would lie.
+    const host = document.createElement("div");
+    document.body.appendChild(host);
+    const shadow = host.attachShadow({ mode: "open" });
+    const layer = document.createElement("div");
+    const inside = document.createElement("button");
+    inside.id = "shadow-inside";
+    layer.appendChild(inside);
+    shadow.appendChild(layer);
+    const onPointerDownOutside = vi.fn();
+    const subscription = createDismissableLayer(layer, { onPointerDownOutside });
+    inside.dispatchEvent(
+      new PointerEvent("pointerdown", { bubbles: true, composed: true, cancelable: true }),
+    );
+    expect(onPointerDownOutside).not.toHaveBeenCalled();
+    subscription.destroy();
+    host.remove();
+  });
+
   it("fires onInteractOutside alongside onPointerDownOutside", () => {
     makeContainer(`
       <div>
