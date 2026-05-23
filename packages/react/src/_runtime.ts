@@ -65,6 +65,11 @@ type OverlayConfig = {
   anchorVar: string;
   popoverMode: "auto" | "manual" | "hint";
   interactions: ReadonlyArray<OverlayInteraction>;
+  /** When true, every `schedule` call no-ops: state doesn't flip, onOpenChange
+   *  doesn't fire, hover/focus don't open the popover. The wrapper passes
+   *  `disabled === true` (plain boolean only); responsive `disabled` is
+   *  handled at the CSS layer via `data-disabled-bp` attributes. */
+  disabled?: boolean;
 };
 
 type AnyEventHandler = (event: unknown) => void;
@@ -114,6 +119,7 @@ export function useOverlay<T extends HTMLElement = HTMLElement>(
     anchorVar,
     popoverMode,
     interactions,
+    disabled = false,
   } = config;
 
   const controlled = openProp !== undefined;
@@ -156,6 +162,10 @@ export function useOverlay<T extends HTMLElement = HTMLElement>(
 
   const schedule = useCallback(
     (action: "open" | "close" | "toggle", delayMs: number) => {
+      // No-op when the wrapper passed `disabled: true`. Prevents internal
+      // state from flipping, `onOpenChange` from firing, and the popover
+      // from being shown (which would throw silently on display:none).
+      if (disabled) return;
       clearTimers();
       const next = action === "toggle" ? !openRef.current : action === "open";
       if (delayMs <= 0) {
@@ -165,7 +175,7 @@ export function useOverlay<T extends HTMLElement = HTMLElement>(
       const slot: "open" | "close" = action === "close" ? "close" : "open";
       timersRef.current[slot] = window.setTimeout(() => setOpen(next), delayMs);
     },
-    [clearTimers, setOpen],
+    [clearTimers, setOpen, disabled],
   );
 
   // Cleanup timers on unmount.
@@ -220,6 +230,8 @@ export function useOverlay<T extends HTMLElement = HTMLElement>(
   // wrapper element that the generated composite renders around `children`
   // (the wrapper-element pattern — no cloneElement, works in Astro slots).
   // Multiple rules on the same event merge into one composed handler.
+  // Each rule respects its own `when` state guard and `on.key` filter —
+  // same semantics as the document/window-bound branch above.
   const triggerHandlers: OverlayHandlers = {};
   for (const rule of interactions) {
     if (rule.on.target !== "trigger") continue;
@@ -229,6 +241,10 @@ export function useOverlay<T extends HTMLElement = HTMLElement>(
     const delayMs = rule.delayMs ?? 0;
     const next = (e: unknown) => {
       previous?.(e);
+      if (rule.when === "open" && !openRef.current) return;
+      if (rule.on.key) {
+        if (!(e instanceof KeyboardEvent) || e.key !== rule.on.key) return;
+      }
       schedule(rule.do, delayMs);
     };
     triggerHandlers[handlerName] = next;

@@ -332,6 +332,11 @@ type OverlayConfig = {
   anchorVar: string;
   popoverMode: "auto" | "manual" | "hint";
   interactions: ReadonlyArray<OverlayInteraction>;
+  /** Reactive getter for plain-boolean \`disabled\`. When it returns \`true\`,
+   *  every \`schedule\` call no-ops: state doesn't flip, \`onOpenChange\` doesn't
+   *  fire. Responsive \`disabled\` is handled at the CSS layer via
+   *  \`data-disabled-bp\` attributes. */
+  disabled?: () => boolean;
 };
 
 type OverlayHandlers = Record<string, (event: Event) => void>;
@@ -389,6 +394,9 @@ export function useOverlay(config: OverlayConfig): OverlayReturn {
   };
 
   const schedule = (action: "open" | "close" | "toggle", delayMs: number) => {
+    // No-op when the wrapper passed \`disabled: () => true\`. Reads the getter
+    // each call so the latest prop value gates the state transition.
+    if (config.disabled?.() === true) return;
     clearTimers();
     const next = action === "toggle" ? !open.value : action === "open";
     if (delayMs <= 0) {
@@ -460,7 +468,9 @@ export function useOverlay(config: OverlayConfig): OverlayReturn {
 
   // Trigger-bound handlers spread via \`v-on\` onto the wrapper element.
   // Keys are bare event names (\`pointerenter\`, not \`onPointerenter\`); Vue's
-  // v-on directive handles the listener registration.
+  // v-on directive handles the listener registration. Each rule respects
+  // its own \`when\` state guard and \`on.key\` filter — same semantics as the
+  // document/window-bound branch above.
   const triggerHandlers: OverlayHandlers = {};
   for (const rule of config.interactions) {
     if (rule.on.target !== "trigger") continue;
@@ -468,6 +478,10 @@ export function useOverlay(config: OverlayConfig): OverlayReturn {
     const previous = triggerHandlers[eventName];
     triggerHandlers[eventName] = (event: Event) => {
       previous?.(event);
+      if (rule.when === "open" && !open.value) return;
+      if (rule.on.key) {
+        if (!(event instanceof KeyboardEvent) || event.key !== rule.on.key) return;
+      }
       schedule(rule.do, resolveDelay(rule.delayMs));
     };
   }
@@ -651,11 +665,13 @@ ${destructureLines.join("\n")}
 } = defineProps<${Name}Props>();
 
 const overlay = useOverlay({
-  // Reactive getter so the composable re-reads the controlled prop each
-  // render instead of capturing its setup-time value (Vue's setup runs once).
+  // Reactive getters so the composable re-reads each prop on every render
+  // instead of capturing its setup-time value (Vue's setup runs once).
   open: () => ${controllableName}Prop,
   default${ControllableName},
-  on${ControllableName}Change,
+  on${ControllableName}Change,${
+    Object.hasOwn(spec.props, "disabled") ? `\n  disabled: () => disabled === true,` : ""
+  }
   anchorVar: ${quote(popover.anchorVar)},
   popoverMode: ${quote(popover.mode)},
   interactions: [

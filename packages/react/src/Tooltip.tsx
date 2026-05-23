@@ -28,7 +28,7 @@ type TooltipOwnProps = {
   /** Milliseconds before the tooltip closes after leave or blur. */
   closeDelay?: number;
   /** Tooltip content. Plain text; use Popover for interactive content. */
-  text?: ReactNode;
+  text?: string;
   /** Preferred side relative to the trigger. CSS `position-try-fallbacks` auto-flips on overflow. */
   placement?: Responsive<TooltipPlacement>;
   children?: ReactNode;
@@ -85,6 +85,7 @@ export function Tooltip(props: TooltipProps) {
     anchorVar: "--t-tooltip-anchor",
     popoverMode: "manual",
     interactions,
+    disabled: disabled === true,
   });
 
   // The trigger is rendered as a wrapper element around `children` rather

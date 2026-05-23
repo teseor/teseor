@@ -29,9 +29,9 @@ export type ButtonProps = {
   /** Shows a spinner in place of the label and disables interaction. The original label stays in the accessibility tree. */
   loading?: boolean;
   /** Icon rendered before the label in the inline direction. Slot size scales with `size`. Accepts any node (icon component, SVG, etc.). */
-  iconStart?: string;
+  iconStart?: unknown;
   /** Icon rendered after the label in the inline direction. Accepts any node. */
-  iconEnd?: string;
+  iconEnd?: unknown;
   /** Stretches the button to the inline-size of its container. Responsive so layouts can pin block-width on mobile and shrink to content above. */
   block?: Responsive<boolean>;
 };

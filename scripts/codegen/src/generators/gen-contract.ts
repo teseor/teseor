@@ -129,15 +129,24 @@ function renderContract(spec: FlatSpec): string {
       continue;
     }
     const propValues = propDef.values ?? [];
-    // Slot props with a concrete `type:` (e.g. Tooltip's `text: { type:
-    // "string", slot: true }`) keep their declared scalar type in the
-    // contract — `unknown` is reserved for slots that legitimately accept
-    // arbitrary content (ReactNode-style slots whose `type:` would otherwise
-    // be meaningless; those would set `type: "string"` and we still emit
-    // string in the framework-agnostic contract since framework wrappers
-    // widen to ReactNode / VNode[] at their own layer).
-    const baseType =
-      propValues.length > 0 ? `${Name}${pascalCase(propName)}` : mapPropType(propDef.type);
+    // Slot kinds in the contract:
+    //  - Atomic-root slot (e.g. Button's `iconStart`): renderable child.
+    //    Contract emits `unknown`; React widens to ReactNode, Vue maps to
+    //    a named slot via `defineSlots`.
+    //  - Composite-part slot (e.g. Tooltip's `text` on the `content` part):
+    //    scalar body content (string in the contract). React + Vue wrappers
+    //    use the same scalar type.
+    // The `__part` marker (set by flattenSpec) distinguishes the two: empty
+    // string for atomic-root props, the originating part name for composite.
+    // `__part` is "" for atomic-root props (set by flattenSpec) and the
+    // originating part name for composite. Tests that bypass flatten see
+    // `undefined`; treat both empty and missing as the atomic-root case.
+    const isAtomicSlot = propDef.slot === true && !propDef.__part;
+    const baseType = isAtomicSlot
+      ? "unknown"
+      : propValues.length > 0
+        ? `${Name}${pascalCase(propName)}`
+        : mapPropType(propDef.type);
     const tsType =
       propDef.responsive === true && propDef.slot !== true ? responsiveType(baseType) : baseType;
     if (propDef.description) propLines.push(`  /** ${propDef.description} */`);

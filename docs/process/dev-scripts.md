@@ -36,6 +36,7 @@ The bare-verb defaults are the verbs you reach for daily: `dev`, `build`, `test`
 | `pnpm lint:catalog` | Checks script naming and package.json/catalog sync (`check-script-catalog.ts`) | When touching `package.json` scripts or this table | Developer + CI + lefthook |
 | `pnpm lint:doc-paths` | Fails any backtick-wrapped path-shaped reference in markdown that does not resolve (`check-doc-paths.ts`); allowlist at `scripts/.doc-path-allowlist.txt` | When touching docs | Developer + CI + lefthook |
 | `pnpm lint:contract-snapshots` | Fails when a `tests/contract/<name>.spec.ts` fixture id has no matching `<!-- id -->` section in the committed snapshot (`check-contract-snapshots.ts`); structural check only — DOM byte drift stays a CI-only catch via `test-e2e` | When changing specs or fixtures | Developer + CI + lefthook |
+| `pnpm lint:codegen-tests` | Fails when files under `scripts/codegen/src/` change without any matching change under `scripts/codegen/__tests__/` or a colocated `*.test.ts` (`check-codegen-tests.ts`); blocks unilateral deferral of codegen tests | Every PR touching the codegen pipeline | Developer + CI + lefthook |
 | `pnpm lint:md` | markdownlint over `docs/` and root markdown (`.markdownlint-cli2.jsonc`) | When touching docs | Developer + CI + lefthook |
 | `pnpm typecheck` | `tsc --noEmit` at the root plus recursive `typecheck` across packages | Before push; in CI; via lefthook | Developer + CI + lefthook |
 | `pnpm size` | `size-limit` — per-entry CSS bundle budgets | When bundle size may have moved | Developer + CI |

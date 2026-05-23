@@ -56,7 +56,16 @@ function responsiveType(baseType: string): string {
 }
 
 function reactPropType(propName: string, propDef: SpecProp, Name: string): string {
-  if (propDef.slot === true) return "ReactNode";
+  // Atomic-root slots (Button's iconStart/iconEnd) accept renderable content
+  // → ReactNode. Composite-part slots (Tooltip's text on the content part)
+  // are scalar body content → use the declared type. The `__part` marker
+  // (set by flattenSpec) is "" for atomic-root, the part name for composite.
+  if (propDef.slot === true) {
+    // `__part` is "" / undefined for atomic-root props, the part name for
+    // composite. Tests that bypass flatten see `undefined`; treat both as
+    // the atomic-root case.
+    return !propDef.__part ? "ReactNode" : mapPropType(propDef.type);
+  }
   if (propDef.values && propDef.values.length > 0) return `${Name}${pascalCase(propName)}`;
   return mapPropType(propDef.type);
 }
@@ -509,6 +518,12 @@ function renderCompositeWrapper(spec: Spec, propDescriptions: Record<string, str
   // tear down + rebind on every parent re-render — the inline array literal
   // would otherwise have a fresh identity every render.
   const memoDeps = Array.from(delayProps).join(", ");
+  // `disabled === true` short-circuits the state machine inside useOverlay.
+  // Responsive `disabled` (a Responsive<boolean>) is handled at the CSS
+  // layer via `data-disabled-bp` attributes — the hook only gates on the
+  // plain-boolean case.
+  const hasDisabledProp = Object.hasOwn(spec.props, "disabled");
+  const disabledLine = hasDisabledProp ? `    disabled: disabled === true,\n` : "";
   const hookConfig = [
     `    ${controllableName}: ${controllableName}Prop,`,
     `    default${ControllableName},`,
@@ -517,6 +532,9 @@ function renderCompositeWrapper(spec: Spec, propDescriptions: Record<string, str
     `    popoverMode: ${quote(popover.mode)},`,
     `    interactions,`,
   ].join("\n");
+  const hookConfigWithDisabled = disabledLine
+    ? `${hookConfig}\n${disabledLine.trimEnd()}`
+    : hookConfig;
   const interactionsMemo = [
     `  const interactions = useMemo<OverlayInteraction[]>(`,
     `    () => [`,
@@ -573,7 +591,7 @@ ${destructureNames.map((n) => `    ${n},`).join("\n")}
 ${interactionsMemo}
 
   const overlay = useOverlay<HTMLElementTagNameMap[${quote(contentElement)}]>({
-${hookConfig}
+${hookConfigWithDisabled}
   });
 
   // The trigger is rendered as a wrapper element around \`children\` rather
@@ -696,6 +714,11 @@ type OverlayConfig = {
   anchorVar: string;
   popoverMode: "auto" | "manual" | "hint";
   interactions: ReadonlyArray<OverlayInteraction>;
+  /** When true, every \`schedule\` call no-ops: state doesn't flip, onOpenChange
+   *  doesn't fire, hover/focus don't open the popover. The wrapper passes
+   *  \`disabled === true\` (plain boolean only); responsive \`disabled\` is
+   *  handled at the CSS layer via \`data-disabled-bp\` attributes. */
+  disabled?: boolean;
 };
 
 type AnyEventHandler = (event: unknown) => void;
@@ -745,6 +768,7 @@ export function useOverlay<T extends HTMLElement = HTMLElement>(
     anchorVar,
     popoverMode,
     interactions,
+    disabled = false,
   } = config;
 
   const controlled = openProp !== undefined;
@@ -787,6 +811,10 @@ export function useOverlay<T extends HTMLElement = HTMLElement>(
 
   const schedule = useCallback(
     (action: "open" | "close" | "toggle", delayMs: number) => {
+      // No-op when the wrapper passed \`disabled: true\`. Prevents internal
+      // state from flipping, \`onOpenChange\` from firing, and the popover
+      // from being shown (which would throw silently on display:none).
+      if (disabled) return;
       clearTimers();
       const next = action === "toggle" ? !openRef.current : action === "open";
       if (delayMs <= 0) {
@@ -796,7 +824,7 @@ export function useOverlay<T extends HTMLElement = HTMLElement>(
       const slot: "open" | "close" = action === "close" ? "close" : "open";
       timersRef.current[slot] = window.setTimeout(() => setOpen(next), delayMs);
     },
-    [clearTimers, setOpen],
+    [clearTimers, setOpen, disabled],
   );
 
   // Cleanup timers on unmount.
@@ -851,6 +879,8 @@ export function useOverlay<T extends HTMLElement = HTMLElement>(
   // wrapper element that the generated composite renders around \`children\`
   // (the wrapper-element pattern — no cloneElement, works in Astro slots).
   // Multiple rules on the same event merge into one composed handler.
+  // Each rule respects its own \`when\` state guard and \`on.key\` filter —
+  // same semantics as the document/window-bound branch above.
   const triggerHandlers: OverlayHandlers = {};
   for (const rule of interactions) {
     if (rule.on.target !== "trigger") continue;
@@ -860,6 +890,10 @@ export function useOverlay<T extends HTMLElement = HTMLElement>(
     const delayMs = rule.delayMs ?? 0;
     const next = (e: unknown) => {
       previous?.(e);
+      if (rule.when === "open" && !openRef.current) return;
+      if (rule.on.key) {
+        if (!(e instanceof KeyboardEvent) || e.key !== rule.on.key) return;
+      }
       schedule(rule.do, delayMs);
     };
     triggerHandlers[handlerName] = next;

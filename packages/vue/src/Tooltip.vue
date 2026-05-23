@@ -41,11 +41,12 @@ const {
 } = defineProps<TooltipProps>();
 
 const overlay = useOverlay({
-  // Reactive getter so the composable re-reads the controlled prop each
-  // render instead of capturing its setup-time value (Vue's setup runs once).
+  // Reactive getters so the composable re-reads each prop on every render
+  // instead of capturing its setup-time value (Vue's setup runs once).
   open: () => openProp,
   defaultOpen,
   onOpenChange,
+  disabled: () => disabled === true,
   anchorVar: "--t-tooltip-anchor",
   popoverMode: "manual",
   interactions: [
