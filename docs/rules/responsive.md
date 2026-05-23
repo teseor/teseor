@@ -129,7 +129,7 @@ Interactive component roots target ≥44px at the base (mobile) breakpoint (per 
 
 ## Density
 
-`[data-density="compact"]` and `[data-density="comfortable"]` on any element reassign `--t-density` (`0.875` and `1.125`); the four spacing shorthands (`--t-pad-x`, `--t-pad-y`, `--t-gap`, `--t-row`) multiply by it. `--t-row` is floored at `--t-touch-min` so an interactive root never falls below the WCAG touch target under a compact density. No utility classes — set the attribute on a section to scope the change; no extra components react.
+`[data-density="compact"]` and `[data-density="comfortable"]` on any element reassign `--t-density` (`0.875` and `1.125`); the four spacing shorthands (`--t-pad-x`, `--t-pad-y`, `--t-gap`, `--t-row`) multiply by it. Interactive component roots that need the WCAG 2.5.5 touch-target floor read `--t-touch-min` directly — flooring `--t-row` in the token layer would inflate the default size for every consumer. No utility classes — set the attribute on a section to scope the change; no extra components react.
 
 ## Sources
 

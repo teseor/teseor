@@ -217,23 +217,24 @@
 
     /* ===== Spacing shorthands ===== */
 
-    /* All four multiply by `--t-density`; `--t-row` is also floored at
-       `--t-touch-min` so the control height never crosses the WCAG
-       touch-target line under a compact density. */
+    /* All four multiply by `--t-density`. Interactive component roots that
+       need to honour the touch-target floor read `--t-touch-min` directly;
+       flooring `--t-row` here would inflate the default size (2rem → 2.75rem)
+       for every consumer, not just compact-density interactive controls. */
     --t-pad-x: calc(var(--t-space-4) * var(--t-density));
     --t-pad-y: calc(var(--t-space-2) * var(--t-density));
     --t-gap: calc(var(--t-space-3) * var(--t-density));
-    --t-row: max(var(--t-touch-min), calc(var(--t-row-2) * var(--t-density)));
+    --t-row: calc(var(--t-row-2) * var(--t-density));
   }
 
-  /* Density opt-in. Apply on any subtree to scale spacing shorthands; the
-     row-height floor still applies. `compact` and `comfortable` are the two
-     supported values. */
-  [data-density="compact"] {
+  /* Density opt-in. Apply on any subtree to scale spacing shorthands;
+     `compact` and `comfortable` are the two supported values. `:where()`
+     keeps specificity flat (0,0,0) so consumers override without ratcheting. */
+  :where([data-density="compact"]) {
     --t-density: 0.875;
   }
 
-  [data-density="comfortable"] {
+  :where([data-density="comfortable"]) {
     --t-density: 1.125;
   }
 
