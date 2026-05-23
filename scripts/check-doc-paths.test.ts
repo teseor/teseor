@@ -13,18 +13,23 @@ describe("findDanglingPaths", () => {
   });
 
   it("accepts a path-shaped reference that resolves from repo root", () => {
-    expect(findDanglingPaths("Open `package.json`.", FAKE_DOC)).toEqual([]);
+    expect(findDanglingPaths("Open `scripts/check-doc-paths.ts`.", FAKE_DOC)).toEqual([]);
   });
 
   it("accepts a reference resolved relative to the doc's parent directory", () => {
-    // FAKE_DOC sits next to themes.md; a bare `themes.md` reference resolves
-    // via the parent-directory probe.
-    expect(findDanglingPaths("See `themes.md`.", FAKE_DOC)).toEqual([]);
+    // FAKE_DOC sits in an architecture/ directory; `./themes.md` resolves
+    // via the parent-directory probe to the sibling themes file.
+    expect(findDanglingPaths("See `./themes.md`.", FAKE_DOC)).toEqual([]);
   });
 
   it("accepts a reference resolved relative to docs/", () => {
-    // `architecture/themes.md` is what docs cross-references use most often.
     expect(findDanglingPaths("See `architecture/themes.md`.", FAKE_DOC)).toEqual([]);
+  });
+
+  it("skips basename-only references (too ambiguous to resolve)", () => {
+    // `tokens.css` exists at packages/css/src/tokens.css and dist/tokens.css;
+    // a basename alone is intentionally not flagged.
+    expect(findDanglingPaths("Edit `tokens.css` to add the token.", FAKE_DOC)).toEqual([]);
   });
 
   it("ignores non-path backtick spans (CSS tokens, class names, commands)", () => {

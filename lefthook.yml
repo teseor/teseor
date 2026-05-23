@@ -42,10 +42,10 @@ pre-commit:
       glob: '{package.json,docs/process/dev-scripts.md}'
       run: node scripts/check-script-catalog.ts
     markdown:
-      glob: '*.md'
+      glob: '**/*.md'
       run: pnpm exec markdownlint-cli2
     doc-paths:
-      glob: '*.md'
+      glob: '**/*.{md,mdx}'
       run: node scripts/check-doc-paths.ts
 
 pre-push:
