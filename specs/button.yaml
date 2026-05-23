@@ -171,6 +171,11 @@ examples:
   - id: block-mobile
     props: { variant: solid, intent: primary, block: true, size: lg }
 
+matrix:
+  variant: true
+  intent: true
+  size: true
+
 motion:
   transitions:
     - background-color
