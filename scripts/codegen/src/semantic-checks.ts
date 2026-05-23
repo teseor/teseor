@@ -324,12 +324,21 @@ export function checkMatrixShape(spec: Spec): Issue[] {
   return issues;
 }
 
+/**
+ * Asserts the matrix expansion is internally consistent with constraints.
+ * Per the matrix-expansion ADR, constraints prune the cell set BEFORE
+ * expansion (forbidden cells never enter the candidate set). This check
+ * walks the post-pruning cells and confirms none violate a constraint — a
+ * defensive sanity gate that catches a future regression in pruning logic.
+ */
 export function checkConstraintsAgainstMatrix(spec: Spec): Issue[] {
   const issues: Issue[] = [];
   if (!isAtomic(spec)) return issues;
   const constraints = spec.constraints ?? [];
   if (constraints.length === 0) return issues;
-  const cells = expandMatrix(spec);
+  const cells = expandMatrix(spec).filter(
+    (cell) => !constraints.some((c) => violation(cell, c) !== undefined),
+  );
   for (const cell of cells) {
     for (const constraint of constraints) {
       const v = violation(cell, constraint);

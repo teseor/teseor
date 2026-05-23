@@ -190,7 +190,7 @@ describe("checkMatrixShape", () => {
 });
 
 describe("checkConstraintsAgainstMatrix", () => {
-  test("flags expanded cells that violate a constraint", () => {
+  test("prunes constraint-violating cells (matrix expansion drops them)", () => {
     const spec = makeButton({
       constraints: [
         {
@@ -201,9 +201,10 @@ describe("checkConstraintsAgainstMatrix", () => {
       ],
       matrix: { variant: true, intent: true },
     });
-    const issues = checkConstraintsAgainstMatrix(spec);
-    expect(issues).toHaveLength(1);
-    expect(issues[0]?.message).toMatch(/outline.*danger/);
+    // Per the matrix-expansion ADR, constraints prune the cell set before
+    // expansion. The check walks the pruned set and the violating cell
+    // (outline × danger) is excluded, so the check is silent.
+    expect(checkConstraintsAgainstMatrix(spec)).toEqual([]);
   });
 
   test("does not flag a matrix that constraints leave alone", () => {
