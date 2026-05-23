@@ -5,8 +5,10 @@
 // consumers (Astro islands, server-rendered pages, etc.).
 
 export type PortalOptions = {
-  /** Where to attach the portal container. Default: `document.body`. */
-  target?: HTMLElement;
+  /** Where to attach the portal container. Default: `document.body`.
+   *  Accepts any append-capable parent — `Element`, `ShadowRoot`,
+   *  `DocumentFragment`. */
+  target?: Element | DocumentFragment;
   /** Use this element as the portal container instead of creating a fresh `<div>`. */
   container?: HTMLElement;
 };
@@ -18,14 +20,28 @@ export type Portal = {
   unmount: () => void;
 };
 
+function resolveTarget(
+  explicit: Element | DocumentFragment | undefined,
+): Element | DocumentFragment {
+  if (explicit) return explicit;
+  // `document.body` is typed `HTMLElement` but can be null at runtime — early
+  // scripts loaded before `<body>`, non-browser DOM contexts, certain test
+  // harnesses. Throw a clear message instead of letting `appendChild` blow up.
+  if (typeof document === "undefined" || !document.body) {
+    throw new Error("createPortal: no `target` provided and `document.body` is unavailable");
+  }
+  return document.body;
+}
+
 /**
  * Creates a DOM container and attaches it to `target` (default
  * `document.body`). Returns the container plus an `unmount` cleanup. If
  * `container` is provided it is used as-is; otherwise a fresh `<div>` is
- * created. Calling `unmount` more than once is a no-op.
+ * created. Calling `unmount` more than once is a no-op. Throws if no
+ * explicit target is given and `document.body` is unavailable.
  */
 export function createPortal(options: PortalOptions = {}): Portal {
-  const target = options.target ?? document.body;
+  const target = resolveTarget(options.target);
   const container = options.container ?? document.createElement("div");
   target.appendChild(container);
   let mounted = true;

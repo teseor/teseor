@@ -32,6 +32,33 @@ describe("createPortal", () => {
     portal.unmount();
   });
 
+  it("attaches to a DocumentFragment target", () => {
+    const fragment = document.createDocumentFragment();
+    const portal = createPortal({ target: fragment });
+    expect(portal.container.parentNode).toBe(fragment);
+    portal.unmount();
+  });
+
+  it("attaches to a ShadowRoot target", () => {
+    const host = document.createElement("div");
+    document.body.appendChild(host);
+    const shadow = host.attachShadow({ mode: "open" });
+    const portal = createPortal({ target: shadow });
+    expect(portal.container.parentNode).toBe(shadow);
+    portal.unmount();
+    host.remove();
+  });
+
+  it("throws a clear error when no target is given and document.body is unavailable", () => {
+    const original = document.body;
+    original.remove();
+    try {
+      expect(() => createPortal()).toThrow(/unavailable/);
+    } finally {
+      document.documentElement.appendChild(original);
+    }
+  });
+
   it("hosts arbitrary content appended to the container", () => {
     const portal = createPortal();
     const child = document.createElement("p");
