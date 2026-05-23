@@ -43,7 +43,12 @@
 
   .t-tooltip {
     box-sizing: border-box;
-    position: relative;
+
+    /* No `position: relative` here — the UA stylesheet sets `position: fixed`
+       on `[popover]`, which establishes a containing block for the arrow's
+       `position: absolute` and keeps the popover out of normal document flow.
+       Overriding to `relative` would put the closed popover back in flow and
+       shift surrounding content on hover. */
     margin: var(--_margin);
     inset: auto;
     border: 0;
