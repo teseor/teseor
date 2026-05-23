@@ -20,15 +20,22 @@ const MATCHING_QUERIES = new Set<string>();
 // Treat the prototypes as loose records so we can swap descriptors without
 // fighting the lib.dom overloaded signatures (Element.matches has 4).
 type LooseProto = Record<string, unknown>;
+type CssLike = { supports?: (...args: unknown[]) => boolean };
+type GlobalWithCss = { CSS?: CssLike };
 const elementProto = Element.prototype as unknown as LooseProto;
 const htmlProto = HTMLElement.prototype as unknown as LooseProto;
-const cssLike = (globalThis as { CSS?: { supports?: (...args: unknown[]) => boolean } }).CSS;
 
 let supportsPopoverOpenSelector = true;
 let originalMatches: unknown;
 let originalShowPopover: unknown;
 let originalHidePopover: unknown;
+// Track whether each global existed pre-install so uninstall can `delete` the
+// polyfill when there was nothing to restore (otherwise our stub leaks).
+let hadCss = false;
+let hadCssSupports = false;
+let originalCss: CssLike | undefined;
 let originalCssSupports: ((...args: unknown[]) => boolean) | undefined;
+let hadMatchMedia = false;
 let originalMatchMedia: typeof window.matchMedia | undefined;
 let installed = false;
 
@@ -62,12 +69,16 @@ export function installDomPolyfills(): void {
   };
 
   // CSS.supports returns the flag for `:popover-open`; delegate everything else.
-  let cssTarget = cssLike;
+  const cssHost = globalThis as GlobalWithCss;
+  hadCss = "CSS" in cssHost;
+  originalCss = cssHost.CSS;
+  hadCssSupports = !!originalCss && "supports" in originalCss;
+  originalCssSupports = originalCss?.supports;
+  let cssTarget = originalCss;
   if (!cssTarget) {
     cssTarget = { supports: () => true };
-    (globalThis as { CSS?: typeof cssTarget }).CSS = cssTarget;
+    cssHost.CSS = cssTarget;
   }
-  originalCssSupports = cssTarget.supports;
   cssTarget.supports = (...args: unknown[]): boolean => {
     const head = args[0];
     if (typeof head === "string" && head.includes(":popover-open")) {
@@ -77,6 +88,7 @@ export function installDomPolyfills(): void {
   };
 
   // One entry per unique query; setMatchingMediaQueries notifies its listeners.
+  hadMatchMedia = "matchMedia" in window;
   originalMatchMedia = window.matchMedia;
   window.matchMedia = (query: string): MediaQueryList => {
     let entry = MATCH_MEDIA_ENTRIES.get(query);
@@ -154,6 +166,16 @@ export function uninstallDomPolyfills(): void {
   else delete htmlProto.showPopover;
   if (originalHidePopover) htmlProto.hidePopover = originalHidePopover;
   else delete htmlProto.hidePopover;
-  if (cssLike && originalCssSupports) cssLike.supports = originalCssSupports;
-  if (originalMatchMedia) window.matchMedia = originalMatchMedia;
+  const cssHost = globalThis as GlobalWithCss;
+  if (!hadCss) {
+    delete cssHost.CSS;
+  } else if (originalCss) {
+    if (hadCssSupports && originalCssSupports) originalCss.supports = originalCssSupports;
+    else delete originalCss.supports;
+  }
+  if (hadMatchMedia && originalMatchMedia) {
+    window.matchMedia = originalMatchMedia;
+  } else {
+    delete (window as { matchMedia?: typeof window.matchMedia }).matchMedia;
+  }
 }

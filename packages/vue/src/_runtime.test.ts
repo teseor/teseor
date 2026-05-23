@@ -61,6 +61,43 @@ function withSetup<T>(composable: () => T): { api: T; app: App; unmount: () => v
   return { api: api as T, app, unmount };
 }
 
+// ── Polyfill uninstall ─────────────────────────────────────────────────────
+
+describe("uninstallDomPolyfills", () => {
+  it("deletes window.matchMedia when the environment had none pre-install", () => {
+    uninstallDomPolyfills();
+    const w = window as { matchMedia?: typeof window.matchMedia };
+    const originalMatchMedia = w.matchMedia;
+    delete w.matchMedia;
+    try {
+      installDomPolyfills();
+      expect(typeof w.matchMedia).toBe("function");
+      uninstallDomPolyfills();
+      expect("matchMedia" in w).toBe(false);
+    } finally {
+      if (originalMatchMedia) w.matchMedia = originalMatchMedia;
+      installDomPolyfills();
+    }
+  });
+
+  it("deletes globalThis.CSS when the environment had none pre-install", () => {
+    uninstallDomPolyfills();
+    type CssHost = { CSS?: { supports?: (...args: unknown[]) => boolean } };
+    const host = globalThis as CssHost;
+    const originalCss = host.CSS;
+    delete host.CSS;
+    try {
+      installDomPolyfills();
+      expect(typeof (host as CssHost).CSS?.supports).toBe("function");
+      uninstallDomPolyfills();
+      expect("CSS" in host).toBe(false);
+    } finally {
+      if (originalCss) host.CSS = originalCss;
+      installDomPolyfills();
+    }
+  });
+});
+
 // ── Pure functions ─────────────────────────────────────────────────────────
 
 describe("isActiveAt", () => {
