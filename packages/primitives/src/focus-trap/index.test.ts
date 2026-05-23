@@ -81,6 +81,18 @@ describe("getFocusableElements", () => {
     `);
     expect(getFocusableElements(c).map((el) => el.id)).toEqual(["a", "b"]);
   });
+
+  it("excludes any element whose computed tabIndex is negative", () => {
+    // The CSS selector matches `[tabindex]:not([tabindex="-1"])` so values
+    // like `-2` slip past the selector — the tabIndex filter catches them.
+    const c = makeContainer(`
+      <div id="container">
+        <button id="a">A</button>
+        <div id="b" tabindex="-2">B</div>
+      </div>
+    `);
+    expect(getFocusableElements(c).map((el) => el.id)).toEqual(["a"]);
+  });
 });
 
 describe("createFocusTrap", () => {
@@ -152,6 +164,41 @@ describe("createFocusTrap", () => {
     expect(c.getAttribute("tabindex")).toBe("-1");
     trap.deactivate();
     expect(c.hasAttribute("tabindex")).toBe(false);
+  });
+
+  it("pulls focus back to the container on Tab when there are no focusables and focus escaped", () => {
+    makeContainer(`
+      <div>
+        <button id="outside">O</button>
+        <div id="container"></div>
+      </div>
+    `);
+    const c = getEl("container");
+    const trap = createFocusTrap(c);
+    trap.activate();
+    getEl("outside").focus();
+    pressTab();
+    expect(document.activeElement).toBe(c);
+    expect(c.getAttribute("tabindex")).toBe("-1");
+    trap.deactivate();
+  });
+
+  it("pulls focus back via focusin when an outside element is clicked or focused programmatically", () => {
+    makeContainer(`
+      <div>
+        <button id="outside">O</button>
+        <div id="container">
+          <button id="a">A</button>
+        </div>
+      </div>
+    `);
+    const trap = createFocusTrap(getEl("container"));
+    trap.activate();
+    getEl("outside").focus();
+    // No Tab — just a programmatic focus change. The focusin handler should
+    // pull focus back without us pressing any key.
+    expect(activeId()).toBe("a");
+    trap.deactivate();
   });
 
   it("restores focus to the previously focused element on deactivate", () => {
