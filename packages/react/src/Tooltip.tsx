@@ -85,22 +85,10 @@ export function Tooltip(props: TooltipProps) {
     anchorVar: "--t-tooltip-anchor",
     popoverMode: "manual",
     interactions,
-    disabled: disabled === true,
+    disabled,
   });
 
-  // The trigger is rendered as a wrapper element around `children` rather
-  // than via `cloneElement` — required for Astro slot semantics (children
-  // arrive as a slot, not a React element) and gives every framework the
-  // same DOM contract. The wrapper carries the anchor binding, event
-  // handlers, and `aria-describedby`; the consumer's element stays
-  // unchanged inside.
   const triggerStyle: CSSProperties = { [overlay.anchorVar]: overlay.anchorName };
-  // `aria-describedby` is only set when the popover has content. Pointing a
-  // describedby relationship at an empty `role="tooltip"` element is an a11y
-  // anti-pattern: assistive tech announces the description, finds nothing,
-  // and the consumer sees no signal that the tooltip is empty. When the
-  // spec declares no content slot, `hasContent` is always `false` — the
-  // popover renders empty and the describedby attribute is omitted.
   const hasContent = text != null;
 
   return (

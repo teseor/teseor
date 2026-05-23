@@ -1,10 +1,14 @@
-# Shared breakpoint registry. Single source of truth for both the CSS
-# @custom-media declarations and the generator runtime that emits per-breakpoint
-# data-attributes. Order matters: mobile-first, smallest first. "base" is the
-# implicit mobile floor and is not listed here.
+# Shared breakpoint registry. Single source of truth for the CSS @custom-media
+# declarations, the generator runtime that emits per-breakpoint data-attributes,
+# and the matchMedia queries the runtime uses to drive responsive-prop behavior.
+# Mobile-first order matters; "base" is the implicit floor and is not listed.
 
 breakpoints:
-  - md
-  - lg
-  - xl
-  - 2xl
+  - name: md
+    minWidth: 48rem
+  - name: lg
+    minWidth: 64rem
+  - name: xl
+    minWidth: 80rem
+  - name: 2xl
+    minWidth: 96rem

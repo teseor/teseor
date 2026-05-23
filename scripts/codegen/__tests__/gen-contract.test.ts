@@ -7,9 +7,9 @@ import {
   renderResponsiveModule,
   type Spec,
 } from "../src/generators/gen-contract.ts";
+import { BREAKPOINTS } from "./_fixtures.ts";
 
 const REPO_ROOT = resolve(import.meta.dirname, "..", "..", "..");
-const BREAKPOINTS = ["md", "lg", "xl", "2xl"];
 
 async function loadSpec(name: string): Promise<Spec> {
   const raw = await readFile(resolve(REPO_ROOT, "specs", `${name}.yaml`), "utf8");

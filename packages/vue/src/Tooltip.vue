@@ -46,7 +46,7 @@ const overlay = useOverlay({
   open: () => openProp,
   defaultOpen,
   onOpenChange,
-  disabled: () => disabled === true,
+  disabled: () => disabled,
   anchorVar: "--t-tooltip-anchor",
   popoverMode: "manual",
   interactions: [
