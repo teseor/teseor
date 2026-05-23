@@ -69,17 +69,20 @@ const contentAttrs = computed(() => ({
   <span
     class="t-tooltip-trigger"
     :style="{ [overlay.anchorVar]: overlay.anchorName }"
+    :data-state="overlay.state.value"
     :aria-describedby="text != null ? overlay.popoverId : undefined"
     v-on="overlay.triggerHandlers"
   >
     <slot />
   </span>
   <div
+    v-if="text != null"
     ref="contentRef"
     :id="overlay.popoverId"
     role="tooltip"
     class="t-tooltip"
     :popover="overlay.popoverMode"
+    :data-state="overlay.state.value"
     :style="{ [overlay.anchorVar]: overlay.anchorName }" v-bind="contentAttrs"
   >
     {{ text }}

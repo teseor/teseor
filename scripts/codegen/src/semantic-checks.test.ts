@@ -587,4 +587,26 @@ describe("checkInteractionRefs", () => {
     });
     expect(checkInteractionRefs(spec)).toEqual([]);
   });
+
+  test("walks nested composite parts for delay refs", () => {
+    const spec: Spec = {
+      name: "menu",
+      kind: "composite",
+      parts: {
+        root: {
+          parts: {
+            inner: {
+              props: {
+                hoverDelay: { type: "number", responsive: false, description: "Delay." },
+              },
+            },
+          },
+        },
+      },
+      interactions: [
+        { on: { event: "pointerenter", target: "trigger" }, do: "open", delay: "hoverDelay" },
+      ],
+    } as Spec;
+    expect(checkInteractionRefs(spec)).toEqual([]);
+  });
 });

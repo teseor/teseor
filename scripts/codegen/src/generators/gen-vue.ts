@@ -299,6 +299,7 @@ export function useActiveBreakpoint(): Readonly<Ref<Breakpoint>> {
   const active = ref<Breakpoint>(readActiveBreakpoint());
   const cleanups: Array<() => void> = [];
   onMounted(() => {
+    if (typeof window === "undefined" || typeof window.matchMedia !== "function") return;
     const onChange = () => {
       active.value = readActiveBreakpoint();
     };
@@ -329,6 +330,22 @@ export function isActiveAt(value: unknown, bp: Breakpoint): boolean {
     if (key && key in obj) return obj[key] === true;
   }
   return false;
+}
+
+/** Resolve a \`Responsive<T>\` at the active breakpoint (mobile-first cascade). */
+export function resolveResponsive<T>(
+  value: Responsive<T> | undefined,
+  bp: Breakpoint,
+): T | undefined {
+  if (value == null) return undefined;
+  if (typeof value !== "object" || Array.isArray(value)) return value as T;
+  const obj = value as Partial<Record<Breakpoint, T>>;
+  const idx = RESPONSIVE_KEYS.indexOf(bp);
+  for (let i = idx; i >= 0; i--) {
+    const key = RESPONSIVE_KEYS[i];
+    if (key && key in obj) return obj[key];
+  }
+  return undefined;
 }
 
 export function responsiveDataAttrs(
@@ -380,6 +397,8 @@ type OverlayHandlers = Record<string, (event: Event) => void>;
 
 type OverlayReturn = {
   open: Readonly<Ref<boolean>>;
+  state: Readonly<Ref<"open" | "closed">>;
+  activeBp: Readonly<Ref<Breakpoint>>;
   setOpen: (next: boolean) => void;
   anchorName: string;
   anchorVar: string;
@@ -520,8 +539,12 @@ export function useOverlay(config: OverlayConfig): OverlayReturn {
     };
   }
 
+  const state = computed<"open" | "closed">(() => (open.value ? "open" : "closed"));
+
   return {
     open,
+    state,
+    activeBp,
     setOpen,
     anchorName,
     anchorVar: config.anchorVar,
@@ -664,6 +687,11 @@ function renderCompositeWrapper(spec: Spec, _propDescriptions: Record<string, st
 
   const roleAttr = contentRole ? `role="${contentRole}"` : "";
 
+  // `v-if`-gated render: the popover element only mounts when its content slot
+  // resolves to a value. With no slot declared the popover renders never —
+  // matches the React side's `hasContent && <…>` branch.
+  const hasContentExpr = contentSlots[0] ? `${contentSlots[0]} != null` : "false";
+
   const needsComputed = responsiveProps.length > 0;
   const vueRuntimeImport =
     responsiveProps.length > 0
@@ -716,17 +744,20 @@ ${contentDataAttrComputed}
   <span
     class="${triggerClass}"
     :style="{ [overlay.anchorVar]: overlay.anchorName }"
-    :aria-describedby="${contentSlots[0] ? `${contentSlots[0]} != null` : "false"} ? overlay.popoverId : undefined"
+    :data-state="overlay.state.value"
+    :aria-describedby="${hasContentExpr} ? overlay.popoverId : undefined"
     v-on="overlay.triggerHandlers"
   >
     <slot />
   </span>
   <${contentElement}
+    v-if="${hasContentExpr}"
     ref="contentRef"
     :id="overlay.popoverId"
     ${roleAttr}
     class="${contentClass}"
     :popover="overlay.popoverMode"
+    :data-state="overlay.state.value"
     :style="{ [overlay.anchorVar]: overlay.anchorName }"${contentDataAttrBinding}
   >
 ${contentBodyLines}

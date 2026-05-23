@@ -683,20 +683,23 @@ export function checkVariantChoiceKeys(spec: Spec): Issue[] {
 // controllable-boolean state ("open") is wired; extend as new patterns land.
 const KNOWN_INTERACTION_STATES = ["open"] as const;
 
-/** Collect every numeric prop name across atomic root props and composite parts. */
+/** Collect every numeric prop name across atomic root props and (recursively) composite parts. */
 function collectNumericPropNames(spec: Spec): Set<string> {
   const names = new Set<string>();
-  if (isAtomic(spec)) {
-    for (const [name, def] of Object.entries(spec.props ?? {})) {
+  const visitProps = (props: Record<string, { type?: string }> | undefined): void => {
+    for (const [name, def] of Object.entries(props ?? {})) {
       if (def.type === "number") names.add(name);
     }
-  } else if (isComposite(spec)) {
-    for (const part of Object.values(spec.parts ?? {})) {
-      for (const [name, def] of Object.entries(part.props ?? {})) {
-        if (def.type === "number") names.add(name);
-      }
+  };
+  const visitPartsRec = (parts: Record<string, SpecPart> | undefined): void => {
+    if (!parts) return;
+    for (const part of Object.values(parts)) {
+      visitProps(part.props);
+      if (part.parts) visitPartsRec(part.parts);
     }
-  }
+  };
+  if (isAtomic(spec)) visitProps(spec.props);
+  else if (isComposite(spec)) visitPartsRec(spec.parts);
   return names;
 }
 

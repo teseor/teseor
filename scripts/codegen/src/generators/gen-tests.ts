@@ -402,9 +402,11 @@ async function listSpecNames(): Promise<string[]> {
     .sort();
 }
 
-/** Filter to atomic specs only — contract / behavior tests for composite
- *  components ride on the React-only path until gen-vue composite emission
- *  lands; the gen-tests emitter assumes both wrappers exist. */
+/** Filter to atomic specs only — composite contract tests need per-instance
+ *  ID normalization (anchor-name and popoverId differ across frameworks) and
+ *  a richer harness; both are out of scope for the byte-equal DOM comparison
+ *  this gen-tests emitter targets. Composites are exercised via component
+ *  tests instead. */
 async function listAtomicSpecNames(): Promise<string[]> {
   const names = await listSpecNames();
   const out: string[] = [];

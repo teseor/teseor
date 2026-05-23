@@ -96,23 +96,27 @@ export function Tooltip(props: TooltipProps) {
       <span
         className="t-tooltip-trigger"
         style={triggerStyle}
+        data-state={overlay.state}
         aria-describedby={hasContent ? overlay.popoverId : undefined}
         {...overlay.triggerHandlers}
       >
         {children}
       </span>
-      <div
-        ref={overlay.contentRef}
-        id={overlay.popoverId}
-        role="tooltip"
-        className="t-tooltip"
-        popover={overlay.popoverMode}
-        style={{ [overlay.anchorVar]: overlay.anchorName } satisfies CSSProperties}
-        {...responsiveDataAttrs("disabled", disabled)}
-        {...responsiveDataAttrs("placement", placement)}
-      >
-        {text}
-      </div>
+      {hasContent && (
+        <div
+          ref={overlay.contentRef}
+          id={overlay.popoverId}
+          role="tooltip"
+          className="t-tooltip"
+          popover={overlay.popoverMode}
+          data-state={overlay.state}
+          style={{ [overlay.anchorVar]: overlay.anchorName } satisfies CSSProperties}
+          {...responsiveDataAttrs("disabled", disabled)}
+          {...responsiveDataAttrs("placement", placement)}
+        >
+          {text}
+        </div>
+      )}
     </>
   );
 }
