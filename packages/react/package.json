@@ -7,10 +7,14 @@
   "sideEffects": false,
   "exports": {
     ".": "./src/index.ts",
+    "./_dom-polyfills": null,
+    "./_runtime.test": null,
     "./*": "./src/*"
   },
   "files": [
-    "src"
+    "src",
+    "!src/**/*.test.*",
+    "!src/_dom-polyfills.ts"
   ],
   "scripts": {
     "typecheck": "tsc --noEmit"
