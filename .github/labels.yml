@@ -51,4 +51,7 @@
 - name: component:stack
   color: d4c5f9
   description: stack component
+- name: component:tooltip
+  color: d4c5f9
+  description: tooltip component
 # AUTO-GENERATED END

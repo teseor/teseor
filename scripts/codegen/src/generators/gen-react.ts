@@ -2,28 +2,19 @@ import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse as parseYaml } from "yaml";
+import { type Breakpoint, loadBreakpoints } from "../lib/breakpoints.ts";
+import { flattenSpec } from "../lib/flatten.ts";
 import { loadVocabulary } from "../lib/vocabulary.ts";
 import type { GeneratorContext, GeneratorReport } from "../registry.ts";
 import { registerGenerator } from "../registry.ts";
+import { Spec as SpecSchema } from "../schema.ts";
 import type { Spec, SpecProp } from "./gen-contract.ts";
 
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..", "..", "..");
 const SPECS_DIR = resolve(REPO_ROOT, "specs");
 const REACT_SRC_DIR = resolve(REPO_ROOT, "packages", "react", "src");
-const BREAKPOINTS_PATH = resolve(SPECS_DIR, "_breakpoints.yaml");
 
 const RESPONSIVE_ENUM_PROPS = new Set(["size"]);
-
-type BreakpointsConfig = { breakpoints: string[] };
-
-let cachedBreakpoints: string[] | null = null;
-async function loadBreakpoints(): Promise<string[]> {
-  if (cachedBreakpoints) return cachedBreakpoints;
-  const raw = await readFile(BREAKPOINTS_PATH, "utf8");
-  const parsed = parseYaml(raw) as BreakpointsConfig;
-  cachedBreakpoints = parsed.breakpoints;
-  return cachedBreakpoints;
-}
 
 function pascalCase(name: string): string {
   return name
@@ -54,7 +45,16 @@ function responsiveType(baseType: string): string {
 }
 
 function reactPropType(propName: string, propDef: SpecProp, Name: string): string {
-  if (propDef.slot === true) return "ReactNode";
+  // Atomic-root slots (Button's iconStart/iconEnd) accept renderable content
+  // → ReactNode. Composite-part slots (Tooltip's text on the content part)
+  // are scalar body content → use the declared type. The `__part` marker
+  // (set by flattenSpec) is "" for atomic-root, the part name for composite.
+  if (propDef.slot === true) {
+    // `__part` is "" / undefined for atomic-root props, the part name for
+    // composite. Tests that bypass flatten see `undefined`; treat both as
+    // the atomic-root case.
+    return !propDef.__part ? "ReactNode" : mapPropType(propDef.type);
+  }
   if (propDef.values && propDef.values.length > 0) return `${Name}${pascalCase(propName)}`;
   return mapPropType(propDef.type);
 }
@@ -70,6 +70,19 @@ function renderPropLine(
   propDescriptions: Record<string, string>,
   Name: string,
 ): string[] {
+  // Controllable boolean expands to a triple: `name`, `defaultName`, `onNameChange`.
+  if (propDef.pattern === "controllable" && propDef.type === "boolean") {
+    const PName = pascalCase(propName);
+    const desc = propDef.description ?? propDescriptions[propName];
+    return [
+      desc ? `  /** ${desc} */` : null,
+      `  ${propName}?: boolean;`,
+      `  /** Initial open state (uncontrolled). */`,
+      `  default${PName}?: boolean;`,
+      `  /** Fires when the open state changes. */`,
+      `  on${PName}Change?: (${propName}: boolean) => void;`,
+    ].filter((l): l is string => l !== null);
+  }
   const baseType = reactPropType(propName, propDef, Name);
   const tsType = propDef.responsive === true ? responsiveType(baseType) : baseType;
   const desc = propDef.description ?? propDescriptions[propName];
@@ -107,10 +120,6 @@ function renderOwnProps(
     : [];
   const sizeLines = spec.sizes ? renderCanonicalProp("size", sizeType, propDescriptions) : [];
   const hasAs = "as" in (spec.props ?? {});
-  // Polymorphic ref: `<Component>` over a `"button" | "a"` union resolves the
-  // ref slot to `Ref<X> & Ref<Y>` (intersection), which `Ref<X | Y>` does not
-  // satisfy. Keep the lowest common ancestor here — tighter ref typing across
-  // the polymorphic union is a separate refactor.
   const refType = hasAs
     ? "Ref<HTMLElement>"
     : `Ref<HTMLElementTagNameMap[${quote(spec.element ?? "div")}]>`;
@@ -274,7 +283,9 @@ function renderComponentJsDoc(spec: Spec, Name: string): string {
   return `${lines.join("\n")}\n`;
 }
 
-function renderWrapper(spec: Spec, propDescriptions: Record<string, string>): string {
+// ── Atomic wrapper renderer (existing) ──────────────────────────────────────
+
+function renderAtomicWrapper(spec: Spec, propDescriptions: Record<string, string>): string {
   const Name = pascalCase(spec.name);
   const rootClass = spec.rootClass ?? `t-${spec.name}`;
   const propMap = spec.props ?? {};
@@ -378,6 +389,259 @@ ${bodyBlock}
 `;
 }
 
+// ── Composite wrapper renderer ──────────────────────────────────────────────
+
+/**
+ * Emits a React wrapper for a composite spec — currently the
+ * "overlay-with-anchor" shape: one `fromChildren` part (rendered as a thin
+ * `<span>` wrapper around the consumer's children) and one rendered part
+ * bound by `popover:` + `interactions:`.
+ *
+ * The runtime hook `useOverlay` (in `_runtime.ts`) drives the state machine,
+ * popover toggling, anchor binding, and event listener wiring. The emitted
+ * wrapper does the JSX-shape work: wrapping `children` in the trigger span
+ * (the wrapper-element pattern; works across React + Astro slots, no
+ * `cloneElement`) and rendering the floating part with the right attributes.
+ */
+function renderCompositeWrapper(spec: Spec, propDescriptions: Record<string, string>): string {
+  const Name = pascalCase(spec.name);
+  const popover = spec.popover;
+  const interactions = spec.interactions ?? [];
+  const parts = spec.parts ?? {};
+  if (!popover) {
+    throw new Error(
+      `composite spec '${spec.name}' must declare 'popover:' for the overlay-with-anchor shape`,
+    );
+  }
+  const triggerPart = parts[popover.anchor];
+  const contentPart = parts[popover.floating];
+  if (!triggerPart) {
+    throw new Error(`popover.anchor '${popover.anchor}' is not a declared part`);
+  }
+  if (!contentPart) {
+    throw new Error(`popover.floating '${popover.floating}' is not a declared part`);
+  }
+  if (triggerPart.fromChildren !== true) {
+    throw new Error(
+      `popover.anchor '${popover.anchor}' must declare 'fromChildren: true' (this generator only emits the overlay-with-anchor shape)`,
+    );
+  }
+  if (contentPart.fromChildren === true) {
+    throw new Error(`popover.floating '${popover.floating}' cannot declare 'fromChildren: true'`);
+  }
+
+  const triggerClass = triggerPart.rootClass ?? `t-${spec.name}-trigger`;
+  const contentClass = contentPart.rootClass ?? `t-${spec.name}`;
+  const contentElement = contentPart.element ?? "div";
+  const contentRole = contentPart.a11y?.role;
+
+  // Controllable prop on the anchor part — usually `open`. The renderOwnProps
+  // path consumes spec.props (merged), so we just read the name and emit the
+  // hook config that maps it.
+  const controllableEntry = Object.entries(spec.props).find(
+    ([, d]) => d.pattern === "controllable" && d.type === "boolean",
+  );
+  if (!controllableEntry) {
+    throw new Error(
+      `composite spec '${spec.name}' must declare a 'pattern: controllable' boolean prop (e.g. 'open')`,
+    );
+  }
+  const [controllableName] = controllableEntry;
+  const ControllableName = pascalCase(controllableName);
+
+  // Slots that the content renders inline (e.g. `text` for Tooltip).
+  const contentSlots = Object.entries(spec.props)
+    .filter(([, d]) => d.slot === true && d.__part === popover.floating)
+    .map(([n]) => n);
+
+  // Responsive props rendered as data-attrs on the content element.
+  const responsiveProps = Object.entries(spec.props)
+    .filter(([, d]) => d.responsive === true && d.slot !== true)
+    .map(([n]) => n);
+
+  // Delay-driving number props referenced from interactions.
+  const delayProps = new Set<string>();
+  for (const rule of interactions) {
+    if (rule.delay) delayProps.add(rule.delay);
+  }
+
+  // Enum types declared on content props (e.g. TooltipPlacement).
+  const propEnumTypes = Object.entries(spec.props)
+    .filter(([, d]) => Array.isArray(d.values) && d.values.length > 0)
+    .map(([propName, d]) => renderEnumType(Name, pascalCase(propName), d.values ?? []))
+    .filter(Boolean)
+    .join("\n");
+
+  // OwnProps merged across parts via the flattened spec.
+  const ownPropLines = Object.entries(spec.props).flatMap(([n, d]) =>
+    renderPropLine(n, d, propDescriptions, Name),
+  );
+
+  // Destructure: omit the controllable triple from the rest (they go straight
+  // into useOverlay), keep slots/responsives separate.
+  const propsToDestructure = Object.keys(spec.props);
+  const destructureNames: string[] = [];
+  for (const name of propsToDestructure) {
+    const def = spec.props[name];
+    if (!def) continue;
+    if (def.pattern === "controllable" && def.type === "boolean") continue;
+    const hasDefault = delayProps.has(name) && typeof def.default === "number";
+    destructureNames.push(hasDefault ? `${name} = ${def.default}` : name);
+  }
+  destructureNames.push("children");
+
+  const interactionItems = interactions.map((rule) => {
+    const onEntries: string[] = [`event: ${quote(rule.on.event)}`];
+    if (rule.on.target) onEntries.push(`target: ${quote(rule.on.target)}`);
+    if (rule.on.key) onEntries.push(`key: ${quote(rule.on.key)}`);
+    const onObj = `{ ${onEntries.join(", ")} }`;
+    const fields: string[] = [`on: ${onObj}`, `do: ${quote(rule.do)}`];
+    if (rule.delay) fields.push(`delayMs: ${rule.delay}`);
+    if (rule.when) fields.push(`when: ${quote(rule.when)}`);
+    return `      { ${fields.join(", ")} },`;
+  });
+
+  // Hook arguments. The controllable triple feeds in as named keys; popover +
+  // interactions describe the behavior. Interactions are memoized on the
+  // wrapper side so the document-listener effect inside useOverlay doesn't
+  // tear down + rebind on every parent re-render — the inline array literal
+  // would otherwise have a fresh identity every render.
+  const memoDeps = Array.from(delayProps).join(", ");
+  // Responsive `disabled` flows raw; useOverlay evaluates it against the
+  // active breakpoint via `useActiveBreakpoint` + `isActiveAt`, matching
+  // the CSS layer that reads the same `data-disabled-bp` attrs.
+  const hasDisabledProp = Object.hasOwn(spec.props, "disabled");
+  const disabledLine = hasDisabledProp ? `    disabled,\n` : "";
+  const hookConfig = [
+    `    ${controllableName}: ${controllableName}Prop,`,
+    `    default${ControllableName},`,
+    `    on${ControllableName}Change,`,
+    `    anchorVar: ${quote(popover.anchorVar)},`,
+    `    popoverMode: ${quote(popover.mode)},`,
+    `    interactions,`,
+  ].join("\n");
+  const hookConfigWithDisabled = disabledLine
+    ? `${hookConfig}\n${disabledLine.trimEnd()}`
+    : hookConfig;
+  const interactionsMemo = [
+    `  const interactions = useMemo<OverlayInteraction[]>(`,
+    `    () => [`,
+    ...interactionItems.map((line) => `  ${line}`),
+    `    ],`,
+    `    [${memoDeps}],`,
+    `  );`,
+  ].join("\n");
+
+  const propControlled = `${controllableName}: ${controllableName}Prop`;
+
+  // Build the content data-attrs spread.
+  const contentDataAttrsLines = responsiveProps
+    .map((name) => `        {...responsiveDataAttrs(${quote(name)}, ${name})}`)
+    .join("\n");
+
+  // Rendered content body — slot props inline; default to the primary text
+  // slot if one exists, otherwise `children` would have been the trigger.
+  const contentBody =
+    contentSlots.length > 0
+      ? contentSlots.map((s) => `        {${s}}`).join("\n")
+      : "        {/* no content slot declared */}";
+
+  const importsLines = [
+    `import "@teseor/css/components/${spec.name}.css";`,
+    `import { type CSSProperties, type ReactNode, useMemo } from "react";`,
+    `import { type OverlayInteraction, responsiveDataAttrs, type Responsive, Slot, useOverlay } from "./_runtime.ts";`,
+  ].join("\n");
+
+  const contentRoleAttr = contentRole ? `        role=${quote(contentRole)}` : null;
+
+  return `"use client";
+
+// AUTOGENERATED by gen-react. Do not edit.
+// Source: specs/${spec.name}.yaml
+
+${importsLines}
+
+${propEnumTypes ? `${propEnumTypes}\n` : ""}type ${Name}OwnProps = {
+${ownPropLines.join("\n")}
+  /** Render the trigger directly on the consumer's child element (\`cloneElement\`)
+   *  instead of wrapping in a \`<span>\`. Single-child invariant: \`children\` must
+   *  be a single React element. \`aria-describedby\`, the anchor binding, and
+   *  event handlers land on that element. */
+  asChild?: boolean;
+  children?: ReactNode;
+};
+
+export type ${Name}Props = Readonly<${Name}OwnProps>;
+
+${renderComponentJsDoc(spec, Name)}export function ${Name}(props: ${Name}Props) {
+  const {
+    ${propControlled},
+    default${ControllableName},
+    on${ControllableName}Change,
+${destructureNames.map((n) => `    ${n},`).join("\n")}
+    asChild,
+  } = props;
+
+${interactionsMemo}
+
+  const overlay = useOverlay<HTMLElementTagNameMap[${quote(contentElement)}]>({
+${hookConfigWithDisabled}
+  });
+
+  // \`asChild\` mode sets \`anchor-name\` directly on the consumer's element via
+  // inline style (no wrapper class to read \`--_anchor\`). The default wrapper
+  // path reads the custom property through the trigger CSS rule.
+  const triggerStyle: CSSProperties = asChild
+    ? ({ [overlay.anchorVar]: overlay.anchorName, anchorName: overlay.anchorName } as CSSProperties)
+    : { [overlay.anchorVar]: overlay.anchorName };
+  const hasContent = ${contentSlots[0] ? `${contentSlots[0]} != null` : "false"};
+
+  return (
+    <>
+      {asChild ? (
+        <Slot
+          style={triggerStyle}
+          data-state={overlay.state}
+          aria-describedby={hasContent ? overlay.popoverId : undefined}
+          {...overlay.triggerHandlers}
+        >
+          {children}
+        </Slot>
+      ) : (
+        <span
+          className=${quote(triggerClass)}
+          style={triggerStyle}
+          data-state={overlay.state}
+          aria-describedby={hasContent ? overlay.popoverId : undefined}
+          {...overlay.triggerHandlers}
+        >
+          {children}
+        </span>
+      )}
+      {hasContent && (
+        <${contentElement}
+          ref={overlay.contentRef}
+          id={overlay.popoverId}
+${contentRoleAttr ? `${contentRoleAttr.replace(/ {8}/, "          ")}\n` : ""}          className=${quote(contentClass)}
+          popover={overlay.popoverMode}
+          data-state={overlay.state}
+          style={{ [overlay.anchorVar]: overlay.anchorName } satisfies CSSProperties}
+${contentDataAttrsLines.replace(/^ {8}/gm, "          ")}
+        >
+${contentBody.replace(/^ {8}/gm, "          ")}
+        </${contentElement}>
+      )}
+    </>
+  );
+}
+`;
+}
+
+function renderWrapper(spec: Spec, propDescriptions: Record<string, string>): string {
+  if (spec.kind === "composite") return renderCompositeWrapper(spec, propDescriptions);
+  return renderAtomicWrapper(spec, propDescriptions);
+}
+
 function renderCssShim(): string {
   return `// AUTOGENERATED by gen-react. Do not edit.
 
@@ -385,11 +649,31 @@ declare module "*.css";
 `;
 }
 
-function renderRuntime(breakpoints: string[]): string {
-  const keys = ["base", ...breakpoints].map(quote).join(", ");
+function renderRuntime(breakpoints: Breakpoint[]): string {
+  const names = breakpoints.map((b) => b.name);
+  const keys = ["base", ...names].map(quote).join(", ");
+  // Biome strips quotes from valid-identifier object keys; mirror that so the
+  // generator output matches the post-format committed file byte-for-byte.
+  const objKey = (k: string): string => (/^[A-Za-z_$][\w$]*$/.test(k) ? k : quote(k));
+  const queryEntries = breakpoints
+    .map((b) => `  ${objKey(b.name)}: ${quote(`(min-width: ${b.minWidth})`)},`)
+    .join("\n");
   return `// AUTOGENERATED by gen-react. Do not edit.
 
-import type { ElementType } from "react";
+import {
+  Children,
+  cloneElement,
+  type ElementType,
+  isValidElement,
+  type ReactElement,
+  type ReactNode,
+  type Ref,
+  useCallback,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from "react";
 
 const RESPONSIVE_KEYS = [${keys}] as const;
 
@@ -397,34 +681,397 @@ type Breakpoint = (typeof RESPONSIVE_KEYS)[number];
 
 export type Responsive<T> = T | Partial<Record<Breakpoint, T>>;
 
+// matchMedia queries baked from specs/_breakpoints.yaml. Single source.
+const BREAKPOINT_QUERIES: Partial<Record<Breakpoint, string>> = {
+${queryEntries}
+};
+
+function readActiveBreakpoint(): Breakpoint {
+  if (typeof window === "undefined" || typeof window.matchMedia !== "function") return "base";
+  for (let i = RESPONSIVE_KEYS.length - 1; i > 0; i--) {
+    const key = RESPONSIVE_KEYS[i];
+    if (!key) continue;
+    const q = BREAKPOINT_QUERIES[key];
+    if (q && window.matchMedia(q).matches) return key;
+  }
+  return "base";
+}
+
+/** Reactive active-breakpoint key. Drives \`Responsive<T>\` runtime behavior. */
+export function useActiveBreakpoint(): Breakpoint {
+  const [bp, setBp] = useState<Breakpoint>(() => readActiveBreakpoint());
+  useEffect(() => {
+    if (typeof window === "undefined" || typeof window.matchMedia !== "function") return;
+    const onChange = () => setBp(readActiveBreakpoint());
+    const cleanups: Array<() => void> = [];
+    for (const key of RESPONSIVE_KEYS) {
+      if (key === "base") continue;
+      const q = BREAKPOINT_QUERIES[key];
+      if (!q) continue;
+      const mql = window.matchMedia(q);
+      mql.addEventListener("change", onChange);
+      cleanups.push(() => mql.removeEventListener("change", onChange));
+    }
+    return () => {
+      for (const fn of cleanups) fn();
+    };
+  }, []);
+  return bp;
+}
+
+/** Resolve a \`Responsive<boolean>\` at the active breakpoint (mobile-first cascade). */
+export function isActiveAt(value: unknown, bp: Breakpoint): boolean {
+  if (value === true) return true;
+  if (value == null || value === false) return false;
+  if (typeof value !== "object") return false;
+  const obj = value as Partial<Record<Breakpoint, boolean>>;
+  const idx = RESPONSIVE_KEYS.indexOf(bp);
+  for (let i = idx; i >= 0; i--) {
+    const key = RESPONSIVE_KEYS[i];
+    if (key && key in obj) return obj[key] === true;
+  }
+  return false;
+}
+
+/** Resolve a \`Responsive<T>\` at the active breakpoint (mobile-first cascade). */
+export function resolveResponsive<T>(
+  value: Responsive<T> | undefined,
+  bp: Breakpoint,
+): T | undefined {
+  if (value == null) return undefined;
+  if (typeof value !== "object" || Array.isArray(value)) return value as T;
+  const obj = value as Partial<Record<Breakpoint, T>>;
+  const idx = RESPONSIVE_KEYS.indexOf(bp);
+  for (let i = idx; i >= 0; i--) {
+    const key = RESPONSIVE_KEYS[i];
+    if (key && key in obj) return obj[key];
+  }
+  return undefined;
+}
+
 export function responsiveDataAttrs(
   name: string,
   value: unknown,
 ): Record<string, string | undefined> {
   if (value == null || value === false) return {};
   if (typeof value === "object") {
+    // Emit every declared key (including \`false\` at non-base) — the CSS
+    // override pattern needs the explicit attribute to match against.
     const obj = value as Record<string, unknown>;
     const out: Record<string, string | undefined> = {};
     for (const key of RESPONSIVE_KEYS) {
       const v = obj[key];
-      if (v == null || v === false) continue;
+      if (v == null) continue;
+      // \`base: false\` has no attribute (absence-of) — emitting "false" would never match.
+      if (key === "base" && v === false) continue;
       const attr = key === "base" ? \`data-\${name}\` : \`data-\${name}-\${key}\`;
-      out[attr] = v === true ? "true" : String(v);
+      out[attr] = v === true ? "true" : v === false ? "false" : String(v);
     }
     return out;
   }
   return { [\`data-\${name}\`]: value === true ? "true" : String(value) };
 }
 
-/**
- * Widen a narrow tag-name union (e.g. \`"button" | "a"\`) back to
- * \`ElementType\` so the rendered \`<Component>\` does not pin JSX's ref slot to
- * the intersection of the per-tag ref types. The narrow union still types
- * the consumer-facing \`as\` prop; this only widens the local variable used in
- * JSX. No cast: the parameter type accepts the union by structural assignment.
- */
+/** Widen a narrow tag-name union back to ElementType so JSX's ref slot isn't pinned. */
 export function asElement(value: ElementType): ElementType {
   return value;
+}
+
+// ── Slot — clone-into-child pattern for \`asChild\` composites ────────────────
+
+type SlotProps = Record<string, unknown> & { children?: ReactNode };
+
+function mergeSlotProps(
+  childProps: Record<string, unknown>,
+  slotProps: Record<string, unknown>,
+): Record<string, unknown> {
+  const out: Record<string, unknown> = { ...childProps };
+  for (const key of Object.keys(slotProps)) {
+    if (key === "children") continue;
+    const childValue = childProps[key];
+    const slotValue = slotProps[key];
+    if (key === "style") {
+      out[key] = {
+        ...((childValue as object | undefined) ?? {}),
+        ...((slotValue as object | undefined) ?? {}),
+      };
+    } else if (key === "className") {
+      out[key] = [childValue, slotValue].filter(Boolean).join(" ");
+    } else if (
+      key.startsWith("on") &&
+      typeof childValue === "function" &&
+      typeof slotValue === "function"
+    ) {
+      // Compose handlers: child fires first, then ours — skip ours if the
+      // child called \`event.preventDefault()\` (Radix convention). Lets a
+      // consumer suppress overlay behavior by preventing on their own handler.
+      const childFn = childValue as (...a: unknown[]) => void;
+      const slotFn = slotValue as (...a: unknown[]) => void;
+      out[key] = (...args: unknown[]) => {
+        childFn(...args);
+        const event = args[0] as { defaultPrevented?: boolean } | undefined;
+        if (event?.defaultPrevented !== true) slotFn(...args);
+      };
+    } else {
+      // Slot props win for refs, aria-*, data-*.
+      out[key] = slotValue;
+    }
+  }
+  return out;
+}
+
+/**
+ * Clone-into-child: merges slot props onto a single React element child.
+ * Used by composite wrappers when \`asChild\` is true — \`aria-describedby\`,
+ * event handlers, and the anchor binding land on the consumer's element
+ * instead of an extra \`<span>\` wrapper. Warns and renders nothing if
+ * \`children\` isn't exactly one valid React element (fragment, multiple
+ * children, or null all hit the warn path — never throws).
+ */
+export function Slot({ children, ...slotProps }: SlotProps): ReactElement | null {
+  const elements = Children.toArray(children).filter(isValidElement);
+  if (elements.length !== 1) {
+    if (typeof console !== "undefined") {
+      console.warn(
+        \`Slot: expected exactly one React element child, got \${elements.length}. Pass a single element (e.g. <button>...</button>) or drop \\\`asChild\\\`.\`,
+      );
+    }
+    return null;
+  }
+  const child = elements[0] as ReactElement<Record<string, unknown>>;
+  // Astro wraps slotted children in \`<astro-slot>\`. \`cloneElement\` merges
+  // props onto that wrapper, not the element inside, so handlers and
+  // \`aria-describedby\` never reach the consumer's button. Warn loudly —
+  // there is no workaround at the React layer.
+  if (typeof child.type === "string" && child.type.startsWith("astro-")) {
+    if (typeof console !== "undefined") {
+      console.warn(
+        "Slot: \`asChild\` does not work inside Astro slots — children arrive wrapped in <astro-slot>. Drop \`asChild\` (use the default wrapper) when rendering this component from a .astro file.",
+      );
+    }
+    return cloneElement(child, mergeSlotProps(child.props ?? {}, slotProps));
+  }
+  return cloneElement(child, mergeSlotProps(child.props ?? {}, slotProps));
+}
+
+// ── Overlay hook — used by composite overlay components ────────────────────
+
+export type OverlayInteraction = {
+  on: { event: string; target?: string; key?: string };
+  do: "open" | "close" | "toggle";
+  /** ms delay resolved at the call site from the consumer's delay props. */
+  delayMs?: number;
+  when?: string;
+};
+
+type OverlayConfig = {
+  open?: boolean;
+  defaultOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  anchorVar: string;
+  popoverMode: "auto" | "manual" | "hint";
+  interactions: ReadonlyArray<OverlayInteraction>;
+  /** Active at the current breakpoint? state machine no-ops; matches CSS \`data-disabled-bp\`. */
+  disabled?: Responsive<boolean>;
+};
+
+type AnyEventHandler = (event: unknown) => void;
+
+type OverlayHandlers = Record<string, AnyEventHandler>;
+
+type OverlayReturn<T extends HTMLElement> = {
+  open: boolean;
+  state: "open" | "closed";
+  activeBp: Breakpoint;
+  setOpen: (next: boolean) => void;
+  anchorName: string;
+  anchorVar: string;
+  popoverId: string;
+  popoverMode: "auto" | "manual" | "hint";
+  contentRef: Ref<T>;
+  triggerHandlers: OverlayHandlers;
+};
+
+function sanitizeId(id: string): string {
+  return id.replace(/[^a-zA-Z0-9_-]/g, "");
+}
+
+// \`:popover-open\` throws SyntaxError on engines that don't recognize it; probe once.
+const SUPPORTS_POPOVER_OPEN_SELECTOR =
+  typeof CSS !== "undefined" &&
+  typeof CSS.supports === "function" &&
+  CSS.supports("selector(:popover-open)");
+
+function popoverIsOpen(node: HTMLElement): boolean | undefined {
+  if (!SUPPORTS_POPOVER_OPEN_SELECTOR) return undefined;
+  try {
+    return node.matches(":popover-open");
+  } catch {
+    return undefined;
+  }
+}
+
+const EVENT_TO_HANDLER: Record<string, string> = {
+  pointerenter: "onPointerEnter",
+  pointerleave: "onPointerLeave",
+  pointerdown: "onPointerDown",
+  pointerup: "onPointerUp",
+  click: "onClick",
+  focusin: "onFocus",
+  focusout: "onBlur",
+  keydown: "onKeyDown",
+  keyup: "onKeyUp",
+};
+
+/** State machine + popover toggle + anchor binding + event wiring for overlay composites. */
+export function useOverlay<T extends HTMLElement = HTMLElement>(
+  config: OverlayConfig,
+): OverlayReturn<T> {
+  const {
+    open: openProp,
+    defaultOpen = false,
+    onOpenChange,
+    anchorVar,
+    popoverMode,
+    interactions,
+    disabled,
+  } = config;
+  const activeBp = useActiveBreakpoint();
+  const isDisabled = isActiveAt(disabled, activeBp);
+
+  const controlled = openProp !== undefined;
+  const [internalOpen, setInternalOpen] = useState<boolean>(defaultOpen);
+  const open = controlled ? Boolean(openProp) : internalOpen;
+  const onOpenChangeRef = useRef(onOpenChange);
+  useEffect(() => {
+    onOpenChangeRef.current = onOpenChange;
+  }, [onOpenChange]);
+
+  const setOpen = useCallback(
+    (next: boolean) => {
+      if (!controlled) setInternalOpen(next);
+      onOpenChangeRef.current?.(next);
+    },
+    [controlled],
+  );
+
+  const rawId = useId();
+  const idCore = sanitizeId(rawId);
+  const anchorName = \`--t-\${idCore}\`;
+  const popoverId = \`t-overlay-\${idCore}\`;
+
+  // Callback ref + tracked node so the popover-sync effect re-runs when the
+  // floating element mounts later (e.g. \`{hasContent && <…/>}\` flips true
+  // while \`open\` is already true). A plain \`useRef\` wouldn't notify React.
+  const [contentNode, setContentNode] = useState<T | null>(null);
+  const contentRef = useCallback((node: T | null) => {
+    setContentNode(node);
+  }, []);
+
+  const timersRef = useRef<{ open: number; close: number }>({ open: 0, close: 0 });
+  const clearTimers = useCallback(() => {
+    if (timersRef.current.open) window.clearTimeout(timersRef.current.open);
+    if (timersRef.current.close) window.clearTimeout(timersRef.current.close);
+    timersRef.current.open = 0;
+    timersRef.current.close = 0;
+  }, []);
+
+  // \`openRef\` lets effect-bound handlers read latest state without re-binding.
+  const openRef = useRef(open);
+  useEffect(() => {
+    openRef.current = open;
+  }, [open]);
+
+  const schedule = useCallback(
+    (action: "open" | "close" | "toggle", delayMs: number) => {
+      if (isDisabled) return;
+      clearTimers();
+      const next = action === "toggle" ? !openRef.current : action === "open";
+      if (delayMs <= 0) {
+        setOpen(next);
+        return;
+      }
+      const slot: "open" | "close" = action === "close" ? "close" : "open";
+      timersRef.current[slot] = window.setTimeout(() => setOpen(next), delayMs);
+    },
+    [clearTimers, setOpen, isDisabled],
+  );
+
+  useEffect(() => () => clearTimers(), [clearTimers]);
+
+  // Drive Popover API from \`open\` + the tracked node. Re-runs when either
+  // changes — handles "node mounts later while open is already true."
+  useEffect(() => {
+    if (!contentNode) return;
+    const popoverState = popoverIsOpen(contentNode);
+    if (open && popoverState !== true) {
+      try {
+        contentNode.showPopover();
+      } catch {}
+    } else if (!open && popoverState !== false) {
+      try {
+        contentNode.hidePopover();
+      } catch {}
+    }
+  }, [open, contentNode]);
+
+  // Document/window-bound rules. Listeners mount with the rules array;
+  // \`when:\` is re-evaluated per fire via \`openRef\`.
+  useEffect(() => {
+    const cleanups: Array<() => void> = [];
+    for (const rule of interactions) {
+      const target = rule.on.target;
+      if (target !== "document" && target !== "window") continue;
+      const sink: EventTarget = target === "document" ? document : window;
+      const handler = (event: Event) => {
+        if (rule.when === "open" && !openRef.current) return;
+        if (rule.on.key && event instanceof KeyboardEvent && event.key !== rule.on.key) return;
+        schedule(rule.do, rule.delayMs ?? 0);
+      };
+      sink.addEventListener(rule.on.event, handler);
+      cleanups.push(() => sink.removeEventListener(rule.on.event, handler));
+    }
+    return () => {
+      for (const fn of cleanups) fn();
+    };
+  }, [interactions, schedule]);
+
+  // Trigger-bound rules → React handlers spread on the wrapper element.
+  // Same-event rules compose; \`when\` and \`on.key\` filter per-fire as above.
+  const triggerHandlers: OverlayHandlers = {};
+  for (const rule of interactions) {
+    if (rule.on.target !== "trigger") continue;
+    const handlerName = EVENT_TO_HANDLER[rule.on.event];
+    if (!handlerName) continue;
+    const previous = triggerHandlers[handlerName];
+    const delayMs = rule.delayMs ?? 0;
+    const next = (e: unknown) => {
+      previous?.(e);
+      if (rule.when === "open" && !openRef.current) return;
+      if (rule.on.key) {
+        // React passes a SyntheticEvent (not a native KeyboardEvent), so
+        // \`instanceof KeyboardEvent\` is always false here. Duck-type on
+        // \`.key\` — works for both React synthetic and native events.
+        const key = (e as { key?: string } | null)?.key;
+        if (key !== rule.on.key) return;
+      }
+      schedule(rule.do, delayMs);
+    };
+    triggerHandlers[handlerName] = next;
+  }
+
+  return {
+    open,
+    state: open ? "open" : "closed",
+    activeBp,
+    setOpen,
+    anchorName,
+    anchorVar,
+    popoverId,
+    popoverMode,
+    contentRef,
+    triggerHandlers,
+  };
 }
 `;
 }
@@ -503,11 +1150,18 @@ function renderBarrel(names: string[]): string {
 async function loadSpec(name: string): Promise<Spec> {
   const path = resolve(SPECS_DIR, `${name}.yaml`);
   const raw = await readFile(path, "utf8");
-  const parsed = parseYaml(raw) as Spec;
-  if (parsed.name !== name) {
-    throw new Error(`spec name "${parsed.name}" in ${name}.yaml does not match file basename`);
+  const parsed = parseYaml(raw);
+  const result = SpecSchema.safeParse(parsed);
+  if (!result.success) {
+    const messages = result.error.issues
+      .map((i) => `  ${i.path.join(".")}: ${i.message}`)
+      .join("\n");
+    throw new Error(`spec ${name}.yaml failed schema validation:\n${messages}`);
   }
-  return parsed;
+  if (result.data.name !== name) {
+    throw new Error(`spec name "${result.data.name}" in ${name}.yaml does not match file basename`);
+  }
+  return flattenSpec(result.data);
 }
 
 async function listSpecNames(): Promise<string[]> {
@@ -538,7 +1192,7 @@ async function emitBarrel(names: string[]): Promise<string> {
   return outPath;
 }
 
-async function emitRuntime(breakpoints: string[]): Promise<string> {
+async function emitRuntime(breakpoints: Breakpoint[]): Promise<string> {
   const content = renderRuntime(breakpoints);
   const outPath = resolve(REACT_SRC_DIR, `_runtime.ts`);
   await mkdir(REACT_SRC_DIR, { recursive: true });

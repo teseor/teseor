@@ -1,0 +1,137 @@
+name: tooltip
+description: A non-interactive hint that appears when its trigger is hovered or focused.
+kind: composite
+dependencies: []
+cssFile: components/tooltip/tooltip.css
+behavior: stateful
+primitives: []
+
+popover:
+  anchor: trigger
+  floating: content
+  mode: manual
+  anchorVar: --t-tooltip-anchor
+
+interactions:
+  - on: { event: pointerenter, target: trigger }
+    do: open
+    delay: openDelay
+  - on: { event: focusin, target: trigger }
+    do: open
+    delay: openDelay
+  - on: { event: pointerleave, target: trigger }
+    do: close
+    delay: closeDelay
+  - on: { event: focusout, target: trigger }
+    do: close
+    delay: closeDelay
+  - on: { event: keydown, key: Escape, target: document }
+    do: close
+    when: open
+
+parts:
+  trigger:
+    fromChildren: true
+    rootClass: t-tooltip-trigger
+    props:
+      open:
+        type: boolean
+        default: false
+        pattern: controllable
+        responsive: false
+        description: "Open state. Uncontrolled by default; pass `open` and optionally `onOpenChange` to drive it from the consumer (e.g. guided tours)."
+      disabled:
+        type: boolean
+        default: false
+        responsive: true
+        description: "Suppresses the tooltip entirely. Responsive so the tooltip can be hidden at narrow viewports (e.g. `disabled: { base: true, md: false }`)."
+      openDelay:
+        type: number
+        default: 300
+        responsive: false
+        description: "Milliseconds before the tooltip opens after hover or focus. Prevents flicker during cursor scanning."
+      closeDelay:
+        type: number
+        default: 0
+        responsive: false
+        description: "Milliseconds before the tooltip closes after leave or blur."
+
+  content:
+    element: div
+    rootClass: t-tooltip
+    a11y:
+      role: tooltip
+    props:
+      text:
+        type: string
+        slot: true
+        default: null
+        description: "Tooltip content. Plain text; use Popover for interactive content."
+      placement:
+        type: string
+        values: [top, right, bottom, left]
+        default: top
+        responsive: true
+        description: "Preferred side relative to the trigger. CSS `position-try-fallbacks` auto-flips on overflow."
+    tokens:
+      bg:
+        fallback: --t-neutral-90
+        desc: Background fill. Defaults to a dark neutral; consumers override via `--t-tooltip-bg`.
+      fg:
+        fallback: --t-neutral-10
+        desc: Text color. Pairs with `bg`.
+      pad-x:
+        fallback: --t-space-3
+        desc: Inline padding.
+      pad-y:
+        fallback: --t-space-2
+        desc: Block padding.
+      radius:
+        fallback: --t-radius-sm
+        desc: Corner radius.
+      gap:
+        fallback: --t-space-2
+        desc: Distance from the trigger.
+      dur:
+        fallback: --t-dur-fast
+        desc: Entry and exit duration.
+      ease:
+        fallback: --t-ease-out
+        desc: Entry and exit easing.
+      arrow-size:
+        fallback: --t-space-3
+        desc: Arrow square size. Rotated 45° to form the pointer; visible triangle is roughly size/√2 tall.
+      arrow-bg:
+        fallback: --t-neutral-90
+        desc: Arrow fill. Defaults to the same neutral as `bg` so the arrow blends seamlessly with the body.
+    privateTokens:
+      - --_bg
+      - --_fg
+      - --_pad-x
+      - --_pad-y
+      - --_radius
+      - --_gap
+      - --_dur
+      - --_ease
+      - --_arrow-size
+      - --_arrow-bg
+      - --_anchor
+      - --_position-area
+      - --_display
+      - --_translate
+    motion:
+      transitions: [opacity, transform]
+      enters: [open]
+      exits: [open]
+
+examples:
+  - id: default
+    props: { text: "Saves your changes." }
+  - id: placement-right
+    props: { text: "Settings", placement: right }
+  - id: placement-bottom
+    props: { text: "More options", placement: bottom }
+  - id: hide-on-mobile
+    props: { text: "⌘S", disabled: { base: true, md: false } }
+  - id: controlled-open
+    props: { text: "Step 1: click here", open: true }

@@ -64,4 +64,10 @@ component:stack:
       - any-glob-to-any-file:
           - packages/css/src/components/stack/**
           - specs/stack.yaml
+
+component:tooltip:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/css/src/components/tooltip/**
+          - specs/tooltip.yaml
 # AUTO-GENERATED END

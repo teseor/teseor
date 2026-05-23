@@ -2,8 +2,10 @@ import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse as parseYaml } from "yaml";
+import { flattenSpec } from "../lib/flatten.ts";
 import type { GeneratorContext, GeneratorReport } from "../registry.ts";
 import { registerGenerator } from "../registry.ts";
+import { Spec as SpecSchema } from "../schema.ts";
 import type { Spec } from "./gen-contract.ts";
 
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..", "..", "..");
@@ -71,22 +73,61 @@ function section(title: string, body: string): string {
 
 function renderExamples(spec: DocsSpec, Name: string): string {
   if (!spec.examples || spec.examples.length === 0) return "";
+  const isComposite = spec.kind === "composite";
+  // Composite components with a `fromChildren` part don't render an element
+  // themselves; the docs example wraps a Button as the trigger so the
+  // composite has a real child to decorate (Tooltip + Popover pattern).
+  // For composite specs, slot props (e.g. Tooltip's `text`) render as
+  // attributes since they're string content, not child elements.
+  const trigger = isComposite ? `<Button variant="solid" intent="primary">Trigger</Button>` : null;
   const blocks = spec.examples.map((example) => {
     const props = example.props ?? {};
-    const rendered = Object.entries(props)
-      .filter(([key]) => spec.props?.[key]?.slot !== true && props[key] !== false)
+    // Attrs applied to the rendered example — drop `false` props and (for
+    // atomic specs) drop slot props since those become children, not attrs.
+    const renderedAttrs = Object.entries(props)
+      .filter(([key]) => {
+        if (props[key] === false) return false;
+        if (isComposite) return true;
+        return spec.props?.[key]?.slot !== true;
+      })
       .map(([key, value]) => attr(key, value));
-    const open = [Name, ...rendered].join(" ");
-    const code = Object.entries(props)
-      .map(([key, value]) => attr(key, value))
-      .join(" ");
+    const renderedOpenTag = [Name, ...renderedAttrs].join(" ");
+    // Source code shown to the consumer: the full JSX they'd paste, including
+    // slot props (slot values surface in the code block even when the rendered
+    // example needs them as children — the consumer can pattern-match).
+    const sourceAttrs = Object.entries(props)
+      .filter(([, value]) => value !== false)
+      .map(([key, value]) => attr(key, value));
+    const sourceOpenTag = [Name, ...sourceAttrs].join(" ");
+    const sourceLines =
+      isComposite && trigger
+        ? [`<${sourceOpenTag}>`, `  ${trigger}`, `</${Name}>`]
+        : [`<${sourceOpenTag}>${Name}</${Name}>`];
+    const source = sourceLines.join("\n");
+    if (isComposite && trigger) {
+      // Composite components carry runtime behavior (state machine, event
+      // handlers, popover toggling) so the Astro island needs to hydrate.
+      // `client:visible` defers JS to first viewport entry — cheap and
+      // matches the "no flash until visible" UX of the docs site.
+      return [
+        `      <div class="t-stack" data-gap="2">`,
+        `        <h3>${esc(example.id ?? "example")}</h3>`,
+        `        <div class="t-cluster" data-gap="3">`,
+        `          <${renderedOpenTag} client:visible>`,
+        `            ${trigger}`,
+        `          </${Name}>`,
+        `        </div>`,
+        `        <pre><code>${esc(source)}</code></pre>`,
+        `      </div>`,
+      ].join("\n");
+    }
     return [
       `      <div class="t-stack" data-gap="2">`,
       `        <h3>${esc(example.id ?? "example")}</h3>`,
       `        <div class="t-cluster" data-gap="3">`,
-      `          <${open}>${Name}</${Name}>`,
+      `          <${renderedOpenTag}>${Name}</${Name}>`,
       `        </div>`,
-      `        <code>${esc(code)}</code>`,
+      `        <pre><code>${esc(source)}</code></pre>`,
       `      </div>`,
     ].join("\n");
   });
@@ -105,20 +146,84 @@ function renderTable(headers: string[], rows: string[][]): string {
   ].join("\n");
 }
 
+function pascalCaseLocal(name: string): string {
+  return name
+    .split(/[-_\s]+/)
+    .map((part) => (part.length === 0 ? part : part.charAt(0).toUpperCase() + part.slice(1)))
+    .join("");
+}
+
 function renderProps(spec: DocsSpec): string {
   if (!spec.props || Object.keys(spec.props).length === 0) return "";
-  const rows = Object.entries(spec.props).map(([name, def]) => {
+  // `pattern: controllable` expands to a triple (`name`, `defaultName`,
+  // `onNameChange`) in every emitted wrapper / contract. The docs table
+  // mirrors that expansion so the documented API matches the consumer's
+  // type-completed surface.
+  const rows: string[][] = [];
+  for (const [name, def] of Object.entries(spec.props)) {
+    if (def.pattern === "controllable" && def.type === "boolean") {
+      const PName = pascalCaseLocal(name);
+      rows.push([
+        `<code>${esc(name)}</code>`,
+        `<code>boolean, controllable</code>`,
+        `<code>${esc(formatValue(def.default))}</code>`,
+        esc(def.description ?? ""),
+      ]);
+      rows.push([
+        `<code>default${esc(PName)}</code>`,
+        `<code>boolean</code>`,
+        `<code>${esc(formatValue(def.default))}</code>`,
+        `Initial open state (uncontrolled).`,
+      ]);
+      rows.push([
+        `<code>on${esc(PName)}Change</code>`,
+        `<code>(${esc(name)}: boolean) =&gt; void</code>`,
+        `<code>null</code>`,
+        `Fires when the open state changes.`,
+      ]);
+      continue;
+    }
     const type = [def.type, def.slot ? "slot" : "", def.responsive ? "responsive" : ""]
       .filter(Boolean)
       .join(", ");
-    return [
+    rows.push([
       `<code>${esc(name)}</code>`,
       `<code>${esc(type)}</code>`,
       `<code>${esc(formatValue(def.default))}</code>`,
       esc(def.description ?? ""),
-    ];
-  });
+    ]);
+  }
+  // Composite components with a `fromChildren` part automatically expose
+  // `asChild` to opt out of the default `<span>` wrapper. The flag isn't a
+  // spec prop — it's emitted by the generator — so the docs append it here.
+  if (spec.kind === "composite" && hasFromChildrenPart(spec)) {
+    rows.push([
+      `<code>asChild</code>`,
+      `<code>boolean</code>`,
+      `<code>false</code>`,
+      `Render the trigger directly on the consumer's child element (cloneElement) instead of wrapping in a &lt;span&gt;. Single-child invariant; the child must accept &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;data-state&lt;/code&gt;, &lt;code&gt;aria-describedby&lt;/code&gt;, and the trigger event handlers. Not compatible with Astro slots — use the default wrapper there.`,
+    ]);
+  }
   return section("Props", renderTable(["Prop", "Type", "Default", "Description"], rows));
+}
+
+/** True when any part of the composite is rendered from the consumer's children. */
+function hasFromChildrenPart(spec: DocsSpec): boolean {
+  if (spec.kind !== "composite") return false;
+  const visit = (
+    parts: Record<string, { fromChildren?: boolean; parts?: typeof parts }> | undefined,
+  ): boolean => {
+    if (!parts) return false;
+    for (const part of Object.values(parts)) {
+      if (part.fromChildren === true) return true;
+      if (part.parts && visit(part.parts)) return true;
+    }
+    return false;
+  };
+  return visit(
+    (spec as { parts?: Record<string, { fromChildren?: boolean; parts?: unknown }> })
+      .parts as Parameters<typeof visit>[0],
+  );
 }
 
 function renderNamed(
@@ -195,8 +300,10 @@ function renderDocsPage(spec: DocsSpec): string {
     renderConstraints(spec),
   ].filter((part) => part.length > 0);
 
+  const isComposite = spec.kind === "composite";
+  const importNames = isComposite ? [Name, "Button"] : [Name];
   const imports = [
-    ...(hasExamples ? [`import { ${Name} } from "@teseor/react";`] : []),
+    ...(hasExamples ? [`import { ${importNames.join(", ")} } from "@teseor/react";`] : []),
     `import Base from "../../layouts/Base.astro";`,
   ];
   const intro = spec.description ? `    <p>${esc(spec.description)}</p>\n` : "";
@@ -218,11 +325,18 @@ function renderDocsPage(spec: DocsSpec): string {
 
 async function loadSpec(name: string): Promise<DocsSpec> {
   const raw = await readFile(resolve(SPECS_DIR, `${name}.yaml`), "utf8");
-  const parsed = parseYaml(raw) as DocsSpec;
-  if (parsed.name !== name) {
-    throw new Error(`spec name "${parsed.name}" in ${name}.yaml does not match file basename`);
+  const parsed = parseYaml(raw);
+  const result = SpecSchema.safeParse(parsed);
+  if (!result.success) {
+    const messages = result.error.issues
+      .map((i) => `  ${i.path.join(".")}: ${i.message}`)
+      .join("\n");
+    throw new Error(`spec ${name}.yaml failed schema validation:\n${messages}`);
   }
-  return parsed;
+  if (result.data.name !== name) {
+    throw new Error(`spec name "${result.data.name}" in ${name}.yaml does not match file basename`);
+  }
+  return flattenSpec(result.data) as DocsSpec;
 }
 
 async function listSpecNames(): Promise<string[]> {

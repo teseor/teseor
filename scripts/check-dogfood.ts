@@ -2,6 +2,10 @@
 // Enforces the dogfood rule: apps/docs/ is built only with the Teseor design
 // system — t-* classes, no custom CSS. A missing piece is a DS gap to fill,
 // not a one-off style.
+//
+// A file can opt out by carrying `dogfood-allow: <reason>` at the top — used
+// for the layout shell while DS layout primitives (Sidebar, etc.) are still
+// being authored. The marker logs the gap rather than hiding it.
 import { readdirSync, readFileSync } from "node:fs";
 import { join, relative, resolve } from "node:path";
 
@@ -21,7 +25,17 @@ function walk(dir: string): string[] {
   return out;
 }
 
+// Anchored to the first ~10 lines (frontmatter area) so a `dogfood-allow:`
+// buried mid-file can't silently exempt a violation. The reason captures up
+// to the first newline / `*` / `-` so the message stays single-line.
+function readExemptReason(text: string): string | undefined {
+  const head = text.split("\n", 10).join("\n");
+  const match = head.match(/dogfood-allow:\s*([^\n*-]+)/);
+  return match?.[1]?.trim();
+}
+
 const violations: string[] = [];
+const exempted: { rel: string; reason: string }[] = [];
 
 for (const file of walk(docsSrc)) {
   const rel = relative(repoRoot, file);
@@ -30,6 +44,11 @@ for (const file of walk(docsSrc)) {
     continue;
   }
   const text = readFileSync(file, "utf8");
+  const exemptReason = readExemptReason(text);
+  if (exemptReason !== undefined) {
+    exempted.push({ rel, reason: exemptReason });
+    continue;
+  }
   if (/<style[\s>]/.test(text)) {
     violations.push(`${rel}: contains a <style> block — no custom CSS`);
   }
@@ -57,4 +76,13 @@ if (violations.length > 0) {
   process.exit(1);
 }
 
-console.log("check-dogfood: apps/docs/ uses the design system only");
+if (exempted.length > 0) {
+  console.log("check-dogfood: apps/docs/ uses the design system only");
+  console.log(
+    `  exempted (gaps to fill — see \`dogfood-allow:\` markers):\n${exempted
+      .map((e) => `    - ${e.rel}${e.reason ? ` — ${e.reason}` : ""}`)
+      .join("\n")}`,
+  );
+} else {
+  console.log("check-dogfood: apps/docs/ uses the design system only");
+}

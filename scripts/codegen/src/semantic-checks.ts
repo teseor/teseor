@@ -677,6 +677,66 @@ export function checkVariantChoiceKeys(spec: Spec): Issue[] {
   return issues;
 }
 
+// ── Interaction refs ────────────────────────────────────────────────────────
+
+// Canonical state names a rule's `when:` may reference. Today only the
+// controllable-boolean state ("open") is wired; extend as new patterns land.
+const KNOWN_INTERACTION_STATES = ["open"] as const;
+
+/** Collect every numeric prop name across atomic root props and (recursively) composite parts. */
+function collectNumericPropNames(spec: Spec): Set<string> {
+  const names = new Set<string>();
+  const visitProps = (props: Record<string, { type?: string }> | undefined): void => {
+    for (const [name, def] of Object.entries(props ?? {})) {
+      if (def.type === "number") names.add(name);
+    }
+  };
+  const visitPartsRec = (parts: Record<string, SpecPart> | undefined): void => {
+    if (!parts) return;
+    for (const part of Object.values(parts)) {
+      visitProps(part.props);
+      if (part.parts) visitPartsRec(part.parts);
+    }
+  };
+  if (isAtomic(spec)) visitProps(spec.props);
+  else if (isComposite(spec)) visitPartsRec(spec.parts);
+  return names;
+}
+
+/**
+ * `interactions[].delay` must name a numeric prop in the same spec; `when`
+ * must name a known state. Without this both fields accept any string and a
+ * typo drops to a silent no-op at runtime.
+ */
+export function checkInteractionRefs(spec: Spec): Issue[] {
+  const rules = spec.interactions ?? [];
+  if (rules.length === 0) return [];
+  const numericProps = collectNumericPropNames(spec);
+  const knownStates = new Set<string>(KNOWN_INTERACTION_STATES);
+  const issues: Issue[] = [];
+  rules.forEach((rule, i) => {
+    if (rule.delay !== undefined && !numericProps.has(rule.delay)) {
+      issues.push(
+        issue(
+          spec.name,
+          `interactions[${i}].delay`,
+          `'${rule.delay}' is not a declared numeric prop in this spec`,
+        ),
+      );
+    }
+    if (rule.when !== undefined && !knownStates.has(rule.when)) {
+      issues.push(
+        issue(
+          spec.name,
+          `interactions[${i}].when`,
+          `'${rule.when}' is not a known state (allowed: ${[...knownStates].join(", ")})`,
+        ),
+      );
+    }
+  });
+  return issues;
+}
+
 // ── Aggregate ───────────────────────────────────────────────────────────────
 
 export function runSemanticChecks(
@@ -698,6 +758,7 @@ export function runSemanticChecks(
     ...checkVariantChoiceKeys(spec),
     ...checkResponsiveExplicit(spec),
     ...checkAsIsConstrained(spec),
+    ...checkInteractionRefs(spec),
   ];
 }
 

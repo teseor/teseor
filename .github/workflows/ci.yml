@@ -17,6 +17,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          # Full history so `lint:codegen-tests` can diff the PR against its
+          # base. Shallow checkouts leave `origin/<base>` unresolved and the
+          # check would fail loud (as designed) on every PR.
+          fetch-depth: 0
+      - name: Fetch base ref
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+        run: git fetch --quiet origin "$BASE_REF"
       - uses: ./.github/actions/setup
       - run: pnpm lint
 

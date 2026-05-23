@@ -2,6 +2,7 @@ import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse as parseYaml } from "yaml";
+import { flattenSpec } from "../lib/flatten.ts";
 import {
   type Cell,
   coverageFixtureId,
@@ -11,6 +12,7 @@ import {
 } from "../pairwise.ts";
 import type { GeneratorContext, GeneratorReport } from "../registry.ts";
 import { registerGenerator } from "../registry.ts";
+import { Spec as SpecSchema } from "../schema.ts";
 import type { Spec, SpecProp } from "./gen-contract.ts";
 
 /** Spec fields gen-tests reads beyond gen-contract's loose Spec type. */
@@ -378,11 +380,18 @@ ${idList}
 async function loadSpec(name: string): Promise<Spec> {
   const path = resolve(SPECS_DIR, `${name}.yaml`);
   const raw = await readFile(path, "utf8");
-  const parsed = parseYaml(raw) as Spec;
-  if (parsed.name !== name) {
-    throw new Error(`spec name "${parsed.name}" in ${name}.yaml does not match file basename`);
+  const parsed = parseYaml(raw);
+  const result = SpecSchema.safeParse(parsed);
+  if (!result.success) {
+    const messages = result.error.issues
+      .map((i) => `  ${i.path.join(".")}: ${i.message}`)
+      .join("\n");
+    throw new Error(`spec ${name}.yaml failed schema validation:\n${messages}`);
   }
-  return parsed;
+  if (result.data.name !== name) {
+    throw new Error(`spec name "${result.data.name}" in ${name}.yaml does not match file basename`);
+  }
+  return flattenSpec(result.data);
 }
 
 async function listSpecNames(): Promise<string[]> {
@@ -391,6 +400,21 @@ async function listSpecNames(): Promise<string[]> {
     .filter((f) => f.endsWith(".yaml") && !f.startsWith("_"))
     .map((f) => f.slice(0, -5))
     .sort();
+}
+
+/** Filter to atomic specs only — composite contract tests need per-instance
+ *  ID normalization (anchor-name and popoverId differ across frameworks) and
+ *  a richer harness; both are out of scope for the byte-equal DOM comparison
+ *  this gen-tests emitter targets. Composites are exercised via component
+ *  tests instead. */
+async function listAtomicSpecNames(): Promise<string[]> {
+  const names = await listSpecNames();
+  const out: string[] = [];
+  for (const name of names) {
+    const spec = await loadSpec(name);
+    if (spec.kind !== "composite") out.push(name);
+  }
+  return out;
 }
 
 async function emitReactFixtures(spec: Spec): Promise<string> {
@@ -443,14 +467,20 @@ async function emitContractHarness(): Promise<string> {
 
 async function testsGenerator(ctx: GeneratorContext): Promise<GeneratorReport> {
   const requested = ctx.positionals[0];
-  const allNames = await listSpecNames();
-  const targets = requested ? [requested] : allNames;
+  const atomicNames = await listAtomicSpecNames();
+  const targets = requested ? [requested] : atomicNames;
 
   const filesWritten: string[] = [];
   const notes: string[] = [];
 
   for (const name of targets) {
     const spec = await loadSpec(name);
+    if (spec.kind === "composite") {
+      // Contract tests for composites need per-instance ID normalization
+      // (useId-derived anchor names differ per render). Tracked in #662.
+      notes.push(`tests: ${name} skipped (composite contract tests land with #662)`);
+      continue;
+    }
 
     const reactPath = await emitReactFixtures(spec);
     filesWritten.push(reactPath);
@@ -469,11 +499,11 @@ async function testsGenerator(ctx: GeneratorContext): Promise<GeneratorReport> {
   filesWritten.push(harnessPath);
   notes.push(`tests: contract harness -> ${harnessPath.replace(`${REPO_ROOT}/`, "")}`);
 
-  const reactBarrelPath = await emitReactBarrel(allNames);
+  const reactBarrelPath = await emitReactBarrel(atomicNames);
   filesWritten.push(reactBarrelPath);
   notes.push(`tests: react barrel -> ${reactBarrelPath.replace(`${REPO_ROOT}/`, "")}`);
 
-  const vueBarrelPath = await emitVueBarrel(allNames);
+  const vueBarrelPath = await emitVueBarrel(atomicNames);
   filesWritten.push(vueBarrelPath);
   notes.push(`tests: vue barrel -> ${vueBarrelPath.replace(`${REPO_ROOT}/`, "")}`);
 
