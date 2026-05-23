@@ -1,0 +1,46 @@
+# Paths the docs reference that legitimately do not exist (yet) in the tree.
+# One prefix per line; comments start with `#`. A candidate path passes the
+# check if it starts with any prefix here.
+#
+# When adding a new forward-reference, list it here in the same PR. When a
+# referenced file lands, remove its prefix here in the same PR.
+
+# Build outputs (gitignored — exist after `pnpm build`, not in the repo)
+dist/
+packages/css/dist/
+__snapshots__/
+
+# Local-only state (gitignored maintainer files; absent in CI)
+.claude/handover.md
+.claude/settings.local.json
+
+# Future generated artifacts (created by codegen at later milestones)
+apps/docs/src/components/
+apps/docs/src/_data/
+packages/contract/dist/
+
+# Future wrapper packages — v0.4+ wrappers tracked under the codegen issues
+packages/svelte/
+packages/angular/
+packages/webc/
+
+# Future packages — codemods (migration tooling), i18n
+packages/codemods/
+packages/i18n/
+
+# Future themes (themes/ lands at v1.0; see docs/architecture/themes.md)
+themes
+themes/
+
+# Future docs sections (recipes lands v0.5; migrations land with first major)
+docs/recipes/
+docs/migrations/
+
+# Future spec files (components authored at later milestones)
+specs/modal.yaml
+
+# Future apps — per-vendor showcase apps land v0.4+
+apps/showcase-
+
+# Future scripts (planned at later milestones, not yet authored)
+scripts/benchmark.ts

@@ -34,6 +34,7 @@ The bare-verb defaults are the verbs you reach for daily: `dev`, `build`, `test`
 | `pnpm lint:transitionable` | Fails a component CSS that transitions a property outside the rule-4 allow-list (`check-transitionable-property.ts`) | When touching component motion | Developer + CI + lefthook |
 | `pnpm lint:aggregators` | Fails on a dead `pnpm -r` script aggregator (`check-script-aggregators.ts`) | When touching `package.json` scripts | Developer + CI + lefthook |
 | `pnpm lint:catalog` | Checks script naming and package.json/catalog sync (`check-script-catalog.ts`) | When touching `package.json` scripts or this table | Developer + CI + lefthook |
+| `pnpm lint:doc-paths` | Fails any backtick-wrapped path-shaped reference in markdown that does not resolve (`check-doc-paths.ts`); allowlist at `scripts/.doc-path-allowlist.txt` | When touching docs | Developer + CI + lefthook |
 | `pnpm lint:md` | markdownlint over `docs/` and root markdown (`.markdownlint-cli2.jsonc`) | When touching docs | Developer + CI + lefthook |
 | `pnpm typecheck` | `tsc --noEmit` at the root plus recursive `typecheck` across packages | Before push; in CI; via lefthook | Developer + CI + lefthook |
 | `pnpm size` | `size-limit` — per-entry CSS bundle budgets | When bundle size may have moved | Developer + CI |
