@@ -135,5 +135,3 @@ examples:
     props: { text: "⌘S", disabled: { base: true, md: false } }
   - id: controlled-open
     props: { text: "Step 1: click here", open: true }
-  - id: as-child
-    props: { text: "aria-describedby lands on the button itself", asChild: true }

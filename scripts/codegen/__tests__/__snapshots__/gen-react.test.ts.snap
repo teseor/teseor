@@ -433,6 +433,18 @@ export function Slot({ children, ...slotProps }: SlotProps): ReactElement | null
     return null;
   }
   const child = elements[0] as ReactElement<Record<string, unknown>>;
+  // Astro wraps slotted children in \`<astro-slot>\`. \`cloneElement\` merges
+  // props onto that wrapper, not the element inside, so handlers and
+  // \`aria-describedby\` never reach the consumer's button. Warn loudly —
+  // there is no workaround at the React layer.
+  if (typeof child.type === "string" && child.type.startsWith("astro-")) {
+    if (typeof console !== "undefined") {
+      console.warn(
+        "Slot: \`asChild\` does not work inside Astro slots — children arrive wrapped in <astro-slot>. Drop \`asChild\` (use the default wrapper) when rendering this component from a .astro file.",
+      );
+    }
+    return cloneElement(child, mergeSlotProps(child.props ?? {}, slotProps));
+  }
   return cloneElement(child, mergeSlotProps(child.props ?? {}, slotProps));
 }
 
