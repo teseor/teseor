@@ -4,3 +4,4 @@ export {
   type FocusTrapOptions,
   getFocusableElements,
 } from "./focus-trap/index.ts";
+export { createPortal, type Portal, type PortalOptions } from "./portal/index.ts";
