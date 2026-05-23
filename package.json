@@ -77,6 +77,7 @@
     "@playwright/test": "^1.60.0",
     "@size-limit/file": "^12.1.0",
     "@types/node": "^24.12.4",
+    "happy-dom": "^20.9.0",
     "lefthook": "^2.1.8",
     "markdownlint-cli2": "^0.22.1",
     "postcss": "^8.5.15",
