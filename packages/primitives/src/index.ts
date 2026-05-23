@@ -1,4 +1,9 @@
 export {
+  createDismissableLayer,
+  type DismissableLayer,
+  type DismissableLayerOptions,
+} from "./dismissable-layer/index.ts";
+export {
   createFocusTrap,
   type FocusTrap,
   type FocusTrapOptions,
