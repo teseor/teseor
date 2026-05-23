@@ -79,9 +79,15 @@ const componentNodeFields = {
 // Recursive sub-part definition. Same shape as a ComponentNode, may carry its
 // own `parts:` map. `parts:` only appears on composite roots and on inner
 // nodes; atomic specs reject it (the atomic branch omits the field).
+//
+// `fromChildren: true` marks a part whose DOM is the consumer's React children
+// (or Vue slot), not rendered by the wrapper. The generator decorates it via
+// cloneElement / scoped slot — attaching classes, attributes, and event
+// handlers — instead of emitting an element.
 type ComponentPart = {
   element?: string;
   rootClass?: string;
+  fromChildren?: boolean;
   variants?: Record<string, { description: string }>;
   intents?: Record<string, { description: string; tokens?: Record<string, string> }>;
   sizes?: Record<string, { description: string; tokens?: Record<string, string> }>;
@@ -117,9 +123,38 @@ type ComponentPart = {
 const componentPart: z.ZodType<ComponentPart> = z.lazy(() =>
   z.strictObject({
     ...componentNodeFields,
+    fromChildren: z.boolean().optional(),
     parts: z.record(z.string(), componentPart).optional(),
   }),
 );
+
+// Declarative overlay binding. A composite component with a `popover:` block
+// emits the HTML Popover API attribute on the `floating` part and the CSS
+// Anchor Positioning binding (anchor-name on `anchor`, position-anchor on
+// `floating`) via the `anchorVar` CSS custom property — written per-instance
+// by the generated wrapper.
+const popoverBlock = z.strictObject({
+  anchor: z.string().min(1),
+  floating: z.string().min(1),
+  mode: z.enum(["auto", "manual", "hint"]),
+  anchorVar: z.string().regex(/^--[A-Za-z0-9_-]+$/),
+});
+
+// Declarative event → state-change rule. `on.target` references a part name
+// or the special `document` / `window` sinks. `delay` references a prop with
+// `type: number`. `when` references a state (currently only `open`, the
+// canonical name for the controlled/uncontrolled boolean emitted by
+// `pattern: controllable`).
+const interactionRule = z.strictObject({
+  on: z.strictObject({
+    event: z.string().min(1),
+    target: z.string().optional(),
+    key: z.string().optional(),
+  }),
+  do: z.enum(["open", "close", "toggle"]),
+  delay: z.string().optional(),
+  when: z.string().optional(),
+});
 
 // Identity-layer fields — only at the root, never on a sub-part.
 const guidanceBlock = z.strictObject({
@@ -151,6 +186,8 @@ const identityFields = {
   guidance: guidanceBlock.optional(),
   examples: z.array(exampleEntry).optional(),
   coverage: coverageBlock.optional(),
+  popover: popoverBlock.optional(),
+  interactions: z.array(interactionRule).optional(),
 } as const;
 
 const atomicSpec = z.strictObject({
