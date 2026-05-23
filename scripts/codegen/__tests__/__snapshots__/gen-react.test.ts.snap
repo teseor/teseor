@@ -401,10 +401,15 @@ function mergeSlotProps(
       typeof childValue === "function" &&
       typeof slotValue === "function"
     ) {
-      // Compose handlers: child fires first, then ours.
+      // Compose handlers: child fires first, then ours — skip ours if the
+      // child called \`event.preventDefault()\` (Radix convention). Lets a
+      // consumer suppress overlay behavior by preventing on their own handler.
+      const childFn = childValue as (...a: unknown[]) => void;
+      const slotFn = slotValue as (...a: unknown[]) => void;
       out[key] = (...args: unknown[]) => {
-        (childValue as (...a: unknown[]) => void)(...args);
-        (slotValue as (...a: unknown[]) => void)(...args);
+        childFn(...args);
+        const event = args[0] as { defaultPrevented?: boolean } | undefined;
+        if (event?.defaultPrevented !== true) slotFn(...args);
       };
     } else {
       // Slot props win for refs, aria-*, data-*.
