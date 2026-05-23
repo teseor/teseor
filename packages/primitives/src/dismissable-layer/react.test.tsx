@@ -7,13 +7,13 @@ import { useDismissableLayer } from "./react.ts";
 let mountTarget: HTMLDivElement;
 let root: Root;
 
-type TrapProps = {
+type LayerProps = {
   active: boolean;
   onEscapeKeyDown?: (event: KeyboardEvent) => void;
   onPointerDownOutside?: (event: PointerEvent) => void;
 };
 
-function Layer(props: TrapProps) {
+function Layer(props: LayerProps) {
   const [element, setElement] = useState<HTMLElement | null>(null);
   useDismissableLayer(element, props.active, {
     onEscapeKeyDown: props.onEscapeKeyDown,
@@ -26,7 +26,7 @@ function Layer(props: TrapProps) {
   );
 }
 
-function render(props: TrapProps): void {
+function render(props: LayerProps): void {
   act(() => {
     root.render(<Layer {...props} />);
   });
