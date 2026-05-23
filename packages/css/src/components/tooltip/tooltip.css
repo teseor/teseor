@@ -16,6 +16,11 @@
     --_position-area: top;
     --_display: revert;
     --_translate: 2px;
+
+    /* Margin on the side facing the anchor — provides the gap between
+       trigger and popover. Each `[data-placement="..."]` modifier rewrites
+       this for the relevant edge. */
+    --_margin: 0 0 var(--_gap) 0;
   }
 }
 
@@ -33,7 +38,7 @@
 
   .t-tooltip {
     box-sizing: border-box;
-    margin: 0;
+    margin: var(--_margin);
     inset: auto;
     border: 0;
     overflow: visible;
@@ -63,21 +68,25 @@
     &:where([data-placement="top"]) {
       --_position-area: top;
       --_translate: 2px;
+      --_margin: 0 0 var(--_gap) 0;
     }
 
     &:where([data-placement="right"]) {
       --_position-area: right;
       --_translate: 0;
+      --_margin: 0 0 0 var(--_gap);
     }
 
     &:where([data-placement="bottom"]) {
       --_position-area: bottom;
       --_translate: -2px;
+      --_margin: var(--_gap) 0 0 0;
     }
 
     &:where([data-placement="left"]) {
       --_position-area: left;
       --_translate: 0;
+      --_margin: 0 var(--_gap) 0 0;
     }
 
     &:where([data-disabled="true"]) {
@@ -102,21 +111,25 @@
         &:where([data-placement-$(bp)="top"]) {
           --_position-area: top;
           --_translate: 2px;
+          --_margin: 0 0 var(--_gap) 0;
         }
 
         &:where([data-placement-$(bp)="right"]) {
           --_position-area: right;
           --_translate: 0;
+          --_margin: 0 0 0 var(--_gap);
         }
 
         &:where([data-placement-$(bp)="bottom"]) {
           --_position-area: bottom;
           --_translate: -2px;
+          --_margin: var(--_gap) 0 0 0;
         }
 
         &:where([data-placement-$(bp)="left"]) {
           --_position-area: left;
           --_translate: 0;
+          --_margin: 0 var(--_gap) 0 0;
         }
 
         &:where([data-disabled-$(bp)="true"]) {

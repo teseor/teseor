@@ -583,13 +583,18 @@ ${hookConfig}
   // handlers, and \`aria-describedby\`; the consumer's element stays
   // unchanged inside.
   const triggerStyle: CSSProperties = { [overlay.anchorVar]: overlay.anchorName };
+  // \`aria-describedby\` is only set when the popover has content. Pointing a
+  // describedby relationship at an empty \`role="tooltip"\` element is an a11y
+  // anti-pattern: assistive tech announces the description, finds nothing,
+  // and the consumer sees no signal that the tooltip is empty.
+  const hasContent = ${contentSlots[0] ?? "true"} != null;
 
   return (
     <>
       <span
         className=${quote(triggerClass)}
         style={triggerStyle}
-        aria-describedby={overlay.popoverId}
+        aria-describedby={hasContent ? overlay.popoverId : undefined}
         {...overlay.triggerHandlers}
       >
         {children}

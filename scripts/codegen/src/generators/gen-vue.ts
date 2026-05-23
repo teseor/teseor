@@ -313,7 +313,11 @@ export function responsiveDataAttrs(
 type OverlayInteraction = {
   on: { event: string; target?: string; key?: string };
   do: "open" | "close" | "toggle";
-  delayMs?: number;
+  /** ms delay before the action fires. Function form lets the wrapper pass a
+   *  reactive getter (e.g. \`() => openDelay\`) so the latest prop value is
+   *  read on every fire; Vue's setup runs once so a plain number would
+   *  capture the value at setup-time and miss later prop changes. */
+  delayMs?: number | (() => number);
   when?: string;
 };
 
@@ -427,6 +431,13 @@ export function useOverlay(config: OverlayConfig): OverlayReturn {
     { immediate: true, flush: "post" },
   );
 
+  // Resolve a rule's delay at fire-time so getter-form delays (the wrapper
+  // passes \`delayMs: () => openDelay\`) pick up the latest prop value.
+  const resolveDelay = (d: number | (() => number) | undefined): number => {
+    if (d === undefined) return 0;
+    return typeof d === "function" ? d() : d;
+  };
+
   // Document/window-bound interactions. Listeners attach on mount and unmount.
   const cleanups: Array<() => void> = [];
   onMounted(() => {
@@ -437,7 +448,7 @@ export function useOverlay(config: OverlayConfig): OverlayReturn {
       const handler = (event: Event) => {
         if (rule.when === "open" && !open.value) return;
         if (rule.on.key && event instanceof KeyboardEvent && event.key !== rule.on.key) return;
-        schedule(rule.do, rule.delayMs ?? 0);
+        schedule(rule.do, resolveDelay(rule.delayMs));
       };
       sink.addEventListener(rule.on.event, handler);
       cleanups.push(() => sink.removeEventListener(rule.on.event, handler));
@@ -455,10 +466,9 @@ export function useOverlay(config: OverlayConfig): OverlayReturn {
     if (rule.on.target !== "trigger") continue;
     const eventName = rule.on.event;
     const previous = triggerHandlers[eventName];
-    const delayMs = rule.delayMs ?? 0;
     triggerHandlers[eventName] = (event: Event) => {
       previous?.(event);
-      schedule(rule.do, delayMs);
+      schedule(rule.do, resolveDelay(rule.delayMs));
     };
   }
 
@@ -575,13 +585,15 @@ function renderCompositeWrapper(spec: Spec, _propDescriptions: Record<string, st
     destructureLines.push(`  ${propName}${defaultClause},`);
   }
 
-  // Interactions in hook config.
+  // Interactions in hook config. Delay props pass as getters (\`() => name\`)
+  // so the composable picks up later prop changes — Vue's setup runs once
+  // and a plain \`delayMs: openDelay\` would capture the value at that time.
   const interactionItems = interactions.map((rule) => {
     const onEntries: string[] = [`event: ${quote(rule.on.event)}`];
     if (rule.on.target) onEntries.push(`target: ${quote(rule.on.target)}`);
     if (rule.on.key) onEntries.push(`key: ${quote(rule.on.key)}`);
     const fields: string[] = [`on: { ${onEntries.join(", ")} }`, `do: ${quote(rule.do)}`];
-    if (rule.delay) fields.push(`delayMs: ${rule.delay}`);
+    if (rule.delay) fields.push(`delayMs: () => ${rule.delay}`);
     if (rule.when) fields.push(`when: ${quote(rule.when)}`);
     return `    { ${fields.join(", ")} },`;
   });
@@ -659,7 +671,7 @@ ${contentDataAttrComputed}
   <span
     class="${triggerClass}"
     :style="{ [overlay.anchorVar]: overlay.anchorName }"
-    :aria-describedby="overlay.popoverId"
+    :aria-describedby="${contentSlots[0] ?? "true"} != null ? overlay.popoverId : undefined"
     v-on="overlay.triggerHandlers"
   >
     <slot />

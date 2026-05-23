@@ -49,10 +49,10 @@ const overlay = useOverlay({
   anchorVar: "--t-tooltip-anchor",
   popoverMode: "manual",
   interactions: [
-    { on: { event: "pointerenter", target: "trigger" }, do: "open", delayMs: openDelay },
-    { on: { event: "focusin", target: "trigger" }, do: "open", delayMs: openDelay },
-    { on: { event: "pointerleave", target: "trigger" }, do: "close", delayMs: closeDelay },
-    { on: { event: "focusout", target: "trigger" }, do: "close", delayMs: closeDelay },
+    { on: { event: "pointerenter", target: "trigger" }, do: "open", delayMs: () => openDelay },
+    { on: { event: "focusin", target: "trigger" }, do: "open", delayMs: () => openDelay },
+    { on: { event: "pointerleave", target: "trigger" }, do: "close", delayMs: () => closeDelay },
+    { on: { event: "focusout", target: "trigger" }, do: "close", delayMs: () => closeDelay },
     { on: { event: "keydown", target: "document", key: "Escape" }, do: "close", when: "open" },
   ],
 });
@@ -68,7 +68,7 @@ const contentAttrs = computed(() => ({
   <span
     class="t-tooltip-trigger"
     :style="{ [overlay.anchorVar]: overlay.anchorName }"
-    :aria-describedby="overlay.popoverId"
+    :aria-describedby="text != null ? overlay.popoverId : undefined"
     v-on="overlay.triggerHandlers"
   >
     <slot />
