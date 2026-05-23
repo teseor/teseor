@@ -1,0 +1,132 @@
+@layer components.tokens {
+  .t-tooltip-trigger {
+    --_anchor: var(--t-tooltip-anchor, none);
+  }
+
+  .t-tooltip {
+    --_bg: var(--t-tooltip-bg, var(--t-neutral-90));
+    --_fg: var(--t-tooltip-fg, var(--t-neutral-10));
+    --_pad-x: var(--t-tooltip-pad-x, var(--t-space-3));
+    --_pad-y: var(--t-tooltip-pad-y, var(--t-space-2));
+    --_radius: var(--t-tooltip-radius, var(--t-radius-sm));
+    --_gap: var(--t-tooltip-gap, var(--t-space-2));
+    --_dur: var(--t-tooltip-dur, var(--t-dur-fast));
+    --_ease: var(--t-tooltip-ease, var(--t-ease-out));
+    --_anchor: var(--t-tooltip-anchor, none);
+    --_position-area: top;
+    --_display: revert;
+    --_translate: 2px;
+  }
+}
+
+@layer components.styles {
+  .t-tooltip-trigger {
+    /* A thin wrapper element rendered around the consumer's trigger. Hosts
+       the anchor-name and the hover/focus event handlers. `display: inline-flex`
+       shrink-wraps the inner element so the wrapper is layout-invisible while
+       still being a real layout box (CSS Anchor Positioning requires a
+       principal box, so `display: contents` cannot be used here). */
+    box-sizing: border-box;
+    display: inline-flex;
+    anchor-name: var(--_anchor);
+  }
+
+  .t-tooltip {
+    box-sizing: border-box;
+    margin: 0;
+    inset: auto;
+    border: 0;
+    overflow: visible;
+    padding-inline: var(--_pad-x);
+    padding-block: var(--_pad-y);
+    background: var(--_bg);
+    color: var(--_fg);
+    border-radius: var(--_radius);
+    font: inherit;
+    font-size: var(--t-text-sm, 0.875rem);
+    line-height: 1.4;
+    max-inline-size: 20rem;
+    pointer-events: none;
+    display: var(--_display);
+    position-anchor: var(--_anchor);
+    position-area: var(--_position-area);
+    position-try-fallbacks:
+      flip-block,
+      flip-inline,
+      flip-block flip-inline;
+    opacity: 0;
+    transform: translateY(var(--_translate));
+    transition:
+      opacity calc(var(--_dur) * var(--t-motion-scale)) var(--_ease),
+      transform calc(var(--_dur) * var(--t-motion-scale)) var(--_ease);
+
+    &:where([data-placement="top"]) {
+      --_position-area: top;
+      --_translate: 2px;
+    }
+
+    &:where([data-placement="right"]) {
+      --_position-area: right;
+      --_translate: 0;
+    }
+
+    &:where([data-placement="bottom"]) {
+      --_position-area: bottom;
+      --_translate: -2px;
+    }
+
+    &:where([data-placement="left"]) {
+      --_position-area: left;
+      --_translate: 0;
+    }
+
+    &:where([data-disabled="true"]) {
+      --_display: none;
+    }
+
+    &:popover-open {
+      opacity: 1;
+      transform: none;
+    }
+
+    @starting-style {
+      &:popover-open {
+        opacity: 0;
+        transform: translateY(var(--_translate));
+      }
+    }
+
+    @each $bp in md, lg, xl, 2xl {
+      /* stylelint-disable-next-line media-query-no-invalid */
+      @media (--$(bp)) {
+        &:where([data-placement-$(bp)="top"]) {
+          --_position-area: top;
+          --_translate: 2px;
+        }
+
+        &:where([data-placement-$(bp)="right"]) {
+          --_position-area: right;
+          --_translate: 0;
+        }
+
+        &:where([data-placement-$(bp)="bottom"]) {
+          --_position-area: bottom;
+          --_translate: -2px;
+        }
+
+        &:where([data-placement-$(bp)="left"]) {
+          --_position-area: left;
+          --_translate: 0;
+        }
+
+        &:where([data-disabled-$(bp)="true"]) {
+          --_display: none;
+        }
+
+        &:where([data-disabled-$(bp)="false"]) {
+          --_display: revert;
+        }
+      }
+    }
+  }
+}
