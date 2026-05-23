@@ -28,10 +28,11 @@ function isHTMLElement(value: unknown): value is HTMLElement {
 }
 
 /** Returns focusable descendants of `container` in DOM order, skipping
- *  disabled inputs and anything inside an `[inert]` subtree. */
+ *  disabled inputs, anything inside an `[inert]` subtree, and elements
+ *  whose computed `tabIndex` is negative (e.g. `tabindex="-2"`). */
 export function getFocusableElements(container: HTMLElement): HTMLElement[] {
   return Array.from(container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)).filter(
-    (el) => !el.closest("[inert]"),
+    (el) => el.tabIndex >= 0 && !el.closest("[inert]"),
   );
 }
 
@@ -50,11 +51,34 @@ export function createFocusTrap(container: HTMLElement, options: FocusTrapOption
   let active = false;
   let temporaryTabindex = false;
 
+  function ensureContainerFocusable(): void {
+    if (!container.hasAttribute("tabindex")) {
+      container.setAttribute("tabindex", "-1");
+      temporaryTabindex = true;
+    }
+  }
+
+  function focusFallback(): void {
+    const focusables = getFocusableElements(container);
+    const next = focusables[0];
+    if (next) {
+      next.focus();
+      return;
+    }
+    ensureContainerFocusable();
+    container.focus();
+  }
+
   function handleKeyDown(event: KeyboardEvent): void {
     if (event.key !== "Tab") return;
     const focusables = getFocusableElements(container);
     if (focusables.length === 0) {
+      // No tabbable children — block Tab and keep focus inside the container.
       event.preventDefault();
+      if (!container.contains(document.activeElement)) {
+        ensureContainerFocusable();
+        container.focus();
+      }
       return;
     }
     const first = focusables[0];
@@ -73,6 +97,16 @@ export function createFocusTrap(container: HTMLElement, options: FocusTrapOption
       event.preventDefault();
       first.focus();
     }
+  }
+
+  function handleFocusIn(event: FocusEvent): void {
+    const target = event.target;
+    if (!(target instanceof Node)) return;
+    if (container.contains(target)) return;
+    // Focus escaped via click, programmatic focus, or browser-native Tab —
+    // pull it back. Tab keydown's handler runs first and already redirects,
+    // so this is a no-op on that path.
+    focusFallback();
   }
 
   function resolveInitial(): HTMLElement | null {
@@ -96,13 +130,13 @@ export function createFocusTrap(container: HTMLElement, options: FocusTrapOption
     active = true;
     previouslyFocused = isHTMLElement(document.activeElement) ? document.activeElement : null;
     document.addEventListener("keydown", handleKeyDown, true);
+    document.addEventListener("focusin", handleFocusIn, true);
     const initial = resolveInitial();
     if (initial) {
-      // Make the container itself focusable when we're falling back to it,
-      // and remember to clean the attribute up on deactivate.
-      if (initial === container && !container.hasAttribute("tabindex")) {
-        container.setAttribute("tabindex", "-1");
-        temporaryTabindex = true;
+      // Fall back to focusing the container itself when there's no other
+      // candidate; ensureContainerFocusable cleans up the tabindex on deactivate.
+      if (initial === container) {
+        ensureContainerFocusable();
       }
       initial.focus();
     }
@@ -112,6 +146,7 @@ export function createFocusTrap(container: HTMLElement, options: FocusTrapOption
     if (!active) return;
     active = false;
     document.removeEventListener("keydown", handleKeyDown, true);
+    document.removeEventListener("focusin", handleFocusIn, true);
     if (temporaryTabindex) {
       container.removeAttribute("tabindex");
       temporaryTabindex = false;
