@@ -12,10 +12,13 @@
 // codegen tests would have surfaced before push. The lesson is "never defer
 // codegen tests"; the enforcement is this check failing pre-push and in CI.
 import { execSync } from "node:child_process";
-import { resolve } from "node:path";
+import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const REPO_ROOT = resolve(fileURLToPath(import.meta.url), "..", "..");
+// `dirname` first so the `..` is taken from the script's directory (`scripts/`),
+// not the file path. Equivalent to the old `resolve(file, "..", "..")` but
+// reads as "scripts/'s parent" — unambiguous if the script ever moves.
+const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 
 /** Files that, when changed, demand a corresponding test-side change. */
 function isProductionCodegen(path: string): boolean {

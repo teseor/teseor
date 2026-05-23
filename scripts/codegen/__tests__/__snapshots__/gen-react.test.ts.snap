@@ -559,7 +559,13 @@ export function useOverlay<T extends HTMLElement = HTMLElement>(
   const anchorName = \`--t-\${idCore}\`;
   const popoverId = \`t-overlay-\${idCore}\`;
 
-  const contentRef = useRef<T>(null);
+  // Callback ref + tracked node so the popover-sync effect re-runs when the
+  // floating element mounts later (e.g. \`{hasContent && <…/>}\` flips true
+  // while \`open\` is already true). A plain \`useRef\` wouldn't notify React.
+  const [contentNode, setContentNode] = useState<T | null>(null);
+  const contentRef = useCallback((node: T | null) => {
+    setContentNode(node);
+  }, []);
 
   const timersRef = useRef<{ open: number; close: number }>({ open: 0, close: 0 });
   const clearTimers = useCallback(() => {
@@ -592,22 +598,21 @@ export function useOverlay<T extends HTMLElement = HTMLElement>(
 
   useEffect(() => () => clearTimers(), [clearTimers]);
 
-  // Drive Popover API from \`open\`. \`popoverIsOpen\` returns undefined on engines
-  // without \`:popover-open\` — we attempt the call and catch the InvalidStateError.
+  // Drive Popover API from \`open\` + the tracked node. Re-runs when either
+  // changes — handles "node mounts later while open is already true."
   useEffect(() => {
-    const node = contentRef.current;
-    if (!node) return;
-    const popoverState = popoverIsOpen(node);
+    if (!contentNode) return;
+    const popoverState = popoverIsOpen(contentNode);
     if (open && popoverState !== true) {
       try {
-        node.showPopover();
+        contentNode.showPopover();
       } catch {}
     } else if (!open && popoverState !== false) {
       try {
-        node.hidePopover();
+        contentNode.hidePopover();
       } catch {}
     }
-  }, [open]);
+  }, [open, contentNode]);
 
   // Document/window-bound rules. Listeners mount with the rules array;
   // \`when:\` is re-evaluated per fire via \`openRef\`.

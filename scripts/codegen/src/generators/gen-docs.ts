@@ -165,7 +165,7 @@ function renderProps(spec: DocsSpec): string {
       const PName = pascalCaseLocal(name);
       rows.push([
         `<code>${esc(name)}</code>`,
-        `<code>boolean, controlled</code>`,
+        `<code>boolean, controllable</code>`,
         `<code>${esc(formatValue(def.default))}</code>`,
         esc(def.description ?? ""),
       ]);

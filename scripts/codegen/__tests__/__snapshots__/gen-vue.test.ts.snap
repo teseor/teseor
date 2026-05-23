@@ -363,10 +363,20 @@ export const Slot = defineComponent({
   inheritAttrs: false,
   setup(_, { slots, attrs }) {
     return () => {
-      const vnodes = slots.default?.();
-      const first = vnodes && vnodes.length > 0 ? vnodes[0] : null;
-      if (!first) return null;
-      return cloneVNode(first, mergeProps(first.props ?? {}, attrs));
+      // Filter out comment/text-only vnodes (v-if false branches, whitespace)
+      // so the single-child invariant matches the React Slot's behavior.
+      const vnodes = (slots.default?.() ?? []).filter((v) => typeof v.type !== "symbol");
+      if (vnodes.length !== 1) {
+        if (typeof console !== "undefined") {
+          console.warn(
+            \`Slot: expected exactly one VNode child, got \${vnodes.length}. Pass a single element or drop \\\`asChild\\\`.\`,
+          );
+        }
+        return null;
+      }
+      const child = vnodes[0];
+      if (!child) return null;
+      return cloneVNode(child, mergeProps(child.props ?? {}, attrs));
     };
   },
 });
@@ -475,12 +485,12 @@ export function useOverlay(config: OverlayConfig): OverlayReturn {
 
   onBeforeUnmount(() => clearTimers());
 
-  // Drive Popover API from \`open\`. \`immediate\` covers \`defaultOpen: true\`;
-  // \`flush: 'post'\` waits for DOM update.
+  // Drive Popover API from \`open\` AND the content node. Watching both
+  // handles "node mounts later while open is already true" (e.g. \`v-if\` on
+  // the floating element flipping true). \`flush: 'post'\` waits for DOM.
   watch(
-    open,
-    (current) => {
-      const node = contentRef.value;
+    [open, contentRef] as const,
+    ([current, node]) => {
       if (!node) return;
       const popoverState = popoverIsOpen(node);
       if (current && popoverState !== true) {

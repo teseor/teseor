@@ -70,7 +70,7 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><code>open</code></td><td><code>boolean, controlled</code></td><td><code>false</code></td><td>Open state. Uncontrolled by default; pass `open` and optionally `onOpenChange` to drive it from the consumer (e.g. guided tours).</td></tr>
+        <tr><td><code>open</code></td><td><code>boolean, controllable</code></td><td><code>false</code></td><td>Open state. Uncontrolled by default; pass `open` and optionally `onOpenChange` to drive it from the consumer (e.g. guided tours).</td></tr>
         <tr><td><code>defaultOpen</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Initial open state (uncontrolled).</td></tr>
         <tr><td><code>onOpenChange</code></td><td><code>(open: boolean) =&gt; void</code></td><td><code>null</code></td><td>Fires when the open state changes.</td></tr>
         <tr><td><code>disabled</code></td><td><code>boolean, responsive</code></td><td><code>false</code></td><td>Suppresses the tooltip entirely. Responsive so the tooltip can be hidden at narrow viewports (e.g. `disabled: &lbrace; base: true, md: false &rbrace;`).</td></tr>
