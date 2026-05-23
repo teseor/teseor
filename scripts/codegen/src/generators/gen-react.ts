@@ -2,9 +2,11 @@ import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse as parseYaml } from "yaml";
+import { flattenSpec } from "../lib/flatten.ts";
 import { loadVocabulary } from "../lib/vocabulary.ts";
 import type { GeneratorContext, GeneratorReport } from "../registry.ts";
 import { registerGenerator } from "../registry.ts";
+import { Spec as SpecSchema } from "../schema.ts";
 import type { Spec, SpecProp } from "./gen-contract.ts";
 
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..", "..", "..");
@@ -70,6 +72,19 @@ function renderPropLine(
   propDescriptions: Record<string, string>,
   Name: string,
 ): string[] {
+  // Controllable boolean expands to a triple: `name`, `defaultName`, `onNameChange`.
+  if (propDef.pattern === "controllable" && propDef.type === "boolean") {
+    const PName = pascalCase(propName);
+    const desc = propDef.description ?? propDescriptions[propName];
+    return [
+      desc ? `  /** ${desc} */` : null,
+      `  ${propName}?: boolean;`,
+      `  /** Initial open state (uncontrolled). */`,
+      `  default${PName}?: boolean;`,
+      `  /** Fires when the open state changes. */`,
+      `  on${PName}Change?: (${propName}: boolean) => void;`,
+    ].filter((l): l is string => l !== null);
+  }
   const baseType = reactPropType(propName, propDef, Name);
   const tsType = propDef.responsive === true ? responsiveType(baseType) : baseType;
   const desc = propDef.description ?? propDescriptions[propName];
@@ -107,10 +122,6 @@ function renderOwnProps(
     : [];
   const sizeLines = spec.sizes ? renderCanonicalProp("size", sizeType, propDescriptions) : [];
   const hasAs = "as" in (spec.props ?? {});
-  // Polymorphic ref: `<Component>` over a `"button" | "a"` union resolves the
-  // ref slot to `Ref<X> & Ref<Y>` (intersection), which `Ref<X | Y>` does not
-  // satisfy. Keep the lowest common ancestor here — tighter ref typing across
-  // the polymorphic union is a separate refactor.
   const refType = hasAs
     ? "Ref<HTMLElement>"
     : `Ref<HTMLElementTagNameMap[${quote(spec.element ?? "div")}]>`;
@@ -274,7 +285,9 @@ function renderComponentJsDoc(spec: Spec, Name: string): string {
   return `${lines.join("\n")}\n`;
 }
 
-function renderWrapper(spec: Spec, propDescriptions: Record<string, string>): string {
+// ── Atomic wrapper renderer (existing) ──────────────────────────────────────
+
+function renderAtomicWrapper(spec: Spec, propDescriptions: Record<string, string>): string {
   const Name = pascalCase(spec.name);
   const rootClass = spec.rootClass ?? `t-${spec.name}`;
   const propMap = spec.props ?? {};
@@ -378,6 +391,216 @@ ${bodyBlock}
 `;
 }
 
+// ── Composite wrapper renderer ──────────────────────────────────────────────
+
+/**
+ * Emits a React wrapper for a composite spec — currently the
+ * "overlay-with-anchor" shape: one `fromChildren` part (decorated via
+ * cloneElement) and one rendered part bound by `popover:` + `interactions:`.
+ *
+ * The runtime hook `useOverlay` (in `_runtime.ts`) drives the state machine,
+ * popover toggling, anchor binding, and event listener wiring. The emitted
+ * wrapper does the JSX-shape work: cloneElement on the trigger child,
+ * rendering the floating part with the right attributes.
+ */
+function renderCompositeWrapper(spec: Spec, propDescriptions: Record<string, string>): string {
+  const Name = pascalCase(spec.name);
+  const popover = spec.popover;
+  const interactions = spec.interactions ?? [];
+  const parts = spec.parts ?? {};
+  if (!popover) {
+    throw new Error(
+      `composite spec '${spec.name}' must declare 'popover:' for the overlay-with-anchor shape`,
+    );
+  }
+  const triggerPart = parts[popover.anchor];
+  const contentPart = parts[popover.floating];
+  if (!triggerPart) {
+    throw new Error(`popover.anchor '${popover.anchor}' is not a declared part`);
+  }
+  if (!contentPart) {
+    throw new Error(`popover.floating '${popover.floating}' is not a declared part`);
+  }
+  if (triggerPart.fromChildren !== true) {
+    throw new Error(
+      `popover.anchor '${popover.anchor}' must declare 'fromChildren: true' (this generator only emits the overlay-with-anchor shape)`,
+    );
+  }
+  if (contentPart.fromChildren === true) {
+    throw new Error(`popover.floating '${popover.floating}' cannot declare 'fromChildren: true'`);
+  }
+
+  const triggerClass = triggerPart.rootClass ?? `t-${spec.name}-trigger`;
+  const contentClass = contentPart.rootClass ?? `t-${spec.name}`;
+  const contentElement = contentPart.element ?? "div";
+  const contentRole = contentPart.a11y?.role;
+
+  // Controllable prop on the anchor part — usually `open`. The renderOwnProps
+  // path consumes spec.props (merged), so we just read the name and emit the
+  // hook config that maps it.
+  const controllableEntry = Object.entries(spec.props).find(
+    ([, d]) => d.pattern === "controllable" && d.type === "boolean",
+  );
+  if (!controllableEntry) {
+    throw new Error(
+      `composite spec '${spec.name}' must declare a 'pattern: controllable' boolean prop (e.g. 'open')`,
+    );
+  }
+  const [controllableName] = controllableEntry;
+  const ControllableName = pascalCase(controllableName);
+
+  // Slots that the content renders inline (e.g. `text` for Tooltip).
+  const contentSlots = Object.entries(spec.props)
+    .filter(([, d]) => d.slot === true && d.__part === popover.floating)
+    .map(([n]) => n);
+
+  // Responsive props rendered as data-attrs on the content element.
+  const responsiveProps = Object.entries(spec.props)
+    .filter(([, d]) => d.responsive === true && d.slot !== true)
+    .map(([n]) => n);
+
+  // Delay-driving number props referenced from interactions.
+  const delayProps = new Set<string>();
+  for (const rule of interactions) {
+    if (rule.delay) delayProps.add(rule.delay);
+  }
+
+  // Enum types declared on content props (e.g. TooltipPlacement).
+  const propEnumTypes = Object.entries(spec.props)
+    .filter(([, d]) => Array.isArray(d.values) && d.values.length > 0)
+    .map(([propName, d]) => renderEnumType(Name, pascalCase(propName), d.values ?? []))
+    .filter(Boolean)
+    .join("\n");
+
+  // OwnProps merged across parts via the flattened spec.
+  const ownPropLines = Object.entries(spec.props).flatMap(([n, d]) =>
+    renderPropLine(n, d, propDescriptions, Name),
+  );
+
+  // Destructure: omit the controllable triple from the rest (they go straight
+  // into useOverlay), keep slots/responsives separate.
+  const propsToDestructure = Object.keys(spec.props);
+  const destructureNames: string[] = [];
+  for (const name of propsToDestructure) {
+    const def = spec.props[name];
+    if (!def) continue;
+    if (def.pattern === "controllable" && def.type === "boolean") continue;
+    const hasDefault = delayProps.has(name) && typeof def.default === "number";
+    destructureNames.push(hasDefault ? `${name} = ${def.default}` : name);
+  }
+  destructureNames.push("children");
+
+  const interactionItems = interactions.map((rule) => {
+    const onEntries: string[] = [`event: ${quote(rule.on.event)}`];
+    if (rule.on.target) onEntries.push(`target: ${quote(rule.on.target)}`);
+    if (rule.on.key) onEntries.push(`key: ${quote(rule.on.key)}`);
+    const onObj = `{ ${onEntries.join(", ")} }`;
+    const fields: string[] = [`on: ${onObj}`, `do: ${quote(rule.do)}`];
+    if (rule.delay) fields.push(`delayMs: ${rule.delay}`);
+    if (rule.when) fields.push(`when: ${quote(rule.when)}`);
+    return `      { ${fields.join(", ")} },`;
+  });
+
+  // Hook arguments. The controllable triple feeds in as named keys; popover +
+  // interactions describe the behavior.
+  const hookConfig = [
+    `    ${controllableName}: ${controllableName}Prop,`,
+    `    default${ControllableName},`,
+    `    on${ControllableName}Change,`,
+    `    anchorVar: ${quote(popover.anchorVar)},`,
+    `    popoverMode: ${quote(popover.mode)},`,
+    `    interactions: [`,
+    ...interactionItems,
+    `    ],`,
+  ].join("\n");
+
+  const propControlled = `${controllableName}: ${controllableName}Prop`;
+
+  // Build the content data-attrs spread.
+  const contentDataAttrsLines = responsiveProps
+    .map((name) => `        {...responsiveDataAttrs(${quote(name)}, ${name})}`)
+    .join("\n");
+
+  // Rendered content body — slot props inline; default to the primary text
+  // slot if one exists, otherwise `children` would have been the trigger.
+  const contentBody =
+    contentSlots.length > 0
+      ? contentSlots.map((s) => `        {${s}}`).join("\n")
+      : "        {/* no content slot declared */}";
+
+  const importsLines = [
+    `import "@teseor/css/components/${spec.name}.css";`,
+    `import type { CSSProperties, ReactNode } from "react";`,
+    `import { responsiveDataAttrs, type Responsive, useOverlay } from "./_runtime.ts";`,
+  ].join("\n");
+
+  const contentRoleAttr = contentRole ? `        role=${quote(contentRole)}` : null;
+
+  return `"use client";
+
+// AUTOGENERATED by gen-react. Do not edit.
+// Source: specs/${spec.name}.yaml
+
+${importsLines}
+
+${propEnumTypes ? `${propEnumTypes}\n` : ""}type ${Name}OwnProps = {
+${ownPropLines.join("\n")}
+  children?: ReactNode;
+};
+
+export type ${Name}Props = Readonly<${Name}OwnProps>;
+
+${renderComponentJsDoc(spec, Name)}export function ${Name}(props: ${Name}Props) {
+  const {
+    ${propControlled},
+    default${ControllableName},
+    on${ControllableName}Change,
+${destructureNames.map((n) => `    ${n},`).join("\n")}
+  } = props;
+
+  const overlay = useOverlay<HTMLElementTagNameMap[${quote(contentElement)}]>({
+${hookConfig}
+  });
+
+  // The trigger is rendered as a wrapper element around \`children\` rather
+  // than via \`cloneElement\` — required for Astro slot semantics (children
+  // arrive as a slot, not a React element) and gives every framework the
+  // same DOM contract. The wrapper carries the anchor binding, event
+  // handlers, and \`aria-describedby\`; the consumer's element stays
+  // unchanged inside.
+  const triggerStyle: CSSProperties = { [overlay.anchorVar]: overlay.anchorName };
+
+  return (
+    <>
+      <span
+        className=${quote(triggerClass)}
+        style={triggerStyle}
+        aria-describedby={overlay.popoverId}
+        {...overlay.triggerHandlers}
+      >
+        {children}
+      </span>
+      <${contentElement}
+        ref={overlay.contentRef}
+        id={overlay.popoverId}
+${contentRoleAttr ? `${contentRoleAttr}\n` : ""}        className=${quote(contentClass)}
+        popover={overlay.popoverMode}
+        style={{ [overlay.anchorVar]: overlay.anchorName } satisfies CSSProperties}
+${contentDataAttrsLines}
+      >
+${contentBody}
+      </${contentElement}>
+    </>
+  );
+}
+`;
+}
+
+function renderWrapper(spec: Spec, propDescriptions: Record<string, string>): string {
+  if (spec.kind === "composite") return renderCompositeWrapper(spec, propDescriptions);
+  return renderAtomicWrapper(spec, propDescriptions);
+}
+
 function renderCssShim(): string {
   return `// AUTOGENERATED by gen-react. Do not edit.
 
@@ -389,7 +612,7 @@ function renderRuntime(breakpoints: string[]): string {
   const keys = ["base", ...breakpoints].map(quote).join(", ");
   return `// AUTOGENERATED by gen-react. Do not edit.
 
-import type { ElementType } from "react";
+import { type ElementType, type Ref, useCallback, useEffect, useId, useRef, useState } from "react";
 
 const RESPONSIVE_KEYS = [${keys}] as const;
 
@@ -425,6 +648,204 @@ export function responsiveDataAttrs(
  */
 export function asElement(value: ElementType): ElementType {
   return value;
+}
+
+// ── Overlay hook — used by composite overlay components ────────────────────
+
+type OverlayInteraction = {
+  on: { event: string; target?: string; key?: string };
+  do: "open" | "close" | "toggle";
+  /** Numeric ms delay. Resolved at the call site from the consumer's delay
+   *  props (e.g. \`openDelay\` / \`closeDelay\`) — the wrapper passes the value,
+   *  the hook just consumes it. */
+  delayMs?: number;
+  when?: string;
+};
+
+type OverlayConfig = {
+  open?: boolean;
+  defaultOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  anchorVar: string;
+  popoverMode: "auto" | "manual" | "hint";
+  interactions: ReadonlyArray<OverlayInteraction>;
+};
+
+type AnyEventHandler = (event: unknown) => void;
+
+type OverlayHandlers = Record<string, AnyEventHandler>;
+
+type OverlayReturn<T extends HTMLElement> = {
+  open: boolean;
+  setOpen: (next: boolean) => void;
+  anchorName: string;
+  anchorVar: string;
+  popoverId: string;
+  popoverMode: "auto" | "manual" | "hint";
+  contentRef: Ref<T>;
+  triggerHandlers: OverlayHandlers;
+};
+
+function sanitizeId(id: string): string {
+  return id.replace(/[^a-zA-Z0-9_-]/g, "");
+}
+
+const EVENT_TO_HANDLER: Record<string, string> = {
+  pointerenter: "onPointerEnter",
+  pointerleave: "onPointerLeave",
+  pointerdown: "onPointerDown",
+  pointerup: "onPointerUp",
+  click: "onClick",
+  focusin: "onFocus",
+  focusout: "onBlur",
+  keydown: "onKeyDown",
+  keyup: "onKeyUp",
+};
+
+/**
+ * Drives the state machine, popover toggling, anchor binding, and event
+ * wiring for overlay components (Tooltip, Popover, future Menu / Dropdown).
+ * Called by generated composite wrappers; the wrapper supplies the spec's
+ * interactions and popover binding declaratively.
+ */
+export function useOverlay<T extends HTMLElement = HTMLElement>(
+  config: OverlayConfig,
+): OverlayReturn<T> {
+  const {
+    open: openProp,
+    defaultOpen = false,
+    onOpenChange,
+    anchorVar,
+    popoverMode,
+    interactions,
+  } = config;
+
+  const controlled = openProp !== undefined;
+  const [internalOpen, setInternalOpen] = useState<boolean>(defaultOpen);
+  const open = controlled ? Boolean(openProp) : internalOpen;
+  const onOpenChangeRef = useRef(onOpenChange);
+  useEffect(() => {
+    onOpenChangeRef.current = onOpenChange;
+  }, [onOpenChange]);
+
+  const setOpen = useCallback(
+    (next: boolean) => {
+      if (!controlled) setInternalOpen(next);
+      onOpenChangeRef.current?.(next);
+    },
+    [controlled],
+  );
+
+  const rawId = useId();
+  const idCore = sanitizeId(rawId);
+  const anchorName = \`--t-\${idCore}\`;
+  const popoverId = \`t-overlay-\${idCore}\`;
+
+  const contentRef = useRef<T>(null);
+
+  const timersRef = useRef<{ open: number; close: number }>({ open: 0, close: 0 });
+  const clearTimers = useCallback(() => {
+    if (timersRef.current.open) window.clearTimeout(timersRef.current.open);
+    if (timersRef.current.close) window.clearTimeout(timersRef.current.close);
+    timersRef.current.open = 0;
+    timersRef.current.close = 0;
+  }, []);
+
+  // \`openRef\` lets effect-bound handlers read the latest state without forcing
+  // a re-bind cycle. The \`when:\` guard checks against it inside the handler.
+  const openRef = useRef(open);
+  useEffect(() => {
+    openRef.current = open;
+  }, [open]);
+
+  const schedule = useCallback(
+    (action: "open" | "close" | "toggle", delayMs: number) => {
+      clearTimers();
+      const next = action === "toggle" ? !openRef.current : action === "open";
+      if (delayMs <= 0) {
+        setOpen(next);
+        return;
+      }
+      const slot: "open" | "close" = action === "close" ? "close" : "open";
+      timersRef.current[slot] = window.setTimeout(() => setOpen(next), delayMs);
+    },
+    [clearTimers, setOpen],
+  );
+
+  // Cleanup timers on unmount.
+  useEffect(() => () => clearTimers(), [clearTimers]);
+
+  // Imperative show/hide via the Popover API. The earlier defensive check on
+  // computed display was wrong — the UA stylesheet sets \`display: none\` on
+  // every closed popover, so the check short-circuited every open attempt.
+  // Responsive-disabled gating happens via the \`data-disabled\` attribute set
+  // by the wrapper; showPopover() throws on display:none which we catch.
+  useEffect(() => {
+    const node = contentRef.current;
+    if (!node) return;
+    if (open && !node.matches(":popover-open")) {
+      try {
+        node.showPopover();
+      } catch {
+        // Popover API unsupported or display:none — degrade silently.
+      }
+    } else if (!open && node.matches(":popover-open")) {
+      try {
+        node.hidePopover();
+      } catch {
+        // Popover API unsupported — degrade silently.
+      }
+    }
+  }, [open]);
+
+  // Document/window-bound interactions. Listener mount lifecycle is tied to
+  // the rules array identity; the \`when:\` guard is evaluated per fire via
+  // \`openRef\` so the listener stays mounted across state transitions.
+  useEffect(() => {
+    const cleanups: Array<() => void> = [];
+    for (const rule of interactions) {
+      const target = rule.on.target;
+      if (target !== "document" && target !== "window") continue;
+      const sink: EventTarget = target === "document" ? document : window;
+      const handler = (event: Event) => {
+        if (rule.when === "open" && !openRef.current) return;
+        if (rule.on.key && event instanceof KeyboardEvent && event.key !== rule.on.key) return;
+        schedule(rule.do, rule.delayMs ?? 0);
+      };
+      sink.addEventListener(rule.on.event, handler);
+      cleanups.push(() => sink.removeEventListener(rule.on.event, handler));
+    }
+    return () => {
+      for (const fn of cleanups) fn();
+    };
+  }, [interactions, schedule]);
+
+  // Trigger-bound interactions become React handlers spread onto the cloned
+  // trigger child. Multiple rules on the same event merge into one handler.
+  const triggerHandlers: OverlayHandlers = {};
+  for (const rule of interactions) {
+    if (rule.on.target !== "trigger") continue;
+    const handlerName = EVENT_TO_HANDLER[rule.on.event];
+    if (!handlerName) continue;
+    const previous = triggerHandlers[handlerName];
+    const delayMs = rule.delayMs ?? 0;
+    const next = (e: unknown) => {
+      previous?.(e);
+      schedule(rule.do, delayMs);
+    };
+    triggerHandlers[handlerName] = next;
+  }
+
+  return {
+    open,
+    setOpen,
+    anchorName,
+    anchorVar,
+    popoverId,
+    popoverMode,
+    contentRef,
+    triggerHandlers,
+  };
 }
 `;
 }
@@ -503,11 +924,18 @@ function renderBarrel(names: string[]): string {
 async function loadSpec(name: string): Promise<Spec> {
   const path = resolve(SPECS_DIR, `${name}.yaml`);
   const raw = await readFile(path, "utf8");
-  const parsed = parseYaml(raw) as Spec;
-  if (parsed.name !== name) {
-    throw new Error(`spec name "${parsed.name}" in ${name}.yaml does not match file basename`);
+  const parsed = parseYaml(raw);
+  const result = SpecSchema.safeParse(parsed);
+  if (!result.success) {
+    const messages = result.error.issues
+      .map((i) => `  ${i.path.join(".")}: ${i.message}`)
+      .join("\n");
+    throw new Error(`spec ${name}.yaml failed schema validation:\n${messages}`);
   }
-  return parsed;
+  if (result.data.name !== name) {
+    throw new Error(`spec name "${result.data.name}" in ${name}.yaml does not match file basename`);
+  }
+  return flattenSpec(result.data);
 }
 
 async function listSpecNames(): Promise<string[]> {

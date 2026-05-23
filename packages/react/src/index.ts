@@ -3,3 +3,4 @@
 export { Button, type ButtonProps } from "./Button.tsx";
 export { Cluster, type ClusterProps } from "./Cluster.tsx";
 export { Stack, type StackProps } from "./Stack.tsx";
+export { Tooltip, type TooltipProps } from "./Tooltip.tsx";
