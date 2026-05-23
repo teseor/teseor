@@ -474,7 +474,9 @@ async function testsGenerator(ctx: GeneratorContext): Promise<GeneratorReport> {
   for (const name of targets) {
     const spec = await loadSpec(name);
     if (spec.kind === "composite") {
-      notes.push(`tests: ${name} skipped (composite tests land in a follow-up)`);
+      // Contract tests for composites need per-instance ID normalization
+      // (useId-derived anchor names differ per render). Tracked in #662.
+      notes.push(`tests: ${name} skipped (composite contract tests land with #662)`);
       continue;
     }
 
