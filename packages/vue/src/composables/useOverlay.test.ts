@@ -31,6 +31,8 @@ afterEach(() => {
   teardown.length = 0;
   document.body.innerHTML = "";
   resetDomPolyfills();
+  // `warnOnce` dedups per key on `window.__teseor_warned`; reset between tests.
+  delete (window as unknown as { __teseor_warned?: Set<string> }).__teseor_warned;
 });
 
 /** mount() variant that schedules the wrapper for unmount in `afterEach`. */
@@ -287,6 +289,81 @@ describe("useOverlay", () => {
     });
     expect(() => mountTracked(Harness)).not.toThrow();
     await flushPromises();
+  });
+
+  it("warns once when showPopover throws (Popover API unsupported / display:none)", async () => {
+    const htmlProto = HTMLElement.prototype as unknown as {
+      showPopover: () => void;
+      hidePopover: () => void;
+    };
+    const originalShow = htmlProto.showPopover;
+    htmlProto.showPopover = function () {
+      throw new Error("not supported");
+    };
+    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const Harness = defineComponent({
+      setup() {
+        const o = useOverlay({ ...BASE_CONFIG, defaultOpen: true });
+        return () =>
+          h("div", {
+            ref: o.contentRef as unknown as Ref<HTMLElement | null>,
+            popover: "auto",
+            id: o.popoverId,
+            "data-testid": "content",
+          });
+      },
+    });
+    try {
+      mountTracked(Harness);
+      mountTracked(Harness);
+      await flushPromises();
+      expect(warnSpy).toHaveBeenCalledOnce();
+      expect(String(warnSpy.mock.calls[0]?.[0])).toContain("[teseor]");
+      expect(String(warnSpy.mock.calls[0]?.[0])).toContain("showPopover");
+    } finally {
+      htmlProto.showPopover = originalShow;
+      warnSpy.mockRestore();
+    }
+  });
+
+  it("warns once when hidePopover throws", async () => {
+    const htmlProto = HTMLElement.prototype as unknown as {
+      showPopover: () => void;
+      hidePopover: () => void;
+    };
+    const originalHide = htmlProto.hidePopover;
+    htmlProto.hidePopover = function () {
+      throw new Error("not supported");
+    };
+    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const openRef = ref(true);
+    const Harness = defineComponent({
+      setup() {
+        const o = useOverlay({ ...BASE_CONFIG, open: () => openRef.value });
+        return () =>
+          h("div", {
+            ref: o.contentRef as unknown as Ref<HTMLElement | null>,
+            popover: "auto",
+            id: o.popoverId,
+            "data-testid": "content",
+          });
+      },
+    });
+    try {
+      mountTracked(Harness);
+      await flushPromises();
+      openRef.value = false;
+      await flushPromises();
+      openRef.value = true;
+      await flushPromises();
+      openRef.value = false;
+      await flushPromises();
+      expect(warnSpy).toHaveBeenCalledOnce();
+      expect(String(warnSpy.mock.calls[0]?.[0])).toContain("hidePopover");
+    } finally {
+      htmlProto.hidePopover = originalHide;
+      warnSpy.mockRestore();
+    }
   });
 
   it("gates schedule() against disabled at the active breakpoint (PR #660: responsive disabled shape)", () => {
