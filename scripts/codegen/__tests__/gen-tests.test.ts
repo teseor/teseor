@@ -21,10 +21,18 @@ async function loadSpec(name: string): Promise<Spec> {
 
 async function listSpecNames(): Promise<string[]> {
   const entries = await readdir(resolve(REPO_ROOT, "specs"));
-  return entries
+  const names = entries
     .filter((f) => f.endsWith(".yaml") && !f.startsWith("_"))
     .map((f) => f.slice(0, -5))
     .sort();
+  // Composite contract / behavior tests land in a follow-up; the barrel
+  // reflects what the generator actually writes (atomic specs only).
+  const atomic: string[] = [];
+  for (const name of names) {
+    const spec = await loadSpec(name);
+    if (spec.kind !== "composite") atomic.push(name);
+  }
+  return atomic;
 }
 
 describe("gen-tests", () => {
