@@ -193,7 +193,37 @@ function renderProps(spec: DocsSpec): string {
       esc(def.description ?? ""),
     ]);
   }
+  // Composite components with a `fromChildren` part automatically expose
+  // `asChild` to opt out of the default `<span>` wrapper. The flag isn't a
+  // spec prop — it's emitted by the generator — so the docs append it here.
+  if (spec.kind === "composite" && hasFromChildrenPart(spec)) {
+    rows.push([
+      `<code>asChild</code>`,
+      `<code>boolean</code>`,
+      `<code>false</code>`,
+      `Render the trigger directly on the consumer's child element (cloneElement) instead of wrapping in a &lt;span&gt;. Single-child invariant; the child must accept &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;data-state&lt;/code&gt;, &lt;code&gt;aria-describedby&lt;/code&gt;, and the trigger event handlers. Not compatible with Astro slots — use the default wrapper there.`,
+    ]);
+  }
   return section("Props", renderTable(["Prop", "Type", "Default", "Description"], rows));
+}
+
+/** True when any part of the composite is rendered from the consumer's children. */
+function hasFromChildrenPart(spec: DocsSpec): boolean {
+  if (spec.kind !== "composite") return false;
+  const visit = (
+    parts: Record<string, { fromChildren?: boolean; parts?: typeof parts }> | undefined,
+  ): boolean => {
+    if (!parts) return false;
+    for (const part of Object.values(parts)) {
+      if (part.fromChildren === true) return true;
+      if (part.parts && visit(part.parts)) return true;
+    }
+    return false;
+  };
+  return visit(
+    (spec as { parts?: Record<string, { fromChildren?: boolean; parts?: unknown }> })
+      .parts as Parameters<typeof visit>[0],
+  );
 }
 
 function renderNamed(

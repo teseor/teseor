@@ -64,6 +64,17 @@ import Base from "../../layouts/Base.astro";
   &lt;Button variant="solid" intent="primary"&gt;Trigger&lt;/Button&gt;
 &lt;/Tooltip&gt;</code></pre>
       </div>
+      <div class="t-stack" data-gap="2">
+        <h3>as-child</h3>
+        <div class="t-cluster" data-gap="3">
+          <Tooltip text="aria-describedby lands on the button itself" asChild client:visible>
+            <Button variant="solid" intent="primary">Trigger</Button>
+          </Tooltip>
+        </div>
+        <pre><code>&lt;Tooltip text="aria-describedby lands on the button itself" asChild&gt;
+  &lt;Button variant="solid" intent="primary"&gt;Trigger&lt;/Button&gt;
+&lt;/Tooltip&gt;</code></pre>
+      </div>
     </section>
     <section class="t-stack" data-gap="3">
       <h2>Props</h2>
@@ -78,6 +89,7 @@ import Base from "../../layouts/Base.astro";
         <tr><td><code>closeDelay</code></td><td><code>number</code></td><td><code>0</code></td><td>Milliseconds before the tooltip closes after leave or blur.</td></tr>
         <tr><td><code>text</code></td><td><code>string, slot</code></td><td><code>null</code></td><td>Tooltip content. Plain text; use Popover for interactive content.</td></tr>
         <tr><td><code>placement</code></td><td><code>string, responsive</code></td><td><code>top</code></td><td>Preferred side relative to the trigger. CSS `position-try-fallbacks` auto-flips on overflow.</td></tr>
+        <tr><td><code>asChild</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Render the trigger directly on the consumer's child element (cloneElement) instead of wrapping in a &lt;span&gt;. Single-child invariant; the child must accept &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;data-state&lt;/code&gt;, &lt;code&gt;aria-describedby&lt;/code&gt;, and the trigger event handlers. Not compatible with Astro slots — use the default wrapper there.</td></tr>
         </tbody>
       </table>
     </section>
@@ -94,7 +106,7 @@ import Base from "../../layouts/Base.astro";
         <tr><td><code>--t-tooltip-gap</code></td><td><code>--t-space-2</code></td><td>Distance from the trigger.</td></tr>
         <tr><td><code>--t-tooltip-dur</code></td><td><code>--t-dur-fast</code></td><td>Entry and exit duration.</td></tr>
         <tr><td><code>--t-tooltip-ease</code></td><td><code>--t-ease-out</code></td><td>Entry and exit easing.</td></tr>
-        <tr><td><code>--t-tooltip-arrow-size</code></td><td><code>--t-space-2</code></td><td>Arrow square size. Rotated 45° to form the pointer; visible half is roughly size/√2.</td></tr>
+        <tr><td><code>--t-tooltip-arrow-size</code></td><td><code>--t-space-3</code></td><td>Arrow square size. Rotated 45° to form the pointer; visible triangle is roughly size/√2 tall.</td></tr>
         <tr><td><code>--t-tooltip-arrow-bg</code></td><td><code>--t-neutral-90</code></td><td>Arrow fill. Defaults to the same neutral as `bg` so the arrow blends seamlessly with the body.</td></tr>
         </tbody>
       </table>

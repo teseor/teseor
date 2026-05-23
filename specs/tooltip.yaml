@@ -99,8 +99,8 @@ parts:
         fallback: --t-ease-out
         desc: Entry and exit easing.
       arrow-size:
-        fallback: --t-space-2
-        desc: Arrow square size. Rotated 45° to form the pointer; visible half is roughly size/√2.
+        fallback: --t-space-3
+        desc: Arrow square size. Rotated 45° to form the pointer; visible triangle is roughly size/√2 tall.
       arrow-bg:
         fallback: --t-neutral-90
         desc: Arrow fill. Defaults to the same neutral as `bg` so the arrow blends seamlessly with the body.
@@ -135,3 +135,5 @@ examples:
     props: { text: "⌘S", disabled: { base: true, md: false } }
   - id: controlled-open
     props: { text: "Step 1: click here", open: true }
+  - id: as-child
+    props: { text: "aria-describedby lands on the button itself", asChild: true }
