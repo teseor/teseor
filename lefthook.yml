@@ -32,6 +32,9 @@ pre-commit:
     motion:
       glob: 'packages/css/src/components/**/*.css'
       run: node scripts/check-motion-scale.ts
+    transitionable:
+      glob: 'packages/css/src/components/**/*.css'
+      run: node scripts/check-transitionable-property.ts
     aggregators:
       glob: '{**/package.json,pnpm-workspace.yaml}'
       run: node scripts/check-script-aggregators.ts
