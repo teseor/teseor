@@ -6,7 +6,9 @@
  */
 import "@teseor/css/components/tooltip.css";
 import { computed } from "vue";
-import { type Responsive, responsiveDataAttrs, Slot, useOverlay } from "./_runtime.ts";
+import { type Responsive, responsiveDataAttrs } from "./_runtime.ts";
+import { Slot } from "./components/Slot.ts";
+import { useOverlay } from "./composables/useOverlay.ts";
 
 type TooltipPlacement = "top" | "right" | "bottom" | "left";
 
