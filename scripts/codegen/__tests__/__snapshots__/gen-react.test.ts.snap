@@ -648,7 +648,11 @@ export function useOverlay<T extends HTMLElement = HTMLElement>(
       previous?.(e);
       if (rule.when === "open" && !openRef.current) return;
       if (rule.on.key) {
-        if (!(e instanceof KeyboardEvent) || e.key !== rule.on.key) return;
+        // React passes a SyntheticEvent (not a native KeyboardEvent), so
+        // \`instanceof KeyboardEvent\` is always false here. Duck-type on
+        // \`.key\` — works for both React synthetic and native events.
+        const key = (e as { key?: string } | null)?.key;
+        if (key !== rule.on.key) return;
       }
       schedule(rule.do, delayMs);
     };
