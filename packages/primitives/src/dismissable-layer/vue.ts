@@ -12,8 +12,10 @@ import {
  * notifying layer is subscribed. Re-subscribes when the element changes or
  * `active` toggles, and tears down on component unmount.
  *
- * The options object is captured at subscribe time; pass a new object to
- * re-subscribe with different callbacks.
+ * `setup()` runs once, so the `options` callbacks are captured at first
+ * call. If you need a callback to react to state, close over `ref`s or
+ * `reactive` values declared in `setup()` scope — Vue will see live values
+ * each time the callback fires.
  */
 export function useDismissableLayer(
   elementRef: Ref<HTMLElement | null>,
