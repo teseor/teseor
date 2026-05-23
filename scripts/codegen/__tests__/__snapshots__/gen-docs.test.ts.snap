@@ -255,6 +255,10 @@ import Base from "../../layouts/Base.astro";
         </tbody>
       </table>
     </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Accessibility</h2>
+      <p>Role: <code>generic</code></p>
+    </section>
   </main>
 </Base>
 "
@@ -341,6 +345,10 @@ import Base from "../../layouts/Base.astro";
         <tr><td><code>--t-stack-align</code></td><td><code>--t-align-stretch</code></td><td>Default inline-axis alignment when \`align\` is unset; overridable via \`--t-stack-align\`.</td></tr>
         </tbody>
       </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Accessibility</h2>
+      <p>Role: <code>generic</code></p>
     </section>
   </main>
 </Base>
