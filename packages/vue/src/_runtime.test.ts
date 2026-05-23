@@ -1,8 +1,9 @@
 // @vitest-environment happy-dom
-import { flushPromises, mount } from "@vue/test-utils";
+import { flushPromises, mount, type VueWrapper } from "@vue/test-utils";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   type App,
+  type Component,
   createApp,
   defineComponent,
   Fragment,
@@ -36,8 +37,19 @@ const teardown: Array<() => void> = [];
 afterEach(() => {
   for (const fn of teardown) fn();
   teardown.length = 0;
+  document.body.innerHTML = "";
   resetDomPolyfills();
 });
+
+/** mount() variant that schedules the wrapper for unmount in `afterEach`. */
+function mountTracked<C extends Component>(
+  component: C,
+  options?: Parameters<typeof mount>[1],
+): VueWrapper {
+  const wrapper = mount(component as Parameters<typeof mount>[0], options);
+  teardown.push(() => wrapper.unmount());
+  return wrapper;
+}
 
 /** Mount a composable in a throwaway component so lifecycle hooks fire. */
 function withSetup<T>(composable: () => T): { api: T; app: App; unmount: () => void } {
@@ -205,7 +217,7 @@ describe("Slot", () => {
   });
 
   it("warns and renders nothing on multiple slot children", () => {
-    const wrapper = mount(Slot, {
+    const wrapper = mountTracked(Slot, {
       slots: {
         default: () => [h("button", { type: "button" }, "a"), h("button", { type: "button" }, "b")],
       },
@@ -215,7 +227,7 @@ describe("Slot", () => {
   });
 
   it("warns and renders nothing on Fragment child (filter drops symbol-typed vnodes)", () => {
-    const wrapper = mount(Slot, {
+    const wrapper = mountTracked(Slot, {
       slots: {
         default: () =>
           h(Fragment, null, [
@@ -229,13 +241,13 @@ describe("Slot", () => {
   });
 
   it("warns and renders nothing when default slot is empty", () => {
-    const wrapper = mount(Slot, { slots: { default: () => [] } });
+    const wrapper = mountTracked(Slot, { slots: { default: () => [] } });
     expect(wrapper.html()).toBe("");
     expect(warnSpy).toHaveBeenCalled();
   });
 
   it("merges class attribute onto the child", () => {
-    const wrapper = mount(Slot, {
+    const wrapper = mountTracked(Slot, {
       attrs: { class: "overlay" },
       slots: { default: () => h("button", { type: "button", class: "primary" }, "x") },
     });
@@ -244,7 +256,7 @@ describe("Slot", () => {
   });
 
   it("merges style attribute onto the child", () => {
-    const wrapper = mount(Slot, {
+    const wrapper = mountTracked(Slot, {
       attrs: { style: { color: "red", padding: "8px" } },
       slots: {
         default: () =>
@@ -261,7 +273,7 @@ describe("Slot", () => {
     const calls: string[] = [];
     const childHandler = () => calls.push("child");
     const slotHandler = () => calls.push("slot");
-    const wrapper = mount(Slot, {
+    const wrapper = mountTracked(Slot, {
       attrs: { onClick: slotHandler },
       slots: { default: () => h("button", { type: "button", onClick: childHandler }, "x") },
     });
@@ -270,7 +282,7 @@ describe("Slot", () => {
   });
 
   it("forwards aria / data attributes onto the child", () => {
-    const wrapper = mount(Slot, {
+    const wrapper = mountTracked(Slot, {
       attrs: { "aria-describedby": "tip-1", "data-state": "open" },
       slots: { default: () => h("button", { type: "button" }, "x") },
     });
@@ -522,8 +534,7 @@ describe("useOverlay", () => {
           ]);
       },
     });
-    const wrapper = mount(Harness);
-    teardown.push(() => wrapper.unmount());
+    const wrapper = mountTracked(Harness);
     hasContent.value = true;
     await flushPromises();
     const content = wrapper.find('[data-testid="content"]').element as HTMLElement;
@@ -532,7 +543,6 @@ describe("useOverlay", () => {
 
   it("does not throw when :popover-open selector is unsupported (PR #660: SyntaxError on probe)", async () => {
     setSupportsPopoverOpenSelector(false);
-    let mounted = true;
     const Harness = defineComponent({
       setup() {
         const o = useOverlay({ ...BASE_CONFIG, defaultOpen: true });
@@ -545,13 +555,7 @@ describe("useOverlay", () => {
           });
       },
     });
-    expect(() => {
-      const wrapper = mount(Harness);
-      teardown.push(() => {
-        if (mounted) wrapper.unmount();
-        mounted = false;
-      });
-    }).not.toThrow();
+    expect(() => mountTracked(Harness)).not.toThrow();
     await flushPromises();
   });
 
