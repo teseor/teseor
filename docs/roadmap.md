@@ -41,8 +41,8 @@ Phase 1 components, generated wrappers, generated docs. **Primitives package pul
 - Components: Input, Select, Textarea, Checkbox, Radio, Switch, Badge, Dot, Avatar, Icon, Kbd, Divider, Anchor.
 - Layout primitives complete: Center, Sidebar (Stack + Cluster shipped in v0.2).
 - All Phase 1 specs at `specs/*.yaml`.
-- **`@teseor/primitives` package** ships here (was v0.4): focus-trap, portal, dismissable-layer, anchor positioning. Vanilla functions + per-framework adapters (Radix headless-utility-package model).
-- **First overlay components: Tooltip + Popover** — exercise primitives at low stakes before Modal lands in v0.4.
+- **`@teseor/primitives` package** ships here (was v0.4): focus-trap, portal, dismissable-layer. Vanilla functions + per-framework adapters (Radix headless-utility-package model). Anchor positioning is handled by **CSS Anchor Positioning + Popover API** (Baseline 2026: Chrome 125+, Firefox 147+, Safari 26+) per [`ADR/0011`](ADR/0011-css-anchor-positioning-for-overlays.md) — no JS positioning primitive ships in v0.3.
+- **First overlay components: Tooltip + Popover** — exercise primitives at low stakes before Modal lands in v0.4. Positioning entirely in CSS via [`architecture/anchor-positioning.md`](architecture/anchor-positioning.md).
 - **Utilities at v0.3: animation (`.t-animate-*`) + text (`.t-truncate`, `.t-line-clamp-*`) + responsive visibility (`.t-hidden-md`, `.t-show-md`).**
 - `@teseor/i18n` (in-house ~20-line ICU-like framework, fallback to `en`).
 - Two themes: `default` and `editorial`.
