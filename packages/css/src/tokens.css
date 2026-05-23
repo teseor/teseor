@@ -152,6 +152,21 @@
     /* Motion scale — gated by prefers-reduced-motion below */
     --t-motion-scale: 1;
 
+    /* ===== Density ===== */
+
+    /* Multiplier for spacing shorthands. Default `1`; opt-in modifiers
+       (`[data-density="compact"]` / `[data-density="comfortable"]`) reassign
+       it in the semantic layer. Component CSS that multiplies a spacing
+       token by `var(--t-density)` follows the modifier automatically. */
+    --t-density: 1;
+
+    /* ===== Touch target (accessibility floor) ===== */
+
+    /* 44px @ 16px root — the WCAG 2.5.5 floor for interactive controls.
+       `--t-row` (control-height shorthand) clamps to this so a compact
+       density can never shrink an interactive root below the floor. */
+    --t-touch-min: 2.75rem;
+
     /* ===== Z-index ===== */
     --t-z-base: 0;
     --t-z-dropdown: 10;
@@ -201,10 +216,25 @@
     --t-focus-ring: var(--t-accent-500);
 
     /* ===== Spacing shorthands ===== */
-    --t-pad-x: var(--t-space-4);
-    --t-pad-y: var(--t-space-2);
-    --t-gap: var(--t-space-3);
-    --t-row: var(--t-row-2);
+
+    /* All four multiply by `--t-density`; `--t-row` is also floored at
+       `--t-touch-min` so the control height never crosses the WCAG
+       touch-target line under a compact density. */
+    --t-pad-x: calc(var(--t-space-4) * var(--t-density));
+    --t-pad-y: calc(var(--t-space-2) * var(--t-density));
+    --t-gap: calc(var(--t-space-3) * var(--t-density));
+    --t-row: max(var(--t-touch-min), calc(var(--t-row-2) * var(--t-density)));
+  }
+
+  /* Density opt-in. Apply on any subtree to scale spacing shorthands; the
+     row-height floor still applies. `compact` and `comfortable` are the two
+     supported values. */
+  [data-density="compact"] {
+    --t-density: 0.875;
+  }
+
+  [data-density="comfortable"] {
+    --t-density: 1.125;
   }
 
   /* Forced-colors remap to CSS system colors. */

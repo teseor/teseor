@@ -25,12 +25,14 @@ Numeric or unitless values. No references to other tokens. Generated from a desi
 :root {
   --t-fg: var(--t-neutral-90);
   --t-accent: var(--t-accent-500);
-  --t-pad-x: var(--t-space-4);
-  --t-row: var(--t-row-2);
+  --t-pad-x: calc(var(--t-space-4) * var(--t-density));
+  --t-row: max(var(--t-touch-min), calc(var(--t-row-2) * var(--t-density)));
 }
 ```
 
 Names describe role, not appearance. `--t-accent` not `--t-blue`. Switching a theme means switching these aliases — never the scale.
+
+Spacing shorthands (`--t-pad-x`, `--t-pad-y`, `--t-gap`, `--t-row`) multiply by `--t-density` (default `1`) so a `[data-density="compact"]` or `[data-density="comfortable"]` subtree scales the whole spacing surface in one place. `--t-row` is additionally floored at `--t-touch-min` (the 44px WCAG 2.5.5 touch-target) — a compact density can shrink padding and gaps freely but cannot drop an interactive root below the accessibility floor.
 
 **Tier 3 — Component-private.** Lives inside a component file. Prefix `--_`.
 

@@ -127,6 +127,10 @@ We rejected the data-attribute form (`data-hidden-md`) because classes compose o
 
 Interactive component roots target ≥44px at the base (mobile) breakpoint (per `rules/accessibility.md` § "Touch targets"). Larger breakpoints can shrink for density via explicit opt-in (`data-density="compact"`), but never silently. The `--t-touch-min` token (default `2.75rem`) is the floor; responsive sizing reduces from that, never below.
 
+## Density
+
+`[data-density="compact"]` and `[data-density="comfortable"]` on any element reassign `--t-density` (`0.875` and `1.125`); the four spacing shorthands (`--t-pad-x`, `--t-pad-y`, `--t-gap`, `--t-row`) multiply by it. `--t-row` is floored at `--t-touch-min` so an interactive root never falls below the WCAG touch target under a compact density. No utility classes — set the attribute on a section to scope the change; no extra components react.
+
 ## Sources
 
 - `utilities.md` § "Visibility" (the class-based visibility utilities this references)
