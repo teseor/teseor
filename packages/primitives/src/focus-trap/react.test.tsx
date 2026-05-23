@@ -1,5 +1,5 @@
 // @vitest-environment happy-dom
-import { act, useRef } from "react";
+import { act, useState } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { useFocusTrap } from "./react.ts";
@@ -8,10 +8,10 @@ let mountTarget: HTMLDivElement;
 let root: Root;
 
 function Trap(props: { active: boolean }) {
-  const ref = useRef<HTMLDivElement>(null);
-  useFocusTrap(ref, props.active);
+  const [container, setContainer] = useState<HTMLElement | null>(null);
+  useFocusTrap(container, props.active);
   return (
-    <div ref={ref} id="trap">
+    <div ref={setContainer} id="trap">
       <button type="button" id="first">
         First
       </button>

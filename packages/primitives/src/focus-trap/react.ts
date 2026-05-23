@@ -1,19 +1,20 @@
-import { type RefObject, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { createFocusTrap, type FocusTrapOptions } from "./index.ts";
 
 /**
  * React adapter for {@link createFocusTrap}.
  *
- * While `active` is true, focus is confined to `containerRef.current`. The
- * trap activates on mount (or when `active` flips to true), deactivates on
- * unmount (or when `active` flips to false), and restores focus to wherever
- * it came from.
+ * While `active` is true and `container` is non-null, focus is confined to
+ * the element. Pass the element directly (typically from a state-driven
+ * callback ref, e.g. `useState<HTMLElement | null>(null)` plus `ref={setEl}`)
+ * so the effect re-runs when the element itself changes — a `RefObject` is
+ * stable across renders and silently skips element swaps.
  *
- * Options are captured at activation time. Pass a new object to re-configure
- * on the next activation cycle; mid-cycle changes are not reread.
+ * Options are captured at activation time; pass a new object to re-configure
+ * on the next activation cycle.
  */
 export function useFocusTrap(
-  containerRef: RefObject<HTMLElement | null>,
+  container: HTMLElement | null,
   active: boolean,
   options?: FocusTrapOptions,
 ): void {
@@ -23,13 +24,11 @@ export function useFocusTrap(
   optionsRef.current = options;
 
   useEffect(() => {
-    if (!active) return;
-    const container = containerRef.current;
-    if (!container) return;
+    if (!active || !container) return;
     const trap = createFocusTrap(container, optionsRef.current);
     trap.activate();
     return () => {
       trap.deactivate();
     };
-  }, [active, containerRef]);
+  }, [active, container]);
 }
