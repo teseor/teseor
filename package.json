@@ -33,7 +33,7 @@
     "lint:doc-paths": "node scripts/check-doc-paths.ts",
     "lint:contract-snapshots": "node scripts/check-contract-snapshots.ts",
     "lint:md": "markdownlint-cli2",
-    "gen": "pnpm --filter @teseor/codegen run gen",
+    "gen": "pnpm --filter @teseor/codegen run gen && pnpm build:css && biome check --write --no-errors-on-unmatched packages/react/src packages/vue/src packages/contract/src apps/docs/src apps/harness/src/fixtures tests/contract",
     "typecheck": "tsc --noEmit && pnpm -r --if-present run typecheck",
     "size": "size-limit",
     "migrate:specs": "node scripts/migrate-specs.ts",
