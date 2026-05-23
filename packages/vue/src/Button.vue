@@ -29,6 +29,8 @@ type ButtonIntent = "primary" | "neutral" | "success" | "warning" | "danger";
 
 type ButtonSize = "sm" | "md" | "lg";
 
+type ButtonAs = "button" | "a";
+
 type ButtonProps = {
   /** Visual style. */
   variant?: ButtonVariant;
@@ -37,7 +39,7 @@ type ButtonProps = {
   /** Size scale. */
   size?: Responsive<ButtonSize>;
   /** Polymorphic root element. Defaults to `button`; set to `a` for link-shaped triggers (paired with `variant: link`). */
-  as?: string;
+  as?: ButtonAs;
   /** Disables interaction and applies the disabled visual state. Mapped to the native `disabled` attribute on `button`, `aria-disabled="true"` otherwise. */
   disabled?: boolean;
   /** Shows a spinner in place of the label and disables interaction. The original label stays in the accessibility tree. */

@@ -4,14 +4,16 @@
 // Source: specs/button.yaml
 
 import "@teseor/css/components/button.css";
-import type { ComponentProps, ElementType, ReactNode, Ref } from "react";
-import { type Responsive, responsiveDataAttrs } from "./_runtime.ts";
+import type { ComponentProps, ReactNode, Ref } from "react";
+import { asElement, type Responsive, responsiveDataAttrs } from "./_runtime.ts";
 
 type ButtonVariant = "solid" | "outline" | "ghost" | "link";
 
 type ButtonIntent = "primary" | "neutral" | "success" | "warning" | "danger";
 
 type ButtonSize = "sm" | "md" | "lg";
+
+type ButtonAs = "button" | "a";
 
 type ButtonOwnProps = {
   /** Visual style. */
@@ -21,7 +23,7 @@ type ButtonOwnProps = {
   /** Size scale. */
   size?: Responsive<ButtonSize>;
   /** Polymorphic root element. Defaults to `button`; set to `a` for link-shaped triggers (paired with `variant: link`). */
-  as?: ElementType;
+  as?: ButtonAs;
   /** Disables interaction and applies the disabled visual state. Mapped to the native `disabled` attribute on `button`, `aria-disabled="true"` otherwise. */
   disabled?: boolean;
   /** Shows a spinner in place of the label and disables interaction. The original label stays in the accessibility tree. */
@@ -75,7 +77,7 @@ export function Button(props: ButtonProps) {
     ...rest
   } = props;
 
-  const Component = as ?? "button";
+  const Component = asElement(as ?? "button");
   const isButton = Component === "button";
   const inactive = disabled === true || loading === true;
   const mergedClassName = className ? `t-button ${className}` : "t-button";

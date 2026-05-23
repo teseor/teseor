@@ -2,6 +2,7 @@ import { describe, expect, test } from "vitest";
 import type { Vocabulary } from "./lib/vocabulary.ts";
 import type { Spec } from "./schema.ts";
 import {
+  checkAsIsConstrained,
   checkConstraintsAgainstExamples,
   checkConstraintsAgainstMatrix,
   checkCssImportAllowlist,
@@ -370,6 +371,89 @@ describe("checkResponsiveExplicit", () => {
     const issues = checkResponsiveExplicit(spec);
     expect(issues).toHaveLength(1);
     expect(issues[0]?.path).toBe("parts.content.props.open.responsive");
+  });
+});
+
+describe("checkAsIsConstrained", () => {
+  test("flags an `as` prop that omits `values:`", () => {
+    const spec = makeButton({
+      props: {
+        as: { type: "string", responsive: false, description: "Polymorphic root." },
+      },
+    });
+    const issues = checkAsIsConstrained(spec);
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.path).toBe("props.as.values");
+  });
+
+  test("accepts `as` with a closed values: list that includes the fallback element", () => {
+    const spec = makeButton({
+      props: {
+        as: {
+          type: "string",
+          values: ["button", "a"],
+          default: "button",
+          responsive: false,
+          description: "Polymorphic root.",
+        },
+      },
+    });
+    expect(checkAsIsConstrained(spec)).toEqual([]);
+  });
+
+  test("flags `values:` that omits the fallback element", () => {
+    const spec = makeButton({
+      props: {
+        as: {
+          type: "string",
+          values: ["a", "span"],
+          responsive: false,
+          description: "Polymorphic root.",
+        },
+      },
+    });
+    const issues = checkAsIsConstrained(spec);
+    expect(issues.some((i) => i.message.includes("'button'"))).toBe(true);
+  });
+
+  test("flags a `default:` that is not in `values:`", () => {
+    const spec = makeButton({
+      props: {
+        as: {
+          type: "string",
+          values: ["button", "a"],
+          default: "div",
+          responsive: false,
+          description: "Polymorphic root.",
+        },
+      },
+    });
+    const issues = checkAsIsConstrained(spec);
+    expect(issues.some((i) => i.path === "props.as.default")).toBe(true);
+  });
+
+  test("flags `as` declared as a non-string type", () => {
+    const spec = makeButton({
+      props: {
+        as: { type: "boolean", responsive: false, description: "Bogus." },
+      },
+    });
+    const issues = checkAsIsConstrained(spec);
+    expect(issues.some((i) => i.path === "props.as.type")).toBe(true);
+  });
+
+  test("walks composite parts", () => {
+    const spec: Spec = {
+      name: "popover",
+      kind: "composite",
+      parts: {
+        trigger: {
+          props: { as: { type: "string", description: "Polymorphic trigger." } },
+        },
+      },
+    };
+    const issues = checkAsIsConstrained(spec);
+    expect(issues.some((i) => i.path === "parts.trigger.props.as.values")).toBe(true);
   });
 });
 

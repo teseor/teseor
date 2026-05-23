@@ -550,6 +550,63 @@ export function checkCssImportAllowlist(spec: Spec, css: string | undefined): Is
   return issues;
 }
 
+// ── `as:` must be a closed string-union ─────────────────────────────────────
+
+/**
+ * The polymorphic `as` prop is a semantic element swap — Button is realistically
+ * `button` or `a`, not "any HTML tag." Enforce that a spec declaring an `as`
+ * prop also declares `values:` (a curated string-list), `type: string`, and
+ * that `values:` covers the fallback element (the node's `element:`, which
+ * codegen falls back to via `as ?? element`) and the prop's `default:` if set.
+ * Walks composite parts.
+ */
+export function checkAsIsConstrained(spec: Spec): Issue[] {
+  const issues: Issue[] = [];
+  visitNodes(spec, (node, path) => {
+    const asProp = node.props?.as;
+    if (!asProp) return;
+    const propPath = path === "" ? "props.as" : `${path}.props.as`;
+    if (asProp.type !== "string") {
+      issues.push(
+        issue(
+          spec.name,
+          `${propPath}.type`,
+          "`as` must be declared as `type: string` so codegen can emit a typed union",
+        ),
+      );
+    }
+    if (!asProp.values || asProp.values.length === 0) {
+      issues.push(
+        issue(
+          spec.name,
+          `${propPath}.values`,
+          "`as` must declare `values:` (a curated list of element names); custom components are not allowed",
+        ),
+      );
+      return;
+    }
+    if (typeof node.element === "string" && !asProp.values.includes(node.element)) {
+      issues.push(
+        issue(
+          spec.name,
+          `${propPath}.values`,
+          `must include the fallback element '${node.element}' (codegen falls back to it when \`as\` is omitted)`,
+        ),
+      );
+    }
+    if (typeof asProp.default === "string" && !asProp.values.includes(asProp.default)) {
+      issues.push(
+        issue(
+          spec.name,
+          `${propPath}.default`,
+          `default '${asProp.default}' is not in values: [${asProp.values.join(", ")}]`,
+        ),
+      );
+    }
+  });
+  return issues;
+}
+
 // ── Responsive: explicit per-prop decision (#594) ───────────────────────────
 
 /**
@@ -630,6 +687,7 @@ export function runSemanticChecks(
     ...checkCssImportAllowlist(spec, ctx.css),
     ...checkVariantChoiceKeys(spec),
     ...checkResponsiveExplicit(spec),
+    ...checkAsIsConstrained(spec),
   ];
 }
 
