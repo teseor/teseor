@@ -1,6 +1,6 @@
 {
   "name": "@teseor/preview",
-  "version": "0.0.0",
+  "version": "3.1.0",
   "private": true,
   "description": "Preview app for hand-checking tokens, reset, base styles, and component wrappers.",
   "type": "module",

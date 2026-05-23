@@ -1,6 +1,6 @@
 {
   "name": "@teseor/codegen",
-  "version": "0.0.0",
+  "version": "3.1.0",
   "private": true,
   "description": "Teseor codegen — registry-driven entrypoint for spec-derived artifacts.",
   "type": "module",
