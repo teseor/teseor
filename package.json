@@ -15,7 +15,7 @@
     "build:docs": "pnpm build:css && pnpm --filter @teseor/docs run build",
     "dev:docs": "pnpm build:css && pnpm --filter @teseor/docs run dev",
     "preview": "pnpm --filter @teseor/preview run preview",
-    "test": "pnpm -r --if-present run test",
+    "test": "vitest run",
     "test:e2e": "playwright test",
     "test:visual": "echo 'test:visual: lands at v0.2' && exit 0",
     "test:a11y": "echo 'test:a11y: lands at v0.2' && exit 0",

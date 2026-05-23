@@ -19,7 +19,7 @@ The bare-verb defaults are the verbs you reach for daily: `dev`, `build`, `test`
 | `pnpm gen` | All codegen (wrappers + contract + docs + tests) | After spec changes | Developer + CI |
 | `pnpm gen --component=<name>` | Regen one component, all targets | Inner loop on a spec | Developer |
 | `pnpm gen --target=<react\|vue\|...>` | One target, all components | Debugging a generator | Developer |
-| `pnpm test` | Recursive `test` across packages — the Vitest suite (unit + integration) | Before push; in CI | Developer + CI |
+| `pnpm test` | Vitest suite (unit + integration) — every test under `packages/**` and `scripts/**` | Before push; in CI | Developer + CI |
 | `pnpm test:e2e` | Playwright DOM-contract suite (`tests/*.spec.ts`) | When wrappers or interactions changed; in CI | Developer + CI |
 | `pnpm test:visual` | Placeholder — the pixel-diff suite lands with the visual gate | When visuals changed | Developer + CI |
 | `pnpm test:a11y` | Placeholder — the axe-core suite lands with the a11y gate | When ARIA / keyboard map changed | Developer |
