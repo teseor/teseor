@@ -17,6 +17,10 @@ const ALLOW = new Set([
   "border-color",
   "box-shadow",
   "outline-color",
+  // Discrete-value transitions — paired with `allow-discrete` to animate
+  // popover entry/exit via the Popover API + @starting-style pattern.
+  "display",
+  "overlay",
 ]);
 
 const CSS_WIDE = new Set(["none", "inherit", "initial", "unset", "revert", "revert-layer", ""]);

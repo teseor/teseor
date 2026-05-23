@@ -66,9 +66,15 @@
       flip-block flip-inline;
     opacity: 0;
     transform: translateY(var(--_translate));
+
+    /* `allow-discrete` animates `display` and the browser's top-layer flag
+       across `block ↔ none`, so the close transition is visible. Without it
+       the popover snaps off. Paired with `@starting-style` for entry. */
     transition:
       opacity calc(var(--_dur) * var(--t-motion-scale)) var(--_ease),
-      transform calc(var(--_dur) * var(--t-motion-scale)) var(--_ease);
+      transform calc(var(--_dur) * var(--t-motion-scale)) var(--_ease),
+      display calc(var(--_dur) * var(--t-motion-scale)) allow-discrete,
+      overlay calc(var(--_dur) * var(--t-motion-scale)) allow-discrete;
 
     /* Rotated-square arrow pointing at the trigger. Each data-placement
        rule sets `--_arrow-inset` (shorthand) and `--_arrow-transform` —
