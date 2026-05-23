@@ -46,28 +46,36 @@ export function diffContractSnapshot(
 
 function main(): void {
   const violations: Violation[] = [];
-  const specs = readdirSync(CONTRACT_DIR).filter(
-    (f) => f.endsWith(".spec.ts") && !f.startsWith("_"),
-  );
+  // Sort so violation output is stable across filesystems / CI runners.
+  const specs = readdirSync(CONTRACT_DIR)
+    .filter((f) => f.endsWith(".spec.ts") && !f.startsWith("_"))
+    .sort();
   for (const spec of specs) {
     const component = spec.replace(/\.spec\.ts$/, "");
+    const specSource = readFileSync(resolve(CONTRACT_DIR, spec), "utf8");
     const snapshotPath = resolve(
       CONTRACT_DIR,
       `${component}.spec.ts-snapshots`,
       `${component}.html`,
     );
-    let snapshot: string;
+    let snapshot: string | null = null;
     try {
       snapshot = readFileSync(snapshotPath, "utf8");
-    } catch {
+    } catch (err) {
+      // Only "snapshot file absent" is a recoverable drift signal; surface any
+      // other IO error (permissions, etc.) with its original stack.
+      if (!(err instanceof Error && "code" in err && err.code === "ENOENT")) {
+        throw err;
+      }
+    }
+    if (snapshot === null) {
       violations.push({
         component,
-        missing: extractFixtureIds(readFileSync(resolve(CONTRACT_DIR, spec), "utf8")),
+        missing: extractFixtureIds(specSource),
         orphan: [],
       });
       continue;
     }
-    const specSource = readFileSync(resolve(CONTRACT_DIR, spec), "utf8");
     const { missing, orphan } = diffContractSnapshot(specSource, snapshot);
     if (missing.length > 0 || orphan.length > 0) {
       violations.push({ component, missing, orphan });
