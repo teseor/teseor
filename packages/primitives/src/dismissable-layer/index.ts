@@ -50,13 +50,16 @@ function handlePointerDown(event: PointerEvent): void {
 
 function ensureGlobalListeners(): void {
   if (stack.length !== 1) return;
-  document.addEventListener("keydown", handleKeyDown);
+  // Capture phase on both: a component inside the layer that calls
+  // `stopPropagation()` on Escape or pointerdown must not suppress dismissal.
+  // Matches focus-trap's capture-phase listener pattern.
+  document.addEventListener("keydown", handleKeyDown, true);
   document.addEventListener("pointerdown", handlePointerDown, true);
 }
 
 function teardownGlobalListenersIfEmpty(): void {
   if (stack.length !== 0) return;
-  document.removeEventListener("keydown", handleKeyDown);
+  document.removeEventListener("keydown", handleKeyDown, true);
   document.removeEventListener("pointerdown", handlePointerDown, true);
 }
 
