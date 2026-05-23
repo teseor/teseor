@@ -7,13 +7,19 @@
 // This primitive only notifies. State management is the consumer's job —
 // the callback is where the consumer sets `open = false` or equivalent.
 
+/** Event seen by `onInteractOutside`. Currently a `PointerEvent`; widens to
+ *  a union as additional outside-channels (focus, etc.) ship. Exported so
+ *  consumers can name the type without binding to today's narrow shape. */
+export type InteractOutsideEvent = PointerEvent;
+
 export type DismissableLayerOptions = {
   /** Fires when Escape is pressed while this is the topmost layer. */
   onEscapeKeyDown?: (event: KeyboardEvent) => void;
   /** Fires when a pointer-down lands outside this layer's element. */
   onPointerDownOutside?: (event: PointerEvent) => void;
-  /** Convenience: fires alongside any outside-pointer event. */
-  onInteractOutside?: (event: PointerEvent) => void;
+  /** Convenience: fires alongside every outside-pointer event today; will
+   *  also cover focus-outside and any future channels as they're added. */
+  onInteractOutside?: (event: InteractOutsideEvent) => void;
 };
 
 export type DismissableLayer = {
