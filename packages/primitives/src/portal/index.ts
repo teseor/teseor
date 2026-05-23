@@ -37,12 +37,29 @@ function resolveTarget(
  * Creates a DOM container and attaches it to `target` (default
  * `document.body`). Returns the container plus an `unmount` cleanup. If
  * `container` is provided it is used as-is; otherwise a fresh `<div>` is
- * created. Calling `unmount` more than once is a no-op. Throws if no
- * explicit target is given and `document.body` is unavailable.
+ * created in the target's `ownerDocument` (so a target inside an iframe
+ * yields a container belonging to that iframe's document). Calling
+ * `unmount` more than once is a no-op. Throws when no explicit target is
+ * given and `document.body` is unavailable, or when a default container
+ * is needed but the target has no `ownerDocument`.
  */
 export function createPortal(options: PortalOptions = {}): Portal {
   const target = resolveTarget(options.target);
-  const container = options.container ?? document.createElement("div");
+  let container: HTMLElement;
+  if (options.container) {
+    container = options.container;
+  } else {
+    // Use the target's ownerDocument so a portal placed in an iframe's DOM
+    // gets a container that belongs to that iframe — `document.createElement`
+    // here would silently cross documents.
+    const doc = target.ownerDocument;
+    if (!doc) {
+      throw new Error(
+        "createPortal: target has no `ownerDocument` and no `container` was provided",
+      );
+    }
+    container = doc.createElement("div");
+  }
   target.appendChild(container);
   let mounted = true;
   return {

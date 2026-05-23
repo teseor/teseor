@@ -59,6 +59,18 @@ describe("createPortal", () => {
     }
   });
 
+  it("creates the default container in the target's ownerDocument", () => {
+    // A target from a different Document (iframe-like) yields a container
+    // that belongs to that document, not the surrounding one.
+    const otherDoc = document.implementation.createHTMLDocument();
+    const otherBody = otherDoc.body;
+    if (!otherBody) throw new Error("createHTMLDocument did not produce a body");
+    const portal = createPortal({ target: otherBody });
+    expect(portal.container.ownerDocument).toBe(otherDoc);
+    expect(portal.container.parentNode).toBe(otherBody);
+    portal.unmount();
+  });
+
   it("hosts arbitrary content appended to the container", () => {
     const portal = createPortal();
     const child = document.createElement("p");
