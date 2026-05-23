@@ -14,4 +14,8 @@ export const fixtures: Record<string, () => ReactNode> = {
   "responsive-gap": () => <Stack gap={{ "base": "2", "md": "4", "lg": "6" }}>{LABEL}</Stack>,
   "responsive-align": () => <Stack gap="3" align={{ "base": "start", "md": "center" }}>{LABEL}</Stack>,
   "gap-and-align": () => <Stack gap="5" align="end">{LABEL}</Stack>,
+  "cov-center": () => <Stack align="center">{LABEL}</Stack>,
+  "cov-end": () => <Stack align="end">{LABEL}</Stack>,
+  "cov-start": () => <Stack align="start">{LABEL}</Stack>,
+  "cov-stretch": () => <Stack align="stretch">{LABEL}</Stack>,
 };
