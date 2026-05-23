@@ -40,7 +40,7 @@ jobs:
           PR_TITLE: ${{ github.event.pull_request.title }}
         run: |
           set -e
-          fixed='token theme codegen showcase css wrapper i18n ci repo claude scripts docs spec'
+          fixed='token theme codegen showcase css wrapper i18n ci repo claude scripts docs spec primitives'
           components=''
           shopt -s nullglob
           for spec in specs/*.yaml; do
