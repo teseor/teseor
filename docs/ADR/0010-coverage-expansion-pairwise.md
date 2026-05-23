@@ -1,11 +1,11 @@
-# ADR-0010 — Matrix expansion: pairwise for contract fixtures
+# ADR-0010 — Coverage expansion: pairwise for contract fixtures
 
 - **Status:** Proposed.
 - **Deciders:** repo owner (letanure).
 
 ## Decision
 
-The `matrix:` block (RFC 0001 § 3; issue #581) expands to a **pairwise
+The `coverage:` block (RFC 0001 § 3; issue #581) expands to a **pairwise
 covering set** of fixtures, not cartesian. For Button (4 variants × 5
 intents × 3 sizes = 60 cartesian), pairwise yields ~12–15 fixtures while
 still exercising every (variant, intent), (variant, size), and (intent,
@@ -13,10 +13,10 @@ size) pair at least once. `constraints:` is applied **before** expansion:
 forbidden cells are removed from the dimension inputs, not generated and
 filtered out.
 
-A `matrix:` block declares which dimensions vary:
+A `coverage:` block declares which dimensions vary:
 
 ```yaml
-matrix:
+coverage:
   variant: true                      # all defined variants
   intent: true                       # all defined intents
   size: true                         # all defined sizes
@@ -61,27 +61,27 @@ Dimensions not listed are pinned at their default value.
   like `m-solid-primary-md`. The IDs are stable across runs (no
   hashing); regenerating the same spec produces the same fixture file.
 - The hand-curated `examples:` set stays. It is the docs surface and the
-  smoke-test set; the matrix expansion is test-only.
+  smoke-test set; the coverage expansion is test-only.
 - Snapshot files multiply by roughly 8× per component over the
   hand-picked examples, not 30×. They also degrade gracefully when
   specs change: re-baselining is review-able.
-- `validate-spec.ts` runs `constraints:` against every matrix cell
+- `validate-spec.ts` runs `constraints:` against every coverage cell
   (post-pruning) and against every `examples:` entry, per ADR-0009.
-- A future RFC proposing `matrix: { mode: cartesian }` as an opt-in is
+- A future RFC proposing `coverage: { mode: cartesian }` as an opt-in is
   unblocked: the pairwise default is additive and the field shape
   supports the extension.
 
 ## Open questions
 
-- The exact ID scheme for matrix-generated fixtures. Working proposal:
-  `m-<dim1value>-<dim2value>-…`, stable across runs. Settled in #581's
+- The exact ID scheme for coverage-generated fixtures. Working proposal:
+  `cov-<dim1value>-<dim2value>-…`, stable across runs. Settled in #581's
   implementation PR.
-- Whether `matrix:` is ever expanded by `gen-docs.ts`. Default: no —
+- Whether `coverage:` is ever expanded by `gen-docs.ts`. Default: no —
   docs shows the curated `examples:` only. Confirmed in #581's PR.
 
 ## References
 
-- [RFC 0001](../RFC/0001-v0.3-spec-format.md) § 3, § 5 — activates `matrix:`.
+- [RFC 0001](../RFC/0001-v0.3-spec-format.md) § 3, § 5 — activates `coverage:`.
 - [ADR-0009](0009-spec-schema-and-validation.md) — schema and validator.
 - [Issue #581](https://github.com/teseor/teseor/issues/581) — `feat(codegen):
-  matrix expansion in specs for combinatorial test coverage`.
+  coverage expansion in specs for combinatorial test coverage`.

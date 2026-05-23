@@ -25,7 +25,7 @@ Prove the codegen loop.
 - `packages/css/src/components/button/button.css`.
 - Generators landed: `gen-contract.ts`, `gen-react.ts`, `gen-vue.ts`, `gen-tests.ts`, `gen-docs.ts`. Other framework generators (`gen-svelte.ts`, `gen-angular.ts`, `gen-webc.ts`) deferred — the spec-driven shape is proven; adding frameworks is mechanical follow-up. `gen-webc` is the priority follow-up (tracked under #584) since web components are the framework-neutral target — same DOM contract, no runtime, consumable from any stack.
 - Two wrapper packages publishable for v0.2: `@teseor/react`, `@teseor/vue`. Post-v0.2: `@teseor/webc` (#584), then `@teseor/svelte` and `@teseor/angular`.
-- **Cross-framework contract tests** — `tests/contract/<name>.spec.ts` asserts React and Vue render byte-equal DOM for every `spec.examples` entry, run by Playwright against `apps/harness/`. Pixel-diff visual baselines deferred to a later phase. Matrix expansion tracked under #581, behavior tests under #582.
+- **Cross-framework contract tests** — `tests/contract/<name>.spec.ts` asserts React and Vue render byte-equal DOM for every `spec.examples` entry, run by Playwright against `apps/harness/`. Pixel-diff visual baselines deferred to a later phase. Coverage expansion tracked under #581, behavior tests under #582.
 - Docs page for Button generated from spec.
 - **Layout primitive components: Stack + Cluster** (specs + wrappers + docs). Button uses Stack internally for icon+label layout.
 - **Code component** (inline + block) — needed for L2 demo blocks on the docs site. Slipped v0.2; tracked under #589.
@@ -49,9 +49,9 @@ Phase 1 components, generated wrappers, generated docs. **Primitives package pul
 - **Figma Variables export:** `dist/figma-variables.json` generated from `tokens.css` by `gen-figma.ts`. Themes map to Figma modes. Designers import via Tokens Studio plugin.
 - **Visual baselines for every component × wrapper × theme** (pulled from v0.2 where pixel diff was deferred). Pixelmatch threshold 0.1%. Lands once Stack + Cluster + first atoms give a stable surface to baseline against.
 - **`a11y` CI gate** (pulled from v0.2). axe-core inside Playwright runs against every spec example with zero violations against WCAG 2.2 AA. Tied to the visual gate's Playwright run.
-- **Spec validator (`validate-spec.ts`)** ships (#636). Enforces the v0.3 schema (RFC 0001 / ADR-0009 / ADR-0010): identity layer + recursive `ComponentNode`, open `kind:` discriminated union, spec-to-CSS token contract, vocabulary, `matrix:` and `examples:` constraint checks. Replaces the `lint:spec` no-op stub. `parts:` activates with the same PR so Tooltip and Popover can be authored as composite specs.
+- **Spec validator (`validate-spec.ts`)** ships (#636). Enforces the v0.3 schema (RFC 0001 / ADR-0009 / ADR-0010): identity layer + recursive `ComponentNode`, open `kind:` discriminated union, spec-to-CSS token contract, vocabulary, `coverage:` and `examples:` constraint checks. Replaces the `lint:spec` no-op stub. `parts:` activates with the same PR so Tooltip and Popover can be authored as composite specs.
 - **Behavior tests** (#582). `interactions:` block in specs becomes `tests/behavior/<name>.spec.ts` — clicks, focus, keyboard. Wrapper-agnostic; runs against both `/react/` and `/vue/` harness routes.
-- **Combinatorial coverage for contract tests** (#581). `matrix:` block in specs expands to a pairwise covering set of fixtures (ADR-0010) so DOM-parity catches every variant × intent × size pair, not just hand-picked examples.
+- **Combinatorial coverage for contract tests** (#581). `coverage:` block in specs expands to a pairwise covering set of fixtures (ADR-0010) so DOM-parity catches every variant × intent × size pair, not just hand-picked examples.
 - RTL CI gate: every component renders with `dir="rtl"` and visual-tests pass.
 
 ## v0.4 — Surfaces + remaining overlays

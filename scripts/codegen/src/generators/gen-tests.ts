@@ -2,9 +2,22 @@ import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse as parseYaml } from "yaml";
+import {
+  type Cell,
+  coverageFixtureId,
+  type Dimension,
+  expandPairwise,
+  type Constraint as PairwiseConstraint,
+} from "../pairwise.ts";
 import type { GeneratorContext, GeneratorReport } from "../registry.ts";
 import { registerGenerator } from "../registry.ts";
 import type { Spec, SpecProp } from "./gen-contract.ts";
+
+/** Spec fields gen-tests reads beyond gen-contract's loose Spec type. */
+type TestsSpec = Spec & {
+  states?: Record<string, { description?: string }>;
+  coverage?: Record<string, true | readonly string[]>;
+};
 
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..", "..", "..");
 const SPECS_DIR = resolve(REPO_ROOT, "specs");
@@ -89,16 +102,105 @@ function hasSlotProps(spec: Spec): boolean {
   return Object.values(spec.props ?? {}).some((def) => def.slot === true);
 }
 
+// ── Coverage expansion (pairwise) ───────────────────────────────────────────
+
+function declaredValues(spec: TestsSpec, dimName: string): readonly string[] {
+  switch (dimName) {
+    case "variant":
+      return Object.keys(spec.variants ?? {});
+    case "intent":
+      return Object.keys(spec.intents ?? {});
+    case "size":
+      return Object.keys(spec.sizes ?? {});
+    case "states":
+      return Object.keys(spec.states ?? {});
+    default: {
+      const def = spec.props?.[dimName];
+      return def?.values ?? [];
+    }
+  }
+}
+
+function collectCoverageDimensions(spec: TestsSpec): Dimension[] {
+  const coverage = spec.coverage;
+  if (!coverage) return [];
+  const out: Dimension[] = [];
+  for (const [name, declaration] of Object.entries(coverage)) {
+    const declared = declaredValues(spec, name);
+    if (declared.length === 0) continue;
+    const values =
+      declaration === true ? declared : declaration.filter((v) => declared.includes(v));
+    if (values.length === 0) continue;
+    out.push({ name, values });
+  }
+  return out;
+}
+
+/** Preserves boolean / number values verbatim — needed for constraints like
+ * `when: { loading: true }` that wouldn't match if we string-coerced. */
+function collectConstraints(spec: TestsSpec): PairwiseConstraint[] {
+  return (spec.constraints ?? []).map((c) => ({
+    when: { ...(c.when ?? {}) },
+    forbid: { ...(c.forbid ?? {}) },
+  }));
+}
+
+/** Translate a pairwise cell into a fixture props object. `states` cells
+ * (e.g. `disabled`) map to the matching boolean prop (`disabled: true`); the
+ * rest pass through as `{ <dim>: <value> }`. */
+function cellToProps(cell: Cell): Record<string, unknown> {
+  const props: Record<string, unknown> = {};
+  for (const [dim, value] of Object.entries(cell)) {
+    if (dim === "states") props[value] = true;
+    else props[dim] = value;
+  }
+  return props;
+}
+
+type CoverageFixture = { id: string; props: Record<string, unknown> };
+
+function coverageFixtures(spec: TestsSpec): CoverageFixture[] {
+  const dimensions = collectCoverageDimensions(spec);
+  if (dimensions.length === 0) return [];
+  const constraints = collectConstraints(spec);
+  // Pairwise evaluates constraints against the *translated* cell so a
+  // constraint referencing `loading: true` matches a cell that translated a
+  // `states: "loading"` dimension into `{ loading: true }`.
+  const cells = expandPairwise(dimensions, constraints, cellToProps);
+  return cells.map((cell) => ({
+    id: coverageFixtureId(cell, dimensions),
+    props: cellToProps(cell),
+  }));
+}
+
+/** Throws if any fixture ID collides — examples may share an ID with each
+ * other or with a coverage cell; the rendered fixtures map keyed by ID would
+ * silently overwrite the loser. */
+function assertUniqueFixtureIds(ids: readonly string[], spec: TestsSpec): void {
+  const seen = new Set<string>();
+  const dupes = new Set<string>();
+  for (const id of ids) {
+    if (seen.has(id)) dupes.add(id);
+    seen.add(id);
+  }
+  if (dupes.size > 0) {
+    throw new Error(
+      `gen-tests: duplicate fixture id(s) in spec "${spec.name}": ${[...dupes].join(", ")}`,
+    );
+  }
+}
+
 function renderReactFixtureFile(spec: Spec): string {
   const Name = pascalCase(spec.name);
   const examples = spec.examples ?? [];
-  const entries = examples
+  const coverage = coverageFixtures(spec as TestsSpec);
+  const exampleEntries = examples
     .filter((e): e is { id: string; props?: Record<string, unknown> } => typeof e.id === "string")
-    .map((e) => {
-      const body = renderReactFixtureBody(spec, Name, e.props ?? {});
-      return `  ${quote(e.id)}: () => ${body},`;
-    })
-    .join("\n");
+    .map((e) => `  ${quote(e.id)}: () => ${renderReactFixtureBody(spec, Name, e.props ?? {})},`);
+  const coverageEntries = coverage.map(
+    (m) => `  ${quote(m.id)}: () => ${renderReactFixtureBody(spec, Name, m.props)},`,
+  );
+  const entries = [...exampleEntries, ...coverageEntries].join("\n");
   const slotHelper = hasSlotProps(spec)
     ? `const SLOT = (name: string): ReactNode => <span data-fixture-slot={name} />;\n`
     : "";
@@ -119,13 +221,14 @@ ${entries}
 function renderVueFixtureFile(spec: Spec): string {
   const Name = pascalCase(spec.name);
   const examples = spec.examples ?? [];
-  const entries = examples
+  const coverage = coverageFixtures(spec as TestsSpec);
+  const exampleEntries = examples
     .filter((e): e is { id: string; props?: Record<string, unknown> } => typeof e.id === "string")
-    .map((e) => {
-      const body = renderVueFixtureBody(spec, Name, e.props ?? {});
-      return `  ${quote(e.id)}: () => ${body},`;
-    })
-    .join("\n");
+    .map((e) => `  ${quote(e.id)}: () => ${renderVueFixtureBody(spec, Name, e.props ?? {})},`);
+  const coverageEntries = coverage.map(
+    (m) => `  ${quote(m.id)}: () => ${renderVueFixtureBody(spec, Name, m.props)},`,
+  );
+  const entries = [...exampleEntries, ...coverageEntries].join("\n");
   const slotHelper = hasSlotProps(spec)
     ? `const SLOT = (name: string) => () => h("span", { "data-fixture-slot": name });\n`
     : "";
@@ -250,10 +353,13 @@ export function defineContractTests(options: ContractTestOptions): void {
 
 function renderSpecFile(spec: Spec): string {
   const rootClass = spec.rootClass ?? `t-${spec.name}`;
-  const ids = (spec.examples ?? [])
+  const exampleIds = (spec.examples ?? [])
     .map((e) => e.id)
     .filter((id): id is string => typeof id === "string");
-  const idList = ids.map((id) => `    ${quote(id)},`).join("\n");
+  const coverageIds = coverageFixtures(spec as TestsSpec).map((m) => m.id);
+  const allIds = [...exampleIds, ...coverageIds];
+  assertUniqueFixtureIds(allIds, spec as TestsSpec);
+  const idList = allIds.map((id) => `    ${quote(id)},`).join("\n");
   return `// AUTOGENERATED by gen-tests. Do not edit.
 // Source: specs/${spec.name}.yaml
 

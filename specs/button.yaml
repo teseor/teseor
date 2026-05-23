@@ -4,7 +4,7 @@ kind: atomic
 dependencies: []
 element: button
 rootClass: t-button
-file: components/button/button.css
+cssFile: components/button/button.css
 
 variants:
   solid:
@@ -133,7 +133,7 @@ tokens:
     fallback: --t-space-2
     desc: Inline spacing between label and icons.
 
-private:
+privateTokens:
   - --_h
   - --_bg
   - --_fg
@@ -170,6 +170,11 @@ examples:
     props: { variant: solid, intent: primary, loading: true }
   - id: block-mobile
     props: { variant: solid, intent: primary, block: true, size: lg }
+
+coverage:
+  variant: true
+  intent: true
+  size: true
 
 motion:
   transitions:

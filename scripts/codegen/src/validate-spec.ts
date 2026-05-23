@@ -29,8 +29,8 @@ async function readSpec(name: string): Promise<{ raw: unknown; specPath: string 
   return { raw: parseYaml(text), specPath };
 }
 
-async function readCss(spec: { name: string; file?: string }): Promise<string | undefined> {
-  const relative = spec.file ?? `components/${spec.name}/${spec.name}.css`;
+async function readCss(spec: { name: string; cssFile?: string }): Promise<string | undefined> {
+  const relative = spec.cssFile ?? `components/${spec.name}/${spec.name}.css`;
   const cssPath = resolve(COMPONENTS_DIR, "..", relative);
   try {
     return await readFile(cssPath, "utf8");
@@ -69,7 +69,7 @@ async function main(): Promise<void> {
     }
 
     depsByName.set(name, parsed.data.dependencies ?? []);
-    const css = await readCss({ name: parsed.data.name, file: parsed.data.file });
+    const css = await readCss({ name: parsed.data.name, cssFile: parsed.data.cssFile });
     issues.push(...runSemanticChecks(parsed.data, { css, vocabulary }));
     if (issues.length > 0) errors.push({ name, specPath, issues });
   }

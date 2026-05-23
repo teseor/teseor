@@ -17,7 +17,7 @@ a numbered, durable file.
 | [0007](0007-astro-for-the-docs-site.md) | Astro for the docs site | Accepted |
 | [0008](0008-token-driven-component-css.md) | Token-driven component CSS | Accepted |
 | [0009](0009-spec-schema-and-validation.md) | Spec schema and validation | Proposed |
-| [0010](0010-matrix-expansion-pairwise.md) | Matrix expansion: pairwise for contract fixtures | Proposed |
+| [0010](0010-coverage-expansion-pairwise.md) | Coverage expansion: pairwise for contract fixtures | Proposed |
 
 ## When to write one
 

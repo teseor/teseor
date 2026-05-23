@@ -69,7 +69,7 @@ const componentNodeFields = {
   sizes: z.record(z.string(), sizeEntry).optional(),
   props: z.record(z.string(), propEntry).optional(),
   tokens: z.record(z.string(), tokenEntry).optional(),
-  private: z.array(z.string()).optional(),
+  privateTokens: z.array(z.string()).optional(),
   states: z.record(z.string(), stateEntry).optional(),
   a11y: a11yBlock.optional(),
   constraints: z.array(constraintEntry).optional(),
@@ -98,7 +98,7 @@ type ComponentPart = {
     }
   >;
   tokens?: Record<string, { fallback: string; desc: string }>;
-  private?: string[];
+  privateTokens?: string[];
   states?: Record<string, { description: string }>;
   a11y?: {
     role?: string;
@@ -132,9 +132,9 @@ const guidanceBlock = z.strictObject({
     .optional(),
 });
 
-const matrixDimension = z.union([z.boolean(), z.array(z.string())]);
+const coverageDimension = z.union([z.boolean(), z.array(z.string())]);
 
-const matrixBlock = z.record(z.string(), matrixDimension);
+const coverageBlock = z.record(z.string(), coverageDimension);
 
 const exampleEntry = z.strictObject({
   id: z.string().min(1),
@@ -145,12 +145,12 @@ const identityFields = {
   name: z.string().min(1),
   description: z.string().optional(),
   dependencies: z.array(z.string()).optional(),
-  file: z.string().optional(),
+  cssFile: z.string().optional(),
   behavior: z.enum(["none", "primitive", "stateful"]).optional(),
   primitives: z.array(z.string()).optional(),
   guidance: guidanceBlock.optional(),
   examples: z.array(exampleEntry).optional(),
-  matrix: matrixBlock.optional(),
+  coverage: coverageBlock.optional(),
 } as const;
 
 const atomicSpec = z.strictObject({
