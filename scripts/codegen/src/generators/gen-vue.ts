@@ -7,6 +7,7 @@ import { flattenSpec } from "../lib/flatten.ts";
 import {
   renderSharedPopoverDomHelpers,
   renderSharedResponsiveRuntimePrelude,
+  renderSharedResponsiveRuntimeUtilities,
 } from "../lib/runtime-shared.ts";
 import { loadVocabulary } from "../lib/vocabulary.ts";
 import type { GeneratorContext, GeneratorReport } from "../registry.ts";
@@ -297,6 +298,8 @@ export function useActiveBreakpoint(): Readonly<Ref<Breakpoint>> {
   });
   return active;
 }
+
+${renderSharedResponsiveRuntimeUtilities()}
 
 // ── Slot — clone-into-child pattern for \`asChild\` composites ────────────────
 

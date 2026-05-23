@@ -4,19 +4,19 @@ Every PR runs the same gates. A PR cannot merge with any gate red.
 
 ## Status today
 
-**Implemented today**
+### Implemented today
 
 - Lint, typecheck, unit test, DOM-parity e2e, build, drift, bundle,
   changeset, and PR-discipline enforcement
 - The CI workflow at `.github/workflows/ci.yml`
 
-**Implemented but intentionally light today**
+### Implemented but intentionally light today
 
 - `visual` and `a11y` are wired with milestone-dependent behavior, as described
   below
 - `showcase-purity` is wired to activate once showcase apps exist
 
-**Planned**
+### Planned
 
 - Theme-file lint enforcement once `themes/` lands
 

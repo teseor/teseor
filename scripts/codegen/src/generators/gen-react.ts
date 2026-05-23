@@ -7,6 +7,7 @@ import { flattenSpec } from "../lib/flatten.ts";
 import {
   renderSharedPopoverDomHelpers,
   renderSharedResponsiveRuntimePrelude,
+  renderSharedResponsiveRuntimeUtilities,
 } from "../lib/runtime-shared.ts";
 import { loadVocabulary } from "../lib/vocabulary.ts";
 import type { GeneratorContext, GeneratorReport } from "../registry.ts";
@@ -694,6 +695,8 @@ export function useActiveBreakpoint(): Breakpoint {
   }, []);
   return bp;
 }
+
+${renderSharedResponsiveRuntimeUtilities()}
 
 /** Widen a narrow tag-name union back to ElementType so JSX's ref slot isn't pinned. */
 export function asElement(value: ElementType): ElementType {

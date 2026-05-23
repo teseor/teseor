@@ -4,7 +4,7 @@ function quote(value: string): string {
   return `"${value.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`;
 }
 
-export function renderSharedResponsiveRuntimePrelude(breakpoints: Breakpoint[]): string {
+function renderSharedResponsiveRuntimeScaffold(breakpoints: Breakpoint[]): string {
   const names = breakpoints.map((bp) => bp.name);
   const keys = ["base", ...names].map(quote).join(", ");
   // Biome strips quotes from valid-identifier object keys; mirror that so the
@@ -34,9 +34,15 @@ function readActiveBreakpoint(): Breakpoint {
     if (q && window.matchMedia(q).matches) return key;
   }
   return "base";
+}`;
 }
 
-/** Resolve a \`Responsive<boolean>\` at the active breakpoint (mobile-first cascade). */
+export function renderSharedResponsiveRuntimePrelude(breakpoints: Breakpoint[]): string {
+  return renderSharedResponsiveRuntimeScaffold(breakpoints);
+}
+
+export function renderSharedResponsiveRuntimeUtilities(): string {
+  return `/** Resolve a \`Responsive<boolean>\` at the active breakpoint (mobile-first cascade). */
 export function isActiveAt(value: unknown, bp: Breakpoint): boolean {
   if (value === true) return true;
   if (value == null || value === false) return false;

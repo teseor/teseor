@@ -4,7 +4,7 @@ One spec per component. Many outputs. CI fails if the outputs drift from the spe
 
 ## Status today
 
-**Implemented today**
+### Implemented today
 
 - Spec validation via `scripts/codegen/src/schema.ts` +
   `scripts/codegen/src/semantic-checks.ts`
@@ -13,7 +13,7 @@ One spec per component. Many outputs. CI fails if the outputs drift from the spe
 - Committed generated output with `gen-drift` enforcement
 - Shared breakpoint loading from `specs/_breakpoints.yaml`
 
-**Documented ahead of implementation**
+### Documented ahead of implementation
 
 - Svelte, Angular, and web-component outputs
 - Some reserved spec fields and later behavior tiers described below

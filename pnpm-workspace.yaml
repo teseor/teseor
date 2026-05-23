@@ -8,6 +8,7 @@ overrides:
   yaml: '^2.8.3'
 allowBuilds:
   esbuild: false
+  lefthook: false
   sharp: false
 minimumReleaseAgeExclude:
   - astro@6.3.7

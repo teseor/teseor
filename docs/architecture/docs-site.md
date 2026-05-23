@@ -4,13 +4,13 @@ The docs site is itself a Teseor showcase. Its layout, nav, and per-component pa
 
 ## Status today
 
-**Implemented today**
+### Implemented today
 
 - Astro docs app under `apps/docs/`
 - Generated docs data consumed by the site
 - Real component packages rendered in docs
 
-**Documented target shape**
+### Documented target shape
 
 - The full per-component page anatomy below
 - Faceted AST search, recipe expansion, and the re-skin gallery

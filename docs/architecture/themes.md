@@ -4,12 +4,12 @@ A theme is a CSS file that overrides Tier 2 semantic tokens. Nothing else. No cl
 
 ## Status today
 
-**Implemented today**
+### Implemented today
 
 - Default theme values live in `packages/css/src/tokens.css`
 - The semantic-token-only theme model is part of the architecture contract
 
-**Not implemented yet**
+### Not implemented yet
 
 - A top-level `themes/` directory in this repo
 - Theme-file metadata parsing against shipped theme files
