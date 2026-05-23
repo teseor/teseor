@@ -8,7 +8,8 @@ const serverWarned = new Set<string>();
  * `console` is undefined; SSR-safe. Browser dedup state lives on
  * `window.__teseor_warned` — delete it between tests to reset.
  *
- * Keys are global; prefix per package (e.g. `react.slot.multi-child`).
+ * Keys are global and must be finite/static — prefix per package
+ * (e.g. `react.slot.multi-child`). Dynamic keys leak memory.
  */
 export function warnOnce(key: string, message: string): void {
   if (typeof console === "undefined") return;
