@@ -95,6 +95,25 @@ function sanitizeId(id: string): string {
   return id.replace(/[^a-zA-Z0-9_-]/g, "");
 }
 
+/** Probe `:popover-open` once and reuse. Older browsers that ship Popover
+ *  API but not the selector throw `SyntaxError` from `Element.matches`; the
+ *  feature query lets us skip the call entirely on those engines.
+ *  `undefined` means "selector unavailable, fall through and let
+ *  `showPopover`/`hidePopover` decide". */
+const SUPPORTS_POPOVER_OPEN_SELECTOR =
+  typeof CSS !== "undefined" &&
+  typeof CSS.supports === "function" &&
+  CSS.supports("selector(:popover-open)");
+
+function popoverIsOpen(node: HTMLElement): boolean | undefined {
+  if (!SUPPORTS_POPOVER_OPEN_SELECTOR) return undefined;
+  try {
+    return node.matches(":popover-open");
+  } catch {
+    return undefined;
+  }
+}
+
 /**
  * Drives the state machine, popover toggling, anchor binding, and event
  * wiring for composite overlay components in Vue. Mirror of `useOverlay` in
@@ -154,22 +173,26 @@ export function useOverlay(config: OverlayConfig): OverlayReturn {
   // `showPopover()` after the first mount instead of waiting for a change.
   // `flush: 'post'` defers each callback to after the DOM update, so the
   // popover element exists when we toggle it.
+  // `popoverIsOpen` may return `undefined` on engines without
+  // `:popover-open`; in that case we attempt the transition and let
+  // `showPopover`/`hidePopover` throw harmlessly on invalid state.
   watch(
     open,
     (current) => {
       const node = contentRef.value;
       if (!node) return;
-      if (current && !node.matches(":popover-open")) {
+      const popoverState = popoverIsOpen(node);
+      if (current && popoverState !== true) {
         try {
           node.showPopover();
         } catch {
-          // Popover API unsupported or display:none — degrade silently.
+          // Popover API unsupported, display:none, or already open — degrade silently.
         }
-      } else if (!current && node.matches(":popover-open")) {
+      } else if (!current && popoverState !== false) {
         try {
           node.hidePopover();
         } catch {
-          // Popover API unsupported — degrade silently.
+          // Popover API unsupported or already closed — degrade silently.
         }
       }
     },

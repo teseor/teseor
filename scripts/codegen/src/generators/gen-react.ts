@@ -604,8 +604,10 @@ ${hookConfigWithDisabled}
   // \`aria-describedby\` is only set when the popover has content. Pointing a
   // describedby relationship at an empty \`role="tooltip"\` element is an a11y
   // anti-pattern: assistive tech announces the description, finds nothing,
-  // and the consumer sees no signal that the tooltip is empty.
-  const hasContent = ${contentSlots[0] ?? "true"} != null;
+  // and the consumer sees no signal that the tooltip is empty. When the
+  // spec declares no content slot, \`hasContent\` is always \`false\` — the
+  // popover renders empty and the describedby attribute is omitted.
+  const hasContent = ${contentSlots[0] ? `${contentSlots[0]} != null` : "false"};
 
   return (
     <>
@@ -740,6 +742,25 @@ function sanitizeId(id: string): string {
   return id.replace(/[^a-zA-Z0-9_-]/g, "");
 }
 
+/** Probe \`:popover-open\` once and reuse. Older browsers that ship Popover
+ *  API but not the selector throw \`SyntaxError\` from \`Element.matches\`; the
+ *  feature query lets us skip the call entirely on those engines. The check
+ *  is best-effort — \`undefined\` means "selector unavailable, fall through
+ *  and let \`showPopover\`/\`hidePopover\` decide". */
+const SUPPORTS_POPOVER_OPEN_SELECTOR =
+  typeof CSS !== "undefined" &&
+  typeof CSS.supports === "function" &&
+  CSS.supports("selector(:popover-open)");
+
+function popoverIsOpen(node: HTMLElement): boolean | undefined {
+  if (!SUPPORTS_POPOVER_OPEN_SELECTOR) return undefined;
+  try {
+    return node.matches(":popover-open");
+  } catch {
+    return undefined;
+  }
+}
+
 const EVENT_TO_HANDLER: Record<string, string> = {
   pointerenter: "onPointerEnter",
   pointerleave: "onPointerLeave",
@@ -835,20 +856,24 @@ export function useOverlay<T extends HTMLElement = HTMLElement>(
   // every closed popover, so the check short-circuited every open attempt.
   // Responsive-disabled gating happens via the \`data-disabled\` attribute set
   // by the wrapper; showPopover() throws on display:none which we catch.
+  // \`popoverIsOpen\` may return \`undefined\` on engines without
+  // \`:popover-open\`; in that case we attempt the transition and let
+  // \`showPopover\`/\`hidePopover\` throw harmlessly on invalid state.
   useEffect(() => {
     const node = contentRef.current;
     if (!node) return;
-    if (open && !node.matches(":popover-open")) {
+    const popoverState = popoverIsOpen(node);
+    if (open && popoverState !== true) {
       try {
         node.showPopover();
       } catch {
-        // Popover API unsupported or display:none — degrade silently.
+        // Popover API unsupported, display:none, or already open — degrade silently.
       }
-    } else if (!open && node.matches(":popover-open")) {
+    } else if (!open && popoverState !== false) {
       try {
         node.hidePopover();
       } catch {
-        // Popover API unsupported — degrade silently.
+        // Popover API unsupported or already closed — degrade silently.
       }
     }
   }, [open]);

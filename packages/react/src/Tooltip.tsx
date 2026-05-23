@@ -98,7 +98,9 @@ export function Tooltip(props: TooltipProps) {
   // `aria-describedby` is only set when the popover has content. Pointing a
   // describedby relationship at an empty `role="tooltip"` element is an a11y
   // anti-pattern: assistive tech announces the description, finds nothing,
-  // and the consumer sees no signal that the tooltip is empty.
+  // and the consumer sees no signal that the tooltip is empty. When the
+  // spec declares no content slot, `hasContent` is always `false` — the
+  // popover renders empty and the describedby attribute is omitted.
   const hasContent = text != null;
 
   return (
