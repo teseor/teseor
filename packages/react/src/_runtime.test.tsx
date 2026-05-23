@@ -1,7 +1,7 @@
 // @vitest-environment happy-dom
 import { act, cleanup, fireEvent, render, renderHook } from "@testing-library/react";
 import { createElement, Fragment, type MouseEvent } from "react";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   installDomPolyfills,
   isPopoverShown,
@@ -19,7 +19,10 @@ import {
   useOverlay,
 } from "./_runtime";
 
-installDomPolyfills();
+// Patch globals only for this file's lifetime so vitest workers running
+// multiple files don't leak Element.prototype / window.matchMedia changes.
+beforeAll(installDomPolyfills);
+afterAll(uninstallDomPolyfills);
 
 afterEach(() => {
   cleanup();
