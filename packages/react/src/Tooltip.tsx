@@ -9,6 +9,7 @@ import {
   type OverlayInteraction,
   type Responsive,
   responsiveDataAttrs,
+  Slot,
   useOverlay,
 } from "./_runtime.ts";
 
@@ -31,6 +32,11 @@ type TooltipOwnProps = {
   text?: string;
   /** Preferred side relative to the trigger. CSS `position-try-fallbacks` auto-flips on overflow. */
   placement?: Responsive<TooltipPlacement>;
+  /** Render the trigger directly on the consumer's child element (`cloneElement`)
+   *  instead of wrapping in a `<span>`. Single-child invariant: `children` must
+   *  be a single React element. `aria-describedby`, the anchor binding, and
+   *  event handlers land on that element. */
+  asChild?: boolean;
   children?: ReactNode;
 };
 
@@ -65,6 +71,7 @@ export function Tooltip(props: TooltipProps) {
     text,
     placement,
     children,
+    asChild,
   } = props;
 
   const interactions = useMemo<OverlayInteraction[]>(
@@ -88,20 +95,36 @@ export function Tooltip(props: TooltipProps) {
     disabled,
   });
 
-  const triggerStyle: CSSProperties = { [overlay.anchorVar]: overlay.anchorName };
+  // `asChild` mode sets `anchor-name` directly on the consumer's element via
+  // inline style (no wrapper class to read `--_anchor`). The default wrapper
+  // path reads the custom property through the trigger CSS rule.
+  const triggerStyle: CSSProperties = asChild
+    ? ({ [overlay.anchorVar]: overlay.anchorName, anchorName: overlay.anchorName } as CSSProperties)
+    : { [overlay.anchorVar]: overlay.anchorName };
   const hasContent = text != null;
 
   return (
     <>
-      <span
-        className="t-tooltip-trigger"
-        style={triggerStyle}
-        data-state={overlay.state}
-        aria-describedby={hasContent ? overlay.popoverId : undefined}
-        {...overlay.triggerHandlers}
-      >
-        {children}
-      </span>
+      {asChild ? (
+        <Slot
+          style={triggerStyle}
+          data-state={overlay.state}
+          aria-describedby={hasContent ? overlay.popoverId : undefined}
+          {...overlay.triggerHandlers}
+        >
+          {children}
+        </Slot>
+      ) : (
+        <span
+          className="t-tooltip-trigger"
+          style={triggerStyle}
+          data-state={overlay.state}
+          aria-describedby={hasContent ? overlay.popoverId : undefined}
+          {...overlay.triggerHandlers}
+        >
+          {children}
+        </span>
+      )}
       {hasContent && (
         <div
           ref={overlay.contentRef}

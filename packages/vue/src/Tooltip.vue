@@ -6,7 +6,7 @@
  */
 import "@teseor/css/components/tooltip.css";
 import { computed } from "vue";
-import { type Responsive, responsiveDataAttrs, useOverlay } from "./_runtime.ts";
+import { type Responsive, responsiveDataAttrs, Slot, useOverlay } from "./_runtime.ts";
 
 type TooltipPlacement = "top" | "right" | "bottom" | "left";
 
@@ -27,6 +27,8 @@ type TooltipProps = {
   text?: string;
   /** Preferred side relative to the trigger. CSS `position-try-fallbacks` auto-flips on overflow. */
   placement?: Responsive<TooltipPlacement>;
+  /** Render the trigger directly on the consumer's child element via Slot (cloneVNode) instead of wrapping in a `<span>`. */
+  asChild?: boolean;
 };
 
 const {
@@ -38,6 +40,7 @@ const {
   closeDelay = 0,
   text,
   placement,
+  asChild,
 } = defineProps<TooltipProps>();
 
 const overlay = useOverlay({
@@ -66,7 +69,17 @@ const contentAttrs = computed(() => ({
 </script>
 
 <template>
+  <Slot
+    v-if="asChild"
+    :style="{ [overlay.anchorVar]: overlay.anchorName, anchorName: overlay.anchorName }"
+    :data-state="overlay.state.value"
+    :aria-describedby="text != null ? overlay.popoverId : undefined"
+    v-on="overlay.triggerHandlers"
+  >
+    <slot />
+  </Slot>
   <span
+    v-else
     class="t-tooltip-trigger"
     :style="{ [overlay.anchorVar]: overlay.anchorName }"
     :data-state="overlay.state.value"
