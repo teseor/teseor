@@ -109,6 +109,21 @@ describe("Slot", () => {
     expect(calls).toEqual(["child", "slot"]);
   });
 
+  it("skips slot handler when child calls event.preventDefault (React parity, #684)", async () => {
+    const calls: string[] = [];
+    const childHandler = (event: Event) => {
+      calls.push("child");
+      event.preventDefault();
+    };
+    const slotHandler = () => calls.push("slot");
+    const wrapper = mountTracked(Slot, {
+      attrs: { onClick: slotHandler },
+      slots: { default: () => h("button", { type: "button", onClick: childHandler }, "x") },
+    });
+    await wrapper.find("button").trigger("click");
+    expect(calls).toEqual(["child"]);
+  });
+
   it("forwards aria / data attributes onto the child", () => {
     const wrapper = mountTracked(Slot, {
       attrs: { "aria-describedby": "tip-1", "data-state": "open" },
