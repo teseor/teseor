@@ -12,6 +12,10 @@
     --_gap: var(--t-tooltip-gap, var(--t-space-2));
     --_dur: var(--t-tooltip-dur, var(--t-dur-fast));
     --_ease: var(--t-tooltip-ease, var(--t-ease-out));
+    --_arrow-size: var(--t-tooltip-arrow-size, var(--t-space-2));
+    --_arrow-bg: var(--t-tooltip-arrow-bg, var(--t-neutral-90));
+    --_arrow-inset: auto;
+    --_arrow-transform: rotate(45deg);
     --_anchor: var(--t-tooltip-anchor, none);
     --_position-area: top;
     --_display: revert;
@@ -38,6 +42,7 @@
 
   .t-tooltip {
     box-sizing: border-box;
+    position: relative;
     margin: var(--_margin);
     inset: auto;
     border: 0;
@@ -65,28 +70,51 @@
       opacity calc(var(--_dur) * var(--t-motion-scale)) var(--_ease),
       transform calc(var(--_dur) * var(--t-motion-scale)) var(--_ease);
 
+    /* Rotated-square arrow pointing at the trigger. Each data-placement
+       rule sets `--_arrow-inset` (shorthand) and `--_arrow-transform` —
+       a later rule fully overrides the previous one. */
+    &::before {
+      content: "";
+      position: absolute;
+      inline-size: var(--_arrow-size);
+      block-size: var(--_arrow-size);
+      background: var(--_arrow-bg);
+      pointer-events: none;
+      z-index: -1;
+      inset: var(--_arrow-inset);
+      transform: var(--_arrow-transform);
+    }
+
     &:where([data-placement="top"]) {
       --_position-area: top;
       --_translate: 2px;
       --_margin: 0 0 var(--_gap) 0;
+      --_arrow-inset: auto auto calc(var(--_arrow-size) * -0.5) 50%;
+      --_arrow-transform: translate(-50%, 0) rotate(45deg);
     }
 
     &:where([data-placement="right"]) {
       --_position-area: right;
       --_translate: 0;
       --_margin: 0 0 0 var(--_gap);
+      --_arrow-inset: 50% auto auto calc(var(--_arrow-size) * -0.5);
+      --_arrow-transform: translate(0, -50%) rotate(45deg);
     }
 
     &:where([data-placement="bottom"]) {
       --_position-area: bottom;
       --_translate: -2px;
       --_margin: var(--_gap) 0 0 0;
+      --_arrow-inset: calc(var(--_arrow-size) * -0.5) auto auto 50%;
+      --_arrow-transform: translate(-50%, 0) rotate(45deg);
     }
 
     &:where([data-placement="left"]) {
       --_position-area: left;
       --_translate: 0;
       --_margin: 0 var(--_gap) 0 0;
+      --_arrow-inset: 50% calc(var(--_arrow-size) * -0.5) auto auto;
+      --_arrow-transform: translate(0, -50%) rotate(45deg);
     }
 
     &:where([data-disabled="true"]) {
@@ -112,24 +140,32 @@
           --_position-area: top;
           --_translate: 2px;
           --_margin: 0 0 var(--_gap) 0;
+          --_arrow-inset: auto auto calc(var(--_arrow-size) * -0.5) 50%;
+          --_arrow-transform: translate(-50%, 0) rotate(45deg);
         }
 
         &:where([data-placement-$(bp)="right"]) {
           --_position-area: right;
           --_translate: 0;
           --_margin: 0 0 0 var(--_gap);
+          --_arrow-inset: 50% auto auto calc(var(--_arrow-size) * -0.5);
+          --_arrow-transform: translate(0, -50%) rotate(45deg);
         }
 
         &:where([data-placement-$(bp)="bottom"]) {
           --_position-area: bottom;
           --_translate: -2px;
           --_margin: var(--_gap) 0 0 0;
+          --_arrow-inset: calc(var(--_arrow-size) * -0.5) auto auto 50%;
+          --_arrow-transform: translate(-50%, 0) rotate(45deg);
         }
 
         &:where([data-placement-$(bp)="left"]) {
           --_position-area: left;
           --_translate: 0;
           --_margin: 0 var(--_gap) 0 0;
+          --_arrow-inset: 50% calc(var(--_arrow-size) * -0.5) auto auto;
+          --_arrow-transform: translate(0, -50%) rotate(45deg);
         }
 
         &:where([data-disabled-$(bp)="true"]) {

@@ -98,6 +98,12 @@ parts:
       ease:
         fallback: --t-ease-out
         desc: Entry and exit easing.
+      arrow-size:
+        fallback: --t-space-2
+        desc: Arrow square size. Rotated 45° to form the pointer; visible half is roughly size/√2.
+      arrow-bg:
+        fallback: --t-neutral-90
+        desc: Arrow fill. Defaults to the same neutral as `bg` so the arrow blends seamlessly with the body.
     privateTokens:
       - --_bg
       - --_fg
@@ -107,6 +113,8 @@ parts:
       - --_gap
       - --_dur
       - --_ease
+      - --_arrow-size
+      - --_arrow-bg
       - --_anchor
       - --_position-area
       - --_display
