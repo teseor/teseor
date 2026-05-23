@@ -2,6 +2,20 @@
 
 The docs site is itself a Teseor showcase. Its layout, nav, and per-component pages are built with `.t-*` classes — no themed doc framework, no parallel styling system. Dogfood rule (H3).
 
+## Status today
+
+**Implemented today**
+
+- Astro docs app under `apps/docs/`
+- Generated docs data consumed by the site
+- Real component packages rendered in docs
+
+**Documented target shape**
+
+- The full per-component page anatomy below
+- Faceted AST search, recipe expansion, and the re-skin gallery
+- Some later-phase demo richness called out by roadmap milestone
+
 ## Stack
 
 - **Astro** — static-site builder with no built-in theme, so Teseor owns every visual. Renders `@teseor/*` component packages to static HTML at build time (zero client JS unless a `client:*` directive opts in) — the docs consume the real generated wrappers. See ADR-0007.

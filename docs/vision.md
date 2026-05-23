@@ -18,3 +18,5 @@ Teseor is a CSS-first design system. Plain CSS is the source of truth; framework
 - Slot-based component contracts beyond what HTML composition already gives us — post-v1.0.
 
 See `roadmap.md` for the phased path to v1.0 and the parked long-tail ideas explicitly deferred beyond it.
+For the current implemented-versus-planned map, see
+`docs/architecture/at-a-glance.md`.

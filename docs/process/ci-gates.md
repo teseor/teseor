@@ -2,6 +2,24 @@
 
 Every PR runs the same gates. A PR cannot merge with any gate red.
 
+## Status today
+
+**Implemented today**
+
+- Lint, typecheck, unit test, DOM-parity e2e, build, drift, bundle,
+  changeset, and PR-discipline enforcement
+- The CI workflow at `.github/workflows/ci.yml`
+
+**Implemented but intentionally light today**
+
+- `visual` and `a11y` are wired with milestone-dependent behavior, as described
+  below
+- `showcase-purity` is wired to activate once showcase apps exist
+
+**Planned**
+
+- Theme-file lint enforcement once `themes/` lands
+
 ## The gates
 
 | Job | Tool | Fails when |
@@ -20,6 +38,25 @@ Every PR runs the same gates. A PR cannot merge with any gate red.
 | **lighthouse** | Lighthouse CI | Docs page scores under target |
 | **pr-discipline** | `.github/workflows/pr-discipline.yml` | PR missing `Closes #N`, wrong title format, empty body sections, or labels stale vs `specs/` (see `agent-workflow.md`) |
 | **showcase-purity** | `find apps/showcase-*/ -name '*.css'` | `apps/showcase-*/` contains ≠ 1 CSS file (activates from v0.4 when the first showcase lands; before that the gate has no targets and passes trivially) |
+
+## Fast path vs full path
+
+Two contributor-facing signals matter:
+
+- **Fast path** — the first checks that should tell you whether the branch is
+  obviously healthy: `lint`, `actionlint`, `typecheck`, `test-unit`,
+  `changeset`
+- **Full path** — the slower confirmation that generated output, browser
+  behavior, packaging, and docs all still hold: `build:css`, `gen-drift`,
+  `test-e2e`, `verify-no-dev-leak`, `visual`, `a11y`, `bundle`, `lighthouse`
+
+The workflow keeps these concerns staged so the quick signal arrives before the
+heavier browser/build follow-up.
+
+## Architecture-health review
+
+See `docs/process/architecture-health.md` for the metrics and monthly review
+cadence that keep the gate set useful instead of merely large.
 
 ## lint
 
@@ -144,9 +181,9 @@ Twelve gates run with maximum parallelism where independent:
 
 | Stage | Jobs (parallel within stage) | Depends on |
 | --- | --- | --- |
-| 1 | `lint`, `typecheck`, `test`, `changeset`, `pr-discipline`, `showcase-purity` | — |
-| 2 | `build:css`, `gen-drift` | `lint` |
-| 3 | `visual` + `a11y` (same job, one Playwright run), `bundle` | `build:css` |
+| 1 | `lint`, `actionlint`, `typecheck`, `test-unit`, `changeset`, `pr-discipline`, `showcase-purity` | — |
+| 2 | `test-e2e`, `gen-drift`, `verify-no-dev-leak` | fast path |
+| 3 | `build:css`, `visual` + `a11y` (same job, one Playwright run), `bundle` | earlier stage outputs |
 | 4 | `lighthouse` | preview deploy |
 
 Wall-clock target: ~5 min on a typical PR (small CSS change, no visual baseline regen).

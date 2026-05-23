@@ -2,6 +2,19 @@
 
 A theme is a CSS file that overrides Tier 2 semantic tokens. Nothing else. No class selectors, no element selectors, no attribute selectors, no `!important`. A theme that touches anything outside semantic tokens is a bug — the `themes/` lint rule under § "Hard rule" is designed to catch it.
 
+## Status today
+
+**Implemented today**
+
+- Default theme values live in `packages/css/src/tokens.css`
+- The semantic-token-only theme model is part of the architecture contract
+
+**Not implemented yet**
+
+- A top-level `themes/` directory in this repo
+- Theme-file metadata parsing against shipped theme files
+- The dedicated lint enforcement for `themes/*.css`
+
 ## File shape
 
 ```css

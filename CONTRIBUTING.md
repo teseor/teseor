@@ -38,6 +38,26 @@ pnpm test:e2e   # Playwright suite (see Playwright browsers below)
 
 See `docs/process/dev-scripts.md` for the full script catalog.
 
+## Happy path for new contributors
+
+If you only read one flow, read this one:
+
+1. Read `docs/architecture/at-a-glance.md`.
+2. Pick the matching change path in `docs/process/contribution-paths.md`.
+3. Run the minimum local checks for your change:
+   - all changes: `pnpm lint && pnpm typecheck && pnpm test`
+   - spec or codegen changes: also run `pnpm gen`
+   - browser-contract changes: also run `pnpm test:e2e`
+4. Open a PR that closes an issue and follows the PR shape rules above.
+
+Quick decision tree:
+
+- changing `specs/` → component path + `pnpm gen`
+- changing `packages/css/` → component or theme path + `pnpm build:css`
+- changing `scripts/codegen/` → codegen change + paired generator tests
+- changing `apps/docs/` or `docs/` → docs path + `pnpm lint`
+- changing `.github/workflows/` → chore path + validate the workflow shape
+
 ### Playwright browsers
 
 `pnpm test:e2e` and `pnpm test:visual` need a Chromium install before they can

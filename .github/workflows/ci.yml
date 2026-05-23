@@ -13,6 +13,7 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
+  # Fast path: quick correctness signal before the heavier browser/build checks.
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -53,7 +54,9 @@ jobs:
       - uses: ./.github/actions/setup
       - run: pnpm test
 
+  # Full path: wait for the fast path before running browser/build follow-up.
   test-e2e:
+    needs: [lint, actionlint, typecheck, test-unit]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -63,6 +66,7 @@ jobs:
       - run: pnpm test:e2e
 
   gen-drift:
+    needs: [lint, actionlint, typecheck, test-unit]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -77,6 +81,7 @@ jobs:
           fi
 
   verify-no-dev-leak:
+    needs: [lint, actionlint, typecheck, test-unit]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6

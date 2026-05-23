@@ -2,6 +2,23 @@
 
 One spec per component. Many outputs. CI fails if the outputs drift from the spec.
 
+## Status today
+
+**Implemented today**
+
+- Spec validation via `scripts/codegen/src/schema.ts` +
+  `scripts/codegen/src/semantic-checks.ts`
+- Generated outputs for React, Vue, contract types, docs data, and contract
+  tests
+- Committed generated output with `gen-drift` enforcement
+- Shared breakpoint loading from `specs/_breakpoints.yaml`
+
+**Documented ahead of implementation**
+
+- Svelte, Angular, and web-component outputs
+- Some reserved spec fields and later behavior tiers described below
+- Composite examples beyond the currently landed surface
+
 ## Inputs
 
 - **`specs/<name>.yaml`** — per-component spec (see ADR-0002).
@@ -97,7 +114,8 @@ props:
 
 `gen-contract`, `gen-react`, and `gen-vue` then emit a typed union — `type StackAlign = "start" | "center" | "end" | "stretch"` — and type the prop with it instead of bare `string`, so the value set is enforced at the consumer's call site. Omit `values:` for props that accept an open set: `gap` takes any spacing-token suffix, so it stays `type: string`. See ADR-0006.
 
-**Reserved fields (designed at later milestones, not yet usable):**
+**Reserved fields (designed at later milestones, not usable today unless the
+schema already accepts them):**
 
 | Field | Purpose | Designed at |
 | --- | --- | --- |
