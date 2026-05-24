@@ -283,8 +283,10 @@ function renderA11y(spec: DocsSpec): string {
     lines.push(`      <p>Role: <code>${esc(role)}</code></p>`);
   }
   if (keyboard.length > 0) {
+    // Header is `Interaction`, not `Key` — overlay specs inject a
+    // pointer-down row alongside the keyboard rows and `Key` would mis-label it.
     const rows = keyboard.map(([key, action]) => [`<code>${esc(key)}</code>`, esc(action)]);
-    lines.push(renderTable(["Key", "Action"], rows));
+    lines.push(renderTable(["Interaction", "Action"], rows));
   }
   return section("Accessibility", lines.join("\n"));
 }
