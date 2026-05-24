@@ -3,7 +3,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse as parseYaml } from "yaml";
 import { type Breakpoint, loadBreakpoints } from "../lib/breakpoints.ts";
-import { collectSlots, type SlotInfo } from "../lib/collect-slots.ts";
+import { collectSlots } from "../lib/collect-slots.ts";
 import { extractCompositeShape } from "../lib/composite-shape.ts";
 import { renderEnumType } from "../lib/enum-primitives.ts";
 import { flattenSpec } from "../lib/flatten.ts";
@@ -13,199 +13,23 @@ import { loadVocabulary } from "../lib/vocabulary.ts";
 import type { GeneratorContext, GeneratorReport } from "../registry.ts";
 import { registerGenerator } from "../registry.ts";
 import { Spec as SpecSchema } from "../schema.ts";
-import type { Spec, SpecProp } from "./gen-contract.ts";
+import type { Spec } from "./gen-contract.ts";
+import { renderDataAttrs, renderStateAttrs } from "./gen-react/_shared/attrs.ts";
+import { renderCssShim } from "./gen-react/_shared/css-shim.ts";
+import {
+  renderDestructure,
+  renderOwnProps,
+  renderPropLine,
+  renderPropsTypeIntersection,
+} from "./gen-react/_shared/props.ts";
+import { renderBody } from "./gen-react/_shared/slots.ts";
+import { quote } from "./gen-react/_shared/type-printer.ts";
 
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..", "..", "..");
 const SPECS_DIR = resolve(REPO_ROOT, "specs");
 const REACT_SRC_DIR = resolve(REPO_ROOT, "packages", "react", "src");
 
 const RESPONSIVE_ENUM_PROPS = new Set(["size"]);
-
-function quote(value: string): string {
-  return `"${value.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`;
-}
-
-function mapPropType(specType: string): string {
-  switch (specType) {
-    case "boolean":
-      return "boolean";
-    case "string":
-      return "string";
-    case "number":
-      return "number";
-    default:
-      return "unknown";
-  }
-}
-
-function responsiveType(baseType: string): string {
-  return `Responsive<${baseType}>`;
-}
-
-function reactPropType(propName: string, propDef: SpecProp, Name: string): string {
-  // Atomic-root slots (Button's iconStart/iconEnd) accept renderable content
-  // → ReactNode. Composite-part slots (Tooltip's text on the content part)
-  // are scalar body content → use the declared type. The `__part` marker
-  // (set by flattenSpec) is "" for atomic-root, the part name for composite.
-  if (propDef.slot === true) {
-    // `__part` is "" / undefined for atomic-root props, the part name for
-    // composite. Tests that bypass flatten see `undefined`; treat both as
-    // the atomic-root case.
-    return !propDef.__part ? "ReactNode" : mapPropType(propDef.type);
-  }
-  if (propDef.values && propDef.values.length > 0) return `${Name}${pascalCase(propName)}`;
-  return mapPropType(propDef.type);
-}
-
-function renderPropLine(
-  propName: string,
-  propDef: SpecProp,
-  propDescriptions: Record<string, string>,
-  Name: string,
-): string[] {
-  // Controllable boolean expands to a triple: `name`, `defaultName`, `onNameChange`.
-  if (propDef.pattern === "controllable" && propDef.type === "boolean") {
-    const PName = pascalCase(propName);
-    const desc = propDef.description ?? propDescriptions[propName];
-    return [
-      desc ? `  /** ${desc} */` : null,
-      `  ${propName}?: boolean;`,
-      `  /** Initial open state (uncontrolled). */`,
-      `  default${PName}?: boolean;`,
-      `  /** Fires when the open state changes. */`,
-      `  on${PName}Change?: (${propName}: boolean) => void;`,
-    ].filter((l): l is string => l !== null);
-  }
-  const baseType = reactPropType(propName, propDef, Name);
-  const tsType = propDef.responsive === true ? responsiveType(baseType) : baseType;
-  const desc = propDef.description ?? propDescriptions[propName];
-  return [desc ? `  /** ${desc} */` : null, `  ${propName}?: ${tsType};`].filter(
-    (l): l is string => l !== null,
-  );
-}
-
-function renderCanonicalProp(
-  name: string,
-  tsType: string,
-  descriptions: Record<string, string>,
-): string[] {
-  const desc = descriptions[name];
-  return [desc ? `  /** ${desc} */` : null, `  ${name}?: ${tsType};`].filter(
-    (l): l is string => l !== null,
-  );
-}
-
-function renderOwnProps(
-  spec: Spec,
-  Name: string,
-  sizeIsResponsive: boolean,
-  propDescriptions: Record<string, string>,
-): string {
-  const sizeType = sizeIsResponsive ? responsiveType(`${Name}Size`) : `${Name}Size`;
-  const propLines = Object.entries(spec.props ?? {}).flatMap(([n, d]) =>
-    renderPropLine(n, d, propDescriptions, Name),
-  );
-  const variantLines = spec.variants
-    ? renderCanonicalProp("variant", `${Name}Variant`, propDescriptions)
-    : [];
-  const intentLines = spec.intents
-    ? renderCanonicalProp("intent", `${Name}Intent`, propDescriptions)
-    : [];
-  const sizeLines = spec.sizes ? renderCanonicalProp("size", sizeType, propDescriptions) : [];
-  const hasAs = "as" in (spec.props ?? {});
-  const refType = hasAs
-    ? "Ref<HTMLElement>"
-    : `Ref<HTMLElementTagNameMap[${quote(spec.element ?? "div")}]>`;
-  return [
-    `type ${Name}OwnProps = {`,
-    ...variantLines,
-    ...intentLines,
-    ...sizeLines,
-    ...propLines,
-    `  children?: ReactNode;`,
-    `  ref?: ${refType};`,
-    `};`,
-  ].join("\n");
-}
-
-const LINE_WIDTH = 100;
-
-function renderDestructure(spec: Spec): string {
-  const names = [
-    spec.variants ? "variant" : null,
-    spec.intents ? "intent" : null,
-    spec.sizes ? "size" : null,
-    ...Object.keys(spec.props ?? {}),
-    "children",
-    "ref",
-    "className",
-    "...rest",
-  ].filter((n): n is string => n !== null);
-  const oneLine = `  const { ${names.join(", ")} } = props;`;
-  if (oneLine.length <= LINE_WIDTH) return oneLine;
-  return [
-    "  const {",
-    ...names.map((n) => `    ${n}${n.startsWith("...") ? "" : ","}`),
-    "  } = props;",
-  ].join("\n");
-}
-
-function renderPropsTypeIntersection(Name: string, element: string): string {
-  const oneLine = `export type ${Name}Props = Readonly<${Name}OwnProps & Omit<ComponentProps<"${element}">, keyof ${Name}OwnProps>>;`;
-  if (oneLine.length <= LINE_WIDTH) return oneLine;
-  return [
-    `export type ${Name}Props = Readonly<`,
-    `  ${Name}OwnProps & Omit<ComponentProps<"${element}">, keyof ${Name}OwnProps>`,
-    `>;`,
-  ].join("\n");
-}
-
-function renderDataAttrs(spec: Spec, responsiveProps: string[], hasLoading: boolean): string {
-  return [
-    spec.variants ? `      data-variant={variant}` : null,
-    spec.intents ? `      data-intent={intent}` : null,
-    ...responsiveProps.map((name) => `      {...responsiveDataAttrs(${quote(name)}, ${name})}`),
-    hasLoading ? `      data-loading={loading === true ? "true" : undefined}` : null,
-  ]
-    .filter((line): line is string => line !== null)
-    .join("\n");
-}
-
-function renderStateAttrs(hasAs: boolean, hasDisabled: boolean, hasLoading: boolean): string {
-  return [
-    hasDisabled && hasAs ? `      disabled={isButton ? inactive : undefined}` : null,
-    hasDisabled && hasAs
-      ? `      aria-disabled={!isButton && inactive ? "true" : undefined}`
-      : null,
-    hasDisabled && !hasAs ? `      disabled={inactive}` : null,
-    hasLoading ? `      aria-busy={loading === true ? "true" : undefined}` : null,
-  ]
-    .filter((line): line is string => line !== null)
-    .join("\n");
-}
-
-function renderSlot(spec: Spec, slot: SlotInfo): string {
-  const posAttr = slot.position ? ` data-position="${slot.position}"` : "";
-  return `      {${slot.propName} != null ? (
-        <span data-${spec.name}-${slot.part}=""${posAttr}>
-          {${slot.propName}}
-        </span>
-      ) : null}`;
-}
-
-function renderBody(spec: Spec, slots: SlotInfo[], hasLoading: boolean): string {
-  return [
-    ...slots.filter((s) => s.position === "start").map((s) => renderSlot(spec, s)),
-    ...slots.filter((s) => s.position === undefined).map((s) => renderSlot(spec, s)),
-    hasLoading ? `      <span data-${spec.name}-label="">{children}</span>` : `      {children}`,
-    ...slots.filter((s) => s.position === "end").map((s) => renderSlot(spec, s)),
-    hasLoading
-      ? `      {loading ? <span data-${spec.name}-spinner="" aria-hidden="true" /> : null}`
-      : null,
-  ]
-    .filter((line): line is string => line !== null)
-    .join("\n");
-}
 
 // ── Atomic wrapper renderer (existing) ──────────────────────────────────────
 
@@ -582,13 +406,6 @@ ${overlaySpec.modal ? `      , document.body)}` : `      )}`}
 function renderWrapper(spec: Spec, propDescriptions: Record<string, string>): string {
   if (spec.kind === "composite") return renderCompositeWrapper(spec, propDescriptions);
   return renderAtomicWrapper(spec, propDescriptions);
-}
-
-function renderCssShim(): string {
-  return `// AUTOGENERATED by gen-react. Do not edit.
-
-declare module "*.css";
-`;
 }
 
 function renderRuntime(breakpoints: Breakpoint[]): string {
