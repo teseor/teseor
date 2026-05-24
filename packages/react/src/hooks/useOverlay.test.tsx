@@ -477,4 +477,103 @@ describe("useOverlay", () => {
     fireEvent.keyDown(document, { key: "Escape" });
     expect(onChange).toHaveBeenCalledWith(false);
   });
+
+  describe("modal: true", () => {
+    it("inerts sibling body children when open", () => {
+      const sibling = document.createElement("aside");
+      sibling.setAttribute("data-testid", "sibling");
+      document.body.appendChild(sibling);
+      try {
+        function Harness() {
+          const o = useOverlay<HTMLDivElement>({ ...BASE_CONFIG, defaultOpen: true, modal: true });
+          return (
+            <div ref={o.contentRef} popover="manual">
+              <button type="button">close</button>
+            </div>
+          );
+        }
+        render(<Harness />);
+        expect(sibling.hasAttribute("inert")).toBe(true);
+      } finally {
+        sibling.remove();
+      }
+    });
+
+    it("does not inert siblings when closed", () => {
+      const sibling = document.createElement("aside");
+      document.body.appendChild(sibling);
+      try {
+        function Harness() {
+          const o = useOverlay<HTMLDivElement>({ ...BASE_CONFIG, defaultOpen: false, modal: true });
+          return (
+            <div ref={o.contentRef} popover="manual">
+              x
+            </div>
+          );
+        }
+        render(<Harness />);
+        expect(sibling.hasAttribute("inert")).toBe(false);
+      } finally {
+        sibling.remove();
+      }
+    });
+
+    it("removes inert from siblings on close", () => {
+      const sibling = document.createElement("aside");
+      document.body.appendChild(sibling);
+      try {
+        function Harness({ open }: { open: boolean }) {
+          const o = useOverlay<HTMLDivElement>({ ...BASE_CONFIG, open, modal: true });
+          return (
+            <div ref={o.contentRef} popover="manual">
+              x
+            </div>
+          );
+        }
+        const { rerender } = render(<Harness open={true} />);
+        expect(sibling.hasAttribute("inert")).toBe(true);
+        rerender(<Harness open={false} />);
+        expect(sibling.hasAttribute("inert")).toBe(false);
+      } finally {
+        sibling.remove();
+      }
+    });
+
+    it("pulls focus into the content on open and activates the focus trap", () => {
+      function Harness() {
+        const o = useOverlay<HTMLDivElement>({ ...BASE_CONFIG, defaultOpen: true, modal: true });
+        return (
+          <div ref={o.contentRef} popover="manual">
+            <button type="button" data-testid="inside">
+              inside
+            </button>
+          </div>
+        );
+      }
+      render(<Harness />);
+      const inside = screen.getByTestId("inside");
+      expect(document.activeElement).toBe(inside);
+    });
+  });
+
+  describe("modal: false (default)", () => {
+    it("does not inert sibling body children when open", () => {
+      const sibling = document.createElement("aside");
+      document.body.appendChild(sibling);
+      try {
+        function Harness() {
+          const o = useOverlay<HTMLDivElement>({ ...BASE_CONFIG, defaultOpen: true });
+          return (
+            <div ref={o.contentRef} popover="manual">
+              x
+            </div>
+          );
+        }
+        render(<Harness />);
+        expect(sibling.hasAttribute("inert")).toBe(false);
+      } finally {
+        sibling.remove();
+      }
+    });
+  });
 });
