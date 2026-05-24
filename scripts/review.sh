@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
-# Local Copilot-style pre-flight code review using `gh-models`.
-# Sends the current branch's diff (against $BASE, default origin/main) to a
-# GitHub Models LLM with the project's review prompt. Prints suggestions and
-# exits 0 — opinions only, no blocking.
+# Local pre-flight code review against the current branch's diff.
+# Sends `git diff $BASE...HEAD` to a GitHub Models endpoint via the `gh-models`
+# extension with the project's review prompt. Prints suggestions to stdout.
 #
-# Requires: gh CLI + gh-models extension (free under a paid Copilot plan).
-# Install hints surface inline below.
+# Exit codes:
+#   0  diff empty, or review completed (regardless of what the review said).
+#   1  missing prerequisite (gh CLI, gh-models extension, prompt file).
+#   *  underlying `gh models run` failure (network, auth, rate limit).
+#
+# Requires: `gh` CLI + `gh-models` extension. Installation hints emit below.
 set -euo pipefail
 
 if ! command -v gh > /dev/null 2>&1; then
@@ -23,8 +26,12 @@ BASE="${BASE:-origin/main}"
 MODEL="${MODEL:-openai/gpt-4o}"
 
 if ! git rev-parse "$BASE" > /dev/null 2>&1; then
-  printf 'review: base ref %s not resolvable; running `git fetch origin main` first...\n' "$BASE" >&2
+  printf 'review: base ref %s not resolvable; fetching origin main...\n' "$BASE" >&2
   git fetch --quiet origin main
+  if ! git rev-parse "$BASE" > /dev/null 2>&1; then
+    printf 'review: base ref %s still not resolvable after fetch — set BASE to a reachable ref\n' "$BASE" >&2
+    exit 1
+  fi
 fi
 
 DIFF=$(git diff "$BASE"...HEAD)

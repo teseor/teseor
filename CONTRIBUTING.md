@@ -41,11 +41,16 @@ See `docs/process/dev-scripts.md` for the full script catalog.
 ### Optional local pre-flight review
 
 `pnpm review` sends the current branch's diff (against `origin/main`) to a
-GitHub Models LLM and prints suggestions in the shape of a code review.
-Catches the kinds of things the GitHub Copilot PR reviewer would flag —
-naming overpromise, schema vs fixture drift, a11y semantics, SSR concerns,
-public-API leakage. Free under a paid Copilot plan, runs in 5-15 s, never
-blocks.
+GitHub Models endpoint via the `gh-models` extension and prints suggestions
+on:
+
+- Naming overpromise (function name covers more than the implementation).
+- Schema vs fixture drift (`as unknown as Spec` hiding missing fields).
+- Accessibility semantics (`aria-modal`, `aria-describedby` on the wrong
+  element, missing accessible name).
+- SSR-hydration patterns (`typeof document !== "undefined"` in JSX).
+- Public-API leakage (test-only helpers exported from production modules).
+- Cross-file consistency on renames.
 
 ```bash
 gh extension install github/gh-models

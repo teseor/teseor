@@ -57,7 +57,11 @@ pre-push:
     #   touch .claude/preflight-review.enabled
     # Disable with: rm .claude/preflight-review.enabled
     # Warn-only — prints suggestions, never blocks the push.
+    # `interactive: true` streams the review output (and any install hint from
+    # the script) directly to the terminal; lefthook hides stdout from
+    # success-path commands by default.
     preflight-review:
+      interactive: true
       run: |
         if [ ! -f .claude/preflight-review.enabled ]; then exit 0; fi
         bash scripts/review.sh || true
