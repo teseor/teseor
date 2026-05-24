@@ -17,6 +17,7 @@ import { rule as docPaths } from "./cross-file/doc-paths.ts";
 import { rule as dogfood } from "./cross-file/dogfood.ts";
 import { rule as exportsResolve } from "./cross-file/exports-resolve.ts";
 import { rule as labelSync } from "./cross-file/label-sync.ts";
+import { rule as reactEventVocabularySync } from "./cross-file/react-event-vocabulary-sync.ts";
 import { rule as scriptAggregators } from "./cross-file/script-aggregators.ts";
 import { rule as scriptCatalog } from "./cross-file/script-catalog.ts";
 import { rule as changeset } from "./diff-aware/changeset.ts";
@@ -135,5 +136,6 @@ export const REGISTRY: Readonly<Record<string, Check>> = {
   "config-paths": configPaths,
   "label-sync": labelSync,
   "codegen-tests": codegenTests,
+  "react-event-vocabulary-sync": reactEventVocabularySync,
   changeset: changeset,
 };
