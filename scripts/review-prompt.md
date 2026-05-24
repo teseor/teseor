@@ -38,7 +38,7 @@ Walk the diff with this checklist. Skip anything that doesn't apply.
 - Vue: `watch` callbacks fire in registration order, both for setup and teardown. If you need teardown order to differ from setup order, you cannot rely on `watch` alone.
 
 ### 7. Public API surface
-- New exports from `packages/*/src/*` that look test-only. Anything named `*ForTests`, `*ResetForTests`, `__internal*` etc. should NOT be exported from production modules. The `./* ` export map in `@teseor/primitives` and `@teseor/{react,vue}` exposes deep imports — anything exported is part of the public surface.
+- New exports from `packages/*/src/*` that look test-only. Anything named `*ForTests`, `*ResetForTests`, `__internal*` etc. should NOT be exported from production modules. The `./*` export map in `@teseor/primitives` and `@teseor/{react,vue}` exposes deep imports — anything exported is part of the public surface.
 - Functions with `__` prefix or "test" in the name being re-exported via barrels.
 
 ### 8. Cross-file consistency
