@@ -16,6 +16,8 @@ type ScopeInstance = {
   element: HTMLElement;
   /** Body children this scope set inert on (so we restore exactly those). */
   affected: HTMLElement[];
+  /** Body children that had inert from a lower scope; this scope un-set it because they contain our element. Re-inert on deactivate so the outer scope is restored. */
+  unmasked: HTMLElement[];
   active: boolean;
 };
 
@@ -42,7 +44,15 @@ function applyInert(scope: ScopeInstance, doc: Document): void {
   // Snapshot for mutation-safe iteration.
   for (const child of Array.from(body.children)) {
     if (!(child instanceof HTMLElement)) continue;
-    if (child.contains(scope.element)) continue;
+    if (child.contains(scope.element)) {
+      // Our modal's container. If a lower scope inerted it, un-inert so this
+      // scope's subtree is reachable; restore is responsible for re-asserting.
+      if (child.hasAttribute("inert")) {
+        child.removeAttribute("inert");
+        scope.unmasked.push(child);
+      }
+      continue;
+    }
     // Skip pre-existing inert (author attribute or outer scope) — restore only touches what this scope set.
     if (child.hasAttribute("inert")) continue;
     child.setAttribute("inert", "");
@@ -55,6 +65,11 @@ function restoreInert(scope: ScopeInstance): void {
     el.removeAttribute("inert");
   }
   scope.affected = [];
+  // Re-assert inert that this scope removed (handing the mask back to the lower scope).
+  for (const el of scope.unmasked) {
+    el.setAttribute("inert", "");
+  }
+  scope.unmasked = [];
 }
 
 /**
@@ -74,7 +89,7 @@ export function createModalityScope(
     );
   }
   const supported = isSupported();
-  const instance: ScopeInstance = { element, affected: [], active: false };
+  const instance: ScopeInstance = { element, affected: [], unmasked: [], active: false };
 
   return {
     activate(): void {

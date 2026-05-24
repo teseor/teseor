@@ -67,6 +67,39 @@ describe("createModalityScope", () => {
     expect(outerSibling.hasAttribute("inert")).toBe(false);
   });
 
+  it("two scopes in sibling body-children — inner activates without leaving its container inert", () => {
+    // Regression: a second modal whose container had been inerted by the first
+    // scope was left unfocusable because applyInert skipped already-inert
+    // children. The new pass un-inerts the second scope's container and
+    // restores it on deactivate.
+    const child1 = document.createElement("div");
+    const modalA = document.createElement("div");
+    child1.appendChild(modalA);
+    const child2 = document.createElement("div");
+    const modalB = document.createElement("div");
+    child2.appendChild(modalB);
+    document.body.append(child1, child2);
+
+    const scopeA = createModalityScope(modalA);
+    const scopeB = createModalityScope(modalB);
+
+    scopeA.activate();
+    expect(child1.hasAttribute("inert")).toBe(false);
+    expect(child2.hasAttribute("inert")).toBe(true);
+
+    scopeB.activate();
+    expect(child2.hasAttribute("inert")).toBe(false);
+    expect(child1.hasAttribute("inert")).toBe(true);
+
+    scopeB.deactivate();
+    expect(child1.hasAttribute("inert")).toBe(false);
+    expect(child2.hasAttribute("inert")).toBe(true);
+
+    scopeA.deactivate();
+    expect(child1.hasAttribute("inert")).toBe(false);
+    expect(child2.hasAttribute("inert")).toBe(false);
+  });
+
   it("activate is idempotent", () => {
     const sibling = document.createElement("div");
     const modal = document.createElement("div");
