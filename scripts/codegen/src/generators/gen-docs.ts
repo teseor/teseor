@@ -257,21 +257,37 @@ function renderTokens(spec: DocsSpec): string {
   return section("Tokens", renderTable(["Token", "Fallback", "Description"], rows));
 }
 
+// Universal overlay dismissal contract, wired in `useOverlay` via
+// `useDismissableLayer` for every spec with a `popover:` block (PR #698).
+// Injected here so individual specs don't redeclare the rows in their
+// `a11y.keyboard` block and drift from the runtime contract.
+const OVERLAY_KEYBOARD_ROWS: Array<[string, string]> = [
+  ["Escape", "Closes the overlay. Topmost-wins when multiple overlays are open."],
+  ["Outside pointer-down", "Pressing outside the content closes the overlay."],
+];
+
 function renderA11y(spec: DocsSpec): string {
-  if (!spec.a11y) return "";
+  const role = spec.a11y?.role;
+  const declaredKeyboard: Array<[string, string]> = Object.entries(spec.a11y?.keyboard ?? {});
+  // Spec-declared rows win when the key collides — a spec that goes out of its
+  // way to redeclare `Escape` or `Outside pointer-down` keeps its wording, and
+  // the universal contract only fills in keys the spec didn't speak to.
+  const declaredKeys = new Set(declaredKeyboard.map(([key]) => key));
+  const overlayKeyboard = spec.popover
+    ? OVERLAY_KEYBOARD_ROWS.filter(([key]) => !declaredKeys.has(key))
+    : [];
+  const keyboard = [...declaredKeyboard, ...overlayKeyboard];
+  if (!role && keyboard.length === 0) return "";
   const lines: string[] = [];
-  if (spec.a11y.role) {
-    lines.push(`      <p>Role: <code>${esc(spec.a11y.role)}</code></p>`);
+  if (role) {
+    lines.push(`      <p>Role: <code>${esc(role)}</code></p>`);
   }
-  const keyboard = spec.a11y.keyboard ?? {};
-  if (Object.keys(keyboard).length > 0) {
-    const rows = Object.entries(keyboard).map(([key, action]) => [
-      `<code>${esc(key)}</code>`,
-      esc(action),
-    ]);
-    lines.push(renderTable(["Key", "Action"], rows));
+  if (keyboard.length > 0) {
+    // Header is `Interaction`, not `Key` — overlay specs inject a
+    // pointer-down row alongside the keyboard rows and `Key` would mis-label it.
+    const rows = keyboard.map(([key, action]) => [`<code>${esc(key)}</code>`, esc(action)]);
+    lines.push(renderTable(["Interaction", "Action"], rows));
   }
-  if (lines.length === 0) return "";
   return section("Accessibility", lines.join("\n"));
 }
 
