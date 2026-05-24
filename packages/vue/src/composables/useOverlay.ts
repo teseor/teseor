@@ -1,4 +1,5 @@
 import { warnOnce } from "@teseor/primitives";
+import { useDismissableLayer } from "@teseor/primitives/vue";
 import {
   computed,
   onBeforeUnmount,
@@ -159,6 +160,13 @@ export function useOverlay(config: OverlayConfig): OverlayReturn {
     },
     { immediate: true, flush: "post" },
   );
+
+  // Per-ownerDocument dismissable-layer stack participation (React parallel in
+  // packages/react/src/hooks/useOverlay.ts).
+  useDismissableLayer(contentRef, computed(() => open.value), {
+    onEscapeKeyDown: () => setOpen(false),
+    onPointerDownOutside: () => setOpen(false),
+  });
 
   // Re-read getter-form delays per fire (latest prop value).
   const resolveDelay = (d: number | (() => number) | undefined): number => {
