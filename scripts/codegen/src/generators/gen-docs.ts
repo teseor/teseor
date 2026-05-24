@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { parse as parseYaml } from "yaml";
 import { flattenSpec } from "../lib/flatten.ts";
 import { pascalCase } from "../lib/pascal-case.ts";
+import { esc, formatValue } from "../lib/text-escape.ts";
 import type { GeneratorContext, GeneratorReport } from "../registry.ts";
 import { registerGenerator } from "../registry.ts";
 import { Spec as SpecSchema } from "../schema.ts";
@@ -19,22 +20,6 @@ type DocsSpec = Spec & {
   tokens?: Record<string, { fallback?: string; desc?: string }>;
   a11y?: { role?: string; keyboard?: Record<string, string> };
 };
-
-/** Escape text for HTML content; `{}` are escaped because Astro reads them as expressions. */
-function esc(value: string): string {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/{/g, "&lbrace;")
-    .replace(/}/g, "&rbrace;");
-}
-
-function formatValue(value: unknown): string {
-  if (value === null || value === undefined) return "null";
-  if (typeof value === "boolean") return value ? "true" : "false";
-  return String(value);
-}
 
 /** A JS-expression rendering of a value — for `prop={expr}` and responsive objects. */
 function jsLiteral(value: unknown): string {
