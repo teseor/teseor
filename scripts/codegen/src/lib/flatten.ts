@@ -53,7 +53,7 @@ export type FlatSpec = {
   behavior?: "none" | "primitive" | "stateful";
   primitives?: string[];
   dependencies?: string[];
-  popover?: NonNullable<Spec["popover"]>;
+  overlay?: NonNullable<Spec["overlay"]>;
   interactions?: NonNullable<Spec["interactions"]>;
   examples?: Spec["examples"];
   coverage?: Spec["coverage"];
@@ -182,7 +182,7 @@ export function flattenSpec(spec: Spec): FlatSpec {
     behavior: spec.behavior,
     primitives: spec.primitives,
     dependencies: spec.dependencies,
-    popover: spec.popover,
+    overlay: spec.overlay,
     interactions: spec.interactions,
     examples: spec.examples,
     coverage: spec.coverage,

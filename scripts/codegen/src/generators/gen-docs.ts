@@ -258,7 +258,7 @@ function renderTokens(spec: DocsSpec): string {
 }
 
 // Universal overlay dismissal contract, wired in `useOverlay` via
-// `useDismissableLayer` for every spec with a `popover:` block (PR #698).
+// `useDismissableLayer` for every spec with an `overlay:` block (PR #698).
 // Injected here so individual specs don't redeclare the rows in their
 // `a11y.keyboard` block and drift from the runtime contract.
 const OVERLAY_KEYBOARD_ROWS: Array<[string, string]> = [
@@ -273,7 +273,7 @@ function renderA11y(spec: DocsSpec): string {
   // way to redeclare `Escape` or `Outside pointer-down` keeps its wording, and
   // the universal contract only fills in keys the spec didn't speak to.
   const declaredKeys = new Set(declaredKeyboard.map(([key]) => key));
-  const overlayKeyboard = spec.popover
+  const overlayKeyboard = spec.overlay
     ? OVERLAY_KEYBOARD_ROWS.filter(([key]) => !declaredKeys.has(key))
     : [];
   const keyboard = [...declaredKeyboard, ...overlayKeyboard];

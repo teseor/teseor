@@ -6,7 +6,7 @@ cssFile: components/tooltip/tooltip.css
 behavior: stateful
 primitives: []
 
-popover:
+overlay:
   anchor: trigger
   floating: content
   mode: manual

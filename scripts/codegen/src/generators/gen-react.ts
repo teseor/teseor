@@ -395,7 +395,7 @@ ${bodyBlock}
  * Emits a React wrapper for a composite spec — currently the
  * "overlay-with-anchor" shape: one `fromChildren` part (rendered as a thin
  * `<span>` wrapper around the consumer's children) and one rendered part
- * bound by `popover:` + `interactions:`.
+ * bound by `overlay:` + `interactions:`.
  *
  * The runtime hook `useOverlay` (in `hooks/useOverlay.ts`) drives the state machine,
  * popover toggling, anchor binding, and event listener wiring. The emitted
@@ -405,29 +405,29 @@ ${bodyBlock}
  */
 function renderCompositeWrapper(spec: Spec, propDescriptions: Record<string, string>): string {
   const Name = pascalCase(spec.name);
-  const popover = spec.popover;
+  const overlay = spec.overlay;
   const interactions = spec.interactions ?? [];
   const parts = spec.parts ?? {};
-  if (!popover) {
+  if (!overlay) {
     throw new Error(
-      `composite spec '${spec.name}' must declare 'popover:' for the overlay-with-anchor shape`,
+      `composite spec '${spec.name}' must declare 'overlay:' for the overlay-with-anchor shape`,
     );
   }
-  const triggerPart = parts[popover.anchor];
-  const contentPart = parts[popover.floating];
+  const triggerPart = parts[overlay.anchor];
+  const contentPart = parts[overlay.floating];
   if (!triggerPart) {
-    throw new Error(`popover.anchor '${popover.anchor}' is not a declared part`);
+    throw new Error(`overlay.anchor '${overlay.anchor}' is not a declared part`);
   }
   if (!contentPart) {
-    throw new Error(`popover.floating '${popover.floating}' is not a declared part`);
+    throw new Error(`overlay.floating '${overlay.floating}' is not a declared part`);
   }
   if (triggerPart.fromChildren !== true) {
     throw new Error(
-      `popover.anchor '${popover.anchor}' must declare 'fromChildren: true' (this generator only emits the overlay-with-anchor shape)`,
+      `overlay.anchor '${overlay.anchor}' must declare 'fromChildren: true' (this generator only emits the overlay-with-anchor shape)`,
     );
   }
   if (contentPart.fromChildren === true) {
-    throw new Error(`popover.floating '${popover.floating}' cannot declare 'fromChildren: true'`);
+    throw new Error(`overlay.floating '${overlay.floating}' cannot declare 'fromChildren: true'`);
   }
 
   const triggerClass = triggerPart.rootClass ?? `t-${spec.name}-trigger`;
@@ -451,7 +451,7 @@ function renderCompositeWrapper(spec: Spec, propDescriptions: Record<string, str
 
   // Slots that the content renders inline (e.g. `text` for Tooltip).
   const contentSlots = Object.entries(spec.props)
-    .filter(([, d]) => d.slot === true && d.__part === popover.floating)
+    .filter(([, d]) => d.slot === true && d.__part === overlay.floating)
     .map(([n]) => n);
 
   // Responsive props rendered as data-attrs on the content element.
@@ -516,8 +516,8 @@ function renderCompositeWrapper(spec: Spec, propDescriptions: Record<string, str
     `    ${controllableName}: ${controllableName}Prop,`,
     `    default${ControllableName},`,
     `    on${ControllableName}Change,`,
-    `    anchorVar: ${quote(popover.anchorVar)},`,
-    `    popoverMode: ${quote(popover.mode)},`,
+    `    anchorVar: ${quote(overlay.anchorVar)},`,
+    `    popoverMode: ${quote(overlay.mode)},`,
     `    interactions,`,
   ].join("\n");
   const hookConfigWithDisabled = disabledLine
