@@ -1,14 +1,10 @@
-// `git ls-files` with the `:(glob)` pathspec gotcha baked in. A bare
-// `**` in a pathspec is one-segment-only by default — `git ls-files
-// 'packages/react/src/**/*.tsx'` silently returns depth-1 matches only.
-// Every caller of this helper avoids that footgun.
+// `git ls-files` wrapped with `:(glob)` so `**` is cross-segment. Without
+// the magic prefix, a bare `**` in a pathspec matches one segment only —
+// `git ls-files 'packages/react/src/**/*.tsx'` silently returns nothing.
 import { execSync } from "node:child_process";
 
-// Expand the brace alternation in `pattern` to one pattern per alternative.
-// `git ls-files :(glob)…` does not understand `{a,b}` syntax — its `:(glob)`
-// magic is fnmatch-style. Callers commonly write `<doublestar>/*.{ts,tsx}`
-// for readability; this helper desugars that to two pathspecs. Only one
-// set of braces per pattern is supported (no nesting).
+/** Expand `{a,b}` alternation client-side; git pathspec doesn't. One brace
+ *  set per pattern (no nesting). */
 export function expandBraces(pattern: string): string[] {
   const match = pattern.match(/^([^{]*)\{([^}]+)\}(.*)$/);
   if (!match) return [pattern];
@@ -19,10 +15,8 @@ export function expandBraces(pattern: string): string[] {
     .flatMap((alt) => expandBraces(`${head}${alt}${tail}`));
 }
 
-/** List tracked files matching one or more pathspecs. Each pathspec is
- *  wrapped with `:(glob)` magic so `**` is recursive. `{a,b}` brace
- *  alternation is expanded client-side. Pathspecs that already begin with
- *  magic syntax (`:(...)…`) are passed through verbatim. */
+/** Tracked files matching the pathspecs. `:(glob)` is prepended unless the
+ *  pathspec already declares its own magic prefix. */
 export function lsFiles(pathspecs: readonly string[], cwd: string): string[] {
   const expanded = pathspecs.flatMap((p) => (p.startsWith(":(") ? [p] : expandBraces(p)));
   const args = expanded

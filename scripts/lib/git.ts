@@ -1,17 +1,10 @@
-// Diff-resolution helpers used by every check that needs to know what
-// changed relative to the PR base. Centralized because the same `BASE_REF
-// / GITHUB_BASE_REF / origin/main` precedence and three-dot diff semantics
-// used to be copy-pasted across check scripts — and at least one copy
-// silently fell back to "no diff" when the base wasn't found.
+// Diff-resolution helpers against the PR base.
 import { execSync } from "node:child_process";
 
 const DEFAULT_BASE = "main";
 
-/** Resolve a base ref against the local repo. Tries the bare name first
- *  (local pre-push: `main` is a real branch), then `origin/<base>` (CI:
- *  shallow checkouts only populate `refs/remotes/origin/*`). Fails loud —
- *  silently skipping the entire check defeats the guardrail in any CI that
- *  didn't `fetch-depth: 0`. */
+/** Resolve `baseInput` — tries the bare name, then `origin/<base>`. Throws
+ *  loud when neither resolves; silent skip would defeat the guardrail. */
 export function resolveBase(baseInput: string, cwd: string): string {
   for (const candidate of [baseInput, `origin/${baseInput}`]) {
     try {
@@ -31,11 +24,8 @@ export function resolveBase(baseInput: string, cwd: string): string {
   );
 }
 
-/** The diff scope between the PR base and HEAD. GitHub provides
- *  `GITHUB_BASE_REF` in PR contexts; locally the override is `BASE_REF`;
- *  otherwise `main`. Three-dot syntax is the PR-equivalent diff (excludes
- *  commits added to base after the branch point), matching what reviewers
- *  see on GitHub. */
+/** Files changed against the PR base (three-dot diff, GitHub-equivalent).
+ *  Base precedence: `BASE_REF` env > `GITHUB_BASE_REF` env > `main`. */
 export function getChangedFiles(cwd: string): string[] {
   const baseInput = process.env.BASE_REF ?? process.env.GITHUB_BASE_REF ?? DEFAULT_BASE;
   const base = resolveBase(baseInput, cwd);

@@ -1,8 +1,5 @@
 #!/usr/bin/env node
-// Dispatches every project-specific lint rule registered in
-// `./registry.ts`. Lefthook invokes this once via `--all {staged_files}`;
-// CI and `pnpm lint` invoke it via `--all`; a developer debugs one rule via
-// `--<rulename>`.
+// Dispatcher for `./registry.ts`.
 //
 // CLI:
 //   node scripts/lint/run.ts                       # --all implied
@@ -10,11 +7,9 @@
 //   node scripts/lint/run.ts --<rulename>          # one rule
 //   node scripts/lint/run.ts --<rulename> f1 f2    # one file-rule + explicit files
 //   node scripts/lint/run.ts --list                # list registered rules
-//   node scripts/lint/run.ts --help
 //
 // File-rules with explicit files behave like `eslint <files>`. Workspace
-// and diff-aware rules ignore positional file args — they read their own
-// inputs (a directory tree, a `git diff`, etc.).
+// and diff-aware rules ignore positional file args.
 import { spawnSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { relative, resolve } from "node:path";
@@ -50,10 +45,6 @@ function parseArgs(argv: readonly string[]): ParsedArgs {
     }
   }
   if (runAll) out.selectedRules = [];
-  // Default: --all when neither a rule flag nor positional file list is given.
-  if (!runAll && out.selectedRules.length === 0 && out.files.length === 0) {
-    // explicit no-op: the empty selectedRules array already means "all"
-  }
   return out;
 }
 
@@ -78,8 +69,7 @@ function printList(): void {
   }
 }
 
-/** True when at least one path in `staged` matches one of the trigger
- *  pathspecs. When `staged` is undefined the rule always runs (full sweep). */
+/** True when `staged` is undefined (full sweep) or any path matches a trigger. */
 function shouldTrigger(
   triggers: readonly string[],
   staged: readonly string[] | undefined,
@@ -98,10 +88,8 @@ function toRepoRelative(filePath: string): string {
 }
 
 function runFileRule(name: string, rule: FileRule, files: readonly string[] | undefined): number {
-  // Explicit file lists (lefthook `{staged_files}`) come in with everything
-  // currently staged. Filter through the rule's own pathspec so a `.md` rule
-  // doesn't scan a `.ts` file (and vice versa). The full-sweep branch already
-  // enumerates only matching files via `lsFiles`.
+  // Explicit lists from lefthook include unrelated staged files; filter by
+  // the rule's pathspec. `lsFiles` already does this for the full-sweep path.
   const inputs = files === undefined ? lsFiles(rule.pathspec, REPO_ROOT) : files;
   const scoped = inputs
     .map(toRepoRelative)

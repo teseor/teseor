@@ -1,29 +1,20 @@
-// One consistent error/success format across every check script. The
-// shape used to vary — some used `console.error`, some `process.stderr`,
-// some printed counts differently — which made the lefthook summary
-// harder to scan when multiple checks ran in parallel.
+// Uniform success/violation output for every check.
 
 export type Location = { file: string; line?: number };
 
 export type Violation = Location & { message: string };
 
 export type Report = {
-  /** Short script name printed as the line prefix (e.g. `check-component-css`). */
   name: string;
-  /** Human-readable count noun in the success line (e.g. `components`, `test files`).
-   *  Omit when there's no meaningful per-item count (workspace invariants). */
+  /** Success-line noun (e.g. `test files`). Omit when there's no count. */
   noun?: string;
-  /** Number of items inspected for the success line ("N noun(s) clean").
-   *  When omitted, the success line is "<name>: clean". */
+  /** Success-line count. When omitted, prints `<name>: clean`. */
   inspected?: number;
-  /** Violations to report; empty array means clean. */
   violations: readonly Violation[];
-  /** Optional multi-line hint appended after the violation list. */
   hint?: string;
 };
 
-/** Print the result and return the process exit code (0 clean, 1 violations).
- *  Callers should `process.exit(reportResult(...))`. */
+/** Print and return the exit code (0 clean, 1 violations). */
 export function reportResult({ name, noun, inspected, violations, hint }: Report): number {
   if (violations.length === 0) {
     if (inspected !== undefined && noun !== undefined) {

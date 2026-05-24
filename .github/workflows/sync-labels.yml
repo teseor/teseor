@@ -26,13 +26,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      # Full setup (with `pnpm install`) is required because the
-      # `label-sync` check runs through `scripts/lint/run.ts`, whose registry
-      # transitively imports every rule — including `component-css`, which
-      # depends on `postcss`. A minimal Node-only setup would fail on the
-      # registry import. The sync-labels job is small enough that the extra
-      # install time is acceptable; the alternative (lazy registry imports
-      # so `--label-sync` skips unrelated modules) is tracked as a follow-up.
       - uses: ./.github/actions/setup
       - name: Regenerate AUTO regions from specs
         run: node scripts/repo/sync-labels.ts --mode=generate
