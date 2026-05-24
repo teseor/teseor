@@ -6,7 +6,7 @@ import {
 } from "@teseor/test-internals";
 import { mount, type VueWrapper } from "@vue/test-utils";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import { type Component, Fragment, h } from "vue";
+import { type Component, defineComponent, Fragment, h } from "vue";
 import { Slot } from "./Slot.ts";
 
 beforeAll(installDomPolyfills);
@@ -122,6 +122,35 @@ describe("Slot", () => {
     });
     await wrapper.find("button").trigger("click");
     expect(calls).toEqual(["child"]);
+  });
+
+  it("forwards non-Event payloads to composed handlers (custom emit arity)", () => {
+    const childCalls: unknown[][] = [];
+    const slotCalls: unknown[][] = [];
+    const Child = defineComponent({
+      emits: ["update:modelValue"],
+      setup(_, { emit }) {
+        return () =>
+          h("button", {
+            type: "button",
+            onClick: () => emit("update:modelValue", "next", { meta: true }),
+          });
+      },
+    });
+    const wrapper = mountTracked(Slot, {
+      attrs: {
+        "onUpdate:modelValue": (...args: unknown[]) => slotCalls.push(args),
+      },
+      slots: {
+        default: () =>
+          h(Child, {
+            "onUpdate:modelValue": (...args: unknown[]) => childCalls.push(args),
+          }),
+      },
+    });
+    wrapper.find("button").element.dispatchEvent(new Event("click"));
+    expect(childCalls).toEqual([["next", { meta: true }]]);
+    expect(slotCalls).toEqual([["next", { meta: true }]]);
   });
 
   it("forwards aria / data attributes onto the child", () => {

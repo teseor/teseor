@@ -1,7 +1,7 @@
 import { warnOnce } from "@teseor/primitives";
 import { cloneVNode, defineComponent } from "vue";
 
-type EventHandler = (event: Event) => void;
+type EventHandler = (...args: unknown[]) => void;
 
 /**
  * Renders the default slot's first VNode with merged attrs from the parent —
@@ -42,11 +42,12 @@ export const Slot = defineComponent({
           const value = props[key];
           if (!Array.isArray(value)) continue;
           const handlers = value as EventHandler[];
-          props[key] = (event: Event) => {
+          props[key] = (...args: unknown[]) => {
             for (const fn of handlers) {
               if (typeof fn !== "function") continue;
-              fn(event);
-              if (event.defaultPrevented) return;
+              fn(...args);
+              const event = args[0] as { defaultPrevented?: boolean } | undefined;
+              if (event?.defaultPrevented === true) return;
             }
           };
         }
