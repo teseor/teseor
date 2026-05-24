@@ -60,8 +60,11 @@ pre-push:
     # `interactive: true` streams the review output (and any install hint from
     # the script) directly to the terminal; lefthook hides stdout from
     # success-path commands by default.
+    # `skip_empty: false` forces the command to run even when the push range
+    # has no file changes (the script computes its own diff vs $BASE).
     preflight-review:
       interactive: true
+      skip_empty: false
       run: |
         if [ ! -f .claude/preflight-review.enabled ]; then exit 0; fi
         bash scripts/review.sh || true
