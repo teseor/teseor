@@ -153,6 +153,23 @@ describe("Slot", () => {
     expect(slotCalls).toEqual([["next", { meta: true }]]);
   });
 
+  it("leaves non-listener props starting with 'on' untouched (onboardingSteps)", () => {
+    const stepsReceived: unknown[] = [];
+    const Child = defineComponent({
+      props: { onboardingSteps: { type: Array, default: () => [] } },
+      setup(props) {
+        return () => {
+          stepsReceived.push(props.onboardingSteps);
+          return h("button", { type: "button" }, "x");
+        };
+      },
+    });
+    mountTracked(Slot, {
+      slots: { default: () => h(Child, { onboardingSteps: [1, 2, 3] }) },
+    });
+    expect(stepsReceived).toEqual([[1, 2, 3]]);
+  });
+
   it("forwards aria / data attributes onto the child", () => {
     const wrapper = mountTracked(Slot, {
       attrs: { "aria-describedby": "tip-1", "data-state": "open" },

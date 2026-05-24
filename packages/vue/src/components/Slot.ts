@@ -4,6 +4,17 @@ import { cloneVNode, defineComponent } from "vue";
 type EventHandler = (...args: unknown[]) => void;
 
 /**
+ * Mirrors Vue's internal `isOn` (`@vue/shared`): char 0/1 are `o`/`n` and
+ * char 2 is not a lowercase letter (uppercase, digit, or `:` for
+ * `onUpdate:*`). Narrower than `startsWith("on")` so we don't wrap props
+ * like `onboardingSteps` whose value happens to be an array.
+ */
+const isVueListenerKey = (key: string): boolean =>
+  key.charCodeAt(0) === 111 &&
+  key.charCodeAt(1) === 110 &&
+  (key.charCodeAt(2) > 122 || key.charCodeAt(2) < 97);
+
+/**
  * Renders the default slot's first VNode with merged attrs from the parent —
  * Vue equivalent of React's `cloneElement` Slot. Used by composite wrappers
  * when `asChild` is true so the consumer's element receives event handlers,
@@ -38,13 +49,13 @@ export const Slot = defineComponent({
       const props = cloned.props;
       if (props) {
         for (const key of Object.keys(props)) {
-          if (!key.startsWith("on")) continue;
+          if (!isVueListenerKey(key)) continue;
           const value = props[key];
           if (!Array.isArray(value)) continue;
-          const handlers = value as EventHandler[];
+          const handlers = value.filter((fn): fn is EventHandler => typeof fn === "function");
+          if (handlers.length === 0) continue;
           props[key] = (...args: unknown[]) => {
             for (const fn of handlers) {
-              if (typeof fn !== "function") continue;
               fn(...args);
               const event = args[0] as { defaultPrevented?: boolean } | undefined;
               if (event?.defaultPrevented === true) return;
