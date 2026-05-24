@@ -38,6 +38,23 @@ pnpm test:e2e   # Playwright suite (see Playwright browsers below)
 
 See `docs/process/dev-scripts.md` for the full script catalog.
 
+### Optional local pre-flight review
+
+`pnpm review` sends the current branch's diff (against `origin/main`) to a
+GitHub Models LLM and prints suggestions in the shape of a code review.
+Catches the kinds of things the GitHub Copilot PR reviewer would flag —
+naming overpromise, schema vs fixture drift, a11y semantics, SSR concerns,
+public-API leakage. Free under a paid Copilot plan, runs in 5-15 s, never
+blocks.
+
+```bash
+gh extension install github/gh-models
+pnpm review
+```
+
+`BASE=<ref>` overrides the comparison base (default `origin/main`).
+`MODEL=<id>` overrides the model (default `openai/gpt-4o`).
+
 ### Worktrees
 
 If you use `git worktree`, `core.hooksPath` may inherit from the main repo and
