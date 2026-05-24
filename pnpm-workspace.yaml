@@ -9,5 +9,6 @@ overrides:
 allowBuilds:
   esbuild: false
   sharp: false
+  lefthook: true
 minimumReleaseAgeExclude:
   - astro@6.3.7
