@@ -502,6 +502,11 @@ function renderCompositeWrapper(spec: Spec, _propDescriptions: Record<string, st
       : "    <!-- no content slot declared -->";
 
   const roleAttr = contentRole ? `role="${contentRole}"` : "";
+  // ARIA dialogs need an accessible name. Bind it to the first content slot
+  // prop (Modal: `title`) so the screen-reader announcement matches the body.
+  // Other roles name themselves via `aria-describedby` on the trigger.
+  const ariaLabelAttr =
+    contentRole === "dialog" && contentSlots[0] ? `:aria-label="${contentSlots[0]}"` : "";
 
   // `v-if`-gated render: the popover element only mounts when its content slot
   // resolves to a value. With no slot declared the popover renders never —
@@ -584,7 +589,7 @@ ${contentDataAttrComputed}
     v-if="${hasContentExpr}"
     ref="contentRef"
     :id="overlay.popoverId"
-    ${roleAttr}
+    ${roleAttr}${ariaLabelAttr ? `\n    ${ariaLabelAttr}` : ""}
     class="${contentClass}"
     :popover="overlay.popoverMode"
     :data-state="overlay.state.value"

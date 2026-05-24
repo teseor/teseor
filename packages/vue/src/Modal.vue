@@ -73,6 +73,7 @@ const contentRef = overlay.contentRef;
     ref="contentRef"
     :id="overlay.popoverId"
     role="dialog"
+    :aria-label="title"
     class="t-modal"
     :popover="overlay.popoverMode"
     :data-state="overlay.state.value"

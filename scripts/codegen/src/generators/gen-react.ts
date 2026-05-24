@@ -552,9 +552,14 @@ function renderCompositeWrapper(spec: Spec, propDescriptions: Record<string, str
       : "        {/* no content slot declared */}";
 
   const hasResponsive = responsiveProps.length > 0;
+  // Modal overlays gate the portal on a mounted flag (set in a `useEffect`) so
+  // server-rendered HTML and the client's first render match — same null result
+  // for the portal subtree, no hydration mismatch warnings.
+  const reactRuntimeImports = ["type CSSProperties", "type ReactNode", "useMemo"];
+  if (overlaySpec.modal) reactRuntimeImports.push("useEffect", "useState");
   const importsLines = [
     `import "@teseor/css/components/${spec.name}.css";`,
-    `import { type CSSProperties, type ReactNode, useMemo } from "react";`,
+    `import { ${reactRuntimeImports.join(", ")} } from "react";`,
     ...(overlaySpec.modal ? [`import { createPortal } from "react-dom";`] : []),
     ...(hasResponsive
       ? [`import { responsiveDataAttrs, type Responsive } from "./_runtime.ts";`]
@@ -564,6 +569,12 @@ function renderCompositeWrapper(spec: Spec, propDescriptions: Record<string, str
   ].join("\n");
 
   const contentRoleAttr = contentRole ? `        role=${quote(contentRole)}` : null;
+  // ARIA dialogs require an accessible name. Bind it to the first slot prop on
+  // the content part (Modal: `title`) so the screen-reader announcement matches
+  // the visible body. Other roles (`tooltip`) name themselves via the trigger's
+  // `aria-describedby`, so the binding is dialog-specific.
+  const ariaLabelAttr =
+    contentRole === "dialog" && contentSlots[0] ? `        aria-label={${contentSlots[0]}}` : null;
 
   return `"use client";
 
@@ -598,7 +609,18 @@ ${interactionsMemo}
   const overlay = useOverlay<HTMLElementTagNameMap[${quote(contentElement)}]>({
 ${hookConfigWithDisabled}
   });
-
+${
+  overlaySpec.modal
+    ? `
+  // Gate the body-level portal on a mounted flag so SSR and the client's first
+  // render produce the same tree (no portal); the portal swaps in after hydration.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+`
+    : ""
+}
   // \`asChild\` mode sets \`anchor-name\` directly on the consumer's element via
   // inline style (no wrapper class to read \`--_anchor\`). The default wrapper
   // path reads the custom property through the trigger CSS rule.
@@ -629,11 +651,11 @@ ${hookConfigWithDisabled}
           {children}
         </span>
       )}
-${overlaySpec.modal ? `      {hasContent && typeof document !== "undefined" && createPortal(` : `      {hasContent && (`}
+${overlaySpec.modal ? `      {hasContent && mounted && createPortal(` : `      {hasContent && (`}
         <${contentElement}
           ref={overlay.contentRef}
           id={overlay.popoverId}
-${contentRoleAttr ? `${contentRoleAttr.replace(/ {8}/, "          ")}\n` : ""}          className=${quote(contentClass)}
+${contentRoleAttr ? `${contentRoleAttr.replace(/ {8}/, "          ")}\n` : ""}${ariaLabelAttr ? `${ariaLabelAttr.replace(/ {8}/, "          ")}\n` : ""}          className=${quote(contentClass)}
           popover={overlay.popoverMode}
           data-state={overlay.state}
           style={{ [overlay.anchorVar]: overlay.anchorName } satisfies CSSProperties}

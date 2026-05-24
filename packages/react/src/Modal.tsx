@@ -4,7 +4,7 @@
 // Source: specs/modal.yaml
 
 import "@teseor/css/components/modal.css";
-import { type CSSProperties, type ReactNode, useMemo } from "react";
+import { type CSSProperties, type ReactNode, useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { Slot } from "./components/Slot.tsx";
 import { type OverlayInteraction, useOverlay } from "./hooks/useOverlay.ts";
@@ -54,6 +54,13 @@ export function Modal(props: ModalProps) {
     modal: true,
   });
 
+  // Gate the body-level portal on a mounted flag so SSR and the client's first
+  // render produce the same tree (no portal); the portal swaps in after hydration.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // `asChild` mode sets `anchor-name` directly on the consumer's element via
   // inline style (no wrapper class to read `--_anchor`). The default wrapper
   // path reads the custom property through the trigger CSS rule.
@@ -85,12 +92,13 @@ export function Modal(props: ModalProps) {
         </span>
       )}
       {hasContent &&
-        typeof document !== "undefined" &&
+        mounted &&
         createPortal(
           <div
             ref={overlay.contentRef}
             id={overlay.popoverId}
             role="dialog"
+            aria-label={title}
             className="t-modal"
             popover={overlay.popoverMode}
             data-state={overlay.state}
