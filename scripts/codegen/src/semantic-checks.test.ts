@@ -11,7 +11,7 @@ import {
   checkExamplesReferences,
   checkInteractionRefs,
   checkMotionSymmetry,
-  checkOverlayDismissalRules,
+  checkOverlayEscapeRules,
   checkResponsiveExplicit,
   checkTokenContract,
   checkVariantChoiceKeys,
@@ -612,7 +612,7 @@ describe("checkInteractionRefs", () => {
   });
 });
 
-describe("checkOverlayDismissalRules", () => {
+describe("checkOverlayEscapeRules", () => {
   /** Tooltip-shaped overlay fixture — composite with a `popover:` block.
    *  The check only fires for specs with a popover block (overlays go through
    *  `useOverlay`, where the dismissable-layer ownership applies). */
@@ -632,7 +632,7 @@ describe("checkOverlayDismissalRules", () => {
   }
 
   test("returns no issues when no interactions are declared", () => {
-    expect(checkOverlayDismissalRules(makeOverlay())).toEqual([]);
+    expect(checkOverlayEscapeRules(makeOverlay())).toEqual([]);
   });
 
   test("ignores specs without a popover block (non-overlay)", () => {
@@ -641,35 +641,35 @@ describe("checkOverlayDismissalRules", () => {
     const spec = makeButton({
       interactions: [{ on: { event: "keydown", key: "Escape", target: "document" }, do: "close" }],
     });
-    expect(checkOverlayDismissalRules(spec)).toEqual([]);
+    expect(checkOverlayEscapeRules(spec)).toEqual([]);
   });
 
   test("ignores keydown:Escape rules targeting a part (not document/window)", () => {
     const spec = makeOverlay({
       interactions: [{ on: { event: "keydown", key: "Escape", target: "trigger" }, do: "close" }],
     });
-    expect(checkOverlayDismissalRules(spec)).toEqual([]);
+    expect(checkOverlayEscapeRules(spec)).toEqual([]);
   });
 
   test("ignores keydown rules with a different key on document", () => {
     const spec = makeOverlay({
       interactions: [{ on: { event: "keydown", key: "Enter", target: "document" }, do: "open" }],
     });
-    expect(checkOverlayDismissalRules(spec)).toEqual([]);
+    expect(checkOverlayEscapeRules(spec)).toEqual([]);
   });
 
   test("ignores non-keydown rules on document", () => {
     const spec = makeOverlay({
       interactions: [{ on: { event: "pointerdown", target: "document" }, do: "close" }],
     });
-    expect(checkOverlayDismissalRules(spec)).toEqual([]);
+    expect(checkOverlayEscapeRules(spec)).toEqual([]);
   });
 
   test("flags keydown:Escape on document", () => {
     const spec = makeOverlay({
       interactions: [{ on: { event: "keydown", key: "Escape", target: "document" }, do: "close" }],
     });
-    const issues = checkOverlayDismissalRules(spec);
+    const issues = checkOverlayEscapeRules(spec);
     expect(issues).toHaveLength(1);
     expect(issues[0]?.path).toBe("interactions[0]");
     expect(issues[0]?.message).toMatch(/useDismissableLayer/);
@@ -680,7 +680,7 @@ describe("checkOverlayDismissalRules", () => {
     const spec = makeOverlay({
       interactions: [{ on: { event: "keydown", key: "Escape", target: "window" }, do: "close" }],
     });
-    const issues = checkOverlayDismissalRules(spec);
+    const issues = checkOverlayEscapeRules(spec);
     expect(issues).toHaveLength(1);
     expect(issues[0]?.message).toMatch(/window/);
   });
@@ -693,7 +693,7 @@ describe("checkOverlayDismissalRules", () => {
         { on: { event: "keydown", key: "Escape", target: "window" }, do: "close" },
       ],
     });
-    expect(checkOverlayDismissalRules(spec).map((i) => i.path)).toEqual([
+    expect(checkOverlayEscapeRules(spec).map((i) => i.path)).toEqual([
       "interactions[0]",
       "interactions[2]",
     ]);

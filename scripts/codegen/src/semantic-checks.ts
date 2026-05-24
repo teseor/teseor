@@ -751,7 +751,7 @@ export function checkInteractionRefs(spec: Spec): Issue[] {
  * up for overlays via `useOverlay`. A non-overlay spec with a document-target
  * rule has no layer to conflict with, so the rationale doesn't apply.
  */
-export function checkOverlayDismissalRules(spec: Spec): Issue[] {
+export function checkOverlayEscapeRules(spec: Spec): Issue[] {
   if (!spec.popover) return [];
   const rules = spec.interactions ?? [];
   if (rules.length === 0) return [];
@@ -793,7 +793,7 @@ export function runSemanticChecks(
     ...checkResponsiveExplicit(spec),
     ...checkAsIsConstrained(spec),
     ...checkInteractionRefs(spec),
-    ...checkOverlayDismissalRules(spec),
+    ...checkOverlayEscapeRules(spec),
   ];
 }
 
