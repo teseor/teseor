@@ -405,29 +405,33 @@ ${bodyBlock}
  */
 function renderCompositeWrapper(spec: Spec, propDescriptions: Record<string, string>): string {
   const Name = pascalCase(spec.name);
-  const overlay = spec.overlay;
+  // `overlaySpec` (not `overlay`) so the generator-side reference doesn't
+  // shadow the emitted runtime variable `const overlay = useOverlay(...)`.
+  const overlaySpec = spec.overlay;
   const interactions = spec.interactions ?? [];
   const parts = spec.parts ?? {};
-  if (!overlay) {
+  if (!overlaySpec) {
     throw new Error(
       `composite spec '${spec.name}' must declare 'overlay:' for the overlay-with-anchor shape`,
     );
   }
-  const triggerPart = parts[overlay.anchor];
-  const contentPart = parts[overlay.floating];
+  const triggerPart = parts[overlaySpec.anchor];
+  const contentPart = parts[overlaySpec.floating];
   if (!triggerPart) {
-    throw new Error(`overlay.anchor '${overlay.anchor}' is not a declared part`);
+    throw new Error(`overlay.anchor '${overlaySpec.anchor}' is not a declared part`);
   }
   if (!contentPart) {
-    throw new Error(`overlay.floating '${overlay.floating}' is not a declared part`);
+    throw new Error(`overlay.floating '${overlaySpec.floating}' is not a declared part`);
   }
   if (triggerPart.fromChildren !== true) {
     throw new Error(
-      `overlay.anchor '${overlay.anchor}' must declare 'fromChildren: true' (this generator only emits the overlay-with-anchor shape)`,
+      `overlay.anchor '${overlaySpec.anchor}' must declare 'fromChildren: true' (this generator only emits the overlay-with-anchor shape)`,
     );
   }
   if (contentPart.fromChildren === true) {
-    throw new Error(`overlay.floating '${overlay.floating}' cannot declare 'fromChildren: true'`);
+    throw new Error(
+      `overlay.floating '${overlaySpec.floating}' cannot declare 'fromChildren: true'`,
+    );
   }
 
   const triggerClass = triggerPart.rootClass ?? `t-${spec.name}-trigger`;
@@ -451,7 +455,7 @@ function renderCompositeWrapper(spec: Spec, propDescriptions: Record<string, str
 
   // Slots that the content renders inline (e.g. `text` for Tooltip).
   const contentSlots = Object.entries(spec.props)
-    .filter(([, d]) => d.slot === true && d.__part === overlay.floating)
+    .filter(([, d]) => d.slot === true && d.__part === overlaySpec.floating)
     .map(([n]) => n);
 
   // Responsive props rendered as data-attrs on the content element.
@@ -516,8 +520,8 @@ function renderCompositeWrapper(spec: Spec, propDescriptions: Record<string, str
     `    ${controllableName}: ${controllableName}Prop,`,
     `    default${ControllableName},`,
     `    on${ControllableName}Change,`,
-    `    anchorVar: ${quote(overlay.anchorVar)},`,
-    `    popoverMode: ${quote(overlay.mode)},`,
+    `    anchorVar: ${quote(overlaySpec.anchorVar)},`,
+    `    popoverMode: ${quote(overlaySpec.mode)},`,
     `    interactions,`,
   ].join("\n");
   const hookConfigWithDisabled = disabledLine
