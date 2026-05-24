@@ -41,4 +41,11 @@ describe("attr", () => {
     expect(attr("hidden", false)).toBe("hidden={false}");
     expect(attr("gap", { md: 4 })).toBe("gap={{ md: 4 }}");
   });
+
+  test("routes strings with markup-sensitive chars through a JSX expression", () => {
+    // `<>`, `&`, `"`, `{`, `}` would otherwise produce invalid Astro output.
+    expect(attr("title", '<b>"hi"</b>')).toBe('title={"<b>\\"hi\\"</b>"}');
+    expect(attr("class", "a & b")).toBe('class={"a & b"}');
+    expect(attr("data", "{x}")).toBe('data={"{x}"}');
+  });
 });
