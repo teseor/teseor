@@ -28,7 +28,8 @@
     "@teseor/primitives": "workspace:*"
   },
   "peerDependencies": {
-    "react": ">=18"
+    "react": ">=18",
+    "react-dom": ">=18"
   },
   "devDependencies": {
     "@teseor/test-internals": "workspace:*",
