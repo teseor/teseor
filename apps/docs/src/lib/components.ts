@@ -56,10 +56,10 @@ type ComponentNavEntry = {
  *
  * Underscore-prefixed files (`_vocabulary.yaml`, `_breakpoints.yaml`) are
  * skipped — they are configuration, not components. Entries are sorted
- * alphabetically by display label: the current sidenav is a flat list and
- * with five components the marginal value of section headings is low.
- * Groupings (per `specs/_vocabulary.yaml`) can replace this when the list
- * grows past a single screen.
+ * alphabetically by display label; while the list fits on one screen the
+ * marginal value of section headings is low. Vocabulary-driven groupings
+ * (per `specs/_vocabulary.yaml`) can replace this when the list grows past
+ * a single screen.
  */
 function loadComponents(): ComponentNavEntry[] {
   const entries = Object.entries(rawSpecs)
