@@ -580,7 +580,7 @@ ${contentDataAttrComputed}
   >
     <slot />
   </span>
-  <${contentElement}
+  ${overlaySpec.modal ? `<Teleport to="body">\n  ` : ""}<${contentElement}
     v-if="${hasContentExpr}"
     ref="contentRef"
     :id="overlay.popoverId"
@@ -591,7 +591,7 @@ ${contentDataAttrComputed}
     :style="{ [overlay.anchorVar]: overlay.anchorName }"${contentDataAttrBinding}
   >
 ${contentBodyLines}
-  </${contentElement}>
+  </${contentElement}>${overlaySpec.modal ? `\n  </Teleport>` : ""}
 </template>
 `;
 }
