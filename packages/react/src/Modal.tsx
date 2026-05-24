@@ -72,12 +72,7 @@ export function Modal(props: ModalProps) {
   return (
     <>
       {asChild ? (
-        <Slot
-          style={triggerStyle}
-          data-state={overlay.state}
-          aria-describedby={hasContent ? overlay.popoverId : undefined}
-          {...overlay.triggerHandlers}
-        >
+        <Slot style={triggerStyle} data-state={overlay.state} {...overlay.triggerHandlers}>
           {children}
         </Slot>
       ) : (
@@ -85,7 +80,6 @@ export function Modal(props: ModalProps) {
           className="t-modal-trigger"
           style={triggerStyle}
           data-state={overlay.state}
-          aria-describedby={hasContent ? overlay.popoverId : undefined}
           {...overlay.triggerHandlers}
         >
           {children}
@@ -99,6 +93,7 @@ export function Modal(props: ModalProps) {
             id={overlay.popoverId}
             role="dialog"
             aria-label={title}
+            aria-modal="true"
             className="t-modal"
             popover={overlay.popoverMode}
             data-state={overlay.state}

@@ -52,7 +52,6 @@ const contentRef = overlay.contentRef;
     v-if="asChild"
     :style="{ [overlay.anchorVar]: overlay.anchorName, anchorName: overlay.anchorName }"
     :data-state="overlay.state.value"
-    :aria-describedby="title != null ? overlay.popoverId : undefined"
     v-on="overlay.triggerHandlers"
   >
     <slot />
@@ -62,7 +61,6 @@ const contentRef = overlay.contentRef;
     class="t-modal-trigger"
     :style="{ [overlay.anchorVar]: overlay.anchorName }"
     :data-state="overlay.state.value"
-    :aria-describedby="title != null ? overlay.popoverId : undefined"
     v-on="overlay.triggerHandlers"
   >
     <slot />
@@ -74,6 +72,7 @@ const contentRef = overlay.contentRef;
     :id="overlay.popoverId"
     role="dialog"
     :aria-label="title"
+    aria-modal="true"
     class="t-modal"
     :popover="overlay.popoverMode"
     :data-state="overlay.state.value"

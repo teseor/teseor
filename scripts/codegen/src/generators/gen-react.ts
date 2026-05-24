@@ -575,6 +575,17 @@ function renderCompositeWrapper(spec: Spec, propDescriptions: Record<string, str
   // `aria-describedby`, so the binding is dialog-specific.
   const ariaLabelAttr =
     contentRole === "dialog" && contentSlots[0] ? `        aria-label={${contentSlots[0]}}` : null;
+  // `aria-modal="true"` makes assistive tech treat the dialog as a modal —
+  // required alongside `role="dialog"` when the content also inerts the page.
+  const ariaModalAttr =
+    overlaySpec.modal && contentRole === "dialog" ? `        aria-modal="true"` : null;
+  // Modal triggers don't `aria-describedby` the dialog: the describes-relationship
+  // is right for tooltips (the tooltip describes the trigger) but wrong for modals
+  // (the dialog isn't a description of the trigger, and screen readers would read
+  // dialog body text while focus is still on the trigger). Tooltips keep it.
+  const triggerAriaDescribedBy = overlaySpec.modal
+    ? null
+    : `          aria-describedby={hasContent ? overlay.popoverId : undefined}`;
 
   return `"use client";
 
@@ -634,8 +645,7 @@ ${
       {asChild ? (
         <Slot
           style={triggerStyle}
-          data-state={overlay.state}
-          aria-describedby={hasContent ? overlay.popoverId : undefined}
+          data-state={overlay.state}${triggerAriaDescribedBy ? `\n${triggerAriaDescribedBy}` : ""}
           {...overlay.triggerHandlers}
         >
           {children}
@@ -644,8 +654,7 @@ ${
         <span
           className=${quote(triggerClass)}
           style={triggerStyle}
-          data-state={overlay.state}
-          aria-describedby={hasContent ? overlay.popoverId : undefined}
+          data-state={overlay.state}${triggerAriaDescribedBy ? `\n${triggerAriaDescribedBy}` : ""}
           {...overlay.triggerHandlers}
         >
           {children}
@@ -655,7 +664,7 @@ ${overlaySpec.modal ? `      {hasContent && mounted && createPortal(` : `      {
         <${contentElement}
           ref={overlay.contentRef}
           id={overlay.popoverId}
-${contentRoleAttr ? `${contentRoleAttr.replace(/ {8}/, "          ")}\n` : ""}${ariaLabelAttr ? `${ariaLabelAttr.replace(/ {8}/, "          ")}\n` : ""}          className=${quote(contentClass)}
+${contentRoleAttr ? `${contentRoleAttr.replace(/ {8}/, "          ")}\n` : ""}${ariaLabelAttr ? `${ariaLabelAttr.replace(/ {8}/, "          ")}\n` : ""}${ariaModalAttr ? `${ariaModalAttr.replace(/ {8}/, "          ")}\n` : ""}          className=${quote(contentClass)}
           popover={overlay.popoverMode}
           data-state={overlay.state}
           style={{ [overlay.anchorVar]: overlay.anchorName } satisfies CSSProperties}
