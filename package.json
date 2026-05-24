@@ -24,7 +24,7 @@
     "migrate:specs": "node scripts/repo/migrate-specs.ts",
     "changeset": "changeset",
     "release": "changeset publish",
-    "prepare": "lefthook install"
+    "prepare": "lefthook install --force"
   },
   "size-limit": [
     {

@@ -5,6 +5,13 @@ import { resolve } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { getChangedFiles, resolveBase } from "./git.ts";
 
+// Under lefthook pre-push, vitest inherits GIT_DIR / GIT_WORK_TREE / GIT_INDEX_FILE
+// from the hook context. git honors those env vars over per-call `cwd`, so the
+// temp-repo setup below would otherwise leak into the parent worktree's .git.
+delete process.env.GIT_DIR;
+delete process.env.GIT_WORK_TREE;
+delete process.env.GIT_INDEX_FILE;
+
 function makeRepo(): string {
   const dir = mkdtempSync(resolve(tmpdir(), "teseor-lib-git-"));
   execSync("git init -q -b main", { cwd: dir });
