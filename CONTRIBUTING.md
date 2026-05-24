@@ -55,6 +55,19 @@ pnpm review
 `BASE=<ref>` overrides the comparison base (default `origin/main`).
 `MODEL=<id>` overrides the model (default `openai/gpt-4o`).
 
+#### Auto-run on every push (opt-in)
+
+Enable the pre-push hook for this clone:
+
+```bash
+touch .claude/preflight-review.enabled
+```
+
+`pnpm review` then runs as part of `pre-push` and prints suggestions before
+the push. **Warn-only** — never blocks. Disable with
+`rm .claude/preflight-review.enabled`. The marker file is gitignored, so the
+opt-in is per-machine.
+
 ### Worktrees
 
 If you use `git worktree`, `core.hooksPath` may inherit from the main repo and

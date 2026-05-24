@@ -53,6 +53,14 @@ pre-commit:
 
 pre-push:
   commands:
+    # Opt-in local pre-flight LLM review. Enable per-clone with:
+    #   touch .claude/preflight-review.enabled
+    # Disable with: rm .claude/preflight-review.enabled
+    # Warn-only — prints suggestions, never blocks the push.
+    preflight-review:
+      run: |
+        if [ ! -f .claude/preflight-review.enabled ]; then exit 0; fi
+        bash scripts/review.sh || true
     lint:
       run: pnpm lint
     typecheck:
