@@ -34,4 +34,4 @@ Add a `modal: boolean` field to the spec's `popover:` block (default `false`). T
 - [ADR-0012](0012-wrapper-internal-seam.md) — generated `_runtime.ts` vs hand-authored hooks / composables / components folders
 - `.changeset/654-primitives-dismissable.md` — dismissable-layer primitive (the stack this ADR consumes)
 - `.changeset/654-primitives-focus-trap.md` — focus-trap primitive
-- Project memory: `project-headless-primitive-patterns`, `feedback-critically-review-before-implementing`
+- `packages/primitives/src/dismissable-layer/index.ts` — the eight-rule primitive pattern in concrete code (DOM-null guards, ownerDocument-keyed Map, composedPath in capture phase, snapshot iteration, exported event-type alias).
