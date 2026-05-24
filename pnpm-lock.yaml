@@ -134,34 +134,6 @@ importers:
         specifier: ^8.0.14
         version: 8.0.14(@types/node@24.12.4)(esbuild@0.27.7)(yaml@2.9.0)
 
-  apps/preview:
-    dependencies:
-      '@teseor/css':
-        specifier: workspace:*
-        version: link:../../packages/css
-      '@teseor/react':
-        specifier: workspace:*
-        version: link:../../packages/react
-      react:
-        specifier: ^19.2.6
-        version: 19.2.6
-      react-dom:
-        specifier: ^19.2.6
-        version: 19.2.6(react@19.2.6)
-    devDependencies:
-      '@types/react':
-        specifier: ^19.2.15
-        version: 19.2.15
-      '@types/react-dom':
-        specifier: ^19.2.3
-        version: 19.2.3(@types/react@19.2.15)
-      '@vitejs/plugin-react':
-        specifier: ^6.0.2
-        version: 6.0.2(vite@8.0.14(@types/node@24.12.4)(esbuild@0.27.7)(yaml@2.9.0))
-      vite:
-        specifier: ^8.0.14
-        version: 8.0.14(@types/node@24.12.4)(esbuild@0.27.7)(yaml@2.9.0)
-
   packages/contract: {}
 
   packages/css:

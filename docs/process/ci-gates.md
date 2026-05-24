@@ -92,7 +92,7 @@ Visual gate runs one extra snapshot per component with `forced-colors: active` e
 
 Manual NVDA + VoiceOver smoke test runs per release against the components touched. Checklist generated from the changeset. JAWS deferred post-v1.0. See `rules/accessibility.md` for the full a11y rule set.
 
-**Status:** activates at v0.3 alongside the visual gate. Until then, accessibility is validated by hand against `apps/preview` and the harness-rendered DOM, and via the contract tests' DOM-shape assertions (correct ARIA attrs, role, disabled vs aria-disabled). Behavior-level a11y (focus management, keyboard semantics) is tracked under #582.
+**Status:** activates at v0.3 alongside the visual gate. Until then, accessibility is validated by hand against `apps/docs` and the harness-rendered DOM, and via the contract tests' DOM-shape assertions (correct ARIA attrs, role, disabled vs aria-disabled). Behavior-level a11y (focus management, keyboard semantics) is tracked under #582.
 
 ## bundle
 
