@@ -4,6 +4,7 @@
 // drift with Levenshtein suggestions, motion in/out symmetry, dependency
 // cycles, the `@import` allowlist driven by `dependencies:`, and
 // `guidance.variantChoice` key equality with `spec.variants`.
+import { REACT_EVENT_VOCABULARY } from "./lib/react-events.ts";
 import type { Vocabulary } from "./lib/vocabulary.ts";
 import type { Spec, SpecPart } from "./schema.ts";
 
@@ -771,6 +772,41 @@ export function checkOverlayEscapeRules(spec: Spec): Issue[] {
   return issues;
 }
 
+// ── Interaction event vocabulary (React handlers) ───────────────────────────
+
+/**
+ * `interactions[].on.event` against a React-handler-bound target (today
+ * `target: "trigger"`) must name a known React-synthetic event. The runtime
+ * map lives in `packages/react/src/hooks/useOverlay.ts` as `EVENT_TO_HANDLER`;
+ * unknown names there hit `if (!handlerName) continue;` and the rule is
+ * silently dropped at runtime. Validate at spec-time so the silent-drop
+ * cannot happen.
+ *
+ * `target: "document" | "window"` rules use native `addEventListener` and
+ * accept any event name — they pass through this check. Future part-name
+ * targets that bind to React handlers will need to be added to the
+ * gated-targets set below.
+ */
+const REACT_HANDLER_TARGETS = new Set(["trigger"]);
+
+export function checkInteractionEventVocabulary(spec: Spec): Issue[] {
+  const rules = spec.interactions ?? [];
+  if (rules.length === 0) return [];
+  const issues: Issue[] = [];
+  rules.forEach((rule, i) => {
+    if (!REACT_HANDLER_TARGETS.has(rule.on.target)) return;
+    if ((REACT_EVENT_VOCABULARY as readonly string[]).includes(rule.on.event)) return;
+    issues.push(
+      issue(
+        spec.name,
+        `interactions[${i}].on.event`,
+        `'${rule.on.event}' is not a supported React event.${suggestionFragment(rule.on.event, REACT_EVENT_VOCABULARY)} Supported: ${REACT_EVENT_VOCABULARY.join(", ")}.`,
+      ),
+    );
+  });
+  return issues;
+}
+
 // ── Aggregate ───────────────────────────────────────────────────────────────
 
 export function runSemanticChecks(
@@ -793,6 +829,7 @@ export function runSemanticChecks(
     ...checkResponsiveExplicit(spec),
     ...checkAsIsConstrained(spec),
     ...checkInteractionRefs(spec),
+    ...checkInteractionEventVocabulary(spec),
     ...checkOverlayEscapeRules(spec),
   ];
 }
