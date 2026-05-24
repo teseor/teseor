@@ -21,28 +21,10 @@ The bare-verb defaults are the verbs you reach for daily: `dev`, `build`, `test`
 | `pnpm test:e2e` | Playwright DOM-contract suite (`tests/*.spec.ts`) | When wrappers or interactions changed; in CI | Developer + CI |
 | `pnpm test:visual` | Placeholder — the pixel-diff suite lands with the visual gate | When visuals changed | Developer + CI |
 | `pnpm test:a11y` | Placeholder — the axe-core suite lands with the a11y gate | When ARIA / keyboard map changed | Developer |
-| `pnpm lint` | Runs every `lint:*` check below in sequence | Before push; in CI; via lefthook | Developer + CI + lefthook |
-| `pnpm lint:ts` | Biome — TS / JS / JSON | When iterating on TS | Developer |
-| `pnpm lint:css` | Stylelint over `packages/**/*.css` | When iterating on CSS | Developer |
-| `pnpm lint:spec` | Spec validator — Zod shape + semantic cross-checks (`scripts/codegen/src/validate-spec.ts`) | When iterating on specs | Developer + CI + lefthook |
-| `pnpm lint:naming` | Logical-naming check (`check-logical-naming.js`) | When touching names / vocabulary | Developer + CI + lefthook |
-| `pnpm lint:dogfood` | Verifies `apps/docs/` uses only the design system (`check-dogfood.ts`) | When touching the docs app | Developer + CI + lefthook |
-| `pnpm lint:component-css` | Enforces the token-driven component-CSS model (`check-component-css.ts`) | When touching component CSS | Developer + CI + lefthook |
-| `pnpm lint:motion` | Checks every component transition/animation gates on `--t-motion-scale` (`check-motion-scale.ts`) | When touching component motion | Developer + CI + lefthook |
-| `pnpm lint:transitionable` | Fails a component CSS that transitions a property outside the rule-4 allow-list (`check-transitionable-property.ts`) | When touching component motion | Developer + CI + lefthook |
-| `pnpm lint:aggregators` | Fails on a dead `pnpm -r` script aggregator (`check-script-aggregators.ts`) | When touching `package.json` scripts | Developer + CI + lefthook |
-| `pnpm lint:catalog` | Checks script naming and package.json/catalog sync (`check-script-catalog.ts`) | When touching `package.json` scripts or this table | Developer + CI + lefthook |
-| `pnpm lint:doc-paths` | Fails any backtick-wrapped path-shaped reference in markdown that does not resolve (`check-doc-paths.ts`); allowlist at `scripts/.doc-path-allowlist.txt` | When touching docs | Developer + CI + lefthook |
-| `pnpm lint:contract-snapshots` | Fails when a `tests/contract/<name>.spec.ts` fixture id has no matching `<!-- id -->` section in the committed snapshot (`check-contract-snapshots.ts`); structural check only — DOM byte drift stays a CI-only catch via `test-e2e` | When changing specs or fixtures | Developer + CI + lefthook |
-| `pnpm lint:codegen-tests` | Fails when files under `scripts/codegen/src/` change without any matching change under `scripts/codegen/__tests__/` or a colocated `*.test.ts` (`check-codegen-tests.ts`); blocks unilateral deferral of codegen tests | Every PR touching the codegen pipeline | Developer + CI + lefthook |
-| `pnpm lint:no-as-unknown-cast` | Forbids `as unknown as <SpecLikeName>` casts (Spec / Schema / Fixture / Vocabulary suffix) in `*.test.ts(x)` (`check-no-as-unknown-cast.ts`); hides fixture-vs-schema drift | When touching tests that build schema-shaped fixtures | Developer + CI + lefthook |
-| `pnpm lint:no-document-typeof` | Forbids `typeof document\|window !== "undefined"` JSX gates in `packages/{react,vue}/src/**/*.{tsx,vue}` (`check-no-document-typeof.ts`); use the `mounted` flag instead | When touching wrapper components | Developer + CI + lefthook |
-| `pnpm lint:exports-resolve` | Asserts every workspace package's `exports` map points at a path that exists on disk (`check-exports-resolve.ts`); skips dist paths until `dist/` exists | When touching `package.json` `exports` or barrels | Developer + CI + lefthook |
-| `pnpm lint:md` | markdownlint over `docs/` and root markdown (`.markdownlint-cli2.jsonc`) | When touching docs | Developer + CI + lefthook |
+| `pnpm lint` | Dispatches every check registered in `scripts/lint/registry.ts` (biome, stylelint, markdownlint, spec validator, logical-naming, comments, plus the project-specific TypeScript rules). `node scripts/lint/run.ts --list` shows the catalog; `--<rulename>` runs one | Before push; in CI; via lefthook | Developer + CI + lefthook |
 | `pnpm typecheck` | `tsc --noEmit` at the root plus recursive `typecheck` across packages | Before push; in CI; via lefthook | Developer + CI + lefthook |
 | `pnpm size` | `size-limit` — per-entry CSS bundle budgets | When bundle size may have moved | Developer + CI |
-| `pnpm migrate:specs` | One-off spec migration (`migrate-specs.ts`) | Rare — bulk spec-format changes | Maintainer |
-| `pnpm verify:no-dev-leak` | Fails if a dev-only marker reached a built artifact | After a build; in CI | Developer + CI |
+| `pnpm migrate:specs` | One-off spec migration (`scripts/repo/migrate-specs.ts`) | Rare — bulk spec-format changes | Maintainer |
 | `pnpm changeset` | Changesets CLI — writes a release entry to `.changeset/<slug>.md` | After implementation | Developer |
 | `pnpm release` | Publish to npm with provenance | CI only (errors locally) | CI |
 | `pnpm prepare` | Lifecycle hook — runs `lefthook install` on `pnpm install` | Automatic; not run directly | — |
@@ -134,7 +116,7 @@ Two tiers: hard CI gates and soft targets.
 | --- | --- | --- |
 | Per-entry CSS bundle | `size-limit` (`@size-limit/file`) | `package.json` → `"size-limit"` array |
 | Codegen drift | `pnpm gen && git diff --exit-code` | `.github/workflows/ci.yml` → `gen-drift` |
-| Dev-only marker leak | `pnpm verify:no-dev-leak` | `scripts/verify-no-dev-leak.js` |
+| Dev-only marker leak | `node scripts/hooks/verify-no-dev-leak.js` (called by lefthook pre-push + CI after build) | `scripts/hooks/verify-no-dev-leak.js` |
 
 Current `size-limit` budgets (brotli-compressed, set in root
 `package.json`):

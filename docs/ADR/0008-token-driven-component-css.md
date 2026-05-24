@@ -38,5 +38,5 @@ A dedicated `@layer` for modifier rules would order them above the base. But the
 - **The base class is a "var manifold"** — `prop: var(--_x)` for every themeable property. That is the intended shape, not a smell: it is the one place the component's surface is declared.
 - **`button` / `stack` / `cluster` are re-authored** to the model; rendered output is unchanged.
 - **Splitting roles needs more tokens.** `outline` / `ghost` / `link` need the intent colour separate from the rendered background, so `button` gains `--_fill` / `--_on-fill` (the intent pair) feeding `--_bg` / `--_fg` (what the base paints).
-- **A check enforces the model** (`scripts/check-component-css.ts`, wired into `lint`): a `[data-*]` modifier that declares a real property fails; a root missing `box-sizing` or `margin` fails; a `--t-*` reference that is neither a token nor the component's own slot fails.
+- **A check enforces the model** (`scripts/lint/file-rules/component-css.ts`, dispatched by the project lint runner; see ADR-0014 for the scripts/ layout): a `[data-*]` modifier that declares a real property fails; a root missing `box-sizing` or `margin` fails; a `--t-*` reference that is neither a token nor the component's own slot fails.
 - **New components follow the model from the start** — `rules/component-shape.md` documents it.

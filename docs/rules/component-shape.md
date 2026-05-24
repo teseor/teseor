@@ -56,7 +56,7 @@ mutable surface; the base reads it; modifiers and states only reassign it
 3. **`[data-*]` modifiers reassign vars only.** `&:where([data-intent="danger"])` is a block of `--_*` reassignments — never a real property. Because modifiers only move tokens, stacking `variant + intent + size` is conflict-free: `:where()` flattens specificity, source order settles "last wins" per token, non-colliding tokens never interact.
 4. **State rules** (`:hover`, `:focus-visible`, `[disabled]`, …) reassign vars for what they change. Genuinely-fixed structure — the focus outline — may be declared directly.
 
-`scripts/check-component-css.ts` enforces points 3, 6, and 8.
+`scripts/lint/file-rules/component-css.ts` enforces points 3, 6, and 8.
 
 ## Conventions
 

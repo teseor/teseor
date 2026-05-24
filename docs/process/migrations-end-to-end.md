@@ -45,10 +45,14 @@ sync until step 2.
 
 For trivial renames the spec edit + a search-replace in the component CSS
 is enough. For non-trivial schema shifts (a prop changes shape, a variant
-splits into two) the repo ships `scripts/migrate-specs.ts`. The migrator
-takes a rule file describing the transform and rewrites every affected
-spec + CSS file in one pass. The rule lands alongside the breaking change
-in the same PR.
+splits into two) the repo ships `scripts/repo/migrate-specs.ts` as a
+registry-driven runner: a migrator is a `{ id, description, run }` object
+registered via `registerMigrator()`. The migrator that implements the
+breaking change lands in the same PR — usually as a new `migrations/<id>.ts`
+that imports `migrate-specs.ts` and calls `registerMigrator(...)`. The
+runner's `REGISTRY` is currently empty until a real migration drives
+the first entry; the CLI surface and `--from/--to/--rule` argument shape
+are stable.
 
 For the class rename, the migrator step is two commands:
 
@@ -57,7 +61,7 @@ For the class rename, the migrator step is two commands:
 pnpm migrate:specs --rule class-rename --from t-btn --to t-button
 
 # Verify spec + CSS now agree
-pnpm lint:spec
+pnpm lint
 ```
 
 The migrator updates `packages/css/src/components/button/button.css` and

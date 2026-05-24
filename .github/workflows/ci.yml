@@ -86,7 +86,7 @@ jobs:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/setup
       - run: pnpm -r --if-present run build
-      - run: pnpm verify:no-dev-leak
+      - run: node scripts/hooks/verify-no-dev-leak.js
 
   changeset:
     if: github.event_name == 'pull_request'
