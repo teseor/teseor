@@ -3,6 +3,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse as parseYaml } from "yaml";
 import { type Breakpoint, loadBreakpoints } from "../lib/breakpoints.ts";
+import { collectSlots, type SlotInfo } from "../lib/collect-slots.ts";
 import { flattenSpec } from "../lib/flatten.ts";
 import { pascalCase } from "../lib/pascal-case.ts";
 import { loadVocabulary } from "../lib/vocabulary.ts";
@@ -44,25 +45,6 @@ function vuePropType(propName: string, propDef: SpecProp, Name: string): string 
   if (propDef.slot === true) return !propDef.__part ? "never" : mapPropType(propDef.type);
   if (propDef.values && propDef.values.length > 0) return `${Name}${pascalCase(propName)}`;
   return mapPropType(propDef.type);
-}
-
-type SlotInfo = { propName: string; part: string; position?: "start" | "end" };
-
-function parseSlot(propName: string): SlotInfo {
-  if (propName.endsWith("Start")) {
-    return { propName, part: propName.slice(0, -"Start".length).toLowerCase(), position: "start" };
-  }
-  if (propName.endsWith("End")) {
-    return { propName, part: propName.slice(0, -"End".length).toLowerCase(), position: "end" };
-  }
-  return { propName, part: propName.toLowerCase() };
-}
-
-function collectSlots(spec: Spec): SlotInfo[] {
-  if (!spec.props) return [];
-  return Object.entries(spec.props)
-    .filter(([, def]) => def.slot === true)
-    .map(([name]) => parseSlot(name));
 }
 
 function renderEnumType(Name: string, kind: string, values: string[]): string {
