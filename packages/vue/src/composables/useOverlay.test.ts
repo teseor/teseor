@@ -506,4 +506,26 @@ describe("useOverlay", () => {
       .element.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true }));
     expect(onChange).not.toHaveBeenCalled();
   });
+
+  it("Escape closes the overlay even when disabled at the active breakpoint (intentional)", async () => {
+    const onChange = vi.fn();
+    mountTracked(
+      defineComponent({
+        setup() {
+          const overlay = useOverlay({
+            anchorVar: "--anchor",
+            popoverMode: "manual",
+            interactions: [],
+            open: () => true,
+            onOpenChange: onChange,
+            disabled: () => true,
+          });
+          return () => h("div", { ref: overlay.contentRef, popover: "manual" }, "x");
+        },
+      }),
+    );
+    await flushPromises();
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
+    expect(onChange).toHaveBeenCalledWith(false);
+  });
 });
