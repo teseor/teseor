@@ -6,7 +6,7 @@ import {
 } from "@teseor/test-internals";
 import { mount, type VueWrapper } from "@vue/test-utils";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import { type Component, Fragment, h } from "vue";
+import { type Component, defineComponent, Fragment, h } from "vue";
 import { Slot } from "./Slot.ts";
 
 beforeAll(installDomPolyfills);
@@ -107,6 +107,82 @@ describe("Slot", () => {
     });
     await wrapper.find("button").trigger("click");
     expect(calls).toEqual(["child", "slot"]);
+  });
+
+  it("skips slot handler when child calls event.preventDefault (React parity, #684)", async () => {
+    const calls: string[] = [];
+    const childHandler = (event: Event) => {
+      calls.push("child");
+      event.preventDefault();
+    };
+    const slotHandler = () => calls.push("slot");
+    const wrapper = mountTracked(Slot, {
+      attrs: { onClick: slotHandler },
+      slots: { default: () => h("button", { type: "button", onClick: childHandler }, "x") },
+    });
+    await wrapper.find("button").trigger("click");
+    expect(calls).toEqual(["child"]);
+  });
+
+  it("skips slot handler when child calls event.stopImmediatePropagation (Vue array-listener parity)", async () => {
+    const calls: string[] = [];
+    const childHandler = (event: Event) => {
+      calls.push("child");
+      event.stopImmediatePropagation();
+    };
+    const slotHandler = () => calls.push("slot");
+    const wrapper = mountTracked(Slot, {
+      attrs: { onClick: slotHandler },
+      slots: { default: () => h("button", { type: "button", onClick: childHandler }, "x") },
+    });
+    await wrapper.find("button").trigger("click");
+    expect(calls).toEqual(["child"]);
+  });
+
+  it("forwards non-Event payloads to composed handlers (custom emit arity)", () => {
+    const childCalls: unknown[][] = [];
+    const slotCalls: unknown[][] = [];
+    const Child = defineComponent({
+      emits: ["update:modelValue"],
+      setup(_, { emit }) {
+        return () =>
+          h("button", {
+            type: "button",
+            onClick: () => emit("update:modelValue", "next", { meta: true }),
+          });
+      },
+    });
+    const wrapper = mountTracked(Slot, {
+      attrs: {
+        "onUpdate:modelValue": (...args: unknown[]) => slotCalls.push(args),
+      },
+      slots: {
+        default: () =>
+          h(Child, {
+            "onUpdate:modelValue": (...args: unknown[]) => childCalls.push(args),
+          }),
+      },
+    });
+    wrapper.find("button").element.dispatchEvent(new Event("click"));
+    expect(childCalls).toEqual([["next", { meta: true }]]);
+    expect(slotCalls).toEqual([["next", { meta: true }]]);
+  });
+
+  it("leaves non-listener props starting with 'on' untouched (onboardingSteps)", () => {
+    const stepsReceived: unknown[] = [];
+    const Child = defineComponent({
+      props: { onboardingSteps: { type: Array, default: () => [] } },
+      setup(props) {
+        return () => {
+          stepsReceived.push(props.onboardingSteps);
+          return h("button", { type: "button" }, "x");
+        };
+      },
+    });
+    mountTracked(Slot, {
+      slots: { default: () => h(Child, { onboardingSteps: [1, 2, 3] }) },
+    });
+    expect(stepsReceived).toEqual([[1, 2, 3]]);
   });
 
   it("forwards aria / data attributes onto the child", () => {
