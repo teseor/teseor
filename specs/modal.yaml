@@ -39,7 +39,7 @@ parts:
         type: string
         slot: true
         default: null
-        description: "Modal content. Plain text or rich children via slot."
+        description: "Modal body text. Plain string only; rich content support lands when the spec grows a real content slot."
     tokens:
       bg:
         fallback: --t-neutral-0

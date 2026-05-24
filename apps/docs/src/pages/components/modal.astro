@@ -29,7 +29,7 @@ import Base from "../../layouts/Base.astro";
         <tr><td><code>open</code></td><td><code>boolean, controllable</code></td><td><code>false</code></td><td>Open state. Uncontrolled by default; pass `open` and optionally `onOpenChange` to drive it from the consumer.</td></tr>
         <tr><td><code>defaultOpen</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Initial open state (uncontrolled).</td></tr>
         <tr><td><code>onOpenChange</code></td><td><code>(open: boolean) =&gt; void</code></td><td><code>null</code></td><td>Fires when the open state changes.</td></tr>
-        <tr><td><code>title</code></td><td><code>string, slot</code></td><td><code>null</code></td><td>Modal content. Plain text or rich children via slot.</td></tr>
+        <tr><td><code>title</code></td><td><code>string, slot</code></td><td><code>null</code></td><td>Modal body text. Plain string only; rich content support lands when the spec grows a real content slot.</td></tr>
         <tr><td><code>asChild</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Render the trigger directly on the consumer's child element (cloneElement) instead of wrapping in a &lt;span&gt;. Single-child invariant; the child must accept &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;data-state&lt;/code&gt;, &lt;code&gt;aria-describedby&lt;/code&gt;, and the trigger event handlers. Not compatible with Astro slots — use the default wrapper there.</td></tr>
         </tbody>
       </table>

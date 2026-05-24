@@ -15,7 +15,7 @@ type ModalProps = {
   defaultOpen?: boolean;
   /** Fires when the open state changes. */
   onOpenChange?: (open: boolean) => void;
-  /** Modal content. Plain text or rich children via slot. */
+  /** Modal body text. Plain string only; rich content support lands when the spec grows a real content slot. */
   title?: string;
   /** Render the trigger directly on the consumer's child element via Slot (cloneVNode) instead of wrapping in a `<span>`. */
   asChild?: boolean;

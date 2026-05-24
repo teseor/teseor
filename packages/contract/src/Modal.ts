@@ -8,6 +8,6 @@ export type ModalProps = {
   defaultOpen?: boolean;
   /** Fires when the open state changes. */
   onOpenChange?: (open: boolean) => void;
-  /** Modal content. Plain text or rich children via slot. */
+  /** Modal body text. Plain string only; rich content support lands when the spec grows a real content slot. */
   title?: string;
 };
