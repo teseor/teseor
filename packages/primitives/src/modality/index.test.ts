@@ -1,10 +1,11 @@
 // @vitest-environment happy-dom
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { createModalityScope, resetModalityScopesForTests } from "./index.ts";
+import { createModalityScope } from "./index.ts";
 
+// Tests fully deactivate the scopes they create — module-level stack state
+// drains cleanly so the next test starts from an empty Map. No test-only
+// reset helper on the public surface.
 afterEach(() => {
-  // Drop module-level stack state so tests don't leak doc-scope ownership.
-  resetModalityScopesForTests();
   document.body.innerHTML = "";
   delete (window as { __teseor_warned?: unknown }).__teseor_warned;
 });
@@ -19,6 +20,7 @@ describe("createModalityScope", () => {
     scope.activate();
     expect(sibling.hasAttribute("inert")).toBe(true);
     expect(modal.hasAttribute("inert")).toBe(false);
+    scope.deactivate();
   });
 
   it("does not inert a body child whose subtree contains the element", () => {
@@ -29,6 +31,7 @@ describe("createModalityScope", () => {
     const scope = createModalityScope(modal);
     scope.activate();
     expect(wrapper.hasAttribute("inert")).toBe(false);
+    scope.deactivate();
   });
 
   it("preserves a pre-existing inert attribute on a sibling across deactivate", () => {
@@ -201,6 +204,7 @@ describe("createModalityScope", () => {
       scope.activate();
       expect(sibling.hasAttribute("inert")).toBe(false);
       expect(warn).toHaveBeenCalledOnce();
+      scope.deactivate();
     } finally {
       warn.mockRestore();
       if (original) Object.defineProperty(HTMLElement.prototype, "inert", original);

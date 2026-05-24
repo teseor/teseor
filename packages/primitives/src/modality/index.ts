@@ -31,11 +31,6 @@ type DocStack = {
 // One stack per ownerDocument — iframes get their own stack, no leakage.
 const stacks: Map<Document, DocStack> = new Map();
 
-/** Test-only: drops every doc stack so a fresh test starts from a clean state. */
-export function resetModalityScopesForTests(): void {
-  stacks.clear();
-}
-
 function isSupported(): boolean {
   // `inert` is an `HTMLElement` IDL attribute, not `Element`.
   return "inert" in HTMLElement.prototype;
