@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { extractScriptPaths } from "./claude-config.ts";
+import { extractScriptPaths } from "./config-paths.ts";
 
 describe("extractScriptPaths", () => {
   it("extracts a plain `scripts/<path>` substring", () => {

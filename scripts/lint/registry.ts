@@ -11,7 +11,7 @@
 //
 // No package.json edit, no lefthook edit, no new top-level script.
 
-import { rule as claudeConfig } from "./cross-file/claude-config.ts";
+import { rule as configPaths } from "./cross-file/config-paths.ts";
 import { rule as contractSnapshots } from "./cross-file/contract-snapshots.ts";
 import { rule as docPaths } from "./cross-file/doc-paths.ts";
 import { rule as dogfood } from "./cross-file/dogfood.ts";
@@ -132,7 +132,7 @@ export const REGISTRY: Readonly<Record<string, Check>> = {
   "doc-paths": docPaths,
   "contract-snapshots": contractSnapshots,
   dogfood: dogfood,
-  "claude-config": claudeConfig,
+  "config-paths": configPaths,
   "label-sync": labelSync,
   "codegen-tests": codegenTests,
   changeset: changeset,

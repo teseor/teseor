@@ -5,6 +5,6 @@
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-// This file lives at `scripts/lib/paths.ts`; up two segments lands on the
-// repository root. Re-export `REPO_ROOT` rather than recomputing per file.
+// `import.meta.url` is the file URL of `scripts/lib/paths.ts`; three `..`
+// segments walk file → `lib/` → `scripts/` → repo root.
 export const REPO_ROOT = resolve(fileURLToPath(import.meta.url), "..", "..", "..");

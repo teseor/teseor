@@ -39,7 +39,7 @@ jobs:
             exit 1
           fi
       - name: Validate labeler.yml references resolve to labels.yml
-        run: node scripts/lint/cross-file/label-sync.ts
+        run: node scripts/lint/run.ts --label-sync
 
   upsert:
     needs: check

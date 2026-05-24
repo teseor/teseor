@@ -21,7 +21,10 @@ const PATTERNS = [
   },
   {
     label: "doc-path pointer",
-    re: /\bdocs\/[a-z]/i,
+    // Anchored: `docs/` only at the start of a path span, not as a sub-segment
+    // of `apps/docs/` (the workspace package) or similar. Lookbehind rejects
+    // `/` and word chars preceding `docs/`.
+    re: /(?<![/\w])docs\/[a-z]/i,
     hint: "Paths to docs/ rot during refactors; describe the file directly.",
   },
   {

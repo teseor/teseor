@@ -21,6 +21,7 @@ import { relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { lsFiles } from "../lib/enumerate.ts";
 import { getChangedFiles } from "../lib/git.ts";
+import { globMatch } from "../lib/glob.ts";
 import { REPO_ROOT } from "../lib/paths.ts";
 import { reportResult, type Violation } from "../lib/report.ts";
 import { type Check, type ExternalCheck, type FileRule, REGISTRY } from "./registry.ts";
@@ -90,17 +91,6 @@ function shouldTrigger(
   // duplicate git's logic. The triggers we ship are coarse-grained enough
   // that this matches what lefthook would have done.
   return staged.some((s) => triggers.some((t) => globMatch(t, s)));
-}
-
-function globMatch(pattern: string, path: string): boolean {
-  // Convert glob to a regex. `**` first so it's not captured by `*`.
-  const re = pattern
-    .replace(/[.+^${}()|[\]\\]/g, "\\$&")
-    .replace(/\*\*/g, "::DOUBLESTAR::")
-    .replace(/\*/g, "[^/]*")
-    .replace(/::DOUBLESTAR::/g, ".*")
-    .replace(/\{([^}]+)\}/g, (_, opts: string) => `(?:${opts.split(",").join("|")})`);
-  return new RegExp(`^${re}$`).test(path);
 }
 
 function toRepoRelative(filePath: string): string {
