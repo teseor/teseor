@@ -25,6 +25,19 @@ describe("jsLiteral", () => {
   test("formats nested objects recursively", () => {
     expect(jsLiteral({ md: { sm: 1, lg: 2 } })).toBe("{ md: { sm: 1, lg: 2 } }");
   });
+
+  test("quotes object keys that are not valid JS identifiers", () => {
+    // Responsive breakpoint names like `2xl` from `_breakpoints.yaml` would
+    // otherwise emit `{ 2xl: 4 }` — a syntax error in JS / TS / JSX.
+    expect(jsLiteral({ base: 1, "2xl": 4 })).toBe('{ base: 1, "2xl": 4 }');
+    expect(jsLiteral({ "data-x": "v" })).toBe('{ "data-x": "v" }');
+  });
+
+  test("formats arrays as bracketed lists", () => {
+    expect(jsLiteral([1, 2, 3])).toBe("[1, 2, 3]");
+    expect(jsLiteral(["a", "b"])).toBe('["a", "b"]');
+    expect(jsLiteral([{ id: 1 }, { id: 2 }])).toBe("[{ id: 1 }, { id: 2 }]");
+  });
 });
 
 describe("attr", () => {
