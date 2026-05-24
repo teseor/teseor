@@ -11,6 +11,7 @@ import {
   checkExamplesReferences,
   checkInteractionRefs,
   checkMotionSymmetry,
+  checkOverlayDismissalRules,
   checkResponsiveExplicit,
   checkTokenContract,
   checkVariantChoiceKeys,
@@ -608,5 +609,66 @@ describe("checkInteractionRefs", () => {
       ],
     } as Spec;
     expect(checkInteractionRefs(spec)).toEqual([]);
+  });
+});
+
+describe("checkOverlayDismissalRules", () => {
+  test("returns no issues when no interactions are declared", () => {
+    expect(checkOverlayDismissalRules(makeButton())).toEqual([]);
+  });
+
+  test("ignores keydown:Escape rules targeting a part (not document/window)", () => {
+    const spec = makeButton({
+      interactions: [{ on: { event: "keydown", key: "Escape", target: "trigger" }, do: "close" }],
+    });
+    expect(checkOverlayDismissalRules(spec)).toEqual([]);
+  });
+
+  test("ignores keydown rules with a different key on document", () => {
+    const spec = makeButton({
+      interactions: [{ on: { event: "keydown", key: "Enter", target: "document" }, do: "open" }],
+    });
+    expect(checkOverlayDismissalRules(spec)).toEqual([]);
+  });
+
+  test("ignores non-keydown rules on document", () => {
+    const spec = makeButton({
+      interactions: [{ on: { event: "pointerdown", target: "document" }, do: "close" }],
+    });
+    expect(checkOverlayDismissalRules(spec)).toEqual([]);
+  });
+
+  test("flags keydown:Escape on document", () => {
+    const spec = makeButton({
+      interactions: [{ on: { event: "keydown", key: "Escape", target: "document" }, do: "close" }],
+    });
+    const issues = checkOverlayDismissalRules(spec);
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.path).toBe("interactions[0]");
+    expect(issues[0]?.message).toMatch(/useDismissableLayer/);
+    expect(issues[0]?.message).toMatch(/document/);
+  });
+
+  test("flags keydown:Escape on window", () => {
+    const spec = makeButton({
+      interactions: [{ on: { event: "keydown", key: "Escape", target: "window" }, do: "close" }],
+    });
+    const issues = checkOverlayDismissalRules(spec);
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.message).toMatch(/window/);
+  });
+
+  test("flags each offending rule independently", () => {
+    const spec = makeButton({
+      interactions: [
+        { on: { event: "keydown", key: "Escape", target: "document" }, do: "close" },
+        { on: { event: "pointerenter", target: "trigger" }, do: "open" },
+        { on: { event: "keydown", key: "Escape", target: "window" }, do: "close" },
+      ],
+    });
+    expect(checkOverlayDismissalRules(spec).map((i) => i.path)).toEqual([
+      "interactions[0]",
+      "interactions[2]",
+    ]);
   });
 });

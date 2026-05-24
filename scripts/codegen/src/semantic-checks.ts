@@ -737,6 +737,35 @@ export function checkInteractionRefs(spec: Spec): Issue[] {
   return issues;
 }
 
+// ── Overlay dismissal owned by useDismissableLayer ──────────────────────────
+
+/**
+ * Escape on `document` / `window` is owned by `useDismissableLayer` (stacked,
+ * topmost-wins) since PR #698. A spec-level
+ * `{ event: "keydown", key: "Escape", target: "document" | "window" }` rule
+ * bypasses the stack and fires `setOpen(false)` twice on one press — once
+ * via the layer, once via the spec interaction. Reject at spec time so a
+ * future composite spec can't reintroduce the duplicate-fire path.
+ */
+export function checkOverlayDismissalRules(spec: Spec): Issue[] {
+  const rules = spec.interactions ?? [];
+  if (rules.length === 0) return [];
+  const issues: Issue[] = [];
+  rules.forEach((rule, i) => {
+    if (rule.on.event !== "keydown") return;
+    if (rule.on.key !== "Escape") return;
+    if (rule.on.target !== "document" && rule.on.target !== "window") return;
+    issues.push(
+      issue(
+        spec.name,
+        `interactions[${i}]`,
+        `keydown:Escape on '${rule.on.target}' is owned by useDismissableLayer (stacked, topmost-wins). Remove this rule.`,
+      ),
+    );
+  });
+  return issues;
+}
+
 // ── Aggregate ───────────────────────────────────────────────────────────────
 
 export function runSemanticChecks(
@@ -759,6 +788,7 @@ export function runSemanticChecks(
     ...checkResponsiveExplicit(spec),
     ...checkAsIsConstrained(spec),
     ...checkInteractionRefs(spec),
+    ...checkOverlayDismissalRules(spec),
   ];
 }
 
