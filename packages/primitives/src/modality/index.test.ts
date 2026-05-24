@@ -134,6 +134,33 @@ describe("createModalityScope", () => {
     expect(child2.hasAttribute("inert")).toBe(false);
   });
 
+  it("preserves inert added by consumer code to a body-child we don't own", () => {
+    // Consumer adds inert to a body-child that wasn't a sibling at first
+    // activation (or was added later). The pre-pass at the next reconcile
+    // tags it as author-owned, so we don't claim and strip it.
+    const sibling = document.createElement("div");
+    const modal = document.createElement("div");
+    document.body.append(sibling, modal);
+
+    const scopeA = createModalityScope(modal);
+    scopeA.activate();
+    // Consumer adds a NEW body-child after activation and inerts it.
+    const lateAuthor = document.createElement("div");
+    document.body.appendChild(lateAuthor);
+    lateAuthor.setAttribute("inert", "");
+
+    // Trigger another reconcile (push a second scope, then pop it).
+    const otherModal = document.createElement("div");
+    document.body.appendChild(otherModal);
+    const scopeB = createModalityScope(otherModal);
+    scopeB.activate();
+    scopeB.deactivate();
+    scopeA.deactivate();
+
+    // Author-owned inert survives the whole stack lifecycle.
+    expect(lateAuthor.hasAttribute("inert")).toBe(true);
+  });
+
   it("activate is idempotent", () => {
     const sibling = document.createElement("div");
     const modal = document.createElement("div");

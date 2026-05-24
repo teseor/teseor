@@ -63,6 +63,18 @@ function snapshotAuthorInert(stack: DocStack, doc: Document): void {
 }
 
 function reconcile(stack: DocStack, doc: Document): void {
+  const body = doc.body;
+  if (!body) return;
+
+  // Pre-pass: detect any inert we don't already own. The consumer (or another
+  // library) may have added inert on a body-child between reconciles; without
+  // this pass we'd later claim it as ours and strip it on the next reconcile.
+  for (const child of Array.from(body.children)) {
+    if (!(child instanceof HTMLElement)) continue;
+    if (stack.ours.has(child)) continue;
+    if (child.hasAttribute("inert")) stack.authorInert.add(child);
+  }
+
   // Strip what we set previously; the new top scope (if any) re-asserts.
   for (const child of stack.ours) {
     child.removeAttribute("inert");
@@ -72,8 +84,6 @@ function reconcile(stack: DocStack, doc: Document): void {
   const top = stack.scopes[stack.scopes.length - 1];
   if (!top) return;
 
-  const body = doc.body;
-  if (!body) return;
   for (const child of Array.from(body.children)) {
     if (!(child instanceof HTMLElement)) continue;
     if (child.contains(top.element)) continue; // top's container — reachable.
