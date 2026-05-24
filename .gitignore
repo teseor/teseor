@@ -2,6 +2,9 @@
 .local/
 .claude/handover.md
 .claude/settings.local.json
+.claude/worktrees/
+.claude/plans/
+.claude/scheduled_tasks.lock
 
 # Toolchain
 node_modules/
