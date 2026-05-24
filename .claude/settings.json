@@ -10,7 +10,7 @@
       "Bash(pnpm build)",
       "Bash(pnpm build:*)",
       "Bash(pnpm size)",
-      "Bash(node scripts/check-comments.js:*)",
+      "Bash(node scripts/lint/file-rules/comments.js:*)",
       "Bash(git status:*)",
       "Bash(git diff:*)",
       "Bash(git log:*)",
@@ -35,7 +35,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node scripts/check-comments.js --working"
+            "command": "node scripts/lint/file-rules/comments.js --working"
           }
         ]
       }
