@@ -1,4 +1,5 @@
 import { warnOnce } from "@teseor/primitives";
+import { useDismissableLayer } from "@teseor/primitives/vue";
 import {
   computed,
   onBeforeUnmount,
@@ -79,8 +80,15 @@ function popoverIsOpen(node: HTMLElement): boolean | undefined {
  *
  * Resolves controlled vs uncontrolled mode by reading `config.open?.()` each
  * render, drives `showPopover` / `hidePopover` on the tracked content node,
- * attaches trigger and document/window listeners declared in `interactions`,
- * and no-ops when the `disabled` getter resolves truthy at the active breakpoint.
+ * and attaches trigger and document/window listeners declared in `interactions`.
+ *
+ * `disabled` gating is asymmetric on purpose. The trigger-handler `schedule()`
+ * path is gated — open/close/toggle no-ops when the `disabled` getter resolves
+ * truthy at the active breakpoint. The dismissable-layer path (Escape and
+ * outside-pointer) is unconditional, because a stuck-open overlay with no
+ * Escape route is worse than the inconsistency. A consumer who needs dismissal
+ * suppressed while disabled should drive the overlay in controlled mode and
+ * override `onOpenChange`.
  */
 export function useOverlay(config: OverlayConfig): OverlayReturn {
   const internalOpen = ref<boolean>(config.defaultOpen ?? false);
@@ -159,6 +167,14 @@ export function useOverlay(config: OverlayConfig): OverlayReturn {
     },
     { immediate: true, flush: "post" },
   );
+
+  // Participate in the per-ownerDocument dismissable-layer stack. Escape fires
+  // only when this layer is topmost; pointer-down outside the content element
+  // closes this layer.
+  useDismissableLayer(contentRef, open, {
+    onEscapeKeyDown: () => setOpen(false),
+    onPointerDownOutside: () => setOpen(false),
+  });
 
   // Re-read getter-form delays per fire (latest prop value).
   const resolveDelay = (d: number | (() => number) | undefined): number => {

@@ -25,9 +25,6 @@ interactions:
   - on: { event: focusout, target: trigger }
     do: close
     delay: closeDelay
-  - on: { event: keydown, key: Escape, target: document }
-    do: close
-    when: open
 
 parts:
   trigger:

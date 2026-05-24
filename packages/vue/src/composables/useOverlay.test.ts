@@ -417,4 +417,115 @@ describe("useOverlay", () => {
       vi.useRealTimers();
     }
   });
+
+  it("Escape closes only the topmost overlay (dismissable-layer stack)", async () => {
+    const outerClose = vi.fn();
+    const innerClose = vi.fn();
+    const Outer = defineComponent({
+      setup() {
+        const overlay = useOverlay({
+          anchorVar: "--anchor-outer",
+          popoverMode: "manual",
+          interactions: [],
+          open: () => true,
+          onOpenChange: outerClose,
+        });
+        return () => h("div", { ref: overlay.contentRef, popover: "manual" }, "outer");
+      },
+    });
+    const Inner = defineComponent({
+      setup() {
+        const overlay = useOverlay({
+          anchorVar: "--anchor-inner",
+          popoverMode: "manual",
+          interactions: [],
+          open: () => true,
+          onOpenChange: innerClose,
+        });
+        return () => h("div", { ref: overlay.contentRef, popover: "manual" }, "inner");
+      },
+    });
+    mountTracked(defineComponent({ setup: () => () => h("div", [h(Outer), h(Inner)]) }));
+    await flushPromises();
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
+    expect(innerClose).toHaveBeenCalledWith(false);
+    expect(outerClose).not.toHaveBeenCalled();
+  });
+
+  it("pointer-down outside the content element closes the overlay", async () => {
+    const onChange = vi.fn();
+    const wrapper = mountTracked(
+      defineComponent({
+        setup() {
+          const overlay = useOverlay({
+            anchorVar: "--anchor",
+            popoverMode: "manual",
+            interactions: [],
+            open: () => true,
+            onOpenChange: onChange,
+          });
+          return () =>
+            h("div", [
+              h("button", { type: "button", "data-testid": "outside" }, "outside"),
+              h("div", { ref: overlay.contentRef, popover: "manual" }, "inside"),
+            ]);
+        },
+      }),
+      { attachTo: document.body },
+    );
+    await flushPromises();
+    wrapper
+      .get('[data-testid="outside"]')
+      .element.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true }));
+    expect(onChange).toHaveBeenCalledWith(false);
+  });
+
+  it("pointer-down inside the content element does not close it", async () => {
+    const onChange = vi.fn();
+    const wrapper = mountTracked(
+      defineComponent({
+        setup() {
+          const overlay = useOverlay({
+            anchorVar: "--anchor",
+            popoverMode: "manual",
+            interactions: [],
+            open: () => true,
+            onOpenChange: onChange,
+          });
+          return () =>
+            h("div", { ref: overlay.contentRef, popover: "manual" }, [
+              h("button", { type: "button", "data-testid": "inside" }, "inside"),
+            ]);
+        },
+      }),
+      { attachTo: document.body },
+    );
+    await flushPromises();
+    wrapper
+      .get('[data-testid="inside"]')
+      .element.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true }));
+    expect(onChange).not.toHaveBeenCalled();
+  });
+
+  it("Escape closes the overlay even when disabled at the active breakpoint (intentional)", async () => {
+    const onChange = vi.fn();
+    mountTracked(
+      defineComponent({
+        setup() {
+          const overlay = useOverlay({
+            anchorVar: "--anchor",
+            popoverMode: "manual",
+            interactions: [],
+            open: () => true,
+            onOpenChange: onChange,
+            disabled: () => true,
+          });
+          return () => h("div", { ref: overlay.contentRef, popover: "manual" }, "x");
+        },
+      }),
+    );
+    await flushPromises();
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
+    expect(onChange).toHaveBeenCalledWith(false);
+  });
 });
