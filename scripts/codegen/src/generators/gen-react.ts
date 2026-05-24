@@ -598,8 +598,8 @@ ${propEnumTypes ? `${propEnumTypes}\n` : ""}type ${Name}OwnProps = {
 ${ownPropLines.join("\n")}
   /** Render the trigger directly on the consumer's child element (\`cloneElement\`)
    *  instead of wrapping in a \`<span>\`. Single-child invariant: \`children\` must
-   *  be a single React element. \`aria-describedby\`, the anchor binding, and
-   *  event handlers land on that element. */
+   *  be a single React element. The wrapper's \`style\`, \`data-state\`, event handlers,
+   *  and any ARIA attributes it applies (component-specific) land on that element. */
   asChild?: boolean;
   children?: ReactNode;
 };
