@@ -108,7 +108,7 @@ Every name that refers to position uses **inline-start / inline-end / block-star
 
 The reason is RTL: in right-to-left writing modes, `start` is on the right and `end` is on the left. A prop named `iconLeft` either lies about its position in RTL or forces consumers to swap props at the call site. Logical naming keeps the prop honest and removes the per-locale conditional.
 
-`scripts/check-logical-naming.js` (wired into pre-commit and CI) rejects:
+`scripts/lint/file-rules/logical-naming.js` (wired into pre-commit and CI) rejects:
 
 - YAML prop keys ending in `Left|Right|Top|Bottom` (e.g. `iconLeft`, `marginRight`).
 - `data-position="left"` or `data-position="right"` string literals in generator scripts.

@@ -3,62 +3,16 @@ min_version: 2.1.0
 commit-msg:
   commands:
     conventional:
-      run: node scripts/verify-commit.js {1}
+      run: node scripts/hooks/commit-msg.js {1}
 
+# Pre-commit dispatches every project lint check through one runner. The
+# registry (`scripts/lint/registry.ts`) is the catalog: each entry declares
+# its own trigger pathspecs, and the runner skips checks whose triggers
+# don't intersect the staged file list. `--list` shows the full catalog.
 pre-commit:
-  parallel: true
   commands:
-    biome:
-      glob: '*.{ts,tsx,js,mjs,cjs,json}'
-      run: pnpm exec biome check --no-errors-on-unmatched --files-ignore-unknown=true {staged_files}
-    stylelint:
-      glob: '*.css'
-      run: pnpm exec stylelint --allow-empty-input {staged_files}
-    spec:
-      glob: 'specs/*.yaml'
-      run: pnpm lint:spec
-    no-plan-markers:
-      glob: '*.{ts,tsx,js,jsx,mjs,cjs,css,scss,yaml,yml,sh,md}'
-      run: node scripts/check-comments.js {staged_files}
-    logical-naming:
-      glob: '*.{ts,tsx,js,yaml,yml}'
-      run: node scripts/check-logical-naming.js {staged_files}
-    dogfood:
-      glob: 'apps/docs/**'
-      run: node scripts/check-dogfood.ts
-    component-css:
-      glob: 'packages/css/src/components/**/*.css'
-      run: node scripts/check-component-css.ts
-    motion:
-      glob: 'packages/css/src/components/**/*.css'
-      run: node scripts/check-motion-scale.ts
-    transitionable:
-      glob: 'packages/css/src/components/**/*.css'
-      run: node scripts/check-transitionable-property.ts
-    aggregators:
-      glob: '{**/package.json,pnpm-workspace.yaml}'
-      run: node scripts/check-script-aggregators.ts
-    catalog:
-      glob: '{package.json,docs/process/dev-scripts.md}'
-      run: node scripts/check-script-catalog.ts
-    markdown:
-      glob: '**/*.md'
-      run: pnpm exec markdownlint-cli2
-    doc-paths:
-      glob: '**/*.{md,mdx}'
-      run: node scripts/check-doc-paths.ts
-    contract-snapshots:
-      glob: '{tests/contract/**,specs/**,apps/harness/src/fixtures/**}'
-      run: node scripts/check-contract-snapshots.ts
-    no-as-unknown-cast:
-      glob: '*.test.{ts,tsx}'
-      run: node scripts/check-no-as-unknown-cast.ts {staged_files}
-    no-document-typeof:
-      glob: 'packages/{react,vue}/src/**/*.{tsx,vue}'
-      run: node scripts/check-no-document-typeof.ts {staged_files}
-    exports-resolve:
-      glob: '{packages,apps}/*/package.json'
-      run: node scripts/check-exports-resolve.ts
+    project:
+      run: node scripts/lint/run.ts --all {staged_files}
 
 pre-push:
   commands:
@@ -76,7 +30,7 @@ pre-push:
       skip_empty: false
       run: |
         if [ ! -f .claude/preflight-review.enabled ]; then exit 0; fi
-        bash scripts/review.sh || true
+        bash scripts/repo/review.sh || true
     lint:
       run: pnpm lint
     typecheck:
@@ -94,8 +48,6 @@ pre-push:
           exit 1
         fi
     verify-no-dev-leak:
-      run: pnpm -r --if-present run build && pnpm verify:no-dev-leak
+      run: pnpm -r --if-present run build && node scripts/hooks/verify-no-dev-leak.js
     measure:
       run: pnpm build:css && pnpm size
-    changeset:
-      run: node scripts/check-changeset.js
