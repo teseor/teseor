@@ -16,7 +16,10 @@ export function renderExamples(spec: Spec, Name: string, opts: { isComposite: bo
   const blocks = spec.examples.map((example) => {
     const props = example.props ?? {};
     // Attrs applied to the rendered example — drop `false` props and (for
-    // atomic specs) drop slot props since those become children, not attrs.
+    // atomic specs) drop slot props entirely from the preview. The rendered
+    // element uses the static label `${Name}` as its children, so slot values
+    // don't appear in the preview at all; they remain only in the source
+    // snippet below so consumers can still see the full JSX they'd paste.
     const renderedAttrs = Object.entries(props)
       .filter(([key]) => {
         if (props[key] === false) return false;
