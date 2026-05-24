@@ -1,4 +1,5 @@
 import { warnOnce } from "@teseor/primitives";
+import { useDismissableLayer } from "@teseor/primitives/react";
 import { type Ref, useCallback, useEffect, useId, useRef, useState } from "react";
 import { isActiveAt, type Responsive, useActiveBreakpoint } from "../_runtime.ts";
 
@@ -185,6 +186,14 @@ export function useOverlay<T extends HTMLElement = HTMLElement>(
       }
     }
   }, [open, contentNode]);
+
+  // Participate in the per-ownerDocument dismissable-layer stack. Escape fires
+  // only when this layer is topmost; pointer-down outside the content element
+  // closes this layer.
+  useDismissableLayer(contentNode, open, {
+    onEscapeKeyDown: () => setOpen(false),
+    onPointerDownOutside: () => setOpen(false),
+  });
 
   // Document/window-bound rules. Listeners mount with the rules array;
   // `when:` is re-evaluated per fire via `openRef`.

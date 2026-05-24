@@ -8,7 +8,7 @@ import {
   setSupportsPopoverOpenSelector,
   uninstallDomPolyfills,
 } from "@teseor/test-internals";
-import { act, cleanup, fireEvent, render, renderHook } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, renderHook, screen } from "@testing-library/react";
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import { useOverlay } from "./useOverlay.ts";
 
@@ -367,5 +367,92 @@ describe("useOverlay", () => {
     } finally {
       vi.useRealTimers();
     }
+  });
+
+  it("Escape closes only the topmost overlay (dismissable-layer stack)", () => {
+    const outerClose = vi.fn();
+    const innerClose = vi.fn();
+    function Outer() {
+      const overlay = useOverlay<HTMLDivElement>({
+        anchorVar: "--anchor-outer",
+        popoverMode: "manual",
+        interactions: [],
+        open: true,
+        onOpenChange: outerClose,
+      });
+      return (
+        <div ref={overlay.contentRef} popover="manual">
+          outer
+        </div>
+      );
+    }
+    function Inner() {
+      const overlay = useOverlay<HTMLDivElement>({
+        anchorVar: "--anchor-inner",
+        popoverMode: "manual",
+        interactions: [],
+        open: true,
+        onOpenChange: innerClose,
+      });
+      return (
+        <div ref={overlay.contentRef} popover="manual">
+          inner
+        </div>
+      );
+    }
+    render(
+      <>
+        <Outer />
+        <Inner />
+      </>,
+    );
+    fireEvent.keyDown(document, { key: "Escape" });
+    expect(innerClose).toHaveBeenCalledWith(false);
+    expect(outerClose).not.toHaveBeenCalled();
+  });
+
+  it("pointer-down outside the content element closes the overlay", () => {
+    const onChange = vi.fn();
+    function Harness() {
+      const overlay = useOverlay<HTMLDivElement>({
+        anchorVar: "--anchor",
+        popoverMode: "manual",
+        interactions: [],
+        open: true,
+        onOpenChange: onChange,
+      });
+      return (
+        <>
+          <button type="button">outside</button>
+          <div ref={overlay.contentRef} popover="manual" data-testid="content">
+            inside
+          </div>
+        </>
+      );
+    }
+    render(<Harness />);
+    fireEvent.pointerDown(screen.getByRole("button"));
+    expect(onChange).toHaveBeenCalledWith(false);
+  });
+
+  it("pointer-down inside the content element does not close it", () => {
+    const onChange = vi.fn();
+    function Harness() {
+      const overlay = useOverlay<HTMLDivElement>({
+        anchorVar: "--anchor",
+        popoverMode: "manual",
+        interactions: [],
+        open: true,
+        onOpenChange: onChange,
+      });
+      return (
+        <div ref={overlay.contentRef} popover="manual" data-testid="content">
+          <button type="button">inside</button>
+        </div>
+      );
+    }
+    render(<Harness />);
+    fireEvent.pointerDown(screen.getByRole("button"));
+    expect(onChange).not.toHaveBeenCalled();
   });
 });
