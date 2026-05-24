@@ -1,8 +1,10 @@
 // @vitest-environment happy-dom
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { createModalityScope } from "./index.ts";
+import { createModalityScope, resetModalityScopesForTests } from "./index.ts";
 
 afterEach(() => {
+  // Drop module-level stack state so tests don't leak doc-scope ownership.
+  resetModalityScopesForTests();
   document.body.innerHTML = "";
   delete (window as { __teseor_warned?: unknown }).__teseor_warned;
 });
@@ -65,6 +67,38 @@ describe("createModalityScope", () => {
     inner.deactivate();
     outer.deactivate();
     expect(outerSibling.hasAttribute("inert")).toBe(false);
+  });
+
+  it("out-of-order deactivation — outer pops while inner active, page state stays correct", () => {
+    // Stacks recompute on every push/pop. Deactivating an outer scope while
+    // an inner is still active must leave the inner's wants intact.
+    const child1 = document.createElement("div");
+    const modalA = document.createElement("div");
+    child1.appendChild(modalA);
+    const child2 = document.createElement("div");
+    const modalB = document.createElement("div");
+    child2.appendChild(modalB);
+    document.body.append(child1, child2);
+
+    const scopeA = createModalityScope(modalA);
+    const scopeB = createModalityScope(modalB);
+
+    scopeA.activate();
+    scopeB.activate();
+    // Top is B → child1 inert, child2 reachable.
+    expect(child1.hasAttribute("inert")).toBe(true);
+    expect(child2.hasAttribute("inert")).toBe(false);
+
+    // Outer scope deactivates while inner is still active.
+    scopeA.deactivate();
+    // Top is still B → child1 stays inert, child2 stays reachable.
+    expect(child1.hasAttribute("inert")).toBe(true);
+    expect(child2.hasAttribute("inert")).toBe(false);
+
+    // Inner deactivates last — stack empty, no inerts.
+    scopeB.deactivate();
+    expect(child1.hasAttribute("inert")).toBe(false);
+    expect(child2.hasAttribute("inert")).toBe(false);
   });
 
   it("two scopes in sibling body-children — inner activates without leaving its container inert", () => {

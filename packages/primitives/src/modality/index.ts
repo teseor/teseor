@@ -1,6 +1,9 @@
 // Modal-overlay coordination: sets `inert=""` on every direct `<body>` child
 // whose subtree does not contain the activated element. Restored on deactivate.
-// Stacked per `ownerDocument`; pre-existing `inert` is preserved.
+// Stacked per `ownerDocument` — only the topmost scope's wants apply, so the
+// inert state is recomputed from the stack on every push/pop (the deactivation
+// order does not have to match activation order). Pre-existing `inert`
+// attributes are sampled on first activation and never touched.
 // DOM only — compose with `focus-trap` + `dismissable-layer` for the full modal.
 import { warnOnce } from "../warn-once/index.ts";
 
@@ -14,16 +17,24 @@ export type ModalityScope = {
 
 type ScopeInstance = {
   element: HTMLElement;
-  /** Body children this scope set inert on (so we restore exactly those). */
-  affected: HTMLElement[];
-  /** Body children that had inert from a lower scope; this scope un-set it because they contain our element. Re-inert on deactivate so the outer scope is restored. */
-  unmasked: HTMLElement[];
   active: boolean;
 };
 
-type DocStack = { scopes: ScopeInstance[] };
+type DocStack = {
+  scopes: ScopeInstance[];
+  /** Body children that had inert BEFORE any scope activated; never touched. */
+  authorInert: WeakSet<HTMLElement>;
+  /** Body children this stack currently holds inert on (the topmost scope's wants). */
+  ours: Set<HTMLElement>;
+};
+
 // One stack per ownerDocument — iframes get their own stack, no leakage.
 const stacks: Map<Document, DocStack> = new Map();
+
+/** Test-only: drops every doc stack so a fresh test starts from a clean state. */
+export function resetModalityScopesForTests(): void {
+  stacks.clear();
+}
 
 function isSupported(): boolean {
   // `inert` is an `HTMLElement` IDL attribute, not `Element`.
@@ -33,50 +44,52 @@ function isSupported(): boolean {
 function getOrCreateStack(doc: Document): DocStack {
   const existing = stacks.get(doc);
   if (existing) return existing;
-  const stack: DocStack = { scopes: [] };
+  const stack: DocStack = { scopes: [], authorInert: new WeakSet(), ours: new Set() };
   stacks.set(doc, stack);
   return stack;
 }
 
-function applyInert(scope: ScopeInstance, doc: Document): void {
+function snapshotAuthorInert(stack: DocStack, doc: Document): void {
+  // Snapshot only on the first activation; subsequent activations keep the
+  // initial author-inert set so we never claim/revoke author-owned attributes.
+  if (stack.scopes.length !== 0) return;
   const body = doc.body;
   if (!body) return;
-  // Snapshot for mutation-safe iteration.
   for (const child of Array.from(body.children)) {
-    if (!(child instanceof HTMLElement)) continue;
-    if (child.contains(scope.element)) {
-      // Our modal's container. If a lower scope inerted it, un-inert so this
-      // scope's subtree is reachable; restore is responsible for re-asserting.
-      if (child.hasAttribute("inert")) {
-        child.removeAttribute("inert");
-        scope.unmasked.push(child);
-      }
-      continue;
+    if (child instanceof HTMLElement && child.hasAttribute("inert")) {
+      stack.authorInert.add(child);
     }
-    // Skip pre-existing inert (author attribute or outer scope) — restore only touches what this scope set.
-    if (child.hasAttribute("inert")) continue;
-    child.setAttribute("inert", "");
-    scope.affected.push(child);
   }
 }
 
-function restoreInert(scope: ScopeInstance): void {
-  for (const el of scope.affected) {
-    el.removeAttribute("inert");
+function reconcile(stack: DocStack, doc: Document): void {
+  // Strip what we set previously; the new top scope (if any) re-asserts.
+  for (const child of stack.ours) {
+    child.removeAttribute("inert");
   }
-  scope.affected = [];
-  // Re-assert inert that this scope removed (handing the mask back to the lower scope).
-  for (const el of scope.unmasked) {
-    el.setAttribute("inert", "");
+  stack.ours.clear();
+
+  const top = stack.scopes[stack.scopes.length - 1];
+  if (!top) return;
+
+  const body = doc.body;
+  if (!body) return;
+  for (const child of Array.from(body.children)) {
+    if (!(child instanceof HTMLElement)) continue;
+    if (child.contains(top.element)) continue; // top's container — reachable.
+    if (stack.authorInert.has(child)) continue; // author-owned — leave alone.
+    child.setAttribute("inert", "");
+    stack.ours.add(child);
   }
-  scope.unmasked = [];
 }
 
 /**
  * Subscribes a modality scope for `element`. Returns `{ activate, deactivate }`
- * — activate sets `inert` on non-containing body children; deactivate restores
- * exactly those. Both are idempotent. Throws when `element.ownerDocument` is
- * unavailable (detached element / non-browser host).
+ * — activate makes this scope the topmost in its `ownerDocument` (inerting
+ * every body-child whose subtree does not contain it); deactivate pops it,
+ * after which the next-topmost scope's wants apply, or the page returns to
+ * its pre-stack state if none remains. Both are idempotent. Throws when
+ * `element.ownerDocument` is unavailable (detached element / non-browser).
  */
 export function createModalityScope(
   element: HTMLElement,
@@ -89,7 +102,7 @@ export function createModalityScope(
     );
   }
   const supported = isSupported();
-  const instance: ScopeInstance = { element, affected: [], unmasked: [], active: false };
+  const instance: ScopeInstance = { element, active: false };
 
   return {
     activate(): void {
@@ -104,19 +117,22 @@ export function createModalityScope(
       }
       instance.active = true;
       const stack = getOrCreateStack(doc);
+      snapshotAuthorInert(stack, doc);
       stack.scopes.push(instance);
-      applyInert(instance, doc);
+      reconcile(stack, doc);
     },
     deactivate(): void {
       if (!instance.active) return;
       instance.active = false;
       if (!supported) return;
-      restoreInert(instance);
       const stack = stacks.get(doc);
       if (!stack) return;
       const idx = stack.scopes.indexOf(instance);
       if (idx !== -1) stack.scopes.splice(idx, 1);
-      if (stack.scopes.length === 0) stacks.delete(doc);
+      reconcile(stack, doc);
+      if (stack.scopes.length === 0 && stack.ours.size === 0) {
+        stacks.delete(doc);
+      }
     },
   };
 }
