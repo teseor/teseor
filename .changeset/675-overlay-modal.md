@@ -1,4 +1,5 @@
 ---
+"@teseor/css": minor
 "@teseor/primitives": minor
 "@teseor/react": minor
 "@teseor/vue": minor
