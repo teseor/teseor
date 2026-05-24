@@ -1,5 +1,6 @@
 import { collectSlots } from "../../../lib/collect-slots.ts";
 import { renderEnumType } from "../../../lib/enum-primitives.ts";
+import { isVoidElement } from "../../../lib/html-void-elements.ts";
 import { reactJsDocFlavor, renderComponentJsDoc } from "../../../lib/jsdoc-shape.ts";
 import { pascalCase } from "../../../lib/pascal-case.ts";
 import type { Spec } from "../../gen-contract.ts";
@@ -82,7 +83,11 @@ export function renderAtomicReactWrapper(
     .filter(Boolean)
     .join("\n");
 
-  const bodyBlock = renderBody(spec, slots, hasLoading);
+  // Void elements (hr, img, input, br, …) cannot have children — emit a
+  // self-closing JSX form and skip the body. Slot/loading state on a void
+  // spec is a spec authoring error and is not validated here.
+  const isVoid = spec.element ? isVoidElement(spec.element) : false;
+  const bodyBlock = isVoid ? "" : renderBody(spec, slots, hasLoading);
   const typeBlockPrefix = typeBlock ? `${typeBlock}\n` : "";
   const propsTypeLine = renderPropsTypeIntersection(Name, spec.element ?? "div");
 
@@ -99,6 +104,10 @@ export function renderAtomicReactWrapper(
   ]
     .filter((l): l is string => l !== null)
     .join("\n");
+
+  const renderElement = isVoid
+    ? `    <${componentTag}\n${attrBlock}\n    />`
+    : `    <${componentTag}\n${attrBlock}\n    >\n${bodyBlock}\n    </${componentTag}>`;
 
   return `"use client";
 
@@ -117,11 +126,7 @@ ${renderDestructure(spec)}
 ${helperBlock}
 
   return (
-    <${componentTag}
-${attrBlock}
-    >
-${bodyBlock}
-    </${componentTag}>
+${renderElement}
   );
 }
 `;

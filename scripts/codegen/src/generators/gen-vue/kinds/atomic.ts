@@ -1,5 +1,6 @@
 import { collectSlots } from "../../../lib/collect-slots.ts";
 import { renderEnumType } from "../../../lib/enum-primitives.ts";
+import { isVoidElement } from "../../../lib/html-void-elements.ts";
 import { renderComponentJsDoc, vueJsDocFlavor } from "../../../lib/jsdoc-shape.ts";
 import { pascalCase } from "../../../lib/pascal-case.ts";
 import type { Spec } from "../../gen-contract.ts";
@@ -63,11 +64,19 @@ export function renderAtomicVueWrapper(
     .filter(Boolean)
     .join("\n");
 
-  const bodyBlock = renderBody(spec, slots, hasLoading);
-  const rootOpen = hasAs
-    ? `<component :is="as" class="${rootClass}" v-bind="attrs">`
-    : `<${componentTag} class="${rootClass}" v-bind="attrs">`;
-  const rootClose = hasAs ? `</component>` : `</${componentTag}>`;
+  // Void elements (hr, img, input, br, …) cannot have children — emit a
+  // self-closing template form and skip the body. Slot/loading state on a
+  // void spec is a spec authoring error and is not validated here.
+  const isVoid = spec.element ? isVoidElement(spec.element) : false;
+  const bodyBlock = isVoid ? "" : renderBody(spec, slots, hasLoading);
+  const rootOpen = isVoid
+    ? hasAs
+      ? `<component :is="as" class="${rootClass}" v-bind="attrs" />`
+      : `<${componentTag} class="${rootClass}" v-bind="attrs" />`
+    : hasAs
+      ? `<component :is="as" class="${rootClass}" v-bind="attrs">`
+      : `<${componentTag} class="${rootClass}" v-bind="attrs">`;
+  const rootClose = isVoid ? "" : hasAs ? `</component>` : `</${componentTag}>`;
 
   const imports = [
     `import "@teseor/css/components/${spec.name}.css";`,
@@ -100,9 +109,13 @@ ${attrEntries}
 </script>
 
 <template>
-  ${rootOpen}
+${
+  isVoid
+    ? `  ${rootOpen}`
+    : `  ${rootOpen}
 ${bodyBlock}
-  ${rootClose}
+  ${rootClose}`
+}
 </template>
 `;
 }
