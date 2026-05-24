@@ -10,5 +10,10 @@ export {
   type FocusTrapOptions,
   getFocusableElements,
 } from "./focus-trap/index.ts";
+export {
+  createModalityScope,
+  type ModalityScope,
+  type ModalityScopeOptions,
+} from "./modality/index.ts";
 export { createPortal, type Portal, type PortalOptions } from "./portal/index.ts";
 export { warnOnce } from "./warn-once/index.ts";

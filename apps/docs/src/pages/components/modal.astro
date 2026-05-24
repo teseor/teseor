@@ -1,0 +1,61 @@
+---
+import { Modal, Button } from "@teseor/react";
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Modal — Teseor">
+  <main class="t-stack" data-gap="6">
+    <h1>Modal</h1>
+    <p>A modal overlay that traps focus and inerts the rest of the page until dismissed.</p>
+    <section class="t-stack" data-gap="3">
+      <h2>Examples</h2>
+      <div class="t-stack" data-gap="2">
+        <h3>default</h3>
+        <div class="t-cluster" data-gap="3">
+          <Modal title="Are you sure?" client:visible>
+            <Button variant="solid" intent="primary">Trigger</Button>
+          </Modal>
+        </div>
+        <pre><code>&lt;Modal title="Are you sure?"&gt;
+  &lt;Button variant="solid" intent="primary"&gt;Trigger&lt;/Button&gt;
+&lt;/Modal&gt;</code></pre>
+      </div>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Props</h2>
+      <table>
+        <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><code>open</code></td><td><code>boolean, controllable</code></td><td><code>false</code></td><td>Open state. Uncontrolled by default; pass `open` and optionally `onOpenChange` to drive it from the consumer.</td></tr>
+        <tr><td><code>defaultOpen</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Initial open state (uncontrolled).</td></tr>
+        <tr><td><code>onOpenChange</code></td><td><code>(open: boolean) =&gt; void</code></td><td><code>null</code></td><td>Fires when the open state changes.</td></tr>
+        <tr><td><code>title</code></td><td><code>string, slot</code></td><td><code>null</code></td><td>Modal body text. Plain string only; rich content support lands when the spec grows a real content slot.</td></tr>
+        <tr><td><code>asChild</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Render the trigger directly on the consumer's child element (cloneElement) instead of wrapping in a &lt;span&gt;. Single-child invariant; the child receives the wrapper's &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;data-state&lt;/code&gt;, event handlers, and any ARIA attributes the component applies (component-specific). Not compatible with Astro slots — use the default wrapper there.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Tokens</h2>
+      <table>
+        <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><code>--t-modal-bg</code></td><td><code>--t-neutral-0</code></td><td>Background fill.</td></tr>
+        <tr><td><code>--t-modal-fg</code></td><td><code>--t-neutral-90</code></td><td>Text color.</td></tr>
+        <tr><td><code>--t-modal-pad</code></td><td><code>--t-space-5</code></td><td>Inner padding.</td></tr>
+        <tr><td><code>--t-modal-radius</code></td><td><code>--t-radius-md</code></td><td>Corner radius.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Accessibility</h2>
+      <p>Role: <code>dialog</code></p>
+      <table>
+        <thead><tr><th>Interaction</th><th>Action</th></tr></thead>
+        <tbody>
+        <tr><td><code>Escape</code></td><td>Closes the overlay. Topmost-wins when multiple overlays are open.</td></tr>
+        <tr><td><code>Outside pointer-down</code></td><td>Pressing outside the content closes the overlay.</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</Base>

@@ -51,6 +51,10 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/setup
+      # Wrapper tests import generated component .tsx files which `import
+      # "@teseor/css/components/<name>.css"`. Resolve via the package's
+      # `dist/` exports — build CSS first so those imports resolve.
+      - run: pnpm --filter @teseor/css build
       - run: pnpm test
 
   test-e2e:

@@ -1,5 +1,5 @@
 import { warnOnce } from "@teseor/primitives";
-import { useDismissableLayer } from "@teseor/primitives/react";
+import { useDismissableLayer, useFocusTrap, useModalityScope } from "@teseor/primitives/react";
 import { type Ref, useCallback, useEffect, useId, useRef, useState } from "react";
 import { isActiveAt, type Responsive, useActiveBreakpoint } from "../_runtime.ts";
 
@@ -26,6 +26,8 @@ export type OverlayConfig = {
   interactions: ReadonlyArray<OverlayInteraction>;
   /** Active at the current breakpoint? state machine no-ops; matches CSS `data-disabled-bp`. */
   disabled?: Responsive<boolean>;
+  /** Modal: when true and `open`, activates a focus trap + body-children inert cascade. */
+  modal?: boolean;
 };
 
 type AnyEventHandler = (event: unknown) => void;
@@ -104,6 +106,7 @@ export function useOverlay<T extends HTMLElement = HTMLElement>(
     popoverMode,
     interactions,
     disabled,
+    modal = false,
   } = config;
   const activeBp = useActiveBreakpoint();
   const isDisabled = isActiveAt(disabled, activeBp);
@@ -201,6 +204,11 @@ export function useOverlay<T extends HTMLElement = HTMLElement>(
     onEscapeKeyDown: () => setOpen(false),
     onPointerDownOutside: () => setOpen(false),
   });
+
+  // Modal: trap focus + inert siblings. Focus-trap restores focus to the pre-activation element (trigger) on close.
+  const modalActive = modal && open;
+  useFocusTrap(contentNode, modalActive);
+  useModalityScope(contentNode, modalActive);
 
   // Document/window-bound rules. Listeners mount with the rules array;
   // `when:` is re-evaluated per fire via `openRef`.

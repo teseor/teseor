@@ -528,4 +528,133 @@ describe("useOverlay", () => {
     document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
     expect(onChange).toHaveBeenCalledWith(false);
   });
+
+  describe("modal: true", () => {
+    it("inerts sibling body children when open", async () => {
+      const sibling = document.createElement("aside");
+      document.body.appendChild(sibling);
+      mountTracked(
+        defineComponent({
+          setup() {
+            const overlay = useOverlay({
+              anchorVar: "--a",
+              popoverMode: "manual",
+              interactions: [],
+              defaultOpen: true,
+              modal: true,
+            });
+            return () =>
+              h("div", { ref: overlay.contentRef as unknown as Ref<HTMLElement | null>, popover: "manual" }, "modal");
+          },
+        }),
+        { attachTo: document.body },
+      );
+      await flushPromises();
+      expect(sibling.hasAttribute("inert")).toBe(true);
+      sibling.remove();
+    });
+
+    it("does not inert siblings when closed", async () => {
+      const sibling = document.createElement("aside");
+      document.body.appendChild(sibling);
+      mountTracked(
+        defineComponent({
+          setup() {
+            const overlay = useOverlay({
+              anchorVar: "--a",
+              popoverMode: "manual",
+              interactions: [],
+              defaultOpen: false,
+              modal: true,
+            });
+            return () =>
+              h("div", { ref: overlay.contentRef as unknown as Ref<HTMLElement | null>, popover: "manual" }, "modal");
+          },
+        }),
+        { attachTo: document.body },
+      );
+      await flushPromises();
+      expect(sibling.hasAttribute("inert")).toBe(false);
+      sibling.remove();
+    });
+
+    it("removes inert from siblings on close", async () => {
+      const sibling = document.createElement("aside");
+      document.body.appendChild(sibling);
+      const openProp = ref(true);
+      mountTracked(
+        defineComponent({
+          setup() {
+            const overlay = useOverlay({
+              open: () => openProp.value,
+              anchorVar: "--a",
+              popoverMode: "manual",
+              interactions: [],
+              modal: true,
+            });
+            return () =>
+              h("div", { ref: overlay.contentRef as unknown as Ref<HTMLElement | null>, popover: "manual" }, "modal");
+          },
+        }),
+        { attachTo: document.body },
+      );
+      await flushPromises();
+      expect(sibling.hasAttribute("inert")).toBe(true);
+      openProp.value = false;
+      await flushPromises();
+      expect(sibling.hasAttribute("inert")).toBe(false);
+      sibling.remove();
+    });
+
+    it("pulls focus into the content on open", async () => {
+      mountTracked(
+        defineComponent({
+          setup() {
+            const overlay = useOverlay({
+              anchorVar: "--a",
+              popoverMode: "manual",
+              interactions: [],
+              defaultOpen: true,
+              modal: true,
+            });
+            return () =>
+              h(
+                "div",
+                { ref: overlay.contentRef as unknown as Ref<HTMLElement | null>, popover: "manual" },
+                [h("button", { type: "button", "data-testid": "inside" }, "inside")],
+              );
+          },
+        }),
+        { attachTo: document.body },
+      );
+      await flushPromises();
+      const inside = document.querySelector('[data-testid="inside"]');
+      expect(document.activeElement).toBe(inside);
+    });
+  });
+
+  describe("modal: false (default)", () => {
+    it("does not inert sibling body children when open", async () => {
+      const sibling = document.createElement("aside");
+      document.body.appendChild(sibling);
+      mountTracked(
+        defineComponent({
+          setup() {
+            const overlay = useOverlay({
+              anchorVar: "--a",
+              popoverMode: "manual",
+              interactions: [],
+              defaultOpen: true,
+            });
+            return () =>
+              h("div", { ref: overlay.contentRef as unknown as Ref<HTMLElement | null>, popover: "manual" }, "x");
+          },
+        }),
+        { attachTo: document.body },
+      );
+      await flushPromises();
+      expect(sibling.hasAttribute("inert")).toBe(false);
+      sibling.remove();
+    });
+  });
 });

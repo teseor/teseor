@@ -59,6 +59,12 @@ component:cluster:
           - packages/css/src/components/cluster/**
           - specs/cluster.yaml
 
+component:modal:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/css/src/components/modal/**
+          - specs/modal.yaml
+
 component:stack:
   - changed-files:
       - any-glob-to-any-file:

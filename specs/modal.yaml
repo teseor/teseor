@@ -1,0 +1,64 @@
+name: modal
+description: A modal overlay that traps focus and inerts the rest of the page until dismissed.
+kind: composite
+dependencies: []
+cssFile: components/modal/modal.css
+behavior: stateful
+primitives: []
+
+overlay:
+  anchor: trigger
+  floating: content
+  mode: manual
+  anchorVar: --t-modal-anchor
+  modal: true
+
+interactions:
+  - on: { event: click, target: trigger }
+    do: toggle
+
+parts:
+  trigger:
+    fromChildren: true
+    rootClass: t-modal-trigger
+    props:
+      open:
+        type: boolean
+        default: false
+        pattern: controllable
+        responsive: false
+        description: "Open state. Uncontrolled by default; pass `open` and optionally `onOpenChange` to drive it from the consumer."
+
+  content:
+    element: div
+    rootClass: t-modal
+    a11y:
+      role: dialog
+    props:
+      title:
+        type: string
+        slot: true
+        default: null
+        description: "Modal body text. Plain string only; rich content support lands when the spec grows a real content slot."
+    tokens:
+      bg:
+        fallback: --t-neutral-0
+        desc: Background fill.
+      fg:
+        fallback: --t-neutral-90
+        desc: Text color.
+      pad:
+        fallback: --t-space-5
+        desc: Inner padding.
+      radius:
+        fallback: --t-radius-md
+        desc: Corner radius.
+    privateTokens:
+      - --_bg
+      - --_fg
+      - --_pad
+      - --_radius
+
+examples:
+  - id: default
+    props: { title: "Are you sure?" }

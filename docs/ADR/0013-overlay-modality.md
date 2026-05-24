@@ -1,6 +1,6 @@
 # ADR-0013 — Overlay modality: `overlay.modal`, focus-trap auto-activation, inert cascade
 
-- **Status:** Proposed.
+- **Status:** Accepted.
 - **Deciders:** repo owner (letanure).
 
 ## Decision

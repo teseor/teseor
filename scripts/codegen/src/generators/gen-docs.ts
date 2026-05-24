@@ -201,7 +201,7 @@ function renderProps(spec: DocsSpec): string {
       `<code>asChild</code>`,
       `<code>boolean</code>`,
       `<code>false</code>`,
-      `Render the trigger directly on the consumer's child element (cloneElement) instead of wrapping in a &lt;span&gt;. Single-child invariant; the child must accept &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;data-state&lt;/code&gt;, &lt;code&gt;aria-describedby&lt;/code&gt;, and the trigger event handlers. Not compatible with Astro slots — use the default wrapper there.`,
+      `Render the trigger directly on the consumer's child element (cloneElement) instead of wrapping in a &lt;span&gt;. Single-child invariant; the child receives the wrapper's &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;data-state&lt;/code&gt;, event handlers, and any ARIA attributes the component applies (component-specific). Not compatible with Astro slots — use the default wrapper there.`,
     ]);
   }
   return section("Props", renderTable(["Prop", "Type", "Default", "Description"], rows));

@@ -523,6 +523,7 @@ function renderCompositeWrapper(spec: Spec, propDescriptions: Record<string, str
     `    anchorVar: ${quote(overlaySpec.anchorVar)},`,
     `    popoverMode: ${quote(overlaySpec.mode)},`,
     `    interactions,`,
+    ...(overlaySpec.modal ? [`    modal: true,`] : []),
   ].join("\n");
   const hookConfigWithDisabled = disabledLine
     ? `${hookConfig}\n${disabledLine.trimEnd()}`
@@ -550,15 +551,41 @@ function renderCompositeWrapper(spec: Spec, propDescriptions: Record<string, str
       ? contentSlots.map((s) => `        {${s}}`).join("\n")
       : "        {/* no content slot declared */}";
 
+  const hasResponsive = responsiveProps.length > 0;
+  // Modal overlays gate the portal on a mounted flag (set in a `useEffect`) so
+  // server-rendered HTML and the client's first render match — same null result
+  // for the portal subtree, no hydration mismatch warnings.
+  const reactRuntimeImports = ["type CSSProperties", "type ReactNode", "useMemo"];
+  if (overlaySpec.modal) reactRuntimeImports.push("useEffect", "useState");
   const importsLines = [
     `import "@teseor/css/components/${spec.name}.css";`,
-    `import { type CSSProperties, type ReactNode, useMemo } from "react";`,
-    `import { responsiveDataAttrs, type Responsive } from "./_runtime.ts";`,
+    `import { ${reactRuntimeImports.join(", ")} } from "react";`,
+    ...(overlaySpec.modal ? [`import { createPortal } from "react-dom";`] : []),
+    ...(hasResponsive
+      ? [`import { responsiveDataAttrs, type Responsive } from "./_runtime.ts";`]
+      : []),
     `import { Slot } from "./components/Slot.tsx";`,
     `import { type OverlayInteraction, useOverlay } from "./hooks/useOverlay.ts";`,
   ].join("\n");
 
   const contentRoleAttr = contentRole ? `        role=${quote(contentRole)}` : null;
+  // ARIA dialogs require an accessible name. Bind it to the first slot prop on
+  // the content part (Modal: `title`) so the screen-reader announcement matches
+  // the visible body. Other roles (`tooltip`) name themselves via the trigger's
+  // `aria-describedby`, so the binding is dialog-specific.
+  const ariaLabelAttr =
+    contentRole === "dialog" && contentSlots[0] ? `        aria-label={${contentSlots[0]}}` : null;
+  // `aria-modal="true"` makes assistive tech treat the dialog as a modal —
+  // required alongside `role="dialog"` when the content also inerts the page.
+  const ariaModalAttr =
+    overlaySpec.modal && contentRole === "dialog" ? `        aria-modal="true"` : null;
+  // Modal triggers don't `aria-describedby` the dialog: the describes-relationship
+  // is right for tooltips (the tooltip describes the trigger) but wrong for modals
+  // (the dialog isn't a description of the trigger, and screen readers would read
+  // dialog body text while focus is still on the trigger). Tooltips keep it.
+  const triggerAriaDescribedBy = overlaySpec.modal
+    ? null
+    : `          aria-describedby={hasContent ? overlay.popoverId : undefined}`;
 
   return `"use client";
 
@@ -571,8 +598,8 @@ ${propEnumTypes ? `${propEnumTypes}\n` : ""}type ${Name}OwnProps = {
 ${ownPropLines.join("\n")}
   /** Render the trigger directly on the consumer's child element (\`cloneElement\`)
    *  instead of wrapping in a \`<span>\`. Single-child invariant: \`children\` must
-   *  be a single React element. \`aria-describedby\`, the anchor binding, and
-   *  event handlers land on that element. */
+   *  be a single React element. The wrapper's \`style\`, \`data-state\`, event handlers,
+   *  and any ARIA attributes it applies (component-specific) land on that element. */
   asChild?: boolean;
   children?: ReactNode;
 };
@@ -593,7 +620,18 @@ ${interactionsMemo}
   const overlay = useOverlay<HTMLElementTagNameMap[${quote(contentElement)}]>({
 ${hookConfigWithDisabled}
   });
-
+${
+  overlaySpec.modal
+    ? `
+  // Gate the body-level portal on a mounted flag so SSR and the client's first
+  // render produce the same tree (no portal); the portal swaps in after hydration.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+`
+    : ""
+}
   // \`asChild\` mode sets \`anchor-name\` directly on the consumer's element via
   // inline style (no wrapper class to read \`--_anchor\`). The default wrapper
   // path reads the custom property through the trigger CSS rule.
@@ -607,8 +645,7 @@ ${hookConfigWithDisabled}
       {asChild ? (
         <Slot
           style={triggerStyle}
-          data-state={overlay.state}
-          aria-describedby={hasContent ? overlay.popoverId : undefined}
+          data-state={overlay.state}${triggerAriaDescribedBy ? `\n${triggerAriaDescribedBy}` : ""}
           {...overlay.triggerHandlers}
         >
           {children}
@@ -617,18 +654,17 @@ ${hookConfigWithDisabled}
         <span
           className=${quote(triggerClass)}
           style={triggerStyle}
-          data-state={overlay.state}
-          aria-describedby={hasContent ? overlay.popoverId : undefined}
+          data-state={overlay.state}${triggerAriaDescribedBy ? `\n${triggerAriaDescribedBy}` : ""}
           {...overlay.triggerHandlers}
         >
           {children}
         </span>
       )}
-      {hasContent && (
+${overlaySpec.modal ? `      {hasContent && mounted && createPortal(` : `      {hasContent && (`}
         <${contentElement}
           ref={overlay.contentRef}
           id={overlay.popoverId}
-${contentRoleAttr ? `${contentRoleAttr.replace(/ {8}/, "          ")}\n` : ""}          className=${quote(contentClass)}
+${contentRoleAttr ? `${contentRoleAttr.replace(/ {8}/, "          ")}\n` : ""}${ariaLabelAttr ? `${ariaLabelAttr.replace(/ {8}/, "          ")}\n` : ""}${ariaModalAttr ? `${ariaModalAttr.replace(/ {8}/, "          ")}\n` : ""}          className=${quote(contentClass)}
           popover={overlay.popoverMode}
           data-state={overlay.state}
           style={{ [overlay.anchorVar]: overlay.anchorName } satisfies CSSProperties}
@@ -636,7 +672,7 @@ ${contentDataAttrsLines.replace(/^ {8}/gm, "          ")}
         >
 ${contentBody.replace(/^ {8}/gm, "          ")}
         </${contentElement}>
-      )}
+${overlaySpec.modal ? `      , document.body)}` : `      )}`}
     </>
   );
 }

@@ -502,11 +502,23 @@ function renderCompositeWrapper(spec: Spec, _propDescriptions: Record<string, st
       : "    <!-- no content slot declared -->";
 
   const roleAttr = contentRole ? `role="${contentRole}"` : "";
+  // ARIA dialogs need an accessible name. Bind it to the first content slot
+  // prop (Modal: `title`) so the screen-reader announcement matches the body.
+  // Other roles name themselves via `aria-describedby` on the trigger.
+  const ariaLabelAttr =
+    contentRole === "dialog" && contentSlots[0] ? `:aria-label="${contentSlots[0]}"` : "";
+  // Modal dialogs add `aria-modal="true"` so assistive tech treats them as modal.
+  const ariaModalAttr = overlaySpec.modal && contentRole === "dialog" ? `aria-modal="true"` : "";
 
   // `v-if`-gated render: the popover element only mounts when its content slot
   // resolves to a value. With no slot declared the popover renders never —
   // matches the React side's `hasContent && <…>` branch.
   const hasContentExpr = contentSlots[0] ? `${contentSlots[0]} != null` : "false";
+  // Modal triggers skip `aria-describedby` — the dialog isn't a description of
+  // the trigger; that relationship is for tooltips.
+  const triggerAriaDescribedBy = overlaySpec.modal
+    ? ""
+    : `:aria-describedby="${hasContentExpr} ? overlay.popoverId : undefined"`;
 
   const needsComputed = responsiveProps.length > 0;
   const runtimeImports = [
@@ -550,7 +562,7 @@ const overlay = useOverlay({
     Object.hasOwn(spec.props, "disabled") ? `\n  disabled: () => disabled,` : ""
   }
   anchorVar: ${quote(overlaySpec.anchorVar)},
-  popoverMode: ${quote(overlaySpec.mode)},
+  popoverMode: ${quote(overlaySpec.mode)},${overlaySpec.modal ? `\n  modal: true,` : ""}
   interactions: [
 ${interactionItems.join("\n")}
   ],
@@ -564,8 +576,7 @@ ${contentDataAttrComputed}
   <Slot
     v-if="asChild"
     :style="{ [overlay.anchorVar]: overlay.anchorName, anchorName: overlay.anchorName }"
-    :data-state="overlay.state.value"
-    :aria-describedby="${hasContentExpr} ? overlay.popoverId : undefined"
+    :data-state="overlay.state.value"${triggerAriaDescribedBy ? `\n    ${triggerAriaDescribedBy}` : ""}
     v-on="overlay.triggerHandlers"
   >
     <slot />
@@ -574,24 +585,23 @@ ${contentDataAttrComputed}
     v-else
     class="${triggerClass}"
     :style="{ [overlay.anchorVar]: overlay.anchorName }"
-    :data-state="overlay.state.value"
-    :aria-describedby="${hasContentExpr} ? overlay.popoverId : undefined"
+    :data-state="overlay.state.value"${triggerAriaDescribedBy ? `\n    ${triggerAriaDescribedBy}` : ""}
     v-on="overlay.triggerHandlers"
   >
     <slot />
   </span>
-  <${contentElement}
+  ${overlaySpec.modal ? `<Teleport to="body">\n  ` : ""}<${contentElement}
     v-if="${hasContentExpr}"
     ref="contentRef"
     :id="overlay.popoverId"
-    ${roleAttr}
+    ${roleAttr}${ariaLabelAttr ? `\n    ${ariaLabelAttr}` : ""}${ariaModalAttr ? `\n    ${ariaModalAttr}` : ""}
     class="${contentClass}"
     :popover="overlay.popoverMode"
     :data-state="overlay.state.value"
     :style="{ [overlay.anchorVar]: overlay.anchorName }"${contentDataAttrBinding}
   >
 ${contentBodyLines}
-  </${contentElement}>
+  </${contentElement}>${overlaySpec.modal ? `\n  </Teleport>` : ""}
 </template>
 `;
 }
