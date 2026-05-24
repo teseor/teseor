@@ -20,6 +20,7 @@ a numbered, durable file.
 | [0010](0010-coverage-expansion-pairwise.md) | Coverage expansion: pairwise for contract fixtures | Proposed |
 | [0011](0011-css-anchor-positioning-for-overlays.md) | CSS Anchor Positioning + Popover API for overlays | Accepted |
 | [0012](0012-wrapper-internal-seam.md) | Wrapper-internal seam: generated `_runtime.ts` + framework-conventional folders | Accepted |
+| [0013](0013-overlay-modality.md) | Overlay modality: `popover.modal`, focus-trap auto-activation, inert cascade | Proposed |
 
 ## When to write one
 
