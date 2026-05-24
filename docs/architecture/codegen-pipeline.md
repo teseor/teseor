@@ -220,6 +220,57 @@ Codegen emits one wrapper module with sub-components attached: `Accordion.Item`,
 | `gen-tests.ts` | Playwright spec + harness fixtures (React + Vue) | `tests/contract/<name>.spec.ts`, `apps/harness/src/fixtures/<Name>.{react.tsx,vue.ts}` |
 | `gen-ast.ts` | Structured JSON of the whole DS (every component, every public token, every variant) | `apps/docs/src/_data/teseor-ast.json`, also republished as `packages/contract/dist/ast.json` |
 
+## Generator layout
+
+Each generator is a thin dispatcher (~130 LOC) at
+`scripts/codegen/src/generators/gen-<target>.ts`. The dispatcher registers
+with the generator registry, branches on `spec.kind` (or routes to a named
+component file), and orchestrates the spec walk + emit writes. The rendering
+logic lives in a sibling directory.
+
+```text
+scripts/codegen/src/
+├── cli.ts
+├── registry.ts                           # one entry per generator
+├── generators/
+│   ├── index.ts                          # side-effect imports
+│   ├── gen-contract.ts                   # thin dispatcher
+│   ├── gen-docs.ts                       # thin dispatcher
+│   ├── gen-react.ts                      # thin dispatcher
+│   ├── gen-tests.ts                      # thin dispatcher
+│   ├── gen-vue.ts                        # thin dispatcher
+│   └── gen-<target>/
+│       ├── kinds/                        # per-spec.kind templates
+│       │   ├── atomic.ts
+│       │   └── composite-overlay.ts
+│       ├── components/                   # per-component, when shared kind doesn't fit (DatePicker etc., currently empty)
+│       ├── workspace/                    # workspace-wide emitters (barrels, READMEs, runtime)
+│       └── _shared/                      # framework-specific helpers (JSX printer, SFC printer, etc.)
+└── lib/                                  # cross-target, framework-agnostic helpers
+```
+
+The five buckets are described in detail in ADR-0015. In summary:
+
+| Bucket | Holds | Triggered for |
+| --- | --- | --- |
+| `gen-<target>/kinds/<kind>.ts` | Template shared by every spec of that kind | All specs where `spec.kind === <kind>` |
+| `gen-<target>/components/<name>.ts` | Full per-component emitter for unique components | The named spec only |
+| `gen-<target>/workspace/<file>.ts` | Aggregate emitters that take the full spec corpus | Once per `pnpm gen` |
+| `gen-<target>/_shared/` | Framework-specific helpers used by ≥2 files in the same target | Imported within the same target |
+| `scripts/codegen/src/lib/` | Cross-target helpers used by ≥2 generators (pascal-case, text-escape, collect-slots, enum-primitives, jsdoc-shape, composite-shape, flatten) | Imported anywhere |
+
+lib/ does not depend on generators/. Per-target \_shared/ does not depend on
+other targets' \_shared/. Adding a new target (`gen-astro`, `gen-webc`, etc.)
+is a new `gen-<target>/` directory with the same kinds/components/workspace/
+shape; existing generators are not touched.
+
+The contract-emitter case (`gen-contract`) skips the kinds/ axis because it
+operates on the flattened spec (post-`scripts/codegen/src/lib/flatten.ts`)
+which collapses the atomic/composite distinction at the type layer. The
+test-emitter case (`gen-tests`) skips kinds/ because composites are filtered
+upstream — fixtures only ever see atomic shapes today. Both use a single
+per-spec.ts (gen-contract) or per-spec/ directory (gen-tests) instead.
+
 ## Generated-code quality bar
 
 The contract tests verify *rendered DOM*. They say nothing about the *source* of the wrapper. A generated wrapper must also read like idiomatic, hand-written code — generated is no excuse for awkward output. A reviewer should be unable to tell the file was machine-written except for the banner.
