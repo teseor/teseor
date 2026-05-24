@@ -1,0 +1,38 @@
+@layer components.tokens {
+  .t-modal-trigger {
+    --_anchor: var(--t-modal-anchor, none);
+  }
+
+  .t-modal {
+    --_bg: var(--t-modal-bg, var(--t-neutral-0));
+    --_fg: var(--t-modal-fg, var(--t-neutral-90));
+    --_pad: var(--t-modal-pad, var(--t-space-5));
+    --_radius: var(--t-modal-radius, var(--t-radius-md));
+    --_anchor: var(--t-modal-anchor, none);
+  }
+}
+
+@layer components.styles {
+  .t-modal-trigger {
+    /* Thin wrapper around the consumer's trigger. Hosts the anchor-name so
+       the floating modal can pin to it via position-anchor. */
+    box-sizing: border-box;
+    display: inline-flex;
+    anchor-name: var(--_anchor);
+  }
+
+  .t-modal {
+    /* The UA stylesheet sets `position: fixed` on `[popover]`; no override
+       here. Margin + inset reset places the modal at the position-area center. */
+    box-sizing: border-box;
+    margin: 0;
+    inset: auto;
+    border: 0;
+    padding: var(--_pad);
+    background: var(--_bg);
+    color: var(--_fg);
+    border-radius: var(--_radius);
+    position-anchor: var(--_anchor);
+    position-area: center;
+  }
+}

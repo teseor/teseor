@@ -550,7 +550,7 @@ const overlay = useOverlay({
     Object.hasOwn(spec.props, "disabled") ? `\n  disabled: () => disabled,` : ""
   }
   anchorVar: ${quote(overlaySpec.anchorVar)},
-  popoverMode: ${quote(overlaySpec.mode)},
+  popoverMode: ${quote(overlaySpec.mode)},${overlaySpec.modal ? `\n  modal: true,` : ""}
   interactions: [
 ${interactionItems.join("\n")}
   ],

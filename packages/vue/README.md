@@ -39,6 +39,7 @@ import { Button } from "@teseor/vue";
 
 - `Button` — A trigger that performs an action when activated.
 - `Cluster` — A horizontal layout primitive. Wraps children on the inline axis with consistent spacing.
+- `Modal` — A modal overlay that traps focus and inerts the rest of the page until dismissed.
 - `Stack` — A vertical layout primitive. Stacks children on the block axis with consistent spacing.
 - `Tooltip` — A non-interactive hint that appears when its trigger is hovered or focused.
 

@@ -523,6 +523,7 @@ function renderCompositeWrapper(spec: Spec, propDescriptions: Record<string, str
     `    anchorVar: ${quote(overlaySpec.anchorVar)},`,
     `    popoverMode: ${quote(overlaySpec.mode)},`,
     `    interactions,`,
+    ...(overlaySpec.modal ? [`    modal: true,`] : []),
   ].join("\n");
   const hookConfigWithDisabled = disabledLine
     ? `${hookConfig}\n${disabledLine.trimEnd()}`
@@ -550,11 +551,14 @@ function renderCompositeWrapper(spec: Spec, propDescriptions: Record<string, str
       ? contentSlots.map((s) => `        {${s}}`).join("\n")
       : "        {/* no content slot declared */}";
 
+  const hasResponsive = responsiveProps.length > 0;
   const importsLines = [
     `import "@teseor/css/components/${spec.name}.css";`,
     `import { type CSSProperties, type ReactNode, useMemo } from "react";`,
     ...(overlaySpec.modal ? [`import { createPortal } from "react-dom";`] : []),
-    `import { responsiveDataAttrs, type Responsive } from "./_runtime.ts";`,
+    ...(hasResponsive
+      ? [`import { responsiveDataAttrs, type Responsive } from "./_runtime.ts";`]
+      : []),
     `import { Slot } from "./components/Slot.tsx";`,
     `import { type OverlayInteraction, useOverlay } from "./hooks/useOverlay.ts";`,
   ].join("\n");
