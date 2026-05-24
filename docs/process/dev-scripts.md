@@ -8,14 +8,11 @@ The bare-verb defaults are the verbs you reach for daily: `dev`, `build`, `test`
 
 | Script | What it does | When to use | For who |
 | --- | --- | --- | --- |
-| `pnpm dev` | Preview app (Vite) — hand-check tokens, base styles, wrappers; hot reload | During work | Developer |
-| `pnpm dev:docs` | Docs site dev server (Astro; runs `build:css` first) | When iterating on docs UX | Developer |
+| `pnpm dev` | Docs site dev server (Astro; runs `build:css` first) — hand-check tokens, base styles, wrappers; hot reload | During work | Developer |
 | `pnpm build` | Recursive `build` across every workspace package | Before release; in CI | CI mostly |
 | `pnpm build:css` | CSS pipeline for `@teseor/css` (PostCSS) | When iterating on tokens or components | Developer |
 | `pnpm build:wrappers` | Builds the framework wrapper packages (react, vue, …) — package build, not codegen | When iterating on a wrapper package | Developer |
-| `pnpm build:preview` | Production build of the preview app | Checking the preview bundle | Developer |
 | `pnpm build:docs` | Docs site production build (Astro; runs `build:css` first) | Before release; in CI | Developer + CI |
-| `pnpm preview` | Serves the built preview app | After `build:preview` | Developer |
 | `pnpm gen` | All codegen (wrappers + contract + docs + tests) | After spec changes | Developer + CI |
 | `pnpm gen --component=<name>` | Regen one component, all targets | Inner loop on a spec | Developer |
 | `pnpm gen --target=<react\|vue\|...>` | One target, all components | Debugging a generator | Developer |
