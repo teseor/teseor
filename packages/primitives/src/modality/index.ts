@@ -1,18 +1,11 @@
-// Modal-overlay coordination: when activated on an element, sets `inert=""`
-// on every direct `<body>` child whose subtree does not contain that element.
-// Removed on deactivate. Stacked per `ownerDocument` so the innermost scope
-// owns the inert mask; deactivating an outer scope restores the elements it
-// originally set, not whatever a later scope touched. Pre-existing `inert`
-// attributes on body children are preserved across activate/deactivate.
-//
-// The primitive only mutates DOM; it doesn't trap focus or handle dismissal.
-// Compose with `focus-trap` and `dismissable-layer` for the full modal shape.
+// Modal-overlay coordination: sets `inert=""` on every direct `<body>` child
+// whose subtree does not contain the activated element. Restored on deactivate.
+// Stacked per `ownerDocument`; pre-existing `inert` is preserved.
+// DOM only — compose with `focus-trap` + `dismissable-layer` for the full modal.
 import { warnOnce } from "../warn-once/index.ts";
 
-export type ModalityScopeOptions = {
-  // No options today. Kept as an empty object so the signature is stable when
-  // future extensions land (custom inert-target resolver, scoped shadow root).
-};
+/** No options today; kept for signature stability. */
+export type ModalityScopeOptions = Record<string, never>;
 
 export type ModalityScope = {
   activate: () => void;
@@ -31,9 +24,7 @@ type DocStack = { scopes: ScopeInstance[] };
 const stacks: Map<Document, DocStack> = new Map();
 
 function isSupported(): boolean {
-  // `inert` is an `HTMLElement` IDL attribute, not `Element`. Probing
-  // `Element.prototype.inert === undefined` would falsely fire the warning in
-  // supporting browsers.
+  // `inert` is an `HTMLElement` IDL attribute, not `Element`.
   return "inert" in HTMLElement.prototype;
 }
 
@@ -48,14 +39,11 @@ function getOrCreateStack(doc: Document): DocStack {
 function applyInert(scope: ScopeInstance, doc: Document): void {
   const body = doc.body;
   if (!body) return;
-  // Snapshot via `Array.from` so a callback that mutates the body during the
-  // walk doesn't perturb iteration.
+  // Snapshot for mutation-safe iteration.
   for (const child of Array.from(body.children)) {
     if (!(child instanceof HTMLElement)) continue;
     if (child.contains(scope.element)) continue;
-    // Skip elements that already have `inert` from somewhere else: a
-    // pre-existing author attribute or an outer scope. Restore phase only
-    // touches what this scope put there.
+    // Skip pre-existing inert (author attribute or outer scope) — restore only touches what this scope set.
     if (child.hasAttribute("inert")) continue;
     child.setAttribute("inert", "");
     scope.affected.push(child);
