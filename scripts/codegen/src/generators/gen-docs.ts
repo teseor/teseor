@@ -3,63 +3,21 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse as parseYaml } from "yaml";
 import { flattenSpec } from "../lib/flatten.ts";
-import { pascalCase } from "../lib/pascal-case.ts";
-import { esc } from "../lib/text-escape.ts";
 import type { GeneratorContext, GeneratorReport } from "../registry.ts";
 import { registerGenerator } from "../registry.ts";
 import { Spec as SpecSchema } from "../schema.ts";
-import { renderExamples } from "./gen-docs/_shared/examples.ts";
 import type { DocsSpec } from "./gen-docs/_shared/sections.ts";
-import {
-  renderA11y,
-  renderConstraints,
-  renderNamed,
-  renderProps,
-  renderStates,
-  renderTokens,
-} from "./gen-docs/_shared/sections.ts";
+import { renderAtomicDocsPage } from "./gen-docs/kinds/atomic.ts";
+import { renderCompositeOverlayDocsPage } from "./gen-docs/kinds/composite-overlay.ts";
 
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..", "..", "..");
 const SPECS_DIR = resolve(REPO_ROOT, "specs");
 const DOCS_PAGES_DIR = resolve(REPO_ROOT, "apps", "docs", "src", "pages", "components");
 
-/** Render the full `.astro` docs page for one component spec. */
+/** Dispatch to the kind-specific renderer for the spec's `kind:` field. */
 function renderDocsPage(spec: DocsSpec): string {
-  const Name = pascalCase(spec.name);
-  const hasExamples = (spec.examples?.length ?? 0) > 0;
-  const isComposite = spec.kind === "composite";
-  const sections = [
-    renderExamples(spec, Name, { isComposite }),
-    renderProps(spec),
-    renderNamed("Variants", spec.variants),
-    renderNamed("Intents", spec.intents),
-    renderNamed("Sizes", spec.sizes),
-    renderStates(spec),
-    renderTokens(spec),
-    renderA11y(spec),
-    renderConstraints(spec),
-  ].filter((part) => part.length > 0);
-
-  const importNames = isComposite ? [Name, "Button"] : [Name];
-  const imports = [
-    ...(hasExamples ? [`import { ${importNames.join(", ")} } from "@teseor/react";`] : []),
-    `import Base from "../../layouts/Base.astro";`,
-  ];
-  const intro = spec.description ? `    <p>${esc(spec.description)}</p>\n` : "";
-
-  return [
-    "---",
-    ...imports,
-    "---",
-    "",
-    `<Base title="${Name} — Teseor">`,
-    `  <main class="t-stack" data-gap="6">`,
-    `    <h1>${Name}</h1>`,
-    `${intro}${sections.join("\n")}`,
-    "  </main>",
-    "</Base>",
-    "",
-  ].join("\n");
+  if (spec.kind === "composite") return renderCompositeOverlayDocsPage(spec);
+  return renderAtomicDocsPage(spec);
 }
 
 async function loadSpec(name: string): Promise<DocsSpec> {
