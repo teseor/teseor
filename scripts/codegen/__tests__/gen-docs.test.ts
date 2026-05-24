@@ -49,8 +49,11 @@ describe("gen-docs", () => {
   test("spec-declared keyboard entries win on key collision with overlay rows", () => {
     // A spec that goes out of its way to redeclare an overlay key keeps its
     // wording; the synthetic row for that key is skipped. Other overlay keys
-    // still inject normally.
-    const spec = {
+    // still inject normally. Built via the real schema-parse + flatten path
+    // (same one `loadSpec` uses) so the fixture can't drift from the spec
+    // contract — a missing `parts:`, a wrong field name, an off-shape `a11y:`
+    // would fail Zod here.
+    const parsed = SpecSchema.parse({
       name: "fancy-popover",
       kind: "composite",
       popover: {
@@ -59,9 +62,15 @@ describe("gen-docs", () => {
         mode: "manual",
         anchorVar: "--t-fancy-popover-anchor",
       },
-      a11y: { keyboard: { Escape: "Custom Escape wording from the spec." } },
-      examples: [],
-    } as unknown as DocsSpec;
+      parts: {
+        trigger: { fromChildren: true },
+        content: {
+          element: "div",
+          a11y: { keyboard: { Escape: "Custom Escape wording from the spec." } },
+        },
+      },
+    });
+    const spec = flattenSpec(parsed) as DocsSpec;
     const rendered = renderDocsPage(spec);
     expect(rendered).toContain("Custom Escape wording from the spec.");
     expect(rendered).not.toContain("Topmost-wins when multiple overlays are open.");
