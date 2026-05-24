@@ -26,9 +26,15 @@ const isVueListenerKey = (key: string): boolean =>
  * double event handlers since `cloneVNode` already merges internally.
  *
  * Wraps composed `on*` handler arrays so a child handler's `preventDefault()`
- * short-circuits the slot handler (React-parity, #684). Vue's `mergeProps`
- * orders the array as `[childHandler, attrHandler]`; single handlers (only
- * child or only attrs) stay as plain functions and are left untouched.
+ * or `stopImmediatePropagation()` short-circuits the slot handler (React-parity,
+ * #684). Vue's `mergeProps` orders the array as `[childHandler, attrHandler]`;
+ * single handlers (only child or only attrs) stay as plain functions and are
+ * left untouched.
+ *
+ * Replacing the array with a single function bypasses Vue runtime-dom's
+ * `patchStopImmediatePropagation`, which would otherwise set `event._stopped`
+ * on a `stopImmediatePropagation()` call and skip subsequent array entries.
+ * Install the same override locally so the short-circuit still fires.
  */
 export const Slot = defineComponent({
   name: "Slot",
@@ -55,9 +61,19 @@ export const Slot = defineComponent({
           const handlers = value.filter((fn): fn is EventHandler => typeof fn === "function");
           if (handlers.length === 0) continue;
           props[key] = (...args: unknown[]) => {
+            const event = args[0] as
+              | { defaultPrevented?: boolean; _stopped?: boolean; stopImmediatePropagation?: () => void }
+              | undefined;
+            if (event && typeof event.stopImmediatePropagation === "function" && !event._stopped) {
+              const originalStop = event.stopImmediatePropagation.bind(event);
+              event.stopImmediatePropagation = () => {
+                originalStop();
+                event._stopped = true;
+              };
+            }
             for (const fn of handlers) {
+              if (event?._stopped === true) return;
               fn(...args);
-              const event = args[0] as { defaultPrevented?: boolean } | undefined;
               if (event?.defaultPrevented === true) return;
             }
           };

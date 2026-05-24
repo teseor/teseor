@@ -124,6 +124,21 @@ describe("Slot", () => {
     expect(calls).toEqual(["child"]);
   });
 
+  it("skips slot handler when child calls event.stopImmediatePropagation (Vue array-listener parity)", async () => {
+    const calls: string[] = [];
+    const childHandler = (event: Event) => {
+      calls.push("child");
+      event.stopImmediatePropagation();
+    };
+    const slotHandler = () => calls.push("slot");
+    const wrapper = mountTracked(Slot, {
+      attrs: { onClick: slotHandler },
+      slots: { default: () => h("button", { type: "button", onClick: childHandler }, "x") },
+    });
+    await wrapper.find("button").trigger("click");
+    expect(calls).toEqual(["child"]);
+  });
+
   it("forwards non-Event payloads to composed handlers (custom emit arity)", () => {
     const childCalls: unknown[][] = [];
     const slotCalls: unknown[][] = [];
