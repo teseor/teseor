@@ -2,6 +2,7 @@ import { warnOnce } from "@teseor/primitives";
 import { useDismissableLayer, useFocusTrap, useModalityScope } from "@teseor/primitives/react";
 import { type Ref, useCallback, useEffect, useId, useRef, useState } from "react";
 import { isActiveAt, type Responsive, useActiveBreakpoint } from "../_runtime.ts";
+import { EVENT_TO_HANDLER } from "./_react-events.ts";
 
 /**
  * One declarative rule wiring an input event to an overlay state transition.
@@ -66,18 +67,6 @@ function popoverIsOpen(node: HTMLElement): boolean | undefined {
     return undefined;
   }
 }
-
-const EVENT_TO_HANDLER: Record<string, string> = {
-  pointerenter: "onPointerEnter",
-  pointerleave: "onPointerLeave",
-  pointerdown: "onPointerDown",
-  pointerup: "onPointerUp",
-  click: "onClick",
-  focusin: "onFocus",
-  focusout: "onBlur",
-  keydown: "onKeyDown",
-  keyup: "onKeyUp",
-};
 
 /**
  * State machine + Popover API toggle + anchor binding + event wiring for

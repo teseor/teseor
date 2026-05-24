@@ -9,6 +9,7 @@ import {
   checkCssImportAllowlist,
   checkDependencyCycles,
   checkExamplesReferences,
+  checkInteractionEventVocabulary,
   checkInteractionRefs,
   checkMotionSymmetry,
   checkOverlayEscapeRules,
@@ -696,6 +697,77 @@ describe("checkOverlayEscapeRules", () => {
     expect(checkOverlayEscapeRules(spec).map((i) => i.path)).toEqual([
       "interactions[0]",
       "interactions[2]",
+    ]);
+  });
+});
+
+describe("checkInteractionEventVocabulary", () => {
+  function makeOverlay(overrides: Partial<Extract<Spec, { kind: "composite" }>> = {}): Spec {
+    return {
+      name: "tooltip",
+      kind: "composite",
+      parts: { trigger: { fromChildren: true }, content: { element: "div" } },
+      ...overrides,
+    } as Spec;
+  }
+
+  test("passes for a known React event on `target: trigger`", () => {
+    const spec = makeOverlay({
+      interactions: [{ on: { event: "pointerenter", target: "trigger" }, do: "open" }],
+    });
+    expect(checkInteractionEventVocabulary(spec)).toEqual([]);
+  });
+
+  test("flags a typo with a suggestion and the supported list", () => {
+    const spec = makeOverlay({
+      interactions: [{ on: { event: "pointerentr", target: "trigger" }, do: "open" }],
+    });
+    const issues = checkInteractionEventVocabulary(spec);
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.path).toBe("interactions[0].on.event");
+    expect(issues[0]?.message).toMatch(/'pointerentr' is not a supported React event/);
+    expect(issues[0]?.message).toMatch(/Did you mean 'pointerenter'\?/);
+    expect(issues[0]?.message).toMatch(/Supported:.*pointerenter/);
+  });
+
+  test("flags an unrelated name without a suggestion", () => {
+    // `mouseover` is conceptually adjacent but lexically far from any vocab
+    // entry — Levenshtein > 3 → no `Did you mean` fragment.
+    const spec = makeOverlay({
+      interactions: [{ on: { event: "mouseover", target: "trigger" }, do: "open" }],
+    });
+    const issues = checkInteractionEventVocabulary(spec);
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.message).toMatch(/'mouseover' is not a supported React event/);
+    expect(issues[0]?.message).not.toMatch(/Did you mean/);
+    expect(issues[0]?.message).toMatch(/Supported:.*pointerenter/);
+  });
+
+  test("ignores rules targeting `document` (native listener, any event name)", () => {
+    const spec = makeOverlay({
+      interactions: [{ on: { event: "wheel", target: "document" }, do: "close" }],
+    });
+    expect(checkInteractionEventVocabulary(spec)).toEqual([]);
+  });
+
+  test("ignores rules targeting `window` (native listener, any event name)", () => {
+    const spec = makeOverlay({
+      interactions: [{ on: { event: "scroll", target: "window" }, do: "close" }],
+    });
+    expect(checkInteractionEventVocabulary(spec)).toEqual([]);
+  });
+
+  test("flags each offending rule on `trigger` independently", () => {
+    const spec = makeOverlay({
+      interactions: [
+        { on: { event: "mouseover", target: "trigger" }, do: "open" },
+        { on: { event: "pointerenter", target: "trigger" }, do: "open" },
+        { on: { event: "dragstart", target: "trigger" }, do: "close" },
+      ],
+    });
+    expect(checkInteractionEventVocabulary(spec).map((i) => i.path)).toEqual([
+      "interactions[0].on.event",
+      "interactions[2].on.event",
     ]);
   });
 });
