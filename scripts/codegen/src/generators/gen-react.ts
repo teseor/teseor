@@ -553,6 +553,7 @@ function renderCompositeWrapper(spec: Spec, propDescriptions: Record<string, str
   const importsLines = [
     `import "@teseor/css/components/${spec.name}.css";`,
     `import { type CSSProperties, type ReactNode, useMemo } from "react";`,
+    ...(overlaySpec.modal ? [`import { createPortal } from "react-dom";`] : []),
     `import { responsiveDataAttrs, type Responsive } from "./_runtime.ts";`,
     `import { Slot } from "./components/Slot.tsx";`,
     `import { type OverlayInteraction, useOverlay } from "./hooks/useOverlay.ts";`,
@@ -624,7 +625,7 @@ ${hookConfigWithDisabled}
           {children}
         </span>
       )}
-      {hasContent && (
+${overlaySpec.modal ? `      {hasContent && typeof document !== "undefined" && createPortal(` : `      {hasContent && (`}
         <${contentElement}
           ref={overlay.contentRef}
           id={overlay.popoverId}
@@ -636,7 +637,7 @@ ${contentDataAttrsLines.replace(/^ {8}/gm, "          ")}
         >
 ${contentBody.replace(/^ {8}/gm, "          ")}
         </${contentElement}>
-      )}
+${overlaySpec.modal ? `      , document.body)}` : `      )}`}
     </>
   );
 }
