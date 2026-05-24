@@ -55,7 +55,7 @@ Walk the diff with this checklist. Skip anything that doesn't apply.
 - `enum`. Use `const` objects with `as const`.
 - Default exports. Use named exports.
 - Emojis. Banned.
-- AI-tool references in code, commits, PRs. Banned.
+- Editorial / gratuitous AI references in code, commits, PRs are banned. Do NOT flag required operational mentions of concrete tool, product, package, command, or integration names in docs/scripts (e.g. `GitHub Models`, `gh-models`).
 - Conventional commits: types are `feat|fix|perf|refactor|docs|chore|test`. Scopes are built by `.github/workflows/pr-discipline.yml` from a fixed list (`token theme codegen showcase css wrapper i18n ci repo claude scripts docs spec primitives`) plus every `specs/*.yaml` basename. `react` / `vue` are NOT valid scopes; use `wrapper`. `ci` is a scope, not a type; use `chore(ci): ...`.
 
 ### 11. Modality / overlay specifics (Teseor)
