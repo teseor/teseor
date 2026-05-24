@@ -38,6 +38,15 @@ pnpm test:e2e   # Playwright suite (see Playwright browsers below)
 
 See `docs/process/dev-scripts.md` for the full script catalog.
 
+### Worktrees
+
+If you use `git worktree`, `core.hooksPath` may inherit from the main repo and
+block local lefthook hooks. Unset it inside the worktree:
+
+```bash
+git config --local --unset core.hooksPath
+```
+
 ### Playwright browsers
 
 `pnpm test:e2e` and `pnpm test:visual` need a Chromium install before they can
