@@ -178,10 +178,12 @@ export function useOverlay(config: OverlayConfig): OverlayReturn {
     onPointerDownOutside: () => setOpen(false),
   });
 
-  // Modal: trap focus + inert siblings. Focus-trap restores focus to the pre-activation element (trigger) on close.
+  // Modal: trap focus + inert siblings. Modality registers FIRST so on close it
+  // fires before focus-trap (Vue watchers run in registration order); focus-trap's
+  // restore-focus then lands on a trigger that's no longer under an inert ancestor.
   const modalActive = computed<boolean>(() => Boolean(config.modal && open.value));
-  useFocusTrap(contentRef, modalActive);
   useModalityScope(contentRef, modalActive);
+  useFocusTrap(contentRef, modalActive);
 
   // Re-read getter-form delays per fire (latest prop value).
   const resolveDelay = (d: number | (() => number) | undefined): number => {
