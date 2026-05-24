@@ -269,7 +269,13 @@ const OVERLAY_KEYBOARD_ROWS: Array<[string, string]> = [
 function renderA11y(spec: DocsSpec): string {
   const role = spec.a11y?.role;
   const declaredKeyboard: Array<[string, string]> = Object.entries(spec.a11y?.keyboard ?? {});
-  const overlayKeyboard = spec.popover ? OVERLAY_KEYBOARD_ROWS : [];
+  // Spec-declared rows win when the key collides — a spec that goes out of its
+  // way to redeclare `Escape` or `Outside pointer-down` keeps its wording, and
+  // the universal contract only fills in keys the spec didn't speak to.
+  const declaredKeys = new Set(declaredKeyboard.map(([key]) => key));
+  const overlayKeyboard = spec.popover
+    ? OVERLAY_KEYBOARD_ROWS.filter(([key]) => !declaredKeys.has(key))
+    : [];
   const keyboard = [...declaredKeyboard, ...overlayKeyboard];
   if (!role && keyboard.length === 0) return "";
   const lines: string[] = [];
