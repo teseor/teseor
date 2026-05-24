@@ -59,7 +59,6 @@ const overlay = useOverlay({
     { on: { event: "focusin", target: "trigger" }, do: "open", delayMs: () => openDelay },
     { on: { event: "pointerleave", target: "trigger" }, do: "close", delayMs: () => closeDelay },
     { on: { event: "focusout", target: "trigger" }, do: "close", delayMs: () => closeDelay },
-    { on: { event: "keydown", target: "document", key: "Escape" }, do: "close", when: "open" },
   ],
 });
 
