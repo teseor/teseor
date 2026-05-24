@@ -50,11 +50,13 @@ describe("renderExampleProps", () => {
   });
 
   it("renders numbers via bound-prop syntax (Vue)", () => {
-    expect(renderExampleProps({ count: 3 }, vueJsDocFlavor)).toBe(' :count="3"');
+    expect(renderExampleProps({ count: 3 }, vueJsDocFlavor)).toBe(" :count='3'");
   });
 
-  it("renders objects via bound-prop syntax (Vue)", () => {
-    expect(renderExampleProps({ data: { a: 1 } }, vueJsDocFlavor)).toBe(' :data="{"a":1}"');
+  it("renders objects via bound-prop syntax (Vue) using single-quoted outer", () => {
+    // Outer is single-quoted because `JSON.stringify` produces double quotes
+    // inside; double-quoting both layers would break the HTML attribute.
+    expect(renderExampleProps({ data: { a: 1 } }, vueJsDocFlavor)).toBe(" :data='{\"a\":1}'");
   });
 
   it("joins multiple props in declaration order", () => {

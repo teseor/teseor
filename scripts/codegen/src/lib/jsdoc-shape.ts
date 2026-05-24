@@ -107,9 +107,12 @@ export const reactJsDocFlavor: JsDocFlavor = {
   trailingNewline: true,
 };
 
-/** Vue (SFC) flavor: `vue` fence, `:key="value"` bound props, no trailing `\n`. */
+/** Vue (SFC) flavor: `vue` fence, `:key='value'` bound props, no trailing `\n`.
+ * Outer quotes are single because `jsonValue` (from `JSON.stringify`) contains
+ * double quotes; HTML attribute values accept either delimiter. Using `"` outer
+ * would produce invalid markup like `:data="{"a":1}"` that breaks copy/paste. */
 export const vueJsDocFlavor: JsDocFlavor = {
   fence: "vue",
-  renderExpressionProp: (key, jsonValue) => ` :${key}="${jsonValue}"`,
+  renderExpressionProp: (key, jsonValue) => ` :${key}='${jsonValue}'`,
   trailingNewline: false,
 };
