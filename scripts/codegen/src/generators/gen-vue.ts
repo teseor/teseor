@@ -3,7 +3,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse as parseYaml } from "yaml";
 import { type Breakpoint, loadBreakpoints } from "../lib/breakpoints.ts";
-import { collectSlots, type SlotInfo } from "../lib/collect-slots.ts";
+import { collectSlots } from "../lib/collect-slots.ts";
 import { extractCompositeShape } from "../lib/composite-shape.ts";
 import { renderEnumType } from "../lib/enum-primitives.ts";
 import { flattenSpec } from "../lib/flatten.ts";
@@ -13,168 +13,18 @@ import { loadVocabulary } from "../lib/vocabulary.ts";
 import type { GeneratorContext, GeneratorReport } from "../registry.ts";
 import { registerGenerator } from "../registry.ts";
 import { Spec as SpecSchema } from "../schema.ts";
-import type { Spec, SpecProp } from "./gen-contract.ts";
+import type { Spec } from "./gen-contract.ts";
+import { renderAttrEntries } from "./gen-vue/_shared/attrs.ts";
+import { renderCssShim } from "./gen-vue/_shared/css-shim.ts";
+import { renderPropsBlock, renderPropsType } from "./gen-vue/_shared/props.ts";
+import { renderBody, renderSlotsType } from "./gen-vue/_shared/slots.ts";
+import { quote, responsiveType, vuePropType } from "./gen-vue/_shared/type-printer.ts";
 
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..", "..", "..");
 const SPECS_DIR = resolve(REPO_ROOT, "specs");
 const VUE_SRC_DIR = resolve(REPO_ROOT, "packages", "vue", "src");
 
 const RESPONSIVE_ENUM_PROPS = new Set(["size"]);
-
-function quote(value: string): string {
-  return `"${value.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`;
-}
-
-function mapPropType(specType: string): string {
-  switch (specType) {
-    case "boolean":
-      return "boolean";
-    case "string":
-      return "string";
-    case "number":
-      return "number";
-    default:
-      return "unknown";
-  }
-}
-
-function responsiveType(baseType: string): string {
-  return `Responsive<${baseType}>`;
-}
-
-function vuePropType(propName: string, propDef: SpecProp, Name: string): string {
-  // Atomic slots flow via `<slot name="…" />` (prop unsettable → `never`).
-  // Composite-part slots are inline scalars — keep the declared type.
-  if (propDef.slot === true) return !propDef.__part ? "never" : mapPropType(propDef.type);
-  if (propDef.values && propDef.values.length > 0) return `${Name}${pascalCase(propName)}`;
-  return mapPropType(propDef.type);
-}
-
-function renderCanonicalProp(
-  name: string,
-  tsType: string,
-  descriptions: Record<string, string>,
-): string[] {
-  const desc = descriptions[name];
-  return [desc ? `  /** ${desc} */` : null, `  ${name}?: ${tsType};`].filter(
-    (l): l is string => l !== null,
-  );
-}
-
-function renderPropsType(
-  spec: Spec,
-  Name: string,
-  sizeIsResponsive: boolean,
-  propDescriptions: Record<string, string>,
-): string {
-  const sizeType = sizeIsResponsive ? responsiveType(`${Name}Size`) : `${Name}Size`;
-  const lines = Object.entries(spec.props ?? {})
-    .filter(([, def]) => def.slot !== true)
-    .flatMap(([propName, propDef]) => {
-      const baseType = vuePropType(propName, propDef, Name);
-      const tsType = propDef.responsive === true ? responsiveType(baseType) : baseType;
-      const desc = propDef.description ?? propDescriptions[propName];
-      return [desc ? `  /** ${desc} */` : null, `  ${propName}?: ${tsType};`].filter(
-        (l): l is string => l !== null,
-      );
-    });
-  const variantLines = spec.variants
-    ? renderCanonicalProp("variant", `${Name}Variant`, propDescriptions)
-    : [];
-  const intentLines = spec.intents
-    ? renderCanonicalProp("intent", `${Name}Intent`, propDescriptions)
-    : [];
-  const sizeLines = spec.sizes ? renderCanonicalProp("size", sizeType, propDescriptions) : [];
-  return [
-    `type ${Name}Props = {`,
-    ...variantLines,
-    ...intentLines,
-    ...sizeLines,
-    ...lines,
-    `};`,
-  ].join("\n");
-}
-
-function renderPropsBlock(spec: Spec, Name: string): string {
-  const nonSlotProps = Object.entries(spec.props ?? {}).filter(([, def]) => def.slot !== true);
-  const enumPropNames: string[] = [];
-  if (spec.variants) enumPropNames.push("variant");
-  if (spec.intents) enumPropNames.push("intent");
-  if (spec.sizes) enumPropNames.push("size");
-  if (enumPropNames.length === 0 && nonSlotProps.length === 0) {
-    return `defineProps<${Name}Props>();`;
-  }
-  const lines = [
-    ...enumPropNames.map((n) => `  ${n},`),
-    ...nonSlotProps.map(([name, def]) => {
-      if (def.default !== undefined && def.default !== null) {
-        const v = def.default;
-        const value = typeof v === "string" ? quote(v as string) : String(v);
-        return `  ${name} = ${value},`;
-      }
-      return `  ${name},`;
-    }),
-  ];
-  return `const {
-${lines.join("\n")}
-} = defineProps<${Name}Props>();`;
-}
-
-function renderSlotsType(slots: SlotInfo[]): string {
-  const slotLines = slots.map((s) => `  ${s.propName}?(): VNode[];`);
-  return [`defineSlots<{`, `  default?(): VNode[];`, ...slotLines, `}>();`].join("\n");
-}
-
-function renderAttrEntries(
-  spec: Spec,
-  responsiveProps: string[],
-  hasLoading: boolean,
-  hasDisabled: boolean,
-  hasAs: boolean,
-): string {
-  return [
-    spec.variants ? `  "data-variant": variant,` : null,
-    spec.intents ? `  "data-intent": intent,` : null,
-    ...responsiveProps.map((name) => `  ...responsiveDataAttrs(${quote(name)}, ${name}),`),
-    hasLoading ? `  "data-loading": loading ? "true" : undefined,` : null,
-    hasDisabled && hasAs ? `  disabled: isButton.value ? inactive.value : undefined,` : null,
-    hasDisabled && hasAs
-      ? `  "aria-disabled": !isButton.value && inactive.value ? "true" : undefined,`
-      : null,
-    hasDisabled && !hasAs ? `  disabled: inactive.value,` : null,
-    hasLoading ? `  "aria-busy": loading ? "true" : undefined,` : null,
-  ]
-    .filter((l): l is string => l !== null)
-    .join("\n");
-}
-
-function renderSlot(spec: Spec, slot: SlotInfo): string {
-  const posAttr = slot.position ? ` data-position="${slot.position}"` : "";
-  return `    <span v-if="$slots.${slot.propName}" data-${spec.name}-${slot.part}=""${posAttr}>
-      <slot name="${slot.propName}" />
-    </span>`;
-}
-
-function renderBody(spec: Spec, slots: SlotInfo[], hasLoading: boolean): string {
-  return [
-    ...slots.filter((s) => s.position === "start").map((s) => renderSlot(spec, s)),
-    ...slots.filter((s) => s.position === undefined).map((s) => renderSlot(spec, s)),
-    hasLoading ? `    <span data-${spec.name}-label=""><slot /></span>` : `    <slot />`,
-    ...slots.filter((s) => s.position === "end").map((s) => renderSlot(spec, s)),
-    hasLoading
-      ? `    <span v-if="loading" data-${spec.name}-spinner="" aria-hidden="true" />`
-      : null,
-  ]
-    .filter((l): l is string => l !== null)
-    .join("\n");
-}
-
-function renderCssShim(): string {
-  return `// AUTOGENERATED by gen-vue. Do not edit.
-
-declare module "*.css";
-`;
-}
 
 function renderRuntime(breakpoints: Breakpoint[]): string {
   const names = breakpoints.map((b) => b.name);
