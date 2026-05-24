@@ -1,5 +1,5 @@
 import { warnOnce } from "@teseor/primitives";
-import { useDismissableLayer } from "@teseor/primitives/vue";
+import { useDismissableLayer, useFocusTrap, useModalityScope } from "@teseor/primitives/vue";
 import {
   computed,
   onBeforeUnmount,
@@ -37,6 +37,8 @@ export type OverlayConfig = {
   interactions: ReadonlyArray<OverlayInteraction>;
   /** Getter for `Responsive<boolean>`; gated against the active breakpoint. */
   disabled?: () => unknown;
+  /** Modal: when true and `open`, activates a focus trap + body-children inert cascade. */
+  modal?: boolean;
 };
 
 type OverlayHandlers = Record<string, (event: Event) => void>;
@@ -175,6 +177,11 @@ export function useOverlay(config: OverlayConfig): OverlayReturn {
     onEscapeKeyDown: () => setOpen(false),
     onPointerDownOutside: () => setOpen(false),
   });
+
+  // Modal: trap focus + inert siblings. Focus-trap restores focus to the pre-activation element (trigger) on close.
+  const modalActive = computed<boolean>(() => Boolean(config.modal && open.value));
+  useFocusTrap(contentRef, modalActive);
+  useModalityScope(contentRef, modalActive);
 
   // Re-read getter-form delays per fire (latest prop value).
   const resolveDelay = (d: number | (() => number) | undefined): number => {
