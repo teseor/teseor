@@ -25,6 +25,7 @@ import { rule as componentCss } from "./file-rules/component-css.ts";
 import { rule as motionScale } from "./file-rules/motion-scale.ts";
 import { rule as noAsUnknownCast } from "./file-rules/no-as-unknown-cast.ts";
 import { rule as noDocumentTypeof } from "./file-rules/no-document-typeof.ts";
+import { rule as specSchemaDirective } from "./file-rules/spec-schema-directive.ts";
 import { rule as transitionableProperty } from "./file-rules/transitionable-property.ts";
 
 export type ViolationDetail = { file?: string; line?: number; message: string };
@@ -125,6 +126,7 @@ export const REGISTRY: Readonly<Record<string, Check>> = {
   "no-document-typeof": noDocumentTypeof,
   "component-css": componentCss,
   "motion-scale": motionScale,
+  "spec-schema-directive": specSchemaDirective,
   "transitionable-property": transitionableProperty,
   "script-aggregators": scriptAggregators,
   "script-catalog": scriptCatalog,
