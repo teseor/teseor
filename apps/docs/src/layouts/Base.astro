@@ -2,6 +2,7 @@
 // dogfood-allow: temporary layout shell — Sidebar primitive lands in v0.3
 import { ClientRouter } from "astro:transitions";
 import "@teseor/css";
+import { components } from "../lib/components.ts";
 
 interface Props {
   title: string;
@@ -11,10 +12,7 @@ const { title } = Astro.props;
 
 const navItems = [
   { href: "/", label: "Home" },
-  { href: "/components/button/", label: "Button" },
-  { href: "/components/cluster/", label: "Cluster" },
-  { href: "/components/stack/", label: "Stack" },
-  { href: "/components/tooltip/", label: "Tooltip" },
+  ...components.map((c) => ({ href: c.href, label: c.label })),
 ];
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
