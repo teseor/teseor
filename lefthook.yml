@@ -50,6 +50,15 @@ pre-commit:
     contract-snapshots:
       glob: '{tests/contract/**,specs/**,apps/harness/src/fixtures/**}'
       run: node scripts/check-contract-snapshots.ts
+    no-as-unknown-cast:
+      glob: '*.test.{ts,tsx}'
+      run: node scripts/check-no-as-unknown-cast.ts {staged_files}
+    no-document-typeof:
+      glob: 'packages/{react,vue}/src/**/*.{tsx,vue}'
+      run: node scripts/check-no-document-typeof.ts {staged_files}
+    exports-resolve:
+      glob: '{packages,apps}/*/package.json'
+      run: node scripts/check-exports-resolve.ts
 
 pre-push:
   commands:

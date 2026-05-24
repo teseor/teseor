@@ -141,7 +141,7 @@ describe("gen-react", () => {
           },
         },
       });
-      return flattenSpec(parsed) as unknown as Spec;
+      return flattenSpec(parsed);
     }
 
     test("emits createPortal wrap when overlay.modal is true", async () => {
