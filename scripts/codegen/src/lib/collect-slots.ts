@@ -24,7 +24,6 @@ export function parseSlot(propName: string): SlotInfo {
  */
 export function collectSlots(spec: FlatSpec): SlotInfo[] {
   const slots: SlotInfo[] = [];
-  if (!spec.props) return slots;
   for (const [propName, propDef] of Object.entries(spec.props)) {
     if (propDef.slot === true) slots.push(parseSlot(propName));
   }
