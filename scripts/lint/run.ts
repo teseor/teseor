@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 // Dispatches every project-specific lint rule registered in
 // `./registry.ts`. Lefthook invokes this once via `--all {staged_files}`;
-// CI and `pnpm lint:project` invoke it via `--all`; a developer debugs one
-// rule via `--<rulename>`.
+// CI and `pnpm lint` invoke it via `--all`; a developer debugs one rule via
+// `--<rulename>`.
 //
 // CLI:
 //   node scripts/lint/run.ts                       # --all implied

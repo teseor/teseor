@@ -57,7 +57,7 @@ For the class rename, the migrator step is two commands:
 pnpm migrate:specs --rule class-rename --from t-btn --to t-button
 
 # Verify spec + CSS now agree
-pnpm lint:spec
+pnpm lint
 ```
 
 The migrator updates `packages/css/src/components/button/button.css` and

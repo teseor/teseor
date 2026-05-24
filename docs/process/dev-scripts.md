@@ -116,7 +116,7 @@ Two tiers: hard CI gates and soft targets.
 | --- | --- | --- |
 | Per-entry CSS bundle | `size-limit` (`@size-limit/file`) | `package.json` → `"size-limit"` array |
 | Codegen drift | `pnpm gen && git diff --exit-code` | `.github/workflows/ci.yml` → `gen-drift` |
-| Dev-only marker leak | `pnpm verify:no-dev-leak` | `scripts/hooks/verify-no-dev-leak.js` |
+| Dev-only marker leak | `node scripts/hooks/verify-no-dev-leak.js` (called by lefthook pre-push + CI after build) | `scripts/hooks/verify-no-dev-leak.js` |
 
 Current `size-limit` budgets (brotli-compressed, set in root
 `package.json`):

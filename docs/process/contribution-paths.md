@@ -73,7 +73,7 @@ non-interactive `a11y` shape without any overlay or interaction surface.
    Hand-written, token-only. Every `--t-stack-*` it declares appears in
    the spec's `tokens:` block; the validator enforces both directions, so
    adding a custom property without adding it to the spec fails
-   `pnpm lint:spec`.
+   `pnpm lint` (the `spec` check in the registry).
 3. **Regenerate** — `pnpm gen` regenerates `packages/react/src/Stack.tsx`,
    `packages/vue/src/Stack.vue`, the contract types, the harness fixtures
    under `apps/harness/src/fixtures/`, and the contract spec at
