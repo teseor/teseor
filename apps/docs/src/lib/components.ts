@@ -23,7 +23,12 @@ function basename(path: string): string {
 
 function parseSpec(path: string, raw: string): SpecFile {
   const file = basename(path);
-  const parsed = parseYaml(raw) as { name?: unknown; description?: unknown };
+  let parsed: { name?: unknown; description?: unknown };
+  try {
+    parsed = parseYaml(raw) as { name?: unknown; description?: unknown };
+  } catch (err) {
+    throw new Error(`spec ${file} failed to parse: ${err instanceof Error ? err.message : err}`);
+  }
   if (typeof parsed?.name !== "string" || parsed.name.length === 0) {
     throw new Error(`spec ${file} is missing a string \`name\` field`);
   }
