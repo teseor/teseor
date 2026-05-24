@@ -69,24 +69,28 @@ describe("Modal (react)", () => {
     expect(dialog?.getAttribute("data-state")).toBe("closed");
   });
 
-  it("Tooltip-on-Modal-trigger degrades — Tooltip stays closed while Modal is open", () => {
+  it("Tooltip-on-Modal-trigger degrades — Tooltip stays closed when the user tries to open it", () => {
     render(
       <Modal title="Confirm" defaultOpen>
-        <Tooltip text="hint" defaultOpen>
+        <Tooltip text="hint">
           <button type="button" data-testid="trigger">
             open
           </button>
         </Tooltip>
       </Modal>,
     );
-    // The Tooltip trigger wrapper sits under an inert ancestor (the modal scope
-    // inerts every body-child whose subtree doesn't contain the modal). The
-    // Modal's content portals to body and isn't affected; the trigger and its
-    // tooltip-wrapper are under a different body child (the React mount target),
-    // which IS inert.
-    // We assert: the React mount target — the parent of the trigger and Tooltip —
-    // is inert.
+    // The trigger sits under an inert ancestor (Modal inerts every body child
+    // whose subtree doesn't contain its portaled content). Pointerenter on the
+    // trigger should not propagate the open event through useOverlay's
+    // schedule path because the inert subtree won't fire input events.
     const triggerButton = screen.getByTestId("trigger");
+    fireEvent.pointerEnter(triggerButton);
+    fireEvent.focus(triggerButton);
+    // The tooltip content lives in-place (not portaled). Its data-state stays
+    // "closed" because no open transition fires.
+    const tooltipContent = document.querySelector(".t-tooltip");
+    expect(tooltipContent?.getAttribute("data-state") ?? "closed").toBe("closed");
+    // Sanity: an inert ancestor exists between trigger and body.
     let ancestor: HTMLElement | null = triggerButton.parentElement;
     let foundInert = false;
     while (ancestor && ancestor !== document.body) {
