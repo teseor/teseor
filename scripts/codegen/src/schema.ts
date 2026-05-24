@@ -130,12 +130,17 @@ const componentPart: z.ZodType<ComponentPart> = z.lazy(() =>
   }),
 );
 
-// Declarative overlay binding. A composite component with a `popover:` block
+// Declarative overlay binding. A composite component with an `overlay:` block
 // emits the HTML Popover API attribute on the `floating` part and the CSS
 // Anchor Positioning binding (anchor-name on `anchor`, position-anchor on
 // `floating`) via the `anchorVar` CSS custom property — written per-instance
 // by the generated wrapper.
-const popoverBlock = z.strictObject({
+//
+// Naming note: the block is `overlay:` because the concept is "this component
+// is an overlay / floating element". The HTML `popover` attribute that codegen
+// emits on the floating element is the browser primitive this block binds to;
+// `mode: "auto" | "manual" | "hint"` mirrors that attribute's values directly.
+const overlayBlock = z.strictObject({
   anchor: z.string().min(1),
   floating: z.string().min(1),
   mode: z.enum(["auto", "manual", "hint"]),
@@ -189,7 +194,7 @@ const identityFields = {
   guidance: guidanceBlock.optional(),
   examples: z.array(exampleEntry).optional(),
   coverage: coverageBlock.optional(),
-  popover: popoverBlock.optional(),
+  overlay: overlayBlock.optional(),
   interactions: z.array(interactionRule).optional(),
 } as const;
 

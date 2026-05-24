@@ -368,30 +368,32 @@ export function responsiveDataAttrs(
 /**
  * Emits a Vue SFC for a composite spec — the overlay-with-anchor shape:
  * one `fromChildren` part (rendered as a `<span>` wrapper around the default
- * slot) and one rendered part bound by `popover:` + `interactions:`. The
+ * slot) and one rendered part bound by `overlay:` + `interactions:`. The
  * runtime composable `useOverlay` (in `composables/useOverlay.ts`) drives behavior; the
  * emitted SFC does the template-shape work.
  */
 function renderCompositeWrapper(spec: Spec, _propDescriptions: Record<string, string>): string {
   const Name = pascalCase(spec.name);
-  const popover = spec.popover;
+  // `overlaySpec` (not `overlay`) so the generator-side reference doesn't
+  // shadow the emitted runtime variable `const overlay = useOverlay(...)`.
+  const overlaySpec = spec.overlay;
   const interactions = spec.interactions ?? [];
   const parts = spec.parts ?? {};
-  if (!popover) {
+  if (!overlaySpec) {
     throw new Error(
-      `composite spec '${spec.name}' must declare 'popover:' for the overlay-with-anchor shape`,
+      `composite spec '${spec.name}' must declare 'overlay:' for the overlay-with-anchor shape`,
     );
   }
-  const triggerPart = parts[popover.anchor];
-  const contentPart = parts[popover.floating];
+  const triggerPart = parts[overlaySpec.anchor];
+  const contentPart = parts[overlaySpec.floating];
   if (!triggerPart || !contentPart) {
     throw new Error(
-      `popover.anchor '${popover.anchor}' or popover.floating '${popover.floating}' is not a declared part`,
+      `overlay.anchor '${overlaySpec.anchor}' or overlay.floating '${overlaySpec.floating}' is not a declared part`,
     );
   }
   if (triggerPart.fromChildren !== true) {
     throw new Error(
-      `popover.anchor '${popover.anchor}' must declare 'fromChildren: true' (Vue composite emitter only supports the overlay-with-anchor shape)`,
+      `overlay.anchor '${overlaySpec.anchor}' must declare 'fromChildren: true' (Vue composite emitter only supports the overlay-with-anchor shape)`,
     );
   }
 
@@ -412,7 +414,7 @@ function renderCompositeWrapper(spec: Spec, _propDescriptions: Record<string, st
   const ControllableName = pascalCase(controllableName);
 
   const contentSlots = Object.entries(spec.props)
-    .filter(([, d]) => d.slot === true && d.__part === popover.floating)
+    .filter(([, d]) => d.slot === true && d.__part === overlaySpec.floating)
     .map(([n]) => n);
 
   const responsiveProps = Object.entries(spec.props)
@@ -547,8 +549,8 @@ const overlay = useOverlay({
   on${ControllableName}Change,${
     Object.hasOwn(spec.props, "disabled") ? `\n  disabled: () => disabled,` : ""
   }
-  anchorVar: ${quote(popover.anchorVar)},
-  popoverMode: ${quote(popover.mode)},
+  anchorVar: ${quote(overlaySpec.anchorVar)},
+  popoverMode: ${quote(overlaySpec.mode)},
   interactions: [
 ${interactionItems.join("\n")}
   ],

@@ -613,14 +613,14 @@ describe("checkInteractionRefs", () => {
 });
 
 describe("checkOverlayEscapeRules", () => {
-  /** Tooltip-shaped overlay fixture — composite with a `popover:` block.
-   *  The check only fires for specs with a popover block (overlays go through
+  /** Tooltip-shaped overlay fixture — composite with an `overlay:` block.
+   *  The check only fires for specs with an overlay block (overlays go through
    *  `useOverlay`, where the dismissable-layer ownership applies). */
   function makeOverlay(overrides: Partial<Extract<Spec, { kind: "composite" }>> = {}): Spec {
     return {
       name: "tooltip",
       kind: "composite",
-      popover: {
+      overlay: {
         anchor: "trigger",
         floating: "content",
         mode: "manual",
@@ -635,7 +635,7 @@ describe("checkOverlayEscapeRules", () => {
     expect(checkOverlayEscapeRules(makeOverlay())).toEqual([]);
   });
 
-  test("ignores specs without a popover block (non-overlay)", () => {
+  test("ignores specs without an overlay block (non-overlay)", () => {
     // Non-overlay specs don't go through useOverlay; the dismissable-layer
     // ownership rationale doesn't apply, so the check stays quiet.
     const spec = makeButton({

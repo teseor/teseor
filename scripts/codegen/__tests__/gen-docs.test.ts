@@ -32,7 +32,7 @@ describe("gen-docs", () => {
     expect(renderDocsPage(await loadSpec("tooltip"))).toMatchSnapshot();
   });
 
-  test("injects Escape + outside-pointer rows for any spec with a popover block", async () => {
+  test("injects Escape + outside-pointer rows for any spec with an overlay block", async () => {
     const rendered = renderDocsPage(await loadSpec("tooltip"));
     expect(rendered).toContain("<code>Escape</code>");
     expect(rendered).toContain("Topmost-wins when multiple overlays are open.");
@@ -56,7 +56,7 @@ describe("gen-docs", () => {
     const parsed = SpecSchema.parse({
       name: "fancy-popover",
       kind: "composite",
-      popover: {
+      overlay: {
         anchor: "trigger",
         floating: "content",
         mode: "manual",
