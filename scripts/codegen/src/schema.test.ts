@@ -113,4 +113,53 @@ describe("Spec schema — shape layer", () => {
     input.props.loading.description = "";
     expect(Spec.safeParse(input).success).toBe(false);
   });
+
+  test("overlay.modal defaults to false when omitted", () => {
+    const result = Spec.safeParse({
+      name: "tooltip",
+      kind: "composite",
+      parts: { trigger: { fromChildren: true }, content: { element: "div" } },
+      overlay: {
+        anchor: "trigger",
+        floating: "content",
+        mode: "manual",
+        anchorVar: "--t-tooltip-anchor",
+      },
+    });
+    if (!result.success) throw result.error;
+    expect(result.data.overlay?.modal).toBe(false);
+  });
+
+  test("overlay.modal accepts true", () => {
+    const result = Spec.safeParse({
+      name: "dialog",
+      kind: "composite",
+      parts: { trigger: { fromChildren: true }, content: { element: "div" } },
+      overlay: {
+        anchor: "trigger",
+        floating: "content",
+        mode: "manual",
+        anchorVar: "--t-dialog-anchor",
+        modal: true,
+      },
+    });
+    if (!result.success) throw result.error;
+    expect(result.data.overlay?.modal).toBe(true);
+  });
+
+  test("overlay.modal rejects non-boolean", () => {
+    const result = Spec.safeParse({
+      name: "dialog",
+      kind: "composite",
+      parts: { trigger: { fromChildren: true }, content: { element: "div" } },
+      overlay: {
+        anchor: "trigger",
+        floating: "content",
+        mode: "manual",
+        anchorVar: "--t-dialog-anchor",
+        modal: "yes",
+      },
+    });
+    expect(result.success).toBe(false);
+  });
 });

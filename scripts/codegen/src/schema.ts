@@ -145,6 +145,10 @@ const overlayBlock = z.strictObject({
   floating: z.string().min(1),
   mode: z.enum(["auto", "manual", "hint"]),
   anchorVar: z.string().regex(/^--[A-Za-z0-9_-]+$/),
+  // Marks the overlay as modal: `useOverlay` activates a focus trap plus a
+  // body-children inert cascade, and codegen wraps the floating element in a
+  // body-level portal so the inert-target set is well-defined.
+  modal: z.boolean().default(false),
 });
 
 // Declarative event → state-change rule. `on.target` references a part name
