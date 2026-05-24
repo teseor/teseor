@@ -208,16 +208,23 @@ Codegen emits one wrapper module with sub-components attached: `Accordion.Item`,
 
 ## Outputs
 
+**Shipped today:**
+
 | Generator | Output | Path |
 | --- | --- | --- |
 | `gen-react.ts` | React TSX | `packages/react/src/Button.tsx` |
 | `gen-vue.ts` | Vue SFC | `packages/vue/src/Button.vue` |
-| `gen-svelte.ts` | Svelte | `packages/svelte/src/Button.svelte` |
-| `gen-angular.ts` | Angular | `packages/angular/src/button.component.ts` |
-| `gen-webc.ts` | LitElement web-component | `packages/webc/src/t-button.ts` |
 | `gen-contract.ts` | TypeScript types | `packages/contract/src/Button.ts` |
 | `gen-docs.ts` | Astro page data | `apps/docs/src/components/button/` |
 | `gen-tests.ts` | Playwright spec + harness fixtures (React + Vue) | `tests/contract/<name>.spec.ts`, `apps/harness/src/fixtures/<Name>.{react.tsx,vue.ts}` |
+
+**Planned, not yet implemented** (tracked individually — `gen-svelte`, `gen-angular`, `gen-webc`, `gen-ast`, plus `gen-astro`, `gen-email`, `gen-pdf`):
+
+| Generator | Output | Path |
+| --- | --- | --- |
+| `gen-svelte.ts` | Svelte | `packages/svelte/src/Button.svelte` |
+| `gen-angular.ts` | Angular | `packages/angular/src/button.component.ts` |
+| `gen-webc.ts` | LitElement web-component | `packages/webc/src/t-button.ts` |
 | `gen-ast.ts` | Structured JSON of the whole DS (every component, every public token, every variant) | `apps/docs/src/_data/teseor-ast.json`, also republished as `packages/contract/dist/ast.json` |
 
 ## Generator layout
