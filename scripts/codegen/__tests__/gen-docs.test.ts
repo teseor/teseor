@@ -58,7 +58,6 @@ describe("gen-docs", () => {
         floating: "content",
         mode: "manual",
         anchorVar: "--t-fancy-popover-anchor",
-        modal: false,
       },
       a11y: { keyboard: { Escape: "Custom Escape wording from the spec." } },
       examples: [],
