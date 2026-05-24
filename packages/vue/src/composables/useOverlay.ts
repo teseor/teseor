@@ -161,9 +161,10 @@ export function useOverlay(config: OverlayConfig): OverlayReturn {
     { immediate: true, flush: "post" },
   );
 
-  // Per-ownerDocument dismissable-layer stack participation (React parallel in
-  // packages/react/src/hooks/useOverlay.ts).
-  useDismissableLayer(contentRef, computed(() => open.value), {
+  // Participate in the per-ownerDocument dismissable-layer stack. Escape fires
+  // only when this layer is topmost; pointer-down outside the content element
+  // closes this layer.
+  useDismissableLayer(contentRef, open, {
     onEscapeKeyDown: () => setOpen(false),
     onPointerDownOutside: () => setOpen(false),
   });
