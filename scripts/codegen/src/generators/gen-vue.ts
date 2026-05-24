@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { parse as parseYaml } from "yaml";
 import { type Breakpoint, loadBreakpoints } from "../lib/breakpoints.ts";
 import { collectSlots, type SlotInfo } from "../lib/collect-slots.ts";
+import { renderEnumType } from "../lib/enum-primitives.ts";
 import { flattenSpec } from "../lib/flatten.ts";
 import { pascalCase } from "../lib/pascal-case.ts";
 import { loadVocabulary } from "../lib/vocabulary.ts";
@@ -45,11 +46,6 @@ function vuePropType(propName: string, propDef: SpecProp, Name: string): string 
   if (propDef.slot === true) return !propDef.__part ? "never" : mapPropType(propDef.type);
   if (propDef.values && propDef.values.length > 0) return `${Name}${pascalCase(propName)}`;
   return mapPropType(propDef.type);
-}
-
-function renderEnumType(Name: string, kind: string, values: string[]): string {
-  if (values.length === 0) return "";
-  return `type ${Name}${kind} = ${values.map(quote).join(" | ")};\n`;
 }
 
 function renderCanonicalProp(
