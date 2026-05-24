@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { parse as parseYaml } from "yaml";
 import { type Breakpoint, loadBreakpoints } from "../lib/breakpoints.ts";
 import { collectSlots, type SlotInfo } from "../lib/collect-slots.ts";
+import { extractCompositeShape } from "../lib/composite-shape.ts";
 import { renderEnumType } from "../lib/enum-primitives.ts";
 import { flattenSpec } from "../lib/flatten.ts";
 import { reactJsDocFlavor, renderComponentJsDoc } from "../lib/jsdoc-shape.ts";
@@ -330,37 +331,13 @@ function renderCompositeWrapper(spec: Spec, propDescriptions: Record<string, str
   const Name = pascalCase(spec.name);
   // `overlaySpec` (not `overlay`) so the generator-side reference doesn't
   // shadow the emitted runtime variable `const overlay = useOverlay(...)`.
-  const overlaySpec = spec.overlay;
+  const { overlaySpec, triggerClass, contentClass, contentElement, contentRole } =
+    extractCompositeShape(spec, {
+      emitterLabel: "this generator only emits the overlay-with-anchor shape",
+      separateMissingPartErrors: true,
+      forbidContentFromChildren: true,
+    });
   const interactions = spec.interactions ?? [];
-  const parts = spec.parts ?? {};
-  if (!overlaySpec) {
-    throw new Error(
-      `composite spec '${spec.name}' must declare 'overlay:' for the overlay-with-anchor shape`,
-    );
-  }
-  const triggerPart = parts[overlaySpec.anchor];
-  const contentPart = parts[overlaySpec.floating];
-  if (!triggerPart) {
-    throw new Error(`overlay.anchor '${overlaySpec.anchor}' is not a declared part`);
-  }
-  if (!contentPart) {
-    throw new Error(`overlay.floating '${overlaySpec.floating}' is not a declared part`);
-  }
-  if (triggerPart.fromChildren !== true) {
-    throw new Error(
-      `overlay.anchor '${overlaySpec.anchor}' must declare 'fromChildren: true' (this generator only emits the overlay-with-anchor shape)`,
-    );
-  }
-  if (contentPart.fromChildren === true) {
-    throw new Error(
-      `overlay.floating '${overlaySpec.floating}' cannot declare 'fromChildren: true'`,
-    );
-  }
-
-  const triggerClass = triggerPart.rootClass ?? `t-${spec.name}-trigger`;
-  const contentClass = contentPart.rootClass ?? `t-${spec.name}`;
-  const contentElement = contentPart.element ?? "div";
-  const contentRole = contentPart.a11y?.role;
 
   // Controllable prop on the anchor part — usually `open`. The renderOwnProps
   // path consumes spec.props (merged), so we just read the name and emit the
