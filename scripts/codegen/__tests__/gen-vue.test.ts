@@ -141,7 +141,7 @@ describe("gen-vue", () => {
           },
         },
       });
-      return flattenSpec(parsed) as unknown as Spec;
+      return flattenSpec(parsed);
     }
 
     test('emits <Teleport to="body"> wrap when overlay.modal is true', async () => {
