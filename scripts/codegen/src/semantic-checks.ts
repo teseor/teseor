@@ -746,8 +746,13 @@ export function checkInteractionRefs(spec: Spec): Issue[] {
  * bypasses the stack and fires `setOpen(false)` twice on one press — once
  * via the layer, once via the spec interaction. Reject at spec time so a
  * future composite spec can't reintroduce the duplicate-fire path.
+ *
+ * Scoped to specs with a `popover:` block — `useDismissableLayer` only wires
+ * up for overlays via `useOverlay`. A non-overlay spec with a document-target
+ * rule has no layer to conflict with, so the rationale doesn't apply.
  */
 export function checkOverlayDismissalRules(spec: Spec): Issue[] {
+  if (!spec.popover) return [];
   const rules = spec.interactions ?? [];
   if (rules.length === 0) return [];
   const issues: Issue[] = [];

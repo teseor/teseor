@@ -613,33 +613,60 @@ describe("checkInteractionRefs", () => {
 });
 
 describe("checkOverlayDismissalRules", () => {
+  /** Tooltip-shaped overlay fixture — composite with a `popover:` block.
+   *  The check only fires for specs with a popover block (overlays go through
+   *  `useOverlay`, where the dismissable-layer ownership applies). */
+  function makeOverlay(overrides: Partial<Extract<Spec, { kind: "composite" }>> = {}): Spec {
+    return {
+      name: "tooltip",
+      kind: "composite",
+      popover: {
+        anchor: "trigger",
+        floating: "content",
+        mode: "manual",
+        anchorVar: "--t-tooltip-anchor",
+      },
+      parts: { trigger: { fromChildren: true }, content: { element: "div" } },
+      ...overrides,
+    } as Spec;
+  }
+
   test("returns no issues when no interactions are declared", () => {
-    expect(checkOverlayDismissalRules(makeButton())).toEqual([]);
+    expect(checkOverlayDismissalRules(makeOverlay())).toEqual([]);
+  });
+
+  test("ignores specs without a popover block (non-overlay)", () => {
+    // Non-overlay specs don't go through useOverlay; the dismissable-layer
+    // ownership rationale doesn't apply, so the check stays quiet.
+    const spec = makeButton({
+      interactions: [{ on: { event: "keydown", key: "Escape", target: "document" }, do: "close" }],
+    });
+    expect(checkOverlayDismissalRules(spec)).toEqual([]);
   });
 
   test("ignores keydown:Escape rules targeting a part (not document/window)", () => {
-    const spec = makeButton({
+    const spec = makeOverlay({
       interactions: [{ on: { event: "keydown", key: "Escape", target: "trigger" }, do: "close" }],
     });
     expect(checkOverlayDismissalRules(spec)).toEqual([]);
   });
 
   test("ignores keydown rules with a different key on document", () => {
-    const spec = makeButton({
+    const spec = makeOverlay({
       interactions: [{ on: { event: "keydown", key: "Enter", target: "document" }, do: "open" }],
     });
     expect(checkOverlayDismissalRules(spec)).toEqual([]);
   });
 
   test("ignores non-keydown rules on document", () => {
-    const spec = makeButton({
+    const spec = makeOverlay({
       interactions: [{ on: { event: "pointerdown", target: "document" }, do: "close" }],
     });
     expect(checkOverlayDismissalRules(spec)).toEqual([]);
   });
 
   test("flags keydown:Escape on document", () => {
-    const spec = makeButton({
+    const spec = makeOverlay({
       interactions: [{ on: { event: "keydown", key: "Escape", target: "document" }, do: "close" }],
     });
     const issues = checkOverlayDismissalRules(spec);
@@ -650,7 +677,7 @@ describe("checkOverlayDismissalRules", () => {
   });
 
   test("flags keydown:Escape on window", () => {
-    const spec = makeButton({
+    const spec = makeOverlay({
       interactions: [{ on: { event: "keydown", key: "Escape", target: "window" }, do: "close" }],
     });
     const issues = checkOverlayDismissalRules(spec);
@@ -659,7 +686,7 @@ describe("checkOverlayDismissalRules", () => {
   });
 
   test("flags each offending rule independently", () => {
-    const spec = makeButton({
+    const spec = makeOverlay({
       interactions: [
         { on: { event: "keydown", key: "Escape", target: "document" }, do: "close" },
         { on: { event: "pointerenter", target: "trigger" }, do: "open" },
