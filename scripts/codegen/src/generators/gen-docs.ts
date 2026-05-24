@@ -3,6 +3,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse as parseYaml } from "yaml";
 import { flattenSpec } from "../lib/flatten.ts";
+import { pascalCase } from "../lib/pascal-case.ts";
 import type { GeneratorContext, GeneratorReport } from "../registry.ts";
 import { registerGenerator } from "../registry.ts";
 import { Spec as SpecSchema } from "../schema.ts";
@@ -18,13 +19,6 @@ type DocsSpec = Spec & {
   tokens?: Record<string, { fallback?: string; desc?: string }>;
   a11y?: { role?: string; keyboard?: Record<string, string> };
 };
-
-function pascalCase(name: string): string {
-  return name
-    .split(/[-_\s]+/)
-    .map((part) => (part.length === 0 ? part : part.charAt(0).toUpperCase() + part.slice(1)))
-    .join("");
-}
 
 /** Escape text for HTML content; `{}` are escaped because Astro reads them as expressions. */
 function esc(value: string): string {

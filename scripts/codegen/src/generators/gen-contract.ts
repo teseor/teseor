@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { parse as parseYaml } from "yaml";
 import { type Breakpoint, breakpointNames, loadBreakpoints } from "../lib/breakpoints.ts";
 import { type FlatProp, type FlatSpec, flattenSpec } from "../lib/flatten.ts";
+import { pascalCase } from "../lib/pascal-case.ts";
 import type { GeneratorContext, GeneratorReport } from "../registry.ts";
 import { registerGenerator } from "../registry.ts";
 import { Spec as SpecSchema } from "../schema.ts";
@@ -16,13 +17,6 @@ export type SpecProp = FlatProp;
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..", "..", "..");
 const SPECS_DIR = resolve(REPO_ROOT, "specs");
 const CONTRACT_SRC_DIR = resolve(REPO_ROOT, "packages", "contract", "src");
-
-function pascalCase(name: string): string {
-  return name
-    .split(/[-_\s]+/)
-    .map((part) => (part.length === 0 ? part : part.charAt(0).toUpperCase() + part.slice(1)))
-    .join("");
-}
 
 function quote(value: string): string {
   return `"${value.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`;

@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { parse as parseYaml } from "yaml";
 import { type Breakpoint, loadBreakpoints } from "../lib/breakpoints.ts";
 import { flattenSpec } from "../lib/flatten.ts";
+import { pascalCase } from "../lib/pascal-case.ts";
 import { loadVocabulary } from "../lib/vocabulary.ts";
 import type { GeneratorContext, GeneratorReport } from "../registry.ts";
 import { registerGenerator } from "../registry.ts";
@@ -15,13 +16,6 @@ const SPECS_DIR = resolve(REPO_ROOT, "specs");
 const VUE_SRC_DIR = resolve(REPO_ROOT, "packages", "vue", "src");
 
 const RESPONSIVE_ENUM_PROPS = new Set(["size"]);
-
-function pascalCase(name: string): string {
-  return name
-    .split(/[-_\s]+/)
-    .map((part) => (part.length === 0 ? part : part.charAt(0).toUpperCase() + part.slice(1)))
-    .join("");
-}
 
 function quote(value: string): string {
   return `"${value.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`;
