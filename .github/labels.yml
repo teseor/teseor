@@ -48,6 +48,9 @@
 - name: component:cluster
   color: d4c5f9
   description: cluster component
+- name: component:modal
+  color: d4c5f9
+  description: modal component
 - name: component:stack
   color: d4c5f9
   description: stack component
