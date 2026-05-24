@@ -6,6 +6,7 @@ import { type Breakpoint, loadBreakpoints } from "../lib/breakpoints.ts";
 import { collectSlots, type SlotInfo } from "../lib/collect-slots.ts";
 import { renderEnumType } from "../lib/enum-primitives.ts";
 import { flattenSpec } from "../lib/flatten.ts";
+import { reactJsDocFlavor, renderComponentJsDoc } from "../lib/jsdoc-shape.ts";
 import { pascalCase } from "../lib/pascal-case.ts";
 import { loadVocabulary } from "../lib/vocabulary.ts";
 import type { GeneratorContext, GeneratorReport } from "../registry.ts";
@@ -205,54 +206,6 @@ function renderBody(spec: Spec, slots: SlotInfo[], hasLoading: boolean): string 
     .join("\n");
 }
 
-function renderExampleProps(props: Record<string, unknown> | undefined): string {
-  if (!props || Object.keys(props).length === 0) return "";
-  return Object.entries(props)
-    .map(([k, v]) => {
-      if (typeof v === "string") return ` ${k}=${quote(v)}`;
-      if (typeof v === "boolean" && v === true) return ` ${k}`;
-      return ` ${k}={${JSON.stringify(v)}}`;
-    })
-    .join("");
-}
-
-function titleCase(id: string): string {
-  return id
-    .split(/[-_]/)
-    .map((p) => (p.length > 0 ? p.charAt(0).toUpperCase() + p.slice(1) : p))
-    .join(" ");
-}
-
-function renderExampleBlock(
-  example: { id?: string; props?: Record<string, unknown> },
-  Name: string,
-): string[] {
-  const propString = renderExampleProps(example.props);
-  const title = example.id ? ` ${titleCase(example.id)}` : "";
-  return [
-    ` * @example${title}`,
-    ` * \`\`\`tsx`,
-    ` * <${Name}${propString}>Label</${Name}>`,
-    ` * \`\`\``,
-  ];
-}
-
-function renderComponentJsDoc(spec: Spec, Name: string): string {
-  const description = spec.description ?? "";
-  const examples = (spec.examples ?? []).slice(0, 3);
-  const lines: string[] = ["/**"];
-  if (description) lines.push(` * ${description}`);
-  for (let i = 0; i < examples.length; i++) {
-    const example = examples[i];
-    if (!example) continue;
-    if (i === 0 && description) lines.push(` *`);
-    if (i > 0) lines.push(` *`);
-    lines.push(...renderExampleBlock(example, Name));
-  }
-  lines.push(" */");
-  return `${lines.join("\n")}\n`;
-}
-
 // ── Atomic wrapper renderer (existing) ──────────────────────────────────────
 
 function renderAtomicWrapper(spec: Spec, propDescriptions: Record<string, string>): string {
@@ -343,7 +296,7 @@ ${typeBlockPrefix}${renderOwnProps(spec, Name, sizeIsResponsive, propDescription
 
 ${propsTypeLine}
 
-${renderComponentJsDoc(spec, Name)}export function ${Name}(props: ${Name}Props) {
+${renderComponentJsDoc(spec, Name, reactJsDocFlavor)}export function ${Name}(props: ${Name}Props) {
 ${renderDestructure(spec)}
 
 ${helperBlock}
@@ -576,7 +529,7 @@ ${ownPropLines.join("\n")}
 
 export type ${Name}Props = Readonly<${Name}OwnProps>;
 
-${renderComponentJsDoc(spec, Name)}export function ${Name}(props: ${Name}Props) {
+${renderComponentJsDoc(spec, Name, reactJsDocFlavor)}export function ${Name}(props: ${Name}Props) {
   const {
     ${propControlled},
     default${ControllableName},
