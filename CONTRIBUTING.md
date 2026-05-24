@@ -38,6 +38,41 @@ pnpm test:e2e   # Playwright suite (see Playwright browsers below)
 
 See `docs/process/dev-scripts.md` for the full script catalog.
 
+### Optional local pre-flight review
+
+`pnpm review` sends the current branch's diff (against `origin/main`) to a
+GitHub Models endpoint via the `gh-models` extension and prints suggestions
+on:
+
+- Naming overpromise (function name covers more than the implementation).
+- Schema vs fixture drift (`as unknown as Spec` hiding missing fields).
+- Accessibility semantics (`aria-modal`, `aria-describedby` on the wrong
+  element, missing accessible name).
+- SSR-hydration patterns (`typeof document !== "undefined"` in JSX).
+- Public-API leakage (test-only helpers exported from production modules).
+- Cross-file consistency on renames.
+
+```bash
+gh extension install github/gh-models
+pnpm review
+```
+
+`BASE=<ref>` overrides the comparison base (default `origin/main`).
+`MODEL=<id>` overrides the model (default `openai/gpt-4o`).
+
+#### Auto-run on every push (opt-in)
+
+Enable the pre-push hook for this clone:
+
+```bash
+touch .claude/preflight-review.enabled
+```
+
+`pnpm review` then runs as part of `pre-push` and prints suggestions before
+the push. **Warn-only** — never blocks. Disable with
+`rm .claude/preflight-review.enabled`. The marker file is gitignored, so the
+opt-in is per-machine.
+
 ### Worktrees
 
 If you use `git worktree`, `core.hooksPath` may inherit from the main repo and

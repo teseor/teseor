@@ -16,6 +16,7 @@ The bare-verb defaults are the verbs you reach for daily: `dev`, `build`, `test`
 | `pnpm gen` | All codegen (wrappers + contract + docs + tests) | After spec changes | Developer + CI |
 | `pnpm gen --component=<name>` | Regen one component, all targets | Inner loop on a spec | Developer |
 | `pnpm gen --target=<react\|vue\|...>` | One target, all components | Debugging a generator | Developer |
+| `pnpm review` | Sends `git diff origin/main...HEAD` to a GitHub Models endpoint via `gh-models` for a pre-flight code review against the project prompt. Optional; never blocks. Requires `gh extension install github/gh-models` | Before pushing a substantive change to catch naming / schema / a11y / SSR / public-API issues locally | Developer |
 | `pnpm test` | Vitest suite (unit + integration) — every test under `packages/**` and `scripts/**` | Before push; in CI | Developer + CI |
 | `pnpm test:e2e` | Playwright DOM-contract suite (`tests/*.spec.ts`) | When wrappers or interactions changed; in CI | Developer + CI |
 | `pnpm test:visual` | Placeholder — the pixel-diff suite lands with the visual gate | When visuals changed | Developer + CI |
