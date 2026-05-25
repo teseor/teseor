@@ -54,6 +54,42 @@ describe("flattenSpec — composite token namespacing (#694)", () => {
     expect(flat.tokens["body.bg"]?.__part).toBe("body");
   });
 
+  test("nested parts namespace by full dotted path", () => {
+    // Two different nested parts both literally named `inner`, each declaring
+    // `bg`. Local-name-only namespacing would collide as `inner.bg`; full-path
+    // namespacing yields `header.inner.bg` and `body.inner.bg`.
+    const spec: Spec = {
+      name: "card",
+      kind: "composite",
+      parts: {
+        header: {
+          element: "header",
+          rootClass: "t-card-header",
+          parts: {
+            inner: {
+              element: "div",
+              rootClass: "t-card-header-inner",
+              tokens: { bg: { fallback: "--t-bg", desc: "Header inner fill." } },
+            },
+          },
+        },
+        body: {
+          element: "div",
+          rootClass: "t-card-body",
+          parts: {
+            inner: {
+              element: "div",
+              rootClass: "t-card-body-inner",
+              tokens: { bg: { fallback: "--t-surface", desc: "Body inner fill." } },
+            },
+          },
+        },
+      },
+    } as Spec;
+    const flat = flattenSpec(spec);
+    expect(Object.keys(flat.tokens).sort()).toEqual(["body.inner.bg", "header.inner.bg"]);
+  });
+
   test("mixed — collision token namespaces, distinct token stays bare", () => {
     const spec: Spec = {
       name: "card",

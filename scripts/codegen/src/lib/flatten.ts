@@ -83,11 +83,13 @@ export type FlatSpec = {
 
 function visitParts(
   parts: Record<string, SpecPart>,
-  visit: (partName: string, part: SpecPart) => void,
+  visit: (partName: string, part: SpecPart, partPath: string) => void,
+  prefix = "",
 ): void {
   for (const [name, part] of Object.entries(parts)) {
-    visit(name, part);
-    if (part.parts) visitParts(part.parts, visit);
+    const partPath = prefix === "" ? name : `${prefix}.${name}`;
+    visit(name, part, partPath);
+    if (part.parts) visitParts(part.parts, visit, partPath);
   }
 }
 
@@ -134,9 +136,9 @@ export function flattenSpec(spec: Spec): FlatSpec {
   }
 
   // Composite: walk parts, merge. Token names that appear on more than one
-  // part are namespaced as `${partName}.${tokenName}` so collisions resolve
-  // automatically (Modal's `header.bg` vs `body.bg`); single-occurrence names
-  // stay bare so today's public slots (`--t-tooltip-bg`) aren't renamed.
+  // part are namespaced by the full dotted path (`header.bg`, `body.content.bg`)
+  // so nested-part collisions resolve too. Single-occurrence names stay bare,
+  // so today's public slots (`--t-tooltip-bg`) aren't renamed.
   const props: Record<string, FlatProp> = {};
   const tokens: Record<string, FlatToken> = {};
   const states: Record<string, FlatState> = {};
@@ -154,7 +156,7 @@ export function flattenSpec(spec: Spec): FlatSpec {
     }
   });
 
-  visitParts(spec.parts, (partName, part) => {
+  visitParts(spec.parts, (partName, part, partPath) => {
     for (const [name, def] of Object.entries(part.props ?? {})) {
       if (props[name]) {
         throw new Error(
@@ -164,7 +166,7 @@ export function flattenSpec(spec: Spec): FlatSpec {
       props[name] = { ...def, __part: partName };
     }
     for (const [name, def] of Object.entries(part.tokens ?? {})) {
-      const flatKey = (tokenNameCounts.get(name) ?? 0) > 1 ? `${partName}.${name}` : name;
+      const flatKey = (tokenNameCounts.get(name) ?? 0) > 1 ? `${partPath}.${name}` : name;
       tokens[flatKey] = { ...def, __part: partName };
     }
     for (const [name, def] of Object.entries(part.states ?? {})) {
