@@ -133,7 +133,10 @@ export function flattenSpec(spec: Spec): FlatSpec {
     };
   }
 
-  // Composite: walk parts, merge.
+  // Composite: walk parts, merge. Token names that appear on more than one
+  // part are namespaced as `${partName}.${tokenName}` so collisions resolve
+  // automatically (Modal's `header.bg` vs `body.bg`); single-occurrence names
+  // stay bare so today's public slots (`--t-tooltip-bg`) aren't renamed.
   const props: Record<string, FlatProp> = {};
   const tokens: Record<string, FlatToken> = {};
   const states: Record<string, FlatState> = {};
@@ -143,6 +146,13 @@ export function flattenSpec(spec: Spec): FlatSpec {
   let variants: FlatSpec["variants"];
   let intents: FlatSpec["intents"];
   let sizes: FlatSpec["sizes"];
+
+  const tokenNameCounts = new Map<string, number>();
+  visitParts(spec.parts, (_partName, part) => {
+    for (const name of Object.keys(part.tokens ?? {})) {
+      tokenNameCounts.set(name, (tokenNameCounts.get(name) ?? 0) + 1);
+    }
+  });
 
   visitParts(spec.parts, (partName, part) => {
     for (const [name, def] of Object.entries(part.props ?? {})) {
@@ -154,12 +164,8 @@ export function flattenSpec(spec: Spec): FlatSpec {
       props[name] = { ...def, __part: partName };
     }
     for (const [name, def] of Object.entries(part.tokens ?? {})) {
-      if (tokens[name]) {
-        throw new Error(
-          `composite spec '${spec.name}' has a token name collision on '${name}' across parts`,
-        );
-      }
-      tokens[name] = { ...def, __part: partName };
+      const flatKey = (tokenNameCounts.get(name) ?? 0) > 1 ? `${partName}.${name}` : name;
+      tokens[flatKey] = { ...def, __part: partName };
     }
     for (const [name, def] of Object.entries(part.states ?? {})) {
       if (states[name]) {

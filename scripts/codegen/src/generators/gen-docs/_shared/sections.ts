@@ -165,7 +165,10 @@ export function renderStates(spec: DocsSpec): string {
 export function renderTokens(spec: DocsSpec): string {
   if (!spec.tokens || Object.keys(spec.tokens).length === 0) return "";
   const rows = Object.entries(spec.tokens).map(([name, def]) => [
-    `<Code>--t-${esc(spec.name)}-${esc(name)}</Code>`,
+    // Composite parts with same-named tokens are namespaced as
+    // `partName.tokenName` in the flat map (see flattenSpec); the public
+    // CSS slot uses `-` as the separator.
+    `<Code>--t-${esc(spec.name)}-${esc(name.replace(/\./g, "-"))}</Code>`,
     `<Code>${esc(def.fallback ?? "")}</Code>`,
     esc(def.desc ?? ""),
   ]);
