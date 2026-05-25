@@ -125,6 +125,15 @@ describe("isImportOnly", () => {
     expect(isImportOnly(source)).toBe(true);
   });
 
+  it("flags an import-only file even when trailing inline comments mention `process.argv`", () => {
+    const source = [
+      'import type { WorkspaceCheck } from "../registry.ts"; // see process.argv usage elsewhere',
+      "function check() { return []; } // also: import.meta",
+      'export const rule: WorkspaceCheck = { kind: "workspace", triggers: [], run: check };',
+    ].join("\n");
+    expect(isImportOnly(source)).toBe(true);
+  });
+
   it("does not treat `if (...)` as a top-level call", () => {
     const source = ["function main() {}", "if (false) { main(); }"].join("\n");
     // Heuristic: `if` is a keyword, not a call. The `main()` inside the

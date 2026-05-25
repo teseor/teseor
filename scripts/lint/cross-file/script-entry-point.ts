@@ -38,7 +38,7 @@ export function extractInvocations(source: string): string[] {
 export function isImportOnly(source: string): boolean {
   // Strip comments first: a JSDoc line mentioning `process.argv` (this very
   // file does) would otherwise mask an import-only body.
-  const stripped = source.replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "");
+  const stripped = source.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*$/gm, "");
   if (stripped.includes("process.argv")) return false;
   if (stripped.includes("import.meta")) return false;
   // Line at column 0 beginning with an identifier (optionally `.foo` chains)
