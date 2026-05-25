@@ -1,0 +1,36 @@
+name: codeblock
+description: Block container for multi-line code with monospace font and horizontal overflow scroll.
+kind: atomic
+dependencies: []
+element: pre
+slotElement: code
+rootClass: t-codeblock
+cssFile: components/codeblock/codeblock.css
+
+tokens:
+  bg:
+    fallback: --t-neutral-20
+    desc: Background fill for the block.
+  fg:
+    fallback: --t-on-surface
+    desc: Text color.
+  pad:
+    fallback: --t-space-3
+    desc: Inner padding.
+  radius:
+    fallback: --t-radius-md
+    desc: Corner radius.
+  font:
+    fallback: --t-font-mono
+    desc: Monospace family.
+
+privateTokens:
+  - --_bg
+  - --_fg
+  - --_pad
+  - --_radius
+  - --_font
+
+examples:
+  - id: default
+    props: {}

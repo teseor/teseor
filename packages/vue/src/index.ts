@@ -2,6 +2,8 @@
 
 export { default as Button } from "./Button.vue";
 export { default as Cluster } from "./Cluster.vue";
+export { default as Code } from "./Code.vue";
+export { default as Codeblock } from "./Codeblock.vue";
 export { default as Modal } from "./Modal.vue";
 export { default as Stack } from "./Stack.vue";
 export { default as Tooltip } from "./Tooltip.vue";

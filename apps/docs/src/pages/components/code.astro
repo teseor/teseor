@@ -1,0 +1,43 @@
+---
+import { Code } from "@teseor/react";
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Code — Teseor">
+  <main class="t-stack" data-gap="6">
+    <h1>Code</h1>
+    <p>Inline monospace fragment for short code spans in prose.</p>
+    <section class="t-stack" data-gap="3">
+      <h2>Examples</h2>
+      <div class="t-stack" data-gap="2">
+        <h3>default</h3>
+        <div class="t-cluster" data-gap="3">
+          <Code>Code</Code>
+        </div>
+        <pre><code>&lt;Code&gt;Code&lt;/Code&gt;</code></pre>
+      </div>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Tokens</h2>
+      <table>
+        <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><code>--t-code-bg</code></td><td><code>--t-neutral-20</code></td><td>Background fill for the inline span.</td></tr>
+        <tr><td><code>--t-code-fg</code></td><td><code>--t-on-surface</code></td><td>Text color.</td></tr>
+        <tr><td><code>--t-code-pad-x</code></td><td><code>--t-space-1</code></td><td>Inline padding.</td></tr>
+        <tr><td><code>--t-code-radius</code></td><td><code>--t-radius-sm</code></td><td>Corner radius.</td></tr>
+        <tr><td><code>--t-code-font</code></td><td><code>--t-font-mono</code></td><td>Monospace family.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Bundle size</h2>
+      <table>
+        <thead><tr><th>Artifact</th><th>Raw</th><th>Gzip</th><th>Brotli</th></tr></thead>
+        <tbody>
+        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/code/code.css"><code>@teseor/css/components/code.css</code></a></td><td>0.83 KB</td><td>0.40 KB</td><td>0.35 KB</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</Base>

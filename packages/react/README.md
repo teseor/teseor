@@ -35,6 +35,8 @@ import { Button } from "@teseor/react";
 
 - `Button` — A trigger that performs an action when activated.
 - `Cluster` — A horizontal layout primitive. Wraps children on the inline axis with consistent spacing.
+- `Code` — Inline monospace fragment for short code spans in prose.
+- `Codeblock` — Block container for multi-line code with monospace font and horizontal overflow scroll.
 - `Modal` — A modal overlay that traps focus and inerts the rest of the page until dismissed.
 - `Stack` — A vertical layout primitive. Stacks children on the block axis with consistent spacing.
 - `Tooltip` — A non-interactive hint that appears when its trigger is hovered or focused.
