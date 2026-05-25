@@ -21,6 +21,9 @@ a numbered, durable file.
 | [0011](0011-css-anchor-positioning-for-overlays.md) | CSS Anchor Positioning + Popover API for overlays | Accepted |
 | [0012](0012-wrapper-internal-seam.md) | Wrapper-internal seam: generated `_runtime.ts` + framework-conventional folders | Accepted |
 | [0013](0013-overlay-modality.md) | Overlay modality: `popover.modal`, focus-trap auto-activation, inert cascade | Proposed |
+| [0014](0014-scripts-layout-and-lint-runner.md) | Scripts layout and lint runner | Accepted |
+| [0015](0015-codegen-layout.md) | Codegen layout: target-first generators | Accepted |
+| [0016](0016-per-breakpoint-css-cost.md) | Per-breakpoint CSS cost: status quo with budget | Accepted |
 
 ## When to write one
 
