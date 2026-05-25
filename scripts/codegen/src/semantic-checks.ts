@@ -214,9 +214,10 @@ export function checkTokenFallbacks(spec: Spec, tokensCss: TokensCss): Issue[] {
   const ownSlotPrefix = `--t-${spec.name}-`;
   const validate = (fallback: string, path: string): void => {
     // Literal CSS values (`stretch`, `flex-start`, …) are allowed for layout
-    // primitives where the default isn't a theme token. Only token-shaped
-    // values (`--t-*`) are tied back to `tokens.css`.
-    if (!fallback.startsWith("--t-")) return;
+    // primitives where the default isn't a theme token. Any `--*` custom
+    // property reference must resolve to a known token; a typo like `--acent`
+    // (missing the `t-`) would otherwise silently pass as a "literal".
+    if (!fallback.startsWith("--")) return;
     if (tokensCss.has(fallback)) return;
     if (fallback.startsWith(ownSlotPrefix)) return;
     issues.push(

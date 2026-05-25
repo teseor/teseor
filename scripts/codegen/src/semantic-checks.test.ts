@@ -159,6 +159,15 @@ describe("checkTokenFallbacks", () => {
     expect(checkTokenFallbacks(spec, tokensCss)).toEqual([]);
   });
 
+  test("flags a `--*` custom property that isn't a known token (missing `t-` prefix)", () => {
+    const spec = makeButton({
+      tokens: { bg: { fallback: "--acent", desc: "Background, mis-prefixed." } },
+    });
+    const issues = checkTokenFallbacks(spec, tokensCss);
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.message).toMatch(/--acent.*not a token/);
+  });
+
   test("allows the component's own override slot as a fallback", () => {
     const spec = makeButton({
       tokens: { custom: { fallback: "--t-button-other", desc: "Self-referential." } },
