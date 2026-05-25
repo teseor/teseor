@@ -5,7 +5,7 @@
 
 import "@teseor/css/components/stack.css";
 import type { ComponentProps, ReactNode, Ref } from "react";
-import { type Responsive, responsiveDataAttrs } from "./_runtime.ts";
+import { mergeClass, type Responsive, responsiveDataAttrs } from "./_runtime.ts";
 
 type StackAlign = "start" | "center" | "end" | "stretch";
 
@@ -41,7 +41,7 @@ export type StackProps = Readonly<StackOwnProps & Omit<ComponentProps<"div">, ke
 export function Stack(props: StackProps) {
   const { gap, align, children, ref, className, ...rest } = props;
 
-  const mergedClassName = className ? `t-stack ${className}` : "t-stack";
+  const mergedClassName = mergeClass("t-stack", className);
 
   return (
     <div

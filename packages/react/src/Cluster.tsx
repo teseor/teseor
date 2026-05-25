@@ -5,7 +5,7 @@
 
 import "@teseor/css/components/cluster.css";
 import type { ComponentProps, ReactNode, Ref } from "react";
-import { type Responsive, responsiveDataAttrs } from "./_runtime.ts";
+import { mergeClass, type Responsive, responsiveDataAttrs } from "./_runtime.ts";
 
 type ClusterAlign = "start" | "center" | "end" | "stretch" | "baseline";
 
@@ -47,7 +47,7 @@ export type ClusterProps = Readonly<
 export function Cluster(props: ClusterProps) {
   const { gap, align, justify, children, ref, className, ...rest } = props;
 
-  const mergedClassName = className ? `t-cluster ${className}` : "t-cluster";
+  const mergedClassName = mergeClass("t-cluster", className);
 
   return (
     <div

@@ -55,7 +55,7 @@ export function renderAtomicReactWrapper(
     hasAs ? `  const Component = asElement(${rootExpr});` : null,
     hasDisabled && hasAs ? `  const isButton = Component === "button";` : null,
     inactiveExpr ? `  const inactive = ${inactiveExpr};` : null,
-    `  const mergedClassName = className ? \`${rootClass} \${className}\` : "${rootClass}";`,
+    `  const mergedClassName = mergeClass("${rootClass}", className);`,
   ]
     .filter((l): l is string => l !== null)
     .join("\n");
@@ -99,12 +99,12 @@ export function renderAtomicReactWrapper(
     `import "@teseor/css/components/${spec.name}.css";`,
     `import type { ComponentProps, ReactNode, Ref } from "react";`,
     hasAs && responsiveProps.length > 0
-      ? `import { asElement, type Responsive, responsiveDataAttrs } from "./_runtime.ts";`
+      ? `import { asElement, mergeClass, type Responsive, responsiveDataAttrs } from "./_runtime.ts";`
       : hasAs
-        ? `import { asElement } from "./_runtime.ts";`
+        ? `import { asElement, mergeClass } from "./_runtime.ts";`
         : responsiveProps.length > 0
-          ? `import { type Responsive, responsiveDataAttrs } from "./_runtime.ts";`
-          : null,
+          ? `import { mergeClass, type Responsive, responsiveDataAttrs } from "./_runtime.ts";`
+          : `import { mergeClass } from "./_runtime.ts";`,
   ]
     .filter((l): l is string => l !== null)
     .join("\n");

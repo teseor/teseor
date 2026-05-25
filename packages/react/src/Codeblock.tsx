@@ -5,6 +5,7 @@
 
 import "@teseor/css/components/codeblock.css";
 import type { ComponentProps, ReactNode, Ref } from "react";
+import { mergeClass } from "./_runtime.ts";
 
 type CodeblockOwnProps = {
   children?: ReactNode;
@@ -26,7 +27,7 @@ export type CodeblockProps = Readonly<
 export function Codeblock(props: CodeblockProps) {
   const { children, ref, className, ...rest } = props;
 
-  const mergedClassName = className ? `t-codeblock ${className}` : "t-codeblock";
+  const mergedClassName = mergeClass("t-codeblock", className);
 
   return (
     <pre {...rest} ref={ref} className={mergedClassName}>

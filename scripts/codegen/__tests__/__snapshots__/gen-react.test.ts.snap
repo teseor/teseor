@@ -8,7 +8,7 @@ exports[`gen-react > renders the Button wrapper 1`] = `
 
 import "@teseor/css/components/button.css";
 import type { ComponentProps, ReactNode, Ref } from "react";
-import { asElement, type Responsive, responsiveDataAttrs } from "./_runtime.ts";
+import { asElement, mergeClass, type Responsive, responsiveDataAttrs } from "./_runtime.ts";
 
 type ButtonVariant = "solid" | "outline" | "ghost" | "link";
 
@@ -83,7 +83,7 @@ export function Button(props: ButtonProps) {
   const Component = asElement(as ?? "button");
   const isButton = Component === "button";
   const inactive = disabled === true || loading === true;
-  const mergedClassName = className ? \`t-button \${className}\` : "t-button";
+  const mergedClassName = mergeClass("t-button", className);
 
   return (
     <Component
@@ -125,7 +125,7 @@ exports[`gen-react > renders the Cluster wrapper with multiple enum-typed props 
 
 import "@teseor/css/components/cluster.css";
 import type { ComponentProps, ReactNode, Ref } from "react";
-import { type Responsive, responsiveDataAttrs } from "./_runtime.ts";
+import { mergeClass, type Responsive, responsiveDataAttrs } from "./_runtime.ts";
 
 type ClusterAlign = "start" | "center" | "end" | "stretch" | "baseline";
 
@@ -167,7 +167,7 @@ export type ClusterProps = Readonly<
 export function Cluster(props: ClusterProps) {
   const { gap, align, justify, children, ref, className, ...rest } = props;
 
-  const mergedClassName = className ? \`t-cluster \${className}\` : "t-cluster";
+  const mergedClassName = mergeClass("t-cluster", className);
 
   return (
     <div
@@ -193,7 +193,7 @@ exports[`gen-react > renders the Stack wrapper with an enum-typed prop 1`] = `
 
 import "@teseor/css/components/stack.css";
 import type { ComponentProps, ReactNode, Ref } from "react";
-import { type Responsive, responsiveDataAttrs } from "./_runtime.ts";
+import { mergeClass, type Responsive, responsiveDataAttrs } from "./_runtime.ts";
 
 type StackAlign = "start" | "center" | "end" | "stretch";
 
@@ -229,7 +229,7 @@ export type StackProps = Readonly<StackOwnProps & Omit<ComponentProps<"div">, ke
 export function Stack(props: StackProps) {
   const { gap, align, children, ref, className, ...rest } = props;
 
-  const mergedClassName = className ? \`t-stack \${className}\` : "t-stack";
+  const mergedClassName = mergeClass("t-stack", className);
 
   return (
     <div
@@ -361,6 +361,12 @@ export function responsiveDataAttrs(
 /** Widen a narrow tag-name union back to ElementType so JSX's ref slot isn't pinned. */
 export function asElement(value: ElementType): ElementType {
   return value;
+}
+
+/** Compose the wrapper's root class with a consumer-provided className. Consumer
+ *  goes last so their class wins on selector ties; both are space-joined. */
+export function mergeClass(rootClass: string, userClass: string | undefined): string {
+  return userClass ? \`\${rootClass} \${userClass}\` : rootClass;
 }
 
 /** Compose multiple refs (callback or RefObject) into one React 19 callback ref.

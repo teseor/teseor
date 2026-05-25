@@ -55,8 +55,14 @@ describe("renderAtomicReactWrapper", () => {
       {},
     );
     expect(withResp).toContain(
-      `import { type Responsive, responsiveDataAttrs } from "./_runtime.ts";`,
+      `import { mergeClass, type Responsive, responsiveDataAttrs } from "./_runtime.ts";`,
     );
+  });
+
+  test("imports and calls mergeClass for the root className", () => {
+    const out = renderAtomicReactWrapper(atomicSpec(), {});
+    expect(out).toContain(`import { mergeClass } from "./_runtime.ts";`);
+    expect(out).toContain(`const mergedClassName = mergeClass("t-button", className);`);
   });
 
   test("wraps `{children}` in slotElement when set", () => {

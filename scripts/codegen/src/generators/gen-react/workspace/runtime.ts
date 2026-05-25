@@ -120,6 +120,12 @@ export function asElement(value: ElementType): ElementType {
   return value;
 }
 
+/** Compose the wrapper's root class with a consumer-provided className. Consumer
+ *  goes last so their class wins on selector ties; both are space-joined. */
+export function mergeClass(rootClass: string, userClass: string | undefined): string {
+  return userClass ? \`\${rootClass} \${userClass}\` : rootClass;
+}
+
 /** Compose multiple refs (callback or RefObject) into one React 19 callback ref.
  *  Used when a composite wrapper forwards a consumer ref alongside an
  *  internally-held ref on the same element. Cleanup functions returned by

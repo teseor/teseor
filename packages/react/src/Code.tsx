@@ -5,6 +5,7 @@
 
 import "@teseor/css/components/code.css";
 import type { ComponentProps, ReactNode, Ref } from "react";
+import { mergeClass } from "./_runtime.ts";
 
 type CodeOwnProps = {
   children?: ReactNode;
@@ -24,7 +25,7 @@ export type CodeProps = Readonly<CodeOwnProps & Omit<ComponentProps<"code">, key
 export function Code(props: CodeProps) {
   const { children, ref, className, ...rest } = props;
 
-  const mergedClassName = className ? `t-code ${className}` : "t-code";
+  const mergedClassName = mergeClass("t-code", className);
 
   return (
     <code {...rest} ref={ref} className={mergedClassName}>
