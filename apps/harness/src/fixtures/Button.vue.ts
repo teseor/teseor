@@ -15,6 +15,7 @@ export const fixtures: Record<string, () => VNode> = {
   "link-primary": () => h(Button, { "variant": "link", "intent": "primary", "as": "a" }, { default: LABEL }),
   "loading": () => h(Button, { "variant": "solid", "intent": "primary", "loading": true }, { default: LABEL }),
   "block-mobile": () => h(Button, { "variant": "solid", "intent": "primary", "block": true, "size": "lg" }, { default: LABEL }),
+  "block-responsive": () => h(Button, { "variant": "solid", "intent": "primary", "block": { "base": true, "md": false }, "size": "lg" }, { default: LABEL }),
   "cov-ghost-danger-lg": () => h(Button, { "variant": "ghost", "intent": "danger", "size": "lg" }, { default: LABEL }),
   "cov-outline-danger-md": () => h(Button, { "variant": "outline", "intent": "danger", "size": "md" }, { default: LABEL }),
   "cov-solid-danger-sm": () => h(Button, { "variant": "solid", "intent": "danger", "size": "sm" }, { default: LABEL }),

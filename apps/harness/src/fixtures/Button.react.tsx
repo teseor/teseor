@@ -15,6 +15,7 @@ export const fixtures: Record<string, () => ReactNode> = {
   "link-primary": () => <Button variant="link" intent="primary" as="a">{LABEL}</Button>,
   "loading": () => <Button variant="solid" intent="primary" loading>{LABEL}</Button>,
   "block-mobile": () => <Button variant="solid" intent="primary" block size="lg">{LABEL}</Button>,
+  "block-responsive": () => <Button variant="solid" intent="primary" block={{ "base": true, "md": false }} size="lg">{LABEL}</Button>,
   "cov-ghost-danger-lg": () => <Button variant="ghost" intent="danger" size="lg">{LABEL}</Button>,
   "cov-outline-danger-md": () => <Button variant="outline" intent="danger" size="md">{LABEL}</Button>,
   "cov-solid-danger-sm": () => <Button variant="solid" intent="danger" size="sm">{LABEL}</Button>,

@@ -14,6 +14,7 @@ defineContractTests({
     "link-primary",
     "loading",
     "block-mobile",
+    "block-responsive",
     "cov-ghost-danger-lg",
     "cov-outline-danger-md",
     "cov-solid-danger-sm",

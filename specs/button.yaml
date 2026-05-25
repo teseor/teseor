@@ -170,6 +170,8 @@ examples:
     props: { variant: solid, intent: primary, loading: true }
   - id: block-mobile
     props: { variant: solid, intent: primary, block: true, size: lg }
+  - id: block-responsive
+    props: { variant: solid, intent: primary, block: { base: true, md: false }, size: lg }
 
 coverage:
   variant: true

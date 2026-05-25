@@ -58,6 +58,13 @@ import Base from "../../layouts/Base.astro";
         </div>
         <Codeblock>&lt;Button variant="solid" intent="primary" block size="lg"&gt;Button&lt;/Button&gt;</Codeblock>
       </div>
+      <div class="t-stack" data-gap="2">
+        <h3>block-responsive</h3>
+        <div class="t-cluster" data-gap="3">
+          <Button variant="solid" intent="primary" block={{ base: true, md: false }} size="lg">Button</Button>
+        </div>
+        <Codeblock>&lt;Button variant="solid" intent="primary" block=&lbrace;&lbrace; base: true, md: false &rbrace;&rbrace; size="lg"&gt;Button&lt;/Button&gt;</Codeblock>
+      </div>
     </section>
     <section class="t-stack" data-gap="3">
       <h2>Props</h2>

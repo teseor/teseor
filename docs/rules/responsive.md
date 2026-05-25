@@ -25,9 +25,9 @@ A prop becomes responsive by setting `responsive: true` in the spec:
 
 ```yaml
 props:
-  size:     { type: enum, values: [sm, md, lg], default: md, responsive: true }
+  size:     { type: string, values: [sm, md, lg], default: md, responsive: true }
   loading:  { type: boolean, default: false, responsive: false }
-  variant:  { type: enum, values: [solid, outline, ghost, link], responsive: false }
+  variant:  { type: string, values: [solid, outline, ghost, link], responsive: false }
 ```
 
 **Explicit per prop.** Every non-slot prop declares `responsive:` explicitly — `true` or `false`. `validate-spec.ts` rejects omission, on the atomic root and on every composite part (`parts.<name>.props.*`). Slot props (children, `iconStart`, `iconEnd`) are exempt because they pass through content and have no breakpoint-variant rendering surface. The rule makes the decision deliberate and visible in review; a prop is never non-responsive by accident.
@@ -36,6 +36,57 @@ Two prop categories:
 
 - **Visual props** — `size`, `density`, `layout`, `align`, `padding`. Adapting visual hierarchy across breakpoints is normal. Responsive allowed.
 - **Semantic props** — `variant`, `intent`. Changing meaning at a breakpoint confuses screen readers and shifts content intent. `validate-spec.ts` rejects `responsive: true` on schema-marked semantic props.
+
+## Shapes at a glance
+
+Three prop value shapes are responsive-capable. Each declares the same `responsive: true` in the spec; the call-site form follows the prop's value type.
+
+### Boolean responsive
+
+```yaml
+# spec
+block: { type: boolean, default: false, responsive: true }
+```
+
+```tsx
+// call site
+<Button block />                              // shorthand for { base: true }
+<Button block={{ base: true, md: false }} />  // full-width on mobile, content-width above
+```
+
+Canonical example: `specs/button.yaml` (`block-responsive`).
+
+### Constrained string (enum-like)
+
+```yaml
+# spec
+align: { type: string, values: [start, center, end, stretch], default: null, responsive: true }
+```
+
+```tsx
+// call site
+<Stack align="center" />                           // shorthand for { base: "center" }
+<Stack align={{ base: "start", md: "center" }} />  // shift alignment at md
+```
+
+Canonical example: `specs/cluster.yaml` (`responsive-justify`).
+
+### Open string
+
+```yaml
+# spec
+gap: { type: string, default: null, responsive: true }
+```
+
+```tsx
+// call site
+<Stack gap="3" />                                // shorthand for { base: "3" }
+<Stack gap={{ base: "2", md: "4", xl: "6" }} />  // tighter on mobile, looser above
+```
+
+Canonical example: `specs/stack.yaml` (`responsive-gap`).
+
+Every form accepts `{ base, md, lg, xl, 2xl }`. Omitted breakpoints inherit from the next-narrower set value — `{ base: "2", md: "4" }` keeps `"4"` from `md` upward.
 
 ## Data-attribute rendering
 
@@ -75,6 +126,12 @@ For every prop marked `responsive: true`, codegen emits the full responsive sele
 | ~200 bytes per prop per breakpoint in the per-component CSS | Bundle size is predictable from the spec, not from consumer usage |
 | | Consumers add `size-xl` without redeploying Teseor |
 | | `size-limit` catches if the responsive surface bloats past 4KB (per-component budget; see `process/ci-gates.md` § "bundle") |
+
+### `coverage:` and responsive props
+
+`coverage:` Cartesian-expands each dimension's **literal** values into test cells — it does not enumerate the responsive object form. A prop marked `responsive: true` with `values: [start, center, end]` contributes three coverage cells (one per literal), not three × five (per breakpoint). The codegen-emitted per-breakpoint selector set already covers every breakpoint × value deterministically; per-breakpoint coverage cells would duplicate that without adding signal.
+
+To exercise the responsive object form in a contract test, add an explicit `examples:` entry with `prop: { base: …, md: … }` — that lands as one fixture in the generated harness and contributes one cell to the snapshot.
 
 ## Authoring API
 
