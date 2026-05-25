@@ -10,14 +10,16 @@
  * `var()` position. `--_*` private references are left alone — they resolve
  * through their own floored `components.tokens` declaration.
  *
- * When `forcedColorsTokens` is provided, the plugin also synthesizes a nested
- * `@media (forced-colors: active)` block re-declaring any property whose floor
- * would differ in Windows High Contrast mode — `tokens.css` declares the same
- * semantic alias twice (default `:root` + forced-colors branch), and the
- * synthesized block carries the system-color literal so a per-component file
- * keeps its high-contrast mapping when shipped alone.
+ * When `forcedColorsTokens` is provided, the plugin emits a single nested
+ * `@media (forced-colors: active)` block at the component root that
+ * re-declares every semantic token the file references whose forced-colors
+ * literal differs from the default branch. Custom-property inheritance
+ * propagates those system-color values to every `var()` reference in the
+ * subtree, so a per-component CSS shipped without `tokens.css` keeps its
+ * high-contrast mapping (`--t-accent → ButtonText`, `--t-focus-ring →
+ * Highlight`, …) without mirroring each component declaration.
  */
-import type { AtRule, Container, Declaration, Plugin, Root, Rule } from "postcss";
+import type { Container, Declaration, Plugin, Root, Rule } from "postcss";
 import postcss from "postcss";
 import valueParser from "postcss-value-parser";
 
@@ -26,6 +28,7 @@ type ValueNode = valueParser.Node;
 const TOKEN_PREFIX = "--t-";
 const PRIVATE_PREFIX = "--_";
 const CONDITIONAL_AT_RULES = new Set(["media", "supports", "container"]);
+const TOKEN_REF = /--t-[\w-]+/g;
 
 /** Value of the first `word` child, or undefined when there is none. */
 function firstWord(nodes: ValueNode[]): string | undefined {
@@ -190,6 +193,18 @@ function floorValue(value: string, tokens: Map<string, string>, unresolved: Set<
   return valueParser.stringify(floorNodes(valueParser(value).nodes, tokens, unresolved));
 }
 
+/** First Rule in document order, descending into wrapping at-rules (`@layer`). */
+function firstRule(container: Container): Rule | undefined {
+  for (const node of container.nodes ?? []) {
+    if (node.type === "rule") return node;
+    if (node.type === "atrule") {
+      const nested = firstRule(node);
+      if (nested) return nested;
+    }
+  }
+  return undefined;
+}
+
 /**
  * PostCSS plugin. Run last, after import/each/custom-media have expanded the
  * CSS, so every `var()` reference is concrete.
@@ -204,66 +219,54 @@ export function teseorFloor(options: {
     Once(root: Root) {
       const unresolved = new Set<string>();
       let firstUnresolved: Declaration | undefined;
+      const referenced = new Set<string>();
 
-      function walk(container: Container, inForcedColors: boolean): void {
-        const overrides: { prop: string; value: string }[] = [];
-        const children = (container.nodes ?? []).slice();
-
-        for (const node of children) {
-          if (node.type === "decl") {
-            const decl = node as Declaration;
-            if (decl.prop.startsWith(TOKEN_PREFIX) || !decl.value.includes("var(")) {
-              continue;
-            }
-            const originalValue = decl.value;
-            const activeTokens = inForcedColors && forcedColorsTokens ? forcedColorsTokens : tokens;
-            const before = unresolved.size;
-            const floored = floorValue(originalValue, activeTokens, unresolved);
-            if (unresolved.size > before && firstUnresolved === undefined) {
-              firstUnresolved = decl;
-            }
-            if (floored !== originalValue) {
-              decl.value = floored;
-            }
-            if (forcedColorsTokens && !inForcedColors) {
-              const fcFloored = floorValue(originalValue, forcedColorsTokens, unresolved);
-              if (fcFloored !== floored) {
-                overrides.push({ prop: decl.prop, value: fcFloored });
-              }
-            }
-          } else if (node.type === "rule") {
-            walk(node as Rule, inForcedColors);
-          } else if (node.type === "atrule") {
-            const atRule = node as AtRule;
-            const enters = atRule.name === "media" && isForcedColorsActive(atRule.params);
-            walk(atRule, inForcedColors || enters);
-          }
+      root.walkDecls((decl) => {
+        if (decl.prop.startsWith(TOKEN_PREFIX) || !decl.value.includes("var(")) {
+          return;
         }
-
-        if (
-          container.type === "rule" &&
-          overrides.length > 0 &&
-          !inForcedColors &&
-          forcedColorsTokens
-        ) {
-          const mediaAtRule = postcss.atRule({
-            name: "media",
-            params: "(forced-colors: active)",
-          });
-          for (const { prop, value } of overrides) {
-            mediaAtRule.append(postcss.decl({ prop, value }));
-          }
-          (container as Rule).append(mediaAtRule);
+        for (const match of decl.value.matchAll(TOKEN_REF)) {
+          referenced.add(match[0]);
         }
-      }
-
-      walk(root, false);
+        const before = unresolved.size;
+        const floored = floorValue(decl.value, tokens, unresolved);
+        if (unresolved.size > before && firstUnresolved === undefined) {
+          firstUnresolved = decl;
+        }
+        if (floored !== decl.value) {
+          decl.value = floored;
+        }
+      });
 
       if (firstUnresolved !== undefined) {
         throw firstUnresolved.error(
           `cannot resolve a literal floor for ${[...unresolved].join(", ")} — not declared in tokens.css`,
         );
       }
+
+      if (!forcedColorsTokens) return;
+
+      const overrides: { prop: string; value: string }[] = [];
+      for (const name of referenced) {
+        const def = tokens.get(name);
+        const fc = forcedColorsTokens.get(name);
+        if (def !== undefined && fc !== undefined && def !== fc) {
+          overrides.push({ prop: name, value: fc });
+        }
+      }
+      if (overrides.length === 0) return;
+
+      const target = firstRule(root);
+      if (!target) return;
+
+      const mediaAtRule = postcss.atRule({
+        name: "media",
+        params: "(forced-colors: active)",
+      });
+      for (const { prop, value } of overrides) {
+        mediaAtRule.append(postcss.decl({ prop, value }));
+      }
+      target.append(mediaAtRule);
     },
   };
 }

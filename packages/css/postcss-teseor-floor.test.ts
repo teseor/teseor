@@ -4,11 +4,15 @@ import { buildForcedColorsTokenMap, buildTokenMap, teseorFloor } from "./postcss
 
 const tokens = new Map([
   ["--t-accent", "oklch(65% 0.18 250deg)"],
+  ["--t-focus-ring", "oklch(65% 0.18 250deg)"],
+  ["--t-surface", "oklch(97% 0 0deg)"],
   ["--t-space-2", "0.5rem"],
 ]);
 
 const forcedColorsTokens = new Map([
   ["--t-accent", "ButtonText"],
+  ["--t-focus-ring", "Highlight"],
+  ["--t-surface", "Canvas"],
   ["--t-space-2", "0.5rem"],
 ]);
 
@@ -133,65 +137,73 @@ describe("teseorFloor", () => {
 });
 
 describe("teseorFloor — forced-colors synthesis", () => {
-  test("emits a nested forced-colors block when the chain resolves differently", () => {
-    const out = floorWithFC(".t-x { color: var(--t-accent); }");
-    expect(out).toContain("color: var(--t-accent, oklch(65% 0.18 250deg))");
-    expect(out).toMatch(
-      /@media \(forced-colors: active\)\s*{\s*color: var\(--t-accent, ButtonText\)/,
-    );
-  });
-
-  test("synthesizes for the inner token of a two-level chain", () => {
-    const out = floorWithFC(".t-x { color: var(--t-button-fg, var(--t-accent)); }");
-    expect(out).toContain("color: var(--t-button-fg, var(--t-accent, oklch(65% 0.18 250deg)))");
-    expect(out).toContain("var(--t-button-fg, var(--t-accent, ButtonText))");
-  });
-
-  test("emits no forced-colors block when the chain resolves identically", () => {
-    const out = floorWithFC(".t-x { gap: var(--t-space-2); }");
-    expect(out).toContain("var(--t-space-2, 0.5rem)");
-    expect(out).not.toContain("forced-colors");
-  });
-
-  test("emits no forced-colors block for declarations without any --t-* reference", () => {
-    const out = floorWithFC(".t-x { color: red; }");
-    expect(out).not.toContain("forced-colors");
-  });
-
-  test("does not nest a forced-colors block inside a hand-written forced-colors block", () => {
+  test("emits one nested forced-colors block at the component root", () => {
     const out = floorWithFC(`
-      @media (forced-colors: active) {
-        .t-x { color: var(--t-accent); }
+      .t-button {
+        --_fill: var(--t-accent);
+        &:where([data-intent="primary"]) { --_fill: var(--t-accent); }
+        &:focus-visible { outline: 2px solid var(--t-focus-ring); }
       }
     `);
-    expect(out).toContain("var(--t-accent, ButtonText)");
-    // exactly one @media occurrence: the hand-written one, no nested copy
     expect(out.match(/@media \(forced-colors: active\)/g)?.length).toBe(1);
+    expect(out).toMatch(/\.t-button[\s\S]*@media \(forced-colors: active\)/);
   });
 
-  test("uses the forced-colors map for flooring inside a hand-written forced-colors block", () => {
-    const out = floorWithFC(`
-      @media (forced-colors: active) {
-        .t-x { color: var(--t-accent); }
-      }
-    `);
-    expect(out).toContain("var(--t-accent, ButtonText)");
-    expect(out).not.toContain("oklch(65% 0.18 250deg)");
+  test("re-declares the upstream semantic token, not the component-private", () => {
+    const out = floorWithFC(".t-x { --_fill: var(--t-accent); }");
+    expect(out).toContain("--t-accent: ButtonText");
+    expect(out).not.toContain("--_fill: var(--t-accent, ButtonText)");
   });
 
-  test("appends overrides at the same nesting level as the original declaration", () => {
+  test("includes every differing token the file references", () => {
     const out = floorWithFC(`
       .t-x {
         color: var(--t-accent);
-        &:hover { background: var(--t-accent); }
+        background: var(--t-surface);
+        outline: 2px solid var(--t-focus-ring);
       }
     `);
-    // both the root rule and the &:hover nested rule get their own forced-colors block
-    expect(out.match(/@media \(forced-colors: active\)/g)?.length).toBe(2);
+    expect(out).toContain("--t-accent: ButtonText");
+    expect(out).toContain("--t-surface: Canvas");
+    expect(out).toContain("--t-focus-ring: Highlight");
   });
 
-  test("is a no-op when no forced-colors token map is provided", () => {
+  test("omits tokens whose forced-colors literal matches the default", () => {
+    const out = floorWithFC(".t-x { gap: var(--t-space-2); }");
+    expect(out).not.toContain("forced-colors");
+  });
+
+  test("emits no block when the file references no differing token", () => {
+    const out = floorWithFC(".t-x { gap: var(--t-space-2); padding: var(--t-space-2); }");
+    expect(out).not.toContain("forced-colors");
+  });
+
+  test("emits no block when no forced-colors token map is given", () => {
     const out = floor(".t-x { color: var(--t-accent); }");
     expect(out).not.toContain("forced-colors");
+  });
+
+  test("does not duplicate overrides when a token is referenced from many decls", () => {
+    const out = floorWithFC(`
+      .t-x {
+        --_a: var(--t-accent);
+        --_b: var(--t-accent);
+        &:hover { --_a: var(--t-accent); }
+      }
+    `);
+    expect(out.match(/--t-accent: ButtonText/g)?.length).toBe(1);
+  });
+
+  test("targets the first rule in the file, even when wrapped in @layer", () => {
+    const out = floorWithFC(`
+      @layer components.tokens {
+        .t-button { --_fill: var(--t-accent); }
+      }
+      @layer components.styles {
+        .t-button { color: var(--_fill); }
+      }
+    `);
+    const tokensLayer = out.split("@layer components.styles")[0];
+    expect(tokensLayer).toMatch(/@media \(forced-colors: active\)/);
   });
 });

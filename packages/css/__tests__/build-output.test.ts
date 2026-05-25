@@ -57,11 +57,12 @@ test("shipped component CSS inlines the literal resolved from tokens.css", () =>
   expect(button).toContain("var(--t-accent, oklch(65% 0.18 250deg))");
 });
 
-test("shipped component CSS carries a forced-colors floor for color tokens", () => {
+test("shipped component CSS carries a forced-colors token override", () => {
   const button = readFileSync(join(distDir, "components", "button.css"), "utf8");
   expect(button).toMatch(/@media \(forced-colors: active\)/);
-  expect(button).toContain("var(--t-accent, ButtonText)");
-  expect(button).toContain("var(--t-focus-ring, Highlight)");
+  expect(button).toContain("--t-accent: ButtonText");
+  expect(button).toContain("--t-focus-ring: Highlight");
+  expect(button).toContain("--t-surface: Canvas");
 });
 
 test("motion.css ships keyframes and a reduced-motion block", () => {
