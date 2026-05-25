@@ -206,8 +206,8 @@ describe("mergeRefs", () => {
 
   it("returns a composed cleanup that runs every callback-ref cleanup", () => {
     const cleanups: string[] = [];
-    const a: (node: string | null) => void | (() => void) = () => () => cleanups.push("a");
-    const b: (node: string | null) => void | (() => void) = () => () => cleanups.push("b");
+    const a: (node: string | null) => (() => void) | undefined = () => () => cleanups.push("a");
+    const b: (node: string | null) => (() => void) | undefined = () => () => cleanups.push("b");
     const composed = mergeRefs<string>(a, b)("el");
     expect(typeof composed).toBe("function");
     composed?.();
@@ -217,7 +217,7 @@ describe("mergeRefs", () => {
   it("composes cleanups across mixed callback-and-RefObject refs", () => {
     const cleanups: string[] = [];
     const refObject: { current: string | null } = { current: null };
-    const cb: (node: string | null) => void | (() => void) = () => () => cleanups.push("cb");
+    const cb: (node: string | null) => (() => void) | undefined = () => () => cleanups.push("cb");
     const composed = mergeRefs<string>(refObject, cb)("el");
     expect(refObject.current).toBe("el");
     composed?.();
