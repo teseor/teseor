@@ -539,6 +539,18 @@ describe("checkVoidElementConstraints", () => {
     expect(checkVoidElementConstraints(spec)).toEqual([]);
   });
 
+  test("accepts `disabled` on case-variant form-control voids (`INPUT`, `Input`)", () => {
+    // `isVoidElement` lowercases its input; the FORM_CONTROL_VOIDS membership
+    // check must do the same so an upper/mixed-case spec doesn't get the
+    // `<INPUT> ignores disabled` false positive.
+    for (const element of ["INPUT", "Input"]) {
+      const spec = makeVoid(element, {
+        disabled: { type: "boolean", responsive: false, description: "Disabled." },
+      });
+      expect(checkVoidElementConstraints(spec)).toEqual([]);
+    }
+  });
+
   test("walks composite parts", () => {
     const spec: Spec = {
       name: "field",

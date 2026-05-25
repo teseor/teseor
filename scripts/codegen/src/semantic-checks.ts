@@ -637,6 +637,9 @@ export function checkVoidElementConstraints(spec: Spec): Issue[] {
   visitNodes(spec, (node, path) => {
     if (!node.element || !isVoidElement(node.element)) return;
     const tag = node.element;
+    // `isVoidElement` lowercases its input; compare the FORM_CONTROL_VOIDS
+    // membership the same way so `element: INPUT` is treated as `element: input`.
+    const tagLower = tag.toLowerCase();
     const propsPath = (key: string) => (path === "" ? `props.${key}` : `${path}.props.${key}`);
     const slotProps = Object.entries(node.props ?? {})
       .filter(([, d]) => d.slot === true)
@@ -664,7 +667,7 @@ export function checkVoidElementConstraints(spec: Spec): Issue[] {
         ),
       );
     }
-    if ("disabled" in (node.props ?? {}) && !FORM_CONTROL_VOIDS.has(tag)) {
+    if ("disabled" in (node.props ?? {}) && !FORM_CONTROL_VOIDS.has(tagLower)) {
       issues.push(
         issue(
           spec.name,
