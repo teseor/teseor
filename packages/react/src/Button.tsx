@@ -5,7 +5,7 @@
 
 import "@teseor/css/components/button.css";
 import type { ComponentProps, ReactNode, Ref } from "react";
-import { asElement, type Responsive, responsiveDataAttrs } from "./_runtime.ts";
+import { asElement, mergeClass, type Responsive, responsiveDataAttrs } from "./_runtime.ts";
 
 type ButtonVariant = "solid" | "outline" | "ghost" | "link";
 
@@ -80,7 +80,7 @@ export function Button(props: ButtonProps) {
   const Component = asElement(as ?? "button");
   const isButton = Component === "button";
   const inactive = disabled === true || loading === true;
-  const mergedClassName = className ? `t-button ${className}` : "t-button";
+  const mergedClassName = mergeClass("t-button", className);
 
   return (
     <Component

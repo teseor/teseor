@@ -1,0 +1,35 @@
+name: code
+description: Inline monospace fragment for short code spans in prose.
+kind: atomic
+dependencies: []
+element: code
+rootClass: t-code
+cssFile: components/code/code.css
+
+tokens:
+  bg:
+    fallback: --t-neutral-20
+    desc: Background fill for the inline span.
+  fg:
+    fallback: --t-on-surface
+    desc: Text color.
+  pad-x:
+    fallback: --t-space-1
+    desc: Inline padding.
+  radius:
+    fallback: --t-radius-sm
+    desc: Corner radius.
+  font:
+    fallback: --t-font-mono
+    desc: Monospace family.
+
+privateTokens:
+  - --_bg
+  - --_fg
+  - --_pad-x
+  - --_radius
+  - --_font
+
+examples:
+  - id: default
+    props: {}

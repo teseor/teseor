@@ -62,6 +62,8 @@ export type FlatSpec = {
   parts?: Record<string, SpecPart>;
   /** Root-level element of an atomic spec; undefined for composite. */
   element?: string;
+  /** Optional nested element wrapping slot content (e.g. `pre` + `code`). Atomic-only. */
+  slotElement?: string;
   /** Root-level CSS class of an atomic spec; undefined for composite. */
   rootClass?: string;
   /** Atomic-only blocks; composite specs flatten variants/intents/sizes from
@@ -116,6 +118,7 @@ export function flattenSpec(spec: Spec): FlatSpec {
       examples: spec.examples,
       coverage: spec.coverage,
       element: spec.element,
+      slotElement: spec.slotElement,
       rootClass: spec.rootClass,
       variants: spec.variants,
       intents: spec.intents,

@@ -3,10 +3,14 @@
 import type { VNode } from "vue";
 import { fixtures as buttonFixtures } from "./Button.vue.ts";
 import { fixtures as clusterFixtures } from "./Cluster.vue.ts";
+import { fixtures as codeFixtures } from "./Code.vue.ts";
+import { fixtures as codeblockFixtures } from "./Codeblock.vue.ts";
 import { fixtures as stackFixtures } from "./Stack.vue.ts";
 
 export const vueFixtures: Record<string, Record<string, () => VNode>> = {
   button: buttonFixtures,
   cluster: clusterFixtures,
+  code: codeFixtures,
+  codeblock: codeblockFixtures,
   stack: stackFixtures,
 };

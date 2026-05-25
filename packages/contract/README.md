@@ -26,6 +26,8 @@ function buildAttrs(props: ButtonProps): Record<string, string | undefined> {
 
 - `Button` — `ButtonVariant`, `ButtonIntent`, `ButtonSize`, `ButtonProps`
 - `Cluster` — `ClusterProps`
+- `Code` — `CodeProps`
+- `Codeblock` — `CodeblockProps`
 - `Modal` — `ModalProps`
 - `Stack` — `StackProps`
 - `Tooltip` — `TooltipProps`

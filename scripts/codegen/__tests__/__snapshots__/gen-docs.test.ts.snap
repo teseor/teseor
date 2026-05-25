@@ -2,7 +2,7 @@
 
 exports[`gen-docs > renders the Button docs page 1`] = `
 "---
-import { Button } from "@teseor/react";
+import { Button, Code, Codeblock } from "@teseor/react";
 import Base from "../../layouts/Base.astro";
 ---
 
@@ -17,49 +17,49 @@ import Base from "../../layouts/Base.astro";
         <div class="t-cluster" data-gap="3">
           <Button variant="solid" intent="primary">Button</Button>
         </div>
-        <pre><code>&lt;Button variant="solid" intent="primary"&gt;Button&lt;/Button&gt;</code></pre>
+        <Codeblock>&lt;Button variant="solid" intent="primary"&gt;Button&lt;/Button&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>solid-danger-md</h3>
         <div class="t-cluster" data-gap="3">
           <Button variant="solid" intent="danger" size="md">Button</Button>
         </div>
-        <pre><code>&lt;Button variant="solid" intent="danger" size="md"&gt;Button&lt;/Button&gt;</code></pre>
+        <Codeblock>&lt;Button variant="solid" intent="danger" size="md"&gt;Button&lt;/Button&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>outline-neutral</h3>
         <div class="t-cluster" data-gap="3">
           <Button variant="outline" intent="neutral">Button</Button>
         </div>
-        <pre><code>&lt;Button variant="outline" intent="neutral"&gt;Button&lt;/Button&gt;</code></pre>
+        <Codeblock>&lt;Button variant="outline" intent="neutral"&gt;Button&lt;/Button&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>ghost-with-icon</h3>
         <div class="t-cluster" data-gap="3">
           <Button variant="ghost" intent="neutral">Button</Button>
         </div>
-        <pre><code>&lt;Button variant="ghost" intent="neutral" iconStart="arrow-left"&gt;Button&lt;/Button&gt;</code></pre>
+        <Codeblock>&lt;Button variant="ghost" intent="neutral" iconStart="arrow-left"&gt;Button&lt;/Button&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>link-primary</h3>
         <div class="t-cluster" data-gap="3">
           <Button variant="link" intent="primary" as="a">Button</Button>
         </div>
-        <pre><code>&lt;Button variant="link" intent="primary" as="a"&gt;Button&lt;/Button&gt;</code></pre>
+        <Codeblock>&lt;Button variant="link" intent="primary" as="a"&gt;Button&lt;/Button&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>loading</h3>
         <div class="t-cluster" data-gap="3">
           <Button variant="solid" intent="primary" loading>Button</Button>
         </div>
-        <pre><code>&lt;Button variant="solid" intent="primary" loading&gt;Button&lt;/Button&gt;</code></pre>
+        <Codeblock>&lt;Button variant="solid" intent="primary" loading&gt;Button&lt;/Button&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>block-mobile</h3>
         <div class="t-cluster" data-gap="3">
           <Button variant="solid" intent="primary" block size="lg">Button</Button>
         </div>
-        <pre><code>&lt;Button variant="solid" intent="primary" block size="lg"&gt;Button&lt;/Button&gt;</code></pre>
+        <Codeblock>&lt;Button variant="solid" intent="primary" block size="lg"&gt;Button&lt;/Button&gt;</Codeblock>
       </div>
     </section>
     <section class="t-stack" data-gap="3">
@@ -67,12 +67,12 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><code>as</code></td><td><code>string</code></td><td><code>button</code></td><td>Polymorphic root element. Defaults to \`button\`; set to \`a\` for link-shaped triggers (paired with \`variant: link\`).</td></tr>
-        <tr><td><code>disabled</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Disables interaction and applies the disabled visual state. Mapped to the native \`disabled\` attribute on \`button\`, \`aria-disabled="true"\` otherwise.</td></tr>
-        <tr><td><code>loading</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Shows a spinner in place of the label and disables interaction. The original label stays in the accessibility tree.</td></tr>
-        <tr><td><code>iconStart</code></td><td><code>string, slot</code></td><td><code>null</code></td><td>Icon rendered before the label in the inline direction. Slot size scales with \`size\`. Accepts any node (icon component, SVG, etc.).</td></tr>
-        <tr><td><code>iconEnd</code></td><td><code>string, slot</code></td><td><code>null</code></td><td>Icon rendered after the label in the inline direction. Accepts any node.</td></tr>
-        <tr><td><code>block</code></td><td><code>boolean, responsive</code></td><td><code>false</code></td><td>Stretches the button to the inline-size of its container. Responsive so layouts can pin block-width on mobile and shrink to content above.</td></tr>
+        <tr><td><Code>as</Code></td><td><Code>string</Code></td><td><Code>button</Code></td><td>Polymorphic root element. Defaults to \`button\`; set to \`a\` for link-shaped triggers (paired with \`variant: link\`).</td></tr>
+        <tr><td><Code>disabled</Code></td><td><Code>boolean</Code></td><td><Code>false</Code></td><td>Disables interaction and applies the disabled visual state. Mapped to the native \`disabled\` attribute on \`button\`, \`aria-disabled="true"\` otherwise.</td></tr>
+        <tr><td><Code>loading</Code></td><td><Code>boolean</Code></td><td><Code>false</Code></td><td>Shows a spinner in place of the label and disables interaction. The original label stays in the accessibility tree.</td></tr>
+        <tr><td><Code>iconStart</Code></td><td><Code>string, slot</Code></td><td><Code>null</Code></td><td>Icon rendered before the label in the inline direction. Slot size scales with \`size\`. Accepts any node (icon component, SVG, etc.).</td></tr>
+        <tr><td><Code>iconEnd</Code></td><td><Code>string, slot</Code></td><td><Code>null</Code></td><td>Icon rendered after the label in the inline direction. Accepts any node.</td></tr>
+        <tr><td><Code>block</Code></td><td><Code>boolean, responsive</Code></td><td><Code>false</Code></td><td>Stretches the button to the inline-size of its container. Responsive so layouts can pin block-width on mobile and shrink to content above.</td></tr>
         </tbody>
       </table>
     </section>
@@ -81,10 +81,10 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Name</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><code>solid</code></td><td>Filled background with intent color; default visual weight.</td></tr>
-        <tr><td><code>outline</code></td><td>Transparent background, intent-colored border and label; for secondary actions.</td></tr>
-        <tr><td><code>ghost</code></td><td>Transparent background with no border; for tertiary actions inside dense layouts or toolbars.</td></tr>
-        <tr><td><code>link</code></td><td>Renders as text with an underline; for navigation-shaped triggers that still need button semantics.</td></tr>
+        <tr><td><Code>solid</Code></td><td>Filled background with intent color; default visual weight.</td></tr>
+        <tr><td><Code>outline</Code></td><td>Transparent background, intent-colored border and label; for secondary actions.</td></tr>
+        <tr><td><Code>ghost</Code></td><td>Transparent background with no border; for tertiary actions inside dense layouts or toolbars.</td></tr>
+        <tr><td><Code>link</Code></td><td>Renders as text with an underline; for navigation-shaped triggers that still need button semantics.</td></tr>
         </tbody>
       </table>
     </section>
@@ -93,11 +93,11 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Name</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><code>primary</code></td><td>The page's most important action. One primary per surface.</td></tr>
-        <tr><td><code>neutral</code></td><td>Default action. Non-emphasized; used when no intent is needed.</td></tr>
-        <tr><td><code>success</code></td><td>Confirms a positive outcome (save, publish, accept).</td></tr>
-        <tr><td><code>warning</code></td><td>Indicates an action that needs attention but isn't destructive.</td></tr>
-        <tr><td><code>danger</code></td><td>Destructive or irreversible action (delete, cancel subscription).</td></tr>
+        <tr><td><Code>primary</Code></td><td>The page's most important action. One primary per surface.</td></tr>
+        <tr><td><Code>neutral</Code></td><td>Default action. Non-emphasized; used when no intent is needed.</td></tr>
+        <tr><td><Code>success</Code></td><td>Confirms a positive outcome (save, publish, accept).</td></tr>
+        <tr><td><Code>warning</Code></td><td>Indicates an action that needs attention but isn't destructive.</td></tr>
+        <tr><td><Code>danger</Code></td><td>Destructive or irreversible action (delete, cancel subscription).</td></tr>
         </tbody>
       </table>
     </section>
@@ -106,9 +106,9 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Name</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><code>sm</code></td><td>Compact density; safe at breakpoints above the mobile floor.</td></tr>
-        <tr><td><code>md</code></td><td>Default size.</td></tr>
-        <tr><td><code>lg</code></td><td>Emphatic; for hero CTAs and primary actions in mobile-first layouts.</td></tr>
+        <tr><td><Code>sm</Code></td><td>Compact density; safe at breakpoints above the mobile floor.</td></tr>
+        <tr><td><Code>md</Code></td><td>Default size.</td></tr>
+        <tr><td><Code>lg</Code></td><td>Emphatic; for hero CTAs and primary actions in mobile-first layouts.</td></tr>
         </tbody>
       </table>
     </section>
@@ -117,11 +117,11 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>State</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><code>hover</code></td><td>Pointer is over the button.</td></tr>
-        <tr><td><code>focus</code></td><td>Keyboard focus is on the button; the focus ring is visible.</td></tr>
-        <tr><td><code>active</code></td><td>Button is being pressed.</td></tr>
-        <tr><td><code>disabled</code></td><td>Interaction is suppressed; the disabled visual state is applied.</td></tr>
-        <tr><td><code>loading</code></td><td>A spinner replaces the label and interaction is suppressed; the original label stays in the accessibility tree.</td></tr>
+        <tr><td><Code>hover</Code></td><td>Pointer is over the button.</td></tr>
+        <tr><td><Code>focus</Code></td><td>Keyboard focus is on the button; the focus ring is visible.</td></tr>
+        <tr><td><Code>active</Code></td><td>Button is being pressed.</td></tr>
+        <tr><td><Code>disabled</Code></td><td>Interaction is suppressed; the disabled visual state is applied.</td></tr>
+        <tr><td><Code>loading</Code></td><td>A spinner replaces the label and interaction is suppressed; the original label stays in the accessibility tree.</td></tr>
         </tbody>
       </table>
     </section>
@@ -130,25 +130,25 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><code>--t-button-height</code></td><td><code>--t-row</code></td><td>Control height; the size variant overrides this.</td></tr>
-        <tr><td><code>--t-button-bg</code></td><td><code>--t-accent</code></td><td>Background fill; the intent variant overrides this.</td></tr>
-        <tr><td><code>--t-button-fg</code></td><td><code>--t-on-accent</code></td><td>Foreground color (label and icon); pairs with \`bg\`.</td></tr>
-        <tr><td><code>--t-button-pad-x</code></td><td><code>--t-pad-x</code></td><td>Inline padding; the size variant overrides this.</td></tr>
-        <tr><td><code>--t-button-radius</code></td><td><code>--t-radius-md</code></td><td>Corner radius.</td></tr>
-        <tr><td><code>--t-button-dur</code></td><td><code>--t-dur-fast</code></td><td>Transition duration; multiplied by \`--t-motion-scale\` at the call site.</td></tr>
-        <tr><td><code>--t-button-ease</code></td><td><code>--t-ease-out</code></td><td>Transition easing curve.</td></tr>
-        <tr><td><code>--t-button-gap</code></td><td><code>--t-space-2</code></td><td>Inline spacing between label and icons.</td></tr>
+        <tr><td><Code>--t-button-height</Code></td><td><Code>--t-row</Code></td><td>Control height; the size variant overrides this.</td></tr>
+        <tr><td><Code>--t-button-bg</Code></td><td><Code>--t-accent</Code></td><td>Background fill; the intent variant overrides this.</td></tr>
+        <tr><td><Code>--t-button-fg</Code></td><td><Code>--t-on-accent</Code></td><td>Foreground color (label and icon); pairs with \`bg\`.</td></tr>
+        <tr><td><Code>--t-button-pad-x</Code></td><td><Code>--t-pad-x</Code></td><td>Inline padding; the size variant overrides this.</td></tr>
+        <tr><td><Code>--t-button-radius</Code></td><td><Code>--t-radius-md</Code></td><td>Corner radius.</td></tr>
+        <tr><td><Code>--t-button-dur</Code></td><td><Code>--t-dur-fast</Code></td><td>Transition duration; multiplied by \`--t-motion-scale\` at the call site.</td></tr>
+        <tr><td><Code>--t-button-ease</Code></td><td><Code>--t-ease-out</Code></td><td>Transition easing curve.</td></tr>
+        <tr><td><Code>--t-button-gap</Code></td><td><Code>--t-space-2</Code></td><td>Inline spacing between label and icons.</td></tr>
         </tbody>
       </table>
     </section>
     <section class="t-stack" data-gap="3">
       <h2>Accessibility</h2>
-      <p>Role: <code>button</code></p>
+      <p>Role: <Code>button</Code></p>
       <table>
         <thead><tr><th>Interaction</th><th>Action</th></tr></thead>
         <tbody>
-        <tr><td><code>Enter</code></td><td>activate</td></tr>
-        <tr><td><code>Space</code></td><td>activate</td></tr>
+        <tr><td><Code>Enter</Code></td><td>activate</td></tr>
+        <tr><td><Code>Space</Code></td><td>activate</td></tr>
         </tbody>
       </table>
     </section>
@@ -166,7 +166,7 @@ import Base from "../../layouts/Base.astro";
 
 exports[`gen-docs > renders the Cluster docs page 1`] = `
 "---
-import { Cluster } from "@teseor/react";
+import { Cluster, Code, Codeblock } from "@teseor/react";
 import Base from "../../layouts/Base.astro";
 ---
 
@@ -181,56 +181,56 @@ import Base from "../../layouts/Base.astro";
         <div class="t-cluster" data-gap="3">
           <Cluster gap="3">Cluster</Cluster>
         </div>
-        <pre><code>&lt;Cluster gap="3"&gt;Cluster&lt;/Cluster&gt;</code></pre>
+        <Codeblock>&lt;Cluster gap="3"&gt;Cluster&lt;/Cluster&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>gap-0</h3>
         <div class="t-cluster" data-gap="3">
           <Cluster gap="0">Cluster</Cluster>
         </div>
-        <pre><code>&lt;Cluster gap="0"&gt;Cluster&lt;/Cluster&gt;</code></pre>
+        <Codeblock>&lt;Cluster gap="0"&gt;Cluster&lt;/Cluster&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>justify-between</h3>
         <div class="t-cluster" data-gap="3">
           <Cluster gap="3" justify="between">Cluster</Cluster>
         </div>
-        <pre><code>&lt;Cluster gap="3" justify="between"&gt;Cluster&lt;/Cluster&gt;</code></pre>
+        <Codeblock>&lt;Cluster gap="3" justify="between"&gt;Cluster&lt;/Cluster&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>justify-around</h3>
         <div class="t-cluster" data-gap="3">
           <Cluster gap="2" justify="around">Cluster</Cluster>
         </div>
-        <pre><code>&lt;Cluster gap="2" justify="around"&gt;Cluster&lt;/Cluster&gt;</code></pre>
+        <Codeblock>&lt;Cluster gap="2" justify="around"&gt;Cluster&lt;/Cluster&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>align-center</h3>
         <div class="t-cluster" data-gap="3">
           <Cluster gap="3" align="center">Cluster</Cluster>
         </div>
-        <pre><code>&lt;Cluster gap="3" align="center"&gt;Cluster&lt;/Cluster&gt;</code></pre>
+        <Codeblock>&lt;Cluster gap="3" align="center"&gt;Cluster&lt;/Cluster&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>align-baseline</h3>
         <div class="t-cluster" data-gap="3">
           <Cluster gap="2" align="baseline">Cluster</Cluster>
         </div>
-        <pre><code>&lt;Cluster gap="2" align="baseline"&gt;Cluster&lt;/Cluster&gt;</code></pre>
+        <Codeblock>&lt;Cluster gap="2" align="baseline"&gt;Cluster&lt;/Cluster&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>responsive-gap</h3>
         <div class="t-cluster" data-gap="3">
           <Cluster gap={{ base: "2", md: "4" }}>Cluster</Cluster>
         </div>
-        <pre><code>&lt;Cluster gap=&lbrace;&lbrace; base: "2", md: "4" &rbrace;&rbrace;&gt;Cluster&lt;/Cluster&gt;</code></pre>
+        <Codeblock>&lt;Cluster gap=&lbrace;&lbrace; base: "2", md: "4" &rbrace;&rbrace;&gt;Cluster&lt;/Cluster&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>responsive-justify</h3>
         <div class="t-cluster" data-gap="3">
           <Cluster gap="3" justify={{ base: "start", md: "between" }}>Cluster</Cluster>
         </div>
-        <pre><code>&lt;Cluster gap="3" justify=&lbrace;&lbrace; base: "start", md: "between" &rbrace;&rbrace;&gt;Cluster&lt;/Cluster&gt;</code></pre>
+        <Codeblock>&lt;Cluster gap="3" justify=&lbrace;&lbrace; base: "start", md: "between" &rbrace;&rbrace;&gt;Cluster&lt;/Cluster&gt;</Codeblock>
       </div>
     </section>
     <section class="t-stack" data-gap="3">
@@ -238,9 +238,9 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><code>gap</code></td><td><code>string, responsive</code></td><td><code>null</code></td><td>Spacing between children. Accepts a token suffix from the \`--t-space-*\` scale (\`0\`–\`8\`).</td></tr>
-        <tr><td><code>align</code></td><td><code>string, responsive</code></td><td><code>null</code></td><td>Block-axis alignment of children.</td></tr>
-        <tr><td><code>justify</code></td><td><code>string, responsive</code></td><td><code>null</code></td><td>Inline-axis distribution of children.</td></tr>
+        <tr><td><Code>gap</Code></td><td><Code>string, responsive</Code></td><td><Code>null</Code></td><td>Spacing between children. Accepts a token suffix from the \`--t-space-*\` scale (\`0\`–\`8\`).</td></tr>
+        <tr><td><Code>align</Code></td><td><Code>string, responsive</Code></td><td><Code>null</Code></td><td>Block-axis alignment of children.</td></tr>
+        <tr><td><Code>justify</Code></td><td><Code>string, responsive</Code></td><td><Code>null</Code></td><td>Inline-axis distribution of children.</td></tr>
         </tbody>
       </table>
     </section>
@@ -249,15 +249,15 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><code>--t-cluster-gap</code></td><td><code>--t-space-3</code></td><td>Default child spacing when \`gap\` is unset; overridable via \`--t-cluster-gap\`.</td></tr>
-        <tr><td><code>--t-cluster-align</code></td><td><code>--t-align-stretch</code></td><td>Default block-axis alignment when \`align\` is unset; overridable via \`--t-cluster-align\`.</td></tr>
-        <tr><td><code>--t-cluster-justify</code></td><td><code>--t-justify-flex-start</code></td><td>Default inline-axis distribution when \`justify\` is unset; overridable via \`--t-cluster-justify\`.</td></tr>
+        <tr><td><Code>--t-cluster-gap</Code></td><td><Code>--t-space-3</Code></td><td>Default child spacing when \`gap\` is unset; overridable via \`--t-cluster-gap\`.</td></tr>
+        <tr><td><Code>--t-cluster-align</Code></td><td><Code>--t-align-stretch</Code></td><td>Default block-axis alignment when \`align\` is unset; overridable via \`--t-cluster-align\`.</td></tr>
+        <tr><td><Code>--t-cluster-justify</Code></td><td><Code>--t-justify-flex-start</Code></td><td>Default inline-axis distribution when \`justify\` is unset; overridable via \`--t-cluster-justify\`.</td></tr>
         </tbody>
       </table>
     </section>
     <section class="t-stack" data-gap="3">
       <h2>Accessibility</h2>
-      <p>Role: <code>generic</code></p>
+      <p>Role: <Code>generic</Code></p>
     </section>
   </main>
 </Base>
@@ -266,7 +266,7 @@ import Base from "../../layouts/Base.astro";
 
 exports[`gen-docs > renders the Stack docs page with responsive examples 1`] = `
 "---
-import { Stack } from "@teseor/react";
+import { Stack, Code, Codeblock } from "@teseor/react";
 import Base from "../../layouts/Base.astro";
 ---
 
@@ -281,49 +281,49 @@ import Base from "../../layouts/Base.astro";
         <div class="t-cluster" data-gap="3">
           <Stack gap="3">Stack</Stack>
         </div>
-        <pre><code>&lt;Stack gap="3"&gt;Stack&lt;/Stack&gt;</code></pre>
+        <Codeblock>&lt;Stack gap="3"&gt;Stack&lt;/Stack&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>gap-0</h3>
         <div class="t-cluster" data-gap="3">
           <Stack gap="0">Stack</Stack>
         </div>
-        <pre><code>&lt;Stack gap="0"&gt;Stack&lt;/Stack&gt;</code></pre>
+        <Codeblock>&lt;Stack gap="0"&gt;Stack&lt;/Stack&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>align-center</h3>
         <div class="t-cluster" data-gap="3">
           <Stack gap="4" align="center">Stack</Stack>
         </div>
-        <pre><code>&lt;Stack gap="4" align="center"&gt;Stack&lt;/Stack&gt;</code></pre>
+        <Codeblock>&lt;Stack gap="4" align="center"&gt;Stack&lt;/Stack&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>align-stretch</h3>
         <div class="t-cluster" data-gap="3">
           <Stack gap="2" align="stretch">Stack</Stack>
         </div>
-        <pre><code>&lt;Stack gap="2" align="stretch"&gt;Stack&lt;/Stack&gt;</code></pre>
+        <Codeblock>&lt;Stack gap="2" align="stretch"&gt;Stack&lt;/Stack&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>responsive-gap</h3>
         <div class="t-cluster" data-gap="3">
           <Stack gap={{ base: "2", md: "4", lg: "6" }}>Stack</Stack>
         </div>
-        <pre><code>&lt;Stack gap=&lbrace;&lbrace; base: "2", md: "4", lg: "6" &rbrace;&rbrace;&gt;Stack&lt;/Stack&gt;</code></pre>
+        <Codeblock>&lt;Stack gap=&lbrace;&lbrace; base: "2", md: "4", lg: "6" &rbrace;&rbrace;&gt;Stack&lt;/Stack&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>responsive-align</h3>
         <div class="t-cluster" data-gap="3">
           <Stack gap="3" align={{ base: "start", md: "center" }}>Stack</Stack>
         </div>
-        <pre><code>&lt;Stack gap="3" align=&lbrace;&lbrace; base: "start", md: "center" &rbrace;&rbrace;&gt;Stack&lt;/Stack&gt;</code></pre>
+        <Codeblock>&lt;Stack gap="3" align=&lbrace;&lbrace; base: "start", md: "center" &rbrace;&rbrace;&gt;Stack&lt;/Stack&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>gap-and-align</h3>
         <div class="t-cluster" data-gap="3">
           <Stack gap="5" align="end">Stack</Stack>
         </div>
-        <pre><code>&lt;Stack gap="5" align="end"&gt;Stack&lt;/Stack&gt;</code></pre>
+        <Codeblock>&lt;Stack gap="5" align="end"&gt;Stack&lt;/Stack&gt;</Codeblock>
       </div>
     </section>
     <section class="t-stack" data-gap="3">
@@ -331,8 +331,8 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><code>gap</code></td><td><code>string, responsive</code></td><td><code>null</code></td><td>Spacing between children. Accepts a token suffix from the \`--t-space-*\` scale (\`0\`–\`8\`).</td></tr>
-        <tr><td><code>align</code></td><td><code>string, responsive</code></td><td><code>null</code></td><td>Inline-axis alignment of children.</td></tr>
+        <tr><td><Code>gap</Code></td><td><Code>string, responsive</Code></td><td><Code>null</Code></td><td>Spacing between children. Accepts a token suffix from the \`--t-space-*\` scale (\`0\`–\`8\`).</td></tr>
+        <tr><td><Code>align</Code></td><td><Code>string, responsive</Code></td><td><Code>null</Code></td><td>Inline-axis alignment of children.</td></tr>
         </tbody>
       </table>
     </section>
@@ -341,14 +341,14 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><code>--t-stack-gap</code></td><td><code>--t-space-3</code></td><td>Default child spacing when \`gap\` is unset; overridable via \`--t-stack-gap\`.</td></tr>
-        <tr><td><code>--t-stack-align</code></td><td><code>--t-align-stretch</code></td><td>Default inline-axis alignment when \`align\` is unset; overridable via \`--t-stack-align\`.</td></tr>
+        <tr><td><Code>--t-stack-gap</Code></td><td><Code>--t-space-3</Code></td><td>Default child spacing when \`gap\` is unset; overridable via \`--t-stack-gap\`.</td></tr>
+        <tr><td><Code>--t-stack-align</Code></td><td><Code>--t-align-stretch</Code></td><td>Default inline-axis alignment when \`align\` is unset; overridable via \`--t-stack-align\`.</td></tr>
         </tbody>
       </table>
     </section>
     <section class="t-stack" data-gap="3">
       <h2>Accessibility</h2>
-      <p>Role: <code>generic</code></p>
+      <p>Role: <Code>generic</Code></p>
     </section>
   </main>
 </Base>
@@ -357,7 +357,7 @@ import Base from "../../layouts/Base.astro";
 
 exports[`gen-docs > renders the Tooltip docs page with universal overlay rows 1`] = `
 "---
-import { Tooltip, Button } from "@teseor/react";
+import { Tooltip, Button, Code, Codeblock } from "@teseor/react";
 import Base from "../../layouts/Base.astro";
 ---
 
@@ -374,9 +374,9 @@ import Base from "../../layouts/Base.astro";
             <Button variant="solid" intent="primary">Trigger</Button>
           </Tooltip>
         </div>
-        <pre><code>&lt;Tooltip text="Saves your changes."&gt;
+        <Codeblock>&lt;Tooltip text="Saves your changes."&gt;
   &lt;Button variant="solid" intent="primary"&gt;Trigger&lt;/Button&gt;
-&lt;/Tooltip&gt;</code></pre>
+&lt;/Tooltip&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>placement-right</h3>
@@ -385,9 +385,9 @@ import Base from "../../layouts/Base.astro";
             <Button variant="solid" intent="primary">Trigger</Button>
           </Tooltip>
         </div>
-        <pre><code>&lt;Tooltip text="Settings" placement="right"&gt;
+        <Codeblock>&lt;Tooltip text="Settings" placement="right"&gt;
   &lt;Button variant="solid" intent="primary"&gt;Trigger&lt;/Button&gt;
-&lt;/Tooltip&gt;</code></pre>
+&lt;/Tooltip&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>placement-bottom</h3>
@@ -396,9 +396,9 @@ import Base from "../../layouts/Base.astro";
             <Button variant="solid" intent="primary">Trigger</Button>
           </Tooltip>
         </div>
-        <pre><code>&lt;Tooltip text="More options" placement="bottom"&gt;
+        <Codeblock>&lt;Tooltip text="More options" placement="bottom"&gt;
   &lt;Button variant="solid" intent="primary"&gt;Trigger&lt;/Button&gt;
-&lt;/Tooltip&gt;</code></pre>
+&lt;/Tooltip&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>hide-on-mobile</h3>
@@ -407,9 +407,9 @@ import Base from "../../layouts/Base.astro";
             <Button variant="solid" intent="primary">Trigger</Button>
           </Tooltip>
         </div>
-        <pre><code>&lt;Tooltip text="⌘S" disabled=&lbrace;&lbrace; base: true, md: false &rbrace;&rbrace;&gt;
+        <Codeblock>&lt;Tooltip text="⌘S" disabled=&lbrace;&lbrace; base: true, md: false &rbrace;&rbrace;&gt;
   &lt;Button variant="solid" intent="primary"&gt;Trigger&lt;/Button&gt;
-&lt;/Tooltip&gt;</code></pre>
+&lt;/Tooltip&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>controlled-open</h3>
@@ -418,9 +418,9 @@ import Base from "../../layouts/Base.astro";
             <Button variant="solid" intent="primary">Trigger</Button>
           </Tooltip>
         </div>
-        <pre><code>&lt;Tooltip text="Step 1: click here" open&gt;
+        <Codeblock>&lt;Tooltip text="Step 1: click here" open&gt;
   &lt;Button variant="solid" intent="primary"&gt;Trigger&lt;/Button&gt;
-&lt;/Tooltip&gt;</code></pre>
+&lt;/Tooltip&gt;</Codeblock>
       </div>
     </section>
     <section class="t-stack" data-gap="3">
@@ -428,16 +428,16 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><code>open</code></td><td><code>boolean, controllable</code></td><td><code>false</code></td><td>Open state. Uncontrolled by default; pass \`open\` and optionally \`onOpenChange\` to drive it from the consumer (e.g. guided tours).</td></tr>
-        <tr><td><code>defaultOpen</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Initial open state (uncontrolled).</td></tr>
-        <tr><td><code>onOpenChange</code></td><td><code>(open: boolean) =&gt; void</code></td><td><code>null</code></td><td>Fires when the open state changes.</td></tr>
-        <tr><td><code>disabled</code></td><td><code>boolean, responsive</code></td><td><code>false</code></td><td>Suppresses the tooltip entirely. Responsive so the tooltip can be hidden at narrow viewports (e.g. \`disabled: &lbrace; base: true, md: false &rbrace;\`).</td></tr>
-        <tr><td><code>openDelay</code></td><td><code>number</code></td><td><code>300</code></td><td>Milliseconds before the tooltip opens after hover or focus. Prevents flicker during cursor scanning.</td></tr>
-        <tr><td><code>closeDelay</code></td><td><code>number</code></td><td><code>0</code></td><td>Milliseconds before the tooltip closes after leave or blur.</td></tr>
-        <tr><td><code>text</code></td><td><code>string, slot</code></td><td><code>null</code></td><td>Tooltip content. Plain text; use Popover for interactive content.</td></tr>
-        <tr><td><code>placement</code></td><td><code>string, responsive</code></td><td><code>top</code></td><td>Preferred side relative to the trigger. CSS \`position-try-fallbacks\` auto-flips on overflow.</td></tr>
-        <tr><td><code>asChild</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Render the trigger directly on the consumer's child element (cloneElement) instead of wrapping in a &lt;span&gt;. Single-child invariant; the child receives the wrapper's &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;data-state&lt;/code&gt;, event handlers, and any ARIA attributes the component applies (component-specific). Not compatible with Astro slots — use the default wrapper there.</td></tr>
-        <tr><td><code>ref</code></td><td><code>Ref&lt;HTMLElement&gt;</code></td><td><code>null</code></td><td>Forwarded ref to the popover content element. React: pass a callback ref or RefObject as the <code>ref</code> prop. Vue: read it through the parent template ref — <code>tooltipRef.value?.contentRef.value</code> (exposed via <code>defineExpose</code>).</td></tr>
+        <tr><td><Code>open</Code></td><td><Code>boolean, controllable</Code></td><td><Code>false</Code></td><td>Open state. Uncontrolled by default; pass \`open\` and optionally \`onOpenChange\` to drive it from the consumer (e.g. guided tours).</td></tr>
+        <tr><td><Code>defaultOpen</Code></td><td><Code>boolean</Code></td><td><Code>false</Code></td><td>Initial open state (uncontrolled).</td></tr>
+        <tr><td><Code>onOpenChange</Code></td><td><Code>(open: boolean) =&gt; void</Code></td><td><Code>null</Code></td><td>Fires when the open state changes.</td></tr>
+        <tr><td><Code>disabled</Code></td><td><Code>boolean, responsive</Code></td><td><Code>false</Code></td><td>Suppresses the tooltip entirely. Responsive so the tooltip can be hidden at narrow viewports (e.g. \`disabled: &lbrace; base: true, md: false &rbrace;\`).</td></tr>
+        <tr><td><Code>openDelay</Code></td><td><Code>number</Code></td><td><Code>300</Code></td><td>Milliseconds before the tooltip opens after hover or focus. Prevents flicker during cursor scanning.</td></tr>
+        <tr><td><Code>closeDelay</Code></td><td><Code>number</Code></td><td><Code>0</Code></td><td>Milliseconds before the tooltip closes after leave or blur.</td></tr>
+        <tr><td><Code>text</Code></td><td><Code>string, slot</Code></td><td><Code>null</Code></td><td>Tooltip content. Plain text; use Popover for interactive content.</td></tr>
+        <tr><td><Code>placement</Code></td><td><Code>string, responsive</Code></td><td><Code>top</Code></td><td>Preferred side relative to the trigger. CSS \`position-try-fallbacks\` auto-flips on overflow.</td></tr>
+        <tr><td><Code>asChild</Code></td><td><Code>boolean</Code></td><td><Code>false</Code></td><td>Render the trigger directly on the consumer's child element (cloneElement) instead of wrapping in a &lt;span&gt;. Single-child invariant; the child receives the wrapper's &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;data-state&lt;/code&gt;, event handlers, and any ARIA attributes the component applies (component-specific). Not compatible with Astro slots — use the default wrapper there.</td></tr>
+        <tr><td><Code>ref</Code></td><td><Code>Ref&lt;HTMLElement&gt;</Code></td><td><Code>null</Code></td><td>Forwarded ref to the popover content element. React: pass a callback ref or RefObject as the <Code>ref</Code> prop. Vue: read it through the parent template ref — <Code>tooltipRef.value?.contentRef.value</Code> (exposed via <Code>defineExpose</Code>).</td></tr>
         </tbody>
       </table>
     </section>
@@ -446,27 +446,27 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><code>--t-tooltip-bg</code></td><td><code>--t-neutral-90</code></td><td>Background fill. Defaults to a dark neutral; consumers override via \`--t-tooltip-bg\`.</td></tr>
-        <tr><td><code>--t-tooltip-fg</code></td><td><code>--t-neutral-10</code></td><td>Text color. Pairs with \`bg\`.</td></tr>
-        <tr><td><code>--t-tooltip-pad-x</code></td><td><code>--t-space-3</code></td><td>Inline padding.</td></tr>
-        <tr><td><code>--t-tooltip-pad-y</code></td><td><code>--t-space-2</code></td><td>Block padding.</td></tr>
-        <tr><td><code>--t-tooltip-radius</code></td><td><code>--t-radius-sm</code></td><td>Corner radius.</td></tr>
-        <tr><td><code>--t-tooltip-gap</code></td><td><code>--t-space-2</code></td><td>Distance from the trigger.</td></tr>
-        <tr><td><code>--t-tooltip-dur</code></td><td><code>--t-dur-fast</code></td><td>Entry and exit duration.</td></tr>
-        <tr><td><code>--t-tooltip-ease</code></td><td><code>--t-ease-out</code></td><td>Entry and exit easing.</td></tr>
-        <tr><td><code>--t-tooltip-arrow-size</code></td><td><code>--t-space-3</code></td><td>Arrow square size. Rotated 45° to form the pointer; visible triangle is roughly size/√2 tall.</td></tr>
-        <tr><td><code>--t-tooltip-arrow-bg</code></td><td><code>--t-neutral-90</code></td><td>Arrow fill. Defaults to the same neutral as \`bg\` so the arrow blends seamlessly with the body.</td></tr>
+        <tr><td><Code>--t-tooltip-bg</Code></td><td><Code>--t-neutral-90</Code></td><td>Background fill. Defaults to a dark neutral; consumers override via \`--t-tooltip-bg\`.</td></tr>
+        <tr><td><Code>--t-tooltip-fg</Code></td><td><Code>--t-neutral-10</Code></td><td>Text color. Pairs with \`bg\`.</td></tr>
+        <tr><td><Code>--t-tooltip-pad-x</Code></td><td><Code>--t-space-3</Code></td><td>Inline padding.</td></tr>
+        <tr><td><Code>--t-tooltip-pad-y</Code></td><td><Code>--t-space-2</Code></td><td>Block padding.</td></tr>
+        <tr><td><Code>--t-tooltip-radius</Code></td><td><Code>--t-radius-sm</Code></td><td>Corner radius.</td></tr>
+        <tr><td><Code>--t-tooltip-gap</Code></td><td><Code>--t-space-2</Code></td><td>Distance from the trigger.</td></tr>
+        <tr><td><Code>--t-tooltip-dur</Code></td><td><Code>--t-dur-fast</Code></td><td>Entry and exit duration.</td></tr>
+        <tr><td><Code>--t-tooltip-ease</Code></td><td><Code>--t-ease-out</Code></td><td>Entry and exit easing.</td></tr>
+        <tr><td><Code>--t-tooltip-arrow-size</Code></td><td><Code>--t-space-3</Code></td><td>Arrow square size. Rotated 45° to form the pointer; visible triangle is roughly size/√2 tall.</td></tr>
+        <tr><td><Code>--t-tooltip-arrow-bg</Code></td><td><Code>--t-neutral-90</Code></td><td>Arrow fill. Defaults to the same neutral as \`bg\` so the arrow blends seamlessly with the body.</td></tr>
         </tbody>
       </table>
     </section>
     <section class="t-stack" data-gap="3">
       <h2>Accessibility</h2>
-      <p>Role: <code>tooltip</code></p>
+      <p>Role: <Code>tooltip</Code></p>
       <table>
         <thead><tr><th>Interaction</th><th>Action</th></tr></thead>
         <tbody>
-        <tr><td><code>Escape</code></td><td>Closes the overlay. Topmost-wins when multiple overlays are open.</td></tr>
-        <tr><td><code>Outside pointer-down</code></td><td>Pressing outside the content closes the overlay.</td></tr>
+        <tr><td><Code>Escape</Code></td><td>Closes the overlay. Topmost-wins when multiple overlays are open.</td></tr>
+        <tr><td><Code>Outside pointer-down</Code></td><td>Pressing outside the content closes the overlay.</td></tr>
         </tbody>
       </table>
     </section>

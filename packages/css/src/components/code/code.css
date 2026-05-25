@@ -1,0 +1,22 @@
+@layer components.tokens {
+  .t-code {
+    --_bg: var(--t-code-bg, var(--t-neutral-20));
+    --_fg: var(--t-code-fg, var(--t-on-surface));
+    --_pad-x: var(--t-code-pad-x, var(--t-space-1));
+    --_radius: var(--t-code-radius, var(--t-radius-sm));
+    --_font: var(--t-code-font, var(--t-font-mono));
+  }
+}
+
+@layer components.styles {
+  .t-code {
+    box-sizing: border-box;
+    margin: 0;
+    padding-inline: var(--_pad-x);
+    background: var(--_bg);
+    color: var(--_fg);
+    border-radius: var(--_radius);
+    font-family: var(--_font);
+    font-size: 0.9em;
+  }
+}

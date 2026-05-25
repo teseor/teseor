@@ -1,0 +1,43 @@
+---
+import { Codeblock, Code } from "@teseor/react";
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Codeblock — Teseor">
+  <main class="t-stack" data-gap="6">
+    <h1>Codeblock</h1>
+    <p>Block container for multi-line code with monospace font and horizontal overflow scroll.</p>
+    <section class="t-stack" data-gap="3">
+      <h2>Examples</h2>
+      <div class="t-stack" data-gap="2">
+        <h3>default</h3>
+        <div class="t-cluster" data-gap="3">
+          <Codeblock>Codeblock</Codeblock>
+        </div>
+        <Codeblock>&lt;Codeblock&gt;Codeblock&lt;/Codeblock&gt;</Codeblock>
+      </div>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Tokens</h2>
+      <table>
+        <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-codeblock-bg</Code></td><td><Code>--t-neutral-20</Code></td><td>Background fill for the block.</td></tr>
+        <tr><td><Code>--t-codeblock-fg</Code></td><td><Code>--t-on-surface</Code></td><td>Text color.</td></tr>
+        <tr><td><Code>--t-codeblock-pad</Code></td><td><Code>--t-space-3</Code></td><td>Inner padding.</td></tr>
+        <tr><td><Code>--t-codeblock-radius</Code></td><td><Code>--t-radius-md</Code></td><td>Corner radius.</td></tr>
+        <tr><td><Code>--t-codeblock-font</Code></td><td><Code>--t-font-mono</Code></td><td>Monospace family.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Bundle size</h2>
+      <table>
+        <thead><tr><th>Artifact</th><th>Raw</th><th>Gzip</th><th>Brotli</th></tr></thead>
+        <tbody>
+        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/codeblock/codeblock.css"><Code>@teseor/css/components/codeblock.css</Code></a></td><td>1.00 KB</td><td>0.46 KB</td><td>0.38 KB</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</Base>

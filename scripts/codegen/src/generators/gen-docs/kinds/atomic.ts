@@ -29,8 +29,12 @@ export function renderAtomicDocsPage(spec: DocsSpec): string {
     renderBundleSize(spec),
   ].filter((part) => part.length > 0);
 
+  // Code + Codeblock always imported: Code styles the inline `<Code>` spans in
+  // every props/tokens/states table; Codeblock renders example source. Name
+  // only when an example actually instantiates it.
+  const reactNames = Array.from(new Set([...(hasExamples ? [Name] : []), "Code", "Codeblock"]));
   const imports = [
-    ...(hasExamples ? [`import { ${Name} } from "@teseor/react";`] : []),
+    `import { ${reactNames.join(", ")} } from "@teseor/react";`,
     `import Base from "../../layouts/Base.astro";`,
   ];
   const intro = spec.description ? `    <p>${esc(spec.description)}</p>\n` : "";

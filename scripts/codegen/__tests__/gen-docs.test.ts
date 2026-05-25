@@ -34,9 +34,9 @@ describe("gen-docs", () => {
 
   test("injects Escape + outside-pointer rows for any spec with an overlay block", async () => {
     const rendered = renderDocsPage(await loadSpec("tooltip"));
-    expect(rendered).toContain("<code>Escape</code>");
+    expect(rendered).toContain("<Code>Escape</Code>");
     expect(rendered).toContain("Topmost-wins when multiple overlays are open.");
-    expect(rendered).toContain("<code>Outside pointer-down</code>");
+    expect(rendered).toContain("<Code>Outside pointer-down</Code>");
     expect(rendered).toContain("Pressing outside the content closes the overlay.");
   });
 
@@ -76,7 +76,7 @@ describe("gen-docs", () => {
     expect(rendered).not.toContain("Topmost-wins when multiple overlays are open.");
     // Outside pointer-down is not redeclared, so the universal row still
     // injects.
-    expect(rendered).toContain("<code>Outside pointer-down</code>");
+    expect(rendered).toContain("<Code>Outside pointer-down</Code>");
     expect(rendered).toContain("Pressing outside the content closes the overlay.");
   });
 

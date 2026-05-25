@@ -29,6 +29,14 @@
     "path": "packages/css/dist/components/cluster.css"
   },
   {
+    "name": "@teseor/css/components/code.css",
+    "path": "packages/css/dist/components/code.css"
+  },
+  {
+    "name": "@teseor/css/components/codeblock.css",
+    "path": "packages/css/dist/components/codeblock.css"
+  },
+  {
     "name": "@teseor/css/components/modal.css",
     "path": "packages/css/dist/components/modal.css"
   },

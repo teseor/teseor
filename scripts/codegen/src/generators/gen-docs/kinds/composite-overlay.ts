@@ -37,8 +37,13 @@ export function renderCompositeOverlayDocsPage(spec: DocsSpec): string {
     renderBundleSize(spec),
   ].filter((part) => part.length > 0);
 
+  // Code + Codeblock always imported: Code styles inline `<Code>` spans in the
+  // tables; Codeblock renders example source. Name + Button only when examples
+  // exist (composite examples wrap a Button trigger).
+  const exampleNames = hasExamples ? [Name, "Button"] : [];
+  const reactNames = Array.from(new Set([...exampleNames, "Code", "Codeblock"]));
   const imports = [
-    ...(hasExamples ? [`import { ${Name}, Button } from "@teseor/react";`] : []),
+    `import { ${reactNames.join(", ")} } from "@teseor/react";`,
     `import Base from "../../layouts/Base.astro";`,
   ];
   const intro = spec.description ? `    <p>${esc(spec.description)}</p>\n` : "";

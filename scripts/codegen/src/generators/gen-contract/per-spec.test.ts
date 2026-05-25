@@ -25,7 +25,7 @@ describe("renderContract", () => {
 
   test("emits the empty Props alias for a spec with no props or unions", () => {
     const out = renderContract(spec({ name: "widget" }));
-    expect(out).toContain("export type WidgetProps = {\n};");
+    expect(out).toContain("export type WidgetProps = Record<string, never>;");
   });
 
   test("emits a Variant union when `variants` is present", () => {

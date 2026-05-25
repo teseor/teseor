@@ -53,7 +53,7 @@ export function renderExamples(spec: Spec, Name: string, opts: { isComposite: bo
         `            ${trigger}`,
         `          </${Name}>`,
         `        </div>`,
-        `        <pre><code>${esc(source)}</code></pre>`,
+        `        <Codeblock>${esc(source)}</Codeblock>`,
         `      </div>`,
       ].join("\n");
     }
@@ -63,7 +63,7 @@ export function renderExamples(spec: Spec, Name: string, opts: { isComposite: bo
       `        <div class="t-cluster" data-gap="3">`,
       `          <${renderedOpenTag}>${Name}</${Name}>`,
       `        </div>`,
-      `        <pre><code>${esc(source)}</code></pre>`,
+      `        <Codeblock>${esc(source)}</Codeblock>`,
       `      </div>`,
     ].join("\n");
   });

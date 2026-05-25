@@ -204,6 +204,8 @@ const atomicSpec = z.strictObject({
   ...identityFields,
   kind: z.literal("atomic"),
   ...componentNodeFields,
+  // Wraps slot content in a nested element (e.g. `pre` root + `code` slot for code-block).
+  slotElement: z.string().optional(),
 });
 
 const compositeSpec = z.strictObject({

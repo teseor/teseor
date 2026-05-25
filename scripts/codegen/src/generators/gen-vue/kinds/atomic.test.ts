@@ -53,4 +53,20 @@ describe("renderAtomicVueWrapper", () => {
       `import { type Responsive, responsiveDataAttrs } from "./_runtime.ts";`,
     );
   });
+
+  test("wraps `<slot />` in slotElement when set", () => {
+    const out = renderAtomicVueWrapper(
+      atomicSpec({ name: "codeblock", element: "pre", slotElement: "code" }),
+      {},
+    );
+    expect(out).toContain("<pre");
+    expect(out).toContain("<code>");
+    expect(out).toContain("<slot");
+    expect(out).toContain("</code>");
+  });
+
+  test("omits the slot wrapper when slotElement is unset", () => {
+    const out = renderAtomicVueWrapper(atomicSpec({ element: "div" }), {});
+    expect(out).not.toContain("<code>");
+  });
 });

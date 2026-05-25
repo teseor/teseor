@@ -10,6 +10,7 @@ import { act, cleanup, renderHook } from "@testing-library/react";
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import {
   isActiveAt,
+  mergeClass,
   mergeRefs,
   resolveResponsive,
   responsiveDataAttrs,
@@ -279,5 +280,19 @@ describe("useActiveBreakpoint", () => {
       window.matchMedia = original;
       installDomPolyfills();
     }
+  });
+});
+
+describe("mergeClass", () => {
+  it("returns rootClass alone when userClass is undefined", () => {
+    expect(mergeClass("t-button", undefined)).toBe("t-button");
+  });
+
+  it("returns rootClass alone when userClass is empty", () => {
+    expect(mergeClass("t-button", "")).toBe("t-button");
+  });
+
+  it("joins rootClass and userClass space-separated, consumer last by convention", () => {
+    expect(mergeClass("t-button", "my-custom")).toBe("t-button my-custom");
   });
 });

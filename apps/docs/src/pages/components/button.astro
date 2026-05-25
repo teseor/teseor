@@ -1,5 +1,5 @@
 ---
-import { Button } from "@teseor/react";
+import { Button, Code, Codeblock } from "@teseor/react";
 import Base from "../../layouts/Base.astro";
 ---
 
@@ -14,49 +14,49 @@ import Base from "../../layouts/Base.astro";
         <div class="t-cluster" data-gap="3">
           <Button variant="solid" intent="primary">Button</Button>
         </div>
-        <pre><code>&lt;Button variant="solid" intent="primary"&gt;Button&lt;/Button&gt;</code></pre>
+        <Codeblock>&lt;Button variant="solid" intent="primary"&gt;Button&lt;/Button&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>solid-danger-md</h3>
         <div class="t-cluster" data-gap="3">
           <Button variant="solid" intent="danger" size="md">Button</Button>
         </div>
-        <pre><code>&lt;Button variant="solid" intent="danger" size="md"&gt;Button&lt;/Button&gt;</code></pre>
+        <Codeblock>&lt;Button variant="solid" intent="danger" size="md"&gt;Button&lt;/Button&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>outline-neutral</h3>
         <div class="t-cluster" data-gap="3">
           <Button variant="outline" intent="neutral">Button</Button>
         </div>
-        <pre><code>&lt;Button variant="outline" intent="neutral"&gt;Button&lt;/Button&gt;</code></pre>
+        <Codeblock>&lt;Button variant="outline" intent="neutral"&gt;Button&lt;/Button&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>ghost-with-icon</h3>
         <div class="t-cluster" data-gap="3">
           <Button variant="ghost" intent="neutral">Button</Button>
         </div>
-        <pre><code>&lt;Button variant="ghost" intent="neutral" iconStart="arrow-left"&gt;Button&lt;/Button&gt;</code></pre>
+        <Codeblock>&lt;Button variant="ghost" intent="neutral" iconStart="arrow-left"&gt;Button&lt;/Button&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>link-primary</h3>
         <div class="t-cluster" data-gap="3">
           <Button variant="link" intent="primary" as="a">Button</Button>
         </div>
-        <pre><code>&lt;Button variant="link" intent="primary" as="a"&gt;Button&lt;/Button&gt;</code></pre>
+        <Codeblock>&lt;Button variant="link" intent="primary" as="a"&gt;Button&lt;/Button&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>loading</h3>
         <div class="t-cluster" data-gap="3">
           <Button variant="solid" intent="primary" loading>Button</Button>
         </div>
-        <pre><code>&lt;Button variant="solid" intent="primary" loading&gt;Button&lt;/Button&gt;</code></pre>
+        <Codeblock>&lt;Button variant="solid" intent="primary" loading&gt;Button&lt;/Button&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>block-mobile</h3>
         <div class="t-cluster" data-gap="3">
           <Button variant="solid" intent="primary" block size="lg">Button</Button>
         </div>
-        <pre><code>&lt;Button variant="solid" intent="primary" block size="lg"&gt;Button&lt;/Button&gt;</code></pre>
+        <Codeblock>&lt;Button variant="solid" intent="primary" block size="lg"&gt;Button&lt;/Button&gt;</Codeblock>
       </div>
     </section>
     <section class="t-stack" data-gap="3">
@@ -64,12 +64,12 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><code>as</code></td><td><code>string</code></td><td><code>button</code></td><td>Polymorphic root element. Defaults to `button`; set to `a` for link-shaped triggers (paired with `variant: link`).</td></tr>
-        <tr><td><code>disabled</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Disables interaction and applies the disabled visual state. Mapped to the native `disabled` attribute on `button`, `aria-disabled="true"` otherwise.</td></tr>
-        <tr><td><code>loading</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Shows a spinner in place of the label and disables interaction. The original label stays in the accessibility tree.</td></tr>
-        <tr><td><code>iconStart</code></td><td><code>string, slot</code></td><td><code>null</code></td><td>Icon rendered before the label in the inline direction. Slot size scales with `size`. Accepts any node (icon component, SVG, etc.).</td></tr>
-        <tr><td><code>iconEnd</code></td><td><code>string, slot</code></td><td><code>null</code></td><td>Icon rendered after the label in the inline direction. Accepts any node.</td></tr>
-        <tr><td><code>block</code></td><td><code>boolean, responsive</code></td><td><code>false</code></td><td>Stretches the button to the inline-size of its container. Responsive so layouts can pin block-width on mobile and shrink to content above.</td></tr>
+        <tr><td><Code>as</Code></td><td><Code>string</Code></td><td><Code>button</Code></td><td>Polymorphic root element. Defaults to `button`; set to `a` for link-shaped triggers (paired with `variant: link`).</td></tr>
+        <tr><td><Code>disabled</Code></td><td><Code>boolean</Code></td><td><Code>false</Code></td><td>Disables interaction and applies the disabled visual state. Mapped to the native `disabled` attribute on `button`, `aria-disabled="true"` otherwise.</td></tr>
+        <tr><td><Code>loading</Code></td><td><Code>boolean</Code></td><td><Code>false</Code></td><td>Shows a spinner in place of the label and disables interaction. The original label stays in the accessibility tree.</td></tr>
+        <tr><td><Code>iconStart</Code></td><td><Code>string, slot</Code></td><td><Code>null</Code></td><td>Icon rendered before the label in the inline direction. Slot size scales with `size`. Accepts any node (icon component, SVG, etc.).</td></tr>
+        <tr><td><Code>iconEnd</Code></td><td><Code>string, slot</Code></td><td><Code>null</Code></td><td>Icon rendered after the label in the inline direction. Accepts any node.</td></tr>
+        <tr><td><Code>block</Code></td><td><Code>boolean, responsive</Code></td><td><Code>false</Code></td><td>Stretches the button to the inline-size of its container. Responsive so layouts can pin block-width on mobile and shrink to content above.</td></tr>
         </tbody>
       </table>
     </section>
@@ -78,10 +78,10 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Name</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><code>solid</code></td><td>Filled background with intent color; default visual weight.</td></tr>
-        <tr><td><code>outline</code></td><td>Transparent background, intent-colored border and label; for secondary actions.</td></tr>
-        <tr><td><code>ghost</code></td><td>Transparent background with no border; for tertiary actions inside dense layouts or toolbars.</td></tr>
-        <tr><td><code>link</code></td><td>Renders as text with an underline; for navigation-shaped triggers that still need button semantics.</td></tr>
+        <tr><td><Code>solid</Code></td><td>Filled background with intent color; default visual weight.</td></tr>
+        <tr><td><Code>outline</Code></td><td>Transparent background, intent-colored border and label; for secondary actions.</td></tr>
+        <tr><td><Code>ghost</Code></td><td>Transparent background with no border; for tertiary actions inside dense layouts or toolbars.</td></tr>
+        <tr><td><Code>link</Code></td><td>Renders as text with an underline; for navigation-shaped triggers that still need button semantics.</td></tr>
         </tbody>
       </table>
     </section>
@@ -90,11 +90,11 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Name</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><code>primary</code></td><td>The page's most important action. One primary per surface.</td></tr>
-        <tr><td><code>neutral</code></td><td>Default action. Non-emphasized; used when no intent is needed.</td></tr>
-        <tr><td><code>success</code></td><td>Confirms a positive outcome (save, publish, accept).</td></tr>
-        <tr><td><code>warning</code></td><td>Indicates an action that needs attention but isn't destructive.</td></tr>
-        <tr><td><code>danger</code></td><td>Destructive or irreversible action (delete, cancel subscription).</td></tr>
+        <tr><td><Code>primary</Code></td><td>The page's most important action. One primary per surface.</td></tr>
+        <tr><td><Code>neutral</Code></td><td>Default action. Non-emphasized; used when no intent is needed.</td></tr>
+        <tr><td><Code>success</Code></td><td>Confirms a positive outcome (save, publish, accept).</td></tr>
+        <tr><td><Code>warning</Code></td><td>Indicates an action that needs attention but isn't destructive.</td></tr>
+        <tr><td><Code>danger</Code></td><td>Destructive or irreversible action (delete, cancel subscription).</td></tr>
         </tbody>
       </table>
     </section>
@@ -103,9 +103,9 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Name</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><code>sm</code></td><td>Compact density; safe at breakpoints above the mobile floor.</td></tr>
-        <tr><td><code>md</code></td><td>Default size.</td></tr>
-        <tr><td><code>lg</code></td><td>Emphatic; for hero CTAs and primary actions in mobile-first layouts.</td></tr>
+        <tr><td><Code>sm</Code></td><td>Compact density; safe at breakpoints above the mobile floor.</td></tr>
+        <tr><td><Code>md</Code></td><td>Default size.</td></tr>
+        <tr><td><Code>lg</Code></td><td>Emphatic; for hero CTAs and primary actions in mobile-first layouts.</td></tr>
         </tbody>
       </table>
     </section>
@@ -114,11 +114,11 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>State</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><code>hover</code></td><td>Pointer is over the button.</td></tr>
-        <tr><td><code>focus</code></td><td>Keyboard focus is on the button; the focus ring is visible.</td></tr>
-        <tr><td><code>active</code></td><td>Button is being pressed.</td></tr>
-        <tr><td><code>disabled</code></td><td>Interaction is suppressed; the disabled visual state is applied.</td></tr>
-        <tr><td><code>loading</code></td><td>A spinner replaces the label and interaction is suppressed; the original label stays in the accessibility tree.</td></tr>
+        <tr><td><Code>hover</Code></td><td>Pointer is over the button.</td></tr>
+        <tr><td><Code>focus</Code></td><td>Keyboard focus is on the button; the focus ring is visible.</td></tr>
+        <tr><td><Code>active</Code></td><td>Button is being pressed.</td></tr>
+        <tr><td><Code>disabled</Code></td><td>Interaction is suppressed; the disabled visual state is applied.</td></tr>
+        <tr><td><Code>loading</Code></td><td>A spinner replaces the label and interaction is suppressed; the original label stays in the accessibility tree.</td></tr>
         </tbody>
       </table>
     </section>
@@ -127,25 +127,25 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><code>--t-button-height</code></td><td><code>--t-row</code></td><td>Control height; the size variant overrides this.</td></tr>
-        <tr><td><code>--t-button-bg</code></td><td><code>--t-accent</code></td><td>Background fill; the intent variant overrides this.</td></tr>
-        <tr><td><code>--t-button-fg</code></td><td><code>--t-on-accent</code></td><td>Foreground color (label and icon); pairs with `bg`.</td></tr>
-        <tr><td><code>--t-button-pad-x</code></td><td><code>--t-pad-x</code></td><td>Inline padding; the size variant overrides this.</td></tr>
-        <tr><td><code>--t-button-radius</code></td><td><code>--t-radius-md</code></td><td>Corner radius.</td></tr>
-        <tr><td><code>--t-button-dur</code></td><td><code>--t-dur-fast</code></td><td>Transition duration; multiplied by `--t-motion-scale` at the call site.</td></tr>
-        <tr><td><code>--t-button-ease</code></td><td><code>--t-ease-out</code></td><td>Transition easing curve.</td></tr>
-        <tr><td><code>--t-button-gap</code></td><td><code>--t-space-2</code></td><td>Inline spacing between label and icons.</td></tr>
+        <tr><td><Code>--t-button-height</Code></td><td><Code>--t-row</Code></td><td>Control height; the size variant overrides this.</td></tr>
+        <tr><td><Code>--t-button-bg</Code></td><td><Code>--t-accent</Code></td><td>Background fill; the intent variant overrides this.</td></tr>
+        <tr><td><Code>--t-button-fg</Code></td><td><Code>--t-on-accent</Code></td><td>Foreground color (label and icon); pairs with `bg`.</td></tr>
+        <tr><td><Code>--t-button-pad-x</Code></td><td><Code>--t-pad-x</Code></td><td>Inline padding; the size variant overrides this.</td></tr>
+        <tr><td><Code>--t-button-radius</Code></td><td><Code>--t-radius-md</Code></td><td>Corner radius.</td></tr>
+        <tr><td><Code>--t-button-dur</Code></td><td><Code>--t-dur-fast</Code></td><td>Transition duration; multiplied by `--t-motion-scale` at the call site.</td></tr>
+        <tr><td><Code>--t-button-ease</Code></td><td><Code>--t-ease-out</Code></td><td>Transition easing curve.</td></tr>
+        <tr><td><Code>--t-button-gap</Code></td><td><Code>--t-space-2</Code></td><td>Inline spacing between label and icons.</td></tr>
         </tbody>
       </table>
     </section>
     <section class="t-stack" data-gap="3">
       <h2>Accessibility</h2>
-      <p>Role: <code>button</code></p>
+      <p>Role: <Code>button</Code></p>
       <table>
         <thead><tr><th>Interaction</th><th>Action</th></tr></thead>
         <tbody>
-        <tr><td><code>Enter</code></td><td>activate</td></tr>
-        <tr><td><code>Space</code></td><td>activate</td></tr>
+        <tr><td><Code>Enter</Code></td><td>activate</td></tr>
+        <tr><td><Code>Space</Code></td><td>activate</td></tr>
         </tbody>
       </table>
     </section>
@@ -161,7 +161,7 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Artifact</th><th>Raw</th><th>Gzip</th><th>Brotli</th></tr></thead>
         <tbody>
-        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/button/button.css"><code>@teseor/css/components/button.css</code></a></td><td>8.29 KB</td><td>1.58 KB</td><td>1.32 KB</td></tr>
+        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/button/button.css"><Code>@teseor/css/components/button.css</Code></a></td><td>8.29 KB</td><td>1.58 KB</td><td>1.32 KB</td></tr>
         </tbody>
       </table>
     </section>

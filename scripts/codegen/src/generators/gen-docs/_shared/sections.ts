@@ -27,7 +27,7 @@ export function renderBundleSize(spec: DocsSpec): string {
   const source = `${REPO_BLOB_URL}/packages/css/src/components/${urlName}/${urlName}.css`;
   const rows = [
     [
-      `<a href="${source}"><code>@teseor/css/components/${esc(spec.name)}.css</code></a>`,
+      `<a href="${source}"><Code>@teseor/css/components/${esc(spec.name)}.css</Code></a>`,
       formatKb(raw),
       formatKb(gzip),
       formatKb(brotli),
@@ -75,21 +75,21 @@ export function renderProps(spec: DocsSpec): string {
     if (def.pattern === "controllable" && def.type === "boolean") {
       const PName = pascalCase(name);
       rows.push([
-        `<code>${esc(name)}</code>`,
-        `<code>boolean, controllable</code>`,
-        `<code>${esc(formatValue(def.default))}</code>`,
+        `<Code>${esc(name)}</Code>`,
+        `<Code>boolean, controllable</Code>`,
+        `<Code>${esc(formatValue(def.default))}</Code>`,
         esc(def.description ?? ""),
       ]);
       rows.push([
-        `<code>default${esc(PName)}</code>`,
-        `<code>boolean</code>`,
-        `<code>${esc(formatValue(def.default))}</code>`,
+        `<Code>default${esc(PName)}</Code>`,
+        `<Code>boolean</Code>`,
+        `<Code>${esc(formatValue(def.default))}</Code>`,
         `Initial open state (uncontrolled).`,
       ]);
       rows.push([
-        `<code>on${esc(PName)}Change</code>`,
-        `<code>(${esc(name)}: boolean) =&gt; void</code>`,
-        `<code>null</code>`,
+        `<Code>on${esc(PName)}Change</Code>`,
+        `<Code>(${esc(name)}: boolean) =&gt; void</Code>`,
+        `<Code>null</Code>`,
         `Fires when the open state changes.`,
       ]);
       continue;
@@ -98,9 +98,9 @@ export function renderProps(spec: DocsSpec): string {
       .filter(Boolean)
       .join(", ");
     rows.push([
-      `<code>${esc(name)}</code>`,
-      `<code>${esc(type)}</code>`,
-      `<code>${esc(formatValue(def.default))}</code>`,
+      `<Code>${esc(name)}</Code>`,
+      `<Code>${esc(type)}</Code>`,
+      `<Code>${esc(formatValue(def.default))}</Code>`,
       esc(def.description ?? ""),
     ]);
   }
@@ -109,9 +109,9 @@ export function renderProps(spec: DocsSpec): string {
   // spec prop — it's emitted by the generator — so the docs append it here.
   if (spec.kind === "composite" && hasFromChildrenPart(spec)) {
     rows.push([
-      `<code>asChild</code>`,
-      `<code>boolean</code>`,
-      `<code>false</code>`,
+      `<Code>asChild</Code>`,
+      `<Code>boolean</Code>`,
+      `<Code>false</Code>`,
       `Render the trigger directly on the consumer's child element (cloneElement) instead of wrapping in a &lt;span&gt;. Single-child invariant; the child receives the wrapper's &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;data-state&lt;/code&gt;, event handlers, and any ARIA attributes the component applies (component-specific). Not compatible with Astro slots — use the default wrapper there.`,
     ]);
   }
@@ -120,10 +120,10 @@ export function renderProps(spec: DocsSpec): string {
   // generator's: `kind === "composite"` plus an `overlay:` block.
   if (spec.kind === "composite" && spec.overlay) {
     rows.push([
-      `<code>ref</code>`,
-      `<code>Ref&lt;HTMLElement&gt;</code>`,
-      `<code>null</code>`,
-      `Forwarded ref to the popover content element. React: pass a callback ref or RefObject as the <code>ref</code> prop. Vue: read it through the parent template ref — <code>${esc(spec.name)}Ref.value?.contentRef.value</code> (exposed via <code>defineExpose</code>).`,
+      `<Code>ref</Code>`,
+      `<Code>Ref&lt;HTMLElement&gt;</Code>`,
+      `<Code>null</Code>`,
+      `Forwarded ref to the popover content element. React: pass a callback ref or RefObject as the <Code>ref</Code> prop. Vue: read it through the parent template ref — <Code>${esc(spec.name)}Ref.value?.contentRef.value</Code> (exposed via <Code>defineExpose</Code>).`,
     ]);
   }
   return section("Props", renderTable(["Prop", "Type", "Default", "Description"], rows));
@@ -135,7 +135,7 @@ export function renderNamed(
 ): string {
   if (!entries || Object.keys(entries).length === 0) return "";
   const rows = Object.entries(entries).map(([name, def]) => [
-    `<code>${esc(name)}</code>`,
+    `<Code>${esc(name)}</Code>`,
     esc(def.description ?? ""),
   ]);
   return section(title, renderTable(["Name", "Description"], rows));
@@ -144,7 +144,7 @@ export function renderNamed(
 export function renderStates(spec: DocsSpec): string {
   if (!spec.states || Object.keys(spec.states).length === 0) return "";
   const rows = Object.entries(spec.states).map(([name, def]) => [
-    `<code>${esc(name)}</code>`,
+    `<Code>${esc(name)}</Code>`,
     esc(def.description ?? ""),
   ]);
   return section("States", renderTable(["State", "Description"], rows));
@@ -153,8 +153,8 @@ export function renderStates(spec: DocsSpec): string {
 export function renderTokens(spec: DocsSpec): string {
   if (!spec.tokens || Object.keys(spec.tokens).length === 0) return "";
   const rows = Object.entries(spec.tokens).map(([name, def]) => [
-    `<code>--t-${esc(spec.name)}-${esc(name)}</code>`,
-    `<code>${esc(def.fallback ?? "")}</code>`,
+    `<Code>--t-${esc(spec.name)}-${esc(name)}</Code>`,
+    `<Code>${esc(def.fallback ?? "")}</Code>`,
     esc(def.desc ?? ""),
   ]);
   return section("Tokens", renderTable(["Token", "Fallback", "Description"], rows));
@@ -174,12 +174,12 @@ export function renderA11y(spec: DocsSpec): string {
   if (!role && keyboard.length === 0) return "";
   const lines: string[] = [];
   if (role) {
-    lines.push(`      <p>Role: <code>${esc(role)}</code></p>`);
+    lines.push(`      <p>Role: <Code>${esc(role)}</Code></p>`);
   }
   if (keyboard.length > 0) {
     // Header is `Interaction`, not `Key` — overlay specs inject a
     // pointer-down row alongside the keyboard rows and `Key` would mis-label it.
-    const rows = keyboard.map(([key, action]) => [`<code>${esc(key)}</code>`, esc(action)]);
+    const rows = keyboard.map(([key, action]) => [`<Code>${esc(key)}</Code>`, esc(action)]);
     lines.push(renderTable(["Interaction", "Action"], rows));
   }
   return section("Accessibility", lines.join("\n"));

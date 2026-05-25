@@ -68,7 +68,11 @@ export function renderAtomicVueWrapper(
   // self-closing template form and skip the body. Slot/loading state on a
   // void spec is a spec authoring error and is not validated here.
   const isVoid = spec.element ? isVoidElement(spec.element) : false;
-  const bodyBlock = isVoid ? "" : renderBody(spec, slots, hasLoading);
+  const innerBody = isVoid ? "" : renderBody(spec, slots, hasLoading);
+  const bodyBlock =
+    !isVoid && spec.kind === "atomic" && spec.slotElement
+      ? `  <${spec.slotElement}>\n${innerBody}\n  </${spec.slotElement}>`
+      : innerBody;
   const rootOpen = isVoid
     ? hasAs
       ? `<component :is="as" class="${rootClass}" v-bind="attrs" />`
