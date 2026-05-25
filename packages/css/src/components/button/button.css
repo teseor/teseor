@@ -18,6 +18,33 @@
     --_cursor: pointer;
     --_opacity: 1;
     --_transform: none;
+
+    /* Global slots — sourced from the semantic layer, read by modifiers. */
+    --_motion-scale: var(--t-motion-scale);
+    --_focus-ring: var(--t-focus-ring);
+
+    /* Per-size slots — [data-size="X"] reassigns --_h / --_pad-x / --_font-size from these. */
+    --_h-sm: var(--t-row-2);
+    --_pad-x-sm: var(--t-space-3);
+    --_font-size-sm: var(--t-text-sm);
+    --_h-md: var(--t-row-3);
+    --_pad-x-md: var(--t-space-4);
+    --_font-size-md: var(--t-text-base);
+    --_h-lg: var(--t-row-4);
+    --_pad-x-lg: var(--t-space-5);
+    --_font-size-lg: var(--t-text-lg);
+
+    /* Per-intent slots — [data-intent="X"] reassigns --_fill / --_on-fill from these. */
+    --_intent-primary-fill: var(--t-accent);
+    --_intent-primary-on-fill: var(--t-on-accent);
+    --_intent-neutral-fill: var(--t-surface);
+    --_intent-neutral-on-fill: var(--t-on-surface);
+    --_intent-success-fill: var(--t-success);
+    --_intent-success-on-fill: var(--t-on-success);
+    --_intent-warning-fill: var(--t-warning);
+    --_intent-warning-on-fill: var(--t-on-warning);
+    --_intent-danger-fill: var(--t-danger);
+    --_intent-danger-on-fill: var(--t-on-danger);
   }
 }
 
@@ -50,10 +77,10 @@
     cursor: var(--_cursor);
     user-select: none;
     transition:
-      background-color calc(var(--_dur) * var(--t-motion-scale)) var(--_ease),
-      color calc(var(--_dur) * var(--t-motion-scale)) var(--_ease),
-      box-shadow calc(var(--_dur) * var(--t-motion-scale)) var(--_ease),
-      transform calc(var(--_dur) * var(--t-motion-scale)) var(--_ease);
+      background-color calc(var(--_dur) * var(--_motion-scale)) var(--_ease),
+      color calc(var(--_dur) * var(--_motion-scale)) var(--_ease),
+      box-shadow calc(var(--_dur) * var(--_motion-scale)) var(--_ease),
+      transform calc(var(--_dur) * var(--_motion-scale)) var(--_ease);
 
     & [data-button-label],
     & [data-button-spinner],
@@ -69,46 +96,46 @@
     }
 
     &:where([data-size="sm"]) {
-      --_h: var(--t-row-2);
-      --_pad-x: var(--t-space-3);
-      --_font-size: var(--t-text-sm);
+      --_h: var(--_h-sm);
+      --_pad-x: var(--_pad-x-sm);
+      --_font-size: var(--_font-size-sm);
     }
 
     &:where([data-size="md"]) {
-      --_h: var(--t-row-3);
-      --_pad-x: var(--t-space-4);
-      --_font-size: var(--t-text-base);
+      --_h: var(--_h-md);
+      --_pad-x: var(--_pad-x-md);
+      --_font-size: var(--_font-size-md);
     }
 
     &:where([data-size="lg"]) {
-      --_h: var(--t-row-4);
-      --_pad-x: var(--t-space-5);
-      --_font-size: var(--t-text-lg);
+      --_h: var(--_h-lg);
+      --_pad-x: var(--_pad-x-lg);
+      --_font-size: var(--_font-size-lg);
     }
 
     &:where([data-intent="primary"]) {
-      --_fill: var(--t-accent);
-      --_on-fill: var(--t-on-accent);
+      --_fill: var(--_intent-primary-fill);
+      --_on-fill: var(--_intent-primary-on-fill);
     }
 
     &:where([data-intent="neutral"]) {
-      --_fill: var(--t-surface);
-      --_on-fill: var(--t-on-surface);
+      --_fill: var(--_intent-neutral-fill);
+      --_on-fill: var(--_intent-neutral-on-fill);
     }
 
     &:where([data-intent="success"]) {
-      --_fill: var(--t-success);
-      --_on-fill: var(--t-on-success);
+      --_fill: var(--_intent-success-fill);
+      --_on-fill: var(--_intent-success-on-fill);
     }
 
     &:where([data-intent="warning"]) {
-      --_fill: var(--t-warning);
-      --_on-fill: var(--t-on-warning);
+      --_fill: var(--_intent-warning-fill);
+      --_on-fill: var(--_intent-warning-on-fill);
     }
 
     &:where([data-intent="danger"]) {
-      --_fill: var(--t-danger);
-      --_on-fill: var(--t-on-danger);
+      --_fill: var(--_intent-danger-fill);
+      --_on-fill: var(--_intent-danger-on-fill);
     }
 
     &:where([data-variant="outline"]) {
@@ -150,7 +177,7 @@
       border: 2px solid currentcolor;
       border-block-start-color: transparent;
       border-radius: 50%;
-      animation: t-button-spin calc(800ms * var(--t-motion-scale)) linear infinite;
+      animation: t-button-spin calc(800ms * var(--_motion-scale)) linear infinite;
     }
 
     &:where(:hover):not([disabled], [aria-disabled="true"]) {
@@ -163,7 +190,7 @@
     }
 
     &:focus-visible {
-      outline: 2px solid var(--t-focus-ring);
+      outline: 2px solid var(--_focus-ring);
       outline-offset: 2px;
     }
 
@@ -189,21 +216,21 @@
       /* stylelint-disable-next-line media-query-no-invalid */
       @media (--$(bp)) {
         &:where([data-size-$(bp)="sm"]) {
-          --_h: var(--t-row-2);
-          --_pad-x: var(--t-space-3);
-          --_font-size: var(--t-text-sm);
+          --_h: var(--_h-sm);
+          --_pad-x: var(--_pad-x-sm);
+          --_font-size: var(--_font-size-sm);
         }
 
         &:where([data-size-$(bp)="md"]) {
-          --_h: var(--t-row-3);
-          --_pad-x: var(--t-space-4);
-          --_font-size: var(--t-text-base);
+          --_h: var(--_h-md);
+          --_pad-x: var(--_pad-x-md);
+          --_font-size: var(--_font-size-md);
         }
 
         &:where([data-size-$(bp)="lg"]) {
-          --_h: var(--t-row-4);
-          --_pad-x: var(--t-space-5);
-          --_font-size: var(--t-text-lg);
+          --_h: var(--_h-lg);
+          --_pad-x: var(--_pad-x-lg);
+          --_font-size: var(--_font-size-lg);
         }
 
         &:where([data-block-$(bp)="true"]) {

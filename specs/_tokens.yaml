@@ -30,6 +30,8 @@ tokens:
     description: Transition easing curve.
   font:
     description: Font family.
+  font-size:
+    description: Font size for component text.
   height:
     description: Control height.
 
@@ -45,3 +47,4 @@ synonyms:
   transitionDuration: dur
   transitionTimingFunction: ease
   fontFamily: font
+  fontSize: font-size

@@ -1,7 +1,7 @@
 @layer components.tokens {
   .t-code {
-    --_bg: var(--t-code-bg, var(--t-neutral-20));
-    --_fg: var(--t-code-fg, var(--t-on-surface));
+    --_bg: var(--t-code-bg, var(--t-surface-muted));
+    --_fg: var(--t-code-fg, var(--t-on-surface-muted));
     --_pad-x: var(--t-code-pad-x, var(--t-space-1));
     --_radius: var(--t-code-radius, var(--t-radius-sm));
     --_font: var(--t-code-font, var(--t-font-mono));

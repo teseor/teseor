@@ -1,7 +1,7 @@
 @layer components.tokens {
   .t-codeblock {
-    --_bg: var(--t-codeblock-bg, var(--t-neutral-20));
-    --_fg: var(--t-codeblock-fg, var(--t-on-surface));
+    --_bg: var(--t-codeblock-bg, var(--t-surface-muted));
+    --_fg: var(--t-codeblock-fg, var(--t-on-surface-muted));
     --_pad: var(--t-codeblock-pad, var(--t-space-3));
     --_radius: var(--t-codeblock-radius, var(--t-radius-md));
     --_font: var(--t-codeblock-font, var(--t-font-mono));

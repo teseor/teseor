@@ -42,10 +42,10 @@ parts:
         description: "Modal body text. Plain string only; rich content support lands when the spec grows a real content slot."
     tokens:
       bg:
-        fallback: --t-neutral-0
+        fallback: --t-bg
         desc: Background fill.
       fg:
-        fallback: --t-neutral-90
+        fallback: --t-on-bg
         desc: Text color.
       pad:
         fallback: --t-space-5
