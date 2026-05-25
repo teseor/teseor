@@ -38,6 +38,17 @@ tokens:
 
 privateTokens:
   - --_gap
+  - --_align
+  - --_justify
+  - --_gap-0
+  - --_gap-1
+  - --_gap-2
+  - --_gap-3
+  - --_gap-4
+  - --_gap-5
+  - --_gap-6
+  - --_gap-7
+  - --_gap-8
 
 a11y:
   role: generic

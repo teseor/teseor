@@ -113,12 +113,18 @@ parts:
       - --_gap
       - --_dur
       - --_ease
+      - --_font-size
+      - --_motion-scale
       - --_arrow-size
       - --_arrow-bg
+      - --_arrow-inset
+      - --_arrow-transform
       - --_anchor
       - --_position-area
       - --_display
-      - --_translate
+      - --_translate-x
+      - --_translate-y
+      - --_margin
     motion:
       transitions: [opacity, transform]
       enters: [open]

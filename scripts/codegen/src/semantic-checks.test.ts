@@ -14,6 +14,7 @@ import {
   checkInteractionRefs,
   checkMotionSymmetry,
   checkOverlayEscapeRules,
+  checkPrivateTokens,
   checkResponsiveExplicit,
   checkTokenContract,
   checkTokenNames,
@@ -128,6 +129,59 @@ describe("checkTokenContract", () => {
     });
     const css = `.t-button { font-size: var(--t-button-font_size, var(--t-text-base)); }`;
     expect(checkTokenContract(spec, css)).toEqual([]);
+  });
+});
+
+describe("checkPrivateTokens", () => {
+  test("passes when every --_* slot is enumerated", () => {
+    const spec = makeButton({
+      privateTokens: ["--_h", "--_bg", "--_fg"],
+    });
+    const css = `.t-button { --_h: 1rem; --_bg: red; --_fg: white; }`;
+    expect(checkPrivateTokens(spec, css)).toEqual([]);
+  });
+
+  test("flags a slot declared in CSS but not listed", () => {
+    const spec = makeButton({ privateTokens: ["--_h"] });
+    const css = `.t-button { --_h: 1rem; --_bg: red; }`;
+    const issues = checkPrivateTokens(spec, css);
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.message).toMatch(/CSS declares '--_bg'/);
+  });
+
+  test("flags a slot listed but not declared in CSS", () => {
+    const spec = makeButton({ privateTokens: ["--_h", "--_unused"] });
+    const css = `.t-button { --_h: 1rem; }`;
+    const issues = checkPrivateTokens(spec, css);
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.message).toMatch(/'--_unused'.*never declared/);
+  });
+
+  test("walks composite parts (union)", () => {
+    const spec: Spec = {
+      name: "tooltip",
+      kind: "composite",
+      parts: {
+        trigger: {
+          fromChildren: true,
+          rootClass: "t-tooltip-trigger",
+          privateTokens: ["--_anchor"],
+        },
+        content: {
+          element: "div",
+          rootClass: "t-tooltip",
+          privateTokens: ["--_bg", "--_fg"],
+        },
+      },
+    } as Spec;
+    const css = `.t-tooltip-trigger { --_anchor: none; } .t-tooltip { --_bg: red; --_fg: white; }`;
+    expect(checkPrivateTokens(spec, css)).toEqual([]);
+  });
+
+  test("ignores --_* references on the RHS (only the declaration LHS counts)", () => {
+    const spec = makeButton({ privateTokens: ["--_h"] });
+    const css = `.t-button { --_h: 1rem; block-size: var(--_h); }`;
+    expect(checkPrivateTokens(spec, css)).toEqual([]);
   });
 });
 

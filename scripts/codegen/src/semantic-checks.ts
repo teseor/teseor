@@ -146,6 +146,74 @@ export function checkTokenContract(spec: Spec, css: string | undefined): Issue[]
   return issues;
 }
 
+// ── Private-token slots (`--_*`) ↔ CSS declarations ─────────────────────────
+
+/** Collect every `--_X:` declaration LHS from the CSS. The colon
+ *  disambiguates declarations from usages (`var(--_X)` has no trailing
+ *  colon). */
+function extractPrivateSlots(css: string): Set<string> {
+  const slots = new Set<string>();
+  for (const match of css.matchAll(/(--_[A-Za-z0-9_-]+)\s*:/g)) {
+    if (match[1] !== undefined) slots.add(match[1]);
+  }
+  return slots;
+}
+
+/** Union of `privateTokens` across atomic root and every composite part. */
+function collectDeclaredPrivateTokens(spec: Spec): Set<string> {
+  const set = new Set<string>();
+  if (isAtomic(spec)) {
+    for (const name of spec.privateTokens ?? []) set.add(name);
+    return set;
+  }
+  if (isComposite(spec)) {
+    const walk = (parts: Record<string, SpecPart>): void => {
+      for (const part of Object.values(parts)) {
+        for (const name of part.privateTokens ?? []) set.add(name);
+        if (part.parts) walk(part.parts);
+      }
+    };
+    walk(spec.parts);
+  }
+  return set;
+}
+
+/**
+ * Asserts every `--_*` slot the component CSS declares is enumerated in
+ * `spec.privateTokens` (atomic) or one of `parts[*].privateTokens` (composite),
+ * and vice versa. Union-based for composites — drift on the whole-spec set is
+ * caught, per-part precision is left to a follow-up.
+ */
+export function checkPrivateTokens(spec: Spec, css: string | undefined): Issue[] {
+  const issues: Issue[] = [];
+  if (css === undefined) return issues;
+  const declared = collectDeclaredPrivateTokens(spec);
+  const used = extractPrivateSlots(css);
+  for (const slot of declared) {
+    if (!used.has(slot)) {
+      issues.push(
+        issue(
+          spec.name,
+          "privateTokens",
+          `'${slot}' is listed in privateTokens but never declared in the CSS`,
+        ),
+      );
+    }
+  }
+  for (const slot of used) {
+    if (!declared.has(slot)) {
+      issues.push(
+        issue(
+          spec.name,
+          "privateTokens",
+          `CSS declares '${slot}' but it is not listed in privateTokens`,
+        ),
+      );
+    }
+  }
+  return issues;
+}
+
 // ── Examples reference real variant / intent / size ─────────────────────────
 
 export function checkExamplesReferences(spec: Spec): Issue[] {
@@ -936,6 +1004,7 @@ export function runSemanticChecks(
 ): Issue[] {
   return [
     ...checkTokenContract(spec, ctx.css),
+    ...checkPrivateTokens(spec, ctx.css),
     ...checkTokenNames(spec, ctx.tokenDictionary),
     ...checkExamplesReferences(spec),
     ...checkConstraintsAgainstExamples(spec),

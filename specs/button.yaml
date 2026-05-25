@@ -135,11 +135,44 @@ tokens:
 
 privateTokens:
   - --_h
-  - --_bg
-  - --_fg
   - --_pad-x
+  - --_gap
   - --_radius
   - --_dur
+  - --_ease
+  - --_fill
+  - --_on-fill
+  - --_bg
+  - --_fg
+  - --_shadow
+  - --_font-size
+  - --_text-decoration
+  - --_text-underline-offset
+  - --_inline-size
+  - --_cursor
+  - --_opacity
+  - --_transform
+  - --_motion-scale
+  - --_focus-ring
+  - --_h-sm
+  - --_pad-x-sm
+  - --_font-size-sm
+  - --_h-md
+  - --_pad-x-md
+  - --_font-size-md
+  - --_h-lg
+  - --_pad-x-lg
+  - --_font-size-lg
+  - --_intent-primary-fill
+  - --_intent-primary-on-fill
+  - --_intent-neutral-fill
+  - --_intent-neutral-on-fill
+  - --_intent-success-fill
+  - --_intent-success-on-fill
+  - --_intent-warning-fill
+  - --_intent-warning-on-fill
+  - --_intent-danger-fill
+  - --_intent-danger-on-fill
 
 a11y:
   role: button

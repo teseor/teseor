@@ -58,6 +58,7 @@ parts:
       - --_fg
       - --_pad
       - --_radius
+      - --_anchor
 
 examples:
   - id: default
