@@ -131,9 +131,12 @@ export function checkComponent(
     }
   }
 
-  // Every --t-* reference is a real token or the component's own override slot.
+  // Every `var(--t-*)` read references a real token or the component's own
+  // override slot. Match the `var(...)` shape (mirrors motion-scale.ts) so a
+  // string literal like `content: "--t-foo"` isn't mistaken for a token read.
   root.walkDecls((decl) => {
-    for (const ref of decl.value.match(/--t-[\w-]+/g) ?? []) {
+    for (const [, ref] of decl.value.matchAll(/var\(\s*(--t-[\w-]+)\s*[,)]/g)) {
+      if (ref === undefined) continue;
       if (!tokens.has(ref) && !ref.startsWith(ownSlot)) {
         out.push({
           file: rel,
@@ -148,10 +151,11 @@ export function checkComponent(
   root.walkAtRules("layer", (layer) => {
     if (layer.params !== "components.styles") return;
     layer.walkDecls((decl) => {
-      for (const ref of decl.value.match(/--t-[\w-]+/g) ?? []) {
+      for (const [, ref] of decl.value.matchAll(/var\(\s*(--t-[\w-]+)\s*[,)]/g)) {
+        if (ref === undefined) continue;
         out.push({
           file: rel,
-          message: `\`${ref}\` referenced inside @layer components.styles — global tokens are read in @layer components.tokens only`,
+          message: `\`${ref}\` read inside @layer components.styles — global tokens are read in @layer components.tokens only`,
         });
       }
     });

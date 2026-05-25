@@ -107,6 +107,20 @@ describe("checkComponent", () => {
     expect(lint(css)).toEqual([]);
   });
 
+  it("does not flag `--t-*` substrings that aren't `var(--t-*)` reads", () => {
+    const css = `
+      @layer components.tokens { .t-button { --_h: var(--t-row-3); } }
+      @layer components.styles {
+        .t-button {
+          box-sizing: border-box;
+          margin: 0;
+          content: "--t-foo";
+        }
+      }
+    `;
+    expect(lint(css)).toEqual([]);
+  });
+
   it("flags a root rule missing box-sizing or margin", () => {
     const css = `
       @layer components.tokens { .t-button { --_h: var(--t-row-3); } }
