@@ -1,6 +1,7 @@
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { brotliCompressSync, gzipSync } from "node:zlib";
 import { parse as parseYaml } from "yaml";
 import { flattenSpec } from "../lib/flatten.ts";
 import type { GeneratorContext, GeneratorReport } from "../registry.ts";
@@ -13,6 +14,21 @@ import { renderCompositeOverlayDocsPage } from "./gen-docs/kinds/composite-overl
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..", "..", "..");
 const SPECS_DIR = resolve(REPO_ROOT, "specs");
 const DOCS_PAGES_DIR = resolve(REPO_ROOT, "apps", "docs", "src", "pages", "components");
+const CSS_COMPONENTS_DIR = resolve(REPO_ROOT, "packages", "css", "dist", "components");
+
+async function readBundleSizes(name: string): Promise<DocsSpec["bundleSizes"]> {
+  try {
+    const text = await readFile(resolve(CSS_COMPONENTS_DIR, `${name}.css`), "utf8");
+    const buf = Buffer.from(text, "utf8");
+    return {
+      raw: buf.byteLength,
+      gzip: gzipSync(buf).byteLength,
+      brotli: brotliCompressSync(buf).byteLength,
+    };
+  } catch {
+    return undefined;
+  }
+}
 
 /** Dispatch to the kind-specific renderer for the spec's `kind:` field. */
 function renderDocsPage(spec: DocsSpec): string {
@@ -53,6 +69,7 @@ async function docsGenerator(ctx: GeneratorContext): Promise<GeneratorReport> {
   await mkdir(DOCS_PAGES_DIR, { recursive: true });
   for (const name of targets) {
     const spec = await loadSpec(name);
+    spec.bundleSizes = await readBundleSizes(name);
     const outPath = resolve(DOCS_PAGES_DIR, `${name}.astro`);
     await writeFile(outPath, renderDocsPage(spec), "utf8");
     filesWritten.push(outPath);

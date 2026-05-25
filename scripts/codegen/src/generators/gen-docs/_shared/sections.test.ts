@@ -3,6 +3,7 @@ import type { DocsSpec } from "./sections.ts";
 import {
   hasFromChildrenPart,
   renderA11y,
+  renderBundleSize,
   renderConstraints,
   renderNamed,
   renderProps,
@@ -300,6 +301,32 @@ describe("renderA11y", () => {
     expect(out).toContain("Custom escape wording.");
     expect(out).not.toContain("Topmost-wins when multiple overlays are open.");
     expect(out).toContain("<code>Outside pointer-down</code>");
+  });
+});
+
+describe("renderBundleSize", () => {
+  test("returns empty string when bundleSizes is unset", () => {
+    expect(renderBundleSize(atomicSpec())).toBe("");
+  });
+
+  test("renders a one-row table with raw / gzip / brotli columns", () => {
+    const spec = atomicSpec({
+      name: "button",
+      bundleSizes: { raw: 8491, gzip: 1500, brotli: 1350 },
+    });
+    const out = renderBundleSize(spec);
+    expect(out).toContain("<h2>Bundle size</h2>");
+    expect(out).toContain("<th>Artifact</th>");
+    expect(out).toContain("<th>Raw</th>");
+    expect(out).toContain("<th>Gzip</th>");
+    expect(out).toContain("<th>Brotli</th>");
+    expect(out).toContain("8.29 KB");
+    expect(out).toContain("1.46 KB");
+    expect(out).toContain("1.32 KB");
+    expect(out).toContain("<code>@teseor/css/components/button.css</code>");
+    expect(out).toContain(
+      'href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/button/button.css"',
+    );
   });
 });
 
