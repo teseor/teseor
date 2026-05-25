@@ -200,7 +200,7 @@
     --t-surface-muted: var(--t-neutral-20);
     --t-on-surface-muted: var(--t-neutral-90);
 
-    /* Inverse surface — dark-on-light; for tooltip bodies, dark menus. */
+    /* Inverse surface — light-on-dark; for tooltip bodies, dark menus. */
     --t-surface-inverse: var(--t-neutral-90);
     --t-on-surface-inverse: var(--t-neutral-10);
 

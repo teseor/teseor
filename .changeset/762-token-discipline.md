@@ -6,7 +6,7 @@ Tighten component CSS to a strict token-interface boundary: `@layer components.t
 
 User-visible changes in `@teseor/css`:
 
-- New semantic surface tokens: `--t-surface-muted` / `--t-on-surface-muted` (inset / de-emphasized — code, codeblock) and `--t-surface-inverse` / `--t-on-surface-inverse` (dark-on-light — tooltip). Themes can override these in the same way as `--t-surface`.
+- New semantic surface tokens: `--t-surface-muted` / `--t-on-surface-muted` (inset / de-emphasized — code, codeblock) and `--t-surface-inverse` / `--t-on-surface-inverse` (light-on-dark — tooltip). Themes can override these in the same way as `--t-surface`.
 - Component CSS migrated to consume the semantic surfaces instead of scale tokens (Tooltip's body fill, Modal's surface, Code/Codeblock's well).
 - New `--t-tooltip-font-size` public override slot.
 

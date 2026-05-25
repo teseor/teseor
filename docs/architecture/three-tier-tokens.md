@@ -169,7 +169,7 @@ When `tokens.css` *is* also loaded, the synthesized block and the `:root` forced
 | `--t-bg` (default surface) | `--t-on-bg` (same as `--t-fg` in default mode; separate for symmetry) |
 | `--t-surface` (raised surface, cards) | `--t-on-surface` |
 | `--t-surface-muted` (inset / de-emphasized — code wells) | `--t-on-surface-muted` |
-| `--t-surface-inverse` (dark-on-light — tooltips, dark menus) | `--t-on-surface-inverse` |
+| `--t-surface-inverse` (light-on-dark — tooltips, dark menus) | `--t-on-surface-inverse` |
 | `--t-accent` | `--t-on-accent` |
 | `--t-danger` | `--t-on-danger` |
 | `--t-success` | `--t-on-success` |
