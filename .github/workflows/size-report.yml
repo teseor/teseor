@@ -48,6 +48,24 @@ jobs:
                 process.stdout.write(`| ${entry.name} | ${size} | ${gz} | ${limit} |\n`);
               }
             '
+            echo ''
+            echo '### Per-component breakpoint share (brotli)'
+            echo ''
+            echo '| Component | Brotli | BP share | % BP |'
+            echo '| --- | --- | --- | --- |'
+            # shellcheck disable=SC2016
+            node -e '
+              const rows = JSON.parse(require("fs").readFileSync("bp-share.json", "utf8"));
+              for (const row of rows) {
+                const total = row.brotli != null ? row.brotli + " B" : "—";
+                const share = row.bpShare != null ? row.bpShare + " B" : "—";
+                const pct = row.bpPct != null ? row.bpPct.toFixed(1) + "%" : "—";
+                const flag = row.bpPct >= 50 ? " ⚠" : "";
+                process.stdout.write(`| ${row.name} | ${total} | ${share} | ${pct}${flag} |\n`);
+              }
+            '
+            echo ''
+            echo '> The ⚠ marker fires when a single component crosses 50% breakpoint share — soft signal to revisit the per-breakpoint cost decision, not a CI failure.'
             echo 'EOT'
           } >> "$GITHUB_OUTPUT"
       - if: steps.artifact.outcome == 'success'
