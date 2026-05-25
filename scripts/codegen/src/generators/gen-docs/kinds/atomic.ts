@@ -4,6 +4,7 @@ import { renderExamples } from "../_shared/examples.ts";
 import type { DocsSpec } from "../_shared/sections.ts";
 import {
   renderA11y,
+  renderBundleSize,
   renderConstraints,
   renderNamed,
   renderProps,
@@ -25,6 +26,7 @@ export function renderAtomicDocsPage(spec: DocsSpec): string {
     renderTokens(spec),
     renderA11y(spec),
     renderConstraints(spec),
+    renderBundleSize(spec),
   ].filter((part) => part.length > 0);
 
   const imports = [

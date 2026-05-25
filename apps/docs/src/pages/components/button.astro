@@ -156,5 +156,14 @@ import Base from "../../layouts/Base.astro";
         <li>Loading already disables interaction; disabling on top is redundant.</li>
       </ul>
     </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Bundle size</h2>
+      <table>
+        <thead><tr><th>Artifact</th><th>Raw</th><th>Gzip</th><th>Brotli</th></tr></thead>
+        <tbody>
+        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/button/button.css"><code>@teseor/css/components/button.css</code></a></td><td>8.29 KB</td><td>1.58 KB</td><td>1.32 KB</td></tr>
+        </tbody>
+      </table>
+    </section>
   </main>
 </Base>

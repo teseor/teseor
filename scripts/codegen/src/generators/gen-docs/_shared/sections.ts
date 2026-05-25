@@ -8,7 +8,33 @@ export type DocsSpec = Spec & {
   states?: Record<string, { description?: string }>;
   tokens?: Record<string, { fallback?: string; desc?: string }>;
   a11y?: { role?: string; keyboard?: Record<string, string> };
+  // Size of `packages/css/dist/components/<name>.css` injected by gen-docs.ts
+  // after build:css. Absent when dist hasn't been built yet.
+  bundleSizes?: { raw: number; gzip: number; brotli: number };
 };
+
+function formatKb(bytes: number): string {
+  return `${(bytes / 1024).toFixed(2)} KB`;
+}
+
+const REPO_BLOB_URL = "https://github.com/teseor/teseor/blob/main";
+
+export function renderBundleSize(spec: DocsSpec): string {
+  if (!spec.bundleSizes) return "";
+  const { raw, gzip, brotli } = spec.bundleSizes;
+  // URL path segments need `encodeURIComponent`, not the HTML-escape `esc`.
+  const urlName = encodeURIComponent(spec.name);
+  const source = `${REPO_BLOB_URL}/packages/css/src/components/${urlName}/${urlName}.css`;
+  const rows = [
+    [
+      `<a href="${source}"><code>@teseor/css/components/${esc(spec.name)}.css</code></a>`,
+      formatKb(raw),
+      formatKb(gzip),
+      formatKb(brotli),
+    ],
+  ];
+  return section("Bundle size", renderTable(["Artifact", "Raw", "Gzip", "Brotli"], rows));
+}
 
 // Universal overlay dismissal contract, wired in `useOverlay` via
 // `useDismissableLayer` for every spec with an `overlay:` block (PR #698).
