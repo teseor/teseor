@@ -68,7 +68,7 @@ describe("renderCompositeOverlayVueWrapper", () => {
   test("exposes contentRef via defineExpose so consumers can read the popover DOM", () => {
     const out = renderCompositeOverlayVueWrapper(tooltipSpec(), {});
     expect(out).toContain("defineExpose({ contentRef });");
-    expect(out).toMatch(/const contentRef = overlay\.contentRef;\n[^\n]*\n[^\n]*\ndefineExpose/);
+    expect(out).toMatch(/const contentRef = overlay\.contentRef;\n[^\n]*\ndefineExpose/);
   });
 
   test("wraps the floating element in <Teleport> for modal dialogs", () => {
