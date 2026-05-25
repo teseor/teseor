@@ -99,6 +99,11 @@ export function Tooltip(props: TooltipProps) {
   const triggerStyle: CSSProperties = asChild
     ? ({ [overlay.anchorVar]: overlay.anchorName, anchorName: overlay.anchorName } as CSSProperties)
     : { [overlay.anchorVar]: overlay.anchorName };
+  // Memoized so React doesn't tear the ref down + back up each render.
+  const mergedContentRef = useMemo(
+    () => mergeRefs(ref, overlay.contentRef),
+    [ref, overlay.contentRef],
+  );
   const hasContent = text != null;
 
   return (
@@ -125,7 +130,7 @@ export function Tooltip(props: TooltipProps) {
       )}
       {hasContent && (
         <div
-          ref={mergeRefs(ref, overlay.contentRef)}
+          ref={mergedContentRef}
           id={overlay.popoverId}
           role="tooltip"
           className="t-tooltip"

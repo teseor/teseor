@@ -74,7 +74,10 @@ describe("renderCompositeOverlayReactWrapper", () => {
     );
     expect(out).toContain('ref?: Ref<HTMLElementTagNameMap["div"]>;');
     expect(out).toContain("    ref,\n  } = props;");
-    expect(out).toContain("ref={mergeRefs(ref, overlay.contentRef)}");
+    expect(out).toContain("const mergedContentRef = useMemo(");
+    expect(out).toContain("() => mergeRefs(ref, overlay.contentRef),");
+    expect(out).toContain("[ref, overlay.contentRef],");
+    expect(out).toContain("ref={mergedContentRef}");
     expect(out).not.toContain("ref={overlay.contentRef}");
   });
 

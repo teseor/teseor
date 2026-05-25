@@ -70,6 +70,11 @@ export function Modal(props: ModalProps) {
   const triggerStyle: CSSProperties = asChild
     ? ({ [overlay.anchorVar]: overlay.anchorName, anchorName: overlay.anchorName } as CSSProperties)
     : { [overlay.anchorVar]: overlay.anchorName };
+  // Memoized so React doesn't tear the ref down + back up each render.
+  const mergedContentRef = useMemo(
+    () => mergeRefs(ref, overlay.contentRef),
+    [ref, overlay.contentRef],
+  );
   const hasContent = title != null;
 
   return (
@@ -92,7 +97,7 @@ export function Modal(props: ModalProps) {
         mounted &&
         createPortal(
           <div
-            ref={mergeRefs(ref, overlay.contentRef)}
+            ref={mergedContentRef}
             id={overlay.popoverId}
             role="dialog"
             aria-label={title}

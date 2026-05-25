@@ -237,6 +237,11 @@ ${
   const triggerStyle: CSSProperties = asChild
     ? ({ [overlay.anchorVar]: overlay.anchorName, anchorName: overlay.anchorName } as CSSProperties)
     : { [overlay.anchorVar]: overlay.anchorName };
+  // Memoized so React doesn't tear the ref down + back up each render.
+  const mergedContentRef = useMemo(
+    () => mergeRefs(ref, overlay.contentRef),
+    [ref, overlay.contentRef],
+  );
   const hasContent = ${contentSlots[0] ? `${contentSlots[0]} != null` : "false"};
 
   return (
@@ -261,7 +266,7 @@ ${
       )}
 ${overlaySpec.modal ? `      {hasContent && mounted && createPortal(` : `      {hasContent && (`}
         <${contentElement}
-          ref={mergeRefs(ref, overlay.contentRef)}
+          ref={mergedContentRef}
           id={overlay.popoverId}
 ${contentRoleAttr ? `${contentRoleAttr.replace(/ {8}/, "          ")}\n` : ""}${ariaLabelAttr ? `${ariaLabelAttr.replace(/ {8}/, "          ")}\n` : ""}${ariaModalAttr ? `${ariaModalAttr.replace(/ {8}/, "          ")}\n` : ""}          className=${quote(contentClass)}
           popover={overlay.popoverMode}
