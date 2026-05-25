@@ -10,6 +10,7 @@ import { act, cleanup, renderHook } from "@testing-library/react";
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import {
   isActiveAt,
+  mergeRefs,
   resolveResponsive,
   responsiveDataAttrs,
   useActiveBreakpoint,
@@ -158,6 +159,68 @@ describe("responsiveDataAttrs", () => {
       "data-disabled-md": "true",
       "data-disabled-lg": "false",
     });
+  });
+});
+
+// ── mergeRefs ──────────────────────────────────────────────────────────────
+
+describe("mergeRefs", () => {
+  it("invokes every callback ref with the node", () => {
+    const calls: Array<string | null> = [];
+    const a: (node: string | null) => void = (n) => calls.push(`a:${n}`);
+    const b: (node: string | null) => void = (n) => calls.push(`b:${n}`);
+    mergeRefs<string>(a, b)("el");
+    expect(calls).toEqual(["a:el", "b:el"]);
+  });
+
+  it("assigns the node to RefObject.current", () => {
+    const refA: { current: string | null } = { current: null };
+    const refB: { current: string | null } = { current: "stale" };
+    mergeRefs<string>(refA, refB)("el");
+    expect(refA.current).toBe("el");
+    expect(refB.current).toBe("el");
+  });
+
+  it("mixes callback refs and RefObjects in one call", () => {
+    const calls: Array<string | null> = [];
+    const callback: (node: string | null) => void = (n) => calls.push(`cb:${n}`);
+    const refObject: { current: string | null } = { current: null };
+    mergeRefs<string>(callback, refObject)("el");
+    expect(calls).toEqual(["cb:el"]);
+    expect(refObject.current).toBe("el");
+  });
+
+  it("skips null / undefined refs", () => {
+    const refObject: { current: string | null } = { current: null };
+    // null / undefined are valid Ref<T> values — they must be tolerated by mergeRefs.
+    mergeRefs<string>(null, undefined, refObject)("el");
+    expect(refObject.current).toBe("el");
+  });
+
+  it("returns nothing when no callback ref returned a cleanup", () => {
+    const refObject: { current: string | null } = { current: null };
+    const result = mergeRefs<string>(refObject)("el");
+    expect(result).toBeUndefined();
+  });
+
+  it("returns a composed cleanup that runs every callback-ref cleanup", () => {
+    const cleanups: string[] = [];
+    const a: (node: string | null) => void | (() => void) = () => () => cleanups.push("a");
+    const b: (node: string | null) => void | (() => void) = () => () => cleanups.push("b");
+    const composed = mergeRefs<string>(a, b)("el");
+    expect(typeof composed).toBe("function");
+    composed?.();
+    expect(cleanups).toEqual(["a", "b"]);
+  });
+
+  it("composes cleanups across mixed callback-and-RefObject refs", () => {
+    const cleanups: string[] = [];
+    const refObject: { current: string | null } = { current: null };
+    const cb: (node: string | null) => void | (() => void) = () => () => cleanups.push("cb");
+    const composed = mergeRefs<string>(refObject, cb)("el");
+    expect(refObject.current).toBe("el");
+    composed?.();
+    expect(cleanups).toEqual(["cb"]);
   });
 });
 
