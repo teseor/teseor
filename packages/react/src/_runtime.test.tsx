@@ -292,7 +292,7 @@ describe("mergeClass", () => {
     expect(mergeClass("t-button", "")).toBe("t-button");
   });
 
-  it("joins rootClass and userClass with consumer last (specificity tie-break)", () => {
+  it("joins rootClass and userClass space-separated, consumer last by convention", () => {
     expect(mergeClass("t-button", "my-custom")).toBe("t-button my-custom");
   });
 });
