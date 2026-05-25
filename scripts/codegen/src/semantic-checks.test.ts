@@ -17,6 +17,7 @@ import {
   checkPrivateTokens,
   checkResponsiveExplicit,
   checkTokenContract,
+  checkTokenFallbacks,
   checkTokenNames,
   checkVariantChoiceKeys,
   checkVocabulary,
@@ -132,6 +133,88 @@ describe("checkTokenContract", () => {
   });
 });
 
+describe("checkTokenFallbacks", () => {
+  const tokensCss = new Set(["--t-accent", "--t-on-accent", "--t-bg", "--t-space-3", "--t-row-3"]);
+
+  test("passes a fallback that resolves to a known token", () => {
+    const spec = makeButton({
+      tokens: { bg: { fallback: "--t-accent", desc: "Background." } },
+    });
+    expect(checkTokenFallbacks(spec, tokensCss)).toEqual([]);
+  });
+
+  test("flags a fallback that points to a non-existent token", () => {
+    const spec = makeButton({
+      tokens: { bg: { fallback: "--t-acent", desc: "Background typo." } },
+    });
+    const issues = checkTokenFallbacks(spec, tokensCss);
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.message).toMatch(/--t-acent.*not a token/);
+  });
+
+  test("allows literal CSS values (non-token fallbacks)", () => {
+    const spec = makeButton({
+      tokens: { align: { fallback: "stretch", desc: "Alignment default." } },
+    });
+    expect(checkTokenFallbacks(spec, tokensCss)).toEqual([]);
+  });
+
+  test("allows the component's own override slot as a fallback", () => {
+    const spec = makeButton({
+      tokens: { custom: { fallback: "--t-button-other", desc: "Self-referential." } },
+    });
+    expect(checkTokenFallbacks(spec, tokensCss)).toEqual([]);
+  });
+
+  test("flags an intent-token override pointing to a non-existent token", () => {
+    const spec = makeButton({
+      intents: {
+        primary: {
+          description: "Primary.",
+          tokens: { bg: "--t-acent" },
+        },
+      },
+    });
+    const issues = checkTokenFallbacks(spec, tokensCss);
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.path).toBe("intents.primary.tokens.bg");
+  });
+
+  test("flags a size-token override pointing to a non-existent token", () => {
+    const spec = makeButton({
+      sizes: {
+        sm: {
+          description: "Small.",
+          tokens: { height: "--t-row-99" },
+        },
+      },
+    });
+    const issues = checkTokenFallbacks(spec, tokensCss);
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.path).toBe("sizes.sm.tokens.height");
+  });
+
+  test("walks composite parts", () => {
+    const spec: Spec = {
+      name: "tooltip",
+      kind: "composite",
+      parts: {
+        content: {
+          element: "div",
+          rootClass: "t-tooltip",
+          tokens: {
+            bg: { fallback: "--t-acent", desc: "Bad ref." },
+            fg: { fallback: "--t-bg", desc: "Good ref." },
+          },
+        },
+      },
+    } as Spec;
+    const issues = checkTokenFallbacks(spec, tokensCss);
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.path).toBe("parts.content.tokens.bg.fallback");
+  });
+});
+
 describe("checkPrivateTokens", () => {
   test("passes when every --_* slot is enumerated", () => {
     const spec = makeButton({
@@ -146,7 +229,7 @@ describe("checkPrivateTokens", () => {
     const css = `.t-button { --_h: 1rem; --_bg: red; }`;
     const issues = checkPrivateTokens(spec, css);
     expect(issues).toHaveLength(1);
-    expect(issues[0]?.message).toMatch(/CSS declares '--_bg'/);
+    expect(issues[0]?.message).toMatch(/declares '--_bg'/);
   });
 
   test("flags a slot listed but not declared in CSS", () => {

@@ -36,8 +36,15 @@ const propEntry = z.strictObject({
   pattern: z.literal("controllable").optional(),
 });
 
+// A token's `fallback:` is either a `--<name>` reference (validated against
+// tokens.css by `checkTokenFallbacks`) or a literal CSS value (`stretch`,
+// `flex-start`, `none`, …) for layout primitives where the default isn't a
+// theme token. The shape gate stays permissive; semantic checks enforce
+// "token-shaped values resolve to a real token."
+const fallbackValue = z.string().min(1);
+
 const tokenEntry = z.strictObject({
-  fallback: tokenName,
+  fallback: fallbackValue,
   desc: z.string().min(1),
 });
 

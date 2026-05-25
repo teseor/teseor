@@ -8,6 +8,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse as parseYaml } from "yaml";
 import { loadTokenDictionary } from "./lib/token-dictionary.ts";
+import { loadTokensCss } from "./lib/tokens-css.ts";
 import { loadVocabulary } from "./lib/vocabulary.ts";
 import { Spec } from "./schema.ts";
 import { checkDependencyCycles, type Issue, runSemanticChecks } from "./semantic-checks.ts";
@@ -49,6 +50,7 @@ async function main(): Promise<void> {
   const names = await listSpecNames();
   const vocabulary = await loadVocabulary();
   const tokenDictionary = await loadTokenDictionary();
+  const tokensCss = await loadTokensCss();
 
   const depsByName = new Map<string, string[]>();
   const errors: { name: string; specPath: string; issues: Issue[] }[] = [];
@@ -72,7 +74,7 @@ async function main(): Promise<void> {
 
     depsByName.set(name, parsed.data.dependencies ?? []);
     const css = await readCss({ name: parsed.data.name, cssFile: parsed.data.cssFile });
-    issues.push(...runSemanticChecks(parsed.data, { css, vocabulary, tokenDictionary }));
+    issues.push(...runSemanticChecks(parsed.data, { css, vocabulary, tokenDictionary, tokensCss }));
     if (issues.length > 0) errors.push({ name, specPath, issues });
   }
 

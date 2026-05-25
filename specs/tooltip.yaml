@@ -52,6 +52,8 @@ parts:
         default: 0
         responsive: false
         description: "Milliseconds before the tooltip closes after leave or blur."
+    privateTokens:
+      - --_anchor
 
   content:
     element: div
