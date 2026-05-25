@@ -19,6 +19,7 @@ import { rule as exportsResolve } from "./cross-file/exports-resolve.ts";
 import { rule as labelSync } from "./cross-file/label-sync.ts";
 import { rule as scriptAggregators } from "./cross-file/script-aggregators.ts";
 import { rule as scriptCatalog } from "./cross-file/script-catalog.ts";
+import { rule as scriptEntryPoint } from "./cross-file/script-entry-point.ts";
 import { rule as changeset } from "./diff-aware/changeset.ts";
 import { rule as codegenTests } from "./diff-aware/codegen-tests.ts";
 import { rule as componentCss } from "./file-rules/component-css.ts";
@@ -128,6 +129,7 @@ export const REGISTRY: Readonly<Record<string, Check>> = {
   "transitionable-property": transitionableProperty,
   "script-aggregators": scriptAggregators,
   "script-catalog": scriptCatalog,
+  "script-entry-point": scriptEntryPoint,
   "exports-resolve": exportsResolve,
   "doc-paths": docPaths,
   "contract-snapshots": contractSnapshots,
