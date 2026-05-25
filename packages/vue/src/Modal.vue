@@ -44,8 +44,7 @@ const overlay = useOverlay({
 });
 
 const contentRef = overlay.contentRef;
-// Surface contentRef through the component instance so consumers can read
-// the popover DOM element via `<Modal ref="x" />` → `x.value.contentRef.value`.
+// Exposed so consumers read the popover DOM via parent ref → `inst.contentRef.value`.
 defineExpose({ contentRef });
 
 </script>
