@@ -1,7 +1,9 @@
-// Enforces the token-driven component-CSS model: every [data-*] modifier
-// reassigns --_ vars only, every component root declares its own box model,
-// and every --t-* reference is a real token or the component's own override
-// slot.
+// Enforces the token-driven component-CSS model:
+// - Every [data-*] modifier reassigns --_ vars only.
+// - Every component root declares its own box model.
+// - Every --t-* reference is a real token or the component's own override slot.
+// - Global token references live in @layer components.tokens only; @layer
+//   components.styles reads --_* slots only.
 import { readdirSync, readFileSync } from "node:fs";
 import { relative, resolve } from "node:path";
 import type { Rule } from "postcss";
@@ -79,22 +81,40 @@ function checkComponent(
 
   // The root declares its own box model.
   let rootRule: Rule | undefined;
+  let tokensLayerSeen = false;
+  let stylesLayerSeen = false;
   root.walkAtRules("layer", (layer) => {
+    if (layer.params === "components.tokens") {
+      tokensLayerSeen = true;
+    }
     if (layer.params !== "components.styles") {
       return;
     }
+    stylesLayerSeen = true;
     layer.walkRules((r) => {
       if (r.selector === `.t-${name}`) {
         rootRule = r;
       }
     });
   });
-  if (rootRule === undefined) {
+  if (!tokensLayerSeen) {
+    out.push({
+      file: rel,
+      message: `no \`@layer components.tokens\` block — global token references live here`,
+    });
+  }
+  if (!stylesLayerSeen) {
+    out.push({
+      file: rel,
+      message: `no \`@layer components.styles\` block`,
+    });
+  }
+  if (rootRule === undefined && stylesLayerSeen) {
     out.push({
       file: rel,
       message: `no \`.t-${name}\` rule in @layer components.styles`,
     });
-  } else {
+  } else if (rootRule !== undefined) {
     const declared = new Set<string>();
     for (const node of rootRule.nodes) {
       if (node.type === "decl") {
@@ -121,6 +141,20 @@ function checkComponent(
         });
       }
     }
+  });
+
+  // The .styles layer body reads --_* slots only; global-token references
+  // funnel through one named alias declared in .tokens.
+  root.walkAtRules("layer", (layer) => {
+    if (layer.params !== "components.styles") return;
+    layer.walkDecls((decl) => {
+      for (const ref of decl.value.match(/--t-[\w-]+/g) ?? []) {
+        out.push({
+          file: rel,
+          message: `\`${ref}\` referenced inside @layer components.styles — global tokens are read in @layer components.tokens only`,
+        });
+      }
+    });
   });
 
   return out;

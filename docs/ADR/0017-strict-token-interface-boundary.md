@@ -8,9 +8,19 @@
 `@layer components.tokens` is the only place where global tokens (`var(--t-*)`)
 are read. `@layer components.styles` references `var(--_*)` only, plus a small
 allowlist of structural literals. Every token reference funnels through one
-named alias in the `.tokens` block. The lint rule that checks component CSS
-fails the build if a `var(--t-*)` appears outside `.tokens` or if a numeric
-literal outside the allowlist appears inside `.styles`.
+named alias in the `.tokens` block.
+
+The lint rule that checks component CSS lands in two phases:
+
+- **Phase 1** (this ADR's introduction): fails the build if a `var(--t-*)`
+  appears anywhere inside `@layer components.styles` (including the
+  component's own override-slot, `--t-<name>-*`).
+- **Phase 2** (follow-up): adds the numeric-literal allowlist check to
+  `.styles`. Authored after the Phase-1 migration settles so the exact
+  allowlist boundary can be set against real component CSS.
+
+Both phases share the same rule shape and are enforced by the same lint
+file (`scripts/lint/file-rules/component-css.ts`).
 
 ## Why this and not "var(--t-*) anywhere"
 
