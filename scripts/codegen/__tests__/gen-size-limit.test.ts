@@ -39,11 +39,18 @@ describe("gen-size-limit", () => {
     const entries = await readSizeLimit();
     const specNames = await listSpecNames();
     const componentEntries = entries.filter((e) => e.path.startsWith(COMPONENT_PATH_PREFIX));
-    const expected = specNames.map((name) => ({
-      name: `@teseor/css/components/${name}.css`,
-      path: `${COMPONENT_PATH_PREFIX}${name}.css`,
-    }));
-    expect(componentEntries).toEqual(expected);
+    expect(componentEntries.map((e) => ({ name: e.name, path: e.path }))).toEqual(
+      specNames.map((name) => ({
+        name: `@teseor/css/components/${name}.css`,
+        path: `${COMPONENT_PATH_PREFIX}${name}.css`,
+      })),
+    );
+  });
+
+  test("preserves the Button per-component brotli budget", async () => {
+    const entries = await readSizeLimit();
+    const button = entries.find((e) => e.name === "@teseor/css/components/button.css");
+    expect(button?.limit).toBe("4 kB");
   });
 
   test("every entry resolves under packages/css/dist", async () => {

@@ -6,18 +6,23 @@ import { brotliCompressSync } from "node:zlib";
 const REPO_ROOT = resolve(import.meta.dirname, "../..");
 const COMPONENTS_DIR = resolve(REPO_ROOT, "packages/css/dist/components");
 
-// Strip `@media (--<bp>) { ... }` blocks (balanced-brace match) so the
-// brotli delta between "with breakpoints" and "without" is the share of
-// compressed bytes attributable to per-breakpoint emission.
+// Per-component dist preserves `@media (--<bp>)` (postcss-custom-media has
+// no alias source when building each component file); the full-bundle dist
+// expands them to `@media (min-width: <n>rem)`. Catch both so the measurement
+// stays correct if a build-pipeline change ever inlines tokens.css per component.
+const BREAKPOINT_MEDIA_RE =
+  /@media\s*\(\s*(?:--[a-z0-9-]+|min-width:\s*\d+(?:\.\d+)?(?:rem|px|em))\s*\)/;
+
 function stripBreakpointBlocks(text: string): string {
   const parts: string[] = [];
   let i = 0;
   while (i < text.length) {
-    const next = text.indexOf("@media (--", i);
-    if (next < 0) {
+    const match = BREAKPOINT_MEDIA_RE.exec(text.slice(i));
+    if (!match) {
       parts.push(text.slice(i));
       break;
     }
+    const next = i + (match.index ?? 0);
     parts.push(text.slice(i, next));
     const openBrace = text.indexOf("{", next);
     if (openBrace < 0) {

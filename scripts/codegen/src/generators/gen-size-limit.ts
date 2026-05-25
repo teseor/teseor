@@ -41,12 +41,23 @@ async function listSpecNames(): Promise<string[]> {
     .sort();
 }
 
+// Per-component brotli budgets carried over from the previous hand-maintained
+// `size-limit` block. Unlisted specs ship without an explicit budget; the
+// PR-comment size table still reports their measurement.
+const COMPONENT_LIMITS: Record<string, string> = {
+  button: "4 kB",
+};
+
 async function sizeLimitGenerator(_ctx: GeneratorContext): Promise<GeneratorReport> {
   const componentNames = await listSpecNames();
-  const componentEntries = componentNames.map((name) => ({
-    name: `@teseor/css/components/${name}.css`,
-    path: `packages/css/dist/components/${name}.css`,
-  }));
+  const componentEntries = componentNames.map((name) => {
+    const entry: Record<string, string> = {
+      name: `@teseor/css/components/${name}.css`,
+      path: `packages/css/dist/components/${name}.css`,
+    };
+    if (COMPONENT_LIMITS[name]) entry.limit = COMPONENT_LIMITS[name];
+    return entry;
+  });
   const config = [...BUNDLE_ENTRIES, ...componentEntries];
   await writeFile(OUTPUT_PATH, `${JSON.stringify(config, null, 2)}\n`, "utf8");
   return {

@@ -21,7 +21,8 @@
   },
   {
     "name": "@teseor/css/components/button.css",
-    "path": "packages/css/dist/components/button.css"
+    "path": "packages/css/dist/components/button.css",
+    "limit": "4 kB"
   },
   {
     "name": "@teseor/css/components/cluster.css",
