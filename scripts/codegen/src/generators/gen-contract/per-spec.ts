@@ -102,9 +102,13 @@ export function renderContract(spec: FlatSpec): string {
     propLines.push(`  ${propName}?: ${tsType};`);
   }
 
-  lines.push(`export type ${Name}Props = {`);
-  for (const line of propLines) lines.push(line);
-  lines.push("};");
+  if (propLines.length === 0) {
+    lines.push(`export type ${Name}Props = Record<string, never>;`);
+  } else {
+    lines.push(`export type ${Name}Props = {`);
+    for (const line of propLines) lines.push(line);
+    lines.push("};");
+  }
   lines.push("");
 
   return lines.join("\n");
