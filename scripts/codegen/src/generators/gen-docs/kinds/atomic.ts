@@ -6,6 +6,7 @@ import {
   renderA11y,
   renderBundleSize,
   renderConstraints,
+  renderForcedColors,
   renderNamed,
   renderProps,
   renderStates,
@@ -25,6 +26,7 @@ export function renderAtomicDocsPage(spec: DocsSpec): string {
     renderStates(spec),
     renderTokens(spec),
     renderA11y(spec),
+    renderForcedColors(spec),
     renderConstraints(spec),
     renderBundleSize(spec),
   ].filter((part) => part.length > 0);
