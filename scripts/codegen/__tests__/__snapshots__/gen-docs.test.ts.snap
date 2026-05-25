@@ -61,18 +61,25 @@ import Base from "../../layouts/Base.astro";
         </div>
         <Codeblock>&lt;Button variant="solid" intent="primary" block size="lg"&gt;Button&lt;/Button&gt;</Codeblock>
       </div>
+      <div class="t-stack" data-gap="2">
+        <h3>block-responsive</h3>
+        <div class="t-cluster" data-gap="3">
+          <Button variant="solid" intent="primary" block={{ base: true, md: false }} size="lg">Button</Button>
+        </div>
+        <Codeblock>&lt;Button variant="solid" intent="primary" block=&lbrace;&lbrace; base: true, md: false &rbrace;&rbrace; size="lg"&gt;Button&lt;/Button&gt;</Codeblock>
+      </div>
     </section>
     <section class="t-stack" data-gap="3">
       <h2>Props</h2>
       <table>
-        <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+        <thead><tr><th>Prop</th><th>Type</th><th>Responsive</th><th>Default</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><Code>as</Code></td><td><Code>string</Code></td><td><Code>button</Code></td><td>Polymorphic root element. Defaults to \`button\`; set to \`a\` for link-shaped triggers (paired with \`variant: link\`).</td></tr>
-        <tr><td><Code>disabled</Code></td><td><Code>boolean</Code></td><td><Code>false</Code></td><td>Disables interaction and applies the disabled visual state. Mapped to the native \`disabled\` attribute on \`button\`, \`aria-disabled="true"\` otherwise.</td></tr>
-        <tr><td><Code>loading</Code></td><td><Code>boolean</Code></td><td><Code>false</Code></td><td>Shows a spinner in place of the label and disables interaction. The original label stays in the accessibility tree.</td></tr>
-        <tr><td><Code>iconStart</Code></td><td><Code>string, slot</Code></td><td><Code>null</Code></td><td>Icon rendered before the label in the inline direction. Slot size scales with \`size\`. Accepts any node (icon component, SVG, etc.).</td></tr>
-        <tr><td><Code>iconEnd</Code></td><td><Code>string, slot</Code></td><td><Code>null</Code></td><td>Icon rendered after the label in the inline direction. Accepts any node.</td></tr>
-        <tr><td><Code>block</Code></td><td><Code>boolean, responsive</Code></td><td><Code>false</Code></td><td>Stretches the button to the inline-size of its container. Responsive so layouts can pin block-width on mobile and shrink to content above.</td></tr>
+        <tr><td><Code>as</Code></td><td><Code>string</Code></td><td></td><td><Code>button</Code></td><td>Polymorphic root element. Defaults to \`button\`; set to \`a\` for link-shaped triggers (paired with \`variant: link\`).</td></tr>
+        <tr><td><Code>disabled</Code></td><td><Code>boolean</Code></td><td></td><td><Code>false</Code></td><td>Disables interaction and applies the disabled visual state. Mapped to the native \`disabled\` attribute on \`button\`, \`aria-disabled="true"\` otherwise.</td></tr>
+        <tr><td><Code>loading</Code></td><td><Code>boolean</Code></td><td></td><td><Code>false</Code></td><td>Shows a spinner in place of the label and disables interaction. The original label stays in the accessibility tree.</td></tr>
+        <tr><td><Code>iconStart</Code></td><td><Code>string, slot</Code></td><td></td><td><Code>null</Code></td><td>Icon rendered before the label in the inline direction. Slot size scales with \`size\`. Accepts any node (icon component, SVG, etc.).</td></tr>
+        <tr><td><Code>iconEnd</Code></td><td><Code>string, slot</Code></td><td></td><td><Code>null</Code></td><td>Icon rendered after the label in the inline direction. Accepts any node.</td></tr>
+        <tr><td><Code>block</Code></td><td><Code>boolean</Code></td><td>✓</td><td><Code>false</Code></td><td>Stretches the button to the inline-size of its container. Responsive so layouts can pin block-width on mobile and shrink to content above.</td></tr>
         </tbody>
       </table>
     </section>
@@ -236,11 +243,11 @@ import Base from "../../layouts/Base.astro";
     <section class="t-stack" data-gap="3">
       <h2>Props</h2>
       <table>
-        <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+        <thead><tr><th>Prop</th><th>Type</th><th>Responsive</th><th>Default</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><Code>gap</Code></td><td><Code>string, responsive</Code></td><td><Code>null</Code></td><td>Spacing between children. Accepts a token suffix from the \`--t-space-*\` scale (\`0\`–\`8\`).</td></tr>
-        <tr><td><Code>align</Code></td><td><Code>string, responsive</Code></td><td><Code>null</Code></td><td>Block-axis alignment of children.</td></tr>
-        <tr><td><Code>justify</Code></td><td><Code>string, responsive</Code></td><td><Code>null</Code></td><td>Inline-axis distribution of children.</td></tr>
+        <tr><td><Code>gap</Code></td><td><Code>string</Code></td><td>✓</td><td><Code>null</Code></td><td>Spacing between children. Accepts a token suffix from the \`--t-space-*\` scale (\`0\`–\`8\`).</td></tr>
+        <tr><td><Code>align</Code></td><td><Code>string</Code></td><td>✓</td><td><Code>null</Code></td><td>Block-axis alignment of children.</td></tr>
+        <tr><td><Code>justify</Code></td><td><Code>string</Code></td><td>✓</td><td><Code>null</Code></td><td>Inline-axis distribution of children.</td></tr>
         </tbody>
       </table>
     </section>
@@ -329,10 +336,10 @@ import Base from "../../layouts/Base.astro";
     <section class="t-stack" data-gap="3">
       <h2>Props</h2>
       <table>
-        <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+        <thead><tr><th>Prop</th><th>Type</th><th>Responsive</th><th>Default</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><Code>gap</Code></td><td><Code>string, responsive</Code></td><td><Code>null</Code></td><td>Spacing between children. Accepts a token suffix from the \`--t-space-*\` scale (\`0\`–\`8\`).</td></tr>
-        <tr><td><Code>align</Code></td><td><Code>string, responsive</Code></td><td><Code>null</Code></td><td>Inline-axis alignment of children.</td></tr>
+        <tr><td><Code>gap</Code></td><td><Code>string</Code></td><td>✓</td><td><Code>null</Code></td><td>Spacing between children. Accepts a token suffix from the \`--t-space-*\` scale (\`0\`–\`8\`).</td></tr>
+        <tr><td><Code>align</Code></td><td><Code>string</Code></td><td>✓</td><td><Code>null</Code></td><td>Inline-axis alignment of children.</td></tr>
         </tbody>
       </table>
     </section>
@@ -426,18 +433,18 @@ import Base from "../../layouts/Base.astro";
     <section class="t-stack" data-gap="3">
       <h2>Props</h2>
       <table>
-        <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+        <thead><tr><th>Prop</th><th>Type</th><th>Responsive</th><th>Default</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><Code>open</Code></td><td><Code>boolean, controllable</Code></td><td><Code>false</Code></td><td>Open state. Uncontrolled by default; pass \`open\` and optionally \`onOpenChange\` to drive it from the consumer (e.g. guided tours).</td></tr>
-        <tr><td><Code>defaultOpen</Code></td><td><Code>boolean</Code></td><td><Code>false</Code></td><td>Initial open state (uncontrolled).</td></tr>
-        <tr><td><Code>onOpenChange</Code></td><td><Code>(open: boolean) =&gt; void</Code></td><td><Code>null</Code></td><td>Fires when the open state changes.</td></tr>
-        <tr><td><Code>disabled</Code></td><td><Code>boolean, responsive</Code></td><td><Code>false</Code></td><td>Suppresses the tooltip entirely. Responsive so the tooltip can be hidden at narrow viewports (e.g. \`disabled: &lbrace; base: true, md: false &rbrace;\`).</td></tr>
-        <tr><td><Code>openDelay</Code></td><td><Code>number</Code></td><td><Code>300</Code></td><td>Milliseconds before the tooltip opens after hover or focus. Prevents flicker during cursor scanning.</td></tr>
-        <tr><td><Code>closeDelay</Code></td><td><Code>number</Code></td><td><Code>0</Code></td><td>Milliseconds before the tooltip closes after leave or blur.</td></tr>
-        <tr><td><Code>text</Code></td><td><Code>string, slot</Code></td><td><Code>null</Code></td><td>Tooltip content. Plain text; use Popover for interactive content.</td></tr>
-        <tr><td><Code>placement</Code></td><td><Code>string, responsive</Code></td><td><Code>top</Code></td><td>Preferred side relative to the trigger. CSS \`position-try-fallbacks\` auto-flips on overflow.</td></tr>
-        <tr><td><Code>asChild</Code></td><td><Code>boolean</Code></td><td><Code>false</Code></td><td>Render the trigger directly on the consumer's child element (cloneElement) instead of wrapping in a &lt;span&gt;. Single-child invariant; the child receives the wrapper's &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;data-state&lt;/code&gt;, event handlers, and any ARIA attributes the component applies (component-specific). Not compatible with Astro slots — use the default wrapper there.</td></tr>
-        <tr><td><Code>ref</Code></td><td><Code>Ref&lt;HTMLElement&gt;</Code></td><td><Code>null</Code></td><td>Forwarded ref to the popover content element. React: pass a callback ref or RefObject as the <Code>ref</Code> prop. Vue: read it through the parent template ref — <Code>tooltipRef.value?.contentRef.value</Code> (exposed via <Code>defineExpose</Code>).</td></tr>
+        <tr><td><Code>open</Code></td><td><Code>boolean, controllable</Code></td><td></td><td><Code>false</Code></td><td>Open state. Uncontrolled by default; pass \`open\` and optionally \`onOpenChange\` to drive it from the consumer (e.g. guided tours).</td></tr>
+        <tr><td><Code>defaultOpen</Code></td><td><Code>boolean</Code></td><td></td><td><Code>false</Code></td><td>Initial open state (uncontrolled).</td></tr>
+        <tr><td><Code>onOpenChange</Code></td><td><Code>(open: boolean) =&gt; void</Code></td><td></td><td><Code>null</Code></td><td>Fires when the open state changes.</td></tr>
+        <tr><td><Code>disabled</Code></td><td><Code>boolean</Code></td><td>✓</td><td><Code>false</Code></td><td>Suppresses the tooltip entirely. Responsive so the tooltip can be hidden at narrow viewports (e.g. \`disabled: &lbrace; base: true, md: false &rbrace;\`).</td></tr>
+        <tr><td><Code>openDelay</Code></td><td><Code>number</Code></td><td></td><td><Code>300</Code></td><td>Milliseconds before the tooltip opens after hover or focus. Prevents flicker during cursor scanning.</td></tr>
+        <tr><td><Code>closeDelay</Code></td><td><Code>number</Code></td><td></td><td><Code>0</Code></td><td>Milliseconds before the tooltip closes after leave or blur.</td></tr>
+        <tr><td><Code>text</Code></td><td><Code>string, slot</Code></td><td></td><td><Code>null</Code></td><td>Tooltip content. Plain text; use Popover for interactive content.</td></tr>
+        <tr><td><Code>placement</Code></td><td><Code>string</Code></td><td>✓</td><td><Code>top</Code></td><td>Preferred side relative to the trigger. CSS \`position-try-fallbacks\` auto-flips on overflow.</td></tr>
+        <tr><td><Code>asChild</Code></td><td><Code>boolean</Code></td><td></td><td><Code>false</Code></td><td>Render the trigger directly on the consumer's child element (cloneElement) instead of wrapping in a &lt;span&gt;. Single-child invariant; the child receives the wrapper's &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;data-state&lt;/code&gt;, event handlers, and any ARIA attributes the component applies (component-specific). Not compatible with Astro slots — use the default wrapper there.</td></tr>
+        <tr><td><Code>ref</Code></td><td><Code>Ref&lt;HTMLElement&gt;</Code></td><td></td><td><Code>null</Code></td><td>Forwarded ref to the popover content element. React: pass a callback ref or RefObject as the <Code>ref</Code> prop. Vue: read it through the parent template ref — <Code>tooltipRef.value?.contentRef.value</Code> (exposed via <Code>defineExpose</Code>).</td></tr>
         </tbody>
       </table>
     </section>

@@ -74,6 +74,7 @@ export function renderProps(spec: DocsSpec): string {
   // `onNameChange`) in every emitted wrapper / contract. The docs table
   // mirrors that expansion so the documented API matches the consumer's
   // type-completed surface.
+  const responsiveMark = (responsive: boolean | undefined) => (responsive ? "✓" : "");
   const rows: string[][] = [];
   for (const [name, def] of Object.entries(spec.props)) {
     if (def.pattern === "controllable" && def.type === "boolean") {
@@ -81,29 +82,31 @@ export function renderProps(spec: DocsSpec): string {
       rows.push([
         `<Code>${esc(name)}</Code>`,
         `<Code>boolean, controllable</Code>`,
+        responsiveMark(def.responsive),
         `<Code>${esc(formatValue(def.default))}</Code>`,
         esc(def.description ?? ""),
       ]);
       rows.push([
         `<Code>default${esc(PName)}</Code>`,
         `<Code>boolean</Code>`,
+        "",
         `<Code>${esc(formatValue(def.default))}</Code>`,
         `Initial open state (uncontrolled).`,
       ]);
       rows.push([
         `<Code>on${esc(PName)}Change</Code>`,
         `<Code>(${esc(name)}: boolean) =&gt; void</Code>`,
+        "",
         `<Code>null</Code>`,
         `Fires when the open state changes.`,
       ]);
       continue;
     }
-    const type = [def.type, def.slot ? "slot" : "", def.responsive ? "responsive" : ""]
-      .filter(Boolean)
-      .join(", ");
+    const type = [def.type, def.slot ? "slot" : ""].filter(Boolean).join(", ");
     rows.push([
       `<Code>${esc(name)}</Code>`,
       `<Code>${esc(type)}</Code>`,
+      responsiveMark(def.responsive),
       `<Code>${esc(formatValue(def.default))}</Code>`,
       esc(def.description ?? ""),
     ]);
@@ -115,6 +118,7 @@ export function renderProps(spec: DocsSpec): string {
     rows.push([
       `<Code>asChild</Code>`,
       `<Code>boolean</Code>`,
+      "",
       `<Code>false</Code>`,
       `Render the trigger directly on the consumer's child element (cloneElement) instead of wrapping in a &lt;span&gt;. Single-child invariant; the child receives the wrapper's &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;data-state&lt;/code&gt;, event handlers, and any ARIA attributes the component applies (component-specific). Not compatible with Astro slots — use the default wrapper there.`,
     ]);
@@ -126,11 +130,15 @@ export function renderProps(spec: DocsSpec): string {
     rows.push([
       `<Code>ref</Code>`,
       `<Code>Ref&lt;HTMLElement&gt;</Code>`,
+      "",
       `<Code>null</Code>`,
       `Forwarded ref to the popover content element. React: pass a callback ref or RefObject as the <Code>ref</Code> prop. Vue: read it through the parent template ref — <Code>${esc(spec.name)}Ref.value?.contentRef.value</Code> (exposed via <Code>defineExpose</Code>).`,
     ]);
   }
-  return section("Props", renderTable(["Prop", "Type", "Default", "Description"], rows));
+  return section(
+    "Props",
+    renderTable(["Prop", "Type", "Responsive", "Default", "Description"], rows),
+  );
 }
 
 export function renderNamed(
