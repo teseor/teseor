@@ -48,6 +48,12 @@
 - name: component:cluster
   color: d4c5f9
   description: cluster component
+- name: component:code
+  color: d4c5f9
+  description: code component
+- name: component:codeblock
+  color: d4c5f9
+  description: codeblock component
 - name: component:modal
   color: d4c5f9
   description: modal component
