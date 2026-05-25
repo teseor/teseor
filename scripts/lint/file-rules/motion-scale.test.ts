@@ -55,4 +55,25 @@ describe("findUnscaledMotion", () => {
     }`;
     expect(findUnscaledMotion(css)).toHaveLength(1);
   });
+
+  it("follows an aliased --_motion-scale inside calc()", () => {
+    // Per the strict token-interface boundary, components alias
+    // `var(--t-motion-scale)` into a `--_*` slot so .styles doesn't read
+    // global tokens directly. The check follows the indirection.
+    const css = `.t-x {
+      --_dur: var(--t-dur-base);
+      --_motion-scale: var(--t-motion-scale);
+      transition: opacity calc(var(--_dur) * var(--_motion-scale)) ease;
+    }`;
+    expect(findUnscaledMotion(css)).toEqual([]);
+  });
+
+  it("flags a --_* slot that aliases to something other than the motion scale", () => {
+    const css = `.t-x {
+      --_dur: var(--t-dur-base);
+      --_unrelated: 1;
+      transition: opacity calc(var(--_dur) * var(--_unrelated)) ease;
+    }`;
+    expect(findUnscaledMotion(css)).toHaveLength(1);
+  });
 });

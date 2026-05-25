@@ -54,7 +54,7 @@ function isModifierSelector(selector: string): boolean {
   return dataAttr && !combinator && !stateOrElement;
 }
 
-function checkComponent(
+export function checkComponent(
   name: string,
   rel: string,
   css: string,
