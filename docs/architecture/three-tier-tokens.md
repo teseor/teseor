@@ -142,6 +142,7 @@ The forced-colors block keeps tokens as the single source of truth across both m
   --_fill: var(--t-button-bg, var(--t-accent, oklch(65% 0.18 250deg)));
   /* …rest of the component declarations are unchanged */
   @media (forced-colors: active) {
+    forced-color-adjust: none;
     --t-accent:     ButtonText;
     --t-on-accent:  ButtonFace;
     --t-focus-ring: Highlight;
@@ -150,7 +151,11 @@ The forced-colors block keeps tokens as the single source of truth across both m
 }
 ```
 
-Custom-property inheritance propagates these values to every `var(--t-*)` reference inside `.t-button`, including its nested rules (`&:where([data-intent="primary"])`, `&:focus-visible`, …). Components don't get per-declaration mirroring — the cascade does the work. A component file that references only scale tokens (`--t-neutral-90`, `--t-space-4`) emits no block, because scale tokens don't change between branches. When `tokens.css` *is* also loaded, the synthesized block and the `:root` forced-colors branch carry the same value, so the result is identical — the block is only load-bearing when the per-component CSS is shipped alone. Consumers who want to override the forced-colors mapping for a specific component target the component class (e.g. `.my-app .t-button { --t-accent: HighlightText; }`) rather than `:root`, since the synthesized declaration is applied directly to the element and beats inherited `:root` values.
+Custom-property inheritance propagates these values to every `var(--t-*)` reference inside `.t-button`, including its nested rules (`&:where([data-intent="primary"])`, `&:focus-visible`, …). Components don't get per-declaration mirroring — the cascade does the work. A component file that references only scale tokens (`--t-neutral-90`, `--t-space-4`) emits no block, because scale tokens don't change between branches.
+
+The plugin always pairs the override with `forced-color-adjust: none` inside the same block. The two are a unit: without it, the UA layers its native-control rendering (a `ButtonFace` interior with `ButtonText` chrome) on top of the author's colors for form elements, which obliterates the component's appearance even though our token mapping is correct. The opt-out is safe because we've already remapped every relevant token to a system color in the same block — the UA isn't being asked to "trust author colors" but to "trust the explicit system-color mapping the author just wrote."
+
+When `tokens.css` *is* also loaded, the synthesized block and the `:root` forced-colors branch carry the same values, so the result is identical — the block is only load-bearing when the per-component CSS is shipped alone. Consumers who want to override the forced-colors mapping for a specific component target the component class (e.g. `.my-app .t-button { --t-accent: HighlightText; }`) rather than `:root`, since the synthesized declaration is applied directly to the element and beats inherited `:root` values.
 
 *On-X foreground aliases.* Every fill role pairs with a foreground alias for the text or icon that sits on top:
 

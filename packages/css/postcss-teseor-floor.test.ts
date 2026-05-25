@@ -149,6 +149,11 @@ describe("teseorFloor — forced-colors synthesis", () => {
     expect(out).toMatch(/\.t-button[\s\S]*@media \(forced-colors: active\)/);
   });
 
+  test("pairs the synthesised block with forced-color-adjust: none", () => {
+    const out = floorWithFC(".t-x { --_fill: var(--t-accent); }");
+    expect(out).toMatch(/@media \(forced-colors: active\)\s*{\s*forced-color-adjust:\s*none/);
+  });
+
   test("re-declares the upstream semantic token, not the component-private", () => {
     const out = floorWithFC(".t-x { --_fill: var(--t-accent); }");
     expect(out).toContain("--t-accent: ButtonText");
