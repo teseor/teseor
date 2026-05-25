@@ -12,7 +12,10 @@ import type { ViolationDetail, WorkspaceCheck } from "../registry.ts";
 const CONFIG_FILES = [".claude/settings.json", "package.json", "lefthook.yml"] as const;
 const WORKFLOW_PATHSPEC = ".github/workflows/*.yml";
 
-const TRIGGERS = [...CONFIG_FILES, WORKFLOW_PATHSPEC] as const;
+// Triggers include the *targets* (`scripts/**/*.ts`) too: a script that
+// changes shape to become import-only is the regression we're trying to catch,
+// even when no config invoking it changes in the same commit.
+const TRIGGERS = [...CONFIG_FILES, WORKFLOW_PATHSPEC, "scripts/**/*.ts"] as const;
 
 // The unified dispatcher: its entry point lives in `main()` guarded by
 // `process.argv[1] === fileURLToPath(import.meta.url)`. Allowlisted so the
