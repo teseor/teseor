@@ -52,5 +52,5 @@ jobs:
               repo: context.repo.repo,
               title: `chore(repo): redundant overrides detected — ${date}`,
               body: lines.join('\n'),
-              labels: ['type:chore', 'area:repo', 'dependencies'],
+              labels: ['type:chore', 'area:repo', 'dep'],
             });
