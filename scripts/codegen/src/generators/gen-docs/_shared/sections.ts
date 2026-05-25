@@ -93,7 +93,7 @@ export function renderProps(spec: DocsSpec): string {
       `<code>ref</code>`,
       `<code>Ref&lt;HTMLElement&gt;</code>`,
       `<code>null</code>`,
-      `Forwarded ref to the popover content element. React: pass a callback ref or RefObject as the <code>ref</code> prop. Vue: read it through the parent template ref — <code>tooltipRef.value?.contentRef.value</code> (exposed via <code>defineExpose</code>).`,
+      `Forwarded ref to the popover content element. React: pass a callback ref or RefObject as the <code>ref</code> prop. Vue: read it through the parent template ref — <code>${esc(spec.name)}Ref.value?.contentRef.value</code> (exposed via <code>defineExpose</code>).`,
     ]);
   }
   return section("Props", renderTable(["Prop", "Type", "Default", "Description"], rows));
