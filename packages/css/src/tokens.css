@@ -196,6 +196,14 @@
     --t-surface: var(--t-neutral-10);
     --t-on-surface: var(--t-neutral-90);
 
+    /* Muted surface — inset / de-emphasized; for code blocks, wells, kbd. */
+    --t-surface-muted: var(--t-neutral-20);
+    --t-on-surface-muted: var(--t-neutral-90);
+
+    /* Inverse surface — dark-on-light; for tooltip bodies, dark menus. */
+    --t-surface-inverse: var(--t-neutral-90);
+    --t-on-surface-inverse: var(--t-neutral-10);
+
     /* ===== Borders ===== */
     --t-border: var(--t-neutral-20);
     --t-border-strong: var(--t-neutral-40);
@@ -247,6 +255,10 @@
       --t-on-bg: CanvasText;
       --t-surface: Canvas;
       --t-on-surface: CanvasText;
+      --t-surface-muted: Canvas;
+      --t-on-surface-muted: CanvasText;
+      --t-surface-inverse: Canvas;
+      --t-on-surface-inverse: CanvasText;
       --t-border: ButtonBorder;
       --t-border-strong: ButtonText;
       --t-accent: ButtonText;
