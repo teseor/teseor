@@ -375,7 +375,7 @@ export function mergeClass(rootClass: string, userClass: string | undefined): st
  *  consumer callback refs are preserved and invoked together. */
 export function mergeRefs<T>(
   ...refs: Array<Ref<T> | undefined>
-): (node: T | null) => void | (() => void) {
+): (node: T | null) => (() => void) | undefined {
   return (node) => {
     const cleanups: Array<() => void> = [];
     for (const ref of refs) {
