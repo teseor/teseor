@@ -48,22 +48,30 @@ The plugin reads `tokens.css`, walks each `--t-*` chain to its terminal literal,
 
 `tokens.css` declares semantic color aliases twice: once at `:root` (default mode) and once inside `@media (forced-colors: active)` mapping to CSS system colors. See `architecture/three-tier-tokens.md` § "Colors" for the exact block.
 
-The plugin walks `var()`-chains **twice** — once against the default tokens, once against the forced-colors branch. For each component declaration that references a semantic alias which has a different value in the forced-colors branch, the plugin emits:
+The plugin builds two token maps from `tokens.css` — the default `:root` map and the forced-colors-overlaid map. It then collects every `--t-*` name a component file references and, for each one that resolves to a different literal in the two maps, emits a single nested `@media (forced-colors: active)` block at the component root that re-declares the *upstream semantic token*:
 
 ```css
 /* AUTHORED */
-.t-button { background: var(--_bg); }
+.t-button {
+  --_fill: var(--t-button-bg, var(--t-accent));
+  /* …other declarations using --t-accent, --t-focus-ring, --t-surface… */
+}
 
 /* SHIPPED */
-.t-button { background: var(--_bg); }
-@media (forced-colors: active) {
-  .t-button {
-    --_bg: var(--t-button-bg, var(--t-accent, ButtonText));
+.t-button {
+  --_fill: var(--t-button-bg, var(--t-accent, oklch(65% 0.18 250deg)));
+  @media (forced-colors: active) {
+    --t-accent: ButtonText;
+    --t-focus-ring: Highlight;
+    --t-surface: Canvas;
+    /* …only the semantic tokens this component actually references */
   }
 }
 ```
 
-The default-mode declaration keeps its oklch literal floor; the forced-colors block re-declares the component-private with the system-color literal floor. Components never hand-write `@media (forced-colors: active)` blocks for color overrides — the plugin synthesizes them from the token contract. Components may still hand-write forced-colors blocks for *non-color* concerns (e.g. `outline-width`, `forced-color-adjust: none`) where the rule isn't expressible through token literals.
+Custom-property inheritance propagates those system-color values to every `var()` reference inside the component subtree. The default-mode declarations keep their oklch literal floor; the third-position fallback never fires in forced-colors because `--t-accent` is now defined on the component root. One block per component covers every nested rule, every variant, every state — no per-declaration mirroring.
+
+Components never hand-write `@media (forced-colors: active)` blocks for color overrides — the plugin synthesizes them from the token contract. Components may still hand-write forced-colors blocks for *non-color* concerns (e.g. `outline-width`, `forced-color-adjust: none`) where the rule isn't expressible through token literals.
 
 ## Why not SCSS
 
