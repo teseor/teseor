@@ -31,11 +31,21 @@ import Base from "../../layouts/Base.astro";
       </table>
     </section>
     <section class="t-stack" data-gap="3">
+      <h2>Forced colors</h2>
+      <p>In Windows High Contrast mode, the component remaps these semantic tokens to CSS system colors. Custom-property inheritance carries the values to every reference in the subtree.</p>
+      <table>
+        <thead><tr><th>Token</th><th>Default</th><th>Forced-colors</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-on-surface</Code></td><td><Code>oklch(18% 0 0deg)</Code></td><td><Code>CanvasText</Code></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
       <h2>Bundle size</h2>
       <table>
         <thead><tr><th>Artifact</th><th>Raw</th><th>Gzip</th><th>Brotli</th></tr></thead>
         <tbody>
-        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/codeblock/codeblock.css"><Code>@teseor/css/components/codeblock.css</Code></a></td><td>1.08 KB</td><td>0.50 KB</td><td>0.41 KB</td></tr>
+        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/codeblock/codeblock.css"><Code>@teseor/css/components/codeblock.css</Code></a></td><td>1.11 KB</td><td>0.51 KB</td><td>0.42 KB</td></tr>
         </tbody>
       </table>
     </section>

@@ -3,6 +3,10 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { brotliCompressSync, gzipSync } from "node:zlib";
 import { parse as parseYaml } from "yaml";
+import {
+  buildForcedColorsTokenMap,
+  buildTokenMap,
+} from "../../../../packages/css/postcss-teseor-floor.ts";
 import { flattenSpec } from "../lib/flatten.ts";
 import type { GeneratorContext, GeneratorReport } from "../registry.ts";
 import { registerGenerator } from "../registry.ts";
@@ -14,12 +18,14 @@ import { renderCompositeOverlayDocsPage } from "./gen-docs/kinds/composite-overl
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..", "..", "..");
 const SPECS_DIR = resolve(REPO_ROOT, "specs");
 const DOCS_PAGES_DIR = resolve(REPO_ROOT, "apps", "docs", "src", "pages", "components");
-const CSS_COMPONENTS_DIR = resolve(REPO_ROOT, "packages", "css", "dist", "components");
+const CSS_COMPONENTS_DIST = resolve(REPO_ROOT, "packages", "css", "dist", "components");
+const CSS_COMPONENTS_SRC = resolve(REPO_ROOT, "packages", "css", "src", "components");
+const TOKENS_CSS = resolve(REPO_ROOT, "packages", "css", "src", "tokens.css");
 
 async function readBundleSizes(name: string): Promise<DocsSpec["bundleSizes"]> {
   // ENOENT: build:css not run / spec has no CSS — omit silently. Anything else fails loud.
   try {
-    const text = await readFile(resolve(CSS_COMPONENTS_DIR, `${name}.css`), "utf8");
+    const text = await readFile(resolve(CSS_COMPONENTS_DIST, `${name}.css`), "utf8");
     const buf = Buffer.from(text, "utf8");
     return {
       raw: buf.byteLength,
@@ -30,6 +36,34 @@ async function readBundleSizes(name: string): Promise<DocsSpec["bundleSizes"]> {
     if (err instanceof Error && "code" in err && err.code === "ENOENT") return undefined;
     throw err;
   }
+}
+
+const TOKEN_REF = /--t-[\w-]+/g;
+
+async function readForcedColors(
+  name: string,
+  tokens: Map<string, string>,
+  fcTokens: Map<string, string>,
+): Promise<DocsSpec["forcedColors"]> {
+  // ENOENT: spec has no CSS — omit silently. Anything else fails loud.
+  let css: string;
+  try {
+    css = await readFile(resolve(CSS_COMPONENTS_SRC, name, `${name}.css`), "utf8");
+  } catch (err) {
+    if (err instanceof Error && "code" in err && err.code === "ENOENT") return undefined;
+    throw err;
+  }
+  const referenced = new Set<string>();
+  for (const match of css.matchAll(TOKEN_REF)) referenced.add(match[0]);
+  const entries: NonNullable<DocsSpec["forcedColors"]> = [];
+  for (const token of [...referenced].sort()) {
+    const def = tokens.get(token);
+    const forced = fcTokens.get(token);
+    if (def !== undefined && forced !== undefined && def !== forced) {
+      entries.push({ token, default: def, forced });
+    }
+  }
+  return entries.length > 0 ? entries : undefined;
 }
 
 /** Dispatch to the kind-specific renderer for the spec's `kind:` field. */
@@ -68,10 +102,15 @@ async function docsGenerator(ctx: GeneratorContext): Promise<GeneratorReport> {
   const filesWritten: string[] = [];
   const notes: string[] = [];
 
+  const tokensCss = await readFile(TOKENS_CSS, "utf8");
+  const tokens = buildTokenMap(tokensCss);
+  const fcTokens = buildForcedColorsTokenMap(tokensCss);
+
   await mkdir(DOCS_PAGES_DIR, { recursive: true });
   for (const name of targets) {
     const spec = await loadSpec(name);
     spec.bundleSizes = await readBundleSizes(name);
+    spec.forcedColors = await readForcedColors(name, tokens, fcTokens);
     const outPath = resolve(DOCS_PAGES_DIR, `${name}.astro`);
     await writeFile(outPath, renderDocsPage(spec), "utf8");
     filesWritten.push(outPath);

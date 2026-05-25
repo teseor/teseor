@@ -18,6 +18,11 @@
  * subtree, so a per-component CSS shipped without `tokens.css` keeps its
  * high-contrast mapping (`--t-accent → ButtonText`, `--t-focus-ring →
  * Highlight`, …) without mirroring each component declaration.
+ *
+ * The synthesized block is paired with `forced-color-adjust: none` so the UA
+ * doesn't overlay its native-control rendering on top of our explicit token
+ * mapping. The pair is always emitted together — they only make sense as a
+ * unit (the override authorises us to opt out of the UA's auto-adjust).
  */
 import type { Container, Declaration, Plugin, Root, Rule } from "postcss";
 import postcss from "postcss";
@@ -263,6 +268,7 @@ export function teseorFloor(options: {
         name: "media",
         params: "(forced-colors: active)",
       });
+      mediaAtRule.append(postcss.decl({ prop: "forced-color-adjust", value: "none" }));
       for (const { prop, value } of overrides) {
         mediaAtRule.append(postcss.decl({ prop, value }));
       }

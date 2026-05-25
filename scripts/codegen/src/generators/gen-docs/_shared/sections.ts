@@ -11,6 +11,10 @@ export type DocsSpec = Spec & {
   // Size of `packages/css/dist/components/<name>.css` injected by gen-docs.ts
   // after build:css. Absent when dist hasn't been built yet.
   bundleSizes?: { raw: number; gzip: number; brotli: number };
+  // Semantic tokens the component references whose forced-colors literal
+  // differs from the default branch. Injected by gen-docs.ts. Absent when the
+  // component references no remapped semantic token (scale-only or no CSS).
+  forcedColors?: Array<{ token: string; default: string; forced: string }>;
 };
 
 function formatKb(bytes: number): string {
@@ -183,6 +187,21 @@ export function renderA11y(spec: DocsSpec): string {
     lines.push(renderTable(["Interaction", "Action"], rows));
   }
   return section("Accessibility", lines.join("\n"));
+}
+
+export function renderForcedColors(spec: DocsSpec): string {
+  if (!spec.forcedColors || spec.forcedColors.length === 0) return "";
+  const rows = spec.forcedColors.map(({ token, default: def, forced }) => [
+    `<Code>${esc(token)}</Code>`,
+    `<Code>${esc(def)}</Code>`,
+    `<Code>${esc(forced)}</Code>`,
+  ]);
+  const intro =
+    "      <p>In Windows High Contrast mode, the component remaps these semantic tokens to CSS system colors. Custom-property inheritance carries the values to every reference in the subtree.</p>";
+  return section(
+    "Forced colors",
+    [intro, renderTable(["Token", "Default", "Forced-colors"], rows)].join("\n"),
+  );
 }
 
 export function renderConstraints(spec: DocsSpec): string {

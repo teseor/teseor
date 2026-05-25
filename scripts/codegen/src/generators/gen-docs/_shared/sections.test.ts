@@ -5,6 +5,7 @@ import {
   renderA11y,
   renderBundleSize,
   renderConstraints,
+  renderForcedColors,
   renderNamed,
   renderProps,
   renderStates,
@@ -327,6 +328,43 @@ describe("renderBundleSize", () => {
     expect(out).toContain(
       'href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/button/button.css"',
     );
+  });
+});
+
+describe("renderForcedColors", () => {
+  test("returns empty string when forcedColors is unset", () => {
+    expect(renderForcedColors(atomicSpec())).toBe("");
+  });
+
+  test("returns empty string when forcedColors is an empty list", () => {
+    expect(renderForcedColors(atomicSpec({ forcedColors: [] }))).toBe("");
+  });
+
+  test("renders one row per token with default and forced literals", () => {
+    const spec = atomicSpec({
+      forcedColors: [
+        { token: "--t-accent", default: "oklch(65% 0.18 250deg)", forced: "ButtonText" },
+        { token: "--t-focus-ring", default: "oklch(65% 0.18 250deg)", forced: "Highlight" },
+      ],
+    });
+    const out = renderForcedColors(spec);
+    expect(out).toContain("<h2>Forced colors</h2>");
+    expect(out).toContain("<th>Token</th>");
+    expect(out).toContain("<th>Default</th>");
+    expect(out).toContain("<th>Forced-colors</th>");
+    expect(out).toContain("<Code>--t-accent</Code>");
+    expect(out).toContain("<Code>ButtonText</Code>");
+    expect(out).toContain("<Code>--t-focus-ring</Code>");
+    expect(out).toContain("<Code>Highlight</Code>");
+  });
+
+  test("renders an intro paragraph explaining the contract", () => {
+    const spec = atomicSpec({
+      forcedColors: [
+        { token: "--t-accent", default: "oklch(65% 0.18 250deg)", forced: "ButtonText" },
+      ],
+    });
+    expect(renderForcedColors(spec)).toContain("Windows High Contrast mode");
   });
 });
 

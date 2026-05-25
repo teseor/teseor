@@ -60,6 +60,7 @@ test("shipped component CSS inlines the literal resolved from tokens.css", () =>
 test("shipped component CSS carries a forced-colors token override", () => {
   const button = readFileSync(join(distDir, "components", "button.css"), "utf8");
   expect(button).toMatch(/@media \(forced-colors: active\)/);
+  expect(button).toContain("forced-color-adjust: none");
   expect(button).toContain("--t-accent: ButtonText");
   expect(button).toContain("--t-focus-ring: Highlight");
   expect(button).toContain("--t-surface: Canvas");
