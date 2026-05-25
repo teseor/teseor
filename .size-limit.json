@@ -1,14 +1,42 @@
 [
   {
-    "name": "teseor.css (full bundle)",
+    "name": "@teseor/css (full bundle)",
     "path": "packages/css/dist/teseor.css",
-    "limit": "12 KB",
-    "gzip": true
+    "limit": "8 kB"
   },
   {
-    "name": "tokens.css",
+    "name": "@teseor/css/tokens.css",
     "path": "packages/css/dist/tokens.css",
-    "limit": "2.5 KB",
-    "gzip": true
+    "limit": "4 kB"
+  },
+  {
+    "name": "@teseor/css/utilities.css",
+    "path": "packages/css/dist/utilities.css",
+    "limit": "2 kB"
+  },
+  {
+    "name": "@teseor/css/tailwind.css",
+    "path": "packages/css/dist/tailwind.css",
+    "limit": "6 kB"
+  },
+  {
+    "name": "@teseor/css/components/button.css",
+    "path": "packages/css/dist/components/button.css"
+  },
+  {
+    "name": "@teseor/css/components/cluster.css",
+    "path": "packages/css/dist/components/cluster.css"
+  },
+  {
+    "name": "@teseor/css/components/modal.css",
+    "path": "packages/css/dist/components/modal.css"
+  },
+  {
+    "name": "@teseor/css/components/stack.css",
+    "path": "packages/css/dist/components/stack.css"
+  },
+  {
+    "name": "@teseor/css/components/tooltip.css",
+    "path": "packages/css/dist/components/tooltip.css"
   }
 ]

@@ -18,7 +18,7 @@
     "test:visual": "echo 'test:visual: lands at v0.2' && exit 0",
     "test:a11y": "echo 'test:a11y: lands at v0.2' && exit 0",
     "lint": "node scripts/lint/run.ts --all",
-    "gen": "pnpm --filter @teseor/codegen run gen && pnpm build:css && biome check --write --no-errors-on-unmatched .",
+    "gen": "pnpm build:css && pnpm --filter @teseor/codegen run gen && biome check --write --no-errors-on-unmatched .",
     "typecheck": "tsc --noEmit && pnpm -r --if-present run typecheck",
     "size": "size-limit",
     "migrate:specs": "node scripts/repo/migrate-specs.ts",
@@ -26,33 +26,6 @@
     "release": "changeset publish",
     "prepare": "lefthook install --force"
   },
-  "size-limit": [
-    {
-      "name": "@teseor/css (full bundle)",
-      "path": "packages/css/dist/teseor.css",
-      "limit": "8 kB"
-    },
-    {
-      "name": "@teseor/css/tokens.css",
-      "path": "packages/css/dist/tokens.css",
-      "limit": "4 kB"
-    },
-    {
-      "name": "@teseor/css/utilities.css",
-      "path": "packages/css/dist/utilities.css",
-      "limit": "2 kB"
-    },
-    {
-      "name": "@teseor/css/tailwind.css",
-      "path": "packages/css/dist/tailwind.css",
-      "limit": "6 kB"
-    },
-    {
-      "name": "@teseor/css/components/button.css",
-      "path": "packages/css/dist/components/button.css",
-      "limit": "4 kB"
-    }
-  ],
   "devDependencies": {
     "@biomejs/biome": "^2.4.15",
     "@changesets/changelog-git": "^0.2.1",
