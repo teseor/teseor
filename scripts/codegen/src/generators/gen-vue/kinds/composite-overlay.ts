@@ -193,6 +193,9 @@ ${interactionItems.join("\n")}
 });
 
 const contentRef = overlay.contentRef;
+// Surface contentRef through the component instance so consumers can read
+// the popover DOM element via \`<${Name} ref="x" />\` → \`x.value.contentRef.value\`.
+defineExpose({ contentRef });
 ${contentDataAttrComputed}
 </script>
 
