@@ -29,6 +29,18 @@ for (const path of PAGES) {
     page.on("console", (msg) => {
       if (msg.type() === "error") errors.push(`console.error: ${msg.text()}`);
     });
+    // Subresource health: JS / CSS chunks, images, fetch calls. A 404 on a
+    // hydration chunk can render a blank island without ever emitting a
+    // `console.error`, so the document-level `response.ok()` check below is
+    // not enough on its own.
+    page.on("response", (resp) => {
+      if (resp.status() >= 400) {
+        errors.push(`response ${resp.status()}: ${resp.url()}`);
+      }
+    });
+    page.on("requestfailed", (req) => {
+      errors.push(`requestfailed: ${req.url()} (${req.failure()?.errorText ?? "unknown"})`);
+    });
     const response = await page.goto(`${DOCS_BASE}${path}`);
     expect(response?.ok(), `${path} returned HTTP ${response?.status()}`).toBe(true);
     await page.waitForLoadState("networkidle");
