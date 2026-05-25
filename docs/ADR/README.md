@@ -24,6 +24,7 @@ a numbered, durable file.
 | [0014](0014-scripts-layout-and-lint-runner.md) | Scripts layout and lint runner | Accepted |
 | [0015](0015-codegen-layout.md) | Codegen layout: target-first generators | Accepted |
 | [0016](0016-per-breakpoint-css-cost.md) | Per-breakpoint CSS cost: status quo with budget | Accepted |
+| [0017](0017-strict-token-interface-boundary.md) | Strict token-interface boundary | Accepted |
 
 ## When to write one
 
