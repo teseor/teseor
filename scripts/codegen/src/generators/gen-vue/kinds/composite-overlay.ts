@@ -193,6 +193,8 @@ ${interactionItems.join("\n")}
 });
 
 const contentRef = overlay.contentRef;
+// Exposed so consumers read the popover DOM via parent ref → \`inst.contentRef.value\`.
+defineExpose({ contentRef });
 ${contentDataAttrComputed}
 </script>
 

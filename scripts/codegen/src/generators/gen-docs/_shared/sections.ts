@@ -89,6 +89,17 @@ export function renderProps(spec: DocsSpec): string {
       `Render the trigger directly on the consumer's child element (cloneElement) instead of wrapping in a &lt;span&gt;. Single-child invariant; the child receives the wrapper's &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;data-state&lt;/code&gt;, event handlers, and any ARIA attributes the component applies (component-specific). Not compatible with Astro slots — use the default wrapper there.`,
     ]);
   }
+  // `ref` is emitted by the composite-overlay generators (React: ref prop +
+  // mergeRefs; Vue: defineExpose({ contentRef })). The gate matches the
+  // generator's: `kind === "composite"` plus an `overlay:` block.
+  if (spec.kind === "composite" && spec.overlay) {
+    rows.push([
+      `<code>ref</code>`,
+      `<code>Ref&lt;HTMLElement&gt;</code>`,
+      `<code>null</code>`,
+      `Forwarded ref to the popover content element. React: pass a callback ref or RefObject as the <code>ref</code> prop. Vue: read it through the parent template ref — <code>${esc(spec.name)}Ref.value?.contentRef.value</code> (exposed via <code>defineExpose</code>).`,
+    ]);
+  }
   return section("Props", renderTable(["Prop", "Type", "Default", "Description"], rows));
 }
 

@@ -80,6 +80,76 @@ describe("renderProps", () => {
     const out = renderProps(spec);
     expect(out).toContain("<code>asChild</code>");
   });
+
+  test("appends ref for composite specs with an overlay block", () => {
+    const spec: DocsSpec = {
+      name: "tooltip",
+      kind: "composite",
+      props: {
+        text: { type: "string", description: "", __part: "" },
+      },
+      tokens: {},
+      states: {},
+      parts: {
+        trigger: { fromChildren: true },
+      },
+      overlay: {
+        anchor: "trigger",
+        floating: "content",
+        mode: "manual",
+        anchorVar: "--t-tooltip-anchor",
+        modal: false,
+      },
+    };
+    const out = renderProps(spec);
+    expect(out).toContain("<code>ref</code>");
+    expect(out).toContain("Forwarded ref to the popover content element.");
+    expect(out).toContain("<code>tooltipRef.value?.contentRef.value</code>");
+  });
+
+  test("ref row interpolates spec.name into the Vue example", () => {
+    const spec: DocsSpec = {
+      name: "modal",
+      kind: "composite",
+      props: {
+        title: { type: "string", description: "", __part: "" },
+      },
+      tokens: {},
+      states: {},
+      parts: {
+        trigger: { fromChildren: true },
+      },
+      overlay: {
+        anchor: "trigger",
+        floating: "content",
+        mode: "manual",
+        anchorVar: "--t-modal-anchor",
+        modal: true,
+      },
+    };
+    const out = renderProps(spec);
+    expect(out).toContain("<code>modalRef.value?.contentRef.value</code>");
+    expect(out).not.toContain("tooltipRef");
+  });
+
+  test("omits ref row when composite has fromChildren but no overlay block", () => {
+    const spec: DocsSpec = {
+      name: "menu",
+      kind: "composite",
+      props: {
+        label: { type: "string", description: "", __part: "" },
+      },
+      tokens: {},
+      states: {},
+      parts: {
+        trigger: { fromChildren: true },
+      },
+    };
+    const out = renderProps(spec);
+    expect(out).toContain("<code>asChild</code>");
+    expect(out).not.toContain("<code>ref</code>");
+    expect(out).not.toContain("Forwarded ref to the popover content element.");
+  });
 });
 
 describe("hasFromChildrenPart", () => {

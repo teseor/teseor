@@ -4,8 +4,8 @@
 // Source: specs/tooltip.yaml
 
 import "@teseor/css/components/tooltip.css";
-import { type CSSProperties, type ReactNode, useMemo } from "react";
-import { type Responsive, responsiveDataAttrs } from "./_runtime.ts";
+import { type CSSProperties, type ReactNode, type Ref, useMemo } from "react";
+import { mergeRefs, type Responsive, responsiveDataAttrs } from "./_runtime.ts";
 import { Slot } from "./components/Slot.tsx";
 import { type OverlayInteraction, useOverlay } from "./hooks/useOverlay.ts";
 
@@ -33,6 +33,8 @@ type TooltipOwnProps = {
    *  be a single React element. The wrapper's `style`, `data-state`, event handlers,
    *  and any ARIA attributes it applies (component-specific) land on that element. */
   asChild?: boolean;
+  /** Forwarded ref to the popover content element. */
+  ref?: Ref<HTMLElementTagNameMap["div"]>;
   children?: ReactNode;
 };
 
@@ -68,6 +70,7 @@ export function Tooltip(props: TooltipProps) {
     placement,
     children,
     asChild,
+    ref,
   } = props;
 
   const interactions = useMemo<OverlayInteraction[]>(
@@ -96,6 +99,11 @@ export function Tooltip(props: TooltipProps) {
   const triggerStyle: CSSProperties = asChild
     ? ({ [overlay.anchorVar]: overlay.anchorName, anchorName: overlay.anchorName } as CSSProperties)
     : { [overlay.anchorVar]: overlay.anchorName };
+  // Memoized so React doesn't tear the ref down + back up each render.
+  const mergedContentRef = useMemo(
+    () => mergeRefs(ref, overlay.contentRef),
+    [ref, overlay.contentRef],
+  );
   const hasContent = text != null;
 
   return (
@@ -122,7 +130,7 @@ export function Tooltip(props: TooltipProps) {
       )}
       {hasContent && (
         <div
-          ref={overlay.contentRef}
+          ref={mergedContentRef}
           id={overlay.popoverId}
           role="tooltip"
           className="t-tooltip"

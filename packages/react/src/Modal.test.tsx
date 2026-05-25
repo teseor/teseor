@@ -69,6 +69,46 @@ describe("Modal (react)", () => {
     expect(dialog?.getAttribute("data-state")).toBe("closed");
   });
 
+  it("forwards a consumer ref to the dialog content element alongside its internal ref", () => {
+    const captured: { current: HTMLDivElement | null } = { current: null };
+    function Consumer() {
+      return (
+        <Modal
+          title="Confirm"
+          defaultOpen
+          ref={(node) => {
+            captured.current = node;
+          }}
+        >
+          <button type="button">open</button>
+        </Modal>
+      );
+    }
+    render(<Consumer />);
+    expect(captured.current).not.toBeNull();
+    expect(captured.current?.getAttribute("role")).toBe("dialog");
+  });
+
+  it("does not re-run a consumer ref callback when the parent re-renders", () => {
+    let calls = 0;
+    const consumerRef = (node: HTMLDivElement | null) => {
+      if (node !== null) calls += 1;
+    };
+    function Consumer({ tick }: { tick: number }) {
+      return (
+        <Modal title="Confirm" defaultOpen ref={consumerRef}>
+          <button type="button">{tick}</button>
+        </Modal>
+      );
+    }
+    const { rerender } = render(<Consumer tick={0} />);
+    expect(calls).toBe(1);
+    rerender(<Consumer tick={1} />);
+    rerender(<Consumer tick={2} />);
+    // Inline `mergeRefs(...)` would tear down + reattach every render.
+    expect(calls).toBe(1);
+  });
+
   it("Tooltip-on-Modal-trigger degrades — Tooltip stays closed when the user tries to open it", () => {
     render(
       <Modal title="Confirm" defaultOpen>

@@ -4,8 +4,9 @@
 // Source: specs/modal.yaml
 
 import "@teseor/css/components/modal.css";
-import { type CSSProperties, type ReactNode, useEffect, useMemo, useState } from "react";
+import { type CSSProperties, type ReactNode, type Ref, useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
+import { mergeRefs } from "./_runtime.ts";
 import { Slot } from "./components/Slot.tsx";
 import { type OverlayInteraction, useOverlay } from "./hooks/useOverlay.ts";
 
@@ -23,6 +24,8 @@ type ModalOwnProps = {
    *  be a single React element. The wrapper's `style`, `data-state`, event handlers,
    *  and any ARIA attributes it applies (component-specific) land on that element. */
   asChild?: boolean;
+  /** Forwarded ref to the popover content element. */
+  ref?: Ref<HTMLElementTagNameMap["div"]>;
   children?: ReactNode;
 };
 
@@ -37,7 +40,7 @@ export type ModalProps = Readonly<ModalOwnProps>;
  * ```
  */
 export function Modal(props: ModalProps) {
-  const { open: openProp, defaultOpen, onOpenChange, title, children, asChild } = props;
+  const { open: openProp, defaultOpen, onOpenChange, title, children, asChild, ref } = props;
 
   const interactions = useMemo<OverlayInteraction[]>(
     () => [{ on: { event: "click", target: "trigger" }, do: "toggle" }],
@@ -67,6 +70,11 @@ export function Modal(props: ModalProps) {
   const triggerStyle: CSSProperties = asChild
     ? ({ [overlay.anchorVar]: overlay.anchorName, anchorName: overlay.anchorName } as CSSProperties)
     : { [overlay.anchorVar]: overlay.anchorName };
+  // Memoized so React doesn't tear the ref down + back up each render.
+  const mergedContentRef = useMemo(
+    () => mergeRefs(ref, overlay.contentRef),
+    [ref, overlay.contentRef],
+  );
   const hasContent = title != null;
 
   return (
@@ -89,7 +97,7 @@ export function Modal(props: ModalProps) {
         mounted &&
         createPortal(
           <div
-            ref={overlay.contentRef}
+            ref={mergedContentRef}
             id={overlay.popoverId}
             role="dialog"
             aria-label={title}

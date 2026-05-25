@@ -40,6 +40,14 @@ describe("renderRuntime", () => {
     expect(renderRuntime(FIXTURE)).toContain("export function asElement(");
   });
 
+  test("exports `mergeRefs` for composites that forward a consumer ref", () => {
+    const out = renderRuntime(FIXTURE);
+    expect(out).toContain("export function mergeRefs<T>(");
+    expect(out).toContain(
+      'import { type ElementType, type Ref, useEffect, useState } from "react";',
+    );
+  });
+
   test("renders identically on repeated calls", () => {
     expect(renderRuntime(FIXTURE)).toBe(renderRuntime(FIXTURE));
   });
