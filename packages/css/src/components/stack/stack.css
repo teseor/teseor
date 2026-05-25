@@ -2,8 +2,6 @@
   .t-stack {
     --_gap: var(--t-stack-gap, var(--t-space-3));
     --_align: var(--t-stack-align, stretch);
-
-    /* Per-index gap slots — the [data-gap="N"] modifier reads one of these. */
     --_gap-0: var(--t-space-0);
     --_gap-1: var(--t-space-1);
     --_gap-2: var(--t-space-2);
