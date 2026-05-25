@@ -21,17 +21,17 @@ describe("renderCompositeOverlayDocsPage", () => {
     expect(out).toContain("<h1>Tooltip</h1>");
   });
 
-  test("imports the component name, Button, and Codeblock from @teseor/react when examples exist", () => {
+  test("imports component, Button, Code, and Codeblock from @teseor/react when examples exist", () => {
     const spec = compositeSpec({
       examples: [{ id: "default", props: { text: "Hi" } }],
     });
     const out = renderCompositeOverlayDocsPage(spec);
-    expect(out).toContain('import { Tooltip, Button, Codeblock } from "@teseor/react";');
+    expect(out).toContain('import { Tooltip, Button, Code, Codeblock } from "@teseor/react";');
   });
 
-  test("skips the @teseor/react import when there are no examples", () => {
+  test("imports Code and Codeblock even without examples (table tags need Code)", () => {
     const out = renderCompositeOverlayDocsPage(compositeSpec());
-    expect(out).not.toContain('from "@teseor/react"');
+    expect(out).toContain('import { Code, Codeblock } from "@teseor/react";');
   });
 
   test("wraps example markup with a Button trigger and hydrates on visibility", () => {

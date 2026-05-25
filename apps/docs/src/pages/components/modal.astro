@@ -1,5 +1,5 @@
 ---
-import { Modal, Button, Codeblock } from "@teseor/react";
+import { Modal, Button, Code, Codeblock } from "@teseor/react";
 import Base from "../../layouts/Base.astro";
 ---
 
@@ -26,12 +26,12 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><code>open</code></td><td><code>boolean, controllable</code></td><td><code>false</code></td><td>Open state. Uncontrolled by default; pass `open` and optionally `onOpenChange` to drive it from the consumer.</td></tr>
-        <tr><td><code>defaultOpen</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Initial open state (uncontrolled).</td></tr>
-        <tr><td><code>onOpenChange</code></td><td><code>(open: boolean) =&gt; void</code></td><td><code>null</code></td><td>Fires when the open state changes.</td></tr>
-        <tr><td><code>title</code></td><td><code>string, slot</code></td><td><code>null</code></td><td>Modal body text. Plain string only; rich content support lands when the spec grows a real content slot.</td></tr>
-        <tr><td><code>asChild</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Render the trigger directly on the consumer's child element (cloneElement) instead of wrapping in a &lt;span&gt;. Single-child invariant; the child receives the wrapper's &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;data-state&lt;/code&gt;, event handlers, and any ARIA attributes the component applies (component-specific). Not compatible with Astro slots — use the default wrapper there.</td></tr>
-        <tr><td><code>ref</code></td><td><code>Ref&lt;HTMLElement&gt;</code></td><td><code>null</code></td><td>Forwarded ref to the popover content element. React: pass a callback ref or RefObject as the <code>ref</code> prop. Vue: read it through the parent template ref — <code>modalRef.value?.contentRef.value</code> (exposed via <code>defineExpose</code>).</td></tr>
+        <tr><td><Code>open</Code></td><td><Code>boolean, controllable</Code></td><td><Code>false</Code></td><td>Open state. Uncontrolled by default; pass `open` and optionally `onOpenChange` to drive it from the consumer.</td></tr>
+        <tr><td><Code>defaultOpen</Code></td><td><Code>boolean</Code></td><td><Code>false</Code></td><td>Initial open state (uncontrolled).</td></tr>
+        <tr><td><Code>onOpenChange</Code></td><td><Code>(open: boolean) =&gt; void</Code></td><td><Code>null</Code></td><td>Fires when the open state changes.</td></tr>
+        <tr><td><Code>title</Code></td><td><Code>string, slot</Code></td><td><Code>null</Code></td><td>Modal body text. Plain string only; rich content support lands when the spec grows a real content slot.</td></tr>
+        <tr><td><Code>asChild</Code></td><td><Code>boolean</Code></td><td><Code>false</Code></td><td>Render the trigger directly on the consumer's child element (cloneElement) instead of wrapping in a &lt;span&gt;. Single-child invariant; the child receives the wrapper's &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;data-state&lt;/code&gt;, event handlers, and any ARIA attributes the component applies (component-specific). Not compatible with Astro slots — use the default wrapper there.</td></tr>
+        <tr><td><Code>ref</Code></td><td><Code>Ref&lt;HTMLElement&gt;</Code></td><td><Code>null</Code></td><td>Forwarded ref to the popover content element. React: pass a callback ref or RefObject as the <Code>ref</Code> prop. Vue: read it through the parent template ref — <Code>modalRef.value?.contentRef.value</Code> (exposed via <Code>defineExpose</Code>).</td></tr>
         </tbody>
       </table>
     </section>
@@ -40,21 +40,21 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><code>--t-modal-bg</code></td><td><code>--t-neutral-0</code></td><td>Background fill.</td></tr>
-        <tr><td><code>--t-modal-fg</code></td><td><code>--t-neutral-90</code></td><td>Text color.</td></tr>
-        <tr><td><code>--t-modal-pad</code></td><td><code>--t-space-5</code></td><td>Inner padding.</td></tr>
-        <tr><td><code>--t-modal-radius</code></td><td><code>--t-radius-md</code></td><td>Corner radius.</td></tr>
+        <tr><td><Code>--t-modal-bg</Code></td><td><Code>--t-neutral-0</Code></td><td>Background fill.</td></tr>
+        <tr><td><Code>--t-modal-fg</Code></td><td><Code>--t-neutral-90</Code></td><td>Text color.</td></tr>
+        <tr><td><Code>--t-modal-pad</Code></td><td><Code>--t-space-5</Code></td><td>Inner padding.</td></tr>
+        <tr><td><Code>--t-modal-radius</Code></td><td><Code>--t-radius-md</Code></td><td>Corner radius.</td></tr>
         </tbody>
       </table>
     </section>
     <section class="t-stack" data-gap="3">
       <h2>Accessibility</h2>
-      <p>Role: <code>dialog</code></p>
+      <p>Role: <Code>dialog</Code></p>
       <table>
         <thead><tr><th>Interaction</th><th>Action</th></tr></thead>
         <tbody>
-        <tr><td><code>Escape</code></td><td>Closes the overlay. Topmost-wins when multiple overlays are open.</td></tr>
-        <tr><td><code>Outside pointer-down</code></td><td>Pressing outside the content closes the overlay.</td></tr>
+        <tr><td><Code>Escape</Code></td><td>Closes the overlay. Topmost-wins when multiple overlays are open.</td></tr>
+        <tr><td><Code>Outside pointer-down</Code></td><td>Pressing outside the content closes the overlay.</td></tr>
         </tbody>
       </table>
     </section>
@@ -63,7 +63,7 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Artifact</th><th>Raw</th><th>Gzip</th><th>Brotli</th></tr></thead>
         <tbody>
-        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/modal/modal.css"><code>@teseor/css/components/modal.css</code></a></td><td>1.23 KB</td><td>0.52 KB</td><td>0.44 KB</td></tr>
+        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/modal/modal.css"><Code>@teseor/css/components/modal.css</Code></a></td><td>1.23 KB</td><td>0.52 KB</td><td>0.44 KB</td></tr>
         </tbody>
       </table>
     </section>

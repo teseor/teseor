@@ -120,8 +120,8 @@ export function asElement(value: ElementType): ElementType {
   return value;
 }
 
-/** Compose the wrapper's root class with a consumer-provided className. Consumer
- *  goes last so their class wins on selector ties; both are space-joined. */
+/** Concatenate the wrapper's root class with a consumer-provided className, space-joined.
+ *  Consumer goes last by convention; class attribute order doesn't affect the CSS cascade. */
 export function mergeClass(rootClass: string, userClass: string | undefined): string {
   return userClass ? \`\${rootClass} \${userClass}\` : rootClass;
 }

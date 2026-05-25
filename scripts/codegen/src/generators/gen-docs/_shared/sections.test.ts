@@ -40,9 +40,9 @@ describe("renderProps", () => {
     });
     const out = renderProps(spec);
     expect(out).toContain("<h2>Props</h2>");
-    expect(out).toContain("<code>variant</code>");
-    expect(out).toContain("<code>string</code>");
-    expect(out).toContain("<code>solid</code>");
+    expect(out).toContain("<Code>variant</Code>");
+    expect(out).toContain("<Code>string</Code>");
+    expect(out).toContain("<Code>solid</Code>");
     expect(out).toContain("Visual style.");
   });
 
@@ -59,9 +59,9 @@ describe("renderProps", () => {
       },
     });
     const out = renderProps(spec);
-    expect(out).toContain("<code>open</code>");
-    expect(out).toContain("<code>defaultOpen</code>");
-    expect(out).toContain("<code>onOpenChange</code>");
+    expect(out).toContain("<Code>open</Code>");
+    expect(out).toContain("<Code>defaultOpen</Code>");
+    expect(out).toContain("<Code>onOpenChange</Code>");
     expect(out).toContain("Fires when the open state changes.");
   });
 
@@ -79,7 +79,7 @@ describe("renderProps", () => {
       },
     };
     const out = renderProps(spec);
-    expect(out).toContain("<code>asChild</code>");
+    expect(out).toContain("<Code>asChild</Code>");
   });
 
   test("appends ref for composite specs with an overlay block", () => {
@@ -103,9 +103,9 @@ describe("renderProps", () => {
       },
     };
     const out = renderProps(spec);
-    expect(out).toContain("<code>ref</code>");
+    expect(out).toContain("<Code>ref</Code>");
     expect(out).toContain("Forwarded ref to the popover content element.");
-    expect(out).toContain("<code>tooltipRef.value?.contentRef.value</code>");
+    expect(out).toContain("<Code>tooltipRef.value?.contentRef.value</Code>");
   });
 
   test("ref row interpolates spec.name into the Vue example", () => {
@@ -129,7 +129,7 @@ describe("renderProps", () => {
       },
     };
     const out = renderProps(spec);
-    expect(out).toContain("<code>modalRef.value?.contentRef.value</code>");
+    expect(out).toContain("<Code>modalRef.value?.contentRef.value</Code>");
     expect(out).not.toContain("tooltipRef");
   });
 
@@ -147,8 +147,8 @@ describe("renderProps", () => {
       },
     };
     const out = renderProps(spec);
-    expect(out).toContain("<code>asChild</code>");
-    expect(out).not.toContain("<code>ref</code>");
+    expect(out).toContain("<Code>asChild</Code>");
+    expect(out).not.toContain("<Code>ref</Code>");
     expect(out).not.toContain("Forwarded ref to the popover content element.");
   });
 });
@@ -206,7 +206,7 @@ describe("renderNamed", () => {
   test("renders one row per entry", () => {
     const out = renderNamed("Variants", { solid: { description: "Filled." } });
     expect(out).toContain("<h2>Variants</h2>");
-    expect(out).toContain("<code>solid</code>");
+    expect(out).toContain("<Code>solid</Code>");
     expect(out).toContain("Filled.");
   });
 });
@@ -222,7 +222,7 @@ describe("renderStates", () => {
     });
     const out = renderStates(spec);
     expect(out).toContain("<h2>States</h2>");
-    expect(out).toContain("<code>hover</code>");
+    expect(out).toContain("<Code>hover</Code>");
     expect(out).toContain("Pointer over.");
   });
 });
@@ -237,8 +237,8 @@ describe("renderTokens", () => {
       tokens: { bg: { fallback: "blue", desc: "Background.", __part: "" } },
     });
     const out = renderTokens(spec);
-    expect(out).toContain("<code>--t-widget-bg</code>");
-    expect(out).toContain("<code>blue</code>");
+    expect(out).toContain("<Code>--t-widget-bg</Code>");
+    expect(out).toContain("<Code>blue</Code>");
     expect(out).toContain("Background.");
   });
 });
@@ -251,13 +251,13 @@ describe("renderA11y", () => {
   test("renders the role when present", () => {
     const spec = atomicSpec({ a11y: { role: "button" } });
     const out = renderA11y(spec);
-    expect(out).toContain("Role: <code>button</code>");
+    expect(out).toContain("Role: <Code>button</Code>");
   });
 
   test("renders declared keyboard rows", () => {
     const spec = atomicSpec({ a11y: { keyboard: { Enter: "Activates." } } });
     const out = renderA11y(spec);
-    expect(out).toContain("<code>Enter</code>");
+    expect(out).toContain("<Code>Enter</Code>");
     expect(out).toContain("Activates.");
   });
 
@@ -277,8 +277,8 @@ describe("renderA11y", () => {
       },
     };
     const out = renderA11y(spec);
-    expect(out).toContain("<code>Escape</code>");
-    expect(out).toContain("<code>Outside pointer-down</code>");
+    expect(out).toContain("<Code>Escape</Code>");
+    expect(out).toContain("<Code>Outside pointer-down</Code>");
   });
 
   test("spec-declared keyboard wins on key collision with overlay rows", () => {
@@ -300,7 +300,7 @@ describe("renderA11y", () => {
     const out = renderA11y(spec);
     expect(out).toContain("Custom escape wording.");
     expect(out).not.toContain("Topmost-wins when multiple overlays are open.");
-    expect(out).toContain("<code>Outside pointer-down</code>");
+    expect(out).toContain("<Code>Outside pointer-down</Code>");
   });
 });
 
@@ -323,7 +323,7 @@ describe("renderBundleSize", () => {
     expect(out).toContain("8.29 KB");
     expect(out).toContain("1.46 KB");
     expect(out).toContain("1.32 KB");
-    expect(out).toContain("<code>@teseor/css/components/button.css</code>");
+    expect(out).toContain("<Code>@teseor/css/components/button.css</Code>");
     expect(out).toContain(
       'href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/button/button.css"',
     );

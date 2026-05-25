@@ -1,5 +1,5 @@
 ---
-import { Cluster, Codeblock } from "@teseor/react";
+import { Cluster, Code, Codeblock } from "@teseor/react";
 import Base from "../../layouts/Base.astro";
 ---
 
@@ -71,9 +71,9 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><code>gap</code></td><td><code>string, responsive</code></td><td><code>null</code></td><td>Spacing between children. Accepts a token suffix from the `--t-space-*` scale (`0`–`8`).</td></tr>
-        <tr><td><code>align</code></td><td><code>string, responsive</code></td><td><code>null</code></td><td>Block-axis alignment of children.</td></tr>
-        <tr><td><code>justify</code></td><td><code>string, responsive</code></td><td><code>null</code></td><td>Inline-axis distribution of children.</td></tr>
+        <tr><td><Code>gap</Code></td><td><Code>string, responsive</Code></td><td><Code>null</Code></td><td>Spacing between children. Accepts a token suffix from the `--t-space-*` scale (`0`–`8`).</td></tr>
+        <tr><td><Code>align</Code></td><td><Code>string, responsive</Code></td><td><Code>null</Code></td><td>Block-axis alignment of children.</td></tr>
+        <tr><td><Code>justify</Code></td><td><Code>string, responsive</Code></td><td><Code>null</Code></td><td>Inline-axis distribution of children.</td></tr>
         </tbody>
       </table>
     </section>
@@ -82,22 +82,22 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><code>--t-cluster-gap</code></td><td><code>--t-space-3</code></td><td>Default child spacing when `gap` is unset; overridable via `--t-cluster-gap`.</td></tr>
-        <tr><td><code>--t-cluster-align</code></td><td><code>--t-align-stretch</code></td><td>Default block-axis alignment when `align` is unset; overridable via `--t-cluster-align`.</td></tr>
-        <tr><td><code>--t-cluster-justify</code></td><td><code>--t-justify-flex-start</code></td><td>Default inline-axis distribution when `justify` is unset; overridable via `--t-cluster-justify`.</td></tr>
+        <tr><td><Code>--t-cluster-gap</Code></td><td><Code>--t-space-3</Code></td><td>Default child spacing when `gap` is unset; overridable via `--t-cluster-gap`.</td></tr>
+        <tr><td><Code>--t-cluster-align</Code></td><td><Code>--t-align-stretch</Code></td><td>Default block-axis alignment when `align` is unset; overridable via `--t-cluster-align`.</td></tr>
+        <tr><td><Code>--t-cluster-justify</Code></td><td><Code>--t-justify-flex-start</Code></td><td>Default inline-axis distribution when `justify` is unset; overridable via `--t-cluster-justify`.</td></tr>
         </tbody>
       </table>
     </section>
     <section class="t-stack" data-gap="3">
       <h2>Accessibility</h2>
-      <p>Role: <code>generic</code></p>
+      <p>Role: <Code>generic</Code></p>
     </section>
     <section class="t-stack" data-gap="3">
       <h2>Bundle size</h2>
       <table>
         <thead><tr><th>Artifact</th><th>Raw</th><th>Gzip</th><th>Brotli</th></tr></thead>
         <tbody>
-        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/cluster/cluster.css"><code>@teseor/css/components/cluster.css</code></a></td><td>9.13 KB</td><td>0.95 KB</td><td>0.74 KB</td></tr>
+        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/cluster/cluster.css"><Code>@teseor/css/components/cluster.css</Code></a></td><td>9.13 KB</td><td>0.95 KB</td><td>0.74 KB</td></tr>
         </tbody>
       </table>
     </section>
