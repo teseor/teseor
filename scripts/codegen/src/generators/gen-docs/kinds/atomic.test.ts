@@ -22,12 +22,12 @@ describe("renderAtomicDocsPage", () => {
     expect(out).toContain("<h1>Widget</h1>");
   });
 
-  test("imports only the component name from @teseor/react when examples exist", () => {
+  test("imports the component name and Codeblock from @teseor/react when examples exist", () => {
     const spec = atomicSpec({
       examples: [{ id: "default", props: { variant: "solid" } }],
     });
     const out = renderAtomicDocsPage(spec);
-    expect(out).toContain('import { Widget } from "@teseor/react";');
+    expect(out).toContain('import { Widget, Codeblock } from "@teseor/react";');
     expect(out).not.toContain("Button");
   });
 

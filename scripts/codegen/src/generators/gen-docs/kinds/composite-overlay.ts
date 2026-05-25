@@ -37,8 +37,9 @@ export function renderCompositeOverlayDocsPage(spec: DocsSpec): string {
     renderBundleSize(spec),
   ].filter((part) => part.length > 0);
 
+  const reactNames = hasExamples ? Array.from(new Set([Name, "Button", "Codeblock"])) : [];
   const imports = [
-    ...(hasExamples ? [`import { ${Name}, Button } from "@teseor/react";`] : []),
+    ...(hasExamples ? [`import { ${reactNames.join(", ")} } from "@teseor/react";`] : []),
     `import Base from "../../layouts/Base.astro";`,
   ];
   const intro = spec.description ? `    <p>${esc(spec.description)}</p>\n` : "";

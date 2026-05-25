@@ -29,8 +29,9 @@ export function renderAtomicDocsPage(spec: DocsSpec): string {
     renderBundleSize(spec),
   ].filter((part) => part.length > 0);
 
+  const reactNames = hasExamples ? Array.from(new Set([Name, "Codeblock"])) : [];
   const imports = [
-    ...(hasExamples ? [`import { ${Name} } from "@teseor/react";`] : []),
+    ...(hasExamples ? [`import { ${reactNames.join(", ")} } from "@teseor/react";`] : []),
     `import Base from "../../layouts/Base.astro";`,
   ];
   const intro = spec.description ? `    <p>${esc(spec.description)}</p>\n` : "";

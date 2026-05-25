@@ -30,7 +30,7 @@ describe("renderExamples", () => {
     expect(rendered).toContain("<h2>Examples</h2>");
     expect(rendered).toContain("<h3>default</h3>");
     expect(rendered).toContain('<Widget variant="solid" disabled>Widget</Widget>');
-    expect(rendered).toContain("<pre><code>");
+    expect(rendered).toContain("<Codeblock>");
   });
 
   test("drops `false` props from both the rendered tag and the source code", () => {

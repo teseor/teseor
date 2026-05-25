@@ -21,12 +21,12 @@ describe("renderCompositeOverlayDocsPage", () => {
     expect(out).toContain("<h1>Tooltip</h1>");
   });
 
-  test("imports the component name AND Button from @teseor/react when examples exist", () => {
+  test("imports the component name, Button, and Codeblock from @teseor/react when examples exist", () => {
     const spec = compositeSpec({
       examples: [{ id: "default", props: { text: "Hi" } }],
     });
     const out = renderCompositeOverlayDocsPage(spec);
-    expect(out).toContain('import { Tooltip, Button } from "@teseor/react";');
+    expect(out).toContain('import { Tooltip, Button, Codeblock } from "@teseor/react";');
   });
 
   test("skips the @teseor/react import when there are no examples", () => {

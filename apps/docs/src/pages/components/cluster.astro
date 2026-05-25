@@ -1,5 +1,5 @@
 ---
-import { Cluster } from "@teseor/react";
+import { Cluster, Codeblock } from "@teseor/react";
 import Base from "../../layouts/Base.astro";
 ---
 
@@ -14,56 +14,56 @@ import Base from "../../layouts/Base.astro";
         <div class="t-cluster" data-gap="3">
           <Cluster gap="3">Cluster</Cluster>
         </div>
-        <pre><code>&lt;Cluster gap="3"&gt;Cluster&lt;/Cluster&gt;</code></pre>
+        <Codeblock>&lt;Cluster gap="3"&gt;Cluster&lt;/Cluster&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>gap-0</h3>
         <div class="t-cluster" data-gap="3">
           <Cluster gap="0">Cluster</Cluster>
         </div>
-        <pre><code>&lt;Cluster gap="0"&gt;Cluster&lt;/Cluster&gt;</code></pre>
+        <Codeblock>&lt;Cluster gap="0"&gt;Cluster&lt;/Cluster&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>justify-between</h3>
         <div class="t-cluster" data-gap="3">
           <Cluster gap="3" justify="between">Cluster</Cluster>
         </div>
-        <pre><code>&lt;Cluster gap="3" justify="between"&gt;Cluster&lt;/Cluster&gt;</code></pre>
+        <Codeblock>&lt;Cluster gap="3" justify="between"&gt;Cluster&lt;/Cluster&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>justify-around</h3>
         <div class="t-cluster" data-gap="3">
           <Cluster gap="2" justify="around">Cluster</Cluster>
         </div>
-        <pre><code>&lt;Cluster gap="2" justify="around"&gt;Cluster&lt;/Cluster&gt;</code></pre>
+        <Codeblock>&lt;Cluster gap="2" justify="around"&gt;Cluster&lt;/Cluster&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>align-center</h3>
         <div class="t-cluster" data-gap="3">
           <Cluster gap="3" align="center">Cluster</Cluster>
         </div>
-        <pre><code>&lt;Cluster gap="3" align="center"&gt;Cluster&lt;/Cluster&gt;</code></pre>
+        <Codeblock>&lt;Cluster gap="3" align="center"&gt;Cluster&lt;/Cluster&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>align-baseline</h3>
         <div class="t-cluster" data-gap="3">
           <Cluster gap="2" align="baseline">Cluster</Cluster>
         </div>
-        <pre><code>&lt;Cluster gap="2" align="baseline"&gt;Cluster&lt;/Cluster&gt;</code></pre>
+        <Codeblock>&lt;Cluster gap="2" align="baseline"&gt;Cluster&lt;/Cluster&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>responsive-gap</h3>
         <div class="t-cluster" data-gap="3">
           <Cluster gap={{ base: "2", md: "4" }}>Cluster</Cluster>
         </div>
-        <pre><code>&lt;Cluster gap=&lbrace;&lbrace; base: "2", md: "4" &rbrace;&rbrace;&gt;Cluster&lt;/Cluster&gt;</code></pre>
+        <Codeblock>&lt;Cluster gap=&lbrace;&lbrace; base: "2", md: "4" &rbrace;&rbrace;&gt;Cluster&lt;/Cluster&gt;</Codeblock>
       </div>
       <div class="t-stack" data-gap="2">
         <h3>responsive-justify</h3>
         <div class="t-cluster" data-gap="3">
           <Cluster gap="3" justify={{ base: "start", md: "between" }}>Cluster</Cluster>
         </div>
-        <pre><code>&lt;Cluster gap="3" justify=&lbrace;&lbrace; base: "start", md: "between" &rbrace;&rbrace;&gt;Cluster&lt;/Cluster&gt;</code></pre>
+        <Codeblock>&lt;Cluster gap="3" justify=&lbrace;&lbrace; base: "start", md: "between" &rbrace;&rbrace;&gt;Cluster&lt;/Cluster&gt;</Codeblock>
       </div>
     </section>
     <section class="t-stack" data-gap="3">
