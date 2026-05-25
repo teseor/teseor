@@ -39,7 +39,7 @@ Two prop categories:
 
 ## Shapes at a glance
 
-Three prop value shapes are responsive-capable. Each declares the same `responsive: true` in the spec; the call-site form follows the prop's value type.
+Three prop value shapes carry responsive examples in the current specs: boolean, constrained string (`values:` list), and open string. The schema also accepts `type: number` with `responsive: true` — no spec uses it yet, so it's not exemplified below. Each declares the same `responsive: true`; the call-site form follows the prop's value type.
 
 ### Boolean responsive
 
@@ -131,7 +131,7 @@ For every prop marked `responsive: true`, codegen emits the full responsive sele
 
 `coverage:` Cartesian-expands each dimension's **literal** values into test cells — it does not enumerate the responsive object form. A prop marked `responsive: true` with `values: [start, center, end]` contributes three coverage cells (one per literal), not three × five (per breakpoint). The codegen-emitted per-breakpoint selector set already covers every breakpoint × value deterministically; per-breakpoint coverage cells would duplicate that without adding signal.
 
-To exercise the responsive object form in a contract test, add an explicit `examples:` entry with `prop: { base: …, md: … }` — that lands as one fixture in the generated harness and contributes one cell to the snapshot.
+To exercise the responsive object form in a contract test, add an explicit `examples:` entry that nests the object under the prop name (`props: { block: { base: true, md: false } }`) — that lands as one fixture in the generated harness and contributes one cell to the snapshot. `specs/button.yaml` (`block-responsive`) is the worked example.
 
 ## Authoring API
 
