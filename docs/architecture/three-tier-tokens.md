@@ -135,6 +135,23 @@ Semantic color aliases (`--t-fg`, `--t-bg`, `--t-accent`, `--t-on-accent`, `--t-
 
 The forced-colors block keeps tokens as the single source of truth across both modes — themes can override either branch independently, components never write forced-colors fallbacks themselves. `postcss-teseor-floor` walks both branches when inlining literals (see ADR-0003 § "Forced-colors resolution").
 
+*Forced-colors floor.* When a consumer loads only a per-component file (`@teseor/css/components/button.css`) without `tokens.css`, the third-position literal that the plugin inlines is the *default-mode* value (e.g. `oklch(...)`). To keep the high-contrast mapping intact in that load case, the plugin also synthesizes a single nested `@media (forced-colors: active)` block at the component root that re-declares every semantic token the file references whose forced-colors literal differs from the default branch:
+
+```css
+.t-button {
+  --_fill: var(--t-button-bg, var(--t-accent, oklch(65% 0.18 250deg)));
+  /* …rest of the component declarations are unchanged */
+  @media (forced-colors: active) {
+    --t-accent:     ButtonText;
+    --t-on-accent:  ButtonFace;
+    --t-focus-ring: Highlight;
+    /* …only the semantic tokens this file actually references */
+  }
+}
+```
+
+Custom-property inheritance propagates these values to every `var(--t-*)` reference inside `.t-button`, including its nested rules (`&:where([data-intent="primary"])`, `&:focus-visible`, …). Components don't get per-declaration mirroring — the cascade does the work. A component file that references only scale tokens (`--t-neutral-90`, `--t-space-4`) emits no block, because scale tokens don't change between branches. When `tokens.css` *is* also loaded, the synthesized block and the `:root` forced-colors branch carry the same value, so the result is identical — the block is only load-bearing when the per-component CSS is shipped alone. Consumers who want to override the forced-colors mapping for a specific component target the component class (e.g. `.my-app .t-button { --t-accent: HighlightText; }`) rather than `:root`, since the synthesized declaration is applied directly to the element and beats inherited `:root` values.
+
 *On-X foreground aliases.* Every fill role pairs with a foreground alias for the text or icon that sits on top:
 
 | Fill role | Paired foreground |
