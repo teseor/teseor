@@ -25,6 +25,7 @@ The bare-verb defaults are the verbs you reach for daily: `dev`, `build`, `test`
 | `pnpm typecheck` | `tsc --noEmit` at the root plus recursive `typecheck` across packages | Before push; in CI; via lefthook | Developer + CI + lefthook |
 | `pnpm size` | `size-limit` — per-entry CSS bundle budgets | When bundle size may have moved | Developer + CI |
 | `pnpm migrate:specs` | One-off spec migration (`scripts/repo/migrate-specs.ts`) | Rare — bulk spec-format changes | Maintainer |
+| `pnpm audit:overrides` | Audits `pnpm-workspace.yaml` `overrides` entries; drops each, re-resolves, and reports which are redundant (`scripts/repo/audit-overrides.ts`) | Monthly via the `audit-overrides` workflow; ad-hoc before bumping shared deps | Maintainer + CI |
 | `pnpm changeset` | Changesets CLI — writes a release entry to `.changeset/<slug>.md` | After implementation | Developer |
 | `pnpm release` | Publish to npm with provenance | CI only (errors locally) | CI |
 | `pnpm prepare` | Lifecycle hook — runs `lefthook install` on `pnpm install` | Automatic; not run directly | — |
