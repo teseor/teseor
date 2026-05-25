@@ -88,6 +88,15 @@ export function renderProps(spec: DocsSpec): string {
       `<code>false</code>`,
       `Render the trigger directly on the consumer's child element (cloneElement) instead of wrapping in a &lt;span&gt;. Single-child invariant; the child receives the wrapper's &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;data-state&lt;/code&gt;, event handlers, and any ARIA attributes the component applies (component-specific). Not compatible with Astro slots — use the default wrapper there.`,
     ]);
+    // Composite-overlay wrappers also forward a `ref` to the popover content
+    // element. Same generator-only contract — the docs mirror it here so the
+    // public surface stays visible to consumers.
+    rows.push([
+      `<code>ref</code>`,
+      `<code>Ref&lt;HTMLElement&gt;</code>`,
+      `<code>null</code>`,
+      `Forwarded ref to the popover content element. React: pass a callback ref or RefObject as the <code>ref</code> prop. Vue: read it through the parent template ref — <code>tooltipRef.value?.contentRef.value</code> (exposed via <code>defineExpose</code>).`,
+    ]);
   }
   return section("Props", renderTable(["Prop", "Type", "Default", "Description"], rows));
 }

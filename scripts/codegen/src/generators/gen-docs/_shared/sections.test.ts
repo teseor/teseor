@@ -80,6 +80,24 @@ describe("renderProps", () => {
     const out = renderProps(spec);
     expect(out).toContain("<code>asChild</code>");
   });
+
+  test("appends ref for composite specs with a fromChildren part", () => {
+    const spec: DocsSpec = {
+      name: "tooltip",
+      kind: "composite",
+      props: {
+        text: { type: "string", description: "", __part: "" },
+      },
+      tokens: {},
+      states: {},
+      parts: {
+        trigger: { fromChildren: true },
+      },
+    };
+    const out = renderProps(spec);
+    expect(out).toContain("<code>ref</code>");
+    expect(out).toContain("Forwarded ref to the popover content element.");
+  });
 });
 
 describe("hasFromChildrenPart", () => {
