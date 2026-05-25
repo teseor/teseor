@@ -256,12 +256,22 @@ export function checkTokenFallbacks(spec: Spec, tokensCss: TokensCss): Issue[] {
 // ── Private-token slots (`--_*`) ↔ CSS declarations ─────────────────────────
 
 /** Climb a rule's parent chain to the top-level rule (the one directly under
- *  an `@layer` block). For nested selectors like `&:where([data-size="sm"])`,
- *  this returns the enclosing `.t-foo` rule that owns the slot namespace. */
+ *  an `@layer` block). For nested selectors like `&:where([data-size="sm"])`
+ *  AND for rules nested inside `@media` / `@supports` atrules (responsive
+ *  modifiers), the climb passes through atrules so the slot attributes to
+ *  the enclosing `.t-foo` rule that owns the slot namespace. */
 function rootRule(rule: postcss.Rule): postcss.Rule {
   let current: postcss.Rule = rule;
-  while (current.parent && current.parent.type === "rule") {
-    current = current.parent as postcss.Rule;
+  let parent = current.parent;
+  while (parent) {
+    if (parent.type === "rule") {
+      current = parent as postcss.Rule;
+      parent = current.parent;
+    } else if (parent.type === "atrule") {
+      parent = parent.parent;
+    } else {
+      break;
+    }
   }
   return current;
 }

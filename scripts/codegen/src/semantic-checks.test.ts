@@ -240,7 +240,7 @@ describe("checkPrivateTokens", () => {
     expect(issues[0]?.message).toMatch(/'--_unused'.*never declared/);
   });
 
-  test("walks composite parts (union)", () => {
+  test("walks composite parts (per-rootClass)", () => {
     const spec: Spec = {
       name: "tooltip",
       kind: "composite",
@@ -264,6 +264,22 @@ describe("checkPrivateTokens", () => {
   test("ignores --_* references on the RHS (only the declaration LHS counts)", () => {
     const spec = makeButton({ privateTokens: ["--_h"] });
     const css = `.t-button { --_h: 1rem; block-size: var(--_h); }`;
+    expect(checkPrivateTokens(spec, css)).toEqual([]);
+  });
+
+  test("attributes slots declared inside @media blocks to the enclosing root rule", () => {
+    // Responsive modifiers nest a rule inside `@media` inside `.t-button`.
+    // rootRule must climb past the atrule so the slot decl attributes back to
+    // `.t-button`, not to the inner `&:where(...)` selector.
+    const spec = makeButton({ privateTokens: ["--_h", "--_bp-only"] });
+    const css = `.t-button {
+      --_h: 1rem;
+      @media (min-width: 48rem) {
+        &:where([data-size-md="sm"]) {
+          --_bp-only: 0.5rem;
+        }
+      }
+    }`;
     expect(checkPrivateTokens(spec, css)).toEqual([]);
   });
 });
