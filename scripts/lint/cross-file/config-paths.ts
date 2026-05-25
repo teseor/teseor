@@ -59,5 +59,5 @@ export const rule: WorkspaceCheck = {
   kind: "workspace",
   triggers: TRIGGERS,
   run: checkConfigPaths,
-  hint: "Update `.claude/settings.json` and `.github/workflows/*.yml` after every scripts/ rename.",
+  hint: "Update `.claude/settings.json`, `package.json`, `lefthook.yml`, and `.github/workflows/*.yml` after every scripts/ rename.",
 };
