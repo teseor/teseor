@@ -4,16 +4,18 @@
   }
 
   .t-tooltip {
-    --_bg: var(--t-tooltip-bg, var(--t-neutral-90));
-    --_fg: var(--t-tooltip-fg, var(--t-neutral-10));
+    --_bg: var(--t-tooltip-bg, var(--t-surface-inverse));
+    --_fg: var(--t-tooltip-fg, var(--t-on-surface-inverse));
     --_pad-x: var(--t-tooltip-pad-x, var(--t-space-3));
     --_pad-y: var(--t-tooltip-pad-y, var(--t-space-2));
     --_radius: var(--t-tooltip-radius, var(--t-radius-sm));
     --_gap: var(--t-tooltip-gap, var(--t-space-2));
     --_dur: var(--t-tooltip-dur, var(--t-dur-fast));
     --_ease: var(--t-tooltip-ease, var(--t-ease-out));
+    --_font-size: var(--t-tooltip-font-size, var(--t-text-sm));
+    --_motion-scale: var(--t-motion-scale);
     --_arrow-size: var(--t-tooltip-arrow-size, var(--t-space-3));
-    --_arrow-bg: var(--t-tooltip-arrow-bg, var(--t-neutral-90));
+    --_arrow-bg: var(--t-tooltip-arrow-bg, var(--t-surface-inverse));
     --_arrow-inset: auto;
     --_arrow-transform: rotate(45deg);
     --_anchor: var(--t-tooltip-anchor, none);
@@ -59,7 +61,7 @@
     color: var(--_fg);
     border-radius: var(--_radius);
     font: inherit;
-    font-size: var(--t-text-sm, 0.875rem);
+    font-size: var(--_font-size);
     line-height: 1.4;
     max-inline-size: 20rem;
     pointer-events: none;
@@ -77,10 +79,10 @@
        across `block ↔ none`, so the close transition is visible. Without it
        the popover snaps off. Paired with `@starting-style` for entry. */
     transition:
-      opacity calc(var(--_dur) * var(--t-motion-scale)) var(--_ease),
-      transform calc(var(--_dur) * var(--t-motion-scale)) var(--_ease),
-      display calc(var(--_dur) * var(--t-motion-scale)) allow-discrete,
-      overlay calc(var(--_dur) * var(--t-motion-scale)) allow-discrete;
+      opacity calc(var(--_dur) * var(--_motion-scale)) var(--_ease),
+      transform calc(var(--_dur) * var(--_motion-scale)) var(--_ease),
+      display calc(var(--_dur) * var(--_motion-scale)) allow-discrete,
+      overlay calc(var(--_dur) * var(--_motion-scale)) allow-discrete;
 
     /* Rotated-square arrow pointing at the trigger. Each data-placement
        rule sets `--_arrow-inset` (shorthand) and `--_arrow-transform` —

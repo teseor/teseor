@@ -52,6 +52,8 @@ parts:
         default: 0
         responsive: false
         description: "Milliseconds before the tooltip closes after leave or blur."
+    privateTokens:
+      - --_anchor
 
   content:
     element: div
@@ -72,10 +74,10 @@ parts:
         description: "Preferred side relative to the trigger. CSS `position-try-fallbacks` auto-flips on overflow."
     tokens:
       bg:
-        fallback: --t-neutral-90
-        desc: Background fill. Defaults to a dark neutral; consumers override via `--t-tooltip-bg`.
+        fallback: --t-surface-inverse
+        desc: Background fill. Defaults to the inverse surface; consumers override via `--t-tooltip-bg`.
       fg:
-        fallback: --t-neutral-10
+        fallback: --t-on-surface-inverse
         desc: Text color. Pairs with `bg`.
       pad-x:
         fallback: --t-space-3
@@ -95,12 +97,15 @@ parts:
       ease:
         fallback: --t-ease-out
         desc: Entry and exit easing.
+      font-size:
+        fallback: --t-text-sm
+        desc: Font size for tooltip body text.
       arrow-size:
         fallback: --t-space-3
         desc: Arrow square size. Rotated 45° to form the pointer; visible triangle is roughly size/√2 tall.
       arrow-bg:
-        fallback: --t-neutral-90
-        desc: Arrow fill. Defaults to the same neutral as `bg` so the arrow blends seamlessly with the body.
+        fallback: --t-surface-inverse
+        desc: Arrow fill. Defaults to the same surface as `bg` so the arrow blends seamlessly with the body.
     privateTokens:
       - --_bg
       - --_fg
@@ -110,12 +115,18 @@ parts:
       - --_gap
       - --_dur
       - --_ease
+      - --_font-size
+      - --_motion-scale
       - --_arrow-size
       - --_arrow-bg
+      - --_arrow-inset
+      - --_arrow-transform
       - --_anchor
       - --_position-area
       - --_display
-      - --_translate
+      - --_translate-x
+      - --_translate-y
+      - --_margin
     motion:
       transitions: [opacity, transform]
       enters: [open]

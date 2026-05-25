@@ -42,7 +42,9 @@ function splitTopLevel(value: string, sep: string): string[] {
  * Motion declarations whose duration is not gated by `var(--t-motion-scale)`.
  * A `transition` / `animation` value that is a lone `--_*` token is followed
  * into that token's declarations, since a `[data-*]` modifier reassigns the
- * var rather than declaring the property.
+ * var rather than declaring the property. Any `var(--_*)` reference inside
+ * a non-lone value (e.g. inside `calc(...)`) is also followed transitively
+ * so `--_scale: var(--t-motion-scale)` aliasing is recognized as scaled.
  */
 export function findUnscaledMotion(css: string): string[] {
   const violations: string[] = [];
@@ -54,6 +56,19 @@ export function findUnscaledMotion(css: string): string[] {
     list.push(decl.value);
     customs.set(decl.prop, list);
   });
+
+  function containsScale(value: string, seen: Set<string>): boolean {
+    if (value.includes(SCALE)) return true;
+    for (const match of value.matchAll(/var\(\s*(--_[\w-]+)\s*[,)]/g)) {
+      const name = match[1];
+      if (name === undefined || seen.has(name)) continue;
+      seen.add(name);
+      for (const target of customs.get(name) ?? []) {
+        if (containsScale(target, seen)) return true;
+      }
+    }
+    return false;
+  }
 
   function check(prop: string, value: string, seen: Set<string>): void {
     for (const segment of splitTopLevel(value, ",")) {
@@ -73,7 +88,7 @@ export function findUnscaledMotion(css: string): string[] {
         }
         continue;
       }
-      if (!trimmed.includes(SCALE)) {
+      if (!containsScale(trimmed, new Set(seen))) {
         violations.push(`\`${prop}: … ${trimmed} …\` — duration is not multiplied by ${SCALE}`);
       }
     }

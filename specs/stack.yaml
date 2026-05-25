@@ -24,11 +24,21 @@ tokens:
     fallback: --t-space-3
     desc: Default child spacing when `gap` is unset; overridable via `--t-stack-gap`.
   align:
-    fallback: --t-align-stretch
+    fallback: stretch
     desc: Default inline-axis alignment when `align` is unset; overridable via `--t-stack-align`.
 
 privateTokens:
   - --_gap
+  - --_align
+  - --_gap-0
+  - --_gap-1
+  - --_gap-2
+  - --_gap-3
+  - --_gap-4
+  - --_gap-5
+  - --_gap-6
+  - --_gap-7
+  - --_gap-8
 
 a11y:
   role: generic

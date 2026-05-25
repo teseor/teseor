@@ -88,16 +88,17 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><Code>--t-tooltip-bg</Code></td><td><Code>--t-neutral-90</Code></td><td>Background fill. Defaults to a dark neutral; consumers override via `--t-tooltip-bg`.</td></tr>
-        <tr><td><Code>--t-tooltip-fg</Code></td><td><Code>--t-neutral-10</Code></td><td>Text color. Pairs with `bg`.</td></tr>
+        <tr><td><Code>--t-tooltip-bg</Code></td><td><Code>--t-surface-inverse</Code></td><td>Background fill. Defaults to the inverse surface; consumers override via `--t-tooltip-bg`.</td></tr>
+        <tr><td><Code>--t-tooltip-fg</Code></td><td><Code>--t-on-surface-inverse</Code></td><td>Text color. Pairs with `bg`.</td></tr>
         <tr><td><Code>--t-tooltip-pad-x</Code></td><td><Code>--t-space-3</Code></td><td>Inline padding.</td></tr>
         <tr><td><Code>--t-tooltip-pad-y</Code></td><td><Code>--t-space-2</Code></td><td>Block padding.</td></tr>
         <tr><td><Code>--t-tooltip-radius</Code></td><td><Code>--t-radius-sm</Code></td><td>Corner radius.</td></tr>
         <tr><td><Code>--t-tooltip-gap</Code></td><td><Code>--t-space-2</Code></td><td>Distance from the trigger.</td></tr>
         <tr><td><Code>--t-tooltip-dur</Code></td><td><Code>--t-dur-fast</Code></td><td>Entry and exit duration.</td></tr>
         <tr><td><Code>--t-tooltip-ease</Code></td><td><Code>--t-ease-out</Code></td><td>Entry and exit easing.</td></tr>
+        <tr><td><Code>--t-tooltip-font-size</Code></td><td><Code>--t-text-sm</Code></td><td>Font size for tooltip body text.</td></tr>
         <tr><td><Code>--t-tooltip-arrow-size</Code></td><td><Code>--t-space-3</Code></td><td>Arrow square size. Rotated 45° to form the pointer; visible triangle is roughly size/√2 tall.</td></tr>
-        <tr><td><Code>--t-tooltip-arrow-bg</Code></td><td><Code>--t-neutral-90</Code></td><td>Arrow fill. Defaults to the same neutral as `bg` so the arrow blends seamlessly with the body.</td></tr>
+        <tr><td><Code>--t-tooltip-arrow-bg</Code></td><td><Code>--t-surface-inverse</Code></td><td>Arrow fill. Defaults to the same surface as `bg` so the arrow blends seamlessly with the body.</td></tr>
         </tbody>
       </table>
     </section>
@@ -113,11 +114,22 @@ import Base from "../../layouts/Base.astro";
       </table>
     </section>
     <section class="t-stack" data-gap="3">
+      <h2>Forced colors</h2>
+      <p>In Windows High Contrast mode, the component remaps these semantic tokens to CSS system colors. Custom-property inheritance carries the values to every reference in the subtree.</p>
+      <table>
+        <thead><tr><th>Token</th><th>Default</th><th>Forced-colors</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-on-surface-inverse</Code></td><td><Code>oklch(97% 0 0deg)</Code></td><td><Code>CanvasText</Code></td></tr>
+        <tr><td><Code>--t-surface-inverse</Code></td><td><Code>oklch(18% 0 0deg)</Code></td><td><Code>Canvas</Code></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
       <h2>Bundle size</h2>
       <table>
         <thead><tr><th>Artifact</th><th>Raw</th><th>Gzip</th><th>Brotli</th></tr></thead>
         <tbody>
-        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/tooltip/tooltip.css"><Code>@teseor/css/components/tooltip.css</Code></a></td><td>11.55 KB</td><td>1.97 KB</td><td>1.61 KB</td></tr>
+        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/tooltip/tooltip.css"><Code>@teseor/css/components/tooltip.css</Code></a></td><td>11.81 KB</td><td>2.04 KB</td><td>1.67 KB</td></tr>
         </tbody>
       </table>
     </section>

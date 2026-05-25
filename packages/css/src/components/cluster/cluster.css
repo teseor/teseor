@@ -3,6 +3,15 @@
     --_gap: var(--t-cluster-gap, var(--t-space-3));
     --_align: var(--t-cluster-align, stretch);
     --_justify: var(--t-cluster-justify, flex-start);
+    --_gap-0: var(--t-space-0);
+    --_gap-1: var(--t-space-1);
+    --_gap-2: var(--t-space-2);
+    --_gap-3: var(--t-space-3);
+    --_gap-4: var(--t-space-4);
+    --_gap-5: var(--t-space-5);
+    --_gap-6: var(--t-space-6);
+    --_gap-7: var(--t-space-7);
+    --_gap-8: var(--t-space-8);
   }
 }
 
@@ -18,7 +27,7 @@
 
     @each $i in 0, 1, 2, 3, 4, 5, 6, 7, 8 {
       &:where([data-gap="$(i)"]) {
-        --_gap: var(--t-space-$(i));
+        --_gap: var(--_gap-$(i));
       }
     }
 
@@ -67,7 +76,7 @@
       @media (--$(bp)) {
         @each $i in 0, 1, 2, 3, 4, 5, 6, 7, 8 {
           &:where([data-gap-$(bp)="$(i)"]) {
-            --_gap: var(--t-space-$(i));
+            --_gap: var(--_gap-$(i));
           }
         }
 

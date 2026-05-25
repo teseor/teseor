@@ -257,8 +257,8 @@ import Base from "../../layouts/Base.astro";
         <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
         <tbody>
         <tr><td><Code>--t-cluster-gap</Code></td><td><Code>--t-space-3</Code></td><td>Default child spacing when \`gap\` is unset; overridable via \`--t-cluster-gap\`.</td></tr>
-        <tr><td><Code>--t-cluster-align</Code></td><td><Code>--t-align-stretch</Code></td><td>Default block-axis alignment when \`align\` is unset; overridable via \`--t-cluster-align\`.</td></tr>
-        <tr><td><Code>--t-cluster-justify</Code></td><td><Code>--t-justify-flex-start</Code></td><td>Default inline-axis distribution when \`justify\` is unset; overridable via \`--t-cluster-justify\`.</td></tr>
+        <tr><td><Code>--t-cluster-align</Code></td><td><Code>stretch</Code></td><td>Default block-axis alignment when \`align\` is unset; overridable via \`--t-cluster-align\`.</td></tr>
+        <tr><td><Code>--t-cluster-justify</Code></td><td><Code>flex-start</Code></td><td>Default inline-axis distribution when \`justify\` is unset; overridable via \`--t-cluster-justify\`.</td></tr>
         </tbody>
       </table>
     </section>
@@ -349,7 +349,7 @@ import Base from "../../layouts/Base.astro";
         <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
         <tbody>
         <tr><td><Code>--t-stack-gap</Code></td><td><Code>--t-space-3</Code></td><td>Default child spacing when \`gap\` is unset; overridable via \`--t-stack-gap\`.</td></tr>
-        <tr><td><Code>--t-stack-align</Code></td><td><Code>--t-align-stretch</Code></td><td>Default inline-axis alignment when \`align\` is unset; overridable via \`--t-stack-align\`.</td></tr>
+        <tr><td><Code>--t-stack-align</Code></td><td><Code>stretch</Code></td><td>Default inline-axis alignment when \`align\` is unset; overridable via \`--t-stack-align\`.</td></tr>
         </tbody>
       </table>
     </section>
@@ -453,16 +453,17 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><Code>--t-tooltip-bg</Code></td><td><Code>--t-neutral-90</Code></td><td>Background fill. Defaults to a dark neutral; consumers override via \`--t-tooltip-bg\`.</td></tr>
-        <tr><td><Code>--t-tooltip-fg</Code></td><td><Code>--t-neutral-10</Code></td><td>Text color. Pairs with \`bg\`.</td></tr>
+        <tr><td><Code>--t-tooltip-bg</Code></td><td><Code>--t-surface-inverse</Code></td><td>Background fill. Defaults to the inverse surface; consumers override via \`--t-tooltip-bg\`.</td></tr>
+        <tr><td><Code>--t-tooltip-fg</Code></td><td><Code>--t-on-surface-inverse</Code></td><td>Text color. Pairs with \`bg\`.</td></tr>
         <tr><td><Code>--t-tooltip-pad-x</Code></td><td><Code>--t-space-3</Code></td><td>Inline padding.</td></tr>
         <tr><td><Code>--t-tooltip-pad-y</Code></td><td><Code>--t-space-2</Code></td><td>Block padding.</td></tr>
         <tr><td><Code>--t-tooltip-radius</Code></td><td><Code>--t-radius-sm</Code></td><td>Corner radius.</td></tr>
         <tr><td><Code>--t-tooltip-gap</Code></td><td><Code>--t-space-2</Code></td><td>Distance from the trigger.</td></tr>
         <tr><td><Code>--t-tooltip-dur</Code></td><td><Code>--t-dur-fast</Code></td><td>Entry and exit duration.</td></tr>
         <tr><td><Code>--t-tooltip-ease</Code></td><td><Code>--t-ease-out</Code></td><td>Entry and exit easing.</td></tr>
+        <tr><td><Code>--t-tooltip-font-size</Code></td><td><Code>--t-text-sm</Code></td><td>Font size for tooltip body text.</td></tr>
         <tr><td><Code>--t-tooltip-arrow-size</Code></td><td><Code>--t-space-3</Code></td><td>Arrow square size. Rotated 45° to form the pointer; visible triangle is roughly size/√2 tall.</td></tr>
-        <tr><td><Code>--t-tooltip-arrow-bg</Code></td><td><Code>--t-neutral-90</Code></td><td>Arrow fill. Defaults to the same neutral as \`bg\` so the arrow blends seamlessly with the body.</td></tr>
+        <tr><td><Code>--t-tooltip-arrow-bg</Code></td><td><Code>--t-surface-inverse</Code></td><td>Arrow fill. Defaults to the same surface as \`bg\` so the arrow blends seamlessly with the body.</td></tr>
         </tbody>
       </table>
     </section>

@@ -8,10 +8,10 @@ cssFile: components/code/code.css
 
 tokens:
   bg:
-    fallback: --t-neutral-20
+    fallback: --t-surface-muted
     desc: Background fill for the inline span.
   fg:
-    fallback: --t-on-surface
+    fallback: --t-on-surface-muted
     desc: Text color.
   pad-x:
     fallback: --t-space-1

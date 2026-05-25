@@ -92,12 +92,16 @@ describe("Spec schema — shape layer", () => {
     expect(result.success).toBe(true);
   });
 
-  test("rejects a token name without the `--` prefix", () => {
+  test("accepts a literal CSS value as fallback (for non-themed primitives)", () => {
+    // The schema is permissive — semantic-checks.checkTokenFallbacks gates
+    // token-shaped values against tokens.css. Layout primitives like Stack
+    // use literal fallbacks (`stretch`, `flex-start`) where the default
+    // isn't a theme token.
     const result = Spec.safeParse({
       ...minimalAtomic(),
-      tokens: { bg: { fallback: "accent", desc: "Background." } },
+      tokens: { align: { fallback: "stretch", desc: "Alignment default." } },
     });
-    expect(result.success).toBe(false);
+    expect(result.success).toBe(true);
   });
 
   test("rejects a non-canonical prop `type:`", () => {

@@ -83,11 +83,13 @@ export type FlatSpec = {
 
 function visitParts(
   parts: Record<string, SpecPart>,
-  visit: (partName: string, part: SpecPart) => void,
+  visit: (partName: string, part: SpecPart, partPath: string) => void,
+  prefix = "",
 ): void {
   for (const [name, part] of Object.entries(parts)) {
-    visit(name, part);
-    if (part.parts) visitParts(part.parts, visit);
+    const partPath = prefix === "" ? name : `${prefix}.${name}`;
+    visit(name, part, partPath);
+    if (part.parts) visitParts(part.parts, visit, partPath);
   }
 }
 
@@ -133,7 +135,10 @@ export function flattenSpec(spec: Spec): FlatSpec {
     };
   }
 
-  // Composite: walk parts, merge.
+  // Composite: walk parts, merge. Token names that appear on more than one
+  // part are namespaced by the full dotted path (`header.bg`, `body.content.bg`)
+  // so nested-part collisions resolve too. Single-occurrence names stay bare,
+  // so today's public slots (`--t-tooltip-bg`) aren't renamed.
   const props: Record<string, FlatProp> = {};
   const tokens: Record<string, FlatToken> = {};
   const states: Record<string, FlatState> = {};
@@ -144,7 +149,14 @@ export function flattenSpec(spec: Spec): FlatSpec {
   let intents: FlatSpec["intents"];
   let sizes: FlatSpec["sizes"];
 
-  visitParts(spec.parts, (partName, part) => {
+  const tokenNameCounts = new Map<string, number>();
+  visitParts(spec.parts, (_partName, part) => {
+    for (const name of Object.keys(part.tokens ?? {})) {
+      tokenNameCounts.set(name, (tokenNameCounts.get(name) ?? 0) + 1);
+    }
+  });
+
+  visitParts(spec.parts, (partName, part, partPath) => {
     for (const [name, def] of Object.entries(part.props ?? {})) {
       if (props[name]) {
         throw new Error(
@@ -154,12 +166,8 @@ export function flattenSpec(spec: Spec): FlatSpec {
       props[name] = { ...def, __part: partName };
     }
     for (const [name, def] of Object.entries(part.tokens ?? {})) {
-      if (tokens[name]) {
-        throw new Error(
-          `composite spec '${spec.name}' has a token name collision on '${name}' across parts`,
-        );
-      }
-      tokens[name] = { ...def, __part: partName };
+      const flatKey = (tokenNameCounts.get(name) ?? 0) > 1 ? `${partPath}.${name}` : name;
+      tokens[flatKey] = { ...def, __part: partName };
     }
     for (const [name, def] of Object.entries(part.states ?? {})) {
       if (states[name]) {

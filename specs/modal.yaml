@@ -28,6 +28,8 @@ parts:
         pattern: controllable
         responsive: false
         description: "Open state. Uncontrolled by default; pass `open` and optionally `onOpenChange` to drive it from the consumer."
+    privateTokens:
+      - --_anchor
 
   content:
     element: div
@@ -42,10 +44,10 @@ parts:
         description: "Modal body text. Plain string only; rich content support lands when the spec grows a real content slot."
     tokens:
       bg:
-        fallback: --t-neutral-0
+        fallback: --t-bg
         desc: Background fill.
       fg:
-        fallback: --t-neutral-90
+        fallback: --t-on-bg
         desc: Text color.
       pad:
         fallback: --t-space-5
@@ -58,6 +60,7 @@ parts:
       - --_fg
       - --_pad
       - --_radius
+      - --_anchor
 
 examples:
   - id: default

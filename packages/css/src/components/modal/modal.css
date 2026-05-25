@@ -4,8 +4,8 @@
   }
 
   .t-modal {
-    --_bg: var(--t-modal-bg, var(--t-neutral-0));
-    --_fg: var(--t-modal-fg, var(--t-neutral-90));
+    --_bg: var(--t-modal-bg, var(--t-bg));
+    --_fg: var(--t-modal-fg, var(--t-on-bg));
     --_pad: var(--t-modal-pad, var(--t-space-5));
     --_radius: var(--t-modal-radius, var(--t-radius-md));
     --_anchor: var(--t-modal-anchor, none);

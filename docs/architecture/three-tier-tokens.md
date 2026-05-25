@@ -64,6 +64,10 @@ The chain has **three real tiers at runtime**: per-component public token (`--t-
 
 The literal is single-sourced in `tokens.css`. A small Teseor PostCSS plugin reads `tokens.css` at build time, resolves each `--t-*` semantic alias to its ultimate literal value, and appends it as the third position of each component's fallback chain. See ADR-0003 for the plugin spec.
 
+### Component-layer interface
+
+`@layer components.tokens` is the only place in a component file that reads global tokens. `@layer components.styles` reads `--_*` slots only. Per-variant defaults (`--_intent-danger-fill`, `--_h-sm`, …) live as named slots in `.tokens`; the modifier rule reassigns `--_fill: var(--_intent-danger-fill)`. The "two real tiers" of indirection — public override slot → semantic alias → literal floor — happens entirely inside `.tokens`; `.styles` sees only the resolved `--_*` slot. The lint rule (`scripts/lint/file-rules/component-css.ts`) rejects `var(--t-*)` references found inside `.styles`. See `rules/component-shape.md` for the full authoring contract and the structural-literal allowlist.
+
 ## Who writes what
 
 | Tier | Writers | Readers |
@@ -164,6 +168,8 @@ When `tokens.css` *is* also loaded, the synthesized block and the `:root` forced
 | `--t-fg` (text on default surface) | `--t-on-fg` (when text needs an inverted color, e.g. on a highlight) |
 | `--t-bg` (default surface) | `--t-on-bg` (same as `--t-fg` in default mode; separate for symmetry) |
 | `--t-surface` (raised surface, cards) | `--t-on-surface` |
+| `--t-surface-muted` (inset / de-emphasized — code wells) | `--t-on-surface-muted` |
+| `--t-surface-inverse` (light-on-dark — tooltips, dark menus) | `--t-on-surface-inverse` |
 | `--t-accent` | `--t-on-accent` |
 | `--t-danger` | `--t-on-danger` |
 | `--t-success` | `--t-on-success` |

@@ -40,8 +40,8 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
         <tbody>
-        <tr><td><Code>--t-modal-bg</Code></td><td><Code>--t-neutral-0</Code></td><td>Background fill.</td></tr>
-        <tr><td><Code>--t-modal-fg</Code></td><td><Code>--t-neutral-90</Code></td><td>Text color.</td></tr>
+        <tr><td><Code>--t-modal-bg</Code></td><td><Code>--t-bg</Code></td><td>Background fill.</td></tr>
+        <tr><td><Code>--t-modal-fg</Code></td><td><Code>--t-on-bg</Code></td><td>Text color.</td></tr>
         <tr><td><Code>--t-modal-pad</Code></td><td><Code>--t-space-5</Code></td><td>Inner padding.</td></tr>
         <tr><td><Code>--t-modal-radius</Code></td><td><Code>--t-radius-md</Code></td><td>Corner radius.</td></tr>
         </tbody>
@@ -59,11 +59,22 @@ import Base from "../../layouts/Base.astro";
       </table>
     </section>
     <section class="t-stack" data-gap="3">
+      <h2>Forced colors</h2>
+      <p>In Windows High Contrast mode, the component remaps these semantic tokens to CSS system colors. Custom-property inheritance carries the values to every reference in the subtree.</p>
+      <table>
+        <thead><tr><th>Token</th><th>Default</th><th>Forced-colors</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-bg</Code></td><td><Code>oklch(100% 0 0deg)</Code></td><td><Code>Canvas</Code></td></tr>
+        <tr><td><Code>--t-on-bg</Code></td><td><Code>oklch(18% 0 0deg)</Code></td><td><Code>CanvasText</Code></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
       <h2>Bundle size</h2>
       <table>
         <thead><tr><th>Artifact</th><th>Raw</th><th>Gzip</th><th>Brotli</th></tr></thead>
         <tbody>
-        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/modal/modal.css"><Code>@teseor/css/components/modal.css</Code></a></td><td>1.23 KB</td><td>0.52 KB</td><td>0.44 KB</td></tr>
+        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/modal/modal.css"><Code>@teseor/css/components/modal.css</Code></a></td><td>1.34 KB</td><td>0.57 KB</td><td>0.48 KB</td></tr>
         </tbody>
       </table>
     </section>

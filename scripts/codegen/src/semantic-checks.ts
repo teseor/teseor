@@ -4,10 +4,15 @@
 // drift with Levenshtein suggestions, motion in/out symmetry, dependency
 // cycles, the `@import` allowlist driven by `dependencies:`, and
 // `guidance.variantChoice` key equality with `spec.variants`.
+import postcss from "postcss";
+import postcssEach from "postcss-each";
 import { isVoidElement } from "./lib/html-void-elements.ts";
 import { REACT_EVENT_VOCABULARY } from "./lib/react-events.ts";
+import type { TokenDictionary } from "./lib/token-dictionary.ts";
 import type { Vocabulary } from "./lib/vocabulary.ts";
 import type { Spec, SpecPart } from "./schema.ts";
+
+type TokensCss = ReadonlySet<string>;
 
 export type Issue = {
   /** Spec file basename (e.g. `button`). */
@@ -103,10 +108,59 @@ function extractPublicSlots(css: string, specName: string): Set<string> {
   return slots;
 }
 
+/** Build the map from expected public-slot suffix → spec path that declared it.
+ *  For atomic specs: `tokens.bg` → `bg`. For composite specs: `parts.content.tokens.bg`
+ *  → `bg` when unique, or `parts.content.tokens.bg` → `content-bg` when the
+ *  token name collides across parts (matches flattenSpec's namespacing). */
+function declaredPublicSlots(spec: Spec): Map<string, string> {
+  const out = new Map<string, string>();
+  if (isAtomic(spec)) {
+    for (const key of Object.keys(spec.tokens ?? {})) {
+      out.set(key, `tokens.${key}`);
+    }
+    return out;
+  }
+  if (!isComposite(spec)) return out;
+  const counts = new Map<string, number>();
+  const countTokens = (parts: Record<string, SpecPart>): void => {
+    for (const part of Object.values(parts)) {
+      for (const key of Object.keys(part.tokens ?? {})) {
+        counts.set(key, (counts.get(key) ?? 0) + 1);
+      }
+      if (part.parts) countTokens(part.parts);
+    }
+  };
+  countTokens(spec.parts);
+  const visit = (parts: Record<string, SpecPart>, partPath: string): void => {
+    for (const [partName, part] of Object.entries(parts)) {
+      const path = partPath === "" ? partName : `${partPath}.${partName}`;
+      for (const key of Object.keys(part.tokens ?? {})) {
+        const suffix = (counts.get(key) ?? 0) > 1 ? `${path.replace(/\./g, "-")}-${key}` : key;
+        out.set(suffix, `parts.${path}.tokens.${key}`);
+      }
+      if (part.parts) visit(part.parts, path);
+    }
+  };
+  visit(spec.parts, "");
+  return out;
+}
+
+/** Overlay specs declare their anchor custom-property via `overlay.anchorVar`
+ *  (a `--t-{name}-anchor`-shaped name). Recognize it as a public slot so the
+ *  contract check doesn't flag it as drift. */
+function overlayAnchorSlot(spec: Spec): { suffix: string; path: string } | undefined {
+  const anchorVar = spec.overlay?.anchorVar;
+  if (!anchorVar) return undefined;
+  const prefix = `--t-${spec.name}-`;
+  if (!anchorVar.startsWith(prefix)) return undefined;
+  return { suffix: anchorVar.slice(prefix.length), path: "overlay.anchorVar" };
+}
+
 export function checkTokenContract(spec: Spec, css: string | undefined): Issue[] {
   const issues: Issue[] = [];
-  if (!isAtomic(spec)) return issues;
-  const declared = new Set(Object.keys(spec.tokens ?? {}));
+  const declared = declaredPublicSlots(spec);
+  const anchor = overlayAnchorSlot(spec);
+  if (anchor) declared.set(anchor.suffix, anchor.path);
   if (css === undefined) {
     if (declared.size > 0) {
       issues.push(
@@ -120,26 +174,213 @@ export function checkTokenContract(spec: Spec, css: string | undefined): Issue[]
     return issues;
   }
   const slots = extractPublicSlots(css, spec.name);
-  for (const key of declared) {
-    if (!slots.has(key)) {
+  for (const [suffix, path] of declared) {
+    if (!slots.has(suffix)) {
       issues.push(
         issue(
           spec.name,
-          `tokens.${key}`,
-          `token '${key}' is declared in the spec but never read in the CSS as --t-${spec.name}-${key}`,
+          path,
+          `token slot is declared in the spec but never read in the CSS as --t-${spec.name}-${suffix}`,
         ),
       );
     }
   }
-  for (const key of slots) {
-    if (!declared.has(key)) {
+  for (const suffix of slots) {
+    if (!declared.has(suffix)) {
       issues.push(
         issue(
           spec.name,
           "tokens",
-          `CSS reads --t-${spec.name}-${key} but '${key}' is not listed in spec.tokens`,
+          `CSS reads --t-${spec.name}-${suffix} but no matching token is declared in the spec`,
         ),
       );
+    }
+  }
+  return issues;
+}
+
+// ── Token fallback values ↔ tokens.css ──────────────────────────────────────
+
+/**
+ * Every `spec.tokens.X.fallback`, every `intents.X.tokens.Y`, every
+ * `sizes.X.tokens.Y` value names a `--t-*` token. Assert each name exists
+ * in `tokens.css` (or matches the component's own `--t-{name}-*` override
+ * slot, the only escape-hatch). Walks composite parts. Without this, a
+ * typo'd `--t-acent` passes the schema and silently resolves to the
+ * literal floor at runtime.
+ */
+export function checkTokenFallbacks(spec: Spec, tokensCss: TokensCss): Issue[] {
+  const issues: Issue[] = [];
+  const ownSlotPrefix = `--t-${spec.name}-`;
+  const validate = (fallback: string, path: string): void => {
+    // Literal CSS values (`stretch`, `flex-start`, …) are allowed for layout
+    // primitives where the default isn't a theme token. Any `--*` custom
+    // property reference must resolve to a known token; a typo like `--acent`
+    // (missing the `t-`) would otherwise silently pass as a "literal".
+    if (!fallback.startsWith("--")) return;
+    if (tokensCss.has(fallback)) return;
+    if (fallback.startsWith(ownSlotPrefix)) return;
+    issues.push(
+      issue(spec.name, path, `fallback '${fallback}' is not a token declared in tokens.css`),
+    );
+  };
+  const visitNode = (node: AtomicSpec | SpecPart, basePath: string): void => {
+    for (const [key, def] of Object.entries(node.tokens ?? {})) {
+      validate(def.fallback, `${basePath}tokens.${key}.fallback`);
+    }
+    for (const [intentName, intent] of Object.entries(node.intents ?? {})) {
+      for (const [tokenKey, fallback] of Object.entries(intent.tokens ?? {})) {
+        validate(fallback, `${basePath}intents.${intentName}.tokens.${tokenKey}`);
+      }
+    }
+    for (const [sizeName, size] of Object.entries(node.sizes ?? {})) {
+      for (const [tokenKey, fallback] of Object.entries(size.tokens ?? {})) {
+        validate(fallback, `${basePath}sizes.${sizeName}.tokens.${tokenKey}`);
+      }
+    }
+  };
+  if (isAtomic(spec)) {
+    visitNode(spec, "");
+  } else if (isComposite(spec)) {
+    const walk = (parts: Record<string, SpecPart>, basePath: string): void => {
+      for (const [partName, part] of Object.entries(parts)) {
+        const partPath = basePath === "" ? `parts.${partName}` : `${basePath}.parts.${partName}`;
+        visitNode(part, `${partPath}.`);
+        if (part.parts) walk(part.parts, partPath);
+      }
+    };
+    walk(spec.parts, "");
+  }
+  return issues;
+}
+
+// ── Private-token slots (`--_*`) ↔ CSS declarations ─────────────────────────
+
+/** Climb a rule's parent chain to the top-level rule (the one directly under
+ *  an `@layer` block). For nested selectors like `&:where([data-size="sm"])`
+ *  AND for rules nested inside `@media` / `@supports` atrules (responsive
+ *  modifiers), the climb passes through atrules so the slot attributes to
+ *  the enclosing `.t-foo` rule that owns the slot namespace. */
+function rootRule(rule: postcss.Rule): postcss.Rule {
+  let current: postcss.Rule = rule;
+  let parent = current.parent;
+  while (parent) {
+    if (parent.type === "rule") {
+      current = parent as postcss.Rule;
+      parent = current.parent;
+    } else if (parent.type === "atrule") {
+      parent = parent.parent;
+    } else {
+      break;
+    }
+  }
+  return current;
+}
+
+/** Walk the CSS and group every `--_*` declaration by its enclosing
+ *  top-level selector (a stripped class name like `t-tooltip`). */
+function privateSlotsBySelector(css: string): Map<string, Set<string>> {
+  const out = new Map<string, Set<string>>();
+  const root = postcss([postcssEach()]).process(css, { from: undefined }).root;
+  root.walkDecls(/^--_/, (decl) => {
+    const parent = decl.parent;
+    if (parent === undefined || parent.type !== "rule") return;
+    const top = rootRule(parent as postcss.Rule);
+    const cls = top.selector.match(/^\.([A-Za-z0-9_-]+)/)?.[1];
+    if (cls === undefined) return;
+    const set = out.get(cls) ?? new Set<string>();
+    set.add(decl.prop);
+    out.set(cls, set);
+  });
+  return out;
+}
+
+/**
+ * Asserts every `--_*` slot the component CSS declares is enumerated in the
+ * appropriate `privateTokens` list, and vice versa. For atomic specs the
+ * single `spec.privateTokens` list owns every slot. For composite specs each
+ * part's `privateTokens` list owns the slots declared under that part's
+ * `rootClass` — drift across parts is caught (a slot declared on the
+ * `.t-tooltip-trigger` rule but listed under `parts.content.privateTokens`
+ * fails on both ends).
+ */
+export function checkPrivateTokens(spec: Spec, css: string | undefined): Issue[] {
+  const issues: Issue[] = [];
+  if (css === undefined) return issues;
+  const slotsBySelector = privateSlotsBySelector(css);
+
+  const checkOne = (
+    declared: ReadonlyArray<string>,
+    cls: string | undefined,
+    path: string,
+  ): void => {
+    const used = cls === undefined ? new Set<string>() : (slotsBySelector.get(cls) ?? new Set());
+    const declaredSet = new Set(declared);
+    for (const slot of declaredSet) {
+      if (!used.has(slot)) {
+        issues.push(
+          issue(
+            spec.name,
+            path,
+            cls === undefined
+              ? `'${slot}' is listed in privateTokens but never declared in the CSS`
+              : `'${slot}' is listed in ${path} but never declared under .${cls} in the CSS`,
+          ),
+        );
+      }
+    }
+    if (cls !== undefined) {
+      for (const slot of used) {
+        if (!declaredSet.has(slot)) {
+          issues.push(
+            issue(spec.name, path, `.${cls} declares '${slot}' but it is not listed in ${path}`),
+          );
+        }
+      }
+    }
+  };
+
+  if (isAtomic(spec)) {
+    checkOne(spec.privateTokens ?? [], spec.rootClass, "privateTokens");
+    // Catch slot decls under selectors that don't match the root class
+    // (most components ship one class; if a stray class appears, surface it).
+    for (const [cls, slots] of slotsBySelector) {
+      if (cls === spec.rootClass) continue;
+      for (const slot of slots) {
+        issues.push(
+          issue(
+            spec.name,
+            "privateTokens",
+            `.${cls} declares '${slot}' but no part with that rootClass is declared`,
+          ),
+        );
+      }
+    }
+    return issues;
+  }
+
+  if (isComposite(spec)) {
+    const seen = new Set<string>();
+    const walk = (parts: Record<string, SpecPart>, prefix: string): void => {
+      for (const [partName, part] of Object.entries(parts)) {
+        const path = prefix === "" ? `parts.${partName}` : `${prefix}.parts.${partName}`;
+        checkOne(part.privateTokens ?? [], part.rootClass, `${path}.privateTokens`);
+        if (part.rootClass) seen.add(part.rootClass);
+        if (part.parts) walk(part.parts, path);
+      }
+    };
+    walk(spec.parts, "");
+    for (const [cls, slots] of slotsBySelector) {
+      if (seen.has(cls)) continue;
+      for (const slot of slots) {
+        issues.push(
+          issue(
+            spec.name,
+            "privateTokens",
+            `.${cls} declares '${slot}' but no part with that rootClass is declared`,
+          ),
+        );
+      }
     }
   }
   return issues;
@@ -446,6 +687,60 @@ export function checkVocabulary(spec: Spec, vocabulary: Vocabulary): Issue[] {
         ),
       );
     }
+  }
+  return issues;
+}
+
+// ── Token name dictionary (`specs/_tokens.yaml`) ────────────────────────────
+
+/**
+ * Walks every `tokens:` block (atomic root + composite parts) and asserts
+ * each key is either canonical (in the dictionary) or a component-specific
+ * name (e.g. Tooltip's `arrow-bg`). Longhand spellings of canonical names
+ * (`background`, `borderRadius`) are rejected via the synonym map.
+ * Close-but-not-equal typos of canonical names are flagged too.
+ */
+export function checkTokenNames(spec: Spec, dictionary: TokenDictionary): Issue[] {
+  const issues: Issue[] = [];
+  const canonicalList = [...dictionary.canonical];
+  const visit = (tokens: Record<string, unknown> | undefined, path: string): void => {
+    for (const key of Object.keys(tokens ?? {})) {
+      if (dictionary.canonical.has(key)) continue;
+      const synonymTarget = dictionary.synonyms.get(key);
+      if (synonymTarget) {
+        issues.push(
+          issue(
+            spec.name,
+            `${path}.${key}`,
+            `use canonical '${synonymTarget}' instead of '${key}' (specs/_tokens.yaml synonyms)`,
+          ),
+        );
+        continue;
+      }
+      const hint = suggest(key, canonicalList, 1);
+      if (hint && hint !== key) {
+        issues.push(
+          issue(
+            spec.name,
+            `${path}.${key}`,
+            `'${key}' looks like a typo of canonical token '${hint}'`,
+          ),
+        );
+      }
+    }
+  };
+  if (isAtomic(spec)) {
+    visit(spec.tokens, "tokens");
+    return issues;
+  }
+  if (isComposite(spec)) {
+    const walk = (parts: Record<string, SpecPart>, basePath: string): void => {
+      for (const [partName, part] of Object.entries(parts)) {
+        visit(part.tokens, `${basePath}.${partName}.tokens`);
+        if (part.parts) walk(part.parts, `${basePath}.${partName}.parts`);
+      }
+    };
+    walk(spec.parts, "parts");
   }
   return issues;
 }
@@ -876,10 +1171,15 @@ export function runSemanticChecks(
   ctx: {
     css?: string;
     vocabulary: Vocabulary;
+    tokenDictionary: TokenDictionary;
+    tokensCss: TokensCss;
   },
 ): Issue[] {
   return [
     ...checkTokenContract(spec, ctx.css),
+    ...checkTokenFallbacks(spec, ctx.tokensCss),
+    ...checkPrivateTokens(spec, ctx.css),
+    ...checkTokenNames(spec, ctx.tokenDictionary),
     ...checkExamplesReferences(spec),
     ...checkConstraintsAgainstExamples(spec),
     ...checkCoverageShape(spec),
