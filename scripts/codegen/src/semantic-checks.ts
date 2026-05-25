@@ -6,6 +6,7 @@
 // `guidance.variantChoice` key equality with `spec.variants`.
 import { isVoidElement } from "./lib/html-void-elements.ts";
 import { REACT_EVENT_VOCABULARY } from "./lib/react-events.ts";
+import type { TokenDictionary } from "./lib/token-dictionary.ts";
 import type { Vocabulary } from "./lib/vocabulary.ts";
 import type { Spec, SpecPart } from "./schema.ts";
 
@@ -450,6 +451,60 @@ export function checkVocabulary(spec: Spec, vocabulary: Vocabulary): Issue[] {
   return issues;
 }
 
+// ── Token name dictionary (`specs/_tokens.yaml`) ────────────────────────────
+
+/**
+ * Walks every `tokens:` block (atomic root + composite parts) and asserts
+ * each key is either canonical (in the dictionary) or a component-specific
+ * name (e.g. Tooltip's `arrow-bg`). Longhand spellings of canonical names
+ * (`background`, `borderRadius`) are rejected via the synonym map.
+ * Close-but-not-equal typos of canonical names are flagged too.
+ */
+export function checkTokenNames(spec: Spec, dictionary: TokenDictionary): Issue[] {
+  const issues: Issue[] = [];
+  const canonicalList = [...dictionary.canonical];
+  const visit = (tokens: Record<string, unknown> | undefined, path: string): void => {
+    for (const key of Object.keys(tokens ?? {})) {
+      if (dictionary.canonical.has(key)) continue;
+      const synonymTarget = dictionary.synonyms.get(key);
+      if (synonymTarget) {
+        issues.push(
+          issue(
+            spec.name,
+            `${path}.${key}`,
+            `use canonical '${synonymTarget}' instead of '${key}' (specs/_tokens.yaml synonyms)`,
+          ),
+        );
+        continue;
+      }
+      const hint = suggest(key, canonicalList, 1);
+      if (hint && hint !== key) {
+        issues.push(
+          issue(
+            spec.name,
+            `${path}.${key}`,
+            `'${key}' looks like a typo of canonical token '${hint}'`,
+          ),
+        );
+      }
+    }
+  };
+  if (isAtomic(spec)) {
+    visit(spec.tokens, "tokens");
+    return issues;
+  }
+  if (isComposite(spec)) {
+    const walk = (parts: Record<string, SpecPart>, basePath: string): void => {
+      for (const [partName, part] of Object.entries(parts)) {
+        visit(part.tokens, `${basePath}.${partName}.tokens`);
+        if (part.parts) walk(part.parts, `${basePath}.${partName}.parts`);
+      }
+    };
+    walk(spec.parts, "parts");
+  }
+  return issues;
+}
+
 // ── Motion in/out symmetry (rules/motion.md rule 5) ─────────────────────────
 
 /** Walks every ComponentNode (root and parts) and asserts `enters`/`exits`
@@ -876,10 +931,12 @@ export function runSemanticChecks(
   ctx: {
     css?: string;
     vocabulary: Vocabulary;
+    tokenDictionary: TokenDictionary;
   },
 ): Issue[] {
   return [
     ...checkTokenContract(spec, ctx.css),
+    ...checkTokenNames(spec, ctx.tokenDictionary),
     ...checkExamplesReferences(spec),
     ...checkConstraintsAgainstExamples(spec),
     ...checkCoverageShape(spec),

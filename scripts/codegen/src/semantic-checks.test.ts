@@ -1,4 +1,5 @@
 import { describe, expect, test } from "vitest";
+import type { TokenDictionary } from "./lib/token-dictionary.ts";
 import type { Vocabulary } from "./lib/vocabulary.ts";
 import type { Spec } from "./schema.ts";
 import {
@@ -15,12 +16,23 @@ import {
   checkOverlayEscapeRules,
   checkResponsiveExplicit,
   checkTokenContract,
+  checkTokenNames,
   checkVariantChoiceKeys,
   checkVocabulary,
   checkVoidElementConstraints,
   levenshtein,
   suggest,
 } from "./semantic-checks.ts";
+
+const tokenDictionary: TokenDictionary = {
+  canonical: new Set(["bg", "fg", "pad", "pad-x", "pad-y", "gap", "radius", "dur", "ease"]),
+  synonyms: new Map([
+    ["background", "bg"],
+    ["color", "fg"],
+    ["paddingX", "pad-x"],
+    ["borderRadius", "radius"],
+  ]),
+};
 
 const vocabulary: Vocabulary = {
   components: ["Button", "Stack"],
@@ -116,6 +128,73 @@ describe("checkTokenContract", () => {
     });
     const css = `.t-button { font-size: var(--t-button-font_size, var(--t-text-base)); }`;
     expect(checkTokenContract(spec, css)).toEqual([]);
+  });
+});
+
+describe("checkTokenNames", () => {
+  test("passes canonical token names", () => {
+    const spec = makeButton({
+      tokens: {
+        bg: { fallback: "--t-accent", desc: "Background." },
+        fg: { fallback: "--t-on-accent", desc: "Foreground." },
+        "pad-x": { fallback: "--t-space-4", desc: "Inline padding." },
+      },
+    });
+    expect(checkTokenNames(spec, tokenDictionary)).toEqual([]);
+  });
+
+  test("passes component-specific names that are not close to a canonical", () => {
+    const spec = makeButton({
+      tokens: {
+        bg: { fallback: "--t-accent", desc: "Background." },
+        "arrow-bg": { fallback: "--t-neutral-90", desc: "Arrow fill." },
+        anchor: { fallback: "none", desc: "Anchor name." },
+      },
+    });
+    expect(checkTokenNames(spec, tokenDictionary)).toEqual([]);
+  });
+
+  test("rejects a synonym with a 'use canonical X' hint", () => {
+    const spec = makeButton({
+      tokens: {
+        background: { fallback: "--t-accent", desc: "Background." },
+      },
+    });
+    const issues = checkTokenNames(spec, tokenDictionary);
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.message).toMatch(/use canonical 'bg' instead of 'background'/);
+    expect(issues[0]?.path).toBe("tokens.background");
+  });
+
+  test("rejects a close typo of a canonical name", () => {
+    const spec = makeButton({
+      tokens: {
+        bgg: { fallback: "--t-accent", desc: "Background typo." },
+      },
+    });
+    const issues = checkTokenNames(spec, tokenDictionary);
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.message).toMatch(/looks like a typo of canonical token 'bg'/);
+  });
+
+  test("walks composite parts", () => {
+    const spec: Spec = {
+      name: "tooltip",
+      kind: "composite",
+      parts: {
+        content: {
+          element: "div",
+          rootClass: "t-tooltip",
+          tokens: {
+            background: { fallback: "--t-neutral-90", desc: "Bad longhand." },
+            "arrow-bg": { fallback: "--t-neutral-90", desc: "Arrow fill." },
+          },
+        },
+      },
+    } as Spec;
+    const issues = checkTokenNames(spec, tokenDictionary);
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.path).toBe("parts.content.tokens.background");
   });
 });
 

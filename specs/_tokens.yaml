@@ -1,0 +1,47 @@
+# Canonical short-form names for component token slots. Registry-only —
+# each spec still declares its own `fallback:` per slot. The dictionary
+# gates spelling; the per-spec fallback stays required.
+#
+# Component-specific names (Tooltip's `arrow-bg`, Modal's `anchor`,
+# Stack's `align`) are allowed by the validator without a dictionary
+# entry — only longhand spellings of canonical names (`background`,
+# `borderRadius`) are rejected.
+
+tokens:
+  bg:
+    description: Background fill.
+  fg:
+    description: Foreground color (label, icon, text).
+  pad:
+    description: Padding (shorthand, all sides).
+  pad-x:
+    description: Inline padding.
+  pad-y:
+    description: Block padding.
+  gap:
+    description: Spacing between children.
+  radius:
+    description: Corner radius.
+  shadow:
+    description: Box shadow.
+  dur:
+    description: Transition duration. Multiplied by `--t-motion-scale` at the call site.
+  ease:
+    description: Transition easing curve.
+  font:
+    description: Font family.
+  height:
+    description: Control height.
+
+# Reject longhand forms with a "use canonical X" hint.
+synonyms:
+  background: bg
+  color: fg
+  padding: pad
+  paddingX: pad-x
+  paddingY: pad-y
+  borderRadius: radius
+  boxShadow: shadow
+  transitionDuration: dur
+  transitionTimingFunction: ease
+  fontFamily: font
