@@ -1,8 +1,8 @@
 # Component shape
 
-Every component is one CSS file. `components.tokens` is the component's complete
-mutable surface; the base reads it; modifiers and states only reassign it
-(ADR-0008). Trimmed example:
+Every component is one CSS file. `components.tokens` is the single interface
+boundary — every global-token reference lives here. `components.styles` reads
+`--_*` slots only. Trimmed example:
 
 ```css
 /* packages/css/src/components/button/button.css — trimmed */
@@ -16,6 +16,14 @@ mutable surface; the base reads it; modifiers and states only reassign it
     --_on-fill: var(--t-button-fg, var(--t-on-accent));
     --_bg:      var(--_fill);
     --_fg:      var(--_on-fill);
+
+    /* Global slots — global tokens read here, not in .styles. */
+    --_motion-scale: var(--t-motion-scale);
+    --_focus-ring:   var(--t-focus-ring);
+
+    /* Per-intent slots — the [data-intent="X"] modifier reads from these. */
+    --_intent-danger-fill:    var(--t-danger);
+    --_intent-danger-on-fill: var(--t-on-danger);
   }
 }
 
@@ -33,8 +41,8 @@ mutable surface; the base reads it; modifiers and states only reassign it
     }
 
     &:where([data-intent="danger"]) {
-      --_fill: var(--t-danger);      /* a modifier reassigns vars only */
-      --_on-fill: var(--t-on-danger);
+      --_fill: var(--_intent-danger-fill);     /* modifier reassigns from .tokens slots */
+      --_on-fill: var(--_intent-danger-on-fill);
     }
 
     &:where(:hover):not([disabled], [aria-disabled="true"]) {
@@ -42,7 +50,7 @@ mutable surface; the base reads it; modifiers and states only reassign it
     }
 
     &:focus-visible {
-      outline: 2px solid var(--t-focus-ring);  /* fixed structure — direct */
+      outline: 2px solid var(--_focus-ring);   /* reads slot, not the global token */
       outline-offset: 2px;
     }
   }
@@ -51,23 +59,39 @@ mutable surface; the base reads it; modifiers and states only reassign it
 
 ## The model
 
-1. **`components.tokens` declares every mutable value** as a `--_*` custom property on the root. If a value varies — across variants, intents, sizes, states, or themes — it is a token here. The block is the component's manifest of everything it exposes.
+1. **`components.tokens` declares every mutable value** as a `--_*` custom property on the root, AND is the only layer that reads global tokens (`var(--t-*)`). If a value varies — across variants, intents, sizes, states, or themes — it is a `--_*` slot here. The block is the component's manifest of every external token it depends on.
 2. **The base class and descendant selectors declare the properties**, each reading a `--_*` var (`background: var(--_bg)`). The base is a "var manifold" — that is the intended shape, not a smell.
-3. **`[data-*]` modifiers reassign vars only.** `&:where([data-intent="danger"])` is a block of `--_*` reassignments — never a real property. Because modifiers only move tokens, stacking `variant + intent + size` is conflict-free: `:where()` flattens specificity, source order settles "last wins" per token, non-colliding tokens never interact.
-4. **State rules** (`:hover`, `:focus-visible`, `[disabled]`, …) reassign vars for what they change. Genuinely-fixed structure — the focus outline — may be declared directly.
+3. **`[data-*]` modifiers reassign vars only.** `&:where([data-intent="danger"])` is a block of `--_*` reassignments — never a real property, and never a direct `var(--t-*)` read. Per-variant defaults live as `--_intent-danger-fill` slots in `.tokens`; the modifier reads `--_fill: var(--_intent-danger-fill)`. Because modifiers only move tokens, stacking `variant + intent + size` is conflict-free: `:where()` flattens specificity, source order settles "last wins" per token, non-colliding tokens never interact.
+4. **State rules** (`:hover`, `:focus-visible`, `[disabled]`, …) reassign vars for what they change. Genuinely-fixed structure (the focus outline) may be declared directly — but its values still read `--_*` slots, never `var(--t-*)`.
 
-`scripts/lint/file-rules/component-css.ts` enforces points 3, 6, and 8.
+`scripts/lint/file-rules/component-css.ts` enforces points 1–4.
 
 ## Conventions
 
-1. **Two sublayers.** `components.tokens` declares the `--_*` vars; `components.styles` writes the rule bodies. Splitting them lets themes override token values without specificity wars (`architecture/layer-order.md`).
+1. **Two sublayers, strict boundary.** `components.tokens` declares every `--_*` slot and is the *only* layer that reads global tokens (`var(--t-*)`). `components.styles` reads `--_*` slots only, plus the structural literals listed below. Splitting them lets themes override token values without specificity wars (`architecture/layer-order.md`).
 2. **A component owns its box model.** It declares its own `box-sizing` and `margin` on the root — never leaning on `reset.css`. A `<button>` carries a UA margin; the component zeroes it. The acid test is "renders correctly with only its own file loaded."
 3. **Box-sizing — self and named parts.** A component box-sizes itself and its own named parts (`[data-<name>-*]`) — never a universal descendant (`& *`), which reaches consumer content and nested components. A layout primitive (Stack, Cluster) has no internal parts and box-sizes only itself. Stylelint's `selector-max-universal: 0` enforces it.
-4. **Token references — real token or own slot.** Every `--t-*` a component reads is either declared in `tokens.css` or matches `--t-{component}-*`, its public override slot. Nothing else — a typo'd `--t-buton-bg` is otherwise indistinguishable from a real slot.
+4. **Token references — real token or own slot, inside `.tokens` only.** Every `--t-*` reference is either declared in `tokens.css` or matches `--t-{component}-*` (the public override slot), AND it lives inside `@layer components.tokens`. A stray `var(--t-row-2)` in a `:where([data-size="sm"])` modifier and a typo'd `--t-buton-bg` are both caught.
 5. **Three-tier `var()` chain at runtime.** A public token reads `var(--t-button-x, var(--t-semantic))`; the build inlines the resolved literal from `tokens.css` as the third position (ADR-0003), so the shipped CSS is `var(--t-button-x, var(--t-semantic, <literal>))`. The literal floor is the failsafe — if both tokens are absent the component still renders.
 6. **Logical properties.** `block-size`, `padding-inline`, `padding-block`. No `width`, `height`, `padding-left`, `padding-right`.
-7. **Motion via tokens × scale.** Every transition multiplies the duration token by `var(--t-motion-scale)`. Apps that set `--t-motion-scale: 0` get instant transitions.
+7. **Motion via tokens × scale.** Every transition multiplies its duration by `var(--_motion-scale)`, a `--_*` slot fed from `var(--t-motion-scale)` in `.tokens`. Apps that set `--t-motion-scale: 0` get instant transitions; the indirection keeps `.styles` free of direct global-token reads.
 8. **`:where()` for modifier selectors** keeps specificity at `0,1,0` however many modifiers stack. **`:is([disabled], [aria-disabled="true"])`** covers both real `<button disabled>` and ARIA-disabled non-button elements.
+
+## Structural literals
+
+`components.styles` allows a small set of literal values without aliasing through a `--_*` slot:
+
+| Literal | Use |
+| --- | --- |
+| `0` (any unit, including unitless) | Zero margin/padding/border/opacity reset. |
+| `1` (dimensionless) | Opacity reset, `line-height: 1`. |
+| `1em` | Icon sizing intrinsic to the local font-size. |
+| `50%` | Centering transforms, circular border-radius. |
+| `100%` | Full-extent dimensions. |
+
+CSS keyword values (`flex`, `inline-flex`, `currentColor`, `transparent`, `auto`, `none`, `inherit`, `revert`, …) pass through implicitly — they are property vocabulary, not magic numbers.
+
+Anything else dimensional or numeric (e.g. `2px`, `0.6`, `0.875rem`, `20rem`) must alias through a `--_*` slot declared in `components.tokens` — even when the value is hard-coded and the slot has no `var(--t-*)` fallback. The slot is the named role; the literal is whatever happens to back it.
 
 ## What's not in the component
 
@@ -159,6 +183,7 @@ Failure modes the test catches:
 
 - `var(--something)` with no fallback (single-tier) — fails the test, fails Stylelint.
 - A `--t-*` referenced in the component but not declared in `tokens.css` and not the component's own `--t-{component}-*` slot — fails `check-component-css.ts`.
+- A `var(--t-*)` reference inside `@layer components.styles` — fails `check-component-css.ts`.
 - A `[data-*]` modifier that declares a real property — fails `check-component-css.ts`.
 - A root missing `box-sizing` or `margin` — leans on the reset; fails `check-component-css.ts`.
 - A reference to another component's `--_x` — fails the test, fails the spec validator.
