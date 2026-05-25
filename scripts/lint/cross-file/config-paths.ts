@@ -1,14 +1,14 @@
-// Every `scripts/<path>` reference in `.claude/settings.json` and
-// `.github/workflows/*.yml` must point at a file that exists. Substring
-// scan — the surfaces mix hook commands, workflow `run:` lines, and
-// permission patterns.
+// Every `scripts/<path>` reference in `.claude/settings.json`, `package.json`,
+// `lefthook.yml`, and `.github/workflows/*.yml` must point at a file that
+// exists. Substring scan — the surfaces mix hook commands, workflow `run:`
+// lines, npm scripts, and permission patterns.
 import { existsSync, readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 import { lsFiles } from "../../lib/enumerate.ts";
 import { REPO_ROOT } from "../../lib/paths.ts";
 import type { ViolationDetail, WorkspaceCheck } from "../registry.ts";
 
-const CONFIG_FILES = [".claude/settings.json"] as const;
+const CONFIG_FILES = [".claude/settings.json", "package.json", "lefthook.yml"] as const;
 const WORKFLOW_PATHSPEC = ".github/workflows/*.yml";
 
 const TRIGGERS = [...CONFIG_FILES, WORKFLOW_PATHSPEC] as const;

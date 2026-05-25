@@ -36,9 +36,11 @@ export function extractInvocations(source: string): string[] {
  *  are acceptable; the goal is catching the obvious regression where a file
  *  exports `rule` and runs nothing on direct invocation. */
 export function isImportOnly(source: string): boolean {
-  if (source.includes("process.argv")) return false;
-  if (source.includes("import.meta")) return false;
+  // Strip comments first: a JSDoc line mentioning `process.argv` (this very
+  // file does) would otherwise mask an import-only body.
   const stripped = source.replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "");
+  if (stripped.includes("process.argv")) return false;
+  if (stripped.includes("import.meta")) return false;
   // Line at column 0 beginning with an identifier (optionally `.foo` chains)
   // followed by `(`, or with top-level `await`. Excludes leading keywords
   // that take parens but aren't calls (`if`, `for`, `function`, etc.).
@@ -69,7 +71,7 @@ function checkScriptEntryPoint(): ViolationDetail[] {
       if (target === DISPATCHER) continue;
       if (!target.endsWith(".ts")) continue;
       const abs = resolve(REPO_ROOT, target);
-      if (!existsSync(abs)) continue; // config-paths reports missing targets
+      if (!existsSync(abs)) continue; // config-paths reports missing targets across the same surfaces
       let body: string;
       try {
         body = readFileSync(abs, "utf8");

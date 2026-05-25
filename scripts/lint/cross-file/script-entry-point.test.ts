@@ -111,6 +111,20 @@ describe("isImportOnly", () => {
     expect(isImportOnly(source)).toBe(true);
   });
 
+  it("flags an import-only file even when comments mention `process.argv`", () => {
+    const source = [
+      "/**",
+      " * Lint rule. Files matching this shape have no `process.argv` reference",
+      " * and no `import.meta` — they would silently no-op as a CLI.",
+      " */",
+      "// inline comment also mentions process.argv and import.meta.url",
+      'import type { WorkspaceCheck } from "../registry.ts";',
+      "function check() { return []; }",
+      'export const rule: WorkspaceCheck = { kind: "workspace", triggers: [], run: check };',
+    ].join("\n");
+    expect(isImportOnly(source)).toBe(true);
+  });
+
   it("does not treat `if (...)` as a top-level call", () => {
     const source = ["function main() {}", "if (false) { main(); }"].join("\n");
     // Heuristic: `if` is a keyword, not a call. The `main()` inside the
