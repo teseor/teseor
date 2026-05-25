@@ -66,6 +66,18 @@ describe("renderCompositeOverlayReactWrapper", () => {
     expect(out).toContain(`className="custom-trigger"`);
   });
 
+  test("accepts a forwarded `ref` typed against the content element", () => {
+    const out = renderCompositeOverlayReactWrapper(tooltipSpec(), {});
+    expect(out).toContain('import { mergeRefs } from "./_runtime.ts";');
+    expect(out).toContain(
+      'import { type CSSProperties, type ReactNode, type Ref, useMemo } from "react";',
+    );
+    expect(out).toContain('ref?: Ref<HTMLElementTagNameMap["div"]>;');
+    expect(out).toContain("    ref,\n  } = props;");
+    expect(out).toContain("ref={mergeRefs(ref, overlay.contentRef)}");
+    expect(out).not.toContain("ref={overlay.contentRef}");
+  });
+
   test("renders a body-level portal and aria-modal for modal dialogs", () => {
     const spec = tooltipSpec({
       overlay: {

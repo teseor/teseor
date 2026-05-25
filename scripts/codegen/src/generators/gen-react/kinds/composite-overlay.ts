@@ -149,15 +149,17 @@ export function renderCompositeOverlayReactWrapper(
   // Modal overlays gate the portal on a mounted flag (set in a `useEffect`) so
   // server-rendered HTML and the client's first render match — same null result
   // for the portal subtree, no hydration mismatch warnings.
-  const reactRuntimeImports = ["type CSSProperties", "type ReactNode", "useMemo"];
+  const reactRuntimeImports = ["type CSSProperties", "type ReactNode", "type Ref", "useMemo"];
   if (overlaySpec.modal) reactRuntimeImports.push("useEffect", "useState");
+  const teseorRuntimeImports = [
+    "mergeRefs",
+    ...(hasResponsive ? ["responsiveDataAttrs", "type Responsive"] : []),
+  ];
   const importsLines = [
     `import "@teseor/css/components/${spec.name}.css";`,
     `import { ${reactRuntimeImports.join(", ")} } from "react";`,
     ...(overlaySpec.modal ? [`import { createPortal } from "react-dom";`] : []),
-    ...(hasResponsive
-      ? [`import { responsiveDataAttrs, type Responsive } from "./_runtime.ts";`]
-      : []),
+    `import { ${teseorRuntimeImports.join(", ")} } from "./_runtime.ts";`,
     `import { Slot } from "./components/Slot.tsx";`,
     `import { type OverlayInteraction, useOverlay } from "./hooks/useOverlay.ts";`,
   ].join("\n");
@@ -195,6 +197,8 @@ ${ownPropLines.join("\n")}
    *  be a single React element. The wrapper's \`style\`, \`data-state\`, event handlers,
    *  and any ARIA attributes it applies (component-specific) land on that element. */
   asChild?: boolean;
+  /** Forwarded ref to the popover content element. */
+  ref?: Ref<HTMLElementTagNameMap[${quote(contentElement)}]>;
   children?: ReactNode;
 };
 
@@ -207,6 +211,7 @@ ${renderComponentJsDoc(spec, Name, reactJsDocFlavor)}export function ${Name}(pro
     on${ControllableName}Change,
 ${destructureNames.map((n) => `    ${n},`).join("\n")}
     asChild,
+    ref,
   } = props;
 
 ${interactionsMemo}
@@ -256,7 +261,7 @@ ${
       )}
 ${overlaySpec.modal ? `      {hasContent && mounted && createPortal(` : `      {hasContent && (`}
         <${contentElement}
-          ref={overlay.contentRef}
+          ref={mergeRefs(ref, overlay.contentRef)}
           id={overlay.popoverId}
 ${contentRoleAttr ? `${contentRoleAttr.replace(/ {8}/, "          ")}\n` : ""}${ariaLabelAttr ? `${ariaLabelAttr.replace(/ {8}/, "          ")}\n` : ""}${ariaModalAttr ? `${ariaModalAttr.replace(/ {8}/, "          ")}\n` : ""}          className=${quote(contentClass)}
           popover={overlay.popoverMode}

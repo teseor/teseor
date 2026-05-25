@@ -69,6 +69,28 @@ describe("Modal (react)", () => {
     expect(dialog?.getAttribute("data-state")).toBe("closed");
   });
 
+  it("forwards a consumer ref to the dialog content element alongside its internal ref", () => {
+    const captured: { current: HTMLDivElement | null } = { current: null };
+    function Consumer() {
+      return (
+        <Modal
+          title="Confirm"
+          defaultOpen
+          ref={(node) => {
+            captured.current = node;
+          }}
+        >
+          <button type="button">open</button>
+        </Modal>
+      );
+    }
+    render(<Consumer />);
+    // The internal `overlay.contentRef` still owns the same node — both refs
+    // see the same dialog element via mergeRefs.
+    expect(captured.current).not.toBeNull();
+    expect(captured.current?.getAttribute("role")).toBe("dialog");
+  });
+
   it("Tooltip-on-Modal-trigger degrades — Tooltip stays closed when the user tries to open it", () => {
     render(
       <Modal title="Confirm" defaultOpen>
