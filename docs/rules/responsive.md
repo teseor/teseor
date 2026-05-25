@@ -86,7 +86,7 @@ gap: { type: string, default: null, responsive: true }
 
 Canonical example: `specs/stack.yaml` (`responsive-gap`).
 
-Every form accepts `{ base, md, lg, xl, 2xl }`. Omitted breakpoints inherit from the next-narrower set value — `{ base: "2", md: "4" }` keeps `"4"` from `md` upward.
+Every form accepts the five breakpoint keys (`base`, `md`, `lg`, `xl`, `"2xl"` — the last quoted because `2xl` isn't a valid JS identifier). Omitted breakpoints inherit from the next-narrower set value — `{ base: "2", md: "4" }` keeps `"4"` from `md` upward.
 
 ## Data-attribute rendering
 
@@ -146,7 +146,7 @@ Single API surface — **object form only**. No `sizeMd`-style sibling props.
 <Button size="sm" sizeMd="lg" />
 ```
 
-Object form scales cleanly to many breakpoints (`{ base, md, lg, xl, 2xl }`); sibling-props start clean for 2 breakpoints but clutter when all 5 are used. Shipping one API removes the per-developer preference fight, halves codegen surface, halves the docs API table, halves the type-checking surface. The TypeScript type for a responsive prop is a discriminated union of `Value | Partial<Record<Breakpoint, Value>>`.
+Object form scales cleanly to many breakpoints (keys `base`, `md`, `lg`, `xl`, `"2xl"` — `"2xl"` quoted because it isn't a valid JS identifier); sibling-props start clean for 2 breakpoints but clutter when all 5 are used. Shipping one API removes the per-developer preference fight, halves codegen surface, halves the docs API table, halves the type-checking surface. The TypeScript type for a responsive prop is a discriminated union of `Value | Partial<Record<Breakpoint, Value>>`.
 
 ## Container queries (internal)
 
