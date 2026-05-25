@@ -1,0 +1,56 @@
+name: audit-overrides
+
+on:
+  schedule:
+    - cron: '0 6 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup
+      - name: Run audit
+        id: audit
+        run: |
+          OUTPUT=$(node scripts/repo/audit-overrides.ts)
+          echo "$OUTPUT"
+          {
+            echo "result<<AUDIT_EOF"
+            echo "$OUTPUT"
+            echo "AUDIT_EOF"
+          } >> "$GITHUB_OUTPUT"
+      - name: Open issue for redundant overrides
+        if: fromJSON(steps.audit.outputs.result).redundant[0] != null
+        uses: actions/github-script@v9
+        env:
+          AUDIT_RESULT: ${{ steps.audit.outputs.result }}
+        with:
+          script: |
+            const result = JSON.parse(process.env.AUDIT_RESULT);
+            const date = new Date().toISOString().slice(0, 10);
+            const lines = [
+              `## Redundant overrides — ${date}`,
+              '',
+              'These `overrides` entries in `pnpm-workspace.yaml` no longer change any resolved version. Safe to drop:',
+              '',
+              ...result.redundant.map((n) => `- \`${n}\``),
+            ];
+            if (result.hardRequired.length > 0) {
+              lines.push('', '### Hard-required (informational)', '', 'Removing these breaks the install — confirmed load-bearing:', '');
+              for (const entry of result.hardRequired) {
+                lines.push(`- \`${entry.name}\` — ${entry.reason}`);
+              }
+            }
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `chore(repo): redundant overrides detected — ${date}`,
+              body: lines.join('\n'),
+              labels: ['type:chore', 'area:repo', 'dependencies'],
+            });
