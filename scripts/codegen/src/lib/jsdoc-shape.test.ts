@@ -128,7 +128,8 @@ describe("renderComponentJsDoc", () => {
         ' * <Button variant="ghost">Label</Button>',
         " * ```",
         " */",
-      ].join("\n") + "\n",
+        "",
+      ].join("\n"),
     );
   });
 
@@ -163,13 +164,14 @@ describe("renderComponentJsDoc", () => {
         ' * <Button variant="solid">Label</Button>',
         " * ```",
         " */",
-      ].join("\n") + "\n",
+        "",
+      ].join("\n"),
     );
   });
 
   it("renders an empty block when there is no description and no examples", () => {
     expect(renderComponentJsDoc(makeSpec(), "Button", reactJsDocFlavor)).toBe(
-      ["/**", " */"].join("\n") + "\n",
+      ["/**", " */", ""].join("\n"),
     );
   });
 
