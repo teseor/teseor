@@ -22,7 +22,9 @@ const REPO_BLOB_URL = "https://github.com/teseor/teseor/blob/main";
 export function renderBundleSize(spec: DocsSpec): string {
   if (!spec.bundleSizes) return "";
   const { raw, gzip, brotli } = spec.bundleSizes;
-  const source = `${REPO_BLOB_URL}/packages/css/src/components/${esc(spec.name)}/${esc(spec.name)}.css`;
+  // URL path segments need `encodeURIComponent`, not the HTML-escape `esc`.
+  const urlName = encodeURIComponent(spec.name);
+  const source = `${REPO_BLOB_URL}/packages/css/src/components/${urlName}/${urlName}.css`;
   const rows = [
     [
       `<a href="${source}"><code>@teseor/css/components/${esc(spec.name)}.css</code></a>`,

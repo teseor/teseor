@@ -17,6 +17,7 @@ const DOCS_PAGES_DIR = resolve(REPO_ROOT, "apps", "docs", "src", "pages", "compo
 const CSS_COMPONENTS_DIR = resolve(REPO_ROOT, "packages", "css", "dist", "components");
 
 async function readBundleSizes(name: string): Promise<DocsSpec["bundleSizes"]> {
+  // ENOENT: build:css not run / spec has no CSS — omit silently. Anything else fails loud.
   try {
     const text = await readFile(resolve(CSS_COMPONENTS_DIR, `${name}.css`), "utf8");
     const buf = Buffer.from(text, "utf8");
@@ -25,8 +26,9 @@ async function readBundleSizes(name: string): Promise<DocsSpec["bundleSizes"]> {
       gzip: gzipSync(buf).byteLength,
       brotli: brotliCompressSync(buf).byteLength,
     };
-  } catch {
-    return undefined;
+  } catch (err) {
+    if (err instanceof Error && "code" in err && err.code === "ENOENT") return undefined;
+    throw err;
   }
 }
 
