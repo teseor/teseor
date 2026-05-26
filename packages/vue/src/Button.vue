@@ -25,7 +25,7 @@ import { type Responsive, responsiveDataAttrs } from "./_runtime.ts";
 
 type ButtonVariant = "solid" | "outline" | "ghost" | "link";
 
-type ButtonIntent = "primary" | "neutral" | "success" | "warning" | "danger";
+type ButtonIntent = "primary" | "neutral" | "success" | "warning" | "danger" | "info";
 
 type ButtonSize = "sm" | "md" | "lg";
 

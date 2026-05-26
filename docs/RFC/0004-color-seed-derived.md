@@ -85,11 +85,11 @@ Each family anchor derives from the seed at a family-specific lightness, with ch
 
 | Family | Anchor L | Rationale |
 | --- | --- | --- |
-| `--t-accent` | seed.L (pass-through) | Consumer-chosen; default seed at L=0.58 |
+| `--t-accent` | 0.55 (phase 4) | White-text contrast passes AA across the seed catalog |
 | `--t-danger` | 0.48 | Darker; adds weight; separates from success luminance-wise |
-| `--t-warning` | 0.68 | Lighter; amber reads "alert" not "stop" |
-| `--t-success` | 0.62 | Mid-light; distinct from danger under deuteranopia |
-| `--t-info` | 0.55 | Mid; distinct from accent in default seed |
+| `--t-warning` | 0.80 (phase 4) | True yellow; black-text contrast AAA; below 0.80 reads as muddy amber in sRGB |
+| `--t-success` | 0.52 (phase 4) | Lower than RFC-0002's 0.62 so white-text contrast passes AA — green has high WCAG-Y |
+| `--t-info` | 0.50 (phase 4) | Lower than 0.55 so white-text contrast passes AA |
 | `--t-neutral` | full 0.97 → 0.00 ladder | Unchanged from today |
 
 Today's clustered intent-500 lightness (danger 0.62, success 0.65, info 0.65, accent 0.65) collapses under deuteranopia (≈5% of male users) — danger and success are within 0.03 L of each other, info matches success exactly. Staggering by lightness preserves separation even when hue collapses ([Wong 2011, *Nature Methods*](https://www.nature.com/articles/nmeth.1618); [Smashing — Designing for Colorblindness](https://www.smashingmagazine.com/2024/02/designing-for-colorblindness/)).
@@ -169,6 +169,14 @@ Three sequential PRs, mirroring tokens-v4's shape:
 2. **Phase 2 (#821) — intent + neutral derivation + staggered anchor L.** Refactor `--t-danger-*`, `--t-warning-*`, `--t-success-*`, `--t-info-*`, `--t-neutral-*` to derive from family anchors. Adopt the staggered per-family anchor L (danger 0.48, warning 0.68, success 0.62, info 0.55). Visual change — intent ramps shift to staggered lightness. Visual-regression snapshots required.
 
 3. **Phase 3 (#822) — retune default seed.** Shift `--t-seed` default from `oklch(0.65 0.18 250)` (today's accent-500 reskinned as seed) to `oklch(0.58 0.20 268)` (RFC-0002's indigo-violet). Pure value change, no API change. Documented as a deliberate default refresh.
+
+4. **Phase 4 (#828) — WCAG-AA defaults + derived intent foregrounds.** Audit after Phase 3 showed three of five intent foregrounds failed WCAG AA at the default seed (white text on accent / success / info at 4.49 / 3.20 / 3.94). The hardcoded `--t-on-{intent}: var(--t-neutral-{0|100})` mapping also meant any consumer override of `--t-{intent}` silently broke the text contrast. Two changes:
+
+   - **Anchor lightness retune.** `--t-accent` 0.58 → 0.55, `--t-success` 0.62 → 0.52, `--t-warning` 0.68 → 0.80 (also fixes the muddy-amber visual problem — yellows below L=0.80 read as brown in sRGB), `--t-info` 0.55 → 0.50. `--t-danger` unchanged at 0.48. Ramp steps below the anchor recalculated to keep the 50→900 ladder monotonic.
+
+   - **Derived foregrounds.** Each `--t-on-{intent}` becomes `oklch(from var(--t-{intent}) max(0, sign(0.62 - l)) 0 h)` — `sign()` returns 1 when bg L < 0.62 (use white) or -1 when bg L > 0.62 (use black); `max(0, …)` clamps to {0, 1}. So `--t-warning: pink` overrides flip the text color automatically. (A `clamp(0, calc((0.62 - l) * 1000), 1)` form has the same behavior; the `sign()` form is ~16 chars shorter per declaration, which is what let the change ship under the 8 kB brotli budget.)
+
+   The cb-safety stagger compresses on the dark end (danger ↔ success ΔL drops from 0.14 to 0.04) and widens on the light end (success ↔ warning ΔL rises from 0.06 to 0.28). Still a default, not a guarantee — the picker (#823) warns on per-consumer overrides.
 
 ## Drawbacks
 

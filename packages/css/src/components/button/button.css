@@ -39,6 +39,8 @@
     --_intent-warning-on-fill: var(--t-on-warning);
     --_intent-danger-fill: var(--t-danger);
     --_intent-danger-on-fill: var(--t-on-danger);
+    --_intent-info-fill: var(--t-info);
+    --_intent-info-on-fill: var(--t-on-info);
   }
 }
 
@@ -130,6 +132,11 @@
     &:where([data-intent="danger"]) {
       --_fill: var(--_intent-danger-fill);
       --_on-fill: var(--_intent-danger-on-fill);
+    }
+
+    &:where([data-intent="info"]) {
+      --_fill: var(--_intent-info-fill);
+      --_on-fill: var(--_intent-info-on-fill);
     }
 
     &:where([data-variant="outline"]) {

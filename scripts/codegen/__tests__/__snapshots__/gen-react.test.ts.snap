@@ -12,7 +12,7 @@ import { asElement, mergeClass, type Responsive, responsiveDataAttrs } from "./_
 
 type ButtonVariant = "solid" | "outline" | "ghost" | "link";
 
-type ButtonIntent = "primary" | "neutral" | "success" | "warning" | "danger";
+type ButtonIntent = "primary" | "neutral" | "success" | "warning" | "danger" | "info";
 
 type ButtonSize = "sm" | "md" | "lg";
 
