@@ -9,12 +9,14 @@ import {
   checkCoverageShape,
   checkCssImportAllowlist,
   checkDependencyCycles,
+  checkExamplesPresent,
   checkExamplesReferences,
   checkInteractionEventVocabulary,
   checkInteractionRefs,
   checkMotionSymmetry,
   checkOverlayEscapeRules,
   checkPrivateTokens,
+  checkRepeatingParts,
   checkResponsiveExplicit,
   checkTokenContract,
   checkTokenFallbacks,
@@ -1119,5 +1121,208 @@ describe("checkInteractionEventVocabulary", () => {
       "interactions[0].on.event",
       "interactions[2].on.event",
     ]);
+  });
+});
+
+describe("checkExamplesPresent", () => {
+  test("flags a spec with no `examples:` block", () => {
+    const issues = checkExamplesPresent(makeButton());
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.path).toBe("examples");
+  });
+
+  test("flags a spec with an empty examples list", () => {
+    const issues = checkExamplesPresent(makeButton({ examples: [] }));
+    expect(issues).toHaveLength(1);
+  });
+
+  test("passes when at least one example is declared", () => {
+    const issues = checkExamplesPresent(
+      makeButton({ examples: [{ id: "default", props: { intent: "primary" } }] }),
+    );
+    expect(issues).toEqual([]);
+  });
+});
+
+describe("checkRepeatingParts (RFC-0005)", () => {
+  test("non-repeating composite produces no issues", () => {
+    const spec: Spec = {
+      name: "tooltip",
+      kind: "composite",
+      parts: {
+        trigger: { fromChildren: true, rootClass: "t-tooltip-trigger" },
+        content: { element: "div", rootClass: "t-tooltip" },
+      },
+    } as Spec;
+    expect(checkRepeatingParts(spec)).toEqual([]);
+  });
+
+  test("a valid repeating part produces no issues", () => {
+    const spec: Spec = {
+      name: "pagination",
+      kind: "composite",
+      parts: {
+        root: { element: "nav", rootClass: "t-pagination" },
+        page: {
+          repeating: true,
+          element: "a",
+          props: { label: { type: "string", description: "Label." } },
+        },
+      },
+    } as Spec;
+    expect(checkRepeatingParts(spec)).toEqual([]);
+  });
+
+  test("rule 1 — `repeating: true` with `fromChildren: true`", () => {
+    const spec: Spec = {
+      name: "pagination",
+      kind: "composite",
+      parts: {
+        page: {
+          repeating: true,
+          fromChildren: true,
+          props: { label: { type: "string", description: "Label." } },
+        },
+      },
+    } as Spec;
+    const issues = checkRepeatingParts(spec);
+    expect(issues.map((i) => i.path)).toEqual(["parts.page"]);
+    expect(issues[0]?.message).toMatch(/fromChildren/);
+  });
+
+  test("rule 2 — `repeating: true` with no props", () => {
+    const spec: Spec = {
+      name: "pagination",
+      kind: "composite",
+      parts: {
+        page: { repeating: true, element: "a" },
+      },
+    } as Spec;
+    const issues = checkRepeatingParts(spec);
+    expect(issues.map((i) => i.path)).toEqual(["parts.page"]);
+    expect(issues[0]?.message).toMatch(/props/);
+  });
+
+  test("rule 2 — `repeating: true` with an empty `props:` map", () => {
+    const spec: Spec = {
+      name: "pagination",
+      kind: "composite",
+      parts: {
+        page: { repeating: true, element: "a", props: {} },
+      },
+    } as Spec;
+    const issues = checkRepeatingParts(spec);
+    expect(issues.map((i) => i.path)).toEqual(["parts.page"]);
+  });
+
+  test("rule 3 — `repeating: true` with nested `parts:` (defer #835)", () => {
+    const spec: Spec = {
+      name: "stepper",
+      kind: "composite",
+      parts: {
+        step: {
+          repeating: true,
+          element: "li",
+          props: { label: { type: "string", description: "Label." } },
+          parts: {
+            header: { element: "h3", rootClass: "t-stepper-header" },
+          },
+        },
+      },
+    } as Spec;
+    const issues = checkRepeatingParts(spec);
+    expect(issues.map((i) => i.path)).toEqual(["parts.step"]);
+    expect(issues[0]?.message).toMatch(/#835/);
+  });
+
+  test("rule 4 — repeating part nested inside another repeating part (defer #834)", () => {
+    const spec: Spec = {
+      name: "tree",
+      kind: "composite",
+      parts: {
+        node: {
+          repeating: true,
+          element: "li",
+          props: { label: { type: "string", description: "Label." } },
+          parts: {
+            child: {
+              repeating: true,
+              element: "li",
+              props: { label: { type: "string", description: "Child label." } },
+            },
+          },
+        },
+      },
+    } as Spec;
+    const issues = checkRepeatingParts(spec);
+    // Both rule 3 (nested parts on repeating) and rule 4 (repeating inside
+    // repeating) apply to this shape; both fire.
+    const paths = issues.map((i) => i.path).sort();
+    expect(paths).toContain("parts.node");
+    expect(paths).toContain("parts.node.parts.child");
+    expect(issues.some((i) => /#834/.test(i.message))).toBe(true);
+  });
+
+  test("rule 5 — two repeating siblings default to the same propName", () => {
+    const spec: Spec = {
+      name: "split",
+      kind: "composite",
+      parts: {
+        item: {
+          repeating: true,
+          element: "a",
+          props: { label: { type: "string", description: "Label." } },
+        },
+        // Both default to `items` by pluralizing.
+        item2: {
+          repeating: true,
+          propName: "items",
+          element: "a",
+          props: { label: { type: "string", description: "Label." } },
+        },
+      },
+    } as Spec;
+    const issues = checkRepeatingParts(spec);
+    expect(issues.some((i) => /propName/i.test(i.message))).toBe(true);
+  });
+
+  test("rule 5 — two repeating siblings with distinct propNames produce no collision", () => {
+    const spec: Spec = {
+      name: "split",
+      kind: "composite",
+      parts: {
+        primary: {
+          repeating: true,
+          element: "a",
+          props: { label: { type: "string", description: "Label." } },
+        },
+        secondary: {
+          repeating: true,
+          element: "a",
+          props: { label: { type: "string", description: "Label." } },
+        },
+      },
+    } as Spec;
+    expect(checkRepeatingParts(spec)).toEqual([]);
+  });
+
+  test("rule 8 — repeating part declares `props.id` (reserved)", () => {
+    const spec: Spec = {
+      name: "pagination",
+      kind: "composite",
+      parts: {
+        page: {
+          repeating: true,
+          element: "a",
+          props: {
+            id: { type: "string", description: "Author id (forbidden — reserved)." },
+            label: { type: "string", description: "Label." },
+          },
+        },
+      },
+    } as Spec;
+    const issues = checkRepeatingParts(spec);
+    expect(issues.map((i) => i.path)).toEqual(["parts.page.props.id"]);
+    expect(issues[0]?.message).toMatch(/reserved/i);
   });
 });

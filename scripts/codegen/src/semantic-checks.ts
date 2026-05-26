@@ -1164,6 +1164,139 @@ export function checkInteractionEventVocabulary(spec: Spec): Issue[] {
   return issues;
 }
 
+// ── Repeating parts (RFC-0005, phase 1) ─────────────────────────────────────
+
+/**
+ * Phase-1 rejections for `repeating: true` parts. The `groupKey:` field and
+ * its three companion rules land with phase 2; Zod's `strictObject` already
+ * rejects the unknown key today.
+ *
+ *  1. `repeating: true` + `fromChildren: true` — contradictory.
+ *  2. `repeating: true` with no (or empty) `props:` — useless item shape.
+ *  3. `repeating: true` + nested `parts:` — deferred to #835.
+ *  4. Repeating part nested inside another repeating part — deferred to #834.
+ *  5. Two repeating siblings collapse to the same effective `propName`.
+ *  8. Repeating part declares `props.id` — `id` is codegen-reserved.
+ */
+export function checkRepeatingParts(spec: Spec): Issue[] {
+  if (!isComposite(spec)) return [];
+  const issues: Issue[] = [];
+
+  const walk = (
+    parts: Record<string, SpecPart>,
+    parentPath: string,
+    parentIsRepeating: boolean,
+  ): void => {
+    // Rule 5: sibling propName collision within this parts map.
+    const propNameOwners = new Map<string, string[]>();
+    for (const [partName, part] of Object.entries(parts)) {
+      if (part.repeating !== true) continue;
+      const effective = part.propName ?? `${partName}s`;
+      const owners = propNameOwners.get(effective) ?? [];
+      owners.push(partName);
+      propNameOwners.set(effective, owners);
+    }
+    for (const [effective, owners] of propNameOwners) {
+      if (owners.length < 2) continue;
+      for (const partName of owners) {
+        const path = parentPath === "" ? `parts.${partName}` : `${parentPath}.parts.${partName}`;
+        issues.push(
+          issue(
+            spec.name,
+            path,
+            `repeating parts ${owners.map((n) => `'${n}'`).join(", ")} collapse to the same propName '${effective}'. Set \`propName:\` explicitly on at least one of them.`,
+          ),
+        );
+      }
+    }
+
+    for (const [partName, part] of Object.entries(parts)) {
+      const path = parentPath === "" ? `parts.${partName}` : `${parentPath}.parts.${partName}`;
+
+      if (part.repeating === true) {
+        // Rule 4: nested inside a repeating ancestor.
+        if (parentIsRepeating) {
+          issues.push(
+            issue(
+              spec.name,
+              path,
+              `'${partName}' is a repeating part nested inside another repeating part. Recursive repeating is deferred to #834.`,
+            ),
+          );
+        }
+        // Rule 1: `fromChildren` conflict.
+        if (part.fromChildren === true) {
+          issues.push(
+            issue(
+              spec.name,
+              path,
+              `repeating part '${partName}' cannot also set \`fromChildren: true\` — repeating renders from an array prop, fromChildren consumes wrapped children.`,
+            ),
+          );
+        }
+        // Rule 2: empty item shape.
+        const propEntries = Object.entries(part.props ?? {});
+        if (propEntries.length === 0) {
+          issues.push(
+            issue(
+              spec.name,
+              path,
+              `repeating part '${partName}' must declare at least one entry in \`props:\` — the synthesized \`id\` alone has no DOM emission.`,
+            ),
+          );
+        }
+        // Rule 3: nested fixed sub-parts.
+        if (part.parts && Object.keys(part.parts).length > 0) {
+          issues.push(
+            issue(
+              spec.name,
+              path,
+              `repeating part '${partName}' cannot declare nested \`parts:\` — nested fixed sub-parts on a repeating item are deferred to #835.`,
+            ),
+          );
+        }
+        // Rule 8: `id` is reserved.
+        if (propEntries.some(([name]) => name === "id")) {
+          issues.push(
+            issue(
+              spec.name,
+              `${path}.props.id`,
+              `'id' is reserved on repeating items — codegen synthesizes it as the React/Vue key.`,
+            ),
+          );
+        }
+      }
+
+      if (part.parts) {
+        walk(part.parts, path, parentIsRepeating || part.repeating === true);
+      }
+    }
+  };
+
+  walk(spec.parts, "", false);
+  return issues;
+}
+
+// ── Examples presence ───────────────────────────────────────────────────────
+
+/**
+ * Every spec must declare at least one entry in `examples:`. A spec without
+ * examples produces a docs page that lists props and types but renders no
+ * actual component — consumers can't see the thing they're documenting.
+ * The empty case has no positive value and is almost always a forgotten
+ * authoring step.
+ */
+export function checkExamplesPresent(spec: Spec): Issue[] {
+  if (spec.examples && spec.examples.length > 0) return [];
+  return [
+    issue(
+      spec.name,
+      "examples",
+      `spec must declare at least one entry in \`examples:\` — components without examples produce empty docs pages.`,
+    ),
+  ];
+}
+
 // ── Aggregate ───────────────────────────────────────────────────────────────
 
 export function runSemanticChecks(
@@ -1194,6 +1327,8 @@ export function runSemanticChecks(
     ...checkInteractionRefs(spec),
     ...checkInteractionEventVocabulary(spec),
     ...checkOverlayEscapeRules(spec),
+    ...checkRepeatingParts(spec),
+    ...checkExamplesPresent(spec),
   ];
 }
 
