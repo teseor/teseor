@@ -1,0 +1,33 @@
+name: changes
+description: |
+  Classify what changed in this PR relative to the base ref. Emits
+  `code=true` when any file outside docs/, .changeset/, and *.md changed.
+  Returns `code=true` unconditionally for non-pull_request events so push
+  builds always run the full matrix.
+
+  Requires a checkout with `fetch-depth: 0` in the calling job.
+outputs:
+  code:
+    description: '"true" when code-relevant files changed, "false" for docs-only PRs'
+    value: ${{ steps.detect.outputs.code }}
+runs:
+  using: composite
+  steps:
+    - id: detect
+      shell: bash
+      env:
+        BASE_REF: ${{ github.event.pull_request.base.ref }}
+        EVENT: ${{ github.event_name }}
+      run: |
+        set -e
+        if [ "$EVENT" != "pull_request" ]; then
+          echo "code=true" >> "$GITHUB_OUTPUT"
+          exit 0
+        fi
+        git fetch --quiet origin "$BASE_REF"
+        changed=$(git diff --name-only "origin/$BASE_REF...HEAD")
+        if echo "$changed" | grep -Ev '^(docs/|\.changeset/|.*\.md$)' | grep -q .; then
+          echo "code=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "code=false" >> "$GITHUB_OUTPUT"
+        fi
