@@ -247,15 +247,21 @@
   }
 
   /* Density opt-in. Reassigns `--t-unit` in the subtree, so every spatial
-     token — spacing rungs, row heights, radii, leading, the shorthands
-     above — rescales coherently. `:where()` keeps specificity flat (0,0,0)
-     so consumers override without ratcheting. */
+     token — spacing rungs, row heights, radii, leading, the shorthands above
+     — rescales coherently. `:where()` keeps specificity flat (0,0,0) so
+     consumers override without ratcheting. The right-hand side reads
+     `var(--t-unit)`, which resolves to the *inherited* value (not the value
+     being declared), so a consumer overriding `--t-unit` at `:root` still
+     gets the right density-modifier resolution and the 0.25rem default lives
+     in exactly one place above. Nested density modifiers compose
+     multiplicatively (compact-in-compact = 0.766 × default), which is the
+     right behavior for nested rescale. */
   :where([data-density="compact"]) {
-    --t-unit: calc(0.25rem * 0.875); /* 3.5px — 87.5% of default */
+    --t-unit: calc(var(--t-unit) * 0.875); /* 87.5% of inherited unit */
   }
 
   :where([data-density="comfortable"]) {
-    --t-unit: calc(0.25rem * 1.125); /* 4.5px — 112.5% of default */
+    --t-unit: calc(var(--t-unit) * 1.125); /* 112.5% of inherited unit */
   }
 
   /* Forced-colors remap to CSS system colors. */
