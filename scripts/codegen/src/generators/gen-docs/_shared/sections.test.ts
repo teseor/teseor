@@ -8,6 +8,7 @@ import {
   renderForcedColors,
   renderNamed,
   renderProps,
+  renderRepeatingItems,
   renderStates,
   renderTokens,
 } from "./sections.ts";
@@ -384,5 +385,58 @@ describe("renderConstraints", () => {
     expect(out).toContain("<h2>Constraints</h2>");
     expect(out).toContain("<li>Because.</li>");
     expect(out).toContain("<li>Reason two.</li>");
+  });
+});
+
+describe("renderRepeatingItems (RFC-0005)", () => {
+  test("returns empty string when the spec has no repeating parts", () => {
+    expect(renderRepeatingItems(atomicSpec())).toBe("");
+  });
+
+  test("emits one section per repeating part with the Item type name as the heading", () => {
+    const spec: DocsSpec = {
+      name: "pagination",
+      kind: "composite",
+      props: {},
+      tokens: {},
+      states: {},
+      repeating: [
+        {
+          partName: "page",
+          propName: "pages",
+          element: "a",
+          itemProps: {
+            label: { type: "string", slot: true, description: "Page label." },
+            current: { type: "boolean", description: "Active page." },
+          },
+        },
+      ],
+    };
+    const out = renderRepeatingItems(spec);
+    expect(out).toContain("<h2>PaginationPageItem</h2>");
+    expect(out).toContain("<Code>id</Code>");
+    expect(out).toContain("<Code>label</Code>");
+    expect(out).toContain("<Code>current</Code>");
+  });
+
+  test("renderProps appends a row per repeating part", () => {
+    const spec: DocsSpec = {
+      name: "pagination",
+      kind: "composite",
+      props: {},
+      tokens: {},
+      states: {},
+      repeating: [
+        {
+          partName: "page",
+          propName: "pages",
+          element: "a",
+          itemProps: { label: { type: "string", slot: true, description: "Label." } },
+        },
+      ],
+    };
+    const out = renderProps(spec);
+    expect(out).toContain("<Code>pages</Code>");
+    expect(out).toContain("ReadonlyArray&lt;PaginationPageItem&gt;");
   });
 });
