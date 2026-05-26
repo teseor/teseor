@@ -108,7 +108,7 @@ parts:
         desc: Arrow fill. Defaults to the same surface as `bg` so the arrow blends seamlessly with the body.
       max-inline-size:
         fallback: 20rem
-        desc: Maximum tooltip width. Wraps long content; the default is 320px which lands on the spatial grid.
+        desc: Maximum tooltip width. Wraps long content beyond this measure.
     privateTokens:
       - --_bg
       - --_fg
