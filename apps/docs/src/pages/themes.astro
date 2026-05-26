@@ -138,6 +138,47 @@ const intents = ["accent", "success", "warning", "danger", "info"] as const;
   const root = document.documentElement;
   const inputs = document.querySelectorAll<HTMLInputElement>("input[data-token]");
   const harmonyOut = document.getElementById("harmony-out");
+
+  /**
+   * Resolves any CSS color (oklch, color-mix, var-chain) to a six-digit hex by
+   * letting the browser paint into a probe element and reading the computed rgb.
+   * `<input type="color">` only accepts hex, so we go through the computed-style
+   * rgb form and convert.
+   */
+  function tokenToHex(token: string): string | null {
+    const probe = document.createElement("div");
+    probe.style.color = `var(${token})`;
+    document.body.appendChild(probe);
+    const computed = getComputedStyle(probe).color;
+    document.body.removeChild(probe);
+    const match = computed.match(/rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)/);
+    if (!match) return null;
+    const [, r, g, b] = match;
+    return (
+      "#" +
+      [r, g, b]
+        .map((n) => Math.round(Number.parseFloat(n)).toString(16).padStart(2, "0"))
+        .join("")
+    );
+  }
+
+  function syncInputs(): void {
+    inputs.forEach((input) => {
+      const token = input.dataset.token;
+      if (!token) return;
+      if (input.type === "color") {
+        const hex = tokenToHex(token);
+        if (hex) input.value = hex;
+      } else if (input.type === "range") {
+        const value = getComputedStyle(root).getPropertyValue(token).trim();
+        input.value = value || "0";
+        if (token === "--t-harmony" && harmonyOut) harmonyOut.textContent = input.value;
+      }
+    });
+  }
+
+  syncInputs();
+
   inputs.forEach((input) => {
     input.addEventListener("input", (event) => {
       const target = event.currentTarget as HTMLInputElement;
@@ -147,14 +188,13 @@ const intents = ["accent", "success", "warning", "danger", "info"] as const;
       if (token === "--t-harmony" && harmonyOut) harmonyOut.textContent = target.value;
     });
   });
+
   document.getElementById("reset-tokens")?.addEventListener("click", () => {
     inputs.forEach((input) => {
       const token = input.dataset.token;
       if (token) root.style.removeProperty(token);
-      if (input.type === "range") input.value = "0";
-      else input.value = "#5471b5";
     });
-    if (harmonyOut) harmonyOut.textContent = "0";
+    syncInputs();
   });
 </script>
 
