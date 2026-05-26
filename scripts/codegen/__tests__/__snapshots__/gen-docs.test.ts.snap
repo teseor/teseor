@@ -105,6 +105,7 @@ import Base from "../../layouts/Base.astro";
         <tr><td><Code>success</Code></td><td>Confirms a positive outcome (save, publish, accept).</td></tr>
         <tr><td><Code>warning</Code></td><td>Indicates an action that needs attention but isn't destructive.</td></tr>
         <tr><td><Code>danger</Code></td><td>Destructive or irreversible action (delete, cancel subscription).</td></tr>
+        <tr><td><Code>info</Code></td><td>Informational action (learn more, view details, more context).</td></tr>
         </tbody>
       </table>
     </section>

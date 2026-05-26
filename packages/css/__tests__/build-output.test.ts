@@ -54,16 +54,16 @@ test("shipped component CSS floors every token reference (acid test)", () => {
 
 test("shipped component CSS inlines the literal resolved from tokens.css", () => {
   const button = readFileSync(join(distDir, "components", "button.css"), "utf8");
-  expect(button).toContain("var(--t-accent, oklch(58% 0.2 268deg))");
+  expect(button).toContain("var(--t-accent, oklch(from oklch(58% 0.2 268deg) 55% c h))");
 });
 
 test("shipped component CSS carries a forced-colors token override", () => {
   const button = readFileSync(join(distDir, "components", "button.css"), "utf8");
   expect(button).toMatch(/@media \(forced-colors: active\)/);
-  expect(button).toContain("forced-color-adjust: none");
-  expect(button).toContain("--t-accent: ButtonText");
-  expect(button).toContain("--t-focus-ring: Highlight");
-  expect(button).toContain("--t-surface: Canvas");
+  expect(button).toContain("forced-color-adjust:none");
+  expect(button).toContain("--t-accent:ButtonText");
+  expect(button).toContain("--t-focus-ring:Highlight");
+  expect(button).toContain("--t-surface:Canvas");
 });
 
 test("motion.css ships keyframes and a reduced-motion block", () => {

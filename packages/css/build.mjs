@@ -35,6 +35,27 @@ const TOP_LEVEL_ENTRIES = [
 
 // Pass 1 expands @import/@each/@custom-media. Pass 2 (postcss-teseor-floor)
 // then sees concrete var() chains and appends each token's literal floor.
+function minifyRoot(root) {
+  root.walkComments((c) => c.remove());
+  root.walk((node) => {
+    if (!node.raws) return;
+    node.raws.before = "";
+    node.raws.after = "";
+    if (node.type === "decl") {
+      node.raws.between = ":";
+      node.raws.value = undefined;
+    } else if (node.type === "rule") {
+      node.raws.between = "";
+      node.raws.semicolon = false;
+    } else if (node.type === "atrule") {
+      node.raws.afterName = " ";
+      node.raws.between = "";
+      node.raws.semicolon = false;
+    }
+  });
+  root.raws.after = "";
+}
+
 async function buildOne(inputPath, outputPath, tokens, forcedColorsTokens) {
   const css = await readFile(inputPath, "utf8");
   const expanded = await postcss([postcssImport(), postcssEach(), postcssCustomMedia()]).process(
@@ -48,7 +69,8 @@ async function buildOne(inputPath, outputPath, tokens, forcedColorsTokens) {
   for (const warn of [...expanded.warnings(), ...floored.warnings()]) {
     process.stderr.write(`build-css ${inputPath}: ${warn.toString()}\n`);
   }
-  await writeFile(outputPath, `${LAYER_ORDER}\n\n${floored.css.trimEnd()}\n`, "utf8");
+  minifyRoot(floored.root);
+  await writeFile(outputPath, `${LAYER_ORDER}${floored.root.toString()}\n`, "utf8");
 }
 
 async function listComponents() {

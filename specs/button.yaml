@@ -42,6 +42,11 @@ intents:
     tokens:
       bg: --t-danger
       fg: --t-on-danger
+  info:
+    description: Informational action (learn more, view details, more context).
+    tokens:
+      bg: --t-info
+      fg: --t-on-info
 
 sizes:
   sm:
@@ -173,6 +178,8 @@ privateTokens:
   - --_intent-warning-on-fill
   - --_intent-danger-fill
   - --_intent-danger-on-fill
+  - --_intent-info-fill
+  - --_intent-info-on-fill
 
 a11y:
   role: button

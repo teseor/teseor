@@ -5,7 +5,7 @@ import type { Responsive } from "./_responsive.ts";
 
 export type ButtonVariant = "solid" | "outline" | "ghost" | "link";
 
-export type ButtonIntent = "primary" | "neutral" | "success" | "warning" | "danger";
+export type ButtonIntent = "primary" | "neutral" | "success" | "warning" | "danger" | "info";
 
 export type ButtonSize = "sm" | "md" | "lg";
 
