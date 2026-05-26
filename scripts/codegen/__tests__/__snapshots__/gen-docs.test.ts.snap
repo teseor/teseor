@@ -464,7 +464,7 @@ import Base from "../../layouts/Base.astro";
         <tr><td><Code>--t-tooltip-font-size</Code></td><td><Code>--t-text-sm</Code></td><td>Font size for tooltip body text.</td></tr>
         <tr><td><Code>--t-tooltip-arrow-size</Code></td><td><Code>--t-space-3</Code></td><td>Arrow square size. Rotated 45° to form the pointer; visible triangle is roughly size/√2 tall.</td></tr>
         <tr><td><Code>--t-tooltip-arrow-bg</Code></td><td><Code>--t-surface-inverse</Code></td><td>Arrow fill. Defaults to the same surface as \`bg\` so the arrow blends seamlessly with the body.</td></tr>
-        <tr><td><Code>--t-tooltip-max-inline-size</Code></td><td><Code>20rem</Code></td><td>Maximum tooltip width. Wraps long content; the default is 320px which lands on the spatial grid.</td></tr>
+        <tr><td><Code>--t-tooltip-max-inline-size</Code></td><td><Code>20rem</Code></td><td>Maximum tooltip width. Wraps long content beyond this measure.</td></tr>
         </tbody>
       </table>
     </section>
