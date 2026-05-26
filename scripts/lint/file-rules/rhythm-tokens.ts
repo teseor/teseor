@@ -1,8 +1,13 @@
 // Enforces the unit-derived spatial system (RFC-0003 / #803):
 //   1. Every derived spatial token in tokens.css traces to `var(--t-unit)`.
-//   2. Every sizing-property value in component CSS reads a token
-//      (`var(--t-*)` or `var(--_*)`) or stays on a relative unit
-//      (em / lh / %). Raw px / rem literals in sizing positions are rejected.
+//   2. Every sizing-property value in component CSS contains no raw `px` /
+//      `rem` literal outside of `var(...)` fallback positions. The rule
+//      transitively follows every `var(--_*)` reference, so a literal hidden
+//      in a private slot (including a modifier-reassigned slot) is still
+//      caught. All other unit types — keywords (`auto`, `none`, `fit-content`,
+//      …), zero, percentages, em / lh / fr / ch / ex, and viewport / container
+//      units (`vh`, `vw`, `sv*`, `lv*`, `dv*`, `cq*`) — are allowed; the rule
+//      treats them as relative or context-bound rather than as drift.
 //
 // Out of scope (Phase 2 / #804): text-size and leading. The rule deliberately
 // does not constrain `font-size` / `line-height`.
