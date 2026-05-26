@@ -170,10 +170,10 @@
 
     /* ===== Touch target (accessibility floor) ===== */
 
-    /* 44px @ 16px root — interactive-control floor.
+    /* 44px @ 16px root — minimum touch-target token for interactive controls.
        Matches WCAG 2.5.5 (AAA Target Size Enhanced); stricter than AA 2.5.8 (24px).
-       `--t-row` (control-height shorthand) clamps to this so a compact
-       density can never shrink an interactive root below the floor. */
+       This token is available for components or semantic aliases to opt into
+       when they need to enforce a minimum interactive size. */
     --t-touch-min: calc(var(--t-unit) * 11);
 
     /* ===== Z-index ===== */
