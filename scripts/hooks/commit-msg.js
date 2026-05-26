@@ -1,12 +1,20 @@
 #!/usr/bin/env node
 // Conventional-commit verifier called from lefthook commit-msg.
-// Port of Vue's scripts/verify-commit.js — kept intentionally small.
+// Reads the same scope vocabulary the CI `title-format` gate uses, so a
+// commit that passes locally also passes on the PR title check.
 
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const here = dirname(fileURLToPath(import.meta.url));
+const repoRoot = resolve(here, "..", "..");
+const scopesFile = resolve(repoRoot, ".github/commit-scopes.txt");
+const specsDir = resolve(repoRoot, "specs");
 
 const msgPath = process.argv[2];
 if (!msgPath) {
-  console.error("Usage: verify-commit.js <path-to-commit-msg-file>");
+  console.error("Usage: commit-msg.js <path-to-commit-msg-file>");
   process.exit(1);
 }
 
@@ -14,7 +22,19 @@ const firstLine = readFileSync(msgPath, "utf8").split("\n")[0].trim();
 
 if (/^(Merge|Revert)\s/.test(firstLine)) process.exit(0);
 
-const pattern = /^(feat|fix|perf|refactor|docs|chore|test)\([a-z0-9-]+\): .+/;
+const fixedScopes = readFileSync(scopesFile, "utf8")
+  .split("\n")
+  .map((line) => line.trim())
+  .filter(Boolean);
+
+const componentScopes = readdirSync(specsDir)
+  .filter((name) => name.endsWith(".yaml") && name !== "_vocabulary.yaml")
+  .map((name) => name.replace(/\.yaml$/, ""));
+
+const scopes = [...new Set([...fixedScopes, ...componentScopes])].sort();
+const pattern = new RegExp(
+  `^(feat|fix|perf|refactor|docs|chore|test)\\((${scopes.join("|")})\\): .+`,
+);
 
 if (!pattern.test(firstLine)) {
   console.error("");
@@ -27,7 +47,7 @@ if (!pattern.test(firstLine)) {
   console.error("  fix(css): resolve focus-visible regression");
   console.error("");
   console.error("Allowed types: feat, fix, perf, refactor, docs, chore, test");
-  console.error("Allowed scopes: lowercase alphanumeric + dashes");
+  console.error(`Allowed scopes: ${scopes.join(", ")}`);
   console.error("");
   console.error(`Got: "${firstLine}"`);
   console.error("");
