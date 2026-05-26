@@ -13,7 +13,27 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      code: ${{ steps.pr.outputs.code || steps.push.outputs.code }}
+    steps:
+      # Non-PR events (push to main) skip the diff and the checkout entirely.
+      - id: push
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: echo "code=true" >> "$GITHUB_OUTPUT"
+      - if: github.event_name == 'pull_request'
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - id: pr
+        if: github.event_name == 'pull_request'
+        uses: ./.github/actions/changes
+
   visual:
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
