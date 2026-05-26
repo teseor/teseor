@@ -16,12 +16,19 @@ jobs:
   changes:
     runs-on: ubuntu-latest
     outputs:
-      code: ${{ steps.detect.outputs.code }}
+      code: ${{ steps.pr.outputs.code || steps.push.outputs.code }}
     steps:
-      - uses: actions/checkout@v6
+      # Non-PR events (push to main) skip the diff and the checkout entirely.
+      - id: push
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: echo "code=true" >> "$GITHUB_OUTPUT"
+      - if: github.event_name == 'pull_request'
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - id: detect
+      - id: pr
+        if: github.event_name == 'pull_request'
         uses: ./.github/actions/changes
 
   visual:
