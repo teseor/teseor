@@ -12,6 +12,7 @@ const { title } = Astro.props;
 
 const navItems = [
   { href: "/", label: "Home" },
+  { href: "/themes/", label: "Themes" },
   ...components.map((c) => ({ href: c.href, label: c.label })),
 ];
 

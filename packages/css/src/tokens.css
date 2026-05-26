@@ -17,17 +17,21 @@
     --t-neutral-90: oklch(18% 0 0deg);
     --t-neutral-100: oklch(0% 0 0deg);
 
-    /* Accent — blue, hue 250 */
-    --t-accent-50: oklch(97% 0.02 250deg);
-    --t-accent-100: oklch(93% 0.05 250deg);
-    --t-accent-200: oklch(86% 0.09 250deg);
-    --t-accent-300: oklch(78% 0.13 250deg);
-    --t-accent-400: oklch(71% 0.16 250deg);
-    --t-accent-500: oklch(65% 0.18 250deg);
-    --t-accent-600: oklch(55% 0.18 250deg);
-    --t-accent-700: oklch(45% 0.16 250deg);
-    --t-accent-800: oklch(35% 0.13 250deg);
-    --t-accent-900: oklch(25% 0.1 250deg);
+    /* ===== Color seed — sole knob for the color cascade. ===== */
+    --t-seed: oklch(65% 0.18 250deg);
+    --t-harmony: 0;
+
+    /* Accent — derived from --t-accent (default = seed). */
+    --t-accent-50: oklch(from var(--t-accent) 97% calc(c * 0.111) h);
+    --t-accent-100: oklch(from var(--t-accent) 93% calc(c * 0.278) h);
+    --t-accent-200: oklch(from var(--t-accent) 86% calc(c * 0.5) h);
+    --t-accent-300: oklch(from var(--t-accent) 78% calc(c * 0.722) h);
+    --t-accent-400: oklch(from var(--t-accent) 71% calc(c * 0.889) h);
+    --t-accent-500: var(--t-accent);
+    --t-accent-600: oklch(from var(--t-accent) 55% c h);
+    --t-accent-700: oklch(from var(--t-accent) 45% calc(c * 0.889) h);
+    --t-accent-800: oklch(from var(--t-accent) 35% calc(c * 0.722) h);
+    --t-accent-900: oklch(from var(--t-accent) 25% calc(c * 0.556) h);
 
     /* Success — green, hue 155 */
     --t-success-50: oklch(97% 0.02 155deg);
@@ -220,7 +224,7 @@
     --t-border-strong: var(--t-neutral-40);
 
     /* ===== Intents — pairs every fill with --t-on-<role> ===== */
-    --t-accent: var(--t-accent-500);
+    --t-accent: var(--t-seed);
     --t-on-accent: var(--t-neutral-0);
     --t-success: var(--t-success-500);
     --t-on-success: var(--t-neutral-0);
