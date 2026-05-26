@@ -1177,10 +1177,41 @@ export function checkInteractionEventVocabulary(spec: Spec): Issue[] {
  *  4. Repeating part nested inside another repeating part — deferred to #834.
  *  5. Two repeating siblings collapse to the same effective `propName`.
  *  8. Repeating part declares `props.id` — `id` is codegen-reserved.
+ * 10. The effective propName must be a valid JS identifier and must not collide
+ *     with codegen-emitted wrapper locals (`ref`, `className`, `class`,
+ *     `children`, `key`, `style`, `id`).
+ * 11. Composite specs with any repeating part must not declare scalar `props:`
+ *     on non-repeating sibling parts — group-level props are deferred to
+ *     phase 2 alongside `groupKey:`.
  */
+// Valid JS identifier: starts with letter/underscore/$, followed by alphanumerics/_/$.
+const JS_IDENTIFIER_RE = /^[A-Za-z_$][A-Za-z0-9_$]*$/;
+// Names that collide with codegen-emitted wrapper locals or HTML attrs.
+const RESERVED_PROP_NAMES = new Set([
+  "ref",
+  "className",
+  "class",
+  "children",
+  "key",
+  "style",
+  "id",
+]);
+
 export function checkRepeatingParts(spec: Spec): Issue[] {
   if (!isComposite(spec)) return [];
   const issues: Issue[] = [];
+
+  // Rule 11: a composite with any repeating part rejects scalar `props:` on
+  // its non-repeating parts. Group-level props arrive in phase 2 with
+  // `groupKey:`. Walk the whole tree once to detect repeating presence.
+  let anyRepeating = false;
+  const detect = (parts: Record<string, SpecPart>): void => {
+    for (const part of Object.values(parts)) {
+      if (part.repeating === true) anyRepeating = true;
+      if (part.parts) detect(part.parts);
+    }
+  };
+  detect(spec.parts);
 
   const walk = (
     parts: Record<string, SpecPart>,
@@ -1262,6 +1293,38 @@ export function checkRepeatingParts(spec: Spec): Issue[] {
               spec.name,
               `${path}.props.id`,
               `'id' is reserved on repeating items — codegen synthesizes it as the React/Vue key.`,
+            ),
+          );
+        }
+        // Rule 10: effective propName is a valid identifier + not reserved.
+        const effectivePropName = part.propName ?? `${partName}s`;
+        if (!JS_IDENTIFIER_RE.test(effectivePropName)) {
+          issues.push(
+            issue(
+              spec.name,
+              path,
+              `repeating part '${partName}' has effective propName '${effectivePropName}' which is not a valid JS identifier. Set \`propName:\` to a camelCase identifier.`,
+            ),
+          );
+        } else if (RESERVED_PROP_NAMES.has(effectivePropName)) {
+          issues.push(
+            issue(
+              spec.name,
+              path,
+              `repeating part '${partName}' has effective propName '${effectivePropName}' which collides with a codegen-reserved wrapper local. Set \`propName:\` to a non-reserved name (avoid: ${[...RESERVED_PROP_NAMES].join(", ")}).`,
+            ),
+          );
+        }
+      } else if (anyRepeating) {
+        // Rule 11: non-repeating part in a composite with any repeating part
+        // must not declare scalar props (group-level props are phase 2).
+        const propEntries = Object.entries(part.props ?? {});
+        if (propEntries.length > 0) {
+          issues.push(
+            issue(
+              spec.name,
+              `${path}.props`,
+              `non-repeating part '${partName}' cannot declare \`props:\` in a composite that has repeating parts — group-level scalar props are deferred to phase 2.`,
             ),
           );
         }
