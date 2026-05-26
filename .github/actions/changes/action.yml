@@ -1,9 +1,13 @@
 name: changes
 description: |
-  Classify what changed in this PR relative to the base ref. Emits
+  Classify what changed in this PR relative to the base SHA. Emits
   `code=true` when any non-markdown file changed. Markdown-only PRs
   (docs, READMEs, changeset bundles) get `code=false`; `.changeset/config.json`
   and other non-markdown files still trigger the full matrix.
+
+  Fail-open: any detection error (missing SHA, broken diff) emits
+  `code=true` so the full matrix runs. Skipping heavy CI must be a
+  positive signal, never the side effect of a transient failure.
 
   Returns `code=true` unconditionally for non-pull_request events so push
   builds always run the full matrix.
@@ -19,16 +23,18 @@ runs:
     - id: detect
       shell: bash
       env:
-        BASE_REF: ${{ github.event.pull_request.base.ref }}
+        BASE_SHA: ${{ github.event.pull_request.base.sha }}
         EVENT: ${{ github.event_name }}
       run: |
-        set -e
         if [ "$EVENT" != "pull_request" ]; then
           echo "code=true" >> "$GITHUB_OUTPUT"
           exit 0
         fi
-        git fetch --quiet origin "$BASE_REF"
-        changed=$(git diff --name-only "origin/$BASE_REF...HEAD")
+        if ! changed=$(git diff --name-only "$BASE_SHA...HEAD" 2>/dev/null); then
+          echo "code=true" >> "$GITHUB_OUTPUT"
+          echo "::warning::changes action could not diff against $BASE_SHA; defaulting code=true"
+          exit 0
+        fi
         if echo "$changed" | grep -Ev '\.md$' | grep -q .; then
           echo "code=true" >> "$GITHUB_OUTPUT"
         else
