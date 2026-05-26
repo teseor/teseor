@@ -1,0 +1,14 @@
+token
+theme
+codegen
+showcase
+css
+wrapper
+i18n
+ci
+repo
+claude
+scripts
+docs
+spec
+primitives
