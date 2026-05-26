@@ -72,7 +72,7 @@ The investigation that produced this RFC started from #800 ("derive size/space s
 --t-radius-lg: calc(var(--t-unit) * 3);      /* 12px */
 --t-radius-xl: calc(var(--t-unit) * 4);      /* 16px */
 
-/* Touch target (WCAG 2.5.5 floor) */
+/* Touch target — 44px, matches WCAG 2.5.5 (AAA Target Size Enhanced) */
 --t-touch-min: calc(var(--t-unit) * 11);     /* 44px */
 ```
 
@@ -154,7 +154,7 @@ All four patterns use the same mechanism. None requires touching individual rung
 
 ### Enforcement
 
-Two layers — each catches what the other can not.
+Two layers — each catches what the other cannot.
 
 **`rhythm-tokens` lint rule** (new, alongside `component-css` / `motion-scale` in `scripts/lint/file-rules/`):
 
