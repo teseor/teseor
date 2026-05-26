@@ -1,0 +1,238 @@
+---
+// dogfood-allow: preview-only layout for the color cascade — swatch grid + inline
+// pickers aren't a reusable DS pattern; they exist to let reviewers eyeball
+// --t-seed / intent overrides without devtools.
+import { Button } from "@teseor/react";
+import Base from "../layouts/Base.astro";
+
+const accentSteps = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900] as const;
+const intentSteps = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900] as const;
+const neutralSteps = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100] as const;
+const intents = ["accent", "success", "warning", "danger", "info"] as const;
+---
+
+<Base title="Themes — Teseor">
+  <main class="t-stack" data-gap="6">
+    <h1>Themes</h1>
+    <p>
+      Color cascade preview. Phase 1: <code>--t-seed</code> drives the accent
+      ramp via <code>oklch(from …)</code>. Intent + neutral ramps are still
+      hand-authored — they migrate in phase 2.
+    </p>
+
+    <section class="t-stack" data-gap="3">
+      <h2>Edit</h2>
+      <p class="hint">
+        Color inputs emit hex; CSS relative-color syntax converts to OKLCH
+        internally. Reset clears the overrides.
+      </p>
+      <div class="picker-grid">
+        <label>
+          <span>seed</span>
+          <input type="color" data-token="--t-seed" value="#5471b5" />
+        </label>
+        {intents.map((intent) => (
+          <label>
+            <span>{intent}</span>
+            <input
+              type="color"
+              data-token={`--t-${intent === "accent" ? "accent" : intent}`}
+              value="#5471b5"
+            />
+          </label>
+        ))}
+        <button type="button" id="reset-tokens">Reset</button>
+      </div>
+    </section>
+
+    <section class="t-stack" data-gap="3">
+      <h2>Seed</h2>
+      <div class="ramp">
+        <div class="swatch seed" />
+      </div>
+    </section>
+
+    <section class="t-stack" data-gap="3">
+      <h2>Accent ramp (seed-derived)</h2>
+      <div class="ramp" data-family="accent">
+        {accentSteps.map((step) => (
+          <div class="swatch" data-step={step} style={`background: var(--t-accent-${step})`}>
+            <span class="label">accent-{step}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="t-stack" data-gap="3">
+      <h2>Intent ramps (hand-authored, derived in phase 2)</h2>
+      {(["success", "warning", "danger", "info"] as const).map((family) => (
+        <div>
+          <h3>{family}</h3>
+          <div class="ramp" data-family={family}>
+            {intentSteps.map((step) => (
+              <div class="swatch" data-step={step} style={`background: var(--t-${family}-${step})`}>
+                <span class="label">{family}-{step}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </section>
+
+    <section class="t-stack" data-gap="3">
+      <h2>Neutral ramp (hand-authored, derived in phase 2)</h2>
+      <div class="ramp" data-family="neutral">
+        {neutralSteps.map((step) => (
+          <div class="swatch" data-step={step} style={`background: var(--t-neutral-${step})`}>
+            <span class="label">neutral-{step}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="t-stack" data-gap="3">
+      <h2>Button examples</h2>
+      <p class="hint">Solid.</p>
+      <div class="t-cluster" data-gap="3">
+        {intents.map((intent) => (
+          <Button variant="solid" intent={intent === "accent" ? "primary" : intent}>
+            {intent}
+          </Button>
+        ))}
+      </div>
+      <p class="hint">Outline.</p>
+      <div class="t-cluster" data-gap="3">
+        {intents.map((intent) => (
+          <Button variant="outline" intent={intent === "accent" ? "primary" : intent}>
+            {intent}
+          </Button>
+        ))}
+      </div>
+      <p class="hint">Ghost.</p>
+      <div class="t-cluster" data-gap="3">
+        {intents.map((intent) => (
+          <Button variant="ghost" intent={intent === "accent" ? "primary" : intent}>
+            {intent}
+          </Button>
+        ))}
+      </div>
+    </section>
+  </main>
+</Base>
+
+<script>
+  const root = document.documentElement;
+  const inputs = document.querySelectorAll<HTMLInputElement>("input[data-token]");
+  inputs.forEach((input) => {
+    input.addEventListener("input", (event) => {
+      const target = event.currentTarget as HTMLInputElement;
+      const token = target.dataset.token;
+      if (token) root.style.setProperty(token, target.value);
+    });
+  });
+  document.getElementById("reset-tokens")?.addEventListener("click", () => {
+    inputs.forEach((input) => {
+      const token = input.dataset.token;
+      if (token) root.style.removeProperty(token);
+      input.value = "#5471b5";
+    });
+  });
+</script>
+
+<style>
+  .ramp {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: var(--t-space-1);
+  }
+
+  .swatch {
+    block-size: 4rem;
+    border-radius: var(--t-radius-sm);
+    border: 1px solid var(--t-neutral-30);
+    display: flex;
+    align-items: end;
+    padding: var(--t-space-1);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.625rem;
+    color: var(--t-neutral-90);
+  }
+
+  .swatch[data-step="500"],
+  .swatch[data-step="600"],
+  .swatch[data-step="700"],
+  .swatch[data-step="800"],
+  .swatch[data-step="900"],
+  .swatch[data-step="100"] {
+    color: var(--t-neutral-10);
+  }
+
+  .swatch[data-step="0"],
+  .swatch[data-step="10"],
+  .swatch[data-step="20"],
+  .swatch[data-step="50"] {
+    color: var(--t-neutral-90);
+  }
+
+  .swatch.seed {
+    background: var(--t-seed);
+    block-size: 6rem;
+    color: var(--t-neutral-10);
+  }
+
+  .label {
+    background: rgb(255 255 255 / 0.6);
+    color: black;
+    padding: 0 0.25rem;
+    border-radius: 2px;
+  }
+
+  .hint {
+    color: var(--t-neutral-70);
+    font-size: 0.875rem;
+  }
+
+  h3 {
+    margin: 0 0 var(--t-space-2);
+    font-size: 1rem;
+    text-transform: capitalize;
+  }
+
+  .picker-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--t-space-3);
+    align-items: end;
+  }
+
+  .picker-grid label {
+    display: flex;
+    flex-direction: column;
+    gap: var(--t-space-1);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--t-neutral-70);
+  }
+
+  .picker-grid input[type="color"] {
+    inline-size: 3rem;
+    block-size: 2rem;
+    border: 1px solid var(--t-neutral-30);
+    border-radius: var(--t-radius-sm);
+    padding: 0;
+    background: transparent;
+  }
+
+  .picker-grid button {
+    block-size: 2rem;
+    padding: 0 var(--t-space-3);
+    border: 1px solid var(--t-neutral-30);
+    border-radius: var(--t-radius-sm);
+    background: var(--t-neutral-10);
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+</style>
