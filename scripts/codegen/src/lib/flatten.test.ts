@@ -117,3 +117,124 @@ describe("flattenSpec — composite token namespacing (#694)", () => {
     expect(Object.keys(flat.tokens).sort()).toEqual(["body.bg", "gap", "header.bg", "pad"]);
   });
 });
+
+describe("flattenSpec — repeating parts (#687, RFC-0005)", () => {
+  test("pushes a repeating part into `repeating[]` with the plural-default propName", () => {
+    const spec: Spec = {
+      name: "pagination",
+      kind: "composite",
+      parts: {
+        root: { element: "nav", rootClass: "t-pagination" },
+        page: {
+          repeating: true,
+          element: "a",
+          rootClass: "t-pagination-page",
+          props: {
+            label: { type: "string", description: "Label." },
+            current: { type: "boolean", description: "Active page." },
+          },
+        },
+      },
+    } as Spec;
+    const flat = flattenSpec(spec);
+    expect(flat.repeating).toHaveLength(1);
+    expect(flat.repeating?.[0]).toMatchObject({
+      partName: "page",
+      propName: "pages",
+      element: "a",
+      rootClass: "t-pagination-page",
+    });
+    expect(Object.keys(flat.repeating?.[0]?.itemProps ?? {}).sort()).toEqual(["current", "label"]);
+  });
+
+  test("honors explicit `propName:` over the plural default", () => {
+    const spec: Spec = {
+      name: "menu",
+      kind: "composite",
+      parts: {
+        root: { element: "ul", rootClass: "t-menu" },
+        item: {
+          repeating: true,
+          propName: "entries",
+          element: "li",
+          props: { label: { type: "string", description: "Label." } },
+        },
+      },
+    } as Spec;
+    const flat = flattenSpec(spec);
+    expect(flat.repeating?.[0]?.propName).toBe("entries");
+  });
+
+  test("repeating item props do NOT leak into the scalar flat.props map", () => {
+    const spec: Spec = {
+      name: "pagination",
+      kind: "composite",
+      parts: {
+        root: { element: "nav", rootClass: "t-pagination" },
+        page: {
+          repeating: true,
+          element: "a",
+          props: { label: { type: "string", description: "Label." } },
+        },
+      },
+    } as Spec;
+    const flat = flattenSpec(spec);
+    expect(Object.keys(flat.props)).not.toContain("label");
+  });
+
+  test("scalar props on a non-repeating sibling part still merge into flat.props", () => {
+    const spec: Spec = {
+      name: "pagination",
+      kind: "composite",
+      parts: {
+        root: {
+          element: "nav",
+          rootClass: "t-pagination",
+          props: { ariaLabel: { type: "string", description: "Group label." } },
+        },
+        page: {
+          repeating: true,
+          element: "a",
+          props: { label: { type: "string", description: "Label." } },
+        },
+      },
+    } as Spec;
+    const flat = flattenSpec(spec);
+    expect(Object.keys(flat.props)).toEqual(["ariaLabel"]);
+  });
+
+  test("multiple repeating siblings yield one entry per part", () => {
+    const spec: Spec = {
+      name: "split",
+      kind: "composite",
+      parts: {
+        root: { element: "div" },
+        primary: {
+          repeating: true,
+          element: "a",
+          props: { label: { type: "string", description: "Primary label." } },
+        },
+        secondary: {
+          repeating: true,
+          element: "a",
+          props: { label: { type: "string", description: "Secondary label." } },
+        },
+      },
+    } as Spec;
+    const flat = flattenSpec(spec);
+    expect(flat.repeating?.map((r) => r.partName).sort()).toEqual(["primary", "secondary"]);
+  });
+
+  test("non-repeating composite specs leave `repeating` undefined", () => {
+    const spec: Spec = {
+      name: "tooltip",
+      kind: "composite",
+      parts: {
+        trigger: { fromChildren: true, rootClass: "t-tooltip-trigger" },
+        content: { element: "div", rootClass: "t-tooltip" },
+      },
+    } as Spec;
+    const flat = flattenSpec(spec);
+    expect(flat.repeating).toBeUndefined();
+  });
+});
