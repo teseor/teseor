@@ -106,6 +106,9 @@ parts:
       arrow-bg:
         fallback: --t-surface-inverse
         desc: Arrow fill. Defaults to the same surface as `bg` so the arrow blends seamlessly with the body.
+      max-inline-size:
+        fallback: 20rem
+        desc: Maximum tooltip width. Wraps long content beyond this measure.
     privateTokens:
       - --_bg
       - --_fg
@@ -119,6 +122,7 @@ parts:
       - --_motion-scale
       - --_arrow-size
       - --_arrow-bg
+      - --_max-inline-size
       - --_arrow-inset
       - --_arrow-transform
       - --_anchor

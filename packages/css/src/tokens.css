@@ -77,22 +77,30 @@
     --t-info-800: oklch(35% 0.12 210deg);
     --t-info-900: oklch(25% 0.09 210deg);
 
-    /* ===== Spacing — 4px-based modular ladder ===== */
+    /* ===== Grid unit — sole knob for the spatial system =====
+
+       Every spatial token derives from --t-unit via calc(). Override --t-unit
+       in any subtree to rescale spacing, row heights, radii, and the
+       touch-target floor coherently. Type and leading derive in Phase 2
+       (#804); they shift the rhythm story and are deferred together. */
+    --t-unit: 0.25rem;
+
+    /* ===== Spacing — curated non-linear ladder (multipliers 0, 1..4, 6, 8, 12, 16) ===== */
     --t-space-0: 0;
-    --t-space-1: 0.25rem;
-    --t-space-2: 0.5rem;
-    --t-space-3: 0.75rem;
-    --t-space-4: 1rem;
-    --t-space-5: 1.5rem;
-    --t-space-6: 2rem;
-    --t-space-7: 3rem;
-    --t-space-8: 4rem;
+    --t-space-1: var(--t-unit); /*  4px */
+    --t-space-2: calc(var(--t-unit) * 2); /*  8px */
+    --t-space-3: calc(var(--t-unit) * 3); /* 12px */
+    --t-space-4: calc(var(--t-unit) * 4); /* 16px */
+    --t-space-5: calc(var(--t-unit) * 6); /* 24px */
+    --t-space-6: calc(var(--t-unit) * 8); /* 32px */
+    --t-space-7: calc(var(--t-unit) * 12); /* 48px */
+    --t-space-8: calc(var(--t-unit) * 16); /* 64px */
 
     /* ===== Row heights (touch-friendly) ===== */
-    --t-row-1: 1.5rem;
-    --t-row-2: 2rem;
-    --t-row-3: 2.5rem;
-    --t-row-4: 3rem;
+    --t-row-1: calc(var(--t-unit) * 6); /* 24px */
+    --t-row-2: calc(var(--t-unit) * 8); /* 32px */
+    --t-row-3: calc(var(--t-unit) * 10); /* 40px */
+    --t-row-4: calc(var(--t-unit) * 12); /* 48px */
 
     /* ===== Typography — ratio 1.125, base = 1rem ===== */
     --t-text-xs: 0.79rem;
@@ -118,10 +126,10 @@
 
     /* ===== Radius ===== */
     --t-radius-none: 0;
-    --t-radius-sm: 0.25rem;
-    --t-radius-md: 0.5rem;
-    --t-radius-lg: 0.75rem;
-    --t-radius-xl: 1rem;
+    --t-radius-sm: var(--t-unit); /*  4px */
+    --t-radius-md: calc(var(--t-unit) * 2); /*  8px */
+    --t-radius-lg: calc(var(--t-unit) * 3); /* 12px */
+    --t-radius-xl: calc(var(--t-unit) * 4); /* 16px */
     --t-radius-full: 9999px;
 
     /* ===== Shadows — oklch with alpha so they reskin with theme ===== */
@@ -162,10 +170,11 @@
 
     /* ===== Touch target (accessibility floor) ===== */
 
-    /* 44px @ 16px root — the WCAG 2.5.5 floor for interactive controls.
-       `--t-row` (control-height shorthand) clamps to this so a compact
-       density can never shrink an interactive root below the floor. */
-    --t-touch-min: 2.75rem;
+    /* 44px @ 16px root — minimum touch-target token for interactive controls.
+       Matches WCAG 2.5.5 (AAA Target Size Enhanced); stricter than AA 2.5.8 (24px).
+       This token is available for components or semantic aliases to opt into
+       when they need to enforce a minimum interactive size. */
+    --t-touch-min: calc(var(--t-unit) * 11);
 
     /* ===== Z-index ===== */
     --t-z-base: 0;

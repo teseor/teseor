@@ -13,6 +13,7 @@
     --_dur: var(--t-tooltip-dur, var(--t-dur-fast));
     --_ease: var(--t-tooltip-ease, var(--t-ease-out));
     --_font-size: var(--t-tooltip-font-size, var(--t-text-sm));
+    --_max-inline-size: var(--t-tooltip-max-inline-size, 20rem);
     --_motion-scale: var(--t-motion-scale);
     --_arrow-size: var(--t-tooltip-arrow-size, var(--t-space-3));
     --_arrow-bg: var(--t-tooltip-arrow-bg, var(--t-surface-inverse));
@@ -63,7 +64,7 @@
     font: inherit;
     font-size: var(--_font-size);
     line-height: 1.4;
-    max-inline-size: 20rem;
+    max-inline-size: var(--_max-inline-size);
     pointer-events: none;
     display: var(--_display);
     position-anchor: var(--_anchor);
