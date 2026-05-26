@@ -169,21 +169,14 @@
     /* Motion scale — gated by prefers-reduced-motion below */
     --t-motion-scale: 1;
 
-    /* ===== Density ===== */
+    /* ===== Touch target (accessibility floor) =====
 
-    /* Multiplier for spacing shorthands. Default `1`; opt-in modifiers
-       (`[data-density="compact"]` / `[data-density="comfortable"]`) reassign
-       it in the semantic layer. Component CSS that multiplies a spacing
-       token by `var(--t-density)` follows the modifier automatically. */
-    --t-density: 1;
-
-    /* ===== Touch target (accessibility floor) ===== */
-
-    /* 44px @ 16px root — minimum touch-target token for interactive controls.
-       Matches WCAG 2.5.5 (AAA Target Size Enhanced); stricter than AA 2.5.8 (24px).
-       This token is available for components or semantic aliases to opt into
-       when they need to enforce a minimum interactive size. */
-    --t-touch-min: calc(var(--t-unit) * 11);
+       11 units = 44px @ default unit. WCAG 2.5.5 (AAA Target Size Enhanced);
+       stricter than AA 2.5.8 (24px). `max()` clamps to the 2.75rem floor so a
+       compact-density subtree (smaller --t-unit) cannot shrink the
+       interactive minimum below the accessibility threshold. Components or
+       semantic aliases opt in when they need to enforce a minimum. */
+    --t-touch-min: max(calc(var(--t-unit) * 11), 2.75rem);
 
     /* ===== Z-index ===== */
     --t-z-base: 0;
@@ -241,27 +234,28 @@
     /* ===== Focus ===== */
     --t-focus-ring: var(--t-accent-500);
 
-    /* ===== Spacing shorthands ===== */
+    /* ===== Spacing shorthands =====
 
-    /* All four multiply by `--t-density`. Interactive component roots that
-       need to honour the touch-target floor read `--t-touch-min` directly;
-       flooring `--t-row` here would inflate the default size (2rem → 2.75rem)
-       for every consumer, not just compact-density interactive controls. */
-    --t-pad-x: calc(var(--t-space-4) * var(--t-density));
-    --t-pad-y: calc(var(--t-space-2) * var(--t-density));
-    --t-gap: calc(var(--t-space-3) * var(--t-density));
-    --t-row: calc(var(--t-row-2) * var(--t-density));
+       Named aliases for the most-used rungs. They derive from `--t-unit`
+       transitively (Phase 1), so a `--t-unit` override anywhere in the
+       cascade — including the `[data-density]` modifiers below — rescales
+       them along with every other spatial token. */
+    --t-pad-x: var(--t-space-4);
+    --t-pad-y: var(--t-space-2);
+    --t-gap: var(--t-space-3);
+    --t-row: var(--t-row-2);
   }
 
-  /* Density opt-in. Apply on any subtree to scale spacing shorthands;
-     `compact` and `comfortable` are the two supported values. `:where()`
-     keeps specificity flat (0,0,0) so consumers override without ratcheting. */
+  /* Density opt-in. Reassigns `--t-unit` in the subtree, so every spatial
+     token — spacing rungs, row heights, radii, leading, the shorthands
+     above — rescales coherently. `:where()` keeps specificity flat (0,0,0)
+     so consumers override without ratcheting. */
   :where([data-density="compact"]) {
-    --t-density: 0.875;
+    --t-unit: calc(0.25rem * 0.875); /* 3.5px — 87.5% of default */
   }
 
   :where([data-density="comfortable"]) {
-    --t-density: 1.125;
+    --t-unit: calc(0.25rem * 1.125); /* 4.5px — 112.5% of default */
   }
 
   /* Forced-colors remap to CSS system colors. */
