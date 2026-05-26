@@ -163,16 +163,28 @@ import Base from "../../layouts/Base.astro";
         <thead><tr><th>Token</th><th>Default</th><th>Forced-colors</th></tr></thead>
         <tbody>
         <tr><td><Code>--t-accent</Code></td><td><Code>oklch(65% 0.18 250deg)</Code></td><td><Code>ButtonText</Code></td></tr>
-        <tr><td><Code>--t-danger</Code></td><td><Code>oklch(62% 0.2 25deg)</Code></td><td><Code>ButtonText</Code></td></tr>
+        <tr><td><Code>--t-danger</Code></td><td><Code>color-mix(
+      in oklch,
+      oklch(from oklch(65% 0.18 250deg) 48% c 25deg),
+      oklch(from oklch(65% 0.18 250deg) 48% c h) calc(0 * 100%)
+    )</Code></td><td><Code>ButtonText</Code></td></tr>
         <tr><td><Code>--t-focus-ring</Code></td><td><Code>oklch(65% 0.18 250deg)</Code></td><td><Code>Highlight</Code></td></tr>
-        <tr><td><Code>--t-on-accent</Code></td><td><Code>oklch(100% 0 0deg)</Code></td><td><Code>ButtonFace</Code></td></tr>
-        <tr><td><Code>--t-on-danger</Code></td><td><Code>oklch(100% 0 0deg)</Code></td><td><Code>ButtonFace</Code></td></tr>
-        <tr><td><Code>--t-on-success</Code></td><td><Code>oklch(100% 0 0deg)</Code></td><td><Code>ButtonFace</Code></td></tr>
-        <tr><td><Code>--t-on-surface</Code></td><td><Code>oklch(18% 0 0deg)</Code></td><td><Code>CanvasText</Code></td></tr>
-        <tr><td><Code>--t-on-warning</Code></td><td><Code>oklch(0% 0 0deg)</Code></td><td><Code>ButtonFace</Code></td></tr>
-        <tr><td><Code>--t-success</Code></td><td><Code>oklch(65% 0.18 155deg)</Code></td><td><Code>ButtonText</Code></td></tr>
-        <tr><td><Code>--t-surface</Code></td><td><Code>oklch(97% 0 0deg)</Code></td><td><Code>Canvas</Code></td></tr>
-        <tr><td><Code>--t-warning</Code></td><td><Code>oklch(75% 0.18 80deg)</Code></td><td><Code>ButtonText</Code></td></tr>
+        <tr><td><Code>--t-on-accent</Code></td><td><Code>oklch(from oklch(from oklch(65% 0.18 250deg) 50% calc(c * 0.025) h) 100% 0 h)</Code></td><td><Code>ButtonFace</Code></td></tr>
+        <tr><td><Code>--t-on-danger</Code></td><td><Code>oklch(from oklch(from oklch(65% 0.18 250deg) 50% calc(c * 0.025) h) 100% 0 h)</Code></td><td><Code>ButtonFace</Code></td></tr>
+        <tr><td><Code>--t-on-success</Code></td><td><Code>oklch(from oklch(from oklch(65% 0.18 250deg) 50% calc(c * 0.025) h) 100% 0 h)</Code></td><td><Code>ButtonFace</Code></td></tr>
+        <tr><td><Code>--t-on-surface</Code></td><td><Code>oklch(from oklch(from oklch(65% 0.18 250deg) 50% calc(c * 0.025) h) 18% c h)</Code></td><td><Code>CanvasText</Code></td></tr>
+        <tr><td><Code>--t-on-warning</Code></td><td><Code>oklch(from oklch(from oklch(65% 0.18 250deg) 50% calc(c * 0.025) h) 0% 0 h)</Code></td><td><Code>ButtonFace</Code></td></tr>
+        <tr><td><Code>--t-success</Code></td><td><Code>color-mix(
+      in oklch,
+      oklch(from oklch(65% 0.18 250deg) 62% c 155deg),
+      oklch(from oklch(65% 0.18 250deg) 62% c h) calc(0 * 100%)
+    )</Code></td><td><Code>ButtonText</Code></td></tr>
+        <tr><td><Code>--t-surface</Code></td><td><Code>oklch(from oklch(from oklch(65% 0.18 250deg) 50% calc(c * 0.025) h) 97% c h)</Code></td><td><Code>Canvas</Code></td></tr>
+        <tr><td><Code>--t-warning</Code></td><td><Code>color-mix(
+      in oklch,
+      oklch(from oklch(65% 0.18 250deg) 68% c 80deg),
+      oklch(from oklch(65% 0.18 250deg) 68% c h) calc(0 * 100%)
+    )</Code></td><td><Code>ButtonText</Code></td></tr>
         </tbody>
       </table>
     </section>
@@ -188,7 +200,7 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Artifact</th><th>Raw</th><th>Gzip</th><th>Brotli</th></tr></thead>
         <tbody>
-        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/button/button.css"><Code>@teseor/css/components/button.css</Code></a></td><td>9.56 KB</td><td>1.84 KB</td><td>1.53 KB</td></tr>
+        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/button/button.css"><Code>@teseor/css/components/button.css</Code></a></td><td>10.35 KB</td><td>1.92 KB</td><td>1.60 KB</td></tr>
         </tbody>
       </table>
     </section>

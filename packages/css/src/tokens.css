@@ -2,13 +2,9 @@
 
 @layer tokens.scale {
   :root {
-    /* ===== Colors — oklch throughout (Baseline 2024) ===== */
-
-    /* ===== Color seed — sole knob for the color cascade. ===== */
+    /* ===== Colors — oklch; seed-derived cascade (Baseline 2025). ===== */
     --t-seed: oklch(65% 0.18 250deg);
     --t-harmony: 0;
-
-    /* Neutral — derived from --t-neutral (seed-tinted gray). Steps 0/100 forced pure. */
     --t-neutral-0: oklch(from var(--t-neutral) 100% 0 h);
     --t-neutral-10: oklch(from var(--t-neutral) 97% c h);
     --t-neutral-20: oklch(from var(--t-neutral) 92% c h);
@@ -20,8 +16,6 @@
     --t-neutral-80: oklch(from var(--t-neutral) 30% c h);
     --t-neutral-90: oklch(from var(--t-neutral) 18% c h);
     --t-neutral-100: oklch(from var(--t-neutral) 0% 0 h);
-
-    /* Accent — derived from --t-accent (default = seed). */
     --t-accent-50: oklch(from var(--t-accent) 97% calc(c * 0.111) h);
     --t-accent-100: oklch(from var(--t-accent) 93% calc(c * 0.278) h);
     --t-accent-200: oklch(from var(--t-accent) 86% calc(c * 0.5) h);
@@ -32,8 +26,6 @@
     --t-accent-700: oklch(from var(--t-accent) 45% calc(c * 0.889) h);
     --t-accent-800: oklch(from var(--t-accent) 35% calc(c * 0.722) h);
     --t-accent-900: oklch(from var(--t-accent) 25% calc(c * 0.556) h);
-
-    /* Success — derived from --t-success (anchor L=62%; canonical hue 155 ↔ seed at --t-harmony). */
     --t-success-50: oklch(from var(--t-success) 97% calc(c * 0.111) h);
     --t-success-100: oklch(from var(--t-success) 93% calc(c * 0.278) h);
     --t-success-200: oklch(from var(--t-success) 86% calc(c * 0.5) h);
@@ -44,8 +36,6 @@
     --t-success-700: oklch(from var(--t-success) 42% calc(c * 0.889) h);
     --t-success-800: oklch(from var(--t-success) 32% calc(c * 0.722) h);
     --t-success-900: oklch(from var(--t-success) 22% calc(c * 0.556) h);
-
-    /* Warning — derived from --t-warning (anchor L=68%; "alert, not stop"). */
     --t-warning-50: oklch(from var(--t-warning) 97% calc(c * 0.111) h);
     --t-warning-100: oklch(from var(--t-warning) 93% calc(c * 0.278) h);
     --t-warning-200: oklch(from var(--t-warning) 86% calc(c * 0.5) h);
@@ -56,8 +46,6 @@
     --t-warning-700: oklch(from var(--t-warning) 48% calc(c * 0.889) h);
     --t-warning-800: oklch(from var(--t-warning) 38% calc(c * 0.722) h);
     --t-warning-900: oklch(from var(--t-warning) 28% calc(c * 0.556) h);
-
-    /* Danger — derived from --t-danger (anchor L=48%; darker, cb-safety from success). */
     --t-danger-50: oklch(from var(--t-danger) 97% calc(c * 0.111) h);
     --t-danger-100: oklch(from var(--t-danger) 93% calc(c * 0.278) h);
     --t-danger-200: oklch(from var(--t-danger) 86% calc(c * 0.5) h);
@@ -68,8 +56,6 @@
     --t-danger-700: oklch(from var(--t-danger) 32% calc(c * 0.889) h);
     --t-danger-800: oklch(from var(--t-danger) 24% calc(c * 0.722) h);
     --t-danger-900: oklch(from var(--t-danger) 16% calc(c * 0.556) h);
-
-    /* Info — derived from --t-info (anchor L=55%). */
     --t-info-50: oklch(from var(--t-info) 97% calc(c * 0.111) h);
     --t-info-100: oklch(from var(--t-info) 93% calc(c * 0.278) h);
     --t-info-200: oklch(from var(--t-info) 86% calc(c * 0.5) h);
@@ -223,7 +209,7 @@
     --t-border: var(--t-neutral-20);
     --t-border-strong: var(--t-neutral-40);
 
-    /* ===== Family anchors — derive from --t-seed; ramps read these. ===== */
+    /* ===== Family anchors — ramps read these. ===== */
     --t-accent: var(--t-seed);
     --t-neutral: oklch(from var(--t-seed) 50% calc(c * 0.025) h);
     --t-success: color-mix(
@@ -247,7 +233,7 @@
       oklch(from var(--t-seed) 55% c h) calc(var(--t-harmony) * 100%)
     );
 
-    /* ===== Intent foregrounds — paired text/icon color for each fill. ===== */
+    /* ===== Intent foregrounds. ===== */
     --t-on-accent: var(--t-neutral-0);
     --t-on-success: var(--t-neutral-0);
     --t-on-warning: var(--t-neutral-100);
