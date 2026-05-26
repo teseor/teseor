@@ -3,7 +3,7 @@
 @layer tokens.scale {
   :root {
     /* ===== Colors — oklch; seed-derived cascade (Baseline 2025). ===== */
-    --t-seed: oklch(65% 0.18 250deg);
+    --t-seed: oklch(58% 0.2 268deg);
     --t-harmony: 0;
     --t-neutral-0: oklch(from var(--t-neutral) 100% 0 h);
     --t-neutral-10: oklch(from var(--t-neutral) 97% c h);

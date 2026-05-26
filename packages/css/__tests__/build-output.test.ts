@@ -54,7 +54,7 @@ test("shipped component CSS floors every token reference (acid test)", () => {
 
 test("shipped component CSS inlines the literal resolved from tokens.css", () => {
   const button = readFileSync(join(distDir, "components", "button.css"), "utf8");
-  expect(button).toContain("var(--t-accent, oklch(65% 0.18 250deg))");
+  expect(button).toContain("var(--t-accent, oklch(58% 0.2 268deg))");
 });
 
 test("shipped component CSS carries a forced-colors token override", () => {
