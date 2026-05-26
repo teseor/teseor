@@ -92,10 +92,11 @@ function isDerivedSpatialToken(prop: string): boolean {
  * keywords stay legal.
  */
 export function isAcceptableSizingValue(value: string): boolean {
-  // Any non-zero px / rem literal at a token-boundary position fails. The
-  // regex looks for a number (int/decimal) followed by px or rem, preceded
-  // by a value-boundary character so `1.25emm` won't trip and `--_foopx`
-  // (custom-property name) won't either.
+  // Any px / rem literal (including `0px` / `0rem`) at a token-boundary
+  // position fails — the convention is bare `0`. The regex looks for a
+  // number (int/decimal) followed by px or rem, preceded by a value-boundary
+  // character so `1.25emm` won't trip and `--_foopx` (custom-property name)
+  // won't either.
   return !/(?:^|[\s,(/*+-])-?\d*\.?\d+(?:px|rem)\b/.test(value);
 }
 
@@ -131,7 +132,7 @@ export function findRhythmViolations(
       out.push({
         file: rel,
         line: decl.source?.start?.line,
-        message: `\`${decl.prop}: ${decl.value}\` — sizing values must read \`var(--t-*)\` / \`var(--_*)\` or stay on relative units (em, lh, %)`,
+        message: `\`${decl.prop}: ${decl.value}\` — sizing values must read \`var(--t-*)\` / \`var(--_*)\` or stay on relative units (em, lh, %, vh / vw / sv* / lv* / dv* / cq*, fr, ch, ex). Raw px / rem rejected.`,
       });
     });
   }
