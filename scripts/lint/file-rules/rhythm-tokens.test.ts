@@ -48,6 +48,14 @@ describe("isAcceptableSizingValue", () => {
   it("rejects raw px even mixed with tokens absent", () => {
     expect(isAcceptableSizingValue("8px 16px")).toBe(false);
   });
+
+  it("rejects a token mixed with a raw rem literal in calc()", () => {
+    expect(isAcceptableSizingValue("calc(var(--t-space-2) + 1rem)")).toBe(false);
+  });
+
+  it("rejects a token mixed with a raw px literal in shorthand", () => {
+    expect(isAcceptableSizingValue("var(--t-space-2) 8px")).toBe(false);
+  });
 });
 
 describe("findRhythmViolations — tokens.css", () => {
@@ -97,6 +105,16 @@ describe("findRhythmViolations — tokens.css", () => {
       --t-leading-normal: 1.5;
     }`;
     expect(findRhythmViolations(tokens, noComponents)).toEqual([]);
+  });
+
+  it("rejects a derived token whose value traces to a similarly-named non-unit token", () => {
+    const tokens = `:root {
+      --t-unit-foo: 0.5rem;
+      --t-space-3: var(--t-unit-foo);
+    }`;
+    const violations = findRhythmViolations(tokens, noComponents);
+    expect(violations).toHaveLength(1);
+    expect(violations[0]?.message).toContain("--t-space-3");
   });
 });
 

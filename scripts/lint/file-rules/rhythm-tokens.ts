@@ -85,19 +85,17 @@ function isDerivedSpatialToken(prop: string): boolean {
 }
 
 /**
- * Sizing-property values must either reference a token (--t-* or --_*) or
- * use no absolute length. Returns true when the value is acceptable.
- *
- * Algorithm: if it contains var(--t-*) or var(--_*) anywhere, accept.
- * Otherwise, no Npx / Nrem literals may appear. Relative units (em, lh, %,
- * vh, vw, svh, lvh, dvh, cqi, cqb, fr, ch, ex) and keywords stay legal.
+ * Sizing-property values must not contain raw absolute lengths. A `var(--t-*)`
+ * or `var(--_*)` reference does not excuse a literal in the same value —
+ * `calc(var(--t-space-2) + 1rem)` and `var(--t-space-2) 8px` both fail.
+ * Relative units (em, lh, %, vh, vw, svh, lvh, dvh, cqi, cqb, fr, ch, ex) and
+ * keywords stay legal.
  */
 export function isAcceptableSizingValue(value: string): boolean {
-  if (/var\(\s*--t-[\w-]+/.test(value)) return true;
-  if (/var\(\s*--_[\w-]+/.test(value)) return true;
-  // No tokens — flag if any non-zero px / rem literal appears.
-  // The regex looks for a number (int/decimal) followed by px or rem, with
-  // a non-word boundary before it (so `1.25emm` won't trip).
+  // Any non-zero px / rem literal at a token-boundary position fails. The
+  // regex looks for a number (int/decimal) followed by px or rem, preceded
+  // by a value-boundary character so `1.25emm` won't trip and `--_foopx`
+  // (custom-property name) won't either.
   return !/(?:^|[\s,(/*+-])-?\d*\.?\d+(?:px|rem)\b/.test(value);
 }
 
@@ -114,7 +112,9 @@ export function findRhythmViolations(
     // `0` is the only literal that's legitimately equivalent to a zero-unit
     // derivation — covers `--t-space-0`.
     if (decl.value.trim() === "0") return;
-    if (/var\(\s*--t-unit\b/.test(decl.value)) return;
+    // Match the var(...) shape with a precise terminator so `var(--t-unit-foo)`
+    // does not falsely satisfy a `--t-unit` trace. Mirrors motion-scale.ts.
+    if (/var\(\s*--t-unit\s*[,)]/.test(decl.value)) return;
     out.push({
       file: "packages/css/src/tokens.css",
       line: decl.source?.start?.line,
