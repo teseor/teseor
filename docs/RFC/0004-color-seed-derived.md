@@ -164,11 +164,11 @@ The literal floor is the *default-seed* output. Consumers who set `--t-seed` at 
 
 Three sequential PRs, mirroring tokens-v4's shape:
 
-1. **Phase 1 — seed surface + accent derivation.** Introduce `--t-seed` and `--t-harmony` at `:root`, defaulted to `oklch(0.65 0.18 250)` (today's `--t-accent-500` value) and `0`. Refactor `--t-accent-{50..900}` to derive from `--t-seed` via `oklch(from …)`. Keep neutral and intent ramps hand-authored (unchanged). Internal refactor — resolved values identical at the default seed.
+1. **Phase 1 (#820) — seed surface + accent derivation.** Introduce `--t-seed` and `--t-harmony` at `:root`, defaulted to `oklch(0.65 0.18 250)` (today's `--t-accent-500` value) and `0`. Refactor `--t-accent-{50..900}` to derive from `--t-seed` via `oklch(from …)`. Keep neutral and intent ramps hand-authored (unchanged). Internal refactor — resolved values identical at the default seed.
 
-2. **Phase 2 — intent + neutral derivation + staggered anchor L.** Refactor `--t-danger-*`, `--t-warning-*`, `--t-success-*`, `--t-info-*`, `--t-neutral-*` to derive from family anchors. Adopt the staggered per-family anchor L (danger 0.48, warning 0.68, success 0.62, info 0.55). Visual change — intent ramps shift to staggered lightness. Visual-regression snapshots required.
+2. **Phase 2 (#821) — intent + neutral derivation + staggered anchor L.** Refactor `--t-danger-*`, `--t-warning-*`, `--t-success-*`, `--t-info-*`, `--t-neutral-*` to derive from family anchors. Adopt the staggered per-family anchor L (danger 0.48, warning 0.68, success 0.62, info 0.55). Visual change — intent ramps shift to staggered lightness. Visual-regression snapshots required.
 
-3. **Phase 3 — retune default seed.** Shift `--t-seed` default from `oklch(0.65 0.18 250)` (today's accent-500 reskinned as seed) to `oklch(0.58 0.20 268)` (RFC-0002's indigo-violet). Pure value change, no API change. Documented as a deliberate default refresh.
+3. **Phase 3 (#822) — retune default seed.** Shift `--t-seed` default from `oklch(0.65 0.18 250)` (today's accent-500 reskinned as seed) to `oklch(0.58 0.20 268)` (RFC-0002's indigo-violet). Pure value change, no API change. Documented as a deliberate default refresh.
 
 ## Drawbacks
 
@@ -253,7 +253,7 @@ The only consumer-facing change is the resolved palette values (Phase 2 / 3). Do
 
 - **Phase 3 timing relative to v1.0.** If v1.0 is close, the default-seed retune (indigo-blue → indigo-violet) may be worth deferring to v1.1 to keep v1.0's headline visual stable. Decision belongs to the release-cut window, not this RFC.
 
-- **Picker UX.** The "set seed + see palette" picker is implied by this RFC's framing but not specified here. The picker is the surface where color-blind warnings, brand-vs-CTA collision warnings, and seed-randomization heuristics live. Filed as a deferred follow-up issue, mirrored on `docs/architecture/themes.md` § "v1.0 minimum: two themes" planning.
+- **Picker UX.** The "set seed + see palette" picker is implied by this RFC's framing but not specified here. The picker is the surface where color-blind warnings, brand-vs-CTA collision warnings, and seed-randomization heuristics live. Filed as #823, mirrored on `docs/architecture/themes.md` § "v1.0 minimum: two themes" planning.
 
 - **`--t-harmony` granularity.** Currently a single 0–1 knob applied uniformly to all intent families. Worth considering per-family harmony (e.g., `--t-harmony-danger: 0`, `--t-harmony-warning: 1`) for consumers who want danger always canonical but warning to drift. Defer; revisit if the picker design surfaces the need.
 
@@ -267,7 +267,7 @@ The only consumer-facing change is the resolved palette values (Phase 2 / 3). Do
 
 - **Dark mode.** This RFC covers the light-mode palette only. Dark mode is tracked separately under #774 and will get its own derivation pattern (likely a sibling cascade rooted at a dark-mode `--t-seed` value or chroma multiplier).
 
-- **The picker / theme generator.** A `teseor.dev/themes` picker that emits seed + harmony + per-intent overrides as a copyable CSS block is implied by this RFC but specified in a separate follow-up issue. The CSS layer this RFC defines is the picker's output surface, not its UX.
+- **The picker / theme generator.** A `teseor.dev/themes` picker that emits seed + harmony + per-intent overrides as a copyable CSS block is implied by this RFC but specified in #823. The CSS layer this RFC defines is the picker's output surface, not its UX.
 
 - **APCA contrast targets.** WCAG 2.2 AA remains the contrast baseline (`docs/architecture/three-tier-tokens.md` § "On-X foreground aliases" already documents this). APCA evaluation is worth its own RFC if reviewers want it; this RFC does not require or block it.
 
