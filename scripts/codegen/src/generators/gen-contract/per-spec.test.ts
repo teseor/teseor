@@ -116,4 +116,30 @@ describe("renderContract", () => {
     expect(out).toContain('when {"variant":"outline"} forbid {"intent":"danger"}');
     expect(out).toContain("low contrast");
   });
+
+  test("emits an Item type and a ReadonlyArray prop for each repeating part (RFC-0005)", () => {
+    const out = renderContract(
+      spec({
+        name: "pagination",
+        kind: "composite",
+        repeating: [
+          {
+            partName: "page",
+            propName: "pages",
+            element: "a",
+            rootClass: "t-pagination-page",
+            itemProps: {
+              label: { type: "string", description: "Label." },
+              current: { type: "boolean", description: "Active page." },
+            },
+          },
+        ],
+      }),
+    );
+    expect(out).toContain("export type PaginationPageItem = {");
+    expect(out).toContain("id: string;");
+    expect(out).toContain("label?: string;");
+    expect(out).toContain("current?: boolean;");
+    expect(out).toContain("pages?: ReadonlyArray<PaginationPageItem>;");
+  });
 });

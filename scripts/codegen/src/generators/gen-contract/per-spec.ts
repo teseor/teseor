@@ -102,6 +102,29 @@ export function renderContract(spec: FlatSpec): string {
     propLines.push(`  ${propName}?: ${tsType};`);
   }
 
+  // Repeating parts (RFC-0005). Each becomes an `Array<Name<Part>Item>` prop
+  // on the component, with the item shape declared as a sibling type so the
+  // generated React/Vue wrappers can import it.
+  const itemTypeLines: string[] = [];
+  for (const repeating of spec.repeating ?? []) {
+    const ItemName = `${Name}${pascalCase(repeating.partName)}Item`;
+    itemTypeLines.push(`export type ${ItemName} = {`);
+    itemTypeLines.push(`  /** Stable item identity; required. */`);
+    itemTypeLines.push(`  id: string;`);
+    for (const [propName, propDef] of Object.entries(repeating.itemProps)) {
+      const propValues = propDef.values ?? [];
+      const baseType =
+        propValues.length > 0 ? propValues.map(quote).join(" | ") : mapPropType(propDef.type);
+      if (propDef.description) itemTypeLines.push(`  /** ${propDef.description} */`);
+      itemTypeLines.push(`  ${propName}?: ${baseType};`);
+    }
+    itemTypeLines.push("};");
+    itemTypeLines.push("");
+    propLines.push(`  /** Items rendered by the repeating \`${repeating.partName}\` part. */`);
+    propLines.push(`  ${repeating.propName}?: ReadonlyArray<${ItemName}>;`);
+  }
+  for (const line of itemTypeLines) lines.push(line);
+
   if (propLines.length === 0) {
     lines.push(`export type ${Name}Props = Record<string, never>;`);
   } else {
