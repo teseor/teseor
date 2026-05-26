@@ -56,6 +56,11 @@ describe("isAcceptableSizingValue", () => {
   it("rejects a token mixed with a raw px literal in shorthand", () => {
     expect(isAcceptableSizingValue("var(--t-space-2) 8px")).toBe(false);
   });
+
+  it("accepts a literal sitting inside a var() fallback (idiomatic floor pattern)", () => {
+    expect(isAcceptableSizingValue("var(--t-tooltip-max-inline-size, 20rem)")).toBe(true);
+    expect(isAcceptableSizingValue("var(--t-x, var(--t-y, 10rem))")).toBe(true);
+  });
 });
 
 describe("findRhythmViolations — tokens.css", () => {
@@ -154,5 +159,47 @@ describe("findRhythmViolations — component CSS", () => {
       box-shadow: 0 1px 2px black;
     }`;
     expect(findRhythmViolations(tokens, [{ name: "x", rel: "x.css", css }])).toEqual([]);
+  });
+
+  it("flags raw px/rem hidden in a --_* slot referenced by a sizing prop", () => {
+    const css = `.t-x {
+      --_pad-x: 13px;
+      padding-inline: var(--_pad-x);
+    }`;
+    const violations = findRhythmViolations(tokens, [{ name: "x", rel: "x.css", css }]);
+    expect(violations).toHaveLength(1);
+    expect(violations[0]?.message).toContain("padding-inline");
+  });
+
+  it("flags raw px hidden in a modifier-reassigned slot", () => {
+    const css = `.t-x {
+      --_pad-x: var(--t-space-3);
+      padding-inline: var(--_pad-x);
+      &[data-size="lg"] {
+        --_pad-x: 17px;
+      }
+    }`;
+    expect(findRhythmViolations(tokens, [{ name: "x", rel: "x.css", css }])).toHaveLength(1);
+  });
+
+  it("accepts a slot whose every declaration routes through a token", () => {
+    const css = `.t-x {
+      --_pad-x: var(--t-space-3);
+      padding-inline: var(--_pad-x);
+      &[data-size="lg"] {
+        --_pad-x: var(--t-space-4);
+      }
+    }`;
+    expect(findRhythmViolations(tokens, [{ name: "x", rel: "x.css", css }])).toEqual([]);
+  });
+
+  it("does not loop on a self-referential --_* graph", () => {
+    const css = `.t-x {
+      --_a: var(--_b);
+      --_b: var(--_a);
+      padding-inline: var(--_a);
+    }`;
+    // Should terminate; whether it flags or accepts is secondary to "doesn't hang".
+    expect(() => findRhythmViolations(tokens, [{ name: "x", rel: "x.css", css }])).not.toThrow();
   });
 });

@@ -84,20 +84,45 @@ function isDerivedSpatialToken(prop: string): boolean {
   return DERIVED_TOKEN_PREFIXES.some((p) => prop.startsWith(p));
 }
 
+/** Strip every `var(...)` call (including its fallback) from a CSS value.
+ *  Balanced-paren aware so nested `var(var(...))` is removed as a unit. */
+function stripVarCalls(value: string): string {
+  let out = "";
+  let i = 0;
+  while (i < value.length) {
+    if (value.startsWith("var(", i)) {
+      let depth = 1;
+      let j = i + 4;
+      while (j < value.length && depth > 0) {
+        if (value[j] === "(") depth++;
+        else if (value[j] === ")") depth--;
+        j++;
+      }
+      i = j;
+    } else {
+      out += value[i];
+      i++;
+    }
+  }
+  return out;
+}
+
 /**
- * Sizing-property values must not contain raw absolute lengths. A `var(--t-*)`
- * or `var(--_*)` reference does not excuse a literal in the same value —
- * `calc(var(--t-space-2) + 1rem)` and `var(--t-space-2) 8px` both fail.
- * Relative units (em, lh, %, vh, vw, svh, lvh, dvh, cqi, cqb, fr, ch, ex) and
- * keywords stay legal.
+ * Sizing-property values must not contain raw absolute lengths *outside* of
+ * `var()` fallback positions. `var(--t-x, 20rem)` is the project's idiomatic
+ * floor pattern (allowed); `calc(var(--t-space-2) + 1rem)` and
+ * `var(--t-space-2) 8px` keep failing because the literal sits at the
+ * top level (or inside a `calc()`), not inside a `var()`. Relative units
+ * (em, lh, %, vh, vw, svh, lvh, dvh, cqi, cqb, fr, ch, ex) and keywords
+ * stay legal.
  */
 export function isAcceptableSizingValue(value: string): boolean {
-  // Any px / rem literal (including `0px` / `0rem`) at a token-boundary
-  // position fails — the convention is bare `0`. The regex looks for a
-  // number (int/decimal) followed by px or rem, preceded by a value-boundary
-  // character so `1.25emm` won't trip and `--_foopx` (custom-property name)
-  // won't either.
-  return !/(?:^|[\s,(/*+-])-?\d*\.?\d+(?:px|rem)\b/.test(value);
+  // Strip `var(...)` calls first so fallback literals don't trigger the check.
+  // Any px / rem literal (including `0px`) in the residue fails — convention
+  // is bare `0`. Preceded by a value-boundary character so `1.25emm` won't
+  // trip and `--_foopx` (custom-property name) won't either.
+  const residue = stripVarCalls(value);
+  return !/(?:^|[\s,(/*+-])-?\d*\.?\d+(?:px|rem)\b/.test(residue);
 }
 
 export function findRhythmViolations(
@@ -124,20 +149,54 @@ export function findRhythmViolations(
   });
 
   // (2) component CSS: sizing-property values use tokens or relative units.
+  //     The check follows `var(--_*)` references transitively (motion-scale
+  //     pattern) so a slot reassigned to a literal — e.g. `--_pad-x: 13px` in
+  //     a [data-size="lg"] modifier — fails even though the use site reads a
+  //     legitimate `var(--_pad-x)`.
   for (const { rel, css } of components) {
     const root = postcss([postcssEach()]).process(css, { from: undefined }).root;
+    const slotValues = new Map<string, string[]>();
+    root.walkDecls(/^--_/, (decl) => {
+      const list = slotValues.get(decl.prop) ?? [];
+      list.push(decl.value);
+      slotValues.set(decl.prop, list);
+    });
+
     root.walkDecls((decl) => {
       if (!SIZING_PROPS.has(decl.prop)) return;
-      if (isAcceptableSizingValue(decl.value)) return;
+      if (isAcceptableSizingValueDeep(decl.value, slotValues, new Set())) return;
       out.push({
         file: rel,
         line: decl.source?.start?.line,
-        message: `\`${decl.prop}: ${decl.value}\` — sizing values must read \`var(--t-*)\` / \`var(--_*)\` or stay on relative units (em, lh, %, vh / vw / sv* / lv* / dv* / cq*, fr, ch, ex). Raw px / rem rejected.`,
+        message: `\`${decl.prop}: ${decl.value}\` — sizing values must read \`var(--t-*)\` / \`var(--_*)\` or stay on relative units (em, lh, %, vh / vw / sv* / lv* / dv* / cq*, fr, ch, ex). Raw px / rem rejected (in the value or in any --_* slot it traces through).`,
       });
     });
   }
 
   return out;
+}
+
+/**
+ * Like `isAcceptableSizingValue` but follows every `var(--_*)` reference into
+ * the file's own `--_*` declarations. A slot is acceptable only if EVERY
+ * declared value (across modifiers, states, breakpoints) is itself acceptable.
+ * `seen` guards against cycles in slot graphs.
+ */
+function isAcceptableSizingValueDeep(
+  value: string,
+  slotValues: ReadonlyMap<string, readonly string[]>,
+  seen: Set<string>,
+): boolean {
+  if (!isAcceptableSizingValue(value)) return false;
+  for (const match of value.matchAll(/var\(\s*(--_[\w-]+)\s*[,)]/g)) {
+    const name = match[1];
+    if (name === undefined || seen.has(name)) continue;
+    seen.add(name);
+    for (const slotValue of slotValues.get(name) ?? []) {
+      if (!isAcceptableSizingValueDeep(slotValue, slotValues, seen)) return false;
+    }
+  }
+  return true;
 }
 
 function runRule(): ViolationDetail[] {
