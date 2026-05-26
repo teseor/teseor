@@ -53,11 +53,10 @@ parts:
   page:
     repeating: true
     propName: pages       # optional override
-    element: a
+    element: span
     rootClass: t-pagination-page
     props:
-      label:   { type: string,  description: "Page label rendered inside the link." }
-      href:    { type: string,  description: "Target URL." }
+      label:   { type: string,  slot: true, description: "Page label rendered as the item text." }
       current: { type: boolean, description: "Marks the current page." }
 ```
 
@@ -88,7 +87,7 @@ These are the same rules `gen-react` / `gen-vue` apply for a single-element part
 
 ### Native HTML attributes
 
-`href`, `aria-*`, `title`, `name`, and other native attributes on the per-item element are out of scope. The same gap exists on atomic specs today — a `Link` spec couldn't emit raw `href` either. Phase-1 Pagination is a **non-navigational stub**: its `href` prop emits as `data-href` per the standard DOM rule, so the stub proves the iteration codegen but does not produce a working pagination control. Real interactive Pagination (with native `href` and per-item events) ships with phase 3 once events ([#690]) and native-attr passthrough land. Native-attr passthrough is a separate concern filed if/when it becomes load-bearing.
+`href`, `aria-*`, `title`, `name`, and other native attributes on the per-item element are out of scope. The same gap exists on atomic specs today — a `Link` spec couldn't emit raw `href` either. Phase-1 Pagination sidesteps the problem by being a **non-navigational stub**: it uses `<span>` for the page element so the missing `href` doesn't fail biome's `useValidAnchor` a11y rule. Real interactive Pagination (with native `href` on an `<a>` element and per-item events) ships with phase 3 once events ([#690]) and native-attr passthrough land. Native-attr passthrough is a separate concern filed if/when it becomes load-bearing.
 
 ### Flat shape — new `repeating[]` block
 
@@ -125,40 +124,36 @@ Repeating parts **do not** flow through the existing flat `props:` map. The flat
 
 ```tsx
 {pages.map((item) => (
-  <a
+  <span
     key={item.id}
     data-id={item.id}
     className="t-pagination-page"
     data-current={item.current || undefined}
-    data-href={item.href}
   >
     {item.label}
-  </a>
+  </span>
 ))}
 ```
 
 `gen-vue` emits the same shape via `v-for`:
 
 ```vue
-<a
+<span
   v-for="item in pages"
   :key="item.id"
   :data-id="item.id"
   class="t-pagination-page"
   :data-current="item.current || undefined"
-  :data-href="item.href"
->{{ item.label }}</a>
+>{{ item.label }}</span>
 ```
 
 `gen-contract` exposes the array as a typed prop:
 
 ```ts
 type PaginationProps = {
-  // … other scalar props from non-repeating parts …
-  pages: Array<{
+  pages?: ReadonlyArray<{
     id: string;
-    label: string;
-    href: string;
+    label?: string;
     current?: boolean;
   }>;
 };
@@ -189,7 +184,7 @@ parts:
       label: { type: string, slot: true, description: "Option label." }
 ```
 
-The iteration body computes `checked = item.value === props.value` and emits `name={props.name}` per item. Phase 1 doesn't ship this combination — the only phase-1 stub (Pagination) has no group-controllable state.
+The iteration body computes `checked = item.value === props.value` and emits `name={props.name}` per item. Phase 1 explicitly **rejects** this combination at the semantic-checks layer (rule 11 below): in a composite with any repeating part, non-repeating siblings may not declare scalar `props:`. The rejection lifts in phase 2 alongside `groupKey:` and the interleave codegen.
 
 ### Group-state vs per-item-state
 
@@ -203,7 +198,7 @@ Phase 1 doesn't declare the `groupKey:` field in the schema. The Zod `strictObje
 
 ### Validator rejections (semantic-checks.ts)
 
-A repeating part triggers one of six new `Issue`s in phase 1. Three more rules (#6, #7, #9 below) land with the `groupKey:` field in phase 2. The full nine-rule table is kept in the RFC for forward visibility — the phase column marks what ships when.
+A repeating part triggers one of eight new `Issue`s in phase 1. Three more rules (#6, #7, #9 below) land with the `groupKey:` field in phase 2. The full eleven-rule table is kept in the RFC for forward visibility — the phase column marks what ships when.
 
 | # | Condition | Phase | Rationale |
 | --- | --- | --- | --- |
@@ -216,12 +211,14 @@ A repeating part triggers one of six new `Issue`s in phase 1. Three more rules (
 | 7 | Two parts sharing `groupKey:` declare a per-item prop with the same name | 2 | Phase-2 collision; lands with the `groupKey:` field. |
 | 8 | A repeating part declares `props.id` | 1 | `id` is codegen-reserved. |
 | 9 | A `groupKey:` value is referenced by exactly one repeating part | 2 | `groupKey` only makes sense with ≥ 2 sharers; a lone one means the author wants `propName:`. |
+| 10 | Effective `propName` is not a valid JS identifier or collides with a codegen-emitted wrapper local (`ref`, `className`, `class`, `children`, `key`, `style`, `id`) | 1 | The generated wrapper would not compile. |
+| 11 | Non-repeating part declares scalar `props:` in a composite that has repeating parts | 1 | Group-level scalar props need the `groupKey:` + interleave codegen machinery; deferred to phase 2. |
 
 Each issue includes the repeating part's dotted `partPath` in `Issue.path` so authors can locate the offending declaration without grepping.
 
 ### The phase-1 stub — Pagination
 
-Pagination is the phase-1 stub because it's the simplest candidate that is meaningful without per-item events and without a11y wiring. The stub is **non-navigational** — it renders one `<a>` per page with `data-href` and `data-current` per the standard DOM rule. The purpose is to verify the iteration codegen end-to-end (schema → flatten → react/vue/contract/docs), not to ship a usable consumer component. The real, navigation-capable Pagination lands with phase 3 when events ([#690]) and a native-attr passthrough become available.
+Pagination is the phase-1 stub because it's the simplest candidate that is meaningful without per-item events and without a11y wiring. The stub is **non-navigational**. The page element is `<span>` (not `<a>` — an anchor without `href` fails biome's `useValidAnchor` a11y rule, and native-attr passthrough is out of phase-1 scope). Each item renders with `data-current` per the standard DOM rule. The purpose is to verify the iteration codegen end-to-end (schema → flatten → react/vue/contract/docs), not to ship a usable consumer component. The real, navigation-capable Pagination lands with phase 3 when events ([#690]) and a native-attr passthrough become available — at that point the element switches to `<a>` with real `href` and the per-item event handlers wire up.
 
 Sketch:
 
@@ -239,12 +236,11 @@ parts:
       role: navigation
   page:
     repeating: true
-    element: a
+    element: span
     rootClass: t-pagination-page
     props:
-      label:   { type: string,  description: "Page label rendered as the link text." }
-      href:    { type: string,  description: "Target URL for this page." }
-      current: { type: boolean, description: "Marks the active page." }
+      label:   { type: string, slot: true, description: "Page label rendered as the item text." }
+      current: { type: boolean, responsive: false, description: "Marks the active page." }
 ```
 
 Resolved flat shape:
@@ -253,14 +249,14 @@ Resolved flat shape:
 {
   name: "pagination",
   kind: "composite",
-  // … root part flattens normally …
-  props: { /* group-level props from root part only */ },
+  // … root part flattens normally (no scalar props in phase 1) …
+  props: {},
   repeating: [{
     partName: "page",
     propName: "pages",
-    element: "a",
+    element: "span",
     rootClass: "t-pagination-page",
-    itemProps: { label: …, href: …, current: … },
+    itemProps: { label: …, current: … },
   }],
 }
 ```
@@ -269,7 +265,7 @@ Resolved React contract:
 
 ```ts
 type PaginationProps = {
-  pages: Array<{ id: string; label: string; href: string; current?: boolean }>;
+  pages?: ReadonlyArray<{ id: string; label?: string; current?: boolean }>;
 };
 ```
 
