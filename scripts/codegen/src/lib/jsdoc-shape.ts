@@ -63,29 +63,33 @@ export function renderExampleProps(
 /**
  * Render one `@example` JSDoc block (the leader, the fenced snippet, and the
  * closing fence). The caller assembles multiple blocks into a single JSDoc.
+ * Composite-list specs (RFC-0005) render only from an array prop and accept
+ * no children — pass `selfClosing: true` to emit `<Name … />` instead of
+ * `<Name …>Label</Name>` so the published examples match the runtime shape.
  */
 export function renderExampleBlock(
   example: JsDocExample,
   Name: string,
   flavor: JsDocFlavor,
+  selfClosing = false,
 ): string[] {
   const propString = renderExampleProps(example.props, flavor);
   const title = example.id ? ` ${titleCase(example.id)}` : "";
-  return [
-    ` * @example${title}`,
-    ` * \`\`\`${flavor.fence}`,
-    ` * <${Name}${propString}>Label</${Name}>`,
-    ` * \`\`\``,
-  ];
+  const tag = selfClosing ? `<${Name}${propString} />` : `<${Name}${propString}>Label</${Name}>`;
+  return [` * @example${title}`, ` * \`\`\`${flavor.fence}`, ` * ${tag}`, ` * \`\`\``];
 }
 
 /**
  * Render the full JSDoc block for a component, combining the spec's
- * description and up to three `@example` entries.
+ * description and up to three `@example` entries. Composite-list specs
+ * (with a non-empty `spec.repeating[]`) get self-closing example tags
+ * because the component renders only from the array prop.
  */
 export function renderComponentJsDoc(spec: FlatSpec, Name: string, flavor: JsDocFlavor): string {
   const description = spec.description ?? "";
   const examples = (spec.examples ?? []).slice(0, 3);
+  const selfClosing =
+    spec.kind === "composite" && Array.isArray(spec.repeating) && spec.repeating.length > 0;
   const lines: string[] = ["/**"];
   if (description) lines.push(` * ${description}`);
   for (let i = 0; i < examples.length; i++) {
@@ -93,7 +97,7 @@ export function renderComponentJsDoc(spec: FlatSpec, Name: string, flavor: JsDoc
     if (!example) continue;
     if (i === 0 && description) lines.push(` *`);
     if (i > 0) lines.push(` *`);
-    lines.push(...renderExampleBlock(example, Name, flavor));
+    lines.push(...renderExampleBlock(example, Name, flavor, selfClosing));
   }
   lines.push(" */");
   const block = lines.join("\n");

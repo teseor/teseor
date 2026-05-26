@@ -31,17 +31,17 @@ export type PaginationProps = PaginationOwnProps &
  *
  * @example Three Pages
  * ```tsx
- * <Pagination pages={[{"id":"1","label":"1"},{"id":"2","label":"2","current":true},{"id":"3","label":"3"}]}>Label</Pagination>
+ * <Pagination pages={[{"id":"1","label":"1"},{"id":"2","label":"2","current":true},{"id":"3","label":"3"}]} />
  * ```
  *
  * @example Five Pages Last Active
  * ```tsx
- * <Pagination pages={[{"id":"1","label":"1"},{"id":"2","label":"2"},{"id":"3","label":"3"},{"id":"4","label":"4"},{"id":"5","label":"5","current":true}]}>Label</Pagination>
+ * <Pagination pages={[{"id":"1","label":"1"},{"id":"2","label":"2"},{"id":"3","label":"3"},{"id":"4","label":"4"},{"id":"5","label":"5","current":true}]} />
  * ```
  *
  * @example Empty
  * ```tsx
- * <Pagination pages={[]}>Label</Pagination>
+ * <Pagination pages={[]} />
  * ```
  */
 export function Pagination(props: PaginationProps) {
