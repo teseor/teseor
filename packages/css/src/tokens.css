@@ -4,22 +4,22 @@
   :root {
     /* ===== Colors — oklch throughout (Baseline 2024) ===== */
 
-    /* Neutral — 0 lightest, 100 darkest */
-    --t-neutral-0: oklch(100% 0 0deg);
-    --t-neutral-10: oklch(97% 0 0deg);
-    --t-neutral-20: oklch(92% 0 0deg);
-    --t-neutral-30: oklch(85% 0 0deg);
-    --t-neutral-40: oklch(75% 0 0deg);
-    --t-neutral-50: oklch(65% 0 0deg);
-    --t-neutral-60: oklch(55% 0 0deg);
-    --t-neutral-70: oklch(42% 0 0deg);
-    --t-neutral-80: oklch(30% 0 0deg);
-    --t-neutral-90: oklch(18% 0 0deg);
-    --t-neutral-100: oklch(0% 0 0deg);
-
     /* ===== Color seed — sole knob for the color cascade. ===== */
     --t-seed: oklch(65% 0.18 250deg);
     --t-harmony: 0;
+
+    /* Neutral — derived from --t-neutral (seed-tinted gray). Steps 0/100 forced pure. */
+    --t-neutral-0: oklch(from var(--t-neutral) 100% 0 h);
+    --t-neutral-10: oklch(from var(--t-neutral) 97% c h);
+    --t-neutral-20: oklch(from var(--t-neutral) 92% c h);
+    --t-neutral-30: oklch(from var(--t-neutral) 85% c h);
+    --t-neutral-40: oklch(from var(--t-neutral) 75% c h);
+    --t-neutral-50: oklch(from var(--t-neutral) 65% c h);
+    --t-neutral-60: oklch(from var(--t-neutral) 55% c h);
+    --t-neutral-70: oklch(from var(--t-neutral) 42% c h);
+    --t-neutral-80: oklch(from var(--t-neutral) 30% c h);
+    --t-neutral-90: oklch(from var(--t-neutral) 18% c h);
+    --t-neutral-100: oklch(from var(--t-neutral) 0% 0 h);
 
     /* Accent — derived from --t-accent (default = seed). */
     --t-accent-50: oklch(from var(--t-accent) 97% calc(c * 0.111) h);
@@ -33,53 +33,53 @@
     --t-accent-800: oklch(from var(--t-accent) 35% calc(c * 0.722) h);
     --t-accent-900: oklch(from var(--t-accent) 25% calc(c * 0.556) h);
 
-    /* Success — green, hue 155 */
-    --t-success-50: oklch(97% 0.02 155deg);
-    --t-success-100: oklch(93% 0.05 155deg);
-    --t-success-200: oklch(86% 0.09 155deg);
-    --t-success-300: oklch(78% 0.13 155deg);
-    --t-success-400: oklch(71% 0.16 155deg);
-    --t-success-500: oklch(65% 0.18 155deg);
-    --t-success-600: oklch(55% 0.18 155deg);
-    --t-success-700: oklch(45% 0.16 155deg);
-    --t-success-800: oklch(35% 0.13 155deg);
-    --t-success-900: oklch(25% 0.1 155deg);
+    /* Success — derived from --t-success (anchor L=62%; canonical hue 155 ↔ seed at --t-harmony). */
+    --t-success-50: oklch(from var(--t-success) 97% calc(c * 0.111) h);
+    --t-success-100: oklch(from var(--t-success) 93% calc(c * 0.278) h);
+    --t-success-200: oklch(from var(--t-success) 86% calc(c * 0.5) h);
+    --t-success-300: oklch(from var(--t-success) 78% calc(c * 0.722) h);
+    --t-success-400: oklch(from var(--t-success) 71% calc(c * 0.889) h);
+    --t-success-500: var(--t-success);
+    --t-success-600: oklch(from var(--t-success) 52% c h);
+    --t-success-700: oklch(from var(--t-success) 42% calc(c * 0.889) h);
+    --t-success-800: oklch(from var(--t-success) 32% calc(c * 0.722) h);
+    --t-success-900: oklch(from var(--t-success) 22% calc(c * 0.556) h);
 
-    /* Warning — amber, hue 80 */
-    --t-warning-50: oklch(97% 0.02 80deg);
-    --t-warning-100: oklch(93% 0.05 80deg);
-    --t-warning-200: oklch(86% 0.09 80deg);
-    --t-warning-300: oklch(82% 0.13 80deg);
-    --t-warning-400: oklch(78% 0.16 80deg);
-    --t-warning-500: oklch(75% 0.18 80deg);
-    --t-warning-600: oklch(65% 0.18 80deg);
-    --t-warning-700: oklch(55% 0.16 80deg);
-    --t-warning-800: oklch(40% 0.13 80deg);
-    --t-warning-900: oklch(30% 0.1 80deg);
+    /* Warning — derived from --t-warning (anchor L=68%; "alert, not stop"). */
+    --t-warning-50: oklch(from var(--t-warning) 97% calc(c * 0.111) h);
+    --t-warning-100: oklch(from var(--t-warning) 93% calc(c * 0.278) h);
+    --t-warning-200: oklch(from var(--t-warning) 86% calc(c * 0.5) h);
+    --t-warning-300: oklch(from var(--t-warning) 80% calc(c * 0.722) h);
+    --t-warning-400: oklch(from var(--t-warning) 75% calc(c * 0.889) h);
+    --t-warning-500: var(--t-warning);
+    --t-warning-600: oklch(from var(--t-warning) 58% c h);
+    --t-warning-700: oklch(from var(--t-warning) 48% calc(c * 0.889) h);
+    --t-warning-800: oklch(from var(--t-warning) 38% calc(c * 0.722) h);
+    --t-warning-900: oklch(from var(--t-warning) 28% calc(c * 0.556) h);
 
-    /* Danger — red, hue 25 */
-    --t-danger-50: oklch(97% 0.02 25deg);
-    --t-danger-100: oklch(93% 0.05 25deg);
-    --t-danger-200: oklch(86% 0.09 25deg);
-    --t-danger-300: oklch(78% 0.13 25deg);
-    --t-danger-400: oklch(70% 0.16 25deg);
-    --t-danger-500: oklch(62% 0.2 25deg);
-    --t-danger-600: oklch(52% 0.2 25deg);
-    --t-danger-700: oklch(42% 0.18 25deg);
-    --t-danger-800: oklch(33% 0.14 25deg);
-    --t-danger-900: oklch(24% 0.1 25deg);
+    /* Danger — derived from --t-danger (anchor L=48%; darker, cb-safety from success). */
+    --t-danger-50: oklch(from var(--t-danger) 97% calc(c * 0.111) h);
+    --t-danger-100: oklch(from var(--t-danger) 93% calc(c * 0.278) h);
+    --t-danger-200: oklch(from var(--t-danger) 86% calc(c * 0.5) h);
+    --t-danger-300: oklch(from var(--t-danger) 78% calc(c * 0.722) h);
+    --t-danger-400: oklch(from var(--t-danger) 70% calc(c * 0.889) h);
+    --t-danger-500: var(--t-danger);
+    --t-danger-600: oklch(from var(--t-danger) 40% c h);
+    --t-danger-700: oklch(from var(--t-danger) 32% calc(c * 0.889) h);
+    --t-danger-800: oklch(from var(--t-danger) 24% calc(c * 0.722) h);
+    --t-danger-900: oklch(from var(--t-danger) 16% calc(c * 0.556) h);
 
-    /* Info — cyan, hue 210 */
-    --t-info-50: oklch(97% 0.02 210deg);
-    --t-info-100: oklch(93% 0.05 210deg);
-    --t-info-200: oklch(86% 0.09 210deg);
-    --t-info-300: oklch(78% 0.13 210deg);
-    --t-info-400: oklch(71% 0.15 210deg);
-    --t-info-500: oklch(65% 0.17 210deg);
-    --t-info-600: oklch(55% 0.17 210deg);
-    --t-info-700: oklch(45% 0.15 210deg);
-    --t-info-800: oklch(35% 0.12 210deg);
-    --t-info-900: oklch(25% 0.09 210deg);
+    /* Info — derived from --t-info (anchor L=55%). */
+    --t-info-50: oklch(from var(--t-info) 97% calc(c * 0.111) h);
+    --t-info-100: oklch(from var(--t-info) 93% calc(c * 0.278) h);
+    --t-info-200: oklch(from var(--t-info) 86% calc(c * 0.5) h);
+    --t-info-300: oklch(from var(--t-info) 78% calc(c * 0.722) h);
+    --t-info-400: oklch(from var(--t-info) 66% calc(c * 0.889) h);
+    --t-info-500: var(--t-info);
+    --t-info-600: oklch(from var(--t-info) 45% c h);
+    --t-info-700: oklch(from var(--t-info) 37% calc(c * 0.889) h);
+    --t-info-800: oklch(from var(--t-info) 28% calc(c * 0.722) h);
+    --t-info-900: oklch(from var(--t-info) 20% calc(c * 0.556) h);
 
     /* ===== Grid unit — sole knob for the spatial system =====
 
@@ -223,16 +223,35 @@
     --t-border: var(--t-neutral-20);
     --t-border-strong: var(--t-neutral-40);
 
-    /* ===== Intents — pairs every fill with --t-on-<role> ===== */
+    /* ===== Family anchors — derive from --t-seed; ramps read these. ===== */
     --t-accent: var(--t-seed);
+    --t-neutral: oklch(from var(--t-seed) 50% calc(c * 0.025) h);
+    --t-success: color-mix(
+      in oklch,
+      oklch(from var(--t-seed) 62% c 155deg),
+      oklch(from var(--t-seed) 62% c h) calc(var(--t-harmony) * 100%)
+    );
+    --t-warning: color-mix(
+      in oklch,
+      oklch(from var(--t-seed) 68% c 80deg),
+      oklch(from var(--t-seed) 68% c h) calc(var(--t-harmony) * 100%)
+    );
+    --t-danger: color-mix(
+      in oklch,
+      oklch(from var(--t-seed) 48% c 25deg),
+      oklch(from var(--t-seed) 48% c h) calc(var(--t-harmony) * 100%)
+    );
+    --t-info: color-mix(
+      in oklch,
+      oklch(from var(--t-seed) 55% c 210deg),
+      oklch(from var(--t-seed) 55% c h) calc(var(--t-harmony) * 100%)
+    );
+
+    /* ===== Intent foregrounds — paired text/icon color for each fill. ===== */
     --t-on-accent: var(--t-neutral-0);
-    --t-success: var(--t-success-500);
     --t-on-success: var(--t-neutral-0);
-    --t-warning: var(--t-warning-500);
     --t-on-warning: var(--t-neutral-100);
-    --t-danger: var(--t-danger-500);
     --t-on-danger: var(--t-neutral-0);
-    --t-info: var(--t-info-500);
     --t-on-info: var(--t-neutral-0);
 
     /* ===== Focus ===== */
