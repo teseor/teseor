@@ -102,17 +102,26 @@
     --t-row-3: calc(var(--t-unit) * 10); /* 40px */
     --t-row-4: calc(var(--t-unit) * 12); /* 48px */
 
-    /* ===== Typography — ratio 1.125, base = 1rem ===== */
-    --t-text-xs: 0.79rem;
-    --t-text-sm: 0.89rem;
-    --t-text-base: 1rem;
-    --t-text-lg: 1.125rem;
-    --t-text-xl: 1.27rem;
-    --t-text-2xl: 1.42rem;
-    --t-text-3xl: 1.6rem;
-    --t-leading-tight: 1.2;
-    --t-leading-normal: 1.5;
-    --t-leading-loose: 1.75;
+    /* ===== Typography — derived from --t-unit (Phase 2 of tokens-v4) =====
+
+       Sizes are unit-multiples. Half-multipliers on `sm` and `lg` resolve to
+       14px and 18px — off the 4px grid as glyph boxes, but the line box lands
+       on grid because leading is unit-multiple. Integer multipliers everywhere
+       else. */
+    --t-text-xs: calc(var(--t-unit) * 3); /* 12px */
+    --t-text-sm: calc(var(--t-unit) * 3.5); /* 14px */
+    --t-text-base: calc(var(--t-unit) * 4); /* 16px */
+    --t-text-lg: calc(var(--t-unit) * 4.5); /* 18px */
+    --t-text-xl: calc(var(--t-unit) * 5); /* 20px */
+    --t-text-2xl: calc(var(--t-unit) * 6); /* 24px */
+    --t-text-3xl: calc(var(--t-unit) * 8); /* 32px */
+
+    /* Leading derives from font-size and snaps up to the next --t-unit step,
+       so every rendered text row lands on the grid regardless of font size.
+       `round()` is Baseline 2024. */
+    --t-leading-tight: round(up, calc(1em * 1.25), var(--t-unit));
+    --t-leading-normal: round(up, calc(1em * 1.5), var(--t-unit));
+    --t-leading-loose: round(up, calc(1em * 1.75), var(--t-unit));
     --t-font-sans: ui-sans-serif, system-ui, -apple-system, blinkmacsystemfont, "Segoe UI", roboto,
       "Helvetica Neue", arial, sans-serif;
     --t-font-mono: ui-monospace, "SF Mono", menlo, monaco, consolas, "Liberation Mono",
