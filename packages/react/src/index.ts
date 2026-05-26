@@ -5,5 +5,6 @@ export { Cluster, type ClusterProps } from "./Cluster.tsx";
 export { Code, type CodeProps } from "./Code.tsx";
 export { Codeblock, type CodeblockProps } from "./Codeblock.tsx";
 export { Modal, type ModalProps } from "./Modal.tsx";
+export { Pagination, type PaginationProps } from "./Pagination.tsx";
 export { Stack, type StackProps } from "./Stack.tsx";
 export { Tooltip, type TooltipProps } from "./Tooltip.tsx";

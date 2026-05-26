@@ -1,0 +1,93 @@
+---
+import { Pagination, Code, Codeblock } from "@teseor/react";
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Pagination — Teseor">
+  <main class="t-stack" data-gap="6">
+    <h1>Pagination</h1>
+    <p>A static page-link list. Renders one item per entry in the `pages` array. Phase-1 stub for RFC-0005; real navigation lands with phase 3.</p>
+    <section class="t-stack" data-gap="3">
+      <h2>Examples</h2>
+      <div class="t-stack" data-gap="2">
+        <h3>three-pages</h3>
+        <div class="t-cluster" data-gap="3">
+          <Pagination pages={[{ id: "1", label: "1" }, { id: "2", label: "2", current: true }, { id: "3", label: "3" }]} />
+        </div>
+        <Codeblock>&lt;Pagination pages=&lbrace;[&lbrace; id: "1", label: "1" &rbrace;, &lbrace; id: "2", label: "2", current: true &rbrace;, &lbrace; id: "3", label: "3" &rbrace;]&rbrace; /&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>five-pages-last-active</h3>
+        <div class="t-cluster" data-gap="3">
+          <Pagination pages={[{ id: "1", label: "1" }, { id: "2", label: "2" }, { id: "3", label: "3" }, { id: "4", label: "4" }, { id: "5", label: "5", current: true }]} />
+        </div>
+        <Codeblock>&lt;Pagination pages=&lbrace;[&lbrace; id: "1", label: "1" &rbrace;, &lbrace; id: "2", label: "2" &rbrace;, &lbrace; id: "3", label: "3" &rbrace;, &lbrace; id: "4", label: "4" &rbrace;, &lbrace; id: "5", label: "5", current: true &rbrace;]&rbrace; /&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>empty</h3>
+        <div class="t-cluster" data-gap="3">
+          <Pagination pages={[]} />
+        </div>
+        <Codeblock>&lt;Pagination pages=&lbrace;[]&rbrace; /&gt;</Codeblock>
+      </div>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Props</h2>
+      <table>
+        <thead><tr><th>Prop</th><th>Type</th><th>Responsive</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>pages</Code></td><td><Code>ReadonlyArray&lt;PaginationPageItem&gt;</Code></td><td></td><td><Code>[]</Code></td><td>Items rendered by the repeating <Code>page</Code> part. See <Code>PaginationPageItem</Code> for the item shape.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>PaginationPageItem</h2>
+      <table>
+        <thead><tr><th>Field</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>id</Code></td><td><Code>string</Code></td><td>—</td><td>Stable item identity (required).</td></tr>
+        <tr><td><Code>label</Code></td><td><Code>string, slot</Code></td><td><Code>null</Code></td><td>Page label rendered as the item text.</td></tr>
+        <tr><td><Code>current</Code></td><td><Code>boolean</Code></td><td><Code>null</Code></td><td>Marks the active page; exposed as `data-current`.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Tokens</h2>
+      <table>
+        <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-pagination-gap</Code></td><td><Code>--t-space-2</Code></td><td>Gap between page items.</td></tr>
+        <tr><td><Code>--t-pagination-pad-x</Code></td><td><Code>--t-space-2</Code></td><td>Inline padding around the page label.</td></tr>
+        <tr><td><Code>--t-pagination-pad-y</Code></td><td><Code>--t-space-1</Code></td><td>Block padding around the page label.</td></tr>
+        <tr><td><Code>--t-pagination-radius</Code></td><td><Code>--t-radius-sm</Code></td><td>Corner radius.</td></tr>
+        <tr><td><Code>--t-pagination-fg</Code></td><td><Code>--t-fg</Code></td><td>Default text color.</td></tr>
+        <tr><td><Code>--t-pagination-fg-current</Code></td><td><Code>--t-accent</Code></td><td>Text color of the active page.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Accessibility</h2>
+      <p>Role: <Code>navigation</Code></p>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Forced colors</h2>
+      <p>In Windows High Contrast mode, the component remaps these semantic tokens to CSS system colors. Custom-property inheritance carries the values to every reference in the subtree.</p>
+      <table>
+        <thead><tr><th>Token</th><th>Default</th><th>Forced-colors</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-accent</Code></td><td><Code>oklch(from oklch(58% 0.2 268deg) 55% c h)</Code></td><td><Code>ButtonText</Code></td></tr>
+        <tr><td><Code>--t-fg</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 50% calc(c * 0.025) h) 18% c h)</Code></td><td><Code>CanvasText</Code></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Bundle size</h2>
+      <table>
+        <thead><tr><th>Artifact</th><th>Raw</th><th>Gzip</th><th>Brotli</th></tr></thead>
+        <tbody>
+        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/pagination/pagination.css"><Code>@teseor/css/components/pagination.css</Code></a></td><td>1.07 KB</td><td>0.46 KB</td><td>0.42 KB</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</Base>

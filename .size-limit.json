@@ -41,6 +41,10 @@
     "path": "packages/css/dist/components/modal.css"
   },
   {
+    "name": "@teseor/css/components/pagination.css",
+    "path": "packages/css/dist/components/pagination.css"
+  },
+  {
     "name": "@teseor/css/components/stack.css",
     "path": "packages/css/dist/components/stack.css"
   },
