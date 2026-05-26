@@ -12,6 +12,7 @@ import { Spec as SpecSchema } from "../schema.ts";
 import type { Spec } from "./gen-contract.ts";
 import { renderCssShim } from "./gen-react/_shared/css-shim.ts";
 import { renderAtomicReactWrapper } from "./gen-react/kinds/atomic.ts";
+import { renderCompositeListReactWrapper } from "./gen-react/kinds/composite-list.ts";
 import { renderCompositeOverlayReactWrapper } from "./gen-react/kinds/composite-overlay.ts";
 import { renderBarrel } from "./gen-react/workspace/barrel.ts";
 import { renderReadme } from "./gen-react/workspace/readme.ts";
@@ -21,9 +22,14 @@ const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..", "
 const SPECS_DIR = resolve(REPO_ROOT, "specs");
 const REACT_SRC_DIR = resolve(REPO_ROOT, "packages", "react", "src");
 
-/** Dispatch to the kind-specific renderer for the spec's `kind:` field. */
+/** Dispatch to the kind-specific renderer for the spec's `kind:` field.
+ *  Composite specs split by shape: overlay-anchor (Tooltip / Modal) vs
+ *  repeating-list (Pagination, RFC-0005). */
 function renderWrapper(spec: Spec, propDescriptions: Record<string, string>): string {
-  if (spec.kind === "composite") return renderCompositeOverlayReactWrapper(spec, propDescriptions);
+  if (spec.kind === "composite") {
+    if (spec.repeating && spec.repeating.length > 0) return renderCompositeListReactWrapper(spec);
+    return renderCompositeOverlayReactWrapper(spec, propDescriptions);
+  }
   return renderAtomicReactWrapper(spec, propDescriptions);
 }
 
