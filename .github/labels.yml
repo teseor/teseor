@@ -57,6 +57,9 @@
 - name: component:modal
   color: d4c5f9
   description: modal component
+- name: component:pagination
+  color: d4c5f9
+  description: pagination component
 - name: component:stack
   color: d4c5f9
   description: stack component
