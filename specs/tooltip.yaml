@@ -100,6 +100,9 @@ parts:
       font-size:
         fallback: --t-text-sm
         desc: Font size for tooltip body text.
+      leading:
+        fallback: --t-leading-normal
+        desc: Line-height. Derives from font-size and snaps to the unit grid via `round()`.
       arrow-size:
         fallback: --t-space-3
         desc: Arrow square size. Rotated 45° to form the pointer; visible triangle is roughly size/√2 tall.
@@ -119,6 +122,7 @@ parts:
       - --_dur
       - --_ease
       - --_font-size
+      - --_leading
       - --_motion-scale
       - --_arrow-size
       - --_arrow-bg
