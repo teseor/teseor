@@ -174,7 +174,7 @@ Three sequential PRs, mirroring tokens-v4's shape:
 
    - **Anchor lightness retune.** `--t-accent` 0.58 → 0.55, `--t-success` 0.62 → 0.52, `--t-warning` 0.68 → 0.80 (also fixes the muddy-amber visual problem — yellows below L=0.80 read as brown in sRGB), `--t-info` 0.55 → 0.50. `--t-danger` unchanged at 0.48. Ramp steps below the anchor recalculated to keep the 50→900 ladder monotonic.
 
-   - **Derived foregrounds.** Each `--t-on-{intent}` becomes `oklch(from var(--t-{intent}) clamp(0, calc((0.62 - l) * 1000), 1) 0 h)` — the foreground picks black or white based on its intent's lightness, so `--t-warning: pink` overrides flip the text color automatically.
+   - **Derived foregrounds.** Each `--t-on-{intent}` becomes `oklch(from var(--t-{intent}) max(0, sign(0.62 - l)) 0 h)` — `sign()` returns 1 when bg L < 0.62 (use white) or -1 when bg L > 0.62 (use black); `max(0, …)` clamps to {0, 1}. So `--t-warning: pink` overrides flip the text color automatically. (A `clamp(0, calc((0.62 - l) * 1000), 1)` form has the same behavior; the `sign()` form is ~16 chars shorter per declaration, which is what let the change ship under the 8 kB brotli budget.)
 
    The cb-safety stagger compresses on the dark end (danger ↔ success ΔL drops from 0.14 to 0.04) and widens on the light end (success ↔ warning ΔL rises from 0.06 to 0.28). Still a default, not a guarantee — the picker (#823) warns on per-consumer overrides.
 

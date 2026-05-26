@@ -1,5 +1,8 @@
 ---
 "@teseor/css": minor
+"@teseor/contract": minor
+"@teseor/react": minor
+"@teseor/vue": minor
 ---
 
 WCAG-AA defaults + derived intent foregrounds (RFC-0004 phase 4) + dist minify + Button info intent.
