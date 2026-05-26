@@ -1,7 +1,10 @@
 name: changes
 description: |
   Classify what changed in this PR relative to the base ref. Emits
-  `code=true` when any file outside docs/, .changeset/, and *.md changed.
+  `code=true` when any non-markdown file changed. Markdown-only PRs
+  (docs, READMEs, changeset bundles) get `code=false`; `.changeset/config.json`
+  and other non-markdown files still trigger the full matrix.
+
   Returns `code=true` unconditionally for non-pull_request events so push
   builds always run the full matrix.
 
@@ -26,7 +29,7 @@ runs:
         fi
         git fetch --quiet origin "$BASE_REF"
         changed=$(git diff --name-only "origin/$BASE_REF...HEAD")
-        if echo "$changed" | grep -Ev '^(docs/|\.changeset/|.*\.md$)' | grep -q .; then
+        if echo "$changed" | grep -Ev '\.md$' | grep -q .; then
           echo "code=true" >> "$GITHUB_OUTPUT"
         else
           echo "code=false" >> "$GITHUB_OUTPUT"
