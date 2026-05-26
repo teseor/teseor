@@ -15,9 +15,11 @@ const intents = ["accent", "success", "warning", "danger", "info"] as const;
   <main class="t-stack" data-gap="6">
     <h1>Themes</h1>
     <p>
-      Color cascade preview. Phase 1: <code>--t-seed</code> drives the accent
-      ramp via <code>oklch(from …)</code>. Intent + neutral ramps are still
-      hand-authored — they migrate in phase 2.
+      Color cascade preview. <code>--t-seed</code> drives every ramp:
+      accent + neutral inherit the seed hue directly; intents canonical-hue
+      by default and drift toward seed as <code>--t-harmony</code> rises.
+      Override any family anchor below to pin a specific color; the ramp
+      re-derives in place.
     </p>
 
     <section class="t-stack" data-gap="3">
@@ -30,6 +32,18 @@ const intents = ["accent", "success", "warning", "danger", "info"] as const;
         <label>
           <span>seed</span>
           <input type="color" data-token="--t-seed" value="#5471b5" />
+        </label>
+        <label class="slider">
+          <span>harmony</span>
+          <input
+            type="range"
+            data-token="--t-harmony"
+            min="0"
+            max="1"
+            step="0.05"
+            value="0"
+          />
+          <output id="harmony-out">0</output>
         </label>
         {intents.map((intent) => (
           <label>
@@ -64,7 +78,7 @@ const intents = ["accent", "success", "warning", "danger", "info"] as const;
     </section>
 
     <section class="t-stack" data-gap="3">
-      <h2>Intent ramps (hand-authored, derived in phase 2)</h2>
+      <h2>Intent ramps (seed-derived; canonical-hue at <code>--t-harmony: 0</code>)</h2>
       {(["success", "warning", "danger", "info"] as const).map((family) => (
         <div>
           <h3>{family}</h3>
@@ -80,7 +94,7 @@ const intents = ["accent", "success", "warning", "danger", "info"] as const;
     </section>
 
     <section class="t-stack" data-gap="3">
-      <h2>Neutral ramp (hand-authored, derived in phase 2)</h2>
+      <h2>Neutral ramp (seed-tinted gray; chroma 0.025× seed)</h2>
       <div class="ramp" data-family="neutral">
         {neutralSteps.map((step) => (
           <div class="swatch" data-step={step} style={`background: var(--t-neutral-${step})`}>
@@ -123,19 +137,64 @@ const intents = ["accent", "success", "warning", "danger", "info"] as const;
 <script>
   const root = document.documentElement;
   const inputs = document.querySelectorAll<HTMLInputElement>("input[data-token]");
+  const harmonyOut = document.getElementById("harmony-out");
+
+  /**
+   * Resolves any CSS color (oklch, color-mix, var-chain) to a six-digit hex by
+   * letting the browser paint into a probe element and reading the computed rgb.
+   * `<input type="color">` only accepts hex, so we go through the computed-style
+   * rgb form and convert.
+   */
+  function tokenToHex(token: string): string | null {
+    const probe = document.createElement("div");
+    probe.style.color = `var(${token})`;
+    document.body.appendChild(probe);
+    const computed = getComputedStyle(probe).color;
+    document.body.removeChild(probe);
+    const match = computed.match(/rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)/);
+    if (!match) return null;
+    const [, r, g, b] = match;
+    return (
+      "#" +
+      [r, g, b]
+        .map((n) => Math.round(Number.parseFloat(n)).toString(16).padStart(2, "0"))
+        .join("")
+    );
+  }
+
+  function syncInputs(): void {
+    inputs.forEach((input) => {
+      const token = input.dataset.token;
+      if (!token) return;
+      if (input.type === "color") {
+        const hex = tokenToHex(token);
+        if (hex) input.value = hex;
+      } else if (input.type === "range") {
+        const value = getComputedStyle(root).getPropertyValue(token).trim();
+        input.value = value || "0";
+        if (token === "--t-harmony" && harmonyOut) harmonyOut.textContent = input.value;
+      }
+    });
+  }
+
+  syncInputs();
+
   inputs.forEach((input) => {
     input.addEventListener("input", (event) => {
       const target = event.currentTarget as HTMLInputElement;
       const token = target.dataset.token;
-      if (token) root.style.setProperty(token, target.value);
+      if (!token) return;
+      root.style.setProperty(token, target.value);
+      if (token === "--t-harmony" && harmonyOut) harmonyOut.textContent = target.value;
     });
   });
+
   document.getElementById("reset-tokens")?.addEventListener("click", () => {
     inputs.forEach((input) => {
       const token = input.dataset.token;
       if (token) root.style.removeProperty(token);
-      input.value = "#5471b5";
     });
+    syncInputs();
   });
 </script>
 
@@ -223,6 +282,21 @@ const intents = ["accent", "success", "warning", "danger", "info"] as const;
     border-radius: var(--t-radius-sm);
     padding: 0;
     background: transparent;
+  }
+
+  .picker-grid .slider {
+    flex-direction: column;
+    gap: var(--t-space-1);
+  }
+
+  .picker-grid .slider input[type="range"] {
+    inline-size: 8rem;
+  }
+
+  .picker-grid output {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.75rem;
+    color: var(--t-neutral-90);
   }
 
   .picker-grid button {
