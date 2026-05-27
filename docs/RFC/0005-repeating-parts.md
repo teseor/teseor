@@ -192,31 +192,30 @@ When a parent declares a `pattern: controllable` prop (`value` on RadioGroup, Ta
 
 ### Phase 2 — `groupKey:`
 
-Two parallel repeating parts in the same composite that should iterate **the same array** (Tabs' `tab` + `tabPanel`, RadioGroup's `option-input` + `option-label`) opt in via a shared `groupKey:`. The iteration is **interleaved** — one pass through the array, both parts emitted per iteration step, in sibling order — when the parts share both the same parent and the same `groupKey`. Parts in different parents with the same `groupKey` get separate loops.
+Two parallel repeating parts in the same composite that iterate **the same array** (Tabs' `tab` + `tabPanel`, RadioGroup's `option-input` + `option-label`, the `TabsList` stub's `tab` + `tab-icon`) opt in via a shared `groupKey:`. The iteration is **interleaved** — one pass through the array, both parts emitted per iteration step, in sibling order — when the parts share both the same parent and the same `groupKey`. Parts in different parents with the same `groupKey` get separate loops.
 
-Phase 1 doesn't declare the `groupKey:` field in the schema. The Zod `strictObject` rejects unknown keys, so an author who reaches for `groupKey:` in phase 1 gets a schema-validation error pointing at the offending part path. Phase 2 adds the field and the three groupKey-specific semantic checks together.
+The effective propName precedence is `propName` > `groupKey` > `${partName}s`. Group-level scalar props on the non-repeating wrapper part flow through the wrapper's spread (`{...rest}`) to the rendered element and surface in the typed `Props` interface.
 
 ### Validator rejections (semantic-checks.ts)
 
-A repeating part triggers one of twelve new `Issue`s in phase 1. Three more rules (#6, #7, #9 below) land with the `groupKey:` field in phase 2. The full fifteen-rule table is kept in the RFC for forward visibility — the phase column marks what ships when.
+Fourteen rules ship today. Rule 11 was an interim rejection of group-level scalar props on non-repeating siblings; it was lifted when the wrapper-side props story landed alongside `groupKey:`.
 
-| # | Condition | Phase | Rationale |
-| --- | --- | --- | --- |
-| 1 | `repeating: true` + `fromChildren: true` | 1 | Contradictory — `fromChildren` consumes wrapped React children; repeating renders from an array prop. |
-| 2 | `repeating: true` with no `props:` | 1 | An item shape with zero fields is useless — `id` alone wouldn't render anything. |
-| 3 | Any part in a list composite declares nested `parts:` (whether the repeating part itself or a non-repeating wrapper) | 1 | Deferred to [#835]. Phase-1 list shapes are flat — one wrapper + repeating siblings. |
-| 4 | A repeating part nested inside another repeating part | 1 | Deferred to [#834] (Tree, Table matrix). |
-| 5 | Two repeating siblings default to the same `propName` | 1 | Forces explicit disambiguation. Suggestion hint via Levenshtein. |
-| 6 | `propName:` and `groupKey:` both set on the same part | 2 | `groupKey` controls the array name; declaring both is contradictory. |
-| 7 | Two parts sharing `groupKey:` declare a per-item prop with the same name | 2 | Phase-2 collision; lands with the `groupKey:` field. |
-| 8 | A repeating part declares `props.id` | 1 | `id` is codegen-reserved. |
-| 9 | A `groupKey:` value is referenced by exactly one repeating part | 2 | `groupKey` only makes sense with ≥ 2 sharers; a lone one means the author wants `propName:`. |
-| 10 | Effective `propName` is not a valid JS identifier or collides with a codegen-emitted wrapper local / JS reserved word (e.g. `ref`, `className`, `props`, `rest`, `mergedClassName`, `default`, `let`, `class`, …) | 1 | The generated wrapper would not compile. |
-| 11 | Non-repeating part declares scalar `props:` in a composite that has repeating parts | 1 | Group-level scalar props need the `groupKey:` + interleave codegen machinery; deferred to phase 2. |
-| 12 | Repeating item prop sets `responsive: true` | 1 | Generators emit a plain scalar field + single `data-*` binding, no per-breakpoint expansion. Spec would lie about the API. Deferred. |
-| 13 | List composite has ≠ 1 non-repeating top-level part | 1 | The renderers pick the first non-repeating top-level part as the wrapper; extras are silently dropped, zero throws at generation time. |
-| 14 | Repeating item prop name is not a valid JS identifier | 1 | Codegen emits `item.<name>` in iteration bodies; hyphens / spaces / leading digits produce parse errors. |
-| 15 | `propName:` declared on a non-repeating part | 1 | The override is only consumed when `repeating: true`; declaring it elsewhere is silently ignored downstream. |
+| # | Condition | Rationale |
+| --- | --- | --- |
+| 1 | `repeating: true` + `fromChildren: true` | Contradictory — `fromChildren` consumes wrapped React children; repeating renders from an array prop. |
+| 2 | `repeating: true` with no `props:` | An item shape with zero fields is useless — `id` alone wouldn't render anything. |
+| 3 | Any part in a list composite declares nested `parts:` | Deferred to [#835]. Phase-1 list shapes are flat — one wrapper + repeating siblings. |
+| 4 | A repeating part nested inside another repeating part | Deferred to [#834] (Tree, Table matrix). |
+| 5 | Two repeating siblings default to the same effective `propName` and don't share a `groupKey:` | Forces explicit disambiguation. Siblings that share a `groupKey:` are intentionally allowed to collapse. |
+| 6 | `propName:` and `groupKey:` both set on the same part | `groupKey` already supplies the shared prop name; declaring both is contradictory. |
+| 7 | Two parts sharing `groupKey:` declare the same per-item prop name | The merged item shape would have an ambiguous field. Rename one. |
+| 8 | A repeating part declares `props.id` | `id` is codegen-reserved (synthesized as the React/Vue key). |
+| 9 | A `groupKey:` value is referenced by exactly one repeating part | `groupKey` is for shared-array siblings; use `propName:` for a single repeating part with a custom prop name. |
+| 10 | Effective `propName` (from `propName`, `groupKey`, or default plural) is not a valid JS identifier or collides with a codegen-reserved wrapper local / JS reserved word | The generated wrapper would not compile. |
+| 12 | Repeating item prop sets `responsive: true` | Generators emit a plain scalar field + single `data-*` binding, no per-breakpoint expansion. Spec would lie about the API. |
+| 13 | List composite has ≠ 1 non-repeating top-level part | The renderers pick the first non-repeating top-level part as the wrapper; extras are silently dropped, zero throws at generation time. |
+| 14 | Repeating item prop name is not a valid JS identifier | Codegen emits `item.<name>` in iteration bodies; hyphens / spaces / leading digits produce parse errors. |
+| 15 | `propName:` or `groupKey:` declared on a non-repeating part | Both fields are only consumed when `repeating: true`; declaring either on a non-repeating part is silently ignored downstream. |
 
 Each issue includes the repeating part's dotted `partPath` in `Issue.path` so authors can locate the offending declaration without grepping.
 
@@ -290,7 +289,7 @@ Phase 1 is intentionally thin — most of what people picture when they hear "sp
 
 ## Drawbacks
 
-- **More semantic-check surface.** Twelve new phase-1 rejection clauses, each with its own message and `partPath` resolution (see the validator table above). Three more rules (#6, #7, #9) land with phase 2 alongside the `groupKey:` field. Phase 1 doesn't ship the groupKey rules — they wait for the field declaration.
+- **More semantic-check surface.** Fourteen rejection clauses (see the validator table above), each with its own message and `partPath` resolution. Adds notable type-level and ergonomic surface to the codegen pipeline.
 - **Codegen branches.** `gen-react` / `gen-vue` / `gen-contract` / `gen-docs` each grow a per-repeating-part branch. The atomic-spec code path is untouched; composite-spec code paths get one extra walk over `FlatSpec.repeating[]`.
 - **`FlatSpec.repeating[]` is a new shape generators must consume.** Any future generator that walks the flat spec needs to know about repeating, or it silently produces incomplete output. The cost is paid once per generator.
 - **DOM-attribute rule for plain `string` props is `data-*`, not text content.** A consumer expecting a `string` per-item prop to render as the element's text body needs to flag the prop with `slot: true`. This is the same rule atomic specs already have; the surprise factor is identical.
