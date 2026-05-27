@@ -204,7 +204,7 @@ A repeating part triggers one of ten new `Issue`s in phase 1. Three more rules (
 | --- | --- | --- | --- |
 | 1 | `repeating: true` + `fromChildren: true` | 1 | Contradictory — `fromChildren` consumes wrapped React children; repeating renders from an array prop. |
 | 2 | `repeating: true` with no `props:` | 1 | An item shape with zero fields is useless — `id` alone wouldn't render anything. |
-| 3 | `repeating: true` + nested `parts:` | 1 | Deferred to [#835]. Phase-1 repeating items are flat. |
+| 3 | Any part in a list composite declares nested `parts:` (whether the repeating part itself or a non-repeating wrapper) | 1 | Deferred to [#835]. Phase-1 list shapes are flat — one wrapper + repeating siblings. |
 | 4 | A repeating part nested inside another repeating part | 1 | Deferred to [#834] (Tree, Table matrix). |
 | 5 | Two repeating siblings default to the same `propName` | 1 | Forces explicit disambiguation. Suggestion hint via Levenshtein. |
 | 6 | `propName:` and `groupKey:` both set on the same part | 2 | `groupKey` controls the array name; declaring both is contradictory. |
@@ -215,6 +215,7 @@ A repeating part triggers one of ten new `Issue`s in phase 1. Three more rules (
 | 11 | Non-repeating part declares scalar `props:` in a composite that has repeating parts | 1 | Group-level scalar props need the `groupKey:` + interleave codegen machinery; deferred to phase 2. |
 | 12 | Repeating item prop sets `responsive: true` | 1 | Generators emit a plain scalar field + single `data-*` binding, no per-breakpoint expansion. Spec would lie about the API. Deferred. |
 | 13 | List composite has ≠ 1 non-repeating top-level part | 1 | The renderers pick the first non-repeating top-level part as the wrapper; extras are silently dropped, zero throws at generation time. |
+| 14 | Repeating item prop name is not a valid JS identifier | 1 | Codegen emits `item.<name>` in iteration bodies; hyphens / spaces / leading digits produce parse errors. |
 
 Each issue includes the repeating part's dotted `partPath` in `Issue.path` so authors can locate the offending declaration without grepping.
 
