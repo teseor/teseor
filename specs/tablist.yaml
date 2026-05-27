@@ -9,8 +9,6 @@ parts:
   list:
     element: div
     rootClass: t-tablist
-    a11y:
-      role: tablist
     tokens:
       gap:
         fallback: --t-space-2
