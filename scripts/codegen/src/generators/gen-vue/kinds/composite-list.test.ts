@@ -57,6 +57,19 @@ describe("renderCompositeListVueWrapper (RFC-0005)", () => {
     expect(out).toContain("  id: string;");
   });
 
+  test('emits the `export type` in a sibling `<script lang="ts">` block, not inside `<script setup>`', () => {
+    const out = renderCompositeListVueWrapper(paginationFixture());
+    const exportIdx = out.indexOf("export type PaginationPageItem");
+    const setupIdx = out.indexOf(`<script setup lang="ts">`);
+    expect(exportIdx).toBeGreaterThan(-1);
+    expect(setupIdx).toBeGreaterThan(-1);
+    expect(exportIdx).toBeLessThan(setupIdx);
+    // The plain `<script lang="ts">` block opens before the exports.
+    const plainScriptIdx = out.indexOf(`<script lang="ts">`);
+    expect(plainScriptIdx).toBeLessThan(exportIdx);
+    expect(plainScriptIdx).toBeLessThan(setupIdx);
+  });
+
   test("declares the array prop type", () => {
     const out = renderCompositeListVueWrapper(paginationFixture());
     expect(out).toContain("pages?: ReadonlyArray<PaginationPageItem>;");
