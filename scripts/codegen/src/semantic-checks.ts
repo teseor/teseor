@@ -1191,6 +1191,10 @@ export function checkInteractionEventVocabulary(spec: Spec): Issue[] {
  * 14. Repeating item prop names must be valid JS identifiers — codegen emits
  *     `item.<name>` access in iteration bodies; hyphens / spaces / leading
  *     digits produce parse errors.
+ * 15. `propName:` declared on a part without `repeating: true` — the override
+ *     is silently ignored downstream (flatten + codegen only read it on
+ *     repeating parts). Reject so authors don't think they renamed a
+ *     generated prop that doesn't exist.
  */
 // Valid JS identifier: starts with letter/underscore/$, followed by alphanumerics/_/$.
 const JS_IDENTIFIER_RE = /^[A-Za-z_$][A-Za-z0-9_$]*$/;
@@ -1446,18 +1450,31 @@ export function checkRepeatingParts(spec: Spec): Issue[] {
             ),
           );
         }
-      } else if (anyRepeating) {
-        // Rule 11: non-repeating part in a composite with any repeating part
-        // must not declare scalar props (group-level props are phase 2).
-        const propEntries = Object.entries(part.props ?? {});
-        if (propEntries.length > 0) {
+      } else {
+        // Rule 15: `propName:` is only consumed when `repeating: true`.
+        // A propName on a non-repeating part is silently ignored downstream.
+        if (part.propName !== undefined) {
           issues.push(
             issue(
               spec.name,
-              `${path}.props`,
-              `non-repeating part '${partName}' cannot declare \`props:\` in a composite that has repeating parts — group-level scalar props are deferred to phase 2.`,
+              path,
+              `non-repeating part '${partName}' cannot declare \`propName:\` — it is only consumed for parts with \`repeating: true\`.`,
             ),
           );
+        }
+        if (anyRepeating) {
+          // Rule 11: non-repeating part in a composite with any repeating part
+          // must not declare scalar props (group-level props are phase 2).
+          const propEntries = Object.entries(part.props ?? {});
+          if (propEntries.length > 0) {
+            issues.push(
+              issue(
+                spec.name,
+                `${path}.props`,
+                `non-repeating part '${partName}' cannot declare \`props:\` in a composite that has repeating parts — group-level scalar props are deferred to phase 2.`,
+              ),
+            );
+          }
         }
       }
 

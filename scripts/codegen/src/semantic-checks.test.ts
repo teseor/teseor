@@ -1484,6 +1484,26 @@ describe("checkRepeatingParts (RFC-0005)", () => {
     expect(issues.some((i) => i.path === "parts.root" && /#835/.test(i.message))).toBe(true);
   });
 
+  test("rule 15 — `propName:` on a non-repeating part is rejected", () => {
+    const spec: Spec = {
+      name: "pagination",
+      kind: "composite",
+      parts: {
+        root: { element: "nav", propName: "navs" },
+        page: {
+          repeating: true,
+          element: "span",
+          props: { label: { type: "string", description: "Label." } },
+        },
+      },
+    } as Spec;
+    const issues = checkRepeatingParts(spec);
+    expect(issues.map((i) => i.path)).toContain("parts.root");
+    expect(
+      issues.some((i) => /only consumed for parts with `repeating: true`/.test(i.message)),
+    ).toBe(true);
+  });
+
   test("rule 14 — item prop name with a hyphen is rejected", () => {
     const spec: Spec = {
       name: "pagination",
