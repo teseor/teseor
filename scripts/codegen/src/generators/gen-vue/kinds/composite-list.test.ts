@@ -183,7 +183,7 @@ describe("renderCompositeListVueWrapper (RFC-0005)", () => {
     expect(out.match(/v-for="item in items"/g) ?? []).toHaveLength(1);
   });
 
-  test("group-level scalar props on the wrapper part are typed and destructured", () => {
+  test("group-level scalar props on the wrapper part are typed, destructured, AND bound on the wrapper element", () => {
     const out = renderCompositeListVueWrapper({
       ...tabsListFixture(),
       props: {
@@ -192,5 +192,7 @@ describe("renderCompositeListVueWrapper (RFC-0005)", () => {
     });
     expect(out).toContain("label?: string;");
     expect(out).toContain("  label,");
+    // Vue declared props do not fall through to attrs — must be explicitly bound.
+    expect(out).toContain(`:label="label"`);
   });
 });
