@@ -62,10 +62,12 @@ type ${Name}OwnProps = {
 ${ownPropLines.join("\n")}
   /** Forwarded ref to the wrapper element. */
   ref?: Ref<HTMLElementTagNameMap[${quote(wrapperElement)}]>;
+  /** List composites render only from their array prop — children are not accepted. */
+  children?: never;
 };
 
 export type ${Name}Props = ${Name}OwnProps &
-  Omit<ComponentProps<${quote(wrapperElement)}>, keyof ${Name}OwnProps | "ref">;
+  Omit<ComponentProps<${quote(wrapperElement)}>, keyof ${Name}OwnProps | "ref" | "children">;
 
 ${renderComponentJsDoc(spec, Name, reactJsDocFlavor)}export function ${Name}(props: ${Name}Props) {
   const { ${repeating.map((r) => `${r.propName} = []`).join(", ")}, className, ref, ...rest } = props;

@@ -21,10 +21,12 @@ type PaginationOwnProps = {
   pages?: ReadonlyArray<PaginationPageItem>;
   /** Forwarded ref to the wrapper element. */
   ref?: Ref<HTMLElementTagNameMap["nav"]>;
+  /** List composites render only from their array prop — children are not accepted. */
+  children?: never;
 };
 
 export type PaginationProps = PaginationOwnProps &
-  Omit<ComponentProps<"nav">, keyof PaginationOwnProps | "ref">;
+  Omit<ComponentProps<"nav">, keyof PaginationOwnProps | "ref" | "children">;
 
 /**
  * A static page-link list. Renders one item per entry in the `pages` array. Phase-1 stub for RFC-0005; real navigation lands with phase 3.

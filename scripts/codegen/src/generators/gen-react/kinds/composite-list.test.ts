@@ -64,6 +64,14 @@ describe("renderCompositeListReactWrapper (RFC-0005)", () => {
     expect(out).toContain("pages?: ReadonlyArray<PaginationPageItem>;");
   });
 
+  test("blocks children at the type level (children?: never + Omit children)", () => {
+    const out = renderCompositeListReactWrapper(paginationFixture());
+    expect(out).toContain("children?: never;");
+    expect(out).toContain(
+      `Omit<ComponentProps<"nav">, keyof PaginationOwnProps | "ref" | "children">`,
+    );
+  });
+
   test("renders the wrapper element from the non-repeating part", () => {
     const out = renderCompositeListReactWrapper(paginationFixture());
     expect(out).toContain("<nav {...rest} ref={ref} className={mergedClassName}>");
