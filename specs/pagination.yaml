@@ -1,0 +1,73 @@
+name: pagination
+description: A static page-link list. Renders one item per entry in the `pages` array. Phase-1 stub for RFC-0005; real navigation lands with phase 3.
+kind: composite
+dependencies: []
+cssFile: components/pagination/pagination.css
+behavior: none
+
+parts:
+  root:
+    element: nav
+    rootClass: t-pagination
+    a11y:
+      role: navigation
+    tokens:
+      gap:
+        fallback: --t-space-2
+        desc: Gap between page items.
+    privateTokens:
+      - --_gap
+  page:
+    repeating: true
+    element: span
+    rootClass: t-pagination-page
+    props:
+      label:
+        type: string
+        slot: true
+        description: "Page label rendered as the item text."
+      current:
+        type: boolean
+        responsive: false
+        description: "Marks the active page; exposed as `data-current`."
+    tokens:
+      pad-x:
+        fallback: --t-space-2
+        desc: Inline padding around the page label.
+      pad-y:
+        fallback: --t-space-1
+        desc: Block padding around the page label.
+      radius:
+        fallback: --t-radius-sm
+        desc: Corner radius.
+      fg:
+        fallback: --t-fg
+        desc: Default text color.
+      fg-current:
+        fallback: --t-accent
+        desc: Text color of the active page.
+    privateTokens:
+      - --_pad-x
+      - --_pad-y
+      - --_radius
+      - --_fg
+      - --_fg-current
+
+examples:
+  - id: three-pages
+    props:
+      pages:
+        - { id: "1", label: "1" }
+        - { id: "2", label: "2", current: true }
+        - { id: "3", label: "3" }
+  - id: five-pages-last-active
+    props:
+      pages:
+        - { id: "1", label: "1" }
+        - { id: "2", label: "2" }
+        - { id: "3", label: "3" }
+        - { id: "4", label: "4" }
+        - { id: "5", label: "5", current: true }
+  - id: empty
+    props:
+      pages: []

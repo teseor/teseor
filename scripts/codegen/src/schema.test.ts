@@ -166,4 +166,82 @@ describe("Spec schema — shape layer", () => {
     });
     expect(result.success).toBe(false);
   });
+
+  test("accepts `repeating: true` on a part", () => {
+    const result = Spec.safeParse({
+      name: "pagination",
+      kind: "composite",
+      parts: {
+        page: {
+          repeating: true,
+          element: "a",
+          props: { label: { type: "string", description: "Label." } },
+        },
+      },
+    });
+    expect(result.success).toBe(true);
+  });
+
+  test("accepts `repeating: true` with explicit `propName:`", () => {
+    const result = Spec.safeParse({
+      name: "pagination",
+      kind: "composite",
+      parts: {
+        page: {
+          repeating: true,
+          propName: "pages",
+          element: "a",
+          props: { label: { type: "string", description: "Label." } },
+        },
+      },
+    });
+    expect(result.success).toBe(true);
+  });
+
+  test("rejects non-boolean `repeating:`", () => {
+    const result = Spec.safeParse({
+      name: "pagination",
+      kind: "composite",
+      parts: {
+        page: {
+          repeating: "yes",
+          element: "a",
+          props: { label: { type: "string", description: "Label." } },
+        },
+      },
+    });
+    expect(result.success).toBe(false);
+  });
+
+  test("rejects non-string `propName:`", () => {
+    const result = Spec.safeParse({
+      name: "pagination",
+      kind: "composite",
+      parts: {
+        page: {
+          repeating: true,
+          propName: 42,
+          element: "a",
+          props: { label: { type: "string", description: "Label." } },
+        },
+      },
+    });
+    expect(result.success).toBe(false);
+  });
+
+  test("rejects `groupKey:` in phase 1 (lands with phase 2)", () => {
+    const result = Spec.safeParse({
+      name: "tabs",
+      kind: "composite",
+      parts: {
+        tab: {
+          repeating: true,
+          groupKey: "items",
+          element: "button",
+          props: { label: { type: "string", description: "Label." } },
+        },
+      },
+    });
+    expect(result.success).toBe(false);
+  });
 });

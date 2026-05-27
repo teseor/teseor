@@ -7,12 +7,17 @@ import { section } from "./table-printer.ts";
 export function renderExamples(spec: Spec, Name: string, opts: { isComposite: boolean }): string {
   if (!spec.examples || spec.examples.length === 0) return "";
   const { isComposite } = opts;
+  // Composite-list specs (RFC-0005) render a self-closing tag with the
+  // array prop populated — no fromChildren, no Button trigger.
+  const isList =
+    spec.kind === "composite" && Array.isArray(spec.repeating) && spec.repeating.length > 0;
   // Composite components with a `fromChildren` part don't render an element
   // themselves; the docs example wraps a Button as the trigger so the
   // composite has a real child to decorate (Tooltip + Popover pattern).
   // For composite specs, slot props (e.g. Tooltip's `text`) render as
   // attributes since they're string content, not child elements.
-  const trigger = isComposite ? `<Button variant="solid" intent="primary">Trigger</Button>` : null;
+  const trigger =
+    isComposite && !isList ? `<Button variant="solid" intent="primary">Trigger</Button>` : null;
   const blocks = spec.examples.map((example) => {
     const props = example.props ?? {};
     // Attrs applied to the rendered example — drop `false` props and (for
@@ -35,11 +40,23 @@ export function renderExamples(spec: Spec, Name: string, opts: { isComposite: bo
       .filter(([, value]) => value !== false)
       .map(([key, value]) => attr(key, value));
     const sourceOpenTag = [Name, ...sourceAttrs].join(" ");
-    const sourceLines =
-      isComposite && trigger
+    const sourceLines = isList
+      ? [`<${sourceOpenTag} />`]
+      : isComposite && trigger
         ? [`<${sourceOpenTag}>`, `  ${trigger}`, `</${Name}>`]
         : [`<${sourceOpenTag}>${Name}</${Name}>`];
     const source = sourceLines.join("\n");
+    if (isList) {
+      return [
+        `      <div class="t-stack" data-gap="2">`,
+        `        <h3>${esc(example.id ?? "example")}</h3>`,
+        `        <div class="t-cluster" data-gap="3">`,
+        `          <${renderedOpenTag} />`,
+        `        </div>`,
+        `        <Codeblock>${esc(source)}</Codeblock>`,
+        `      </div>`,
+      ].join("\n");
+    }
     if (isComposite && trigger) {
       // Composite components carry runtime behavior (state machine, event
       // handlers, popover toggling) so the Astro island needs to hydrate.

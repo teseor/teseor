@@ -12,6 +12,7 @@ import { Spec as SpecSchema } from "../schema.ts";
 import type { Spec } from "./gen-contract.ts";
 import { renderCssShim } from "./gen-vue/_shared/css-shim.ts";
 import { renderAtomicVueWrapper } from "./gen-vue/kinds/atomic.ts";
+import { renderCompositeListVueWrapper } from "./gen-vue/kinds/composite-list.ts";
 import { renderCompositeOverlayVueWrapper } from "./gen-vue/kinds/composite-overlay.ts";
 import { renderBarrel } from "./gen-vue/workspace/barrel.ts";
 import { renderReadme } from "./gen-vue/workspace/readme.ts";
@@ -21,9 +22,14 @@ const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..", "
 const SPECS_DIR = resolve(REPO_ROOT, "specs");
 const VUE_SRC_DIR = resolve(REPO_ROOT, "packages", "vue", "src");
 
-/** Dispatch to the kind-specific renderer for the spec's `kind:` field. */
+/** Dispatch to the kind-specific renderer for the spec's `kind:` field.
+ *  Composite specs split by shape: overlay-anchor (Tooltip / Modal) vs
+ *  repeating-list (Pagination, RFC-0005). */
 function renderWrapper(spec: Spec, propDescriptions: Record<string, string>): string {
-  if (spec.kind === "composite") return renderCompositeOverlayVueWrapper(spec, propDescriptions);
+  if (spec.kind === "composite") {
+    if (spec.repeating && spec.repeating.length > 0) return renderCompositeListVueWrapper(spec);
+    return renderCompositeOverlayVueWrapper(spec, propDescriptions);
+  }
   return renderAtomicVueWrapper(spec, propDescriptions);
 }
 

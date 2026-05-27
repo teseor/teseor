@@ -77,6 +77,12 @@ component:modal:
           - packages/css/src/components/modal/**
           - specs/modal.yaml
 
+component:pagination:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/css/src/components/pagination/**
+          - specs/pagination.yaml
+
 component:stack:
   - changed-files:
       - any-glob-to-any-file:

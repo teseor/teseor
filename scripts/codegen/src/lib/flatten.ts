@@ -22,6 +22,29 @@ export type FlatProp = {
   __part: string;
 };
 
+export type FlatItemProp = {
+  type: "string" | "boolean" | "number";
+  default?: unknown;
+  description: string;
+  responsive?: boolean;
+  slot?: boolean;
+  values?: string[];
+  pattern?: "controllable";
+};
+
+/** One entry per repeating part — see RFC-0005. */
+export type FlatRepeatingPart = {
+  /** Originating part name (e.g. `page`). */
+  partName: string;
+  /** Final array prop name on the parent (e.g. `pages`). */
+  propName: string;
+  /** Per-item DOM emission. */
+  element?: string;
+  rootClass?: string;
+  /** Per-item prop shape. Codegen synthesizes a required `id: string` on top. */
+  itemProps: Record<string, FlatItemProp>;
+};
+
 export type FlatToken = {
   fallback: string;
   desc: string;
@@ -79,6 +102,9 @@ export type FlatSpec = {
   motion?: FlatMotion;
   privateTokens?: string[];
   constraints?: Extract<Spec, { kind: "atomic" }>["constraints"];
+  /** Repeating parts (RFC-0005). Composite-only; undefined when no part
+   *  declares `repeating: true`. */
+  repeating?: FlatRepeatingPart[];
 };
 
 function visitParts(
@@ -143,6 +169,7 @@ export function flattenSpec(spec: Spec): FlatSpec {
   const tokens: Record<string, FlatToken> = {};
   const states: Record<string, FlatState> = {};
   const privateTokens: string[] = [];
+  const repeating: FlatRepeatingPart[] = [];
   let a11y: FlatA11y | undefined;
   let motion: FlatMotion | undefined;
   let variants: FlatSpec["variants"];
@@ -157,13 +184,27 @@ export function flattenSpec(spec: Spec): FlatSpec {
   });
 
   visitParts(spec.parts, (partName, part, partPath) => {
-    for (const [name, def] of Object.entries(part.props ?? {})) {
-      if (props[name]) {
-        throw new Error(
-          `composite spec '${spec.name}' has a prop name collision on '${name}' across parts`,
-        );
+    if (part.repeating === true) {
+      const itemProps: Record<string, FlatItemProp> = {};
+      for (const [name, def] of Object.entries(part.props ?? {})) {
+        itemProps[name] = { ...def };
       }
-      props[name] = { ...def, __part: partName };
+      repeating.push({
+        partName,
+        propName: part.propName ?? `${partName}s`,
+        element: part.element,
+        rootClass: part.rootClass,
+        itemProps,
+      });
+    } else {
+      for (const [name, def] of Object.entries(part.props ?? {})) {
+        if (props[name]) {
+          throw new Error(
+            `composite spec '${spec.name}' has a prop name collision on '${name}' across parts`,
+          );
+        }
+        props[name] = { ...def, __part: partName };
+      }
     }
     for (const [name, def] of Object.entries(part.tokens ?? {})) {
       const flatKey = (tokenNameCounts.get(name) ?? 0) > 1 ? `${partPath}.${name}` : name;
@@ -207,5 +248,6 @@ export function flattenSpec(spec: Spec): FlatSpec {
     a11y,
     motion,
     privateTokens: privateTokens.length > 0 ? privateTokens : undefined,
+    repeating: repeating.length > 0 ? repeating : undefined,
   };
 }

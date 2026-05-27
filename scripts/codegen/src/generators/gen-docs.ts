@@ -13,6 +13,7 @@ import { registerGenerator } from "../registry.ts";
 import { Spec as SpecSchema } from "../schema.ts";
 import type { DocsSpec } from "./gen-docs/_shared/sections.ts";
 import { renderAtomicDocsPage } from "./gen-docs/kinds/atomic.ts";
+import { renderCompositeListDocsPage } from "./gen-docs/kinds/composite-list.ts";
 import { renderCompositeOverlayDocsPage } from "./gen-docs/kinds/composite-overlay.ts";
 
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..", "..", "..");
@@ -66,9 +67,14 @@ async function readForcedColors(
   return entries.length > 0 ? entries : undefined;
 }
 
-/** Dispatch to the kind-specific renderer for the spec's `kind:` field. */
+/** Dispatch to the kind-specific renderer for the spec's `kind:` field.
+ *  Composite specs split by shape: overlay-anchor (Tooltip / Modal) vs
+ *  repeating-list (Pagination, RFC-0005). */
 function renderDocsPage(spec: DocsSpec): string {
-  if (spec.kind === "composite") return renderCompositeOverlayDocsPage(spec);
+  if (spec.kind === "composite") {
+    if (spec.repeating && spec.repeating.length > 0) return renderCompositeListDocsPage(spec);
+    return renderCompositeOverlayDocsPage(spec);
+  }
   return renderAtomicDocsPage(spec);
 }
 

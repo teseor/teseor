@@ -1,0 +1,37 @@
+@layer components.tokens {
+  .t-pagination {
+    --_gap: var(--t-pagination-gap, var(--t-space-2));
+  }
+
+  .t-pagination-page {
+    --_pad-x: var(--t-pagination-pad-x, var(--t-space-2));
+    --_pad-y: var(--t-pagination-pad-y, var(--t-space-1));
+    --_radius: var(--t-pagination-radius, var(--t-radius-sm));
+    --_fg: var(--t-pagination-fg, var(--t-fg));
+    --_fg-current: var(--t-pagination-fg-current, var(--t-accent));
+  }
+}
+
+@layer components.styles {
+  .t-pagination {
+    box-sizing: border-box;
+    margin: 0;
+    display: flex;
+    gap: var(--_gap);
+    padding: 0;
+    list-style: none;
+  }
+
+  .t-pagination-page {
+    box-sizing: border-box;
+    margin: 0;
+    padding: var(--_pad-y) var(--_pad-x);
+    border-radius: var(--_radius);
+    color: var(--_fg);
+    text-decoration: none;
+
+    &:where([data-current]) {
+      --_fg: var(--_fg-current);
+    }
+  }
+}
