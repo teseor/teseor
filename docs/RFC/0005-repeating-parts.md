@@ -198,7 +198,7 @@ Phase 1 doesn't declare the `groupKey:` field in the schema. The Zod `strictObje
 
 ### Validator rejections (semantic-checks.ts)
 
-A repeating part triggers one of ten new `Issue`s in phase 1. Three more rules (#6, #7, #9 below) land with the `groupKey:` field in phase 2. The full thirteen-rule table is kept in the RFC for forward visibility — the phase column marks what ships when.
+A repeating part triggers one of twelve new `Issue`s in phase 1. Three more rules (#6, #7, #9 below) land with the `groupKey:` field in phase 2. The full fifteen-rule table is kept in the RFC for forward visibility — the phase column marks what ships when.
 
 | # | Condition | Phase | Rationale |
 | --- | --- | --- | --- |
@@ -216,6 +216,7 @@ A repeating part triggers one of ten new `Issue`s in phase 1. Three more rules (
 | 12 | Repeating item prop sets `responsive: true` | 1 | Generators emit a plain scalar field + single `data-*` binding, no per-breakpoint expansion. Spec would lie about the API. Deferred. |
 | 13 | List composite has ≠ 1 non-repeating top-level part | 1 | The renderers pick the first non-repeating top-level part as the wrapper; extras are silently dropped, zero throws at generation time. |
 | 14 | Repeating item prop name is not a valid JS identifier | 1 | Codegen emits `item.<name>` in iteration bodies; hyphens / spaces / leading digits produce parse errors. |
+| 15 | `propName:` declared on a non-repeating part | 1 | The override is only consumed when `repeating: true`; declaring it elsewhere is silently ignored downstream. |
 
 Each issue includes the repeating part's dotted `partPath` in `Issue.path` so authors can locate the offending declaration without grepping.
 
@@ -289,7 +290,7 @@ Phase 1 is intentionally thin — most of what people picture when they hear "sp
 
 ## Drawbacks
 
-- **More semantic-check surface.** Nine new rejection clauses, each with its own message and `partPath` resolution. Two of the nine (groupKey ones) fence phase-2 surface from inside phase-1 — they cost test rows that test the rejection of unbuilt features.
+- **More semantic-check surface.** Twelve new phase-1 rejection clauses, each with its own message and `partPath` resolution (see the validator table above). Three more rules (#6, #7, #9) land with phase 2 alongside the `groupKey:` field. Phase 1 doesn't ship the groupKey rules — they wait for the field declaration.
 - **Codegen branches.** `gen-react` / `gen-vue` / `gen-contract` / `gen-docs` each grow a per-repeating-part branch. The atomic-spec code path is untouched; composite-spec code paths get one extra walk over `FlatSpec.repeating[]`.
 - **`FlatSpec.repeating[]` is a new shape generators must consume.** Any future generator that walks the flat spec needs to know about repeating, or it silently produces incomplete output. The cost is paid once per generator.
 - **DOM-attribute rule for plain `string` props is `data-*`, not text content.** A consumer expecting a `string` per-item prop to render as the element's text body needs to flag the prop with `slot: true`. This is the same rule atomic specs already have; the surprise factor is identical.
