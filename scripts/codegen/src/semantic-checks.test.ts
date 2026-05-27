@@ -1178,6 +1178,7 @@ describe("checkRepeatingParts (RFC-0005)", () => {
       name: "pagination",
       kind: "composite",
       parts: {
+        root: { element: "nav" },
         page: {
           repeating: true,
           fromChildren: true,
@@ -1195,6 +1196,7 @@ describe("checkRepeatingParts (RFC-0005)", () => {
       name: "pagination",
       kind: "composite",
       parts: {
+        root: { element: "nav" },
         page: { repeating: true, element: "a" },
       },
     } as Spec;
@@ -1208,6 +1210,7 @@ describe("checkRepeatingParts (RFC-0005)", () => {
       name: "pagination",
       kind: "composite",
       parts: {
+        root: { element: "nav" },
         page: { repeating: true, element: "a", props: {} },
       },
     } as Spec;
@@ -1220,6 +1223,7 @@ describe("checkRepeatingParts (RFC-0005)", () => {
       name: "stepper",
       kind: "composite",
       parts: {
+        root: { element: "ol" },
         step: {
           repeating: true,
           element: "li",
@@ -1240,6 +1244,7 @@ describe("checkRepeatingParts (RFC-0005)", () => {
       name: "tree",
       kind: "composite",
       parts: {
+        root: { element: "ul" },
         node: {
           repeating: true,
           element: "li",
@@ -1268,6 +1273,7 @@ describe("checkRepeatingParts (RFC-0005)", () => {
       name: "split",
       kind: "composite",
       parts: {
+        root: { element: "div" },
         item: {
           repeating: true,
           element: "a",
@@ -1291,6 +1297,7 @@ describe("checkRepeatingParts (RFC-0005)", () => {
       name: "split",
       kind: "composite",
       parts: {
+        root: { element: "div" },
         primary: {
           repeating: true,
           element: "a",
@@ -1325,7 +1332,28 @@ describe("checkRepeatingParts (RFC-0005)", () => {
   });
 
   test("rule 10 — reserved propName collides with codegen locals", () => {
-    const reserved = ["ref", "className", "class", "children", "key", "style", "id"];
+    const reserved = [
+      // wrapper-template conventions
+      "ref",
+      "className",
+      "class",
+      "children",
+      "key",
+      "style",
+      "id",
+      // template locals
+      "props",
+      "rest",
+      "mergedClassName",
+      // JS reserved words
+      "default",
+      "let",
+      "class",
+      "case",
+      "return",
+      "yield",
+      "await",
+    ];
     for (const name of reserved) {
       const spec: Spec = {
         name: "x",
@@ -1387,6 +1415,71 @@ describe("checkRepeatingParts (RFC-0005)", () => {
     expect(issues.some((i) => /phase 2/.test(i.message))).toBe(true);
   });
 
+  test("rule 12 — `responsive: true` on a repeating item prop is rejected", () => {
+    const spec: Spec = {
+      name: "pagination",
+      kind: "composite",
+      parts: {
+        root: { element: "nav" },
+        page: {
+          repeating: true,
+          element: "span",
+          props: {
+            label: {
+              type: "string",
+              slot: true,
+              responsive: true,
+              description: "Label.",
+            },
+          },
+        },
+      },
+    } as Spec;
+    const issues = checkRepeatingParts(spec);
+    expect(issues.map((i) => i.path)).toContain("parts.page.props.label");
+    expect(issues.some((i) => /per-item responsive emission is deferred/.test(i.message))).toBe(
+      true,
+    );
+  });
+
+  test("rule 13 — multiple non-repeating top-level parts are rejected", () => {
+    const spec: Spec = {
+      name: "pagination",
+      kind: "composite",
+      parts: {
+        root: { element: "nav" },
+        header: { element: "header" },
+        page: {
+          repeating: true,
+          element: "span",
+          props: { label: { type: "string", description: "Label." } },
+        },
+      },
+    } as Spec;
+    const issues = checkRepeatingParts(spec);
+    const wrapperRule = issues.filter((i) =>
+      /must declare exactly one non-repeating wrapper part/.test(i.message),
+    );
+    expect(wrapperRule).toHaveLength(2);
+    expect(wrapperRule.map((i) => i.path).sort()).toEqual(["parts.header", "parts.root"]);
+  });
+
+  test("rule 13 — zero non-repeating parts in a list composite is rejected", () => {
+    const spec: Spec = {
+      name: "only-repeating",
+      kind: "composite",
+      parts: {
+        item: {
+          repeating: true,
+          element: "span",
+          props: { label: { type: "string", description: "Label." } },
+        },
+      },
+    } as Spec;
+    const issues = checkRepeatingParts(spec);
+    expect(issues.some((i) => /found 0/.test(i.message))).toBe(true);
+  });
+
   test("rule 11 — non-repeating part WITHOUT scalar props is accepted (tokens/a11y still ok)", () => {
     const spec: Spec = {
       name: "pagination",
@@ -1413,6 +1506,7 @@ describe("checkRepeatingParts (RFC-0005)", () => {
       name: "pagination",
       kind: "composite",
       parts: {
+        root: { element: "nav" },
         page: {
           repeating: true,
           element: "a",

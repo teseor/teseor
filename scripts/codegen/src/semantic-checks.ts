@@ -1177,17 +1177,26 @@ export function checkInteractionEventVocabulary(spec: Spec): Issue[] {
  *  4. Repeating part nested inside another repeating part — deferred to #834.
  *  5. Two repeating siblings collapse to the same effective `propName`.
  *  8. Repeating part declares `props.id` — `id` is codegen-reserved.
- * 10. The effective propName must be a valid JS identifier and must not collide
- *     with codegen-emitted wrapper locals (`ref`, `className`, `class`,
- *     `children`, `key`, `style`, `id`).
+ * 10. The effective propName must be a valid JS identifier and must not
+ *     collide with codegen-emitted wrapper locals or JS reserved words (see
+ *     RESERVED_PROP_NAMES).
  * 11. Composite specs with any repeating part must not declare scalar `props:`
  *     on non-repeating sibling parts — group-level props are deferred to
  *     phase 2 alongside `groupKey:`.
+ * 12. Repeating item props cannot set `responsive: true` — generators emit a
+ *     plain scalar field + single data-attr, no per-breakpoint expansion.
+ * 13. A list composite must declare exactly one non-repeating top-level part —
+ *     the wrapper. Multiple wrappers are silently dropped by the renderer;
+ *     zero wrappers cause a generator throw.
  */
 // Valid JS identifier: starts with letter/underscore/$, followed by alphanumerics/_/$.
 const JS_IDENTIFIER_RE = /^[A-Za-z_$][A-Za-z0-9_$]*$/;
-// Names that collide with codegen-emitted wrapper locals or HTML attrs.
+// Names that collide with codegen-emitted wrapper locals, HTML/React/Vue
+// attributes, or JS reserved words. Using one of these as the effective
+// propName produces a duplicate-identifier or parser error in the generated
+// React / Vue / contract code.
 const RESERVED_PROP_NAMES = new Set([
+  // React / HTML / Vue conventions
   "ref",
   "className",
   "class",
@@ -1195,6 +1204,62 @@ const RESERVED_PROP_NAMES = new Set([
   "key",
   "style",
   "id",
+  // Wrapper template locals — the React composite-list template emits
+  // `const { <propName> = [], className, ref, ...rest } = props;` followed by
+  // `const mergedClassName = …;` — any of these as a propName triggers a
+  // duplicate binding or shadowing.
+  "props",
+  "rest",
+  "mergedClassName",
+  // ES reserved words — using `default` / `let` / `case` / `class` etc. as a
+  // destructure key is a syntax error.
+  "break",
+  "case",
+  "catch",
+  "class",
+  "const",
+  "continue",
+  "debugger",
+  "default",
+  "delete",
+  "do",
+  "else",
+  "enum",
+  "export",
+  "extends",
+  "false",
+  "finally",
+  "for",
+  "function",
+  "if",
+  "import",
+  "in",
+  "instanceof",
+  "new",
+  "null",
+  "return",
+  "super",
+  "switch",
+  "this",
+  "throw",
+  "true",
+  "try",
+  "typeof",
+  "var",
+  "void",
+  "while",
+  "with",
+  "yield",
+  "let",
+  "implements",
+  "interface",
+  "package",
+  "private",
+  "protected",
+  "public",
+  "static",
+  "await",
+  "async",
 ]);
 
 export function checkRepeatingParts(spec: Spec): Issue[] {
@@ -1212,6 +1277,33 @@ export function checkRepeatingParts(spec: Spec): Issue[] {
     }
   };
   detect(spec.parts);
+
+  // Rule 13: list composite has exactly one non-repeating top-level part.
+  // The composite-list renderers pick the first non-repeating top-level part
+  // as the wrapper; extras (or zero) cause silent drops or a generator throw.
+  if (anyRepeating) {
+    const topLevel = Object.entries(spec.parts);
+    const nonRepeatingTop = topLevel.filter(([, p]) => p.repeating !== true);
+    if (nonRepeatingTop.length === 0) {
+      issues.push(
+        issue(
+          spec.name,
+          "parts",
+          "list composite must declare exactly one non-repeating wrapper part — found 0.",
+        ),
+      );
+    } else if (nonRepeatingTop.length > 1) {
+      for (const [name] of nonRepeatingTop) {
+        issues.push(
+          issue(
+            spec.name,
+            `parts.${name}`,
+            `list composite must declare exactly one non-repeating wrapper part — found ${nonRepeatingTop.length}: ${nonRepeatingTop.map(([n]) => `'${n}'`).join(", ")}. Extra wrapper parts are silently dropped by the renderer.`,
+          ),
+        );
+      }
+    }
+  }
 
   const walk = (
     parts: Record<string, SpecPart>,
@@ -1295,6 +1387,20 @@ export function checkRepeatingParts(spec: Spec): Issue[] {
               `'id' is reserved on repeating items — codegen synthesizes it as the React/Vue key.`,
             ),
           );
+        }
+        // Rule 12: `responsive: true` on item props is deferred. The generators
+        // emit a plain scalar field + single `data-*` binding with no per-
+        // breakpoint expansion, so the spec would lie about the API.
+        for (const [itemPropName, def] of propEntries) {
+          if (def.responsive === true) {
+            issues.push(
+              issue(
+                spec.name,
+                `${path}.props.${itemPropName}`,
+                `repeating item prop '${itemPropName}' cannot set \`responsive: true\` in phase 1 — per-item responsive emission is deferred. Set \`responsive: false\` or move the prop to a group-level surface (phase 2).`,
+              ),
+            );
+          }
         }
         // Rule 10: effective propName is a valid identifier + not reserved.
         const effectivePropName = part.propName ?? `${partName}s`;
