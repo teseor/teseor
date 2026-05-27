@@ -44,6 +44,7 @@ import { Button } from "@teseor/vue";
 - `Modal` — A modal overlay that traps focus and inerts the rest of the page until dismissed.
 - `Pagination` — A static page-link list. Renders one item per entry in the `pages` array. Phase-1 stub for RFC-0005; real navigation lands with phase 3.
 - `Stack` — A vertical layout primitive. Stacks children on the block axis with consistent spacing.
+- `Tablist` — A non-interactive tab bar. Renders one tab button + an optional adjacent icon per item, interleaved via a shared groupKey. Selection is visual-only — pass `active: true` per item; real interactive Tabs ships with #690 (events) + #692 (a11y).
 - `Tooltip` — A non-interactive hint that appears when its trigger is hovered or focused.
 
 ## Tests
