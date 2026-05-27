@@ -225,6 +225,73 @@ describe("flattenSpec — repeating parts (#687, RFC-0005)", () => {
     expect(flat.repeating?.map((r) => r.partName).sort()).toEqual(["primary", "secondary"]);
   });
 
+  test("propName derives from groupKey when set", () => {
+    const spec: Spec = {
+      name: "tabs",
+      kind: "composite",
+      parts: {
+        list: { element: "div" },
+        tab: {
+          repeating: true,
+          groupKey: "items",
+          element: "button",
+          props: { label: { type: "string", slot: true, description: "Label." } },
+        },
+        "tab-icon": {
+          repeating: true,
+          groupKey: "items",
+          element: "span",
+          props: { icon: { type: "string", slot: true, description: "Icon." } },
+        },
+      },
+    } as Spec;
+    const flat = flattenSpec(spec);
+    expect(flat.repeating).toHaveLength(2);
+    expect(flat.repeating?.[0]?.propName).toBe("items");
+    expect(flat.repeating?.[1]?.propName).toBe("items");
+    expect(flat.repeating?.[0]?.groupKey).toBe("items");
+    expect(flat.repeating?.[1]?.groupKey).toBe("items");
+  });
+
+  test("explicit propName wins over groupKey when both are set (rule 6 catches at validation)", () => {
+    // Schema accepts this shape; semantic-check rule 6 rejects it. Flatten
+    // is downstream of semantic-checks but still produces a defensible result
+    // if it ever sees the input — precedence is `propName` > `groupKey`.
+    const spec: Spec = {
+      name: "tabs",
+      kind: "composite",
+      parts: {
+        list: { element: "div" },
+        tab: {
+          repeating: true,
+          propName: "override",
+          groupKey: "items",
+          element: "button",
+          props: { label: { type: "string", slot: true, description: "Label." } },
+        },
+      },
+    } as Spec;
+    const flat = flattenSpec(spec);
+    expect(flat.repeating?.[0]?.propName).toBe("override");
+  });
+
+  test("groupKey is undefined on the FlatRepeatingPart when not set", () => {
+    const spec: Spec = {
+      name: "pagination",
+      kind: "composite",
+      parts: {
+        root: { element: "nav" },
+        page: {
+          repeating: true,
+          element: "span",
+          props: { label: { type: "string", slot: true, description: "Label." } },
+        },
+      },
+    } as Spec;
+    const flat = flattenSpec(spec);
+    expect(flat.repeating?.[0]?.groupKey).toBeUndefined();
+  });
+
   test("non-repeating composite specs leave `repeating` undefined", () => {
     const spec: Spec = {
       name: "tooltip",
