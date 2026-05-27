@@ -1629,6 +1629,42 @@ describe("checkRepeatingParts (RFC-0005)", () => {
     ).toBe(true);
   });
 
+  test("rule 16 — `responsive: true` on a group-level scalar wrapper prop is rejected", () => {
+    const spec: Spec = {
+      name: "tabs",
+      kind: "composite",
+      parts: {
+        list: {
+          element: "div",
+          props: {
+            label: {
+              type: "string",
+              responsive: true,
+              description: "Accessible label (responsive forbidden).",
+            },
+          },
+        },
+        tab: {
+          repeating: true,
+          groupKey: "items",
+          element: "button",
+          props: { label: { type: "string", slot: true, description: "Tab label." } },
+        },
+        "tab-icon": {
+          repeating: true,
+          groupKey: "items",
+          element: "span",
+          props: { icon: { type: "string", slot: true, description: "Icon." } },
+        },
+      },
+    } as Spec;
+    const issues = checkRepeatingParts(spec);
+    expect(issues.map((i) => i.path)).toContain("parts.list.props.label");
+    expect(
+      issues.some((i) => /wrapper props flow through without responsive expansion/.test(i.message)),
+    ).toBe(true);
+  });
+
   test("rule 15 — `propName:` on a non-repeating part is rejected", () => {
     const spec: Spec = {
       name: "pagination",
