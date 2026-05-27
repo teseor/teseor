@@ -13,6 +13,12 @@ parts:
       gap:
         fallback: --t-space-2
         desc: Gap between tab + icon pairs.
+      fg:
+        fallback: --t-fg
+        desc: Default text color shared by the tab and its adjacent icon.
+      fg-active:
+        fallback: --t-accent
+        desc: Text color applied to the active tab (siblings still inherit `fg`).
     privateTokens:
       - --_gap
   tab:
@@ -39,12 +45,6 @@ parts:
       radius:
         fallback: --t-radius-sm
         desc: Corner radius.
-      fg:
-        fallback: --t-fg
-        desc: Default tab text color.
-      fg-active:
-        fallback: --t-accent
-        desc: Text color of the active tab.
     privateTokens:
       - --_pad-x
       - --_pad-y
@@ -63,6 +63,8 @@ parts:
         type: string
         slot: true
         description: "Optional icon character or symbol shown next to the tab."
+    privateTokens:
+      - --_fg
 
 examples:
   - id: three-tabs-middle-active

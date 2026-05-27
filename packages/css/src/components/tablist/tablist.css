@@ -12,6 +12,10 @@
     --_weight: 400;
     --_weight-active: 600;
   }
+
+  .t-tablist-icon {
+    --_fg: var(--t-tablist-fg, var(--t-fg));
+  }
 }
 
 @layer components.styles {
