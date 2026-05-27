@@ -1,4 +1,5 @@
 import { pascalCase } from "../../../lib/pascal-case.ts";
+import { itemTypeName } from "../../../lib/repeating-naming.ts";
 import { esc, formatValue } from "../../../lib/text-escape.ts";
 import type { Spec } from "../../gen-contract.ts";
 import { renderTable, section } from "./table-printer.ts";
@@ -206,16 +207,6 @@ function groupRepeating(
     out.set(r.propName, g);
   }
   return out;
-}
-
-function singularize(word: string): string {
-  return word.endsWith("s") ? word.slice(0, -1) : word;
-}
-
-function itemTypeName(Name: string, part: NonNullable<DocsSpec["repeating"]>[number]): string {
-  const base = part.groupKey ? singularize(part.groupKey) : part.partName;
-  const basePascal = pascalCase(base);
-  return basePascal.toLowerCase() === "item" ? `${Name}Item` : `${Name}${basePascal}Item`;
 }
 
 export function renderNamed(

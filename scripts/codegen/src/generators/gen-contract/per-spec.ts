@@ -1,13 +1,7 @@
 import type { FlatSpec } from "../../lib/flatten.ts";
 import { pascalCase } from "../../lib/pascal-case.ts";
+import { itemTypeName } from "../../lib/repeating-naming.ts";
 import { mapPropType, quote, responsiveType } from "./_shared/type-printer.ts";
-
-/** Naive English singularization: strip a trailing 's'. Adequate for the
- *  common groupKey vocabulary (items, tabs, options, pages). Authors using
- *  irregulars (children, mice) can pick a non-plural groupKey instead. */
-function singularize(word: string): string {
-  return word.endsWith("s") ? word.slice(0, -1) : word;
-}
 
 /** Per-spec contract emitter. `FlatSpec` already collapses the atomic vs
  *  composite distinction (composite parts are merged into root props with a
@@ -125,15 +119,7 @@ export function renderContract(spec: FlatSpec): string {
     if (!group || group.length === 0) continue;
     const first = group[0];
     if (!first) continue;
-    // Type name: when grouped via groupKey, derive from a singularized
-    // groupKey (e.g. "items" → "Item" → `TabsListItem`). When ungrouped,
-    // use the originating partName (e.g. "page" → `PaginationPageItem`).
-    // If the singularized form is already "Item", skip the trailing suffix
-    // to avoid doubled `ItemItem`.
-    const baseName = first.groupKey ? singularize(first.groupKey) : first.partName;
-    const basePascal = pascalCase(baseName);
-    const ItemName =
-      basePascal.toLowerCase() === "item" ? `${Name}Item` : `${Name}${basePascal}Item`;
+    const ItemName = itemTypeName(Name, first);
     const mergedItemProps: Array<[string, (typeof group)[number]["itemProps"][string]]> = [];
     const seen = new Set<string>();
     for (const part of group) {

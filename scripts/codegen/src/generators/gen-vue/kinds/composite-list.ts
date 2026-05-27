@@ -1,6 +1,7 @@
 import type { FlatItemProp, FlatRepeatingPart } from "../../../lib/flatten.ts";
 import { renderComponentJsDoc, vueJsDocFlavor } from "../../../lib/jsdoc-shape.ts";
 import { pascalCase } from "../../../lib/pascal-case.ts";
+import { itemTypeName } from "../../../lib/repeating-naming.ts";
 import type { Spec } from "../../gen-contract.ts";
 
 /**
@@ -85,6 +86,17 @@ export function renderCompositeListVueWrapper(spec: Spec): string {
     renderIterationBlock(propName, group),
   );
 
+  // Vue 3 `<script setup>` consumes declared props — they do NOT fall through
+  // as attrs the way `$attrs` does for undeclared ones, and they do NOT auto-
+  // bind to a root element. Each group-level scalar prop must be explicitly
+  // bound to the wrapper element so the consumer value actually reaches the
+  // DOM (matches React's `{...rest}` spread behavior).
+  const groupPropNames = Object.keys(spec.props ?? {});
+  const wrapperOpenTag =
+    groupPropNames.length === 0
+      ? `<${wrapperElement} class="${wrapperClass}">`
+      : `<${wrapperElement}\n    class="${wrapperClass}"\n${groupPropNames.map((n) => `    :${n}="${n}"`).join("\n")}\n  >`;
+
   // Named ES module exports (`export type …`) are not allowed inside a
   // `<script setup>` block. Emit a sibling `<script lang="ts">` first; its
   // top-level declarations are in scope for the setup block.
@@ -110,21 +122,11 @@ ${destructureLines.join("\n")}
 </script>
 
 <template>
-  <${wrapperElement} class="${wrapperClass}">
+  ${wrapperOpenTag}
 ${iterationBlocks.join("\n")}
   </${wrapperElement}>
 </template>
 `;
-}
-
-function singularize(word: string): string {
-  return word.endsWith("s") ? word.slice(0, -1) : word;
-}
-
-function itemTypeName(Name: string, part: FlatRepeatingPart): string {
-  const base = part.groupKey ? singularize(part.groupKey) : part.partName;
-  const basePascal = pascalCase(base);
-  return basePascal.toLowerCase() === "item" ? `${Name}Item` : `${Name}${basePascal}Item`;
 }
 
 function mergeItemProps(group: FlatRepeatingPart[]): Array<[string, FlatItemProp]> {

@@ -1,6 +1,7 @@
 import type { FlatItemProp, FlatRepeatingPart } from "../../../lib/flatten.ts";
 import { reactJsDocFlavor, renderComponentJsDoc } from "../../../lib/jsdoc-shape.ts";
 import { pascalCase } from "../../../lib/pascal-case.ts";
+import { itemTypeName } from "../../../lib/repeating-naming.ts";
 import type { Spec } from "../../gen-contract.ts";
 import { renderPropLine } from "../_shared/props.ts";
 import { quote } from "../_shared/type-printer.ts";
@@ -120,17 +121,6 @@ ${iterationBlocks.join("\n")}
   );
 }
 `;
-}
-
-/** Naive singularization for type names: strip a trailing 's'. */
-function singularize(word: string): string {
-  return word.endsWith("s") ? word.slice(0, -1) : word;
-}
-
-function itemTypeName(Name: string, part: FlatRepeatingPart): string {
-  const base = part.groupKey ? singularize(part.groupKey) : part.partName;
-  const basePascal = pascalCase(base);
-  return basePascal.toLowerCase() === "item" ? `${Name}Item` : `${Name}${basePascal}Item`;
 }
 
 function mergeItemProps(group: FlatRepeatingPart[]): Array<[string, FlatItemProp]> {
