@@ -2,6 +2,13 @@ import type { FlatSpec } from "../../lib/flatten.ts";
 import { pascalCase } from "../../lib/pascal-case.ts";
 import { mapPropType, quote, responsiveType } from "./_shared/type-printer.ts";
 
+/** Naive English singularization: strip a trailing 's'. Adequate for the
+ *  common groupKey vocabulary (items, tabs, options, pages). Authors using
+ *  irregulars (children, mice) can pick a non-plural groupKey instead. */
+function singularize(word: string): string {
+  return word.endsWith("s") ? word.slice(0, -1) : word;
+}
+
 /** Per-spec contract emitter. `FlatSpec` already collapses the atomic vs
  *  composite distinction (composite parts are merged into root props with a
  *  `__part` marker), so a single render path covers both kinds. */
@@ -102,26 +109,60 @@ export function renderContract(spec: FlatSpec): string {
     propLines.push(`  ${propName}?: ${tsType};`);
   }
 
-  // Repeating parts (RFC-0005). Each becomes an `Array<Name<Part>Item>` prop
-  // on the component, with the item shape declared as a sibling type so the
-  // generated React/Vue wrappers can import it.
+  // Repeating parts (RFC-0005). Parts sharing the same `groupKey:` merge into
+  // ONE Item type + ONE array prop. Ungrouped repeating parts each get their
+  // own. Group by effective propName (flatten already collapses sibling parts
+  // to the same propName when they share a groupKey).
+  const repeatingGroups = new Map<string, typeof spec.repeating>();
+  for (const r of spec.repeating ?? []) {
+    const group = repeatingGroups.get(r.propName) ?? [];
+    group.push(r);
+    repeatingGroups.set(r.propName, group);
+  }
+
   const itemTypeLines: string[] = [];
-  for (const repeating of spec.repeating ?? []) {
-    const ItemName = `${Name}${pascalCase(repeating.partName)}Item`;
+  for (const [propName, group] of repeatingGroups) {
+    if (!group || group.length === 0) continue;
+    const first = group[0];
+    if (!first) continue;
+    // Type name: when grouped via groupKey, derive from a singularized
+    // groupKey (e.g. "items" → "Item" → `TabsListItem`). When ungrouped,
+    // use the originating partName (e.g. "page" → `PaginationPageItem`).
+    // If the singularized form is already "Item", skip the trailing suffix
+    // to avoid doubled `ItemItem`.
+    const baseName = first.groupKey ? singularize(first.groupKey) : first.partName;
+    const basePascal = pascalCase(baseName);
+    const ItemName =
+      basePascal.toLowerCase() === "item" ? `${Name}Item` : `${Name}${basePascal}Item`;
+    const mergedItemProps: Array<[string, (typeof group)[number]["itemProps"][string]]> = [];
+    const seen = new Set<string>();
+    for (const part of group) {
+      for (const [n, def] of Object.entries(part.itemProps)) {
+        if (seen.has(n)) continue;
+        seen.add(n);
+        mergedItemProps.push([n, def]);
+      }
+    }
     itemTypeLines.push(`export type ${ItemName} = {`);
     itemTypeLines.push(`  /** Stable item identity; required. */`);
     itemTypeLines.push(`  id: string;`);
-    for (const [propName, propDef] of Object.entries(repeating.itemProps)) {
+    for (const [itemPropName, propDef] of mergedItemProps) {
       const propValues = propDef.values ?? [];
       const baseType =
         propValues.length > 0 ? propValues.map(quote).join(" | ") : mapPropType(propDef.type);
       if (propDef.description) itemTypeLines.push(`  /** ${propDef.description} */`);
-      itemTypeLines.push(`  ${propName}?: ${baseType};`);
+      itemTypeLines.push(`  ${itemPropName}?: ${baseType};`);
     }
     itemTypeLines.push("};");
     itemTypeLines.push("");
-    propLines.push(`  /** Items rendered by the repeating \`${repeating.partName}\` part. */`);
-    propLines.push(`  ${repeating.propName}?: ReadonlyArray<${ItemName}>;`);
+    const docPartName =
+      group.length === 1
+        ? `\`${first.partName}\``
+        : group.map((g) => `\`${g.partName}\``).join(" + ");
+    propLines.push(
+      `  /** Items rendered by the repeating ${docPartName} part${group.length > 1 ? "s" : ""}. */`,
+    );
+    propLines.push(`  ${propName}?: ReadonlyArray<${ItemName}>;`);
   }
   for (const line of itemTypeLines) lines.push(line);
 

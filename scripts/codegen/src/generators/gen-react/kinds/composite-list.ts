@@ -1,17 +1,18 @@
-import type { FlatItemProp } from "../../../lib/flatten.ts";
+import type { FlatItemProp, FlatRepeatingPart } from "../../../lib/flatten.ts";
 import { reactJsDocFlavor, renderComponentJsDoc } from "../../../lib/jsdoc-shape.ts";
 import { pascalCase } from "../../../lib/pascal-case.ts";
 import type { Spec } from "../../gen-contract.ts";
+import { renderPropLine } from "../_shared/props.ts";
 import { quote } from "../_shared/type-printer.ts";
 
 /**
  * Emits a React wrapper for a composite spec that uses repeating parts
- * (RFC-0005, phase 1) and has no `overlay:` block. The phase-1 shape is
- * one non-repeating wrapper part + one or more repeating parts rendered
- * as its direct children.
+ * (RFC-0005) and has no `overlay:` block. Shape is one non-repeating
+ * wrapper part + one or more repeating parts rendered as its direct children.
  *
- * Pagination is the phase-1 stub. Future Breadcrumb / RadioGroup share
- * this shape once the per-item events block (#690) lands.
+ * Parts sharing the same `groupKey:` are interleaved into a single loop —
+ * each iteration step emits all parts in the group. Ungrouped repeating
+ * parts get their own loop each.
  */
 export function renderCompositeListReactWrapper(spec: Spec): string {
   const Name = pascalCase(spec.name);
@@ -28,24 +29,62 @@ export function renderCompositeListReactWrapper(spec: Spec): string {
   const wrapperClass = wrapperPart.rootClass ?? `t-${spec.name}`;
   const repeating = spec.repeating ?? [];
 
-  const itemTypeBlocks = repeating.map((r) => {
-    const ItemName = `${Name}${pascalCase(r.partName)}Item`;
+  // Group repeating parts by their shared propName. groupKey-siblings share
+  // one propName via flatten; ungrouped parts each have their own.
+  const repeatingGroups = new Map<string, FlatRepeatingPart[]>();
+  for (const r of repeating) {
+    const g = repeatingGroups.get(r.propName) ?? [];
+    g.push(r);
+    repeatingGroups.set(r.propName, g);
+  }
+
+  const itemTypeBlocks: string[] = [];
+  for (const [propName, group] of repeatingGroups) {
+    const first = group[0];
+    if (!first) continue;
+    const ItemName = itemTypeName(Name, first);
+    const mergedItemProps = mergeItemProps(group);
     const fields = [
       `  /** Stable item identity; required. */`,
       `  id: string;`,
-      ...Object.entries(r.itemProps).flatMap(([n, d]) => [
+      ...mergedItemProps.flatMap(([n, d]) => [
         ...(d.description ? [`  /** ${d.description} */`] : []),
         `  ${n}?: ${mapItemPropType(d)};`,
       ]),
     ].join("\n");
-    return `export type ${ItemName} = {\n${fields}\n};`;
-  });
+    itemTypeBlocks.push(`export type ${ItemName} = {\n${fields}\n};`);
+    void propName;
+  }
 
-  const ownPropLines = repeating.map((r) => {
-    return `  /** Items rendered by the repeating \`${r.partName}\` part. */\n  ${r.propName}?: ReadonlyArray<${Name}${pascalCase(r.partName)}Item>;`;
-  });
+  const ownPropLines: string[] = [];
+  // Group-level scalar props from the wrapper / non-repeating parts.
+  for (const [n, d] of Object.entries(spec.props ?? {})) {
+    ownPropLines.push(...renderPropLine(n, d, {}, Name));
+  }
+  // Synthesized array props (one per repeating group).
+  for (const [propName, group] of repeatingGroups) {
+    const first = group[0];
+    if (!first) continue;
+    const ItemName = itemTypeName(Name, first);
+    const partLabel =
+      group.length === 1
+        ? `\`${first.partName}\``
+        : group.map((g) => `\`${g.partName}\``).join(" + ");
+    ownPropLines.push(
+      `  /** Items rendered by the repeating ${partLabel} part${group.length > 1 ? "s" : ""}. */`,
+    );
+    ownPropLines.push(`  ${propName}?: ReadonlyArray<${ItemName}>;`);
+  }
 
-  const iterationBlocks = repeating.map((r) => renderIterationBlock(Name, r));
+  const destructureNames = [...repeatingGroups.keys()].map((p) => `${p} = []`);
+  const hasMultiPartGroup = [...repeatingGroups.values()].some((g) => g.length > 1);
+
+  const iterationBlocks = [...repeatingGroups.entries()].map(([propName, group]) =>
+    renderIterationBlock(propName, group),
+  );
+
+  const reactImports = ["type ComponentProps", "type Ref"];
+  if (hasMultiPartGroup) reactImports.push("Fragment");
 
   return `"use client";
 
@@ -53,7 +92,7 @@ export function renderCompositeListReactWrapper(spec: Spec): string {
 // Source: specs/${spec.name}.yaml
 
 import "@teseor/css/components/${spec.name}.css";
-import type { ComponentProps, Ref } from "react";
+import { ${reactImports.join(", ")} } from "react";
 import { mergeClass } from "./_runtime.ts";
 
 ${itemTypeBlocks.join("\n\n")}
@@ -72,7 +111,7 @@ export type ${Name}Props = Readonly<
 >;
 
 ${renderComponentJsDoc(spec, Name, reactJsDocFlavor)}export function ${Name}(props: ${Name}Props) {
-  const { ${repeating.map((r) => `${r.propName} = []`).join(", ")}, className, ref, ...rest } = props;
+  const { ${destructureNames.join(", ")}, className, ref, ...rest } = props;
   const mergedClassName = mergeClass(${quote(wrapperClass)}, className);
   return (
     <${wrapperElement} {...rest} ref={ref} className={mergedClassName}>
@@ -81,6 +120,30 @@ ${iterationBlocks.join("\n")}
   );
 }
 `;
+}
+
+/** Naive singularization for type names: strip a trailing 's'. */
+function singularize(word: string): string {
+  return word.endsWith("s") ? word.slice(0, -1) : word;
+}
+
+function itemTypeName(Name: string, part: FlatRepeatingPart): string {
+  const base = part.groupKey ? singularize(part.groupKey) : part.partName;
+  const basePascal = pascalCase(base);
+  return basePascal.toLowerCase() === "item" ? `${Name}Item` : `${Name}${basePascal}Item`;
+}
+
+function mergeItemProps(group: FlatRepeatingPart[]): Array<[string, FlatItemProp]> {
+  const merged: Array<[string, FlatItemProp]> = [];
+  const seen = new Set<string>();
+  for (const part of group) {
+    for (const [n, def] of Object.entries(part.itemProps)) {
+      if (seen.has(n)) continue;
+      seen.add(n);
+      merged.push([n, def]);
+    }
+  }
+  return merged;
 }
 
 function mapItemPropType(def: FlatItemProp): string {
@@ -98,36 +161,45 @@ function mapItemPropType(def: FlatItemProp): string {
   }
 }
 
-function renderIterationBlock(
-  Name: string,
-  r: {
-    partName: string;
-    propName: string;
-    element?: string;
-    rootClass?: string;
-    itemProps: Record<string, FlatItemProp>;
-  },
-): string {
-  const itemElement = r.element ?? "div";
-  const itemClass = r.rootClass ?? `t-${Name.toLowerCase()}-${r.partName}`;
-  const slotEntries = Object.entries(r.itemProps).filter(([, d]) => d.slot === true);
+function renderIterationBlock(propName: string, group: FlatRepeatingPart[]): string {
+  const isMulti = group.length > 1;
+  const elementBlocks = group.map((part) => renderItemElement(part, !isMulti));
+  if (!isMulti) {
+    const block = elementBlocks[0];
+    return `      {${propName}.map((item) => (\n${block ?? ""}\n      ))}`;
+  }
+  // Multi-part group: wrap children in a keyed Fragment so each item slot
+  // has exactly one parent key. Inner elements don't need their own key.
+  return `      {${propName}.map((item) => (\n        <Fragment key={item.id}>\n${elementBlocks.join("\n")}\n        </Fragment>\n      ))}`;
+}
+
+function renderItemElement(part: FlatRepeatingPart, includeKey: boolean): string {
+  const itemElement = part.element ?? "div";
+  const itemClass = part.rootClass ?? `t-${part.partName}`;
+  const slotEntries = Object.entries(part.itemProps).filter(([, d]) => d.slot === true);
+  const indent = "          ";
   const attrLines: string[] = [
-    `          key={item.id}`,
-    `          className=${quote(itemClass)}`,
-    `          data-id={item.id}`,
+    ...(includeKey ? [`${indent}key={item.id}`] : []),
+    // Native `<button>` requires explicit `type` per biome's useButtonType
+    // a11y rule. Default to `button` to avoid the form-submit footgun; specs
+    // that want a submit button would need a real spec-level native-attr
+    // surface (out of scope here).
+    ...(itemElement === "button" ? [`${indent}type="button"`] : []),
+    `${indent}className=${quote(itemClass)}`,
+    `${indent}data-id={item.id}`,
   ];
-  for (const [n, d] of Object.entries(r.itemProps)) {
+  for (const [n, d] of Object.entries(part.itemProps)) {
     if (d.slot === true) continue;
     if (d.type === "boolean") {
-      attrLines.push(`          data-${n}={item.${n} || undefined}`);
+      attrLines.push(`${indent}data-${n}={item.${n} || undefined}`);
     } else {
-      attrLines.push(`          data-${n}={item.${n}}`);
+      attrLines.push(`${indent}data-${n}={item.${n}}`);
     }
   }
   const body =
-    slotEntries.length > 0 ? slotEntries.map(([n]) => `          {item.${n}}`).join("\n") : null;
+    slotEntries.length > 0 ? slotEntries.map(([n]) => `${indent}  {item.${n}}`).join("\n") : null;
   if (body === null) {
-    return `      {${r.propName}.map((item) => (\n        <${itemElement}\n${attrLines.join("\n")}\n        />\n      ))}`;
+    return `        <${itemElement}\n${attrLines.join("\n")}\n        />`;
   }
-  return `      {${r.propName}.map((item) => (\n        <${itemElement}\n${attrLines.join("\n")}\n        >\n${body}\n        </${itemElement}>\n      ))}`;
+  return `        <${itemElement}\n${attrLines.join("\n")}\n        >\n${body}\n        </${itemElement}>`;
 }

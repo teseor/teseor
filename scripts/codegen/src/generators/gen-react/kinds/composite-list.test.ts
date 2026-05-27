@@ -104,6 +104,109 @@ describe("renderCompositeListReactWrapper (RFC-0005)", () => {
     expect(out).toContain("data-current={item.current || undefined}");
   });
 
+  function tabsListFixture(): Spec {
+    return {
+      name: "tabs-list",
+      kind: "composite",
+      props: {},
+      tokens: {},
+      states: {},
+      parts: {
+        list: { element: "div", rootClass: "t-tabs-list" },
+        tab: {
+          repeating: true,
+          groupKey: "items",
+          element: "button",
+          rootClass: "t-tabs-list-tab",
+          props: {
+            label: { type: "string", slot: true, description: "Tab label." },
+            active: { type: "boolean", description: "Active tab." },
+          },
+        },
+        "tab-icon": {
+          repeating: true,
+          groupKey: "items",
+          element: "span",
+          rootClass: "t-tabs-list-icon",
+          props: {
+            icon: { type: "string", slot: true, description: "Tab icon." },
+          },
+        },
+      },
+      repeating: [
+        {
+          partName: "tab",
+          propName: "items",
+          element: "button",
+          rootClass: "t-tabs-list-tab",
+          groupKey: "items",
+          itemProps: {
+            label: { type: "string", slot: true, description: "Tab label." },
+            active: { type: "boolean", description: "Active tab." },
+          },
+        },
+        {
+          partName: "tab-icon",
+          propName: "items",
+          element: "span",
+          rootClass: "t-tabs-list-icon",
+          groupKey: "items",
+          itemProps: {
+            icon: { type: "string", slot: true, description: "Tab icon." },
+          },
+        },
+      ],
+    };
+  }
+
+  test("groupKey siblings: emits ONE shared item type with merged props", () => {
+    const out = renderCompositeListReactWrapper(tabsListFixture());
+    expect(out).toContain("export type TabsListItem = {");
+    expect(out).toContain("  label?: string;");
+    expect(out).toContain("  active?: boolean;");
+    expect(out).toContain("  icon?: string;");
+    // No per-part item types.
+    expect(out).not.toContain("TabsListTabItem");
+    expect(out).not.toContain("TabsListTabIconItem");
+  });
+
+  test("groupKey siblings: emits ONE array prop named after the groupKey", () => {
+    const out = renderCompositeListReactWrapper(tabsListFixture());
+    expect(out).toContain("items?: ReadonlyArray<TabsListItem>;");
+  });
+
+  test("groupKey siblings: emits ONE interleaved .map() loop wrapped in keyed Fragment", () => {
+    const out = renderCompositeListReactWrapper(tabsListFixture());
+    expect(out).toMatch(/items\.map\(\(item\)/);
+    // Only one .map() call total, not two.
+    expect(out.match(/items\.map\(/g) ?? []).toHaveLength(1);
+    expect(out).toContain("<Fragment key={item.id}>");
+    expect(out).toContain("</Fragment>");
+    // Both elements rendered inside the Fragment.
+    expect(out).toMatch(/<button[\s\S]*<span/);
+  });
+
+  test("groupKey siblings: imports Fragment from react", () => {
+    const out = renderCompositeListReactWrapper(tabsListFixture());
+    expect(out).toContain("Fragment");
+    expect(out).toContain('import { type ComponentProps, type Ref, Fragment } from "react"');
+  });
+
+  test("group-level scalar props on the wrapper part are typed in OwnProps", () => {
+    const out = renderCompositeListReactWrapper({
+      ...tabsListFixture(),
+      props: {
+        label: { type: "string", description: "Accessible label.", __part: "list" },
+      },
+    });
+    expect(out).toContain("label?: string;");
+  });
+
+  test("ungrouped repeating parts still emit per-part item types (regression of phase-1 behavior)", () => {
+    const out = renderCompositeListReactWrapper(paginationFixture());
+    expect(out).toContain("export type PaginationPageItem = {");
+  });
+
   test("throws when no non-repeating wrapper part is declared", () => {
     expect(() =>
       renderCompositeListReactWrapper({

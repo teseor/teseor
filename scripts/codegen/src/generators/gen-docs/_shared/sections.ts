@@ -137,18 +137,25 @@ export function renderProps(spec: DocsSpec): string {
       `Forwarded ref to the popover content element. React: pass a callback ref or RefObject as the <Code>ref</Code> prop. Vue: read it through the parent template ref — <Code>${esc(spec.name)}Ref.value?.contentRef.value</Code> (exposed via <Code>defineExpose</Code>).`,
     ]);
   }
-  // Repeating parts (RFC-0005) synthesize an array prop on the parent. The
-  // per-item shape is rendered as a separate "Items" section below the table.
+  // Repeating parts (RFC-0005) synthesize an array prop on the parent. Parts
+  // sharing the same `groupKey:` merge into one row + one Item section below.
   if (spec.kind === "composite" && spec.repeating) {
     const Name = pascalCase(spec.name);
-    for (const r of spec.repeating) {
-      const ItemName = `${Name}${pascalCase(r.partName)}Item`;
+    const groups = groupRepeating(spec.repeating);
+    for (const [propName, group] of groups) {
+      const first = group[0];
+      if (!first) continue;
+      const ItemName = itemTypeName(Name, first);
+      const partLabel =
+        group.length === 1
+          ? `<Code>${esc(first.partName)}</Code>`
+          : group.map((g) => `<Code>${esc(g.partName)}</Code>`).join(" + ");
       rows.push([
-        `<Code>${esc(r.propName)}</Code>`,
+        `<Code>${esc(propName)}</Code>`,
         `<Code>ReadonlyArray&lt;${esc(ItemName)}&gt;</Code>`,
         "",
         `<Code>[]</Code>`,
-        `Items rendered by the repeating <Code>${esc(r.partName)}</Code> part. See <Code>${esc(ItemName)}</Code> for the item shape.`,
+        `Items rendered by the repeating ${partLabel} part${group.length > 1 ? "s" : ""}. See <Code>${esc(ItemName)}</Code> for the item shape.`,
       ]);
     }
   }
@@ -161,23 +168,54 @@ export function renderProps(spec: DocsSpec): string {
 export function renderRepeatingItems(spec: DocsSpec): string {
   if (spec.kind !== "composite" || !spec.repeating || spec.repeating.length === 0) return "";
   const Name = pascalCase(spec.name);
-  const blocks = spec.repeating.map((r) => {
-    const ItemName = `${Name}${pascalCase(r.partName)}Item`;
+  const groups = groupRepeating(spec.repeating);
+  const blocks: string[] = [];
+  for (const [, group] of groups) {
+    const first = group[0];
+    if (!first) continue;
+    const ItemName = itemTypeName(Name, first);
     const rows: string[][] = [
       [`<Code>id</Code>`, `<Code>string</Code>`, "—", `Stable item identity (required).`],
     ];
-    for (const [name, def] of Object.entries(r.itemProps)) {
-      const type = [def.type, def.slot ? "slot" : ""].filter(Boolean).join(", ");
-      rows.push([
-        `<Code>${esc(name)}</Code>`,
-        `<Code>${esc(type)}</Code>`,
-        `<Code>${esc(formatValue(def.default))}</Code>`,
-        esc(def.description ?? ""),
-      ]);
+    const seen = new Set<string>();
+    for (const part of group) {
+      for (const [name, def] of Object.entries(part.itemProps)) {
+        if (seen.has(name)) continue;
+        seen.add(name);
+        const type = [def.type, def.slot ? "slot" : ""].filter(Boolean).join(", ");
+        rows.push([
+          `<Code>${esc(name)}</Code>`,
+          `<Code>${esc(type)}</Code>`,
+          `<Code>${esc(formatValue(def.default))}</Code>`,
+          esc(def.description ?? ""),
+        ]);
+      }
     }
-    return section(`${ItemName}`, renderTable(["Field", "Type", "Default", "Description"], rows));
-  });
+    blocks.push(section(ItemName, renderTable(["Field", "Type", "Default", "Description"], rows)));
+  }
   return blocks.join("\n");
+}
+
+function groupRepeating(
+  repeating: NonNullable<DocsSpec["repeating"]>,
+): Map<string, NonNullable<DocsSpec["repeating"]>> {
+  const out = new Map<string, NonNullable<DocsSpec["repeating"]>>();
+  for (const r of repeating) {
+    const g = out.get(r.propName) ?? [];
+    g.push(r);
+    out.set(r.propName, g);
+  }
+  return out;
+}
+
+function singularize(word: string): string {
+  return word.endsWith("s") ? word.slice(0, -1) : word;
+}
+
+function itemTypeName(Name: string, part: NonNullable<DocsSpec["repeating"]>[number]): string {
+  const base = part.groupKey ? singularize(part.groupKey) : part.partName;
+  const basePascal = pascalCase(base);
+  return basePascal.toLowerCase() === "item" ? `${Name}Item` : `${Name}${basePascal}Item`;
 }
 
 export function renderNamed(
