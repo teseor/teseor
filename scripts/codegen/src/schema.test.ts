@@ -229,14 +229,53 @@ describe("Spec schema — shape layer", () => {
     expect(result.success).toBe(false);
   });
 
-  test("rejects `groupKey:` in phase 1 (lands with phase 2)", () => {
+  test("accepts `groupKey:` on a repeating part", () => {
+    const result = Spec.safeParse({
+      name: "tabs",
+      kind: "composite",
+      parts: {
+        list: { element: "div" },
+        tab: {
+          repeating: true,
+          groupKey: "items",
+          element: "button",
+          props: { label: { type: "string", slot: true, description: "Label." } },
+        },
+        "tab-icon": {
+          repeating: true,
+          groupKey: "items",
+          element: "span",
+          props: { icon: { type: "string", slot: true, description: "Icon." } },
+        },
+      },
+    });
+    expect(result.success).toBe(true);
+  });
+
+  test("rejects non-string `groupKey:`", () => {
     const result = Spec.safeParse({
       name: "tabs",
       kind: "composite",
       parts: {
         tab: {
           repeating: true,
-          groupKey: "items",
+          groupKey: 42,
+          element: "button",
+          props: { label: { type: "string", description: "Label." } },
+        },
+      },
+    });
+    expect(result.success).toBe(false);
+  });
+
+  test("rejects empty `groupKey:`", () => {
+    const result = Spec.safeParse({
+      name: "tabs",
+      kind: "composite",
+      parts: {
+        tab: {
+          repeating: true,
+          groupKey: "",
           element: "button",
           props: { label: { type: "string", description: "Label." } },
         },
