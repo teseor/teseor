@@ -1173,7 +1173,7 @@ export function checkInteractionEventVocabulary(spec: Spec): Issue[] {
  *
  *  1. `repeating: true` + `fromChildren: true` — contradictory.
  *  2. `repeating: true` with no (or empty) `props:` — useless item shape.
- *  3. `repeating: true` + nested `parts:` — deferred to #835.
+ *  3. Any part in a list composite declares nested `parts:` — deferred to #835.
  *  4. Repeating part nested inside another repeating part — deferred to #834.
  *  5. Two repeating siblings collapse to the same effective `propName`.
  *  8. Repeating part declares `props.id` — `id` is codegen-reserved.
@@ -1188,6 +1188,9 @@ export function checkInteractionEventVocabulary(spec: Spec): Issue[] {
  * 13. A list composite must declare exactly one non-repeating top-level part —
  *     the wrapper. Multiple wrappers are silently dropped by the renderer;
  *     zero wrappers cause a generator throw.
+ * 14. Repeating item prop names must be valid JS identifiers — codegen emits
+ *     `item.<name>` access in iteration bodies; hyphens / spaces / leading
+ *     digits produce parse errors.
  */
 // Valid JS identifier: starts with letter/underscore/$, followed by alphanumerics/_/$.
 const JS_IDENTIFIER_RE = /^[A-Za-z_$][A-Za-z0-9_$]*$/;
@@ -1336,6 +1339,21 @@ export function checkRepeatingParts(spec: Spec): Issue[] {
     for (const [partName, part] of Object.entries(parts)) {
       const path = parentPath === "" ? `parts.${partName}` : `${parentPath}.parts.${partName}`;
 
+      // Rule 3 (generalized): in a list composite, no part — whether the
+      // repeating one or a non-repeating wrapper — may declare nested `parts:`.
+      // The composite-list renderers only emit the chosen wrapper + each
+      // repeating sibling; any nested sub-parts (under either) are silently
+      // dropped. Defer to #835 / a future phase.
+      if (anyRepeating && part.parts && Object.keys(part.parts).length > 0) {
+        issues.push(
+          issue(
+            spec.name,
+            path,
+            `'${partName}' cannot declare nested \`parts:\` in a list composite — nested fixed sub-parts are deferred to #835.`,
+          ),
+        );
+      }
+
       if (part.repeating === true) {
         // Rule 4: nested inside a repeating ancestor.
         if (parentIsRepeating) {
@@ -1368,16 +1386,6 @@ export function checkRepeatingParts(spec: Spec): Issue[] {
             ),
           );
         }
-        // Rule 3: nested fixed sub-parts.
-        if (part.parts && Object.keys(part.parts).length > 0) {
-          issues.push(
-            issue(
-              spec.name,
-              path,
-              `repeating part '${partName}' cannot declare nested \`parts:\` — nested fixed sub-parts on a repeating item are deferred to #835.`,
-            ),
-          );
-        }
         // Rule 8: `id` is reserved.
         if (propEntries.some(([name]) => name === "id")) {
           issues.push(
@@ -1398,6 +1406,23 @@ export function checkRepeatingParts(spec: Spec): Issue[] {
                 spec.name,
                 `${path}.props.${itemPropName}`,
                 `repeating item prop '${itemPropName}' cannot set \`responsive: true\` in phase 1 — per-item responsive emission is deferred. Set \`responsive: false\` or move the prop to a group-level surface (phase 2).`,
+              ),
+            );
+          }
+        }
+        // Rule 14: item prop names must be valid JS identifiers. Codegen emits
+        // `item.<name>` in iteration bodies and `<name>?: T;` in type members;
+        // hyphenated / spaced / non-identifier names (e.g. `aria-label`,
+        // `page-size`) produce parse errors. Skip `id` — already rejected
+        // by rule 8.
+        for (const [itemPropName] of propEntries) {
+          if (itemPropName === "id") continue;
+          if (!JS_IDENTIFIER_RE.test(itemPropName)) {
+            issues.push(
+              issue(
+                spec.name,
+                `${path}.props.${itemPropName}`,
+                `repeating item prop name '${itemPropName}' is not a valid JS identifier. Codegen emits \`item.${itemPropName}\` in the iteration body; non-identifier names produce parse errors. Use camelCase.`,
               ),
             );
           }

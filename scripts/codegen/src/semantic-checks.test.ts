@@ -1464,6 +1464,46 @@ describe("checkRepeatingParts (RFC-0005)", () => {
     expect(wrapperRule.map((i) => i.path).sort()).toEqual(["parts.header", "parts.root"]);
   });
 
+  test("rule 3 (generalized) — nested `parts:` under the NON-repeating wrapper is rejected", () => {
+    const spec: Spec = {
+      name: "pagination",
+      kind: "composite",
+      parts: {
+        root: {
+          element: "nav",
+          parts: { header: { element: "header", rootClass: "t-pagination-header" } },
+        },
+        page: {
+          repeating: true,
+          element: "span",
+          props: { label: { type: "string", description: "Label." } },
+        },
+      },
+    } as Spec;
+    const issues = checkRepeatingParts(spec);
+    expect(issues.some((i) => i.path === "parts.root" && /#835/.test(i.message))).toBe(true);
+  });
+
+  test("rule 14 — item prop name with a hyphen is rejected", () => {
+    const spec: Spec = {
+      name: "pagination",
+      kind: "composite",
+      parts: {
+        root: { element: "nav" },
+        page: {
+          repeating: true,
+          element: "span",
+          props: {
+            "aria-label": { type: "string", description: "Aria label (forbidden — hyphen)." },
+          },
+        },
+      },
+    } as Spec;
+    const issues = checkRepeatingParts(spec);
+    expect(issues.map((i) => i.path)).toContain("parts.page.props.aria-label");
+    expect(issues.some((i) => /not a valid JS identifier/.test(i.message))).toBe(true);
+  });
+
   test("rule 13 — zero non-repeating parts in a list composite is rejected", () => {
     const spec: Spec = {
       name: "only-repeating",
