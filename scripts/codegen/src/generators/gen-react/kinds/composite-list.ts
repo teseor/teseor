@@ -66,8 +66,10 @@ ${ownPropLines.join("\n")}
   children?: never;
 };
 
-export type ${Name}Props = ${Name}OwnProps &
-  Omit<ComponentProps<${quote(wrapperElement)}>, keyof ${Name}OwnProps | "ref" | "children">;
+export type ${Name}Props = Readonly<
+  ${Name}OwnProps &
+    Omit<ComponentProps<${quote(wrapperElement)}>, keyof ${Name}OwnProps | "ref" | "children">
+>;
 
 ${renderComponentJsDoc(spec, Name, reactJsDocFlavor)}export function ${Name}(props: ${Name}Props) {
   const { ${repeating.map((r) => `${r.propName} = []`).join(", ")}, className, ref, ...rest } = props;

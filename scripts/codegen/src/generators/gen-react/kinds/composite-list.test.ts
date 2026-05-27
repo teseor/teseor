@@ -72,6 +72,11 @@ describe("renderCompositeListReactWrapper (RFC-0005)", () => {
     );
   });
 
+  test("wraps the props intersection in `Readonly<...>`", () => {
+    const out = renderCompositeListReactWrapper(paginationFixture());
+    expect(out).toContain("export type PaginationProps = Readonly<");
+  });
+
   test("renders the wrapper element from the non-repeating part", () => {
     const out = renderCompositeListReactWrapper(paginationFixture());
     expect(out).toContain("<nav {...rest} ref={ref} className={mergedClassName}>");

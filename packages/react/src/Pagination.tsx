@@ -25,8 +25,9 @@ type PaginationOwnProps = {
   children?: never;
 };
 
-export type PaginationProps = PaginationOwnProps &
-  Omit<ComponentProps<"nav">, keyof PaginationOwnProps | "ref" | "children">;
+export type PaginationProps = Readonly<
+  PaginationOwnProps & Omit<ComponentProps<"nav">, keyof PaginationOwnProps | "ref" | "children">
+>;
 
 /**
  * A static page-link list. Renders one item per entry in the `pages` array. Phase-1 stub for RFC-0005; real navigation lands with phase 3.
