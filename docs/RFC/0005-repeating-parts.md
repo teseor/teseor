@@ -198,7 +198,7 @@ Phase 1 doesn't declare the `groupKey:` field in the schema. The Zod `strictObje
 
 ### Validator rejections (semantic-checks.ts)
 
-A repeating part triggers one of eight new `Issue`s in phase 1. Three more rules (#6, #7, #9 below) land with the `groupKey:` field in phase 2. The full eleven-rule table is kept in the RFC for forward visibility — the phase column marks what ships when.
+A repeating part triggers one of ten new `Issue`s in phase 1. Three more rules (#6, #7, #9 below) land with the `groupKey:` field in phase 2. The full thirteen-rule table is kept in the RFC for forward visibility — the phase column marks what ships when.
 
 | # | Condition | Phase | Rationale |
 | --- | --- | --- | --- |
@@ -211,8 +211,10 @@ A repeating part triggers one of eight new `Issue`s in phase 1. Three more rules
 | 7 | Two parts sharing `groupKey:` declare a per-item prop with the same name | 2 | Phase-2 collision; lands with the `groupKey:` field. |
 | 8 | A repeating part declares `props.id` | 1 | `id` is codegen-reserved. |
 | 9 | A `groupKey:` value is referenced by exactly one repeating part | 2 | `groupKey` only makes sense with ≥ 2 sharers; a lone one means the author wants `propName:`. |
-| 10 | Effective `propName` is not a valid JS identifier or collides with a codegen-emitted wrapper local (`ref`, `className`, `class`, `children`, `key`, `style`, `id`) | 1 | The generated wrapper would not compile. |
+| 10 | Effective `propName` is not a valid JS identifier or collides with a codegen-emitted wrapper local / JS reserved word (e.g. `ref`, `className`, `props`, `rest`, `mergedClassName`, `default`, `let`, `class`, …) | 1 | The generated wrapper would not compile. |
 | 11 | Non-repeating part declares scalar `props:` in a composite that has repeating parts | 1 | Group-level scalar props need the `groupKey:` + interleave codegen machinery; deferred to phase 2. |
+| 12 | Repeating item prop sets `responsive: true` | 1 | Generators emit a plain scalar field + single `data-*` binding, no per-breakpoint expansion. Spec would lie about the API. Deferred. |
+| 13 | List composite has ≠ 1 non-repeating top-level part | 1 | The renderers pick the first non-repeating top-level part as the wrapper; extras are silently dropped, zero throws at generation time. |
 
 Each issue includes the repeating part's dotted `partPath` in `Issue.path` so authors can locate the offending declaration without grepping.
 
