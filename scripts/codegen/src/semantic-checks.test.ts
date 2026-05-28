@@ -1629,6 +1629,74 @@ describe("checkRepeatingParts (RFC-0005)", () => {
     ).toBe(true);
   });
 
+  test("rule 16 — `slot: true` on a group-level wrapper prop is rejected", () => {
+    const spec: Spec = {
+      name: "tabs",
+      kind: "composite",
+      parts: {
+        list: {
+          element: "div",
+          props: {
+            label: {
+              type: "string",
+              slot: true,
+              description: "Wrapper has no slot body — should be rejected.",
+            },
+          },
+        },
+        tab: {
+          repeating: true,
+          groupKey: "items",
+          element: "button",
+          props: { label: { type: "string", slot: true, description: "Tab label." } },
+        },
+        "tab-icon": {
+          repeating: true,
+          groupKey: "items",
+          element: "span",
+          props: { icon: { type: "string", slot: true, description: "Icon." } },
+        },
+      },
+    } as Spec;
+    const issues = checkRepeatingParts(spec);
+    expect(
+      issues.some((i) => /wrapper renders the repeating loop, not slot content/.test(i.message)),
+    ).toBe(true);
+  });
+
+  test("rule 16 — `pattern: controllable` on a group-level wrapper prop is rejected", () => {
+    const spec: Spec = {
+      name: "tabs",
+      kind: "composite",
+      parts: {
+        list: {
+          element: "div",
+          props: {
+            value: {
+              type: "boolean",
+              pattern: "controllable",
+              description: "Selection (controllable forbidden until events land).",
+            },
+          },
+        },
+        tab: {
+          repeating: true,
+          groupKey: "items",
+          element: "button",
+          props: { label: { type: "string", slot: true, description: "Tab label." } },
+        },
+        "tab-icon": {
+          repeating: true,
+          groupKey: "items",
+          element: "span",
+          props: { icon: { type: "string", slot: true, description: "Icon." } },
+        },
+      },
+    } as Spec;
+    const issues = checkRepeatingParts(spec);
+    expect(issues.some((i) => /default<Name>` \/ `on<Name>Change/.test(i.message))).toBe(true);
+  });
+
   test("rule 16 — `responsive: true` on a group-level scalar wrapper prop is rejected", () => {
     const spec: Spec = {
       name: "tabs",

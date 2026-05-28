@@ -1199,9 +1199,11 @@ export function checkInteractionEventVocabulary(spec: Spec): Issue[] {
  * 15. `propName:` or `groupKey:` declared on a part without `repeating: true`
  *     — both are only consumed when `repeating: true`. Silently ignored
  *     downstream otherwise.
- * 16. Group-level scalar prop on a non-repeating part sets `responsive: true`
- *     in a list composite — wrapper props flow through without responsive
- *     expansion; the value would lie about the API or land malformed.
+ * 16. Group-level scalar prop on a non-repeating part in a list composite
+ *     uses an advanced shape the wrapper template can't currently handle.
+ *     Three sub-cases each emit their own issue: `responsive: true` (no
+ *     per-breakpoint expansion), `slot: true` (no slot body), and
+ *     `pattern: controllable` (no `default*` / `on*Change` triple).
  */
 // Valid JS identifier: starts with letter/underscore/$, followed by alphanumerics/_/$.
 const JS_IDENTIFIER_RE = /^[A-Za-z_$][A-Za-z0-9_$]*$/;
@@ -1579,11 +1581,13 @@ export function checkRepeatingParts(spec: Spec): Issue[] {
           );
         }
         // Rule 16: in a list composite, group-level scalar props on a
-        // non-repeating sibling cannot set `responsive: true`. They flow to
-        // the wrapper element via spread (React) or explicit binding (Vue)
-        // without per-breakpoint expansion via `responsiveDataAttrs`, so the
-        // value would either lie about the API or land as `[object Object]`
-        // in the DOM for object-valued responsive overrides.
+        // non-repeating sibling cannot use advanced shapes that the wrapper
+        // template doesn't currently handle. The wrapper just passes props
+        // through (React `{...rest}`, Vue `:<name>="<name>"`) — no per-
+        // breakpoint expansion, no slot rendering, no controllable triple.
+        //   16a: `responsive: true` — no `responsiveDataAttrs` expansion.
+        //   16b: `slot: true` — wrapper has no body for slot content.
+        //   16c: `pattern: controllable` — no `default*` / `on*Change` triple.
         if (anyRepeating) {
           for (const [propName, def] of Object.entries(part.props ?? {})) {
             if (def.responsive === true && def.slot !== true) {
@@ -1591,7 +1595,25 @@ export function checkRepeatingParts(spec: Spec): Issue[] {
                 issue(
                   spec.name,
                   `${path}.props.${propName}`,
-                  `group-level scalar prop '${propName}' on non-repeating part '${partName}' cannot set \`responsive: true\` — wrapper props flow through without responsive expansion. Set \`responsive: false\` until per-prop responsive emission lands.`,
+                  `group-level scalar prop '${propName}' on non-repeating part '${partName}' cannot set \`responsive: true\` — wrapper props flow through without responsive expansion.`,
+                ),
+              );
+            }
+            if (def.slot === true) {
+              issues.push(
+                issue(
+                  spec.name,
+                  `${path}.props.${propName}`,
+                  `group-level scalar prop '${propName}' on non-repeating part '${partName}' cannot set \`slot: true\` — the wrapper renders the repeating loop, not slot content.`,
+                ),
+              );
+            }
+            if (def.pattern === "controllable") {
+              issues.push(
+                issue(
+                  spec.name,
+                  `${path}.props.${propName}`,
+                  `group-level scalar prop '${propName}' on non-repeating part '${partName}' cannot set \`pattern: controllable\` — the wrapper template doesn't emit the \`default<Name>\` / \`on<Name>Change\` triple. Controllable patterns wait for an events story.`,
                 ),
               );
             }
