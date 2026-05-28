@@ -316,7 +316,7 @@ describe("Spec schema — shape layer", () => {
     });
     expect(result.success).toBe(true);
     if (result.success && result.data.kind === "atomic") {
-      expect(result.data.events?.dismiss.payload).toEqual({});
+      expect(result.data.events?.dismiss?.payload).toEqual({});
     }
   });
 
