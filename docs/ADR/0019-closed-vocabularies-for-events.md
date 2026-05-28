@@ -13,12 +13,14 @@ TS mirror).
 Both halves of the events block — the event *name* and its *payload
 type* — will be constrained by closed vocabularies stored in
 `specs/_vocabulary.yaml`. Today that file carries a flat `events:`
-string list; the implementation PR extends it into the structured
-form below. A generated TypeScript mirror at
-`scripts/codegen/src/lib/vocabulary.ts` (today a runtime YAML
-loader, rebuilt as a generated artifact in the same PR) is the
-single source every consumer of the vocab (validator, codegen,
-gen-docs) imports.
+string list; the implementation PR extends it into four keys —
+`events.verbs`, `events.synonyms`, `events.builtins`, and the
+name `pattern` — whose roles are described in the two sub-headings
+("Event names" and "Payload types") that follow. A generated
+TypeScript mirror at `scripts/codegen/src/lib/vocabulary.ts` (today
+a runtime YAML loader, rebuilt as a generated artifact in the same
+PR) is the single source every consumer of the vocab (validator,
+codegen, gen-docs) imports.
 
 **Event names.** The last camelCase token of every event name must be
 a registered verb. Synonyms (`close` → `dismiss`, `hide` → `dismiss`,
