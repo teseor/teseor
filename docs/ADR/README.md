@@ -25,8 +25,8 @@ a numbered, durable file.
 | [0015](0015-codegen-layout.md) | Codegen layout: target-first generators | Accepted |
 | [0016](0016-per-breakpoint-css-cost.md) | Per-breakpoint CSS cost: status quo with budget | Accepted |
 | [0017](0017-strict-token-interface-boundary.md) | Strict token-interface boundary | Accepted |
-| [0018](0018-events-block-surface.md) | Events block: scope, consumer surface, docs section split | Accepted |
-| [0019](0019-closed-vocabularies-for-events.md) | Closed vocabularies for event names and payload types | Accepted |
+| [0018](0018-events-block-surface.md) | Events block: scope, consumer surface, docs section split | Proposed |
+| [0019](0019-closed-vocabularies-for-events.md) | Closed vocabularies for event names and payload types | Proposed |
 
 ## When to write one
 

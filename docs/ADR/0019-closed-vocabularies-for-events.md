@@ -1,23 +1,33 @@
 # ADR-0019 — Closed vocabularies for event names and payload types
 
-- **Status:** Accepted.
+- **Status:** Proposed.
 - **Deciders:** repo owner (letanure).
+
+Flips to Accepted when the vocabulary infrastructure PR has merged
+(`specs/_vocabulary.yaml` carrying the structured `events:` block
+and `scripts/codegen/src/lib/vocabulary.ts` rebuilt as the generated
+TS mirror).
 
 ## Decision
 
 Both halves of the events block — the event *name* and its *payload
-type* — are constrained by closed vocabularies stored in
-`specs/_vocabulary.yaml`. A generated TypeScript mirror at
-`scripts/codegen/src/lib/vocabulary.ts` is the single source every
-consumer of the vocab (validator, codegen, gen-docs) imports.
+type* — will be constrained by closed vocabularies stored in
+`specs/_vocabulary.yaml`. Today that file carries a flat `events:`
+string list; the implementation PR extends it into the structured
+form below. A generated TypeScript mirror at
+`scripts/codegen/src/lib/vocabulary.ts` (today a runtime YAML
+loader, rebuilt as a generated artifact in the same PR) is the
+single source every consumer of the vocab (validator, codegen,
+gen-docs) imports.
 
 **Event names.** The last camelCase token of every event name must be
 a registered verb. Synonyms (`close` → `dismiss`, `hide` → `dismiss`,
-`update` → `change`, `press` → `activate`, `open` → "use
-`pattern: controllable`") are rejected with a suggestion. Verbs are
-the base form, not past tense: `fileAdd`, not `fileAdded`;
-`endReach`, not `endReached`. The pattern is
-`^([a-z]+|[a-z]+([A-Z][a-zA-Z0-9]+)+)$` — bare verb or
+`update` → `change`, `press` → `activate`) are rejected with a
+suggestion. The `open` synonym is special-cased: it routes the
+author to `pattern: "controllable"` on the `open` prop instead of an
+event declaration. Verbs are the base form, not past tense:
+`fileAdd`, not `fileAdded`; `endReach`, not `endReached`. The
+pattern is `^([a-z]+|[a-z]+([A-Z][a-zA-Z0-9]+)+)$` — bare verb or
 `<subjectNoun><Verb>`.
 
 **Payload types.** Every payload field is declared structurally as a
@@ -84,14 +94,17 @@ the vocab, extend the schema) — they don't open bypasses.
 
 ## Consequences
 
-- **Single source.** `specs/_vocabulary.yaml` carries
-  `events.verbs`, `events.synonyms`, `events.builtins`, and the
-  name pattern. Every consumer (validate-spec, gen-contract,
-  gen-react, gen-vue, gen-docs) reads from the generated TS mirror.
-  No string lives in two places.
-- **Eight new semantic-check rules** in `validate-spec.ts` (RFC-0006
-  § Validator rules): event-name pattern, verb-registered, synonym
-  rejection (with "—" for controllable-mirror synonyms like `open`),
+- **Single source.** After the implementation PR,
+  `specs/_vocabulary.yaml` carries `events.verbs`, `events.synonyms`,
+  `events.builtins`, and the name pattern — extending today's flat
+  `events:` list. Every consumer (validate-spec runner,
+  gen-contract, gen-react, gen-vue, gen-docs) reads from the
+  generated TS mirror. No string lives in two places.
+- **Eight new semantic-check rules** in
+  `scripts/codegen/src/semantic-checks.ts` (the rules file invoked
+  by `validate-spec.ts` via `runSemanticChecks`, per RFC-0006 §
+  Validator rules): event-name pattern, verb-registered, synonym
+  rejection (with `open` routed to `pattern: "controllable"`),
   generic-ref existence, builtin-name existence, root-only
   declaration, no collision with controllable callback names. The
   `semantic-checks.ts` file is already ~1700 LOC (#838 audit); this
@@ -107,12 +120,12 @@ the vocab, extend the schema) — they don't open bypasses.
   they want at the call site. If a real case demands a bound, the
   constraint vocabulary lands as a follow-up — not as a raw-string
   escape hatch.
-- **No state mirror via events.** `open` and `value` are synonyms
-  with a `—` canonical: the validator instructs the author to use
-  `pattern: "controllable"` on the open / value prop instead. This
-  keeps controllable mirrors and declared events as distinct
-  authoring concerns even though they share the `onEvent` channel
-  (ADR-0018).
+- **No state mirror via events.** The `open` synonym carries no
+  canonical verb; the validator instructs the author to use
+  `pattern: "controllable"` on the `open` prop instead of declaring
+  an event. This keeps controllable mirrors and declared events as
+  distinct authoring concerns even though they share the `onEvent`
+  channel (ADR-0018).
 - **The generated TS mirror is the typed API surface.** Adding a
   verb in YAML is one line; the mirror keeps the `EventVerb` /
   `BuiltinType` union types honest with zero hand-editing.

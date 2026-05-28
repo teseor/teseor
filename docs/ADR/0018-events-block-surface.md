@@ -1,7 +1,11 @@
 # ADR-0018 — Events block: scope, consumer surface, docs section split
 
-- **Status:** Accepted.
+- **Status:** Proposed.
 - **Deciders:** repo owner (letanure).
+
+Flips to Accepted when the tracer-bullet spec (Modal with
+`events: dismiss`) has merged end-to-end across schema, validator,
+and the React + Vue generators.
 
 ## Decision
 
@@ -136,11 +140,12 @@ everything else → Configuration). No new spec field is introduced.
   `#state` / `#events`. Acceptable because there are no published
   consumers of the docs site yet; if that changes, a redirect rule
   lands at the Astro level.
-- Hardcoded composite-emitted props (`asChild`, `ref`) are routed to
-  whichever section helper matches their role. The pre-existing
-  requirement to mirror those props in `sections.ts` (project memory
-  `composite_generator_props_need_docs_mirror`) generalizes to one
-  helper per section.
+- Hardcoded composite-emitted props (`asChild`, `ref`) keep needing
+  explicit rows in
+  `scripts/codegen/src/generators/gen-docs/_shared/sections.ts` — the
+  generator does not infer them from a spec field because no field
+  declares them. After the split, those explicit rows live under
+  whichever per-section helper matches their role.
 - Native DOM events (`onClick` on Button) keep flowing through the
   existing `Omit<…>`-based spread. The events surface is additive:
   it doesn't replace DOM events for atoms that don't need a semantic
