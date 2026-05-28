@@ -50,6 +50,7 @@ const {
       class="t-pagination-page"
       :data-id="item.id"
       :data-current="item.current || undefined"
-    >{{ item.label }}</span>
+      v-text="item.label"
+    />
   </nav>
 </template>

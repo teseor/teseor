@@ -52,11 +52,13 @@ const {
       class="t-tablist-tab"
       :data-id="item.id"
       :data-active="item.active || undefined"
-    >{{ item.label }}</button>
+      v-text="item.label"
+    />
     <span
       class="t-tablist-icon"
       :data-id="item.id"
-    >{{ item.icon }}</span>
+      v-text="item.icon"
+    />
     </template>
   </div>
 </template>

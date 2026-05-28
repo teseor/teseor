@@ -212,10 +212,20 @@ function renderSinglePartLoop(specName: string, propName: string, part: FlatRepe
       attrLines.push(`      :data-${n}="item.${n}"`);
     }
   }
-  const body = slotEntries.length > 0 ? slotEntries.map(([n]) => `{{ item.${n} }}`).join("") : null;
-  if (body === null) {
+  // Single-slot bodies use `v-text` (sets textContent) rather than `{{ … }}`
+  // interpolation (which creates a child text vnode even for undefined). With
+  // v-text, an absent slot value collapses to an empty element with no child
+  // nodes — CSS `:empty` then matches reliably (used by Tablist's empty-icon
+  // hiding rule). Multi-slot bodies fall back to interpolation since v-text
+  // takes over the whole element.
+  if (slotEntries.length === 1) {
+    attrLines.push(`      v-text="item.${slotEntries[0]?.[0]}"`);
     return `    <${itemElement}\n${attrLines.join("\n")}\n    />`;
   }
+  if (slotEntries.length === 0) {
+    return `    <${itemElement}\n${attrLines.join("\n")}\n    />`;
+  }
+  const body = slotEntries.map(([n]) => `{{ item.${n} }}`).join("");
   return `    <${itemElement}\n${attrLines.join("\n")}\n    >${body}</${itemElement}>`;
 }
 
@@ -238,9 +248,14 @@ function renderItemElement(specName: string, part: FlatRepeatingPart, includeKey
       attrLines.push(`${indent}:data-${n}="item.${n}"`);
     }
   }
-  const body = slotEntries.length > 0 ? slotEntries.map(([n]) => `{{ item.${n} }}`).join("") : null;
-  if (body === null) {
+  // See renderSinglePartLoop for the v-text rationale (`:empty` + Vue text vnodes).
+  if (slotEntries.length === 1) {
+    attrLines.push(`${indent}v-text="item.${slotEntries[0]?.[0]}"`);
     return `    <${itemElement}\n${attrLines.join("\n")}\n    />`;
   }
+  if (slotEntries.length === 0) {
+    return `    <${itemElement}\n${attrLines.join("\n")}\n    />`;
+  }
+  const body = slotEntries.map(([n]) => `{{ item.${n} }}`).join("");
   return `    <${itemElement}\n${attrLines.join("\n")}\n    >${body}</${itemElement}>`;
 }

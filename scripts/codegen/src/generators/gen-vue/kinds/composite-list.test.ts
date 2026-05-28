@@ -92,9 +92,10 @@ describe("renderCompositeListVueWrapper (RFC-0005)", () => {
     expect(out).toContain(`:key="item.id"`);
   });
 
-  test("slot-marked prop renders as `{{ item.x }}` interpolation", () => {
+  test("single slot-marked prop renders via `v-text` (so empty values yield :empty-matchable elements)", () => {
     const out = renderCompositeListVueWrapper(paginationFixture());
-    expect(out).toContain("{{ item.label }}");
+    expect(out).toContain(`v-text="item.label"`);
+    expect(out).not.toContain("{{ item.label }}");
   });
 
   test("non-slot string prop renders as `:data-x` binding", () => {
