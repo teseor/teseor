@@ -51,5 +51,13 @@
     margin: 0;
     color: var(--_fg);
     font-size: 0.9em;
+
+    /* Spec describes the icon as optional. Codegen still emits the <span>
+     * for every item — hide the empty ones so the flex `gap` doesn't reserve
+     * space for missing icons. Generator-side conditional rendering would be
+     * cleaner but requires a new spec mechanism (out of scope here). */
+    &:where(:empty) {
+      display: none;
+    }
   }
 }
