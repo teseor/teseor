@@ -48,7 +48,12 @@ const vocabulary: Vocabulary = {
   sizeMap: { sm: 2, md: 4, lg: 6 },
   states: ["disabled", "loading", "error", "success"],
   parts: [],
-  events: [],
+  events: {
+    verbs: {},
+    synonyms: {},
+    pattern: "^([a-z]+|[a-z]+([A-Z][a-zA-Z0-9]+)+)$",
+    builtins: {},
+  },
 };
 
 function makeButton(overrides: Partial<Spec> = {}): Spec {

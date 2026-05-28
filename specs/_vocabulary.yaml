@@ -138,14 +138,76 @@ parts:
   - __list
   - __item
 
-# Event verbs (spec form).
+# Event vocabulary (spec form).
+# Consumed by codegen, the validator, and gen-docs via
+# scripts/codegen/src/lib/vocabulary.ts.
 events:
-  - click
-  - submit
-  - dismiss
-  - change
-  - select
-  - open
-  - close
-  - focus
-  - blur
+  # Verb registry — last camelCase token of every event name must
+  # be a key here. Values are the canonical description surfaced in
+  # generated docs.
+  verbs:
+    # User-initiated actions
+    activate:    "Primary action triggered (click + Enter + Space)."
+    select:      "User chose an item from a set."
+    submit:      "User confirmed a value or form."
+    cancel:      "User explicitly cancelled an action."
+    clear:       "User cleared a value back to empty."
+    dismiss:     "Surface closed (outside, escape, button — payload carries reason)."
+    expand:      "Region expanded."
+    collapse:    "Region collapsed."
+    edit:        "Edit lifecycle (start, commit, cancel)."
+    reorder:     "Items reordered by the user."
+    retry:       "User retried a failed operation."
+    abort:       "User aborted an in-progress operation."
+    add:         "Item was added to a collection."
+    remove:      "Item was removed from a collection."
+
+    # Pure state-change verb
+    change:      "A value changed. Bare 'change' or '<noun>Change'."
+
+    # Sub-element gestures
+    click:       "Click on a named sub-element (row, cell, column header)."
+    doubleClick: "Double click on a sub-element."
+    hover:       "Pointer entered a sub-element."
+    focus:       "Focus moved into a sub-element."
+    blur:        "Focus left a sub-element."
+    drag:        "Drag lifecycle (start, over, end)."
+    drop:        "Drop completed."
+    resize:      "Element was resized."
+
+    # Lifecycle / async
+    load:        "Resource load completed successfully."
+    start:       "Operation started."
+    complete:    "Operation completed successfully."
+    progress:    "Long-running operation reported progress."
+    error:       "Operation failed with an error (DOM-convention noun-verb)."
+    reach:       "Sentinel reached (used by 'endReach' for infinite scroll)."
+
+  # Synonyms — author writes the key, validator suggests the value,
+  # hard reject. Value '—' means "use the controllable pair
+  # (open/onOpenChange) instead of declaring an event."
+  synonyms:
+    close:    dismiss
+    hide:     dismiss
+    update:   change
+    modify:   change
+    toggle:   change
+    input:    change
+    press:    activate
+    open:     "—"
+
+  # Event-name pattern — '<verb>' or '<subjectNoun><Verb>'
+  # (camelCase). The LAST camelCase token must be a registered verb.
+  pattern: "^([a-z]+|[a-z]+([A-Z][a-zA-Z0-9]+)+)$"
+
+  # Built-in types the payload vocabulary allows. Extending this
+  # list is the same review gate as adding a verb.
+  builtins:
+    Date:          "ECMAScript Date instance."
+    MouseEvent:    "DOM MouseEvent."
+    KeyboardEvent: "DOM KeyboardEvent."
+    PointerEvent:  "DOM PointerEvent."
+    FocusEvent:    "DOM FocusEvent."
+    File:          "DOM File (uploads, drag-drop)."
+    Error:         "ECMAScript Error subclass."
+    HTMLElement:   "DOM HTMLElement (target references)."
