@@ -40,7 +40,7 @@ export function renderCompositeListReactWrapper(spec: Spec): string {
   }
 
   const itemTypeBlocks: string[] = [];
-  for (const [propName, group] of repeatingGroups) {
+  for (const [, group] of repeatingGroups) {
     const first = group[0];
     if (!first) continue;
     const ItemName = itemTypeName(Name, first);
@@ -54,7 +54,6 @@ export function renderCompositeListReactWrapper(spec: Spec): string {
       ]),
     ].join("\n");
     itemTypeBlocks.push(`export type ${ItemName} = {\n${fields}\n};`);
-    void propName;
   }
 
   const ownPropLines: string[] = [];
@@ -81,7 +80,7 @@ export function renderCompositeListReactWrapper(spec: Spec): string {
   const hasMultiPartGroup = [...repeatingGroups.values()].some((g) => g.length > 1);
 
   const iterationBlocks = [...repeatingGroups.entries()].map(([propName, group]) =>
-    renderIterationBlock(propName, group),
+    renderIterationBlock(spec.name, propName, group),
   );
 
   const reactImports = ["type ComponentProps", "type Ref"];
@@ -151,9 +150,13 @@ function mapItemPropType(def: FlatItemProp): string {
   }
 }
 
-function renderIterationBlock(propName: string, group: FlatRepeatingPart[]): string {
+function renderIterationBlock(
+  specName: string,
+  propName: string,
+  group: FlatRepeatingPart[],
+): string {
   const isMulti = group.length > 1;
-  const elementBlocks = group.map((part) => renderItemElement(part, !isMulti));
+  const elementBlocks = group.map((part) => renderItemElement(specName, part, !isMulti));
   if (!isMulti) {
     const block = elementBlocks[0];
     return `      {${propName}.map((item) => (\n${block ?? ""}\n      ))}`;
@@ -163,9 +166,13 @@ function renderIterationBlock(propName: string, group: FlatRepeatingPart[]): str
   return `      {${propName}.map((item) => (\n        <Fragment key={item.id}>\n${elementBlocks.join("\n")}\n        </Fragment>\n      ))}`;
 }
 
-function renderItemElement(part: FlatRepeatingPart, includeKey: boolean): string {
+function renderItemElement(specName: string, part: FlatRepeatingPart, includeKey: boolean): string {
   const itemElement = part.element ?? "div";
-  const itemClass = part.rootClass ?? `t-${part.partName}`;
+  // Scope the default itemClass to the component to avoid cross-component
+  // collisions (e.g. two specs both with `partName: "item"`). Matches the
+  // wrapper's `t-${spec.name}` default + existing conventions like
+  // `t-pagination-page`, `t-tablist-tab`.
+  const itemClass = part.rootClass ?? `t-${specName}-${part.partName}`;
   const slotEntries = Object.entries(part.itemProps).filter(([, d]) => d.slot === true);
   const indent = "          ";
   const attrLines: string[] = [

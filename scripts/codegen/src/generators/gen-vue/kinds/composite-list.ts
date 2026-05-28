@@ -83,7 +83,7 @@ export function renderCompositeListVueWrapper(spec: Spec): string {
   }
 
   const iterationBlocks = [...repeatingGroups.entries()].map(([propName, group]) =>
-    renderIterationBlock(propName, group),
+    renderIterationBlock(spec.name, propName, group),
   );
 
   // Vue 3 `<script setup>` consumes declared props — they do NOT fall through
@@ -172,23 +172,30 @@ function mapGroupPropType(def: { type: string; values?: string[] }): string {
   }
 }
 
-function renderIterationBlock(propName: string, group: FlatRepeatingPart[]): string {
+function renderIterationBlock(
+  specName: string,
+  propName: string,
+  group: FlatRepeatingPart[],
+): string {
   if (group.length === 1) {
     const part = group[0];
     if (!part) return "";
-    return renderSinglePartLoop(propName, part);
+    return renderSinglePartLoop(specName, propName, part);
   }
   // Multi-part: wrap each iteration in <template v-for=…>, emit each part
   // inside without its own v-for.
-  const inner = group.map((part) => renderItemElement(part, false)).join("\n");
+  const inner = group.map((part) => renderItemElement(specName, part, false)).join("\n");
   return `    <template v-for="item in ${propName}" :key="item.id">
 ${inner}
     </template>`;
 }
 
-function renderSinglePartLoop(propName: string, part: FlatRepeatingPart): string {
+function renderSinglePartLoop(specName: string, propName: string, part: FlatRepeatingPart): string {
   const itemElement = part.element ?? "div";
-  const itemClass = part.rootClass ?? `t-${part.partName}`;
+  // Scope the default itemClass to the component to avoid cross-component
+  // collisions. Matches the wrapper's `t-${spec.name}` default + existing
+  // conventions like `t-pagination-page`, `t-tablist-tab`.
+  const itemClass = part.rootClass ?? `t-${specName}-${part.partName}`;
   const slotEntries = Object.entries(part.itemProps).filter(([, d]) => d.slot === true);
   const attrLines: string[] = [
     `      v-for="item in ${propName}"`,
@@ -212,9 +219,9 @@ function renderSinglePartLoop(propName: string, part: FlatRepeatingPart): string
   return `    <${itemElement}\n${attrLines.join("\n")}\n    >${body}</${itemElement}>`;
 }
 
-function renderItemElement(part: FlatRepeatingPart, includeKey: boolean): string {
+function renderItemElement(specName: string, part: FlatRepeatingPart, includeKey: boolean): string {
   const itemElement = part.element ?? "div";
-  const itemClass = part.rootClass ?? `t-${part.partName}`;
+  const itemClass = part.rootClass ?? `t-${specName}-${part.partName}`;
   const slotEntries = Object.entries(part.itemProps).filter(([, d]) => d.slot === true);
   const indent = "      ";
   const attrLines: string[] = [
