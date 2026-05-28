@@ -1,0 +1,90 @@
+---
+import { Tablist, Code, Codeblock } from "@teseor/react";
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Tablist — Teseor">
+  <main class="t-stack" data-gap="6">
+    <h1>Tablist</h1>
+    <p>A non-interactive tab bar. Renders one tab button + an optional adjacent icon per item, interleaved via a shared groupKey. Selection is visual-only — pass `active: true` per item; real interactive Tabs ships with #690 (events) + #692 (a11y).</p>
+    <section class="t-stack" data-gap="3">
+      <h2>Examples</h2>
+      <div class="t-stack" data-gap="2">
+        <h3>three-tabs-middle-active</h3>
+        <div class="t-cluster" data-gap="3">
+          <Tablist items={[{ id: "overview", label: "Overview" }, { id: "details", label: "Details", active: true, icon: "✱" }, { id: "activity", label: "Activity" }]} />
+        </div>
+        <Codeblock>&lt;Tablist items=&lbrace;[&lbrace; id: "overview", label: "Overview" &rbrace;, &lbrace; id: "details", label: "Details", active: true, icon: "✱" &rbrace;, &lbrace; id: "activity", label: "Activity" &rbrace;]&rbrace; /&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>five-tabs-with-icons</h3>
+        <div class="t-cluster" data-gap="3">
+          <Tablist items={[{ id: "1", label: "Home", icon: "⌂" }, { id: "2", label: "Inbox", icon: "✉", active: true }, { id: "3", label: "Calendar", icon: "▣" }, { id: "4", label: "Files", icon: "▤" }, { id: "5", label: "Settings", icon: "✦" }]} />
+        </div>
+        <Codeblock>&lt;Tablist items=&lbrace;[&lbrace; id: "1", label: "Home", icon: "⌂" &rbrace;, &lbrace; id: "2", label: "Inbox", icon: "✉", active: true &rbrace;, &lbrace; id: "3", label: "Calendar", icon: "▣" &rbrace;, &lbrace; id: "4", label: "Files", icon: "▤" &rbrace;, &lbrace; id: "5", label: "Settings", icon: "✦" &rbrace;]&rbrace; /&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>empty</h3>
+        <div class="t-cluster" data-gap="3">
+          <Tablist items={[]} />
+        </div>
+        <Codeblock>&lt;Tablist items=&lbrace;[]&rbrace; /&gt;</Codeblock>
+      </div>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Props</h2>
+      <table>
+        <thead><tr><th>Prop</th><th>Type</th><th>Responsive</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>items</Code></td><td><Code>ReadonlyArray&lt;TablistItem&gt;</Code></td><td></td><td><Code>[]</Code></td><td>Items rendered by the repeating <Code>tab</Code> + <Code>tab-icon</Code> parts. See <Code>TablistItem</Code> for the item shape.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>TablistItem</h2>
+      <table>
+        <thead><tr><th>Field</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>id</Code></td><td><Code>string</Code></td><td>—</td><td>Stable item identity (required).</td></tr>
+        <tr><td><Code>label</Code></td><td><Code>string, slot</Code></td><td><Code>null</Code></td><td>Tab label rendered as the button's text.</td></tr>
+        <tr><td><Code>active</Code></td><td><Code>boolean</Code></td><td><Code>null</Code></td><td>Marks the active tab; exposed as `data-active`.</td></tr>
+        <tr><td><Code>icon</Code></td><td><Code>string, slot</Code></td><td><Code>null</Code></td><td>Optional icon character or symbol shown next to the tab.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Tokens</h2>
+      <table>
+        <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-tablist-gap</Code></td><td><Code>--t-space-2</Code></td><td>Gap between tab + icon pairs.</td></tr>
+        <tr><td><Code>--t-tablist-fg</Code></td><td><Code>--t-fg</Code></td><td>Default text color shared by the tab and its adjacent icon.</td></tr>
+        <tr><td><Code>--t-tablist-fg-active</Code></td><td><Code>--t-accent</Code></td><td>Text color applied to the active tab (siblings still inherit `fg`).</td></tr>
+        <tr><td><Code>--t-tablist-pad-x</Code></td><td><Code>--t-space-2</Code></td><td>Inline padding inside each tab button.</td></tr>
+        <tr><td><Code>--t-tablist-pad-y</Code></td><td><Code>--t-space-1</Code></td><td>Block padding inside each tab button.</td></tr>
+        <tr><td><Code>--t-tablist-radius</Code></td><td><Code>--t-radius-sm</Code></td><td>Corner radius.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Forced colors</h2>
+      <p>In Windows High Contrast mode, the component remaps these semantic tokens to CSS system colors. Custom-property inheritance carries the values to every reference in the subtree.</p>
+      <table>
+        <thead><tr><th>Token</th><th>Default</th><th>Forced-colors</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-accent</Code></td><td><Code>oklch(from oklch(58% 0.2 268deg) 55% c h)</Code></td><td><Code>ButtonText</Code></td></tr>
+        <tr><td><Code>--t-fg</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 50% calc(c * 0.025) h) 18% c h)</Code></td><td><Code>CanvasText</Code></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Bundle size</h2>
+      <table>
+        <thead><tr><th>Artifact</th><th>Raw</th><th>Gzip</th><th>Brotli</th></tr></thead>
+        <tbody>
+        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/tablist/tablist.css"><Code>@teseor/css/components/tablist.css</Code></a></td><td>1.40 KB</td><td>0.54 KB</td><td>0.49 KB</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</Base>

@@ -36,13 +36,17 @@ export type FlatItemProp = {
 export type FlatRepeatingPart = {
   /** Originating part name (e.g. `page`). */
   partName: string;
-  /** Final array prop name on the parent (e.g. `pages`). */
+  /** Final array prop name on the parent (e.g. `pages`). When `groupKey:` is
+   *  set, propName derives from groupKey and is shared across siblings. */
   propName: string;
   /** Per-item DOM emission. */
   element?: string;
   rootClass?: string;
   /** Per-item prop shape. Codegen synthesizes a required `id: string` on top. */
   itemProps: Record<string, FlatItemProp>;
+  /** Group key shared with sibling repeating parts. Same-parent siblings with
+   *  matching `groupKey` are codegen-interleaved into one loop. */
+  groupKey?: string;
 };
 
 export type FlatToken = {
@@ -189,12 +193,17 @@ export function flattenSpec(spec: Spec): FlatSpec {
       for (const [name, def] of Object.entries(part.props ?? {})) {
         itemProps[name] = { ...def };
       }
+      // Effective propName precedence: explicit `propName:` > `groupKey:`
+      // (when set, the group's name is the prop name shared by siblings) >
+      // pluralized part name fallback.
+      const effectivePropName = part.propName ?? part.groupKey ?? `${partName}s`;
       repeating.push({
         partName,
-        propName: part.propName ?? `${partName}s`,
+        propName: effectivePropName,
         element: part.element,
         rootClass: part.rootClass,
         itemProps,
+        groupKey: part.groupKey,
       });
     } else {
       for (const [name, def] of Object.entries(part.props ?? {})) {

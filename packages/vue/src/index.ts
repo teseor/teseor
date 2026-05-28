@@ -7,4 +7,5 @@ export { default as Codeblock } from "./Codeblock.vue";
 export { default as Modal } from "./Modal.vue";
 export { default as Pagination } from "./Pagination.vue";
 export { default as Stack } from "./Stack.vue";
+export { default as Tablist } from "./Tablist.vue";
 export { default as Tooltip } from "./Tooltip.vue";

@@ -1,0 +1,63 @@
+@layer components.tokens {
+  .t-tablist {
+    --_gap: var(--t-tablist-gap, var(--t-space-2));
+  }
+
+  .t-tablist-tab {
+    --_pad-x: var(--t-tablist-pad-x, var(--t-space-2));
+    --_pad-y: var(--t-tablist-pad-y, var(--t-space-1));
+    --_radius: var(--t-tablist-radius, var(--t-radius-sm));
+    --_fg: var(--t-tablist-fg, var(--t-fg));
+    --_fg-active: var(--t-tablist-fg-active, var(--t-accent));
+    --_weight: 400;
+    --_weight-active: 600;
+  }
+
+  .t-tablist-icon {
+    --_fg: var(--t-tablist-fg, var(--t-fg));
+  }
+}
+
+@layer components.styles {
+  .t-tablist {
+    box-sizing: border-box;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--_gap);
+    padding: 0;
+  }
+
+  .t-tablist-tab {
+    box-sizing: border-box;
+    margin: 0;
+    padding: var(--_pad-y) var(--_pad-x);
+    border: 0;
+    background: none;
+    border-radius: var(--_radius);
+    color: var(--_fg);
+    font: inherit;
+    font-weight: var(--_weight);
+    cursor: default;
+
+    &:where([data-active]) {
+      --_fg: var(--_fg-active);
+      --_weight: var(--_weight-active);
+    }
+  }
+
+  .t-tablist-icon {
+    box-sizing: border-box;
+    margin: 0;
+    color: var(--_fg);
+    font-size: 0.9em;
+
+    /* Spec describes the icon as optional. Codegen still emits the <span>
+     * for every item — hide the empty ones so the flex `gap` doesn't reserve
+     * space for missing icons. Generator-side conditional rendering would be
+     * cleaner but requires a new spec mechanism (out of scope here). */
+    &:where(:empty) {
+      display: none;
+    }
+  }
+}

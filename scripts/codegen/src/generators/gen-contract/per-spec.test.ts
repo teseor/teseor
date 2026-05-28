@@ -117,6 +117,49 @@ describe("renderContract", () => {
     expect(out).toContain("low contrast");
   });
 
+  test("merges parts sharing `groupKey:` into one Item type + one array prop (RFC-0005)", () => {
+    const out = renderContract(
+      spec({
+        name: "tabs-list",
+        kind: "composite",
+        repeating: [
+          {
+            partName: "tab",
+            propName: "items",
+            element: "button",
+            rootClass: "t-tabs-list-tab",
+            groupKey: "items",
+            itemProps: {
+              label: { type: "string", slot: true, description: "Tab label." },
+              active: { type: "boolean", description: "Active tab." },
+            },
+          },
+          {
+            partName: "tab-icon",
+            propName: "items",
+            element: "span",
+            rootClass: "t-tabs-list-icon",
+            groupKey: "items",
+            itemProps: {
+              icon: { type: "string", slot: true, description: "Tab icon." },
+            },
+          },
+        ],
+      }),
+    );
+    // Single shared item type, named off the singularized groupKey.
+    expect(out).toContain("export type TabsListItem = {");
+    expect(out).toContain("  id: string;");
+    expect(out).toContain("  label?: string;");
+    expect(out).toContain("  active?: boolean;");
+    expect(out).toContain("  icon?: string;");
+    // Single shared array prop named after the groupKey.
+    expect(out).toContain("items?: ReadonlyArray<TabsListItem>;");
+    // No per-part item type emitted.
+    expect(out).not.toContain("TabsListTabItem");
+    expect(out).not.toContain("TabsListTabIconItem");
+  });
+
   test("emits an Item type and a ReadonlyArray prop for each repeating part (RFC-0005)", () => {
     const out = renderContract(
       spec({

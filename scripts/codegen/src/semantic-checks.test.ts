@@ -1393,7 +1393,7 @@ describe("checkRepeatingParts (RFC-0005)", () => {
     expect(checkRepeatingParts(spec)).toEqual([]);
   });
 
-  test("rule 11 — non-repeating part with scalar props in a list composite is rejected", () => {
+  test("group-level scalar props on the wrapper part are now accepted (rule 11 lifted)", () => {
     const spec: Spec = {
       name: "radio",
       kind: "composite",
@@ -1401,7 +1401,7 @@ describe("checkRepeatingParts (RFC-0005)", () => {
         group: {
           element: "div",
           rootClass: "t-radio",
-          props: { name: { type: "string", description: "HTML form name." } },
+          props: { name: { type: "string", responsive: false, description: "HTML form name." } },
         },
         option: {
           repeating: true,
@@ -1410,9 +1410,7 @@ describe("checkRepeatingParts (RFC-0005)", () => {
         },
       },
     } as Spec;
-    const issues = checkRepeatingParts(spec);
-    expect(issues.map((i) => i.path)).toContain("parts.group.props");
-    expect(issues.some((i) => /phase 2/.test(i.message))).toBe(true);
+    expect(checkRepeatingParts(spec)).toEqual([]);
   });
 
   test("rule 12 — `responsive: true` on a repeating item prop is rejected", () => {
@@ -1437,9 +1435,9 @@ describe("checkRepeatingParts (RFC-0005)", () => {
     } as Spec;
     const issues = checkRepeatingParts(spec);
     expect(issues.map((i) => i.path)).toContain("parts.page.props.label");
-    expect(issues.some((i) => /per-item responsive emission is deferred/.test(i.message))).toBe(
-      true,
-    );
+    expect(
+      issues.some((i) => /per-item responsive emission is not supported/.test(i.message)),
+    ).toBe(true);
   });
 
   test("rule 13 — multiple non-repeating top-level parts are rejected", () => {
@@ -1482,6 +1480,296 @@ describe("checkRepeatingParts (RFC-0005)", () => {
     } as Spec;
     const issues = checkRepeatingParts(spec);
     expect(issues.some((i) => i.path === "parts.root" && /#835/.test(i.message))).toBe(true);
+  });
+
+  test("rule 6 — `propName:` + `groupKey:` both set is rejected", () => {
+    const spec: Spec = {
+      name: "tabs",
+      kind: "composite",
+      parts: {
+        list: { element: "div" },
+        tab: {
+          repeating: true,
+          propName: "override",
+          groupKey: "items",
+          element: "button",
+          props: { label: { type: "string", slot: true, description: "Label." } },
+        },
+        icon: {
+          repeating: true,
+          groupKey: "items",
+          element: "span",
+          props: { icon: { type: "string", slot: true, description: "Icon." } },
+        },
+      },
+    } as Spec;
+    const issues = checkRepeatingParts(spec);
+    expect(issues.some((i) => i.path === "parts.tab" && /both/.test(i.message))).toBe(true);
+  });
+
+  test("rule 7 — two parts sharing groupKey declare the same per-item prop", () => {
+    const spec: Spec = {
+      name: "tabs",
+      kind: "composite",
+      parts: {
+        list: { element: "div" },
+        tab: {
+          repeating: true,
+          groupKey: "items",
+          element: "button",
+          props: { label: { type: "string", slot: true, description: "Label." } },
+        },
+        icon: {
+          repeating: true,
+          groupKey: "items",
+          element: "span",
+          props: { label: { type: "string", slot: true, description: "Same name." } },
+        },
+      },
+    } as Spec;
+    const issues = checkRepeatingParts(spec);
+    expect(issues.some((i) => /share `groupKey: items`.*'label'/.test(i.message))).toBe(true);
+  });
+
+  test("rule 9 — a `groupKey:` value with only one referencing part is rejected", () => {
+    const spec: Spec = {
+      name: "tabs",
+      kind: "composite",
+      parts: {
+        list: { element: "div" },
+        tab: {
+          repeating: true,
+          groupKey: "items",
+          element: "button",
+          props: { label: { type: "string", slot: true, description: "Label." } },
+        },
+      },
+    } as Spec;
+    const issues = checkRepeatingParts(spec);
+    expect(issues.some((i) => i.path === "parts.tab" && /no sibling shares/.test(i.message))).toBe(
+      true,
+    );
+  });
+
+  test("rule 5 — two parts sharing `groupKey:` legitimately collapse to the same propName (no rule-5 issue)", () => {
+    const spec: Spec = {
+      name: "tabs",
+      kind: "composite",
+      parts: {
+        list: { element: "div" },
+        tab: {
+          repeating: true,
+          groupKey: "items",
+          element: "button",
+          props: { label: { type: "string", slot: true, description: "Label." } },
+        },
+        icon: {
+          repeating: true,
+          groupKey: "items",
+          element: "span",
+          props: { icon: { type: "string", slot: true, description: "Icon." } },
+        },
+      },
+    } as Spec;
+    const issues = checkRepeatingParts(spec);
+    expect(issues.some((i) => /collapse to the same propName/.test(i.message))).toBe(false);
+  });
+
+  test("rule 15 — `groupKey:` on a non-repeating part is rejected", () => {
+    const spec: Spec = {
+      name: "tabs",
+      kind: "composite",
+      parts: {
+        list: { element: "div", groupKey: "items" },
+        tab: {
+          repeating: true,
+          groupKey: "items",
+          element: "button",
+          props: { label: { type: "string", slot: true, description: "Label." } },
+        },
+        icon: {
+          repeating: true,
+          groupKey: "items",
+          element: "span",
+          props: { icon: { type: "string", slot: true, description: "Icon." } },
+        },
+      },
+    } as Spec;
+    const issues = checkRepeatingParts(spec);
+    expect(
+      issues.some((i) => i.path === "parts.list" && /cannot declare `groupKey:`/.test(i.message)),
+    ).toBe(true);
+  });
+
+  test("rule 10 — `groupKey:` value validated as a JS identifier (hyphen rejected)", () => {
+    const spec: Spec = {
+      name: "tabs",
+      kind: "composite",
+      parts: {
+        list: { element: "div" },
+        tab: {
+          repeating: true,
+          groupKey: "tab-items",
+          element: "button",
+          props: { label: { type: "string", slot: true, description: "Label." } },
+        },
+        icon: {
+          repeating: true,
+          groupKey: "tab-items",
+          element: "span",
+          props: { icon: { type: "string", slot: true, description: "Icon." } },
+        },
+      },
+    } as Spec;
+    const issues = checkRepeatingParts(spec);
+    expect(
+      issues.some(
+        (i) => /from groupKey/.test(i.message) && /not a valid JS identifier/.test(i.message),
+      ),
+    ).toBe(true);
+  });
+
+  test("rule 16 — a group prop that is both `slot: true` AND `responsive: true` emits BOTH issues", () => {
+    const spec: Spec = {
+      name: "tabs",
+      kind: "composite",
+      parts: {
+        list: {
+          element: "div",
+          props: {
+            label: {
+              type: "string",
+              slot: true,
+              responsive: true,
+              description: "Both forbidden shapes.",
+            },
+          },
+        },
+        tab: {
+          repeating: true,
+          groupKey: "items",
+          element: "button",
+          props: { label: { type: "string", slot: true, description: "Tab label." } },
+        },
+        "tab-icon": {
+          repeating: true,
+          groupKey: "items",
+          element: "span",
+          props: { icon: { type: "string", slot: true, description: "Icon." } },
+        },
+      },
+    } as Spec;
+    const issues = checkRepeatingParts(spec);
+    expect(
+      issues.some((i) => /wrapper props flow through without responsive expansion/.test(i.message)),
+    ).toBe(true);
+    expect(
+      issues.some((i) => /wrapper renders the repeating loop, not slot content/.test(i.message)),
+    ).toBe(true);
+  });
+
+  test("rule 16 — `slot: true` on a group-level wrapper prop is rejected", () => {
+    const spec: Spec = {
+      name: "tabs",
+      kind: "composite",
+      parts: {
+        list: {
+          element: "div",
+          props: {
+            label: {
+              type: "string",
+              slot: true,
+              description: "Wrapper has no slot body — should be rejected.",
+            },
+          },
+        },
+        tab: {
+          repeating: true,
+          groupKey: "items",
+          element: "button",
+          props: { label: { type: "string", slot: true, description: "Tab label." } },
+        },
+        "tab-icon": {
+          repeating: true,
+          groupKey: "items",
+          element: "span",
+          props: { icon: { type: "string", slot: true, description: "Icon." } },
+        },
+      },
+    } as Spec;
+    const issues = checkRepeatingParts(spec);
+    expect(
+      issues.some((i) => /wrapper renders the repeating loop, not slot content/.test(i.message)),
+    ).toBe(true);
+  });
+
+  test("rule 16 — `pattern: controllable` on a group-level wrapper prop is rejected", () => {
+    const spec: Spec = {
+      name: "tabs",
+      kind: "composite",
+      parts: {
+        list: {
+          element: "div",
+          props: {
+            value: {
+              type: "boolean",
+              pattern: "controllable",
+              description: "Selection (controllable forbidden until events land).",
+            },
+          },
+        },
+        tab: {
+          repeating: true,
+          groupKey: "items",
+          element: "button",
+          props: { label: { type: "string", slot: true, description: "Tab label." } },
+        },
+        "tab-icon": {
+          repeating: true,
+          groupKey: "items",
+          element: "span",
+          props: { icon: { type: "string", slot: true, description: "Icon." } },
+        },
+      },
+    } as Spec;
+    const issues = checkRepeatingParts(spec);
+    expect(issues.some((i) => /default<Name>` \/ `on<Name>Change/.test(i.message))).toBe(true);
+  });
+
+  test("rule 16 — `responsive: true` on a group-level scalar wrapper prop is rejected", () => {
+    const spec: Spec = {
+      name: "tabs",
+      kind: "composite",
+      parts: {
+        list: {
+          element: "div",
+          props: {
+            label: {
+              type: "string",
+              responsive: true,
+              description: "Accessible label (responsive forbidden).",
+            },
+          },
+        },
+        tab: {
+          repeating: true,
+          groupKey: "items",
+          element: "button",
+          props: { label: { type: "string", slot: true, description: "Tab label." } },
+        },
+        "tab-icon": {
+          repeating: true,
+          groupKey: "items",
+          element: "span",
+          props: { icon: { type: "string", slot: true, description: "Icon." } },
+        },
+      },
+    } as Spec;
+    const issues = checkRepeatingParts(spec);
+    expect(issues.map((i) => i.path)).toContain("parts.list.props.label");
+    expect(
+      issues.some((i) => /wrapper props flow through without responsive expansion/.test(i.message)),
+    ).toBe(true);
   });
 
   test("rule 15 — `propName:` on a non-repeating part is rejected", () => {

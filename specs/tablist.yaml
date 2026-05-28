@@ -1,0 +1,86 @@
+name: tablist
+description: "A non-interactive tab bar. Renders one tab button + an optional adjacent icon per item, interleaved via a shared groupKey. Selection is visual-only — pass `active: true` per item; real interactive Tabs ships with #690 (events) + #692 (a11y)."
+kind: composite
+dependencies: []
+cssFile: components/tablist/tablist.css
+behavior: none
+
+parts:
+  list:
+    element: div
+    rootClass: t-tablist
+    tokens:
+      gap:
+        fallback: --t-space-2
+        desc: Gap between tab + icon pairs.
+      fg:
+        fallback: --t-fg
+        desc: Default text color shared by the tab and its adjacent icon.
+      fg-active:
+        fallback: --t-accent
+        desc: Text color applied to the active tab (siblings still inherit `fg`).
+    privateTokens:
+      - --_gap
+  tab:
+    repeating: true
+    groupKey: items
+    element: button
+    rootClass: t-tablist-tab
+    props:
+      label:
+        type: string
+        slot: true
+        description: "Tab label rendered as the button's text."
+      active:
+        type: boolean
+        responsive: false
+        description: "Marks the active tab; exposed as `data-active`."
+    tokens:
+      pad-x:
+        fallback: --t-space-2
+        desc: Inline padding inside each tab button.
+      pad-y:
+        fallback: --t-space-1
+        desc: Block padding inside each tab button.
+      radius:
+        fallback: --t-radius-sm
+        desc: Corner radius.
+    privateTokens:
+      - --_pad-x
+      - --_pad-y
+      - --_radius
+      - --_fg
+      - --_fg-active
+      - --_weight
+      - --_weight-active
+  tab-icon:
+    repeating: true
+    groupKey: items
+    element: span
+    rootClass: t-tablist-icon
+    props:
+      icon:
+        type: string
+        slot: true
+        description: "Optional icon character or symbol shown next to the tab."
+    privateTokens:
+      - --_fg
+
+examples:
+  - id: three-tabs-middle-active
+    props:
+      items:
+        - { id: "overview",   label: "Overview" }
+        - { id: "details",    label: "Details",   active: true, icon: "✱" }
+        - { id: "activity",   label: "Activity" }
+  - id: five-tabs-with-icons
+    props:
+      items:
+        - { id: "1", label: "Home",     icon: "⌂" }
+        - { id: "2", label: "Inbox",    icon: "✉", active: true }
+        - { id: "3", label: "Calendar", icon: "▣" }
+        - { id: "4", label: "Files",    icon: "▤" }
+        - { id: "5", label: "Settings", icon: "✦" }
+  - id: empty
+    props:
+      items: []

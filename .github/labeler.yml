@@ -89,6 +89,12 @@ component:stack:
           - packages/css/src/components/stack/**
           - specs/stack.yaml
 
+component:tablist:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/css/src/components/tablist/**
+          - specs/tablist.yaml
+
 component:tooltip:
   - changed-files:
       - any-glob-to-any-file:

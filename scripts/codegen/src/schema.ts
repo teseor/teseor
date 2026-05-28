@@ -99,6 +99,7 @@ type ComponentPart = {
   fromChildren?: boolean;
   repeating?: boolean;
   propName?: string;
+  groupKey?: string;
   variants?: Record<string, { description: string }>;
   intents?: Record<string, { description: string; tokens?: Record<string, string> }>;
   sizes?: Record<string, { description: string; tokens?: Record<string, string> }>;
@@ -133,14 +134,16 @@ type ComponentPart = {
 
 // `repeating: true` marks a part as the shape of one item in a variable-length
 // list. Codegen iterates an array prop named by `propName:` (default: plural
-// of part name) and emits one element per item. See RFC-0005. `groupKey:`
-// (parallel arrays shared across sibling repeating parts) lands in phase 2.
+// of part name) and emits one element per item. `groupKey:` opts a repeating
+// part into a shared array with sibling repeating parts of the same key —
+// codegen interleaves their iteration into one loop. See RFC-0005.
 const componentPart: z.ZodType<ComponentPart> = z.lazy(() =>
   z.strictObject({
     ...componentNodeFields,
     fromChildren: z.boolean().optional(),
     repeating: z.boolean().optional(),
     propName: z.string().min(1).optional(),
+    groupKey: z.string().min(1).optional(),
     parts: z.record(z.string(), componentPart).optional(),
   }),
 );

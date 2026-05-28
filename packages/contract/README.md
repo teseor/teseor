@@ -31,6 +31,7 @@ function buildAttrs(props: ButtonProps): Record<string, string | undefined> {
 - `Modal` — `ModalProps`
 - `Pagination` — `PaginationProps`
 - `Stack` — `StackProps`
+- `Tablist` — `TablistProps`
 - `Tooltip` — `TooltipProps`
 
 ## Generated content

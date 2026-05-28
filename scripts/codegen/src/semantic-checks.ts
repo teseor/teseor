@@ -1167,22 +1167,27 @@ export function checkInteractionEventVocabulary(spec: Spec): Issue[] {
 // ── Repeating parts (RFC-0005, phase 1) ─────────────────────────────────────
 
 /**
- * Phase-1 rejections for `repeating: true` parts. The `groupKey:` field and
- * its three companion rules land with phase 2; Zod's `strictObject` already
- * rejects the unknown key today.
+ * Rejections for repeating parts (RFC-0005). Each rule has a stable number
+ * referenced in the RFC validator table; numbers don't change even when the
+ * wording shifts.
  *
  *  1. `repeating: true` + `fromChildren: true` — contradictory.
  *  2. `repeating: true` with no (or empty) `props:` — useless item shape.
  *  3. Any part in a list composite declares nested `parts:` — deferred to #835.
  *  4. Repeating part nested inside another repeating part — deferred to #834.
- *  5. Two repeating siblings collapse to the same effective `propName`.
+ *  5. Two repeating siblings collapse to the same effective `propName` (and
+ *     are not legitimately sharing via `groupKey:`).
+ *  6. `propName:` and `groupKey:` both set on the same part — contradictory:
+ *     groupKey's value already supplies the shared prop name.
+ *  7. Two parts sharing `groupKey:` declare the same per-item prop name —
+ *     the merged item shape would have an ambiguous field.
  *  8. Repeating part declares `props.id` — `id` is codegen-reserved.
+ *  9. A `groupKey:` value is referenced by exactly one repeating part —
+ *     `groupKey` is for shared-array siblings; use `propName:` for a single
+ *     part that wants a custom prop name.
  * 10. The effective propName must be a valid JS identifier and must not
  *     collide with codegen-emitted wrapper locals or JS reserved words (see
  *     RESERVED_PROP_NAMES).
- * 11. Composite specs with any repeating part must not declare scalar `props:`
- *     on non-repeating sibling parts — group-level props are deferred to
- *     phase 2 alongside `groupKey:`.
  * 12. Repeating item props cannot set `responsive: true` — generators emit a
  *     plain scalar field + single data-attr, no per-breakpoint expansion.
  * 13. A list composite must declare exactly one non-repeating top-level part —
@@ -1191,10 +1196,14 @@ export function checkInteractionEventVocabulary(spec: Spec): Issue[] {
  * 14. Repeating item prop names must be valid JS identifiers — codegen emits
  *     `item.<name>` access in iteration bodies; hyphens / spaces / leading
  *     digits produce parse errors.
- * 15. `propName:` declared on a part without `repeating: true` — the override
- *     is silently ignored downstream (flatten + codegen only read it on
- *     repeating parts). Reject so authors don't think they renamed a
- *     generated prop that doesn't exist.
+ * 15. `propName:` or `groupKey:` declared on a part without `repeating: true`
+ *     — both are only consumed when `repeating: true`. Silently ignored
+ *     downstream otherwise.
+ * 16. Group-level scalar prop on a non-repeating part in a list composite
+ *     uses an advanced shape the wrapper template can't currently handle.
+ *     Three sub-cases each emit their own issue: `responsive: true` (no
+ *     per-breakpoint expansion), `slot: true` (no slot body), and
+ *     `pattern: controllable` (no `default*` / `on*Change` triple).
  */
 // Valid JS identifier: starts with letter/underscore/$, followed by alphanumerics/_/$.
 const JS_IDENTIFIER_RE = /^[A-Za-z_$][A-Za-z0-9_$]*$/;
@@ -1273,9 +1282,8 @@ export function checkRepeatingParts(spec: Spec): Issue[] {
   if (!isComposite(spec)) return [];
   const issues: Issue[] = [];
 
-  // Rule 11: a composite with any repeating part rejects scalar `props:` on
-  // its non-repeating parts. Group-level props arrive in phase 2 with
-  // `groupKey:`. Walk the whole tree once to detect repeating presence.
+  // Walk the whole tree once to detect repeating presence. `anyRepeating`
+  // gates rule 3 (no nested parts in a list composite) and rule 13.
   let anyRepeating = false;
   const detect = (parts: Record<string, SpecPart>): void => {
     for (const part of Object.values(parts)) {
@@ -1284,6 +1292,26 @@ export function checkRepeatingParts(spec: Spec): Issue[] {
     }
   };
   detect(spec.parts);
+
+  // Rule 9: `groupKey:` value must be shared by ≥ 2 repeating parts across
+  // the spec. A lone groupKey is meaningless; the author wants `propName:`.
+  // Build a count and emit per-offender below if any group has size 1.
+  const groupKeyCounts = new Map<string, string[]>();
+  const collectGroupKeys = (parts: Record<string, SpecPart>): void => {
+    for (const [partName, part] of Object.entries(parts)) {
+      if (part.repeating === true && typeof part.groupKey === "string") {
+        const owners = groupKeyCounts.get(part.groupKey) ?? [];
+        owners.push(partName);
+        groupKeyCounts.set(part.groupKey, owners);
+      }
+      if (part.parts) collectGroupKeys(part.parts);
+    }
+  };
+  collectGroupKeys(spec.parts);
+  const loneGroupKeys = new Set<string>();
+  for (const [groupKey, owners] of groupKeyCounts) {
+    if (owners.length === 1) loneGroupKeys.add(groupKey);
+  }
 
   // Rule 13: list composite has exactly one non-repeating top-level part.
   // The composite-list renderers pick the first non-repeating top-level part
@@ -1317,26 +1345,73 @@ export function checkRepeatingParts(spec: Spec): Issue[] {
     parentPath: string,
     parentIsRepeating: boolean,
   ): void => {
-    // Rule 5: sibling propName collision within this parts map.
-    const propNameOwners = new Map<string, string[]>();
+    // Rule 5: sibling propName collision within this parts map. Parts that
+    // legitimately share via `groupKey:` are excluded — they're meant to
+    // collapse to the same propName.
+    const propNameOwners = new Map<string, Array<{ name: string; groupKey?: string }>>();
     for (const [partName, part] of Object.entries(parts)) {
       if (part.repeating !== true) continue;
-      const effective = part.propName ?? `${partName}s`;
+      const effective = part.propName ?? part.groupKey ?? `${partName}s`;
       const owners = propNameOwners.get(effective) ?? [];
-      owners.push(partName);
+      owners.push({ name: partName, groupKey: part.groupKey });
       propNameOwners.set(effective, owners);
     }
     for (const [effective, owners] of propNameOwners) {
       if (owners.length < 2) continue;
-      for (const partName of owners) {
+      // Legitimate share: all owners declare the same `groupKey:` and that
+      // groupKey value matches the effective propName.
+      const sharedGroupKey = owners[0]?.groupKey;
+      const allShare =
+        sharedGroupKey !== undefined &&
+        sharedGroupKey === effective &&
+        owners.every((o) => o.groupKey === sharedGroupKey);
+      if (allShare) continue;
+      for (const { name: partName } of owners) {
         const path = parentPath === "" ? `parts.${partName}` : `${parentPath}.parts.${partName}`;
         issues.push(
           issue(
             spec.name,
             path,
-            `repeating parts ${owners.map((n) => `'${n}'`).join(", ")} collapse to the same propName '${effective}'. Set \`propName:\` explicitly on at least one of them.`,
+            `repeating parts ${owners.map((o) => `'${o.name}'`).join(", ")} collapse to the same propName '${effective}'. Set \`propName:\` explicitly or use a shared \`groupKey:\` if they should iterate the same array.`,
           ),
         );
+      }
+    }
+
+    // Rule 7: parts sharing a `groupKey:` cannot declare the same per-item
+    // prop name — the merged item shape would have a single ambiguous field.
+    const byGroupKey = new Map<string, Array<{ name: string; props: string[] }>>();
+    for (const [partName, part] of Object.entries(parts)) {
+      if (part.repeating !== true || typeof part.groupKey !== "string") continue;
+      const entry = { name: partName, props: Object.keys(part.props ?? {}) };
+      const owners = byGroupKey.get(part.groupKey) ?? [];
+      owners.push(entry);
+      byGroupKey.set(part.groupKey, owners);
+    }
+    for (const [groupKey, owners] of byGroupKey) {
+      if (owners.length < 2) continue;
+      // Count each prop name across all owners; any appearing more than once
+      // is a cross-sibling collision.
+      const propNameCounts = new Map<string, string[]>();
+      for (const owner of owners) {
+        for (const propName of owner.props) {
+          const owners2 = propNameCounts.get(propName) ?? [];
+          owners2.push(owner.name);
+          propNameCounts.set(propName, owners2);
+        }
+      }
+      for (const [propName, sharers] of propNameCounts) {
+        if (sharers.length < 2) continue;
+        for (const partName of sharers) {
+          const path = parentPath === "" ? `parts.${partName}` : `${parentPath}.parts.${partName}`;
+          issues.push(
+            issue(
+              spec.name,
+              `${path}.props.${propName}`,
+              `repeating parts ${sharers.map((n) => `'${n}'`).join(", ")} share \`groupKey: ${groupKey}\` and both declare per-item prop '${propName}'. Rename one of them — the merged item shape can have only one '${propName}'.`,
+            ),
+          );
+        }
       }
     }
 
@@ -1400,16 +1475,37 @@ export function checkRepeatingParts(spec: Spec): Issue[] {
             ),
           );
         }
-        // Rule 12: `responsive: true` on item props is deferred. The generators
-        // emit a plain scalar field + single `data-*` binding with no per-
-        // breakpoint expansion, so the spec would lie about the API.
+        // Rule 6: `propName:` and `groupKey:` together are contradictory.
+        // groupKey's value already supplies the shared prop name.
+        if (part.propName !== undefined && typeof part.groupKey === "string") {
+          issues.push(
+            issue(
+              spec.name,
+              path,
+              `repeating part '${partName}' sets both \`propName: '${part.propName}'\` and \`groupKey: '${part.groupKey}'\`. The groupKey value is the shared prop name; remove \`propName:\`.`,
+            ),
+          );
+        }
+        // Rule 9: a `groupKey:` value referenced by exactly one part.
+        if (typeof part.groupKey === "string" && loneGroupKeys.has(part.groupKey)) {
+          issues.push(
+            issue(
+              spec.name,
+              path,
+              `repeating part '${partName}' has \`groupKey: '${part.groupKey}'\` but no sibling shares it. Use \`propName:\` if you want a custom prop name on a single repeating part.`,
+            ),
+          );
+        }
+        // Rule 12: `responsive: true` on item props is not currently supported.
+        // The generators emit a plain scalar field + single `data-*` binding
+        // with no per-breakpoint expansion.
         for (const [itemPropName, def] of propEntries) {
           if (def.responsive === true) {
             issues.push(
               issue(
                 spec.name,
                 `${path}.props.${itemPropName}`,
-                `repeating item prop '${itemPropName}' cannot set \`responsive: true\` in phase 1 — per-item responsive emission is deferred. Set \`responsive: false\` or move the prop to a group-level surface (phase 2).`,
+                `repeating item prop '${itemPropName}' cannot set \`responsive: true\` — per-item responsive emission is not supported. Set \`responsive: false\`.`,
               ),
             );
           }
@@ -1431,14 +1527,26 @@ export function checkRepeatingParts(spec: Spec): Issue[] {
             );
           }
         }
-        // Rule 10: effective propName is a valid identifier + not reserved.
-        const effectivePropName = part.propName ?? `${partName}s`;
+        // Rule 10: the effective propName (propName ?? groupKey ?? plural)
+        // must be a valid JS identifier and not collide with reserved names.
+        // Tailor the error message to the source field that supplied the value.
+        const effectivePropName = part.propName ?? part.groupKey ?? `${partName}s`;
+        const sourceField =
+          part.propName !== undefined
+            ? "propName"
+            : part.groupKey !== undefined
+              ? "groupKey"
+              : "default plural";
+        const fixHint =
+          sourceField === "default plural"
+            ? "Set `propName:` to a camelCase identifier"
+            : `Change \`${sourceField}:\` to a camelCase identifier`;
         if (!JS_IDENTIFIER_RE.test(effectivePropName)) {
           issues.push(
             issue(
               spec.name,
               path,
-              `repeating part '${partName}' has effective propName '${effectivePropName}' which is not a valid JS identifier. Set \`propName:\` to a camelCase identifier.`,
+              `repeating part '${partName}' has effective propName '${effectivePropName}' (from ${sourceField}) which is not a valid JS identifier. ${fixHint}.`,
             ),
           );
         } else if (RESERVED_PROP_NAMES.has(effectivePropName)) {
@@ -1446,13 +1554,14 @@ export function checkRepeatingParts(spec: Spec): Issue[] {
             issue(
               spec.name,
               path,
-              `repeating part '${partName}' has effective propName '${effectivePropName}' which collides with a codegen-reserved wrapper local. Set \`propName:\` to a non-reserved name (avoid: ${[...RESERVED_PROP_NAMES].join(", ")}).`,
+              `repeating part '${partName}' has effective propName '${effectivePropName}' (from ${sourceField}) which collides with a codegen-reserved wrapper local. ${fixHint} not in: ${[...RESERVED_PROP_NAMES].join(", ")}.`,
             ),
           );
         }
       } else {
-        // Rule 15: `propName:` is only consumed when `repeating: true`.
-        // A propName on a non-repeating part is silently ignored downstream.
+        // Rule 15: `propName:` and `groupKey:` are only consumed when
+        // `repeating: true`. Either on a non-repeating part is silently
+        // ignored downstream.
         if (part.propName !== undefined) {
           issues.push(
             issue(
@@ -1462,18 +1571,52 @@ export function checkRepeatingParts(spec: Spec): Issue[] {
             ),
           );
         }
+        if (part.groupKey !== undefined) {
+          issues.push(
+            issue(
+              spec.name,
+              path,
+              `non-repeating part '${partName}' cannot declare \`groupKey:\` — it is only consumed for parts with \`repeating: true\`.`,
+            ),
+          );
+        }
+        // Rule 16: in a list composite, group-level scalar props on a
+        // non-repeating sibling cannot use advanced shapes that the wrapper
+        // template doesn't currently handle. The wrapper just passes props
+        // through (React `{...rest}`, Vue `:<name>="<name>"`) — no per-
+        // breakpoint expansion, no slot rendering, no controllable triple.
+        //   16a: `responsive: true` — no `responsiveDataAttrs` expansion.
+        //   16b: `slot: true` — wrapper has no body for slot content.
+        //   16c: `pattern: controllable` — no `default*` / `on*Change` triple.
         if (anyRepeating) {
-          // Rule 11: non-repeating part in a composite with any repeating part
-          // must not declare scalar props (group-level props are phase 2).
-          const propEntries = Object.entries(part.props ?? {});
-          if (propEntries.length > 0) {
-            issues.push(
-              issue(
-                spec.name,
-                `${path}.props`,
-                `non-repeating part '${partName}' cannot declare \`props:\` in a composite that has repeating parts — group-level scalar props are deferred to phase 2.`,
-              ),
-            );
+          for (const [propName, def] of Object.entries(part.props ?? {})) {
+            if (def.responsive === true) {
+              issues.push(
+                issue(
+                  spec.name,
+                  `${path}.props.${propName}`,
+                  `group-level scalar prop '${propName}' on non-repeating part '${partName}' cannot set \`responsive: true\` — wrapper props flow through without responsive expansion.`,
+                ),
+              );
+            }
+            if (def.slot === true) {
+              issues.push(
+                issue(
+                  spec.name,
+                  `${path}.props.${propName}`,
+                  `group-level scalar prop '${propName}' on non-repeating part '${partName}' cannot set \`slot: true\` — the wrapper renders the repeating loop, not slot content.`,
+                ),
+              );
+            }
+            if (def.pattern === "controllable") {
+              issues.push(
+                issue(
+                  spec.name,
+                  `${path}.props.${propName}`,
+                  `group-level scalar prop '${propName}' on non-repeating part '${partName}' cannot set \`pattern: controllable\` — the wrapper template doesn't emit the \`default<Name>\` / \`on<Name>Change\` triple. Controllable patterns wait for an events story.`,
+                ),
+              );
+            }
           }
         }
       }

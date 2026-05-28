@@ -1,13 +1,17 @@
-import type { FlatItemProp } from "../../../lib/flatten.ts";
+import type { FlatItemProp, FlatRepeatingPart } from "../../../lib/flatten.ts";
 import { renderComponentJsDoc, vueJsDocFlavor } from "../../../lib/jsdoc-shape.ts";
 import { pascalCase } from "../../../lib/pascal-case.ts";
+import { itemTypeName } from "../../../lib/repeating-naming.ts";
 import type { Spec } from "../../gen-contract.ts";
 
 /**
- * Emits a Vue SFC for a composite spec that uses repeating parts (RFC-0005,
- * phase 1) and has no `overlay:` block. The phase-1 shape is one
- * non-repeating wrapper part + one or more repeating parts rendered as
- * its direct children via `v-for`.
+ * Emits a Vue SFC for a composite spec that uses repeating parts (RFC-0005)
+ * and has no `overlay:` block. Shape is one non-repeating wrapper part + one
+ * or more repeating parts rendered as its direct children via `v-for`.
+ *
+ * Parts sharing the same `groupKey:` are interleaved into a single `v-for`
+ * loop over a `<template>` element. Ungrouped repeating parts get their own
+ * `v-for` directly on the element.
  */
 export function renderCompositeListVueWrapper(spec: Spec): string {
   const Name = pascalCase(spec.name);
@@ -24,32 +28,78 @@ export function renderCompositeListVueWrapper(spec: Spec): string {
   const wrapperClass = wrapperPart.rootClass ?? `t-${spec.name}`;
   const repeating = spec.repeating ?? [];
 
-  const itemTypeBlocks = repeating.map((r) => {
-    const ItemName = `${Name}${pascalCase(r.partName)}Item`;
+  const repeatingGroups = new Map<string, FlatRepeatingPart[]>();
+  for (const r of repeating) {
+    const g = repeatingGroups.get(r.propName) ?? [];
+    g.push(r);
+    repeatingGroups.set(r.propName, g);
+  }
+
+  const itemTypeBlocks: string[] = [];
+  for (const [, group] of repeatingGroups) {
+    const first = group[0];
+    if (!first) continue;
+    const ItemName = itemTypeName(Name, first);
+    const mergedItemProps = mergeItemProps(group);
     const fields = [
       `  /** Stable item identity; required. */`,
       `  id: string;`,
-      ...Object.entries(r.itemProps).flatMap(([n, d]) => [
+      ...mergedItemProps.flatMap(([n, d]) => [
         ...(d.description ? [`  /** ${d.description} */`] : []),
         `  ${n}?: ${mapItemPropType(d)};`,
       ]),
     ].join("\n");
-    return `export type ${ItemName} = {\n${fields}\n};`;
-  });
+    itemTypeBlocks.push(`export type ${ItemName} = {\n${fields}\n};`);
+  }
 
-  const propLines = repeating.map(
-    (r) =>
-      `  /** Items rendered by the repeating \`${r.partName}\` part. */\n  ${r.propName}?: ReadonlyArray<${Name}${pascalCase(r.partName)}Item>;`,
+  // Group-level scalar props from the wrapper / non-repeating parts.
+  const groupPropLines: string[] = [];
+  for (const [n, d] of Object.entries(spec.props ?? {})) {
+    if (d.description) groupPropLines.push(`  /** ${d.description} */`);
+    groupPropLines.push(`  ${n}?: ${mapGroupPropType(d)};`);
+  }
+
+  const propLines: string[] = [...groupPropLines];
+  for (const [propName, group] of repeatingGroups) {
+    const first = group[0];
+    if (!first) continue;
+    const ItemName = itemTypeName(Name, first);
+    const partLabel =
+      group.length === 1
+        ? `\`${first.partName}\``
+        : group.map((g) => `\`${g.partName}\``).join(" + ");
+    propLines.push(
+      `  /** Items rendered by the repeating ${partLabel} part${group.length > 1 ? "s" : ""}. */`,
+    );
+    propLines.push(`  ${propName}?: ReadonlyArray<${ItemName}>;`);
+  }
+
+  const destructureLines: string[] = [];
+  for (const [propName] of repeatingGroups) {
+    destructureLines.push(`  ${propName} = [],`);
+  }
+  for (const n of Object.keys(spec.props ?? {})) {
+    destructureLines.push(`  ${n},`);
+  }
+
+  const iterationBlocks = [...repeatingGroups.entries()].map(([propName, group]) =>
+    renderIterationBlock(spec.name, propName, group),
   );
 
-  const destructureLines = repeating.map((r) => `  ${r.propName} = [],`).join("\n");
-
-  const iterationBlocks = repeating.map((r) => renderIterationBlock(Name, r));
+  // Vue 3 `<script setup>` consumes declared props — they do NOT fall through
+  // as attrs the way `$attrs` does for undeclared ones, and they do NOT auto-
+  // bind to a root element. Each group-level scalar prop must be explicitly
+  // bound to the wrapper element so the consumer value actually reaches the
+  // DOM (matches React's `{...rest}` spread behavior).
+  const groupPropNames = Object.keys(spec.props ?? {});
+  const wrapperOpenTag =
+    groupPropNames.length === 0
+      ? `<${wrapperElement} class="${wrapperClass}">`
+      : `<${wrapperElement}\n    class="${wrapperClass}"\n${groupPropNames.map((n) => `    :${n}="${n}"`).join("\n")}\n  >`;
 
   // Named ES module exports (`export type …`) are not allowed inside a
-  // `<script setup>` block. The canonical Vue pattern is to emit a sibling
-  // plain `<script lang="ts">` block before the setup block — top-level
-  // declarations from the plain block are in scope for the setup block.
+  // `<script setup>` block. Emit a sibling `<script lang="ts">` first; its
+  // top-level declarations are in scope for the setup block.
   const exportsBlock = `<script lang="ts">
 ${itemTypeBlocks.join("\n\n")}
 </script>
@@ -67,16 +117,29 @@ ${propLines.join("\n")}
 };
 
 const {
-${destructureLines}
+${destructureLines.join("\n")}
 } = defineProps<${Name}Props>();
 </script>
 
 <template>
-  <${wrapperElement} class="${wrapperClass}">
+  ${wrapperOpenTag}
 ${iterationBlocks.join("\n")}
   </${wrapperElement}>
 </template>
 `;
+}
+
+function mergeItemProps(group: FlatRepeatingPart[]): Array<[string, FlatItemProp]> {
+  const merged: Array<[string, FlatItemProp]> = [];
+  const seen = new Set<string>();
+  for (const part of group) {
+    for (const [n, def] of Object.entries(part.itemProps)) {
+      if (seen.has(n)) continue;
+      seen.add(n);
+      merged.push([n, def]);
+    }
+  }
+  return merged;
 }
 
 function mapItemPropType(def: FlatItemProp): string {
@@ -94,26 +157,54 @@ function mapItemPropType(def: FlatItemProp): string {
   }
 }
 
+function mapGroupPropType(def: { type: string; values?: string[] }): string {
+  const values = def.values ?? [];
+  if (values.length > 0) return values.map((v) => `"${v}"`).join(" | ");
+  switch (def.type) {
+    case "boolean":
+      return "boolean";
+    case "string":
+      return "string";
+    case "number":
+      return "number";
+    default:
+      return "unknown";
+  }
+}
+
 function renderIterationBlock(
-  _Name: string,
-  r: {
-    partName: string;
-    propName: string;
-    element?: string;
-    rootClass?: string;
-    itemProps: Record<string, FlatItemProp>;
-  },
+  specName: string,
+  propName: string,
+  group: FlatRepeatingPart[],
 ): string {
-  const itemElement = r.element ?? "div";
-  const itemClass = r.rootClass ?? `t-${r.partName}`;
-  const slotEntries = Object.entries(r.itemProps).filter(([, d]) => d.slot === true);
+  if (group.length === 1) {
+    const part = group[0];
+    if (!part) return "";
+    return renderSinglePartLoop(specName, propName, part);
+  }
+  // Multi-part: wrap each iteration in <template v-for=…>, emit each part
+  // inside without its own v-for.
+  const inner = group.map((part) => renderItemElement(specName, part, false)).join("\n");
+  return `    <template v-for="item in ${propName}" :key="item.id">
+${inner}
+    </template>`;
+}
+
+function renderSinglePartLoop(specName: string, propName: string, part: FlatRepeatingPart): string {
+  const itemElement = part.element ?? "div";
+  // Scope the default itemClass to the component to avoid cross-component
+  // collisions. Matches the wrapper's `t-${spec.name}` default + existing
+  // conventions like `t-pagination-page`, `t-tablist-tab`.
+  const itemClass = part.rootClass ?? `t-${specName}-${part.partName}`;
+  const slotEntries = Object.entries(part.itemProps).filter(([, d]) => d.slot === true);
   const attrLines: string[] = [
-    `      v-for="item in ${r.propName}"`,
+    `      v-for="item in ${propName}"`,
     `      :key="item.id"`,
+    ...(itemElement === "button" ? [`      type="button"`] : []),
     `      class="${itemClass}"`,
     `      :data-id="item.id"`,
   ];
-  for (const [n, d] of Object.entries(r.itemProps)) {
+  for (const [n, d] of Object.entries(part.itemProps)) {
     if (d.slot === true) continue;
     if (d.type === "boolean") {
       attrLines.push(`      :data-${n}="item.${n} || undefined"`);
@@ -121,9 +212,50 @@ function renderIterationBlock(
       attrLines.push(`      :data-${n}="item.${n}"`);
     }
   }
-  const body = slotEntries.length > 0 ? slotEntries.map(([n]) => `{{ item.${n} }}`).join("") : null;
-  if (body === null) {
+  // Single-slot bodies use `v-text` (sets textContent) rather than `{{ … }}`
+  // interpolation (which creates a child text vnode even for undefined). With
+  // v-text, an absent slot value collapses to an empty element with no child
+  // nodes — CSS `:empty` then matches reliably (used by Tablist's empty-icon
+  // hiding rule). Multi-slot bodies fall back to interpolation since v-text
+  // takes over the whole element.
+  if (slotEntries.length === 1) {
+    attrLines.push(`      v-text="item.${slotEntries[0]?.[0]}"`);
     return `    <${itemElement}\n${attrLines.join("\n")}\n    />`;
   }
+  if (slotEntries.length === 0) {
+    return `    <${itemElement}\n${attrLines.join("\n")}\n    />`;
+  }
+  const body = slotEntries.map(([n]) => `{{ item.${n} }}`).join("");
+  return `    <${itemElement}\n${attrLines.join("\n")}\n    >${body}</${itemElement}>`;
+}
+
+function renderItemElement(specName: string, part: FlatRepeatingPart, includeKey: boolean): string {
+  const itemElement = part.element ?? "div";
+  const itemClass = part.rootClass ?? `t-${specName}-${part.partName}`;
+  const slotEntries = Object.entries(part.itemProps).filter(([, d]) => d.slot === true);
+  const indent = "      ";
+  const attrLines: string[] = [
+    ...(includeKey ? [`${indent}:key="item.id"`] : []),
+    ...(itemElement === "button" ? [`${indent}type="button"`] : []),
+    `${indent}class="${itemClass}"`,
+    `${indent}:data-id="item.id"`,
+  ];
+  for (const [n, d] of Object.entries(part.itemProps)) {
+    if (d.slot === true) continue;
+    if (d.type === "boolean") {
+      attrLines.push(`${indent}:data-${n}="item.${n} || undefined"`);
+    } else {
+      attrLines.push(`${indent}:data-${n}="item.${n}"`);
+    }
+  }
+  // See renderSinglePartLoop for the v-text rationale (`:empty` + Vue text vnodes).
+  if (slotEntries.length === 1) {
+    attrLines.push(`${indent}v-text="item.${slotEntries[0]?.[0]}"`);
+    return `    <${itemElement}\n${attrLines.join("\n")}\n    />`;
+  }
+  if (slotEntries.length === 0) {
+    return `    <${itemElement}\n${attrLines.join("\n")}\n    />`;
+  }
+  const body = slotEntries.map(([n]) => `{{ item.${n} }}`).join("");
   return `    <${itemElement}\n${attrLines.join("\n")}\n    >${body}</${itemElement}>`;
 }

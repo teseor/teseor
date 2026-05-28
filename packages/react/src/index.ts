@@ -7,4 +7,5 @@ export { Codeblock, type CodeblockProps } from "./Codeblock.tsx";
 export { Modal, type ModalProps } from "./Modal.tsx";
 export { Pagination, type PaginationProps } from "./Pagination.tsx";
 export { Stack, type StackProps } from "./Stack.tsx";
+export { Tablist, type TablistProps } from "./Tablist.tsx";
 export { Tooltip, type TooltipProps } from "./Tooltip.tsx";

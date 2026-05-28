@@ -49,6 +49,10 @@
     "path": "packages/css/dist/components/stack.css"
   },
   {
+    "name": "@teseor/css/components/tablist.css",
+    "path": "packages/css/dist/components/tablist.css"
+  },
+  {
     "name": "@teseor/css/components/tooltip.css",
     "path": "packages/css/dist/components/tooltip.css"
   }

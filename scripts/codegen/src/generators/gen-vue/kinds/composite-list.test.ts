@@ -92,9 +92,10 @@ describe("renderCompositeListVueWrapper (RFC-0005)", () => {
     expect(out).toContain(`:key="item.id"`);
   });
 
-  test("slot-marked prop renders as `{{ item.x }}` interpolation", () => {
+  test("single slot-marked prop renders via `v-text` (so empty values yield :empty-matchable elements)", () => {
     const out = renderCompositeListVueWrapper(paginationFixture());
-    expect(out).toContain("{{ item.label }}");
+    expect(out).toContain(`v-text="item.label"`);
+    expect(out).not.toContain("{{ item.label }}");
   });
 
   test("non-slot string prop renders as `:data-x` binding", () => {
@@ -105,5 +106,94 @@ describe("renderCompositeListVueWrapper (RFC-0005)", () => {
   test("boolean prop renders with `|| undefined` fallback", () => {
     const out = renderCompositeListVueWrapper(paginationFixture());
     expect(out).toContain(`:data-current="item.current || undefined"`);
+  });
+
+  function tabsListFixture(): Spec {
+    return {
+      name: "tabs-list",
+      kind: "composite",
+      props: {},
+      tokens: {},
+      states: {},
+      parts: {
+        list: { element: "div", rootClass: "t-tabs-list" },
+        tab: {
+          repeating: true,
+          groupKey: "items",
+          element: "button",
+          rootClass: "t-tabs-list-tab",
+          props: {
+            label: { type: "string", slot: true, description: "Tab label." },
+            active: { type: "boolean", description: "Active tab." },
+          },
+        },
+        "tab-icon": {
+          repeating: true,
+          groupKey: "items",
+          element: "span",
+          rootClass: "t-tabs-list-icon",
+          props: {
+            icon: { type: "string", slot: true, description: "Tab icon." },
+          },
+        },
+      },
+      repeating: [
+        {
+          partName: "tab",
+          propName: "items",
+          element: "button",
+          rootClass: "t-tabs-list-tab",
+          groupKey: "items",
+          itemProps: {
+            label: { type: "string", slot: true, description: "Tab label." },
+            active: { type: "boolean", description: "Active tab." },
+          },
+        },
+        {
+          partName: "tab-icon",
+          propName: "items",
+          element: "span",
+          rootClass: "t-tabs-list-icon",
+          groupKey: "items",
+          itemProps: {
+            icon: { type: "string", slot: true, description: "Tab icon." },
+          },
+        },
+      ],
+    };
+  }
+
+  test("groupKey siblings: emits ONE shared item type", () => {
+    const out = renderCompositeListVueWrapper(tabsListFixture());
+    expect(out).toContain("export type TabsListItem = {");
+    expect(out).toContain("  label?: string;");
+    expect(out).toContain("  active?: boolean;");
+    expect(out).toContain("  icon?: string;");
+  });
+
+  test("groupKey siblings: emits ONE array prop", () => {
+    const out = renderCompositeListVueWrapper(tabsListFixture());
+    expect(out).toContain("items?: ReadonlyArray<TabsListItem>;");
+  });
+
+  test("groupKey siblings: interleaved via <template v-for>", () => {
+    const out = renderCompositeListVueWrapper(tabsListFixture());
+    expect(out).toContain(`<template v-for="item in items" :key="item.id">`);
+    expect(out).toContain("</template>");
+    // Only one v-for total, not two.
+    expect(out.match(/v-for="item in items"/g) ?? []).toHaveLength(1);
+  });
+
+  test("group-level scalar props on the wrapper part are typed, destructured, AND bound on the wrapper element", () => {
+    const out = renderCompositeListVueWrapper({
+      ...tabsListFixture(),
+      props: {
+        label: { type: "string", description: "Accessible label.", __part: "list" },
+      },
+    });
+    expect(out).toContain("label?: string;");
+    expect(out).toContain("  label,");
+    // Vue declared props do not fall through to attrs — must be explicitly bound.
+    expect(out).toContain(`:label="label"`);
   });
 });

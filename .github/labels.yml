@@ -63,6 +63,9 @@
 - name: component:stack
   color: d4c5f9
   description: stack component
+- name: component:tablist
+  color: d4c5f9
+  description: tablist component
 - name: component:tooltip
   color: d4c5f9
   description: tooltip component
