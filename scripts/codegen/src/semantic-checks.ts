@@ -10,7 +10,7 @@ import { isVoidElement } from "./lib/html-void-elements.ts";
 import { REACT_EVENT_VOCABULARY } from "./lib/react-events.ts";
 import type { TokenDictionary } from "./lib/token-dictionary.ts";
 import type { Vocabulary } from "./lib/vocabulary.ts";
-import type { Spec, SpecPart } from "./schema.ts";
+import type { PayloadEntry, Spec, SpecPart } from "./schema.ts";
 
 type TokensCss = ReadonlySet<string>;
 
@@ -1164,6 +1164,144 @@ export function checkInteractionEventVocabulary(spec: Spec): Issue[] {
   return issues;
 }
 
+// ── Events block ────────────────────────────────────────────────────────────
+
+const CAMEL_TAIL_RE = /[A-Z][a-zA-Z0-9]*$/;
+
+function eventVerb(name: string): string {
+  const match = name.match(CAMEL_TAIL_RE);
+  return match ? match[0].toLowerCase() : name.toLowerCase();
+}
+
+function visitPayload(
+  entry: PayloadEntry,
+  path: string,
+  visit: (p: PayloadEntry, path: string) => void,
+): void {
+  visit(entry, path);
+  if (entry.type === "array") visitPayload(entry.of, `${path}.of`, visit);
+}
+
+function collectControllableProps(spec: Spec): string[] {
+  const names: string[] = [];
+  visitNodes(spec, (node) => {
+    for (const [propName, def] of Object.entries(node.props ?? {})) {
+      if (def.pattern === "controllable") names.push(propName);
+    }
+  });
+  return names;
+}
+
+/**
+ * Validates `events:` declarations against the vocab + the spec's own
+ * `generics:` and controllable props. Per RFC-0006 § Validator rules:
+ *
+ *  - E1 — event name doesn't match the vocab pattern.
+ *  - E2 — last camelCase token isn't a registered verb (Levenshtein suggest).
+ *  - E3 — name's verb is a synonym for a canonical verb.
+ *  - E4 — name's verb is a synonym whose canonical is '—' (controllable).
+ *  - E5 — payload `generic.ref` not in this spec's `generics:` block.
+ *  - E6 — payload `builtin.name` not in vocab `events.builtins`.
+ *  - E8 — event name collides with a `<prop>Change` callback emitted by a
+ *    controllable prop on this spec.
+ *
+ * E7 ("events declared on a sub-part") falls out of the schema: `events:`
+ * lives on `identityFields`, so a part-level declaration fails strictObject
+ * with an "Unrecognized key" before semantic checks run.
+ */
+export function checkEvents(spec: Spec, vocabulary: Vocabulary): Issue[] {
+  const events = spec.events;
+  if (!events || Object.keys(events).length === 0) return [];
+
+  const issues: Issue[] = [];
+  const { verbs, synonyms, pattern, builtins } = vocabulary.events;
+  const nameRe = new RegExp(pattern);
+  const verbList = Object.keys(verbs);
+  const declaredGenerics = new Set((spec.generics ?? []).map((g) => g.name));
+  const controllableCallbacks = new Set(collectControllableProps(spec).map((p) => `${p}Change`));
+
+  for (const [name, entry] of Object.entries(events)) {
+    const path = `events.${name}`;
+
+    if (!nameRe.test(name)) {
+      issues.push(
+        issue(
+          spec.name,
+          path,
+          `'${name}' is not a valid event name. Use camelCase: '<verb>' or '<subjectNoun><Verb>'.`,
+        ),
+      );
+      continue;
+    }
+
+    const verb = eventVerb(name);
+
+    if (verb in synonyms) {
+      const canonical = synonyms[verb];
+      if (canonical === "—") {
+        issues.push(
+          issue(
+            spec.name,
+            path,
+            `'${name}' uses the state-mirror verb '${verb}'. Declare \`pattern: "controllable"\` on the '${verb}' prop instead of declaring an event.`,
+          ),
+        );
+      } else {
+        issues.push(
+          issue(
+            spec.name,
+            path,
+            `'${verb}' is registered as a synonym for '${canonical}'. Use '${canonical}' to keep event names consistent across components.`,
+          ),
+        );
+      }
+    } else if (!(verb in verbs)) {
+      issues.push(
+        issue(
+          spec.name,
+          path,
+          `'${name}' verb '${verb}' is not registered.${suggestionFragment(verb, verbList)}`,
+        ),
+      );
+    }
+
+    if (controllableCallbacks.has(name)) {
+      const propName = name.slice(0, -"Change".length);
+      issues.push(
+        issue(
+          spec.name,
+          path,
+          `'${name}' collides with the on${propName[0]?.toUpperCase()}${propName.slice(1)}Change callback emitted by \`pattern: "controllable"\` on prop '${propName}'. Pick a distinct event name or remove the controllable pattern.`,
+        ),
+      );
+    }
+
+    for (const [field, payload] of Object.entries(entry.payload)) {
+      visitPayload(payload, `${path}.payload.${field}`, (p, payloadPath) => {
+        if (p.type === "generic" && !declaredGenerics.has(p.ref)) {
+          issues.push(
+            issue(
+              spec.name,
+              payloadPath,
+              `'${name}' payload references generic '${p.ref}' which is not declared in this spec's generics: block.`,
+            ),
+          );
+        }
+        if (p.type === "builtin" && !(p.name in builtins)) {
+          issues.push(
+            issue(
+              spec.name,
+              payloadPath,
+              `'${name}' payload references built-in type '${p.name}' which is not registered. Add it to specs/_vocabulary.yaml events.builtins.`,
+            ),
+          );
+        }
+      });
+    }
+  }
+  return issues;
+}
+
 // ── Repeating parts (RFC-0005, phase 1) ─────────────────────────────────────
 
 /**
@@ -1683,6 +1821,7 @@ export function runSemanticChecks(
     ...checkOverlayEscapeRules(spec),
     ...checkRepeatingParts(spec),
     ...checkExamplesPresent(spec),
+    ...checkEvents(spec, ctx.vocabulary),
   ];
 }
 
