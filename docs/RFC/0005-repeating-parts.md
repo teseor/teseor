@@ -163,9 +163,9 @@ type PaginationProps = {
 
 ### Group-level props + per-item rendering
 
-Some components (RadioGroup `name`, Tabs `value`) carry a group-level prop that affects per-item rendering but isn't part of the per-item shape. Those live as **scalar props on a non-repeating sibling part** — the root or a fixed wrapper part. The iteration body reads `item.X` for per-item props and `props.X` for group-level props.
+Some components (RadioGroup `name`, Tabs `value`) carry a group-level prop that affects per-item rendering but isn't part of the per-item shape. Those live as **scalar props on a non-repeating sibling part** — the root or a fixed wrapper part. The wrapper passes them through to the rendered DOM element (React `{...rest}`, Vue `:<name>="<name>"`); the iteration body still reads only `item.X` (per-iteration access to group props waits on an events story).
 
-Example sketch (phase 2 surface):
+Example:
 
 ```yaml
 parts:
@@ -173,8 +173,7 @@ parts:
     element: div
     rootClass: t-radio-group
     props:
-      name:  { type: string,  description: "HTML form name shared across options." }
-      value: { type: string,  pattern: controllable, description: "Selected option value." }
+      name:  { type: string, description: "HTML form name shared across options." }
   option:
     repeating: true
     groupKey: items
@@ -184,7 +183,7 @@ parts:
       label: { type: string, slot: true, description: "Option label." }
 ```
 
-The iteration body computes `checked = item.value === props.value` and emits `name={props.name}` per item. Phase 1 explicitly **rejects** this combination at the semantic-checks layer (rule 11 below): in a composite with any repeating part, non-repeating siblings may not declare scalar `props:`. The rejection lifts in phase 2 alongside `groupKey:` and the interleave codegen.
+Group-level scalar props use only the simple primitive shape — plain `type: string | number | boolean`, no `responsive`, no `slot`, no `pattern: controllable`. Those advanced shapes are rejected by rule 16 because the wrapper template doesn't apply per-breakpoint expansion, has no slot body, and doesn't emit the controllable triple. Per-iteration access (RadioGroup's `name={props.name}` on each input, computed `checked = item.value === props.value`) ships alongside the events block in a later phase.
 
 ### Group-state vs per-item-state
 
@@ -198,7 +197,7 @@ The effective propName precedence is `propName` > `groupKey` > `${partName}s`. G
 
 ### Validator rejections (semantic-checks.ts)
 
-Fourteen rules ship today. Rule 11 was an interim rejection of group-level scalar props on non-repeating siblings; it was lifted when the wrapper-side props story landed alongside `groupKey:`.
+Fifteen rules ship today. Rule 11 was an interim rejection of group-level scalar props on non-repeating siblings; it was lifted when the wrapper-side props story landed alongside `groupKey:`. Rule 16 backfilled the gaps that lift exposed (advanced prop shapes the wrapper can't currently render).
 
 | # | Condition | Rationale |
 | --- | --- | --- |
@@ -216,6 +215,7 @@ Fourteen rules ship today. Rule 11 was an interim rejection of group-level scala
 | 13 | List composite has ≠ 1 non-repeating top-level part | The renderers pick the first non-repeating top-level part as the wrapper; extras are silently dropped, zero throws at generation time. |
 | 14 | Repeating item prop name is not a valid JS identifier | Codegen emits `item.<name>` in iteration bodies; hyphens / spaces / leading digits produce parse errors. |
 | 15 | `propName:` or `groupKey:` declared on a non-repeating part | Both fields are only consumed when `repeating: true`; declaring either on a non-repeating part is silently ignored downstream. |
+| 16 | Group-level scalar prop on a non-repeating sibling in a list composite uses `responsive: true`, `slot: true`, or `pattern: controllable` | The wrapper template passes props through directly (React `{...rest}`, Vue `:<name>="<name>"`). It has no per-breakpoint expansion, no slot body, and no controllable triple emission. Three sub-cases each emit their own issue. |
 
 Each issue includes the repeating part's dotted `partPath` in `Issue.path` so authors can locate the offending declaration without grepping.
 
@@ -289,7 +289,7 @@ Phase 1 is intentionally thin — most of what people picture when they hear "sp
 
 ## Drawbacks
 
-- **More semantic-check surface.** Fourteen rejection clauses (see the validator table above), each with its own message and `partPath` resolution. Adds notable type-level and ergonomic surface to the codegen pipeline.
+- **More semantic-check surface.** Fifteen rejection clauses (see the validator table above), each with its own message and `partPath` resolution. Adds notable type-level and ergonomic surface to the codegen pipeline.
 - **Codegen branches.** `gen-react` / `gen-vue` / `gen-contract` / `gen-docs` each grow a per-repeating-part branch. The atomic-spec code path is untouched; composite-spec code paths get one extra walk over `FlatSpec.repeating[]`.
 - **`FlatSpec.repeating[]` is a new shape generators must consume.** Any future generator that walks the flat spec needs to know about repeating, or it silently produces incomplete output. The cost is paid once per generator.
 - **DOM-attribute rule for plain `string` props is `data-*`, not text content.** A consumer expecting a `string` per-item prop to render as the element's text body needs to flag the prop with `slot: true`. This is the same rule atomic specs already have; the surprise factor is identical.
