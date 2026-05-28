@@ -1236,7 +1236,7 @@ export function checkEvents(spec: Spec, vocabulary: Vocabulary): Issue[] {
 
     const verb = eventVerb(name);
 
-    if (verb in synonyms) {
+    if (Object.hasOwn(synonyms, verb)) {
       const canonical = synonyms[verb];
       if (canonical === "—") {
         issues.push(
@@ -1255,7 +1255,7 @@ export function checkEvents(spec: Spec, vocabulary: Vocabulary): Issue[] {
           ),
         );
       }
-    } else if (!(verb in verbs)) {
+    } else if (!Object.hasOwn(verbs, verb)) {
       issues.push(
         issue(
           spec.name,
@@ -1287,7 +1287,7 @@ export function checkEvents(spec: Spec, vocabulary: Vocabulary): Issue[] {
             ),
           );
         }
-        if (p.type === "builtin" && !(p.name in builtins)) {
+        if (p.type === "builtin" && !Object.hasOwn(builtins, p.name)) {
           issues.push(
             issue(
               spec.name,

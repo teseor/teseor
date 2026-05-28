@@ -2080,4 +2080,30 @@ describe("checkEvents (RFC-0006)", () => {
     expect(issues.length).toBe(1);
     expect(issues[0]?.message).not.toMatch(/not registered/);
   });
+
+  test("rejects verbs that collide with Object.prototype method names", () => {
+    // `in` operator would treat `toString` / `valueOf` / `hasOwnProperty`
+    // as registered via inheritance — Object.hasOwn keeps the vocab closed.
+    const spec = makeEvents({
+      toString: { description: "x", payload: {} },
+      valueOf: { description: "x", payload: {} },
+      hasOwnProperty: { description: "x", payload: {} },
+    });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.length).toBe(3);
+    for (const verb of ["toString", "valueOf", "hasOwnProperty"]) {
+      expect(issues.some((i) => i.message.includes(`'${verb}'`))).toBe(true);
+    }
+  });
+
+  test("rejects payload builtin names that collide with Object.prototype", () => {
+    const spec = makeEvents({
+      add: {
+        description: "x",
+        payload: { thing: { type: "builtin", name: "toString" } },
+      },
+    });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.some((i) => /built-in type 'toString'/.test(i.message))).toBe(true);
+  });
 });
