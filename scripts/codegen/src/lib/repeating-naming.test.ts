@@ -32,4 +32,17 @@ describe("itemTypeName", () => {
     expect(ungrouped).toBe("XxxPageItem");
     expect(grouped).not.toBe(ungrouped);
   });
+
+  test("special-case `items` does NOT also collapse `item` (would collide otherwise)", () => {
+    const items = itemTypeName("Xxx", part({ partName: "x", groupKey: "items" }));
+    const item = itemTypeName("Xxx", part({ partName: "x", groupKey: "item" }));
+    expect(items).toBe("XxxItem");
+    expect(item).toBe("XxxItemItem");
+    expect(items).not.toBe(item);
+  });
+
+  test("special-case `items` is case-insensitive", () => {
+    expect(itemTypeName("Xxx", part({ groupKey: "ITEMS" }))).toBe("XxxItem");
+    expect(itemTypeName("Xxx", part({ groupKey: "Items" }))).toBe("XxxItem");
+  });
 });

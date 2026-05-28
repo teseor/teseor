@@ -19,15 +19,12 @@ import { pascalCase } from "./pascal-case.ts";
  */
 export function itemTypeName(componentName: string, part: FlatRepeatingPart): string {
   if (typeof part.groupKey === "string") {
-    const singular = singularize(part.groupKey);
-    if (singular.toLowerCase() === "item") return `${componentName}Item`;
+    // Only the literal "items" (case-insensitive) takes the collapsed form.
+    // Earlier the rule matched any groupKey whose naive singular was "item",
+    // which collapsed both `groupKey: "items"` AND `groupKey: "item"` to the
+    // same `<Name>Item` — a collision when both appeared in one spec.
+    if (part.groupKey.toLowerCase() === "items") return `${componentName}Item`;
     return `${componentName}${pascalCase(part.groupKey)}Item`;
   }
   return `${componentName}${pascalCase(part.partName)}Item`;
-}
-
-/** Naive English singularization: strip a trailing 's'. Used only for the
- *  "items"-special-case detection in {@link itemTypeName}. */
-function singularize(word: string): string {
-  return word.endsWith("s") ? word.slice(0, -1) : word;
 }
