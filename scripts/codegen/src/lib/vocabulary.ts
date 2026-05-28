@@ -6,6 +6,13 @@ import { parse as parseYaml } from "yaml";
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..", "..", "..");
 const VOCABULARY_PATH = resolve(REPO_ROOT, "specs", "_vocabulary.yaml");
 
+export type EventVocabulary = {
+  verbs: Record<string, string>;
+  synonyms: Record<string, string>;
+  pattern: string;
+  builtins: Record<string, string>;
+};
+
 export type Vocabulary = {
   components: string[];
   props: string[];
@@ -16,7 +23,7 @@ export type Vocabulary = {
   sizeMap: Record<string, number>;
   states: string[];
   parts: string[];
-  events: string[];
+  events: EventVocabulary;
 };
 
 let cached: Vocabulary | null = null;
