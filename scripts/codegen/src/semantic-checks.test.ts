@@ -1629,6 +1629,45 @@ describe("checkRepeatingParts (RFC-0005)", () => {
     ).toBe(true);
   });
 
+  test("rule 16 — a group prop that is both `slot: true` AND `responsive: true` emits BOTH issues", () => {
+    const spec: Spec = {
+      name: "tabs",
+      kind: "composite",
+      parts: {
+        list: {
+          element: "div",
+          props: {
+            label: {
+              type: "string",
+              slot: true,
+              responsive: true,
+              description: "Both forbidden shapes.",
+            },
+          },
+        },
+        tab: {
+          repeating: true,
+          groupKey: "items",
+          element: "button",
+          props: { label: { type: "string", slot: true, description: "Tab label." } },
+        },
+        "tab-icon": {
+          repeating: true,
+          groupKey: "items",
+          element: "span",
+          props: { icon: { type: "string", slot: true, description: "Icon." } },
+        },
+      },
+    } as Spec;
+    const issues = checkRepeatingParts(spec);
+    expect(
+      issues.some((i) => /wrapper props flow through without responsive expansion/.test(i.message)),
+    ).toBe(true);
+    expect(
+      issues.some((i) => /wrapper renders the repeating loop, not slot content/.test(i.message)),
+    ).toBe(true);
+  });
+
   test("rule 16 — `slot: true` on a group-level wrapper prop is rejected", () => {
     const spec: Spec = {
       name: "tabs",

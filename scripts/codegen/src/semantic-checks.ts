@@ -1590,7 +1590,7 @@ export function checkRepeatingParts(spec: Spec): Issue[] {
         //   16c: `pattern: controllable` — no `default*` / `on*Change` triple.
         if (anyRepeating) {
           for (const [propName, def] of Object.entries(part.props ?? {})) {
-            if (def.responsive === true && def.slot !== true) {
+            if (def.responsive === true) {
               issues.push(
                 issue(
                   spec.name,
