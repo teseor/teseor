@@ -1209,12 +1209,48 @@ function collectControllableProps(spec: Spec): string[] {
  * lives on `identityFields`, so a part-level declaration fails strictObject
  * with an "Unrecognized key" before semantic checks run.
  */
-export function checkEvents(spec: Spec, vocabulary: Vocabulary): Issue[] {
-  const events = spec.events;
-  if (!events || Object.keys(events).length === 0) return [];
+// Generic names that would shadow codegen-emitted globals when used as a
+// type parameter. `Array` is the array-payload helper from the payload
+// printer; the rest come from the events builtin vocab (`File`, `Date`, …).
+// A generic named `Array` would turn the payload `Array<string>` into a
+// reference to the type parameter — not the global.
+const RESERVED_GENERIC_NAMES_BASE = new Set(["Array"]);
 
+export function checkEvents(spec: Spec, vocabulary: Vocabulary): Issue[] {
   const issues: Issue[] = [];
   const { verbs, synonyms, pattern, builtins } = vocabulary.events;
+  const reservedGenericNames = new Set<string>(RESERVED_GENERIC_NAMES_BASE);
+  for (const builtin of Object.keys(builtins)) reservedGenericNames.add(builtin);
+
+  // Generic-name validation runs regardless of whether `events:` is declared:
+  // `<Spec>Props` carries the generic parameter list even when no events exist.
+  const seenGenericNames = new Set<string>();
+  for (const generic of spec.generics ?? []) {
+    const gPath = `generics.${generic.name}`;
+    if (reservedGenericNames.has(generic.name)) {
+      issues.push(
+        issue(
+          spec.name,
+          gPath,
+          `'${generic.name}' is reserved; using it as a generic parameter would shadow the global/codegen-emitted type of the same name. Pick a distinct name.`,
+        ),
+      );
+    }
+    if (seenGenericNames.has(generic.name)) {
+      issues.push(
+        issue(
+          spec.name,
+          gPath,
+          `'${generic.name}' is declared more than once in generics:. Each generic name must be unique.`,
+        ),
+      );
+    }
+    seenGenericNames.add(generic.name);
+  }
+
+  const events = spec.events;
+  if (!events || Object.keys(events).length === 0) return issues;
+
   const nameRe = new RegExp(pattern);
   const verbList = Object.keys(verbs);
   const declaredGenerics = new Set((spec.generics ?? []).map((g) => g.name));
@@ -1283,6 +1319,16 @@ export function checkEvents(spec: Spec, vocabulary: Vocabulary): Issue[] {
             spec.name,
             `${path}.payload.${field}`,
             `'${field}' is not a valid payload field name. Codegen emits it as a property identifier; use letters/digits/_/$ (must not start with a digit).`,
+          ),
+        );
+        continue;
+      }
+      if (field === "type") {
+        issues.push(
+          issue(
+            spec.name,
+            `${path}.payload.${field}`,
+            `'type' is reserved as the channel discriminator on the generated event union. Rename the payload field.`,
           ),
         );
         continue;

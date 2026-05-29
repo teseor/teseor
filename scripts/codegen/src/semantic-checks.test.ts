@@ -2118,4 +2118,55 @@ describe("checkEvents (RFC-0006)", () => {
     expect(issues.map((i) => i.path)).toEqual(["events.dismiss.payload.error-code"]);
     expect(issues[0]?.message).toMatch(/valid payload field name/);
   });
+
+  test("rejects payload field named 'type' (channel discriminator collision)", () => {
+    const spec = makeEvents({
+      dismiss: {
+        description: "x",
+        payload: { type: { type: "string" } },
+      },
+    });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.map((i) => i.path)).toEqual(["events.dismiss.payload.type"]);
+    expect(issues[0]?.message).toMatch(/reserved as the channel discriminator/);
+  });
+
+  test("rejects generic names that shadow the Array codegen helper", () => {
+    const spec = makeButton({ generics: [{ name: "Array", description: "x" }] });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.map((i) => i.path)).toEqual(["generics.Array"]);
+    expect(issues[0]?.message).toMatch(/reserved/);
+  });
+
+  test("rejects generic names that collide with vocab builtins", () => {
+    const spec = makeButton({ generics: [{ name: "File", description: "x" }] });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.map((i) => i.path)).toEqual(["generics.File"]);
+  });
+
+  test("rejects duplicate generic names within a spec", () => {
+    const spec = makeButton({
+      generics: [
+        { name: "Item", description: "x" },
+        { name: "Item", description: "y" },
+      ],
+    });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.some((i) => i.path === "generics.Item" && /more than once/.test(i.message))).toBe(
+      true,
+    );
+  });
+
+  test("accepts non-reserved generic names alongside events", () => {
+    const spec = makeButton({
+      generics: [{ name: "Item", description: "x" }],
+      events: {
+        select: {
+          description: "x",
+          payload: { item: { type: "generic", ref: "Item" } },
+        },
+      },
+    });
+    expect(checkEvents(spec, vocabulary)).toEqual([]);
+  });
 });
