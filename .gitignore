@@ -6,6 +6,7 @@
 .claude/plans/
 .claude/scheduled_tasks.lock
 .claude/preflight-review.enabled
+.claude/codegen-audit-ack
 
 # Toolchain
 node_modules/
