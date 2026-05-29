@@ -7,6 +7,7 @@
 import postcss from "postcss";
 import postcssEach from "postcss-each";
 import { isVoidElement } from "./lib/html-void-elements.ts";
+import { pascalCase } from "./lib/pascal-case.ts";
 import { REACT_EVENT_VOCABULARY } from "./lib/react-events.ts";
 import type { TokenDictionary } from "./lib/token-dictionary.ts";
 import type { Vocabulary } from "./lib/vocabulary.ts";
@@ -1224,11 +1225,54 @@ const RESERVED_GENERIC_NAMES_BASE = new Set([
   "Responsive",
 ]);
 
+/**
+ * Spec-local type aliases gen-contract emits for this spec. A generic
+ * parameter named the same as one of these would shadow the alias inside
+ * the Props/Event body, silently widening the contract.
+ */
+function collectSpecLocalAliases(spec: Spec): Set<string> {
+  const Name = pascalCase(spec.name);
+  const aliases = new Set<string>([`${Name}Props`]);
+  if (spec.events && Object.keys(spec.events).length > 0) aliases.add(`${Name}Event`);
+
+  visitNodes(spec, (node) => {
+    if (node.variants && Object.keys(node.variants).length > 0) aliases.add(`${Name}Variant`);
+    if (node.intents && Object.keys(node.intents).length > 0) aliases.add(`${Name}Intent`);
+    if (node.sizes && Object.keys(node.sizes).length > 0) aliases.add(`${Name}Size`);
+    for (const [propName, def] of Object.entries(node.props ?? {})) {
+      if (def.values && def.values.length > 0) {
+        aliases.add(`${Name}${pascalCase(propName)}`);
+      }
+    }
+  });
+
+  if (spec.kind === "composite") {
+    const visit = (parts: Record<string, SpecPart>): void => {
+      for (const [partName, part] of Object.entries(parts)) {
+        if (part.repeating === true) aliases.add(repeatingItemTypeName(Name, part, partName));
+        if (part.parts) visit(part.parts);
+      }
+    };
+    visit(spec.parts);
+  }
+
+  return aliases;
+}
+
+function repeatingItemTypeName(componentName: string, part: SpecPart, partName: string): string {
+  if (typeof part.groupKey === "string") {
+    if (part.groupKey.toLowerCase() === "items") return `${componentName}Item`;
+    return `${componentName}${pascalCase(part.groupKey)}Item`;
+  }
+  return `${componentName}${pascalCase(partName)}Item`;
+}
+
 export function checkEvents(spec: Spec, vocabulary: Vocabulary): Issue[] {
   const issues: Issue[] = [];
   const { verbs, synonyms, pattern, builtins } = vocabulary.events;
   const reservedGenericNames = new Set<string>(RESERVED_GENERIC_NAMES_BASE);
   for (const builtin of Object.keys(builtins)) reservedGenericNames.add(builtin);
+  for (const alias of collectSpecLocalAliases(spec)) reservedGenericNames.add(alias);
 
   // Generic-name validation runs regardless of whether `events:` is declared:
   // `<Spec>Props` carries the generic parameter list even when no events exist.
@@ -1267,10 +1311,22 @@ export function checkEvents(spec: Spec, vocabulary: Vocabulary): Issue[] {
   // Codegen-emitted handler/channel prop names that must not collide with
   // consumer-declared props. The channel prop is always `onEvent` when any
   // event is declared; per-event handlers are `on<PascalCase(eventName)>`.
+  // Repeating-part props surface inside the generated `Item` type, not on
+  // the root `Props` surface — skip them so an item prop named `onDismiss`
+  // doesn't trip a false collision.
   const declaredPropNames = new Set<string>();
-  visitNodes(spec, (node) => {
-    for (const propName of Object.keys(node.props ?? {})) declaredPropNames.add(propName);
-  });
+  if (isAtomic(spec)) {
+    for (const propName of Object.keys(spec.props ?? {})) declaredPropNames.add(propName);
+  } else if (isComposite(spec)) {
+    const walk = (parts: Record<string, SpecPart>): void => {
+      for (const part of Object.values(parts)) {
+        if (part.repeating === true) continue;
+        for (const propName of Object.keys(part.props ?? {})) declaredPropNames.add(propName);
+        if (part.parts) walk(part.parts);
+      }
+    };
+    walk(spec.parts);
+  }
   if (declaredPropNames.has("onEvent")) {
     issues.push(
       issue(

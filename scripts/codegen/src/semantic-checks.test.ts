@@ -2230,4 +2230,66 @@ describe("checkEvents (RFC-0006)", () => {
     const issues = checkEvents(spec, vocabulary);
     expect(issues.some((i) => /'onDismiss' prop/.test(i.message))).toBe(true);
   });
+
+  test("handler-collision check ignores repeating part item props", () => {
+    // `onDismiss` lives inside the generated <Spec>Item type, not on root
+    // Props, so it should not trigger a false handler collision.
+    const spec: Spec = {
+      name: "modal",
+      kind: "composite",
+      events: { dismiss: { description: "x", payload: {} } },
+      parts: {
+        root: { element: "div" },
+        row: {
+          element: "div",
+          repeating: true,
+          props: {
+            onDismiss: { type: "string", description: "Item-level prop." },
+          },
+        },
+      },
+    } as Spec;
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.some((i) => /'onDismiss' prop/.test(i.message))).toBe(false);
+  });
+
+  test("rejects a generic that shadows a spec-local emitted alias (<Spec>Variant)", () => {
+    const spec = makeButton({ generics: [{ name: "ButtonVariant", description: "x" }] });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.map((i) => i.path)).toEqual(["generics.ButtonVariant"]);
+  });
+
+  test("rejects a generic that shadows a per-prop enum alias", () => {
+    const spec = makeButton({
+      props: {
+        align: {
+          type: "string",
+          description: "Alignment.",
+          values: ["start", "end"],
+        },
+      },
+      generics: [{ name: "ButtonAlign", description: "x" }],
+    });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.map((i) => i.path)).toEqual(["generics.ButtonAlign"]);
+  });
+
+  test("rejects a generic that shadows a repeating item type alias", () => {
+    const spec: Spec = {
+      name: "tablist",
+      kind: "composite",
+      generics: [{ name: "TablistItem", description: "x" }],
+      parts: {
+        root: { element: "div" },
+        tab: {
+          element: "button",
+          repeating: true,
+          groupKey: "items",
+          props: { label: { type: "string", slot: true, description: "Tab label." } },
+        },
+      },
+    } as Spec;
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.some((i) => i.path === "generics.TablistItem")).toBe(true);
+  });
 });
