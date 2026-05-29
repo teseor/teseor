@@ -2274,6 +2274,32 @@ describe("checkEvents (RFC-0006)", () => {
     expect(issues.map((i) => i.path)).toEqual(["generics.ButtonAlign"]);
   });
 
+  test("does NOT reserve per-prop enum alias names for repeating item props", () => {
+    // Repeating-item props with `values` are rendered inline inside the
+    // generated <Spec>Item type; no <Spec><Prop> alias is ever emitted, so
+    // a generic of that name is safe.
+    const spec: Spec = {
+      name: "tablist",
+      kind: "composite",
+      generics: [{ name: "TablistDirection", description: "x" }],
+      parts: {
+        root: { element: "div" },
+        tab: {
+          element: "button",
+          repeating: true,
+          props: {
+            direction: {
+              type: "string",
+              description: "Per-item direction.",
+              values: ["asc", "desc"],
+            },
+          },
+        },
+      },
+    } as Spec;
+    expect(checkEvents(spec, vocabulary)).toEqual([]);
+  });
+
   test("rejects a generic that shadows a repeating item type alias", () => {
     const spec: Spec = {
       name: "tablist",
