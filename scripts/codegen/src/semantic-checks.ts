@@ -1471,6 +1471,68 @@ export function checkEvents(spec: Spec, vocabulary: Vocabulary): Issue[] {
   return issues;
 }
 
+/**
+ * Runtime-source check for declared events (RFC-0006 step 3b).
+ *
+ * `gen-contract` produces type surfaces for any declared event, but a
+ * wrapper-runtime auto-fire path exists only for a small subset today. The
+ * audit principle (see project_codegen_surface_audit.md, category 1):
+ * either the generator fires the event, or the semantic check rejects the
+ * declaration. Without this rule, a spec can declare `select` /
+ * `inputChange` / `rowClick`; consumers see the per-event prop on the
+ * surface; the prop never fires from the wrapper.
+ *
+ * v1 supports `dismiss` only, only on overlay composites. Other declared
+ * events must wait until their runtime source ships in the matching
+ * `gen-*` template.
+ */
+export function checkEventsRuntimeSupport(spec: Spec): Issue[] {
+  const events = spec.events;
+  if (!events || Object.keys(events).length === 0) return [];
+  const issues: Issue[] = [];
+
+  // Today's runtime-supported event sources, scoped to spec shapes the
+  // generator actually emits firing code for. Extending this set means
+  // adding the firing path in the matching generator template + updating
+  // this list in the same change.
+  const SUPPORTED_BY_SHAPE: ReadonlyArray<{
+    matches: (s: Spec) => boolean;
+    events: ReadonlyArray<string>;
+    shape: string;
+  }> = [
+    {
+      matches: (s) => isComposite(s) && Boolean(s.overlay),
+      events: ["dismiss"],
+      shape: "composite-overlay",
+    },
+  ];
+
+  const shape = SUPPORTED_BY_SHAPE.find((s) => s.matches(spec));
+  for (const name of Object.keys(events)) {
+    if (!shape) {
+      issues.push(
+        issue(
+          spec.name,
+          `events.${name}`,
+          `Declared events are not supported on this spec shape yet. v1 supports composite-overlay specs and the 'dismiss' event only. Remove the events: block or migrate the spec to an overlay composite.`,
+        ),
+      );
+      continue;
+    }
+    if (!shape.events.includes(name)) {
+      const supported = shape.events.map((e) => `'${e}'`).join(", ");
+      issues.push(
+        issue(
+          spec.name,
+          `events.${name}`,
+          `Event '${name}' has no wrapper-runtime source on ${shape.shape} specs (v1 supports ${supported} only). Extend the generator template to fire the event before re-declaring it here.`,
+        ),
+      );
+    }
+  }
+  return issues;
+}
+
 // ── Repeating parts (RFC-0005, phase 1) ─────────────────────────────────────
 
 /**
@@ -1991,6 +2053,7 @@ export function runSemanticChecks(
     ...checkRepeatingParts(spec),
     ...checkExamplesPresent(spec),
     ...checkEvents(spec, ctx.vocabulary),
+    ...checkEventsRuntimeSupport(spec),
   ];
 }
 

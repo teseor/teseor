@@ -183,6 +183,9 @@ importers:
 
   packages/react:
     dependencies:
+      '@teseor/contract':
+        specifier: workspace:*
+        version: link:../contract
       '@teseor/css':
         specifier: workspace:*
         version: link:../css

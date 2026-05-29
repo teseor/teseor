@@ -3,6 +3,13 @@ import { renderEnumType } from "../../../lib/enum-primitives.ts";
 import { reactJsDocFlavor, renderComponentJsDoc } from "../../../lib/jsdoc-shape.ts";
 import { pascalCase } from "../../../lib/pascal-case.ts";
 import type { Spec } from "../../gen-contract.ts";
+import {
+  consumerHandlerPropNames,
+  hasEventsBlock,
+  renderChannelPropLines,
+  renderEventHandlerBodies,
+  renderEventPropLines,
+} from "../_shared/events.ts";
 import { renderPropLine } from "../_shared/props.ts";
 import { quote } from "../_shared/type-printer.ts";
 
@@ -74,6 +81,9 @@ export function renderCompositeOverlayReactWrapper(
   const ownPropLines = Object.entries(spec.props).flatMap(([n, d]) =>
     renderPropLine(n, d, propDescriptions, Name),
   );
+  // Per-event prop lines + the channel — emitted only when events: is declared.
+  const eventPropLines = renderEventPropLines(spec);
+  const channelPropLines = renderChannelPropLines(spec, Name);
 
   // Destructure: omit the controllable triple from the rest (they go straight
   // into useOverlay), keep slots/responsives separate.
@@ -87,6 +97,12 @@ export function renderCompositeOverlayReactWrapper(
     destructureNames.push(hasDefault ? `${name} = ${def.default}` : name);
   }
   destructureNames.push("children");
+  // Consumer-facing event handler props (`onDismiss`, `onSelect`, …) plus the
+  // channel — destructured from props so the wrapper-body `useCallback`
+  // closures capture them directly.
+  const eventDestructureNames = hasEventsBlock(spec)
+    ? [...consumerHandlerPropNames(spec), "onEvent"]
+    : [];
 
   const interactionItems = interactions.map((rule) => {
     const onEntries: string[] = [`event: ${quote(rule.on.event)}`];
@@ -110,10 +126,24 @@ export function renderCompositeOverlayReactWrapper(
   // the CSS layer that reads the same `data-disabled-bp` attrs.
   const hasDisabledProp = Object.hasOwn(spec.props, "disabled");
   const disabledLine = hasDisabledProp ? `    disabled,\n` : "";
+  // When events: is declared, the controllable change callback is the wrapped
+  // `handle<Controllable>Change` (consumer callback first, channel after).
+  // When the spec declares the `dismiss` event, the wrapped `handleDismiss`
+  // also feeds in as `onDismiss` so useOverlay's dismissable-layer + trigger
+  // routes go through the same per-event-then-channel chain.
+  const events = spec.events ?? {};
+  const hasDismissEvent = Object.hasOwn(events, "dismiss");
+  // Shorthand `onOpenChange,` when there are no declared events; explicit
+  // `onOpenChange: handleOpenChange,` when an events block wraps the callback
+  // to fire the channel after the consumer's controllable callback.
+  const changeLine = hasEventsBlock(spec)
+    ? `    on${ControllableName}Change: handle${ControllableName}Change,`
+    : `    on${ControllableName}Change,`;
   const hookConfig = [
     `    ${controllableName}: ${controllableName}Prop,`,
     `    default${ControllableName},`,
-    `    on${ControllableName}Change,`,
+    changeLine,
+    ...(hasDismissEvent ? [`    onDismiss: handleDismiss,`] : []),
     `    anchorVar: ${quote(overlaySpec.anchorVar)},`,
     `    popoverMode: ${quote(overlaySpec.mode)},`,
     `    interactions,`,
@@ -146,11 +176,15 @@ export function renderCompositeOverlayReactWrapper(
       : "        {/* no content slot declared */}";
 
   const hasResponsive = responsiveProps.length > 0;
+  const eventsDeclared = hasEventsBlock(spec);
   // Modal overlays gate the portal on a mounted flag (set in a `useEffect`) so
   // server-rendered HTML and the client's first render match — same null result
   // for the portal subtree, no hydration mismatch warnings.
-  const reactRuntimeImports = ["type CSSProperties", "type ReactNode", "type Ref", "useMemo"];
-  if (overlaySpec.modal) reactRuntimeImports.push("useEffect", "useState");
+  const reactRuntimeImports = ["type CSSProperties", "type ReactNode", "type Ref"];
+  if (eventsDeclared) reactRuntimeImports.push("useCallback");
+  if (overlaySpec.modal) reactRuntimeImports.push("useEffect");
+  reactRuntimeImports.push("useMemo");
+  if (overlaySpec.modal) reactRuntimeImports.push("useState");
   const teseorRuntimeImports = [
     "mergeRefs",
     ...(hasResponsive ? ["responsiveDataAttrs", "type Responsive"] : []),
@@ -159,6 +193,7 @@ export function renderCompositeOverlayReactWrapper(
     `import "@teseor/css/components/${spec.name}.css";`,
     `import { ${reactRuntimeImports.join(", ")} } from "react";`,
     ...(overlaySpec.modal ? [`import { createPortal } from "react-dom";`] : []),
+    ...(eventsDeclared ? [`import type { ${Name}Event } from "@teseor/contract";`] : []),
     `import { ${teseorRuntimeImports.join(", ")} } from "./_runtime.ts";`,
     `import { Slot } from "./components/Slot.tsx";`,
     `import { type OverlayInteraction, useOverlay } from "./hooks/useOverlay.ts";`,
@@ -191,7 +226,7 @@ export function renderCompositeOverlayReactWrapper(
 ${importsLines}
 
 ${propEnumTypes ? `${propEnumTypes}\n` : ""}type ${Name}OwnProps = {
-${ownPropLines.join("\n")}
+${ownPropLines.join("\n")}${eventPropLines.length > 0 ? `\n${eventPropLines.join("\n")}` : ""}${channelPropLines.length > 0 ? `\n${channelPropLines.join("\n")}` : ""}
   /** Render the trigger directly on the consumer's child element (\`cloneElement\`)
    *  instead of wrapping in a \`<span>\`. Single-child invariant: \`children\` must
    *  be a single React element. The wrapper's \`style\`, \`data-state\`, event handlers,
@@ -210,12 +245,12 @@ ${renderComponentJsDoc(spec, Name, reactJsDocFlavor)}export function ${Name}(pro
     default${ControllableName},
     on${ControllableName}Change,
 ${destructureNames.map((n) => `    ${n},`).join("\n")}
-    asChild,
+${eventDestructureNames.length > 0 ? `${eventDestructureNames.map((n) => `    ${n},`).join("\n")}\n` : ""}    asChild,
     ref,
   } = props;
 
 ${interactionsMemo}
-
+${eventsDeclared ? `\n${renderEventHandlerBodies(spec, [controllableName])}\n` : ""}
   const overlay = useOverlay<HTMLElementTagNameMap[${quote(contentElement)}]>({
 ${hookConfigWithDisabled}
   });

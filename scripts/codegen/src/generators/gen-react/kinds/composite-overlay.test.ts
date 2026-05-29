@@ -100,4 +100,117 @@ describe("renderCompositeOverlayReactWrapper", () => {
     expect(out).toContain("createPortal(");
     expect(out).toContain(`aria-modal="true"`);
   });
+
+  test("emits no event surface when events: is absent", () => {
+    const out = renderCompositeOverlayReactWrapper(tooltipSpec(), {});
+    expect(out).not.toContain("onEvent?:");
+    expect(out).not.toContain("handleDismiss");
+    expect(out).not.toContain("handleOpenChange");
+    expect(out).not.toContain(`from "@teseor/contract"`);
+    expect(out).not.toContain("useCallback");
+    // The hook still gets the consumer's `onOpenChange` directly when no
+    // events are declared — the wrapping closure exists only to thread the
+    // channel emit through.
+    expect(out).toContain("onOpenChange,");
+    expect(out).not.toContain("onOpenChange: handleOpenChange");
+  });
+
+  test("emits per-event prop + onEvent channel when events: is declared", () => {
+    const spec = tooltipSpec({
+      name: "modal",
+      events: {
+        dismiss: {
+          description: "Closed by the user.",
+          payload: { reason: { type: "enum", values: ["outside", "escape", "button"] } },
+        },
+      },
+    });
+    const out = renderCompositeOverlayReactWrapper(spec, {});
+    expect(out).toContain(`import type { ModalEvent } from "@teseor/contract";`);
+    expect(out).toContain("/** Closed by the user. */");
+    expect(out).toContain(`onDismiss?: (e: { reason: "outside" | "escape" | "button" }) => void;`);
+    expect(out).toContain("onEvent?: (e: ModalEvent) => void;");
+    expect(out).toContain("Aggregated event channel");
+  });
+
+  test("destructures the per-event handler props and onEvent from props", () => {
+    const spec = tooltipSpec({
+      name: "modal",
+      events: {
+        dismiss: {
+          description: "Closed.",
+          payload: { reason: { type: "enum", values: ["outside", "escape", "button"] } },
+        },
+      },
+    });
+    const out = renderCompositeOverlayReactWrapper(spec, {});
+    expect(out).toContain("    onDismiss,\n");
+    expect(out).toContain("    onEvent,\n");
+  });
+
+  test("wraps onDismiss to fire consumer per-event then channel in spec-declared order", () => {
+    const spec = tooltipSpec({
+      name: "modal",
+      events: {
+        dismiss: {
+          description: "Closed.",
+          payload: { reason: { type: "enum", values: ["outside", "escape", "button"] } },
+        },
+      },
+    });
+    const out = renderCompositeOverlayReactWrapper(spec, {});
+    expect(out).toContain("const handleDismiss = useCallback(");
+    expect(out).toContain(`(reason: "outside" | "escape" | "button") => {`);
+    // Per-event handler MUST fire before the channel emission.
+    expect(out).toMatch(
+      /onDismiss\?\.\(\{ reason \}\);\s*\n\s*onEvent\?\.\(\{ type: "dismiss", reason \}\);/,
+    );
+    expect(out).toContain("onDismiss: handleDismiss,");
+  });
+
+  test("wraps onOpenChange to fire consumer callback then openChange channel arm", () => {
+    const spec = tooltipSpec({
+      name: "modal",
+      events: {
+        dismiss: {
+          description: "Closed.",
+          payload: { reason: { type: "enum", values: ["outside", "escape", "button"] } },
+        },
+      },
+    });
+    const out = renderCompositeOverlayReactWrapper(spec, {});
+    expect(out).toContain("const handleOpenChange = useCallback(");
+    expect(out).toMatch(
+      /onOpenChange\?\.\(value\);\s*\n\s*onEvent\?\.\(\{ type: "openChange", value \}\);/,
+    );
+    expect(out).toContain("onOpenChange: handleOpenChange,");
+  });
+
+  test("imports useCallback only when events: is declared", () => {
+    const out = renderCompositeOverlayReactWrapper(tooltipSpec(), {});
+    expect(out).not.toContain("useCallback");
+    const withEvents = renderCompositeOverlayReactWrapper(
+      tooltipSpec({
+        name: "modal",
+        events: {
+          dismiss: {
+            description: "Closed.",
+            payload: { reason: { type: "enum", values: ["outside", "escape", "button"] } },
+          },
+        },
+      }),
+      {},
+    );
+    expect(withEvents).toContain("useCallback");
+  });
+
+  test("throws when events.dismiss lacks an enum 'reason' payload — runtime adapter cannot type itself", () => {
+    const spec = tooltipSpec({
+      name: "modal",
+      events: {
+        dismiss: { description: "Closed.", payload: {} },
+      },
+    });
+    expect(() => renderCompositeOverlayReactWrapper(spec, {})).toThrow(/reason/);
+  });
 });

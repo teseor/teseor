@@ -10,6 +10,7 @@ import {
   checkCssImportAllowlist,
   checkDependencyCycles,
   checkEvents,
+  checkEventsRuntimeSupport,
   checkExamplesPresent,
   checkExamplesReferences,
   checkInteractionEventVocabulary,
@@ -2317,5 +2318,120 @@ describe("checkEvents (RFC-0006)", () => {
     } as Spec;
     const issues = checkEvents(spec, vocabulary);
     expect(issues.some((i) => i.path === "generics.TablistItem")).toBe(true);
+  });
+});
+
+describe("checkEventsRuntimeSupport", () => {
+  test("returns no issues when events: is absent", () => {
+    expect(checkEventsRuntimeSupport(makeButton())).toEqual([]);
+  });
+
+  test("accepts 'dismiss' on a composite-overlay spec", () => {
+    const spec: Spec = {
+      name: "modal",
+      kind: "composite",
+      overlay: {
+        anchor: "trigger",
+        floating: "content",
+        anchorVar: "--t-modal-anchor",
+        mode: "manual",
+        modal: false,
+      },
+      parts: {
+        trigger: { fromChildren: true },
+        content: { element: "div" },
+      },
+      events: {
+        dismiss: {
+          description: "Closed.",
+          payload: { reason: { type: "enum", values: ["outside", "escape", "button"] } },
+        },
+      },
+    } as Spec;
+    expect(checkEventsRuntimeSupport(spec)).toEqual([]);
+  });
+
+  test("rejects non-dismiss events on a composite-overlay spec until their runtime ships", () => {
+    const spec: Spec = {
+      name: "combobox",
+      kind: "composite",
+      overlay: {
+        anchor: "trigger",
+        floating: "content",
+        anchorVar: "--t-combobox-anchor",
+        mode: "manual",
+        modal: false,
+      },
+      parts: {
+        trigger: { fromChildren: true },
+        content: { element: "div" },
+      },
+      events: {
+        select: { description: "Selected.", payload: { value: { type: "string" } } },
+      },
+    } as Spec;
+    const issues = checkEventsRuntimeSupport(spec);
+    expect(issues.map((i) => i.path)).toEqual(["events.select"]);
+    expect(issues[0]?.message).toMatch(/no wrapper-runtime source/);
+  });
+
+  test("rejects any events declaration on an atomic spec", () => {
+    const spec = makeButton({
+      events: {
+        dismiss: { description: "x", payload: {} },
+      } as Spec["events"],
+    });
+    const issues = checkEventsRuntimeSupport(spec);
+    expect(issues.map((i) => i.path)).toEqual(["events.dismiss"]);
+    expect(issues[0]?.message).toMatch(/not supported on this spec shape/);
+  });
+
+  test("rejects events on a composite-list spec (no overlay block)", () => {
+    const spec: Spec = {
+      name: "pagination",
+      kind: "composite",
+      parts: {
+        nav: { element: "nav" },
+        page: {
+          element: "a",
+          repeating: true,
+          props: { label: { type: "string", slot: true, description: "Page label." } },
+        },
+      },
+      events: {
+        pageChange: { description: "x", payload: { page: { type: "number" } } },
+      },
+    } as Spec;
+    const issues = checkEventsRuntimeSupport(spec);
+    expect(issues.map((i) => i.path)).toEqual(["events.pageChange"]);
+    expect(issues[0]?.message).toMatch(/not supported on this spec shape/);
+  });
+
+  test("flags every unsupported event when multiple are declared", () => {
+    const spec: Spec = {
+      name: "combobox",
+      kind: "composite",
+      overlay: {
+        anchor: "trigger",
+        floating: "content",
+        anchorVar: "--t-combobox-anchor",
+        mode: "manual",
+        modal: false,
+      },
+      parts: {
+        trigger: { fromChildren: true },
+        content: { element: "div" },
+      },
+      events: {
+        dismiss: {
+          description: "Closed.",
+          payload: { reason: { type: "enum", values: ["outside", "escape"] } },
+        },
+        select: { description: "Selected.", payload: { value: { type: "string" } } },
+        inputChange: { description: "Input changed.", payload: { value: { type: "string" } } },
+      },
+    } as Spec;
+    const issues = checkEventsRuntimeSupport(spec);
+    expect(issues.map((i) => i.path).sort()).toEqual(["events.inputChange", "events.select"]);
   });
 });
