@@ -13,6 +13,7 @@ __snapshots__/
 # Local-only state (gitignored maintainer files; absent in CI)
 .claude/handover.md
 .claude/settings.local.json
+.claude/codegen-audit-ack
 
 # Future generated artifacts (created by codegen at later milestones)
 apps/docs/src/components/

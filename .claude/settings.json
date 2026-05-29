@@ -39,6 +39,17 @@
           }
         ]
       }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node scripts/hooks/claude-codegen-audit-guard.js"
+          }
+        ]
+      }
     ]
   }
 }
