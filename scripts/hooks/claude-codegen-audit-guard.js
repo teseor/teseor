@@ -50,10 +50,24 @@ function getCommand(payload) {
   return payload?.tool_input?.command ?? "";
 }
 
+// Git global flags whose value is a separate token (`git --work-tree /x push`).
+// Bundled form (`--work-tree=/x`) is handled by the `=` branch below regardless.
+// Anything not listed here is treated as value-less so `git --no-pager push`,
+// `git --bare push`, `git -p push` etc. parse correctly.
+const GIT_LONG_FLAGS_TAKING_VALUE = new Set([
+  "--exec-path",
+  "--git-dir",
+  "--work-tree",
+  "--namespace",
+  "--super-prefix",
+  "--config-env",
+  "--list-cmds",
+]);
+
 function isGitPush(command) {
   // Tokenize per shell segment and look for `git ... push` where `push` is the
-  // first non-flag token after `git`. Catches `git --no-pager push` and
-  // `git --git-dir=/x push` that a single regex with `-opt <arg>` pairs misses.
+  // first non-flag token after `git`. Handles bundled (`--git-dir=/x`) and
+  // separated (`-c name=value`, `--work-tree /x`) value-taking flags.
   const segments = command.split(/;|&&|\|\|/);
   for (const seg of segments) {
     const tokens = seg.trim().split(/\s+/);
@@ -67,9 +81,11 @@ function isGitPush(command) {
           j += 1;
           continue;
         }
-        // Short flags `-X` conservatively consume the next token; long flags
-        // `--name` do not (matches git's actual global-flag surface).
-        if (t.length === 2) {
+        if (t === "-C" || t === "-c") {
+          j += 2;
+          continue;
+        }
+        if (GIT_LONG_FLAGS_TAKING_VALUE.has(t)) {
           j += 2;
           continue;
         }
