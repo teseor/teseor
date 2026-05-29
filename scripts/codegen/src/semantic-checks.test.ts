@@ -9,6 +9,7 @@ import {
   checkCoverageShape,
   checkCssImportAllowlist,
   checkDependencyCycles,
+  checkEvents,
   checkExamplesPresent,
   checkExamplesReferences,
   checkInteractionEventVocabulary,
@@ -49,10 +50,25 @@ const vocabulary: Vocabulary = {
   states: ["disabled", "loading", "error", "success"],
   parts: [],
   events: {
-    verbs: {},
-    synonyms: {},
+    verbs: {
+      dismiss: "Surface closed.",
+      change: "Value changed.",
+      select: "User chose an item.",
+      add: "Item added.",
+      reach: "Sentinel reached.",
+      activate: "Primary action.",
+    },
+    synonyms: {
+      close: "dismiss",
+      update: "change",
+      press: "activate",
+      open: "—",
+    },
     pattern: "^([a-z]+|[a-z]+([A-Z][a-zA-Z0-9]+)+)$",
-    builtins: {},
+    builtins: {
+      File: "DOM File.",
+      Date: "ECMAScript Date.",
+    },
   },
 };
 
@@ -1873,5 +1889,221 @@ describe("checkRepeatingParts (RFC-0005)", () => {
     const issues = checkRepeatingParts(spec);
     expect(issues.map((i) => i.path)).toEqual(["parts.page.props.id"]);
     expect(issues[0]?.message).toMatch(/reserved/i);
+  });
+});
+
+describe("checkEvents (RFC-0006)", () => {
+  function makeEvents(events: Record<string, unknown>, extra: Partial<Spec> = {}): Spec {
+    return makeButton({
+      events: events as Spec["events"],
+      ...extra,
+    });
+  }
+
+  test("returns no issues when events: is absent", () => {
+    expect(checkEvents(makeButton(), vocabulary)).toEqual([]);
+  });
+
+  test("returns no issues for a declared event with a registered verb", () => {
+    const spec = makeEvents({
+      dismiss: { description: "Closed.", payload: {} },
+    });
+    expect(checkEvents(spec, vocabulary)).toEqual([]);
+  });
+
+  test("E1: rejects an event name that doesn't match the vocab pattern", () => {
+    const spec = makeEvents({
+      sort_change: { description: "x", payload: {} },
+    });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.map((i) => i.path)).toEqual(["events.sort_change"]);
+    expect(issues[0]?.message).toMatch(/valid event name/);
+  });
+
+  test("E1: rejects PascalCase event names", () => {
+    const spec = makeEvents({
+      Dismiss: { description: "x", payload: {} },
+    });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.map((i) => i.path)).toEqual(["events.Dismiss"]);
+  });
+
+  test("E2: rejects an unregistered verb with a Levenshtein suggestion", () => {
+    const spec = makeEvents({
+      activatee: { description: "x", payload: {} },
+    });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.map((i) => i.path)).toEqual(["events.activatee"]);
+    expect(issues[0]?.message).toMatch(/not registered/);
+    expect(issues[0]?.message).toMatch(/'activate'/);
+  });
+
+  test("E2: extracts the last camelCase token as the verb", () => {
+    const spec = makeEvents({
+      rowMutate: { description: "x", payload: {} },
+    });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues[0]?.message).toMatch(/'mutate' is not registered/);
+  });
+
+  test("E3: rejects a synonym with the canonical suggestion", () => {
+    const spec = makeEvents({
+      close: { description: "x", payload: {} },
+    });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.map((i) => i.path)).toEqual(["events.close"]);
+    expect(issues[0]?.message).toMatch(/synonym for 'dismiss'/);
+  });
+
+  test("E3: synonym in subject+verb form is detected by the last token", () => {
+    const spec = makeEvents({
+      modalClose: { description: "x", payload: {} },
+    });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues[0]?.message).toMatch(/'close' is registered as a synonym/);
+  });
+
+  test("E4: routes the open synonym to pattern: controllable", () => {
+    const spec = makeEvents({
+      open: { description: "x", payload: {} },
+    });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.map((i) => i.path)).toEqual(["events.open"]);
+    expect(issues[0]?.message).toMatch(/pattern: "controllable"/);
+  });
+
+  test("E5: rejects a generic ref not declared on the spec", () => {
+    const spec = makeEvents({
+      select: {
+        description: "x",
+        payload: { item: { type: "generic", ref: "Item" } },
+      },
+    });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.map((i) => i.path)).toEqual(["events.select.payload.item"]);
+    expect(issues[0]?.message).toMatch(/generic 'Item'/);
+  });
+
+  test("E5: accepts a generic ref that is declared", () => {
+    const spec = makeEvents(
+      {
+        select: {
+          description: "x",
+          payload: { item: { type: "generic", ref: "Item" } },
+        },
+      },
+      { generics: [{ name: "Item", description: "Item shape." }] },
+    );
+    expect(checkEvents(spec, vocabulary)).toEqual([]);
+  });
+
+  test("E5: walks generic refs inside array.of", () => {
+    const spec = makeEvents({
+      select: {
+        description: "x",
+        payload: {
+          items: { type: "array", of: { type: "generic", ref: "Row" } },
+        },
+      },
+    });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.map((i) => i.path)).toEqual(["events.select.payload.items.of"]);
+  });
+
+  test("E6: rejects an unregistered builtin name", () => {
+    const spec = makeEvents({
+      add: {
+        description: "x",
+        payload: { entry: { type: "builtin", name: "Blob" } },
+      },
+    });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.map((i) => i.path)).toEqual(["events.add.payload.entry"]);
+    expect(issues[0]?.message).toMatch(/built-in type 'Blob'/);
+  });
+
+  test("E6: accepts a registered builtin name", () => {
+    const spec = makeEvents({
+      add: {
+        description: "x",
+        payload: { file: { type: "builtin", name: "File" } },
+      },
+    });
+    expect(checkEvents(spec, vocabulary)).toEqual([]);
+  });
+
+  test("E8: rejects an event name that collides with a controllable callback", () => {
+    const spec = makeEvents(
+      { valueChange: { description: "x", payload: {} } },
+      {
+        props: {
+          value: {
+            type: "string",
+            description: "Value.",
+            pattern: "controllable",
+          },
+        },
+      },
+    );
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.some((i) => /onValueChange/.test(i.message))).toBe(true);
+  });
+
+  test("E8: composite spec checks controllable props across all parts", () => {
+    const spec: Spec = {
+      name: "combobox",
+      kind: "composite",
+      events: { openChange: { description: "x", payload: {} } },
+      parts: {
+        root: {
+          element: "div",
+          props: {
+            open: {
+              type: "boolean",
+              description: "Open state.",
+              pattern: "controllable",
+            },
+          },
+        },
+      },
+    } as Spec;
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.some((i) => /onOpenChange/.test(i.message))).toBe(true);
+  });
+
+  test("verb-registered check is mutually exclusive with synonym check", () => {
+    // 'close' is a synonym; the verb-not-registered message should NOT also fire.
+    const spec = makeEvents({
+      close: { description: "x", payload: {} },
+    });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.length).toBe(1);
+    expect(issues[0]?.message).not.toMatch(/not registered/);
+  });
+
+  test("rejects verbs that collide with Object.prototype method names", () => {
+    // `in` operator would treat `toString` / `valueOf` / `hasOwnProperty`
+    // as registered via inheritance — Object.hasOwn keeps the vocab closed.
+    const spec = makeEvents({
+      toString: { description: "x", payload: {} },
+      valueOf: { description: "x", payload: {} },
+      hasOwnProperty: { description: "x", payload: {} },
+    });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.length).toBe(3);
+    for (const verb of ["toString", "valueOf", "hasOwnProperty"]) {
+      expect(issues.some((i) => i.message.includes(`'${verb}'`))).toBe(true);
+    }
+  });
+
+  test("rejects payload builtin names that collide with Object.prototype", () => {
+    const spec = makeEvents({
+      add: {
+        description: "x",
+        payload: { thing: { type: "builtin", name: "toString" } },
+      },
+    });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.some((i) => /built-in type 'toString'/.test(i.message))).toBe(true);
   });
 });

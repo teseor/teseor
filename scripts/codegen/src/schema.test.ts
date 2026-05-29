@@ -283,4 +283,88 @@ describe("Spec schema — shape layer", () => {
     });
     expect(result.success).toBe(false);
   });
+
+  test("accepts an empty events: block", () => {
+    const result = Spec.safeParse({ ...minimalAtomic(), events: {} });
+    expect(result.success).toBe(true);
+  });
+
+  test("accepts a declared event with structured payload variants", () => {
+    const result = Spec.safeParse({
+      ...minimalAtomic(),
+      generics: [{ name: "Item", description: "Item shape." }],
+      events: {
+        dismiss: {
+          description: "Closed.",
+          payload: {
+            reason: { type: "enum", values: ["outside", "escape", "button"] },
+            depth: { type: "number", nullable: true },
+            origin: { type: "generic", ref: "Item" },
+            file: { type: "builtin", name: "File" },
+            tags: { type: "array", of: { type: "string" } },
+          },
+        },
+      },
+    });
+    expect(result.success).toBe(true);
+  });
+
+  test("defaults a missing payload to an empty object", () => {
+    const result = Spec.safeParse({
+      ...minimalAtomic(),
+      events: { dismiss: { description: "Closed." } },
+    });
+    expect(result.success).toBe(true);
+    if (result.success && result.data.kind === "atomic") {
+      expect(result.data.events?.dismiss?.payload).toEqual({});
+    }
+  });
+
+  test("rejects an enum payload with no values", () => {
+    const result = Spec.safeParse({
+      ...minimalAtomic(),
+      events: {
+        dismiss: {
+          description: "Closed.",
+          payload: { reason: { type: "enum", values: [] } },
+        },
+      },
+    });
+    expect(result.success).toBe(false);
+  });
+
+  test("rejects an events: block declared on a sub-part (root-only)", () => {
+    const result = Spec.safeParse({
+      name: "popover",
+      kind: "composite",
+      parts: {
+        root: {
+          element: "div",
+          events: { dismiss: { description: "x" } },
+        },
+      },
+    });
+    expect(result.success).toBe(false);
+  });
+
+  test("rejects a generic with a lowercase name", () => {
+    const result = Spec.safeParse({
+      ...minimalAtomic(),
+      generics: [{ name: "item", description: "Item shape." }],
+    });
+    expect(result.success).toBe(false);
+  });
+
+  test("rejects a payload entry with an unknown type discriminator", () => {
+    const result = Spec.safeParse({
+      ...minimalAtomic(),
+      events: {
+        dismiss: {
+          description: "Closed.",
+          payload: { reason: { type: "regex", source: "x" } },
+        },
+      },
+    });
+    expect(result.success).toBe(false);
+  });
 });
