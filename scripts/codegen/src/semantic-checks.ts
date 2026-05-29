@@ -1277,6 +1277,16 @@ export function checkEvents(spec: Spec, vocabulary: Vocabulary): Issue[] {
     }
 
     for (const [field, payload] of Object.entries(entry.payload)) {
+      if (!JS_IDENTIFIER_RE.test(field)) {
+        issues.push(
+          issue(
+            spec.name,
+            `${path}.payload.${field}`,
+            `'${field}' is not a valid payload field name. Codegen emits it as a property identifier; use letters/digits/_/$ (must not start with a digit).`,
+          ),
+        );
+        continue;
+      }
       visitPayload(payload, `${path}.payload.${field}`, (p, payloadPath) => {
         if (p.type === "generic" && !declaredGenerics.has(p.ref)) {
           issues.push(

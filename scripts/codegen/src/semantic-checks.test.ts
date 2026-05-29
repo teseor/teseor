@@ -2106,4 +2106,16 @@ describe("checkEvents (RFC-0006)", () => {
     const issues = checkEvents(spec, vocabulary);
     expect(issues.some((i) => /built-in type 'toString'/.test(i.message))).toBe(true);
   });
+
+  test("rejects payload field names that are not valid JS identifiers", () => {
+    const spec = makeEvents({
+      dismiss: {
+        description: "x",
+        payload: { "error-code": { type: "string" } },
+      },
+    });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.map((i) => i.path)).toEqual(["events.dismiss.payload.error-code"]);
+    expect(issues[0]?.message).toMatch(/valid payload field name/);
+  });
 });

@@ -71,8 +71,8 @@ async function emitReadme(specs: FlatSpec[]): Promise<string> {
   return outPath;
 }
 
-async function emitBarrel(names: string[]): Promise<string> {
-  const content = renderBarrel(names);
+async function emitBarrel(specs: FlatSpec[]): Promise<string> {
+  const content = renderBarrel(specs);
   const outPath = resolve(CONTRACT_SRC_DIR, "index.ts");
   await mkdir(CONTRACT_SRC_DIR, { recursive: true });
   await writeFile(outPath, content, "utf8");
@@ -102,7 +102,7 @@ async function contractGenerator(ctx: GeneratorContext): Promise<GeneratorReport
   filesWritten.push(readmePath);
   notes.push(`contract: readme -> ${readmePath.replace(`${REPO_ROOT}/`, "")}`);
 
-  const barrelPath = await emitBarrel(allNames);
+  const barrelPath = await emitBarrel(allSpecs);
   filesWritten.push(barrelPath);
   notes.push(`contract: barrel -> ${barrelPath.replace(`${REPO_ROOT}/`, "")}`);
 
