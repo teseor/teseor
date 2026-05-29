@@ -13,8 +13,8 @@
 // the path filter below handles that — the guard only fires when at least one
 // changed file matches a codegen path.
 
-import { execSync } from "node:child_process";
-import { existsSync, statSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { existsSync, readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 
 const CODEGEN_PATTERNS = [
@@ -30,8 +30,8 @@ const MEMORY_POINTER = "memory: project_codegen_surface_audit (~/.claude/project
 
 function readStdinSync() {
   try {
-    // Claude Code passes the tool call payload as JSON on stdin.
-    return execSync("cat", { stdio: ["inherit", "pipe", "ignore"] }).toString();
+    // Claude Code passes the tool call payload as JSON on stdin (fd 0).
+    return readFileSync(0, "utf8");
   } catch {
     return "";
   }
@@ -57,7 +57,8 @@ function isGitPush(command) {
 }
 
 function gitOut(args) {
-  return execSync(`git ${args}`, { encoding: "utf8" }).trim();
+  // execFileSync avoids any shell interpretation of args (ref names, paths).
+  return execFileSync("git", args, { encoding: "utf8" }).trim();
 }
 
 function getPushRangeFiles() {
@@ -65,17 +66,22 @@ function getPushRangeFiles() {
   // `origin/main` (the project's main branch per CLAUDE.md).
   let base = "";
   try {
-    base = gitOut("rev-parse --abbrev-ref --symbolic-full-name @{u}");
+    base = gitOut(["rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{u}"]);
   } catch {
     base = "origin/main";
   }
   let files = "";
   try {
-    files = gitOut(`diff --name-only ${base}...HEAD`);
+    files = gitOut(["diff", "--name-only", `${base}...HEAD`]);
   } catch {
     // No upstream / unreachable base — fall back to last-commit files so we
     // still trip on a fresh branch.
-    files = gitOut("diff --name-only HEAD~1...HEAD");
+    try {
+      files = gitOut(["diff", "--name-only", "HEAD~1...HEAD"]);
+    } catch {
+      // Single-commit branch (no HEAD~1) — list files in the tip commit.
+      files = gitOut(["show", "--name-only", "--pretty=", "HEAD"]);
+    }
   }
   return files ? files.split("\n").filter(Boolean) : [];
 }
@@ -85,11 +91,11 @@ function touchesCodegen(files) {
 }
 
 function lastCommitSubject() {
-  return gitOut("log -1 --pretty=%s");
+  return gitOut(["log", "-1", "--pretty=%s"]);
 }
 
 function lastCommitTimestamp() {
-  return Number(gitOut("log -1 --pretty=%ct")) * 1000;
+  return Number(gitOut(["log", "-1", "--pretty=%ct"])) * 1000;
 }
 
 function ackFileFresh(repoRoot) {
@@ -97,7 +103,9 @@ function ackFileFresh(repoRoot) {
   if (!existsSync(path)) return false;
   try {
     const ackMtime = statSync(path).mtimeMs;
-    return ackMtime > lastCommitTimestamp();
+    // `>=` so coarse-resolution filesystems (FAT32 = 2s) don't reject an ack
+    // touched in the same second as the commit.
+    return ackMtime >= lastCommitTimestamp();
   } catch {
     return false;
   }
@@ -149,7 +157,7 @@ function main() {
 
   let repoRoot = "";
   try {
-    repoRoot = gitOut("rev-parse --show-toplevel");
+    repoRoot = gitOut(["rev-parse", "--show-toplevel"]);
   } catch {
     // Not inside a git repo — nothing to guard.
     return;
