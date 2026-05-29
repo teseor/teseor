@@ -51,9 +51,34 @@ function getCommand(payload) {
 }
 
 function isGitPush(command) {
-  // Match `git push` and `git -C dir push`, but not `git push-something-else`.
-  // Reject leading-aliased forms by requiring `push` as a whole token after `git`.
-  return /(^|\s|;|&&|\|\|)git(\s+-[^\s]+\s+\S+)*\s+push(\s|$|;|&&|\|\|)/.test(command);
+  // Tokenize per shell segment and look for `git ... push` where `push` is the
+  // first non-flag token after `git`. Catches `git --no-pager push` and
+  // `git --git-dir=/x push` that a single regex with `-opt <arg>` pairs misses.
+  const segments = command.split(/;|&&|\|\|/);
+  for (const seg of segments) {
+    const tokens = seg.trim().split(/\s+/);
+    for (let i = 0; i < tokens.length; i++) {
+      if (tokens[i] !== "git") continue;
+      let j = i + 1;
+      while (j < tokens.length) {
+        const t = tokens[j];
+        if (!t.startsWith("-")) break;
+        if (t.includes("=")) {
+          j += 1;
+          continue;
+        }
+        // Short flags `-X` conservatively consume the next token; long flags
+        // `--name` do not (matches git's actual global-flag surface).
+        if (t.length === 2) {
+          j += 2;
+          continue;
+        }
+        j += 1;
+      }
+      if (tokens[j] === "push") return true;
+    }
+  }
+  return false;
 }
 
 function gitOut(args) {
