@@ -2169,4 +2169,65 @@ describe("checkEvents (RFC-0006)", () => {
     });
     expect(checkEvents(spec, vocabulary)).toEqual([]);
   });
+
+  test("rejects each codegen-emitted helper as a generic name", () => {
+    for (const reserved of ["Record", "Partial", "ReadonlyArray", "Responsive"]) {
+      const spec = makeButton({ generics: [{ name: reserved, description: "x" }] });
+      const issues = checkEvents(spec, vocabulary);
+      expect(issues.map((i) => i.path)).toEqual([`generics.${reserved}`]);
+    }
+  });
+
+  test("rejects a per-event handler name that collides with a declared prop", () => {
+    const spec = makeEvents(
+      { dismiss: { description: "x", payload: {} } },
+      {
+        props: {
+          onDismiss: { type: "string", description: "Existing prop." },
+        },
+      },
+    );
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.some((i) => /'onDismiss' prop/.test(i.message))).toBe(true);
+  });
+
+  test("rejects a declared prop named 'onEvent' when events: is non-empty", () => {
+    const spec = makeEvents(
+      { dismiss: { description: "x", payload: {} } },
+      {
+        props: {
+          onEvent: { type: "string", description: "Existing prop." },
+        },
+      },
+    );
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.some((i) => i.path === "props.onEvent")).toBe(true);
+  });
+
+  test("does not flag 'onEvent' as a prop when no events are declared", () => {
+    const spec = makeButton({
+      props: {
+        onEvent: { type: "string", description: "Existing prop." },
+      },
+    });
+    expect(checkEvents(spec, vocabulary)).toEqual([]);
+  });
+
+  test("composite spec collision check walks parts for prop names", () => {
+    const spec: Spec = {
+      name: "modal",
+      kind: "composite",
+      events: { dismiss: { description: "x", payload: {} } },
+      parts: {
+        root: {
+          element: "div",
+          props: {
+            onDismiss: { type: "string", description: "x" },
+          },
+        },
+      },
+    } as Spec;
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.some((i) => /'onDismiss' prop/.test(i.message))).toBe(true);
+  });
 });

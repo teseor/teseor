@@ -32,9 +32,10 @@ function renderBase(entry: PayloadEntry): string {
 
 /**
  * Renders an event's payload as an inline object-literal type body, e.g.
- * `reason: "outside" | "escape"; depth?: number | null`. Returns an empty
+ * `reason: "outside" | "escape"; depth: number | null`. Returns an empty
  * string for an empty payload — the caller decides whether to emit `{}` or
- * a parameterless form.
+ * a parameterless form. Every field is required (the schema has no
+ * optional-field marker); `nullable: true` produces `T | null`, not `T?`.
  */
 export function renderPayloadFields(payload: Record<string, PayloadEntry>): string {
   return Object.entries(payload)

@@ -1210,11 +1210,19 @@ function collectControllableProps(spec: Spec): string[] {
  * with an "Unrecognized key" before semantic checks run.
  */
 // Generic names that would shadow codegen-emitted globals when used as a
-// type parameter. `Array` is the array-payload helper from the payload
-// printer; the rest come from the events builtin vocab (`File`, `Date`, …).
-// A generic named `Array` would turn the payload `Array<string>` into a
-// reference to the type parameter — not the global.
-const RESERVED_GENERIC_NAMES_BASE = new Set(["Array"]);
+// type parameter. Two sources:
+//  - Codegen helpers / imports: `Array` (array payload), `Record`
+//    (empty-props sentinel), `Partial`, `ReadonlyArray` (repeating-part
+//    prop type), `Responsive` (responsive-helper import).
+//  - Closed-vocab event builtins (`File`, `Date`, `MouseEvent`, …) added
+//    at check time from vocabulary.events.builtins.
+const RESERVED_GENERIC_NAMES_BASE = new Set([
+  "Array",
+  "Record",
+  "Partial",
+  "ReadonlyArray",
+  "Responsive",
+]);
 
 export function checkEvents(spec: Spec, vocabulary: Vocabulary): Issue[] {
   const issues: Issue[] = [];
@@ -1255,6 +1263,23 @@ export function checkEvents(spec: Spec, vocabulary: Vocabulary): Issue[] {
   const verbList = Object.keys(verbs);
   const declaredGenerics = new Set((spec.generics ?? []).map((g) => g.name));
   const controllableCallbacks = new Set(collectControllableProps(spec).map((p) => `${p}Change`));
+
+  // Codegen-emitted handler/channel prop names that must not collide with
+  // consumer-declared props. The channel prop is always `onEvent` when any
+  // event is declared; per-event handlers are `on<PascalCase(eventName)>`.
+  const declaredPropNames = new Set<string>();
+  visitNodes(spec, (node) => {
+    for (const propName of Object.keys(node.props ?? {})) declaredPropNames.add(propName);
+  });
+  if (declaredPropNames.has("onEvent")) {
+    issues.push(
+      issue(
+        spec.name,
+        "props.onEvent",
+        `'onEvent' is reserved — codegen emits an aggregated channel prop with that name on every spec that declares events:. Rename the prop or remove the events: block.`,
+      ),
+    );
+  }
 
   for (const [name, entry] of Object.entries(events)) {
     const path = `events.${name}`;
@@ -1308,6 +1333,17 @@ export function checkEvents(spec: Spec, vocabulary: Vocabulary): Issue[] {
           spec.name,
           path,
           `'${name}' collides with the on${propName[0]?.toUpperCase()}${propName.slice(1)}Change callback emitted by \`pattern: "controllable"\` on prop '${propName}'. Pick a distinct event name or remove the controllable pattern.`,
+        ),
+      );
+    }
+
+    const handlerName = `on${name[0]?.toUpperCase() ?? ""}${name.slice(1)}`;
+    if (declaredPropNames.has(handlerName)) {
+      issues.push(
+        issue(
+          spec.name,
+          path,
+          `event '${name}' would emit a '${handlerName}' prop, which is already declared on this spec. Rename the prop or the event.`,
         ),
       );
     }
