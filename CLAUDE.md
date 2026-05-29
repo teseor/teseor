@@ -30,7 +30,8 @@ configs (`biome.json`, `.stylelintrc.cjs`, `tsconfig.json`, `lefthook.yml`,
 - Before pushing changes that touch the codegen surface (`scripts/codegen/src/generators/**`,
   `scripts/codegen/src/schema.ts`, `scripts/codegen/src/lib/flatten.ts`), run the
   four-category audit from memory `project_codegen_surface_audit` and acknowledge
-  it via `audit: codegen-surface` in the latest commit subject. The
+  it either via `audit: codegen-surface` in the latest commit subject, or by
+  touching `.claude/codegen-audit-ack` after the last commit. The
   `claude-codegen-audit-guard` PreToolUse hook refuses the push otherwise.
 
 ## Ask before
