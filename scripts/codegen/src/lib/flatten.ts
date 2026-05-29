@@ -109,6 +109,13 @@ export type FlatSpec = {
   /** Repeating parts (RFC-0005). Composite-only; undefined when no part
    *  declares `repeating: true`. */
   repeating?: FlatRepeatingPart[];
+  /** Consumer-facing event surface. Root-only on the spec; passed through
+   *  unchanged for generators that emit per-event props + the discriminated
+   *  channel. */
+  events?: Spec["events"];
+  /** Type parameters consumers pass at the call site. Each generic surfaces
+   *  on `<Spec>Props` and `<Spec>Event` in the contract. */
+  generics?: Spec["generics"];
 };
 
 function visitParts(
@@ -162,6 +169,8 @@ export function flattenSpec(spec: Spec): FlatSpec {
       motion: spec.motion,
       privateTokens: spec.privateTokens,
       constraints: spec.constraints,
+      events: spec.events,
+      generics: spec.generics,
     };
   }
 
@@ -258,5 +267,7 @@ export function flattenSpec(spec: Spec): FlatSpec {
     motion,
     privateTokens: privateTokens.length > 0 ? privateTokens : undefined,
     repeating: repeating.length > 0 ? repeating : undefined,
+    events: spec.events,
+    generics: spec.generics,
   };
 }
