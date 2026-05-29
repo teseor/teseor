@@ -1,6 +1,7 @@
 import type { FlatSpec } from "../../lib/flatten.ts";
 import { pascalCase } from "../../lib/pascal-case.ts";
 import { itemTypeName } from "../../lib/repeating-naming.ts";
+import { renderPayloadFields } from "./_shared/payload-printer.ts";
 import { mapPropType, quote, responsiveType } from "./_shared/type-printer.ts";
 
 /** Per-spec contract emitter. `FlatSpec` already collapses the atomic vs
@@ -152,10 +153,63 @@ export function renderContract(spec: FlatSpec): string {
   }
   for (const line of itemTypeLines) lines.push(line);
 
+  // Generics parameter list — `<Item>`, `<Item, Row>`, … — attached to both
+  // `<Spec>Props` and `<Spec>Event` so consumers can pass the type at the
+  // call site (`<Combobox<User> …/>`). RFC-0006 § Detailed design.
+  const genericNames = (spec.generics ?? []).map((g) => g.name);
+  const genericParams = genericNames.length > 0 ? `<${genericNames.join(", ")}>` : "";
+
+  // Per-event surface — only emitted when `events:` is declared. Controllable
+  // mirrors contribute arms to the channel union even though their per-event
+  // prop is still the existing `on<Prop>Change` callback.
+  const events = spec.events ?? {};
+  const declaredEventNames = Object.keys(events);
+  const hasEvents = declaredEventNames.length > 0;
+
+  if (hasEvents) {
+    const controllableBooleanProps = Object.entries(spec.props)
+      .filter(([_n, def]) => def.pattern === "controllable" && def.type === "boolean")
+      .map(([n]) => n);
+
+    const unionArms: string[] = [];
+    for (const eventName of declaredEventNames) {
+      const entry = events[eventName];
+      if (!entry) continue;
+      const fields = renderPayloadFields(entry.payload);
+      const arm = fields ? `{ type: "${eventName}"; ${fields} }` : `{ type: "${eventName}" }`;
+      unionArms.push(`  | ${arm}`);
+    }
+    for (const propName of controllableBooleanProps) {
+      unionArms.push(`  | { type: "${propName}Change"; value: boolean }`);
+    }
+
+    lines.push(`export type ${Name}Event${genericParams} =`);
+    lines.push(`${unionArms.join("\n")};`);
+    lines.push("");
+
+    // Per-event handler props sit just after the configured props. Empty-payload
+    // events use the parameterless form so consumers writing `onClear={fn}` don't
+    // have to accept an unused argument.
+    for (const eventName of declaredEventNames) {
+      const entry = events[eventName];
+      if (!entry) continue;
+      const fields = renderPayloadFields(entry.payload);
+      const sig = fields ? `(e: { ${fields} }) => void` : `() => void`;
+      const handlerName = `on${pascalCase(eventName)}`;
+      if (entry.description) propLines.push(`  /** ${entry.description} */`);
+      propLines.push(`  ${handlerName}?: ${sig};`);
+    }
+
+    propLines.push(`  /** Aggregated event channel: fires for every declared event and every`);
+    propLines.push(`   *  controllable state mirror. Per-emission ordering: declared event prop →`);
+    propLines.push(`   *  channel → controllable callback → channel. */`);
+    propLines.push(`  onEvent?: (e: ${Name}Event${genericParams}) => void;`);
+  }
+
   if (propLines.length === 0) {
-    lines.push(`export type ${Name}Props = Record<string, never>;`);
+    lines.push(`export type ${Name}Props${genericParams} = Record<string, never>;`);
   } else {
-    lines.push(`export type ${Name}Props = {`);
+    lines.push(`export type ${Name}Props${genericParams} = {`);
     for (const line of propLines) lines.push(line);
     lines.push("};");
   }

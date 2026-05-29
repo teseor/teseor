@@ -2106,4 +2106,216 @@ describe("checkEvents (RFC-0006)", () => {
     const issues = checkEvents(spec, vocabulary);
     expect(issues.some((i) => /built-in type 'toString'/.test(i.message))).toBe(true);
   });
+
+  test("rejects payload field names that are not valid JS identifiers", () => {
+    const spec = makeEvents({
+      dismiss: {
+        description: "x",
+        payload: { "error-code": { type: "string" } },
+      },
+    });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.map((i) => i.path)).toEqual(["events.dismiss.payload.error-code"]);
+    expect(issues[0]?.message).toMatch(/valid payload field name/);
+  });
+
+  test("rejects payload field named 'type' (channel discriminator collision)", () => {
+    const spec = makeEvents({
+      dismiss: {
+        description: "x",
+        payload: { type: { type: "string" } },
+      },
+    });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.map((i) => i.path)).toEqual(["events.dismiss.payload.type"]);
+    expect(issues[0]?.message).toMatch(/reserved as the channel discriminator/);
+  });
+
+  test("rejects generic names that shadow the Array codegen helper", () => {
+    const spec = makeButton({ generics: [{ name: "Array", description: "x" }] });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.map((i) => i.path)).toEqual(["generics.Array"]);
+    expect(issues[0]?.message).toMatch(/reserved/);
+  });
+
+  test("rejects generic names that collide with vocab builtins", () => {
+    const spec = makeButton({ generics: [{ name: "File", description: "x" }] });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.map((i) => i.path)).toEqual(["generics.File"]);
+  });
+
+  test("rejects duplicate generic names within a spec", () => {
+    const spec = makeButton({
+      generics: [
+        { name: "Item", description: "x" },
+        { name: "Item", description: "y" },
+      ],
+    });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.some((i) => i.path === "generics.Item" && /more than once/.test(i.message))).toBe(
+      true,
+    );
+  });
+
+  test("accepts non-reserved generic names alongside events", () => {
+    const spec = makeButton({
+      generics: [{ name: "Item", description: "x" }],
+      events: {
+        select: {
+          description: "x",
+          payload: { item: { type: "generic", ref: "Item" } },
+        },
+      },
+    });
+    expect(checkEvents(spec, vocabulary)).toEqual([]);
+  });
+
+  test("rejects each codegen-emitted helper as a generic name", () => {
+    for (const reserved of ["Record", "Partial", "ReadonlyArray", "Responsive"]) {
+      const spec = makeButton({ generics: [{ name: reserved, description: "x" }] });
+      const issues = checkEvents(spec, vocabulary);
+      expect(issues.map((i) => i.path)).toEqual([`generics.${reserved}`]);
+    }
+  });
+
+  test("rejects a per-event handler name that collides with a declared prop", () => {
+    const spec = makeEvents(
+      { dismiss: { description: "x", payload: {} } },
+      {
+        props: {
+          onDismiss: { type: "string", description: "Existing prop." },
+        },
+      },
+    );
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.some((i) => /'onDismiss' prop/.test(i.message))).toBe(true);
+  });
+
+  test("rejects a declared prop named 'onEvent' when events: is non-empty", () => {
+    const spec = makeEvents(
+      { dismiss: { description: "x", payload: {} } },
+      {
+        props: {
+          onEvent: { type: "string", description: "Existing prop." },
+        },
+      },
+    );
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.some((i) => i.path === "props.onEvent")).toBe(true);
+  });
+
+  test("does not flag 'onEvent' as a prop when no events are declared", () => {
+    const spec = makeButton({
+      props: {
+        onEvent: { type: "string", description: "Existing prop." },
+      },
+    });
+    expect(checkEvents(spec, vocabulary)).toEqual([]);
+  });
+
+  test("composite spec collision check walks parts for prop names", () => {
+    const spec: Spec = {
+      name: "modal",
+      kind: "composite",
+      events: { dismiss: { description: "x", payload: {} } },
+      parts: {
+        root: {
+          element: "div",
+          props: {
+            onDismiss: { type: "string", description: "x" },
+          },
+        },
+      },
+    } as Spec;
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.some((i) => /'onDismiss' prop/.test(i.message))).toBe(true);
+  });
+
+  test("handler-collision check ignores repeating part item props", () => {
+    // `onDismiss` lives inside the generated <Spec>Item type, not on root
+    // Props, so it should not trigger a false handler collision.
+    const spec: Spec = {
+      name: "modal",
+      kind: "composite",
+      events: { dismiss: { description: "x", payload: {} } },
+      parts: {
+        root: { element: "div" },
+        row: {
+          element: "div",
+          repeating: true,
+          props: {
+            onDismiss: { type: "string", description: "Item-level prop." },
+          },
+        },
+      },
+    } as Spec;
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.some((i) => /'onDismiss' prop/.test(i.message))).toBe(false);
+  });
+
+  test("rejects a generic that shadows a spec-local emitted alias (<Spec>Variant)", () => {
+    const spec = makeButton({ generics: [{ name: "ButtonVariant", description: "x" }] });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.map((i) => i.path)).toEqual(["generics.ButtonVariant"]);
+  });
+
+  test("rejects a generic that shadows a per-prop enum alias", () => {
+    const spec = makeButton({
+      props: {
+        align: {
+          type: "string",
+          description: "Alignment.",
+          values: ["start", "end"],
+        },
+      },
+      generics: [{ name: "ButtonAlign", description: "x" }],
+    });
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.map((i) => i.path)).toEqual(["generics.ButtonAlign"]);
+  });
+
+  test("does NOT reserve per-prop enum alias names for repeating item props", () => {
+    // Repeating-item props with `values` are rendered inline inside the
+    // generated <Spec>Item type; no <Spec><Prop> alias is ever emitted, so
+    // a generic of that name is safe.
+    const spec: Spec = {
+      name: "tablist",
+      kind: "composite",
+      generics: [{ name: "TablistDirection", description: "x" }],
+      parts: {
+        root: { element: "div" },
+        tab: {
+          element: "button",
+          repeating: true,
+          props: {
+            direction: {
+              type: "string",
+              description: "Per-item direction.",
+              values: ["asc", "desc"],
+            },
+          },
+        },
+      },
+    } as Spec;
+    expect(checkEvents(spec, vocabulary)).toEqual([]);
+  });
+
+  test("rejects a generic that shadows a repeating item type alias", () => {
+    const spec: Spec = {
+      name: "tablist",
+      kind: "composite",
+      generics: [{ name: "TablistItem", description: "x" }],
+      parts: {
+        root: { element: "div" },
+        tab: {
+          element: "button",
+          repeating: true,
+          groupKey: "items",
+          props: { label: { type: "string", slot: true, description: "Tab label." } },
+        },
+      },
+    } as Spec;
+    const issues = checkEvents(spec, vocabulary);
+    expect(issues.some((i) => i.path === "generics.TablistItem")).toBe(true);
+  });
 });

@@ -185,4 +185,129 @@ describe("renderContract", () => {
     expect(out).toContain("current?: boolean;");
     expect(out).toContain("pages?: ReadonlyArray<PaginationPageItem>;");
   });
+
+  test("emits no event surface when events: is absent", () => {
+    const out = renderContract(spec({ name: "btn" }));
+    expect(out).not.toContain("BtnEvent");
+    expect(out).not.toContain("onEvent");
+  });
+
+  test("emits per-event prop + discriminated union for a single declared event", () => {
+    const out = renderContract(
+      spec({
+        name: "modal",
+        events: {
+          dismiss: {
+            description: "Closed.",
+            payload: { reason: { type: "enum", values: ["outside", "escape", "button"] } },
+          },
+        },
+      }),
+    );
+    expect(out).toContain("export type ModalEvent =");
+    expect(out).toContain('| { type: "dismiss"; reason: "outside" | "escape" | "button" };');
+    expect(out).toContain('onDismiss?: (e: { reason: "outside" | "escape" | "button" }) => void;');
+    expect(out).toContain("onEvent?: (e: ModalEvent) => void;");
+  });
+
+  test("emits a parameterless signature for an empty-payload event", () => {
+    const out = renderContract(
+      spec({
+        name: "search",
+        events: {
+          clear: { description: "Cleared.", payload: {} },
+        },
+      }),
+    );
+    expect(out).toContain('| { type: "clear" };');
+    expect(out).toContain("onClear?: () => void;");
+  });
+
+  test("union includes one arm per controllable boolean mirror alongside declared events", () => {
+    const out = renderContract(
+      spec({
+        name: "modal",
+        events: {
+          dismiss: { description: "Closed.", payload: {} },
+        },
+        props: {
+          open: {
+            type: "boolean",
+            pattern: "controllable",
+            description: "Open state.",
+            __part: "",
+          },
+        },
+      }),
+    );
+    expect(out).toContain('| { type: "dismiss" }');
+    expect(out).toContain('| { type: "openChange"; value: boolean };');
+    expect(out).toContain("onEvent?: (e: ModalEvent) => void;");
+    // Existing controllable triple is still emitted.
+    expect(out).toContain("onOpenChange?: (open: boolean) => void;");
+  });
+
+  test("parameterizes Props and Event with declared generics", () => {
+    const out = renderContract(
+      spec({
+        name: "combobox",
+        generics: [{ name: "Item", description: "One item." }],
+        events: {
+          select: {
+            description: "Selected.",
+            payload: {
+              item: { type: "generic", ref: "Item" },
+              index: { type: "number" },
+            },
+          },
+        },
+      }),
+    );
+    expect(out).toContain("export type ComboboxEvent<Item> =");
+    expect(out).toContain('| { type: "select"; item: Item; index: number };');
+    expect(out).toContain("export type ComboboxProps<Item> = {");
+    expect(out).toContain("onSelect?: (e: { item: Item; index: number }) => void;");
+    expect(out).toContain("onEvent?: (e: ComboboxEvent<Item>) => void;");
+  });
+
+  test("renders payload arrays, builtins, and nullable variants", () => {
+    const out = renderContract(
+      spec({
+        name: "file-upload",
+        events: {
+          uploadError: {
+            description: "Upload failed.",
+            payload: {
+              file: { type: "builtin", name: "File" },
+              error: { type: "builtin", name: "Error", nullable: true },
+              attempts: { type: "array", of: { type: "number" } },
+            },
+          },
+        },
+      }),
+    );
+    expect(out).toContain(
+      "onUploadError?: (e: { file: File; error: Error | null; attempts: Array<number> }) => void;",
+    );
+    expect(out).toContain(
+      '| { type: "uploadError"; file: File; error: Error | null; attempts: Array<number> };',
+    );
+  });
+
+  test("emits multiple declared events as separate arms in the union", () => {
+    const out = renderContract(
+      spec({
+        name: "combobox",
+        events: {
+          select: { description: "Selected.", payload: { value: { type: "string" } } },
+          dismiss: {
+            description: "Closed.",
+            payload: { reason: { type: "enum", values: ["outside", "escape"] } },
+          },
+        },
+      }),
+    );
+    expect(out).toContain('| { type: "select"; value: string }');
+    expect(out).toContain('| { type: "dismiss"; reason: "outside" | "escape" };');
+  });
 });
