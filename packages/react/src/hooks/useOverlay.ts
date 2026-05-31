@@ -51,6 +51,11 @@ export type OverlayReturn<T extends HTMLElement> = {
   open: boolean;
   state: "open" | "closed";
   activeBp: ReturnType<typeof useActiveBreakpoint>;
+  /** Programmatic open/close. **Does not fire `onDismiss`** — the dismiss
+   *  surface is reserved for user gestures routed through the trigger
+   *  handlers and the dismissable-layer. Consumers that need to surface a
+   *  reason on programmatic close should call their own `onDismiss` before
+   *  invoking this setter, or pass `open` in controlled mode. */
   setOpen: (next: boolean) => void;
   anchorName: string;
   anchorVar: string;
@@ -128,6 +133,9 @@ export function useOverlay<T extends HTMLElement = HTMLElement>(
 
   const setOpen = useCallback(
     (next: boolean) => {
+      // Sync `openRef` so a second close-fire in the same tick (pointerdown +
+      // click on a non-modal trigger) doesn't re-enter as if still open.
+      openRef.current = next;
       if (!controlled) setInternalOpen(next);
       onOpenChangeRef.current?.(next);
     },
@@ -166,12 +174,16 @@ export function useOverlay<T extends HTMLElement = HTMLElement>(
   // ahead of the state mirror so the wrapper can thread the `onEvent`
   // channel between the two calls — consumer code that reads the dismiss
   // reason in `onOpenChange` sees it from a captured closure variable. The
-  // same-value guard avoids firing dismiss on re-renders that pass
+  // `wasOpen && !next` filter avoids firing dismiss on re-renders that pass
   // `open: false` while the overlay is already closed.
   const setOpenWithReason = useCallback(
     (next: boolean, reason: OverlayDismissReason) => {
       const wasOpen = openRef.current;
       if (wasOpen && !next) onDismissRef.current?.(reason);
+      // Sync `openRef` immediately so a same-task follow-up (e.g. pointerdown
+      // outside fires "outside", then the same gesture's click on the trigger
+      // would fire "button") sees the post-close state and skips re-firing.
+      openRef.current = next;
       if (!controlled) setInternalOpen(next);
       onOpenChangeRef.current?.(next);
     },

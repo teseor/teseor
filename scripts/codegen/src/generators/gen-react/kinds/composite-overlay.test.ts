@@ -186,6 +186,24 @@ describe("renderCompositeOverlayReactWrapper", () => {
     expect(out).toContain("onOpenChange: handleOpenChange,");
   });
 
+  test("declares handleDismiss before handleOpenChange so per-emission ordering matches declaration order", () => {
+    const spec = tooltipSpec({
+      name: "modal",
+      events: {
+        dismiss: {
+          description: "Closed.",
+          payload: { reason: { type: "enum", values: ["outside", "escape", "button"] } },
+        },
+      },
+    });
+    const out = renderCompositeOverlayReactWrapper(spec, {});
+    const dismissIdx = out.indexOf("const handleDismiss = useCallback(");
+    const openChangeIdx = out.indexOf("const handleOpenChange = useCallback(");
+    expect(dismissIdx).toBeGreaterThan(-1);
+    expect(openChangeIdx).toBeGreaterThan(-1);
+    expect(dismissIdx).toBeLessThan(openChangeIdx);
+  });
+
   test("imports useCallback only when events: is declared", () => {
     const out = renderCompositeOverlayReactWrapper(tooltipSpec(), {});
     expect(out).not.toContain("useCallback");

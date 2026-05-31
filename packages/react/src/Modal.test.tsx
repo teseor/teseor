@@ -233,7 +233,13 @@ describe("Modal events (RFC-0006)", () => {
     }
   });
 
-  it("trigger click while open: fires onDismiss(button) -> onEvent(dismiss) -> onOpenChange(false) -> onEvent(openChange)", () => {
+  it("[runtime-path] trigger click while open: button reason fires through useOverlay's applyNext", () => {
+    // NOTE: This exercises the useOverlay "button" runtime path, NOT a
+    // realistic Modal user flow. In real browsers, modality has set `inert`
+    // on the trigger's subtree while the dialog is open, so users can't
+    // click it. happy-dom doesn't enforce `inert`, which is why fireEvent
+    // reaches the handler. The path itself is reachable in non-modal
+    // overlays that adopt `dismiss` (future Popover, Menu).
     const { recorded, onDismiss, onOpenChange, onEvent } = setup();
     render(
       <Modal
@@ -248,8 +254,6 @@ describe("Modal events (RFC-0006)", () => {
         </button>
       </Modal>,
     );
-    // The Modal spec wires `click on trigger` -> `do: toggle`. Clicking the
-    // trigger while open should resolve to a close with reason "button".
     fireEvent.click(screen.getByTestId("trigger"));
     expect(recorded).toEqual([
       { kind: "dismiss", reason: "button" },
