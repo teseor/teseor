@@ -92,6 +92,8 @@ parts:
     rootClass: t-modal
     a11y: { role: dialog }
     overlay: { anchor: trigger, modal: true, anchorVar: --t-modal-anchor }
+    # `mode:` defaults to "manual"; `floating:` is implicit (the part declaring
+    # `overlay:` is the floating element by definition).
     states:
       closed:
         on:
@@ -127,6 +129,27 @@ The `interactions:` block is gone; the `overlay:` block moves onto
 
 ### Schema changes
 
+The existing `states:` field on `componentNodeFields`
+(schema.ts:71-84) — a record of `stateEntry` describing CSS-driven
+visual states (Button's `hover` / `focus` / `disabled` / `loading`,
+rendered as docs entries) — is renamed `visualStates:`. The name
+`states:` is freed for the state-machine block this RFC introduces.
+Button-spec migration: a one-line rename, done as part of the rewrite
+PR.
+
+The existing `overlayBlock` (schema.ts:161-168) — which today requires
+`anchor` / `floating` / `mode` / `anchorVar` / `modal` — is loosened
+to fit part-attached overlay:
+
+- `floating:` is **dropped**. When `overlay:` lives on a part, that part
+  is the floating element by definition; restating its name is
+  redundant.
+- `mode:` becomes optional with default `"manual"`. The three current
+  composite specs (`modal`, `tooltip`, plus future Popover/Combobox) all
+  use `"manual"`; `"auto"` and `"hint"` remain available for the rare
+  spec that needs them.
+- `anchor:` / `anchorVar:` / `modal:` unchanged.
+
 The recursive `componentPart` gains:
 
 ```ts
@@ -145,13 +168,22 @@ const stateDef = z.strictObject({
   on: z.record(z.string(), transitionTarget).default({}),
 });
 
+// Loosened overlay block (floating dropped, mode optional).
+const overlayBlock = z.strictObject({
+  anchor:    z.string().min(1),
+  anchorVar: z.string().regex(/^--[A-Za-z0-9_-]+$/),
+  mode:      z.enum(["auto", "manual", "hint"]).default("manual"),
+  modal:     z.boolean().default(false),
+});
+
 const componentPart = z.strictObject({
   // existing fields: element, rootClass, fromChildren, repeating, propName,
-  // groupKey, props, tokens, states (was missing), privateTokens, a11y,
-  // motion, variants, intents, sizes, constraints, parts.
+  // groupKey, props, tokens, visualStates (renamed from `states`),
+  // privateTokens, a11y, motion, variants, intents, sizes, constraints,
+  // parts.
   // new fields:
-  states:  z.record(z.string(), stateDef).optional(),
-  overlay: overlayBlock.optional(),  // moved from root
+  states:  z.record(z.string(), stateDef).optional(),  // state-machine block
+  overlay: overlayBlock.optional(),                    // moved from root
 });
 ```
 
@@ -222,7 +254,9 @@ That's it. No `&&` / `||` / parens; if a real case needs them, a
 follow-up RFC adds the syntax. The expression is parsed at validation
 time; resolution at runtime reads the responsive prop value at the
 active breakpoint (the same machinery `useOverlay` uses today for the
-hardcoded `disabled` check). Tooltip's spec illustrates:
+hardcoded `disabled` check). Tooltip's spec illustrates — note that
+`openDelay` / `closeDelay` live on `content` (the part that owns the
+state machine), not on `trigger`:
 
 ```yaml
 parts:
@@ -234,11 +268,12 @@ parts:
         default: false
         responsive: true
         description: "Suppresses the tooltip; responsive so it can be hidden at narrow viewports."
-      openDelay:  { type: number, default: 300 }
-      closeDelay: { type: number, default: 0   }
   content:
     element: div
     overlay: { anchor: trigger, anchorVar: --t-tooltip-anchor }
+    props:
+      openDelay:  { type: number, default: 300, description: "ms before open after hover or focus." }
+      closeDelay: { type: number, default: 0,   description: "ms before close after leave or blur." }
     states:
       closed:
         on:
@@ -249,6 +284,10 @@ parts:
           trigger.pointerleave: { to: closed, after: closeDelay }
           trigger.focusout:     { to: closed }
 ```
+
+Both `disabled` (on `trigger`) and the delay props (on `content`)
+surface at the `<Tooltip>` consumer level — composite-spec codegen
+already aggregates props from every part onto the wrapper's prop type.
 
 The `when: '!trigger.disabled'` guard replaces the hardcoded
 `Object.hasOwn(spec.props, "disabled")` special case in
@@ -446,6 +485,12 @@ opportunistically" list applies here):
 - Remove the `behavior:` field (schema + identityFields).
 - Remove the dead `events:` / `generics:` carry-through on atomic
   FlatSpec.
+- Rename the existing descriptive `states:` field → `visualStates:`
+  on `componentNodeFields`. One-line touch in `button.yaml` (the only
+  current spec using it).
+- Loosen `overlayBlock`: drop `floating:`, make `mode:` optional with
+  default `"manual"`. Affects `modal`, `tooltip` — both pass after the
+  loosening.
 - Update `docs/architecture/codegen-pipeline.md`.
 
 Documentation:
