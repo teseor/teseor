@@ -17,10 +17,9 @@ export type OverlayInteraction = {
   when?: string;
 };
 
-/** Reasons surfaced to {@link OverlayConfig.onDismiss}. Matches RFC-0006's
- *  `dismiss` event payload: pointer outside the floating element, the
- *  Escape key on the topmost dismissable layer, or a trigger interaction
- *  that closed the overlay (typically a click on the toggle). */
+/** Why a close gesture closed the overlay: pointer outside the floating
+ *  element, Escape on the topmost dismissable layer, or a trigger
+ *  interaction (typically a click on the toggle). */
 export type OverlayDismissReason = "outside" | "escape" | "button";
 
 /** Inputs to {@link useOverlay}. Identity of `interactions` should be stable across renders. */

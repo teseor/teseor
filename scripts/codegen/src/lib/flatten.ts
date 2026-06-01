@@ -32,7 +32,7 @@ export type FlatItemProp = {
   pattern?: "controllable";
 };
 
-/** One entry per repeating part — see RFC-0005. */
+/** One entry per repeating part. */
 export type FlatRepeatingPart = {
   /** Originating part name (e.g. `page`). */
   partName: string;
@@ -106,7 +106,7 @@ export type FlatSpec = {
   motion?: FlatMotion;
   privateTokens?: string[];
   constraints?: Extract<Spec, { kind: "atomic" }>["constraints"];
-  /** Repeating parts (RFC-0005). Composite-only; undefined when no part
+  /** Repeating parts. Composite-only; undefined when no part
    *  declares `repeating: true`. */
   repeating?: FlatRepeatingPart[];
   /** Consumer-facing event surface. Root-only on the spec; passed through

@@ -2,9 +2,8 @@ import type { PayloadEntry } from "../../../schema.ts";
 import { quote } from "./type-printer.ts";
 
 /**
- * Maps a `PayloadEntry` (the closed-vocabulary payload variant from
- * RFC-0006) to a TypeScript type string. `nullable: true` unions the entry
- * with `null`. Recursive on `array.of`.
+ * Maps a `PayloadEntry` to a TypeScript type string. `nullable: true`
+ * unions the entry with `null`. Recursive on `array.of`.
  */
 export function payloadEntryToTS(entry: PayloadEntry): string {
   const base = renderBase(entry);

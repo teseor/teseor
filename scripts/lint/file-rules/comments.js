@@ -33,6 +33,21 @@ const PATTERNS = [
     hint: "ADR numbers re-number during merges; describe the constraint inline.",
   },
   {
+    label: "RFC reference",
+    re: /\bRFC-\d+/,
+    hint: "RFCs get superseded; describe the constraint inline rather than pointer-linking.",
+  },
+  {
+    label: "step marker",
+    re: /\bstep[ -]\d+[a-z]?\b/i,
+    hint: "Step labels live in the originating plan; the code should read independently.",
+  },
+  {
+    label: "phase marker (numbered)",
+    re: /\bphase[ -]\d+[a-z]?\b/i,
+    hint: "Phase numbers re-shuffle as plans evolve; describe the work, not the phase.",
+  },
+  {
     label: "audit code",
     re: /\baudit [A-Z]\d+\b/,
     hint: "Audit codes only resolve with the handover open; strip from artifacts.",

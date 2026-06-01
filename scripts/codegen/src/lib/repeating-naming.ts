@@ -2,7 +2,7 @@ import type { FlatRepeatingPart } from "./flatten.ts";
 import { pascalCase } from "./pascal-case.ts";
 
 /**
- * Derives the TS item-type name for a repeating part (RFC-0005). Shared across
+ * Derives the TS item-type name for a repeating part. Shared across
  * all four generators (contract / react / vue / docs) so the names match.
  *
  * The convention avoids collision between grouped and ungrouped repeating

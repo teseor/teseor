@@ -15,7 +15,7 @@ import {
 } from "../_shared/sections.ts";
 
 /**
- * Render the `.astro` docs page for a composite-list spec (RFC-0005).
+ * Render the `.astro` docs page for a composite-list spec.
  * Mirrors the atomic page but appends a `renderRepeatingItems` section
  * documenting each repeating part's per-item shape.
  */

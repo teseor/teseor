@@ -104,10 +104,10 @@ export function renderContract(spec: FlatSpec): string {
     propLines.push(`  ${propName}?: ${tsType};`);
   }
 
-  // Repeating parts (RFC-0005). Parts sharing the same `groupKey:` merge into
-  // ONE Item type + ONE array prop. Ungrouped repeating parts each get their
-  // own. Group by effective propName (flatten already collapses sibling parts
-  // to the same propName when they share a groupKey).
+  // Repeating parts: parts sharing the same `groupKey:` merge into ONE Item
+  // type + ONE array prop. Ungrouped repeating parts each get their own.
+  // Group by effective propName (flatten already collapses sibling parts to
+  // the same propName when they share a groupKey).
   const repeatingGroups = new Map<string, typeof spec.repeating>();
   for (const r of spec.repeating ?? []) {
     const group = repeatingGroups.get(r.propName) ?? [];
@@ -155,7 +155,7 @@ export function renderContract(spec: FlatSpec): string {
 
   // Generics parameter list — `<Item>`, `<Item, Row>`, … — attached to both
   // `<Spec>Props` and `<Spec>Event` so consumers can pass the type at the
-  // call site (`<Combobox<User> …/>`). RFC-0006 § Detailed design.
+  // call site (`<Combobox<User> …/>`).
   const genericNames = (spec.generics ?? []).map((g) => g.name);
   const genericParams = genericNames.length > 0 ? `<${genericNames.join(", ")}>` : "";
 

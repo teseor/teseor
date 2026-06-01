@@ -13,7 +13,7 @@ export type PaginationPageItem = {
 
 <script setup lang="ts">
 /**
- * A static page-link list. Renders one item per entry in the `pages` array. Phase-1 stub for RFC-0005; real navigation lands with phase 3.
+ * A static page-link list. Renders one item per entry in the `pages` array; navigation behavior is consumer-driven today.
  *
  * @example Three Pages
  * ```vue

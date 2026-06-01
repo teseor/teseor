@@ -138,7 +138,7 @@ export function renderProps(spec: DocsSpec): string {
       `Forwarded ref to the popover content element. React: pass a callback ref or RefObject as the <Code>ref</Code> prop. Vue: read it through the parent template ref — <Code>${esc(spec.name)}Ref.value?.contentRef.value</Code> (exposed via <Code>defineExpose</Code>).`,
     ]);
   }
-  // Repeating parts (RFC-0005) synthesize an array prop on the parent. Parts
+  // Repeating parts synthesize an array prop on the parent. Parts
   // sharing the same `groupKey:` merge into one row + one Item section below.
   if (spec.kind === "composite" && spec.repeating) {
     const Name = pascalCase(spec.name);

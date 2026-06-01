@@ -1,9 +1,8 @@
-// Shared rendering for the consumer event surface (RFC-0006 § Consumer
-// surface). One per-event prop per declared event, plus a single
-// `onEvent` discriminated channel that fires for both declared events and
-// controllable mirrors. The composite-overlay renderer composes these into
-// the wrapper template; future composite kinds (list / atomic) reuse the
-// same helpers.
+// Shared rendering for the consumer event surface. One per-event prop per
+// declared event, plus a single `onEvent` discriminated channel that fires
+// for both declared events and controllable mirrors. The composite-overlay
+// renderer composes these into the wrapper template; future composite
+// kinds (list / atomic) reuse the same helpers.
 //
 // Three blocks come out of here:
 //

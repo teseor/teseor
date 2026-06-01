@@ -8,7 +8,7 @@ import { quote } from "../_shared/type-printer.ts";
 
 /**
  * Emits a React wrapper for a composite spec that uses repeating parts
- * (RFC-0005) and has no `overlay:` block. Shape is one non-repeating
+ * and has no `overlay:` block. Shape is one non-repeating
  * wrapper part + one or more repeating parts rendered as its direct children.
  *
  * Parts sharing the same `groupKey:` are interleaved into a single loop —

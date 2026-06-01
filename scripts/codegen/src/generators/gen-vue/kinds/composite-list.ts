@@ -5,7 +5,7 @@ import { itemTypeName } from "../../../lib/repeating-naming.ts";
 import type { Spec } from "../../gen-contract.ts";
 
 /**
- * Emits a Vue SFC for a composite spec that uses repeating parts (RFC-0005)
+ * Emits a Vue SFC for a composite spec that uses repeating parts
  * and has no `overlay:` block. Shape is one non-repeating wrapper part + one
  * or more repeating parts rendered as its direct children via `v-for`.
  *

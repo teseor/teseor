@@ -7,7 +7,7 @@ import { section } from "./table-printer.ts";
 export function renderExamples(spec: Spec, Name: string, opts: { isComposite: boolean }): string {
   if (!spec.examples || spec.examples.length === 0) return "";
   const { isComposite } = opts;
-  // Composite-list specs (RFC-0005) render a self-closing tag with the
+  // Composite-list specs render a self-closing tag with the
   // array prop populated — no fromChildren, no Button trigger.
   const isList =
     spec.kind === "composite" && Array.isArray(spec.repeating) && spec.repeating.length > 0;

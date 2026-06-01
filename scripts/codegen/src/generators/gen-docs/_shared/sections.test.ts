@@ -388,7 +388,7 @@ describe("renderConstraints", () => {
   });
 });
 
-describe("renderRepeatingItems (RFC-0005)", () => {
+describe("renderRepeatingItems", () => {
   test("returns empty string when the spec has no repeating parts", () => {
     expect(renderRepeatingItems(atomicSpec())).toBe("");
   });
