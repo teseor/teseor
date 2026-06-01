@@ -206,10 +206,17 @@ A transition source key is one of:
 
 | Prefix | Shape | Example | Validates |
 | --- | --- | --- | --- |
-| Part DOM event | `<partName>.<eventName>` | `trigger.click` | `<partName>` must be a declared sibling part of the current part's parent; `<eventName>` is a DOM event in the registered vocabulary (see below). |
+| Part DOM event | `<partName>.<eventName>` | `trigger.click` | `<partName>` must be a part declared anywhere in the spec's parts tree (sibling, descendant, or ancestor). Part names must be unique across the spec's parts tree so references stay unambiguous. `<eventName>` is a DOM event in the registered vocabulary (see below). |
 | Global key | `key.<name>` | `key.escape` | `<name>` from a registered key vocabulary (`escape`, `enter`, `tab`, `space`, `arrowUp`, `arrowDown`, `arrowLeft`, `arrowRight`, `home`, `end`). |
 | Outside | `outside.<eventName>` | `outside.click` | Permitted only when the part declares `overlay:` (semantic-check: `outside.*` source on a non-overlay part rejected). |
-| Timer | `timer.<fieldName>` | `timer.openDelay` | `<fieldName>` must be a `type: number` prop on the same part. |
+
+Delays use the `after:` field on a transition, not a separate prefix:
+`{ to: X, after: openDelay }` schedules the transition `openDelay`
+milliseconds after the source event fires (`openDelay` resolves to a
+same-part `type: number` prop). The timer is internal to the state-
+machine runtime — competing events that match other outgoing transitions
+from the same state cancel it. Authors don't see a `timer:` event source
+directly.
 
 DOM event names live in `specs/_vocabulary.yaml` under a new
 `dom_events:` block:
@@ -341,10 +348,13 @@ New semantic-check rules:
 2. **State references resolve.** Every `to:` target must be a key in
    the same part's `states:` map.
 3. **Source prefixes resolve.** `<partName>.<event>` — `<partName>` must
-   be a sibling part of the current part's parent. `key.<name>` must
-   match the key vocabulary. `outside.<event>` requires the current part
-   to declare `overlay:`. `timer.<prop>` requires a `type: number` prop
-   on the same part.
+   be a part declared anywhere in the spec's parts tree. `key.<name>`
+   must match the key vocabulary. `outside.<event>` requires the current
+   part to declare `overlay:`.
+3a. **Part names are unique across the spec.** Two parts with the same
+    name anywhere in the parts tree (siblings, nested under different
+    ancestors, etc.) are rejected. Keeps `<partName>.<event>` references
+    unambiguous without forcing a fully-qualified path syntax.
 4. **DOM event names are vocab-checked.** Same machinery as event-verb
    vocab; misspellings get Levenshtein suggestions.
 5. **`emits:` event names exist.** Every `<eventName>` in `emits:` must
