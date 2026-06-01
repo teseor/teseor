@@ -10,6 +10,7 @@ import {
   checkCssImportAllowlist,
   checkDependencyCycles,
   checkEvents,
+  checkEventsRuntimeSupport,
   checkExamplesPresent,
   checkExamplesReferences,
   checkInteractionEventVocabulary,
@@ -2317,5 +2318,231 @@ describe("checkEvents (RFC-0006)", () => {
     } as Spec;
     const issues = checkEvents(spec, vocabulary);
     expect(issues.some((i) => i.path === "generics.TablistItem")).toBe(true);
+  });
+});
+
+describe("checkEventsRuntimeSupport", () => {
+  test("returns no issues when events: is absent", () => {
+    expect(checkEventsRuntimeSupport(makeButton())).toEqual([]);
+  });
+
+  test("accepts 'dismiss' on a composite-overlay spec", () => {
+    const spec: Spec = {
+      name: "modal",
+      kind: "composite",
+      overlay: {
+        anchor: "trigger",
+        floating: "content",
+        anchorVar: "--t-modal-anchor",
+        mode: "manual",
+        modal: false,
+      },
+      parts: {
+        trigger: { fromChildren: true },
+        content: { element: "div" },
+      },
+      events: {
+        dismiss: {
+          description: "Closed.",
+          payload: { reason: { type: "enum", values: ["outside", "escape", "button"] } },
+        },
+      },
+    } as Spec;
+    expect(checkEventsRuntimeSupport(spec)).toEqual([]);
+  });
+
+  test("rejects non-dismiss events on a composite-overlay spec until their runtime ships", () => {
+    const spec: Spec = {
+      name: "combobox",
+      kind: "composite",
+      overlay: {
+        anchor: "trigger",
+        floating: "content",
+        anchorVar: "--t-combobox-anchor",
+        mode: "manual",
+        modal: false,
+      },
+      parts: {
+        trigger: { fromChildren: true },
+        content: { element: "div" },
+      },
+      events: {
+        select: { description: "Selected.", payload: { value: { type: "string" } } },
+      },
+    } as Spec;
+    const issues = checkEventsRuntimeSupport(spec);
+    expect(issues.map((i) => i.path)).toEqual(["events.select"]);
+    expect(issues[0]?.message).toMatch(/no wrapper-runtime source/);
+  });
+
+  test("rejects any events declaration on an atomic spec", () => {
+    const spec = makeButton({
+      events: {
+        dismiss: { description: "x", payload: {} },
+      } as Spec["events"],
+    });
+    const issues = checkEventsRuntimeSupport(spec);
+    expect(issues.map((i) => i.path)).toEqual(["events.dismiss"]);
+    expect(issues[0]?.message).toMatch(/not supported on this spec shape/);
+  });
+
+  test("rejects events on a composite-list spec (no overlay block)", () => {
+    const spec: Spec = {
+      name: "pagination",
+      kind: "composite",
+      parts: {
+        nav: { element: "nav" },
+        page: {
+          element: "a",
+          repeating: true,
+          props: { label: { type: "string", slot: true, description: "Page label." } },
+        },
+      },
+      events: {
+        pageChange: { description: "x", payload: { page: { type: "number" } } },
+      },
+    } as Spec;
+    const issues = checkEventsRuntimeSupport(spec);
+    expect(issues.map((i) => i.path)).toEqual(["events.pageChange"]);
+    expect(issues[0]?.message).toMatch(/not supported on this spec shape/);
+  });
+
+  test("flags every unsupported event when multiple are declared", () => {
+    const spec: Spec = {
+      name: "combobox",
+      kind: "composite",
+      overlay: {
+        anchor: "trigger",
+        floating: "content",
+        anchorVar: "--t-combobox-anchor",
+        mode: "manual",
+        modal: false,
+      },
+      parts: {
+        trigger: { fromChildren: true },
+        content: { element: "div" },
+      },
+      events: {
+        dismiss: {
+          description: "Closed.",
+          payload: { reason: { type: "enum", values: ["outside", "escape", "button"] } },
+        },
+        select: { description: "Selected.", payload: { value: { type: "string" } } },
+        inputChange: { description: "Input changed.", payload: { value: { type: "string" } } },
+      },
+    } as Spec;
+    const issues = checkEventsRuntimeSupport(spec);
+    expect(issues.map((i) => i.path).sort()).toEqual(["events.inputChange", "events.select"]);
+  });
+
+  test("rejects dismiss whose reason values diverge from the runtime contract", () => {
+    const spec: Spec = {
+      name: "modal",
+      kind: "composite",
+      overlay: {
+        anchor: "trigger",
+        floating: "content",
+        anchorVar: "--t-modal-anchor",
+        mode: "manual",
+        modal: false,
+      },
+      parts: {
+        trigger: { fromChildren: true },
+        content: { element: "div" },
+      },
+      events: {
+        dismiss: {
+          description: "Closed.",
+          payload: { reason: { type: "enum", values: ["outside", "escape"] } },
+        },
+      },
+    } as Spec;
+    const issues = checkEventsRuntimeSupport(spec);
+    expect(issues.map((i) => i.path)).toEqual(["events.dismiss.payload.reason"]);
+    expect(issues[0]?.message).toMatch(/match the wrapper-runtime contract exactly/);
+  });
+
+  test("rejects dismiss with a missing or non-enum reason field", () => {
+    const overlay = {
+      anchor: "trigger",
+      floating: "content",
+      anchorVar: "--t-modal-anchor",
+      mode: "manual" as const,
+      modal: false,
+    };
+    const parts = {
+      trigger: { fromChildren: true },
+      content: { element: "div" },
+    };
+    const missing: Spec = {
+      name: "modal",
+      kind: "composite",
+      overlay,
+      parts,
+      events: { dismiss: { description: "Closed.", payload: {} } },
+    } as Spec;
+    const wrongType: Spec = {
+      name: "modal",
+      kind: "composite",
+      overlay,
+      parts,
+      events: {
+        dismiss: { description: "Closed.", payload: { reason: { type: "string" } } },
+      },
+    } as Spec;
+    for (const spec of [missing, wrongType]) {
+      const issues = checkEventsRuntimeSupport(spec);
+      expect(issues.map((i) => i.path)).toEqual(["events.dismiss.payload.reason"]);
+      expect(issues[0]?.message).toMatch(/type 'enum'/);
+    }
+  });
+
+  test("rejects events: + generics: until composite-overlay wrappers support generic parameters", () => {
+    const spec: Spec = {
+      name: "modal",
+      kind: "composite",
+      overlay: {
+        anchor: "trigger",
+        floating: "content",
+        anchorVar: "--t-modal-anchor",
+        mode: "manual",
+        modal: false,
+      },
+      parts: {
+        trigger: { fromChildren: true },
+        content: { element: "div" },
+      },
+      generics: [{ name: "Item", description: "Item shape." }],
+      events: {
+        dismiss: {
+          description: "Closed.",
+          payload: { reason: { type: "enum", values: ["outside", "escape", "button"] } },
+        },
+      },
+    } as Spec;
+    const issues = checkEventsRuntimeSupport(spec);
+    expect(issues.some((i) => i.path === "generics")).toBe(true);
+    const generic = issues.find((i) => i.path === "generics");
+    expect(generic?.message).toMatch(/do not declare generic type parameters/);
+  });
+
+  test("accepts generics: alone (no events:)", () => {
+    const spec: Spec = {
+      name: "modal",
+      kind: "composite",
+      overlay: {
+        anchor: "trigger",
+        floating: "content",
+        anchorVar: "--t-modal-anchor",
+        mode: "manual",
+        modal: false,
+      },
+      parts: {
+        trigger: { fromChildren: true },
+        content: { element: "div" },
+      },
+      generics: [{ name: "Item", description: "Item shape." }],
+    } as Spec;
+    expect(checkEventsRuntimeSupport(spec)).toEqual([]);
   });
 });

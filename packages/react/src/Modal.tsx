@@ -4,7 +4,16 @@
 // Source: specs/modal.yaml
 
 import "@teseor/css/components/modal.css";
-import { type CSSProperties, type ReactNode, type Ref, useEffect, useMemo, useState } from "react";
+import type { ModalEvent } from "@teseor/contract";
+import {
+  type CSSProperties,
+  type ReactNode,
+  type Ref,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { createPortal } from "react-dom";
 import { mergeRefs } from "./_runtime.ts";
 import { Slot } from "./components/Slot.tsx";
@@ -19,6 +28,12 @@ type ModalOwnProps = {
   onOpenChange?: (open: boolean) => void;
   /** Modal body text. Plain string only; rich content support lands when the spec grows a real content slot. */
   title?: string;
+  /** Fired when the dialog closes; the reason tells the consumer whether the user clicked outside, pressed Escape, or used the trigger. */
+  onDismiss?: (e: { reason: "outside" | "escape" | "button" }) => void;
+  /** Aggregated event channel: fires for every declared event and every
+   *  controllable state mirror. Per-emission ordering: declared event prop →
+   *  channel → controllable callback → channel. */
+  onEvent?: (e: ModalEvent) => void;
   /** Render the trigger directly on the consumer's child element (`cloneElement`)
    *  instead of wrapping in a `<span>`. Single-child invariant: `children` must
    *  be a single React element. The wrapper's `style`, `data-state`, event handlers,
@@ -40,17 +55,43 @@ export type ModalProps = Readonly<ModalOwnProps>;
  * ```
  */
 export function Modal(props: ModalProps) {
-  const { open: openProp, defaultOpen, onOpenChange, title, children, asChild, ref } = props;
+  const {
+    open: openProp,
+    defaultOpen,
+    onOpenChange,
+    title,
+    children,
+    onDismiss,
+    onEvent,
+    asChild,
+    ref,
+  } = props;
 
   const interactions = useMemo<OverlayInteraction[]>(
     () => [{ on: { event: "click", target: "trigger" }, do: "toggle" }],
     [],
   );
 
+  const handleDismiss = useCallback(
+    (reason: "outside" | "escape" | "button") => {
+      onDismiss?.({ reason });
+      onEvent?.({ type: "dismiss", reason });
+    },
+    [onDismiss, onEvent],
+  );
+  const handleOpenChange = useCallback(
+    (value: boolean) => {
+      onOpenChange?.(value);
+      onEvent?.({ type: "openChange", value });
+    },
+    [onOpenChange, onEvent],
+  );
+
   const overlay = useOverlay<HTMLElementTagNameMap["div"]>({
     open: openProp,
     defaultOpen,
-    onOpenChange,
+    onOpenChange: handleOpenChange,
+    onDismiss: handleDismiss,
     anchorVar: "--t-modal-anchor",
     popoverMode: "manual",
     interactions,

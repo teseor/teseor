@@ -24,6 +24,7 @@
     "directory": "packages/react"
   },
   "dependencies": {
+    "@teseor/contract": "workspace:*",
     "@teseor/css": "workspace:*",
     "@teseor/primitives": "workspace:*"
   },

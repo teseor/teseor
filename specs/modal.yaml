@@ -17,6 +17,14 @@ interactions:
   - on: { event: click, target: trigger }
     do: toggle
 
+events:
+  dismiss:
+    description: "Fired when the dialog closes; the reason tells the consumer whether the user clicked outside, pressed Escape, or used the trigger."
+    payload:
+      reason:
+        type: enum
+        values: ["outside", "escape", "button"]
+
 parts:
   trigger:
     fromChildren: true

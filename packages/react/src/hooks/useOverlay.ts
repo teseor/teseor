@@ -17,11 +17,22 @@ export type OverlayInteraction = {
   when?: string;
 };
 
+/** Reasons surfaced to {@link OverlayConfig.onDismiss}. Matches RFC-0006's
+ *  `dismiss` event payload: pointer outside the floating element, the
+ *  Escape key on the topmost dismissable layer, or a trigger interaction
+ *  that closed the overlay (typically a click on the toggle). */
+export type OverlayDismissReason = "outside" | "escape" | "button";
+
 /** Inputs to {@link useOverlay}. Identity of `interactions` should be stable across renders. */
 export type OverlayConfig = {
   open?: boolean;
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
+  /** Notified once per close gesture with the originating reason. Fires before
+   *  `onOpenChange` so a consumer reading both can rely on the semantic reason
+   *  in the same closure. Wrappers translate this into the spec's declared
+   *  `dismiss` event (per-event prop + `onEvent` channel). */
+  onDismiss?: (reason: OverlayDismissReason) => void;
   anchorVar: string;
   popoverMode: "auto" | "manual" | "hint";
   interactions: ReadonlyArray<OverlayInteraction>;
@@ -40,6 +51,11 @@ export type OverlayReturn<T extends HTMLElement> = {
   open: boolean;
   state: "open" | "closed";
   activeBp: ReturnType<typeof useActiveBreakpoint>;
+  /** Programmatic open/close. **Does not fire `onDismiss`** — the dismiss
+   *  surface is reserved for user gestures routed through the trigger
+   *  handlers and the dismissable-layer. Consumers that need to surface a
+   *  reason on programmatic close should call their own `onDismiss` before
+   *  invoking this setter, or pass `open` in controlled mode. */
   setOpen: (next: boolean) => void;
   anchorName: string;
   anchorVar: string;
@@ -91,6 +107,7 @@ export function useOverlay<T extends HTMLElement = HTMLElement>(
     open: openProp,
     defaultOpen = false,
     onOpenChange,
+    onDismiss,
     anchorVar,
     popoverMode,
     interactions,
@@ -107,9 +124,18 @@ export function useOverlay<T extends HTMLElement = HTMLElement>(
   useEffect(() => {
     onOpenChangeRef.current = onOpenChange;
   }, [onOpenChange]);
+  // Stable callback ref so wrappers passing a fresh inline `onDismiss` every
+  // render don't tear down the dismissable-layer / trigger effect bindings.
+  const onDismissRef = useRef(onDismiss);
+  useEffect(() => {
+    onDismissRef.current = onDismiss;
+  }, [onDismiss]);
 
   const setOpen = useCallback(
     (next: boolean) => {
+      // Sync `openRef` so a second close-fire in the same tick (pointerdown +
+      // click on a non-modal trigger) doesn't re-enter as if still open.
+      openRef.current = next;
       if (!controlled) setInternalOpen(next);
       onOpenChangeRef.current?.(next);
     },
@@ -143,19 +169,56 @@ export function useOverlay<T extends HTMLElement = HTMLElement>(
     openRef.current = open;
   }, [open]);
 
+  // Dismiss-aware setter: when `next` flips open from true to false, fires
+  // `onDismiss(reason)` before `onOpenChange`. The per-event emission lands
+  // ahead of the state mirror so the wrapper can thread the `onEvent`
+  // channel between the two calls — consumer code that reads the dismiss
+  // reason in `onOpenChange` sees it from a captured closure variable. The
+  // `wasOpen && !next` filter avoids firing dismiss on re-renders that pass
+  // `open: false` while the overlay is already closed.
+  const setOpenWithReason = useCallback(
+    (next: boolean, reason: OverlayDismissReason) => {
+      const wasOpen = openRef.current;
+      if (wasOpen && !next) onDismissRef.current?.(reason);
+      // Sync `openRef` immediately so a same-task follow-up (e.g. pointerdown
+      // outside fires "outside", then the same gesture's click on the trigger
+      // would fire "button") sees the post-close state and skips re-firing.
+      openRef.current = next;
+      if (!controlled) setInternalOpen(next);
+      onOpenChangeRef.current?.(next);
+    },
+    [controlled],
+  );
+
+  // Routes the resolved-next state through `setOpenWithReason` when it
+  // represents a close so the dismiss reason fires before `onOpenChange`.
+  // Interaction rules always supply `"button"` as the reason — Escape and
+  // outside-pointer come from the dismissable-layer routes above with their
+  // own reasons. Open transitions skip the reason path entirely.
+  const applyNext = useCallback(
+    (next: boolean) => {
+      if (next === false && openRef.current === true) {
+        setOpenWithReason(false, "button");
+      } else {
+        setOpen(next);
+      }
+    },
+    [setOpen, setOpenWithReason],
+  );
+
   const schedule = useCallback(
     (action: "open" | "close" | "toggle", delayMs: number) => {
       if (isDisabled) return;
       clearTimers();
       const next = action === "toggle" ? !openRef.current : action === "open";
       if (delayMs <= 0) {
-        setOpen(next);
+        applyNext(next);
         return;
       }
       const slot: "open" | "close" = action === "close" ? "close" : "open";
-      timersRef.current[slot] = window.setTimeout(() => setOpen(next), delayMs);
+      timersRef.current[slot] = window.setTimeout(() => applyNext(next), delayMs);
     },
-    [clearTimers, setOpen, isDisabled],
+    [clearTimers, applyNext, isDisabled],
   );
 
   useEffect(() => () => clearTimers(), [clearTimers]);
@@ -188,10 +251,11 @@ export function useOverlay<T extends HTMLElement = HTMLElement>(
 
   // Participate in the per-ownerDocument dismissable-layer stack. Escape fires
   // only when this layer is topmost; pointer-down outside the content element
-  // closes this layer.
+  // closes this layer. Both routes go through `setOpenWithReason` so the
+  // wrapper sees the dismiss reason ahead of the open-change mirror.
   useDismissableLayer(contentNode, open, {
-    onEscapeKeyDown: () => setOpen(false),
-    onPointerDownOutside: () => setOpen(false),
+    onEscapeKeyDown: () => setOpenWithReason(false, "escape"),
+    onPointerDownOutside: () => setOpenWithReason(false, "outside"),
   });
 
   // Modal: trap focus + inert siblings. Focus-trap restores focus to the pre-activation element (trigger) on close.
