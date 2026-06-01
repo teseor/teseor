@@ -2425,7 +2425,7 @@ describe("checkEventsRuntimeSupport", () => {
       events: {
         dismiss: {
           description: "Closed.",
-          payload: { reason: { type: "enum", values: ["outside", "escape"] } },
+          payload: { reason: { type: "enum", values: ["outside", "escape", "button"] } },
         },
         select: { description: "Selected.", payload: { value: { type: "string" } } },
         inputChange: { description: "Input changed.", payload: { value: { type: "string" } } },
@@ -2433,5 +2433,67 @@ describe("checkEventsRuntimeSupport", () => {
     } as Spec;
     const issues = checkEventsRuntimeSupport(spec);
     expect(issues.map((i) => i.path).sort()).toEqual(["events.inputChange", "events.select"]);
+  });
+
+  test("rejects dismiss whose reason values diverge from the runtime contract", () => {
+    const spec: Spec = {
+      name: "modal",
+      kind: "composite",
+      overlay: {
+        anchor: "trigger",
+        floating: "content",
+        anchorVar: "--t-modal-anchor",
+        mode: "manual",
+        modal: false,
+      },
+      parts: {
+        trigger: { fromChildren: true },
+        content: { element: "div" },
+      },
+      events: {
+        dismiss: {
+          description: "Closed.",
+          payload: { reason: { type: "enum", values: ["outside", "escape"] } },
+        },
+      },
+    } as Spec;
+    const issues = checkEventsRuntimeSupport(spec);
+    expect(issues.map((i) => i.path)).toEqual(["events.dismiss.payload.reason"]);
+    expect(issues[0]?.message).toMatch(/match the wrapper-runtime contract exactly/);
+  });
+
+  test("rejects dismiss with a missing or non-enum reason field", () => {
+    const overlay = {
+      anchor: "trigger",
+      floating: "content",
+      anchorVar: "--t-modal-anchor",
+      mode: "manual" as const,
+      modal: false,
+    };
+    const parts = {
+      trigger: { fromChildren: true },
+      content: { element: "div" },
+    };
+    const missing: Spec = {
+      name: "modal",
+      kind: "composite",
+      overlay,
+      parts,
+      events: { dismiss: { description: "Closed.", payload: {} } },
+    } as Spec;
+    const wrongType: Spec = {
+      name: "modal",
+      kind: "composite",
+      overlay,
+      parts,
+      events: {
+        dismiss: { description: "Closed.", payload: { reason: { type: "string" } } },
+      },
+    } as Spec;
+    for (const spec of [missing, wrongType]) {
+      const issues = checkEventsRuntimeSupport(spec);
+      expect(issues.map((i) => i.path)).toEqual(["events.dismiss.payload.reason"]);
+      expect(issues[0]?.message).toMatch(/type 'enum'/);
+    }
   });
 });

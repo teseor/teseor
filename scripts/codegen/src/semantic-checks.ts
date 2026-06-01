@@ -1507,6 +1507,15 @@ export function checkEventsRuntimeSupport(spec: Spec): Issue[] {
     },
   ];
 
+  // Per-event runtime payload contract — the closed-set values the wrapper
+  // runtime actually fires. A spec whose payload diverges from this set
+  // would produce a generated wrapper whose handler signature can't be
+  // passed to the runtime hook (TS error downstream). Reject at the spec
+  // layer with a clear path.
+  const REQUIRED_REASON_VALUES: Record<string, ReadonlySet<string>> = {
+    dismiss: new Set(["outside", "escape", "button"]),
+  };
+
   const shape = SUPPORTED_BY_SHAPE.find((s) => s.matches(spec));
   for (const name of Object.keys(events)) {
     if (!shape) {
@@ -1526,6 +1535,34 @@ export function checkEventsRuntimeSupport(spec: Spec): Issue[] {
           spec.name,
           `events.${name}`,
           `Event '${name}' has no wrapper-runtime source on ${shape.shape} specs (v1 supports ${supported} only). Extend the generator template to fire the event before re-declaring it here.`,
+        ),
+      );
+      continue;
+    }
+    const expectedReasons = REQUIRED_REASON_VALUES[name];
+    if (!expectedReasons) continue;
+    const entry = events[name];
+    const reasonEntry = entry?.payload?.reason;
+    const expectedList = [...expectedReasons].map((v) => `'${v}'`).join(", ");
+    if (!reasonEntry || reasonEntry.type !== "enum") {
+      issues.push(
+        issue(
+          spec.name,
+          `events.${name}.payload.reason`,
+          `event '${name}' must declare a 'reason' field of type 'enum' with values matching the wrapper-runtime contract (${expectedList}).`,
+        ),
+      );
+      continue;
+    }
+    const declared = new Set(reasonEntry.values);
+    const exact =
+      declared.size === expectedReasons.size && [...expectedReasons].every((v) => declared.has(v));
+    if (!exact) {
+      issues.push(
+        issue(
+          spec.name,
+          `events.${name}.payload.reason`,
+          `event '${name}'.payload.reason.values must match the wrapper-runtime contract exactly. Required: [${expectedList}]; declared: [${[...declared].map((v) => `'${v}'`).join(", ")}].`,
         ),
       );
     }
