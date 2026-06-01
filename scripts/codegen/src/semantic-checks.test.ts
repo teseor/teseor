@@ -2496,4 +2496,53 @@ describe("checkEventsRuntimeSupport", () => {
       expect(issues[0]?.message).toMatch(/type 'enum'/);
     }
   });
+
+  test("rejects events: + generics: until composite-overlay wrappers support generic parameters", () => {
+    const spec: Spec = {
+      name: "modal",
+      kind: "composite",
+      overlay: {
+        anchor: "trigger",
+        floating: "content",
+        anchorVar: "--t-modal-anchor",
+        mode: "manual",
+        modal: false,
+      },
+      parts: {
+        trigger: { fromChildren: true },
+        content: { element: "div" },
+      },
+      generics: [{ name: "Item", description: "Item shape." }],
+      events: {
+        dismiss: {
+          description: "Closed.",
+          payload: { reason: { type: "enum", values: ["outside", "escape", "button"] } },
+        },
+      },
+    } as Spec;
+    const issues = checkEventsRuntimeSupport(spec);
+    expect(issues.some((i) => i.path === "generics")).toBe(true);
+    const generic = issues.find((i) => i.path === "generics");
+    expect(generic?.message).toMatch(/do not declare generic type parameters/);
+  });
+
+  test("accepts generics: alone (no events:)", () => {
+    const spec: Spec = {
+      name: "modal",
+      kind: "composite",
+      overlay: {
+        anchor: "trigger",
+        floating: "content",
+        anchorVar: "--t-modal-anchor",
+        mode: "manual",
+        modal: false,
+      },
+      parts: {
+        trigger: { fromChildren: true },
+        content: { element: "div" },
+      },
+      generics: [{ name: "Item", description: "Item shape." }],
+    } as Spec;
+    expect(checkEventsRuntimeSupport(spec)).toEqual([]);
+  });
 });

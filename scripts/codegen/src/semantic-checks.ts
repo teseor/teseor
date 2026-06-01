@@ -1494,16 +1494,21 @@ export function checkEventsRuntimeSupport(spec: Spec): Issue[] {
   // Today's runtime-supported event sources, scoped to spec shapes the
   // generator actually emits firing code for. Extending this set means
   // adding the firing path in the matching generator template + updating
-  // this list in the same change.
+  // this list in the same change. `supportsGenerics` tracks whether the
+  // generated wrapper declares type parameters on its props / signature —
+  // composite-overlay wrappers don't today, so a spec with `events:` AND
+  // `generics:` would emit references to undeclared identifiers.
   const SUPPORTED_BY_SHAPE: ReadonlyArray<{
     matches: (s: Spec) => boolean;
     events: ReadonlyArray<string>;
     shape: string;
+    supportsGenerics: boolean;
   }> = [
     {
       matches: (s) => isComposite(s) && Boolean(s.overlay),
       events: ["dismiss"],
       shape: "composite-overlay",
+      supportsGenerics: false,
     },
   ];
 
@@ -1517,6 +1522,23 @@ export function checkEventsRuntimeSupport(spec: Spec): Issue[] {
   };
 
   const shape = SUPPORTED_BY_SHAPE.find((s) => s.matches(spec));
+
+  // Generics + events combo: the wrapper template must declare the generic
+  // parameters on its props and component signature for the emitted type
+  // references to resolve. Until each shape's template gains that support,
+  // reject the combination here so consumers don't ship a contract that
+  // compiles in isolation but fails in the wrapper.
+  const hasGenerics = (spec.generics ?? []).length > 0;
+  if (shape && hasGenerics && !shape.supportsGenerics) {
+    issues.push(
+      issue(
+        spec.name,
+        "generics",
+        `${shape.shape} wrappers do not declare generic type parameters yet, so an events: block together with generics: would emit undeclared identifiers in the React wrapper. Remove generics: or wait for the wrapper-template generic-parameter pass.`,
+      ),
+    );
+  }
+
   for (const name of Object.keys(events)) {
     if (!shape) {
       issues.push(
