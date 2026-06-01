@@ -1198,7 +1198,7 @@ function collectControllableProps(spec: Spec): string[] {
  * `generics:` and controllable props:
  *
  *  - Name doesn't match the vocab pattern.
- *  - Last camelCase token isn't a registered verb (Levenshtein suggest).
+ *  - Last camelCase token isn't a registered verb (Levenshtein suggestion).
  *  - Name's verb is a synonym for a canonical verb.
  *  - Name's verb is a synonym whose canonical is '—' (controllable).
  *  - Payload `generic.ref` not in this spec's `generics:` block.
@@ -1596,7 +1596,9 @@ export function checkEventsRuntimeSupport(spec: Spec): Issue[] {
 
 /**
  * Rejections for repeating parts. Each rule has a stable number that
- * doesn't change even when the wording shifts.
+ * doesn't change even when the wording shifts. Gaps in the numbering
+ * (e.g. 10 → 12) are intentional — rules retired or merged keep their
+ * slot empty so existing references stay valid.
  *
  *  1. `repeating: true` + `fromChildren: true` — contradictory.
  *  2. `repeating: true` with no (or empty) `props:` — useless item shape.
