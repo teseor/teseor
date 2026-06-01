@@ -68,7 +68,7 @@ proposals, recommendation in this doc are the main-session synthesis.
 | flatten.ts:200 | `part.repeating === true` | Part is split out into `repeating[]` (effective propName = `propName ?? groupKey ?? <partName>s`) instead of being merged into root `props`. |
 | flatten.ts:208 | `propName ?? groupKey ?? plural` | Three-way fallback for the array prop name; `groupKey` doubles as both grouping identifier and propName. |
 | flatten.ts:215 | `part.groupKey` | Forwarded to FlatRepeatingPart so downstream generators can interleave loops. |
-| flatten.ts:255-256, 270-271 | Composite-only `overlay`/`interactions` + root `events`/`generics` | Propagated to FlatSpec. Atomic FlatSpec doesn't get overlay/interactions even though atomic schema doesn't forbid `events`/`generics`. |
+| flatten.ts:255-256, 270-271 | Composite branch carries `overlay`/`interactions` (atomic branch doesn't) | All four root-only optional blocks (`overlay`, `interactions`, `events`, `generics`) sit in `identityFields` and are schema-allowed on both kinds; the atomic branch of flatten propagates only `events`/`generics`, dropping `overlay`/`interactions` even when present. |
 
 ### `scripts/codegen/src/semantic-checks.ts`
 
@@ -219,7 +219,7 @@ Per-row tags (E = essential, A = accidental, U = unsure) with one-line reason.
 ### `flatten.ts`
 
 - 136 — **E** — atomic flatten is trivially the identity.
-- 172-173 (root events/generics on atomic) — **A** — schema allows it, semantic-checks rejects all known uses today, generators don't consume it. Dead carry-through.
+- 172-173 (root events/generics on atomic) — **A** — `gen-contract` does read `FlatSpec.events`/`generics` for both kinds (per-spec.ts:159-160, 165-207), but `checkEventsRuntimeSupport` (semantic-checks.ts:1508) rejects atomic specs declaring `events:` — the runtime-support matcher matches no atomic shape today — and no atomic specs declare either field. Carry-through runs but produces empty output. Dead in practice.
 - 200 — **E** — repeating parts produce a different consumer surface.
 - 208 (three-way propName) — **A** — only exists because `groupKey` doubles as identifier and propName.
 - 215 — **E**.
