@@ -24,7 +24,7 @@ const VUE_SRC_DIR = resolve(REPO_ROOT, "packages", "vue", "src");
 
 /** Dispatch to the kind-specific renderer for the spec's `kind:` field.
  *  Composite specs split by shape: overlay-anchor (Tooltip / Modal) vs
- *  repeating-list (Pagination, RFC-0005). */
+ *  repeating-list. */
 function renderWrapper(spec: Spec, propDescriptions: Record<string, string>): string {
   if (spec.kind === "composite") {
     if (spec.repeating && spec.repeating.length > 0) return renderCompositeListVueWrapper(spec);

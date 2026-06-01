@@ -1195,13 +1195,13 @@ function collectControllableProps(spec: Spec): string[] {
 
 /**
  * Validates `events:` declarations against the vocab + the spec's own
- * `generics:` and controllable props. Per RFC-0006 § Validator rules:
+ * `generics:` and controllable props:
  *
- *  - E1 — event name doesn't match the vocab pattern.
- *  - E2 — last camelCase token isn't a registered verb (Levenshtein suggest).
- *  - E3 — name's verb is a synonym for a canonical verb.
- *  - E4 — name's verb is a synonym whose canonical is '—' (controllable).
- *  - E5 — payload `generic.ref` not in this spec's `generics:` block.
+ *  - Name doesn't match the vocab pattern.
+ *  - Last camelCase token isn't a registered verb (Levenshtein suggest).
+ *  - Name's verb is a synonym for a canonical verb.
+ *  - Name's verb is a synonym whose canonical is '—' (controllable).
+ *  - Payload `generic.ref` not in this spec's `generics:` block.
  *  - E6 — payload `builtin.name` not in vocab `events.builtins`.
  *  - E8 — event name collides with a `<prop>Change` callback emitted by a
  *    controllable prop on this spec.
@@ -1472,11 +1472,11 @@ export function checkEvents(spec: Spec, vocabulary: Vocabulary): Issue[] {
 }
 
 /**
- * Runtime-source check for declared events (RFC-0006 step 3b).
+ * Runtime-source check for declared events.
  *
  * `gen-contract` produces type surfaces for any declared event, but a
  * wrapper-runtime auto-fire path exists only for a small subset today. The
- * audit principle (see project_codegen_surface_audit.md, category 1):
+ * audit principle:
  * either the generator fires the event, or the semantic check rejects the
  * declaration. Without this rule, a spec can declare `select` /
  * `inputChange` / `rowClick`; consumers see the per-event prop on the
@@ -1592,12 +1592,11 @@ export function checkEventsRuntimeSupport(spec: Spec): Issue[] {
   return issues;
 }
 
-// ── Repeating parts (RFC-0005, phase 1) ─────────────────────────────────────
+// ── Repeating parts ─────────────────────────────────────────────────────────
 
 /**
- * Rejections for repeating parts (RFC-0005). Each rule has a stable number
- * referenced in the RFC validator table; numbers don't change even when the
- * wording shifts.
+ * Rejections for repeating parts. Each rule has a stable number that
+ * doesn't change even when the wording shifts.
  *
  *  1. `repeating: true` + `fromChildren: true` — contradictory.
  *  2. `repeating: true` with no (or empty) `props:` — useless item shape.

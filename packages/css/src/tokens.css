@@ -71,8 +71,8 @@
 
        Every spatial token derives from --t-unit via calc(). Override --t-unit
        in any subtree to rescale spacing, row heights, radii, and the
-       touch-target floor coherently. Type and leading derive in Phase 2
-       (#804); they shift the rhythm story and are deferred together. */
+       touch-target floor coherently. Type and leading do not derive from
+       --t-unit today (tracked in #804). */
     --t-unit: 0.25rem;
 
     /* ===== Spacing — curated non-linear ladder (multipliers 0, 1..4, 6, 8, 12, 16) ===== */
@@ -92,7 +92,7 @@
     --t-row-3: calc(var(--t-unit) * 10); /* 40px */
     --t-row-4: calc(var(--t-unit) * 12); /* 48px */
 
-    /* ===== Typography — derived from --t-unit (Phase 2 of tokens-v4) =====
+    /* ===== Typography — derived from --t-unit =====
 
        Sizes are unit-multiples. Half-multipliers on `sm` and `lg` resolve to
        14px and 18px — off the 4px grid as glyph boxes, but the line box lands
@@ -233,7 +233,7 @@
       oklch(from var(--t-seed) 50% c h) calc(var(--t-harmony) * 100%)
     );
 
-    /* ===== Intent foregrounds — derived per RFC-0004 phase 4. ===== */
+    /* ===== Intent foregrounds — black or white pick driven by the L threshold. ===== */
     --t-on-accent: oklch(from var(--t-accent) max(0, sign(0.62 - l)) 0 h);
     --t-on-success: oklch(from var(--t-success) max(0, sign(0.62 - l)) 0 h);
     --t-on-warning: oklch(from var(--t-warning) max(0, sign(0.62 - l)) 0 h);
@@ -245,10 +245,10 @@
 
     /* ===== Spacing shorthands =====
 
-       Named aliases for the most-used rungs. They derive from `--t-unit`
-       transitively (Phase 1), so a `--t-unit` override anywhere in the
-       cascade — including the `[data-density]` modifiers below — rescales
-       them along with every other spatial token. */
+       Named aliases for the most-used rungs. They derive transitively from
+       `--t-unit`, so a `--t-unit` override anywhere in the cascade —
+       including the `[data-density]` modifiers below — rescales them along
+       with every other spatial token. */
     --t-pad-x: var(--t-space-4);
     --t-pad-y: var(--t-space-2);
     --t-gap: var(--t-space-3);

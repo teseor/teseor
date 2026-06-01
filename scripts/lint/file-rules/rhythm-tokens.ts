@@ -1,4 +1,4 @@
-// Enforces the unit-derived spatial system (RFC-0003 / #803):
+// Enforces the unit-derived spatial system (see #803):
 //   1. Every derived spatial token in tokens.css traces to `var(--t-unit)`.
 //   2. Every sizing-property value in component CSS contains no raw `px` /
 //      `rem` literal outside of `var(...)` fallback positions. The rule
@@ -9,7 +9,7 @@
 //      units (`vh`, `vw`, `sv*`, `lv*`, `dv*`, `cq*`) — are allowed; the rule
 //      treats them as relative or context-bound rather than as drift.
 //
-// Out of scope (Phase 2 / #804): text-size and leading. The rule deliberately
+// Out of scope (see #804): text-size and leading. The rule deliberately
 // does not constrain `font-size` / `line-height`.
 import { readdirSync, readFileSync } from "node:fs";
 import { relative, resolve } from "node:path";

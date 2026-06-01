@@ -63,7 +63,7 @@ export function renderExampleProps(
 /**
  * Render one `@example` JSDoc block (the leader, the fenced snippet, and the
  * closing fence). The caller assembles multiple blocks into a single JSDoc.
- * Composite-list specs (RFC-0005) render only from an array prop and accept
+ * Composite-list specs render only from an array prop and accept
  * no children — pass `selfClosing: true` to emit `<Name … />` instead of
  * `<Name …>Label</Name>` so the published examples match the runtime shape.
  */

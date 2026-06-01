@@ -136,7 +136,7 @@ type ComponentPart = {
 // list. Codegen iterates an array prop named by `propName:` (default: plural
 // of part name) and emits one element per item. `groupKey:` opts a repeating
 // part into a shared array with sibling repeating parts of the same key —
-// codegen interleaves their iteration into one loop. See RFC-0005.
+// codegen interleaves their iteration into one loop.
 const componentPart: z.ZodType<ComponentPart> = z.lazy(() =>
   z.strictObject({
     ...componentNodeFields,

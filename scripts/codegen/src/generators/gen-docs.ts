@@ -69,7 +69,7 @@ async function readForcedColors(
 
 /** Dispatch to the kind-specific renderer for the spec's `kind:` field.
  *  Composite specs split by shape: overlay-anchor (Tooltip / Modal) vs
- *  repeating-list (Pagination, RFC-0005). */
+ *  repeating-list. */
 function renderDocsPage(spec: DocsSpec): string {
   if (spec.kind === "composite") {
     if (spec.repeating && spec.repeating.length > 0) return renderCompositeListDocsPage(spec);
