@@ -373,8 +373,10 @@ New semantic-check rules:
    prop to the runtime's initial state.
 10. **Guard expressions parse and resolve.** `when:` expressions must
     match the supported grammar (`<part>.<boolean-prop>` with optional
-    `!` negation), `<part>` must be a sibling of the current part, and
-    `<boolean-prop>` must be a `type: boolean` prop on that part.
+    `!` negation), `<part>` must be a part declared anywhere in the
+    spec's parts tree (same resolution as rule 3, relying on rule 3a's
+    uniqueness check), and `<boolean-prop>` must be a `type: boolean`
+    prop on that part.
 
 The audit's P1 (shared visitor for atomic-vs-composite walks) is
 *superseded* by this RFC's reshape of the validator — the new rules
@@ -413,7 +415,8 @@ solving disappears as a byproduct.
   more in the planned roadmap before stable. The window for the rewrite
   is now (pre-release, no consumers); the cost compounds with every
   composite that lands first.
-- **The validator grows.** Nine new rules + the source-prefix vocab.
+- **The validator grows.** Ten new rules (plus one sub-rule on
+  part-name uniqueness) + the source-prefix vocab.
   Net LOC in `semantic-checks.ts` may go *up* (new structural rules) even
   though the cross-block name-matching disappears. The win is on the
   *spec* side, not the validator.
