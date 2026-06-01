@@ -120,19 +120,23 @@ examples:
     props: { title: "Are you sure?" }
 ```
 
-The name `trigger` appears in exactly two places: where it's defined
-(`parts.trigger`) and where it's referenced by `content.overlay.anchor`
-and the `trigger.click` transition source. The state model is colocated
-with the part it describes (`content`, the overlay floating element).
-The `interactions:` block is gone; the `overlay:` block moves onto
+The name `trigger` appears in three places: where it's defined
+(`parts.trigger`) and twice from inside the `content` part — once in
+`overlay.anchor` and once as the `trigger.click` event-source prefix.
+The count is the same as today, but the references now sit next to the
+part that uses them instead of scattering across three independent
+root-level blocks (`overlay:`, `interactions:`, `parts:`) joined by
+string-key alone. The state model is colocated with the part it
+describes (`content`, the overlay floating element); the
+`interactions:` block is gone; the root `overlay:` block moves onto
 `content`.
 
 ### Schema changes
 
 The existing `states:` field on `componentNodeFields`
 (schema.ts:71-84) — a record of `stateEntry` describing CSS-driven
-visual states (Button's `hover` / `focus` / `disabled` / `loading`,
-rendered as docs entries) — is renamed `visualStates:`. The name
+visual states (Button's `hover` / `focus` / `active` / `disabled` /
+`loading`, rendered as docs entries) — is renamed `visualStates:`. The name
 `states:` is freed for the state-machine block this RFC introduces.
 Button-spec migration: a one-line rename, done as part of the rewrite
 PR.
