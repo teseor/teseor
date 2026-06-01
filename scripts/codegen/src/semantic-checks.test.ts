@@ -1166,7 +1166,7 @@ describe("checkExamplesPresent", () => {
   });
 });
 
-describe("checkRepeatingParts (RFC-0005)", () => {
+describe("checkRepeatingParts", () => {
   test("non-repeating composite produces no issues", () => {
     const spec: Spec = {
       name: "tooltip",
@@ -1893,7 +1893,7 @@ describe("checkRepeatingParts (RFC-0005)", () => {
   });
 });
 
-describe("checkEvents (RFC-0006)", () => {
+describe("checkEvents", () => {
   function makeEvents(events: Record<string, unknown>, extra: Partial<Spec> = {}): Spec {
     return makeButton({
       events: events as Spec["events"],

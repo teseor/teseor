@@ -1202,12 +1202,12 @@ function collectControllableProps(spec: Spec): string[] {
  *  - Name's verb is a synonym for a canonical verb.
  *  - Name's verb is a synonym whose canonical is '—' (controllable).
  *  - Payload `generic.ref` not in this spec's `generics:` block.
- *  - E6 — payload `builtin.name` not in vocab `events.builtins`.
- *  - E8 — event name collides with a `<prop>Change` callback emitted by a
+ *  - Payload `builtin.name` not in vocab `events.builtins`.
+ *  - Event name collides with a `<prop>Change` callback emitted by a
  *    controllable prop on this spec.
  *
- * E7 ("events declared on a sub-part") falls out of the schema: `events:`
- * lives on `identityFields`, so a part-level declaration fails strictObject
+ * Sub-part declarations fall out of the schema: `events:` lives on
+ * `identityFields`, so a part-level declaration fails strictObject
  * with an "Unrecognized key" before semantic checks run.
  */
 // Generic names that would shadow codegen-emitted globals when used as a

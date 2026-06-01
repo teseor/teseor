@@ -70,9 +70,8 @@
     /* ===== Grid unit — sole knob for the spatial system =====
 
        Every spatial token derives from --t-unit via calc(). Override --t-unit
-       in any subtree to rescale spacing, row heights, radii, and the
-       touch-target floor coherently. Type and leading do not derive from
-       --t-unit today (tracked in #804). */
+       in any subtree to rescale spacing, row heights, radii, the touch-target
+       floor, and (transitively) typography sizes and leading. */
     --t-unit: 0.25rem;
 
     /* ===== Spacing — curated non-linear ladder (multipliers 0, 1..4, 6, 8, 12, 16) ===== */

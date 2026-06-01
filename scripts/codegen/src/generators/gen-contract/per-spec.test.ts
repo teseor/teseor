@@ -117,7 +117,7 @@ describe("renderContract", () => {
     expect(out).toContain("low contrast");
   });
 
-  test("merges parts sharing `groupKey:` into one Item type + one array prop (RFC-0005)", () => {
+  test("merges parts sharing `groupKey:` into one Item type + one array prop", () => {
     const out = renderContract(
       spec({
         name: "tabs-list",
@@ -160,7 +160,7 @@ describe("renderContract", () => {
     expect(out).not.toContain("TabsListTabIconItem");
   });
 
-  test("emits an Item type and a ReadonlyArray prop for each repeating part (RFC-0005)", () => {
+  test("emits an Item type and a ReadonlyArray prop for each repeating part", () => {
     const out = renderContract(
       spec({
         name: "pagination",
