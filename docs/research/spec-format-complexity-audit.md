@@ -213,7 +213,7 @@ Per-row tags (E = essential, A = accidental, U = unsure) with one-line reason.
 - 285 (`slotElement`) — **U** — one rare convenience (Codeblock's `<pre><code>`). A composite with a nested part could replace it.
 - 264-278 root-only fields — **E** for `examples`/`coverage`/`guidance`/`generics`/`events`; **U** for `overlay`/`interactions` (placement choice).
 - 140-149 part-only fields — **E** — only meaningful inside a composite parts tree.
-- 36, 115 (`pattern: "controllable"`) — **A** — single-literal enum smell; could be a boolean `controllable: true` flag. Note: `behavior:` field at schema.ts:269 (declared on every composite spec but read by no generator) overlaps semantically.
+- 36, 115 (`pattern: "controllable"`) — **A** — single-literal enum smell; could be a boolean `controllable: true` flag. Note: `behavior:` field at schema.ts:269 overlaps semantically — schema-allowed on both kinds (it sits in `identityFields`), declared on the 4 current composite specs and on none of the atomic specs, read by no generator.
 - 71-84 shared node fields — **E** — intentional shape symmetry across atomic root and composite parts.
 
 ### `flatten.ts`
@@ -285,10 +285,10 @@ full paths appear in the inventory tables.)
 
 - gen-docs.ts:74-78 — **E**.
 - shared examples.ts `isComposite` + `isList` dispatch — **E** for the rendering distinction. **A** for the implementation (boolean-flag style; three explicit example-shape templates would be clearer).
-- shared sections.ts:54-69 (`hasFromChildrenPart` walker) — **A** in implementation — duplicates walk logic that `flatten.visitParts` already does.
+- shared sections.ts:54-69 (`hasFromChildrenPart` walker) — **A** in implementation — duplicates the private parts-walk at flatten.ts:121 (`visitParts`, not exported today).
 - shared sections.ts:83-106 (controllable triple) — **A** — fourth copy.
 - 108, 186 — **E**.
-- 120 (`asChild` synthetic row) — **A** — generator emits a prop the spec doesn't declare, docs has to mirror it. Flagged in memory `project_composite_generator_props_need_docs_mirror`.
+- 120 (`asChild` synthetic row) — **A** — generator emits a prop the spec doesn't declare, docs has to mirror it independently.
 - 132 (`ref` synthetic row) — **A** — same issue.
 - 143-161 — **E**.
 - 170 — **E**.
@@ -363,10 +363,11 @@ framework event emitters would centralize this.
 **Rows:** gen-docs/_shared/sections.ts:120 (synthetic `asChild`) · gen-docs/_shared/sections.ts:132 (synthetic `ref`).
 
 The wrappers emit `asChild` and `ref` props that the spec doesn't declare.
-Docs hand-adds them per overlay/fromChildren detection. The
-`project_composite_generator_props_need_docs_mirror` memory already
-flags this. A "generator-contributed props" registry consumed by both
-the contract emitter and the docs renderer would collapse this.
+Docs hand-adds them per overlay/fromChildren detection — a coupling that
+has surfaced repeatedly in PR review when a new generator-emitted prop
+gets added and the docs row is forgotten. A "generator-contributed props"
+registry consumed by both the contract emitter and the docs renderer
+would collapse this.
 
 ### Pattern 7 — Atomic-vs-composite root shape (the #855 flagship candidate)
 
@@ -514,9 +515,8 @@ matched.
 
 **Cost:** ~30 LOC new registry. ~10 LOC removed in gen-docs/sections.
 
-**Gain:** Future generator-emitted props (the `project_composite_generator_props_need_docs_mirror`
-memory tracks this as a known PR-feedback pattern) land in one place
-rather than two coupled places.
+**Gain:** Future generator-emitted props land in one place rather than in
+two independently-maintained sites. Closes a recurring PR-review gap.
 
 ## Recommendation
 
@@ -611,8 +611,10 @@ P3 forces redundancy in every interleaved-repeating spec.
   and gen-vue composite-overlay emitters. Centralizes the
   overlay-anchor / `fromChildren: true` invariant; generators correctly
   delegate. No changes proposed.
-- The `behavior:` field at schema.ts:269 — declared on every composite
-  spec, read by no generator. Flagged under Pattern 1.
+- The `behavior:` field at schema.ts:269 — schema-allowed on both
+  kinds (it sits in `identityFields`); declared on the 4 current
+  composite specs and on none of the atomic specs; read by no
+  generator. Flagged under Pattern 1.
 - Backwards-compat for spec consumers (none exist; the project is
   pre-release and explicitly forgoes retro-compatibility).
 - Generator-implementation style (the `lines.push("<...>")` pattern
