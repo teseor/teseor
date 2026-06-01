@@ -1,6 +1,7 @@
 ---
 "@teseor/css": patch
 "@teseor/react": patch
+"@teseor/vue": patch
 "@teseor/contract": patch
 ---
 

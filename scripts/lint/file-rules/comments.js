@@ -39,12 +39,12 @@ const PATTERNS = [
   },
   {
     label: "step marker",
-    re: /\bstep \d+[a-z]?\b/i,
+    re: /\bstep[ -]\d+[a-z]?\b/i,
     hint: "Step labels live in the originating plan; the code should read independently.",
   },
   {
     label: "phase marker (numbered)",
-    re: /\bphase \d+[a-z]?\b/i,
+    re: /\bphase[ -]\d+[a-z]?\b/i,
     hint: "Phase numbers re-shuffle as plans evolve; describe the work, not the phase.",
   },
   {
