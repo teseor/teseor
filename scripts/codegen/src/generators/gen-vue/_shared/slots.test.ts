@@ -9,7 +9,7 @@ function atomicSpec(overrides: Partial<Spec> = {}): Spec {
     kind: "atomic",
     props: {},
     tokens: {},
-    states: {},
+    visualStates: {},
     ...overrides,
   };
 }

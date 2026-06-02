@@ -1,4 +1,7 @@
-import { extractCompositeShape } from "../../../lib/composite-shape.ts";
+import {
+  extractCompositeShape,
+  legacyInteractionsFromStates,
+} from "../../../lib/composite-shape.ts";
 import { renderEnumType } from "../../../lib/enum-primitives.ts";
 import { pascalCase } from "../../../lib/pascal-case.ts";
 import type { Spec } from "../../gen-contract.ts";
@@ -16,15 +19,22 @@ export function renderCompositeOverlayVueWrapper(
   _propDescriptions: Record<string, string>,
 ): string {
   const Name = pascalCase(spec.name);
-  // `overlaySpec` (not `overlay`) so the generator-side reference doesn't
-  // shadow the emitted runtime variable `const overlay = useOverlay(...)`.
-  const { overlaySpec, triggerClass, contentClass, contentElement, contentRole } =
-    extractCompositeShape(spec, {
-      emitterLabel: "Vue composite emitter only supports the overlay-with-anchor shape",
-      separateMissingPartErrors: false,
-      forbidContentFromChildren: false,
-    });
-  const interactions = spec.interactions ?? [];
+  // `overlaySpec` (not `overlay`) avoids shadowing the emitted runtime
+  // `const overlay = useOverlay(...)`.
+  const {
+    overlaySpec,
+    contentPart,
+    contentPartName,
+    triggerClass,
+    contentClass,
+    contentElement,
+    contentRole,
+  } = extractCompositeShape(spec, {
+    emitterLabel: "Vue composite emitter only supports the overlay-with-anchor shape",
+    separateMissingPartErrors: false,
+    forbidContentFromChildren: false,
+  });
+  const interactions = legacyInteractionsFromStates(contentPart);
 
   const controllableEntry = Object.entries(spec.props).find(
     ([, d]) => d.pattern === "controllable" && d.type === "boolean",
@@ -38,7 +48,7 @@ export function renderCompositeOverlayVueWrapper(
   const ControllableName = pascalCase(controllableName);
 
   const contentSlots = Object.entries(spec.props)
-    .filter(([, d]) => d.slot === true && d.__part === overlaySpec.floating)
+    .filter(([, d]) => d.slot === true && d.__part === contentPartName)
     .map(([n]) => n);
 
   const responsiveProps = Object.entries(spec.props)

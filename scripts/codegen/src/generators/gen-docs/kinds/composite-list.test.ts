@@ -8,7 +8,7 @@ function paginationSpec(overrides: Partial<DocsSpec> = {}): DocsSpec {
     kind: "composite",
     props: {},
     tokens: {},
-    states: {},
+    visualStates: {},
     repeating: [
       {
         partName: "page",

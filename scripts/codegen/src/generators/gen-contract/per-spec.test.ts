@@ -10,7 +10,7 @@ function spec(overrides: SpecOverrides = {}): FlatSpec {
     kind: "atomic",
     props: {},
     tokens: {},
-    states: {},
+    visualStates: {},
     ...overrides,
   };
 }

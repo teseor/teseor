@@ -6,7 +6,7 @@ import { renderTable, section } from "./table-printer.ts";
 
 /** Spec fields the docs page reads beyond the shared generator subset. */
 export type DocsSpec = Spec & {
-  states?: Record<string, { description?: string }>;
+  visualStates?: Record<string, { description?: string }>;
   tokens?: Record<string, { fallback?: string; desc?: string }>;
   a11y?: { role?: string; keyboard?: Record<string, string> };
   // Size of `packages/css/dist/components/<name>.css` injected by gen-docs.ts
@@ -65,6 +65,25 @@ export function hasFromChildrenPart(spec: DocsSpec): boolean {
   };
   return visit(
     (spec as { parts?: Record<string, { fromChildren?: boolean; parts?: unknown }> })
+      .parts as Parameters<typeof visit>[0],
+  );
+}
+
+/** True when any part of the composite declares an `overlay:` block. */
+export function hasOverlayPart(spec: DocsSpec): boolean {
+  if (spec.kind !== "composite") return false;
+  const visit = (
+    parts: Record<string, { overlay?: unknown; parts?: typeof parts }> | undefined,
+  ): boolean => {
+    if (!parts) return false;
+    for (const part of Object.values(parts)) {
+      if (part.overlay !== undefined) return true;
+      if (part.parts && visit(part.parts)) return true;
+    }
+    return false;
+  };
+  return visit(
+    (spec as { parts?: Record<string, { overlay?: unknown; parts?: unknown }> })
       .parts as Parameters<typeof visit>[0],
   );
 }
@@ -128,8 +147,8 @@ export function renderProps(spec: DocsSpec): string {
   }
   // `ref` is emitted by the composite-overlay generators (React: ref prop +
   // mergeRefs; Vue: defineExpose({ contentRef })). The gate matches the
-  // generator's: `kind === "composite"` plus an `overlay:` block.
-  if (spec.kind === "composite" && spec.overlay) {
+  // generator's: `kind === "composite"` plus an `overlay:` block on a part.
+  if (spec.kind === "composite" && hasOverlayPart(spec)) {
     rows.push([
       `<Code>ref</Code>`,
       `<Code>Ref&lt;HTMLElement&gt;</Code>`,
@@ -222,8 +241,8 @@ export function renderNamed(
 }
 
 export function renderStates(spec: DocsSpec): string {
-  if (!spec.states || Object.keys(spec.states).length === 0) return "";
-  const rows = Object.entries(spec.states).map(([name, def]) => [
+  if (!spec.visualStates || Object.keys(spec.visualStates).length === 0) return "";
+  const rows = Object.entries(spec.visualStates).map(([name, def]) => [
     `<Code>${esc(name)}</Code>`,
     esc(def.description ?? ""),
   ]);
@@ -250,7 +269,7 @@ export function renderA11y(spec: DocsSpec): string {
   // way to redeclare `Escape` or `Outside pointer-down` keeps its wording, and
   // the universal contract only fills in keys the spec didn't speak to.
   const declaredKeys = new Set(declaredKeyboard.map(([key]) => key));
-  const overlayKeyboard = spec.overlay
+  const overlayKeyboard = hasOverlayPart(spec)
     ? OVERLAY_KEYBOARD_ROWS.filter(([key]) => !declaredKeys.has(key))
     : [];
   const keyboard = [...declaredKeyboard, ...overlayKeyboard];

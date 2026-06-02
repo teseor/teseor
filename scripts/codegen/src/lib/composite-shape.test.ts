@@ -15,40 +15,38 @@ const VUE_OPTS: CompositeShapeOptions = {
   forbidContentFromChildren: false,
 };
 
-function makeCompositeSpec(parts: Record<string, SpecPart>, overlayPresent = true): FlatSpec {
+function makeCompositeSpec(parts: Record<string, SpecPart>): FlatSpec {
   return {
     name: "tooltip",
     kind: "composite",
-    overlay: overlayPresent
-      ? {
-          anchor: "trigger",
-          floating: "content",
-          mode: "auto",
-          anchorVar: "--tooltip-anchor",
-          modal: false,
-        }
-      : undefined,
     parts,
     props: {},
     tokens: {},
-    states: {},
+    visualStates: {},
   };
 }
+
+const OVERLAY_BLOCK = {
+  anchor: "trigger",
+  anchorVar: "--tooltip-anchor",
+  mode: "auto" as const,
+  modal: false,
+};
 
 describe("extractCompositeShape", () => {
   it("returns the shape for a valid spec", () => {
     const spec = makeCompositeSpec({
       trigger: { fromChildren: true },
-      content: { element: "div", rootClass: "my-content", a11y: { role: "tooltip" } },
+      content: {
+        element: "div",
+        rootClass: "my-content",
+        a11y: { role: "tooltip" },
+        overlay: OVERLAY_BLOCK,
+      },
     });
     const shape = extractCompositeShape(spec, REACT_OPTS);
-    expect(shape.overlaySpec).toEqual({
-      anchor: "trigger",
-      floating: "content",
-      mode: "auto",
-      anchorVar: "--tooltip-anchor",
-      modal: false,
-    });
+    expect(shape.overlaySpec).toEqual(OVERLAY_BLOCK);
+    expect(shape.contentPartName).toBe("content");
     expect(shape.triggerClass).toBe("t-tooltip-trigger");
     expect(shape.contentClass).toBe("my-content");
     expect(shape.contentElement).toBe("div");
@@ -58,7 +56,7 @@ describe("extractCompositeShape", () => {
   it("defaults contentClass to t-<name> and contentElement to div", () => {
     const spec = makeCompositeSpec({
       trigger: { fromChildren: true },
-      content: {},
+      content: { overlay: OVERLAY_BLOCK },
     });
     const shape = extractCompositeShape(spec, REACT_OPTS);
     expect(shape.contentClass).toBe("t-tooltip");
@@ -66,41 +64,37 @@ describe("extractCompositeShape", () => {
     expect(shape.contentRole).toBeUndefined();
   });
 
-  it("throws when spec.overlay is absent", () => {
-    const spec = makeCompositeSpec(
-      {
-        trigger: { fromChildren: true },
-        content: {},
-      },
-      false,
-    );
+  it("throws when no part declares overlay:", () => {
+    const spec = makeCompositeSpec({
+      trigger: { fromChildren: true },
+      content: {},
+    });
     expect(() => extractCompositeShape(spec, REACT_OPTS)).toThrow(
-      "composite spec 'tooltip' must declare 'overlay:' for the overlay-with-anchor shape",
+      "composite spec 'tooltip' must declare 'overlay:' on a part",
     );
   });
 
-  it("throws separate errors for missing anchor/floating in React mode", () => {
-    const noAnchor = makeCompositeSpec({ content: {} });
-    expect(() => extractCompositeShape(noAnchor, REACT_OPTS)).toThrow(
+  it("throws when more than one part declares overlay:", () => {
+    const spec = makeCompositeSpec({
+      trigger: { fromChildren: true, overlay: OVERLAY_BLOCK },
+      content: { overlay: OVERLAY_BLOCK },
+    });
+    expect(() => extractCompositeShape(spec, REACT_OPTS)).toThrow(
+      "declares 'overlay:' on more than one part",
+    );
+  });
+
+  it("throws when the named anchor part is absent", () => {
+    const spec = makeCompositeSpec({ content: { overlay: OVERLAY_BLOCK } });
+    expect(() => extractCompositeShape(spec, REACT_OPTS)).toThrow(
       "overlay.anchor 'trigger' is not a declared part",
-    );
-    const noFloating = makeCompositeSpec({ trigger: { fromChildren: true } });
-    expect(() => extractCompositeShape(noFloating, REACT_OPTS)).toThrow(
-      "overlay.floating 'content' is not a declared part",
-    );
-  });
-
-  it("throws a combined error for missing parts in Vue mode", () => {
-    const spec = makeCompositeSpec({ content: {} });
-    expect(() => extractCompositeShape(spec, VUE_OPTS)).toThrow(
-      "overlay.anchor 'trigger' or overlay.floating 'content' is not a declared part",
     );
   });
 
   it("throws when anchor does not declare fromChildren: true", () => {
     const spec = makeCompositeSpec({
       trigger: {},
-      content: {},
+      content: { overlay: OVERLAY_BLOCK },
     });
     expect(() => extractCompositeShape(spec, REACT_OPTS)).toThrow(
       "overlay.anchor 'trigger' must declare 'fromChildren: true' (this generator only emits the overlay-with-anchor shape)",
@@ -110,7 +104,7 @@ describe("extractCompositeShape", () => {
   it("uses the Vue emitterLabel in the anchor-fromChildren error", () => {
     const spec = makeCompositeSpec({
       trigger: {},
-      content: {},
+      content: { overlay: OVERLAY_BLOCK },
     });
     expect(() => extractCompositeShape(spec, VUE_OPTS)).toThrow(
       "overlay.anchor 'trigger' must declare 'fromChildren: true' (Vue composite emitter only supports the overlay-with-anchor shape)",
@@ -120,17 +114,17 @@ describe("extractCompositeShape", () => {
   it("throws when content declares fromChildren and React mode forbids it", () => {
     const spec = makeCompositeSpec({
       trigger: { fromChildren: true },
-      content: { fromChildren: true },
+      content: { fromChildren: true, overlay: OVERLAY_BLOCK },
     });
     expect(() => extractCompositeShape(spec, REACT_OPTS)).toThrow(
-      "overlay.floating 'content' cannot declare 'fromChildren: true'",
+      "the overlay-declaring part 'content' cannot also declare 'fromChildren: true'",
     );
   });
 
   it("does NOT throw when content declares fromChildren in Vue mode", () => {
     const spec = makeCompositeSpec({
       trigger: { fromChildren: true },
-      content: { fromChildren: true },
+      content: { fromChildren: true, overlay: OVERLAY_BLOCK },
     });
     expect(() => extractCompositeShape(spec, VUE_OPTS)).not.toThrow();
   });

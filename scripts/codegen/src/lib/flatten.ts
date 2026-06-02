@@ -1,13 +1,6 @@
-// Composite-to-atomic flattening for generators that were authored against
-// the atomic spec shape. A composite spec's `parts:` map is walked once and
-// every part's `props`, `tokens`, `states`, `a11y`, and `motion` blocks are
-// merged into the root level. The generator then sees a single normalized
-// object regardless of `kind:`.
-//
-// Each merged item carries `__part` (the originating part name) so generators
-// that need to route attributes/handlers back to a specific part (gen-react,
-// gen-vue) can do so. Generators that don't care (gen-contract, gen-docs)
-// ignore it.
+// Normalize an atomic-or-composite spec into one flat shape. `__part` markers
+// route attributes/handlers back to the originating part when generators
+// emit per-part DOM (gen-react, gen-vue).
 import type { Spec, SpecPart } from "../schema.ts";
 
 export type FlatProp = {
@@ -55,7 +48,7 @@ export type FlatToken = {
   __part: string;
 };
 
-export type FlatState = {
+export type FlatVisualState = {
   description: string;
   __part: string;
 };
@@ -77,44 +70,33 @@ export type FlatSpec = {
   description?: string;
   kind: "atomic" | "composite";
   cssFile?: string;
-  behavior?: "none" | "primitive" | "stateful";
   primitives?: string[];
   dependencies?: string[];
-  overlay?: NonNullable<Spec["overlay"]>;
-  interactions?: NonNullable<Spec["interactions"]>;
   examples?: Spec["examples"];
   coverage?: Spec["coverage"];
-  /** The originating composite parts, untouched, so generators that need
-   *  per-part rendering (gen-react / gen-vue) can walk them directly. */
+  /** Original composite parts, untouched — generators that need per-part
+   *  rendering (gen-react / gen-vue) walk them directly for state machines
+   *  and per-part overlay blocks. */
   parts?: Record<string, SpecPart>;
-  /** Root-level element of an atomic spec; undefined for composite. */
   element?: string;
-  /** Optional nested element wrapping slot content (e.g. `pre` + `code`). Atomic-only. */
   slotElement?: string;
-  /** Root-level CSS class of an atomic spec; undefined for composite. */
   rootClass?: string;
-  /** Atomic-only blocks; composite specs flatten variants/intents/sizes from
-   *  whichever part declares them. Tooltip doesn't use them. */
   variants?: Record<string, { description: string }>;
   intents?: Record<string, { description: string; tokens?: Record<string, string> }>;
   sizes?: Record<string, { description: string; tokens?: Record<string, string> }>;
   /** Merged across all parts (composite) or the atomic root. */
   props: Record<string, FlatProp>;
   tokens: Record<string, FlatToken>;
-  states: Record<string, FlatState>;
+  visualStates: Record<string, FlatVisualState>;
   a11y?: FlatA11y;
   motion?: FlatMotion;
   privateTokens?: string[];
   constraints?: Extract<Spec, { kind: "atomic" }>["constraints"];
-  /** Repeating parts. Composite-only; undefined when no part
-   *  declares `repeating: true`. */
   repeating?: FlatRepeatingPart[];
-  /** Consumer-facing event surface. Root-only on the spec; passed through
-   *  unchanged for generators that emit per-event props + the discriminated
-   *  channel. */
+  /** Consumer event surface — passed through unchanged so generators emit
+   *  per-event props + the discriminated channel. Composite-only; atomic
+   *  specs never wired this up. */
   events?: Spec["events"];
-  /** Type parameters consumers pass at the call site. Each generic surfaces
-   *  on `<Spec>Props` and `<Spec>Event` in the contract. */
   generics?: Spec["generics"];
 };
 
@@ -130,8 +112,6 @@ function visitParts(
   }
 }
 
-/** Normalize a `Spec` (atomic or composite) into a flat shape generators
- *  can consume. Caller passes the parsed-and-validated spec union. */
 export function flattenSpec(spec: Spec): FlatSpec {
   if (spec.kind === "atomic") {
     const props: Record<string, FlatProp> = {};
@@ -142,16 +122,15 @@ export function flattenSpec(spec: Spec): FlatSpec {
     for (const [name, def] of Object.entries(spec.tokens ?? {})) {
       tokens[name] = { ...def, __part: "" };
     }
-    const states: Record<string, FlatState> = {};
-    for (const [name, def] of Object.entries(spec.states ?? {})) {
-      states[name] = { ...def, __part: "" };
+    const visualStates: Record<string, FlatVisualState> = {};
+    for (const [name, def] of Object.entries(spec.visualStates ?? {})) {
+      visualStates[name] = { ...def, __part: "" };
     }
     return {
       name: spec.name,
       description: spec.description,
       kind: "atomic",
       cssFile: spec.cssFile,
-      behavior: spec.behavior,
       primitives: spec.primitives,
       dependencies: spec.dependencies,
       examples: spec.examples,
@@ -164,23 +143,21 @@ export function flattenSpec(spec: Spec): FlatSpec {
       sizes: spec.sizes,
       props,
       tokens,
-      states,
+      visualStates,
       a11y: spec.a11y,
       motion: spec.motion,
       privateTokens: spec.privateTokens,
       constraints: spec.constraints,
-      events: spec.events,
-      generics: spec.generics,
     };
   }
 
   // Composite: walk parts, merge. Token names that appear on more than one
-  // part are namespaced by the full dotted path (`header.bg`, `body.content.bg`)
-  // so nested-part collisions resolve too. Single-occurrence names stay bare,
-  // so today's public slots (`--t-tooltip-bg`) aren't renamed.
+  // part are namespaced by the full dotted path so nested-part collisions
+  // resolve too. Single-occurrence names stay bare so public slots
+  // (`--t-tooltip-bg`) keep their existing names.
   const props: Record<string, FlatProp> = {};
   const tokens: Record<string, FlatToken> = {};
-  const states: Record<string, FlatState> = {};
+  const visualStates: Record<string, FlatVisualState> = {};
   const privateTokens: string[] = [];
   const repeating: FlatRepeatingPart[] = [];
   let a11y: FlatA11y | undefined;
@@ -202,9 +179,8 @@ export function flattenSpec(spec: Spec): FlatSpec {
       for (const [name, def] of Object.entries(part.props ?? {})) {
         itemProps[name] = { ...def };
       }
-      // Effective propName precedence: explicit `propName:` > `groupKey:`
-      // (when set, the group's name is the prop name shared by siblings) >
-      // pluralized part name fallback.
+      // Precedence: explicit `propName` > `groupKey` (shared with siblings) >
+      // pluralized part name.
       const effectivePropName = part.propName ?? part.groupKey ?? `${partName}s`;
       repeating.push({
         partName,
@@ -228,13 +204,13 @@ export function flattenSpec(spec: Spec): FlatSpec {
       const flatKey = (tokenNameCounts.get(name) ?? 0) > 1 ? `${partPath}.${name}` : name;
       tokens[flatKey] = { ...def, __part: partName };
     }
-    for (const [name, def] of Object.entries(part.states ?? {})) {
-      if (states[name]) {
+    for (const [name, def] of Object.entries(part.visualStates ?? {})) {
+      if (visualStates[name]) {
         throw new Error(
-          `composite spec '${spec.name}' has a state name collision on '${name}' across parts`,
+          `composite spec '${spec.name}' has a visualState name collision on '${name}' across parts`,
         );
       }
-      states[name] = { ...def, __part: partName };
+      visualStates[name] = { ...def, __part: partName };
     }
     if (part.privateTokens) privateTokens.push(...part.privateTokens);
     if (part.a11y && !a11y) a11y = { ...part.a11y };
@@ -249,11 +225,8 @@ export function flattenSpec(spec: Spec): FlatSpec {
     description: spec.description,
     kind: "composite",
     cssFile: spec.cssFile,
-    behavior: spec.behavior,
     primitives: spec.primitives,
     dependencies: spec.dependencies,
-    overlay: spec.overlay,
-    interactions: spec.interactions,
     examples: spec.examples,
     coverage: spec.coverage,
     parts: spec.parts,
@@ -262,7 +235,7 @@ export function flattenSpec(spec: Spec): FlatSpec {
     sizes,
     props,
     tokens,
-    states,
+    visualStates,
     a11y,
     motion,
     privateTokens: privateTokens.length > 0 ? privateTokens : undefined,

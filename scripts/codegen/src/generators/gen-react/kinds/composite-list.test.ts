@@ -8,7 +8,7 @@ function paginationFixture(): Spec {
     kind: "composite",
     props: {},
     tokens: {},
-    states: {},
+    visualStates: {},
     parts: {
       root: { element: "nav", rootClass: "t-pagination" },
       page: {
@@ -110,7 +110,7 @@ describe("renderCompositeListReactWrapper", () => {
       kind: "composite",
       props: {},
       tokens: {},
-      states: {},
+      visualStates: {},
       parts: {
         list: { element: "div", rootClass: "t-tabs-list" },
         tab: {
@@ -214,7 +214,7 @@ describe("renderCompositeListReactWrapper", () => {
         kind: "composite",
         props: {},
         tokens: {},
-        states: {},
+        visualStates: {},
         parts: {
           only: { repeating: true, element: "div" },
         },

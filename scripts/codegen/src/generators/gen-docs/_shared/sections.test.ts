@@ -19,7 +19,7 @@ function atomicSpec(overrides: Partial<DocsSpec> = {}): DocsSpec {
     kind: "atomic",
     props: {},
     tokens: {},
-    states: {},
+    visualStates: {},
     ...overrides,
   };
 }
@@ -75,7 +75,7 @@ describe("renderProps", () => {
         text: { type: "string", description: "", __part: "" },
       },
       tokens: {},
-      states: {},
+      visualStates: {},
       parts: {
         trigger: { fromChildren: true },
       },
@@ -92,16 +92,17 @@ describe("renderProps", () => {
         text: { type: "string", description: "", __part: "" },
       },
       tokens: {},
-      states: {},
+      visualStates: {},
       parts: {
         trigger: { fromChildren: true },
-      },
-      overlay: {
-        anchor: "trigger",
-        floating: "content",
-        mode: "manual",
-        anchorVar: "--t-tooltip-anchor",
-        modal: false,
+        content: {
+          overlay: {
+            anchor: "trigger",
+            mode: "manual",
+            anchorVar: "--t-tooltip-anchor",
+            modal: false,
+          },
+        },
       },
     };
     const out = renderProps(spec);
@@ -118,16 +119,17 @@ describe("renderProps", () => {
         title: { type: "string", description: "", __part: "" },
       },
       tokens: {},
-      states: {},
+      visualStates: {},
       parts: {
         trigger: { fromChildren: true },
-      },
-      overlay: {
-        anchor: "trigger",
-        floating: "content",
-        mode: "manual",
-        anchorVar: "--t-modal-anchor",
-        modal: true,
+        content: {
+          overlay: {
+            anchor: "trigger",
+            mode: "manual",
+            anchorVar: "--t-modal-anchor",
+            modal: true,
+          },
+        },
       },
     };
     const out = renderProps(spec);
@@ -143,7 +145,7 @@ describe("renderProps", () => {
         label: { type: "string", description: "", __part: "" },
       },
       tokens: {},
-      states: {},
+      visualStates: {},
       parts: {
         trigger: { fromChildren: true },
       },
@@ -166,7 +168,7 @@ describe("hasFromChildrenPart", () => {
       kind: "composite",
       props: {},
       tokens: {},
-      states: {},
+      visualStates: {},
       parts: { trigger: { fromChildren: true } },
     };
     expect(hasFromChildrenPart(spec)).toBe(true);
@@ -178,7 +180,7 @@ describe("hasFromChildrenPart", () => {
       kind: "composite",
       props: {},
       tokens: {},
-      states: {},
+      visualStates: {},
       parts: { content: { element: "div" } },
     };
     expect(hasFromChildrenPart(spec)).toBe(false);
@@ -190,7 +192,7 @@ describe("hasFromChildrenPart", () => {
       kind: "composite",
       props: {},
       tokens: {},
-      states: {},
+      visualStates: {},
       parts: {
         outer: { parts: { inner: { fromChildren: true } } },
       },
@@ -220,7 +222,7 @@ describe("renderStates", () => {
 
   test("renders one row per state", () => {
     const spec = atomicSpec({
-      states: { hover: { description: "Pointer over.", __part: "" } },
+      visualStates: { hover: { description: "Pointer over.", __part: "" } },
     });
     const out = renderStates(spec);
     expect(out).toContain("<h2>States</h2>");
@@ -269,13 +271,16 @@ describe("renderA11y", () => {
       kind: "composite",
       props: {},
       tokens: {},
-      states: {},
-      overlay: {
-        anchor: "trigger",
-        floating: "content",
-        mode: "manual",
-        anchorVar: "--t-popover-anchor",
-        modal: false,
+      visualStates: {},
+      parts: {
+        content: {
+          overlay: {
+            anchor: "trigger",
+            mode: "manual",
+            anchorVar: "--t-popover-anchor",
+            modal: false,
+          },
+        },
       },
     };
     const out = renderA11y(spec);
@@ -289,13 +294,16 @@ describe("renderA11y", () => {
       kind: "composite",
       props: {},
       tokens: {},
-      states: {},
-      overlay: {
-        anchor: "trigger",
-        floating: "content",
-        mode: "manual",
-        anchorVar: "--t-popover-anchor",
-        modal: false,
+      visualStates: {},
+      parts: {
+        content: {
+          overlay: {
+            anchor: "trigger",
+            mode: "manual",
+            anchorVar: "--t-popover-anchor",
+            modal: false,
+          },
+        },
       },
       a11y: { keyboard: { Escape: "Custom escape wording." } },
     };
@@ -399,7 +407,7 @@ describe("renderRepeatingItems", () => {
       kind: "composite",
       props: {},
       tokens: {},
-      states: {},
+      visualStates: {},
       repeating: [
         {
           partName: "page",
@@ -425,7 +433,7 @@ describe("renderRepeatingItems", () => {
       kind: "composite",
       props: {},
       tokens: {},
-      states: {},
+      visualStates: {},
       repeating: [
         {
           partName: "page",

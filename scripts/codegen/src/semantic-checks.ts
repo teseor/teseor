@@ -8,7 +8,6 @@ import postcss from "postcss";
 import postcssEach from "postcss-each";
 import { isVoidElement } from "./lib/html-void-elements.ts";
 import { pascalCase } from "./lib/pascal-case.ts";
-import { REACT_EVENT_VOCABULARY } from "./lib/react-events.ts";
 import type { TokenDictionary } from "./lib/token-dictionary.ts";
 import type { Vocabulary } from "./lib/vocabulary.ts";
 import type { PayloadEntry, Spec, SpecPart } from "./schema.ts";
@@ -146,15 +145,22 @@ function declaredPublicSlots(spec: Spec): Map<string, string> {
   return out;
 }
 
-/** Overlay specs declare their anchor custom-property via `overlay.anchorVar`
- *  (a `--t-{name}-anchor`-shaped name). Recognize it as a public slot so the
- *  contract check doesn't flag it as drift. */
+/** Overlay-bearing parts declare their anchor custom-property via
+ *  `overlay.anchorVar` (a `--t-{name}-anchor`-shaped name). Recognize it as a
+ *  public slot so the contract check doesn't flag it as drift. */
 function overlayAnchorSlot(spec: Spec): { suffix: string; path: string } | undefined {
-  const anchorVar = spec.overlay?.anchorVar;
-  if (!anchorVar) return undefined;
-  const prefix = `--t-${spec.name}-`;
-  if (!anchorVar.startsWith(prefix)) return undefined;
-  return { suffix: anchorVar.slice(prefix.length), path: "overlay.anchorVar" };
+  if (spec.kind !== "composite") return undefined;
+  for (const [partName, part] of Object.entries(spec.parts)) {
+    const anchorVar = part.overlay?.anchorVar;
+    if (!anchorVar) continue;
+    const prefix = `--t-${spec.name}-`;
+    if (!anchorVar.startsWith(prefix)) continue;
+    return {
+      suffix: anchorVar.slice(prefix.length),
+      path: `parts.${partName}.overlay.anchorVar`,
+    };
+  }
+  return undefined;
 }
 
 export function checkTokenContract(spec: Spec, css: string | undefined): Issue[] {
@@ -525,8 +531,8 @@ function collectDimensionValues(spec: AtomicSpec, dim: string): string[] {
       return Object.keys(spec.intents ?? {});
     case "size":
       return Object.keys(spec.sizes ?? {});
-    case "states":
-      return Object.keys(spec.states ?? {});
+    case "visualStates":
+      return Object.keys(spec.visualStates ?? {});
     default: {
       const propDef = spec.props?.[dim];
       if (propDef?.values) return propDef.values;
@@ -674,7 +680,7 @@ export function checkVocabulary(spec: Spec, vocabulary: Vocabulary): Issue[] {
       );
     }
   }
-  for (const state of Object.keys(spec.states ?? {})) {
+  for (const state of Object.keys(spec.visualStates ?? {})) {
     if (vocabulary.states.includes(state)) continue;
     // Component-specific states (hover, focus, active) are allowed — only flag
     // a near-match to a canonical name.
@@ -683,7 +689,7 @@ export function checkVocabulary(spec: Spec, vocabulary: Vocabulary): Issue[] {
       issues.push(
         issue(
           spec.name,
-          `states.${state}`,
+          `visualStates.${state}`,
           `'${state}' looks like a typo of the canonical state '${hint}'`,
         ),
       );
@@ -1036,135 +1042,6 @@ export function checkVariantChoiceKeys(spec: Spec): Issue[] {
   return issues;
 }
 
-// ── Interaction refs ────────────────────────────────────────────────────────
-
-// Canonical state names a rule's `when:` may reference. Today only the
-// controllable-boolean state ("open") is wired; extend as new patterns land.
-const KNOWN_INTERACTION_STATES = ["open"] as const;
-
-/** Collect every numeric prop name across atomic root props and (recursively) composite parts. */
-function collectNumericPropNames(spec: Spec): Set<string> {
-  const names = new Set<string>();
-  const visitProps = (props: Record<string, { type?: string }> | undefined): void => {
-    for (const [name, def] of Object.entries(props ?? {})) {
-      if (def.type === "number") names.add(name);
-    }
-  };
-  const visitPartsRec = (parts: Record<string, SpecPart> | undefined): void => {
-    if (!parts) return;
-    for (const part of Object.values(parts)) {
-      visitProps(part.props);
-      if (part.parts) visitPartsRec(part.parts);
-    }
-  };
-  if (isAtomic(spec)) visitProps(spec.props);
-  else if (isComposite(spec)) visitPartsRec(spec.parts);
-  return names;
-}
-
-/**
- * `interactions[].delay` must name a numeric prop in the same spec; `when`
- * must name a known state. Without this both fields accept any string and a
- * typo drops to a silent no-op at runtime.
- */
-export function checkInteractionRefs(spec: Spec): Issue[] {
-  const rules = spec.interactions ?? [];
-  if (rules.length === 0) return [];
-  const numericProps = collectNumericPropNames(spec);
-  const knownStates = new Set<string>(KNOWN_INTERACTION_STATES);
-  const issues: Issue[] = [];
-  rules.forEach((rule, i) => {
-    if (rule.delay !== undefined && !numericProps.has(rule.delay)) {
-      issues.push(
-        issue(
-          spec.name,
-          `interactions[${i}].delay`,
-          `'${rule.delay}' is not a declared numeric prop in this spec`,
-        ),
-      );
-    }
-    if (rule.when !== undefined && !knownStates.has(rule.when)) {
-      issues.push(
-        issue(
-          spec.name,
-          `interactions[${i}].when`,
-          `'${rule.when}' is not a known state (allowed: ${[...knownStates].join(", ")})`,
-        ),
-      );
-    }
-  });
-  return issues;
-}
-
-// ── Overlay dismissal owned by useDismissableLayer ──────────────────────────
-
-/**
- * Escape on `document` / `window` is owned by `useDismissableLayer` (stacked,
- * topmost-wins) since PR #698. A spec-level
- * `{ event: "keydown", key: "Escape", target: "document" | "window" }` rule
- * bypasses the stack and fires `setOpen(false)` twice on one press — once
- * via the layer, once via the spec interaction. Reject at spec time so a
- * future composite spec can't reintroduce the duplicate-fire path.
- *
- * Scoped to specs with an `overlay:` block — `useDismissableLayer` only wires
- * up for overlays via `useOverlay`. A non-overlay spec with a document-target
- * rule has no layer to conflict with, so the rationale doesn't apply.
- */
-export function checkOverlayEscapeRules(spec: Spec): Issue[] {
-  if (!spec.overlay) return [];
-  const rules = spec.interactions ?? [];
-  if (rules.length === 0) return [];
-  const issues: Issue[] = [];
-  rules.forEach((rule, i) => {
-    if (rule.on.event !== "keydown") return;
-    if (rule.on.key !== "Escape") return;
-    if (rule.on.target !== "document" && rule.on.target !== "window") return;
-    issues.push(
-      issue(
-        spec.name,
-        `interactions[${i}]`,
-        `keydown:Escape on '${rule.on.target}' is owned by useDismissableLayer (stacked, topmost-wins). Remove this rule.`,
-      ),
-    );
-  });
-  return issues;
-}
-
-// ── Interaction event vocabulary (React handlers) ───────────────────────────
-
-/**
- * `interactions[].on.event` against a React-handler-bound target (today
- * `target: "trigger"`) must name a known React-synthetic event. The runtime
- * map lives in `packages/react/src/hooks/useOverlay.ts` as `EVENT_TO_HANDLER`;
- * unknown names there hit `if (!handlerName) continue;` and the rule is
- * silently dropped at runtime. Validate at spec-time so the silent-drop
- * cannot happen.
- *
- * `target: "document" | "window"` rules use native `addEventListener` and
- * accept any event name — they pass through this check. Future part-name
- * targets that bind to React handlers will need to be added to the
- * gated-targets set below.
- */
-const REACT_HANDLER_TARGETS = new Set(["trigger"]);
-
-export function checkInteractionEventVocabulary(spec: Spec): Issue[] {
-  const rules = spec.interactions ?? [];
-  if (rules.length === 0) return [];
-  const issues: Issue[] = [];
-  rules.forEach((rule, i) => {
-    if (!REACT_HANDLER_TARGETS.has(rule.on.target)) return;
-    if ((REACT_EVENT_VOCABULARY as readonly string[]).includes(rule.on.event)) return;
-    issues.push(
-      issue(
-        spec.name,
-        `interactions[${i}].on.event`,
-        `'${rule.on.event}' is not a supported React event.${suggestionFragment(rule.on.event, REACT_EVENT_VOCABULARY)} Supported: ${REACT_EVENT_VOCABULARY.join(", ")}.`,
-      ),
-    );
-  });
-  return issues;
-}
-
 // ── Events block ────────────────────────────────────────────────────────────
 
 const CAMEL_TAIL_RE = /[A-Z][a-zA-Z0-9]*$/;
@@ -1505,7 +1382,7 @@ export function checkEventsRuntimeSupport(spec: Spec): Issue[] {
     supportsGenerics: boolean;
   }> = [
     {
-      matches: (s) => isComposite(s) && Boolean(s.overlay),
+      matches: (s) => isComposite(s) && Object.values(s.parts).some((p) => p.overlay !== undefined),
       events: ["dismiss"],
       shape: "composite-overlay",
       supportsGenerics: false,
@@ -2107,9 +1984,6 @@ export function runSemanticChecks(
     ...checkResponsiveExplicit(spec),
     ...checkAsIsConstrained(spec),
     ...checkVoidElementConstraints(spec),
-    ...checkInteractionRefs(spec),
-    ...checkInteractionEventVocabulary(spec),
-    ...checkOverlayEscapeRules(spec),
     ...checkRepeatingParts(spec),
     ...checkExamplesPresent(spec),
     ...checkEvents(spec, ctx.vocabulary),

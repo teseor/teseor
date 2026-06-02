@@ -8,7 +8,7 @@ function atomicSpec(overrides: Partial<Spec> = {}): Spec {
     kind: "atomic",
     props: {},
     tokens: {},
-    states: {},
+    visualStates: {},
     ...overrides,
   };
 }
@@ -59,7 +59,7 @@ describe("renderExamples", () => {
       kind: "composite",
       props: {},
       tokens: {},
-      states: {},
+      visualStates: {},
       examples: [{ id: "default", props: { text: "Hi" } }],
     };
     const rendered = renderExamples(spec, "Tooltip", { isComposite: true });

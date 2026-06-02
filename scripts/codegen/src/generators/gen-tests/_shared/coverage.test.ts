@@ -18,7 +18,7 @@ function spec(overrides: SpecOverrides = {}): TestsSpec {
     rootClass: "t-x",
     props: {},
     tokens: {},
-    states: {},
+    visualStates: {},
     ...overrides,
   };
 }
@@ -48,9 +48,12 @@ describe("declaredValues", () => {
     ]);
   });
 
-  test("returns states keys", () => {
+  test("returns visualStates keys", () => {
     expect(
-      declaredValues(spec({ states: { disabled: stateDef, loading: stateDef } }), "states"),
+      declaredValues(
+        spec({ visualStates: { disabled: stateDef, loading: stateDef } }),
+        "visualStates",
+      ),
     ).toEqual(["disabled", "loading"]);
   });
 
@@ -173,7 +176,7 @@ describe("coverageFixtures", () => {
   test("translates `states` dimensions into boolean props", () => {
     const fixtures = coverageFixtures(
       spec({
-        states: { disabled: stateDef, loading: stateDef },
+        visualStates: { disabled: stateDef, loading: stateDef },
         coverage: { states: true },
       }),
     );

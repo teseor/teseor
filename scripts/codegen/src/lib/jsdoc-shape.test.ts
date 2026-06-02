@@ -14,7 +14,7 @@ function makeSpec(overrides: Partial<FlatSpec> = {}): FlatSpec {
     kind: "atomic",
     props: {},
     tokens: {},
-    states: {},
+    visualStates: {},
     ...overrides,
   };
 }

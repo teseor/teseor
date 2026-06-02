@@ -8,7 +8,7 @@ function compositeSpec(overrides: Partial<DocsSpec> = {}): DocsSpec {
     kind: "composite",
     props: {},
     tokens: {},
-    states: {},
+    visualStates: {},
     ...overrides,
   };
 }

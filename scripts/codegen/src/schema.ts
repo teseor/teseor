@@ -22,7 +22,7 @@ const sizeEntry = z.strictObject({
   tokens: z.record(z.string(), tokenName).optional(),
 });
 
-const stateEntry = z.strictObject({
+const visualStateEntry = z.strictObject({
   description: z.string().min(1),
 });
 
@@ -36,11 +36,8 @@ const propEntry = z.strictObject({
   pattern: z.literal("controllable").optional(),
 });
 
-// A token's `fallback:` is either a `--<name>` reference (validated against
-// tokens.css by `checkTokenFallbacks`) or a literal CSS value (`stretch`,
-// `flex-start`, `none`, …) for layout primitives where the default isn't a
-// theme token. The shape gate stays permissive; semantic checks enforce
-// "token-shaped values resolve to a real token."
+// Permissive: token-shape resolution is a semantic check, not a schema gate —
+// some fallbacks are literal CSS values (`stretch`, `flex-start`, `none`).
 const fallbackValue = z.string().min(1);
 
 const tokenEntry = z.strictObject({
@@ -77,22 +74,41 @@ const componentNodeFields = {
   props: z.record(z.string(), propEntry).optional(),
   tokens: z.record(z.string(), tokenEntry).optional(),
   privateTokens: z.array(z.string()).optional(),
-  states: z.record(z.string(), stateEntry).optional(),
+  visualStates: z.record(z.string(), visualStateEntry).optional(),
   a11y: a11yBlock.optional(),
   constraints: z.array(constraintEntry).optional(),
   motion: motionBlock.optional(),
 } as const;
 
-// Recursive sub-part definition. Same shape as a ComponentNode, may carry its
-// own `parts:` map. `parts:` only appears on composite roots and on inner
-// nodes; atomic specs reject it (the atomic branch omits the field).
-//
-// `fromChildren: true` marks a part whose DOM comes from the consumer's
-// React children (or Vue default slot). The generator wraps that content in
-// a thin element (a <span> by default) that carries the part's class,
-// attributes, and event handlers — `cloneElement` is intentionally NOT used
-// because Astro slots and similar non-React-children contexts make it
-// unreliable across framework boundaries.
+// The part declaring `overlay:` is the floating element by definition;
+// `anchor:` names a sibling part that wraps the consumer's children.
+const overlayBlock = z.strictObject({
+  anchor: z.string().min(1),
+  anchorVar: z.string().regex(/^--[A-Za-z0-9_-]+$/),
+  mode: z.enum(["auto", "manual", "hint"]).default("manual"),
+  modal: z.boolean().default(false),
+});
+
+// Shorthand `"open"` sugars to `{ to: "open" }`; long form unlocks `after:`,
+// `when:`, and `emits:`. Semantic checks reject shorthand when any of those
+// are needed.
+const transitionTarget = z.union([
+  z.string().min(1),
+  z.strictObject({
+    to: z.string().min(1),
+    after: z.string().min(1).optional(),
+    when: z.string().min(1).optional(),
+    emits: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  }),
+]);
+
+const stateDef = z.strictObject({
+  on: z.record(z.string(), transitionTarget).default({}),
+});
+
+// `fromChildren: true` makes the generator wrap the consumer's children in
+// a thin element rather than `cloneElement`; the wrapper survives Astro
+// slots, where `cloneElement` fails silently.
 type ComponentPart = {
   element?: string;
   rootClass?: string;
@@ -117,7 +133,28 @@ type ComponentPart = {
   >;
   tokens?: Record<string, { fallback: string; desc: string }>;
   privateTokens?: string[];
-  states?: Record<string, { description: string }>;
+  visualStates?: Record<string, { description: string }>;
+  states?: Record<
+    string,
+    {
+      on: Record<
+        string,
+        | string
+        | {
+            to: string;
+            after?: string;
+            when?: string;
+            emits?: Record<string, Record<string, unknown>>;
+          }
+      >;
+    }
+  >;
+  overlay?: {
+    anchor: string;
+    anchorVar: string;
+    mode: "auto" | "manual" | "hint";
+    modal: boolean;
+  };
   a11y?: {
     role?: string;
     keyboard?: Record<string, string>;
@@ -132,11 +169,6 @@ type ComponentPart = {
   parts?: Record<string, ComponentPart>;
 };
 
-// `repeating: true` marks a part as the shape of one item in a variable-length
-// list. Codegen iterates an array prop named by `propName:` (default: plural
-// of part name) and emits one element per item. `groupKey:` opts a repeating
-// part into a shared array with sibling repeating parts of the same key —
-// codegen interleaves their iteration into one loop.
 const componentPart: z.ZodType<ComponentPart> = z.lazy(() =>
   z.strictObject({
     ...componentNodeFields,
@@ -144,52 +176,14 @@ const componentPart: z.ZodType<ComponentPart> = z.lazy(() =>
     repeating: z.boolean().optional(),
     propName: z.string().min(1).optional(),
     groupKey: z.string().min(1).optional(),
+    states: z.record(z.string(), stateDef).optional(),
+    overlay: overlayBlock.optional(),
     parts: z.record(z.string(), componentPart).optional(),
   }),
 );
 
-// Declarative overlay binding. A composite component with an `overlay:` block
-// emits the HTML Popover API attribute on the `floating` part and the CSS
-// Anchor Positioning binding (anchor-name on `anchor`, position-anchor on
-// `floating`) via the `anchorVar` CSS custom property — written per-instance
-// by the generated wrapper.
-//
-// Naming note: the block is `overlay:` because the concept is "this component
-// is an overlay / floating element". The HTML `popover` attribute that codegen
-// emits on the floating element is the browser primitive this block binds to;
-// `mode: "auto" | "manual" | "hint"` mirrors that attribute's values directly.
-const overlayBlock = z.strictObject({
-  anchor: z.string().min(1),
-  floating: z.string().min(1),
-  mode: z.enum(["auto", "manual", "hint"]),
-  anchorVar: z.string().regex(/^--[A-Za-z0-9_-]+$/),
-  // Modal: useOverlay activates focus-trap + inert cascade, codegen portals the floating element.
-  modal: z.boolean().default(false),
-});
-
-// Declarative event → state-change rule. `on.target` references a part name
-// or the special `document` / `window` sinks — required, so a missing target
-// can't compile into a silent no-op interaction. `delay` references a prop
-// with `type: number`. `when` references a state (currently only `open`, the
-// canonical name for the controlled/uncontrolled boolean emitted by
-// `pattern: controllable`).
-const interactionRule = z.strictObject({
-  on: z.strictObject({
-    event: z.string().min(1),
-    target: z.string().min(1),
-    key: z.string().optional(),
-  }),
-  do: z.enum(["open", "close", "toggle"]),
-  delay: z.string().optional(),
-  when: z.string().optional(),
-});
-
-// Consumer-facing event surface. Each declared event names a semantic action
-// (verb registry lives in `specs/_vocabulary.yaml`) and carries a typed
-// payload. Payload fields use a closed vocabulary — no raw TypeScript
-// fragments, no `unknown`/`any`. `generic` payloads reference names declared
-// in the spec's `generics:` block; `builtin` payloads reference names from
-// the vocab's `events.builtins` list. Validator enforces both.
+// Closed payload vocabulary — no raw TS fragments, no `unknown`/`any`, so the
+// generated contract can't be widened past the schema's reach.
 export type PayloadEntry =
   | { type: "string"; nullable?: boolean }
   | { type: "number"; nullable?: boolean }
@@ -232,10 +226,6 @@ const eventEntry = z.strictObject({
   payload: z.record(z.string(), payloadEntry).default({}),
 });
 
-// Unconstrained generics: spec author declares a name + description;
-// consumers pass whatever type they want at the call site. Constraint
-// vocabulary (`Item extends ...`) is a closed-set follow-up — raw TypeScript
-// constraint strings would be an escape hatch.
 const genericEntry = z.strictObject({
   name: z.string().regex(/^[A-Z][A-Za-z0-9]*$/),
   description: z.string().min(1),
@@ -266,13 +256,10 @@ const identityFields = {
   description: z.string().optional(),
   dependencies: z.array(z.string()).optional(),
   cssFile: z.string().optional(),
-  behavior: z.enum(["none", "primitive", "stateful"]).optional(),
   primitives: z.array(z.string()).optional(),
   guidance: guidanceBlock.optional(),
   examples: z.array(exampleEntry).optional(),
   coverage: coverageBlock.optional(),
-  overlay: overlayBlock.optional(),
-  interactions: z.array(interactionRule).optional(),
   generics: z.array(genericEntry).optional(),
   events: z.record(z.string(), eventEntry).optional(),
 } as const;
@@ -281,7 +268,6 @@ const atomicSpec = z.strictObject({
   ...identityFields,
   kind: z.literal("atomic"),
   ...componentNodeFields,
-  // Wraps slot content in a nested element (e.g. `pre` root + `code` slot for code-block).
   slotElement: z.string().optional(),
 });
 
@@ -291,9 +277,7 @@ const compositeSpec = z.strictObject({
   parts: z.record(z.string(), componentPart),
 });
 
-// The discriminated union is open by design: a third `kind:` (form-composition)
-// can be added without breaking the schema shape. Until that lands the union
-// covers `atomic` and `composite`.
+// Open union — extending with new `kind:` values requires no consumer change.
 export const Spec = z.discriminatedUnion("kind", [atomicSpec, compositeSpec]);
 
 export type Spec = z.infer<typeof Spec>;
