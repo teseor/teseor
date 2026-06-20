@@ -28,23 +28,23 @@
     "prepare": "lefthook install --force"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.15",
+    "@biomejs/biome": "^2.5.0",
     "@changesets/changelog-git": "^0.2.1",
     "@changesets/cli": "^2.31.0",
-    "@playwright/test": "^1.60.0",
+    "@playwright/test": "^1.61.0",
     "@size-limit/file": "^12.1.0",
     "@types/node": "^24.12.4",
-    "happy-dom": "^20.9.0",
-    "lefthook": "^2.1.8",
+    "happy-dom": "^20.10.6",
+    "lefthook": "^2.1.9",
     "markdownlint-cli2": "^0.22.1",
     "postcss": "^8.5.15",
     "postcss-each": "^1.1.0",
-    "postcss-selector-parser": "^7.1.1",
+    "postcss-selector-parser": "^7.1.4",
     "size-limit": "^12.1.0",
-    "stylelint": "^17.12.0",
+    "stylelint": "^17.13.0",
     "stylelint-config-standard": "^40.0.0",
     "typescript": "^6.0.3",
-    "vitest": "^4.1.7",
+    "vitest": "^4.1.9",
     "yaml": "^2.9.0"
   }
 }
