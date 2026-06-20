@@ -459,6 +459,9 @@ describe("renderStateMachineDiagrams", () => {
     const spec: DocsSpec = {
       name: "stack",
       kind: "composite",
+      props: {},
+      tokens: {},
+      visualStates: {},
       parts: { root: { element: "div" } },
     };
     expect(renderStateMachineDiagrams(spec)).toBe("");
@@ -468,6 +471,9 @@ describe("renderStateMachineDiagrams", () => {
     const spec: DocsSpec = {
       name: "modal",
       kind: "composite",
+      props: {},
+      tokens: {},
+      visualStates: {},
       parts: {
         trigger: { fromChildren: true },
         content: {
@@ -498,6 +504,9 @@ describe("renderStateMachineDiagrams", () => {
     const spec: DocsSpec = {
       name: "tooltip",
       kind: "composite",
+      props: {},
+      tokens: {},
+      visualStates: {},
       parts: {
         trigger: {
           fromChildren: true,
@@ -531,6 +540,9 @@ describe("renderStateMachineDiagrams", () => {
     const spec: DocsSpec = {
       name: "outer",
       kind: "composite",
+      props: {},
+      tokens: {},
+      visualStates: {},
       parts: {
         root: {
           element: "div",
