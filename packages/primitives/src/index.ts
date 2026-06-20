@@ -16,4 +16,12 @@ export {
   type ModalityScopeOptions,
 } from "./modality/index.ts";
 export { createPortal, type Portal, type PortalOptions } from "./portal/index.ts";
+export {
+  type CreateStateMachineOptions,
+  createStateMachine,
+  type StateDef,
+  type StateMachine,
+  type StatesSpec,
+  type Transition,
+} from "./state-machine/index.ts";
 export { warnOnce } from "./warn-once/index.ts";
