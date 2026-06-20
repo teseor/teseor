@@ -1,19 +1,13 @@
 # ADR-0018 — Events block: scope, consumer surface, docs section split
 
-- **Status:** Proposed.
-- **Deciders:** repo owner (letanure).
-
-Flips to Accepted when the tracer-bullet spec (Modal with
-`events: dismiss`) has merged end-to-end across schema, validator,
-and the React + Vue generators.
+- **Status:** Accepted (2026-06-20). Tracer-bullet shipped in PR #857.
 
 ## Decision
 
 A new optional `events:` field lands on the spec root, separate from
-the existing `interactions:` block. The two evolve on their own
-timelines; specs may declare either, both, or neither. When a spec
-carries both, codegen glues the link at the wrapper layer (an
-interaction transition that closes an overlay fires the declared
+the per-part state model. Specs may declare either, both, or neither.
+When a spec carries both, codegen glues the link at the wrapper layer
+(a state transition that closes an overlay fires the declared
 `dismiss` event from the same handler) — there is no spec-level field
 tying an event to a transition.
 
@@ -47,16 +41,16 @@ everything else → Configuration). No new spec field is introduced.
 
 ## Why this and not the alternatives
 
-- **Not "derive events from a generalized statechart."** Today only
-  Modal and Tooltip carry `interactions:`, both with the narrow
-  overlay vocabulary (`open | close | toggle`). Promoting it to a
-  full statechart vocabulary requires anticipating 8+ unbuilt
-  components — the upfront over-design ADR-0001 warned against. The
-  industry split confirms it: Radix, React Aria, Spectrum, Mantine,
-  and Chakra itself all hand-roll without statecharts; Zag.js is the
-  single outlier. Two data points is not enough to commit. The events
-  shape leaves an optional `emittedBy:` field reachable later without
-  breaking specs.
+- **Not "derive events from a generalized statechart."** At the time
+  of this decision only Modal and Tooltip carried interaction wiring,
+  both with a narrow overlay vocabulary; promoting it to a full
+  statechart vocabulary required anticipating 8+ unbuilt components.
+  RFC-0007 later answered that question with per-part `states:` blocks
+  on a per-part basis — the events surface in this ADR remained
+  independent and unchanged through that landing. The industry split
+  was the load-bearing data point: Radix, React Aria, Spectrum,
+  Mantine, and Chakra all hand-roll without statecharts; Zag.js is
+  the single outlier.
 - **Not "block events on the statechart question."** The events
   surface is needed today by every wrapped Modal / Combobox /
   DataTable consumer (RFC-0006 § Motivation). Waiting for an
@@ -150,11 +144,13 @@ everything else → Configuration). No new spec field is introduced.
   existing `Omit<…>`-based spread. The events surface is additive:
   it doesn't replace DOM events for atoms that don't need a semantic
   layer.
-- The state-machine question stays open. Behavior tests derived from
-  `interactions:` (#582) stay blocked on the same generalization. If
-  a future RFC promotes `interactions:` to a real machine, declared
-  events may move into "transition effects" form; the migration cost
-  is bounded by an optional `emittedBy:` field on existing keys.
+- RFC-0007 superseded the interactions track with per-part `states:`
+  machines. The events surface is unchanged: `emits:` literals inside
+  a transition's target fire the declared event with the bound
+  payload, threaded through the per-event prop → channel → controllable
+  callback → channel order pinned above. Behavior tests derived from
+  state transitions (#582) become tractable once the state-transition
+  smoke tests land per the RFC-0007 generator notes.
 
 ## References
 
