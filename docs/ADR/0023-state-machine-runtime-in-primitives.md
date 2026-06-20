@@ -94,5 +94,5 @@ third-party machine runtime.
   drives the focus-trap / scroll-lock cascade outside the state
   machine.
 - [#871](https://github.com/teseor/teseor/issues/871) — the Zag
-  spike issue; closed without adopting, with bundle measurements
-  archived in `.local/spike-zag-bundle/`.
+  spike issue; closed without adopting. Bundle measurements
+  recorded in the issue thread.
