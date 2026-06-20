@@ -249,6 +249,83 @@ export function renderStates(spec: DocsSpec): string {
   return section("States", renderTable(["State", "Description"], rows));
 }
 
+type PartWithStates = {
+  states?: Record<
+    string,
+    {
+      on?: Record<
+        string,
+        string | { to: string; after?: string; when?: string; emits?: Record<string, unknown> }
+      >;
+    }
+  >;
+  parts?: Record<string, PartWithStates>;
+};
+
+function collectStatePartsByName(
+  parts: Record<string, PartWithStates> | undefined,
+): Array<[string, PartWithStates]> {
+  if (!parts) return [];
+  const out: Array<[string, PartWithStates]> = [];
+  for (const [name, part] of Object.entries(parts)) {
+    if (part.states && Object.keys(part.states).length > 0) out.push([name, part]);
+    if (part.parts) out.push(...collectStatePartsByName(part.parts));
+  }
+  return out;
+}
+
+/**
+ * Per-part transition table for every part with a `states:` block. The
+ * part's first state is the initial — same contract as the runtime.
+ * Columns: From state, Source (the `<part>.<event>` / `key.<name>` /
+ * `outside.<event>` key), To state, Conditions (`after`, `when`). One
+ * table per part; the part name labels each block.
+ */
+export function renderStateMachineDiagrams(spec: DocsSpec): string {
+  if (spec.kind !== "composite") return "";
+  const stateParts = collectStatePartsByName(
+    (spec as { parts?: Record<string, PartWithStates> }).parts,
+  );
+  if (stateParts.length === 0) return "";
+
+  const blocks: string[] = [];
+  for (const [partName, part] of stateParts) {
+    const states = part.states ?? {};
+    const stateNames = Object.keys(states);
+    const initial = stateNames[0];
+    if (!initial) continue;
+
+    const rows: string[][] = [];
+    for (const [stateName, stateDef] of Object.entries(states)) {
+      const on = stateDef.on ?? {};
+      for (const [sourceKey, target] of Object.entries(on)) {
+        const to = typeof target === "string" ? target : target.to;
+        const conditions: string[] = [];
+        if (typeof target === "object") {
+          if (target.after !== undefined)
+            conditions.push(`after <Code>${esc(target.after)}</Code>`);
+          if (target.when !== undefined) conditions.push(`when <Code>${esc(target.when)}</Code>`);
+        }
+        rows.push([
+          `<Code>${esc(stateName)}</Code>`,
+          `<Code>${esc(sourceKey)}</Code>`,
+          `<Code>${esc(to)}</Code>`,
+          conditions.length > 0 ? conditions.join(", ") : "",
+        ]);
+      }
+    }
+
+    blocks.push(
+      [
+        `      <h3>Part: <Code>${esc(partName)}</Code> <span class="t-text-muted">(initial: <Code>${esc(initial)}</Code>)</span></h3>`,
+        renderTable(["From", "On", "To", "Conditions"], rows),
+      ].join("\n"),
+    );
+  }
+
+  return section("State machine", blocks.join("\n"));
+}
+
 export function renderTokens(spec: DocsSpec): string {
   if (!spec.tokens || Object.keys(spec.tokens).length === 0) return "";
   const rows = Object.entries(spec.tokens).map(([name, def]) => [

@@ -36,6 +36,19 @@ import Base from "../../layouts/Base.astro";
       </table>
     </section>
     <section class="t-stack" data-gap="3">
+      <h2>State machine</h2>
+      <h3>Part: <Code>content</Code> <span class="t-text-muted">(initial: <Code>closed</Code>)</span></h3>
+      <table>
+        <thead><tr><th>From</th><th>On</th><th>To</th><th>Conditions</th></tr></thead>
+        <tbody>
+        <tr><td><Code>closed</Code></td><td><Code>trigger.click</Code></td><td><Code>open</Code></td><td></td></tr>
+        <tr><td><Code>open</Code></td><td><Code>trigger.click</Code></td><td><Code>closed</Code></td><td></td></tr>
+        <tr><td><Code>open</Code></td><td><Code>key.escape</Code></td><td><Code>closed</Code></td><td></td></tr>
+        <tr><td><Code>open</Code></td><td><Code>outside.click</Code></td><td><Code>closed</Code></td><td></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
       <h2>Tokens</h2>
       <table>
         <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>

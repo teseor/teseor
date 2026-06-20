@@ -9,6 +9,7 @@ import {
   renderNamed,
   renderProps,
   renderRepeatingItems,
+  renderStateMachineDiagrams,
   renderStates,
   renderTokens,
 } from "./sections.ts";
@@ -446,5 +447,106 @@ describe("renderRepeatingItems", () => {
     const out = renderProps(spec);
     expect(out).toContain("<Code>pages</Code>");
     expect(out).toContain("ReadonlyArray&lt;PaginationPageItem&gt;");
+  });
+});
+
+describe("renderStateMachineDiagrams", () => {
+  test("returns empty string for atomic specs", () => {
+    expect(renderStateMachineDiagrams(atomicSpec())).toBe("");
+  });
+
+  test("returns empty string when no part declares `states:`", () => {
+    const spec: DocsSpec = {
+      name: "stack",
+      kind: "composite",
+      parts: { root: { element: "div" } },
+    };
+    expect(renderStateMachineDiagrams(spec)).toBe("");
+  });
+
+  test("emits one transitions table per part with `states:`", () => {
+    const spec: DocsSpec = {
+      name: "modal",
+      kind: "composite",
+      parts: {
+        trigger: { fromChildren: true },
+        content: {
+          element: "div",
+          states: {
+            closed: { on: { "trigger.click": "open" } },
+            open: {
+              on: {
+                "trigger.click": { to: "closed" },
+                "key.escape": { to: "closed" },
+              },
+            },
+          },
+        },
+      },
+    };
+    const out = renderStateMachineDiagrams(spec);
+    expect(out).toContain("Part: <Code>content</Code>");
+    expect(out).toContain("initial: <Code>closed</Code>");
+    expect(out).toContain("<th>From</th>");
+    expect(out).toContain("<Code>trigger.click</Code>");
+    expect(out).toContain("<Code>key.escape</Code>");
+    // 3 transitions + 1 header row.
+    expect((out.match(/<tr>/g) ?? []).length).toBe(4);
+  });
+
+  test("annotates transitions with `after` and `when` modifiers", () => {
+    const spec: DocsSpec = {
+      name: "tooltip",
+      kind: "composite",
+      parts: {
+        trigger: {
+          fromChildren: true,
+          props: {
+            disabled: { type: "boolean", description: "Suppress." },
+          },
+        },
+        content: {
+          element: "div",
+          states: {
+            closed: {
+              on: {
+                "trigger.pointerenter": {
+                  to: "open",
+                  after: "openDelay",
+                  when: "!trigger.disabled",
+                },
+              },
+            },
+            open: { on: {} },
+          },
+        },
+      },
+    };
+    const out = renderStateMachineDiagrams(spec);
+    expect(out).toContain("after <Code>openDelay</Code>");
+    expect(out).toContain("when <Code>!trigger.disabled</Code>");
+  });
+
+  test("walks nested parts", () => {
+    const spec: DocsSpec = {
+      name: "outer",
+      kind: "composite",
+      parts: {
+        root: {
+          element: "div",
+          parts: {
+            inner: {
+              element: "div",
+              states: {
+                closed: { on: { "root.click": "open" } },
+                open: { on: { "root.click": "closed" } },
+              },
+            },
+          },
+        },
+      },
+    };
+    const out = renderStateMachineDiagrams(spec);
+    expect(out).toContain("Part: <Code>inner</Code>");
   });
 });

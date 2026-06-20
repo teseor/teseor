@@ -9,6 +9,7 @@ import {
   renderForcedColors,
   renderNamed,
   renderProps,
+  renderStateMachineDiagrams,
   renderStates,
   renderTokens,
 } from "../_shared/sections.ts";
@@ -31,6 +32,7 @@ export function renderCompositeOverlayDocsPage(spec: DocsSpec): string {
     renderNamed("Variants", spec.variants),
     renderNamed("Intents", spec.intents),
     renderNamed("Sizes", spec.sizes),
+    renderStateMachineDiagrams(spec),
     renderStates(spec),
     renderTokens(spec),
     renderA11y(spec),
