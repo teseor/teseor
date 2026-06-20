@@ -20,14 +20,14 @@ type TooltipOwnProps = {
   onOpenChange?: (open: boolean) => void;
   /** Suppresses the tooltip entirely. Responsive so the tooltip can be hidden at narrow viewports (e.g. `disabled: { base: true, md: false }`). */
   disabled?: Responsive<boolean>;
-  /** Milliseconds before the tooltip opens after hover or focus. Prevents flicker during cursor scanning. */
-  openDelay?: number;
-  /** Milliseconds before the tooltip closes after leave or blur. */
-  closeDelay?: number;
   /** Tooltip content. Plain text; use Popover for interactive content. */
   text?: string;
   /** Preferred side relative to the trigger. CSS `position-try-fallbacks` auto-flips on overflow. */
   placement?: Responsive<TooltipPlacement>;
+  /** Milliseconds before the tooltip opens after hover or focus. Prevents flicker during cursor scanning. */
+  openDelay?: number;
+  /** Milliseconds before the tooltip closes after leave or blur. */
+  closeDelay?: number;
   /** Render the trigger directly on the consumer's child element (`cloneElement`)
    *  instead of wrapping in a `<span>`. Single-child invariant: `children` must
    *  be a single React element. The wrapper's `style`, `data-state`, event handlers,
@@ -64,10 +64,10 @@ export function Tooltip(props: TooltipProps) {
     defaultOpen,
     onOpenChange,
     disabled,
-    openDelay = 300,
-    closeDelay = 0,
     text,
     placement,
+    openDelay = 300,
+    closeDelay = 0,
     children,
     asChild,
     ref,
@@ -75,10 +75,15 @@ export function Tooltip(props: TooltipProps) {
 
   const interactions = useMemo<OverlayInteraction[]>(
     () => [
-      { on: { event: "pointerenter", target: "trigger" }, do: "open", delayMs: openDelay },
-      { on: { event: "focusin", target: "trigger" }, do: "open", delayMs: openDelay },
+      {
+        on: { event: "pointerenter", target: "trigger" },
+        do: "open",
+        delayMs: openDelay,
+        when: "!trigger.disabled",
+      },
+      { on: { event: "focusin", target: "trigger" }, do: "open", when: "!trigger.disabled" },
       { on: { event: "pointerleave", target: "trigger" }, do: "close", delayMs: closeDelay },
-      { on: { event: "focusout", target: "trigger" }, do: "close", delayMs: closeDelay },
+      { on: { event: "focusout", target: "trigger" }, do: "close" },
     ],
     [openDelay, closeDelay],
   );

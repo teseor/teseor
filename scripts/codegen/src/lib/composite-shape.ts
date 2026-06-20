@@ -106,28 +106,70 @@ export function legacyInteractionsFromStates(part: SpecPart): LegacyInteraction[
   const states = part.states;
   if (!states) return [];
 
-  const out: LegacyInteraction[] = [];
-  // First state in declaration order is initial — matches the RFC's contract.
+  // Group transitions by source key so the projection can detect mutually-
+  // inverse pairs (closed.k → open + open.k → closed) and emit a single
+  // `do: "toggle"` rather than two competing rules. `useOverlay` treats
+  // interactions as a flat list — two same-source rules with `do: "open"` /
+  // `do: "close"` both fire on every dispatch, netting closed.
+  type Entry = {
+    fromState: string;
+    to: string;
+    after?: string;
+    when?: string;
+  };
+  const bySource = new Map<string, Entry[]>();
   const stateNames = Object.keys(states);
   const initial = stateNames[0];
 
   for (const [stateName, stateDef] of Object.entries(states)) {
     for (const [sourceKey, target] of Object.entries(stateDef.on)) {
-      const { event, partTarget, keyName } = parseSourceKey(sourceKey);
-      const { to, after, when } = normalizeTarget(target);
-      const action = resolveAction(stateName, to, initial);
-
-      const rule: LegacyInteraction = {
-        on:
-          keyName !== undefined
-            ? { event, key: keyName }
-            : partTarget !== undefined
-              ? { event, target: partTarget }
-              : { event },
-        do: action,
+      const normalized = normalizeTarget(target);
+      const entry: Entry = {
+        fromState: stateName,
+        to: normalized.to,
       };
-      if (after !== undefined) rule.delay = after;
-      if (when !== undefined) rule.when = when;
+      if (normalized.after !== undefined) entry.after = normalized.after;
+      if (normalized.when !== undefined) entry.when = normalized.when;
+      const list = bySource.get(sourceKey) ?? [];
+      list.push(entry);
+      bySource.set(sourceKey, list);
+    }
+  }
+
+  const out: LegacyInteraction[] = [];
+  for (const [sourceKey, entries] of bySource) {
+    const { event, partTarget, keyName } = parseSourceKey(sourceKey);
+    const buildOn = (): LegacyInteraction["on"] =>
+      keyName !== undefined
+        ? { event, key: keyName }
+        : partTarget !== undefined
+          ? { event, target: partTarget }
+          : { event };
+
+    // Inverse-pair detection: exactly two entries, each one's `from` matches
+    // the other's `to`. Same `after` / `when` on both sides keeps the
+    // toggle semantically equivalent; differing modifiers fall back to
+    // per-entry emission.
+    if (entries.length === 2) {
+      const [a, b] = entries as [Entry, Entry];
+      const inverse = a.to === b.fromState && b.to === a.fromState;
+      const modifiersAgree = a.after === b.after && a.when === b.when;
+      if (inverse && modifiersAgree) {
+        const rule: LegacyInteraction = { on: buildOn(), do: "toggle" };
+        if (a.after !== undefined) rule.delay = a.after;
+        if (a.when !== undefined) rule.when = a.when;
+        out.push(rule);
+        continue;
+      }
+    }
+
+    for (const entry of entries) {
+      const rule: LegacyInteraction = {
+        on: buildOn(),
+        do: resolveAction(entry.fromState, entry.to, initial),
+      };
+      if (entry.after !== undefined) rule.delay = entry.after;
+      if (entry.when !== undefined) rule.when = entry.when;
       out.push(rule);
     }
   }
