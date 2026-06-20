@@ -59,7 +59,7 @@ describe("renderCompositeOverlayReactWrapper", () => {
     const spec = tooltipSpec({
       parts: {
         trigger: { fromChildren: true, rootClass: "custom-trigger" },
-        content: { element: "div", a11y: { role: "tooltip" } },
+        content: { element: "div", a11y: { role: "tooltip" }, overlay: OVERLAY },
       },
     });
     const out = renderCompositeOverlayReactWrapper(spec, {});
