@@ -1,6 +1,6 @@
 import {
   extractCompositeShape,
-  legacyInteractionsFromStates,
+  overlayInteractionsFromStates,
 } from "../../../lib/composite-shape.ts";
 import { renderEnumType } from "../../../lib/enum-primitives.ts";
 import { reactJsDocFlavor, renderComponentJsDoc } from "../../../lib/jsdoc-shape.ts";
@@ -48,7 +48,7 @@ export function renderCompositeOverlayReactWrapper(
     separateMissingPartErrors: true,
     forbidContentFromChildren: true,
   });
-  const interactions = legacyInteractionsFromStates(contentPart);
+  const interactions = overlayInteractionsFromStates(contentPart);
 
   // Controllable prop on the anchor part — usually `open`. The renderOwnProps
   // path consumes spec.props (merged), so we just read the name and emit the

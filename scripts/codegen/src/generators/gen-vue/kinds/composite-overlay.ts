@@ -1,6 +1,6 @@
 import {
   extractCompositeShape,
-  legacyInteractionsFromStates,
+  overlayInteractionsFromStates,
 } from "../../../lib/composite-shape.ts";
 import { renderEnumType } from "../../../lib/enum-primitives.ts";
 import { pascalCase } from "../../../lib/pascal-case.ts";
@@ -34,7 +34,7 @@ export function renderCompositeOverlayVueWrapper(
     separateMissingPartErrors: false,
     forbidContentFromChildren: false,
   });
-  const interactions = legacyInteractionsFromStates(contentPart);
+  const interactions = overlayInteractionsFromStates(contentPart);
 
   const controllableEntry = Object.entries(spec.props).find(
     ([, d]) => d.pattern === "controllable" && d.type === "boolean",

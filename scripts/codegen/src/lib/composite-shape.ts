@@ -91,18 +91,26 @@ export function extractCompositeShape(spec: FlatSpec, opts: CompositeShapeOption
 }
 
 /**
- * Project a part's `states:` block into the flat `{ on, do, delay, when }`
- * rules the `useOverlay` runtime consumes — runtime-side equivalence with
- * the new part-machine shape.
+ * Compile a part's `states:` block into the flat input→action rules the
+ * `useOverlay` runtime consumes. This is the canonical compilation target
+ * for overlay-with-anchor specs (Modal, Tooltip, future Popover/Menu): the
+ * two-state shape (`open` ↔ `closed`) fits useOverlay's hand-rolled
+ * controllable triple + dismissable layer + popover toggle, and the
+ * compilation preserves the spec's `when`/`after`/`emits` modifiers.
+ *
+ * Complex state machines that don't fit overlay-with-anchor (Combobox's
+ * highlighted index, Wizard step progression, Disclosure variants without
+ * popover anchoring) target `useStateMachine` from `@teseor/primitives`
+ * directly — this compiler isn't the path for them.
  */
-export type LegacyInteraction = {
+export type OverlayInteractionRule = {
   on: { event: string; target?: string; key?: string };
   do: "open" | "close" | "toggle";
   delay?: string;
   when?: string;
 };
 
-export function legacyInteractionsFromStates(part: SpecPart): LegacyInteraction[] {
+export function overlayInteractionsFromStates(part: SpecPart): OverlayInteractionRule[] {
   const states = part.states;
   if (!states) return [];
 
@@ -136,10 +144,10 @@ export function legacyInteractionsFromStates(part: SpecPart): LegacyInteraction[
     }
   }
 
-  const out: LegacyInteraction[] = [];
+  const out: OverlayInteractionRule[] = [];
   for (const [sourceKey, entries] of bySource) {
     const { event, partTarget, keyName } = parseSourceKey(sourceKey);
-    const buildOn = (): LegacyInteraction["on"] =>
+    const buildOn = (): OverlayInteractionRule["on"] =>
       keyName !== undefined
         ? { event, key: keyName }
         : partTarget !== undefined
@@ -155,7 +163,7 @@ export function legacyInteractionsFromStates(part: SpecPart): LegacyInteraction[
       const inverse = a.to === b.fromState && b.to === a.fromState;
       const modifiersAgree = a.after === b.after && a.when === b.when;
       if (inverse && modifiersAgree) {
-        const rule: LegacyInteraction = { on: buildOn(), do: "toggle" };
+        const rule: OverlayInteractionRule = { on: buildOn(), do: "toggle" };
         if (a.after !== undefined) rule.delay = a.after;
         if (a.when !== undefined) rule.when = a.when;
         out.push(rule);
@@ -164,7 +172,7 @@ export function legacyInteractionsFromStates(part: SpecPart): LegacyInteraction[
     }
 
     for (const entry of entries) {
-      const rule: LegacyInteraction = {
+      const rule: OverlayInteractionRule = {
         on: buildOn(),
         do: resolveAction(entry.fromState, entry.to, initial),
       };
