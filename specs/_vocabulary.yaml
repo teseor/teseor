@@ -211,3 +211,29 @@ events:
     File:          "DOM File (uploads, drag-drop)."
     Error:         "ECMAScript Error subclass."
     HTMLElement:   "DOM HTMLElement (target references)."
+
+# Vocab of DOM event names accepted as `<part>.<dom-event>` transition sources.
+dom_events:
+  click:         "Pointer click (mouse or touch)."
+  pointerenter:  "Pointer entered the element."
+  pointerleave:  "Pointer left the element."
+  focusin:       "Focus moved into the element (or a descendant)."
+  focusout:      "Focus left the element (and all descendants)."
+  input:         "Form value changed."
+  change:        "Form value committed."
+  submit:        "Form submitted."
+  animationend:  "CSS animation finished playing."
+
+# Vocab of keys accepted as `key.<name>` transition sources. CamelCase here;
+# the runtime maps to `KeyboardEvent.key`.
+keys:
+  escape:     "Escape key."
+  enter:      "Enter / Return key."
+  tab:        "Tab key."
+  space:      "Space key."
+  arrowUp:    "Arrow Up key."
+  arrowDown:  "Arrow Down key."
+  arrowLeft:  "Arrow Left key."
+  arrowRight: "Arrow Right key."
+  home:       "Home key."
+  end:        "End key."

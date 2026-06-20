@@ -12,7 +12,7 @@ const subject: FlatSpec = {
     disabled: { type: "boolean", description: "Disabled flag.", __part: "" },
   },
   tokens: {},
-  states: {},
+  visualStates: {},
 };
 
 describe("renderReactFixtureBody", () => {

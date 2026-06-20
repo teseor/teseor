@@ -21,14 +21,14 @@ type TooltipProps = {
   onOpenChange?: (open: boolean) => void;
   /** Suppresses the tooltip entirely. Responsive so the tooltip can be hidden at narrow viewports (e.g. `disabled: { base: true, md: false }`). */
   disabled?: Responsive<boolean>;
-  /** Milliseconds before the tooltip opens after hover or focus. Prevents flicker during cursor scanning. */
-  openDelay?: number;
-  /** Milliseconds before the tooltip closes after leave or blur. */
-  closeDelay?: number;
   /** Tooltip content. Plain text; use Popover for interactive content. */
   text?: string;
   /** Preferred side relative to the trigger. CSS `position-try-fallbacks` auto-flips on overflow. */
   placement?: Responsive<TooltipPlacement>;
+  /** Milliseconds before the tooltip opens after hover or focus. Prevents flicker during cursor scanning. */
+  openDelay?: number;
+  /** Milliseconds before the tooltip closes after leave or blur. */
+  closeDelay?: number;
   /** Render the trigger directly on the consumer's child element via Slot (cloneVNode) instead of wrapping in a `<span>`. */
   asChild?: boolean;
 };
@@ -38,10 +38,10 @@ const {
   defaultOpen,
   onOpenChange,
   disabled,
-  openDelay = 300,
-  closeDelay = 0,
   text,
   placement,
+  openDelay = 300,
+  closeDelay = 0,
   asChild,
 } = defineProps<TooltipProps>();
 
@@ -55,10 +55,10 @@ const overlay = useOverlay({
   anchorVar: "--t-tooltip-anchor",
   popoverMode: "manual",
   interactions: [
-    { on: { event: "pointerenter", target: "trigger" }, do: "open", delayMs: () => openDelay },
-    { on: { event: "focusin", target: "trigger" }, do: "open", delayMs: () => openDelay },
+    { on: { event: "pointerenter", target: "trigger" }, do: "open", delayMs: () => openDelay, when: "!trigger.disabled" },
+    { on: { event: "focusin", target: "trigger" }, do: "open", when: "!trigger.disabled" },
     { on: { event: "pointerleave", target: "trigger" }, do: "close", delayMs: () => closeDelay },
-    { on: { event: "focusout", target: "trigger" }, do: "close", delayMs: () => closeDelay },
+    { on: { event: "focusout", target: "trigger" }, do: "close" },
   ],
 });
 

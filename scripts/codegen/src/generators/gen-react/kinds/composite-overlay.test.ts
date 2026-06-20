@@ -6,28 +6,28 @@ function prop(overrides: Partial<SpecProp> & { type: SpecProp["type"] }): SpecPr
   return { description: "", __part: "", ...overrides };
 }
 
+const OVERLAY = {
+  anchor: "trigger",
+  anchorVar: "--t-anchor",
+  mode: "manual" as const,
+  modal: false,
+};
+
 function tooltipSpec(overrides: Partial<Spec> = {}): Spec {
   return {
     name: "tooltip",
     kind: "composite",
     description: "Floating panel.",
-    overlay: {
-      anchor: "trigger",
-      floating: "content",
-      anchorVar: "--t-anchor",
-      mode: "manual",
-      modal: false,
-    },
     parts: {
       trigger: { fromChildren: true },
-      content: { element: "div", a11y: { role: "tooltip" } },
+      content: { element: "div", a11y: { role: "tooltip" }, overlay: OVERLAY },
     },
     props: {
       open: prop({ type: "boolean", pattern: "controllable" }),
       text: prop({ type: "string", slot: true, __part: "content" }),
     },
     tokens: {},
-    states: {},
+    visualStates: {},
     ...overrides,
   };
 }
@@ -59,7 +59,7 @@ describe("renderCompositeOverlayReactWrapper", () => {
     const spec = tooltipSpec({
       parts: {
         trigger: { fromChildren: true, rootClass: "custom-trigger" },
-        content: { element: "div", a11y: { role: "tooltip" } },
+        content: { element: "div", a11y: { role: "tooltip" }, overlay: OVERLAY },
       },
     });
     const out = renderCompositeOverlayReactWrapper(spec, {});
@@ -83,16 +83,13 @@ describe("renderCompositeOverlayReactWrapper", () => {
 
   test("renders a body-level portal and aria-modal for modal dialogs", () => {
     const spec = tooltipSpec({
-      overlay: {
-        anchor: "trigger",
-        floating: "content",
-        anchorVar: "--t-anchor",
-        mode: "manual",
-        modal: true,
-      },
       parts: {
         trigger: { fromChildren: true },
-        content: { element: "div", a11y: { role: "dialog" } },
+        content: {
+          element: "div",
+          a11y: { role: "dialog" },
+          overlay: { ...OVERLAY, modal: true },
+        },
       },
     });
     const out = renderCompositeOverlayReactWrapper(spec, {});

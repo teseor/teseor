@@ -3,19 +3,6 @@ description: A modal overlay that traps focus and inerts the rest of the page un
 kind: composite
 dependencies: []
 cssFile: components/modal/modal.css
-behavior: stateful
-primitives: []
-
-overlay:
-  anchor: trigger
-  floating: content
-  mode: manual
-  anchorVar: --t-modal-anchor
-  modal: true
-
-interactions:
-  - on: { event: click, target: trigger }
-    do: toggle
 
 events:
   dismiss:
@@ -44,6 +31,19 @@ parts:
     rootClass: t-modal
     a11y:
       role: dialog
+    overlay:
+      anchor: trigger
+      anchorVar: --t-modal-anchor
+      modal: true
+    states:
+      closed:
+        on:
+          trigger.click: open
+      open:
+        on:
+          trigger.click:   { to: closed, emits: { dismiss: { reason: button  } } }
+          key.escape:      { to: closed, emits: { dismiss: { reason: escape  } } }
+          outside.click:   { to: closed, emits: { dismiss: { reason: outside } } }
     props:
       title:
         type: string

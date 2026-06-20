@@ -18,7 +18,7 @@ function spec(overrides: SpecOverrides = {}): TestsSpec {
     rootClass: "t-x",
     props: {},
     tokens: {},
-    states: {},
+    visualStates: {},
     ...overrides,
   };
 }
@@ -48,9 +48,12 @@ describe("declaredValues", () => {
     ]);
   });
 
-  test("returns states keys", () => {
+  test("returns visualStates keys", () => {
     expect(
-      declaredValues(spec({ states: { disabled: stateDef, loading: stateDef } }), "states"),
+      declaredValues(
+        spec({ visualStates: { disabled: stateDef, loading: stateDef } }),
+        "visualStates",
+      ),
     ).toEqual(["disabled", "loading"]);
   });
 
@@ -137,12 +140,12 @@ describe("cellToProps", () => {
     });
   });
 
-  test("`states` cells flip into the matching boolean prop", () => {
-    expect(cellToProps({ states: "loading" })).toEqual({ loading: true });
+  test("`visualStates` cells flip into the matching boolean prop", () => {
+    expect(cellToProps({ visualStates: "loading" })).toEqual({ loading: true });
   });
 
-  test("mixes states with regular dimensions", () => {
-    expect(cellToProps({ variant: "solid", states: "disabled" })).toEqual({
+  test("mixes visualStates with regular dimensions", () => {
+    expect(cellToProps({ variant: "solid", visualStates: "disabled" })).toEqual({
       variant: "solid",
       disabled: true,
     });
@@ -170,11 +173,11 @@ describe("coverageFixtures", () => {
     }
   });
 
-  test("translates `states` dimensions into boolean props", () => {
+  test("translates `visualStates` dimensions into boolean props", () => {
     const fixtures = coverageFixtures(
       spec({
-        states: { disabled: stateDef, loading: stateDef },
-        coverage: { states: true },
+        visualStates: { disabled: stateDef, loading: stateDef },
+        coverage: { visualStates: true },
       }),
     );
     const flags = fixtures.flatMap((f) => Object.keys(f.props));

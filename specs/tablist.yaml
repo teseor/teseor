@@ -3,7 +3,6 @@ description: "A non-interactive tab bar. Renders one tab button + an optional ad
 kind: composite
 dependencies: []
 cssFile: components/tablist/tablist.css
-behavior: none
 
 parts:
   list:

@@ -9,7 +9,7 @@ import type { Spec } from "../../gen-contract.ts";
 
 /** Spec fields gen-tests reads beyond gen-contract's loose Spec type. */
 export type TestsSpec = Spec & {
-  states?: Record<string, { description?: string }>;
+  visualStates?: Record<string, { description?: string }>;
   coverage?: Record<string, true | readonly string[]>;
 };
 
@@ -23,8 +23,8 @@ export function declaredValues(spec: TestsSpec, dimName: string): readonly strin
       return Object.keys(spec.intents ?? {});
     case "size":
       return Object.keys(spec.sizes ?? {});
-    case "states":
-      return Object.keys(spec.states ?? {});
+    case "visualStates":
+      return Object.keys(spec.visualStates ?? {});
     default: {
       const def = spec.props?.[dimName];
       return def?.values ?? [];
@@ -56,13 +56,13 @@ export function collectConstraints(spec: TestsSpec): PairwiseConstraint[] {
   }));
 }
 
-/** Translate a pairwise cell into a fixture props object. `states` cells
- * (e.g. `disabled`) map to the matching boolean prop (`disabled: true`); the
- * rest pass through as `{ <dim>: <value> }`. */
+/** Translate a pairwise cell into a fixture props object. `visualStates`
+ * cells (e.g. `disabled`) map to the matching boolean prop (`disabled: true`);
+ * the rest pass through as `{ <dim>: <value> }`. */
 export function cellToProps(cell: Cell): Record<string, unknown> {
   const props: Record<string, unknown> = {};
   for (const [dim, value] of Object.entries(cell)) {
-    if (dim === "states") props[value] = true;
+    if (dim === "visualStates") props[value] = true;
     else props[dim] = value;
   }
   return props;
@@ -74,7 +74,7 @@ export function coverageFixtures(spec: TestsSpec): CoverageFixture[] {
   const constraints = collectConstraints(spec);
   // Pairwise evaluates constraints against the *translated* cell so a
   // constraint referencing `loading: true` matches a cell that translated a
-  // `states: "loading"` dimension into `{ loading: true }`.
+  // `visualStates: "loading"` dimension into `{ loading: true }`.
   const cells = expandPairwise(dimensions, constraints, cellToProps);
   return cells.map((cell) => ({
     id: coverageFixtureId(cell, dimensions),

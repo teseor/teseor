@@ -34,7 +34,7 @@ function makeSpec(props: Record<string, FlatProp>): FlatSpec {
     element: "div",
     props,
     tokens: {},
-    states: {},
+    visualStates: {},
   };
 }
 

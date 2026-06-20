@@ -8,7 +8,7 @@ function atomicSpec(overrides: Partial<DocsSpec> = {}): DocsSpec {
     kind: "atomic",
     props: {},
     tokens: {},
-    states: {},
+    visualStates: {},
     ...overrides,
   };
 }

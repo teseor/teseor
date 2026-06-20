@@ -11,7 +11,7 @@ function spec(overrides: SpecOverrides = {}): FlatSpec {
     rootClass: "t-button",
     props: {},
     tokens: {},
-    states: {},
+    visualStates: {},
     ...overrides,
   };
 }

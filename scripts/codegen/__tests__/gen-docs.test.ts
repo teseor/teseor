@@ -56,16 +56,15 @@ describe("gen-docs", () => {
     const parsed = SpecSchema.parse({
       name: "fancy-popover",
       kind: "composite",
-      overlay: {
-        anchor: "trigger",
-        floating: "content",
-        mode: "manual",
-        anchorVar: "--t-fancy-popover-anchor",
-      },
       parts: {
         trigger: { fromChildren: true },
         content: {
           element: "div",
+          overlay: {
+            anchor: "trigger",
+            mode: "manual",
+            anchorVar: "--t-fancy-popover-anchor",
+          },
           a11y: { keyboard: { Escape: "Custom Escape wording from the spec." } },
         },
       },

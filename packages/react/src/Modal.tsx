@@ -68,7 +68,11 @@ export function Modal(props: ModalProps) {
   } = props;
 
   const interactions = useMemo<OverlayInteraction[]>(
-    () => [{ on: { event: "click", target: "trigger" }, do: "toggle" }],
+    () => [
+      { on: { event: "click", target: "trigger" }, do: "toggle" },
+      { on: { event: "keydown", key: "escape" }, do: "close" },
+      { on: { event: "outside-click" }, do: "close" },
+    ],
     [],
   );
 

@@ -1,4 +1,7 @@
-import { extractCompositeShape } from "../../../lib/composite-shape.ts";
+import {
+  extractCompositeShape,
+  overlayInteractionsFromStates,
+} from "../../../lib/composite-shape.ts";
 import { renderEnumType } from "../../../lib/enum-primitives.ts";
 import { reactJsDocFlavor, renderComponentJsDoc } from "../../../lib/jsdoc-shape.ts";
 import { pascalCase } from "../../../lib/pascal-case.ts";
@@ -30,15 +33,22 @@ export function renderCompositeOverlayReactWrapper(
   propDescriptions: Record<string, string>,
 ): string {
   const Name = pascalCase(spec.name);
-  // `overlaySpec` (not `overlay`) so the generator-side reference doesn't
-  // shadow the emitted runtime variable `const overlay = useOverlay(...)`.
-  const { overlaySpec, triggerClass, contentClass, contentElement, contentRole } =
-    extractCompositeShape(spec, {
-      emitterLabel: "this generator only emits the overlay-with-anchor shape",
-      separateMissingPartErrors: true,
-      forbidContentFromChildren: true,
-    });
-  const interactions = spec.interactions ?? [];
+  // `overlaySpec` (not `overlay`) avoids shadowing the emitted runtime
+  // `const overlay = useOverlay(...)`.
+  const {
+    overlaySpec,
+    contentPart,
+    contentPartName,
+    triggerClass,
+    contentClass,
+    contentElement,
+    contentRole,
+  } = extractCompositeShape(spec, {
+    emitterLabel: "this generator only emits the overlay-with-anchor shape",
+    separateMissingPartErrors: true,
+    forbidContentFromChildren: true,
+  });
+  const interactions = overlayInteractionsFromStates(contentPart);
 
   // Controllable prop on the anchor part — usually `open`. The renderOwnProps
   // path consumes spec.props (merged), so we just read the name and emit the
@@ -56,7 +66,7 @@ export function renderCompositeOverlayReactWrapper(
 
   // Slots that the content renders inline (e.g. `text` for Tooltip).
   const contentSlots = Object.entries(spec.props)
-    .filter(([, d]) => d.slot === true && d.__part === overlaySpec.floating)
+    .filter(([, d]) => d.slot === true && d.__part === contentPartName)
     .map(([n]) => n);
 
   // Responsive props rendered as data-attrs on the content element.

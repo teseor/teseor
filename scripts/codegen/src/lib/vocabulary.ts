@@ -24,6 +24,8 @@ export type Vocabulary = {
   states: string[];
   parts: string[];
   events: EventVocabulary;
+  dom_events: Record<string, string>;
+  keys: Record<string, string>;
 };
 
 let cached: Vocabulary | null = null;

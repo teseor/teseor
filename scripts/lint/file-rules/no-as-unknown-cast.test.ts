@@ -4,12 +4,12 @@ import { findCastViolations } from "./no-as-unknown-cast.ts";
 describe("findCastViolations", () => {
   it("flags `as unknown as Spec`", () => {
     const issues = findCastViolations("return flattenSpec(parsed) as unknown as Spec;");
-    expect(issues).toEqual([{ line: 1, target: "Spec" }]);
+    expect(issues).toEqual([{ line: 1, target: "Spec", kind: "double" }]);
   });
 
   it("flags `as unknown as DocsSpec`", () => {
     const issues = findCastViolations("const x = raw as unknown as DocsSpec;");
-    expect(issues).toEqual([{ line: 1, target: "DocsSpec" }]);
+    expect(issues).toEqual([{ line: 1, target: "DocsSpec", kind: "double" }]);
   });
 
   it("flags `as unknown as FlatSpec`", () => {
@@ -39,7 +39,7 @@ describe("findCastViolations", () => {
 
   it("reports the line number of the violation", () => {
     const source = ["// preamble", "", "  return x as unknown as DocsSpec;"].join("\n");
-    expect(findCastViolations(source)).toEqual([{ line: 3, target: "DocsSpec" }]);
+    expect(findCastViolations(source)).toEqual([{ line: 3, target: "DocsSpec", kind: "double" }]);
   });
 
   it("reports every cast on a single line", () => {
@@ -49,6 +49,50 @@ describe("findCastViolations", () => {
 
   it("is whitespace-tolerant (newlines / multiple spaces inside the cast)", () => {
     const source = "const s = raw  as   unknown   as   Spec;";
-    expect(findCastViolations(source)).toEqual([{ line: 1, target: "Spec" }]);
+    expect(findCastViolations(source)).toEqual([{ line: 1, target: "Spec", kind: "double" }]);
+  });
+
+  it("flags the bare cast `as Spec`", () => {
+    const issues = findCastViolations("const x = { kind: 'atomic' } as Spec;");
+    expect(issues).toEqual([{ line: 1, target: "Spec", kind: "bare" }]);
+  });
+
+  it("flags the bare cast `as Vocabulary`", () => {
+    const issues = findCastViolations("const v = raw as Vocabulary;");
+    expect(issues[0]?.target).toBe("Vocabulary");
+  });
+
+  it("flags any bare `as *Schema` cast", () => {
+    const issues = findCastViolations("const s = raw as ButtonSchema;");
+    expect(issues[0]?.target).toBe("ButtonSchema");
+  });
+
+  it("ignores bare casts to computed-aggregate types (FlatSpec / DocsSpec)", () => {
+    const source = [
+      "return flattenSpec(parsed) as DocsSpec;",
+      "const flat = result as FlatSpec;",
+    ].join("\n");
+    expect(findCastViolations(source)).toEqual([]);
+  });
+
+  it("allows narrow indexed access `as Spec['events']`", () => {
+    const source = [
+      `const events = raw as Spec["events"];`,
+      `const inner = data as DocsSpec[K];`,
+    ].join("\n");
+    expect(findCastViolations(source)).toEqual([]);
+  });
+
+  it("ignores `as const` / lowercase identifiers", () => {
+    const source = ["const enum1 = { a: 1 } as const;", "const v = x as helper;"].join("\n");
+    expect(findCastViolations(source)).toEqual([]);
+  });
+
+  it("ignores import-alias forms (`import { Spec as SpecSchema }`, export-from)", () => {
+    const source = [
+      `import { Spec as SpecSchema } from "../src/schema.ts";`,
+      `export { ButtonSpec as ButtonFixture } from "./fixtures.ts";`,
+    ].join("\n");
+    expect(findCastViolations(source)).toEqual([]);
   });
 });

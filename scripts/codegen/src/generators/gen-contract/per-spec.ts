@@ -2,6 +2,7 @@ import type { FlatSpec } from "../../lib/flatten.ts";
 import { pascalCase } from "../../lib/pascal-case.ts";
 import { itemTypeName } from "../../lib/repeating-naming.ts";
 import { renderPayloadFields } from "./_shared/payload-printer.ts";
+import { collectStatefulParts, stateTypeName } from "./_shared/states.ts";
 import { mapPropType, quote, responsiveType } from "./_shared/type-printer.ts";
 
 /** Per-spec contract emitter. `FlatSpec` already collapses the atomic vs
@@ -204,6 +205,17 @@ export function renderContract(spec: FlatSpec): string {
     propLines.push(`   *  controllable state mirror. Per-emission ordering: declared event prop →`);
     propLines.push(`   *  channel → controllable callback → channel. */`);
     propLines.push(`  onEvent?: (e: ${Name}Event${genericParams}) => void;`);
+  }
+
+  // Per-part state unions. Generated from each part's `states:` map so
+  // consumers can name the union at `useState`-style boundaries without
+  // re-deriving it. Single-part case collapses to `<Spec>State`.
+  const statefulParts = collectStatefulParts(spec.parts);
+  for (const { partName, stateNames } of statefulParts) {
+    const typeName = stateTypeName(Name, partName, statefulParts.length);
+    const values = stateNames.map(quote).join(" | ");
+    lines.push(`export type ${typeName} = ${values};`);
+    lines.push("");
   }
 
   if (propLines.length === 0) {

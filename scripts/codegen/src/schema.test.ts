@@ -43,7 +43,7 @@ describe("Spec schema — shape layer", () => {
   test("rejects a list-shaped `states:` (the pre-v0.3 form)", () => {
     const result = Spec.safeParse({
       ...minimalAtomic(),
-      states: ["hover", "focus"],
+      visualStates: ["hover", "focus"],
     });
     expect(result.success).toBe(false);
   });
@@ -51,7 +51,7 @@ describe("Spec schema — shape layer", () => {
   test("accepts a map-shaped `states:`", () => {
     const result = Spec.safeParse({
       ...minimalAtomic(),
-      states: { hover: { description: "Pointer over." } },
+      visualStates: { hover: { description: "Pointer over." } },
     });
     expect(result.success).toBe(true);
   });
@@ -122,46 +122,56 @@ describe("Spec schema — shape layer", () => {
     const result = Spec.safeParse({
       name: "tooltip",
       kind: "composite",
-      parts: { trigger: { fromChildren: true }, content: { element: "div" } },
-      overlay: {
-        anchor: "trigger",
-        floating: "content",
-        mode: "manual",
-        anchorVar: "--t-tooltip-anchor",
+      parts: {
+        trigger: { fromChildren: true },
+        content: {
+          element: "div",
+          overlay: { anchor: "trigger", mode: "manual", anchorVar: "--t-tooltip-anchor" },
+        },
       },
     });
     if (!result.success) throw result.error;
-    expect(result.data.overlay?.modal).toBe(false);
+    if (result.data.kind !== "composite") throw new Error("expected composite");
+    expect(result.data.parts.content?.overlay?.modal).toBe(false);
   });
 
   test("overlay.modal accepts true", () => {
     const result = Spec.safeParse({
       name: "dialog",
       kind: "composite",
-      parts: { trigger: { fromChildren: true }, content: { element: "div" } },
-      overlay: {
-        anchor: "trigger",
-        floating: "content",
-        mode: "manual",
-        anchorVar: "--t-dialog-anchor",
-        modal: true,
+      parts: {
+        trigger: { fromChildren: true },
+        content: {
+          element: "div",
+          overlay: {
+            anchor: "trigger",
+            mode: "manual",
+            anchorVar: "--t-dialog-anchor",
+            modal: true,
+          },
+        },
       },
     });
     if (!result.success) throw result.error;
-    expect(result.data.overlay?.modal).toBe(true);
+    if (result.data.kind !== "composite") throw new Error("expected composite");
+    expect(result.data.parts.content?.overlay?.modal).toBe(true);
   });
 
   test("overlay.modal rejects non-boolean", () => {
     const result = Spec.safeParse({
       name: "dialog",
       kind: "composite",
-      parts: { trigger: { fromChildren: true }, content: { element: "div" } },
-      overlay: {
-        anchor: "trigger",
-        floating: "content",
-        mode: "manual",
-        anchorVar: "--t-dialog-anchor",
-        modal: "yes",
+      parts: {
+        trigger: { fromChildren: true },
+        content: {
+          element: "div",
+          overlay: {
+            anchor: "trigger",
+            mode: "manual",
+            anchorVar: "--t-dialog-anchor",
+            modal: "yes",
+          },
+        },
       },
     });
     expect(result.success).toBe(false);

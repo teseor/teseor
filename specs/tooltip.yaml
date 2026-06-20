@@ -3,28 +3,6 @@ description: A non-interactive hint that appears when its trigger is hovered or 
 kind: composite
 dependencies: []
 cssFile: components/tooltip/tooltip.css
-behavior: stateful
-primitives: []
-
-overlay:
-  anchor: trigger
-  floating: content
-  mode: manual
-  anchorVar: --t-tooltip-anchor
-
-interactions:
-  - on: { event: pointerenter, target: trigger }
-    do: open
-    delay: openDelay
-  - on: { event: focusin, target: trigger }
-    do: open
-    delay: openDelay
-  - on: { event: pointerleave, target: trigger }
-    do: close
-    delay: closeDelay
-  - on: { event: focusout, target: trigger }
-    do: close
-    delay: closeDelay
 
 parts:
   trigger:
@@ -42,16 +20,6 @@ parts:
         default: false
         responsive: true
         description: "Suppresses the tooltip entirely. Responsive so the tooltip can be hidden at narrow viewports (e.g. `disabled: { base: true, md: false }`)."
-      openDelay:
-        type: number
-        default: 300
-        responsive: false
-        description: "Milliseconds before the tooltip opens after hover or focus. Prevents flicker during cursor scanning."
-      closeDelay:
-        type: number
-        default: 0
-        responsive: false
-        description: "Milliseconds before the tooltip closes after leave or blur."
     privateTokens:
       - --_anchor
 
@@ -60,6 +28,18 @@ parts:
     rootClass: t-tooltip
     a11y:
       role: tooltip
+    overlay:
+      anchor: trigger
+      anchorVar: --t-tooltip-anchor
+    states:
+      closed:
+        on:
+          trigger.pointerenter: { to: open, after: openDelay, when: "!trigger.disabled" }
+          trigger.focusin:      { to: open,                    when: "!trigger.disabled" }
+      open:
+        on:
+          trigger.pointerleave: { to: closed, after: closeDelay }
+          trigger.focusout:     { to: closed }
     props:
       text:
         type: string
@@ -72,6 +52,16 @@ parts:
         default: top
         responsive: true
         description: "Preferred side relative to the trigger. CSS `position-try-fallbacks` auto-flips on overflow."
+      openDelay:
+        type: number
+        default: 300
+        responsive: false
+        description: "Milliseconds before the tooltip opens after hover or focus. Prevents flicker during cursor scanning."
+      closeDelay:
+        type: number
+        default: 0
+        responsive: false
+        description: "Milliseconds before the tooltip closes after leave or blur."
     tokens:
       bg:
         fallback: --t-surface-inverse

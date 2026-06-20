@@ -9,6 +9,7 @@ import {
   renderNamed,
   renderProps,
   renderRepeatingItems,
+  renderStateMachineDiagrams,
   renderStates,
   renderTokens,
 } from "./sections.ts";
@@ -19,7 +20,7 @@ function atomicSpec(overrides: Partial<DocsSpec> = {}): DocsSpec {
     kind: "atomic",
     props: {},
     tokens: {},
-    states: {},
+    visualStates: {},
     ...overrides,
   };
 }
@@ -75,7 +76,7 @@ describe("renderProps", () => {
         text: { type: "string", description: "", __part: "" },
       },
       tokens: {},
-      states: {},
+      visualStates: {},
       parts: {
         trigger: { fromChildren: true },
       },
@@ -92,16 +93,17 @@ describe("renderProps", () => {
         text: { type: "string", description: "", __part: "" },
       },
       tokens: {},
-      states: {},
+      visualStates: {},
       parts: {
         trigger: { fromChildren: true },
-      },
-      overlay: {
-        anchor: "trigger",
-        floating: "content",
-        mode: "manual",
-        anchorVar: "--t-tooltip-anchor",
-        modal: false,
+        content: {
+          overlay: {
+            anchor: "trigger",
+            mode: "manual",
+            anchorVar: "--t-tooltip-anchor",
+            modal: false,
+          },
+        },
       },
     };
     const out = renderProps(spec);
@@ -118,16 +120,17 @@ describe("renderProps", () => {
         title: { type: "string", description: "", __part: "" },
       },
       tokens: {},
-      states: {},
+      visualStates: {},
       parts: {
         trigger: { fromChildren: true },
-      },
-      overlay: {
-        anchor: "trigger",
-        floating: "content",
-        mode: "manual",
-        anchorVar: "--t-modal-anchor",
-        modal: true,
+        content: {
+          overlay: {
+            anchor: "trigger",
+            mode: "manual",
+            anchorVar: "--t-modal-anchor",
+            modal: true,
+          },
+        },
       },
     };
     const out = renderProps(spec);
@@ -143,7 +146,7 @@ describe("renderProps", () => {
         label: { type: "string", description: "", __part: "" },
       },
       tokens: {},
-      states: {},
+      visualStates: {},
       parts: {
         trigger: { fromChildren: true },
       },
@@ -166,7 +169,7 @@ describe("hasFromChildrenPart", () => {
       kind: "composite",
       props: {},
       tokens: {},
-      states: {},
+      visualStates: {},
       parts: { trigger: { fromChildren: true } },
     };
     expect(hasFromChildrenPart(spec)).toBe(true);
@@ -178,7 +181,7 @@ describe("hasFromChildrenPart", () => {
       kind: "composite",
       props: {},
       tokens: {},
-      states: {},
+      visualStates: {},
       parts: { content: { element: "div" } },
     };
     expect(hasFromChildrenPart(spec)).toBe(false);
@@ -190,7 +193,7 @@ describe("hasFromChildrenPart", () => {
       kind: "composite",
       props: {},
       tokens: {},
-      states: {},
+      visualStates: {},
       parts: {
         outer: { parts: { inner: { fromChildren: true } } },
       },
@@ -220,7 +223,7 @@ describe("renderStates", () => {
 
   test("renders one row per state", () => {
     const spec = atomicSpec({
-      states: { hover: { description: "Pointer over.", __part: "" } },
+      visualStates: { hover: { description: "Pointer over.", __part: "" } },
     });
     const out = renderStates(spec);
     expect(out).toContain("<h2>States</h2>");
@@ -269,13 +272,16 @@ describe("renderA11y", () => {
       kind: "composite",
       props: {},
       tokens: {},
-      states: {},
-      overlay: {
-        anchor: "trigger",
-        floating: "content",
-        mode: "manual",
-        anchorVar: "--t-popover-anchor",
-        modal: false,
+      visualStates: {},
+      parts: {
+        content: {
+          overlay: {
+            anchor: "trigger",
+            mode: "manual",
+            anchorVar: "--t-popover-anchor",
+            modal: false,
+          },
+        },
       },
     };
     const out = renderA11y(spec);
@@ -289,13 +295,16 @@ describe("renderA11y", () => {
       kind: "composite",
       props: {},
       tokens: {},
-      states: {},
-      overlay: {
-        anchor: "trigger",
-        floating: "content",
-        mode: "manual",
-        anchorVar: "--t-popover-anchor",
-        modal: false,
+      visualStates: {},
+      parts: {
+        content: {
+          overlay: {
+            anchor: "trigger",
+            mode: "manual",
+            anchorVar: "--t-popover-anchor",
+            modal: false,
+          },
+        },
       },
       a11y: { keyboard: { Escape: "Custom escape wording." } },
     };
@@ -399,7 +408,7 @@ describe("renderRepeatingItems", () => {
       kind: "composite",
       props: {},
       tokens: {},
-      states: {},
+      visualStates: {},
       repeating: [
         {
           partName: "page",
@@ -425,7 +434,7 @@ describe("renderRepeatingItems", () => {
       kind: "composite",
       props: {},
       tokens: {},
-      states: {},
+      visualStates: {},
       repeating: [
         {
           partName: "page",
@@ -438,5 +447,118 @@ describe("renderRepeatingItems", () => {
     const out = renderProps(spec);
     expect(out).toContain("<Code>pages</Code>");
     expect(out).toContain("ReadonlyArray&lt;PaginationPageItem&gt;");
+  });
+});
+
+describe("renderStateMachineDiagrams", () => {
+  test("returns empty string for atomic specs", () => {
+    expect(renderStateMachineDiagrams(atomicSpec())).toBe("");
+  });
+
+  test("returns empty string when no part declares `states:`", () => {
+    const spec: DocsSpec = {
+      name: "stack",
+      kind: "composite",
+      props: {},
+      tokens: {},
+      visualStates: {},
+      parts: { root: { element: "div" } },
+    };
+    expect(renderStateMachineDiagrams(spec)).toBe("");
+  });
+
+  test("emits one transitions table per part with `states:`", () => {
+    const spec: DocsSpec = {
+      name: "modal",
+      kind: "composite",
+      props: {},
+      tokens: {},
+      visualStates: {},
+      parts: {
+        trigger: { fromChildren: true },
+        content: {
+          element: "div",
+          states: {
+            closed: { on: { "trigger.click": "open" } },
+            open: {
+              on: {
+                "trigger.click": { to: "closed" },
+                "key.escape": { to: "closed" },
+              },
+            },
+          },
+        },
+      },
+    };
+    const out = renderStateMachineDiagrams(spec);
+    expect(out).toContain("Part: <Code>content</Code>");
+    expect(out).toContain("initial: <Code>closed</Code>");
+    expect(out).toContain("<th>From</th>");
+    expect(out).toContain("<Code>trigger.click</Code>");
+    expect(out).toContain("<Code>key.escape</Code>");
+    // 3 transitions + 1 header row.
+    expect((out.match(/<tr>/g) ?? []).length).toBe(4);
+  });
+
+  test("annotates transitions with `after` and `when` modifiers", () => {
+    const spec: DocsSpec = {
+      name: "tooltip",
+      kind: "composite",
+      props: {},
+      tokens: {},
+      visualStates: {},
+      parts: {
+        trigger: {
+          fromChildren: true,
+          props: {
+            disabled: { type: "boolean", description: "Suppress." },
+          },
+        },
+        content: {
+          element: "div",
+          states: {
+            closed: {
+              on: {
+                "trigger.pointerenter": {
+                  to: "open",
+                  after: "openDelay",
+                  when: "!trigger.disabled",
+                },
+              },
+            },
+            open: { on: {} },
+          },
+        },
+      },
+    };
+    const out = renderStateMachineDiagrams(spec);
+    expect(out).toContain("after <Code>openDelay</Code>");
+    expect(out).toContain("when <Code>!trigger.disabled</Code>");
+  });
+
+  test("walks nested parts", () => {
+    const spec: DocsSpec = {
+      name: "outer",
+      kind: "composite",
+      props: {},
+      tokens: {},
+      visualStates: {},
+      parts: {
+        root: {
+          element: "div",
+          parts: {
+            inner: {
+              element: "div",
+              states: {
+                closed: { on: { "root.click": "open" } },
+                open: { on: { "root.click": "closed" } },
+              },
+            },
+          },
+        },
+      },
+    };
+    const out = renderStateMachineDiagrams(spec);
+    expect(out).toContain("Part: <Code>inner</Code>");
   });
 });

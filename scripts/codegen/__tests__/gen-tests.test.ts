@@ -11,12 +11,14 @@ import {
   renderVueBarrel,
   renderVueFixtureFile,
 } from "../src/generators/gen-tests.ts";
+import { flattenSpec } from "../src/lib/flatten.ts";
+import { Spec as SpecSchema } from "../src/schema.ts";
 
 const REPO_ROOT = resolve(import.meta.dirname, "..", "..", "..");
 
 async function loadSpec(name: string): Promise<Spec> {
   const raw = await readFile(resolve(REPO_ROOT, "specs", `${name}.yaml`), "utf8");
-  return parseYaml(raw) as Spec;
+  return flattenSpec(SpecSchema.parse(parseYaml(raw)));
 }
 
 async function listSpecNames(): Promise<string[]> {

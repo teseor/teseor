@@ -18,7 +18,7 @@ const REPO_ROOT = resolve(import.meta.dirname, "..", "..", "..");
 
 async function loadSpec(name: string): Promise<Spec> {
   const raw = await readFile(resolve(REPO_ROOT, "specs", `${name}.yaml`), "utf8");
-  return parseYaml(raw) as Spec;
+  return flattenSpec(SpecSchema.parse(parseYaml(raw)));
 }
 
 async function listSpecNames(): Promise<string[]> {
@@ -107,13 +107,6 @@ describe("gen-vue", () => {
       const parsed = SpecSchema.parse({
         name: "dialog",
         kind: "composite",
-        overlay: {
-          anchor: "trigger",
-          floating: "content",
-          mode: "manual",
-          anchorVar: "--t-dialog-anchor",
-          modal,
-        },
         parts: {
           trigger: {
             fromChildren: true,
@@ -129,6 +122,12 @@ describe("gen-vue", () => {
           },
           content: {
             element: "div",
+            overlay: {
+              anchor: "trigger",
+              mode: "manual",
+              anchorVar: "--t-dialog-anchor",
+              modal,
+            },
             props: {
               title: {
                 type: "string",

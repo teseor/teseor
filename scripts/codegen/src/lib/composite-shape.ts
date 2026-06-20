@@ -1,47 +1,26 @@
 import type { SpecPart } from "../schema.ts";
 import type { FlatSpec } from "./flatten.ts";
 
-/**
- * Options that customize the validation surface of `extractCompositeShape`.
- *
- * The two existing generators (React, Vue) differ in their error wording and
- * in which validations they apply:
- *
- *   - React emits separate errors for missing anchor and missing floating
- *     parts and forbids the floating part from declaring `fromChildren: true`.
- *   - Vue combines the missing-part check into one error and skips the
- *     floating-part `fromChildren` check.
- *
- * The flags below carry these asymmetries while keeping the happy-path
- * extraction in one place.
- */
 export type CompositeShapeOptions = {
-  /**
-   * Trailing phrase appended to the "anchor must declare fromChildren" error,
-   * in parentheses. Identifies which emitter rejected the spec.
-   *
-   *   React: "this generator only emits the overlay-with-anchor shape"
-   *   Vue:   "Vue composite emitter only supports the overlay-with-anchor shape"
-   */
   emitterLabel: string;
-  /**
-   * When `true` (React), report missing anchor and missing floating parts in
-   * two separate errors. When `false` (Vue), report both in one combined
-   * error. The wording matches each generator's pre-extraction behavior.
-   */
   separateMissingPartErrors: boolean;
-  /**
-   * When `true` (React), throw if the floating part declares
-   * `fromChildren: true`. Vue does not enforce this today.
-   */
   forbidContentFromChildren: boolean;
 };
 
-/** The extracted overlay-with-anchor shape every composite generator needs. */
+export type OverlayShape = {
+  anchor: string;
+  anchorVar: string;
+  mode: "auto" | "manual" | "hint";
+  modal: boolean;
+};
+
 export type CompositeShape = {
-  overlaySpec: NonNullable<FlatSpec["overlay"]>;
+  overlaySpec: OverlayShape;
   triggerPart: SpecPart;
   contentPart: SpecPart;
+  /** The part name that declared `overlay:` — replaces the old root-block
+   *  `overlay.floating` field. */
+  contentPartName: string;
   triggerClass: string;
   contentClass: string;
   contentElement: string;
@@ -49,34 +28,39 @@ export type CompositeShape = {
 };
 
 /**
- * Resolve the overlay-with-anchor shape from a composite spec. Returns the
- * trigger + content parts plus the derived classes / element / role used by
- * both the React and Vue composite emitters. Throws when the spec is
- * incompatible with the overlay-with-anchor shape.
+ * Resolve the overlay-with-anchor shape from a composite spec. Finds the part
+ * declaring `overlay:` (the floating element) and looks up the named anchor
+ * sibling, returning the derived classes / element / role both composite
+ * emitters need.
  */
 export function extractCompositeShape(spec: FlatSpec, opts: CompositeShapeOptions): CompositeShape {
-  const overlaySpec = spec.overlay;
   const parts = spec.parts ?? {};
-  if (!overlaySpec) {
+
+  let contentPartName: string | undefined;
+  let contentPart: SpecPart | undefined;
+  for (const [name, part] of Object.entries(parts)) {
+    if (part.overlay) {
+      if (contentPart !== undefined) {
+        throw new Error(`composite spec '${spec.name}' declares 'overlay:' on more than one part`);
+      }
+      contentPartName = name;
+      contentPart = part;
+    }
+  }
+  if (!contentPart || !contentPartName || !contentPart.overlay) {
     throw new Error(
-      `composite spec '${spec.name}' must declare 'overlay:' for the overlay-with-anchor shape`,
+      `composite spec '${spec.name}' must declare 'overlay:' on a part (${opts.emitterLabel})`,
     );
   }
+  const overlaySpec: OverlayShape = contentPart.overlay;
+
   const triggerPart = parts[overlaySpec.anchor];
-  const contentPart = parts[overlaySpec.floating];
   if (opts.separateMissingPartErrors) {
     if (!triggerPart) {
       throw new Error(`overlay.anchor '${overlaySpec.anchor}' is not a declared part`);
     }
-    if (!contentPart) {
-      throw new Error(`overlay.floating '${overlaySpec.floating}' is not a declared part`);
-    }
-  } else {
-    if (!triggerPart || !contentPart) {
-      throw new Error(
-        `overlay.anchor '${overlaySpec.anchor}' or overlay.floating '${overlaySpec.floating}' is not a declared part`,
-      );
-    }
+  } else if (!triggerPart) {
+    throw new Error(`overlay.anchor '${overlaySpec.anchor}' is not a declared part`);
   }
   if (triggerPart.fromChildren !== true) {
     throw new Error(
@@ -85,7 +69,7 @@ export function extractCompositeShape(spec: FlatSpec, opts: CompositeShapeOption
   }
   if (opts.forbidContentFromChildren && contentPart.fromChildren === true) {
     throw new Error(
-      `overlay.floating '${overlaySpec.floating}' cannot declare 'fromChildren: true'`,
+      `the overlay-declaring part '${contentPartName}' cannot also declare 'fromChildren: true'`,
     );
   }
 
@@ -98,9 +82,139 @@ export function extractCompositeShape(spec: FlatSpec, opts: CompositeShapeOption
     overlaySpec,
     triggerPart,
     contentPart,
+    contentPartName,
     triggerClass,
     contentClass,
     contentElement,
     contentRole,
   };
+}
+
+/**
+ * Compile a part's `states:` block into the flat input→action rules the
+ * `useOverlay` runtime consumes. This is the canonical compilation target
+ * for overlay-with-anchor specs (Modal, Tooltip, future Popover/Menu): the
+ * two-state shape (`open` ↔ `closed`) fits useOverlay's hand-rolled
+ * controllable triple + dismissable layer + popover toggle, and the
+ * compilation preserves the spec's `when`/`after`/`emits` modifiers.
+ *
+ * Complex state machines that don't fit overlay-with-anchor (Combobox's
+ * highlighted index, Wizard step progression, Disclosure variants without
+ * popover anchoring) target `useStateMachine` from `@teseor/primitives`
+ * directly — this compiler isn't the path for them.
+ */
+export type OverlayInteractionRule = {
+  on: { event: string; target?: string; key?: string };
+  do: "open" | "close" | "toggle";
+  delay?: string;
+  when?: string;
+};
+
+export function overlayInteractionsFromStates(part: SpecPart): OverlayInteractionRule[] {
+  const states = part.states;
+  if (!states) return [];
+
+  // Group transitions by source key so the projection can detect mutually-
+  // inverse pairs (closed.k → open + open.k → closed) and emit a single
+  // `do: "toggle"` rather than two competing rules. `useOverlay` treats
+  // interactions as a flat list — two same-source rules with `do: "open"` /
+  // `do: "close"` both fire on every dispatch, netting closed.
+  type Entry = {
+    fromState: string;
+    to: string;
+    after?: string;
+    when?: string;
+  };
+  const bySource = new Map<string, Entry[]>();
+  const stateNames = Object.keys(states);
+  const initial = stateNames[0];
+
+  for (const [stateName, stateDef] of Object.entries(states)) {
+    for (const [sourceKey, target] of Object.entries(stateDef.on)) {
+      const normalized = normalizeTarget(target);
+      const entry: Entry = {
+        fromState: stateName,
+        to: normalized.to,
+      };
+      if (normalized.after !== undefined) entry.after = normalized.after;
+      if (normalized.when !== undefined) entry.when = normalized.when;
+      const list = bySource.get(sourceKey) ?? [];
+      list.push(entry);
+      bySource.set(sourceKey, list);
+    }
+  }
+
+  const out: OverlayInteractionRule[] = [];
+  for (const [sourceKey, entries] of bySource) {
+    const { event, partTarget, keyName } = parseSourceKey(sourceKey);
+    const buildOn = (): OverlayInteractionRule["on"] =>
+      keyName !== undefined
+        ? { event, key: keyName }
+        : partTarget !== undefined
+          ? { event, target: partTarget }
+          : { event };
+
+    // Inverse-pair detection: exactly two entries, each one's `from` matches
+    // the other's `to`. Same `after` / `when` on both sides keeps the
+    // toggle semantically equivalent; differing modifiers fall back to
+    // per-entry emission.
+    if (entries.length === 2) {
+      const [a, b] = entries as [Entry, Entry];
+      const inverse = a.to === b.fromState && b.to === a.fromState;
+      const modifiersAgree = a.after === b.after && a.when === b.when;
+      if (inverse && modifiersAgree) {
+        const rule: OverlayInteractionRule = { on: buildOn(), do: "toggle" };
+        if (a.after !== undefined) rule.delay = a.after;
+        if (a.when !== undefined) rule.when = a.when;
+        out.push(rule);
+        continue;
+      }
+    }
+
+    for (const entry of entries) {
+      const rule: OverlayInteractionRule = {
+        on: buildOn(),
+        do: resolveAction(entry.fromState, entry.to, initial),
+      };
+      if (entry.after !== undefined) rule.delay = entry.after;
+      if (entry.when !== undefined) rule.when = entry.when;
+      out.push(rule);
+    }
+  }
+  return out;
+}
+
+function parseSourceKey(key: string): {
+  event: string;
+  partTarget?: string;
+  keyName?: string;
+} {
+  const dot = key.indexOf(".");
+  if (dot === -1) return { event: key };
+  const prefix = key.slice(0, dot);
+  const event = key.slice(dot + 1);
+  if (prefix === "key") return { event: "keydown", keyName: event };
+  if (prefix === "outside") return { event: `outside-${event}` };
+  return { event, partTarget: prefix };
+}
+
+function normalizeTarget(target: string | { to: string; after?: string; when?: string }): {
+  to: string;
+  after?: string;
+  when?: string;
+} {
+  if (typeof target === "string") return { to: target };
+  return { to: target.to, after: target.after, when: target.when };
+}
+
+function resolveAction(
+  fromState: string,
+  toState: string,
+  initial: string | undefined,
+): "open" | "close" | "toggle" {
+  // The runtime tracks one boolean (open/closed) for now. Leaving the initial
+  // state moves to "open"; returning to the initial state is "close".
+  if (toState === fromState) return "toggle";
+  if (toState === initial) return "close";
+  return "open";
 }

@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import type { TokenDictionary } from "./lib/token-dictionary.ts";
 import type { Vocabulary } from "./lib/vocabulary.ts";
-import type { Spec } from "./schema.ts";
+import { Spec } from "./schema.ts";
 import {
   checkAsIsConstrained,
   checkConstraintsAgainstCoverage,
@@ -13,13 +13,11 @@ import {
   checkEventsRuntimeSupport,
   checkExamplesPresent,
   checkExamplesReferences,
-  checkInteractionEventVocabulary,
-  checkInteractionRefs,
   checkMotionSymmetry,
-  checkOverlayEscapeRules,
   checkPrivateTokens,
   checkRepeatingParts,
   checkResponsiveExplicit,
+  checkStateMachines,
   checkTokenContract,
   checkTokenFallbacks,
   checkTokenNames,
@@ -71,10 +69,22 @@ const vocabulary: Vocabulary = {
       Date: "ECMAScript Date.",
     },
   },
+  dom_events: {
+    click: "Pointer click.",
+    pointerenter: "Pointer entered.",
+    pointerleave: "Pointer left.",
+    focusin: "Focus moved in.",
+    focusout: "Focus moved out.",
+  },
+  keys: {
+    escape: "Escape key.",
+    enter: "Enter key.",
+    tab: "Tab key.",
+  },
 };
 
 function makeButton(overrides: Partial<Spec> = {}): Spec {
-  return {
+  return Spec.parse({
     name: "button",
     kind: "atomic",
     element: "button",
@@ -90,7 +100,16 @@ function makeButton(overrides: Partial<Spec> = {}): Spec {
       fg: { fallback: "--t-on-accent", desc: "Foreground." },
     },
     ...overrides,
-  } as Spec;
+  });
+}
+
+/** Validates the literal at runtime via Zod. The lint rule
+ *  `no-as-unknown-cast` forbids the bare schema-cast in test files (it
+ *  hides drift); route every fixture through this helper so a renamed
+ *  field, dropped block, or new required nesting fails at construction
+ *  with a structural error rather than rolling through every check. */
+function makeSpec(s: unknown): Spec {
+  return Spec.parse(s);
 }
 
 describe("levenshtein + suggest", () => {
@@ -138,7 +157,7 @@ describe("checkTokenContract", () => {
   });
 
   test("treats a spec name with regex metacharacters as a literal", () => {
-    const spec = { ...makeButton(), name: "a.b" } as Spec;
+    const spec = makeSpec({ ...makeButton(), name: "a.b" });
     const css = `.t-a-b { background: var(--t-a-b-bg, var(--t-accent)); color: var(--t-a-b-fg, var(--t-on-accent)); }`;
     // Without escaping, `.` would match any character and the contract check
     // would pass against `.t-a-b` despite the literal slot being `--t-a.b-*`.
@@ -228,7 +247,7 @@ describe("checkTokenFallbacks", () => {
   });
 
   test("walks composite parts", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "tooltip",
       kind: "composite",
       parts: {
@@ -241,7 +260,7 @@ describe("checkTokenFallbacks", () => {
           },
         },
       },
-    } as Spec;
+    });
     const issues = checkTokenFallbacks(spec, tokensCss);
     expect(issues).toHaveLength(1);
     expect(issues[0]?.path).toBe("parts.content.tokens.bg.fallback");
@@ -274,7 +293,7 @@ describe("checkPrivateTokens", () => {
   });
 
   test("walks composite parts (per-rootClass)", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "tooltip",
       kind: "composite",
       parts: {
@@ -289,7 +308,7 @@ describe("checkPrivateTokens", () => {
           privateTokens: ["--_bg", "--_fg"],
         },
       },
-    } as Spec;
+    });
     const css = `.t-tooltip-trigger { --_anchor: none; } .t-tooltip { --_bg: red; --_fg: white; }`;
     expect(checkPrivateTokens(spec, css)).toEqual([]);
   });
@@ -364,7 +383,7 @@ describe("checkTokenNames", () => {
   });
 
   test("walks composite parts", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "tooltip",
       kind: "composite",
       parts: {
@@ -377,7 +396,7 @@ describe("checkTokenNames", () => {
           },
         },
       },
-    } as Spec;
+    });
     const issues = checkTokenNames(spec, tokenDictionary);
     expect(issues).toHaveLength(1);
     expect(issues[0]?.path).toBe("parts.content.tokens.background");
@@ -444,12 +463,12 @@ describe("checkCoverageShape", () => {
 
   test("flags a list dimension referencing an unknown value", () => {
     const spec = makeButton({
-      states: { disabled: { description: "Disabled." } },
-      coverage: { states: ["disabled", "loading"] },
+      visualStates: { disabled: { description: "Disabled." } },
+      coverage: { visualStates: ["disabled", "loading"] },
     });
     const issues = checkCoverageShape(spec);
     expect(issues).toHaveLength(1);
-    expect(issues[0]?.message).toMatch(/'loading' is not a declared value of 'states'/);
+    expect(issues[0]?.message).toMatch(/'loading' is not a declared value of 'visualStates'/);
   });
 
   test("passes a `true` dimension that exists on the spec", () => {
@@ -527,14 +546,14 @@ describe("checkMotionSymmetry", () => {
   });
 
   test("walks into composite parts", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "popover",
       kind: "composite",
       parts: {
         root: {},
         content: { motion: { exits: ["close"] } },
       },
-    };
+    });
     const issues = checkMotionSymmetry(spec);
     expect(issues).toHaveLength(1);
     expect(issues[0]?.path).toBe("parts.content.motion");
@@ -629,7 +648,7 @@ describe("checkResponsiveExplicit", () => {
   });
 
   test("walks composite parts", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "popover",
       kind: "composite",
       parts: {
@@ -637,7 +656,7 @@ describe("checkResponsiveExplicit", () => {
           props: { open: { type: "boolean", description: "Open." } },
         },
       },
-    };
+    });
     const issues = checkResponsiveExplicit(spec);
     expect(issues).toHaveLength(1);
     expect(issues[0]?.path).toBe("parts.content.props.open.responsive");
@@ -713,7 +732,7 @@ describe("checkAsIsConstrained", () => {
   });
 
   test("walks composite parts", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "popover",
       kind: "composite",
       parts: {
@@ -721,7 +740,7 @@ describe("checkAsIsConstrained", () => {
           props: { as: { type: "string", description: "Polymorphic trigger." } },
         },
       },
-    };
+    });
     const issues = checkAsIsConstrained(spec);
     expect(issues.some((i) => i.path === "parts.trigger.props.as.values")).toBe(true);
   });
@@ -729,13 +748,13 @@ describe("checkAsIsConstrained", () => {
 
 describe("checkVoidElementConstraints", () => {
   function makeVoid(element: string, props: Record<string, unknown> = {}): Spec {
-    return {
+    return makeSpec({
       name: "divider",
       kind: "atomic",
       element,
       rootClass: "t-divider",
       props,
-    } as Spec;
+    });
   }
 
   test("ignores non-void elements", () => {
@@ -817,7 +836,7 @@ describe("checkVoidElementConstraints", () => {
   });
 
   test("walks composite parts", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "field",
       kind: "composite",
       parts: {
@@ -828,7 +847,7 @@ describe("checkVoidElementConstraints", () => {
           },
         },
       },
-    } as Spec;
+    });
     const issues = checkVoidElementConstraints(spec);
     expect(issues).toHaveLength(1);
     expect(issues[0]?.path).toBe("parts.separator.props.loading");
@@ -873,279 +892,6 @@ describe("checkVariantChoiceKeys", () => {
   });
 });
 
-describe("checkInteractionRefs", () => {
-  function makeOverlay(overrides: Partial<Spec> = {}): Spec {
-    return {
-      name: "tooltip",
-      kind: "composite",
-      parts: {
-        tooltip: {
-          props: {
-            openDelay: { type: "number", responsive: false, description: "Open delay." },
-            closeDelay: { type: "number", responsive: false, description: "Close delay." },
-          },
-        },
-      },
-      ...overrides,
-    } as Spec;
-  }
-
-  test("passes when `delay` names a declared numeric prop", () => {
-    const spec = makeOverlay({
-      interactions: [
-        { on: { event: "pointerenter", target: "trigger" }, do: "open", delay: "openDelay" },
-      ],
-    });
-    expect(checkInteractionRefs(spec)).toEqual([]);
-  });
-
-  test("flags `delay` referencing an undeclared prop", () => {
-    const spec = makeOverlay({
-      interactions: [
-        { on: { event: "pointerenter", target: "trigger" }, do: "open", delay: "ghostDelay" },
-      ],
-    });
-    const issues = checkInteractionRefs(spec);
-    expect(issues).toHaveLength(1);
-    expect(issues[0]?.path).toBe("interactions[0].delay");
-    expect(issues[0]?.message).toMatch(/'ghostDelay' is not a declared numeric prop/);
-  });
-
-  test("flags `delay` referencing a non-numeric prop", () => {
-    const spec = makeOverlay({
-      parts: {
-        tooltip: {
-          props: {
-            label: { type: "string", responsive: false, description: "Label." },
-          },
-        },
-      },
-      interactions: [
-        { on: { event: "pointerenter", target: "trigger" }, do: "open", delay: "label" },
-      ],
-    });
-    const issues = checkInteractionRefs(spec);
-    expect(issues).toHaveLength(1);
-    expect(issues[0]?.path).toBe("interactions[0].delay");
-  });
-
-  test("accepts `when: open` (canonical state)", () => {
-    const spec = makeOverlay({
-      interactions: [
-        { on: { event: "keydown", target: "document", key: "Escape" }, do: "close", when: "open" },
-      ],
-    });
-    expect(checkInteractionRefs(spec)).toEqual([]);
-  });
-
-  test("flags unknown `when` state", () => {
-    const spec = makeOverlay({
-      interactions: [
-        {
-          on: { event: "keydown", target: "document", key: "Escape" },
-          do: "close",
-          when: "closed",
-        },
-      ],
-    });
-    const issues = checkInteractionRefs(spec);
-    expect(issues).toHaveLength(1);
-    expect(issues[0]?.path).toBe("interactions[0].when");
-    expect(issues[0]?.message).toMatch(/'closed' is not a known state/);
-  });
-
-  test("walks atomic-spec props for delay refs", () => {
-    const spec = makeButton({
-      props: {
-        openDelay: { type: "number", responsive: false, description: "Delay." },
-      },
-      interactions: [{ on: { event: "click", target: "trigger" }, do: "open", delay: "openDelay" }],
-    });
-    expect(checkInteractionRefs(spec)).toEqual([]);
-  });
-
-  test("walks nested composite parts for delay refs", () => {
-    const spec: Spec = {
-      name: "menu",
-      kind: "composite",
-      parts: {
-        root: {
-          parts: {
-            inner: {
-              props: {
-                hoverDelay: { type: "number", responsive: false, description: "Delay." },
-              },
-            },
-          },
-        },
-      },
-      interactions: [
-        { on: { event: "pointerenter", target: "trigger" }, do: "open", delay: "hoverDelay" },
-      ],
-    } as Spec;
-    expect(checkInteractionRefs(spec)).toEqual([]);
-  });
-});
-
-describe("checkOverlayEscapeRules", () => {
-  /** Tooltip-shaped overlay fixture — composite with an `overlay:` block.
-   *  The check only fires for specs with an overlay block (overlays go through
-   *  `useOverlay`, where the dismissable-layer ownership applies). */
-  function makeOverlay(overrides: Partial<Extract<Spec, { kind: "composite" }>> = {}): Spec {
-    return {
-      name: "tooltip",
-      kind: "composite",
-      overlay: {
-        anchor: "trigger",
-        floating: "content",
-        mode: "manual",
-        anchorVar: "--t-tooltip-anchor",
-      },
-      parts: { trigger: { fromChildren: true }, content: { element: "div" } },
-      ...overrides,
-    } as Spec;
-  }
-
-  test("returns no issues when no interactions are declared", () => {
-    expect(checkOverlayEscapeRules(makeOverlay())).toEqual([]);
-  });
-
-  test("ignores specs without an overlay block (non-overlay)", () => {
-    // Non-overlay specs don't go through useOverlay; the dismissable-layer
-    // ownership rationale doesn't apply, so the check stays quiet.
-    const spec = makeButton({
-      interactions: [{ on: { event: "keydown", key: "Escape", target: "document" }, do: "close" }],
-    });
-    expect(checkOverlayEscapeRules(spec)).toEqual([]);
-  });
-
-  test("ignores keydown:Escape rules targeting a part (not document/window)", () => {
-    const spec = makeOverlay({
-      interactions: [{ on: { event: "keydown", key: "Escape", target: "trigger" }, do: "close" }],
-    });
-    expect(checkOverlayEscapeRules(spec)).toEqual([]);
-  });
-
-  test("ignores keydown rules with a different key on document", () => {
-    const spec = makeOverlay({
-      interactions: [{ on: { event: "keydown", key: "Enter", target: "document" }, do: "open" }],
-    });
-    expect(checkOverlayEscapeRules(spec)).toEqual([]);
-  });
-
-  test("ignores non-keydown rules on document", () => {
-    const spec = makeOverlay({
-      interactions: [{ on: { event: "pointerdown", target: "document" }, do: "close" }],
-    });
-    expect(checkOverlayEscapeRules(spec)).toEqual([]);
-  });
-
-  test("flags keydown:Escape on document", () => {
-    const spec = makeOverlay({
-      interactions: [{ on: { event: "keydown", key: "Escape", target: "document" }, do: "close" }],
-    });
-    const issues = checkOverlayEscapeRules(spec);
-    expect(issues).toHaveLength(1);
-    expect(issues[0]?.path).toBe("interactions[0]");
-    expect(issues[0]?.message).toMatch(/useDismissableLayer/);
-    expect(issues[0]?.message).toMatch(/document/);
-  });
-
-  test("flags keydown:Escape on window", () => {
-    const spec = makeOverlay({
-      interactions: [{ on: { event: "keydown", key: "Escape", target: "window" }, do: "close" }],
-    });
-    const issues = checkOverlayEscapeRules(spec);
-    expect(issues).toHaveLength(1);
-    expect(issues[0]?.message).toMatch(/window/);
-  });
-
-  test("flags each offending rule independently", () => {
-    const spec = makeOverlay({
-      interactions: [
-        { on: { event: "keydown", key: "Escape", target: "document" }, do: "close" },
-        { on: { event: "pointerenter", target: "trigger" }, do: "open" },
-        { on: { event: "keydown", key: "Escape", target: "window" }, do: "close" },
-      ],
-    });
-    expect(checkOverlayEscapeRules(spec).map((i) => i.path)).toEqual([
-      "interactions[0]",
-      "interactions[2]",
-    ]);
-  });
-});
-
-describe("checkInteractionEventVocabulary", () => {
-  function makeOverlay(overrides: Partial<Extract<Spec, { kind: "composite" }>> = {}): Spec {
-    return {
-      name: "tooltip",
-      kind: "composite",
-      parts: { trigger: { fromChildren: true }, content: { element: "div" } },
-      ...overrides,
-    } as Spec;
-  }
-
-  test("passes for a known React event on `target: trigger`", () => {
-    const spec = makeOverlay({
-      interactions: [{ on: { event: "pointerenter", target: "trigger" }, do: "open" }],
-    });
-    expect(checkInteractionEventVocabulary(spec)).toEqual([]);
-  });
-
-  test("flags a typo with a suggestion and the supported list", () => {
-    const spec = makeOverlay({
-      interactions: [{ on: { event: "pointerentr", target: "trigger" }, do: "open" }],
-    });
-    const issues = checkInteractionEventVocabulary(spec);
-    expect(issues).toHaveLength(1);
-    expect(issues[0]?.path).toBe("interactions[0].on.event");
-    expect(issues[0]?.message).toMatch(/'pointerentr' is not a supported React event/);
-    expect(issues[0]?.message).toMatch(/Did you mean 'pointerenter'\?/);
-    expect(issues[0]?.message).toMatch(/Supported:.*pointerenter/);
-  });
-
-  test("flags an unrelated name without a suggestion", () => {
-    // `mouseover` is conceptually adjacent but lexically far from any vocab
-    // entry — Levenshtein > 3 → no `Did you mean` fragment.
-    const spec = makeOverlay({
-      interactions: [{ on: { event: "mouseover", target: "trigger" }, do: "open" }],
-    });
-    const issues = checkInteractionEventVocabulary(spec);
-    expect(issues).toHaveLength(1);
-    expect(issues[0]?.message).toMatch(/'mouseover' is not a supported React event/);
-    expect(issues[0]?.message).not.toMatch(/Did you mean/);
-    expect(issues[0]?.message).toMatch(/Supported:.*pointerenter/);
-  });
-
-  test("ignores rules targeting `document` (native listener, any event name)", () => {
-    const spec = makeOverlay({
-      interactions: [{ on: { event: "wheel", target: "document" }, do: "close" }],
-    });
-    expect(checkInteractionEventVocabulary(spec)).toEqual([]);
-  });
-
-  test("ignores rules targeting `window` (native listener, any event name)", () => {
-    const spec = makeOverlay({
-      interactions: [{ on: { event: "scroll", target: "window" }, do: "close" }],
-    });
-    expect(checkInteractionEventVocabulary(spec)).toEqual([]);
-  });
-
-  test("flags each offending rule on `trigger` independently", () => {
-    const spec = makeOverlay({
-      interactions: [
-        { on: { event: "mouseover", target: "trigger" }, do: "open" },
-        { on: { event: "pointerenter", target: "trigger" }, do: "open" },
-        { on: { event: "dragstart", target: "trigger" }, do: "close" },
-      ],
-    });
-    expect(checkInteractionEventVocabulary(spec).map((i) => i.path)).toEqual([
-      "interactions[0].on.event",
-      "interactions[2].on.event",
-    ]);
-  });
-});
-
 describe("checkExamplesPresent", () => {
   test("flags a spec with no `examples:` block", () => {
     const issues = checkExamplesPresent(makeButton());
@@ -1168,19 +914,19 @@ describe("checkExamplesPresent", () => {
 
 describe("checkRepeatingParts", () => {
   test("non-repeating composite produces no issues", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "tooltip",
       kind: "composite",
       parts: {
         trigger: { fromChildren: true, rootClass: "t-tooltip-trigger" },
         content: { element: "div", rootClass: "t-tooltip" },
       },
-    } as Spec;
+    });
     expect(checkRepeatingParts(spec)).toEqual([]);
   });
 
   test("a valid repeating part produces no issues", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "pagination",
       kind: "composite",
       parts: {
@@ -1191,12 +937,12 @@ describe("checkRepeatingParts", () => {
           props: { label: { type: "string", description: "Label." } },
         },
       },
-    } as Spec;
+    });
     expect(checkRepeatingParts(spec)).toEqual([]);
   });
 
   test("rule 1 — `repeating: true` with `fromChildren: true`", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "pagination",
       kind: "composite",
       parts: {
@@ -1207,41 +953,41 @@ describe("checkRepeatingParts", () => {
           props: { label: { type: "string", description: "Label." } },
         },
       },
-    } as Spec;
+    });
     const issues = checkRepeatingParts(spec);
     expect(issues.map((i) => i.path)).toEqual(["parts.page"]);
     expect(issues[0]?.message).toMatch(/fromChildren/);
   });
 
   test("rule 2 — `repeating: true` with no props", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "pagination",
       kind: "composite",
       parts: {
         root: { element: "nav" },
         page: { repeating: true, element: "a" },
       },
-    } as Spec;
+    });
     const issues = checkRepeatingParts(spec);
     expect(issues.map((i) => i.path)).toEqual(["parts.page"]);
     expect(issues[0]?.message).toMatch(/props/);
   });
 
   test("rule 2 — `repeating: true` with an empty `props:` map", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "pagination",
       kind: "composite",
       parts: {
         root: { element: "nav" },
         page: { repeating: true, element: "a", props: {} },
       },
-    } as Spec;
+    });
     const issues = checkRepeatingParts(spec);
     expect(issues.map((i) => i.path)).toEqual(["parts.page"]);
   });
 
   test("rule 3 — `repeating: true` with nested `parts:` (defer #835)", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "stepper",
       kind: "composite",
       parts: {
@@ -1255,14 +1001,14 @@ describe("checkRepeatingParts", () => {
           },
         },
       },
-    } as Spec;
+    });
     const issues = checkRepeatingParts(spec);
     expect(issues.map((i) => i.path)).toEqual(["parts.step"]);
     expect(issues[0]?.message).toMatch(/#835/);
   });
 
   test("rule 4 — repeating part nested inside another repeating part (defer #834)", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "tree",
       kind: "composite",
       parts: {
@@ -1280,7 +1026,7 @@ describe("checkRepeatingParts", () => {
           },
         },
       },
-    } as Spec;
+    });
     const issues = checkRepeatingParts(spec);
     // Both rule 3 (nested parts on repeating) and rule 4 (repeating inside
     // repeating) apply to this shape; both fire.
@@ -1291,7 +1037,7 @@ describe("checkRepeatingParts", () => {
   });
 
   test("rule 5 — two repeating siblings default to the same propName", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "split",
       kind: "composite",
       parts: {
@@ -1309,13 +1055,13 @@ describe("checkRepeatingParts", () => {
           props: { label: { type: "string", description: "Label." } },
         },
       },
-    } as Spec;
+    });
     const issues = checkRepeatingParts(spec);
     expect(issues.some((i) => /propName/i.test(i.message))).toBe(true);
   });
 
   test("rule 5 — two repeating siblings with distinct propNames produce no collision", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "split",
       kind: "composite",
       parts: {
@@ -1331,12 +1077,12 @@ describe("checkRepeatingParts", () => {
           props: { label: { type: "string", description: "Label." } },
         },
       },
-    } as Spec;
+    });
     expect(checkRepeatingParts(spec)).toEqual([]);
   });
 
   test("rule 10 — hyphenated propName is not a valid JS identifier", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "pagination",
       kind: "composite",
       parts: {
@@ -1348,7 +1094,7 @@ describe("checkRepeatingParts", () => {
           props: { label: { type: "string", description: "Label." } },
         },
       },
-    } as Spec;
+    });
     const issues = checkRepeatingParts(spec);
     expect(issues.some((i) => /not a valid JS identifier/.test(i.message))).toBe(true);
   });
@@ -1377,7 +1123,7 @@ describe("checkRepeatingParts", () => {
       "await",
     ];
     for (const name of reserved) {
-      const spec: Spec = {
+      const spec = makeSpec({
         name: "x",
         kind: "composite",
         parts: {
@@ -1389,7 +1135,7 @@ describe("checkRepeatingParts", () => {
             props: { label: { type: "string", description: "Label." } },
           },
         },
-      } as Spec;
+      });
       const issues = checkRepeatingParts(spec);
       expect(
         issues.some((i) => /collides with a codegen-reserved/.test(i.message)),
@@ -1399,7 +1145,7 @@ describe("checkRepeatingParts", () => {
   });
 
   test("rule 10 — valid camelCase propName is accepted", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "pagination",
       kind: "composite",
       parts: {
@@ -1411,12 +1157,12 @@ describe("checkRepeatingParts", () => {
           props: { label: { type: "string", description: "Label." } },
         },
       },
-    } as Spec;
+    });
     expect(checkRepeatingParts(spec)).toEqual([]);
   });
 
   test("group-level scalar props on the wrapper part are now accepted (rule 11 lifted)", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "radio",
       kind: "composite",
       parts: {
@@ -1431,12 +1177,12 @@ describe("checkRepeatingParts", () => {
           props: { value: { type: "string", description: "Option value." } },
         },
       },
-    } as Spec;
+    });
     expect(checkRepeatingParts(spec)).toEqual([]);
   });
 
   test("rule 12 — `responsive: true` on a repeating item prop is rejected", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "pagination",
       kind: "composite",
       parts: {
@@ -1454,7 +1200,7 @@ describe("checkRepeatingParts", () => {
           },
         },
       },
-    } as Spec;
+    });
     const issues = checkRepeatingParts(spec);
     expect(issues.map((i) => i.path)).toContain("parts.page.props.label");
     expect(
@@ -1463,7 +1209,7 @@ describe("checkRepeatingParts", () => {
   });
 
   test("rule 13 — multiple non-repeating top-level parts are rejected", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "pagination",
       kind: "composite",
       parts: {
@@ -1475,7 +1221,7 @@ describe("checkRepeatingParts", () => {
           props: { label: { type: "string", description: "Label." } },
         },
       },
-    } as Spec;
+    });
     const issues = checkRepeatingParts(spec);
     const wrapperRule = issues.filter((i) =>
       /must declare exactly one non-repeating wrapper part/.test(i.message),
@@ -1485,7 +1231,7 @@ describe("checkRepeatingParts", () => {
   });
 
   test("rule 3 (generalized) — nested `parts:` under the NON-repeating wrapper is rejected", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "pagination",
       kind: "composite",
       parts: {
@@ -1499,13 +1245,13 @@ describe("checkRepeatingParts", () => {
           props: { label: { type: "string", description: "Label." } },
         },
       },
-    } as Spec;
+    });
     const issues = checkRepeatingParts(spec);
     expect(issues.some((i) => i.path === "parts.root" && /#835/.test(i.message))).toBe(true);
   });
 
   test("rule 6 — `propName:` + `groupKey:` both set is rejected", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "tabs",
       kind: "composite",
       parts: {
@@ -1524,13 +1270,13 @@ describe("checkRepeatingParts", () => {
           props: { icon: { type: "string", slot: true, description: "Icon." } },
         },
       },
-    } as Spec;
+    });
     const issues = checkRepeatingParts(spec);
     expect(issues.some((i) => i.path === "parts.tab" && /both/.test(i.message))).toBe(true);
   });
 
   test("rule 7 — two parts sharing groupKey declare the same per-item prop", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "tabs",
       kind: "composite",
       parts: {
@@ -1548,13 +1294,13 @@ describe("checkRepeatingParts", () => {
           props: { label: { type: "string", slot: true, description: "Same name." } },
         },
       },
-    } as Spec;
+    });
     const issues = checkRepeatingParts(spec);
     expect(issues.some((i) => /share `groupKey: items`.*'label'/.test(i.message))).toBe(true);
   });
 
   test("rule 9 — a `groupKey:` value with only one referencing part is rejected", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "tabs",
       kind: "composite",
       parts: {
@@ -1566,7 +1312,7 @@ describe("checkRepeatingParts", () => {
           props: { label: { type: "string", slot: true, description: "Label." } },
         },
       },
-    } as Spec;
+    });
     const issues = checkRepeatingParts(spec);
     expect(issues.some((i) => i.path === "parts.tab" && /no sibling shares/.test(i.message))).toBe(
       true,
@@ -1574,7 +1320,7 @@ describe("checkRepeatingParts", () => {
   });
 
   test("rule 5 — two parts sharing `groupKey:` legitimately collapse to the same propName (no rule-5 issue)", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "tabs",
       kind: "composite",
       parts: {
@@ -1592,13 +1338,13 @@ describe("checkRepeatingParts", () => {
           props: { icon: { type: "string", slot: true, description: "Icon." } },
         },
       },
-    } as Spec;
+    });
     const issues = checkRepeatingParts(spec);
     expect(issues.some((i) => /collapse to the same propName/.test(i.message))).toBe(false);
   });
 
   test("rule 15 — `groupKey:` on a non-repeating part is rejected", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "tabs",
       kind: "composite",
       parts: {
@@ -1616,7 +1362,7 @@ describe("checkRepeatingParts", () => {
           props: { icon: { type: "string", slot: true, description: "Icon." } },
         },
       },
-    } as Spec;
+    });
     const issues = checkRepeatingParts(spec);
     expect(
       issues.some((i) => i.path === "parts.list" && /cannot declare `groupKey:`/.test(i.message)),
@@ -1624,7 +1370,7 @@ describe("checkRepeatingParts", () => {
   });
 
   test("rule 10 — `groupKey:` value validated as a JS identifier (hyphen rejected)", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "tabs",
       kind: "composite",
       parts: {
@@ -1642,7 +1388,7 @@ describe("checkRepeatingParts", () => {
           props: { icon: { type: "string", slot: true, description: "Icon." } },
         },
       },
-    } as Spec;
+    });
     const issues = checkRepeatingParts(spec);
     expect(
       issues.some(
@@ -1652,7 +1398,7 @@ describe("checkRepeatingParts", () => {
   });
 
   test("rule 16 — a group prop that is both `slot: true` AND `responsive: true` emits BOTH issues", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "tabs",
       kind: "composite",
       parts: {
@@ -1680,7 +1426,7 @@ describe("checkRepeatingParts", () => {
           props: { icon: { type: "string", slot: true, description: "Icon." } },
         },
       },
-    } as Spec;
+    });
     const issues = checkRepeatingParts(spec);
     expect(
       issues.some((i) => /wrapper props flow through without responsive expansion/.test(i.message)),
@@ -1691,7 +1437,7 @@ describe("checkRepeatingParts", () => {
   });
 
   test("rule 16 — `slot: true` on a group-level wrapper prop is rejected", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "tabs",
       kind: "composite",
       parts: {
@@ -1718,7 +1464,7 @@ describe("checkRepeatingParts", () => {
           props: { icon: { type: "string", slot: true, description: "Icon." } },
         },
       },
-    } as Spec;
+    });
     const issues = checkRepeatingParts(spec);
     expect(
       issues.some((i) => /wrapper renders the repeating loop, not slot content/.test(i.message)),
@@ -1726,7 +1472,7 @@ describe("checkRepeatingParts", () => {
   });
 
   test("rule 16 — `pattern: controllable` on a group-level wrapper prop is rejected", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "tabs",
       kind: "composite",
       parts: {
@@ -1753,13 +1499,13 @@ describe("checkRepeatingParts", () => {
           props: { icon: { type: "string", slot: true, description: "Icon." } },
         },
       },
-    } as Spec;
+    });
     const issues = checkRepeatingParts(spec);
     expect(issues.some((i) => /default<Name>` \/ `on<Name>Change/.test(i.message))).toBe(true);
   });
 
   test("rule 16 — `responsive: true` on a group-level scalar wrapper prop is rejected", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "tabs",
       kind: "composite",
       parts: {
@@ -1786,7 +1532,7 @@ describe("checkRepeatingParts", () => {
           props: { icon: { type: "string", slot: true, description: "Icon." } },
         },
       },
-    } as Spec;
+    });
     const issues = checkRepeatingParts(spec);
     expect(issues.map((i) => i.path)).toContain("parts.list.props.label");
     expect(
@@ -1795,7 +1541,7 @@ describe("checkRepeatingParts", () => {
   });
 
   test("rule 15 — `propName:` on a non-repeating part is rejected", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "pagination",
       kind: "composite",
       parts: {
@@ -1806,7 +1552,7 @@ describe("checkRepeatingParts", () => {
           props: { label: { type: "string", description: "Label." } },
         },
       },
-    } as Spec;
+    });
     const issues = checkRepeatingParts(spec);
     expect(issues.map((i) => i.path)).toContain("parts.root");
     expect(
@@ -1815,7 +1561,7 @@ describe("checkRepeatingParts", () => {
   });
 
   test("rule 14 — item prop name with a hyphen is rejected", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "pagination",
       kind: "composite",
       parts: {
@@ -1828,14 +1574,14 @@ describe("checkRepeatingParts", () => {
           },
         },
       },
-    } as Spec;
+    });
     const issues = checkRepeatingParts(spec);
     expect(issues.map((i) => i.path)).toContain("parts.page.props.aria-label");
     expect(issues.some((i) => /not a valid JS identifier/.test(i.message))).toBe(true);
   });
 
   test("rule 13 — zero non-repeating parts in a list composite is rejected", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "only-repeating",
       kind: "composite",
       parts: {
@@ -1845,13 +1591,13 @@ describe("checkRepeatingParts", () => {
           props: { label: { type: "string", description: "Label." } },
         },
       },
-    } as Spec;
+    });
     const issues = checkRepeatingParts(spec);
     expect(issues.some((i) => /found 0/.test(i.message))).toBe(true);
   });
 
   test("rule 11 — non-repeating part WITHOUT scalar props is accepted (tokens/a11y still ok)", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "pagination",
       kind: "composite",
       parts: {
@@ -1867,12 +1613,12 @@ describe("checkRepeatingParts", () => {
           props: { label: { type: "string", description: "Label." } },
         },
       },
-    } as Spec;
+    });
     expect(checkRepeatingParts(spec)).toEqual([]);
   });
 
   test("rule 8 — repeating part declares `props.id` (reserved)", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "pagination",
       kind: "composite",
       parts: {
@@ -1886,7 +1632,7 @@ describe("checkRepeatingParts", () => {
           },
         },
       },
-    } as Spec;
+    });
     const issues = checkRepeatingParts(spec);
     expect(issues.map((i) => i.path)).toEqual(["parts.page.props.id"]);
     expect(issues[0]?.message).toMatch(/reserved/i);
@@ -2051,7 +1797,7 @@ describe("checkEvents", () => {
   });
 
   test("E8: composite spec checks controllable props across all parts", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "combobox",
       kind: "composite",
       events: { openChange: { description: "x", payload: {} } },
@@ -2067,7 +1813,7 @@ describe("checkEvents", () => {
           },
         },
       },
-    } as Spec;
+    });
     const issues = checkEvents(spec, vocabulary);
     expect(issues.some((i) => /onOpenChange/.test(i.message))).toBe(true);
   });
@@ -2215,7 +1961,7 @@ describe("checkEvents", () => {
   });
 
   test("composite spec collision check walks parts for prop names", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "modal",
       kind: "composite",
       events: { dismiss: { description: "x", payload: {} } },
@@ -2227,7 +1973,7 @@ describe("checkEvents", () => {
           },
         },
       },
-    } as Spec;
+    });
     const issues = checkEvents(spec, vocabulary);
     expect(issues.some((i) => /'onDismiss' prop/.test(i.message))).toBe(true);
   });
@@ -2235,7 +1981,7 @@ describe("checkEvents", () => {
   test("handler-collision check ignores repeating part item props", () => {
     // `onDismiss` lives inside the generated <Spec>Item type, not on root
     // Props, so it should not trigger a false handler collision.
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "modal",
       kind: "composite",
       events: { dismiss: { description: "x", payload: {} } },
@@ -2249,7 +1995,7 @@ describe("checkEvents", () => {
           },
         },
       },
-    } as Spec;
+    });
     const issues = checkEvents(spec, vocabulary);
     expect(issues.some((i) => /'onDismiss' prop/.test(i.message))).toBe(false);
   });
@@ -2279,7 +2025,7 @@ describe("checkEvents", () => {
     // Repeating-item props with `values` are rendered inline inside the
     // generated <Spec>Item type; no <Spec><Prop> alias is ever emitted, so
     // a generic of that name is safe.
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "tablist",
       kind: "composite",
       generics: [{ name: "TablistDirection", description: "x" }],
@@ -2297,12 +2043,12 @@ describe("checkEvents", () => {
           },
         },
       },
-    } as Spec;
+    });
     expect(checkEvents(spec, vocabulary)).toEqual([]);
   });
 
   test("rejects a generic that shadows a repeating item type alias", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "tablist",
       kind: "composite",
       generics: [{ name: "TablistItem", description: "x" }],
@@ -2315,61 +2061,52 @@ describe("checkEvents", () => {
           props: { label: { type: "string", slot: true, description: "Tab label." } },
         },
       },
-    } as Spec;
+    });
     const issues = checkEvents(spec, vocabulary);
     expect(issues.some((i) => i.path === "generics.TablistItem")).toBe(true);
   });
 });
 
 describe("checkEventsRuntimeSupport", () => {
+  const overlayPart = {
+    anchor: "trigger",
+    anchorVar: "--t-modal-anchor",
+    mode: "manual" as const,
+    modal: false,
+  };
+  const overlayParts = (anchorVar = "--t-modal-anchor") => ({
+    trigger: { fromChildren: true },
+    content: { element: "div", overlay: { ...overlayPart, anchorVar } },
+  });
+
   test("returns no issues when events: is absent", () => {
     expect(checkEventsRuntimeSupport(makeButton())).toEqual([]);
   });
 
   test("accepts 'dismiss' on a composite-overlay spec", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "modal",
       kind: "composite",
-      overlay: {
-        anchor: "trigger",
-        floating: "content",
-        anchorVar: "--t-modal-anchor",
-        mode: "manual",
-        modal: false,
-      },
-      parts: {
-        trigger: { fromChildren: true },
-        content: { element: "div" },
-      },
+      parts: overlayParts(),
       events: {
         dismiss: {
           description: "Closed.",
           payload: { reason: { type: "enum", values: ["outside", "escape", "button"] } },
         },
       },
-    } as Spec;
+    });
     expect(checkEventsRuntimeSupport(spec)).toEqual([]);
   });
 
   test("rejects non-dismiss events on a composite-overlay spec until their runtime ships", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "combobox",
       kind: "composite",
-      overlay: {
-        anchor: "trigger",
-        floating: "content",
-        anchorVar: "--t-combobox-anchor",
-        mode: "manual",
-        modal: false,
-      },
-      parts: {
-        trigger: { fromChildren: true },
-        content: { element: "div" },
-      },
+      parts: overlayParts("--t-combobox-anchor"),
       events: {
         select: { description: "Selected.", payload: { value: { type: "string" } } },
       },
-    } as Spec;
+    });
     const issues = checkEventsRuntimeSupport(spec);
     expect(issues.map((i) => i.path)).toEqual(["events.select"]);
     expect(issues[0]?.message).toMatch(/no wrapper-runtime source/);
@@ -2387,7 +2124,7 @@ describe("checkEventsRuntimeSupport", () => {
   });
 
   test("rejects events on a composite-list spec (no overlay block)", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "pagination",
       kind: "composite",
       parts: {
@@ -2401,27 +2138,17 @@ describe("checkEventsRuntimeSupport", () => {
       events: {
         pageChange: { description: "x", payload: { page: { type: "number" } } },
       },
-    } as Spec;
+    });
     const issues = checkEventsRuntimeSupport(spec);
     expect(issues.map((i) => i.path)).toEqual(["events.pageChange"]);
     expect(issues[0]?.message).toMatch(/not supported on this spec shape/);
   });
 
   test("flags every unsupported event when multiple are declared", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "combobox",
       kind: "composite",
-      overlay: {
-        anchor: "trigger",
-        floating: "content",
-        anchorVar: "--t-combobox-anchor",
-        mode: "manual",
-        modal: false,
-      },
-      parts: {
-        trigger: { fromChildren: true },
-        content: { element: "div" },
-      },
+      parts: overlayParts("--t-combobox-anchor"),
       events: {
         dismiss: {
           description: "Closed.",
@@ -2430,66 +2157,43 @@ describe("checkEventsRuntimeSupport", () => {
         select: { description: "Selected.", payload: { value: { type: "string" } } },
         inputChange: { description: "Input changed.", payload: { value: { type: "string" } } },
       },
-    } as Spec;
+    });
     const issues = checkEventsRuntimeSupport(spec);
     expect(issues.map((i) => i.path).sort()).toEqual(["events.inputChange", "events.select"]);
   });
 
   test("rejects dismiss whose reason values diverge from the runtime contract", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "modal",
       kind: "composite",
-      overlay: {
-        anchor: "trigger",
-        floating: "content",
-        anchorVar: "--t-modal-anchor",
-        mode: "manual",
-        modal: false,
-      },
-      parts: {
-        trigger: { fromChildren: true },
-        content: { element: "div" },
-      },
+      parts: overlayParts(),
       events: {
         dismiss: {
           description: "Closed.",
           payload: { reason: { type: "enum", values: ["outside", "escape"] } },
         },
       },
-    } as Spec;
+    });
     const issues = checkEventsRuntimeSupport(spec);
     expect(issues.map((i) => i.path)).toEqual(["events.dismiss.payload.reason"]);
     expect(issues[0]?.message).toMatch(/match the wrapper-runtime contract exactly/);
   });
 
   test("rejects dismiss with a missing or non-enum reason field", () => {
-    const overlay = {
-      anchor: "trigger",
-      floating: "content",
-      anchorVar: "--t-modal-anchor",
-      mode: "manual" as const,
-      modal: false,
-    };
-    const parts = {
-      trigger: { fromChildren: true },
-      content: { element: "div" },
-    };
-    const missing: Spec = {
+    const missing = makeSpec({
       name: "modal",
       kind: "composite",
-      overlay,
-      parts,
+      parts: overlayParts(),
       events: { dismiss: { description: "Closed.", payload: {} } },
-    } as Spec;
-    const wrongType: Spec = {
+    });
+    const wrongType = makeSpec({
       name: "modal",
       kind: "composite",
-      overlay,
-      parts,
+      parts: overlayParts(),
       events: {
         dismiss: { description: "Closed.", payload: { reason: { type: "string" } } },
       },
-    } as Spec;
+    });
     for (const spec of [missing, wrongType]) {
       const issues = checkEventsRuntimeSupport(spec);
       expect(issues.map((i) => i.path)).toEqual(["events.dismiss.payload.reason"]);
@@ -2498,20 +2202,10 @@ describe("checkEventsRuntimeSupport", () => {
   });
 
   test("rejects events: + generics: until composite-overlay wrappers support generic parameters", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "modal",
       kind: "composite",
-      overlay: {
-        anchor: "trigger",
-        floating: "content",
-        anchorVar: "--t-modal-anchor",
-        mode: "manual",
-        modal: false,
-      },
-      parts: {
-        trigger: { fromChildren: true },
-        content: { element: "div" },
-      },
+      parts: overlayParts(),
       generics: [{ name: "Item", description: "Item shape." }],
       events: {
         dismiss: {
@@ -2519,7 +2213,7 @@ describe("checkEventsRuntimeSupport", () => {
           payload: { reason: { type: "enum", values: ["outside", "escape", "button"] } },
         },
       },
-    } as Spec;
+    });
     const issues = checkEventsRuntimeSupport(spec);
     expect(issues.some((i) => i.path === "generics")).toBe(true);
     const generic = issues.find((i) => i.path === "generics");
@@ -2527,22 +2221,307 @@ describe("checkEventsRuntimeSupport", () => {
   });
 
   test("accepts generics: alone (no events:)", () => {
-    const spec: Spec = {
+    const spec = makeSpec({
       name: "modal",
       kind: "composite",
-      overlay: {
-        anchor: "trigger",
-        floating: "content",
-        anchorVar: "--t-modal-anchor",
-        mode: "manual",
-        modal: false,
-      },
-      parts: {
-        trigger: { fromChildren: true },
-        content: { element: "div" },
-      },
+      parts: overlayParts(),
       generics: [{ name: "Item", description: "Item shape." }],
-    } as Spec;
+    });
     expect(checkEventsRuntimeSupport(spec)).toEqual([]);
+  });
+});
+
+describe("checkStateMachines (RFC-0007)", () => {
+  const baseOverlay = {
+    anchor: "trigger",
+    anchorVar: "--t-modal-anchor",
+    mode: "manual" as const,
+    modal: false,
+  };
+  const baseEvents = {
+    dismiss: {
+      description: "Closed.",
+      payload: { reason: { type: "enum", values: ["outside", "escape", "button"] } },
+    },
+  };
+
+  function modalSpec(contentExtras: Record<string, unknown> = {}): Spec {
+    return makeSpec({
+      name: "modal",
+      kind: "composite",
+      events: baseEvents,
+      parts: {
+        trigger: {
+          fromChildren: true,
+          props: {
+            open: {
+              type: "boolean",
+              default: false,
+              pattern: "controllable",
+              responsive: false,
+              description: "Open state.",
+            },
+          },
+        },
+        content: {
+          element: "div",
+          overlay: baseOverlay,
+          ...contentExtras,
+        },
+      },
+    });
+  }
+
+  test("rule 1 — empty states: rejected", () => {
+    const spec = modalSpec({ states: {} });
+    const issues = checkStateMachines(spec, vocabulary);
+    expect(issues.some((i) => /\bis empty\b/.test(i.message))).toBe(true);
+  });
+
+  test("rule 2 — transition `to:` must resolve in the same part's states map", () => {
+    const spec = modalSpec({
+      states: {
+        closed: { on: { "trigger.click": "open" } },
+        open: { on: { "trigger.click": { to: "missing" } } },
+      },
+    });
+    const issues = checkStateMachines(spec, vocabulary);
+    expect(issues.some((i) => /target 'missing'/.test(i.message))).toBe(true);
+  });
+
+  test("rule 3 — source prefix must match a part in the spec", () => {
+    const spec = modalSpec({
+      states: {
+        closed: { on: { "ghost.click": "open" } },
+        open: {},
+      },
+    });
+    const issues = checkStateMachines(spec, vocabulary);
+    expect(issues.some((i) => /source prefix 'ghost'/.test(i.message))).toBe(true);
+  });
+
+  test("rule 3 — key.<name> must match key vocabulary", () => {
+    const spec = modalSpec({
+      states: {
+        closed: { on: { "key.bogus": "open" } },
+        open: {},
+      },
+    });
+    const issues = checkStateMachines(spec, vocabulary);
+    expect(issues.some((i) => /key name 'bogus'/.test(i.message))).toBe(true);
+  });
+
+  test("rule 3 — DOM event must match dom_events vocabulary", () => {
+    const spec = modalSpec({
+      states: {
+        closed: { on: { "trigger.tappp": "open" } },
+        open: {},
+      },
+    });
+    const issues = checkStateMachines(spec, vocabulary);
+    expect(issues.some((i) => /DOM event 'tappp'/.test(i.message))).toBe(true);
+  });
+
+  test("rule 3a — duplicate part names across the parts tree are rejected", () => {
+    const spec = makeSpec({
+      name: "card",
+      kind: "composite",
+      parts: {
+        header: {
+          element: "header",
+          parts: {
+            inner: { element: "div" },
+          },
+        },
+        body: {
+          element: "div",
+          parts: {
+            inner: { element: "div" },
+          },
+        },
+      },
+    });
+    const issues = checkStateMachines(spec, vocabulary);
+    expect(issues.some((i) => /part name 'inner'/.test(i.message))).toBe(true);
+  });
+
+  test("rule 5 — `emits:` must reference a declared root event", () => {
+    const spec = modalSpec({
+      states: {
+        closed: {
+          on: {
+            "trigger.click": { to: "open", emits: { ghostEvent: { reason: "button" } } },
+          },
+        },
+        open: {},
+      },
+    });
+    const issues = checkStateMachines(spec, vocabulary);
+    expect(issues.some((i) => /'ghostEvent' is not declared in root/.test(i.message))).toBe(true);
+  });
+
+  test("rule 5 — emits payload literal must match declared enum values", () => {
+    const spec = modalSpec({
+      states: {
+        closed: {
+          on: {
+            "trigger.click": { to: "open", emits: { dismiss: { reason: "swipe" } } },
+          },
+        },
+        open: {},
+      },
+    });
+    const issues = checkStateMachines(spec, vocabulary);
+    expect(issues.some((i) => /value 'swipe' is not in the declared enum/.test(i.message))).toBe(
+      true,
+    );
+  });
+
+  test("rule 6 — overlay anchor must name a sibling part with fromChildren: true", () => {
+    const spec = makeSpec({
+      name: "modal",
+      kind: "composite",
+      parts: {
+        trigger: {},
+        content: { element: "div", overlay: baseOverlay },
+      },
+    });
+    const issues = checkStateMachines(spec, vocabulary);
+    expect(
+      issues.some((i) =>
+        /must declare `fromChildren: true` to serve as an overlay anchor/.test(i.message),
+      ),
+    ).toBe(true);
+  });
+
+  test("rule 6 — overlay anchor must point at an existing sibling", () => {
+    const spec = makeSpec({
+      name: "modal",
+      kind: "composite",
+      parts: {
+        content: { element: "div", overlay: baseOverlay },
+      },
+    });
+    const issues = checkStateMachines(spec, vocabulary);
+    expect(issues.some((i) => /is not a sibling part of 'content'/.test(i.message))).toBe(true);
+  });
+
+  test("rule 7 — outside.* sources only on overlay parts", () => {
+    const spec = makeSpec({
+      name: "modal",
+      kind: "composite",
+      parts: {
+        trigger: {
+          fromChildren: true,
+          states: {
+            closed: { on: { "outside.click": "open" } },
+            open: {},
+          },
+        },
+        content: { element: "div", overlay: baseOverlay },
+      },
+    });
+    const issues = checkStateMachines(spec, vocabulary);
+    expect(issues.some((i) => /only valid on parts that declare `overlay:`/.test(i.message))).toBe(
+      true,
+    );
+  });
+
+  test("rule 9 — controllable boolean prop must mirror a declared state name", () => {
+    const spec = modalSpec({
+      props: {
+        active: {
+          type: "boolean",
+          default: false,
+          pattern: "controllable",
+          responsive: false,
+          description: "Active.",
+        },
+      },
+      states: {
+        closed: { on: { "trigger.click": "open" } },
+        open: { on: { "trigger.click": "closed" } },
+      },
+    });
+    const issues = checkStateMachines(spec, vocabulary);
+    expect(issues.some((i) => /'active' must mirror a state name/.test(i.message))).toBe(true);
+  });
+
+  test("rule 10 — when: must use the `[!]<part>.<bool-prop>` grammar", () => {
+    const spec = modalSpec({
+      states: {
+        closed: {
+          on: { "trigger.click": { to: "open", when: "open && enabled" } },
+        },
+        open: {},
+      },
+    });
+    const issues = checkStateMachines(spec, vocabulary);
+    expect(issues.some((i) => /does not match the supported grammar/.test(i.message))).toBe(true);
+  });
+
+  test("rule 10 — when: must reference a boolean prop on the named part", () => {
+    const spec = modalSpec({
+      states: {
+        closed: {
+          on: { "trigger.click": { to: "open", when: "!trigger.title" } },
+        },
+        open: {},
+      },
+    });
+    // The fixture's trigger declares `open: boolean` (controllable) but no
+    // `title` prop — the guard reference should fail to resolve.
+    const issues = checkStateMachines(spec, vocabulary);
+    expect(issues.some((i) => /references prop 'title'/.test(i.message))).toBe(true);
+  });
+
+  test("after: must reference a declared `type: number` prop on the same part", () => {
+    const spec = modalSpec({
+      states: {
+        closed: {
+          on: { "trigger.click": { to: "open", after: "missingDelay" } },
+        },
+        open: {},
+      },
+    });
+    const issues = checkStateMachines(spec, vocabulary);
+    expect(issues.some((i) => /'missingDelay'.*reference a prop/.test(i.message))).toBe(true);
+  });
+
+  test("accepts a fully-wired modal spec", () => {
+    const spec = makeSpec({
+      name: "modal",
+      kind: "composite",
+      events: baseEvents,
+      parts: {
+        trigger: {
+          fromChildren: true,
+          props: {
+            open: {
+              type: "boolean",
+              default: false,
+              pattern: "controllable",
+              responsive: false,
+              description: "Open.",
+            },
+          },
+        },
+        content: {
+          element: "div",
+          overlay: { ...baseOverlay, modal: true },
+          states: {
+            closed: { on: { "trigger.click": "open" } },
+            open: {
+              on: {
+                "trigger.click": { to: "closed", emits: { dismiss: { reason: "button" } } },
+                "key.escape": { to: "closed", emits: { dismiss: { reason: "escape" } } },
+                "outside.click": { to: "closed", emits: { dismiss: { reason: "outside" } } },
+              },
+            },
+          },
+        },
+      },
+    });
+    expect(checkStateMachines(spec, vocabulary)).toEqual([]);
   });
 });

@@ -6,7 +6,7 @@ import { renderTable, section } from "./table-printer.ts";
 
 /** Spec fields the docs page reads beyond the shared generator subset. */
 export type DocsSpec = Spec & {
-  states?: Record<string, { description?: string }>;
+  visualStates?: Record<string, { description?: string }>;
   tokens?: Record<string, { fallback?: string; desc?: string }>;
   a11y?: { role?: string; keyboard?: Record<string, string> };
   // Size of `packages/css/dist/components/<name>.css` injected by gen-docs.ts
@@ -65,6 +65,25 @@ export function hasFromChildrenPart(spec: DocsSpec): boolean {
   };
   return visit(
     (spec as { parts?: Record<string, { fromChildren?: boolean; parts?: unknown }> })
+      .parts as Parameters<typeof visit>[0],
+  );
+}
+
+/** True when any part of the composite declares an `overlay:` block. */
+export function hasOverlayPart(spec: DocsSpec): boolean {
+  if (spec.kind !== "composite") return false;
+  const visit = (
+    parts: Record<string, { overlay?: unknown; parts?: typeof parts }> | undefined,
+  ): boolean => {
+    if (!parts) return false;
+    for (const part of Object.values(parts)) {
+      if (part.overlay !== undefined) return true;
+      if (part.parts && visit(part.parts)) return true;
+    }
+    return false;
+  };
+  return visit(
+    (spec as { parts?: Record<string, { overlay?: unknown; parts?: unknown }> })
       .parts as Parameters<typeof visit>[0],
   );
 }
@@ -128,8 +147,8 @@ export function renderProps(spec: DocsSpec): string {
   }
   // `ref` is emitted by the composite-overlay generators (React: ref prop +
   // mergeRefs; Vue: defineExpose({ contentRef })). The gate matches the
-  // generator's: `kind === "composite"` plus an `overlay:` block.
-  if (spec.kind === "composite" && spec.overlay) {
+  // generator's: `kind === "composite"` plus an `overlay:` block on a part.
+  if (spec.kind === "composite" && hasOverlayPart(spec)) {
     rows.push([
       `<Code>ref</Code>`,
       `<Code>Ref&lt;HTMLElement&gt;</Code>`,
@@ -222,12 +241,89 @@ export function renderNamed(
 }
 
 export function renderStates(spec: DocsSpec): string {
-  if (!spec.states || Object.keys(spec.states).length === 0) return "";
-  const rows = Object.entries(spec.states).map(([name, def]) => [
+  if (!spec.visualStates || Object.keys(spec.visualStates).length === 0) return "";
+  const rows = Object.entries(spec.visualStates).map(([name, def]) => [
     `<Code>${esc(name)}</Code>`,
     esc(def.description ?? ""),
   ]);
   return section("States", renderTable(["State", "Description"], rows));
+}
+
+type PartWithStates = {
+  states?: Record<
+    string,
+    {
+      on?: Record<
+        string,
+        string | { to: string; after?: string; when?: string; emits?: Record<string, unknown> }
+      >;
+    }
+  >;
+  parts?: Record<string, PartWithStates>;
+};
+
+function collectStatePartsByName(
+  parts: Record<string, PartWithStates> | undefined,
+): Array<[string, PartWithStates]> {
+  if (!parts) return [];
+  const out: Array<[string, PartWithStates]> = [];
+  for (const [name, part] of Object.entries(parts)) {
+    if (part.states && Object.keys(part.states).length > 0) out.push([name, part]);
+    if (part.parts) out.push(...collectStatePartsByName(part.parts));
+  }
+  return out;
+}
+
+/**
+ * Per-part transition table for every part with a `states:` block. The
+ * part's first state is the initial — same contract as the runtime.
+ * Columns: From state, Source (the `<part>.<event>` / `key.<name>` /
+ * `outside.<event>` key), To state, Conditions (`after`, `when`). One
+ * table per part; the part name labels each block.
+ */
+export function renderStateMachineDiagrams(spec: DocsSpec): string {
+  if (spec.kind !== "composite") return "";
+  const stateParts = collectStatePartsByName(
+    (spec as { parts?: Record<string, PartWithStates> }).parts,
+  );
+  if (stateParts.length === 0) return "";
+
+  const blocks: string[] = [];
+  for (const [partName, part] of stateParts) {
+    const states = part.states ?? {};
+    const stateNames = Object.keys(states);
+    const initial = stateNames[0];
+    if (!initial) continue;
+
+    const rows: string[][] = [];
+    for (const [stateName, stateDef] of Object.entries(states)) {
+      const on = stateDef.on ?? {};
+      for (const [sourceKey, target] of Object.entries(on)) {
+        const to = typeof target === "string" ? target : target.to;
+        const conditions: string[] = [];
+        if (typeof target === "object") {
+          if (target.after !== undefined)
+            conditions.push(`after <Code>${esc(target.after)}</Code>`);
+          if (target.when !== undefined) conditions.push(`when <Code>${esc(target.when)}</Code>`);
+        }
+        rows.push([
+          `<Code>${esc(stateName)}</Code>`,
+          `<Code>${esc(sourceKey)}</Code>`,
+          `<Code>${esc(to)}</Code>`,
+          conditions.length > 0 ? conditions.join(", ") : "",
+        ]);
+      }
+    }
+
+    blocks.push(
+      [
+        `      <h3>Part: <Code>${esc(partName)}</Code> <span class="t-text-muted">(initial: <Code>${esc(initial)}</Code>)</span></h3>`,
+        renderTable(["From", "On", "To", "Conditions"], rows),
+      ].join("\n"),
+    );
+  }
+
+  return section("State machine", blocks.join("\n"));
 }
 
 export function renderTokens(spec: DocsSpec): string {
@@ -250,7 +346,7 @@ export function renderA11y(spec: DocsSpec): string {
   // way to redeclare `Escape` or `Outside pointer-down` keeps its wording, and
   // the universal contract only fills in keys the spec didn't speak to.
   const declaredKeys = new Set(declaredKeyboard.map(([key]) => key));
-  const overlayKeyboard = spec.overlay
+  const overlayKeyboard = hasOverlayPart(spec)
     ? OVERLAY_KEYBOARD_ROWS.filter(([key]) => !declaredKeys.has(key))
     : [];
   const keyboard = [...declaredKeyboard, ...overlayKeyboard];

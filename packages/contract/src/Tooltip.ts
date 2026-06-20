@@ -5,6 +5,8 @@ import type { Responsive } from "./_responsive.ts";
 
 export type TooltipPlacement = "top" | "right" | "bottom" | "left";
 
+export type TooltipState = "closed" | "open";
+
 export type TooltipProps = {
   /** Open state. Uncontrolled by default; pass `open` and optionally `onOpenChange` to drive it from the consumer (e.g. guided tours). */
   open?: boolean;
@@ -14,12 +16,12 @@ export type TooltipProps = {
   onOpenChange?: (open: boolean) => void;
   /** Suppresses the tooltip entirely. Responsive so the tooltip can be hidden at narrow viewports (e.g. `disabled: { base: true, md: false }`). */
   disabled?: Responsive<boolean>;
-  /** Milliseconds before the tooltip opens after hover or focus. Prevents flicker during cursor scanning. */
-  openDelay?: number;
-  /** Milliseconds before the tooltip closes after leave or blur. */
-  closeDelay?: number;
   /** Tooltip content. Plain text; use Popover for interactive content. */
   text?: string;
   /** Preferred side relative to the trigger. CSS `position-try-fallbacks` auto-flips on overflow. */
   placement?: Responsive<TooltipPlacement>;
+  /** Milliseconds before the tooltip opens after hover or focus. Prevents flicker during cursor scanning. */
+  openDelay?: number;
+  /** Milliseconds before the tooltip closes after leave or blur. */
+  closeDelay?: number;
 };

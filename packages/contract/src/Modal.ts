@@ -5,6 +5,8 @@ export type ModalEvent =
   | { type: "dismiss"; reason: "outside" | "escape" | "button" }
   | { type: "openChange"; value: boolean };
 
+export type ModalState = "closed" | "open";
+
 export type ModalProps = {
   /** Open state. Uncontrolled by default; pass `open` and optionally `onOpenChange` to drive it from the consumer. */
   open?: boolean;

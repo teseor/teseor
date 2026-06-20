@@ -8,7 +8,6 @@ import postcss from "postcss";
 import postcssEach from "postcss-each";
 import { isVoidElement } from "./lib/html-void-elements.ts";
 import { pascalCase } from "./lib/pascal-case.ts";
-import { REACT_EVENT_VOCABULARY } from "./lib/react-events.ts";
 import type { TokenDictionary } from "./lib/token-dictionary.ts";
 import type { Vocabulary } from "./lib/vocabulary.ts";
 import type { PayloadEntry, Spec, SpecPart } from "./schema.ts";
@@ -146,15 +145,22 @@ function declaredPublicSlots(spec: Spec): Map<string, string> {
   return out;
 }
 
-/** Overlay specs declare their anchor custom-property via `overlay.anchorVar`
- *  (a `--t-{name}-anchor`-shaped name). Recognize it as a public slot so the
- *  contract check doesn't flag it as drift. */
+/** Overlay-bearing parts declare their anchor custom-property via
+ *  `overlay.anchorVar` (a `--t-{name}-anchor`-shaped name). Recognize it as a
+ *  public slot so the contract check doesn't flag it as drift. */
 function overlayAnchorSlot(spec: Spec): { suffix: string; path: string } | undefined {
-  const anchorVar = spec.overlay?.anchorVar;
-  if (!anchorVar) return undefined;
-  const prefix = `--t-${spec.name}-`;
-  if (!anchorVar.startsWith(prefix)) return undefined;
-  return { suffix: anchorVar.slice(prefix.length), path: "overlay.anchorVar" };
+  if (spec.kind !== "composite") return undefined;
+  for (const [partName, part] of Object.entries(spec.parts)) {
+    const anchorVar = part.overlay?.anchorVar;
+    if (!anchorVar) continue;
+    const prefix = `--t-${spec.name}-`;
+    if (!anchorVar.startsWith(prefix)) continue;
+    return {
+      suffix: anchorVar.slice(prefix.length),
+      path: `parts.${partName}.overlay.anchorVar`,
+    };
+  }
+  return undefined;
 }
 
 export function checkTokenContract(spec: Spec, css: string | undefined): Issue[] {
@@ -525,8 +531,8 @@ function collectDimensionValues(spec: AtomicSpec, dim: string): string[] {
       return Object.keys(spec.intents ?? {});
     case "size":
       return Object.keys(spec.sizes ?? {});
-    case "states":
-      return Object.keys(spec.states ?? {});
+    case "visualStates":
+      return Object.keys(spec.visualStates ?? {});
     default: {
       const propDef = spec.props?.[dim];
       if (propDef?.values) return propDef.values;
@@ -674,7 +680,7 @@ export function checkVocabulary(spec: Spec, vocabulary: Vocabulary): Issue[] {
       );
     }
   }
-  for (const state of Object.keys(spec.states ?? {})) {
+  for (const state of Object.keys(spec.visualStates ?? {})) {
     if (vocabulary.states.includes(state)) continue;
     // Component-specific states (hover, focus, active) are allowed — only flag
     // a near-match to a canonical name.
@@ -683,7 +689,7 @@ export function checkVocabulary(spec: Spec, vocabulary: Vocabulary): Issue[] {
       issues.push(
         issue(
           spec.name,
-          `states.${state}`,
+          `visualStates.${state}`,
           `'${state}' looks like a typo of the canonical state '${hint}'`,
         ),
       );
@@ -1036,135 +1042,6 @@ export function checkVariantChoiceKeys(spec: Spec): Issue[] {
   return issues;
 }
 
-// ── Interaction refs ────────────────────────────────────────────────────────
-
-// Canonical state names a rule's `when:` may reference. Today only the
-// controllable-boolean state ("open") is wired; extend as new patterns land.
-const KNOWN_INTERACTION_STATES = ["open"] as const;
-
-/** Collect every numeric prop name across atomic root props and (recursively) composite parts. */
-function collectNumericPropNames(spec: Spec): Set<string> {
-  const names = new Set<string>();
-  const visitProps = (props: Record<string, { type?: string }> | undefined): void => {
-    for (const [name, def] of Object.entries(props ?? {})) {
-      if (def.type === "number") names.add(name);
-    }
-  };
-  const visitPartsRec = (parts: Record<string, SpecPart> | undefined): void => {
-    if (!parts) return;
-    for (const part of Object.values(parts)) {
-      visitProps(part.props);
-      if (part.parts) visitPartsRec(part.parts);
-    }
-  };
-  if (isAtomic(spec)) visitProps(spec.props);
-  else if (isComposite(spec)) visitPartsRec(spec.parts);
-  return names;
-}
-
-/**
- * `interactions[].delay` must name a numeric prop in the same spec; `when`
- * must name a known state. Without this both fields accept any string and a
- * typo drops to a silent no-op at runtime.
- */
-export function checkInteractionRefs(spec: Spec): Issue[] {
-  const rules = spec.interactions ?? [];
-  if (rules.length === 0) return [];
-  const numericProps = collectNumericPropNames(spec);
-  const knownStates = new Set<string>(KNOWN_INTERACTION_STATES);
-  const issues: Issue[] = [];
-  rules.forEach((rule, i) => {
-    if (rule.delay !== undefined && !numericProps.has(rule.delay)) {
-      issues.push(
-        issue(
-          spec.name,
-          `interactions[${i}].delay`,
-          `'${rule.delay}' is not a declared numeric prop in this spec`,
-        ),
-      );
-    }
-    if (rule.when !== undefined && !knownStates.has(rule.when)) {
-      issues.push(
-        issue(
-          spec.name,
-          `interactions[${i}].when`,
-          `'${rule.when}' is not a known state (allowed: ${[...knownStates].join(", ")})`,
-        ),
-      );
-    }
-  });
-  return issues;
-}
-
-// ── Overlay dismissal owned by useDismissableLayer ──────────────────────────
-
-/**
- * Escape on `document` / `window` is owned by `useDismissableLayer` (stacked,
- * topmost-wins) since PR #698. A spec-level
- * `{ event: "keydown", key: "Escape", target: "document" | "window" }` rule
- * bypasses the stack and fires `setOpen(false)` twice on one press — once
- * via the layer, once via the spec interaction. Reject at spec time so a
- * future composite spec can't reintroduce the duplicate-fire path.
- *
- * Scoped to specs with an `overlay:` block — `useDismissableLayer` only wires
- * up for overlays via `useOverlay`. A non-overlay spec with a document-target
- * rule has no layer to conflict with, so the rationale doesn't apply.
- */
-export function checkOverlayEscapeRules(spec: Spec): Issue[] {
-  if (!spec.overlay) return [];
-  const rules = spec.interactions ?? [];
-  if (rules.length === 0) return [];
-  const issues: Issue[] = [];
-  rules.forEach((rule, i) => {
-    if (rule.on.event !== "keydown") return;
-    if (rule.on.key !== "Escape") return;
-    if (rule.on.target !== "document" && rule.on.target !== "window") return;
-    issues.push(
-      issue(
-        spec.name,
-        `interactions[${i}]`,
-        `keydown:Escape on '${rule.on.target}' is owned by useDismissableLayer (stacked, topmost-wins). Remove this rule.`,
-      ),
-    );
-  });
-  return issues;
-}
-
-// ── Interaction event vocabulary (React handlers) ───────────────────────────
-
-/**
- * `interactions[].on.event` against a React-handler-bound target (today
- * `target: "trigger"`) must name a known React-synthetic event. The runtime
- * map lives in `packages/react/src/hooks/useOverlay.ts` as `EVENT_TO_HANDLER`;
- * unknown names there hit `if (!handlerName) continue;` and the rule is
- * silently dropped at runtime. Validate at spec-time so the silent-drop
- * cannot happen.
- *
- * `target: "document" | "window"` rules use native `addEventListener` and
- * accept any event name — they pass through this check. Future part-name
- * targets that bind to React handlers will need to be added to the
- * gated-targets set below.
- */
-const REACT_HANDLER_TARGETS = new Set(["trigger"]);
-
-export function checkInteractionEventVocabulary(spec: Spec): Issue[] {
-  const rules = spec.interactions ?? [];
-  if (rules.length === 0) return [];
-  const issues: Issue[] = [];
-  rules.forEach((rule, i) => {
-    if (!REACT_HANDLER_TARGETS.has(rule.on.target)) return;
-    if ((REACT_EVENT_VOCABULARY as readonly string[]).includes(rule.on.event)) return;
-    issues.push(
-      issue(
-        spec.name,
-        `interactions[${i}].on.event`,
-        `'${rule.on.event}' is not a supported React event.${suggestionFragment(rule.on.event, REACT_EVENT_VOCABULARY)} Supported: ${REACT_EVENT_VOCABULARY.join(", ")}.`,
-      ),
-    );
-  });
-  return issues;
-}
-
 // ── Events block ────────────────────────────────────────────────────────────
 
 const CAMEL_TAIL_RE = /[A-Z][a-zA-Z0-9]*$/;
@@ -1505,7 +1382,7 @@ export function checkEventsRuntimeSupport(spec: Spec): Issue[] {
     supportsGenerics: boolean;
   }> = [
     {
-      matches: (s) => isComposite(s) && Boolean(s.overlay),
+      matches: (s) => isComposite(s) && Object.values(s.parts).some((p) => p.overlay !== undefined),
       events: ["dismiss"],
       shape: "composite-overlay",
       supportsGenerics: false,
@@ -2080,6 +1957,387 @@ export function checkExamplesPresent(spec: Spec): Issue[] {
   ];
 }
 
+// ── State machines ──────────────────────────────────────────────────────────
+
+/**
+ * Rejections for per-part `states:` blocks:
+ *
+ *  - Empty `states:` rejected; initial state = first key.
+ *  - Transition `to:` targets resolve in the same part's `states:` map.
+ *  - Source-key prefix resolves: `<part>.<event>` → part exists in the
+ *    parts tree and `<event>` is a registered DOM event;
+ *    `key.<name>` → `<name>` is a registered key name;
+ *    `outside.<event>` → current part declares `overlay:`.
+ *  - Part-name uniqueness across the spec's parts tree (so `<part>.<event>`
+ *    references stay unambiguous without a qualified path).
+ *  - `emits:` event names exist in root `events:`; payload literals match
+ *    the declared payload shape (closed enums checked exactly).
+ *  - `overlay.anchor` resolves to a sibling part declaring `fromChildren: true`.
+ *  - `pattern: "controllable"` props mirror a state name when the part
+ *    also declares `states:`.
+ *  - `when:` guards parse as `[!]<part>.<bool-prop>`; part exists, prop is a
+ *    `type: boolean` declared on that part.
+ *  - `after:` references a declared `type: number` prop on the same part —
+ *    the generator emits `setTimeout(..., props.<name>)` which fails
+ *    silently if the prop is the wrong type.
+ *
+ * Unreachable-event detection (an event declared in root `events:` but never
+ * fired from any transition's `emits:`) is intentionally not enforced: the
+ * Issue type has no severity axis today, and "warn but allow" needs that
+ * infra to land first.
+ */
+export function checkStateMachines(spec: Spec, vocabulary: Vocabulary): Issue[] {
+  if (!isComposite(spec)) return [];
+  const issues: Issue[] = [];
+
+  type PartRef = { part: SpecPart; path: string };
+  const partsByName = new Map<string, PartRef>();
+  const partNameOccurrences = new Map<string, string[]>();
+  const walkParts = (parts: Record<string, SpecPart>, basePath: string): void => {
+    for (const [name, part] of Object.entries(parts)) {
+      const path = basePath === "" ? `parts.${name}` : `${basePath}.parts.${name}`;
+      const seen = partNameOccurrences.get(name) ?? [];
+      seen.push(path);
+      partNameOccurrences.set(name, seen);
+      if (!partsByName.has(name)) partsByName.set(name, { part, path });
+      if (part.parts) walkParts(part.parts, path);
+    }
+  };
+  walkParts(spec.parts, "");
+
+  // Rule 3a — part name uniqueness across the parts tree.
+  for (const [name, paths] of partNameOccurrences) {
+    if (paths.length <= 1) continue;
+    issues.push(
+      issue(
+        spec.name,
+        paths[0] ?? "parts",
+        `part name '${name}' is declared ${paths.length} times (${paths.join(", ")}). Part names must be unique across the parts tree so '<part>.<event>' source references stay unambiguous.`,
+      ),
+    );
+  }
+
+  const domEvents = vocabulary.dom_events ?? {};
+  const keys = vocabulary.keys ?? {};
+  const domEventNames = Object.keys(domEvents);
+  const keyNames = Object.keys(keys);
+
+  const declaredEvents = spec.events ?? {};
+  const declaredEventNames = Object.keys(declaredEvents);
+
+  // Rule 6 — overlay.anchor must point at a sibling part that declares
+  // `fromChildren: true`. Fires whether or not the part declares `states:`.
+  const visitOverlay = (
+    parts: Record<string, SpecPart>,
+    siblings: Record<string, SpecPart>,
+    basePath: string,
+  ): void => {
+    for (const [name, part] of Object.entries(parts)) {
+      const path = basePath === "" ? `parts.${name}` : `${basePath}.parts.${name}`;
+      if (part.overlay) {
+        const anchorName = part.overlay.anchor;
+        const sibling = siblings[anchorName];
+        if (!sibling) {
+          issues.push(
+            issue(
+              spec.name,
+              `${path}.overlay.anchor`,
+              `'${anchorName}' is not a sibling part of '${name}'. \`overlay.anchor\` must name a part declared alongside this one.`,
+            ),
+          );
+        } else if (sibling.fromChildren !== true) {
+          issues.push(
+            issue(
+              spec.name,
+              `${path}.overlay.anchor`,
+              `'${anchorName}' must declare \`fromChildren: true\` to serve as an overlay anchor. The anchor wraps the consumer's children and supplies the anchor element.`,
+            ),
+          );
+        }
+      }
+      if (part.parts) visitOverlay(part.parts, part.parts, path);
+    }
+  };
+  visitOverlay(spec.parts, spec.parts, "");
+
+  // Rules 1, 2, 3, 5, 7 (via 3), 9, 10, +after — walk every part that
+  // declares states:.
+  const visitStates = (parts: Record<string, SpecPart>, basePath: string): void => {
+    for (const [partName, part] of Object.entries(parts)) {
+      const partPath = basePath === "" ? `parts.${partName}` : `${basePath}.parts.${partName}`;
+      if (part.states) {
+        checkPartStates(spec.name, partName, part, partPath, {
+          partsByName,
+          domEventNames,
+          domEvents,
+          keyNames,
+          keys,
+          declaredEvents,
+          declaredEventNames,
+          issues,
+        });
+      }
+      if (part.parts) visitStates(part.parts, partPath);
+    }
+  };
+  visitStates(spec.parts, "");
+
+  return issues;
+}
+
+function checkPartStates(
+  specName: string,
+  partName: string,
+  part: SpecPart,
+  partPath: string,
+  ctx: {
+    partsByName: Map<string, { part: SpecPart; path: string }>;
+    domEventNames: string[];
+    domEvents: Record<string, string>;
+    keyNames: string[];
+    keys: Record<string, string>;
+    declaredEvents: Record<string, { description: string; payload: Record<string, PayloadEntry> }>;
+    declaredEventNames: string[];
+    issues: Issue[];
+  },
+): void {
+  const states = part.states ?? {};
+  const stateNames = Object.keys(states);
+  const statesPath = `${partPath}.states`;
+
+  // Rule 1 — empty states block.
+  if (stateNames.length === 0) {
+    ctx.issues.push(
+      issue(
+        specName,
+        statesPath,
+        `\`states:\` is empty on part '${partName}'. Declare at least one state or omit the block entirely.`,
+      ),
+    );
+    return;
+  }
+
+  const hasOverlay = part.overlay !== undefined;
+
+  // Rule 9 — controllable prop mirrors a state name.
+  const controllableProps = Object.entries(part.props ?? {})
+    .filter(([, prop]) => prop.pattern === "controllable" && prop.type === "boolean")
+    .map(([name]) => name);
+  for (const propName of controllableProps) {
+    if (!Object.hasOwn(states, propName)) {
+      ctx.issues.push(
+        issue(
+          specName,
+          `${partPath}.props.${propName}`,
+          `controllable boolean prop '${propName}' must mirror a state name declared in \`states:\` on the same part. States declared: [${stateNames.map((s) => `'${s}'`).join(", ")}]. Codegen wires the prop value to the runtime's initial state.`,
+        ),
+      );
+    }
+  }
+
+  for (const [stateName, stateDef] of Object.entries(states)) {
+    const statePath = `${statesPath}.${stateName}`;
+    const on = stateDef.on ?? {};
+    for (const [sourceKey, target] of Object.entries(on)) {
+      const sourcePath = `${statePath}.on.${JSON.stringify(sourceKey)}`;
+
+      // Rules 3 / 4 / 7 — source key prefix resolves.
+      const dotIdx = sourceKey.indexOf(".");
+      if (dotIdx < 0) {
+        ctx.issues.push(
+          issue(
+            specName,
+            sourcePath,
+            `source key '${sourceKey}' must use a '<prefix>.<name>' shape (e.g. 'trigger.click', 'key.escape', 'outside.click').`,
+          ),
+        );
+        continue;
+      }
+      const prefix = sourceKey.slice(0, dotIdx);
+      const eventName = sourceKey.slice(dotIdx + 1);
+      if (prefix === "key") {
+        if (!Object.hasOwn(ctx.keys, eventName)) {
+          ctx.issues.push(
+            issue(
+              specName,
+              sourcePath,
+              `key name '${eventName}' is not registered in specs/_vocabulary.yaml keys:.${suggestionFragment(eventName, ctx.keyNames)}`,
+            ),
+          );
+        }
+      } else if (prefix === "outside") {
+        if (!hasOverlay) {
+          ctx.issues.push(
+            issue(
+              specName,
+              sourcePath,
+              `'outside.*' sources are only valid on parts that declare \`overlay:\`. Move the state machine onto the overlay-bearing part or drop the source.`,
+            ),
+          );
+        }
+        if (!Object.hasOwn(ctx.domEvents, eventName)) {
+          ctx.issues.push(
+            issue(
+              specName,
+              sourcePath,
+              `DOM event '${eventName}' is not registered in specs/_vocabulary.yaml dom_events:.${suggestionFragment(eventName, ctx.domEventNames)}`,
+            ),
+          );
+        }
+      } else {
+        const referenced = ctx.partsByName.get(prefix);
+        if (!referenced) {
+          ctx.issues.push(
+            issue(
+              specName,
+              sourcePath,
+              `source prefix '${prefix}' does not match any part in this spec.${suggestionFragment(prefix, [...ctx.partsByName.keys()])}`,
+            ),
+          );
+        }
+        if (!Object.hasOwn(ctx.domEvents, eventName)) {
+          ctx.issues.push(
+            issue(
+              specName,
+              sourcePath,
+              `DOM event '${eventName}' is not registered in specs/_vocabulary.yaml dom_events:.${suggestionFragment(eventName, ctx.domEventNames)}`,
+            ),
+          );
+        }
+      }
+
+      // Normalize the shorthand `"open"` to long form for the remaining
+      // rules (2, 5, after, 10).
+      const long = typeof target === "string" ? { to: target } : target;
+
+      // Rule 2 — `to:` resolves.
+      if (!Object.hasOwn(states, long.to)) {
+        ctx.issues.push(
+          issue(
+            specName,
+            sourcePath,
+            `transition target '${long.to}' is not a state declared on part '${partName}'. States: [${stateNames.map((s) => `'${s}'`).join(", ")}].`,
+          ),
+        );
+      }
+
+      // `after:` references a `type: number` prop on this part.
+      if ("after" in long && long.after !== undefined) {
+        const propEntry = part.props?.[long.after];
+        if (!propEntry) {
+          ctx.issues.push(
+            issue(
+              specName,
+              sourcePath,
+              `\`after: '${long.after}'\` must reference a prop declared on part '${partName}'. The runtime reads the prop value as a millisecond delay.`,
+            ),
+          );
+        } else if (propEntry.type !== "number") {
+          ctx.issues.push(
+            issue(
+              specName,
+              sourcePath,
+              `\`after: '${long.after}'\` must reference a \`type: number\` prop. Prop '${long.after}' has type '${propEntry.type}'.`,
+            ),
+          );
+        }
+      }
+
+      // Rule 10 — when guard parses as [!]<part>.<bool-prop>.
+      if ("when" in long && long.when !== undefined) {
+        const expr = long.when.trim();
+        const negated = expr.startsWith("!");
+        const body = (negated ? expr.slice(1) : expr).trim();
+        const guardDot = body.indexOf(".");
+        if (guardDot < 1 || guardDot === body.length - 1) {
+          ctx.issues.push(
+            issue(
+              specName,
+              sourcePath,
+              `\`when: '${long.when}'\` does not match the supported grammar '[!]<part>.<bool-prop>'.`,
+            ),
+          );
+        } else {
+          const guardPart = body.slice(0, guardDot);
+          const guardProp = body.slice(guardDot + 1);
+          const referenced = ctx.partsByName.get(guardPart);
+          if (!referenced) {
+            ctx.issues.push(
+              issue(
+                specName,
+                sourcePath,
+                `\`when:\` references part '${guardPart}' which does not exist.${suggestionFragment(guardPart, [...ctx.partsByName.keys()])}`,
+              ),
+            );
+          } else {
+            const propEntry = referenced.part.props?.[guardProp];
+            if (!propEntry) {
+              ctx.issues.push(
+                issue(
+                  specName,
+                  sourcePath,
+                  `\`when:\` references prop '${guardProp}' which is not declared on part '${guardPart}'.`,
+                ),
+              );
+            } else if (propEntry.type !== "boolean") {
+              ctx.issues.push(
+                issue(
+                  specName,
+                  sourcePath,
+                  `\`when:\` prop '${guardPart}.${guardProp}' must be a \`type: boolean\` prop; got '${propEntry.type}'.`,
+                ),
+              );
+            }
+          }
+        }
+      }
+
+      // Rule 5 — emits event names + payload literals.
+      if ("emits" in long && long.emits !== undefined) {
+        for (const [emittedName, payloadLiteral] of Object.entries(long.emits)) {
+          const eventEntry = ctx.declaredEvents[emittedName];
+          if (!eventEntry) {
+            ctx.issues.push(
+              issue(
+                specName,
+                sourcePath,
+                `emits: '${emittedName}' is not declared in root \`events:\`.${suggestionFragment(emittedName, ctx.declaredEventNames)}`,
+              ),
+            );
+            continue;
+          }
+          for (const [field, literal] of Object.entries(payloadLiteral)) {
+            const fieldSchema = eventEntry.payload[field];
+            if (!fieldSchema) {
+              ctx.issues.push(
+                issue(
+                  specName,
+                  sourcePath,
+                  `emits: '${emittedName}' payload field '${field}' is not declared in events.${emittedName}.payload.`,
+                ),
+              );
+              continue;
+            }
+            if (
+              fieldSchema.type === "enum" &&
+              typeof literal === "string" &&
+              !fieldSchema.values.includes(literal)
+            ) {
+              ctx.issues.push(
+                issue(
+                  specName,
+                  sourcePath,
+                  `emits: '${emittedName}.${field}' value '${literal}' is not in the declared enum [${fieldSchema.values.map((v) => `'${v}'`).join(", ")}].`,
+                ),
+              );
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 // ── Aggregate ───────────────────────────────────────────────────────────────
 
 export function runSemanticChecks(
@@ -2107,13 +2365,11 @@ export function runSemanticChecks(
     ...checkResponsiveExplicit(spec),
     ...checkAsIsConstrained(spec),
     ...checkVoidElementConstraints(spec),
-    ...checkInteractionRefs(spec),
-    ...checkInteractionEventVocabulary(spec),
-    ...checkOverlayEscapeRules(spec),
     ...checkRepeatingParts(spec),
     ...checkExamplesPresent(spec),
     ...checkEvents(spec, ctx.vocabulary),
     ...checkEventsRuntimeSupport(spec),
+    ...checkStateMachines(spec, ctx.vocabulary),
   ];
 }
 

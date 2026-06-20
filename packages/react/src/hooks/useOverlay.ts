@@ -34,7 +34,17 @@ export type OverlayConfig = {
   onDismiss?: (reason: OverlayDismissReason) => void;
   anchorVar: string;
   popoverMode: "auto" | "manual" | "hint";
-  interactions: ReadonlyArray<OverlayInteraction>;
+  /** Declarative input→transition rules. Optional: when omitted (or empty),
+   *  the wrapper owns trigger handlers and doc-bound listeners — useOverlay
+   *  just runs the side-effects (anchor binding, popover toggle, dismissable
+   *  layer, modality). */
+  interactions?: ReadonlyArray<OverlayInteraction>;
+  /** Override the default dismissable-layer routes. When provided, the layer
+   *  calls these instead of firing onDismiss + closing the overlay — used by
+   *  state-machine-driven wrappers so the machine's `key.escape` /
+   *  `outside.click` transitions own the close path. */
+  onEscapeKeyDown?: () => void;
+  onPointerDownOutside?: () => void;
   /** Active at the current breakpoint? state machine no-ops; matches CSS `data-disabled-bp`. */
   disabled?: Responsive<boolean>;
   /** Modal: when true and `open`, activates a focus trap + body-children inert cascade. */
@@ -109,7 +119,9 @@ export function useOverlay<T extends HTMLElement = HTMLElement>(
     onDismiss,
     anchorVar,
     popoverMode,
-    interactions,
+    interactions = [],
+    onEscapeKeyDown: onEscapeKeyDownOverride,
+    onPointerDownOutside: onPointerDownOutsideOverride,
     disabled,
     modal = false,
   } = config;
@@ -250,11 +262,14 @@ export function useOverlay<T extends HTMLElement = HTMLElement>(
 
   // Participate in the per-ownerDocument dismissable-layer stack. Escape fires
   // only when this layer is topmost; pointer-down outside the content element
-  // closes this layer. Both routes go through `setOpenWithReason` so the
-  // wrapper sees the dismiss reason ahead of the open-change mirror.
+  // closes this layer. State-machine-driven wrappers override both routes so
+  // the machine's `key.escape` / `outside.click` transitions own the close
+  // path; the default routes go through `setOpenWithReason` so legacy callers
+  // still see the dismiss reason ahead of the open-change mirror.
   useDismissableLayer(contentNode, open, {
-    onEscapeKeyDown: () => setOpenWithReason(false, "escape"),
-    onPointerDownOutside: () => setOpenWithReason(false, "outside"),
+    onEscapeKeyDown: onEscapeKeyDownOverride ?? (() => setOpenWithReason(false, "escape")),
+    onPointerDownOutside:
+      onPointerDownOutsideOverride ?? (() => setOpenWithReason(false, "outside")),
   });
 
   // Modal: trap focus + inert siblings. Focus-trap restores focus to the pre-activation element (trigger) on close.

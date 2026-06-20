@@ -53,6 +53,10 @@ for (const file of files) {
     const line = lines[i];
     if (line === undefined) continue;
     if (file.endsWith(".yaml") || file.endsWith(".yml")) {
+      // _vocabulary.yaml carries canonical browser-API names (KeyboardEvent.key
+      // arrow keys) — they're hardware, not styling direction, so the
+      // physical-vs-logical guidance doesn't apply.
+      if (file.endsWith("_vocabulary.yaml")) continue;
       const match = line.match(SPEC_KEY_RE);
       if (match) {
         failures.push(

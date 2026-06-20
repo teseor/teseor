@@ -3,7 +3,6 @@ description: A static page-link list. Renders one item per entry in the `pages` 
 kind: composite
 dependencies: []
 cssFile: components/pagination/pagination.css
-behavior: none
 
 parts:
   root:

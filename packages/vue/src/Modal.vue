@@ -40,6 +40,8 @@ const overlay = useOverlay({
   modal: true,
   interactions: [
     { on: { event: "click", target: "trigger" }, do: "toggle" },
+    { on: { event: "keydown", key: "escape" }, do: "close" },
+    { on: { event: "outside-click" }, do: "close" },
   ],
 });
 

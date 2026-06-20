@@ -65,7 +65,7 @@ sizes:
       height: --t-row-4
       pad-x: --t-space-5
 
-states:
+visualStates:
   hover:
     description: Pointer is over the button.
   focus:

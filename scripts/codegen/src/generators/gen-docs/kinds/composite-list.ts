@@ -10,6 +10,7 @@ import {
   renderNamed,
   renderProps,
   renderRepeatingItems,
+  renderStateMachineDiagrams,
   renderStates,
   renderTokens,
 } from "../_shared/sections.ts";
@@ -29,6 +30,7 @@ export function renderCompositeListDocsPage(spec: DocsSpec): string {
     renderNamed("Variants", spec.variants),
     renderNamed("Intents", spec.intents),
     renderNamed("Sizes", spec.sizes),
+    renderStateMachineDiagrams(spec),
     renderStates(spec),
     renderTokens(spec),
     renderA11y(spec),
