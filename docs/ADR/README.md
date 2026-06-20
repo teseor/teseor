@@ -27,6 +27,11 @@ a numbered, durable file.
 | [0017](0017-strict-token-interface-boundary.md) | Strict token-interface boundary | Accepted |
 | [0018](0018-events-block-surface.md) | Events block: scope, consumer surface, docs section split | Proposed |
 | [0019](0019-closed-vocabularies-for-events.md) | Closed vocabularies for event names and payload types | Proposed |
+| [0020](0020-states-live-on-parts.md) | States live on parts, not in a root machine block | Accepted |
+| [0021](0021-event-source-prefix-syntax.md) | Event source prefix syntax for state transitions | Accepted |
+| [0022](0022-minimal-when-guard-grammar.md) | Minimal `when:` guard grammar | Accepted |
+| [0023](0023-state-machine-runtime-in-primitives.md) | State-machine runtime lives in `@teseor/primitives` | Accepted |
+| [0024](0024-part-name-uniqueness.md) | Part names are unique across the parts tree | Accepted |
 
 ## When to write one
 
