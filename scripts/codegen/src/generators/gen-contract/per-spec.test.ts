@@ -310,4 +310,57 @@ describe("renderContract", () => {
     expect(out).toContain('| { type: "select"; value: string }');
     expect(out).toContain('| { type: "dismiss"; reason: "outside" | "escape" };');
   });
+
+  test("emits `<Spec>State` for a single stateful part", () => {
+    const out = renderContract(
+      spec({
+        name: "modal",
+        kind: "composite",
+        parts: {
+          trigger: { fromChildren: true },
+          content: {
+            element: "div",
+            states: {
+              closed: { on: { "trigger.click": "open" } },
+              open: { on: { "key.escape": "closed" } },
+            },
+          },
+        },
+      }),
+    );
+    expect(out).toContain('export type ModalState = "closed" | "open";');
+  });
+
+  test("disambiguates state unions when multiple parts declare states", () => {
+    const out = renderContract(
+      spec({
+        name: "popover",
+        kind: "composite",
+        parts: {
+          trigger: {
+            fromChildren: true,
+            states: {
+              idle: { on: { click: "armed" } },
+              armed: { on: { click: "idle" } },
+            },
+          },
+          content: {
+            element: "div",
+            states: {
+              closed: { on: { "trigger.click": "open" } },
+              open: { on: { "key.escape": "closed" } },
+            },
+          },
+        },
+      }),
+    );
+    expect(out).toContain('export type PopoverTriggerState = "idle" | "armed";');
+    expect(out).toContain('export type PopoverContentState = "closed" | "open";');
+    expect(out).not.toContain("export type PopoverState");
+  });
+
+  test("emits no state union when no part declares `states:`", () => {
+    const out = renderContract(spec({ name: "btn" }));
+    expect(out).not.toContain("BtnState");
+  });
 });

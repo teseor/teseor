@@ -1,8 +1,12 @@
 import { describe, expect, test } from "vitest";
 import { type BarrelEntry, renderBarrel } from "./barrel.ts";
 
-function entry(name: string, events?: BarrelEntry["events"]): BarrelEntry {
-  return { name, events };
+function entry(
+  name: string,
+  events?: BarrelEntry["events"],
+  parts?: BarrelEntry["parts"],
+): BarrelEntry {
+  return { name, events, parts };
 }
 
 describe("renderBarrel", () => {
@@ -42,5 +46,45 @@ describe("renderBarrel", () => {
     const out = renderBarrel([entry("modal", {})]);
     expect(out).toContain('export type { ModalProps } from "./Modal.ts";');
     expect(out).not.toContain("ModalEvent");
+  });
+
+  test("re-exports `<Name>State` for specs whose parts declare states", () => {
+    const out = renderBarrel([
+      entry("modal", undefined, {
+        trigger: { fromChildren: true },
+        content: {
+          element: "div",
+          states: {
+            closed: { on: { "trigger.click": "open" } },
+            open: { on: { "key.escape": "closed" } },
+          },
+        },
+      }),
+    ]);
+    expect(out).toContain('export type { ModalProps, ModalState } from "./Modal.ts";');
+  });
+
+  test("re-exports per-part state unions when multiple parts declare states", () => {
+    const out = renderBarrel([
+      entry("popover", undefined, {
+        trigger: {
+          fromChildren: true,
+          states: {
+            idle: { on: { click: "armed" } },
+            armed: { on: { click: "idle" } },
+          },
+        },
+        content: {
+          element: "div",
+          states: {
+            closed: { on: { "trigger.click": "open" } },
+            open: { on: { "key.escape": "closed" } },
+          },
+        },
+      }),
+    ]);
+    expect(out).toContain(
+      'export type { PopoverProps, PopoverTriggerState, PopoverContentState } from "./Popover.ts";',
+    );
   });
 });
