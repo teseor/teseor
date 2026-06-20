@@ -32,7 +32,11 @@ export type CreateStateMachineOptions<S extends string = string> = {
   /** Called on every `send` so closures inside transitions read fresh values. */
   getStates: () => StatesSpec<S>;
   initial: S;
-  onChange?: (next: S, prev: S) => void;
+  /** Fires synchronously after a transition. `sourceKey` is the key passed to
+   *  `send` — wrappers route per-event consumer callbacks (e.g. `onDismiss`
+   *  reason mapping) off it without a stale-closure round-trip through React
+   *  state. */
+  onChange?: (next: S, prev: S, sourceKey: string) => void;
 };
 
 export function createStateMachine<S extends string>(
@@ -49,12 +53,12 @@ export function createStateMachine<S extends string>(
     }
   };
 
-  const fire = (target: Transition<S>): void => {
+  const fire = (target: Transition<S>, sourceKey: string): void => {
     if (destroyed) return;
     target.emits?.();
     const prev = current;
     current = target.to;
-    if (prev !== current) options.onChange?.(current, prev);
+    if (prev !== current) options.onChange?.(current, prev, sourceKey);
   };
 
   return {
@@ -75,10 +79,10 @@ export function createStateMachine<S extends string>(
       if (target.after !== undefined && target.after > 0) {
         timer = setTimeout(() => {
           timer = undefined;
-          fire(target);
+          fire(target, sourceKey);
         }, target.after);
       } else {
-        fire(target);
+        fire(target, sourceKey);
       }
     },
     destroy() {

@@ -31,7 +31,7 @@ describe("createStateMachine", () => {
     });
     m.send("trigger.click");
     expect(m.getState()).toBe("open");
-    expect(onChange).toHaveBeenCalledWith("open", "closed");
+    expect(onChange).toHaveBeenCalledWith("open", "closed", "trigger.click");
   });
 
   it("ignores source keys with no transition from the current state", () => {
