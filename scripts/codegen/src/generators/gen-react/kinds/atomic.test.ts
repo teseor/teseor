@@ -116,4 +116,44 @@ describe("renderAtomicReactWrapper", () => {
       expect(out).not.toContain("asChild?: boolean;");
     });
   });
+
+  describe("elementByProp", () => {
+    function headingSpec(extra: Partial<Spec> = {}): Spec {
+      return atomicSpec({
+        name: "heading",
+        elementByProp: {
+          prop: "level",
+          map: { "1": "h1", "2": "h2", "3": "h3" },
+        },
+        props: {
+          level: prop({ type: "string", values: ["1", "2", "3"], default: "1" }),
+        },
+        ...extra,
+      });
+    }
+
+    test("emits a tagMap constant and selects Component from the prop value", () => {
+      const out = renderAtomicReactWrapper(headingSpec(), {});
+      expect(out).toContain(`const tagMap = { "1": "h1", "2": "h2", "3": "h3" } as const;`);
+      expect(out).toContain("const Component = tagMap[String(level)];");
+      expect(out).toContain("<Component\n");
+      expect(out).toContain("</Component>");
+    });
+
+    test("widens the ref type to HTMLElement", () => {
+      const out = renderAtomicReactWrapper(headingSpec(), {});
+      expect(out).toContain("ref?: Ref<HTMLElement>;");
+    });
+
+    test("composes with `polymorphic: 'asChild'` (asChild wins, else tag from prop)", () => {
+      const out = renderAtomicReactWrapper(headingSpec({ polymorphic: "asChild" }), {});
+      expect(out).toContain(`const tagMap =`);
+      expect(out).toContain("const Component = asChild ? Slot : tagMap[String(level)];");
+    });
+
+    test("omits tagMap when elementByProp is unset", () => {
+      const out = renderAtomicReactWrapper(atomicSpec({ element: "div" }), {});
+      expect(out).not.toContain("const tagMap");
+    });
+  });
 });

@@ -27,6 +27,7 @@ export function renderAtomicVueWrapper(
   const hasDisabled = "disabled" in propMap;
   const hasLoading = "loading" in propMap;
   const isPolymorphic = spec.polymorphic === "asChild";
+  const elementByProp = spec.elementByProp;
   const slots = collectSlots(spec);
 
   const sizeIsResponsive = Boolean(spec.sizes) && RESPONSIVE_ENUM_PROPS.has("size");
@@ -41,12 +42,21 @@ export function renderAtomicVueWrapper(
     .filter((p): p is string => p !== null)
     .join(" || ");
 
-  const componentTag = hasAs || isPolymorphic ? "component" : (spec.element ?? "div");
+  const componentTag =
+    hasAs || isPolymorphic || elementByProp ? "component" : (spec.element ?? "div");
+  const tagFromProp = elementByProp ? `tagMap[String(${elementByProp.prop})]` : null;
   const polymorphicIsExpr = isPolymorphic
-    ? `asChild ? Slot : ${JSON.stringify(spec.element ?? "div")}`
+    ? `asChild ? Slot : ${tagFromProp ?? JSON.stringify(spec.element ?? "div")}`
+    : (tagFromProp ?? null);
+
+  const tagMapLine = elementByProp
+    ? `const tagMap = { ${Object.entries(elementByProp.map)
+        .map(([k, v]) => `${JSON.stringify(k)}: ${JSON.stringify(v)}`)
+        .join(", ")} } as const;`
     : null;
 
   const helperLines = [
+    tagMapLine,
     hasDisabled && hasAs ? `const isButton = computed(() => as === "button");` : null,
     inactiveExpr ? `const inactive = computed(() => ${inactiveExpr});` : null,
   ]

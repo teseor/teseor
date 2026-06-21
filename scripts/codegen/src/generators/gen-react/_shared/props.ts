@@ -69,8 +69,9 @@ export function renderOwnProps(
   const sizeLines = spec.sizes ? renderCanonicalProp("size", sizeType, propDescriptions) : [];
   const hasAs = "as" in (spec.props ?? {});
   const isPolymorphic = spec.polymorphic === "asChild";
+  const isElementByProp = Boolean(spec.elementByProp);
   const refType =
-    hasAs || isPolymorphic
+    hasAs || isPolymorphic || isElementByProp
       ? "Ref<HTMLElement>"
       : `Ref<HTMLElementTagNameMap[${quote(spec.element ?? "div")}]>`;
   const asChildLines = isPolymorphic

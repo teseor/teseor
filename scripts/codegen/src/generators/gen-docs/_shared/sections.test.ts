@@ -183,6 +183,29 @@ describe("renderProps", () => {
     const out = renderProps(spec);
     expect(out).not.toContain("<Code>asChild</Code>");
   });
+
+  test("appends the tag map to the controlling prop's description for elementByProp", () => {
+    const spec: DocsSpec = {
+      name: "heading",
+      kind: "atomic",
+      elementByProp: { prop: "level", map: { "1": "h1", "2": "h2" } },
+      props: {
+        level: {
+          type: "string",
+          values: ["1", "2"],
+          description: "Heading level.",
+          __part: "",
+        },
+      },
+      tokens: {},
+      visualStates: {},
+    };
+    const out = renderProps(spec);
+    expect(out).toContain("Heading level.");
+    expect(out).toContain("Renders as");
+    expect(out).toContain("<Code>&lt;h1&gt;</Code>");
+    expect(out).toContain("<Code>&lt;h2&gt;</Code>");
+  });
 });
 
 describe("hasFromChildrenPart", () => {

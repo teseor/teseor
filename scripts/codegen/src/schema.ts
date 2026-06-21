@@ -65,8 +65,18 @@ const motionBlock = z.strictObject({
   exits: z.array(z.string()).optional(),
 });
 
+const elementByPropBlock = z.strictObject({
+  prop: z.string().min(1),
+  map: z.record(z.string().min(1), z.string().min(1)),
+});
+
 const componentNodeFields = {
   element: z.string().optional(),
+  /** Prop-driven root tag selection. The named prop's runtime value indexes
+   *  into `map` to produce the rendered HTML tag. Mutually exclusive with
+   *  `element`. The controlling prop must be `type: string` with `values:`
+   *  matching the map's keys exactly. */
+  elementByProp: elementByPropBlock.optional(),
   rootClass: z.string().optional(),
   variants: z.record(z.string(), variantEntry).optional(),
   intents: z.record(z.string(), intentEntry).optional(),
@@ -111,6 +121,7 @@ const stateDef = z.strictObject({
 // slots, where `cloneElement` fails silently.
 type ComponentPart = {
   element?: string;
+  elementByProp?: { prop: string; map: Record<string, string> };
   rootClass?: string;
   fromChildren?: boolean;
   repeating?: boolean;
