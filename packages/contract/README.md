@@ -28,6 +28,7 @@ function buildAttrs(props: ButtonProps): Record<string, string | undefined> {
 - `Cluster` — `ClusterProps`
 - `Code` — `CodeProps`
 - `Codeblock` — `CodeblockProps`
+- `Heading` — `HeadingSize`, `HeadingProps`
 - `Modal` — `ModalProps`
 - `Pagination` — `PaginationProps`
 - `Stack` — `StackProps`

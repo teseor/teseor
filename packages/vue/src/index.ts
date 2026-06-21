@@ -4,6 +4,7 @@ export { default as Button } from "./Button.vue";
 export { default as Cluster } from "./Cluster.vue";
 export { default as Code } from "./Code.vue";
 export { default as Codeblock } from "./Codeblock.vue";
+export { default as Heading } from "./Heading.vue";
 export { default as Modal } from "./Modal.vue";
 export { default as Pagination } from "./Pagination.vue";
 export { default as Stack } from "./Stack.vue";

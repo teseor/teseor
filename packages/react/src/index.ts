@@ -4,6 +4,7 @@ export { Button, type ButtonProps } from "./Button.tsx";
 export { Cluster, type ClusterProps } from "./Cluster.tsx";
 export { Code, type CodeProps } from "./Code.tsx";
 export { Codeblock, type CodeblockProps } from "./Codeblock.tsx";
+export { Heading, type HeadingProps } from "./Heading.tsx";
 export { Modal, type ModalProps } from "./Modal.tsx";
 export { Pagination, type PaginationProps } from "./Pagination.tsx";
 export { Stack, type StackProps } from "./Stack.tsx";

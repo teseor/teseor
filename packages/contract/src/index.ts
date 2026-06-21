@@ -4,6 +4,7 @@ export type { ButtonProps } from "./Button.ts";
 export type { ClusterProps } from "./Cluster.ts";
 export type { CodeProps } from "./Code.ts";
 export type { CodeblockProps } from "./Codeblock.ts";
+export type { HeadingProps } from "./Heading.ts";
 export type { ModalEvent, ModalProps, ModalState } from "./Modal.ts";
 export type { PaginationProps } from "./Pagination.ts";
 export type { StackProps } from "./Stack.ts";
