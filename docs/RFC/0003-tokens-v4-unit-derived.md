@@ -108,6 +108,8 @@ line-height: clamp(
 
 ### Type-on-rhythm via `text-box-trim`
 
+> Superseded by the 2026-06-21 update below: the `@supports (text-box-trim: trim-both)` block was removed from `packages/css/src/base.css` in #887 because Chromium silently falls back to `text-box-edge: auto` for the `cap` keyword. The original design is kept here for reasoning continuity; the rhythm mechanism going forward is `round()`-derived leading alone.
+
 ```css
 @supports (text-box-trim: trim-both) {
   :where(p, li, dd, blockquote) {
@@ -180,8 +182,20 @@ Two layers — each catches what the other cannot.
 This RFC ships in three sequential phases, each its own PR:
 
 1. **Phase 1 (#803)** — derive all spatial tokens from `--t-unit`; add `rhythm-tokens` lint. Internal-only; no resolved value changes; no public API change.
-2. **Phase 2 (#804)** — replace `--t-leading-*` with `round()`-derived form; add `text-box-trim` to body text under `@supports`. Visual diff matters; visual-regression snapshots required.
+2. **Phase 2 (#804)** — replace `--t-leading-*` with `round()`-derived form; add `text-box-trim` to body text under `@supports`. Visual diff matters; visual-regression snapshots required. *Partially landed; see the 2026-06-21 update below — `round()`-derived leading shipped, `text-box-trim` was removed and is no longer part of the design.*
 3. **Phase 3 (#805)** — collapse `--t-density` into `--t-unit` overrides. Public-API behavior change (`[data-density="compact"]` now tightens spacing rungs); Ask-before gate.
+
+### Update — `text-box-trim` removed from base prose (2026-06-21)
+
+Phase 2's `text-box-trim: trim-both; text-box-edge: cap` block was dropped from `packages/css/src/base.css` in #887 (closing #880). The grid-rhythm audit (#884) — the visual-snapshot decision point this RFC deferred to under "Unresolved questions" — found that trim breaks rhythm rather than enabling it:
+
+- Chromium parses `text-box-edge: cap` but does not honor it; the resolved edge falls back to `auto`. The configured cap-height tightening never happened in any shipping browser.
+- The remaining effect — `text-box-trim: trim-both` with the `auto` edge — shrunk bare `<p>` and `<li>` boxes to the font's ascent/descent extent (18px at 16px `system-ui`), instead of the unit-rounded leading (24px) derived from `--t-leading-normal`. 18px is not a multiple of `--t-unit` (4px), so every bare prose element drifted 2px off-grid and pulled `<main>` off-grid on every component docs page.
+- Without the `cap` keyword landing, there is no Chromium configuration of `text-box-trim` that preserves rhythm; the only correct action today is to not apply it.
+
+**Phase 2 status: partially landed.** `round()`-derived `--t-leading-*` remains the rhythm mechanism and continues to ship. The `text-box-trim` half of Phase 2 is rolled back; type-on-rhythm relies on leading alone until `text-box-edge: cap` reaches Chromium. Reintroducing a trim-based tightening would require its own RFC update (or a successor RFC) once the keyword is honored.
+
+This update answers the Phase 2 "leading carve-out scope for `text-box-trim`" question in "Unresolved questions" — the carve-out is moot; the entire trim block is gone.
 
 ## Drawbacks
 
@@ -254,7 +268,7 @@ All three phases become the default immediately. There is no "opt out of unit-de
 ## Unresolved questions
 
 - **Compact density value.** Picked `0.21875rem` (3.5px) for symmetry with comfortable's `0.28125rem` (4.5px). Either could be `0.1875rem` (3px) / `0.3125rem` (5px) for 25% steps. Reviewer preference.
-- **Leading carve-out scope for `text-box-trim`.** Default applied to `p, li, dd, blockquote`. Headings have their own visual story (`text-wrap: balance`); applying `text-box-trim` to them might over-tighten the leading visually. Decide during Phase 2 implementation against visual snapshots.
+- **Leading carve-out scope for `text-box-trim`.** Default applied to `p, li, dd, blockquote`. Headings have their own visual story (`text-wrap: balance`); applying `text-box-trim` to them might over-tighten the leading visually. Decide during Phase 2 implementation against visual snapshots. *Resolved 2026-06-21: moot — see the "`text-box-trim` removed from base prose" update under "Detailed design". The trim block was removed entirely; no carve-out is needed.*
 - **`--t-text-base` linkage to `--t-unit`.** Currently `--t-text-base: calc(var(--t-unit) * 4)` — so font scales with unit. Some consumers may prefer text-size to stay fixed when only spacing rescales. Decided yes for now (consistent single-knob), but worth revisiting if real-world feedback diverges.
 - **Runtime audit attachment point.** Legacy ran against docs dev server. v3 should run against `docs-prod` build (already present in CI). Detail for the follow-up issue.
 
