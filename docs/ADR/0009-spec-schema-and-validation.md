@@ -1,6 +1,8 @@
 # ADR-0009 — Spec schema and validation
 
-- **Status:** Proposed.
+- **Status:** Proposed. Partially superseded by ADR-0020 (field
+  placement for `interactions:` and `overlay:`; the
+  schema-and-validation decision itself stands).
 - **Deciders:** repo owner (letanure).
 
 ## Decision
