@@ -86,21 +86,4 @@
     outline: 2px solid var(--t-focus-ring);
     outline-offset: 2px;
   }
-
-  /* text-box-trim strips the half-leading above the cap and below the baseline
-     so `padding-block` produces the visually-expected gap. Without it, rhythm
-     is approximate even when the leading lands on the grid. Scoped to body
-     prose elements where the trim is unambiguously desired; headings keep
-     their natural metrics for the `text-wrap: balance` story. Baseline 2025;
-     `@supports` gates the fallback. */
-  @supports (text-box-trim: trim-both) {
-    :where(p, li, dd, blockquote) {
-      text-box-trim: trim-both;
-      /* stylelint-disable-next-line declaration-property-value-no-unknown --
-         stylelint's CSS value database does not yet recognise `cap` for
-         text-box-edge; the value is valid per the CSS Inline Layout spec
-         (Baseline 2025). */
-      text-box-edge: cap;
-    }
-  }
 }
