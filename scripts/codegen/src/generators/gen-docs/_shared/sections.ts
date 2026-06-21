@@ -129,12 +129,21 @@ export function renderProps(spec: DocsSpec): string {
       continue;
     }
     const type = [def.type, def.slot ? "slot" : ""].filter(Boolean).join(", ");
+    // When this prop controls the root tag via `elementByProp`, append the
+    // value→tag mapping to its description so the docs page documents the
+    // runtime tag switch.
+    const isElementByPropControl = spec.kind === "atomic" && spec.elementByProp?.prop === name;
+    const tagMapHint = isElementByPropControl
+      ? ` Renders as ${Object.entries(spec.elementByProp?.map ?? {})
+          .map(([v, tag]) => `<Code>&lt;${esc(tag)}&gt;</Code> for <Code>${esc(v)}</Code>`)
+          .join(", ")}.`
+      : "";
     rows.push([
       `<Code>${esc(name)}</Code>`,
       `<Code>${esc(type)}</Code>`,
       responsiveMark(def.responsive),
       `<Code>${esc(formatValue(def.default))}</Code>`,
-      esc(def.description ?? ""),
+      esc(def.description ?? "") + tagMapHint,
     ]);
   }
   // Two paths surface an emitted `asChild` prop the spec doesn't declare:

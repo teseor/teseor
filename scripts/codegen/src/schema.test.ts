@@ -397,4 +397,40 @@ describe("Spec schema — shape layer", () => {
     });
     expect(result.success).toBe(false);
   });
+
+  test("accepts `elementByProp` with a prop + map on an atomic spec", () => {
+    const result = Spec.safeParse({
+      name: "heading",
+      kind: "atomic",
+      rootClass: "t-heading",
+      elementByProp: {
+        prop: "level",
+        map: { "1": "h1", "2": "h2", "3": "h3", "4": "h4", "5": "h5", "6": "h6" },
+      },
+      props: {
+        level: {
+          type: "string",
+          values: ["1", "2", "3", "4", "5", "6"],
+          description: "Heading level.",
+        },
+      },
+    });
+    expect(result.success).toBe(true);
+  });
+
+  test("rejects `elementByProp` without `prop`", () => {
+    const result = Spec.safeParse({
+      ...minimalAtomic(),
+      elementByProp: { map: { "1": "h1" } },
+    });
+    expect(result.success).toBe(false);
+  });
+
+  test("rejects `elementByProp` with an unknown nested field", () => {
+    const result = Spec.safeParse({
+      ...minimalAtomic(),
+      elementByProp: { prop: "level", map: { "1": "h1" }, typo: true },
+    });
+    expect(result.success).toBe(false);
+  });
 });

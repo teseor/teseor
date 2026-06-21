@@ -32,6 +32,7 @@ export function renderAtomicReactWrapper(
   const hasDisabled = "disabled" in propMap;
   const hasLoading = "loading" in propMap;
   const isPolymorphic = spec.polymorphic === "asChild";
+  const elementByProp = spec.elementByProp;
   const slots = collectSlots(spec);
 
   const sizeIsResponsive = Boolean(spec.sizes) && RESPONSIVE_ENUM_PROPS.has("size");
@@ -50,11 +51,29 @@ export function renderAtomicReactWrapper(
     .join(" || ");
 
   const rootExpr = hasAs ? `as ?? ${quote(spec.element ?? "div")}` : quote(spec.element ?? "div");
-  const componentTag = hasAs || isPolymorphic ? "Component" : (spec.element ?? "div");
+  const componentTag =
+    hasAs || isPolymorphic || elementByProp ? "Component" : (spec.element ?? "div");
+
+  const tagMapLine = elementByProp
+    ? `  const tagMap = { ${Object.entries(elementByProp.map)
+        .map(([k, v]) => `${quote(k)}: ${quote(v)}`)
+        .join(", ")} } as const;`
+    : null;
+  const tagFromProp = elementByProp ? `tagMap[String(${elementByProp.prop})]` : null;
+
+  const componentLine = isPolymorphic
+    ? tagFromProp
+      ? `  const Component = asChild ? Slot : ${tagFromProp};`
+      : `  const Component = asChild ? Slot : ${quote(spec.element ?? "div")};`
+    : hasAs
+      ? `  const Component = asElement(${rootExpr});`
+      : tagFromProp
+        ? `  const Component = ${tagFromProp};`
+        : null;
 
   const helperBlock = [
-    hasAs ? `  const Component = asElement(${rootExpr});` : null,
-    isPolymorphic ? `  const Component = asChild ? Slot : ${quote(spec.element ?? "div")};` : null,
+    tagMapLine,
+    componentLine,
     hasDisabled && hasAs ? `  const isButton = Component === "button";` : null,
     inactiveExpr ? `  const inactive = ${inactiveExpr};` : null,
     `  const mergedClassName = mergeClass("${rootClass}", className);`,
@@ -95,6 +114,10 @@ export function renderAtomicReactWrapper(
       ? `      <${spec.slotElement}>\n${innerBody}\n      </${spec.slotElement}>`
       : innerBody;
   const typeBlockPrefix = typeBlock ? `${typeBlock}\n` : "";
+  // With elementByProp the root tag is runtime-resolved across a set of
+  // elements; intersect against `div` for the consumer's pass-through props
+  // (the common HTMLAttributes surface). Refs widen to HTMLElement separately
+  // via renderOwnProps.
   const propsTypeLine = renderPropsTypeIntersection(Name, spec.element ?? "div");
 
   const imports = [

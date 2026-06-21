@@ -98,4 +98,38 @@ describe("renderAtomicVueWrapper", () => {
       expect(out).not.toContain("asChild?: boolean;");
     });
   });
+
+  describe("elementByProp", () => {
+    function headingSpec(extra: Partial<Spec> = {}): Spec {
+      return atomicSpec({
+        name: "heading",
+        elementByProp: {
+          prop: "level",
+          map: { "1": "h1", "2": "h2", "3": "h3" },
+        },
+        props: {
+          level: prop({ type: "string", values: ["1", "2", "3"], default: "1" }),
+        },
+        ...extra,
+      });
+    }
+
+    test("emits a tagMap constant and a `:is` expression keyed by the prop", () => {
+      const out = renderAtomicVueWrapper(headingSpec(), {});
+      expect(out).toContain(`const tagMap = { "1": "h1", "2": "h2", "3": "h3" } as const;`);
+      expect(out).toContain(`<component :is="tagMap[String(level)]"`);
+      expect(out).toContain("</component>");
+    });
+
+    test("composes with `polymorphic: 'asChild'`", () => {
+      const out = renderAtomicVueWrapper(headingSpec({ polymorphic: "asChild" }), {});
+      expect(out).toContain(`const tagMap =`);
+      expect(out).toContain(`<component :is="asChild ? Slot : tagMap[String(level)]"`);
+    });
+
+    test("omits tagMap when elementByProp is unset", () => {
+      const out = renderAtomicVueWrapper(atomicSpec({ element: "div" }), {});
+      expect(out).not.toContain("const tagMap");
+    });
+  });
 });
