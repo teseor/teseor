@@ -30,6 +30,7 @@ privateTokens:
   - --_pad
   - --_radius
   - --_font
+  - --_leading
 
 examples:
   - id: default
