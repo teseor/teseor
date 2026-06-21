@@ -31,8 +31,12 @@ configs (`biome.json`, `.stylelintrc.cjs`, `tsconfig.json`, `lefthook.yml`,
   `scripts/codegen/src/schema.ts`, `scripts/codegen/src/lib/flatten.ts`), run the
   four-category audit from memory `project_codegen_surface_audit` and acknowledge
   it either via `audit: codegen-surface` in the latest commit subject, or by
-  touching `.claude/codegen-audit-ack` after the last commit. The
-  `claude-codegen-audit-guard` PreToolUse hook refuses the push otherwise.
+  writing a current timestamp (ISO 8601, or Unix seconds / milliseconds) as the
+  first line of `.claude/codegen-audit-ack` after the last commit — for example:
+  `node -e 'require("node:fs").writeFileSync(".claude/codegen-audit-ack", new Date().toISOString() + "\n")'`.
+  The `claude-codegen-audit-guard` PreToolUse hook refuses the push otherwise.
+  (Earlier versions used the ack file's mtime, which is unreliable under Claude
+  Code's sandboxed Bash — the content-stamp keeps the ack path usable there.)
 
 ## Ask before
 

@@ -1,21 +1,16 @@
 #!/usr/bin/env node
 // Claude Code PreToolUse guard fired before `git push`.
-//
-// If the push range touches codegen surface, require the most recent commit
-// subject to contain the literal token `audit: codegen-surface`, OR a fresh
-// `.claude/codegen-audit-ack` file (mtime newer than the most recent commit).
-//
-// Without the acknowledgement, refuse the push by exiting non-zero and writing
-// a structured PreToolUse decision to stdout. The four categories below come
-// from the project memory `project_codegen_surface_audit`.
-//
-// Bypass for one-off commits that genuinely don't touch the codegen surface:
-// the path filter below handles that — the guard only fires when at least one
-// changed file matches a codegen path.
+// Requires the most recent commit subject to include `audit: codegen-surface`,
+// or `.claude/codegen-audit-ack` to contain a timestamp (ISO 8601 or Unix
+// seconds / milliseconds) on its first line newer than the most recent commit.
+// Content-stamp (not mtime) because Claude Code's sandboxed Bash does not bump
+// mtime on `touch` / `rm + echo >`. Four-category audit reference lives in the
+// project memory `project_codegen_surface_audit`.
 
 import { execFileSync } from "node:child_process";
-import { existsSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const CODEGEN_PATTERNS = [
   /^scripts\/codegen\/src\/generators\//,
@@ -139,17 +134,34 @@ function lastCommitTimestamp() {
   return Number(gitOut(["log", "-1", "--pretty=%ct"])) * 1000;
 }
 
-function ackFileFresh(repoRoot) {
-  const path = resolve(repoRoot, ACK_FILE);
-  if (!existsSync(path)) return false;
+export function parseAckStamp(firstLine) {
+  const line = firstLine.trim();
+  if (!line) return Number.NaN;
+  // Integer-only token: treat as Unix seconds (10 digits) or milliseconds (13+).
+  if (/^\d+$/.test(line)) {
+    const n = Number(line);
+    return line.length <= 10 ? n * 1000 : n;
+  }
+  // Otherwise fall back to ISO 8601 / any Date-parseable string.
+  return Date.parse(line);
+}
+
+export function isAckFresh(ackPath, commitTimestampMs) {
+  if (!existsSync(ackPath)) return false;
   try {
-    const ackMtime = statSync(path).mtimeMs;
-    // `>=` so coarse-resolution filesystems (FAT32 = 2s) don't reject an ack
-    // touched in the same second as the commit.
-    return ackMtime >= lastCommitTimestamp();
+    const firstLine = readFileSync(ackPath, "utf8").split("\n")[0];
+    const stamp = parseAckStamp(firstLine);
+    if (!Number.isFinite(stamp)) return false;
+    // `>=` so coarse-resolution timestamps don't reject an ack written in the
+    // same second as the commit.
+    return stamp >= commitTimestampMs;
   } catch {
     return false;
   }
+}
+
+function ackFileFresh(repoRoot) {
+  return isAckFresh(resolve(repoRoot, ACK_FILE), lastCommitTimestamp());
 }
 
 function denyMessage() {
@@ -169,7 +181,9 @@ function denyMessage() {
     "",
     "Acknowledge by either:",
     `  - including \`${AUDIT_TOKEN}\` in the most recent commit subject, or`,
-    `  - touching \`${ACK_FILE}\` after the last commit.`,
+    `  - writing a current timestamp into \`${ACK_FILE}\` as the first line:`,
+    '      node -e \'require("node:fs").writeFileSync(".claude/codegen-audit-ack", new Date().toISOString() + "\\n")\'',
+    "    (ISO 8601, or Unix seconds / milliseconds — must be >= last commit time)",
     "",
   ].join("\n");
 }
@@ -220,4 +234,7 @@ function main() {
   process.exit(2);
 }
 
-main();
+// Run only when invoked as a script, not when imported by tests.
+if (process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1])) {
+  main();
+}
