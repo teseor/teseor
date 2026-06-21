@@ -17,6 +17,7 @@ const navItems = [
 ];
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isDev = import.meta.env.DEV;
 ---
 
 <!doctype html>
@@ -116,6 +117,47 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
       .content h1 {
         margin-block-start: 0;
       }
+
+      .grid-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: none;
+        pointer-events: none;
+        background-image: repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent calc(var(--t-unit) - 1px),
+          color-mix(in oklch, var(--t-neutral-70) 35%, transparent) calc(var(--t-unit) - 1px),
+          color-mix(in oklch, var(--t-neutral-70) 35%, transparent) var(--t-unit)
+        );
+      }
+
+      body.grid-on .grid-overlay {
+        display: block;
+      }
+
+      .grid-toggle {
+        margin-block-start: var(--t-space-4);
+        padding: var(--t-space-2) var(--t-space-3);
+        border: 1px solid var(--t-neutral-30);
+        border-radius: var(--t-radius-sm);
+        background: transparent;
+        color: var(--t-neutral-70);
+        font: inherit;
+        font-size: 0.75rem;
+        cursor: pointer;
+      }
+
+      .grid-toggle:hover {
+        background: var(--t-neutral-20);
+      }
+
+      body.grid-on .grid-toggle {
+        background: var(--t-neutral-90);
+        color: var(--t-neutral-10);
+        border-color: var(--t-neutral-90);
+      }
     </style>
   </head>
   <body>
@@ -137,10 +179,53 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
             })
           }
         </ul>
+        {
+          isDev && (
+            <button class="grid-toggle" data-grid-toggle type="button" aria-pressed="false">
+              Grid overlay
+            </button>
+          )
+        }
       </aside>
       <div class="content">
         <slot />
       </div>
+      {isDev && <div class="grid-overlay" aria-hidden="true" />}
     </div>
+    <script>
+      if (import.meta.env.DEV) {
+        const apply = () => {
+          const params = new URLSearchParams(window.location.search);
+          const on = params.get("grid") === "on";
+          document.body.classList.toggle("grid-on", on);
+          const btn = document.querySelector<HTMLButtonElement>("[data-grid-toggle]");
+          if (btn) btn.setAttribute("aria-pressed", on ? "true" : "false");
+        };
+        const attach = () => {
+          const btn = document.querySelector<HTMLButtonElement>("[data-grid-toggle]");
+          if (!btn || btn.dataset.bound) return;
+          btn.dataset.bound = "1";
+          btn.addEventListener("click", () => {
+            const params = new URLSearchParams(window.location.search);
+            const next = params.get("grid") === "on" ? null : "on";
+            if (next) params.set("grid", next);
+            else params.delete("grid");
+            const qs = params.toString();
+            window.history.replaceState(
+              null,
+              "",
+              window.location.pathname + (qs ? "?" + qs : "") + window.location.hash,
+            );
+            apply();
+          });
+        };
+        apply();
+        attach();
+        document.addEventListener("astro:page-load", () => {
+          apply();
+          attach();
+        });
+      }
+    </script>
   </body>
 </html>
