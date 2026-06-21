@@ -16,7 +16,7 @@ a numbered, durable file.
 | [0006](0006-enum-typed-string-props.md) | Enum-typed string props | Accepted |
 | [0007](0007-astro-for-the-docs-site.md) | Astro for the docs site | Accepted |
 | [0008](0008-token-driven-component-css.md) | Token-driven component CSS | Accepted |
-| [0009](0009-spec-schema-and-validation.md) | Spec schema and validation | Proposed |
+| [0009](0009-spec-schema-and-validation.md) | Spec schema and validation | Proposed (partially superseded by [0020](0020-states-live-on-parts.md)) |
 | [0010](0010-coverage-expansion-pairwise.md) | Coverage expansion: pairwise for contract fixtures | Proposed |
 | [0011](0011-css-anchor-positioning-for-overlays.md) | CSS Anchor Positioning + Popover API for overlays | Accepted |
 | [0012](0012-wrapper-internal-seam.md) | Wrapper-internal seam: generated `_runtime.ts` + framework-conventional folders | Accepted |
