@@ -71,9 +71,13 @@ export function renderOwnProps(
   const isPolymorphic = spec.polymorphic === "asChild";
   const isElementByProp = Boolean(spec.elementByProp);
   const refType =
-    hasAs || isPolymorphic || isElementByProp
+    hasAs || (isPolymorphic && !isElementByProp)
       ? "Ref<HTMLElement>"
-      : `Ref<HTMLElementTagNameMap[${quote(spec.element ?? "div")}]>`;
+      : isElementByProp && spec.elementByProp
+        ? `Ref<HTMLElementTagNameMap[${[...new Set(Object.values(spec.elementByProp.map))]
+            .map((tag) => quote(tag))
+            .join(" | ")}]>`
+        : `Ref<HTMLElementTagNameMap[${quote(spec.element ?? "div")}]>`;
   const asChildLines = isPolymorphic
     ? [
         `  /** Render directly on the consumer's child element via Slot (cloneElement) instead of wrapping in a \`<${spec.element ?? "div"}>\`. Single-child invariant. */`,

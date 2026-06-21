@@ -117,14 +117,26 @@ describe("renderAtomicVueWrapper", () => {
     test("emits a tagMap constant and a `:is` expression keyed by the prop", () => {
       const out = renderAtomicVueWrapper(headingSpec(), {});
       expect(out).toContain(`const tagMap = { "1": "h1", "2": "h2", "3": "h3" } as const;`);
-      expect(out).toContain(`<component :is="tagMap[String(level)]"`);
+      expect(out).toContain(`<component :is="tagMap[level ?? '1']"`);
       expect(out).toContain("</component>");
+    });
+
+    test("falls back to the first map key when the prop has no `default`", () => {
+      const out = renderAtomicVueWrapper(
+        headingSpec({
+          props: {
+            level: prop({ type: "string", values: ["1", "2", "3"] }),
+          },
+        }),
+        {},
+      );
+      expect(out).toContain(`<component :is="tagMap[level ?? '1']"`);
     });
 
     test("composes with `polymorphic: 'asChild'`", () => {
       const out = renderAtomicVueWrapper(headingSpec({ polymorphic: "asChild" }), {});
       expect(out).toContain(`const tagMap =`);
-      expect(out).toContain(`<component :is="asChild ? Slot : tagMap[String(level)]"`);
+      expect(out).toContain(`<component :is="asChild ? Slot : tagMap[level ?? '1']"`);
     });
 
     test("omits tagMap when elementByProp is unset", () => {
