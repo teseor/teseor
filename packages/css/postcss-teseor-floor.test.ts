@@ -140,8 +140,8 @@ describe("teseorFloor — forced-colors synthesis", () => {
   test("emits one nested forced-colors block at the component root", () => {
     const out = floorWithFC(`
       .t-button {
-        --_fill: var(--t-accent);
-        &:where([data-intent="primary"]) { --_fill: var(--t-accent); }
+        --_accent: var(--t-accent);
+        &:where([data-intent="primary"]) { --_accent: var(--t-accent); }
         &:focus-visible { outline: 2px solid var(--t-focus-ring); }
       }
     `);
@@ -150,14 +150,14 @@ describe("teseorFloor — forced-colors synthesis", () => {
   });
 
   test("pairs the synthesised block with forced-color-adjust: none", () => {
-    const out = floorWithFC(".t-x { --_fill: var(--t-accent); }");
+    const out = floorWithFC(".t-x { --_accent: var(--t-accent); }");
     expect(out).toMatch(/@media \(forced-colors: active\)\s*{\s*forced-color-adjust:\s*none/);
   });
 
   test("re-declares the upstream semantic token, not the component-private", () => {
-    const out = floorWithFC(".t-x { --_fill: var(--t-accent); }");
+    const out = floorWithFC(".t-x { --_accent: var(--t-accent); }");
     expect(out).toContain("--t-accent: ButtonText");
-    expect(out).not.toContain("--_fill: var(--t-accent, ButtonText)");
+    expect(out).not.toContain("--_accent: var(--t-accent, ButtonText)");
   });
 
   test("includes every differing token the file references", () => {
@@ -202,10 +202,10 @@ describe("teseorFloor — forced-colors synthesis", () => {
   test("targets the first rule in the file, even when wrapped in @layer", () => {
     const out = floorWithFC(`
       @layer components.tokens {
-        .t-button { --_fill: var(--t-accent); }
+        .t-button { --_accent: var(--t-accent); }
       }
       @layer components.styles {
-        .t-button { color: var(--_fill); }
+        .t-button { color: var(--_accent); }
       }
     `);
     const tokensLayer = out.split("@layer components.styles")[0];
