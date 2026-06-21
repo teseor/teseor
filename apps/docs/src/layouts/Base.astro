@@ -100,8 +100,8 @@ const isDev = import.meta.env.DEV;
 
       .content th,
       .content td {
-        padding: var(--t-space-2) var(--t-space-3);
-        border-block-end: 1px solid var(--t-neutral-30);
+        padding-block-end: calc(var(--t-space-2) - var(--t-border-thin));
+        border-block-end: var(--t-border-thin) solid var(--t-neutral-30);
         text-align: start;
         vertical-align: top;
       }
