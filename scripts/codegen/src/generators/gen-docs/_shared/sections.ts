@@ -91,7 +91,11 @@ export function hasOverlayPart(spec: DocsSpec): boolean {
 export function renderProps(spec: DocsSpec): string {
   const hasRepeating =
     spec.kind === "composite" && Array.isArray(spec.repeating) && spec.repeating.length > 0;
-  if ((!spec.props || Object.keys(spec.props).length === 0) && !hasRepeating) return "";
+  const exposesAsChildOnly =
+    (spec.kind === "composite" && hasFromChildrenPart(spec)) ||
+    (spec.kind === "atomic" && spec.polymorphic === "asChild");
+  if ((!spec.props || Object.keys(spec.props).length === 0) && !hasRepeating && !exposesAsChildOnly)
+    return "";
   // `pattern: controllable` expands to a triple (`name`, `defaultName`,
   // `onNameChange`) in every emitted wrapper / contract. The docs table
   // mirrors that expansion so the documented API matches the consumer's
@@ -133,10 +137,14 @@ export function renderProps(spec: DocsSpec): string {
       esc(def.description ?? ""),
     ]);
   }
-  // Composite components with a `fromChildren` part automatically expose
-  // `asChild` to opt out of the default `<span>` wrapper. The flag isn't a
-  // spec prop — it's emitted by the generator — so the docs append it here.
-  if (spec.kind === "composite" && hasFromChildrenPart(spec)) {
+  // Two paths surface an emitted `asChild` prop the spec doesn't declare:
+  // composite specs with a `fromChildren` part (Tooltip, Modal) and atomic
+  // specs that opt in via `polymorphic: 'asChild'`. Either way the flag is
+  // generator-emitted, so the docs append it here.
+  const exposesAsChild =
+    (spec.kind === "composite" && hasFromChildrenPart(spec)) ||
+    (spec.kind === "atomic" && spec.polymorphic === "asChild");
+  if (exposesAsChild) {
     rows.push([
       `<Code>asChild</Code>`,
       `<Code>boolean</Code>`,

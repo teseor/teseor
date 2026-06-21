@@ -68,15 +68,24 @@ export function renderOwnProps(
     : [];
   const sizeLines = spec.sizes ? renderCanonicalProp("size", sizeType, propDescriptions) : [];
   const hasAs = "as" in (spec.props ?? {});
-  const refType = hasAs
-    ? "Ref<HTMLElement>"
-    : `Ref<HTMLElementTagNameMap[${quote(spec.element ?? "div")}]>`;
+  const isPolymorphic = spec.polymorphic === "asChild";
+  const refType =
+    hasAs || isPolymorphic
+      ? "Ref<HTMLElement>"
+      : `Ref<HTMLElementTagNameMap[${quote(spec.element ?? "div")}]>`;
+  const asChildLines = isPolymorphic
+    ? [
+        `  /** Render directly on the consumer's child element via Slot (cloneElement) instead of wrapping in a \`<${spec.element ?? "div"}>\`. Single-child invariant. */`,
+        `  asChild?: boolean;`,
+      ]
+    : [];
   return [
     `type ${Name}OwnProps = {`,
     ...variantLines,
     ...intentLines,
     ...sizeLines,
     ...propLines,
+    ...asChildLines,
     `  children?: ReactNode;`,
     `  ref?: ${refType};`,
     `};`,
@@ -92,6 +101,7 @@ export function renderDestructure(spec: Spec): string {
     spec.intents ? "intent" : null,
     spec.sizes ? "size" : null,
     ...Object.keys(spec.props ?? {}),
+    spec.polymorphic === "asChild" ? "asChild" : null,
     "children",
     "ref",
     "className",

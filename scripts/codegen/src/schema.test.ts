@@ -377,4 +377,24 @@ describe("Spec schema — shape layer", () => {
     });
     expect(result.success).toBe(false);
   });
+
+  test("accepts `polymorphic: 'asChild'` on an atomic spec", () => {
+    const result = Spec.safeParse({ ...minimalAtomic(), polymorphic: "asChild" });
+    expect(result.success).toBe(true);
+  });
+
+  test("rejects an unknown `polymorphic` value", () => {
+    const result = Spec.safeParse({ ...minimalAtomic(), polymorphic: "asProp" });
+    expect(result.success).toBe(false);
+  });
+
+  test("rejects `polymorphic:` on a composite spec", () => {
+    const result = Spec.safeParse({
+      name: "tooltip",
+      kind: "composite",
+      polymorphic: "asChild",
+      parts: { trigger: { element: "span" } },
+    });
+    expect(result.success).toBe(false);
+  });
 });

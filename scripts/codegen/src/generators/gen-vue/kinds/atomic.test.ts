@@ -69,4 +69,33 @@ describe("renderAtomicVueWrapper", () => {
     const out = renderAtomicVueWrapper(atomicSpec({ element: "div" }), {});
     expect(out).not.toContain("<code>");
   });
+
+  describe("polymorphic: 'asChild'", () => {
+    test("imports Slot, adds the asChild prop, and switches root via `:is`", () => {
+      const out = renderAtomicVueWrapper(
+        atomicSpec({ element: "div", polymorphic: "asChild" }),
+        {},
+      );
+      expect(out).toContain(`import { Slot } from "./components/Slot.ts";`);
+      expect(out).toContain("asChild?: boolean;");
+      expect(out).toContain(
+        `<component :is="asChild ? Slot : "div"" class="t-button" v-bind="attrs">`,
+      );
+      expect(out).toContain("</component>");
+    });
+
+    test("includes asChild in the defineProps destructure", () => {
+      const out = renderAtomicVueWrapper(
+        atomicSpec({ element: "div", polymorphic: "asChild" }),
+        {},
+      );
+      expect(out).toMatch(/const\s*\{[^}]*\basChild\b[^}]*\}\s*=\s*defineProps/s);
+    });
+
+    test("omits Slot import and asChild prop when polymorphic is unset", () => {
+      const out = renderAtomicVueWrapper(atomicSpec({ element: "div" }), {});
+      expect(out).not.toContain(`import { Slot }`);
+      expect(out).not.toContain("asChild?: boolean;");
+    });
+  });
 });

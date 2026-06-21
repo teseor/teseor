@@ -26,6 +26,7 @@ export function renderAtomicVueWrapper(
   const hasAs = "as" in propMap;
   const hasDisabled = "disabled" in propMap;
   const hasLoading = "loading" in propMap;
+  const isPolymorphic = spec.polymorphic === "asChild";
   const slots = collectSlots(spec);
 
   const sizeIsResponsive = Boolean(spec.sizes) && RESPONSIVE_ENUM_PROPS.has("size");
@@ -40,7 +41,10 @@ export function renderAtomicVueWrapper(
     .filter((p): p is string => p !== null)
     .join(" || ");
 
-  const componentTag = hasAs ? "component" : (spec.element ?? "div");
+  const componentTag = hasAs || isPolymorphic ? "component" : (spec.element ?? "div");
+  const polymorphicIsExpr = isPolymorphic
+    ? `asChild ? Slot : ${JSON.stringify(spec.element ?? "div")}`
+    : null;
 
   const helperLines = [
     hasDisabled && hasAs ? `const isButton = computed(() => as === "button");` : null,
@@ -73,14 +77,15 @@ export function renderAtomicVueWrapper(
     !isVoid && spec.kind === "atomic" && spec.slotElement
       ? `  <${spec.slotElement}>\n${innerBody}\n  </${spec.slotElement}>`
       : innerBody;
+  const isExpr = polymorphicIsExpr ?? (hasAs ? "as" : null);
   const rootOpen = isVoid
-    ? hasAs
-      ? `<component :is="as" class="${rootClass}" v-bind="attrs" />`
+    ? isExpr
+      ? `<component :is="${isExpr}" class="${rootClass}" v-bind="attrs" />`
       : `<${componentTag} class="${rootClass}" v-bind="attrs" />`
-    : hasAs
-      ? `<component :is="as" class="${rootClass}" v-bind="attrs">`
+    : isExpr
+      ? `<component :is="${isExpr}" class="${rootClass}" v-bind="attrs">`
       : `<${componentTag} class="${rootClass}" v-bind="attrs">`;
-  const rootClose = isVoid ? "" : hasAs ? `</component>` : `</${componentTag}>`;
+  const rootClose = isVoid ? "" : isExpr ? `</component>` : `</${componentTag}>`;
 
   const imports = [
     `import "@teseor/css/components/${spec.name}.css";`,
@@ -88,6 +93,7 @@ export function renderAtomicVueWrapper(
     responsiveProps.length > 0
       ? `import { type Responsive, responsiveDataAttrs } from "./_runtime.ts";`
       : null,
+    isPolymorphic ? `import { Slot } from "./components/Slot.ts";` : null,
   ]
     .filter((l): l is string => l !== null)
     .join("\n");

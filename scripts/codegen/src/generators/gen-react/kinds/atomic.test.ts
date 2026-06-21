@@ -80,4 +80,40 @@ describe("renderAtomicReactWrapper", () => {
     const out = renderAtomicReactWrapper(atomicSpec({ element: "div" }), {});
     expect(out).not.toContain("<code>");
   });
+
+  describe("polymorphic: 'asChild'", () => {
+    test("imports Slot, adds the asChild prop, and selects Component conditionally", () => {
+      const out = renderAtomicReactWrapper(
+        atomicSpec({ element: "div", polymorphic: "asChild" }),
+        {},
+      );
+      expect(out).toContain(`import { Slot } from "./components/Slot.tsx";`);
+      expect(out).toContain("asChild?: boolean;");
+      expect(out).toContain(`const Component = asChild ? Slot : "div";`);
+      expect(out).toContain("<Component\n");
+      expect(out).toContain("</Component>");
+    });
+
+    test("widens the ref type to HTMLElement (consumer-chosen element)", () => {
+      const out = renderAtomicReactWrapper(
+        atomicSpec({ element: "p", polymorphic: "asChild" }),
+        {},
+      );
+      expect(out).toContain("ref?: Ref<HTMLElement>;");
+    });
+
+    test("includes asChild in the destructure", () => {
+      const out = renderAtomicReactWrapper(
+        atomicSpec({ element: "div", polymorphic: "asChild" }),
+        {},
+      );
+      expect(out).toMatch(/const\s*\{[^}]*\basChild\b[^}]*\}\s*=\s*props;/s);
+    });
+
+    test("omits Slot import and asChild prop when polymorphic is unset", () => {
+      const out = renderAtomicReactWrapper(atomicSpec({ element: "div" }), {});
+      expect(out).not.toContain(`import { Slot }`);
+      expect(out).not.toContain("asChild?: boolean;");
+    });
+  });
 });

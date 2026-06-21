@@ -31,6 +31,7 @@ export function renderAtomicReactWrapper(
   const hasAs = "as" in propMap;
   const hasDisabled = "disabled" in propMap;
   const hasLoading = "loading" in propMap;
+  const isPolymorphic = spec.polymorphic === "asChild";
   const slots = collectSlots(spec);
 
   const sizeIsResponsive = Boolean(spec.sizes) && RESPONSIVE_ENUM_PROPS.has("size");
@@ -49,10 +50,11 @@ export function renderAtomicReactWrapper(
     .join(" || ");
 
   const rootExpr = hasAs ? `as ?? ${quote(spec.element ?? "div")}` : quote(spec.element ?? "div");
-  const componentTag = hasAs ? "Component" : (spec.element ?? "div");
+  const componentTag = hasAs || isPolymorphic ? "Component" : (spec.element ?? "div");
 
   const helperBlock = [
     hasAs ? `  const Component = asElement(${rootExpr});` : null,
+    isPolymorphic ? `  const Component = asChild ? Slot : ${quote(spec.element ?? "div")};` : null,
     hasDisabled && hasAs ? `  const isButton = Component === "button";` : null,
     inactiveExpr ? `  const inactive = ${inactiveExpr};` : null,
     `  const mergedClassName = mergeClass("${rootClass}", className);`,
@@ -105,6 +107,7 @@ export function renderAtomicReactWrapper(
         : responsiveProps.length > 0
           ? `import { mergeClass, type Responsive, responsiveDataAttrs } from "./_runtime.ts";`
           : `import { mergeClass } from "./_runtime.ts";`,
+    isPolymorphic ? `import { Slot } from "./components/Slot.tsx";` : null,
   ]
     .filter((l): l is string => l !== null)
     .join("\n");
