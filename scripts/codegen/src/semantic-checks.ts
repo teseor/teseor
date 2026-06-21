@@ -921,6 +921,53 @@ export function checkAsIsConstrained(spec: Spec): Issue[] {
   return issues;
 }
 
+// ── Atomic `polymorphic: 'asChild'` constraints ────────────────────────────
+
+/**
+ * Atomic specs may opt into Slot-based polymorphism with
+ * `polymorphic: 'asChild'`. Two combinations are rejected:
+ *
+ * - `polymorphic` + a sibling `as` prop. `as` is the rejected pattern per
+ *   the patterns doc §1.6; the two are mutually exclusive — declaring both
+ *   on the same spec is a spec authoring error.
+ * - `polymorphic` on a void-element root (`hr`, `img`, …). Slot expects a
+ *   single child element to clone into; a void root has no children path,
+ *   so Slot would always warn.
+ */
+export function checkPolymorphicAtomic(spec: Spec): Issue[] {
+  if (!isAtomic(spec)) return [];
+  if (spec.polymorphic !== "asChild") return [];
+  const issues: Issue[] = [];
+  if (spec.props && "as" in spec.props) {
+    issues.push(
+      issue(
+        spec.name,
+        "polymorphic",
+        "`polymorphic: 'asChild'` is mutually exclusive with a sibling `as` prop — pick one polymorphism strategy",
+      ),
+    );
+  }
+  if (spec.props && "asChild" in spec.props) {
+    issues.push(
+      issue(
+        spec.name,
+        "props.asChild",
+        "`asChild` is emitted automatically by the polymorphic flag; remove the declared prop or drop `polymorphic`",
+      ),
+    );
+  }
+  if (spec.element && isVoidElement(spec.element)) {
+    issues.push(
+      issue(
+        spec.name,
+        "polymorphic",
+        `\`polymorphic: 'asChild'\` requires a child-bearing root element; '${spec.element}' is a void element`,
+      ),
+    );
+  }
+  return issues;
+}
+
 // ── Void HTML elements reject child-bearing prop declarations ───────────────
 
 /**
@@ -2364,6 +2411,7 @@ export function runSemanticChecks(
     ...checkVariantChoiceKeys(spec),
     ...checkResponsiveExplicit(spec),
     ...checkAsIsConstrained(spec),
+    ...checkPolymorphicAtomic(spec),
     ...checkVoidElementConstraints(spec),
     ...checkRepeatingParts(spec),
     ...checkExamplesPresent(spec),

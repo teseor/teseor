@@ -14,6 +14,7 @@ import {
   checkExamplesPresent,
   checkExamplesReferences,
   checkMotionSymmetry,
+  checkPolymorphicAtomic,
   checkPrivateTokens,
   checkRepeatingParts,
   checkResponsiveExplicit,
@@ -851,6 +852,88 @@ describe("checkVoidElementConstraints", () => {
     const issues = checkVoidElementConstraints(spec);
     expect(issues).toHaveLength(1);
     expect(issues[0]?.path).toBe("parts.separator.props.loading");
+  });
+});
+
+describe("checkPolymorphicAtomic", () => {
+  test("passes when polymorphic is unset", () => {
+    const spec = makeSpec({
+      name: "divider",
+      kind: "atomic",
+      element: "div",
+    });
+    expect(checkPolymorphicAtomic(spec)).toEqual([]);
+  });
+
+  test("passes when polymorphic is set on a child-bearing element with no `as` prop", () => {
+    const spec = makeSpec({
+      name: "divider",
+      kind: "atomic",
+      element: "div",
+      polymorphic: "asChild",
+    });
+    expect(checkPolymorphicAtomic(spec)).toEqual([]);
+  });
+
+  test("rejects polymorphic + sibling `as` prop", () => {
+    const spec = makeSpec({
+      name: "divider",
+      kind: "atomic",
+      element: "div",
+      polymorphic: "asChild",
+      props: {
+        as: {
+          type: "string",
+          values: ["div", "span"],
+          description: "Polymorphic.",
+        },
+      },
+    });
+    const issues = checkPolymorphicAtomic(spec);
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.path).toBe("polymorphic");
+    expect(issues[0]?.message).toMatch(/mutually exclusive/);
+  });
+
+  test("rejects polymorphic + declared `asChild` prop (would emit twice)", () => {
+    const spec = makeSpec({
+      name: "divider",
+      kind: "atomic",
+      element: "div",
+      polymorphic: "asChild",
+      props: {
+        asChild: { type: "boolean", description: "Manually declared." },
+      },
+    });
+    const issues = checkPolymorphicAtomic(spec);
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.path).toBe("props.asChild");
+  });
+
+  test("rejects polymorphic on a void-element root", () => {
+    const spec = makeSpec({
+      name: "divider",
+      kind: "atomic",
+      element: "hr",
+      polymorphic: "asChild",
+    });
+    const issues = checkPolymorphicAtomic(spec);
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.path).toBe("polymorphic");
+    expect(issues[0]?.message).toMatch(/void element/);
+  });
+
+  test("ignores composite specs (polymorphic is atomic-only)", () => {
+    const spec = makeSpec({
+      name: "tooltip",
+      kind: "composite",
+      parts: {
+        trigger: {
+          element: "span",
+        },
+      },
+    });
+    expect(checkPolymorphicAtomic(spec)).toEqual([]);
   });
 });
 

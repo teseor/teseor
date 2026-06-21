@@ -156,6 +156,33 @@ describe("renderProps", () => {
     expect(out).not.toContain("<Code>ref</Code>");
     expect(out).not.toContain("Forwarded ref to the popover content element.");
   });
+
+  test("appends asChild for atomic specs with `polymorphic: 'asChild'`", () => {
+    const spec: DocsSpec = {
+      name: "divider",
+      kind: "atomic",
+      element: "div",
+      polymorphic: "asChild",
+      props: {},
+      tokens: {},
+      visualStates: {},
+    };
+    const out = renderProps(spec);
+    expect(out).toContain("<Code>asChild</Code>");
+  });
+
+  test("omits asChild for atomic specs without polymorphic", () => {
+    const spec: DocsSpec = {
+      name: "divider",
+      kind: "atomic",
+      element: "div",
+      props: {},
+      tokens: {},
+      visualStates: {},
+    };
+    const out = renderProps(spec);
+    expect(out).not.toContain("<Code>asChild</Code>");
+  });
 });
 
 describe("hasFromChildrenPart", () => {

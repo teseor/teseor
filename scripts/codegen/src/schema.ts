@@ -269,6 +269,7 @@ const atomicSpec = z.strictObject({
   kind: z.literal("atomic"),
   ...componentNodeFields,
   slotElement: z.string().optional(),
+  polymorphic: z.enum(["asChild"]).optional(),
 });
 
 const compositeSpec = z.strictObject({

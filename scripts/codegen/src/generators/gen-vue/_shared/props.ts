@@ -40,12 +40,20 @@ export function renderPropsType(
     ? renderCanonicalProp("intent", `${Name}Intent`, propDescriptions)
     : [];
   const sizeLines = spec.sizes ? renderCanonicalProp("size", sizeType, propDescriptions) : [];
+  const asChildLines =
+    spec.polymorphic === "asChild"
+      ? [
+          `  /** Render directly on the consumer's child VNode via Slot (cloneVNode) instead of wrapping in a \`<${spec.element ?? "div"}>\`. Single-child invariant. */`,
+          `  asChild?: boolean;`,
+        ]
+      : [];
   return [
     `type ${Name}Props = {`,
     ...variantLines,
     ...intentLines,
     ...sizeLines,
     ...lines,
+    ...asChildLines,
     `};`,
   ].join("\n");
 }
@@ -58,7 +66,7 @@ export function renderPropsBlock(spec: Spec, Name: string): string {
   if (spec.variants) enumPropNames.push("variant");
   if (spec.intents) enumPropNames.push("intent");
   if (spec.sizes) enumPropNames.push("size");
-  if (enumPropNames.length === 0 && nonSlotProps.length === 0) {
+  if (enumPropNames.length === 0 && nonSlotProps.length === 0 && spec.polymorphic !== "asChild") {
     return `defineProps<${Name}Props>();`;
   }
   const lines = [
@@ -71,6 +79,7 @@ export function renderPropsBlock(spec: Spec, Name: string): string {
       }
       return `  ${name},`;
     }),
+    ...(spec.polymorphic === "asChild" ? ["  asChild,"] : []),
   ];
   return `const {
 ${lines.join("\n")}

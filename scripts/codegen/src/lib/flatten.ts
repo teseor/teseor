@@ -80,6 +80,9 @@ export type FlatSpec = {
   parts?: Record<string, SpecPart>;
   element?: string;
   slotElement?: string;
+  /** Atomic-only: when `'asChild'`, the wrapper accepts an `asChild?: boolean`
+   *  prop and renders via the shared Slot helper instead of the root element. */
+  polymorphic?: "asChild";
   rootClass?: string;
   variants?: Record<string, { description: string }>;
   intents?: Record<string, { description: string; tokens?: Record<string, string> }>;
@@ -137,6 +140,7 @@ export function flattenSpec(spec: Spec): FlatSpec {
       coverage: spec.coverage,
       element: spec.element,
       slotElement: spec.slotElement,
+      polymorphic: spec.polymorphic,
       rootClass: spec.rootClass,
       variants: spec.variants,
       intents: spec.intents,
