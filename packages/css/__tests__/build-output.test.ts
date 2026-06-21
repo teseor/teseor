@@ -77,3 +77,20 @@ test("the bundle includes the motion keyframes", () => {
   const bundle = readFileSync(join(distDir, "teseor.css"), "utf8");
   expect(bundle).toContain("@keyframes scale-in");
 });
+
+test("prefers-contrast preset re-aliases semantic tokens to denser scale steps", () => {
+  const preset = readFileSync(join(distDir, "prefers-contrast.css"), "utf8");
+  expect(preset).toMatch(
+    /@layer tokens\.semantic\s*\{\s*@media \(prefers-contrast: more\) and \(not \(forced-colors: active\)\)/,
+  );
+  expect(preset).toContain("--t-fg:var(--t-neutral-100)");
+  expect(preset).toContain("--t-border:var(--t-neutral-70)");
+  expect(preset).toContain("--t-border-strong:var(--t-neutral-90)");
+  expect(preset).toContain("--t-focus-ring:var(--t-accent-800)");
+  expect(preset).toContain("--t-accent:var(--t-accent-700)");
+});
+
+test("prefers-contrast preset is not bundled into teseor.css", () => {
+  const bundle = readFileSync(join(distDir, "teseor.css"), "utf8");
+  expect(bundle).not.toContain("@media (prefers-contrast: more)");
+});

@@ -31,6 +31,7 @@ const TOP_LEVEL_ENTRIES = [
   { from: "base.css", to: "base.css" },
   { from: "utilities.css", to: "utilities.css" },
   { from: "tailwind.css", to: "tailwind.css" },
+  { from: "prefers-contrast.css", to: "prefers-contrast.css" },
 ];
 
 // Pass 1 expands @import/@each/@custom-media. Pass 2 (postcss-teseor-floor)

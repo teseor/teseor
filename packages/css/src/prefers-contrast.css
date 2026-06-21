@@ -1,0 +1,11 @@
+@layer tokens.semantic {
+  @media (prefers-contrast: more) and (not (forced-colors: active)) {
+    :root {
+      --t-fg: var(--t-neutral-100);
+      --t-border: var(--t-neutral-70);
+      --t-border-strong: var(--t-neutral-90);
+      --t-focus-ring: var(--t-accent-800);
+      --t-accent: var(--t-accent-700);
+    }
+  }
+}
