@@ -117,7 +117,7 @@ export function renderEventHandlerBodies(
 
   if (Object.hasOwn(events, "dismiss")) {
     const reasonEntry = events.dismiss?.payload?.reason;
-    if (!reasonEntry || reasonEntry.type !== "enum") {
+    if (reasonEntry?.type !== "enum") {
       throw new Error(
         `events.dismiss must declare a payload field 'reason' of type enum (runtime adapter requires the enum values to type the reason argument).`,
       );
