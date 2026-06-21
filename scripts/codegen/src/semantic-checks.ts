@@ -1443,7 +1443,7 @@ export function checkEventsRuntimeSupport(spec: Spec): Issue[] {
     const entry = events[name];
     const reasonEntry = entry?.payload?.reason;
     const expectedList = [...expectedReasons].map((v) => `'${v}'`).join(", ");
-    if (!reasonEntry || reasonEntry.type !== "enum") {
+    if (reasonEntry?.type !== "enum") {
       issues.push(
         issue(
           spec.name,
