@@ -73,6 +73,12 @@ Custom-property inheritance propagates those system-color values to every `var()
 
 Components never hand-write `@media (forced-colors: active)` blocks for color overrides — the plugin synthesizes them from the token contract. Components may still hand-write forced-colors blocks for *non-color* concerns (e.g. `outline-width`, `forced-color-adjust: none`) where the rule isn't expressible through token literals.
 
+## Preference branches beyond forced-colors
+
+Forced-colors is the only preference branch the plugin synthesizes. Other preference-driven branches (`prefers-contrast: more`, `prefers-color-scheme: dark`, `prefers-reduced-transparency: reduce`, …) ship as standalone opt-in CSS files under the `@teseor/css/<preference>.css` convention, following the #773 preset family pattern. Each preset declares its branch at `:root` inside `@layer tokens.semantic`; cascade propagates the override to every component, full-bundle or standalone per-component, without per-component synthesis.
+
+The plugin stays single-branch. Adding a preference does not change `tokens.css`, `teseor.css`, or any per-component bundle; it adds one input file and one output file. Default `pnpm build:css` is byte-identical to the same build before the preset was introduced.
+
 ## Why not SCSS
 
 - SCSS is a whole language with its own syntax (`#{...}`, `@use as`, `@mixin`, `%placeholder`). Switching from CSS syntax raises the cognitive cost for contributors and AI agents.
