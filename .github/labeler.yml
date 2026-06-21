@@ -71,6 +71,12 @@ component:codeblock:
           - packages/css/src/components/codeblock/**
           - specs/codeblock.yaml
 
+component:heading:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/css/src/components/heading/**
+          - specs/heading.yaml
+
 component:modal:
   - changed-files:
       - any-glob-to-any-file:
