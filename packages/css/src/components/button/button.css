@@ -6,10 +6,9 @@
     --_radius: var(--t-button-radius, var(--t-radius-md));
     --_dur: var(--t-button-dur, var(--t-dur-fast));
     --_ease: var(--t-button-ease, var(--t-ease-out));
-    --_fill: var(--t-button-bg, var(--t-accent));
-    --_on-fill: var(--t-button-fg, var(--t-on-accent));
-    --_bg: var(--_fill);
-    --_fg: var(--_on-fill);
+    --_accent: var(--t-button-bg, var(--t-accent));
+    --_bg: var(--_accent);
+    --_fg: var(--t-button-fg, oklch(from var(--_accent) max(0, sign(0.62 - l)) 0 h));
     --_shadow: none;
     --_font-size: inherit;
     --_text-decoration: none;
@@ -29,18 +28,12 @@
     --_h-lg: var(--t-row-4);
     --_pad-x-lg: var(--t-space-5);
     --_font-size-lg: var(--t-text-lg);
-    --_intent-primary-fill: var(--t-accent);
-    --_intent-primary-on-fill: var(--t-on-accent);
-    --_intent-neutral-fill: var(--t-surface);
-    --_intent-neutral-on-fill: var(--t-on-surface);
-    --_intent-success-fill: var(--t-success);
-    --_intent-success-on-fill: var(--t-on-success);
-    --_intent-warning-fill: var(--t-warning);
-    --_intent-warning-on-fill: var(--t-on-warning);
-    --_intent-danger-fill: var(--t-danger);
-    --_intent-danger-on-fill: var(--t-on-danger);
-    --_intent-info-fill: var(--t-info);
-    --_intent-info-on-fill: var(--t-on-info);
+    --_intent-primary-accent: var(--t-accent);
+    --_intent-neutral-accent: var(--t-surface);
+    --_intent-success-accent: var(--t-success);
+    --_intent-warning-accent: var(--t-warning);
+    --_intent-danger-accent: var(--t-danger);
+    --_intent-info-accent: var(--t-info);
   }
 }
 
@@ -110,51 +103,45 @@
     }
 
     &:where([data-intent="primary"]) {
-      --_fill: var(--_intent-primary-fill);
-      --_on-fill: var(--_intent-primary-on-fill);
+      --_accent: var(--_intent-primary-accent);
     }
 
     &:where([data-intent="neutral"]) {
-      --_fill: var(--_intent-neutral-fill);
-      --_on-fill: var(--_intent-neutral-on-fill);
+      --_accent: var(--_intent-neutral-accent);
     }
 
     &:where([data-intent="success"]) {
-      --_fill: var(--_intent-success-fill);
-      --_on-fill: var(--_intent-success-on-fill);
+      --_accent: var(--_intent-success-accent);
     }
 
     &:where([data-intent="warning"]) {
-      --_fill: var(--_intent-warning-fill);
-      --_on-fill: var(--_intent-warning-on-fill);
+      --_accent: var(--_intent-warning-accent);
     }
 
     &:where([data-intent="danger"]) {
-      --_fill: var(--_intent-danger-fill);
-      --_on-fill: var(--_intent-danger-on-fill);
+      --_accent: var(--_intent-danger-accent);
     }
 
     &:where([data-intent="info"]) {
-      --_fill: var(--_intent-info-fill);
-      --_on-fill: var(--_intent-info-on-fill);
+      --_accent: var(--_intent-info-accent);
     }
 
     &:where([data-variant="outline"]) {
       --_bg: transparent;
-      --_fg: var(--_fill);
+      --_fg: var(--_accent);
       --_shadow: inset 0 0 0 1px currentcolor;
     }
 
     &:where([data-variant="ghost"]) {
       --_bg: transparent;
-      --_fg: var(--_fill);
+      --_fg: var(--_accent);
     }
 
     &:where([data-variant="link"]) {
       --_h: auto;
       --_pad-x: 0;
       --_bg: transparent;
-      --_fg: var(--_fill);
+      --_fg: var(--_accent);
       --_text-decoration: underline;
       --_text-underline-offset: 0.2em;
     }
@@ -182,11 +169,11 @@
     }
 
     &:where(:hover):not([disabled], [aria-disabled="true"]) {
-      --_bg: color-mix(in oklch, var(--_fill) 92%, black);
+      --_bg: color-mix(in oklch, var(--_accent) 92%, black);
     }
 
     &:where(:active):not([disabled], [aria-disabled="true"]) {
-      --_bg: color-mix(in oklch, var(--_fill) 84%, black);
+      --_bg: color-mix(in oklch, var(--_accent) 84%, black);
       --_transform: translateY(1px);
     }
 
@@ -204,7 +191,7 @@
       [data-variant="outline"],
       [data-variant="ghost"]
     ):hover:not([disabled], [aria-disabled="true"]) {
-      --_bg: color-mix(in oklch, var(--_fill) 12%, transparent);
+      --_bg: color-mix(in oklch, var(--_accent) 12%, transparent);
     }
 
     &:where([data-variant="link"]):hover:not([disabled], [aria-disabled="true"]) {

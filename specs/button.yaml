@@ -145,8 +145,7 @@ privateTokens:
   - --_radius
   - --_dur
   - --_ease
-  - --_fill
-  - --_on-fill
+  - --_accent
   - --_bg
   - --_fg
   - --_shadow
@@ -168,18 +167,12 @@ privateTokens:
   - --_h-lg
   - --_pad-x-lg
   - --_font-size-lg
-  - --_intent-primary-fill
-  - --_intent-primary-on-fill
-  - --_intent-neutral-fill
-  - --_intent-neutral-on-fill
-  - --_intent-success-fill
-  - --_intent-success-on-fill
-  - --_intent-warning-fill
-  - --_intent-warning-on-fill
-  - --_intent-danger-fill
-  - --_intent-danger-on-fill
-  - --_intent-info-fill
-  - --_intent-info-on-fill
+  - --_intent-primary-accent
+  - --_intent-neutral-accent
+  - --_intent-success-accent
+  - --_intent-warning-accent
+  - --_intent-danger-accent
+  - --_intent-info-accent
 
 a11y:
   role: button
