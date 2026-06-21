@@ -18,6 +18,7 @@ components:
   - Dot
   - Code
   - Codeblock
+  - Heading
 
   # Surfaces and feedback
   - Card
@@ -102,15 +103,19 @@ intents:
 
 # Sizes (t-shirt scale).
 sizes:
+  - xs
   - sm
   - md
   - lg
+  - xl
 
 # Size mapping: component size → token suffix.
 sizeMap:
+  xs: 1
   sm: 2
   md: 4
   lg: 6
+  xl: 8
 
 # State names (aligned with ARIA where ARIA defines a name).
 states:
