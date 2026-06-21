@@ -26,6 +26,8 @@ const SKIP_SELECTORS: string[] = [
   // Each entry tracks an open follow-up; remove the entry when its issue closes.
   "p", // #880
   "li", // #880
+  "ul", // #880
+  "ol", // #880
   "h1", // #880
   "h2", // #880
   "h3", // #880
