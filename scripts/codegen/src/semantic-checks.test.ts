@@ -2198,6 +2198,7 @@ describe("checkEventsRuntimeSupport", () => {
       const issues = checkEventsRuntimeSupport(spec);
       expect(issues.map((i) => i.path)).toEqual(["events.dismiss.payload.reason"]);
       expect(issues[0]?.message).toMatch(/type 'enum'/);
+      expect(issues[0]?.message).toMatch(/must declare a 'reason' field/);
     }
   });
 
