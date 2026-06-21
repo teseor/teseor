@@ -1,6 +1,12 @@
 /* Teseor tokens — Tier 1 scale + Tier 2 semantic aliases. */
 
 @layer tokens.scale {
+  @property --t-unit {
+    syntax: "<length>";
+    inherits: true;
+    initial-value: 0.25rem;
+  }
+
   :root {
     /* ===== Colors — oklch; seed-derived cascade (Baseline 2025). ===== */
     --t-seed: oklch(58% 0.2 268deg);

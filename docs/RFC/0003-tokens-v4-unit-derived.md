@@ -256,7 +256,6 @@ All three phases become the default immediately. There is no "opt out of unit-de
 - **Compact density value.** Picked `0.21875rem` (3.5px) for symmetry with comfortable's `0.28125rem` (4.5px). Either could be `0.1875rem` (3px) / `0.3125rem` (5px) for 25% steps. Reviewer preference.
 - **Leading carve-out scope for `text-box-trim`.** Default applied to `p, li, dd, blockquote`. Headings have their own visual story (`text-wrap: balance`); applying `text-box-trim` to them might over-tighten the leading visually. Decide during Phase 2 implementation against visual snapshots.
 - **`--t-text-base` linkage to `--t-unit`.** Currently `--t-text-base: calc(var(--t-unit) * 4)` — so font scales with unit. Some consumers may prefer text-size to stay fixed when only spacing rescales. Decided yes for now (consistent single-knob), but worth revisiting if real-world feedback diverges.
-- **`@property` adoption for `--t-unit`.** Would type the knob, validate, enable animation. Not blocking this RFC; file as follow-up.
 - **Runtime audit attachment point.** Legacy ran against docs dev server. v3 should run against `docs-prod` build (already present in CI). Detail for the follow-up issue.
 
 ## What this doesn't propose
