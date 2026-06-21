@@ -14,6 +14,7 @@ __snapshots__/
 .claude/handover.md
 .claude/settings.local.json
 .claude/codegen-audit-ack
+.local/
 
 # Future generated artifacts (created by codegen at later milestones)
 apps/docs/src/components/

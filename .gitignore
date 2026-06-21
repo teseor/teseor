@@ -1,5 +1,6 @@
 # Working / maintainer-only
 .local/
+.scratch/
 .claude/handover.md
 .claude/settings.local.json
 .claude/worktrees/
