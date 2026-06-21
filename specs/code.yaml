@@ -29,6 +29,7 @@ privateTokens:
   - --_pad-x
   - --_radius
   - --_font
+  - --_min-h
 
 examples:
   - id: default

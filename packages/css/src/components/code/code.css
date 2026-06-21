@@ -5,6 +5,7 @@
     --_pad-x: var(--t-code-pad-x, var(--t-space-1));
     --_radius: var(--t-code-radius, var(--t-radius-sm));
     --_font: var(--t-code-font, var(--t-font-mono));
+    --_min-h: var(--t-row-1);
   }
 }
 
@@ -18,5 +19,7 @@
     border-radius: var(--_radius);
     font-family: var(--_font);
     font-size: 0.9em;
+    line-height: 1;
+    min-block-size: var(--_min-h);
   }
 }
