@@ -292,6 +292,14 @@ const atomicSpec = z.strictObject({
   ...componentNodeFields,
   slotElement: z.string().optional(),
   polymorphic: z.enum(["asChild"]).optional(),
+  /** Marks the spec as a form-control atom (Input / Textarea / Select / …).
+   *  Shared HTML-attr props (name, form, required, readOnly, disabled) and
+   *  cross-prop constraints come from `specs/_vocabulary.yaml#formControl`;
+   *  per-spec redeclaration of any shared prop is rejected by
+   *  `pnpm lint:spec`. The rendered root tag (or every branch of an
+   *  `elementByProp` map) must be one of `formControl.elements`. Composite
+   *  form-controls aren't supported in v0. */
+  formControl: z.boolean().optional(),
 });
 
 const compositeSpec = z.strictObject({

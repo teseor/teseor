@@ -312,3 +312,30 @@ describe("flattenSpec — repeating parts (#687, RFC-0005)", () => {
     expect(flat.repeating).toBeUndefined();
   });
 });
+
+describe("flattenSpec — formControl flag (#693)", () => {
+  test("passes `formControl: true` through to the flat spec", () => {
+    const spec = makeSpec({
+      name: "input",
+      kind: "atomic",
+      element: "input",
+      rootClass: "t-input",
+      formControl: true,
+      examples: [{ id: "default" }],
+    });
+    const flat = flattenSpec(spec);
+    expect(flat.formControl).toBe(true);
+  });
+
+  test("leaves `formControl` undefined when the spec doesn't opt in", () => {
+    const spec = makeSpec({
+      name: "button",
+      kind: "atomic",
+      element: "button",
+      rootClass: "t-button",
+      examples: [{ id: "default" }],
+    });
+    const flat = flattenSpec(spec);
+    expect(flat.formControl).toBeUndefined();
+  });
+});

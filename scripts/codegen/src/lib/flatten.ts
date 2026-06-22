@@ -85,6 +85,10 @@ export type FlatSpec = {
   /** Atomic-only: when `'asChild'`, the wrapper accepts an `asChild?: boolean`
    *  prop and renders via the shared Slot helper instead of the root element. */
   polymorphic?: "asChild";
+  /** Atomic-only: when `true`, the spec is a form-control atom. The shared
+   *  contract (props + valid root elements) lives in
+   *  `specs/_vocabulary.yaml#formControl` and is enforced by `pnpm lint:spec`. */
+  formControl?: boolean;
   /** Atomic-only: when set, the rendered tag is resolved at runtime from the
    *  named prop's value via `map`. Mutually exclusive with `element`. */
   elementByProp?: { prop: string; map: Record<string, string> };
@@ -146,6 +150,7 @@ export function flattenSpec(spec: Spec): FlatSpec {
       element: spec.element,
       slotElement: spec.slotElement,
       polymorphic: spec.polymorphic,
+      formControl: spec.formControl,
       elementByProp: spec.elementByProp,
       rootClass: spec.rootClass,
       variants: spec.variants,

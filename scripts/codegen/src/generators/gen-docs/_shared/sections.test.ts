@@ -6,6 +6,7 @@ import {
   renderBundleSize,
   renderConstraints,
   renderForcedColors,
+  renderFormControlContract,
   renderNamed,
   renderProps,
   renderRepeatingItems,
@@ -610,5 +611,45 @@ describe("renderStateMachineDiagrams", () => {
     };
     const out = renderStateMachineDiagrams(spec);
     expect(out).toContain("Part: <Code>inner</Code>");
+  });
+});
+
+describe("renderFormControlContract", () => {
+  const contract = {
+    elements: ["input", "textarea", "select"],
+    props: {
+      name: { type: "string" as const, description: "HTML form field name." },
+      required: { type: "boolean" as const, description: "Required for submission." },
+    },
+  };
+
+  test("returns empty string when the spec is not a form-control", () => {
+    const spec = atomicSpec({ formControlContract: contract });
+    expect(renderFormControlContract(spec)).toBe("");
+  });
+
+  test("returns empty string when the contract is missing", () => {
+    const spec = atomicSpec({ formControl: true });
+    expect(renderFormControlContract(spec)).toBe("");
+  });
+
+  test("renders one row per shared contract prop on a form-control spec", () => {
+    const spec = atomicSpec({ formControl: true, formControlContract: contract });
+    const out = renderFormControlContract(spec);
+    expect(out).toContain("<h2>Form-control attributes</h2>");
+    expect(out).toContain("<Code>name</Code>");
+    expect(out).toContain("HTML form field name.");
+    expect(out).toContain("<Code>required</Code>");
+    expect(out).toContain("Required for submission.");
+  });
+
+  test("returns empty string for a composite spec even when formControl is set", () => {
+    const compositeSpec = {
+      ...atomicSpec(),
+      kind: "composite" as const,
+      formControl: true,
+      formControlContract: contract,
+    };
+    expect(renderFormControlContract(compositeSpec as DocsSpec)).toBe("");
   });
 });

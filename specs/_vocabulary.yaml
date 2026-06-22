@@ -73,6 +73,10 @@ props:
   - density
   - layout
   - align
+  - name
+  - form
+  - required
+  - readOnly
 
 # Canonical descriptions for props with fixed meaning across components.
 # Per-spec props override these in spec.props.<name>.description.
@@ -88,6 +92,40 @@ propDescriptions:
   disabled: Disables interaction.
   loading: Shows loading; disables interaction.
   error: Error state.
+  name: HTML form field name (submitted with the form).
+  form: Associates the control with a form element by id.
+  required: Marks the control as required for form submission.
+  readOnly: Prevents editing while keeping the value submitted.
+
+# Shared contract for atomic specs with `formControl: true`. The contract is
+# defined ONCE here; per-spec redeclaration of any prop name listed below is
+# rejected by `pnpm lint:spec`. Form-control HTML attributes (name, form,
+# required, readOnly, plus the universal `disabled`) reach the rendered root
+# via React's `ComponentProps<element>` / Vue's HTML attribute fallthrough —
+# generators don't synthesize per-prop emission. `elements:` lists the only
+# tag names allowed as the form-control root (or every branch of an
+# `elementByProp` map, when used).
+formControl:
+  elements:
+    - input
+    - textarea
+    - select
+  props:
+    name:
+      type: string
+      description: HTML form field name (submitted with the form).
+    form:
+      type: string
+      description: Associates the control with a form element by id.
+    required:
+      type: boolean
+      description: Marks the control as required for form submission.
+    readOnly:
+      type: boolean
+      description: Prevents editing while keeping the value submitted.
+    disabled:
+      type: boolean
+      description: Disables interaction and excludes the value from form submission.
 
 # Variant values. Canonical superset: visual hierarchy (solid|outline|ghost|link)
 # plus semantic-color (default|muted|highlight). Each spec declares its own
