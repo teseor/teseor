@@ -41,6 +41,7 @@ function buildAttrs(props: BlockquoteProps): Record<string, string | undefined> 
 - `Stack` — `StackProps`
 - `Tablist` — `TablistProps`
 - `Text` — `TextVariant`, `TextSize`, `TextProps`
+- `Textarea` — `TextareaVariant`, `TextareaSize`, `TextareaProps`
 - `Tooltip` — `TooltipProps`
 
 ## Generated content

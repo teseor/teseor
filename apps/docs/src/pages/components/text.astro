@@ -50,6 +50,8 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Prop</th><th>Type</th><th>Responsive</th><th>Default</th><th>Description</th></tr></thead>
         <tbody>
+        <tr><td><Code>variant</Code></td><td><Code>"default" | "muted" | "highlight"</Code></td><td></td><td><Code>null</Code></td><td>Visual style. See the Variants section for per-value descriptions.</td></tr>
+        <tr><td><Code>size</Code></td><td><Code>"xs" | "sm" | "md" | "lg" | "xl"</Code></td><td>✓</td><td><Code>null</Code></td><td>Size scale. See the Sizes section for per-value descriptions.</td></tr>
         <tr><td><Code>as</Code></td><td><Code>string</Code></td><td></td><td><Code>span</Code></td><td>Rendered HTML tag. `span` is inline (no margin); `p` is a prose block (margin-block applies); `em`/`strong`/`small` carry implicit emphasis / strong-importance / small-print semantics. Renders as <Code>&lt;span&gt;</Code> for <Code>span</Code>, <Code>&lt;p&gt;</Code> for <Code>p</Code>, <Code>&lt;em&gt;</Code> for <Code>em</Code>, <Code>&lt;strong&gt;</Code> for <Code>strong</Code>, <Code>&lt;small&gt;</Code> for <Code>small</Code>.</td></tr>
         <tr><td><Code>asChild</Code></td><td><Code>boolean</Code></td><td></td><td><Code>false</Code></td><td>Render the trigger directly on the consumer's child element (cloneElement) instead of wrapping in a &lt;span&gt;. Single-child invariant; the child receives the wrapper's &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;data-state&lt;/code&gt;, event handlers, and any ARIA attributes the component applies (component-specific). Not compatible with Astro slots — use the default wrapper there.</td></tr>
         </tbody>

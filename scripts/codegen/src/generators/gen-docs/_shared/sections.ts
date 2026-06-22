@@ -1,5 +1,6 @@
 import { pascalCase } from "../../../lib/pascal-case.ts";
 import { itemTypeName } from "../../../lib/repeating-naming.ts";
+import { RESPONSIVE_BLOCK_PROPS } from "../../../lib/responsive-blocks.ts";
 import { esc, formatValue } from "../../../lib/text-escape.ts";
 import type { FormControlContract } from "../../../lib/vocabulary.ts";
 import type { Spec } from "../../gen-contract.ts";
@@ -99,15 +100,56 @@ export function renderProps(spec: DocsSpec): string {
   const exposesAsChildOnly =
     (spec.kind === "composite" && hasFromChildrenPart(spec)) ||
     (spec.kind === "atomic" && spec.polymorphic === "asChild");
-  if ((!spec.props || Object.keys(spec.props).length === 0) && !hasRepeating && !exposesAsChildOnly)
+  const hasBlockDerivedProps = Boolean(spec.variants || spec.intents || spec.sizes);
+  if (
+    (!spec.props || Object.keys(spec.props).length === 0) &&
+    !hasRepeating &&
+    !exposesAsChildOnly &&
+    !hasBlockDerivedProps
+  )
     return "";
   // `pattern: controllable` expands to a triple (`name`, `defaultName`,
   // `onNameChange`) in every emitted wrapper / contract. The docs table
   // mirrors that expansion so the documented API matches the consumer's
   // type-completed surface.
   const responsiveMark = (responsive: boolean | undefined) => (responsive ? "✓" : "");
+  const unionType = (values: readonly string[]) => values.map((v) => `"${v}"`).join(" | ");
   const rows: string[][] = [];
-  for (const [name, def] of Object.entries(spec.props)) {
+
+  // Top-level `variants:` / `intents:` / `sizes:` blocks each emit a typed
+  // prop on the wrapper (`variant?: Variant`, `intent?: Intent`, `size?:
+  // Responsive<Size>`). Surface those auto-derived props at the head of the
+  // table so the consumer-facing API is documented in one place — the
+  // per-value descriptions stay in the Variants / Intents / Sizes sections
+  // below.
+  if (spec.variants) {
+    rows.push([
+      `<Code>variant</Code>`,
+      `<Code>${esc(unionType(Object.keys(spec.variants)))}</Code>`,
+      responsiveMark(RESPONSIVE_BLOCK_PROPS.has("variant")),
+      `<Code>null</Code>`,
+      `Visual style. See the Variants section for per-value descriptions.`,
+    ]);
+  }
+  if (spec.intents) {
+    rows.push([
+      `<Code>intent</Code>`,
+      `<Code>${esc(unionType(Object.keys(spec.intents)))}</Code>`,
+      responsiveMark(RESPONSIVE_BLOCK_PROPS.has("intent")),
+      `<Code>null</Code>`,
+      `Semantic color. See the Intents section for per-value descriptions.`,
+    ]);
+  }
+  if (spec.sizes) {
+    rows.push([
+      `<Code>size</Code>`,
+      `<Code>${esc(unionType(Object.keys(spec.sizes)))}</Code>`,
+      responsiveMark(RESPONSIVE_BLOCK_PROPS.has("size")),
+      `<Code>null</Code>`,
+      `Size scale. See the Sizes section for per-value descriptions.`,
+    ]);
+  }
+  for (const [name, def] of Object.entries(spec.props ?? {})) {
     if (def.pattern === "controllable" && def.type === "boolean") {
       const PName = pascalCase(name);
       rows.push([

@@ -17,4 +17,5 @@ export { default as Pagination } from "./Pagination.vue";
 export { default as Stack } from "./Stack.vue";
 export { default as Tablist } from "./Tablist.vue";
 export { default as Text } from "./Text.vue";
+export { default as Textarea } from "./Textarea.vue";
 export { default as Tooltip } from "./Tooltip.vue";

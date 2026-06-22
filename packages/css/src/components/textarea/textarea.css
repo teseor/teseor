@@ -1,0 +1,140 @@
+@layer components.tokens {
+  .t-textarea {
+    --_bg: var(--t-textarea-bg, var(--t-surface));
+    --_fg: var(--t-textarea-fg, var(--t-on-surface));
+    --_placeholder-fg: var(--t-textarea-placeholder-fg, var(--t-on-surface-muted));
+    --_border-color: var(--t-textarea-border-color, var(--t-border));
+    --_border-color-invalid: var(--t-textarea-border-color-invalid, var(--t-danger));
+    --_radius: var(--t-textarea-radius, var(--t-radius-md));
+    --_pad-x: var(--t-textarea-pad-x, var(--t-space-3));
+    --_pad-y: var(--t-textarea-pad-y, var(--t-space-2));
+    --_font: var(--t-textarea-font, var(--t-font-sans));
+    --_font-size: var(--t-textarea-font-size, var(--t-text-sm));
+    --_focus-ring: var(--t-textarea-focus-ring, var(--t-focus-ring));
+    --_border-thickness: var(--t-border-thin);
+    --_opacity: 1;
+    --_cursor: text;
+    --_resize: vertical;
+    --_bg-outline: var(--t-surface);
+    --_border-color-outline: var(--t-border);
+    --_bg-subtle: var(--t-surface-muted);
+    --_bg-readonly: var(--t-surface-muted);
+    --_pad-x-sm: var(--t-space-2);
+    --_font-size-sm: var(--t-text-xs);
+    --_pad-x-md: var(--t-space-3);
+    --_font-size-md: var(--t-text-sm);
+    --_pad-x-lg: var(--t-space-4);
+    --_font-size-lg: var(--t-text-base);
+  }
+}
+
+@layer components.styles {
+  .t-textarea {
+    box-sizing: border-box;
+    margin: 0;
+    display: block;
+    inline-size: 100%;
+    padding-inline: var(--_pad-x);
+    padding-block: var(--_pad-y);
+    color: var(--_fg);
+    background: var(--_bg);
+    border: var(--_border-thickness) solid var(--_border-color);
+    border-radius: var(--_radius);
+    font-family: var(--_font);
+    font-size: var(--_font-size);
+    line-height: 1.5;
+    opacity: var(--_opacity);
+    cursor: var(--_cursor);
+    resize: var(--_resize);
+
+    &::placeholder {
+      color: var(--_placeholder-fg);
+      opacity: 1;
+    }
+
+    &:where([data-size="sm"]) {
+      --_pad-x: var(--_pad-x-sm);
+      --_font-size: var(--_font-size-sm);
+    }
+
+    &:where([data-size="md"]) {
+      --_pad-x: var(--_pad-x-md);
+      --_font-size: var(--_font-size-md);
+    }
+
+    &:where([data-size="lg"]) {
+      --_pad-x: var(--_pad-x-lg);
+      --_font-size: var(--_font-size-lg);
+    }
+
+    &:where([data-variant="outline"]) {
+      --_bg: var(--_bg-outline);
+      --_border-color: var(--_border-color-outline);
+    }
+
+    &:where([data-variant="subtle"]) {
+      --_bg: var(--_bg-subtle);
+      --_border-color: transparent;
+    }
+
+    &:where([data-variant="plain"]) {
+      --_bg: transparent;
+      --_border-color: transparent;
+      --_pad-x: 0;
+    }
+
+    &:where([data-resize="none"]) {
+      --_resize: none;
+    }
+
+    &:where([data-resize="vertical"]) {
+      --_resize: vertical;
+    }
+
+    &:where([data-resize="horizontal"]) {
+      --_resize: horizontal;
+    }
+
+    &:where([data-resize="both"]) {
+      --_resize: both;
+    }
+
+    &:where([data-invalid="true"]) {
+      --_border-color: var(--_border-color-invalid);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--_focus-ring);
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      --_opacity: 0.6;
+      --_cursor: not-allowed;
+    }
+
+    &:read-only {
+      --_bg: var(--_bg-readonly);
+    }
+
+    @each $bp in md, lg, xl, 2xl {
+      /* stylelint-disable-next-line media-query-no-invalid */
+      @media (--$(bp)) {
+        &:where([data-size-$(bp)="sm"]) {
+          --_pad-x: var(--_pad-x-sm);
+          --_font-size: var(--_font-size-sm);
+        }
+
+        &:where([data-size-$(bp)="md"]) {
+          --_pad-x: var(--_pad-x-md);
+          --_font-size: var(--_font-size-md);
+        }
+
+        &:where([data-size-$(bp)="lg"]) {
+          --_pad-x: var(--_pad-x-lg);
+          --_font-size: var(--_font-size-lg);
+        }
+      }
+    }
+  }
+}

@@ -74,6 +74,9 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Prop</th><th>Type</th><th>Responsive</th><th>Default</th><th>Description</th></tr></thead>
         <tbody>
+        <tr><td><Code>variant</Code></td><td><Code>"solid" | "outline" | "ghost" | "link"</Code></td><td></td><td><Code>null</Code></td><td>Visual style. See the Variants section for per-value descriptions.</td></tr>
+        <tr><td><Code>intent</Code></td><td><Code>"primary" | "neutral" | "success" | "warning" | "danger" | "info"</Code></td><td></td><td><Code>null</Code></td><td>Semantic color. See the Intents section for per-value descriptions.</td></tr>
+        <tr><td><Code>size</Code></td><td><Code>"sm" | "md" | "lg"</Code></td><td>✓</td><td><Code>null</Code></td><td>Size scale. See the Sizes section for per-value descriptions.</td></tr>
         <tr><td><Code>as</Code></td><td><Code>string</Code></td><td></td><td><Code>button</Code></td><td>Polymorphic root element. Defaults to \`button\`; set to \`a\` for link-shaped triggers (paired with \`variant: link\`).</td></tr>
         <tr><td><Code>disabled</Code></td><td><Code>boolean</Code></td><td></td><td><Code>false</Code></td><td>Disables interaction and applies the disabled visual state. Mapped to the native \`disabled\` attribute on \`button\`, \`aria-disabled="true"\` otherwise.</td></tr>
         <tr><td><Code>loading</Code></td><td><Code>boolean</Code></td><td></td><td><Code>false</Code></td><td>Shows a spinner in place of the label and disables interaction. The original label stays in the accessibility tree.</td></tr>

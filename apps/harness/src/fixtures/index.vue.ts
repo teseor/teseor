@@ -15,6 +15,7 @@ import { fixtures as linkFixtures } from "./Link.vue.ts";
 import { fixtures as listFixtures } from "./List.vue.ts";
 import { fixtures as stackFixtures } from "./Stack.vue.ts";
 import { fixtures as textFixtures } from "./Text.vue.ts";
+import { fixtures as textareaFixtures } from "./Textarea.vue.ts";
 
 export const vueFixtures: Record<string, Record<string, () => VNode>> = {
   blockquote: blockquoteFixtures,
@@ -31,4 +32,5 @@ export const vueFixtures: Record<string, Record<string, () => VNode>> = {
   list: listFixtures,
   stack: stackFixtures,
   text: textFixtures,
+  textarea: textareaFixtures,
 };
