@@ -306,6 +306,21 @@ const atomicSpec = z.strictObject({
    *  these are part of the component contract (Switch is `type="checkbox"`,
    *  not negotiable). Keys are bare HTML attribute names; values are strings. */
   htmlAttrs: z.record(z.string().min(1), z.string()).optional(),
+  /** JS-only DOM properties the wrapper sets imperatively after mount.
+   *  Mirrors the `<input>.indeterminate` / `<details>.open` / `<video>.muted`
+   *  pattern — no HTML attribute exists, so React props / Vue attribute
+   *  fallthrough can't reach them. Each entry becomes a typed prop on the
+   *  wrapper that's applied via `useEffect` (React) / `watch` (Vue). Keys must
+   *  be valid JS identifiers (the DOM-property name). */
+  imperativeProps: z
+    .record(
+      z.string().regex(/^[A-Za-z_$][A-Za-z0-9_$]*$/, "must be a valid JS identifier"),
+      z.strictObject({
+        type: z.literal("boolean"),
+        description: z.string().optional(),
+      }),
+    )
+    .optional(),
 });
 
 const compositeSpec = z.strictObject({

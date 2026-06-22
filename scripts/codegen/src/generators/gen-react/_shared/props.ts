@@ -100,12 +100,19 @@ export function renderOwnProps(
   // path can still receive children; the void path drops them at runtime.
   const childrenLine =
     specVoidStatus(spec) === "all" ? `  children?: never;` : `  children?: ReactNode;`;
+  const imperativeProps = spec.kind === "atomic" ? (spec.imperativeProps ?? {}) : {};
+  const imperativeLines = Object.entries(imperativeProps).flatMap(([name, def]) =>
+    [def.description ? `  /** ${def.description} */` : null, `  ${name}?: boolean;`].filter(
+      (l): l is string => l !== null,
+    ),
+  );
   return [
     `type ${Name}OwnProps = {`,
     ...variantLines,
     ...intentLines,
     ...sizeLines,
     ...propLines,
+    ...imperativeLines,
     ...asChildLines,
     childrenLine,
     `  ref?: ${refType};`,
@@ -123,11 +130,13 @@ export function renderDestructure(spec: Spec): string {
   // satisfying biome's `noUnusedVariables`. A `mixed` elementByProp map keeps
   // the live `children` name — the non-void branch consumes it at runtime.
   const childrenName = specVoidStatus(spec) === "all" ? "children: _children" : "children";
+  const imperativePropNames = spec.kind === "atomic" ? Object.keys(spec.imperativeProps ?? {}) : [];
   const names = [
     spec.variants ? "variant" : null,
     spec.intents ? "intent" : null,
     spec.sizes ? "size" : null,
     ...Object.keys(spec.props ?? {}),
+    ...imperativePropNames,
     spec.polymorphic === "asChild" ? "asChild" : null,
     childrenName,
     "ref",

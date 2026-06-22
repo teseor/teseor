@@ -35,6 +35,7 @@ import { Blockquote } from "@teseor/react";
 
 - `Blockquote` — Quoted-text primitive — styled `<blockquote>` with accent border and prose spacing. Source attribution composes via a `<cite>` child; native `cite` HTML attr (URL) passes through the inherited type.
 - `Button` — A trigger that performs an action when activated.
+- `Checkbox` — Binary toggle (or tri-state via `indeterminate`). Styled `<input type="checkbox">` with a painted check / dash glyph and three sizes. Native `checked` / `defaultChecked` / `onChange` pass through `ComponentProps<"input">`. Form-association attributes (`name`, `form`, `required`, `disabled`) come from the formControl shared contract; HTML ignores `readOnly` on checkbox inputs.
 - `Cluster` — A horizontal layout primitive. Wraps children on the inline axis with consistent spacing.
 - `Code` — Inline monospace fragment for short code spans in prose.
 - `Codeblock` — Block container for multi-line code with monospace font and horizontal overflow scroll.

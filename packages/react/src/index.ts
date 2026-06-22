@@ -2,6 +2,7 @@
 
 export { Blockquote, type BlockquoteProps } from "./Blockquote.tsx";
 export { Button, type ButtonProps } from "./Button.tsx";
+export { Checkbox, type CheckboxProps } from "./Checkbox.tsx";
 export { Cluster, type ClusterProps } from "./Cluster.tsx";
 export { Code, type CodeProps } from "./Code.tsx";
 export { Codeblock, type CodeblockProps } from "./Codeblock.tsx";

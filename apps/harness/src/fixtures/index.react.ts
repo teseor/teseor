@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { fixtures as blockquoteFixtures } from "./Blockquote.react.tsx";
 import { fixtures as buttonFixtures } from "./Button.react.tsx";
+import { fixtures as checkboxFixtures } from "./Checkbox.react.tsx";
 import { fixtures as clusterFixtures } from "./Cluster.react.tsx";
 import { fixtures as codeFixtures } from "./Code.react.tsx";
 import { fixtures as codeblockFixtures } from "./Codeblock.react.tsx";
@@ -21,6 +22,7 @@ import { fixtures as textareaFixtures } from "./Textarea.react.tsx";
 export const reactFixtures: Record<string, Record<string, () => ReactNode>> = {
   blockquote: blockquoteFixtures,
   button: buttonFixtures,
+  checkbox: checkboxFixtures,
   cluster: clusterFixtures,
   code: codeFixtures,
   codeblock: codeblockFixtures,
