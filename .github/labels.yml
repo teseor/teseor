@@ -60,6 +60,9 @@
 - name: component:heading
   color: d4c5f9
   description: heading component
+- name: component:image
+  color: d4c5f9
+  description: image component
 - name: component:kbd
   color: d4c5f9
   description: kbd component
