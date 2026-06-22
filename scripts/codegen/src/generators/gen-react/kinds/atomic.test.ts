@@ -218,5 +218,107 @@ describe("renderAtomicReactWrapper", () => {
       const out = renderAtomicReactWrapper(atomicSpec({ name: "image", element: "img" }), {});
       expect(out).toContain("children: _children");
     });
+
+    describe("mixed elementByProp.map (void + non-void)", () => {
+      function dividerSpec(extra: Partial<Spec> = {}): Spec {
+        return atomicSpec({
+          name: "divider",
+          elementByProp: {
+            prop: "orientation",
+            map: { horizontal: "hr", vertical: "div" },
+          },
+          props: {
+            orientation: prop({
+              type: "string",
+              values: ["horizontal", "vertical"],
+              default: "horizontal",
+            }),
+          },
+          ...extra,
+        });
+      }
+
+      test("emits resolvedTag + isVoidResolved locals derived from the tagMap", () => {
+        const out = renderAtomicReactWrapper(dividerSpec(), {});
+        expect(out).toContain(`const tagMap = { "horizontal": "hr", "vertical": "div" } as const;`);
+        expect(out).toContain(`const resolvedTag = tagMap[orientation ?? "horizontal"];`);
+        expect(out).toContain(`const isVoidResolved = resolvedTag === "hr";`);
+      });
+
+      test("Component widens via asElement(resolvedTag) when not polymorphic", () => {
+        const out = renderAtomicReactWrapper(dividerSpec(), {});
+        expect(out).toContain(`const Component = asElement(resolvedTag);`);
+      });
+
+      test("renders a ternary that self-closes the void branch and opens the non-void one", () => {
+        const out = renderAtomicReactWrapper(dividerSpec(), {});
+        expect(out).toMatch(/isVoidResolved\s*\?\s*\(/);
+        expect(out).toContain("<Component\n");
+        expect(out).toContain("/>");
+        expect(out).toContain(">\n");
+        expect(out).toContain("</Component>");
+      });
+
+      test("keeps children as ReactNode (non-void branch may consume them)", () => {
+        const out = renderAtomicReactWrapper(dividerSpec(), {});
+        expect(out).toContain("children?: ReactNode;");
+        expect(out).not.toContain("children?: never;");
+        expect(out).not.toContain("children: _children");
+      });
+
+      test("guards asChild on the non-void branch so Slot never wraps a void tag", () => {
+        const out = renderAtomicReactWrapper(dividerSpec({ polymorphic: "asChild" }), {});
+        expect(out).toContain(
+          `const Component = asChild && !isVoidResolved ? Slot : asElement(resolvedTag);`,
+        );
+      });
+    });
+
+    describe("boolean state props", () => {
+      test("emits a `data-{name}` flag on the root for each boolean state prop", () => {
+        const out = renderAtomicReactWrapper(
+          atomicSpec({
+            element: "div",
+            props: {
+              decorative: prop({ type: "boolean", description: "" }),
+            },
+          }),
+          {},
+        );
+        expect(out).toContain(`data-decorative={decorative === true ? "true" : undefined}`);
+      });
+
+      test("does not emit a data-* flag for the elementByProp controlling prop", () => {
+        const out = renderAtomicReactWrapper(
+          atomicSpec({
+            elementByProp: {
+              prop: "ordered",
+              map: { false: "ul", true: "ol" },
+            },
+            props: {
+              ordered: prop({ type: "boolean", description: "" }),
+            },
+          }),
+          {},
+        );
+        expect(out).not.toContain("data-ordered=");
+      });
+
+      test("does not emit data-* for disabled / loading / responsive booleans", () => {
+        const out = renderAtomicReactWrapper(
+          atomicSpec({
+            element: "button",
+            props: {
+              disabled: prop({ type: "boolean" }),
+              loading: prop({ type: "boolean" }),
+              compact: prop({ type: "boolean", responsive: true }),
+            },
+          }),
+          {},
+        );
+        expect(out).not.toContain("data-disabled=");
+        expect(out).not.toContain(`data-compact={compact === true ?`);
+      });
+    });
   });
 });

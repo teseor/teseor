@@ -1,4 +1,4 @@
-import { isVoidElement } from "../../../lib/html-void-elements.ts";
+import { specVoidStatus } from "../../../lib/html-void-elements.ts";
 import { esc } from "../../../lib/text-escape.ts";
 import type { Spec } from "../../gen-contract.ts";
 import { attr } from "./jsx-printer.ts";
@@ -14,8 +14,10 @@ export function renderExamples(spec: Spec, Name: string, opts: { isComposite: bo
     spec.kind === "composite" && Array.isArray(spec.repeating) && spec.repeating.length > 0;
   // Atomic specs wrapping a void HTML element (img, hr, …) can't carry
   // children; render the example tag self-closing in both the preview and
-  // the source snippet.
-  const isVoidAtomic = spec.kind === "atomic" && !!spec.element && isVoidElement(spec.element);
+  // the source snippet. A `mixed` elementByProp map (some void, some
+  // non-void) keeps the open-tag form so the non-void branches still show
+  // a child label.
+  const isVoidAtomic = spec.kind === "atomic" && specVoidStatus(spec) === "all";
   // Composite components with a `fromChildren` part don't render an element
   // themselves; the docs example wraps a Button as the trigger so the
   // composite has a real child to decorate (Tooltip + Popover pattern).

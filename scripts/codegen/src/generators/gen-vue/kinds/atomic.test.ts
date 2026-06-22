@@ -143,5 +143,79 @@ describe("renderAtomicVueWrapper", () => {
       const out = renderAtomicVueWrapper(atomicSpec({ element: "div" }), {});
       expect(out).not.toContain("const tagMap");
     });
+
+    describe("mixed elementByProp.map (void + non-void)", () => {
+      function dividerSpec(extra: Partial<Spec> = {}): Spec {
+        return atomicSpec({
+          name: "divider",
+          elementByProp: {
+            prop: "orientation",
+            map: { horizontal: "hr", vertical: "div" },
+          },
+          props: {
+            orientation: prop({
+              type: "string",
+              values: ["horizontal", "vertical"],
+              default: "horizontal",
+            }),
+          },
+          ...extra,
+        });
+      }
+
+      test("emits resolvedTag + isVoidResolved computeds derived from the tagMap", () => {
+        const out = renderAtomicVueWrapper(dividerSpec(), {});
+        expect(out).toContain(`const tagMap = { "horizontal": "hr", "vertical": "div" } as const;`);
+        expect(out).toContain(
+          `const resolvedTag = computed(() => tagMap[orientation ?? 'horizontal']);`,
+        );
+        expect(out).toContain(`const isVoidResolved = computed(() => resolvedTag.value === 'hr');`);
+      });
+
+      test("branches the template on isVoidResolved with v-if / v-else", () => {
+        const out = renderAtomicVueWrapper(dividerSpec(), {});
+        expect(out).toContain(`<template v-if="isVoidResolved">`);
+        expect(out).toContain(`<template v-else>`);
+        expect(out).toContain(`<component :is="resolvedTag" class="t-divider" v-bind="attrs" />`);
+        expect(out).toContain(`<component :is="resolvedTag" class="t-divider" v-bind="attrs">`);
+        expect(out).toContain("</component>");
+      });
+
+      test("guards asChild on the non-void branch so Slot never wraps a void tag", () => {
+        const out = renderAtomicVueWrapper(dividerSpec({ polymorphic: "asChild" }), {});
+        expect(out).toContain(`asChild && !isVoidResolved ? Slot : resolvedTag`);
+      });
+    });
+
+    describe("boolean state props", () => {
+      test("emits a `data-{name}` entry on the attrs object for boolean state props", () => {
+        const out = renderAtomicVueWrapper(
+          atomicSpec({
+            element: "div",
+            props: {
+              decorative: prop({ type: "boolean", description: "" }),
+            },
+          }),
+          {},
+        );
+        expect(out).toContain(`"data-decorative": decorative ? "true" : undefined,`);
+      });
+
+      test("does not emit a data-* entry for the elementByProp controlling prop", () => {
+        const out = renderAtomicVueWrapper(
+          atomicSpec({
+            elementByProp: {
+              prop: "ordered",
+              map: { false: "ul", true: "ol" },
+            },
+            props: {
+              ordered: prop({ type: "boolean", description: "" }),
+            },
+          }),
+          {},
+        );
+        expect(out).not.toContain(`"data-ordered":`);
+      });
+    });
   });
 });

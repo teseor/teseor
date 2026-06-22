@@ -1,9 +1,11 @@
-import { isVoidElement } from "../../../lib/html-void-elements.ts";
+import { specVoidStatus } from "../../../lib/html-void-elements.ts";
 import type { Spec } from "../../gen-contract.ts";
 import { jsLiteral, jsxAttr, quote, splitProps } from "./printers.ts";
 
+// `mixed` elementByProp maps render children on their non-void branch; only
+// fully-void specs use the self-closing fixture form.
 function isVoidAtomic(spec: Spec): boolean {
-  return spec.kind === "atomic" && !!spec.element && isVoidElement(spec.element);
+  return spec.kind === "atomic" && specVoidStatus(spec) === "all";
 }
 
 export function renderReactFixtureBody(

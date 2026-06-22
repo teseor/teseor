@@ -1,6 +1,6 @@
 import { collectSlots } from "../../../lib/collect-slots.ts";
 import { renderEnumType } from "../../../lib/enum-primitives.ts";
-import { isVoidElement } from "../../../lib/html-void-elements.ts";
+import { specVoidStatus, voidTagsInMap } from "../../../lib/html-void-elements.ts";
 import { renderComponentJsDoc, vueJsDocFlavor } from "../../../lib/jsdoc-shape.ts";
 import { pascalCase } from "../../../lib/pascal-case.ts";
 import type { Spec } from "../../gen-contract.ts";
@@ -41,6 +41,22 @@ export function renderAtomicVueWrapper(
       .map(([n]) => n),
   ];
 
+  // Boolean spec props become `data-{name}` flags on the root element. The
+  // controlling prop for `elementByProp`, the `disabled` / `loading` pair,
+  // controllable booleans, and responsive booleans are emitted by their
+  // dedicated paths and are excluded here.
+  const booleanStateProps: string[] = Object.entries(propMap)
+    .filter(
+      ([name, d]) =>
+        d.type === "boolean" &&
+        d.responsive !== true &&
+        d.pattern !== "controllable" &&
+        name !== "disabled" &&
+        name !== "loading" &&
+        name !== elementByProp?.prop,
+    )
+    .map(([name]) => name);
+
   const inactiveExpr = [hasDisabled ? "disabled" : null, hasLoading ? "loading" : null]
     .filter((p): p is string => p !== null)
     .join(" || ");
@@ -57,12 +73,28 @@ export function renderAtomicVueWrapper(
     elementByProp && elementByPropDefault !== null
       ? `tagMap[${elementByProp.prop} ?? '${elementByPropDefault}']`
       : null;
+
+  const voidStatus = specVoidStatus(spec);
+  const isVoid = voidStatus === "all";
+  const isMixedVoid = voidStatus === "mixed";
+
+  // For a `mixed` elementByProp map (some void, some non-void), the rendered
+  // tag's void-ness is only known at runtime. Resolve the tag into a computed
+  // and emit a parallel `isVoidResolved` computed so the template can switch
+  // between self-closing and with-children variants via v-if/v-else.
+  const resolvedTagExpr = isMixedVoid ? tagFromProp : null;
+
+  // For a `mixed` map the v-bind `:is` references the resolved tag computed
+  // (`resolvedTag`) rather than re-evaluating the tagMap lookup inline.
+  const tagBindExpr = isMixedVoid ? "resolvedTag" : tagFromProp;
   // Single-quoted literal so the expression nests inside v-bind's double-quoted
   // attribute (`:is="asChild ? Slot : 'a'"`); JSON.stringify would yield "a"
   // which collides with the surrounding double quotes.
   const polymorphicIsExpr = isPolymorphic
-    ? `asChild ? Slot : ${tagFromProp ?? `'${spec.element ?? "div"}'`}`
-    : (tagFromProp ?? null);
+    ? isMixedVoid
+      ? `asChild && !isVoidResolved ? Slot : ${tagBindExpr ?? `'${spec.element ?? "div"}'`}`
+      : `asChild ? Slot : ${tagBindExpr ?? `'${spec.element ?? "div"}'`}`
+    : (tagBindExpr ?? null);
 
   const tagMapLine = elementByProp
     ? `const tagMap = { ${Object.entries(elementByProp.map)
@@ -70,15 +102,38 @@ export function renderAtomicVueWrapper(
         .join(", ")} } as const;`
     : null;
 
+  const resolvedTagComputed =
+    isMixedVoid && resolvedTagExpr
+      ? `const resolvedTag = computed(() => ${resolvedTagExpr});`
+      : null;
+  const voidCheckExpr =
+    isMixedVoid && elementByProp
+      ? voidTagsInMap(elementByProp.map)
+          .map((tag) => `resolvedTag.value === '${tag}'`)
+          .join(" || ")
+      : null;
+  const isVoidResolvedComputed = voidCheckExpr
+    ? `const isVoidResolved = computed(() => ${voidCheckExpr});`
+    : null;
+
   const helperLines = [
     tagMapLine,
+    resolvedTagComputed,
+    isVoidResolvedComputed,
     hasDisabled && hasAs ? `const isButton = computed(() => as === "button");` : null,
     inactiveExpr ? `const inactive = computed(() => ${inactiveExpr});` : null,
   ]
     .filter((l): l is string => l !== null)
     .join("\n");
 
-  const attrEntries = renderAttrEntries(spec, responsiveProps, hasLoading, hasDisabled, hasAs);
+  const attrEntries = renderAttrEntries(
+    spec,
+    responsiveProps,
+    hasLoading,
+    hasDisabled,
+    hasAs,
+    booleanStateProps,
+  );
 
   const propEnumTypes = Object.entries(spec.props ?? {})
     .filter(([, d]) => Array.isArray(d.values) && d.values.length > 0)
@@ -96,13 +151,30 @@ export function renderAtomicVueWrapper(
   // Void elements (hr, img, input, br, …) cannot have children — emit a
   // self-closing template form and skip the body. Slot/loading state on a
   // void spec is a spec authoring error and is not validated here.
-  const isVoid = spec.element ? isVoidElement(spec.element) : false;
   const innerBody = isVoid ? "" : renderBody(spec, slots, hasLoading);
   const bodyBlock =
     !isVoid && spec.kind === "atomic" && spec.slotElement
       ? `  <${spec.slotElement}>\n${innerBody}\n  </${spec.slotElement}>`
       : innerBody;
   const isExpr = polymorphicIsExpr ?? (hasAs ? "as" : null);
+
+  // For mixed-void maps the template branches at render time on
+  // `isVoidResolved`: the void branch self-closes, the non-void branch renders
+  // children. Both branches resolve the tag via `:is` so consumer-supplied
+  // attrs land on the correct element.
+  const mixedTemplate = isMixedVoid
+    ? (() => {
+        const opener = (closing: "self" | "open") =>
+          isExpr
+            ? `<component :is="${isExpr}" class="${rootClass}" v-bind="attrs"${closing === "self" ? " />" : ">"}`
+            : `<${componentTag} class="${rootClass}" v-bind="attrs"${closing === "self" ? " />" : ">"}`;
+        const closer = isExpr ? `</component>` : `</${componentTag}>`;
+        const voidLine = `  <template v-if="isVoidResolved">\n    ${opener("self")}\n  </template>`;
+        const nonVoidLine = `  <template v-else>\n    ${opener("open")}\n${bodyBlock}\n    ${closer}\n  </template>`;
+        return `${voidLine}\n${nonVoidLine}`;
+      })()
+    : null;
+
   const rootOpen = isVoid
     ? isExpr
       ? `<component :is="${isExpr}" class="${rootClass}" v-bind="attrs" />`
@@ -122,6 +194,14 @@ export function renderAtomicVueWrapper(
   ]
     .filter((l): l is string => l !== null)
     .join("\n");
+
+  const templateBody = mixedTemplate
+    ? mixedTemplate
+    : isVoid
+      ? `  ${rootOpen}`
+      : `  ${rootOpen}
+${bodyBlock}
+  ${rootClose}`;
 
   return `<!-- AUTOGENERATED by gen-vue. Do not edit. -->
 <!-- Source: specs/${spec.name}.yaml -->
@@ -144,13 +224,7 @@ ${attrEntries}
 </script>
 
 <template>
-${
-  isVoid
-    ? `  ${rootOpen}`
-    : `  ${rootOpen}
-${bodyBlock}
-  ${rootClose}`
-}
+${templateBody}
 </template>
 `;
 }
