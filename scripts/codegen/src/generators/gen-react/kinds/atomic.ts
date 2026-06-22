@@ -28,11 +28,14 @@ export function renderAtomicReactWrapper(
   const Name = pascalCase(spec.name);
   const rootClass = spec.rootClass ?? `t-${spec.name}`;
   const propMap = spec.props ?? {};
-  const hasAs = "as" in propMap;
+  const elementByProp = spec.elementByProp;
+  // When `as` is the `elementByProp` control it indexes a closed tag map at
+  // runtime — `asElement(as ?? "div")` is the wrong path. Suppress the free
+  // polymorphism branch so the elementByProp branch wins.
+  const hasAs = "as" in propMap && !elementByProp;
   const hasDisabled = "disabled" in propMap;
   const hasLoading = "loading" in propMap;
   const isPolymorphic = spec.polymorphic === "asChild";
-  const elementByProp = spec.elementByProp;
   const slots = collectSlots(spec);
 
   const sizeIsResponsive = Boolean(spec.sizes) && RESPONSIVE_ENUM_PROPS.has("size");
@@ -68,17 +71,20 @@ export function renderAtomicReactWrapper(
       ? `tagMap[${elementByProp.prop} ?? ${quote(elementByPropDefault)}]`
       : null;
 
-  // With elementByProp the rendered tag is one of the map values; annotating
-  // Component as ElementType widens the JSX inference past the literal-string
-  // union, so the consumer-facing `ref?: Ref<HTMLElement>` passes through.
+  // With elementByProp the rendered tag is one of the map values; `asElement`
+  // widens the narrow literal-string union back to ElementType so JSX's ref
+  // slot isn't pinned to one HTMLElement subtype. The same widening covers
+  // heterogeneous maps (e.g. `span | p | em`) where the union is not a single
+  // shared HTMLElement subclass — JSX would otherwise infer the last entry's
+  // ref type and reject `Ref<HTMLElement>` from the consumer.
   const componentLine = isPolymorphic
     ? tagFromProp
-      ? `  const Component: ElementType = asChild ? Slot : ${tagFromProp};`
+      ? `  const Component = asChild ? Slot : asElement(${tagFromProp});`
       : `  const Component = asChild ? Slot : ${quote(spec.element ?? "div")};`
     : hasAs
       ? `  const Component = asElement(${rootExpr});`
       : tagFromProp
-        ? `  const Component: ElementType = ${tagFromProp};`
+        ? `  const Component = asElement(${tagFromProp});`
         : null;
 
   const helperBlock = [
@@ -130,14 +136,17 @@ export function renderAtomicReactWrapper(
   // via renderOwnProps.
   const propsTypeLine = renderPropsTypeIntersection(Name, spec.element ?? "div");
 
+  // `asElement` is the runtime widener for any spec that resolves its root
+  // tag from a value (free `as` polymorphism or `elementByProp` map). Without
+  // it the JSX ref slot pins to a single HTMLElement subtype and rejects the
+  // consumer-facing `Ref<HTMLElement>`.
+  const usesAsElement = hasAs || Boolean(elementByProp);
   const imports = [
     `import "@teseor/css/components/${spec.name}.css";`,
-    elementByProp
-      ? `import type { ComponentProps, ElementType, ReactNode, Ref } from "react";`
-      : `import type { ComponentProps, ReactNode, Ref } from "react";`,
-    hasAs && responsiveProps.length > 0
+    `import type { ComponentProps, ReactNode, Ref } from "react";`,
+    usesAsElement && responsiveProps.length > 0
       ? `import { asElement, mergeClass, type Responsive, responsiveDataAttrs } from "./_runtime.ts";`
-      : hasAs
+      : usesAsElement
         ? `import { asElement, mergeClass } from "./_runtime.ts";`
         : responsiveProps.length > 0
           ? `import { mergeClass, type Responsive, responsiveDataAttrs } from "./_runtime.ts";`

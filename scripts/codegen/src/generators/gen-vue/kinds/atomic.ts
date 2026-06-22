@@ -23,11 +23,14 @@ export function renderAtomicVueWrapper(
   const Name = pascalCase(spec.name);
   const rootClass = spec.rootClass ?? `t-${spec.name}`;
   const propMap = spec.props ?? {};
-  const hasAs = "as" in propMap;
+  const elementByProp = spec.elementByProp;
+  // When `as` is the `elementByProp` control it indexes a closed tag map at
+  // runtime — the free `<component :is="as">` polymorphism path is the wrong
+  // one. Suppress so the elementByProp branch wins.
+  const hasAs = "as" in propMap && !elementByProp;
   const hasDisabled = "disabled" in propMap;
   const hasLoading = "loading" in propMap;
   const isPolymorphic = spec.polymorphic === "asChild";
-  const elementByProp = spec.elementByProp;
   const slots = collectSlots(spec);
 
   const sizeIsResponsive = Boolean(spec.sizes) && RESPONSIVE_ENUM_PROPS.has("size");
