@@ -1,0 +1,83 @@
+---
+import { Divider, Code, Codeblock } from "@teseor/react";
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Divider — Teseor">
+  <main class="t-stack" data-gap="6">
+    <h1>Divider</h1>
+    <p>Horizontal-or-vertical visual rule. Renders `&lt;hr&gt;` for the horizontal orientation (native `role="separator"`) and `&lt;div role="separator" aria-orientation="vertical"&gt;` for the vertical one. The `decorative` prop hides the element from the accessibility tree (`role="none"` + `aria-hidden="true"`).</p>
+    <section class="t-stack" data-gap="3">
+      <h2>Examples</h2>
+      <div class="t-stack" data-gap="2">
+        <h3>default</h3>
+        <div class="t-cluster" data-gap="3">
+          <Divider>Divider</Divider>
+        </div>
+        <Codeblock>&lt;Divider&gt;Divider&lt;/Divider&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>vertical</h3>
+        <div class="t-cluster" data-gap="3">
+          <Divider orientation="vertical">Divider</Divider>
+        </div>
+        <Codeblock>&lt;Divider orientation="vertical"&gt;Divider&lt;/Divider&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>decorative</h3>
+        <div class="t-cluster" data-gap="3">
+          <Divider decorative>Divider</Divider>
+        </div>
+        <Codeblock>&lt;Divider decorative&gt;Divider&lt;/Divider&gt;</Codeblock>
+      </div>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Props</h2>
+      <table>
+        <thead><tr><th>Prop</th><th>Type</th><th>Responsive</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>orientation</Code></td><td><Code>string</Code></td><td></td><td><Code>null</Code></td><td>Axis of the rule. Absence-of-attr selects `horizontal` — codegen falls back to the first map key and the `&lt;hr&gt;` carries the native horizontal orientation. Pass `vertical` to render a `&lt;div&gt;` with explicit `role="separator"` + `aria-orientation="vertical"`. Renders as <Code>&lt;hr&gt;</Code> for <Code>horizontal</Code>, <Code>&lt;div&gt;</Code> for <Code>vertical</Code>.</td></tr>
+        <tr><td><Code>decorative</Code></td><td><Code>boolean</Code></td><td></td><td><Code>null</Code></td><td>Removes the divider from the accessibility tree (`role="none"` + `aria-hidden="true"`). Use when the rule is purely visual and not announcing a structural boundary.</td></tr>
+        <tr><td><Code>asChild</Code></td><td><Code>boolean</Code></td><td></td><td><Code>false</Code></td><td>Render the trigger directly on the consumer's child element (cloneElement) instead of wrapping in a &lt;span&gt;. Single-child invariant; the child receives the wrapper's &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;data-state&lt;/code&gt;, event handlers, and any ARIA attributes the component applies (component-specific). Not compatible with Astro slots — use the default wrapper there.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Tokens</h2>
+      <table>
+        <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-divider-fg</Code></td><td><Code>--t-border</Code></td><td>Color of the rule line.</td></tr>
+        <tr><td><Code>--t-divider-thickness</Code></td><td><Code>--t-border-thin</Code></td><td>Stroke width of the rule line.</td></tr>
+        <tr><td><Code>--t-divider-style</Code></td><td><Code>solid</Code></td><td>CSS `border-style` keyword — `solid`, `dashed`, or `dotted`.</td></tr>
+        <tr><td><Code>--t-divider-spacing-block</Code></td><td><Code>--t-space-4</Code></td><td>Vertical rhythm above and below a horizontal divider in prose context.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Accessibility</h2>
+      <p>Role: <Code>separator</Code></p>
+      <p>Forwards <Code>aria-orientation</Code> from the <Code>orientation</Code> prop.</p>
+      <p>Set <Code>decorative</Code> to remove the element from the accessibility tree (<Code>role="none"</Code> + <Code>aria-hidden="true"</Code>).</p>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Forced colors</h2>
+      <p>In Windows High Contrast mode, the component remaps these semantic tokens to CSS system colors. Custom-property inheritance carries the values to every reference in the subtree.</p>
+      <table>
+        <thead><tr><th>Token</th><th>Default</th><th>Forced-colors</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-border</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 50% calc(c * 0.025) h) 92% c h)</Code></td><td><Code>ButtonBorder</Code></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Bundle size</h2>
+      <table>
+        <thead><tr><th>Artifact</th><th>Raw</th><th>Gzip</th><th>Brotli</th></tr></thead>
+        <tbody>
+        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/divider/divider.css"><Code>@teseor/css/components/divider.css</Code></a></td><td>0.94 KB</td><td>0.45 KB</td><td>0.38 KB</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</Base>

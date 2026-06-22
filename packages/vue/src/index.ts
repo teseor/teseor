@@ -5,6 +5,7 @@ export { default as Button } from "./Button.vue";
 export { default as Cluster } from "./Cluster.vue";
 export { default as Code } from "./Code.vue";
 export { default as Codeblock } from "./Codeblock.vue";
+export { default as Divider } from "./Divider.vue";
 export { default as Heading } from "./Heading.vue";
 export { default as Image } from "./Image.vue";
 export { default as Kbd } from "./Kbd.vue";

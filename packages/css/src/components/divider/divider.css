@@ -1,0 +1,35 @@
+@layer components.tokens {
+  .t-divider {
+    --_fg: var(--t-divider-fg, var(--t-border));
+    --_thickness: var(--t-divider-thickness, var(--t-border-thin));
+    --_style: var(--t-divider-style, solid);
+    --_spacing-block: var(--t-divider-spacing-block, var(--t-space-4));
+  }
+}
+
+@layer components.styles {
+  .t-divider {
+    box-sizing: border-box;
+    margin: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+
+    &:where(hr) {
+      block-size: 0;
+      inline-size: 100%;
+
+      /* Compensate for the 1px border so the divider's total occupied
+         block stays a multiple of --t-unit (grid-rhythm gate). */
+      margin-block: calc(var(--_spacing-block) - var(--_thickness) / 2);
+      border-block-start: var(--_thickness) var(--_style) var(--_fg);
+    }
+
+    &:where(div) {
+      inline-size: 0;
+      block-size: 100%;
+      align-self: stretch;
+      border-inline-start: var(--_thickness) var(--_style) var(--_fg);
+    }
+  }
+}

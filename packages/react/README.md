@@ -38,6 +38,7 @@ import { Blockquote } from "@teseor/react";
 - `Cluster` — A horizontal layout primitive. Wraps children on the inline axis with consistent spacing.
 - `Code` — Inline monospace fragment for short code spans in prose.
 - `Codeblock` — Block container for multi-line code with monospace font and horizontal overflow scroll.
+- `Divider` — Horizontal-or-vertical visual rule. Renders `<hr>` for the horizontal orientation (native `role="separator"`) and `<div role="separator" aria-orientation="vertical">` for the vertical one. The `decorative` prop hides the element from the accessibility tree (`role="none"` + `aria-hidden="true"`).
 - `Heading` — Semantic prose heading. The rendered tag switches with `level` so outline tools and screen readers read native `<h1>`–`<h6>` structure.
 - `Image` — Image primitive — styled `<img>` with token-driven defaults (rounded corners, loading-state background, optional `object-fit`). Native HTML attrs (`src`, `alt`, `width`, `height`, `loading`, `decoding`, `srcset`, `sizes`) pass through the inherited type.
 - `Kbd` — Keyboard-key primitive — styled `<kbd>` with token-driven monospace, raised-key visual, and subtle border. Single key per element; combos compose via children (`<Kbd>Cmd</Kbd>+<Kbd>K</Kbd>`).
