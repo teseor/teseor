@@ -80,7 +80,7 @@ export function renderAtomicReactWrapper(
   const componentLine = isPolymorphic
     ? tagFromProp
       ? `  const Component = asChild ? Slot : asElement(${tagFromProp});`
-      : `  const Component = asChild ? Slot : ${quote(spec.element ?? "div")};`
+      : `  const Component = asChild ? Slot : asElement(${quote(spec.element ?? "div")});`
     : hasAs
       ? `  const Component = asElement(${rootExpr});`
       : tagFromProp
@@ -137,10 +137,11 @@ export function renderAtomicReactWrapper(
   const propsTypeLine = renderPropsTypeIntersection(Name, spec.element ?? "div");
 
   // `asElement` is the runtime widener for any spec that resolves its root
-  // tag from a value (free `as` polymorphism or `elementByProp` map). Without
-  // it the JSX ref slot pins to a single HTMLElement subtype and rejects the
-  // consumer-facing `Ref<HTMLElement>`.
-  const usesAsElement = hasAs || Boolean(elementByProp);
+  // tag from a value (free `as` polymorphism or `elementByProp` map) AND for
+  // polymorphic specs whose Component constant alternates between `Slot` and
+  // an intrinsic tag literal — without it the JSX ref slot pins to that one
+  // intrinsic's HTMLElement subtype and rejects the widened consumer ref.
+  const usesAsElement = hasAs || Boolean(elementByProp) || isPolymorphic;
   const imports = [
     `import "@teseor/css/components/${spec.name}.css";`,
     `import type { ComponentProps, ReactNode, Ref } from "react";`,

@@ -79,7 +79,7 @@ describe("renderAtomicVueWrapper", () => {
       expect(out).toContain(`import { Slot } from "./components/Slot.ts";`);
       expect(out).toContain("asChild?: boolean;");
       expect(out).toContain(
-        `<component :is="asChild ? Slot : "div"" class="t-button" v-bind="attrs">`,
+        `<component :is="asChild ? Slot : 'div'" class="t-button" v-bind="attrs">`,
       );
       expect(out).toContain("</component>");
     });

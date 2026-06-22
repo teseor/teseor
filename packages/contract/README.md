@@ -29,6 +29,7 @@ function buildAttrs(props: ButtonProps): Record<string, string | undefined> {
 - `Code` — `CodeProps`
 - `Codeblock` — `CodeblockProps`
 - `Heading` — `HeadingSize`, `HeadingProps`
+- `Link` — `LinkVariant`, `LinkProps`
 - `List` — `ListProps`
 - `Modal` — `ModalProps`
 - `Pagination` — `PaginationProps`

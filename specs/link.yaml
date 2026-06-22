@@ -1,0 +1,53 @@
+name: link
+description: Anchor primitive — styled `<a>` with token-driven color, hover, and visited treatment. Composes with native HTML attrs (`href`, `target`, `rel`, …) via the inherited type.
+kind: atomic
+dependencies: []
+element: a
+rootClass: t-link
+cssFile: components/link/link.css
+polymorphic: asChild
+
+variants:
+  default:
+    description: Standard underlined link with hover and visited treatment.
+  subtle:
+    description: Styled like body text until hover — for in-prose references where chrome would distract.
+  plain:
+    description: No underline ever — for chrome-heavy contexts (cards, list items) where the whole row is the affordance.
+
+tokens:
+  fg:
+    fallback: --t-accent
+    desc: Default link color.
+  fg-hover:
+    fallback: --t-accent-600
+    desc: Color on hover and focus-visible.
+  fg-visited:
+    fallback: --t-link-fg
+    desc: Color for visited links; falls back to the default link color (no visited differentiation).
+  underline-offset:
+    fallback: 2px
+    desc: Distance between the underline and the text baseline.
+  underline-thickness:
+    fallback: 1px
+    desc: Underline stroke width.
+
+privateTokens:
+  - --_fg
+  - --_fg-hover
+  - --_fg-visited
+  - --_underline-offset
+  - --_underline-thickness
+  - --_radius
+  - --_outline-thickness
+  - --_color
+  - --_underline-base
+  - --_underline-hover
+
+examples:
+  - id: default
+    props: {}
+  - id: subtle
+    props: { variant: subtle }
+  - id: plain
+    props: { variant: plain }

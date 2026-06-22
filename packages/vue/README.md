@@ -42,6 +42,7 @@ import { Button } from "@teseor/vue";
 - `Code` — Inline monospace fragment for short code spans in prose.
 - `Codeblock` — Block container for multi-line code with monospace font and horizontal overflow scroll.
 - `Heading` — Semantic prose heading. The rendered tag switches with `level` so outline tools and screen readers read native `<h1>`–`<h6>` structure.
+- `Link` — Anchor primitive — styled `<a>` with token-driven color, hover, and visited treatment. Composes with native HTML attrs (`href`, `target`, `rel`, …) via the inherited type.
 - `List` — Ordered / unordered list primitive. Renders `<ul>` or `<ol>` based on `ordered`; styles bare `<li>` children with grid-rhythm spacing and prose-friendly markers.
 - `Modal` — A modal overlay that traps focus and inerts the rest of the page until dismissed.
 - `Pagination` — A static page-link list. Renders one item per entry in the `pages` array; navigation behavior is consumer-driven today.
