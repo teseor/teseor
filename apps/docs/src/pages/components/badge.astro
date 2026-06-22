@@ -1,0 +1,198 @@
+---
+import { Badge, Code, Codeblock } from "@teseor/react";
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Badge — Teseor">
+  <main class="t-stack" data-gap="6">
+    <h1>Badge</h1>
+    <p>Small inline label for status, notification, or metadata. Renders `&lt;span&gt;` with token-driven color, variant, size, and shape. Decorative by default — consumers supply `aria-label` when the badge carries standalone meaning.</p>
+    <section class="t-stack" data-gap="3">
+      <h2>Examples</h2>
+      <div class="t-stack" data-gap="2">
+        <h3>default</h3>
+        <div class="t-cluster" data-gap="3">
+          <Badge>Badge</Badge>
+        </div>
+        <Codeblock>&lt;Badge&gt;Badge&lt;/Badge&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>solid-success</h3>
+        <div class="t-cluster" data-gap="3">
+          <Badge intent="success">Badge</Badge>
+        </div>
+        <Codeblock>&lt;Badge intent="success"&gt;Badge&lt;/Badge&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>outline-info</h3>
+        <div class="t-cluster" data-gap="3">
+          <Badge variant="outline" intent="info">Badge</Badge>
+        </div>
+        <Codeblock>&lt;Badge variant="outline" intent="info"&gt;Badge&lt;/Badge&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>ghost-danger</h3>
+        <div class="t-cluster" data-gap="3">
+          <Badge variant="ghost" intent="danger">Badge</Badge>
+        </div>
+        <Codeblock>&lt;Badge variant="ghost" intent="danger"&gt;Badge&lt;/Badge&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>pill</h3>
+        <div class="t-cluster" data-gap="3">
+          <Badge shape="pill" intent="primary">Badge</Badge>
+        </div>
+        <Codeblock>&lt;Badge shape="pill" intent="primary"&gt;Badge&lt;/Badge&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>with-icon</h3>
+        <div class="t-cluster" data-gap="3">
+          <Badge intent="success">Badge</Badge>
+        </div>
+        <Codeblock>&lt;Badge intent="success" icon="dot"&gt;Badge&lt;/Badge&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>small</h3>
+        <div class="t-cluster" data-gap="3">
+          <Badge size="sm">Badge</Badge>
+        </div>
+        <Codeblock>&lt;Badge size="sm"&gt;Badge&lt;/Badge&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>large</h3>
+        <div class="t-cluster" data-gap="3">
+          <Badge size="lg" intent="warning">Badge</Badge>
+        </div>
+        <Codeblock>&lt;Badge size="lg" intent="warning"&gt;Badge&lt;/Badge&gt;</Codeblock>
+      </div>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Props</h2>
+      <table>
+        <thead><tr><th>Prop</th><th>Type</th><th>Responsive</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>variant</Code></td><td><Code>"solid" | "outline" | "ghost"</Code></td><td></td><td><Code>null</Code></td><td>Visual style. See the Variants section for per-value descriptions.</td></tr>
+        <tr><td><Code>intent</Code></td><td><Code>"neutral" | "primary" | "success" | "warning" | "danger" | "info"</Code></td><td></td><td><Code>null</Code></td><td>Semantic color. See the Intents section for per-value descriptions.</td></tr>
+        <tr><td><Code>size</Code></td><td><Code>"sm" | "md" | "lg"</Code></td><td>✓</td><td><Code>null</Code></td><td>Size scale. See the Sizes section for per-value descriptions.</td></tr>
+        <tr><td><Code>shape</Code></td><td><Code>string</Code></td><td></td><td><Code>null</Code></td><td>Corner shape. `rounded` is the default (token-controlled radius); `pill` fully rounds the inline ends for decorative chip-style badges.</td></tr>
+        <tr><td><Code>icon</Code></td><td><Code>string, slot</Code></td><td></td><td><Code>null</Code></td><td>Decorative icon rendered before the label in the inline direction. Wrapped in a `&lt;span data-badge-icon=""&gt;` element; the consumer's icon component carries any `aria-hidden` it needs.</td></tr>
+        <tr><td><Code>asChild</Code></td><td><Code>boolean</Code></td><td></td><td><Code>false</Code></td><td>Render the trigger directly on the consumer's child element (cloneElement) instead of wrapping in a &lt;span&gt;. Single-child invariant; the child receives the wrapper's &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;data-state&lt;/code&gt;, event handlers, and any ARIA attributes the component applies (component-specific). Not compatible with Astro slots — use the default wrapper there.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Variants</h2>
+      <table>
+        <thead><tr><th>Name</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>solid</Code></td><td>Filled background with the intent color; default visual weight.</td></tr>
+        <tr><td><Code>outline</Code></td><td>Transparent background with intent-colored border and label.</td></tr>
+        <tr><td><Code>ghost</Code></td><td>Transparent background with no border, intent-colored label.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Intents</h2>
+      <table>
+        <thead><tr><th>Name</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>neutral</Code></td><td>Default semantic color; non-emphasized metadata badges.</td></tr>
+        <tr><td><Code>primary</Code></td><td>Accent-colored badge; matches the page's primary action color.</td></tr>
+        <tr><td><Code>success</Code></td><td>Positive status (active, online, completed).</td></tr>
+        <tr><td><Code>warning</Code></td><td>Attention-needed status (pending, expiring).</td></tr>
+        <tr><td><Code>danger</Code></td><td>Error or critical status (failed, blocked).</td></tr>
+        <tr><td><Code>info</Code></td><td>Informational status (new, beta, updated).</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Sizes</h2>
+      <table>
+        <thead><tr><th>Name</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>sm</Code></td><td>Compact density; inline with small prose.</td></tr>
+        <tr><td><Code>md</Code></td><td>Default size; matches body text.</td></tr>
+        <tr><td><Code>lg</Code></td><td>Emphatic; for hero callouts and prominent surfaces.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Tokens</h2>
+      <table>
+        <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-badge-bg</Code></td><td><Code>--t-surface-muted</Code></td><td>Background color of the badge. The intent variant overrides this.</td></tr>
+        <tr><td><Code>--t-badge-fg</Code></td><td><Code>--t-on-surface</Code></td><td>Foreground color (label and icon). The intent variant overrides this.</td></tr>
+        <tr><td><Code>--t-badge-border-color</Code></td><td><Code>--t-border</Code></td><td>Border color for the outline variant.</td></tr>
+        <tr><td><Code>--t-badge-radius</Code></td><td><Code>--t-radius-sm</Code></td><td>Corner radius for the rounded shape.</td></tr>
+        <tr><td><Code>--t-badge-pad-x</Code></td><td><Code>--t-space-2</Code></td><td>Inline padding inside the badge.</td></tr>
+        <tr><td><Code>--t-badge-pad-y</Code></td><td><Code>--t-space-1</Code></td><td>Block padding inside the badge.</td></tr>
+        <tr><td><Code>--t-badge-gap</Code></td><td><Code>--t-space-1</Code></td><td>Inline spacing between icon and label.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Forced colors</h2>
+      <p>In Windows High Contrast mode, the component remaps these semantic tokens to CSS system colors. Custom-property inheritance carries the values to every reference in the subtree.</p>
+      <table>
+        <thead><tr><th>Token</th><th>Default</th><th>Forced-colors</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-accent</Code></td><td><Code>oklch(from oklch(58% 0.2 268deg) 55% c h)</Code></td><td><Code>ButtonText</Code></td></tr>
+        <tr><td><Code>--t-border</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 50% calc(c * 0.025) h) 92% c h)</Code></td><td><Code>ButtonBorder</Code></td></tr>
+        <tr><td><Code>--t-danger</Code></td><td><Code>color-mix(
+      in oklch,
+      oklch(from oklch(58% 0.2 268deg) 48% c 25deg),
+      oklch(from oklch(58% 0.2 268deg) 48% c h) calc(0 * 100%)
+    )</Code></td><td><Code>ButtonText</Code></td></tr>
+        <tr><td><Code>--t-info</Code></td><td><Code>color-mix(
+      in oklch,
+      oklch(from oklch(58% 0.2 268deg) 50% c 210deg),
+      oklch(from oklch(58% 0.2 268deg) 50% c h) calc(0 * 100%)
+    )</Code></td><td><Code>ButtonText</Code></td></tr>
+        <tr><td><Code>--t-on-accent</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 55% c h) max(0, sign(0.62 - l)) 0 h)</Code></td><td><Code>ButtonFace</Code></td></tr>
+        <tr><td><Code>--t-on-danger</Code></td><td><Code>oklch(from color-mix(
+      in oklch,
+      oklch(from oklch(58% 0.2 268deg) 48% c 25deg),
+      oklch(from oklch(58% 0.2 268deg) 48% c h) calc(0 * 100%)
+    ) max(0, sign(0.62 - l)) 0 h)</Code></td><td><Code>ButtonFace</Code></td></tr>
+        <tr><td><Code>--t-on-info</Code></td><td><Code>oklch(from color-mix(
+      in oklch,
+      oklch(from oklch(58% 0.2 268deg) 50% c 210deg),
+      oklch(from oklch(58% 0.2 268deg) 50% c h) calc(0 * 100%)
+    ) max(0, sign(0.62 - l)) 0 h)</Code></td><td><Code>ButtonFace</Code></td></tr>
+        <tr><td><Code>--t-on-success</Code></td><td><Code>oklch(from color-mix(
+      in oklch,
+      oklch(from oklch(58% 0.2 268deg) 52% c 155deg),
+      oklch(from oklch(58% 0.2 268deg) 52% c h) calc(0 * 100%)
+    ) max(0, sign(0.62 - l)) 0 h)</Code></td><td><Code>ButtonFace</Code></td></tr>
+        <tr><td><Code>--t-on-surface</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 50% calc(c * 0.025) h) 18% c h)</Code></td><td><Code>CanvasText</Code></td></tr>
+        <tr><td><Code>--t-on-warning</Code></td><td><Code>oklch(from color-mix(
+      in oklch,
+      oklch(from oklch(58% 0.2 268deg) 80% c 85deg),
+      oklch(from oklch(58% 0.2 268deg) 80% c h) calc(0 * 100%)
+    ) max(0, sign(0.62 - l)) 0 h)</Code></td><td><Code>ButtonFace</Code></td></tr>
+        <tr><td><Code>--t-success</Code></td><td><Code>color-mix(
+      in oklch,
+      oklch(from oklch(58% 0.2 268deg) 52% c 155deg),
+      oklch(from oklch(58% 0.2 268deg) 52% c h) calc(0 * 100%)
+    )</Code></td><td><Code>ButtonText</Code></td></tr>
+        <tr><td><Code>--t-surface-muted</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 50% calc(c * 0.025) h) 92% c h)</Code></td><td><Code>Canvas</Code></td></tr>
+        <tr><td><Code>--t-warning</Code></td><td><Code>color-mix(
+      in oklch,
+      oklch(from oklch(58% 0.2 268deg) 80% c 85deg),
+      oklch(from oklch(58% 0.2 268deg) 80% c h) calc(0 * 100%)
+    )</Code></td><td><Code>ButtonText</Code></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Bundle size</h2>
+      <table>
+        <thead><tr><th>Artifact</th><th>Raw</th><th>Gzip</th><th>Brotli</th></tr></thead>
+        <tbody>
+        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/badge/badge.css"><Code>@teseor/css/components/badge.css</Code></a></td><td>5.28 KB</td><td>1.15 KB</td><td>0.97 KB</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</Base>

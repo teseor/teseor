@@ -25,18 +25,19 @@ import "@teseor/css/utilities.css";
 
 ```vue
 <script setup lang="ts">
-import { Blockquote } from "@teseor/vue";
+import { Badge } from "@teseor/vue";
 </script>
 
 <template>
-  <Blockquote variant="solid" intent="primary" @click="save">
+  <Badge variant="solid" intent="primary" @click="save">
     Save
-  </Blockquote>
+  </Badge>
 </template>
 ```
 
 ## Components
 
+- `Badge` — Small inline label for status, notification, or metadata. Renders `<span>` with token-driven color, variant, size, and shape. Decorative by default — consumers supply `aria-label` when the badge carries standalone meaning.
 - `Blockquote` — Quoted-text primitive — styled `<blockquote>` with accent border and prose spacing. Source attribution composes via a `<cite>` child; native `cite` HTML attr (URL) passes through the inherited type.
 - `Button` — A trigger that performs an action when activated.
 - `Checkbox` — Binary toggle (or tri-state via `indeterminate`). Styled `<input type="checkbox">` with a painted check / dash glyph and three sizes. Native `checked` / `defaultChecked` / `onChange` pass through `ComponentProps<"input">`. Form-association attributes (`name`, `form`, `required`, `disabled`) come from the formControl shared contract; HTML ignores `readOnly` on checkbox inputs.

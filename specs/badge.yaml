@@ -1,0 +1,144 @@
+name: badge
+description: Small inline label for status, notification, or metadata. Renders `<span>` with token-driven color, variant, size, and shape. Decorative by default — consumers supply `aria-label` when the badge carries standalone meaning.
+kind: atomic
+dependencies: []
+element: span
+rootClass: t-badge
+cssFile: components/badge/badge.css
+polymorphic: asChild
+
+variants:
+  solid:
+    description: Filled background with the intent color; default visual weight.
+  outline:
+    description: Transparent background with intent-colored border and label.
+  ghost:
+    description: Transparent background with no border, intent-colored label.
+
+intents:
+  neutral:
+    description: Default semantic color; non-emphasized metadata badges.
+    tokens:
+      bg: --t-surface-muted
+      fg: --t-on-surface
+  primary:
+    description: Accent-colored badge; matches the page's primary action color.
+    tokens:
+      bg: --t-accent
+      fg: --t-on-accent
+  success:
+    description: Positive status (active, online, completed).
+    tokens:
+      bg: --t-success
+      fg: --t-on-success
+  warning:
+    description: Attention-needed status (pending, expiring).
+    tokens:
+      bg: --t-warning
+      fg: --t-on-warning
+  danger:
+    description: Error or critical status (failed, blocked).
+    tokens:
+      bg: --t-danger
+      fg: --t-on-danger
+  info:
+    description: Informational status (new, beta, updated).
+    tokens:
+      bg: --t-info
+      fg: --t-on-info
+
+sizes:
+  sm:
+    description: Compact density; inline with small prose.
+    tokens:
+      font-size: --t-text-xs
+  md:
+    description: Default size; matches body text.
+    tokens:
+      font-size: --t-text-sm
+  lg:
+    description: Emphatic; for hero callouts and prominent surfaces.
+    tokens:
+      font-size: --t-text-base
+
+props:
+  shape:
+    type: string
+    values: [rounded, pill]
+    responsive: false
+    description: Corner shape. `rounded` is the default (token-controlled radius); `pill` fully rounds the inline ends for decorative chip-style badges.
+  icon:
+    type: string
+    slot: true
+    default: null
+    responsive: false
+    description: Decorative icon rendered before the label in the inline direction. Wrapped in a `<span data-badge-icon="">` element; the consumer's icon component carries any `aria-hidden` it needs.
+
+tokens:
+  bg:
+    fallback: --t-surface-muted
+    desc: Background color of the badge. The intent variant overrides this.
+  fg:
+    fallback: --t-on-surface
+    desc: Foreground color (label and icon). The intent variant overrides this.
+  border-color:
+    fallback: --t-border
+    desc: Border color for the outline variant.
+  radius:
+    fallback: --t-radius-sm
+    desc: Corner radius for the rounded shape.
+  pad-x:
+    fallback: --t-space-2
+    desc: Inline padding inside the badge.
+  pad-y:
+    fallback: --t-space-1
+    desc: Block padding inside the badge.
+  gap:
+    fallback: --t-space-1
+    desc: Inline spacing between icon and label.
+
+privateTokens:
+  - --_bg
+  - --_fg
+  - --_border-color
+  - --_radius
+  - --_radius-pill
+  - --_pad-x
+  - --_pad-y
+  - --_gap
+  - --_accent
+  - --_font-size
+  - --_font-size-sm
+  - --_font-size-md
+  - --_font-size-lg
+  - --_border-thickness
+  - --_intent-neutral-bg
+  - --_intent-neutral-fg
+  - --_intent-primary-bg
+  - --_intent-primary-fg
+  - --_intent-success-bg
+  - --_intent-success-fg
+  - --_intent-warning-bg
+  - --_intent-warning-fg
+  - --_intent-danger-bg
+  - --_intent-danger-fg
+  - --_intent-info-bg
+  - --_intent-info-fg
+
+examples:
+  - id: default
+    props: {}
+  - id: solid-success
+    props: { intent: success }
+  - id: outline-info
+    props: { variant: outline, intent: info }
+  - id: ghost-danger
+    props: { variant: ghost, intent: danger }
+  - id: pill
+    props: { shape: pill, intent: primary }
+  - id: with-icon
+    props: { intent: success, icon: dot }
+  - id: small
+    props: { size: sm }
+  - id: large
+    props: { size: lg, intent: warning }
