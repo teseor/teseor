@@ -321,6 +321,61 @@ describe("renderAtomicReactWrapper", () => {
       });
     });
 
+    describe("htmlAttrs", () => {
+      test("emits each entry as a static JSX attribute after the spread", () => {
+        const out = renderAtomicReactWrapper(
+          atomicSpec({ name: "switch", element: "input", htmlAttrs: { type: "checkbox" } }),
+          {},
+        );
+        const spreadIdx = out.indexOf("{...rest}");
+        const typeIdx = out.indexOf(`type="checkbox"`);
+        expect(typeIdx).toBeGreaterThan(spreadIdx);
+      });
+
+      test("emits no static attribute lines when htmlAttrs is unset", () => {
+        const out = renderAtomicReactWrapper(atomicSpec({ name: "input", element: "input" }), {});
+        expect(out).not.toContain(`type="checkbox"`);
+      });
+
+      test("emits multiple entries on separate lines", () => {
+        const out = renderAtomicReactWrapper(
+          atomicSpec({
+            name: "image",
+            element: "img",
+            htmlAttrs: { loading: "lazy", decoding: "async" },
+          }),
+          {},
+        );
+        expect(out).toContain(`loading="lazy"`);
+        expect(out).toContain(`decoding="async"`);
+      });
+    });
+
+    describe("role + biome-ignore", () => {
+      test('emits an inline biome-ignore above role="switch" for <input>', () => {
+        const out = renderAtomicReactWrapper(
+          atomicSpec({
+            name: "switch",
+            element: "input",
+            htmlAttrs: { type: "checkbox" },
+            a11y: { role: "switch" },
+          }),
+          {},
+        );
+        expect(out).toContain(
+          `// biome-ignore lint/a11y/useAriaPropsForRole: aria-checked is implicit from type="checkbox"\n      role="switch"`,
+        );
+      });
+
+      test("does not emit a role biome-ignore for unmatched role + element combos", () => {
+        const out = renderAtomicReactWrapper(
+          atomicSpec({ element: "div", a11y: { role: "separator" } }),
+          {},
+        );
+        expect(out).not.toContain("useAriaPropsForRole");
+      });
+    });
+
     describe("a11y emission", () => {
       test("emits a static role on the root from spec.a11y.role", () => {
         const out = renderAtomicReactWrapper(

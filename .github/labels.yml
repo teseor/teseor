@@ -87,6 +87,9 @@
 - name: component:stack
   color: d4c5f9
   description: stack component
+- name: component:switch
+  color: d4c5f9
+  description: switch component
 - name: component:tablist
   color: d4c5f9
   description: tablist component

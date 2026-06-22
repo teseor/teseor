@@ -300,6 +300,12 @@ const atomicSpec = z.strictObject({
    *  `elementByProp` map) must be one of `formControl.elements`. Composite
    *  form-controls aren't supported in v0. */
   formControl: z.boolean().optional(),
+  /** Static HTML attributes baked onto the root element. Each entry emits a
+   *  literal attribute (`type="checkbox"`, `loading="lazy"`, …) after the
+   *  consumer-prop spread, so consumer overrides are rejected by the wrapper —
+   *  these are part of the component contract (Switch is `type="checkbox"`,
+   *  not negotiable). Keys are bare HTML attribute names; values are strings. */
+  htmlAttrs: z.record(z.string().min(1), z.string()).optional(),
 });
 
 const compositeSpec = z.strictObject({

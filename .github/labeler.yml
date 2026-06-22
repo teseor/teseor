@@ -137,6 +137,12 @@ component:stack:
           - packages/css/src/components/stack/**
           - specs/stack.yaml
 
+component:switch:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/css/src/components/switch/**
+          - specs/switch.yaml
+
 component:tablist:
   - changed-files:
       - any-glob-to-any-file:

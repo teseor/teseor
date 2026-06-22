@@ -14,6 +14,7 @@ import { fixtures as kbdFixtures } from "./Kbd.vue.ts";
 import { fixtures as linkFixtures } from "./Link.vue.ts";
 import { fixtures as listFixtures } from "./List.vue.ts";
 import { fixtures as stackFixtures } from "./Stack.vue.ts";
+import { fixtures as switchFixtures } from "./Switch.vue.ts";
 import { fixtures as textFixtures } from "./Text.vue.ts";
 import { fixtures as textareaFixtures } from "./Textarea.vue.ts";
 
@@ -31,6 +32,7 @@ export const vueFixtures: Record<string, Record<string, () => VNode>> = {
   link: linkFixtures,
   list: listFixtures,
   stack: stackFixtures,
+  switch: switchFixtures,
   text: textFixtures,
   textarea: textareaFixtures,
 };

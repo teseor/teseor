@@ -89,6 +89,10 @@ export type FlatSpec = {
    *  contract (props + valid root elements) lives in
    *  `specs/_vocabulary.yaml#formControl` and is enforced by `pnpm lint:spec`. */
   formControl?: boolean;
+  /** Atomic-only: static HTML attributes baked onto the root element after the
+   *  consumer-prop spread (Switch's `type="checkbox"`, an image's `loading`
+   *  default, …). */
+  htmlAttrs?: Record<string, string>;
   /** Atomic-only: when set, the rendered tag is resolved at runtime from the
    *  named prop's value via `map`. Mutually exclusive with `element`. */
   elementByProp?: { prop: string; map: Record<string, string> };
@@ -151,6 +155,7 @@ export function flattenSpec(spec: Spec): FlatSpec {
       slotElement: spec.slotElement,
       polymorphic: spec.polymorphic,
       formControl: spec.formControl,
+      htmlAttrs: spec.htmlAttrs,
       elementByProp: spec.elementByProp,
       rootClass: spec.rootClass,
       variants: spec.variants,
