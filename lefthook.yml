@@ -50,6 +50,16 @@ pre-push:
     sync-labels-drift:
       glob: "specs/*.yaml"
       run: node scripts/repo/sync-labels.ts --check
+    contract-snapshots:
+      glob:
+        - "specs/**/*.yaml"
+        - "scripts/codegen/**"
+        - "apps/harness/src/fixtures/**"
+        - "packages/primitives/src/**"
+        - "packages/react/src/**/*.tsx"
+        - "packages/vue/src/**/*.vue"
+        - "tests/contract/**"
+      run: pnpm test:e2e tests/contract --project=chromium
     verify-no-dev-leak:
       run: pnpm -r --if-present run build && node scripts/hooks/verify-no-dev-leak.js
     measure:
