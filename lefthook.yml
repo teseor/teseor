@@ -47,6 +47,9 @@ pre-push:
           git --no-pager diff
           exit 1
         fi
+    sync-labels-drift:
+      glob: "specs/*.yaml"
+      run: node scripts/repo/sync-labels.ts --check
     verify-no-dev-leak:
       run: pnpm -r --if-present run build && node scripts/hooks/verify-no-dev-leak.js
     measure:
