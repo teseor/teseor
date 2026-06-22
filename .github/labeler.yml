@@ -95,6 +95,12 @@ component:image:
           - packages/css/src/components/image/**
           - specs/image.yaml
 
+component:input:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/css/src/components/input/**
+          - specs/input.yaml
+
 component:kbd:
   - changed-files:
       - any-glob-to-any-file:
