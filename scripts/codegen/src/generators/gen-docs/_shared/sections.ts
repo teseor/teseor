@@ -1,6 +1,7 @@
 import { pascalCase } from "../../../lib/pascal-case.ts";
 import { itemTypeName } from "../../../lib/repeating-naming.ts";
 import { esc, formatValue } from "../../../lib/text-escape.ts";
+import type { FormControlContract } from "../../../lib/vocabulary.ts";
 import type { Spec } from "../../gen-contract.ts";
 import { renderTable, section } from "./table-printer.ts";
 
@@ -16,6 +17,10 @@ export type DocsSpec = Spec & {
   // differs from the default branch. Injected by gen-docs.ts. Absent when the
   // component references no remapped semantic token (scale-only or no CSS).
   forcedColors?: Array<{ token: string; default: string; forced: string }>;
+  // Shared form-control contract (`specs/_vocabulary.yaml#formControl`)
+  // injected by gen-docs.ts. Read by `renderFormControlContract` to render the
+  // "Form-control attributes" section on `formControl: true` specs.
+  formControlContract?: FormControlContract;
 };
 
 function formatKb(bytes: number): string {
@@ -199,6 +204,29 @@ export function renderProps(spec: DocsSpec): string {
   return section(
     "Props",
     renderTable(["Prop", "Type", "Responsive", "Default", "Description"], rows),
+  );
+}
+
+/**
+ * Form-control specs receive the shared HTML form-association contract
+ * through the rendered element's native HTML attribute surface (React's
+ * `ComponentProps<element>` / Vue's HTML attribute fallthrough), not via
+ * declared props. The contract is the single source of truth in
+ * `specs/_vocabulary.yaml#formControl`; the docs section restates it here
+ * for the consumer. Per-spec redeclaration is rejected by `pnpm lint:spec`.
+ */
+export function renderFormControlContract(spec: DocsSpec): string {
+  if (spec.kind !== "atomic" || spec.formControl !== true) return "";
+  const contract = spec.formControlContract;
+  if (!contract) return "";
+  const rows = Object.entries(contract.props).map(([name, def]) => [
+    `<Code>${esc(name)}</Code>`,
+    `<Code>${esc(def.type)}</Code>`,
+    esc(def.description),
+  ]);
+  return section(
+    "Form-control attributes",
+    renderTable(["Attribute", "Type", "Description"], rows),
   );
 }
 

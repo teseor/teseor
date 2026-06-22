@@ -13,6 +13,20 @@ export type EventVocabulary = {
   builtins: Record<string, string>;
 };
 
+export type FormControlPropEntry = {
+  type: "string" | "boolean" | "number";
+  description: string;
+};
+
+export type FormControlContract = {
+  /** HTML tags allowed as the form-control root (or as branches of an
+   *  `elementByProp` map). */
+  elements: string[];
+  /** Shared props injected/forbidden-from-redeclaration on every
+   *  `formControl: true` spec. */
+  props: Record<string, FormControlPropEntry>;
+};
+
 export type Vocabulary = {
   components: string[];
   props: string[];
@@ -26,6 +40,7 @@ export type Vocabulary = {
   events: EventVocabulary;
   dom_events: Record<string, string>;
   keys: Record<string, string>;
+  formControl: FormControlContract;
 };
 
 let cached: Vocabulary | null = null;

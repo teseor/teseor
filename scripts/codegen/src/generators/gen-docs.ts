@@ -8,6 +8,7 @@ import {
   buildTokenMap,
 } from "../../../../packages/css/postcss-teseor-floor.ts";
 import { flattenSpec } from "../lib/flatten.ts";
+import { loadVocabulary } from "../lib/vocabulary.ts";
 import type { GeneratorContext, GeneratorReport } from "../registry.ts";
 import { registerGenerator } from "../registry.ts";
 import { Spec as SpecSchema } from "../schema.ts";
@@ -111,12 +112,14 @@ async function docsGenerator(ctx: GeneratorContext): Promise<GeneratorReport> {
   const tokensCss = await readFile(TOKENS_CSS, "utf8");
   const tokens = buildTokenMap(tokensCss);
   const fcTokens = buildForcedColorsTokenMap(tokensCss);
+  const vocabulary = await loadVocabulary();
 
   await mkdir(DOCS_PAGES_DIR, { recursive: true });
   for (const name of targets) {
     const spec = await loadSpec(name);
     spec.bundleSizes = await readBundleSizes(name);
     spec.forcedColors = await readForcedColors(name, tokens, fcTokens);
+    spec.formControlContract = vocabulary.formControl;
     const outPath = resolve(DOCS_PAGES_DIR, `${name}.astro`);
     await writeFile(outPath, renderDocsPage(spec), "utf8");
     filesWritten.push(outPath);

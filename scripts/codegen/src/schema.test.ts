@@ -433,4 +433,27 @@ describe("Spec schema — shape layer", () => {
     });
     expect(result.success).toBe(false);
   });
+
+  test("accepts `formControl: true` on an atomic spec", () => {
+    const result = Spec.safeParse({
+      ...minimalAtomic(),
+      name: "input",
+      element: "input",
+      rootClass: "t-input",
+      formControl: true,
+    });
+    expect(result.success).toBe(true);
+  });
+
+  test("rejects `formControl: true` on a composite spec", () => {
+    const result = Spec.safeParse({
+      name: "combobox",
+      kind: "composite",
+      formControl: true,
+      parts: {
+        root: { element: "div", rootClass: "t-combobox" },
+      },
+    });
+    expect(result.success).toBe(false);
+  });
 });

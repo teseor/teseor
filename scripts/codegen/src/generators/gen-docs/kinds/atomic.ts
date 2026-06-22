@@ -7,6 +7,7 @@ import {
   renderBundleSize,
   renderConstraints,
   renderForcedColors,
+  renderFormControlContract,
   renderNamed,
   renderProps,
   renderStates,
@@ -20,6 +21,7 @@ export function renderAtomicDocsPage(spec: DocsSpec): string {
   const sections = [
     renderExamples(spec, Name, { isComposite: false }),
     renderProps(spec),
+    renderFormControlContract(spec),
     renderNamed("Variants", spec.variants),
     renderNamed("Intents", spec.intents),
     renderNamed("Sizes", spec.sizes),
