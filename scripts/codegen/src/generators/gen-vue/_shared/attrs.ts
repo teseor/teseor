@@ -3,22 +3,30 @@ import { quote } from "./type-printer.ts";
 
 /** Emit the entries of the `attrs` computed object for the spec's a11y
  *  block: a static `role` (overridden to `"none"` when `decorativeProp` is
- *  true), an `aria-{name}` per entry in `ariaProps`, and `aria-hidden` when
- *  `decorativeProp` is declared and true. */
+ *  true, or when `labelProp` is unset), an `aria-{name}` per entry in
+ *  `ariaProps`, `aria-label` from `labelProp` when set, and `aria-hidden`
+ *  driven by either `decorativeProp` (true) or `labelProp` (undefined). */
 export function renderA11yAttrEntries(
   role: string | undefined,
   ariaProps: readonly string[],
   decorativeProp: string | undefined,
+  labelProp?: string,
 ): string {
   return [
     role !== undefined && decorativeProp !== undefined
       ? `  role: ${decorativeProp} ? "none" : ${quote(role)},`
-      : role !== undefined
-        ? `  role: ${quote(role)},`
-        : null,
+      : role !== undefined && labelProp !== undefined
+        ? `  role: ${labelProp} === undefined ? "none" : ${quote(role)},`
+        : role !== undefined
+          ? `  role: ${quote(role)},`
+          : null,
     ...ariaProps.map((name) => `  "aria-${name}": ${name},`),
+    labelProp !== undefined ? `  "aria-label": ${labelProp},` : null,
     decorativeProp !== undefined
       ? `  "aria-hidden": ${decorativeProp} ? "true" : undefined,`
+      : null,
+    labelProp !== undefined
+      ? `  "aria-hidden": ${labelProp} === undefined ? "true" : undefined,`
       : null,
   ]
     .filter((line): line is string => line !== null)

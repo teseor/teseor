@@ -165,6 +165,7 @@ export function renderAtomicVueWrapper(
     a11y?.role,
     a11y?.ariaProps ?? [],
     a11y?.decorativeProp,
+    a11y?.labelProp,
   );
   // Vue's v-bind="attrs" emits these as literal attributes on the rendered
   // element — same role as the consumer-spread + lock pattern on the React
