@@ -96,6 +96,15 @@ export type FlatSpec = {
   /** Atomic-only: JS-only DOM properties the wrapper sets imperatively after
    *  mount (Checkbox's `indeterminate`, `<details>.open`, …). */
   imperativeProps?: Record<string, { type: "boolean"; description?: string }>;
+  /** Atomic-only: default children rendered inside every example when the root
+   *  element has constrained children (`<select>` → `<option>`, `<datalist>` →
+   *  `<option>`, `<picture>` → `<source>`, etc.). Flows through fixtures and
+   *  docs examples; absent for the common text-node case. */
+  defaultChildren?: Array<{
+    tag: string;
+    attrs?: Record<string, string | number | boolean>;
+    text?: string;
+  }>;
   /** Atomic-only: when set, the rendered tag is resolved at runtime from the
    *  named prop's value via `map`. Mutually exclusive with `element`. */
   elementByProp?: { prop: string; map: Record<string, string> };
@@ -160,6 +169,7 @@ export function flattenSpec(spec: Spec): FlatSpec {
       formControl: spec.formControl,
       htmlAttrs: spec.htmlAttrs,
       imperativeProps: spec.imperativeProps,
+      defaultChildren: spec.defaultChildren,
       elementByProp: spec.elementByProp,
       rootClass: spec.rootClass,
       variants: spec.variants,

@@ -273,6 +273,12 @@ const exampleEntry = z.strictObject({
   props: z.record(z.string(), z.unknown()).optional(),
 });
 
+const childSpec = z.strictObject({
+  tag: z.string().regex(/^[a-z][a-z0-9-]*$/, "must be a lowercase HTML tag name"),
+  attrs: z.record(z.string().min(1), z.union([z.string(), z.number(), z.boolean()])).optional(),
+  text: z.string().optional(),
+});
+
 const identityFields = {
   name: z.string().min(1),
   description: z.string().optional(),
@@ -321,6 +327,13 @@ const atomicSpec = z.strictObject({
       }),
     )
     .optional(),
+  /** Default children rendered inside every example for atomic specs whose
+   *  root element has constrained children (`<select>` needs `<option>`,
+   *  `<datalist>` needs `<option>`, `<picture>` needs `<source>`, etc.).
+   *  Each entry emits one child element; `text` is the child's text content.
+   *  When omitted, atomic non-void specs default to a single `{LABEL}` text
+   *  node (Heading-style). */
+  defaultChildren: z.array(childSpec).optional(),
 });
 
 const compositeSpec = z.strictObject({

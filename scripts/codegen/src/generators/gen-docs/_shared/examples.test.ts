@@ -85,4 +85,22 @@ describe("renderExamples", () => {
     expect(rendered).toContain('&lt;Image src="/x.jpg" alt="x" /&gt;');
     expect(rendered).not.toContain('<Image src="/x.jpg" alt="x">Image</Image>');
   });
+
+  test("renders defaultChildren in both the rendered tag and the source code", () => {
+    const spec = atomicSpec({
+      name: "select",
+      element: "select",
+      defaultChildren: [
+        { tag: "option", attrs: { value: "us" }, text: "United States" },
+        { tag: "option", attrs: { value: "br" }, text: "Brazil" },
+      ],
+      examples: [{ id: "default", props: {} }],
+    });
+    const rendered = renderExamples(spec, "Select", { isComposite: false });
+    expect(rendered).toContain(
+      '<Select><option value="us">United States</option><option value="br">Brazil</option></Select>',
+    );
+    expect(rendered).toContain('&lt;option value="us"&gt;United States&lt;/option&gt;');
+    expect(rendered).not.toContain("<Select>Select</Select>");
+  });
 });

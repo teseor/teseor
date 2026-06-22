@@ -2,7 +2,7 @@
   {
     "name": "@teseor/css (full bundle)",
     "path": "packages/css/dist/teseor.css",
-    "limit": "8 kB"
+    "limit": "10 kB"
   },
   {
     "name": "@teseor/css/tokens.css",
@@ -83,6 +83,10 @@
   {
     "name": "@teseor/css/components/radio.css",
     "path": "packages/css/dist/components/radio.css"
+  },
+  {
+    "name": "@teseor/css/components/select.css",
+    "path": "packages/css/dist/components/select.css"
   },
   {
     "name": "@teseor/css/components/stack.css",

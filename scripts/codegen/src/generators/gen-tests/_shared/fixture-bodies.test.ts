@@ -53,6 +53,34 @@ describe("renderVueFixtureBody", () => {
   });
 });
 
+describe("defaultChildren", () => {
+  const select: FlatSpec = {
+    name: "select",
+    kind: "atomic",
+    element: "select",
+    rootClass: "t-select",
+    defaultChildren: [
+      { tag: "option", attrs: { value: "us" }, text: "United States" },
+      { tag: "option", attrs: { value: "br" }, text: "Brazil" },
+    ],
+    props: {},
+    tokens: {},
+    visualStates: {},
+  };
+
+  test("React: emits each child as JSX inside the wrapper instead of {LABEL}", () => {
+    expect(renderReactFixtureBody(select, "Select", {})).toBe(
+      '<Select><option value="us">United States</option><option value="br">Brazil</option></Select>',
+    );
+  });
+
+  test("Vue: emits an inline default slot returning the children array", () => {
+    expect(renderVueFixtureBody(select, "Select", {})).toBe(
+      'h(Select, {}, { default: () => [h("option", { "value": "us" }, "United States"), h("option", { "value": "br" }, "Brazil")] })',
+    );
+  });
+});
+
 describe("void atomic specs", () => {
   const image: FlatSpec = {
     name: "image",

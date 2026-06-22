@@ -1,0 +1,231 @@
+---
+import { Select, Code, Codeblock } from "@teseor/react";
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Select — Teseor">
+  <main class="t-stack" data-gap="6">
+    <h1>Select</h1>
+    <p>Native dropdown. Styled `&lt;select&gt;` with token-driven defaults and outline / subtle / plain visual variants. Children are consumer-supplied `&lt;option&gt;` and `&lt;optgroup&gt;` elements. The `multiple` HTML attribute renders the native listbox view and reaches the DOM via `ComponentProps&lt;"select"&gt;` pass-through. Form-association attributes (`name`, `form`, `required`, `disabled`) come from the formControl shared contract; HTML ignores `readOnly` on select inputs.</p>
+    <section class="t-stack" data-gap="3">
+      <h2>Examples</h2>
+      <div class="t-stack" data-gap="2">
+        <h3>default</h3>
+        <div class="t-cluster" data-gap="3">
+          <Select><option value="us">United States</option><option value="br">Brazil</option><option value="jp">Japan</option></Select>
+        </div>
+        <Codeblock>&lt;Select&gt;
+  &lt;option value="us"&gt;United States&lt;/option&gt;
+  &lt;option value="br"&gt;Brazil&lt;/option&gt;
+  &lt;option value="jp"&gt;Japan&lt;/option&gt;
+&lt;/Select&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>variant-outline</h3>
+        <div class="t-cluster" data-gap="3">
+          <Select variant="outline"><option value="us">United States</option><option value="br">Brazil</option><option value="jp">Japan</option></Select>
+        </div>
+        <Codeblock>&lt;Select variant="outline"&gt;
+  &lt;option value="us"&gt;United States&lt;/option&gt;
+  &lt;option value="br"&gt;Brazil&lt;/option&gt;
+  &lt;option value="jp"&gt;Japan&lt;/option&gt;
+&lt;/Select&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>variant-subtle</h3>
+        <div class="t-cluster" data-gap="3">
+          <Select variant="subtle"><option value="us">United States</option><option value="br">Brazil</option><option value="jp">Japan</option></Select>
+        </div>
+        <Codeblock>&lt;Select variant="subtle"&gt;
+  &lt;option value="us"&gt;United States&lt;/option&gt;
+  &lt;option value="br"&gt;Brazil&lt;/option&gt;
+  &lt;option value="jp"&gt;Japan&lt;/option&gt;
+&lt;/Select&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>variant-plain</h3>
+        <div class="t-cluster" data-gap="3">
+          <Select variant="plain"><option value="us">United States</option><option value="br">Brazil</option><option value="jp">Japan</option></Select>
+        </div>
+        <Codeblock>&lt;Select variant="plain"&gt;
+  &lt;option value="us"&gt;United States&lt;/option&gt;
+  &lt;option value="br"&gt;Brazil&lt;/option&gt;
+  &lt;option value="jp"&gt;Japan&lt;/option&gt;
+&lt;/Select&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>size-sm</h3>
+        <div class="t-cluster" data-gap="3">
+          <Select size="sm"><option value="us">United States</option><option value="br">Brazil</option><option value="jp">Japan</option></Select>
+        </div>
+        <Codeblock>&lt;Select size="sm"&gt;
+  &lt;option value="us"&gt;United States&lt;/option&gt;
+  &lt;option value="br"&gt;Brazil&lt;/option&gt;
+  &lt;option value="jp"&gt;Japan&lt;/option&gt;
+&lt;/Select&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>size-lg</h3>
+        <div class="t-cluster" data-gap="3">
+          <Select size="lg"><option value="us">United States</option><option value="br">Brazil</option><option value="jp">Japan</option></Select>
+        </div>
+        <Codeblock>&lt;Select size="lg"&gt;
+  &lt;option value="us"&gt;United States&lt;/option&gt;
+  &lt;option value="br"&gt;Brazil&lt;/option&gt;
+  &lt;option value="jp"&gt;Japan&lt;/option&gt;
+&lt;/Select&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>multiple</h3>
+        <div class="t-cluster" data-gap="3">
+          <Select multiple><option value="us">United States</option><option value="br">Brazil</option><option value="jp">Japan</option></Select>
+        </div>
+        <Codeblock>&lt;Select multiple&gt;
+  &lt;option value="us"&gt;United States&lt;/option&gt;
+  &lt;option value="br"&gt;Brazil&lt;/option&gt;
+  &lt;option value="jp"&gt;Japan&lt;/option&gt;
+&lt;/Select&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>invalid</h3>
+        <div class="t-cluster" data-gap="3">
+          <Select invalid><option value="us">United States</option><option value="br">Brazil</option><option value="jp">Japan</option></Select>
+        </div>
+        <Codeblock>&lt;Select invalid&gt;
+  &lt;option value="us"&gt;United States&lt;/option&gt;
+  &lt;option value="br"&gt;Brazil&lt;/option&gt;
+  &lt;option value="jp"&gt;Japan&lt;/option&gt;
+&lt;/Select&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>disabled</h3>
+        <div class="t-cluster" data-gap="3">
+          <Select disabled><option value="us">United States</option><option value="br">Brazil</option><option value="jp">Japan</option></Select>
+        </div>
+        <Codeblock>&lt;Select disabled&gt;
+  &lt;option value="us"&gt;United States&lt;/option&gt;
+  &lt;option value="br"&gt;Brazil&lt;/option&gt;
+  &lt;option value="jp"&gt;Japan&lt;/option&gt;
+&lt;/Select&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>form-control</h3>
+        <div class="t-cluster" data-gap="3">
+          <Select name="country" form="contact" required><option value="us">United States</option><option value="br">Brazil</option><option value="jp">Japan</option></Select>
+        </div>
+        <Codeblock>&lt;Select name="country" form="contact" required&gt;
+  &lt;option value="us"&gt;United States&lt;/option&gt;
+  &lt;option value="br"&gt;Brazil&lt;/option&gt;
+  &lt;option value="jp"&gt;Japan&lt;/option&gt;
+&lt;/Select&gt;</Codeblock>
+      </div>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Props</h2>
+      <table>
+        <thead><tr><th>Prop</th><th>Type</th><th>Responsive</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>variant</Code></td><td><Code>"outline" | "subtle" | "plain"</Code></td><td></td><td><Code>null</Code></td><td>Visual style. See the Variants section for per-value descriptions.</td></tr>
+        <tr><td><Code>size</Code></td><td><Code>"sm" | "md" | "lg"</Code></td><td>✓</td><td><Code>null</Code></td><td>Size scale. See the Sizes section for per-value descriptions.</td></tr>
+        <tr><td><Code>invalid</Code></td><td><Code>boolean</Code></td><td></td><td><Code>null</Code></td><td>Marks the field as invalid for styling. Emits `data-invalid="true"` on the root. ARIA wiring (`aria-invalid`) is consumer-supplied or comes from the Field composite (tracked under #692).</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Form-control attributes</h2>
+      <table>
+        <thead><tr><th>Attribute</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>name</Code></td><td><Code>string</Code></td><td>HTML form field name (submitted with the form).</td></tr>
+        <tr><td><Code>form</Code></td><td><Code>string</Code></td><td>Associates the control with a form element by id.</td></tr>
+        <tr><td><Code>required</Code></td><td><Code>boolean</Code></td><td>Marks the control as required for form submission.</td></tr>
+        <tr><td><Code>readOnly</Code></td><td><Code>boolean</Code></td><td>Prevents editing while keeping the value submitted.</td></tr>
+        <tr><td><Code>disabled</Code></td><td><Code>boolean</Code></td><td>Disables interaction and excludes the value from form submission.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Variants</h2>
+      <table>
+        <thead><tr><th>Name</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>outline</Code></td><td>Bordered box on the surface; default select chrome.</td></tr>
+        <tr><td><Code>subtle</Code></td><td>Soft-fill background, no border; for dense forms where the select chrome should recede.</td></tr>
+        <tr><td><Code>plain</Code></td><td>Borderless; only the focus ring chromes the field. For inline editing or minimal forms.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Sizes</h2>
+      <table>
+        <thead><tr><th>Name</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>sm</Code></td><td>Compact density; matches `Input size="sm"`.</td></tr>
+        <tr><td><Code>md</Code></td><td>Default size.</td></tr>
+        <tr><td><Code>lg</Code></td><td>Emphatic; for hero forms and mobile-first layouts.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>States</h2>
+      <table>
+        <thead><tr><th>State</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>hover</Code></td><td>Pointer is over the select.</td></tr>
+        <tr><td><Code>focus</Code></td><td>Keyboard focus is on the select; the focus ring is visible.</td></tr>
+        <tr><td><Code>disabled</Code></td><td>Interaction is suppressed; the disabled visual state is applied.</td></tr>
+        <tr><td><Code>invalid</Code></td><td>The `invalid` prop is set; the field carries the error visual state.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Tokens</h2>
+      <table>
+        <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-select-bg</Code></td><td><Code>--t-surface</Code></td><td>Background color of the select box; the `subtle` variant overrides this.</td></tr>
+        <tr><td><Code>--t-select-fg</Code></td><td><Code>--t-on-surface</Code></td><td>Foreground (text) color of the selected option label.</td></tr>
+        <tr><td><Code>--t-select-border-color</Code></td><td><Code>--t-border</Code></td><td>Border color in the `outline` variant.</td></tr>
+        <tr><td><Code>--t-select-border-color-invalid</Code></td><td><Code>--t-danger</Code></td><td>Border color when the select is invalid.</td></tr>
+        <tr><td><Code>--t-select-radius</Code></td><td><Code>--t-radius-md</Code></td><td>Corner rounding of the select box.</td></tr>
+        <tr><td><Code>--t-select-height</Code></td><td><Code>--t-row-3</Code></td><td>Block-size of the select box; the size variant overrides this.</td></tr>
+        <tr><td><Code>--t-select-pad-x</Code></td><td><Code>--t-space-3</Code></td><td>Inline padding; the size variant overrides this.</td></tr>
+        <tr><td><Code>--t-select-font</Code></td><td><Code>--t-font-sans</Code></td><td>Font stack.</td></tr>
+        <tr><td><Code>--t-select-font-size</Code></td><td><Code>--t-text-sm</Code></td><td>Font size; the size variant overrides this.</td></tr>
+        <tr><td><Code>--t-select-focus-ring</Code></td><td><Code>--t-focus-ring</Code></td><td>Color of the focus outline.</td></tr>
+        <tr><td><Code>--t-select-chevron-color</Code></td><td><Code>--t-on-surface-muted</Code></td><td>Color of the dropdown chevron glyph.</td></tr>
+        <tr><td><Code>--t-select-chevron-size</Code></td><td><Code>--t-space-3</Code></td><td>Size of the dropdown chevron glyph.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Forced colors</h2>
+      <p>In Windows High Contrast mode, the component remaps these semantic tokens to CSS system colors. Custom-property inheritance carries the values to every reference in the subtree.</p>
+      <table>
+        <thead><tr><th>Token</th><th>Default</th><th>Forced-colors</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-border</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 50% calc(c * 0.025) h) 92% c h)</Code></td><td><Code>ButtonBorder</Code></td></tr>
+        <tr><td><Code>--t-danger</Code></td><td><Code>color-mix(
+      in oklch,
+      oklch(from oklch(58% 0.2 268deg) 48% c 25deg),
+      oklch(from oklch(58% 0.2 268deg) 48% c h) calc(0 * 100%)
+    )</Code></td><td><Code>ButtonText</Code></td></tr>
+        <tr><td><Code>--t-focus-ring</Code></td><td><Code>oklch(from oklch(58% 0.2 268deg) 55% c h)</Code></td><td><Code>Highlight</Code></td></tr>
+        <tr><td><Code>--t-on-surface</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 50% calc(c * 0.025) h) 18% c h)</Code></td><td><Code>CanvasText</Code></td></tr>
+        <tr><td><Code>--t-on-surface-muted</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 50% calc(c * 0.025) h) 18% c h)</Code></td><td><Code>CanvasText</Code></td></tr>
+        <tr><td><Code>--t-surface</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 50% calc(c * 0.025) h) 97% c h)</Code></td><td><Code>Canvas</Code></td></tr>
+        <tr><td><Code>--t-surface-muted</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 50% calc(c * 0.025) h) 92% c h)</Code></td><td><Code>Canvas</Code></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Bundle size</h2>
+      <table>
+        <thead><tr><th>Artifact</th><th>Raw</th><th>Gzip</th><th>Brotli</th></tr></thead>
+        <tbody>
+        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/select/select.css"><Code>@teseor/css/components/select.css</Code></a></td><td>5.79 KB</td><td>1.31 KB</td><td>1.14 KB</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</Base>

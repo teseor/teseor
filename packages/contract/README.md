@@ -40,6 +40,7 @@ function buildAttrs(props: BlockquoteProps): Record<string, string | undefined> 
 - `Modal` — `ModalProps`
 - `Pagination` — `PaginationProps`
 - `Radio` — `RadioSize`, `RadioProps`
+- `Select` — `SelectVariant`, `SelectSize`, `SelectProps`
 - `Stack` — `StackProps`
 - `Switch` — `SwitchSize`, `SwitchProps`
 - `Tablist` — `TablistProps`

@@ -53,6 +53,12 @@ describe("gen-size-limit", () => {
     expect(button?.limit).toBe("4 kB");
   });
 
+  test("sets the full-bundle brotli budget", async () => {
+    const entries = await readSizeLimit();
+    const bundle = entries.find((e) => e.name === "@teseor/css (full bundle)");
+    expect(bundle?.limit).toBe("10 kB");
+  });
+
   test("every entry resolves under packages/css/dist", async () => {
     const entries = await readSizeLimit();
     for (const entry of entries) {
