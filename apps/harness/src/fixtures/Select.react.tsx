@@ -4,17 +4,16 @@
 import { Select } from "@teseor/react";
 import type { ReactNode } from "react";
 
-const LABEL = "Label";
 
 export const fixtures: Record<string, () => ReactNode> = {
-  "default": () => <Select>{LABEL}</Select>,
-  "variant-outline": () => <Select variant="outline">{LABEL}</Select>,
-  "variant-subtle": () => <Select variant="subtle">{LABEL}</Select>,
-  "variant-plain": () => <Select variant="plain">{LABEL}</Select>,
-  "size-sm": () => <Select size="sm">{LABEL}</Select>,
-  "size-lg": () => <Select size="lg">{LABEL}</Select>,
-  "multiple": () => <Select multiple>{LABEL}</Select>,
-  "invalid": () => <Select invalid>{LABEL}</Select>,
-  "disabled": () => <Select disabled>{LABEL}</Select>,
-  "form-control": () => <Select name="country" form="contact" required>{LABEL}</Select>,
+  "default": () => <Select><option value="us">United States</option><option value="br">Brazil</option><option value="jp">Japan</option></Select>,
+  "variant-outline": () => <Select variant="outline"><option value="us">United States</option><option value="br">Brazil</option><option value="jp">Japan</option></Select>,
+  "variant-subtle": () => <Select variant="subtle"><option value="us">United States</option><option value="br">Brazil</option><option value="jp">Japan</option></Select>,
+  "variant-plain": () => <Select variant="plain"><option value="us">United States</option><option value="br">Brazil</option><option value="jp">Japan</option></Select>,
+  "size-sm": () => <Select size="sm"><option value="us">United States</option><option value="br">Brazil</option><option value="jp">Japan</option></Select>,
+  "size-lg": () => <Select size="lg"><option value="us">United States</option><option value="br">Brazil</option><option value="jp">Japan</option></Select>,
+  "multiple": () => <Select multiple><option value="us">United States</option><option value="br">Brazil</option><option value="jp">Japan</option></Select>,
+  "invalid": () => <Select invalid><option value="us">United States</option><option value="br">Brazil</option><option value="jp">Japan</option></Select>,
+  "disabled": () => <Select disabled><option value="us">United States</option><option value="br">Brazil</option><option value="jp">Japan</option></Select>,
+  "form-control": () => <Select name="country" form="contact" required><option value="us">United States</option><option value="br">Brazil</option><option value="jp">Japan</option></Select>,
 };

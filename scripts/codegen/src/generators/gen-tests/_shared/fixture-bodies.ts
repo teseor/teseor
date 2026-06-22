@@ -8,6 +8,31 @@ function isVoidAtomic(spec: Spec): boolean {
   return spec.kind === "atomic" && specVoidStatus(spec) === "all";
 }
 
+type ChildSpec = { tag: string; attrs?: Record<string, string | number | boolean>; text?: string };
+
+function specDefaultChildren(spec: Spec): ChildSpec[] | undefined {
+  return spec.kind === "atomic" ? spec.defaultChildren : undefined;
+}
+
+function renderReactDefaultChild(child: ChildSpec): string {
+  const attrs = Object.entries(child.attrs ?? {})
+    .map(([n, v]) => jsxAttr(n, v))
+    .join("");
+  return child.text === undefined
+    ? `<${child.tag}${attrs} />`
+    : `<${child.tag}${attrs}>${child.text}</${child.tag}>`;
+}
+
+function renderVueDefaultChild(child: ChildSpec): string {
+  const propEntries = Object.entries(child.attrs ?? {}).map(
+    ([n, v]) => `${quote(n)}: ${jsLiteral(v)}`,
+  );
+  const propsObj = propEntries.length === 0 ? "{}" : `{ ${propEntries.join(", ")} }`;
+  return child.text === undefined
+    ? `h(${quote(child.tag)}, ${propsObj})`
+    : `h(${quote(child.tag)}, ${propsObj}, ${quote(child.text)})`;
+}
+
 export function renderReactFixtureBody(
   spec: Spec,
   Name: string,
@@ -18,6 +43,11 @@ export function renderReactFixtureBody(
   const slotAttrs = slots.map(([n, v]) => ` ${n}={SLOT(${quote(v)})}`).join("");
   if (isVoidAtomic(spec)) {
     return `<${Name}${attrString}${slotAttrs} />`;
+  }
+  const defaults = specDefaultChildren(spec);
+  if (defaults && defaults.length > 0) {
+    const childrenJsx = defaults.map(renderReactDefaultChild).join("");
+    return `<${Name}${attrString}${slotAttrs}>${childrenJsx}</${Name}>`;
   }
   return `<${Name}${attrString}${slotAttrs}>{LABEL}</${Name}>`;
 }
@@ -37,7 +67,15 @@ export function renderVueFixtureBody(
     const slotEntries = slots.map(([n, v]) => `${n}: SLOT(${quote(v)})`);
     return `h(${Name}, ${propsObj}, { ${slotEntries.join(", ")} })`;
   }
-  const slotEntries = ["default: LABEL", ...slots.map(([n, v]) => `${n}: SLOT(${quote(v)})`)];
+  const defaults = specDefaultChildren(spec);
+  const defaultExpr =
+    defaults && defaults.length > 0
+      ? `() => [${defaults.map(renderVueDefaultChild).join(", ")}]`
+      : "LABEL";
+  const slotEntries = [
+    `default: ${defaultExpr}`,
+    ...slots.map(([n, v]) => `${n}: SLOT(${quote(v)})`),
+  ];
   const slotsObj = `{ ${slotEntries.join(", ")} }`;
   return `h(${Name}, ${propsObj}, ${slotsObj})`;
 }

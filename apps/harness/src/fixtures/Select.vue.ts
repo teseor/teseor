@@ -4,17 +4,16 @@
 import { h, type VNode } from "vue";
 import { Select } from "@teseor/vue";
 
-const LABEL = () => "Label";
 
 export const fixtures: Record<string, () => VNode> = {
-  "default": () => h(Select, {}, { default: LABEL }),
-  "variant-outline": () => h(Select, { "variant": "outline" }, { default: LABEL }),
-  "variant-subtle": () => h(Select, { "variant": "subtle" }, { default: LABEL }),
-  "variant-plain": () => h(Select, { "variant": "plain" }, { default: LABEL }),
-  "size-sm": () => h(Select, { "size": "sm" }, { default: LABEL }),
-  "size-lg": () => h(Select, { "size": "lg" }, { default: LABEL }),
-  "multiple": () => h(Select, { "multiple": true }, { default: LABEL }),
-  "invalid": () => h(Select, { "invalid": true }, { default: LABEL }),
-  "disabled": () => h(Select, { "disabled": true }, { default: LABEL }),
-  "form-control": () => h(Select, { "name": "country", "form": "contact", "required": true }, { default: LABEL }),
+  "default": () => h(Select, {}, { default: () => [h("option", { "value": "us" }, "United States"), h("option", { "value": "br" }, "Brazil"), h("option", { "value": "jp" }, "Japan")] }),
+  "variant-outline": () => h(Select, { "variant": "outline" }, { default: () => [h("option", { "value": "us" }, "United States"), h("option", { "value": "br" }, "Brazil"), h("option", { "value": "jp" }, "Japan")] }),
+  "variant-subtle": () => h(Select, { "variant": "subtle" }, { default: () => [h("option", { "value": "us" }, "United States"), h("option", { "value": "br" }, "Brazil"), h("option", { "value": "jp" }, "Japan")] }),
+  "variant-plain": () => h(Select, { "variant": "plain" }, { default: () => [h("option", { "value": "us" }, "United States"), h("option", { "value": "br" }, "Brazil"), h("option", { "value": "jp" }, "Japan")] }),
+  "size-sm": () => h(Select, { "size": "sm" }, { default: () => [h("option", { "value": "us" }, "United States"), h("option", { "value": "br" }, "Brazil"), h("option", { "value": "jp" }, "Japan")] }),
+  "size-lg": () => h(Select, { "size": "lg" }, { default: () => [h("option", { "value": "us" }, "United States"), h("option", { "value": "br" }, "Brazil"), h("option", { "value": "jp" }, "Japan")] }),
+  "multiple": () => h(Select, { "multiple": true }, { default: () => [h("option", { "value": "us" }, "United States"), h("option", { "value": "br" }, "Brazil"), h("option", { "value": "jp" }, "Japan")] }),
+  "invalid": () => h(Select, { "invalid": true }, { default: () => [h("option", { "value": "us" }, "United States"), h("option", { "value": "br" }, "Brazil"), h("option", { "value": "jp" }, "Japan")] }),
+  "disabled": () => h(Select, { "disabled": true }, { default: () => [h("option", { "value": "us" }, "United States"), h("option", { "value": "br" }, "Brazil"), h("option", { "value": "jp" }, "Japan")] }),
+  "form-control": () => h(Select, { "name": "country", "form": "contact", "required": true }, { default: () => [h("option", { "value": "us" }, "United States"), h("option", { "value": "br" }, "Brazil"), h("option", { "value": "jp" }, "Japan")] }),
 };

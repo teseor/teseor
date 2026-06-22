@@ -97,9 +97,9 @@
 
     &:where([multiple]) {
       --_pad-end: var(--_pad-x);
+      --_h: calc(var(--_h-md) * 4);
 
       background-image: none;
-      block-size: auto;
     }
 
     &:focus-visible {

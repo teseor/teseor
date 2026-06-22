@@ -4,6 +4,20 @@ import type { Spec } from "../../gen-contract.ts";
 import { attr } from "./jsx-printer.ts";
 import { section } from "./table-printer.ts";
 
+type ChildSpec = { tag: string; attrs?: Record<string, string | number | boolean>; text?: string };
+
+function renderChildElement(child: ChildSpec): string {
+  const attrParts = Object.entries(child.attrs ?? {}).map(([key, value]) => attr(key, value));
+  const openTag = [child.tag, ...attrParts].join(" ");
+  return child.text === undefined
+    ? `<${openTag} />`
+    : `<${openTag}>${esc(child.text)}</${child.tag}>`;
+}
+
+function specDefaultChildren(spec: Spec): ChildSpec[] | undefined {
+  return spec.kind === "atomic" ? spec.defaultChildren : undefined;
+}
+
 /** Render the `Examples` section for one spec. */
 export function renderExamples(spec: Spec, Name: string, opts: { isComposite: boolean }): string {
   if (!spec.examples || spec.examples.length === 0) return "";
@@ -47,13 +61,22 @@ export function renderExamples(spec: Spec, Name: string, opts: { isComposite: bo
       .filter(([, value]) => value !== false)
       .map(([key, value]) => attr(key, value));
     const sourceOpenTag = [Name, ...sourceAttrs].join(" ");
+    const defaults = specDefaultChildren(spec);
+    const defaultChildrenMarkup =
+      defaults && defaults.length > 0 ? defaults.map(renderChildElement).join("") : null;
     const sourceLines = isList
       ? [`<${sourceOpenTag} />`]
       : isComposite && trigger
         ? [`<${sourceOpenTag}>`, `  ${trigger}`, `</${Name}>`]
         : isVoidAtomic
           ? [`<${sourceOpenTag} />`]
-          : [`<${sourceOpenTag}>${Name}</${Name}>`];
+          : defaultChildrenMarkup
+            ? [
+                `<${sourceOpenTag}>`,
+                ...defaults!.map((c) => `  ${renderChildElement(c)}`),
+                `</${Name}>`,
+              ]
+            : [`<${sourceOpenTag}>${Name}</${Name}>`];
     const source = sourceLines.join("\n");
     if (isList) {
       return [
@@ -85,7 +108,9 @@ export function renderExamples(spec: Spec, Name: string, opts: { isComposite: bo
     }
     const renderedTag = isVoidAtomic
       ? `<${renderedOpenTag} />`
-      : `<${renderedOpenTag}>${Name}</${Name}>`;
+      : defaultChildrenMarkup
+        ? `<${renderedOpenTag}>${defaultChildrenMarkup}</${Name}>`
+        : `<${renderedOpenTag}>${Name}</${Name}>`;
     return [
       `      <div class="t-stack" data-gap="2">`,
       `        <h3>${esc(example.id ?? "example")}</h3>`,

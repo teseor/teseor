@@ -121,6 +121,11 @@ privateTokens:
   - --_chevron-size
   - --_chevron-gap
 
+defaultChildren:
+  - { tag: option, attrs: { value: us }, text: United States }
+  - { tag: option, attrs: { value: br }, text: Brazil }
+  - { tag: option, attrs: { value: jp }, text: Japan }
+
 examples:
   - id: default
     props: {}
