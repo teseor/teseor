@@ -31,7 +31,7 @@ type ListSpacing = "compact" | "comfortable";
 type ListProps = {
   /** Switches the rendered tag between `<ul>` (`false`) and `<ol>` (`true`). String-typed because `elementByProp` v1 accepts string-valued controlling props only. */
   ordered?: ListOrdered;
-  /** Vertical rhythm between list items. `comfortable` matches prose defaults; `compact` suits dense in-app surfaces (nav rails, comment threads). */
+  /** Vertical rhythm between list items. `compact` suits dense in-app surfaces (nav rails, comment threads). Default (absence-of-attr) matches the prose-friendly `comfortable` spacing — cross-framework parity requires the empty state, since the Vue generator threads `default:` into `defineProps` but React does not. */
   spacing?: Responsive<ListSpacing>;
   /** Render directly on the consumer's child VNode via Slot (cloneVNode) instead of wrapping in a `<div>`. Single-child invariant. */
   asChild?: boolean;
@@ -39,7 +39,7 @@ type ListProps = {
 
 const {
   ordered = "false",
-  spacing = "comfortable",
+  spacing,
   asChild,
 } = defineProps<ListProps>();
 

@@ -21,9 +21,8 @@ props:
   spacing:
     type: string
     values: [compact, comfortable]
-    default: comfortable
     responsive: true
-    description: Vertical rhythm between list items. `comfortable` matches prose defaults; `compact` suits dense in-app surfaces (nav rails, comment threads).
+    description: Vertical rhythm between list items. `compact` suits dense in-app surfaces (nav rails, comment threads). Default (absence-of-attr) matches the prose-friendly `comfortable` spacing — cross-framework parity requires the empty state, since the Vue generator threads `default:` into `defineProps` but React does not.
 
 tokens:
   marker-color:
