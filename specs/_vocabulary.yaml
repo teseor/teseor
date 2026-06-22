@@ -3,7 +3,7 @@
 components:
   # Atoms
   - Button
-  - Anchor
+  - Link
   - Input
   - Select
   - Textarea
@@ -99,6 +99,8 @@ variants:
   - default
   - muted
   - highlight
+  - subtle
+  - plain
 
 # Intent values (semantic color role).
 intents:

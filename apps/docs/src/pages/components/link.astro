@@ -1,0 +1,88 @@
+---
+import { Link, Code, Codeblock } from "@teseor/react";
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Link — Teseor">
+  <main class="t-stack" data-gap="6">
+    <h1>Link</h1>
+    <p>Anchor primitive — styled `&lt;a&gt;` with token-driven color, hover, and visited treatment. Composes with native HTML attrs (`href`, `target`, `rel`, …) via the inherited type.</p>
+    <section class="t-stack" data-gap="3">
+      <h2>Examples</h2>
+      <div class="t-stack" data-gap="2">
+        <h3>default</h3>
+        <div class="t-cluster" data-gap="3">
+          <Link>Link</Link>
+        </div>
+        <Codeblock>&lt;Link&gt;Link&lt;/Link&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>subtle</h3>
+        <div class="t-cluster" data-gap="3">
+          <Link variant="subtle">Link</Link>
+        </div>
+        <Codeblock>&lt;Link variant="subtle"&gt;Link&lt;/Link&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>plain</h3>
+        <div class="t-cluster" data-gap="3">
+          <Link variant="plain">Link</Link>
+        </div>
+        <Codeblock>&lt;Link variant="plain"&gt;Link&lt;/Link&gt;</Codeblock>
+      </div>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Props</h2>
+      <table>
+        <thead><tr><th>Prop</th><th>Type</th><th>Responsive</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>asChild</Code></td><td><Code>boolean</Code></td><td></td><td><Code>false</Code></td><td>Render the trigger directly on the consumer's child element (cloneElement) instead of wrapping in a &lt;span&gt;. Single-child invariant; the child receives the wrapper's &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;data-state&lt;/code&gt;, event handlers, and any ARIA attributes the component applies (component-specific). Not compatible with Astro slots — use the default wrapper there.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Variants</h2>
+      <table>
+        <thead><tr><th>Name</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>default</Code></td><td>Standard underlined link with hover and visited treatment.</td></tr>
+        <tr><td><Code>subtle</Code></td><td>Styled like body text until hover — for in-prose references where chrome would distract.</td></tr>
+        <tr><td><Code>plain</Code></td><td>No underline ever — for chrome-heavy contexts (cards, list items) where the whole row is the affordance.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Tokens</h2>
+      <table>
+        <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-link-fg</Code></td><td><Code>--t-accent</Code></td><td>Default link color.</td></tr>
+        <tr><td><Code>--t-link-fg-hover</Code></td><td><Code>--t-accent-600</Code></td><td>Color on hover and focus-visible.</td></tr>
+        <tr><td><Code>--t-link-fg-visited</Code></td><td><Code>--t-link-fg</Code></td><td>Color for visited links; falls back to the default link color (no visited differentiation).</td></tr>
+        <tr><td><Code>--t-link-underline-offset</Code></td><td><Code>2px</Code></td><td>Distance between the underline and the text baseline.</td></tr>
+        <tr><td><Code>--t-link-underline-thickness</Code></td><td><Code>1px</Code></td><td>Underline stroke width.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Forced colors</h2>
+      <p>In Windows High Contrast mode, the component remaps these semantic tokens to CSS system colors. Custom-property inheritance carries the values to every reference in the subtree.</p>
+      <table>
+        <thead><tr><th>Token</th><th>Default</th><th>Forced-colors</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-accent</Code></td><td><Code>oklch(from oklch(58% 0.2 268deg) 55% c h)</Code></td><td><Code>ButtonText</Code></td></tr>
+        <tr><td><Code>--t-accent-600</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 55% c h) 46% c h)</Code></td><td><Code>oklch(from ButtonText 46% c h)</Code></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Bundle size</h2>
+      <table>
+        <thead><tr><th>Artifact</th><th>Raw</th><th>Gzip</th><th>Brotli</th></tr></thead>
+        <tbody>
+        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/link/link.css"><Code>@teseor/css/components/link.css</Code></a></td><td>1.43 KB</td><td>0.52 KB</td><td>0.45 KB</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</Base>

@@ -89,7 +89,7 @@ describe("renderAtomicReactWrapper", () => {
       );
       expect(out).toContain(`import { Slot } from "./components/Slot.tsx";`);
       expect(out).toContain("asChild?: boolean;");
-      expect(out).toContain(`const Component = asChild ? Slot : "div";`);
+      expect(out).toContain(`const Component = asChild ? Slot : asElement("div");`);
       expect(out).toContain("<Component\n");
       expect(out).toContain("</Component>");
     });

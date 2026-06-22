@@ -1,0 +1,51 @@
+@layer components.tokens {
+  .t-link {
+    --_fg: var(--t-link-fg, var(--t-accent));
+    --_fg-hover: var(--t-link-fg-hover, var(--t-accent-600));
+    --_fg-visited: var(--t-link-fg-visited, var(--_fg));
+    --_underline-offset: var(--t-link-underline-offset, 2px);
+    --_underline-thickness: var(--t-link-underline-thickness, 1px);
+    --_radius: var(--t-radius-sm);
+    --_outline-thickness: var(--t-border-thin);
+    --_color: var(--_fg);
+    --_underline-base: underline;
+    --_underline-hover: underline;
+  }
+}
+
+@layer components.styles {
+  .t-link {
+    box-sizing: border-box;
+    margin: 0;
+    color: var(--_color);
+    text-decoration-line: var(--_underline-base);
+    text-decoration-thickness: var(--_underline-thickness);
+    text-underline-offset: var(--_underline-offset);
+    border-radius: var(--_radius);
+    outline-offset: var(--_underline-offset);
+
+    &:where([data-variant="subtle"]) {
+      --_color: inherit;
+      --_underline-base: none;
+    }
+
+    &:where([data-variant="plain"]) {
+      --_underline-base: none;
+      --_underline-hover: none;
+    }
+
+    &:visited {
+      color: var(--_fg-visited);
+    }
+
+    &:hover,
+    &:focus-visible {
+      color: var(--_fg-hover);
+      text-decoration-line: var(--_underline-hover);
+    }
+
+    &:focus-visible {
+      outline: var(--_outline-thickness) solid var(--_fg-hover);
+    }
+  }
+}
