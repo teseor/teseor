@@ -9,4 +9,5 @@ export type { ModalEvent, ModalProps, ModalState } from "./Modal.ts";
 export type { PaginationProps } from "./Pagination.ts";
 export type { StackProps } from "./Stack.ts";
 export type { TablistProps } from "./Tablist.ts";
+export type { TextProps } from "./Text.ts";
 export type { TooltipProps, TooltipState } from "./Tooltip.ts";

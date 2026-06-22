@@ -33,6 +33,7 @@ function buildAttrs(props: ButtonProps): Record<string, string | undefined> {
 - `Pagination` — `PaginationProps`
 - `Stack` — `StackProps`
 - `Tablist` — `TablistProps`
+- `Text` — `TextVariant`, `TextSize`, `TextProps`
 - `Tooltip` — `TooltipProps`
 
 ## Generated content

@@ -1,0 +1,116 @@
+---
+import { Text, Code, Codeblock } from "@teseor/react";
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Text — Teseor">
+  <main class="t-stack" data-gap="6">
+    <h1>Text</h1>
+    <p>Typography primitive for non-heading prose. Folds the legacy `Paragraph` — one component covers both inline (`&lt;span&gt;`) and block (`&lt;p&gt;`) cases via the `as` prop.</p>
+    <section class="t-stack" data-gap="3">
+      <h2>Examples</h2>
+      <div class="t-stack" data-gap="2">
+        <h3>default</h3>
+        <div class="t-cluster" data-gap="3">
+          <Text as="span">Text</Text>
+        </div>
+        <Codeblock>&lt;Text as="span"&gt;Text&lt;/Text&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>paragraph</h3>
+        <div class="t-cluster" data-gap="3">
+          <Text as="p">Text</Text>
+        </div>
+        <Codeblock>&lt;Text as="p"&gt;Text&lt;/Text&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>muted-small</h3>
+        <div class="t-cluster" data-gap="3">
+          <Text as="span" variant="muted" size="sm">Text</Text>
+        </div>
+        <Codeblock>&lt;Text as="span" variant="muted" size="sm"&gt;Text&lt;/Text&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>highlight-strong</h3>
+        <div class="t-cluster" data-gap="3">
+          <Text as="strong" variant="highlight">Text</Text>
+        </div>
+        <Codeblock>&lt;Text as="strong" variant="highlight"&gt;Text&lt;/Text&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>lead-paragraph</h3>
+        <div class="t-cluster" data-gap="3">
+          <Text as="p" size="lg">Text</Text>
+        </div>
+        <Codeblock>&lt;Text as="p" size="lg"&gt;Text&lt;/Text&gt;</Codeblock>
+      </div>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Props</h2>
+      <table>
+        <thead><tr><th>Prop</th><th>Type</th><th>Responsive</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>as</Code></td><td><Code>string</Code></td><td></td><td><Code>span</Code></td><td>Rendered HTML tag. `span` is inline (no margin); `p` is a prose block (margin-block applies); `em`/`strong`/`small` carry implicit emphasis / strong-importance / small-print semantics. Renders as <Code>&lt;span&gt;</Code> for <Code>span</Code>, <Code>&lt;p&gt;</Code> for <Code>p</Code>, <Code>&lt;em&gt;</Code> for <Code>em</Code>, <Code>&lt;strong&gt;</Code> for <Code>strong</Code>, <Code>&lt;small&gt;</Code> for <Code>small</Code>.</td></tr>
+        <tr><td><Code>asChild</Code></td><td><Code>boolean</Code></td><td></td><td><Code>false</Code></td><td>Render the trigger directly on the consumer's child element (cloneElement) instead of wrapping in a &lt;span&gt;. Single-child invariant; the child receives the wrapper's &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;data-state&lt;/code&gt;, event handlers, and any ARIA attributes the component applies (component-specific). Not compatible with Astro slots — use the default wrapper there.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Variants</h2>
+      <table>
+        <thead><tr><th>Name</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>default</Code></td><td>Page's primary text color; reads as standard body copy.</td></tr>
+        <tr><td><Code>muted</Code></td><td>De-emphasized; for captions, metadata, helper text.</td></tr>
+        <tr><td><Code>highlight</Code></td><td>Accent-colored for emphasized fragments inside a larger run.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Sizes</h2>
+      <table>
+        <thead><tr><th>Name</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>xs</Code></td><td>Caption / fine print.</td></tr>
+        <tr><td><Code>sm</Code></td><td>Compact prose; secondary copy.</td></tr>
+        <tr><td><Code>md</Code></td><td>Default body size.</td></tr>
+        <tr><td><Code>lg</Code></td><td>Lead paragraph; slightly larger than body.</td></tr>
+        <tr><td><Code>xl</Code></td><td>Display body; for hero subtitles and intro paragraphs.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Tokens</h2>
+      <table>
+        <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-text-fg</Code></td><td><Code>--t-fg</Code></td><td>Default text color.</td></tr>
+        <tr><td><Code>--t-text-fg-muted</Code></td><td><Code>oklch(from var(--t-fg) 50% c h)</Code></td><td>Muted variant color; lower-contrast against the background.</td></tr>
+        <tr><td><Code>--t-text-fg-highlight</Code></td><td><Code>--t-accent</Code></td><td>Highlight variant color; accent-colored for emphasized fragments.</td></tr>
+        <tr><td><Code>--t-text-leading</Code></td><td><Code>--t-leading-normal</Code></td><td>Line-height for prose readability.</td></tr>
+        <tr><td><Code>--t-text-spacing-block</Code></td><td><Code>--t-space-3</Code></td><td>Vertical rhythm above and below a prose block (`as: p`).</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Forced colors</h2>
+      <p>In Windows High Contrast mode, the component remaps these semantic tokens to CSS system colors. Custom-property inheritance carries the values to every reference in the subtree.</p>
+      <table>
+        <thead><tr><th>Token</th><th>Default</th><th>Forced-colors</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-accent</Code></td><td><Code>oklch(from oklch(58% 0.2 268deg) 55% c h)</Code></td><td><Code>ButtonText</Code></td></tr>
+        <tr><td><Code>--t-fg</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 50% calc(c * 0.025) h) 18% c h)</Code></td><td><Code>CanvasText</Code></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Bundle size</h2>
+      <table>
+        <thead><tr><th>Artifact</th><th>Raw</th><th>Gzip</th><th>Brotli</th></tr></thead>
+        <tbody>
+        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/text/text.css"><Code>@teseor/css/components/text.css</Code></a></td><td>1.65 KB</td><td>0.55 KB</td><td>0.48 KB</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</Base>

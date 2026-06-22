@@ -163,7 +163,11 @@ function overlayAnchorSlot(spec: Spec): { suffix: string; path: string } | undef
   return undefined;
 }
 
-export function checkTokenContract(spec: Spec, css: string | undefined): Issue[] {
+export function checkTokenContract(
+  spec: Spec,
+  css: string | undefined,
+  tokensCss?: TokensCss,
+): Issue[] {
   const issues: Issue[] = [];
   const declared = declaredPublicSlots(spec);
   const anchor = overlayAnchorSlot(spec);
@@ -193,15 +197,20 @@ export function checkTokenContract(spec: Spec, css: string | undefined): Issue[]
     }
   }
   for (const suffix of slots) {
-    if (!declared.has(suffix)) {
-      issues.push(
-        issue(
-          spec.name,
-          "tokens",
-          `CSS reads --t-${spec.name}-${suffix} but no matching token is declared in the spec`,
-        ),
-      );
-    }
+    if (declared.has(suffix)) continue;
+    // When the spec name shares a prefix with a global token family (e.g.
+    // `text` collides with the `--t-text-{xs|sm|base|lg|xl}` font-size scale
+    // in tokens.css), a CSS read of `var(--t-text-xs)` looks like a public
+    // slot to the regex even though it is the well-known global. The global
+    // tokens.css declaration is authoritative — skip the slot.
+    if (tokensCss?.has(`--t-${spec.name}-${suffix}`)) continue;
+    issues.push(
+      issue(
+        spec.name,
+        "tokens",
+        `CSS reads --t-${spec.name}-${suffix} but no matching token is declared in the spec`,
+      ),
+    );
   }
   return issues;
 }
@@ -2478,7 +2487,7 @@ export function runSemanticChecks(
   },
 ): Issue[] {
   return [
-    ...checkTokenContract(spec, ctx.css),
+    ...checkTokenContract(spec, ctx.css, ctx.tokensCss),
     ...checkTokenFallbacks(spec, ctx.tokensCss),
     ...checkPrivateTokens(spec, ctx.css),
     ...checkTokenNames(spec, ctx.tokenDictionary),

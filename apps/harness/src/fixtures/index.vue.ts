@@ -7,6 +7,7 @@ import { fixtures as codeFixtures } from "./Code.vue.ts";
 import { fixtures as codeblockFixtures } from "./Codeblock.vue.ts";
 import { fixtures as headingFixtures } from "./Heading.vue.ts";
 import { fixtures as stackFixtures } from "./Stack.vue.ts";
+import { fixtures as textFixtures } from "./Text.vue.ts";
 
 export const vueFixtures: Record<string, Record<string, () => VNode>> = {
   button: buttonFixtures,
@@ -15,4 +16,5 @@ export const vueFixtures: Record<string, Record<string, () => VNode>> = {
   codeblock: codeblockFixtures,
   heading: headingFixtures,
   stack: stackFixtures,
+  text: textFixtures,
 };

@@ -101,6 +101,12 @@ component:tablist:
           - packages/css/src/components/tablist/**
           - specs/tablist.yaml
 
+component:text:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/css/src/components/text/**
+          - specs/text.yaml
+
 component:tooltip:
   - changed-files:
       - any-glob-to-any-file:

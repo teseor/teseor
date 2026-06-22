@@ -7,6 +7,7 @@ import { fixtures as codeFixtures } from "./Code.react.tsx";
 import { fixtures as codeblockFixtures } from "./Codeblock.react.tsx";
 import { fixtures as headingFixtures } from "./Heading.react.tsx";
 import { fixtures as stackFixtures } from "./Stack.react.tsx";
+import { fixtures as textFixtures } from "./Text.react.tsx";
 
 export const reactFixtures: Record<string, Record<string, () => ReactNode>> = {
   button: buttonFixtures,
@@ -15,4 +16,5 @@ export const reactFixtures: Record<string, Record<string, () => ReactNode>> = {
   codeblock: codeblockFixtures,
   heading: headingFixtures,
   stack: stackFixtures,
+  text: textFixtures,
 };
