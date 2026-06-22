@@ -15,15 +15,16 @@ pnpm add @teseor/contract
 ## Usage
 
 ```ts
-import type { BadgeProps } from "@teseor/contract/Badge.ts";
+import type { AvatarProps } from "@teseor/contract/Avatar.ts";
 
-function buildAttrs(props: BadgeProps): Record<string, string | undefined> {
+function buildAttrs(props: AvatarProps): Record<string, string | undefined> {
   return { "data-variant": props.variant, "data-intent": props.intent };
 }
 ```
 
 ## Types
 
+- `Avatar` — `AvatarSize`, `AvatarProps`
 - `Badge` — `BadgeVariant`, `BadgeIntent`, `BadgeSize`, `BadgeProps`
 - `Blockquote` — `BlockquoteVariant`, `BlockquoteProps`
 - `Button` — `ButtonVariant`, `ButtonIntent`, `ButtonSize`, `ButtonProps`

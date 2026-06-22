@@ -9,6 +9,7 @@ import {
 import { act, cleanup, renderHook } from "@testing-library/react";
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import {
+  deriveInitials,
   isActiveAt,
   mergeClass,
   mergeRefs,
@@ -294,5 +295,33 @@ describe("mergeClass", () => {
 
   it("joins rootClass and userClass space-separated, consumer last by convention", () => {
     expect(mergeClass("t-button", "my-custom")).toBe("t-button my-custom");
+  });
+});
+
+describe("deriveInitials", () => {
+  it("returns the override verbatim when set", () => {
+    expect(deriveInitials("Jane Doe", "JA")).toBe("JA");
+  });
+
+  it("returns the empty string when name is undefined", () => {
+    expect(deriveInitials(undefined)).toBe("");
+  });
+
+  it("returns the empty string when name is empty or whitespace", () => {
+    expect(deriveInitials("")).toBe("");
+    expect(deriveInitials("   ")).toBe("");
+  });
+
+  it("returns the single initial for a one-token name", () => {
+    expect(deriveInitials("Madonna")).toBe("M");
+  });
+
+  it("takes first letter of first + last whitespace-split tokens", () => {
+    expect(deriveInitials("Jane Doe")).toBe("JD");
+    expect(deriveInitials("Mary Jane Doe")).toBe("MD");
+  });
+
+  it("ignores an empty override (treats it as unset)", () => {
+    expect(deriveInitials("Jane Doe", "")).toBe("JD");
   });
 });

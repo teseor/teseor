@@ -137,3 +137,20 @@ export function mergeRefs<T>(
     };
   };
 }
+
+/** Derive two-letter initials from a person's name. Splits on whitespace and
+ *  takes the first letter of the first and last tokens — "Jane Doe" → "JD",
+ *  "Madonna" → "M". Consumer override (e.g. `initials: "JA"`) wins. */
+export function deriveInitials(name: string | undefined, override?: string): string {
+  if (override !== undefined && override !== "") return override;
+  if (!name) return "";
+  const tokens = name
+    .trim()
+    .split(/\s+/)
+    .filter((t) => t.length > 0);
+  if (tokens.length === 0) return "";
+  if (tokens.length === 1) return (tokens[0] ?? "").charAt(0).toUpperCase();
+  const first = (tokens[0] ?? "").charAt(0).toUpperCase();
+  const last = (tokens[tokens.length - 1] ?? "").charAt(0).toUpperCase();
+  return `${first}${last}`;
+}

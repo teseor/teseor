@@ -8,6 +8,7 @@ import {
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import { type App, createApp, defineComponent, nextTick } from "vue";
 import {
+  deriveInitials,
   isActiveAt,
   resolveResponsive,
   responsiveDataAttrs,
@@ -235,6 +236,34 @@ describe("useActiveBreakpoint", () => {
       window.matchMedia = original;
       installDomPolyfills();
     }
+  });
+});
+
+describe("deriveInitials", () => {
+  it("returns the override verbatim when set", () => {
+    expect(deriveInitials("Jane Doe", "JA")).toBe("JA");
+  });
+
+  it("returns the empty string when name is undefined", () => {
+    expect(deriveInitials(undefined)).toBe("");
+  });
+
+  it("returns the empty string when name is empty or whitespace", () => {
+    expect(deriveInitials("")).toBe("");
+    expect(deriveInitials("   ")).toBe("");
+  });
+
+  it("returns the single initial for a one-token name", () => {
+    expect(deriveInitials("Madonna")).toBe("M");
+  });
+
+  it("takes first letter of first + last whitespace-split tokens", () => {
+    expect(deriveInitials("Jane Doe")).toBe("JD");
+    expect(deriveInitials("Mary Jane Doe")).toBe("MD");
+  });
+
+  it("ignores an empty override (treats it as unset)", () => {
+    expect(deriveInitials("Jane Doe", "")).toBe("JD");
   });
 });
 

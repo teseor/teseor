@@ -6,6 +6,11 @@ import { pascalCase } from "../../../lib/pascal-case.ts";
 import { RESPONSIVE_BLOCK_PROPS } from "../../../lib/responsive-blocks.ts";
 import type { Spec } from "../../gen-contract.ts";
 import { renderA11yAttrEntries, renderAttrEntries } from "../_shared/attrs.ts";
+import {
+  collectVueBranchComputes,
+  renderVueBranches,
+  renderVueStateInits,
+} from "../_shared/branches.ts";
 import { renderPropsBlock, renderPropsType } from "../_shared/props.ts";
 import { renderBody, renderSlotsType } from "../_shared/slots.ts";
 
@@ -148,6 +153,7 @@ export function renderAtomicVueWrapper(
     )
     .join("\n");
 
+  const stateInitsBlock = spec.kind === "atomic" ? renderVueStateInits(spec.state) : "";
   const helperLines = [
     tagMapLine,
     resolvedTagComputed,
@@ -156,6 +162,7 @@ export function renderAtomicVueWrapper(
     inactiveExpr ? `const inactive = computed(() => ${inactiveExpr});` : null,
     imperativeRefLine,
     imperativeWatchLines || null,
+    stateInitsBlock || null,
   ]
     .filter((l): l is string => l !== null && l !== "")
     .join("\n");
@@ -207,7 +214,12 @@ export function renderAtomicVueWrapper(
   // Void elements (hr, img, input, br, …) cannot have children — emit a
   // self-closing template form and skip the body. Slot/loading state on a
   // void spec is a spec authoring error and is not validated here.
-  const innerBody = isVoid ? "" : renderBody(spec, slots, hasLoading);
+  const branches = spec.kind === "atomic" ? spec.branches : undefined;
+  const innerBody = isVoid
+    ? ""
+    : branches !== undefined
+      ? renderVueBranches(branches, "    ")
+      : renderBody(spec, slots, hasLoading);
   const bodyBlock =
     !isVoid && spec.kind === "atomic" && spec.slotElement
       ? `  <${spec.slotElement}>\n${innerBody}\n  </${spec.slotElement}>`
@@ -242,16 +254,25 @@ export function renderAtomicVueWrapper(
       : `<${componentTag} class="${rootClass}" v-bind="attrs"${refAttr}>`;
   const rootClose = isVoid ? "" : isExpr ? `</component>` : `</${componentTag}>`;
 
+  const stateEntries = spec.kind === "atomic" ? Object.entries(spec.state ?? {}) : [];
+  const hasState = stateEntries.length > 0;
+  const branchComputes = collectVueBranchComputes(branches);
   const vueValueImports = [
     "computed",
     hasImperativeProps ? "useTemplateRef" : null,
     hasImperativeProps ? "watch" : null,
+    hasState ? "ref" : null,
+  ].filter((l): l is string => l !== null);
+  const runtimeImports = [
+    responsiveProps.length > 0 ? "type Responsive" : null,
+    responsiveProps.length > 0 ? "responsiveDataAttrs" : null,
+    ...branchComputes,
   ].filter((l): l is string => l !== null);
   const imports = [
     `import "@teseor/css/components/${spec.name}.css";`,
     `import { ${vueValueImports.join(", ")}, type VNode } from "vue";`,
-    responsiveProps.length > 0
-      ? `import { type Responsive, responsiveDataAttrs } from "./_runtime.ts";`
+    runtimeImports.length > 0
+      ? `import { ${runtimeImports.join(", ")} } from "./_runtime.ts";`
       : null,
     isPolymorphic ? `import { Slot } from "./components/Slot.ts";` : null,
   ]

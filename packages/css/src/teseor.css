@@ -3,6 +3,7 @@
 @import url("./motion.css");
 @import url("./base.css");
 @import url("./utilities.css");
+@import url("./components/avatar/avatar.css");
 @import url("./components/badge/badge.css");
 @import url("./components/blockquote/blockquote.css");
 @import url("./components/button/button.css");

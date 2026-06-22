@@ -25,18 +25,19 @@ import "@teseor/css/utilities.css";
 
 ```vue
 <script setup lang="ts">
-import { Badge } from "@teseor/vue";
+import { Avatar } from "@teseor/vue";
 </script>
 
 <template>
-  <Badge variant="solid" intent="primary" @click="save">
+  <Avatar variant="solid" intent="primary" @click="save">
     Save
-  </Badge>
+  </Avatar>
 </template>
 ```
 
 ## Components
 
+- `Avatar` — Image container with name/initials/icon fallback chain. Renders `<img>` when `src` is set and loads successfully; falls back to initials (when `name` is provided) or an empty muted box when nothing else fits. Atomic primitive.
 - `Badge` — Small inline label for status, notification, or metadata. Renders `<span>` with token-driven color, variant, size, and shape. Decorative by default — consumers supply `aria-label` when the badge carries standalone meaning.
 - `Blockquote` — Quoted-text primitive — styled `<blockquote>` with accent border and prose spacing. Source attribution composes via a `<cite>` child; native `cite` HTML attr (URL) passes through the inherited type.
 - `Button` — A trigger that performs an action when activated.

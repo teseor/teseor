@@ -1,0 +1,172 @@
+---
+import { Avatar, Code, Codeblock } from "@teseor/react";
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Avatar — Teseor">
+  <main class="t-stack" data-gap="6">
+    <h1>Avatar</h1>
+    <p>Image container with name/initials/icon fallback chain. Renders `&lt;img&gt;` when `src` is set and loads successfully; falls back to initials (when `name` is provided) or an empty muted box when nothing else fits. Atomic primitive.</p>
+    <section class="t-stack" data-gap="3">
+      <h2>Examples</h2>
+      <div class="t-stack" data-gap="2">
+        <h3>image</h3>
+        <div class="t-cluster" data-gap="3">
+          <Avatar src="/img/avatar-jane.jpg" alt="Jane Doe" name="Jane Doe">Avatar</Avatar>
+        </div>
+        <Codeblock>&lt;Avatar src="/img/avatar-jane.jpg" alt="Jane Doe" name="Jane Doe"&gt;Avatar&lt;/Avatar&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>initials</h3>
+        <div class="t-cluster" data-gap="3">
+          <Avatar name="Jane Doe">Avatar</Avatar>
+        </div>
+        <Codeblock>&lt;Avatar name="Jane Doe"&gt;Avatar&lt;/Avatar&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>initials-single</h3>
+        <div class="t-cluster" data-gap="3">
+          <Avatar name="Madonna">Avatar</Avatar>
+        </div>
+        <Codeblock>&lt;Avatar name="Madonna"&gt;Avatar&lt;/Avatar&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>empty-fallback</h3>
+        <div class="t-cluster" data-gap="3">
+          <Avatar>Avatar</Avatar>
+        </div>
+        <Codeblock>&lt;Avatar&gt;Avatar&lt;/Avatar&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>size-sm</h3>
+        <div class="t-cluster" data-gap="3">
+          <Avatar name="Jane Doe" size="sm">Avatar</Avatar>
+        </div>
+        <Codeblock>&lt;Avatar name="Jane Doe" size="sm"&gt;Avatar&lt;/Avatar&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>size-lg</h3>
+        <div class="t-cluster" data-gap="3">
+          <Avatar name="Jane Doe" size="lg">Avatar</Avatar>
+        </div>
+        <Codeblock>&lt;Avatar name="Jane Doe" size="lg"&gt;Avatar&lt;/Avatar&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>square</h3>
+        <div class="t-cluster" data-gap="3">
+          <Avatar name="Jane Doe" shape="square">Avatar</Avatar>
+        </div>
+        <Codeblock>&lt;Avatar name="Jane Doe" shape="square"&gt;Avatar&lt;/Avatar&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>color-primary</h3>
+        <div class="t-cluster" data-gap="3">
+          <Avatar name="Jane Doe" color="primary">Avatar</Avatar>
+        </div>
+        <Codeblock>&lt;Avatar name="Jane Doe" color="primary"&gt;Avatar&lt;/Avatar&gt;</Codeblock>
+      </div>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Props</h2>
+      <table>
+        <thead><tr><th>Prop</th><th>Type</th><th>Responsive</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>size</Code></td><td><Code>"sm" | "md" | "lg"</Code></td><td>✓</td><td><Code>null</Code></td><td>Size scale. See the Sizes section for per-value descriptions.</td></tr>
+        <tr><td><Code>src</Code></td><td><Code>string</Code></td><td></td><td><Code>null</Code></td><td>Image source URL. When set and the image loads, the avatar renders `&lt;img&gt;`. On `onError`, falls back to the initials or empty box.</td></tr>
+        <tr><td><Code>alt</Code></td><td><Code>string</Code></td><td></td><td><Code></Code></td><td>Alt text for the image. Required when `src` is set and the image carries standalone meaning; empty string when the avatar is decorative inside a labeled context.</td></tr>
+        <tr><td><Code>name</Code></td><td><Code>string</Code></td><td></td><td><Code>null</Code></td><td>Person's name. Drives the auto-derived initials fallback when `src` is missing or fails to load.</td></tr>
+        <tr><td><Code>initials</Code></td><td><Code>string</Code></td><td></td><td><Code>null</Code></td><td>Explicit initials override. When set, wins over the auto-derived "first letter of first + last whitespace-split token" rule.</td></tr>
+        <tr><td><Code>shape</Code></td><td><Code>string</Code></td><td></td><td><Code>null</Code></td><td>Outer corner shape. Default is `circle` via the CSS layer (absence-of-attr).</td></tr>
+        <tr><td><Code>color</Code></td><td><Code>string</Code></td><td></td><td><Code>null</Code></td><td>Semantic background color of the fallback (initials or empty) box. Default is `neutral` via the CSS layer.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Sizes</h2>
+      <table>
+        <thead><tr><th>Name</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>sm</Code></td><td>Compact avatar for dense lists and inline use.</td></tr>
+        <tr><td><Code>md</Code></td><td>Default avatar size; matches body line-height.</td></tr>
+        <tr><td><Code>lg</Code></td><td>Emphatic avatar for profile cards and hero blocks.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Tokens</h2>
+      <table>
+        <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-avatar-fg</Code></td><td><Code>--t-on-surface</Code></td><td>Foreground color of the initials text.</td></tr>
+        <tr><td><Code>--t-avatar-bg</Code></td><td><Code>--t-surface-muted</Code></td><td>Background color of the fallback box.</td></tr>
+        <tr><td><Code>--t-avatar-radius</Code></td><td><Code>--t-radius-full</Code></td><td>Corner radius. Default rounds to a circle; `[data-shape="square"]` swaps to `--t-radius-md`.</td></tr>
+        <tr><td><Code>--t-avatar-size-sm</Code></td><td><Code>--t-space-5</Code></td><td>Inline + block size for the `sm` avatar.</td></tr>
+        <tr><td><Code>--t-avatar-size-md</Code></td><td><Code>--t-space-6</Code></td><td>Inline + block size for the `md` avatar.</td></tr>
+        <tr><td><Code>--t-avatar-size-lg</Code></td><td><Code>--t-space-7</Code></td><td>Inline + block size for the `lg` avatar.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Forced colors</h2>
+      <p>In Windows High Contrast mode, the component remaps these semantic tokens to CSS system colors. Custom-property inheritance carries the values to every reference in the subtree.</p>
+      <table>
+        <thead><tr><th>Token</th><th>Default</th><th>Forced-colors</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-accent</Code></td><td><Code>oklch(from oklch(58% 0.2 268deg) 55% c h)</Code></td><td><Code>ButtonText</Code></td></tr>
+        <tr><td><Code>--t-danger</Code></td><td><Code>color-mix(
+      in oklch,
+      oklch(from oklch(58% 0.2 268deg) 48% c 25deg),
+      oklch(from oklch(58% 0.2 268deg) 48% c h) calc(0 * 100%)
+    )</Code></td><td><Code>ButtonText</Code></td></tr>
+        <tr><td><Code>--t-info</Code></td><td><Code>color-mix(
+      in oklch,
+      oklch(from oklch(58% 0.2 268deg) 50% c 210deg),
+      oklch(from oklch(58% 0.2 268deg) 50% c h) calc(0 * 100%)
+    )</Code></td><td><Code>ButtonText</Code></td></tr>
+        <tr><td><Code>--t-on-accent</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 55% c h) max(0, sign(0.62 - l)) 0 h)</Code></td><td><Code>ButtonFace</Code></td></tr>
+        <tr><td><Code>--t-on-danger</Code></td><td><Code>oklch(from color-mix(
+      in oklch,
+      oklch(from oklch(58% 0.2 268deg) 48% c 25deg),
+      oklch(from oklch(58% 0.2 268deg) 48% c h) calc(0 * 100%)
+    ) max(0, sign(0.62 - l)) 0 h)</Code></td><td><Code>ButtonFace</Code></td></tr>
+        <tr><td><Code>--t-on-info</Code></td><td><Code>oklch(from color-mix(
+      in oklch,
+      oklch(from oklch(58% 0.2 268deg) 50% c 210deg),
+      oklch(from oklch(58% 0.2 268deg) 50% c h) calc(0 * 100%)
+    ) max(0, sign(0.62 - l)) 0 h)</Code></td><td><Code>ButtonFace</Code></td></tr>
+        <tr><td><Code>--t-on-success</Code></td><td><Code>oklch(from color-mix(
+      in oklch,
+      oklch(from oklch(58% 0.2 268deg) 52% c 155deg),
+      oklch(from oklch(58% 0.2 268deg) 52% c h) calc(0 * 100%)
+    ) max(0, sign(0.62 - l)) 0 h)</Code></td><td><Code>ButtonFace</Code></td></tr>
+        <tr><td><Code>--t-on-surface</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 50% calc(c * 0.025) h) 18% c h)</Code></td><td><Code>CanvasText</Code></td></tr>
+        <tr><td><Code>--t-on-warning</Code></td><td><Code>oklch(from color-mix(
+      in oklch,
+      oklch(from oklch(58% 0.2 268deg) 80% c 85deg),
+      oklch(from oklch(58% 0.2 268deg) 80% c h) calc(0 * 100%)
+    ) max(0, sign(0.62 - l)) 0 h)</Code></td><td><Code>ButtonFace</Code></td></tr>
+        <tr><td><Code>--t-success</Code></td><td><Code>color-mix(
+      in oklch,
+      oklch(from oklch(58% 0.2 268deg) 52% c 155deg),
+      oklch(from oklch(58% 0.2 268deg) 52% c h) calc(0 * 100%)
+    )</Code></td><td><Code>ButtonText</Code></td></tr>
+        <tr><td><Code>--t-surface-muted</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 50% calc(c * 0.025) h) 92% c h)</Code></td><td><Code>Canvas</Code></td></tr>
+        <tr><td><Code>--t-warning</Code></td><td><Code>color-mix(
+      in oklch,
+      oklch(from oklch(58% 0.2 268deg) 80% c 85deg),
+      oklch(from oklch(58% 0.2 268deg) 80% c h) calc(0 * 100%)
+    )</Code></td><td><Code>ButtonText</Code></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Bundle size</h2>
+      <table>
+        <thead><tr><th>Artifact</th><th>Raw</th><th>Gzip</th><th>Brotli</th></tr></thead>
+        <tbody>
+        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/avatar/avatar.css"><Code>@teseor/css/components/avatar.css</Code></a></td><td>4.25 KB</td><td>0.98 KB</td><td>0.80 KB</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</Base>

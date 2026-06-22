@@ -85,6 +85,54 @@ const elementByPropBlock = z.strictObject({
   map: z.record(z.string().min(1), z.string().min(1)),
 });
 
+// ── Conditional-render substrate: `state:` + `branches:` ────────────────────
+
+const stateEntry = z.strictObject({
+  type: z.literal("boolean"),
+  initial: z.boolean(),
+});
+
+type WhenClause =
+  | { propTruthy: string }
+  | { propFalsy: string }
+  | { stateTruthy: string }
+  | { stateFalsy: string }
+  | { all: WhenClause[] }
+  | { any: WhenClause[] };
+
+const whenClause: z.ZodType<WhenClause> = z.lazy(() =>
+  z.union([
+    z.strictObject({ propTruthy: z.string().min(1) }),
+    z.strictObject({ propFalsy: z.string().min(1) }),
+    z.strictObject({ stateTruthy: z.string().min(1) }),
+    z.strictObject({ stateFalsy: z.string().min(1) }),
+    z.strictObject({ all: z.array(whenClause).min(1) }),
+    z.strictObject({ any: z.array(whenClause).min(1) }),
+  ]),
+);
+
+const branchAttrValue = z.union([
+  z.strictObject({ prop: z.string().min(1) }),
+  z.strictObject({
+    setState: z.strictObject({ name: z.string().min(1), to: z.boolean() }),
+  }),
+]);
+
+const branchTextClause = z.union([
+  z.strictObject({ prop: z.string().min(1) }),
+  z.strictObject({
+    compute: z.string().min(1),
+    from: z.array(z.string().min(1)).min(1),
+  }),
+]);
+
+const branchEntry = z.strictObject({
+  when: whenClause.optional(),
+  element: z.string().min(1),
+  attrs: z.record(z.string().min(1), branchAttrValue).optional(),
+  text: branchTextClause.optional(),
+});
+
 const componentNodeFields = {
   element: z.string().optional(),
   /** Prop-driven root tag selection. The named prop's runtime value indexes
@@ -341,6 +389,19 @@ const atomicSpec = z.strictObject({
    *  When omitted, atomic non-void specs default to a single `{LABEL}` text
    *  node (Heading-style). */
   defaultChildren: z.array(childSpec).optional(),
+  /** Internal reactive state declared at the wrapper level. v0 supports
+   *  `{ type: boolean, initial: <bool> }`. The generator emits `useState`
+   *  (React) / `ref` (Vue) at the top of the wrapper body. Mutated only
+   *  through `attrs.<name>: { setState: { name, to } }` clauses inside
+   *  `branches:`. */
+  state: z.record(z.string().min(1), stateEntry).optional(),
+  /** Ordered conditional subtrees. The generator emits a ternary chain
+   *  (React) / `v-if`/`v-else-if`/`v-else` (Vue) inside the wrapper root.
+   *  Each entry: `when` (object-form clauses; no string DSL), `element`
+   *  (tag name), `attrs` (each value references a prop or sets internal
+   *  state), `text` (literal-prop or computed-via-runtime-helper). The
+   *  last branch may omit `when` as the unconditional fallback. */
+  branches: z.array(branchEntry).min(1).optional(),
 });
 
 const compositeSpec = z.strictObject({

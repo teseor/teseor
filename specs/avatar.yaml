@@ -1,0 +1,123 @@
+name: avatar
+description: Image container with name/initials/icon fallback chain. Renders `<img>` when `src` is set and loads successfully; falls back to initials (when `name` is provided) or an empty muted box when nothing else fits. Atomic primitive.
+kind: atomic
+dependencies: []
+element: span
+rootClass: t-avatar
+cssFile: components/avatar/avatar.css
+
+props:
+  src:
+    type: string
+    responsive: false
+    description: Image source URL. When set and the image loads, the avatar renders `<img>`. On `onError`, falls back to the initials or empty box.
+  alt:
+    type: string
+    default: ""
+    responsive: false
+    description: Alt text for the image. Required when `src` is set and the image carries standalone meaning; empty string when the avatar is decorative inside a labeled context.
+  name:
+    type: string
+    responsive: false
+    description: Person's name. Drives the auto-derived initials fallback when `src` is missing or fails to load.
+  initials:
+    type: string
+    responsive: false
+    description: Explicit initials override. When set, wins over the auto-derived "first letter of first + last whitespace-split token" rule.
+  shape:
+    type: string
+    values: [circle, square]
+    default: null
+    responsive: false
+    description: Outer corner shape. Default is `circle` via the CSS layer (absence-of-attr).
+  color:
+    type: string
+    values: [neutral, primary, success, warning, danger, info]
+    default: null
+    responsive: false
+    description: Semantic background color of the fallback (initials or empty) box. Default is `neutral` via the CSS layer.
+
+sizes:
+  sm:
+    description: Compact avatar for dense lists and inline use.
+  md:
+    description: Default avatar size; matches body line-height.
+  lg:
+    description: Emphatic avatar for profile cards and hero blocks.
+
+tokens:
+  fg:
+    fallback: --t-on-surface
+    desc: Foreground color of the initials text.
+  bg:
+    fallback: --t-surface-muted
+    desc: Background color of the fallback box.
+  radius:
+    fallback: --t-radius-full
+    desc: Corner radius. Default rounds to a circle; `[data-shape="square"]` swaps to `--t-radius-md`.
+  size-sm:
+    fallback: --t-space-5
+    desc: Inline + block size for the `sm` avatar.
+  size-md:
+    fallback: --t-space-6
+    desc: Inline + block size for the `md` avatar.
+  size-lg:
+    fallback: --t-space-7
+    desc: Inline + block size for the `lg` avatar.
+
+privateTokens:
+  - --_fg
+  - --_bg
+  - --_radius
+  - --_radius-square
+  - --_size
+  - --_size-sm
+  - --_size-md
+  - --_size-lg
+  - --_color-neutral-bg
+  - --_color-neutral-fg
+  - --_color-primary-bg
+  - --_color-primary-fg
+  - --_color-success-bg
+  - --_color-success-fg
+  - --_color-warning-bg
+  - --_color-warning-fg
+  - --_color-danger-bg
+  - --_color-danger-fg
+  - --_color-info-bg
+  - --_color-info-fg
+
+state:
+  imgErrored:
+    type: boolean
+    initial: false
+
+branches:
+  - when: { all: [{ propTruthy: src }, { stateFalsy: imgErrored }] }
+    element: img
+    attrs:
+      src: { prop: src }
+      alt: { prop: alt }
+      onError: { setState: { name: imgErrored, to: true } }
+  - when: { propTruthy: name }
+    element: span
+    text: { compute: deriveInitials, from: [name, initials] }
+  - element: span
+
+examples:
+  - id: image
+    props: { src: "/img/avatar-jane.jpg", alt: "Jane Doe", name: "Jane Doe" }
+  - id: initials
+    props: { name: "Jane Doe" }
+  - id: initials-single
+    props: { name: "Madonna" }
+  - id: empty-fallback
+    props: {}
+  - id: size-sm
+    props: { name: "Jane Doe", size: sm }
+  - id: size-lg
+    props: { name: "Jane Doe", size: lg }
+  - id: square
+    props: { name: "Jane Doe", shape: square }
+  - id: color-primary
+    props: { name: "Jane Doe", color: primary }

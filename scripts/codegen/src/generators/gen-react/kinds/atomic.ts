@@ -7,6 +7,11 @@ import { RESPONSIVE_BLOCK_PROPS } from "../../../lib/responsive-blocks.ts";
 import type { Spec } from "../../gen-contract.ts";
 import { renderA11yAttrs, renderDataAttrs, renderStateAttrs } from "../_shared/attrs.ts";
 import {
+  collectBranchComputes,
+  renderReactBranches,
+  renderReactStateInits,
+} from "../_shared/branches.ts";
+import {
   renderDestructure,
   renderOwnProps,
   renderPropsTypeIntersection,
@@ -175,6 +180,7 @@ export function renderAtomicReactWrapper(
     .join("\n");
   const refExpr = hasImperativeProps ? `mergeRefs(innerRef, ref)` : "ref";
 
+  const stateInitsBlock = spec.kind === "atomic" ? renderReactStateInits(spec.state) : "";
   const helperBlock = [
     tagMapLine,
     resolvedTagLine,
@@ -185,6 +191,7 @@ export function renderAtomicReactWrapper(
     `  const mergedClassName = mergeClass("${rootClass}", className);`,
     imperativeRefLine,
     imperativeEffectLines || null,
+    stateInitsBlock || null,
   ]
     .filter((l): l is string => l !== null && l !== "")
     .join("\n");
@@ -233,7 +240,12 @@ export function renderAtomicReactWrapper(
   // Void elements (hr, img, input, br, …) cannot have children — emit a
   // self-closing JSX form and skip the body. Slot/loading state on a void
   // spec is a spec authoring error and is not validated here.
-  const innerBody = isVoid ? "" : renderBody(spec, slots, hasLoading);
+  const branches = spec.kind === "atomic" ? spec.branches : undefined;
+  const innerBody = isVoid
+    ? ""
+    : branches !== undefined
+      ? renderReactBranches(branches, "      ")
+      : renderBody(spec, slots, hasLoading);
   const bodyBlock =
     !isVoid && spec.kind === "atomic" && spec.slotElement
       ? `      <${spec.slotElement}>\n${innerBody}\n      </${spec.slotElement}>`
@@ -251,7 +263,14 @@ export function renderAtomicReactWrapper(
   // an intrinsic tag literal — without it the JSX ref slot pins to that one
   // intrinsic's HTMLElement subtype and rejects the widened consumer ref.
   const usesAsElement = hasAs || Boolean(elementByProp) || isPolymorphic;
-  const reactValueImports = hasImperativeProps ? ["useEffect", "useRef"] : [];
+  const stateEntries = spec.kind === "atomic" ? Object.entries(spec.state ?? {}) : [];
+  const hasState = stateEntries.length > 0;
+  const branchComputes = collectBranchComputes(branches);
+  const reactValueImports = [
+    hasImperativeProps ? "useEffect" : null,
+    hasImperativeProps ? "useRef" : null,
+    hasState ? "useState" : null,
+  ].filter((l): l is string => l !== null);
   const reactTypeImports = ["ComponentProps", ...(isVoid ? [] : ["ReactNode"]), "Ref"];
   const runtimeImports = [
     usesAsElement ? "asElement" : null,
@@ -259,6 +278,7 @@ export function renderAtomicReactWrapper(
     hasImperativeProps ? "mergeRefs" : null,
     responsiveProps.length > 0 ? "type Responsive" : null,
     responsiveProps.length > 0 ? "responsiveDataAttrs" : null,
+    ...branchComputes,
   ].filter((l): l is string => l !== null);
   const imports = [
     `import "@teseor/css/components/${spec.name}.css";`,
