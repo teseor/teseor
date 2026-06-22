@@ -52,3 +52,27 @@ describe("renderVueFixtureBody", () => {
     );
   });
 });
+
+describe("void atomic specs", () => {
+  const image: FlatSpec = {
+    name: "image",
+    kind: "atomic",
+    element: "img",
+    rootClass: "t-image",
+    props: {},
+    tokens: {},
+    visualStates: {},
+  };
+
+  test("React: emits a self-closing tag without {LABEL}", () => {
+    expect(renderReactFixtureBody(image, "Image", { src: "/a.jpg", alt: "x" })).toBe(
+      '<Image src="/a.jpg" alt="x" />',
+    );
+  });
+
+  test("Vue: omits the slots arg entirely when no slot props are present", () => {
+    expect(renderVueFixtureBody(image, "Image", { src: "/a.jpg", alt: "x" })).toBe(
+      'h(Image, { "src": "/a.jpg", "alt": "x" })',
+    );
+  });
+});
