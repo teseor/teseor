@@ -29,6 +29,10 @@
     "limit": "4 kB"
   },
   {
+    "name": "@teseor/css/components/checkbox.css",
+    "path": "packages/css/dist/components/checkbox.css"
+  },
+  {
     "name": "@teseor/css/components/cluster.css",
     "path": "packages/css/dist/components/cluster.css"
   },

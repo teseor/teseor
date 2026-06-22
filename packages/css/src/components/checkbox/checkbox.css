@@ -1,0 +1,113 @@
+@layer components.tokens {
+  .t-checkbox {
+    --_bg-unchecked: var(--t-checkbox-bg, var(--t-surface));
+    --_bg-checked: var(--t-checkbox-bg-checked, var(--t-accent));
+    --_bg: var(--_bg-unchecked);
+    --_fg: var(--t-checkbox-fg, var(--t-on-accent));
+    --_border-unchecked: var(--t-checkbox-border, var(--t-border-strong));
+    --_border-checked: var(--t-checkbox-border-checked, var(--t-accent));
+    --_border: var(--_border-unchecked);
+    --_focus-ring: var(--t-checkbox-focus-ring, var(--t-focus-ring));
+    --_radius: var(--t-checkbox-radius, var(--t-radius-sm));
+    --_opacity: 1;
+    --_cursor: pointer;
+    --_dur: var(--t-dur-fast);
+    --_ease: var(--t-ease-out);
+    --_motion-scale: var(--t-motion-scale);
+    --_size-sm: var(--t-space-3);
+    --_size-md: var(--t-space-4);
+    --_size-lg: var(--t-space-5);
+    --_size: var(--_size-md);
+  }
+}
+
+@layer components.styles {
+  .t-checkbox {
+    appearance: none;
+    box-sizing: border-box;
+    margin: 0;
+    display: inline-block;
+    flex-shrink: 0;
+    inline-size: var(--_size);
+    block-size: var(--_size);
+    padding: 0;
+    background: var(--_bg);
+    border: 1px solid var(--_border);
+    border-radius: var(--_radius);
+    cursor: var(--_cursor);
+    opacity: var(--_opacity);
+    position: relative;
+    vertical-align: middle;
+    transition:
+      background-color calc(var(--_dur) * var(--_motion-scale)) var(--_ease),
+      border-color calc(var(--_dur) * var(--_motion-scale)) var(--_ease);
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--_fg);
+      mask-position: center;
+      mask-repeat: no-repeat;
+      mask-size: 70% 70%;
+      opacity: 0;
+      transition:
+        opacity calc(var(--_dur) * var(--_motion-scale)) var(--_ease);
+    }
+
+    &:where([data-size="sm"]) {
+      --_size: var(--_size-sm);
+    }
+
+    &:where([data-size="md"]) {
+      --_size: var(--_size-md);
+    }
+
+    &:where([data-size="lg"]) {
+      --_size: var(--_size-lg);
+    }
+
+    &:checked,
+    &:indeterminate {
+      --_bg: var(--_bg-checked);
+      --_border: var(--_border-checked);
+    }
+
+    &:checked::before {
+      mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M3 8.5l3.5 3.5L13 5"/></svg>');
+      opacity: 1;
+    }
+
+    &:indeterminate::before {
+      mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" d="M3.5 8h9"/></svg>');
+      opacity: 1;
+    }
+
+    &:disabled {
+      --_opacity: 0.6;
+      --_cursor: not-allowed;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--_focus-ring);
+      outline-offset: 2px;
+    }
+
+    @each $bp in md, lg, xl, 2xl {
+      /* stylelint-disable-next-line media-query-no-invalid */
+      @media (--$(bp)) {
+        &:where([data-size-$(bp)="sm"]) {
+          --_size: var(--_size-sm);
+        }
+
+        &:where([data-size-$(bp)="md"]) {
+          --_size: var(--_size-md);
+        }
+
+        &:where([data-size-$(bp)="lg"]) {
+          --_size: var(--_size-lg);
+        }
+      }
+    }
+  }
+}

@@ -26,6 +26,7 @@ function buildAttrs(props: BlockquoteProps): Record<string, string | undefined> 
 
 - `Blockquote` — `BlockquoteVariant`, `BlockquoteProps`
 - `Button` — `ButtonVariant`, `ButtonIntent`, `ButtonSize`, `ButtonProps`
+- `Checkbox` — `CheckboxSize`, `CheckboxProps`
 - `Cluster` — `ClusterProps`
 - `Code` — `CodeProps`
 - `Codeblock` — `CodeblockProps`

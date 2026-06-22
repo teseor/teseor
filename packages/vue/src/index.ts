@@ -2,6 +2,7 @@
 
 export { default as Blockquote } from "./Blockquote.vue";
 export { default as Button } from "./Button.vue";
+export { default as Checkbox } from "./Checkbox.vue";
 export { default as Cluster } from "./Cluster.vue";
 export { default as Code } from "./Code.vue";
 export { default as Codeblock } from "./Codeblock.vue";

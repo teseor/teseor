@@ -156,6 +156,25 @@ export function renderAtomicReactWrapper(
         ? `  const Component = asElement(${tagExpr});`
         : null;
 
+  // Imperative DOM-property props (e.g. `<input>.indeterminate`) — set via
+  // `useEffect` after mount because no HTML attribute exists for them. The
+  // consumer ref composes with an internal ref via `mergeRefs`. The inner ref
+  // types against the rendered element's interface.
+  const imperativePropEntries =
+    spec.kind === "atomic" ? Object.entries(spec.imperativeProps ?? {}) : [];
+  const hasImperativeProps = imperativePropEntries.length > 0;
+  const imperativeRefElement = spec.element ?? "div";
+  const imperativeRefLine = hasImperativeProps
+    ? `  const innerRef = useRef<HTMLElementTagNameMap[${quote(imperativeRefElement)}]>(null);`
+    : null;
+  const imperativeEffectLines = imperativePropEntries
+    .map(
+      ([name]) =>
+        `  useEffect(() => {\n    if (innerRef.current) innerRef.current.${name} = ${name} ?? false;\n  }, [${name}]);`,
+    )
+    .join("\n");
+  const refExpr = hasImperativeProps ? `mergeRefs(innerRef, ref)` : "ref";
+
   const helperBlock = [
     tagMapLine,
     resolvedTagLine,
@@ -164,8 +183,10 @@ export function renderAtomicReactWrapper(
     hasDisabled && hasAs ? `  const isButton = Component === "button";` : null,
     inactiveExpr ? `  const inactive = ${inactiveExpr};` : null,
     `  const mergedClassName = mergeClass("${rootClass}", className);`,
+    imperativeRefLine,
+    imperativeEffectLines || null,
   ]
-    .filter((l): l is string => l !== null)
+    .filter((l): l is string => l !== null && l !== "")
     .join("\n");
 
   const a11y = spec.kind === "atomic" ? spec.a11y : undefined;
@@ -179,7 +200,7 @@ export function renderAtomicReactWrapper(
     spec.element && a11y?.role ? ROLE_BIOME_IGNORES[spec.element]?.[a11y.role] : undefined;
   const attrBlock = [
     `      {...rest}`,
-    `      ref={ref}`,
+    `      ref={${refExpr}}`,
     `      className={mergedClassName}`,
     htmlAttrLines || null,
     renderA11yAttrs(a11y?.role, a11y?.ariaProps ?? [], a11y?.decorativeProp, roleBiomeIgnore) ||
@@ -225,17 +246,22 @@ export function renderAtomicReactWrapper(
   // an intrinsic tag literal — without it the JSX ref slot pins to that one
   // intrinsic's HTMLElement subtype and rejects the widened consumer ref.
   const usesAsElement = hasAs || Boolean(elementByProp) || isPolymorphic;
+  const reactValueImports = hasImperativeProps ? ["useEffect", "useRef"] : [];
   const reactTypeImports = ["ComponentProps", ...(isVoid ? [] : ["ReactNode"]), "Ref"];
+  const runtimeImports = [
+    usesAsElement ? "asElement" : null,
+    "mergeClass",
+    hasImperativeProps ? "mergeRefs" : null,
+    responsiveProps.length > 0 ? "type Responsive" : null,
+    responsiveProps.length > 0 ? "responsiveDataAttrs" : null,
+  ].filter((l): l is string => l !== null);
   const imports = [
     `import "@teseor/css/components/${spec.name}.css";`,
+    reactValueImports.length > 0
+      ? `import { ${reactValueImports.join(", ")} } from "react";`
+      : null,
     `import type { ${reactTypeImports.join(", ")} } from "react";`,
-    usesAsElement && responsiveProps.length > 0
-      ? `import { asElement, mergeClass, type Responsive, responsiveDataAttrs } from "./_runtime.ts";`
-      : usesAsElement
-        ? `import { asElement, mergeClass } from "./_runtime.ts";`
-        : responsiveProps.length > 0
-          ? `import { mergeClass, type Responsive, responsiveDataAttrs } from "./_runtime.ts";`
-          : `import { mergeClass } from "./_runtime.ts";`,
+    `import { ${runtimeImports.join(", ")} } from "./_runtime.ts";`,
     isPolymorphic ? `import { Slot } from "./components/Slot.tsx";` : null,
   ]
     .filter((l): l is string => l !== null)

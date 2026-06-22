@@ -47,12 +47,19 @@ export function renderPropsType(
           `  asChild?: boolean;`,
         ]
       : [];
+  const imperativeProps = spec.kind === "atomic" ? (spec.imperativeProps ?? {}) : {};
+  const imperativeLines = Object.entries(imperativeProps).flatMap(([name, def]) =>
+    [def.description ? `  /** ${def.description} */` : null, `  ${name}?: boolean;`].filter(
+      (l): l is string => l !== null,
+    ),
+  );
   return [
     `type ${Name}Props = {`,
     ...variantLines,
     ...intentLines,
     ...sizeLines,
     ...lines,
+    ...imperativeLines,
     ...asChildLines,
     `};`,
   ].join("\n");
@@ -62,11 +69,17 @@ export function renderPropsType(
  *  Collapses to a bare `defineProps<…>()` call when there are no props to bind. */
 export function renderPropsBlock(spec: Spec, Name: string): string {
   const nonSlotProps = Object.entries(spec.props ?? {}).filter(([, def]) => def.slot !== true);
+  const imperativePropNames = spec.kind === "atomic" ? Object.keys(spec.imperativeProps ?? {}) : [];
   const enumPropNames: string[] = [];
   if (spec.variants) enumPropNames.push("variant");
   if (spec.intents) enumPropNames.push("intent");
   if (spec.sizes) enumPropNames.push("size");
-  if (enumPropNames.length === 0 && nonSlotProps.length === 0 && spec.polymorphic !== "asChild") {
+  if (
+    enumPropNames.length === 0 &&
+    nonSlotProps.length === 0 &&
+    imperativePropNames.length === 0 &&
+    spec.polymorphic !== "asChild"
+  ) {
     return `defineProps<${Name}Props>();`;
   }
   const lines = [
@@ -79,6 +92,7 @@ export function renderPropsBlock(spec: Spec, Name: string): string {
       }
       return `  ${name},`;
     }),
+    ...imperativePropNames.map((n) => `  ${n},`),
     ...(spec.polymorphic === "asChild" ? ["  asChild,"] : []),
   ];
   return `const {

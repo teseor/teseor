@@ -93,6 +93,9 @@ export type FlatSpec = {
    *  consumer-prop spread (Switch's `type="checkbox"`, an image's `loading`
    *  default, …). */
   htmlAttrs?: Record<string, string>;
+  /** Atomic-only: JS-only DOM properties the wrapper sets imperatively after
+   *  mount (Checkbox's `indeterminate`, `<details>.open`, …). */
+  imperativeProps?: Record<string, { type: "boolean"; description?: string }>;
   /** Atomic-only: when set, the rendered tag is resolved at runtime from the
    *  named prop's value via `map`. Mutually exclusive with `element`. */
   elementByProp?: { prop: string; map: Record<string, string> };
@@ -156,6 +159,7 @@ export function flattenSpec(spec: Spec): FlatSpec {
       polymorphic: spec.polymorphic,
       formControl: spec.formControl,
       htmlAttrs: spec.htmlAttrs,
+      imperativeProps: spec.imperativeProps,
       elementByProp: spec.elementByProp,
       rootClass: spec.rootClass,
       variants: spec.variants,

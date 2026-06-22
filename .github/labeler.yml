@@ -59,6 +59,12 @@ component:button:
           - packages/css/src/components/button/**
           - specs/button.yaml
 
+component:checkbox:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/css/src/components/checkbox/**
+          - specs/checkbox.yaml
+
 component:cluster:
   - changed-files:
       - any-glob-to-any-file:

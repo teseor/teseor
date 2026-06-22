@@ -3,6 +3,7 @@
 import type { VNode } from "vue";
 import { fixtures as blockquoteFixtures } from "./Blockquote.vue.ts";
 import { fixtures as buttonFixtures } from "./Button.vue.ts";
+import { fixtures as checkboxFixtures } from "./Checkbox.vue.ts";
 import { fixtures as clusterFixtures } from "./Cluster.vue.ts";
 import { fixtures as codeFixtures } from "./Code.vue.ts";
 import { fixtures as codeblockFixtures } from "./Codeblock.vue.ts";
@@ -21,6 +22,7 @@ import { fixtures as textareaFixtures } from "./Textarea.vue.ts";
 export const vueFixtures: Record<string, Record<string, () => VNode>> = {
   blockquote: blockquoteFixtures,
   button: buttonFixtures,
+  checkbox: checkboxFixtures,
   cluster: clusterFixtures,
   code: codeFixtures,
   codeblock: codeblockFixtures,

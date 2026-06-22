@@ -48,6 +48,9 @@
 - name: component:button
   color: d4c5f9
   description: button component
+- name: component:checkbox
+  color: d4c5f9
+  description: checkbox component
 - name: component:cluster
   color: d4c5f9
   description: cluster component

@@ -246,6 +246,48 @@ describe("renderAtomicVueWrapper", () => {
       });
     });
 
+    describe("imperativeProps", () => {
+      test("emits useTemplateRef + watch + ref attr when a DOM property is declared", () => {
+        const out = renderAtomicVueWrapper(
+          atomicSpec({
+            name: "checkbox",
+            element: "input",
+            imperativeProps: { indeterminate: { type: "boolean" } },
+          }),
+          {},
+        );
+        expect(out).toContain(`import { computed, useTemplateRef, watch, type VNode } from "vue";`);
+        expect(out).toContain(
+          `const rootRef = useTemplateRef<HTMLElementTagNameMap['input']>("rootRef");`,
+        );
+        expect(out).toContain(
+          `watch(() => indeterminate, (value) => {\n  if (rootRef.value) rootRef.value.indeterminate = value ?? false;\n}, { immediate: true, flush: "post" });`,
+        );
+        expect(out).toContain(`ref="rootRef"`);
+      });
+
+      test("does not emit the imperative-prop block when none are declared", () => {
+        const out = renderAtomicVueWrapper(atomicSpec({ name: "switch", element: "input" }), {});
+        expect(out).not.toContain("useTemplateRef");
+        expect(out).not.toContain(`ref="rootRef"`);
+        expect(out).not.toContain("watch(");
+      });
+
+      test("declares each imperative prop as an optional boolean on PropsType", () => {
+        const out = renderAtomicVueWrapper(
+          atomicSpec({
+            name: "checkbox",
+            element: "input",
+            imperativeProps: {
+              indeterminate: { type: "boolean", description: "Mixed state." },
+            },
+          }),
+          {},
+        );
+        expect(out).toContain(`/** Mixed state. */\n  indeterminate?: boolean;`);
+      });
+    });
+
     describe("a11y emission", () => {
       test("emits a static role on the root from spec.a11y.role", () => {
         const out = renderAtomicVueWrapper(

@@ -351,6 +351,48 @@ describe("renderAtomicReactWrapper", () => {
       });
     });
 
+    describe("imperativeProps", () => {
+      test("emits useEffect + useRef + mergeRefs when a DOM property is declared", () => {
+        const out = renderAtomicReactWrapper(
+          atomicSpec({
+            name: "checkbox",
+            element: "input",
+            imperativeProps: { indeterminate: { type: "boolean" } },
+          }),
+          {},
+        );
+        expect(out).toContain(`import { useEffect, useRef } from "react";`);
+        expect(out).toContain(`mergeRefs`);
+        expect(out).toContain(`const innerRef = useRef<HTMLElementTagNameMap["input"]>(null);`);
+        expect(out).toContain(
+          `useEffect(() => {\n    if (innerRef.current) innerRef.current.indeterminate = indeterminate ?? false;\n  }, [indeterminate]);`,
+        );
+        expect(out).toContain(`ref={mergeRefs(innerRef, ref)}`);
+      });
+
+      test("does not emit the imperative-prop block when none are declared", () => {
+        const out = renderAtomicReactWrapper(atomicSpec({ name: "switch", element: "input" }), {});
+        expect(out).not.toContain("useEffect");
+        expect(out).not.toContain("useRef");
+        expect(out).not.toContain("mergeRefs");
+        expect(out).toContain(`ref={ref}`);
+      });
+
+      test("declares each imperative prop as an optional boolean on OwnProps", () => {
+        const out = renderAtomicReactWrapper(
+          atomicSpec({
+            name: "checkbox",
+            element: "input",
+            imperativeProps: {
+              indeterminate: { type: "boolean", description: "Mixed state." },
+            },
+          }),
+          {},
+        );
+        expect(out).toContain(`/** Mixed state. */\n  indeterminate?: boolean;`);
+      });
+    });
+
     describe("role + biome-ignore", () => {
       test('emits an inline biome-ignore above role="switch" for <input>', () => {
         const out = renderAtomicReactWrapper(

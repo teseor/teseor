@@ -131,14 +131,33 @@ export function renderAtomicVueWrapper(
     ? `const isVoidResolved = computed(() => ${voidCheckExpr});`
     : null;
 
+  // Imperative DOM-property props (e.g. `<input>.indeterminate`) — set via
+  // `watch` because no HTML attribute exists; v-bind="attrs" can't reach them.
+  // `flush: 'post'` runs the setter after the DOM update, `immediate: true`
+  // covers the initial mount.
+  const imperativePropEntries =
+    spec.kind === "atomic" ? Object.entries(spec.imperativeProps ?? {}) : [];
+  const hasImperativeProps = imperativePropEntries.length > 0;
+  const imperativeRefLine = hasImperativeProps
+    ? `const rootRef = useTemplateRef<HTMLElementTagNameMap['${spec.element ?? "div"}']>("rootRef");`
+    : null;
+  const imperativeWatchLines = imperativePropEntries
+    .map(
+      ([name]) =>
+        `watch(() => ${name}, (value) => {\n  if (rootRef.value) rootRef.value.${name} = value ?? false;\n}, { immediate: true, flush: "post" });`,
+    )
+    .join("\n");
+
   const helperLines = [
     tagMapLine,
     resolvedTagComputed,
     isVoidResolvedComputed,
     hasDisabled && hasAs ? `const isButton = computed(() => as === "button");` : null,
     inactiveExpr ? `const inactive = computed(() => ${inactiveExpr});` : null,
+    imperativeRefLine,
+    imperativeWatchLines || null,
   ]
-    .filter((l): l is string => l !== null)
+    .filter((l): l is string => l !== null && l !== "")
     .join("\n");
 
   const a11y = spec.kind === "atomic" ? spec.a11y : undefined;
@@ -200,10 +219,11 @@ export function renderAtomicVueWrapper(
   // attrs land on the correct element.
   const mixedTemplate = isMixedVoid
     ? (() => {
+        const refAttrMixed = hasImperativeProps ? ` ref="rootRef"` : "";
         const opener = (closing: "self" | "open") =>
           isExpr
-            ? `<component :is="${isExpr}" class="${rootClass}" v-bind="attrs"${closing === "self" ? " />" : ">"}`
-            : `<${componentTag} class="${rootClass}" v-bind="attrs"${closing === "self" ? " />" : ">"}`;
+            ? `<component :is="${isExpr}" class="${rootClass}" v-bind="attrs"${refAttrMixed}${closing === "self" ? " />" : ">"}`
+            : `<${componentTag} class="${rootClass}" v-bind="attrs"${refAttrMixed}${closing === "self" ? " />" : ">"}`;
         const closer = isExpr ? `</component>` : `</${componentTag}>`;
         const voidLine = `  <template v-if="isVoidResolved">\n    ${opener("self")}\n  </template>`;
         const nonVoidLine = `  <template v-else>\n    ${opener("open")}\n${bodyBlock}\n    ${closer}\n  </template>`;
@@ -211,18 +231,24 @@ export function renderAtomicVueWrapper(
       })()
     : null;
 
+  const refAttr = hasImperativeProps ? ` ref="rootRef"` : "";
   const rootOpen = isVoid
     ? isExpr
-      ? `<component :is="${isExpr}" class="${rootClass}" v-bind="attrs" />`
-      : `<${componentTag} class="${rootClass}" v-bind="attrs" />`
+      ? `<component :is="${isExpr}" class="${rootClass}" v-bind="attrs"${refAttr} />`
+      : `<${componentTag} class="${rootClass}" v-bind="attrs"${refAttr} />`
     : isExpr
-      ? `<component :is="${isExpr}" class="${rootClass}" v-bind="attrs">`
-      : `<${componentTag} class="${rootClass}" v-bind="attrs">`;
+      ? `<component :is="${isExpr}" class="${rootClass}" v-bind="attrs"${refAttr}>`
+      : `<${componentTag} class="${rootClass}" v-bind="attrs"${refAttr}>`;
   const rootClose = isVoid ? "" : isExpr ? `</component>` : `</${componentTag}>`;
 
+  const vueValueImports = [
+    "computed",
+    hasImperativeProps ? "useTemplateRef" : null,
+    hasImperativeProps ? "watch" : null,
+  ].filter((l): l is string => l !== null);
   const imports = [
     `import "@teseor/css/components/${spec.name}.css";`,
-    `import { computed, type VNode } from "vue";`,
+    `import { ${vueValueImports.join(", ")}, type VNode } from "vue";`,
     responsiveProps.length > 0
       ? `import { type Responsive, responsiveDataAttrs } from "./_runtime.ts";`
       : null,

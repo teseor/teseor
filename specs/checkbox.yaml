@@ -1,0 +1,106 @@
+name: checkbox
+description: 'Binary toggle (or tri-state via `indeterminate`). Styled `<input type="checkbox">` with a painted check / dash glyph and three sizes. Native `checked` / `defaultChecked` / `onChange` pass through `ComponentProps<"input">`. Form-association attributes (`name`, `form`, `required`, `disabled`) come from the formControl shared contract; HTML ignores `readOnly` on checkbox inputs.'
+kind: atomic
+formControl: true
+dependencies: []
+element: input
+rootClass: t-checkbox
+cssFile: components/checkbox/checkbox.css
+
+htmlAttrs:
+  type: checkbox
+
+imperativeProps:
+  indeterminate:
+    type: boolean
+    description: When true, displays the mixed (indeterminate) state. Native `<input>.indeterminate` has no HTML attribute; the wrapper sets it imperatively after mount.
+
+sizes:
+  sm:
+    description: Compact density; pairs with `Input size="sm"` in dense forms.
+  md:
+    description: Default size.
+  lg:
+    description: Emphatic; for prominent toggles or touch-first layouts.
+
+visualStates:
+  hover:
+    description: Pointer is over the checkbox.
+  focus:
+    description: Keyboard focus is on the checkbox; the focus ring is visible.
+  checked:
+    description: The checkbox is checked (`checked`).
+  indeterminate:
+    description: The checkbox is in the mixed state (native `:indeterminate`).
+  disabled:
+    description: Interaction is suppressed; the disabled visual state is applied.
+
+tokens:
+  bg:
+    fallback: --t-surface
+    desc: Background color in the unchecked state.
+  bg-checked:
+    fallback: --t-accent
+    desc: Background color in the checked or indeterminate state.
+  fg:
+    fallback: --t-on-accent
+    desc: Color of the painted check / dash glyph.
+  border:
+    fallback: --t-border-strong
+    desc: Border color in the unchecked state.
+  border-checked:
+    fallback: --t-accent
+    desc: Border color in the checked or indeterminate state.
+  focus-ring:
+    fallback: --t-focus-ring
+    desc: Color of the focus outline.
+  radius:
+    fallback: --t-radius-sm
+    desc: Corner rounding of the box.
+
+privateTokens:
+  - --_size
+  - --_size-sm
+  - --_size-md
+  - --_size-lg
+  - --_bg
+  - --_bg-unchecked
+  - --_bg-checked
+  - --_fg
+  - --_border
+  - --_border-unchecked
+  - --_border-checked
+  - --_focus-ring
+  - --_radius
+  - --_opacity
+  - --_cursor
+  - --_dur
+  - --_ease
+  - --_motion-scale
+
+a11y:
+  keyboard:
+    Space: toggle
+
+examples:
+  - id: default
+    props: {}
+  - id: checked
+    props: { defaultChecked: true }
+  - id: indeterminate
+    props: { indeterminate: true }
+  - id: size-sm
+    props: { size: sm }
+  - id: size-lg
+    props: { size: lg }
+  - id: size-lg-checked
+    props: { size: lg, defaultChecked: true }
+  - id: disabled
+    props: { disabled: true }
+  - id: disabled-checked
+    props: { disabled: true, defaultChecked: true }
+  - id: form-control
+    props:
+      name: terms
+      form: signup
+      required: true

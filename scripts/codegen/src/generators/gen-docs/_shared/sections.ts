@@ -101,11 +101,15 @@ export function renderProps(spec: DocsSpec): string {
     (spec.kind === "composite" && hasFromChildrenPart(spec)) ||
     (spec.kind === "atomic" && spec.polymorphic === "asChild");
   const hasBlockDerivedProps = Boolean(spec.variants || spec.intents || spec.sizes);
+  const imperativePropEntries =
+    spec.kind === "atomic" ? Object.entries(spec.imperativeProps ?? {}) : [];
+  const hasImperativeProps = imperativePropEntries.length > 0;
   if (
     (!spec.props || Object.keys(spec.props).length === 0) &&
     !hasRepeating &&
     !exposesAsChildOnly &&
-    !hasBlockDerivedProps
+    !hasBlockDerivedProps &&
+    !hasImperativeProps
   )
     return "";
   // `pattern: controllable` expands to a triple (`name`, `defaultName`,
@@ -191,6 +195,18 @@ export function renderProps(spec: DocsSpec): string {
       responsiveMark(def.responsive),
       `<Code>${esc(formatValue(def.default))}</Code>`,
       esc(def.description ?? "") + tagMapHint,
+    ]);
+  }
+  // Imperative DOM-property props (e.g. `<input>.indeterminate`) are typed
+  // boolean props the wrapper sets via `useEffect` / `watch` after mount. No
+  // HTML attribute exists for them, so they aren't in `spec.props`.
+  for (const [name, def] of imperativePropEntries) {
+    rows.push([
+      `<Code>${esc(name)}</Code>`,
+      `<Code>boolean</Code>`,
+      "",
+      `<Code>false</Code>`,
+      esc(def.description ?? ""),
     ]);
   }
   // Two paths surface an emitted `asChild` prop the spec doesn't declare:
