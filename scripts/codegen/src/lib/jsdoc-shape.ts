@@ -1,4 +1,5 @@
 import type { FlatSpec } from "./flatten.ts";
+import { isVoidElement } from "./html-void-elements.ts";
 
 /**
  * Minimal shape of a spec example used by JSDoc rendering. Matches
@@ -82,14 +83,17 @@ export function renderExampleBlock(
 /**
  * Render the full JSDoc block for a component, combining the spec's
  * description and up to three `@example` entries. Composite-list specs
- * (with a non-empty `spec.repeating[]`) get self-closing example tags
- * because the component renders only from the array prop.
+ * (with a non-empty `spec.repeating[]`) and atomic specs whose root is a
+ * void HTML element get self-closing example tags because the component
+ * renders only from the array prop / forbids children.
  */
 export function renderComponentJsDoc(spec: FlatSpec, Name: string, flavor: JsDocFlavor): string {
   const description = spec.description ?? "";
   const examples = (spec.examples ?? []).slice(0, 3);
-  const selfClosing =
+  const isCompositeList =
     spec.kind === "composite" && Array.isArray(spec.repeating) && spec.repeating.length > 0;
+  const isVoidAtomic = spec.kind === "atomic" && !!spec.element && isVoidElement(spec.element);
+  const selfClosing = isCompositeList || isVoidAtomic;
   const lines: string[] = ["/**"];
   if (description) lines.push(` * ${description}`);
   for (let i = 0; i < examples.length; i++) {
