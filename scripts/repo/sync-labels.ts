@@ -51,8 +51,7 @@ function renderComponentLabels(components: string[]): string {
     .join("\n");
 }
 
-function replaceAutoRegion(path: string, body: string): void {
-  const current = readFileSync(path, "utf8");
+function injectAutoRegion(current: string, body: string, path: string): string {
   const beginIdx = current.indexOf(AUTO_BEGIN);
   const endIdx = current.indexOf(AUTO_END);
   if (beginIdx === -1 || endIdx === -1) {
@@ -60,13 +59,27 @@ function replaceAutoRegion(path: string, body: string): void {
   }
   const before = current.slice(0, beginIdx + AUTO_BEGIN.length);
   const after = current.slice(endIdx);
-  writeFileSync(path, `${before}${body}${after}`);
+  return `${before}${body}${after}`;
+}
+
+function replaceAutoRegion(path: string, body: string): void {
+  const current = readFileSync(path, "utf8");
+  writeFileSync(path, injectAutoRegion(current, body, path));
+}
+
+function labelerBody(components: string[]): string {
+  const generated = renderComponentEntries(components);
+  return generated ? `\n${generated}` : "\n";
+}
+
+function labelsBody(components: string[]): string {
+  const generated = renderComponentLabels(components);
+  return generated ? `\n${generated}\n` : "\n";
 }
 
 function regenerateLabeler(): void {
   const components = readComponents();
-  const generated = renderComponentEntries(components);
-  replaceAutoRegion(labelerPath, generated ? `\n${generated}` : "\n");
+  replaceAutoRegion(labelerPath, labelerBody(components));
   console.log(
     `labeler.yml: regenerated ${components.length} component entr${components.length === 1 ? "y" : "ies"}`,
   );
@@ -74,11 +87,28 @@ function regenerateLabeler(): void {
 
 function regenerateLabels(): void {
   const components = readComponents();
-  const generated = renderComponentLabels(components);
-  replaceAutoRegion(labelsPath, generated ? `\n${generated}\n` : "\n");
+  replaceAutoRegion(labelsPath, labelsBody(components));
   console.log(
     `labels.yml: regenerated ${components.length} component label${components.length === 1 ? "" : "s"}`,
   );
+}
+
+function checkDrift(): boolean {
+  const components = readComponents();
+  const labelerCurrent = readFileSync(labelerPath, "utf8");
+  const labelsCurrent = readFileSync(labelsPath, "utf8");
+  const labelerExpected = injectAutoRegion(labelerCurrent, labelerBody(components), labelerPath);
+  const labelsExpected = injectAutoRegion(labelsCurrent, labelsBody(components), labelsPath);
+  const drifted: string[] = [];
+  if (labelerCurrent !== labelerExpected) drifted.push(".github/labeler.yml");
+  if (labelsCurrent !== labelsExpected) drifted.push(".github/labels.yml");
+  if (drifted.length === 0) return false;
+  console.error(
+    `sync-labels drift detected in: ${drifted.join(", ")}\n` +
+      `Run: node scripts/repo/sync-labels.ts --mode=generate\n` +
+      `Then commit the regenerated files.`,
+  );
+  return true;
 }
 
 function parseLabelsYaml(): Label[] {
@@ -153,6 +183,10 @@ function upsertLabels(): void {
     updated += 1;
   }
   console.log(`labels: ${created} created, ${updated} updated, ${unchanged} unchanged`);
+}
+
+if (process.argv.includes("--check")) {
+  process.exit(checkDrift() ? 1 : 0);
 }
 
 const modeArg = process.argv.find((arg) => arg.startsWith("--mode="));
