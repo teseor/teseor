@@ -1,0 +1,80 @@
+name: heading
+description: Semantic prose heading. The rendered tag switches with `level` so outline tools and screen readers read native `<h1>`–`<h6>` structure.
+kind: atomic
+dependencies: []
+elementByProp:
+  prop: level
+  map:
+    "1": h1
+    "2": h2
+    "3": h3
+    "4": h4
+    "5": h5
+    "6": h6
+rootClass: t-heading
+cssFile: components/heading/heading.css
+polymorphic: asChild
+
+sizes:
+  xs:
+    description: Smallest visual size. Default for `h5` and `h6`.
+    tokens:
+      font-size: --t-text-sm
+  sm:
+    description: Default for `h4`.
+    tokens:
+      font-size: --t-text-base
+  md:
+    description: Default for `h3`.
+    tokens:
+      font-size: --t-text-xl
+  lg:
+    description: Default for `h2`.
+    tokens:
+      font-size: --t-text-2xl
+  xl:
+    description: Default for `h1`.
+    tokens:
+      font-size: --t-text-3xl
+
+props:
+  level:
+    type: string
+    values: ["1", "2", "3", "4", "5", "6"]
+    default: "2"
+    responsive: false
+    description: Outline level. Drives the rendered tag and the default visual size.
+
+tokens:
+  fg:
+    fallback: --t-fg
+    desc: Heading text color.
+  font-weight:
+    fallback: "600"
+    desc: Font weight applied to every level.
+  spacing-block:
+    fallback: --t-space-4
+    desc: Vertical rhythm above and below the heading in prose context.
+  leading:
+    fallback: --t-leading-tight
+    desc: Line-height applied to every heading.
+
+privateTokens:
+  - --_fg
+  - --_font-weight
+  - --_spacing-block
+  - --_leading
+  - --_font-size
+  - --_font-size-xs
+  - --_font-size-sm
+  - --_font-size-md
+  - --_font-size-lg
+  - --_font-size-xl
+
+examples:
+  - id: default
+    props: { level: "2" }
+  - id: h1-display
+    props: { level: "1" }
+  - id: h2-as-md-size
+    props: { level: "2", size: "md" }

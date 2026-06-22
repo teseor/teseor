@@ -37,6 +37,7 @@ import { Button } from "@teseor/react";
 - `Cluster` — A horizontal layout primitive. Wraps children on the inline axis with consistent spacing.
 - `Code` — Inline monospace fragment for short code spans in prose.
 - `Codeblock` — Block container for multi-line code with monospace font and horizontal overflow scroll.
+- `Heading` — Semantic prose heading. The rendered tag switches with `level` so outline tools and screen readers read native `<h1>`–`<h6>` structure.
 - `Modal` — A modal overlay that traps focus and inerts the rest of the page until dismissed.
 - `Pagination` — A static page-link list. Renders one item per entry in the `pages` array; navigation behavior is consumer-driven today.
 - `Stack` — A vertical layout primitive. Stacks children on the block axis with consistent spacing.

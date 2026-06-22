@@ -59,16 +59,26 @@ export function renderAtomicReactWrapper(
         .map(([k, v]) => `${quote(k)}: ${quote(v)}`)
         .join(", ")} } as const;`
     : null;
-  const tagFromProp = elementByProp ? `tagMap[String(${elementByProp.prop})]` : null;
+  const elementByPropDefault =
+    (elementByProp && (spec.props?.[elementByProp.prop]?.default as string | undefined)) ||
+    (elementByProp && Object.keys(elementByProp.map)[0]) ||
+    null;
+  const tagFromProp =
+    elementByProp && elementByPropDefault !== null
+      ? `tagMap[${elementByProp.prop} ?? ${quote(elementByPropDefault)}]`
+      : null;
 
+  // With elementByProp the rendered tag is one of the map values; annotating
+  // Component as ElementType widens the JSX inference past the literal-string
+  // union, so the consumer-facing `ref?: Ref<HTMLElement>` passes through.
   const componentLine = isPolymorphic
     ? tagFromProp
-      ? `  const Component = asChild ? Slot : ${tagFromProp};`
+      ? `  const Component: ElementType = asChild ? Slot : ${tagFromProp};`
       : `  const Component = asChild ? Slot : ${quote(spec.element ?? "div")};`
     : hasAs
       ? `  const Component = asElement(${rootExpr});`
       : tagFromProp
-        ? `  const Component = ${tagFromProp};`
+        ? `  const Component: ElementType = ${tagFromProp};`
         : null;
 
   const helperBlock = [
@@ -122,7 +132,9 @@ export function renderAtomicReactWrapper(
 
   const imports = [
     `import "@teseor/css/components/${spec.name}.css";`,
-    `import type { ComponentProps, ReactNode, Ref } from "react";`,
+    elementByProp
+      ? `import type { ComponentProps, ElementType, ReactNode, Ref } from "react";`
+      : `import type { ComponentProps, ReactNode, Ref } from "react";`,
     hasAs && responsiveProps.length > 0
       ? `import { asElement, mergeClass, type Responsive, responsiveDataAttrs } from "./_runtime.ts";`
       : hasAs

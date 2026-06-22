@@ -135,20 +135,41 @@ describe("renderAtomicReactWrapper", () => {
     test("emits a tagMap constant and selects Component from the prop value", () => {
       const out = renderAtomicReactWrapper(headingSpec(), {});
       expect(out).toContain(`const tagMap = { "1": "h1", "2": "h2", "3": "h3" } as const;`);
-      expect(out).toContain("const Component = tagMap[String(level)];");
+      expect(out).toContain(`const Component: ElementType = tagMap[level ?? "1"];`);
       expect(out).toContain("<Component\n");
       expect(out).toContain("</Component>");
     });
 
-    test("widens the ref type to HTMLElement", () => {
+    test("narrows the ref type to the union of map values", () => {
       const out = renderAtomicReactWrapper(headingSpec(), {});
-      expect(out).toContain("ref?: Ref<HTMLElement>;");
+      expect(out).toContain(`ref?: Ref<HTMLElementTagNameMap["h1" | "h2" | "h3"]>;`);
+    });
+
+    test("imports ElementType when elementByProp is set", () => {
+      const out = renderAtomicReactWrapper(headingSpec(), {});
+      expect(out).toContain(
+        `import type { ComponentProps, ElementType, ReactNode, Ref } from "react";`,
+      );
+    });
+
+    test("falls back to the first map key when the prop has no `default`", () => {
+      const out = renderAtomicReactWrapper(
+        headingSpec({
+          props: {
+            level: prop({ type: "string", values: ["1", "2", "3"] }),
+          },
+        }),
+        {},
+      );
+      expect(out).toContain(`const Component: ElementType = tagMap[level ?? "1"];`);
     });
 
     test("composes with `polymorphic: 'asChild'` (asChild wins, else tag from prop)", () => {
       const out = renderAtomicReactWrapper(headingSpec({ polymorphic: "asChild" }), {});
       expect(out).toContain(`const tagMap =`);
-      expect(out).toContain("const Component = asChild ? Slot : tagMap[String(level)];");
+      expect(out).toContain(
+        `const Component: ElementType = asChild ? Slot : tagMap[level ?? "1"];`,
+      );
     });
 
     test("omits tagMap when elementByProp is unset", () => {

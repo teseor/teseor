@@ -1,0 +1,70 @@
+@layer components.tokens {
+  .t-heading {
+    --_fg: var(--t-heading-fg, var(--t-fg));
+    --_font-weight: var(--t-heading-font-weight, 600);
+    --_spacing-block: var(--t-heading-spacing-block, var(--t-space-4));
+    --_leading: var(--t-heading-leading, var(--t-leading-tight));
+    --_font-size-xs: var(--t-text-sm);
+    --_font-size-sm: var(--t-text-base);
+    --_font-size-md: var(--t-text-xl);
+    --_font-size-lg: var(--t-text-2xl);
+    --_font-size-xl: var(--t-text-3xl);
+    --_font-size: var(--_font-size-md);
+  }
+}
+
+@layer components.styles {
+  .t-heading {
+    box-sizing: border-box;
+    margin: 0;
+    margin-block: var(--_spacing-block);
+    color: var(--_fg);
+    font-weight: var(--_font-weight);
+    font-size: var(--_font-size);
+    line-height: var(--_leading);
+
+    &:where(h1) {
+      --_font-size: var(--_font-size-xl);
+    }
+
+    &:where(h2) {
+      --_font-size: var(--_font-size-lg);
+    }
+
+    &:where(h3) {
+      --_font-size: var(--_font-size-md);
+    }
+
+    &:where(h4) {
+      --_font-size: var(--_font-size-sm);
+    }
+
+    &:where(h5) {
+      --_font-size: var(--_font-size-xs);
+    }
+
+    &:where(h6) {
+      --_font-size: var(--_font-size-xs);
+    }
+
+    &:where([data-size="xs"]) {
+      --_font-size: var(--_font-size-xs);
+    }
+
+    &:where([data-size="sm"]) {
+      --_font-size: var(--_font-size-sm);
+    }
+
+    &:where([data-size="md"]) {
+      --_font-size: var(--_font-size-md);
+    }
+
+    &:where([data-size="lg"]) {
+      --_font-size: var(--_font-size-lg);
+    }
+
+    &:where([data-size="xl"]) {
+      --_font-size: var(--_font-size-xl);
+    }
+  }
+}

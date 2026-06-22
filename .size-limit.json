@@ -37,6 +37,10 @@
     "path": "packages/css/dist/components/codeblock.css"
   },
   {
+    "name": "@teseor/css/components/heading.css",
+    "path": "packages/css/dist/components/heading.css"
+  },
+  {
     "name": "@teseor/css/components/modal.css",
     "path": "packages/css/dist/components/modal.css"
   },

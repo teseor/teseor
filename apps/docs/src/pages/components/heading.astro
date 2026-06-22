@@ -1,0 +1,89 @@
+---
+import { Heading, Code, Codeblock } from "@teseor/react";
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Heading — Teseor">
+  <main class="t-stack" data-gap="6">
+    <h1>Heading</h1>
+    <p>Semantic prose heading. The rendered tag switches with `level` so outline tools and screen readers read native `&lt;h1&gt;`–`&lt;h6&gt;` structure.</p>
+    <section class="t-stack" data-gap="3">
+      <h2>Examples</h2>
+      <div class="t-stack" data-gap="2">
+        <h3>default</h3>
+        <div class="t-cluster" data-gap="3">
+          <Heading level="2">Heading</Heading>
+        </div>
+        <Codeblock>&lt;Heading level="2"&gt;Heading&lt;/Heading&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>h1-display</h3>
+        <div class="t-cluster" data-gap="3">
+          <Heading level="1">Heading</Heading>
+        </div>
+        <Codeblock>&lt;Heading level="1"&gt;Heading&lt;/Heading&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>h2-as-md-size</h3>
+        <div class="t-cluster" data-gap="3">
+          <Heading level="2" size="md">Heading</Heading>
+        </div>
+        <Codeblock>&lt;Heading level="2" size="md"&gt;Heading&lt;/Heading&gt;</Codeblock>
+      </div>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Props</h2>
+      <table>
+        <thead><tr><th>Prop</th><th>Type</th><th>Responsive</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>level</Code></td><td><Code>string</Code></td><td></td><td><Code>2</Code></td><td>Outline level. Drives the rendered tag and the default visual size. Renders as <Code>&lt;h1&gt;</Code> for <Code>1</Code>, <Code>&lt;h2&gt;</Code> for <Code>2</Code>, <Code>&lt;h3&gt;</Code> for <Code>3</Code>, <Code>&lt;h4&gt;</Code> for <Code>4</Code>, <Code>&lt;h5&gt;</Code> for <Code>5</Code>, <Code>&lt;h6&gt;</Code> for <Code>6</Code>.</td></tr>
+        <tr><td><Code>asChild</Code></td><td><Code>boolean</Code></td><td></td><td><Code>false</Code></td><td>Render the trigger directly on the consumer's child element (cloneElement) instead of wrapping in a &lt;span&gt;. Single-child invariant; the child receives the wrapper's &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;data-state&lt;/code&gt;, event handlers, and any ARIA attributes the component applies (component-specific). Not compatible with Astro slots — use the default wrapper there.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Sizes</h2>
+      <table>
+        <thead><tr><th>Name</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>xs</Code></td><td>Smallest visual size. Default for `h5` and `h6`.</td></tr>
+        <tr><td><Code>sm</Code></td><td>Default for `h4`.</td></tr>
+        <tr><td><Code>md</Code></td><td>Default for `h3`.</td></tr>
+        <tr><td><Code>lg</Code></td><td>Default for `h2`.</td></tr>
+        <tr><td><Code>xl</Code></td><td>Default for `h1`.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Tokens</h2>
+      <table>
+        <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-heading-fg</Code></td><td><Code>--t-fg</Code></td><td>Heading text color.</td></tr>
+        <tr><td><Code>--t-heading-font-weight</Code></td><td><Code>600</Code></td><td>Font weight applied to every level.</td></tr>
+        <tr><td><Code>--t-heading-spacing-block</Code></td><td><Code>--t-space-4</Code></td><td>Vertical rhythm above and below the heading in prose context.</td></tr>
+        <tr><td><Code>--t-heading-leading</Code></td><td><Code>--t-leading-tight</Code></td><td>Line-height applied to every heading.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Forced colors</h2>
+      <p>In Windows High Contrast mode, the component remaps these semantic tokens to CSS system colors. Custom-property inheritance carries the values to every reference in the subtree.</p>
+      <table>
+        <thead><tr><th>Token</th><th>Default</th><th>Forced-colors</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-fg</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 50% calc(c * 0.025) h) 18% c h)</Code></td><td><Code>CanvasText</Code></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Bundle size</h2>
+      <table>
+        <thead><tr><th>Artifact</th><th>Raw</th><th>Gzip</th><th>Brotli</th></tr></thead>
+        <tbody>
+        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/heading/heading.css"><Code>@teseor/css/components/heading.css</Code></a></td><td>1.63 KB</td><td>0.52 KB</td><td>0.47 KB</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</Base>

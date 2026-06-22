@@ -54,6 +54,9 @@
 - name: component:codeblock
   color: d4c5f9
   description: codeblock component
+- name: component:heading
+  color: d4c5f9
+  description: heading component
 - name: component:modal
   color: d4c5f9
   description: modal component

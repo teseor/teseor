@@ -44,7 +44,16 @@ export function renderAtomicVueWrapper(
 
   const componentTag =
     hasAs || isPolymorphic || elementByProp ? "component" : (spec.element ?? "div");
-  const tagFromProp = elementByProp ? `tagMap[String(${elementByProp.prop})]` : null;
+  const elementByPropDefault =
+    (elementByProp && (spec.props?.[elementByProp.prop]?.default as string | undefined)) ||
+    (elementByProp && Object.keys(elementByProp.map)[0]) ||
+    null;
+  // Single-quoted literal so the expression nests inside v-bind's double-quoted
+  // attribute without HTML escaping (`:is="tagMap[level ?? 'h1']"`).
+  const tagFromProp =
+    elementByProp && elementByPropDefault !== null
+      ? `tagMap[${elementByProp.prop} ?? '${elementByPropDefault}']`
+      : null;
   const polymorphicIsExpr = isPolymorphic
     ? `asChild ? Slot : ${tagFromProp ?? JSON.stringify(spec.element ?? "div")}`
     : (tagFromProp ?? null);
