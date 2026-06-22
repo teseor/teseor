@@ -1,0 +1,50 @@
+name: blockquote
+description: Quoted-text primitive — styled `<blockquote>` with accent border and prose spacing. Source attribution composes via a `<cite>` child; native `cite` HTML attr (URL) passes through the inherited type.
+kind: atomic
+dependencies: []
+element: blockquote
+rootClass: t-blockquote
+cssFile: components/blockquote/blockquote.css
+polymorphic: asChild
+
+variants:
+  default:
+    description: Left accent border, standard color; for hero pull quotes and prose emphasis.
+  subtle:
+    description: Italic text without a border; for compact in-prose citations.
+
+tokens:
+  fg:
+    fallback: --t-on-bg
+    desc: Default text color.
+  fg-muted:
+    fallback: --t-on-surface-muted
+    desc: Color for the `<cite>` attribution child.
+  border-color:
+    fallback: --t-accent
+    desc: Color of the left accent rule on the default variant.
+  border-width:
+    fallback: --t-border-thick
+    desc: Width of the left accent rule on the default variant.
+  pad-inline:
+    fallback: --t-space-4
+    desc: Inline padding inside the blockquote, from the border to the text.
+  spacing-block:
+    fallback: --t-space-4
+    desc: Vertical rhythm above and below the blockquote in prose context.
+
+privateTokens:
+  - --_fg
+  - --_fg-muted
+  - --_border-color
+  - --_border-width
+  - --_pad-inline
+  - --_spacing-block
+  - --_border-style
+  - --_font-style
+
+examples:
+  - id: default
+    props: {}
+  - id: subtle
+    props: { variant: subtle }

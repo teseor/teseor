@@ -24,15 +24,16 @@ import "@teseor/css/utilities.css";
 ## Usage
 
 ```tsx
-import { Button } from "@teseor/react";
+import { Blockquote } from "@teseor/react";
 
-<Button variant="solid" intent="primary" onClick={save}>
+<Blockquote variant="solid" intent="primary" onClick={save}>
   Save
-</Button>
+</Blockquote>
 ```
 
 ## Components
 
+- `Blockquote` — Quoted-text primitive — styled `<blockquote>` with accent border and prose spacing. Source attribution composes via a `<cite>` child; native `cite` HTML attr (URL) passes through the inherited type.
 - `Button` — A trigger that performs an action when activated.
 - `Cluster` — A horizontal layout primitive. Wraps children on the inline axis with consistent spacing.
 - `Code` — Inline monospace fragment for short code spans in prose.
