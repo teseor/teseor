@@ -15,6 +15,7 @@ export { default as Link } from "./Link.vue";
 export { default as List } from "./List.vue";
 export { default as Modal } from "./Modal.vue";
 export { default as Pagination } from "./Pagination.vue";
+export { default as Radio } from "./Radio.vue";
 export { default as Stack } from "./Stack.vue";
 export { default as Switch } from "./Switch.vue";
 export { default as Tablist } from "./Tablist.vue";

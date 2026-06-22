@@ -87,6 +87,9 @@
 - name: component:pagination
   color: d4c5f9
   description: pagination component
+- name: component:radio
+  color: d4c5f9
+  description: radio component
 - name: component:stack
   color: d4c5f9
   description: stack component

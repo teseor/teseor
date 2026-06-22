@@ -1,0 +1,107 @@
+@layer components.tokens {
+  .t-radio {
+    --_bg-unchecked: var(--t-radio-bg, var(--t-surface));
+    --_bg-checked: var(--t-radio-bg-checked, var(--t-surface));
+    --_bg: var(--_bg-unchecked);
+    --_fg: var(--t-radio-fg, var(--t-accent));
+    --_border-unchecked: var(--t-radio-border, var(--t-border-strong));
+    --_border-checked: var(--t-radio-border-checked, var(--t-accent));
+    --_border: var(--_border-unchecked);
+    --_focus-ring: var(--t-radio-focus-ring, var(--t-focus-ring));
+    --_opacity: 1;
+    --_cursor: pointer;
+    --_dur: var(--t-dur-fast);
+    --_ease: var(--t-ease-out);
+    --_motion-scale: var(--t-motion-scale);
+    --_size-sm: var(--t-space-3);
+    --_size-md: var(--t-space-4);
+    --_size-lg: var(--t-space-5);
+    --_size: var(--_size-md);
+    --_dot-size: calc(var(--_size) / 2);
+  }
+}
+
+@layer components.styles {
+  .t-radio {
+    appearance: none;
+    box-sizing: border-box;
+    margin: 0;
+    display: inline-block;
+    flex-shrink: 0;
+    inline-size: var(--_size);
+    block-size: var(--_size);
+    padding: 0;
+    background: var(--_bg);
+    border: 1px solid var(--_border);
+    border-radius: 50%;
+    cursor: var(--_cursor);
+    opacity: var(--_opacity);
+    position: relative;
+    vertical-align: middle;
+    transition:
+      background-color calc(var(--_dur) * var(--_motion-scale)) var(--_ease),
+      border-color calc(var(--_dur) * var(--_motion-scale)) var(--_ease);
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset-block-start: 50%;
+      inset-inline-start: 50%;
+      inline-size: var(--_dot-size);
+      block-size: var(--_dot-size);
+      background: var(--_fg);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      transition:
+        transform calc(var(--_dur) * var(--_motion-scale)) var(--_ease);
+    }
+
+    &:where([data-size="sm"]) {
+      --_size: var(--_size-sm);
+    }
+
+    &:where([data-size="md"]) {
+      --_size: var(--_size-md);
+    }
+
+    &:where([data-size="lg"]) {
+      --_size: var(--_size-lg);
+    }
+
+    &:checked {
+      --_bg: var(--_bg-checked);
+      --_border: var(--_border-checked);
+    }
+
+    &:checked::before {
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    &:disabled {
+      --_opacity: 0.6;
+      --_cursor: not-allowed;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--_focus-ring);
+      outline-offset: 2px;
+    }
+
+    @each $bp in md, lg, xl, 2xl {
+      /* stylelint-disable-next-line media-query-no-invalid */
+      @media (--$(bp)) {
+        &:where([data-size-$(bp)="sm"]) {
+          --_size: var(--_size-sm);
+        }
+
+        &:where([data-size-$(bp)="md"]) {
+          --_size: var(--_size-md);
+        }
+
+        &:where([data-size-$(bp)="lg"]) {
+          --_size: var(--_size-lg);
+        }
+      }
+    }
+  }
+}

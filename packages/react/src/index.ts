@@ -15,6 +15,7 @@ export { Link, type LinkProps } from "./Link.tsx";
 export { List, type ListProps } from "./List.tsx";
 export { Modal, type ModalProps } from "./Modal.tsx";
 export { Pagination, type PaginationProps } from "./Pagination.tsx";
+export { Radio, type RadioProps } from "./Radio.tsx";
 export { Stack, type StackProps } from "./Stack.tsx";
 export { Switch, type SwitchProps } from "./Switch.tsx";
 export { Tablist, type TablistProps } from "./Tablist.tsx";
