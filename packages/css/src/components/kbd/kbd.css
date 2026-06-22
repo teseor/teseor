@@ -1,0 +1,45 @@
+@layer components.tokens {
+  .t-kbd {
+    --_bg: var(--t-kbd-bg, var(--t-surface-muted));
+    --_fg: var(--t-kbd-fg, var(--t-on-surface));
+    --_border-color: var(--t-kbd-border-color, var(--t-border));
+    --_pad-x: var(--t-kbd-pad-x, var(--t-space-1));
+    --_pad-y: var(--t-kbd-pad-y, var(--t-space-0));
+    --_radius: var(--t-kbd-radius, var(--t-radius-sm));
+    --_font: var(--t-kbd-font, var(--t-font-mono));
+    --_font-size: var(--t-text-sm);
+    --_font-size-sm: var(--t-text-xs);
+    --_font-size-md: var(--t-text-sm);
+    --_font-size-lg: var(--t-text-base);
+    --_border-thickness: var(--t-border-thin);
+  }
+}
+
+@layer components.styles {
+  .t-kbd {
+    box-sizing: border-box;
+    margin: 0;
+    display: inline-block;
+    padding: var(--_pad-y) var(--_pad-x);
+    color: var(--_fg);
+    background: var(--_bg);
+    border: var(--_border-thickness) solid var(--_border-color);
+    border-radius: var(--_radius);
+    font-family: var(--_font);
+    font-size: var(--_font-size);
+    line-height: 1;
+    vertical-align: baseline;
+
+    &:where([data-size="sm"]) {
+      --_font-size: var(--_font-size-sm);
+    }
+
+    &:where([data-size="md"]) {
+      --_font-size: var(--_font-size-md);
+    }
+
+    &:where([data-size="lg"]) {
+      --_font-size: var(--_font-size-lg);
+    }
+  }
+}

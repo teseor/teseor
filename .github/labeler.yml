@@ -77,6 +77,12 @@ component:heading:
           - packages/css/src/components/heading/**
           - specs/heading.yaml
 
+component:kbd:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/css/src/components/kbd/**
+          - specs/kbd.yaml
+
 component:link:
   - changed-files:
       - any-glob-to-any-file:

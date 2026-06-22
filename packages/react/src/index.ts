@@ -5,6 +5,7 @@ export { Cluster, type ClusterProps } from "./Cluster.tsx";
 export { Code, type CodeProps } from "./Code.tsx";
 export { Codeblock, type CodeblockProps } from "./Codeblock.tsx";
 export { Heading, type HeadingProps } from "./Heading.tsx";
+export { Kbd, type KbdProps } from "./Kbd.tsx";
 export { Link, type LinkProps } from "./Link.tsx";
 export { List, type ListProps } from "./List.tsx";
 export { Modal, type ModalProps } from "./Modal.tsx";

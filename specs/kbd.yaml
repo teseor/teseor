@@ -1,0 +1,67 @@
+name: kbd
+description: Keyboard-key primitive — styled `<kbd>` with token-driven monospace, raised-key visual, and subtle border. Single key per element; combos compose via children (`<Kbd>Cmd</Kbd>+<Kbd>K</Kbd>`).
+kind: atomic
+dependencies: []
+element: kbd
+rootClass: t-kbd
+cssFile: components/kbd/kbd.css
+polymorphic: asChild
+
+sizes:
+  sm:
+    description: Inline-text usage; matches surrounding small prose.
+    tokens:
+      font-size: --t-text-xs
+  md:
+    description: Default size; matches body text.
+    tokens:
+      font-size: --t-text-sm
+  lg:
+    description: Hero-callout usage; for shortcut overlays and tutorial banners.
+    tokens:
+      font-size: --t-text-base
+
+tokens:
+  bg:
+    fallback: --t-surface-muted
+    desc: Background color of the key cap.
+  fg:
+    fallback: --t-on-surface
+    desc: Foreground (text) color of the key cap.
+  border-color:
+    fallback: --t-border
+    desc: Color of the key's outline.
+  pad-x:
+    fallback: --t-space-1
+    desc: Horizontal padding inside the key cap.
+  pad-y:
+    fallback: --t-space-0
+    desc: Vertical padding inside the key cap.
+  radius:
+    fallback: --t-radius-sm
+    desc: Corner rounding.
+  font:
+    fallback: --t-font-mono
+    desc: Monospace font stack.
+
+privateTokens:
+  - --_bg
+  - --_fg
+  - --_border-color
+  - --_pad-x
+  - --_pad-y
+  - --_radius
+  - --_font
+  - --_font-size
+  - --_font-size-sm
+  - --_font-size-md
+  - --_font-size-lg
+  - --_border-thickness
+
+examples:
+  - id: default
+    props: {}
+  - id: small
+    props: { size: sm }
+  - id: large
+    props: { size: lg }
