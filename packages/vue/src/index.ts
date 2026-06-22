@@ -9,6 +9,7 @@ export { default as Code } from "./Code.vue";
 export { default as Codeblock } from "./Codeblock.vue";
 export { default as Divider } from "./Divider.vue";
 export { default as Heading } from "./Heading.vue";
+export { default as Icon } from "./Icon.vue";
 export { default as Image } from "./Image.vue";
 export { default as Input } from "./Input.vue";
 export { default as Kbd } from "./Kbd.vue";

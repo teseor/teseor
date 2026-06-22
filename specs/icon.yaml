@@ -1,0 +1,75 @@
+name: icon
+description: Wrapper for caller-supplied SVG glyphs. Sizes the box and lets the SVG inherit color via `currentColor`. Decorative by default — supply `label` to make the icon meaningful. Does not ship an icon set; the consumer chooses their library (Lucide, Tabler, Heroicons, custom).
+kind: atomic
+dependencies: []
+element: span
+rootClass: t-icon
+cssFile: components/icon/icon.css
+polymorphic: asChild
+
+sizes:
+  sm:
+    description: Inline-text usage; pairs with small prose and dense buttons.
+    tokens:
+      size: --t-icon-size-sm
+  md:
+    description: Default size; matches body text and standard buttons.
+    tokens:
+      size: --t-icon-size-md
+  lg:
+    description: Hero-callout usage; for prominent affordances and feature surfaces.
+    tokens:
+      size: --t-icon-size-lg
+
+props:
+  color:
+    type: string
+    values: [neutral, primary, success, warning, danger, info]
+    responsive: false
+    description: Semantic color override. Absence-of-attr keeps the SVG on `currentColor` (inherits from the parent's text color); setting a value swaps the `--t-icon-fg` slot to the matching semantic token.
+  label:
+    type: string
+    responsive: false
+    description: Accessible name. When set, the wrapper carries `aria-label={label}` and drops `aria-hidden`. When unset, the wrapper carries `aria-hidden="true"` and is invisible to assistive tech — the common case for icons inside a labeled `<button>`.
+
+tokens:
+  fg:
+    fallback: currentColor
+    desc: Color applied to the icon. Inherits from the parent's text color by default; the caller's SVG must use `fill="currentColor"` or `stroke="currentColor"` for the value to flow through.
+  size-sm:
+    fallback: --t-space-4
+    desc: Box dimension for the small size.
+  size-md:
+    fallback: --t-space-5
+    desc: Box dimension for the medium size (default).
+  size-lg:
+    fallback: --t-space-6
+    desc: Box dimension for the large size.
+
+privateTokens:
+  - --_fg
+  - --_size
+  - --_size-sm
+  - --_size-md
+  - --_size-lg
+  - --_color-neutral
+  - --_color-primary
+  - --_color-success
+  - --_color-warning
+  - --_color-danger
+  - --_color-info
+
+a11y:
+  labelProp: label
+
+examples:
+  - id: default
+    props: {}
+  - id: small
+    props: { size: sm }
+  - id: large
+    props: { size: lg }
+  - id: colored-success
+    props: { color: success }
+  - id: labeled
+    props: { label: Settings }

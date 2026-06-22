@@ -57,6 +57,10 @@
     "path": "packages/css/dist/components/heading.css"
   },
   {
+    "name": "@teseor/css/components/icon.css",
+    "path": "packages/css/dist/components/icon.css"
+  },
+  {
     "name": "@teseor/css/components/image.css",
     "path": "packages/css/dist/components/image.css"
   },

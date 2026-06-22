@@ -1,0 +1,78 @@
+/*
+ * Color flows through `currentColor` by default. The caller's SVG must use
+ * `fill="currentColor"` (or `stroke="currentColor"`) for the `--t-icon-fg`
+ * slot to apply — otherwise the SVG paints its own colors and the color
+ * token has no effect.
+ */
+@layer components.tokens {
+  .t-icon {
+    --_fg: var(--t-icon-fg, currentColor);
+    --_size-sm: var(--t-icon-size-sm, var(--t-space-4));
+    --_size-md: var(--t-icon-size-md, var(--t-space-5));
+    --_size-lg: var(--t-icon-size-lg, var(--t-space-6));
+    --_size: var(--_size-md);
+    --_color-neutral: var(--t-on-surface);
+    --_color-primary: var(--t-accent);
+    --_color-success: var(--t-success);
+    --_color-warning: var(--t-warning);
+    --_color-danger: var(--t-danger);
+    --_color-info: var(--t-info);
+  }
+}
+
+@layer components.styles {
+  .t-icon {
+    box-sizing: border-box;
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: var(--_size);
+    block-size: var(--_size);
+    color: var(--_fg);
+    vertical-align: middle;
+    flex-shrink: 0;
+
+    & > svg {
+      inline-size: 100%;
+      block-size: 100%;
+      display: block;
+    }
+
+    &:where([data-size="sm"]) {
+      --_size: var(--_size-sm);
+    }
+
+    &:where([data-size="md"]) {
+      --_size: var(--_size-md);
+    }
+
+    &:where([data-size="lg"]) {
+      --_size: var(--_size-lg);
+    }
+
+    &:where([data-color="neutral"]) {
+      --_fg: var(--_color-neutral);
+    }
+
+    &:where([data-color="primary"]) {
+      --_fg: var(--_color-primary);
+    }
+
+    &:where([data-color="success"]) {
+      --_fg: var(--_color-success);
+    }
+
+    &:where([data-color="warning"]) {
+      --_fg: var(--_color-warning);
+    }
+
+    &:where([data-color="danger"]) {
+      --_fg: var(--_color-danger);
+    }
+
+    &:where([data-color="info"]) {
+      --_fg: var(--_color-info);
+    }
+  }
+}
