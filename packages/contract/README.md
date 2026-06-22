@@ -32,6 +32,7 @@ function buildAttrs(props: BlockquoteProps): Record<string, string | undefined> 
 - `Divider` — `DividerProps`
 - `Heading` — `HeadingSize`, `HeadingProps`
 - `Image` — `ImageProps`
+- `Input` — `InputVariant`, `InputSize`, `InputProps`
 - `Kbd` — `KbdSize`, `KbdProps`
 - `Link` — `LinkVariant`, `LinkProps`
 - `List` — `ListProps`

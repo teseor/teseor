@@ -1,0 +1,147 @@
+name: input
+description: 'Single-line text input. Styled `<input>` with token-driven defaults and outline / subtle / plain visual variants. The native `type` attribute (`text`, `email`, `number`, `tel`, `url`, `search`, `password`) passes through `ComponentProps<"input">`. Form-association attributes (`name`, `form`, `required`, `readOnly`, `disabled`) come from the formControl shared contract.'
+kind: atomic
+formControl: true
+dependencies: []
+element: input
+rootClass: t-input
+cssFile: components/input/input.css
+
+variants:
+  outline:
+    description: Bordered box on the surface; default input chrome.
+  subtle:
+    description: Soft-fill background, no border; for dense forms where the input chrome should recede.
+  plain:
+    description: Borderless; only the focus ring chromes the field. For inline editing or minimal forms.
+
+sizes:
+  sm:
+    description: Compact density; matches `Button size="sm"`.
+    tokens:
+      height: --t-row-2
+      pad-x: --t-space-2
+      font-size: --t-text-xs
+  md:
+    description: Default size.
+    tokens:
+      height: --t-row-3
+      pad-x: --t-space-3
+      font-size: --t-text-sm
+  lg:
+    description: Emphatic; for hero forms and mobile-first layouts.
+    tokens:
+      height: --t-row-4
+      pad-x: --t-space-4
+      font-size: --t-text-base
+
+visualStates:
+  hover:
+    description: Pointer is over the input.
+  focus:
+    description: Keyboard focus is on the input; the focus ring is visible.
+  disabled:
+    description: Interaction is suppressed; the disabled visual state is applied.
+  invalid:
+    description: The `invalid` prop is set; the field carries the error visual state.
+
+props:
+  invalid:
+    type: boolean
+    responsive: false
+    description: 'Marks the field as invalid for styling. Emits `data-invalid="true"` on the root. ARIA wiring (`aria-invalid`) is consumer-supplied or comes from the Field composite (tracked under #692).'
+
+tokens:
+  bg:
+    fallback: --t-surface
+    desc: Background color of the input box; the `subtle` variant overrides this.
+  fg:
+    fallback: --t-on-surface
+    desc: Foreground (text) color of the input.
+  placeholder-fg:
+    fallback: --t-on-surface-muted
+    desc: Color of the placeholder text.
+  border-color:
+    fallback: --t-border
+    desc: Border color in the `outline` variant.
+  border-color-invalid:
+    fallback: --t-danger
+    desc: Border color when the input is invalid.
+  radius:
+    fallback: --t-radius-md
+    desc: Corner rounding of the input box.
+  height:
+    fallback: --t-row-3
+    desc: Block-size of the input box; the size variant overrides this.
+  pad-x:
+    fallback: --t-space-3
+    desc: Inline padding; the size variant overrides this.
+  font:
+    fallback: --t-font-sans
+    desc: Font stack.
+  font-size:
+    fallback: --t-text-sm
+    desc: Font size; the size variant overrides this.
+  focus-ring:
+    fallback: --t-focus-ring
+    desc: Color of the focus outline.
+
+privateTokens:
+  - --_bg
+  - --_fg
+  - --_placeholder-fg
+  - --_border-color
+  - --_border-color-invalid
+  - --_radius
+  - --_h
+  - --_pad-x
+  - --_font
+  - --_font-size
+  - --_focus-ring
+  - --_border-thickness
+  - --_opacity
+  - --_cursor
+  - --_bg-outline
+  - --_border-color-outline
+  - --_bg-subtle
+  - --_bg-readonly
+  - --_h-sm
+  - --_pad-x-sm
+  - --_font-size-sm
+  - --_h-md
+  - --_pad-x-md
+  - --_font-size-md
+  - --_h-lg
+  - --_pad-x-lg
+  - --_font-size-lg
+
+examples:
+  - id: default
+    props: { placeholder: "Your name" }
+  - id: variant-outline
+    props: { variant: outline, placeholder: "Email" }
+  - id: variant-subtle
+    props: { variant: subtle, placeholder: "Email" }
+  - id: variant-plain
+    props: { variant: plain, placeholder: "Email" }
+  - id: size-sm
+    props: { size: sm, placeholder: "Compact" }
+  - id: size-lg
+    props: { size: lg, placeholder: "Emphatic" }
+  - id: type-email
+    props: { type: email, placeholder: "you@example.com" }
+  - id: type-number
+    props: { type: number, placeholder: "42" }
+  - id: type-password
+    props: { type: password, placeholder: "Password" }
+  - id: invalid
+    props: { invalid: true, placeholder: "Required" }
+  - id: disabled
+    props: { disabled: true, placeholder: "Disabled" }
+  - id: form-control
+    props:
+      name: email
+      form: contact
+      required: true
+      readOnly: true
+      placeholder: "Form-control attributes pass-through"

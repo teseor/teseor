@@ -8,6 +8,7 @@ export type { CodeblockProps } from "./Codeblock.ts";
 export type { DividerProps } from "./Divider.ts";
 export type { HeadingProps } from "./Heading.ts";
 export type { ImageProps } from "./Image.ts";
+export type { InputProps } from "./Input.ts";
 export type { KbdProps } from "./Kbd.ts";
 export type { LinkProps } from "./Link.ts";
 export type { ListProps } from "./List.ts";
