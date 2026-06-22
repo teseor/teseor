@@ -15,6 +15,7 @@ export { default as List } from "./List.vue";
 export { default as Modal } from "./Modal.vue";
 export { default as Pagination } from "./Pagination.vue";
 export { default as Stack } from "./Stack.vue";
+export { default as Switch } from "./Switch.vue";
 export { default as Tablist } from "./Tablist.vue";
 export { default as Text } from "./Text.vue";
 export { default as Textarea } from "./Textarea.vue";

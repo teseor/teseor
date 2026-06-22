@@ -14,6 +14,7 @@ import { fixtures as kbdFixtures } from "./Kbd.react.tsx";
 import { fixtures as linkFixtures } from "./Link.react.tsx";
 import { fixtures as listFixtures } from "./List.react.tsx";
 import { fixtures as stackFixtures } from "./Stack.react.tsx";
+import { fixtures as switchFixtures } from "./Switch.react.tsx";
 import { fixtures as textFixtures } from "./Text.react.tsx";
 import { fixtures as textareaFixtures } from "./Textarea.react.tsx";
 
@@ -31,6 +32,7 @@ export const reactFixtures: Record<string, Record<string, () => ReactNode>> = {
   link: linkFixtures,
   list: listFixtures,
   stack: stackFixtures,
+  switch: switchFixtures,
   text: textFixtures,
   textarea: textareaFixtures,
 };

@@ -218,6 +218,34 @@ describe("renderAtomicVueWrapper", () => {
       });
     });
 
+    describe("htmlAttrs", () => {
+      test("emits each entry in the attrs computed object", () => {
+        const out = renderAtomicVueWrapper(
+          atomicSpec({ name: "switch", element: "input", htmlAttrs: { type: "checkbox" } }),
+          {},
+        );
+        expect(out).toContain(`"type": "checkbox",`);
+      });
+
+      test("emits no static attribute entries when htmlAttrs is unset", () => {
+        const out = renderAtomicVueWrapper(atomicSpec({ name: "input", element: "input" }), {});
+        expect(out).not.toContain(`"type": "checkbox",`);
+      });
+
+      test("emits multiple entries", () => {
+        const out = renderAtomicVueWrapper(
+          atomicSpec({
+            name: "image",
+            element: "img",
+            htmlAttrs: { loading: "lazy", decoding: "async" },
+          }),
+          {},
+        );
+        expect(out).toContain(`"loading": "lazy",`);
+        expect(out).toContain(`"decoding": "async",`);
+      });
+    });
+
     describe("a11y emission", () => {
       test("emits a static role on the root from spec.a11y.role", () => {
         const out = renderAtomicVueWrapper(

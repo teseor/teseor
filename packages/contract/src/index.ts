@@ -15,6 +15,7 @@ export type { ListProps } from "./List.ts";
 export type { ModalEvent, ModalProps, ModalState } from "./Modal.ts";
 export type { PaginationProps } from "./Pagination.ts";
 export type { StackProps } from "./Stack.ts";
+export type { SwitchProps } from "./Switch.ts";
 export type { TablistProps } from "./Tablist.ts";
 export type { TextProps } from "./Text.ts";
 export type { TextareaProps } from "./Textarea.ts";

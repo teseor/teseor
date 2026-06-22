@@ -1,0 +1,162 @@
+---
+import { Switch, Code, Codeblock } from "@teseor/react";
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Switch — Teseor">
+  <main class="t-stack" data-gap="6">
+    <h1>Switch</h1>
+    <p>On/off toggle. Styled `&lt;input type="checkbox" role="switch"&gt;` with a sliding thumb and three sizes. Native `checked` / `defaultChecked` / `onChange` pass through `ComponentProps&lt;"input"&gt;`. Form-association attributes (`name`, `form`, `required`, `disabled`) come from the formControl shared contract; HTML ignores `readOnly` on checkbox inputs.</p>
+    <section class="t-stack" data-gap="3">
+      <h2>Examples</h2>
+      <div class="t-stack" data-gap="2">
+        <h3>default</h3>
+        <div class="t-cluster" data-gap="3">
+          <Switch />
+        </div>
+        <Codeblock>&lt;Switch /&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>checked</h3>
+        <div class="t-cluster" data-gap="3">
+          <Switch defaultChecked />
+        </div>
+        <Codeblock>&lt;Switch defaultChecked /&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>size-sm</h3>
+        <div class="t-cluster" data-gap="3">
+          <Switch size="sm" />
+        </div>
+        <Codeblock>&lt;Switch size="sm" /&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>size-lg</h3>
+        <div class="t-cluster" data-gap="3">
+          <Switch size="lg" />
+        </div>
+        <Codeblock>&lt;Switch size="lg" /&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>size-lg-checked</h3>
+        <div class="t-cluster" data-gap="3">
+          <Switch size="lg" defaultChecked />
+        </div>
+        <Codeblock>&lt;Switch size="lg" defaultChecked /&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>disabled</h3>
+        <div class="t-cluster" data-gap="3">
+          <Switch disabled />
+        </div>
+        <Codeblock>&lt;Switch disabled /&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>disabled-checked</h3>
+        <div class="t-cluster" data-gap="3">
+          <Switch disabled defaultChecked />
+        </div>
+        <Codeblock>&lt;Switch disabled defaultChecked /&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>form-control</h3>
+        <div class="t-cluster" data-gap="3">
+          <Switch name="notifications" form="settings" required defaultChecked />
+        </div>
+        <Codeblock>&lt;Switch name="notifications" form="settings" required defaultChecked /&gt;</Codeblock>
+      </div>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Props</h2>
+      <table>
+        <thead><tr><th>Prop</th><th>Type</th><th>Responsive</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>size</Code></td><td><Code>"sm" | "md" | "lg"</Code></td><td>✓</td><td><Code>null</Code></td><td>Size scale. See the Sizes section for per-value descriptions.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Form-control attributes</h2>
+      <table>
+        <thead><tr><th>Attribute</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>name</Code></td><td><Code>string</Code></td><td>HTML form field name (submitted with the form).</td></tr>
+        <tr><td><Code>form</Code></td><td><Code>string</Code></td><td>Associates the control with a form element by id.</td></tr>
+        <tr><td><Code>required</Code></td><td><Code>boolean</Code></td><td>Marks the control as required for form submission.</td></tr>
+        <tr><td><Code>readOnly</Code></td><td><Code>boolean</Code></td><td>Prevents editing while keeping the value submitted.</td></tr>
+        <tr><td><Code>disabled</Code></td><td><Code>boolean</Code></td><td>Disables interaction and excludes the value from form submission.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Sizes</h2>
+      <table>
+        <thead><tr><th>Name</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>sm</Code></td><td>Compact density; pairs with `Input size="sm"` in dense forms.</td></tr>
+        <tr><td><Code>md</Code></td><td>Default size.</td></tr>
+        <tr><td><Code>lg</Code></td><td>Emphatic; for prominent toggles or touch-first layouts.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>States</h2>
+      <table>
+        <thead><tr><th>State</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>hover</Code></td><td>Pointer is over the switch.</td></tr>
+        <tr><td><Code>focus</Code></td><td>Keyboard focus is on the switch; the focus ring is visible.</td></tr>
+        <tr><td><Code>checked</Code></td><td>The switch is on (`checked`).</td></tr>
+        <tr><td><Code>disabled</Code></td><td>Interaction is suppressed; the disabled visual state is applied.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Tokens</h2>
+      <table>
+        <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-switch-track-bg-off</Code></td><td><Code>--t-border-strong</Code></td><td>Track background color in the off state.</td></tr>
+        <tr><td><Code>--t-switch-track-bg-on</Code></td><td><Code>--t-accent</Code></td><td>Track background color in the on state.</td></tr>
+        <tr><td><Code>--t-switch-thumb-bg</Code></td><td><Code>--t-on-accent</Code></td><td>Foreground color of the thumb in the on state.</td></tr>
+        <tr><td><Code>--t-switch-thumb-bg-off</Code></td><td><Code>--t-surface</Code></td><td>Foreground color of the thumb in the off state.</td></tr>
+        <tr><td><Code>--t-switch-focus-ring</Code></td><td><Code>--t-focus-ring</Code></td><td>Color of the focus outline.</td></tr>
+        <tr><td><Code>--t-switch-radius</Code></td><td><Code>--t-radius-full</Code></td><td>Corner rounding of the track and thumb.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Accessibility</h2>
+      <p>Role: <Code>switch</Code></p>
+      <table>
+        <thead><tr><th>Interaction</th><th>Action</th></tr></thead>
+        <tbody>
+        <tr><td><Code>Space</Code></td><td>activate</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Forced colors</h2>
+      <p>In Windows High Contrast mode, the component remaps these semantic tokens to CSS system colors. Custom-property inheritance carries the values to every reference in the subtree.</p>
+      <table>
+        <thead><tr><th>Token</th><th>Default</th><th>Forced-colors</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-accent</Code></td><td><Code>oklch(from oklch(58% 0.2 268deg) 55% c h)</Code></td><td><Code>ButtonText</Code></td></tr>
+        <tr><td><Code>--t-border-strong</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 50% calc(c * 0.025) h) 75% c h)</Code></td><td><Code>ButtonText</Code></td></tr>
+        <tr><td><Code>--t-focus-ring</Code></td><td><Code>oklch(from oklch(58% 0.2 268deg) 55% c h)</Code></td><td><Code>Highlight</Code></td></tr>
+        <tr><td><Code>--t-on-accent</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 55% c h) max(0, sign(0.62 - l)) 0 h)</Code></td><td><Code>ButtonFace</Code></td></tr>
+        <tr><td><Code>--t-surface</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 50% calc(c * 0.025) h) 97% c h)</Code></td><td><Code>Canvas</Code></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Bundle size</h2>
+      <table>
+        <thead><tr><th>Artifact</th><th>Raw</th><th>Gzip</th><th>Brotli</th></tr></thead>
+        <tbody>
+        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/switch/switch.css"><Code>@teseor/css/components/switch.css</Code></a></td><td>4.15 KB</td><td>1.07 KB</td><td>0.89 KB</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</Base>

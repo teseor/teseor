@@ -147,7 +147,16 @@ export function renderAtomicVueWrapper(
     a11y?.ariaProps ?? [],
     a11y?.decorativeProp,
   );
+  // Vue's v-bind="attrs" emits these as literal attributes on the rendered
+  // element — same role as the consumer-spread + lock pattern on the React
+  // side. Vue's attribute fallthrough places `v-bind` entries AFTER static
+  // template attrs by precedence, so consumer overrides are also rejected.
+  const htmlAttrs = spec.kind === "atomic" ? (spec.htmlAttrs ?? {}) : {};
+  const htmlAttrEntries = Object.entries(htmlAttrs)
+    .map(([k, v]) => `  ${JSON.stringify(k)}: ${JSON.stringify(v)},`)
+    .join("\n");
   const attrEntries = [
+    htmlAttrEntries || null,
     a11yEntries || null,
     renderAttrEntries(
       spec,

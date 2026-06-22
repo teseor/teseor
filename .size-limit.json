@@ -81,6 +81,10 @@
     "path": "packages/css/dist/components/stack.css"
   },
   {
+    "name": "@teseor/css/components/switch.css",
+    "path": "packages/css/dist/components/switch.css"
+  },
+  {
     "name": "@teseor/css/components/tablist.css",
     "path": "packages/css/dist/components/tablist.css"
   },

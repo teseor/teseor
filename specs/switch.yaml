@@ -1,0 +1,102 @@
+name: switch
+description: 'On/off toggle. Styled `<input type="checkbox" role="switch">` with a sliding thumb and three sizes. Native `checked` / `defaultChecked` / `onChange` pass through `ComponentProps<"input">`. Form-association attributes (`name`, `form`, `required`, `disabled`) come from the formControl shared contract; HTML ignores `readOnly` on checkbox inputs.'
+kind: atomic
+formControl: true
+dependencies: []
+element: input
+rootClass: t-switch
+cssFile: components/switch/switch.css
+
+htmlAttrs:
+  type: checkbox
+
+sizes:
+  sm:
+    description: Compact density; pairs with `Input size="sm"` in dense forms.
+  md:
+    description: Default size.
+  lg:
+    description: Emphatic; for prominent toggles or touch-first layouts.
+
+visualStates:
+  hover:
+    description: Pointer is over the switch.
+  focus:
+    description: Keyboard focus is on the switch; the focus ring is visible.
+  checked:
+    description: The switch is on (`checked`).
+  disabled:
+    description: Interaction is suppressed; the disabled visual state is applied.
+
+tokens:
+  track-bg-off:
+    fallback: --t-border-strong
+    desc: Track background color in the off state.
+  track-bg-on:
+    fallback: --t-accent
+    desc: Track background color in the on state.
+  thumb-bg:
+    fallback: --t-on-accent
+    desc: Foreground color of the thumb in the on state.
+  thumb-bg-off:
+    fallback: --t-surface
+    desc: Foreground color of the thumb in the off state.
+  focus-ring:
+    fallback: --t-focus-ring
+    desc: Color of the focus outline.
+  radius:
+    fallback: --t-radius-full
+    desc: Corner rounding of the track and thumb.
+
+privateTokens:
+  - --_track-w
+  - --_track-h
+  - --_thumb-size
+  - --_thumb-inset
+  - --_thumb-travel
+  - --_track-bg-off
+  - --_track-bg-on
+  - --_track-bg
+  - --_thumb-bg
+  - --_thumb-bg-off
+  - --_thumb-fg
+  - --_focus-ring
+  - --_radius
+  - --_opacity
+  - --_cursor
+  - --_dur
+  - --_ease
+  - --_motion-scale
+  - --_track-w-sm
+  - --_track-h-sm
+  - --_track-w-md
+  - --_track-h-md
+  - --_track-w-lg
+  - --_track-h-lg
+
+a11y:
+  role: switch
+  keyboard:
+    Space: activate
+
+examples:
+  - id: default
+    props: {}
+  - id: checked
+    props: { defaultChecked: true }
+  - id: size-sm
+    props: { size: sm }
+  - id: size-lg
+    props: { size: lg }
+  - id: size-lg-checked
+    props: { size: lg, defaultChecked: true }
+  - id: disabled
+    props: { disabled: true }
+  - id: disabled-checked
+    props: { disabled: true, defaultChecked: true }
+  - id: form-control
+    props:
+      name: notifications
+      form: settings
+      required: true
+      defaultChecked: true

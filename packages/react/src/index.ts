@@ -15,6 +15,7 @@ export { List, type ListProps } from "./List.tsx";
 export { Modal, type ModalProps } from "./Modal.tsx";
 export { Pagination, type PaginationProps } from "./Pagination.tsx";
 export { Stack, type StackProps } from "./Stack.tsx";
+export { Switch, type SwitchProps } from "./Switch.tsx";
 export { Tablist, type TablistProps } from "./Tablist.tsx";
 export { Text, type TextProps } from "./Text.tsx";
 export { Textarea, type TextareaProps } from "./Textarea.tsx";

@@ -21,6 +21,16 @@ const VOID_ELEMENT_BIOME_IGNORES: Partial<Record<string, string>> = {
   img: "lint/a11y/useAltText: alt is forwarded via {...rest}",
 };
 
+/** Biome lint rules to suppress on specific element + a11y role combinations.
+ *  Native form controls (`<input type="checkbox" role="switch">`) carry the
+ *  required ARIA state implicitly via their HTML attributes; Biome's lint
+ *  can't see across that boundary. */
+const ROLE_BIOME_IGNORES: Partial<Record<string, Partial<Record<string, string>>>> = {
+  input: {
+    switch: 'lint/a11y/useAriaPropsForRole: aria-checked is implicit from type="checkbox"',
+  },
+};
+
 /** Emit a React wrapper for an atomic spec — a single root element wrapping
  *  `{children}` plus optional positioned slots and the `data-*` attribute
  *  surface (variant / intent / size / responsive). */
@@ -159,11 +169,21 @@ export function renderAtomicReactWrapper(
     .join("\n");
 
   const a11y = spec.kind === "atomic" ? spec.a11y : undefined;
+  // Static HTML attrs sit AFTER `{...rest}` so the consumer can't override the
+  // component contract (Switch is `type="checkbox"`, not negotiable).
+  const htmlAttrs = spec.kind === "atomic" ? (spec.htmlAttrs ?? {}) : {};
+  const htmlAttrLines = Object.entries(htmlAttrs)
+    .map(([k, v]) => `      ${k}=${JSON.stringify(v)}`)
+    .join("\n");
+  const roleBiomeIgnore =
+    spec.element && a11y?.role ? ROLE_BIOME_IGNORES[spec.element]?.[a11y.role] : undefined;
   const attrBlock = [
     `      {...rest}`,
     `      ref={ref}`,
     `      className={mergedClassName}`,
-    renderA11yAttrs(a11y?.role, a11y?.ariaProps ?? [], a11y?.decorativeProp) || null,
+    htmlAttrLines || null,
+    renderA11yAttrs(a11y?.role, a11y?.ariaProps ?? [], a11y?.decorativeProp, roleBiomeIgnore) ||
+      null,
     renderDataAttrs(spec, responsiveProps, hasLoading, booleanStateProps, stringEnumStateProps) ||
       null,
     renderStateAttrs(hasAs, hasDisabled, hasLoading) || null,
@@ -221,8 +241,9 @@ export function renderAtomicReactWrapper(
     .filter((l): l is string => l !== null)
     .join("\n");
 
-  const biomeIgnore = isVoid && spec.element ? VOID_ELEMENT_BIOME_IGNORES[spec.element] : undefined;
-  const biomeIgnoreLine = biomeIgnore ? `    // biome-ignore ${biomeIgnore}\n` : "";
+  const voidBiomeIgnore =
+    isVoid && spec.element ? VOID_ELEMENT_BIOME_IGNORES[spec.element] : undefined;
+  const biomeIgnoreLine = voidBiomeIgnore ? `    // biome-ignore ${voidBiomeIgnore}\n` : "";
 
   const indent = (text: string, prefix: string): string =>
     text
