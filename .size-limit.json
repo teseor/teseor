@@ -53,6 +53,10 @@
     "path": "packages/css/dist/components/divider.css"
   },
   {
+    "name": "@teseor/css/components/dot.css",
+    "path": "packages/css/dist/components/dot.css"
+  },
+  {
     "name": "@teseor/css/components/heading.css",
     "path": "packages/css/dist/components/heading.css"
   },

@@ -95,6 +95,12 @@ component:divider:
           - packages/css/src/components/divider/**
           - specs/divider.yaml
 
+component:dot:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/css/src/components/dot/**
+          - specs/dot.yaml
+
 component:heading:
   - changed-files:
       - any-glob-to-any-file:

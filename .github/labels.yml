@@ -66,6 +66,9 @@
 - name: component:divider
   color: d4c5f9
   description: divider component
+- name: component:dot
+  color: d4c5f9
+  description: dot component
 - name: component:heading
   color: d4c5f9
   description: heading component

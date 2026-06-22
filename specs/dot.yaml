@@ -1,0 +1,76 @@
+name: dot
+description: Single-color presence indicator. Decorative by default — emits `role="none"` and `aria-hidden="true"`. Supply `label` to make the dot meaningful (`role="img"` + `aria-label`). Pair with adjacent text or an Avatar for status overlays.
+kind: atomic
+dependencies: []
+element: span
+rootClass: t-dot
+cssFile: components/dot/dot.css
+polymorphic: asChild
+
+sizes:
+  sm:
+    description: Compact; inline next to small prose or in dense lists.
+  md:
+    description: Default; inline next to body text or overlaid on Avatar.
+
+props:
+  color:
+    type: string
+    values: [neutral, primary, success, warning, danger, info]
+    responsive: false
+    description: Semantic color. Absence-of-attr renders the neutral base styling.
+  status:
+    type: string
+    values: [online, offline, away, busy, idle]
+    responsive: false
+    description: Sugar prop for common presence states. Emits `data-status` so status-driven styling can override `color`. Independent of `color` — the two compose.
+  label:
+    type: string
+    responsive: false
+    description: Accessible label. When set, the dot becomes meaningful (`role="img"` + `aria-label={label}`); when unset, the dot is decorative (`role="none"` + `aria-hidden="true"`).
+
+tokens:
+  bg:
+    fallback: --t-on-surface-muted
+    desc: Background color of the dot. Color and status modifiers override this via `--_color-*` / `--_status-*` tokens.
+  size-sm:
+    fallback: --t-space-2
+    desc: Diameter for the `sm` size.
+  size-md:
+    fallback: --t-space-3
+    desc: Diameter for the `md` size.
+
+privateTokens:
+  - --_bg
+  - --_size
+  - --_size-sm
+  - --_size-md
+  - --_color-neutral
+  - --_color-primary
+  - --_color-success
+  - --_color-warning
+  - --_color-danger
+  - --_color-info
+  - --_status-online
+  - --_status-offline
+  - --_status-away
+  - --_status-busy
+  - --_status-idle
+
+a11y:
+  role: img
+  labelProp: label
+
+examples:
+  - id: default
+    props: {}
+  - id: success
+    props: { color: success }
+  - id: small
+    props: { size: sm }
+  - id: status-online
+    props: { status: online }
+  - id: status-busy
+    props: { status: busy }
+  - id: labeled
+    props: { label: Online }
