@@ -18,6 +18,13 @@ import { quote } from "../_shared/type-printer.ts";
  *  `data-{name}-{bp}` attrs at runtime. */
 const RESPONSIVE_ENUM_PROPS = new Set(["size"]);
 
+/** Biome lint rules to suppress on specific void elements. Biome's JSX lint
+ *  can't see required HTML attributes forwarded through the `{...rest}`
+ *  spread; the suppression is targeted at the exact rule + element pair. */
+const VOID_ELEMENT_BIOME_IGNORES: Partial<Record<string, string>> = {
+  img: "lint/a11y/useAltText: alt is forwarded via {...rest}",
+};
+
 /** Emit a React wrapper for an atomic spec — a single root element wrapping
  *  `{children}` plus optional positioned slots and the `data-*` attribute
  *  surface (variant / intent / size / responsive). */
@@ -142,9 +149,10 @@ export function renderAtomicReactWrapper(
   // an intrinsic tag literal — without it the JSX ref slot pins to that one
   // intrinsic's HTMLElement subtype and rejects the widened consumer ref.
   const usesAsElement = hasAs || Boolean(elementByProp) || isPolymorphic;
+  const reactTypeImports = ["ComponentProps", ...(isVoid ? [] : ["ReactNode"]), "Ref"];
   const imports = [
     `import "@teseor/css/components/${spec.name}.css";`,
-    `import type { ComponentProps, ReactNode, Ref } from "react";`,
+    `import type { ${reactTypeImports.join(", ")} } from "react";`,
     usesAsElement && responsiveProps.length > 0
       ? `import { asElement, mergeClass, type Responsive, responsiveDataAttrs } from "./_runtime.ts";`
       : usesAsElement
@@ -157,8 +165,11 @@ export function renderAtomicReactWrapper(
     .filter((l): l is string => l !== null)
     .join("\n");
 
+  const biomeIgnore = isVoid && spec.element ? VOID_ELEMENT_BIOME_IGNORES[spec.element] : undefined;
+  const biomeIgnoreLine = biomeIgnore ? `    // biome-ignore ${biomeIgnore}\n` : "";
+
   const renderElement = isVoid
-    ? `    <${componentTag}\n${attrBlock}\n    />`
+    ? `${biomeIgnoreLine}    <${componentTag}\n${attrBlock}\n    />`
     : `    <${componentTag}\n${attrBlock}\n    >\n${bodyBlock}\n    </${componentTag}>`;
 
   return `"use client";

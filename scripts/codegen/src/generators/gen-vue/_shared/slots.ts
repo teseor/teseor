@@ -2,10 +2,20 @@ import type { SlotInfo } from "../../../lib/collect-slots.ts";
 import type { Spec } from "../../gen-contract.ts";
 
 /** Emit the `defineSlots<…>()` block — one entry per declared slot plus the
- *  always-present `default?(): VNode[]`. */
-export function renderSlotsType(slots: SlotInfo[]): string {
+ *  `default?(): VNode[]` slot for non-void elements. Void elements (img, hr,
+ *  …) can't carry children, so the default slot is omitted to mirror the
+ *  HTML semantics in the typed interface. */
+export function renderSlotsType(
+  slots: SlotInfo[],
+  opts: { isVoid: boolean } = { isVoid: false },
+): string {
   const slotLines = slots.map((s) => `  ${s.propName}?(): VNode[];`);
-  return [`defineSlots<{`, `  default?(): VNode[];`, ...slotLines, `}>();`].join("\n");
+  return [
+    `defineSlots<{`,
+    ...(opts.isVoid ? [] : [`  default?(): VNode[];`]),
+    ...slotLines,
+    `}>();`,
+  ].join("\n");
 }
 
 /** Emit one `<span v-if="$slots.X">…</span>` wrapper around a named slot,

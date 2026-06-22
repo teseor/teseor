@@ -186,4 +186,24 @@ describe("renderComponentJsDoc", () => {
     expect(out).not.toContain("@example Four");
     expect(out).not.toContain("@example Five");
   });
+
+  it("emits self-closing examples for atomic specs whose root is a void element", () => {
+    const spec = makeSpec({
+      name: "image",
+      element: "img",
+      examples: [{ id: "default", props: { src: "/x.jpg", alt: "x" } }],
+    });
+    const out = renderComponentJsDoc(spec, "Image", reactJsDocFlavor);
+    expect(out).toContain(' * <Image src="/x.jpg" alt="x" />');
+    expect(out).not.toContain('<Image src="/x.jpg" alt="x">Label</Image>');
+  });
+
+  it("emits children-bearing examples for atomic specs on a non-void element", () => {
+    const spec = makeSpec({
+      element: "div",
+      examples: [{ id: "default", props: { variant: "solid" } }],
+    });
+    const out = renderComponentJsDoc(spec, "Card", reactJsDocFlavor);
+    expect(out).toContain(' * <Card variant="solid">Label</Card>');
+  });
 });
