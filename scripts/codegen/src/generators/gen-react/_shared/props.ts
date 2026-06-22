@@ -67,11 +67,17 @@ export function renderOwnProps(
     ? renderCanonicalProp("intent", `${Name}Intent`, propDescriptions)
     : [];
   const sizeLines = spec.sizes ? renderCanonicalProp("size", sizeType, propDescriptions) : [];
-  const hasAs = "as" in (spec.props ?? {});
-  const isPolymorphic = spec.polymorphic === "asChild";
   const isElementByProp = Boolean(spec.elementByProp);
+  // `as` as a free polymorphism root widens the ref to HTMLElement. When `as`
+  // is the `elementByProp` control, the closed map drives the ref type below.
+  const hasAs = "as" in (spec.props ?? {}) && !isElementByProp;
+  const isPolymorphic = spec.polymorphic === "asChild";
+  // `asChild` accepts ANY consumer element; the ref must widen to
+  // `HTMLElement` even when an elementByProp map narrows the default tag
+  // set — a narrow union (e.g. `HTMLSpanElement | HTMLParagraphElement`)
+  // rejects a consumer `<a ref={…}>` at the `<Component ref={ref}>` site.
   const refType =
-    hasAs || (isPolymorphic && !isElementByProp)
+    hasAs || isPolymorphic
       ? "Ref<HTMLElement>"
       : isElementByProp && spec.elementByProp
         ? `Ref<HTMLElementTagNameMap[${[...new Set(Object.values(spec.elementByProp.map))]

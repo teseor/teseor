@@ -4,8 +4,8 @@
 // Source: specs/heading.yaml
 
 import "@teseor/css/components/heading.css";
-import type { ComponentProps, ElementType, ReactNode, Ref } from "react";
-import { mergeClass, type Responsive, responsiveDataAttrs } from "./_runtime.ts";
+import type { ComponentProps, ReactNode, Ref } from "react";
+import { asElement, mergeClass, type Responsive, responsiveDataAttrs } from "./_runtime.ts";
 import { Slot } from "./components/Slot.tsx";
 
 type HeadingSize = "xs" | "sm" | "md" | "lg" | "xl";
@@ -20,7 +20,7 @@ type HeadingOwnProps = {
   /** Render directly on the consumer's child element via Slot (cloneElement) instead of wrapping in a `<div>`. Single-child invariant. */
   asChild?: boolean;
   children?: ReactNode;
-  ref?: Ref<HTMLElementTagNameMap["h1" | "h2" | "h3" | "h4" | "h5" | "h6"]>;
+  ref?: Ref<HTMLElement>;
 };
 
 export type HeadingProps = Readonly<
@@ -49,7 +49,7 @@ export function Heading(props: HeadingProps) {
   const { size, level, asChild, children, ref, className, ...rest } = props;
 
   const tagMap = { "1": "h1", "2": "h2", "3": "h3", "4": "h4", "5": "h5", "6": "h6" } as const;
-  const Component: ElementType = asChild ? Slot : tagMap[level ?? "2"];
+  const Component = asChild ? Slot : asElement(tagMap[level ?? "2"]);
   const mergedClassName = mergeClass("t-heading", className);
 
   return (

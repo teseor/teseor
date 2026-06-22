@@ -135,21 +135,20 @@ describe("renderAtomicReactWrapper", () => {
     test("emits a tagMap constant and selects Component from the prop value", () => {
       const out = renderAtomicReactWrapper(headingSpec(), {});
       expect(out).toContain(`const tagMap = { "1": "h1", "2": "h2", "3": "h3" } as const;`);
-      expect(out).toContain(`const Component: ElementType = tagMap[level ?? "1"];`);
+      expect(out).toContain(`const Component = asElement(tagMap[level ?? "1"]);`);
       expect(out).toContain("<Component\n");
       expect(out).toContain("</Component>");
     });
 
-    test("narrows the ref type to the union of map values", () => {
+    test("narrows the ref type to the union of map values when not polymorphic", () => {
       const out = renderAtomicReactWrapper(headingSpec(), {});
       expect(out).toContain(`ref?: Ref<HTMLElementTagNameMap["h1" | "h2" | "h3"]>;`);
     });
 
-    test("imports ElementType when elementByProp is set", () => {
+    test("imports asElement from the runtime when elementByProp is set", () => {
       const out = renderAtomicReactWrapper(headingSpec(), {});
-      expect(out).toContain(
-        `import type { ComponentProps, ElementType, ReactNode, Ref } from "react";`,
-      );
+      expect(out).toContain(`import type { ComponentProps, ReactNode, Ref } from "react";`);
+      expect(out).toContain(`import { asElement, mergeClass`);
     });
 
     test("falls back to the first map key when the prop has no `default`", () => {
@@ -161,15 +160,16 @@ describe("renderAtomicReactWrapper", () => {
         }),
         {},
       );
-      expect(out).toContain(`const Component: ElementType = tagMap[level ?? "1"];`);
+      expect(out).toContain(`const Component = asElement(tagMap[level ?? "1"]);`);
     });
 
     test("composes with `polymorphic: 'asChild'` (asChild wins, else tag from prop)", () => {
       const out = renderAtomicReactWrapper(headingSpec({ polymorphic: "asChild" }), {});
       expect(out).toContain(`const tagMap =`);
-      expect(out).toContain(
-        `const Component: ElementType = asChild ? Slot : tagMap[level ?? "1"];`,
-      );
+      expect(out).toContain(`const Component = asChild ? Slot : asElement(tagMap[level ?? "1"]);`);
+      // asChild accepts any consumer element — ref widens to HTMLElement so a
+      // narrow tag-map union doesn't reject e.g. `<a ref={…}>`.
+      expect(out).toContain(`ref?: Ref<HTMLElement>;`);
     });
 
     test("omits tagMap when elementByProp is unset", () => {

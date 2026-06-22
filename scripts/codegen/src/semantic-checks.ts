@@ -1014,7 +1014,12 @@ export function checkPolymorphicAtomic(spec: Spec): Issue[] {
   if (!isAtomic(spec)) return [];
   if (spec.polymorphic !== "asChild") return [];
   const issues: Issue[] = [];
-  if (spec.props && "as" in spec.props) {
+  // `as` as a free polymorphism control (`asElement(as ?? "div")`) collides
+  // with `asChild` — two competing root-tag mechanisms. When `as` is the
+  // closed `elementByProp` control instead, Slot wraps the resolved tag and
+  // both mechanisms co-exist cleanly.
+  const asIsElementByPropControl = spec.elementByProp?.prop === "as";
+  if (spec.props && "as" in spec.props && !asIsElementByPropControl) {
     issues.push(
       issue(
         spec.name,
