@@ -89,6 +89,10 @@
     "path": "packages/css/dist/components/text.css"
   },
   {
+    "name": "@teseor/css/components/textarea.css",
+    "path": "packages/css/dist/components/textarea.css"
+  },
+  {
     "name": "@teseor/css/components/tooltip.css",
     "path": "packages/css/dist/components/tooltip.css"
   }

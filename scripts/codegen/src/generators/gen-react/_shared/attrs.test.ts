@@ -19,29 +19,35 @@ describe("renderDataAttrs", () => {
       variants: { solid: { description: "" } },
       intents: { primary: { description: "" } },
     });
-    const out = renderDataAttrs(spec, [], false, []);
+    const out = renderDataAttrs(spec, [], false, [], []);
     expect(out).toContain("data-variant={variant}");
     expect(out).toContain("data-intent={intent}");
   });
 
   test("spreads `responsiveDataAttrs(name, name)` per responsive prop", () => {
-    const out = renderDataAttrs(atomicSpec(), ["size"], false, []);
+    const out = renderDataAttrs(atomicSpec(), ["size"], false, [], []);
     expect(out).toContain(`{...responsiveDataAttrs("size", size)}`);
   });
 
   test("emits the `data-loading` line when hasLoading is true", () => {
-    const out = renderDataAttrs(atomicSpec(), [], true, []);
+    const out = renderDataAttrs(atomicSpec(), [], true, [], []);
     expect(out).toContain(`data-loading={loading === true ? "true" : undefined}`);
   });
 
   test("emits a `data-{name}` flag for each boolean state prop", () => {
-    const out = renderDataAttrs(atomicSpec(), [], false, ["decorative", "compact"]);
+    const out = renderDataAttrs(atomicSpec(), [], false, ["decorative", "compact"], []);
     expect(out).toContain(`data-decorative={decorative === true ? "true" : undefined}`);
     expect(out).toContain(`data-compact={compact === true ? "true" : undefined}`);
   });
 
+  test("emits a bare `data-{name}={name}` for each non-responsive string-enum state prop", () => {
+    const out = renderDataAttrs(atomicSpec(), [], false, [], ["resize", "appearance"]);
+    expect(out).toContain(`data-resize={resize}`);
+    expect(out).toContain(`data-appearance={appearance}`);
+  });
+
   test("renders an empty string when no attrs are needed", () => {
-    expect(renderDataAttrs(atomicSpec(), [], false, [])).toBe("");
+    expect(renderDataAttrs(atomicSpec(), [], false, [], [])).toBe("");
   });
 });
 

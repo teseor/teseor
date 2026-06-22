@@ -21,6 +21,18 @@ export const HTML_VOID_ELEMENTS = new Set([
   "wbr",
 ]);
 
+/**
+ * Elements codegen treats as childless for spec purposes — HTML void elements
+ * plus `<textarea>`. Textarea is not HTML-void (it carries content between
+ * tags), but its content IS the value (set via `value` / `defaultValue`).
+ * Form-control atoms must not expose `children` as a wrapper API surface;
+ * codegen emits `children?: never` and skips `{children}` in the rendered
+ * JSX. The literal HTML-void test stays in `HTML_VOID_ELEMENTS` /
+ * `isVoidElement` for semantic checks (`polymorphic: 'asChild'` on void,
+ * void-prop constraints) — only `specVoidStatus` consults this wider set.
+ */
+const CHILDLESS_FOR_CODEGEN = new Set([...HTML_VOID_ELEMENTS, "textarea"]);
+
 /** Whether `tag` is a void HTML element (case-insensitive). */
 export function isVoidElement(tag: string): boolean {
   return HTML_VOID_ELEMENTS.has(tag.toLowerCase());
@@ -33,24 +45,24 @@ type SpecRootTag = {
 };
 
 /**
- * Classify an atomic spec's root tag by its void-ness:
- * - `never`: no void branches (renders with children)
- * - `all`: every possible root tag is void (self-closing always, `children?: never`)
- * - `mixed`: `elementByProp.map` has both void and non-void branches (runtime-branched)
+ * Classify an atomic spec's root tag by codegen child-ness:
+ * - `never`: root accepts children (renders with `{children}`)
+ * - `all`: no codegen children allowed — emit `children?: never` + self-closing
+ * - `mixed`: `elementByProp.map` has both child-bearing and childless branches
  *
- * `spec.element` is checked first; with `elementByProp` the result is derived
- * from the map's values.
+ * The childless set is HTML void elements ∪ `{textarea}`. See
+ * `CHILDLESS_FOR_CODEGEN` for rationale.
  */
 export function specVoidStatus(spec: SpecRootTag): "never" | "all" | "mixed" {
   if (spec.element) {
-    return isVoidElement(spec.element) ? "all" : "never";
+    return CHILDLESS_FOR_CODEGEN.has(spec.element.toLowerCase()) ? "all" : "never";
   }
   if (spec.elementByProp) {
     const tags = Object.values(spec.elementByProp.map);
     if (tags.length === 0) return "never";
-    const voidCount = tags.filter((t) => isVoidElement(t)).length;
-    if (voidCount === 0) return "never";
-    if (voidCount === tags.length) return "all";
+    const childlessCount = tags.filter((t) => CHILDLESS_FOR_CODEGEN.has(t.toLowerCase())).length;
+    if (childlessCount === 0) return "never";
+    if (childlessCount === tags.length) return "all";
     return "mixed";
   }
   return "never";

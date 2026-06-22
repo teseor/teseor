@@ -15,6 +15,7 @@ import { fixtures as linkFixtures } from "./Link.react.tsx";
 import { fixtures as listFixtures } from "./List.react.tsx";
 import { fixtures as stackFixtures } from "./Stack.react.tsx";
 import { fixtures as textFixtures } from "./Text.react.tsx";
+import { fixtures as textareaFixtures } from "./Textarea.react.tsx";
 
 export const reactFixtures: Record<string, Record<string, () => ReactNode>> = {
   blockquote: blockquoteFixtures,
@@ -31,4 +32,5 @@ export const reactFixtures: Record<string, Record<string, () => ReactNode>> = {
   list: listFixtures,
   stack: stackFixtures,
   text: textFixtures,
+  textarea: textareaFixtures,
 };

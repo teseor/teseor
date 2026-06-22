@@ -54,6 +54,7 @@ import { Blockquote } from "@teseor/vue";
 - `Stack` — A vertical layout primitive. Stacks children on the block axis with consistent spacing.
 - `Tablist` — A non-interactive tab bar. Renders one tab button + an optional adjacent icon per item, interleaved via a shared groupKey. Selection is visual-only — pass `active: true` per item; real interactive Tabs ships with #690 (events) + #692 (a11y).
 - `Text` — Typography primitive for non-heading prose. Folds the legacy `Paragraph` — one component covers both inline (`<span>`) and block (`<p>`) cases via the `as` prop.
+- `Textarea` — Multi-line text input. Styled `<textarea>` with token-driven defaults and outline / subtle / plain visual variants. Native attributes (`rows`, `cols`, `placeholder`, `value`, `defaultValue`, `maxLength`, etc.) pass through `ComponentProps<"textarea">`. Form-association attributes (`name`, `form`, `required`, `readOnly`, `disabled`) come from the formControl shared contract.
 - `Tooltip` — A non-interactive hint that appears when its trigger is hovered or focused.
 
 ## Tests

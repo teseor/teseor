@@ -26,10 +26,11 @@ export function renderA11yAttrEntries(
 }
 
 /** Emit the entries of the `attrs` computed object for an atomic wrapper.
- *  Combines variant/intent data-attrs, responsive data-attr spreads, the
- *  loading flag, per-prop `data-*` flags for boolean state props, and the
- *  disabled/aria-disabled pair (whose shape depends on whether the element
- *  is polymorphic via `as`). */
+ *  Combines variant/intent data-attrs, responsive data-attr spreads, per-prop
+ *  `data-*` for non-responsive string-enum state props, the loading flag,
+ *  per-prop `data-*` flags for boolean state props, and the disabled/aria-
+ *  disabled pair (whose shape depends on whether the element is polymorphic
+ *  via `as`). */
 export function renderAttrEntries(
   spec: Spec,
   responsiveProps: string[],
@@ -37,11 +38,13 @@ export function renderAttrEntries(
   hasDisabled: boolean,
   hasAs: boolean,
   booleanStateProps: string[],
+  stringEnumStateProps: string[],
 ): string {
   return [
     spec.variants ? `  "data-variant": variant,` : null,
     spec.intents ? `  "data-intent": intent,` : null,
     ...responsiveProps.map((name) => `  ...responsiveDataAttrs(${quote(name)}, ${name}),`),
+    ...stringEnumStateProps.map((name) => `  "data-${name}": ${name},`),
     hasLoading ? `  "data-loading": loading ? "true" : undefined,` : null,
     ...booleanStateProps.map((name) => `  "data-${name}": ${name} ? "true" : undefined,`),
     hasDisabled && hasAs ? `  disabled: isButton.value ? inactive.value : undefined,` : null,

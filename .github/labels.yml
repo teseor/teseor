@@ -93,6 +93,9 @@
 - name: component:text
   color: d4c5f9
   description: text component
+- name: component:textarea
+  color: d4c5f9
+  description: textarea component
 - name: component:tooltip
   color: d4c5f9
   description: tooltip component

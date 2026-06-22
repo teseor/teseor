@@ -36,6 +36,7 @@ import Base from "../../layouts/Base.astro";
       <table>
         <thead><tr><th>Prop</th><th>Type</th><th>Responsive</th><th>Default</th><th>Description</th></tr></thead>
         <tbody>
+        <tr><td><Code>size</Code></td><td><Code>"xs" | "sm" | "md" | "lg" | "xl"</Code></td><td>✓</td><td><Code>null</Code></td><td>Size scale. See the Sizes section for per-value descriptions.</td></tr>
         <tr><td><Code>level</Code></td><td><Code>string</Code></td><td></td><td><Code>2</Code></td><td>Outline level. Drives the rendered tag and the default visual size. Renders as <Code>&lt;h1&gt;</Code> for <Code>1</Code>, <Code>&lt;h2&gt;</Code> for <Code>2</Code>, <Code>&lt;h3&gt;</Code> for <Code>3</Code>, <Code>&lt;h4&gt;</Code> for <Code>4</Code>, <Code>&lt;h5&gt;</Code> for <Code>5</Code>, <Code>&lt;h6&gt;</Code> for <Code>6</Code>.</td></tr>
         <tr><td><Code>asChild</Code></td><td><Code>boolean</Code></td><td></td><td><Code>false</Code></td><td>Render the trigger directly on the consumer's child element (cloneElement) instead of wrapping in a &lt;span&gt;. Single-child invariant; the child receives the wrapper's &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;data-state&lt;/code&gt;, event handlers, and any ARIA attributes the component applies (component-specific). Not compatible with Astro slots — use the default wrapper there.</td></tr>
         </tbody>

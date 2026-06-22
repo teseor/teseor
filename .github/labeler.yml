@@ -149,6 +149,12 @@ component:text:
           - packages/css/src/components/text/**
           - specs/text.yaml
 
+component:textarea:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/css/src/components/textarea/**
+          - specs/textarea.yaml
+
 component:tooltip:
   - changed-files:
       - any-glob-to-any-file:

@@ -3,6 +3,7 @@ import { renderEnumType } from "../../../lib/enum-primitives.ts";
 import { specVoidStatus, voidTagsInMap } from "../../../lib/html-void-elements.ts";
 import { reactJsDocFlavor, renderComponentJsDoc } from "../../../lib/jsdoc-shape.ts";
 import { pascalCase } from "../../../lib/pascal-case.ts";
+import { RESPONSIVE_BLOCK_PROPS } from "../../../lib/responsive-blocks.ts";
 import type { Spec } from "../../gen-contract.ts";
 import { renderA11yAttrs, renderDataAttrs, renderStateAttrs } from "../_shared/attrs.ts";
 import {
@@ -12,11 +13,6 @@ import {
 } from "../_shared/props.ts";
 import { renderBody } from "../_shared/slots.ts";
 import { quote } from "../_shared/type-printer.ts";
-
-/** Enum props whose values are also responsive — currently `size`. The
- *  generator wraps the prop type in `Responsive<…>` and emits per-breakpoint
- *  `data-{name}-{bp}` attrs at runtime. */
-const RESPONSIVE_ENUM_PROPS = new Set(["size"]);
 
 /** Biome lint rules to suppress on specific void elements. Biome's JSX lint
  *  can't see required HTML attributes forwarded through the `{...rest}`
@@ -45,7 +41,7 @@ export function renderAtomicReactWrapper(
   const isPolymorphic = spec.polymorphic === "asChild";
   const slots = collectSlots(spec);
 
-  const sizeIsResponsive = Boolean(spec.sizes) && RESPONSIVE_ENUM_PROPS.has("size");
+  const sizeIsResponsive = Boolean(spec.sizes) && RESPONSIVE_BLOCK_PROPS.has("size");
   const responsiveProps: string[] = [
     ...(sizeIsResponsive ? ["size"] : []),
     ...Object.entries(propMap)
@@ -66,6 +62,25 @@ export function renderAtomicReactWrapper(
         name !== "disabled" &&
         name !== "loading" &&
         name !== elementByProp?.prop,
+    )
+    .map(([name]) => name);
+
+  // Non-responsive string-enum spec props become `data-{name}={value}` on
+  // the root. Responsive enums go through `responsiveDataAttrs`; the
+  // polymorphic `as` prop, the `elementByProp` controlling prop, ariaProps
+  // (emitted as `aria-{name}`), and slot props are excluded.
+  const ariaPropNames = new Set(spec.kind === "atomic" ? (spec.a11y?.ariaProps ?? []) : []);
+  const stringEnumStateProps: string[] = Object.entries(propMap)
+    .filter(
+      ([name, d]) =>
+        d.type === "string" &&
+        Array.isArray(d.values) &&
+        d.values.length > 0 &&
+        d.responsive !== true &&
+        d.slot !== true &&
+        name !== "as" &&
+        name !== elementByProp?.prop &&
+        !ariaPropNames.has(name),
     )
     .map(([name]) => name);
 
@@ -149,7 +164,8 @@ export function renderAtomicReactWrapper(
     `      ref={ref}`,
     `      className={mergedClassName}`,
     renderA11yAttrs(a11y?.role, a11y?.ariaProps ?? [], a11y?.decorativeProp) || null,
-    renderDataAttrs(spec, responsiveProps, hasLoading, booleanStateProps) || null,
+    renderDataAttrs(spec, responsiveProps, hasLoading, booleanStateProps, stringEnumStateProps) ||
+      null,
     renderStateAttrs(hasAs, hasDisabled, hasLoading) || null,
   ]
     .filter((l): l is string => l !== null && l !== "")
