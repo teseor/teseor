@@ -1,0 +1,202 @@
+---
+import { Input, Code, Codeblock } from "@teseor/react";
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Input — Teseor">
+  <main class="t-stack" data-gap="6">
+    <h1>Input</h1>
+    <p>Single-line text input. Styled `&lt;input&gt;` with token-driven defaults and outline / subtle / plain visual variants. The native `type` attribute (`text`, `email`, `number`, `tel`, `url`, `search`, `password`) passes through `ComponentProps&lt;"input"&gt;`. Form-association attributes (`name`, `form`, `required`, `readOnly`, `disabled`) come from the formControl shared contract.</p>
+    <section class="t-stack" data-gap="3">
+      <h2>Examples</h2>
+      <div class="t-stack" data-gap="2">
+        <h3>default</h3>
+        <div class="t-cluster" data-gap="3">
+          <Input placeholder="Your name" />
+        </div>
+        <Codeblock>&lt;Input placeholder="Your name" /&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>variant-outline</h3>
+        <div class="t-cluster" data-gap="3">
+          <Input variant="outline" placeholder="Email" />
+        </div>
+        <Codeblock>&lt;Input variant="outline" placeholder="Email" /&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>variant-subtle</h3>
+        <div class="t-cluster" data-gap="3">
+          <Input variant="subtle" placeholder="Email" />
+        </div>
+        <Codeblock>&lt;Input variant="subtle" placeholder="Email" /&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>variant-plain</h3>
+        <div class="t-cluster" data-gap="3">
+          <Input variant="plain" placeholder="Email" />
+        </div>
+        <Codeblock>&lt;Input variant="plain" placeholder="Email" /&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>size-sm</h3>
+        <div class="t-cluster" data-gap="3">
+          <Input size="sm" placeholder="Compact" />
+        </div>
+        <Codeblock>&lt;Input size="sm" placeholder="Compact" /&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>size-lg</h3>
+        <div class="t-cluster" data-gap="3">
+          <Input size="lg" placeholder="Emphatic" />
+        </div>
+        <Codeblock>&lt;Input size="lg" placeholder="Emphatic" /&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>type-email</h3>
+        <div class="t-cluster" data-gap="3">
+          <Input type="email" placeholder="you@example.com" />
+        </div>
+        <Codeblock>&lt;Input type="email" placeholder="you@example.com" /&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>type-number</h3>
+        <div class="t-cluster" data-gap="3">
+          <Input type="number" placeholder="42" />
+        </div>
+        <Codeblock>&lt;Input type="number" placeholder="42" /&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>type-password</h3>
+        <div class="t-cluster" data-gap="3">
+          <Input type="password" placeholder="Password" />
+        </div>
+        <Codeblock>&lt;Input type="password" placeholder="Password" /&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>invalid</h3>
+        <div class="t-cluster" data-gap="3">
+          <Input invalid placeholder="Required" />
+        </div>
+        <Codeblock>&lt;Input invalid placeholder="Required" /&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>disabled</h3>
+        <div class="t-cluster" data-gap="3">
+          <Input disabled placeholder="Disabled" />
+        </div>
+        <Codeblock>&lt;Input disabled placeholder="Disabled" /&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>form-control</h3>
+        <div class="t-cluster" data-gap="3">
+          <Input name="email" form="contact" required readOnly placeholder="Form-control attributes pass-through" />
+        </div>
+        <Codeblock>&lt;Input name="email" form="contact" required readOnly placeholder="Form-control attributes pass-through" /&gt;</Codeblock>
+      </div>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Props</h2>
+      <table>
+        <thead><tr><th>Prop</th><th>Type</th><th>Responsive</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>invalid</Code></td><td><Code>boolean</Code></td><td></td><td><Code>null</Code></td><td>Marks the field as invalid for styling. Emits `data-invalid="true"` on the root. ARIA wiring (`aria-invalid`) is consumer-supplied or comes from the Field composite (tracked under #692).</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Form-control attributes</h2>
+      <table>
+        <thead><tr><th>Attribute</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>name</Code></td><td><Code>string</Code></td><td>HTML form field name (submitted with the form).</td></tr>
+        <tr><td><Code>form</Code></td><td><Code>string</Code></td><td>Associates the control with a form element by id.</td></tr>
+        <tr><td><Code>required</Code></td><td><Code>boolean</Code></td><td>Marks the control as required for form submission.</td></tr>
+        <tr><td><Code>readOnly</Code></td><td><Code>boolean</Code></td><td>Prevents editing while keeping the value submitted.</td></tr>
+        <tr><td><Code>disabled</Code></td><td><Code>boolean</Code></td><td>Disables interaction and excludes the value from form submission.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Variants</h2>
+      <table>
+        <thead><tr><th>Name</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>outline</Code></td><td>Bordered box on the surface; default input chrome.</td></tr>
+        <tr><td><Code>subtle</Code></td><td>Soft-fill background, no border; for dense forms where the input chrome should recede.</td></tr>
+        <tr><td><Code>plain</Code></td><td>Borderless; only the focus ring chromes the field. For inline editing or minimal forms.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Sizes</h2>
+      <table>
+        <thead><tr><th>Name</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>sm</Code></td><td>Compact density; matches `Button size="sm"`.</td></tr>
+        <tr><td><Code>md</Code></td><td>Default size.</td></tr>
+        <tr><td><Code>lg</Code></td><td>Emphatic; for hero forms and mobile-first layouts.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>States</h2>
+      <table>
+        <thead><tr><th>State</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>hover</Code></td><td>Pointer is over the input.</td></tr>
+        <tr><td><Code>focus</Code></td><td>Keyboard focus is on the input; the focus ring is visible.</td></tr>
+        <tr><td><Code>disabled</Code></td><td>Interaction is suppressed; the disabled visual state is applied.</td></tr>
+        <tr><td><Code>invalid</Code></td><td>The `invalid` prop is set; the field carries the error visual state.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Tokens</h2>
+      <table>
+        <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-input-bg</Code></td><td><Code>--t-surface</Code></td><td>Background color of the input box; the `subtle` variant overrides this.</td></tr>
+        <tr><td><Code>--t-input-fg</Code></td><td><Code>--t-on-surface</Code></td><td>Foreground (text) color of the input.</td></tr>
+        <tr><td><Code>--t-input-placeholder-fg</Code></td><td><Code>--t-on-surface-muted</Code></td><td>Color of the placeholder text.</td></tr>
+        <tr><td><Code>--t-input-border-color</Code></td><td><Code>--t-border</Code></td><td>Border color in the `outline` variant.</td></tr>
+        <tr><td><Code>--t-input-border-color-invalid</Code></td><td><Code>--t-danger</Code></td><td>Border color when the input is invalid.</td></tr>
+        <tr><td><Code>--t-input-radius</Code></td><td><Code>--t-radius-md</Code></td><td>Corner rounding of the input box.</td></tr>
+        <tr><td><Code>--t-input-height</Code></td><td><Code>--t-row-3</Code></td><td>Block-size of the input box; the size variant overrides this.</td></tr>
+        <tr><td><Code>--t-input-pad-x</Code></td><td><Code>--t-space-3</Code></td><td>Inline padding; the size variant overrides this.</td></tr>
+        <tr><td><Code>--t-input-font</Code></td><td><Code>--t-font-sans</Code></td><td>Font stack.</td></tr>
+        <tr><td><Code>--t-input-font-size</Code></td><td><Code>--t-text-sm</Code></td><td>Font size; the size variant overrides this.</td></tr>
+        <tr><td><Code>--t-input-focus-ring</Code></td><td><Code>--t-focus-ring</Code></td><td>Color of the focus outline.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Forced colors</h2>
+      <p>In Windows High Contrast mode, the component remaps these semantic tokens to CSS system colors. Custom-property inheritance carries the values to every reference in the subtree.</p>
+      <table>
+        <thead><tr><th>Token</th><th>Default</th><th>Forced-colors</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-border</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 50% calc(c * 0.025) h) 92% c h)</Code></td><td><Code>ButtonBorder</Code></td></tr>
+        <tr><td><Code>--t-danger</Code></td><td><Code>color-mix(
+      in oklch,
+      oklch(from oklch(58% 0.2 268deg) 48% c 25deg),
+      oklch(from oklch(58% 0.2 268deg) 48% c h) calc(0 * 100%)
+    )</Code></td><td><Code>ButtonText</Code></td></tr>
+        <tr><td><Code>--t-focus-ring</Code></td><td><Code>oklch(from oklch(58% 0.2 268deg) 55% c h)</Code></td><td><Code>Highlight</Code></td></tr>
+        <tr><td><Code>--t-on-surface</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 50% calc(c * 0.025) h) 18% c h)</Code></td><td><Code>CanvasText</Code></td></tr>
+        <tr><td><Code>--t-on-surface-muted</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 50% calc(c * 0.025) h) 18% c h)</Code></td><td><Code>CanvasText</Code></td></tr>
+        <tr><td><Code>--t-surface</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 50% calc(c * 0.025) h) 97% c h)</Code></td><td><Code>Canvas</Code></td></tr>
+        <tr><td><Code>--t-surface-muted</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 50% calc(c * 0.025) h) 92% c h)</Code></td><td><Code>Canvas</Code></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Bundle size</h2>
+      <table>
+        <thead><tr><th>Artifact</th><th>Raw</th><th>Gzip</th><th>Brotli</th></tr></thead>
+        <tbody>
+        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/input/input.css"><Code>@teseor/css/components/input.css</Code></a></td><td>5.17 KB</td><td>1.16 KB</td><td>1.00 KB</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</Base>
