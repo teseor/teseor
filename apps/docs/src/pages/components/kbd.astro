@@ -1,0 +1,91 @@
+---
+import { Kbd, Code, Codeblock } from "@teseor/react";
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Kbd — Teseor">
+  <main class="t-stack" data-gap="6">
+    <h1>Kbd</h1>
+    <p>Keyboard-key primitive — styled `&lt;kbd&gt;` with token-driven monospace, raised-key visual, and subtle border. Single key per element; combos compose via children (`&lt;Kbd&gt;Cmd&lt;/Kbd&gt;+&lt;Kbd&gt;K&lt;/Kbd&gt;`).</p>
+    <section class="t-stack" data-gap="3">
+      <h2>Examples</h2>
+      <div class="t-stack" data-gap="2">
+        <h3>default</h3>
+        <div class="t-cluster" data-gap="3">
+          <Kbd>Kbd</Kbd>
+        </div>
+        <Codeblock>&lt;Kbd&gt;Kbd&lt;/Kbd&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>small</h3>
+        <div class="t-cluster" data-gap="3">
+          <Kbd size="sm">Kbd</Kbd>
+        </div>
+        <Codeblock>&lt;Kbd size="sm"&gt;Kbd&lt;/Kbd&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>large</h3>
+        <div class="t-cluster" data-gap="3">
+          <Kbd size="lg">Kbd</Kbd>
+        </div>
+        <Codeblock>&lt;Kbd size="lg"&gt;Kbd&lt;/Kbd&gt;</Codeblock>
+      </div>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Props</h2>
+      <table>
+        <thead><tr><th>Prop</th><th>Type</th><th>Responsive</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>asChild</Code></td><td><Code>boolean</Code></td><td></td><td><Code>false</Code></td><td>Render the trigger directly on the consumer's child element (cloneElement) instead of wrapping in a &lt;span&gt;. Single-child invariant; the child receives the wrapper's &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;data-state&lt;/code&gt;, event handlers, and any ARIA attributes the component applies (component-specific). Not compatible with Astro slots — use the default wrapper there.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Sizes</h2>
+      <table>
+        <thead><tr><th>Name</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>sm</Code></td><td>Inline-text usage; matches surrounding small prose.</td></tr>
+        <tr><td><Code>md</Code></td><td>Default size; matches body text.</td></tr>
+        <tr><td><Code>lg</Code></td><td>Hero-callout usage; for shortcut overlays and tutorial banners.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Tokens</h2>
+      <table>
+        <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-kbd-bg</Code></td><td><Code>--t-surface-muted</Code></td><td>Background color of the key cap.</td></tr>
+        <tr><td><Code>--t-kbd-fg</Code></td><td><Code>--t-on-surface</Code></td><td>Foreground (text) color of the key cap.</td></tr>
+        <tr><td><Code>--t-kbd-border-color</Code></td><td><Code>--t-border</Code></td><td>Color of the key's outline.</td></tr>
+        <tr><td><Code>--t-kbd-pad-x</Code></td><td><Code>--t-space-1</Code></td><td>Horizontal padding inside the key cap.</td></tr>
+        <tr><td><Code>--t-kbd-pad-y</Code></td><td><Code>--t-space-0</Code></td><td>Vertical padding inside the key cap.</td></tr>
+        <tr><td><Code>--t-kbd-radius</Code></td><td><Code>--t-radius-sm</Code></td><td>Corner rounding.</td></tr>
+        <tr><td><Code>--t-kbd-font</Code></td><td><Code>--t-font-mono</Code></td><td>Monospace font stack.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Forced colors</h2>
+      <p>In Windows High Contrast mode, the component remaps these semantic tokens to CSS system colors. Custom-property inheritance carries the values to every reference in the subtree.</p>
+      <table>
+        <thead><tr><th>Token</th><th>Default</th><th>Forced-colors</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-border</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 50% calc(c * 0.025) h) 92% c h)</Code></td><td><Code>ButtonBorder</Code></td></tr>
+        <tr><td><Code>--t-on-surface</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 50% calc(c * 0.025) h) 18% c h)</Code></td><td><Code>CanvasText</Code></td></tr>
+        <tr><td><Code>--t-surface-muted</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 50% calc(c * 0.025) h) 92% c h)</Code></td><td><Code>Canvas</Code></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Bundle size</h2>
+      <table>
+        <thead><tr><th>Artifact</th><th>Raw</th><th>Gzip</th><th>Brotli</th></tr></thead>
+        <tbody>
+        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/kbd/kbd.css"><Code>@teseor/css/components/kbd.css</Code></a></td><td>1.71 KB</td><td>0.65 KB</td><td>0.56 KB</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</Base>

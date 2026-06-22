@@ -57,6 +57,9 @@
 - name: component:heading
   color: d4c5f9
   description: heading component
+- name: component:kbd
+  color: d4c5f9
+  description: kbd component
 - name: component:link
   color: d4c5f9
   description: link component
