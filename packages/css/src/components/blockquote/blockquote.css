@@ -1,0 +1,37 @@
+@layer components.tokens {
+  .t-blockquote {
+    --_fg: var(--t-blockquote-fg, var(--t-on-bg));
+    --_fg-muted: var(--t-blockquote-fg-muted, var(--t-on-surface-muted));
+    --_border-color: var(--t-blockquote-border-color, var(--t-accent));
+    --_border-width: var(--t-blockquote-border-width, var(--t-border-thick));
+    --_pad-inline: var(--t-blockquote-pad-inline, var(--t-space-4));
+    --_spacing-block: var(--t-blockquote-spacing-block, var(--t-space-4));
+    --_border-style: solid;
+    --_font-style: normal;
+  }
+}
+
+@layer components.styles {
+  .t-blockquote {
+    box-sizing: border-box;
+    margin: var(--_spacing-block) 0;
+    padding-inline-start: var(--_pad-inline);
+    padding-block: 0;
+    color: var(--_fg);
+    border-inline-start: var(--_border-width) var(--_border-style) var(--_border-color);
+    font-style: var(--_font-style);
+
+    & > cite {
+      display: block;
+      margin-block-start: var(--_spacing-block);
+      color: var(--_fg-muted);
+      font-style: normal;
+    }
+
+    &:where([data-variant="subtle"]) {
+      --_border-style: none;
+      --_pad-inline: 0;
+      --_font-style: italic;
+    }
+  }
+}

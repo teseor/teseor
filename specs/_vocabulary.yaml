@@ -11,6 +11,7 @@ components:
   - Radio
   - Switch
   - Badge
+  - Blockquote
   - Avatar
   - Icon
   - Kbd

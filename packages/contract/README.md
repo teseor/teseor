@@ -15,15 +15,16 @@ pnpm add @teseor/contract
 ## Usage
 
 ```ts
-import type { ButtonProps } from "@teseor/contract/Button.ts";
+import type { BlockquoteProps } from "@teseor/contract/Blockquote.ts";
 
-function buildAttrs(props: ButtonProps): Record<string, string | undefined> {
+function buildAttrs(props: BlockquoteProps): Record<string, string | undefined> {
   return { "data-variant": props.variant, "data-intent": props.intent };
 }
 ```
 
 ## Types
 
+- `Blockquote` — `BlockquoteVariant`, `BlockquoteProps`
 - `Button` — `ButtonVariant`, `ButtonIntent`, `ButtonSize`, `ButtonProps`
 - `Cluster` — `ClusterProps`
 - `Code` — `CodeProps`
