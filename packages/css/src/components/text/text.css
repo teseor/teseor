@@ -1,0 +1,57 @@
+@layer components.tokens {
+  .t-text {
+    --_fg: var(--t-text-fg, var(--t-fg));
+    --_fg-muted: var(--t-text-fg-muted, oklch(from var(--t-fg) 50% c h));
+    --_fg-highlight: var(--t-text-fg-highlight, var(--t-accent));
+    --_leading: var(--t-text-leading, var(--t-leading-normal));
+    --_spacing-block: var(--t-text-spacing-block, var(--t-space-3));
+    --_font-size-xs: var(--t-text-xs);
+    --_font-size-sm: var(--t-text-sm);
+    --_font-size-md: var(--t-text-base);
+    --_font-size-lg: var(--t-text-lg);
+    --_font-size-xl: var(--t-text-xl);
+    --_font-size: var(--_font-size-md);
+  }
+}
+
+@layer components.styles {
+  .t-text {
+    box-sizing: border-box;
+    margin: 0;
+    color: var(--_fg);
+    font-size: var(--_font-size);
+    line-height: var(--_leading);
+
+    &:where(p) {
+      margin-block: var(--_spacing-block);
+    }
+
+    &:where([data-variant="muted"]) {
+      --_fg: var(--_fg-muted);
+    }
+
+    &:where([data-variant="highlight"]) {
+      --_fg: var(--_fg-highlight);
+    }
+
+    &:where([data-size="xs"]) {
+      --_font-size: var(--_font-size-xs);
+    }
+
+    &:where([data-size="sm"]) {
+      --_font-size: var(--_font-size-sm);
+    }
+
+    &:where([data-size="md"]) {
+      --_font-size: var(--_font-size-md);
+    }
+
+    &:where([data-size="lg"]) {
+      --_font-size: var(--_font-size-lg);
+    }
+
+    &:where([data-size="xl"]) {
+      --_font-size: var(--_font-size-xl);
+    }
+  }
+}

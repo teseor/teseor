@@ -176,6 +176,19 @@ describe("checkTokenContract", () => {
     const css = `.t-button { font-size: var(--t-button-font_size, var(--t-text-base)); }`;
     expect(checkTokenContract(spec, css)).toEqual([]);
   });
+
+  test("ignores a CSS read that resolves to a global token sharing the spec-name prefix", () => {
+    // Text component reads `--t-text-xs` (a global font-size token), not a
+    // public Text slot. Without tokensCss the regex flags it as missing.
+    const spec = makeSpec({ ...makeButton(), name: "text", tokens: {} });
+    const css = `.t-text { font-size: var(--t-text-xs); }`;
+    const tokensCss = new Set(["--t-text-xs", "--t-text-sm"]);
+    expect(checkTokenContract(spec, css, tokensCss)).toEqual([]);
+    // Without the tokensCss arg, the same read is flagged as a missing slot.
+    const issues = checkTokenContract(spec, css);
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.message).toMatch(/--t-text-xs/);
+  });
 });
 
 describe("checkTokenFallbacks", () => {

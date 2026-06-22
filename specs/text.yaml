@@ -1,0 +1,95 @@
+name: text
+description: Typography primitive for non-heading prose. Folds the legacy `Paragraph` — one component covers both inline (`<span>`) and block (`<p>`) cases via the `as` prop.
+kind: atomic
+dependencies: []
+elementByProp:
+  prop: as
+  map:
+    span: span
+    p: p
+    em: em
+    strong: strong
+    small: small
+rootClass: t-text
+cssFile: components/text/text.css
+polymorphic: asChild
+
+sizes:
+  xs:
+    description: Caption / fine print.
+    tokens:
+      font-size: --t-text-xs
+  sm:
+    description: Compact prose; secondary copy.
+    tokens:
+      font-size: --t-text-sm
+  md:
+    description: Default body size.
+    tokens:
+      font-size: --t-text-base
+  lg:
+    description: Lead paragraph; slightly larger than body.
+    tokens:
+      font-size: --t-text-lg
+  xl:
+    description: Display body; for hero subtitles and intro paragraphs.
+    tokens:
+      font-size: --t-text-xl
+
+variants:
+  default:
+    description: Page's primary text color; reads as standard body copy.
+  muted:
+    description: De-emphasized; for captions, metadata, helper text.
+  highlight:
+    description: Accent-colored for emphasized fragments inside a larger run.
+
+props:
+  as:
+    type: string
+    values: [span, p, em, strong, small]
+    default: span
+    responsive: false
+    description: Rendered HTML tag. `span` is inline (no margin); `p` is a prose block (margin-block applies); `em`/`strong`/`small` carry implicit emphasis / strong-importance / small-print semantics.
+
+tokens:
+  fg:
+    fallback: --t-fg
+    desc: Default text color.
+  fg-muted:
+    fallback: oklch(from var(--t-fg) 50% c h)
+    desc: Muted variant color; lower-contrast against the background.
+  fg-highlight:
+    fallback: --t-accent
+    desc: Highlight variant color; accent-colored for emphasized fragments.
+  leading:
+    fallback: --t-leading-normal
+    desc: Line-height for prose readability.
+  spacing-block:
+    fallback: --t-space-3
+    desc: "Vertical rhythm above and below a prose block (`as: p`)."
+
+privateTokens:
+  - --_fg
+  - --_fg-muted
+  - --_fg-highlight
+  - --_leading
+  - --_spacing-block
+  - --_font-size
+  - --_font-size-xs
+  - --_font-size-sm
+  - --_font-size-md
+  - --_font-size-lg
+  - --_font-size-xl
+
+examples:
+  - id: default
+    props: { as: span }
+  - id: paragraph
+    props: { as: p }
+  - id: muted-small
+    props: { as: span, variant: muted, size: sm }
+  - id: highlight-strong
+    props: { as: strong, variant: highlight }
+  - id: lead-paragraph
+    props: { as: p, size: lg }
