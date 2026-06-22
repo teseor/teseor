@@ -1,6 +1,6 @@
 import { collectSlots } from "../../../lib/collect-slots.ts";
 import { renderEnumType } from "../../../lib/enum-primitives.ts";
-import { isVoidElement } from "../../../lib/html-void-elements.ts";
+import { specVoidStatus, voidTagsInMap } from "../../../lib/html-void-elements.ts";
 import { reactJsDocFlavor, renderComponentJsDoc } from "../../../lib/jsdoc-shape.ts";
 import { pascalCase } from "../../../lib/pascal-case.ts";
 import type { Spec } from "../../gen-contract.ts";
@@ -53,6 +53,22 @@ export function renderAtomicReactWrapper(
       .map(([n]) => n),
   ];
 
+  // Boolean spec props become `data-{name}` flags on the root element. The
+  // controlling prop for `elementByProp`, the `disabled` / `loading` pair,
+  // controllable booleans, and responsive booleans are emitted by their
+  // dedicated paths and are excluded here.
+  const booleanStateProps: string[] = Object.entries(propMap)
+    .filter(
+      ([name, d]) =>
+        d.type === "boolean" &&
+        d.responsive !== true &&
+        d.pattern !== "controllable" &&
+        name !== "disabled" &&
+        name !== "loading" &&
+        name !== elementByProp?.prop,
+    )
+    .map(([name]) => name);
+
   const inactiveExpr = [
     hasDisabled ? "disabled === true" : null,
     hasLoading ? "loading === true" : null,
@@ -63,6 +79,10 @@ export function renderAtomicReactWrapper(
   const rootExpr = hasAs ? `as ?? ${quote(spec.element ?? "div")}` : quote(spec.element ?? "div");
   const componentTag =
     hasAs || isPolymorphic || elementByProp ? "Component" : (spec.element ?? "div");
+
+  const voidStatus = specVoidStatus(spec);
+  const isVoid = voidStatus === "all";
+  const isMixedVoid = voidStatus === "mixed";
 
   const tagMapLine = elementByProp
     ? `  const tagMap = { ${Object.entries(elementByProp.map)
@@ -78,24 +98,43 @@ export function renderAtomicReactWrapper(
       ? `tagMap[${elementByProp.prop} ?? ${quote(elementByPropDefault)}]`
       : null;
 
+  // For a `mixed` elementByProp map (some void, some non-void), the rendered
+  // tag's void-ness can only be known at runtime. Hoist the resolved tag into
+  // a local so JSX can branch self-closing vs with-children, and asChild can
+  // skip Slot on the void path (Slot wraps children, which void tags reject).
+  const resolvedTagLine =
+    isMixedVoid && tagFromProp ? `  const resolvedTag = ${tagFromProp};` : null;
+  const voidCheckExpr =
+    isMixedVoid && elementByProp
+      ? voidTagsInMap(elementByProp.map)
+          .map((tag) => `resolvedTag === ${quote(tag)}`)
+          .join(" || ")
+      : null;
+  const isVoidResolvedLine = voidCheckExpr ? `  const isVoidResolved = ${voidCheckExpr};` : null;
+
   // With elementByProp the rendered tag is one of the map values; `asElement`
   // widens the narrow literal-string union back to ElementType so JSX's ref
   // slot isn't pinned to one HTMLElement subtype. The same widening covers
   // heterogeneous maps (e.g. `span | p | em`) where the union is not a single
   // shared HTMLElement subclass — JSX would otherwise infer the last entry's
   // ref type and reject `Ref<HTMLElement>` from the consumer.
+  const tagExpr = isMixedVoid ? "resolvedTag" : tagFromProp;
   const componentLine = isPolymorphic
-    ? tagFromProp
-      ? `  const Component = asChild ? Slot : asElement(${tagFromProp});`
-      : `  const Component = asChild ? Slot : asElement(${quote(spec.element ?? "div")});`
+    ? isMixedVoid
+      ? `  const Component = asChild && !isVoidResolved ? Slot : asElement(resolvedTag);`
+      : tagExpr
+        ? `  const Component = asChild ? Slot : asElement(${tagExpr});`
+        : `  const Component = asChild ? Slot : asElement(${quote(spec.element ?? "div")});`
     : hasAs
       ? `  const Component = asElement(${rootExpr});`
-      : tagFromProp
-        ? `  const Component = asElement(${tagFromProp});`
+      : tagExpr
+        ? `  const Component = asElement(${tagExpr});`
         : null;
 
   const helperBlock = [
     tagMapLine,
+    resolvedTagLine,
+    isVoidResolvedLine,
     componentLine,
     hasDisabled && hasAs ? `  const isButton = Component === "button";` : null,
     inactiveExpr ? `  const inactive = ${inactiveExpr};` : null,
@@ -108,7 +147,7 @@ export function renderAtomicReactWrapper(
     `      {...rest}`,
     `      ref={ref}`,
     `      className={mergedClassName}`,
-    renderDataAttrs(spec, responsiveProps, hasLoading) || null,
+    renderDataAttrs(spec, responsiveProps, hasLoading, booleanStateProps) || null,
     renderStateAttrs(hasAs, hasDisabled, hasLoading) || null,
   ]
     .filter((l): l is string => l !== null && l !== "")
@@ -130,7 +169,6 @@ export function renderAtomicReactWrapper(
   // Void elements (hr, img, input, br, …) cannot have children — emit a
   // self-closing JSX form and skip the body. Slot/loading state on a void
   // spec is a spec authoring error and is not validated here.
-  const isVoid = spec.element ? isVoidElement(spec.element) : false;
   const innerBody = isVoid ? "" : renderBody(spec, slots, hasLoading);
   const bodyBlock =
     !isVoid && spec.kind === "atomic" && spec.slotElement
@@ -168,9 +206,20 @@ export function renderAtomicReactWrapper(
   const biomeIgnore = isVoid && spec.element ? VOID_ELEMENT_BIOME_IGNORES[spec.element] : undefined;
   const biomeIgnoreLine = biomeIgnore ? `    // biome-ignore ${biomeIgnore}\n` : "";
 
+  const indent = (text: string, prefix: string): string =>
+    text
+      .split("\n")
+      .map((line) => (line.length > 0 ? `${prefix}${line}` : line))
+      .join("\n");
+
   const renderElement = isVoid
     ? `${biomeIgnoreLine}    <${componentTag}\n${attrBlock}\n    />`
-    : `    <${componentTag}\n${attrBlock}\n    >\n${bodyBlock}\n    </${componentTag}>`;
+    : isMixedVoid
+      ? // Runtime branch on the resolved tag's void-ness: void tag → self-closing
+        // (children rejected by HTML); non-void tag → with-children, where Slot
+        // may have replaced Component when `asChild` is true.
+        `    isVoidResolved ? (\n      <${componentTag}\n${indent(attrBlock, "  ")}\n      />\n    ) : (\n      <${componentTag}\n${indent(attrBlock, "  ")}\n      >\n${indent(bodyBlock, "  ")}\n      </${componentTag}>\n    )`
+      : `    <${componentTag}\n${attrBlock}\n    >\n${bodyBlock}\n    </${componentTag}>`;
 
   return `"use client";
 
