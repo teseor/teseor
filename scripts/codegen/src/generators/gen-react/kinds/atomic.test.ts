@@ -177,4 +177,23 @@ describe("renderAtomicReactWrapper", () => {
       expect(out).not.toContain("const tagMap");
     });
   });
+
+  describe("void elements", () => {
+    test("emits a biome-ignore for useAltText above generated <img>", () => {
+      const out = renderAtomicReactWrapper(atomicSpec({ name: "image", element: "img" }), {});
+      expect(out).toContain(
+        "    // biome-ignore lint/a11y/useAltText: alt is forwarded via {...rest}\n    <img\n",
+      );
+    });
+
+    test("does not emit a biome-ignore for void elements without a registered rule", () => {
+      const out = renderAtomicReactWrapper(atomicSpec({ name: "divider", element: "hr" }), {});
+      expect(out).not.toContain("biome-ignore");
+    });
+
+    test("does not emit a biome-ignore for non-void elements", () => {
+      const out = renderAtomicReactWrapper(atomicSpec({ element: "div" }), {});
+      expect(out).not.toContain("biome-ignore");
+    });
+  });
 });
