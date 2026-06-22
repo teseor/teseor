@@ -57,8 +57,11 @@ export function renderAtomicVueWrapper(
     elementByProp && elementByPropDefault !== null
       ? `tagMap[${elementByProp.prop} ?? '${elementByPropDefault}']`
       : null;
+  // Single-quoted literal so the expression nests inside v-bind's double-quoted
+  // attribute (`:is="asChild ? Slot : 'a'"`); JSON.stringify would yield "a"
+  // which collides with the surrounding double quotes.
   const polymorphicIsExpr = isPolymorphic
-    ? `asChild ? Slot : ${tagFromProp ?? JSON.stringify(spec.element ?? "div")}`
+    ? `asChild ? Slot : ${tagFromProp ?? `'${spec.element ?? "div"}'`}`
     : (tagFromProp ?? null);
 
   const tagMapLine = elementByProp

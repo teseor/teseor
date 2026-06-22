@@ -49,7 +49,7 @@ const attrs = computed(() => ({
 </script>
 
 <template>
-  <component :is="asChild ? Slot : "a"" class="t-link" v-bind="attrs">
+  <component :is="asChild ? Slot : 'a'" class="t-link" v-bind="attrs">
     <slot />
   </component>
 </template>
