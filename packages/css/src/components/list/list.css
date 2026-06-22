@@ -1,0 +1,59 @@
+@layer components.tokens {
+  .t-list {
+    --_marker-color: var(--t-list-marker-color, var(--t-on-surface-muted));
+    --_spacing-item: var(--t-list-spacing-item, var(--t-space-2));
+    --_spacing-block: var(--t-list-spacing-block, var(--t-space-4));
+    --_indent: var(--t-list-indent, var(--t-space-5));
+    --_spacing-item-compact: var(--t-space-1);
+    --_spacing-item-comfortable: var(--t-space-2);
+  }
+}
+
+@layer components.styles {
+  .t-list {
+    box-sizing: border-box;
+    margin: 0;
+    margin-block: var(--_spacing-block);
+    padding: 0;
+    padding-inline-start: var(--_indent);
+    color: inherit;
+
+    & > li {
+      margin: 0;
+
+      &::marker {
+        color: var(--_marker-color);
+      }
+    }
+
+    & > li + li {
+      margin-block-start: var(--_spacing-item);
+    }
+
+    & ul,
+    & ol {
+      margin-block: var(--_spacing-item);
+    }
+
+    &:where([data-spacing="compact"]) {
+      --_spacing-item: var(--_spacing-item-compact);
+    }
+
+    &:where([data-spacing="comfortable"]) {
+      --_spacing-item: var(--_spacing-item-comfortable);
+    }
+
+    @each $bp in md, lg, xl, 2xl {
+      /* stylelint-disable-next-line media-query-no-invalid */
+      @media (--$(bp)) {
+        &:where([data-spacing-$(bp)="compact"]) {
+          --_spacing-item: var(--_spacing-item-compact);
+        }
+
+        &:where([data-spacing-$(bp)="comfortable"]) {
+          --_spacing-item: var(--_spacing-item-comfortable);
+        }
+      }
+    }
+  }
+}

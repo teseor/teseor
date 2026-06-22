@@ -77,6 +77,12 @@ component:heading:
           - packages/css/src/components/heading/**
           - specs/heading.yaml
 
+component:list:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/css/src/components/list/**
+          - specs/list.yaml
+
 component:modal:
   - changed-files:
       - any-glob-to-any-file:

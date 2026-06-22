@@ -1,0 +1,57 @@
+name: list
+description: Ordered / unordered list primitive. Renders `<ul>` or `<ol>` based on `ordered`; styles bare `<li>` children with grid-rhythm spacing and prose-friendly markers.
+kind: atomic
+dependencies: []
+elementByProp:
+  prop: ordered
+  map:
+    "false": ul
+    "true": ol
+rootClass: t-list
+cssFile: components/list/list.css
+polymorphic: asChild
+
+props:
+  ordered:
+    type: string
+    values: ["false", "true"]
+    default: "false"
+    responsive: false
+    description: Switches the rendered tag between `<ul>` (`false`) and `<ol>` (`true`). String-typed because `elementByProp` v1 accepts string-valued controlling props only.
+  spacing:
+    type: string
+    values: [compact, comfortable]
+    responsive: true
+    description: Vertical rhythm between list items. `compact` suits dense in-app surfaces (nav rails, comment threads). Default (absence-of-attr) matches the prose-friendly `comfortable` spacing — cross-framework parity requires the empty state, since the Vue generator threads `default:` into `defineProps` but React does not.
+
+tokens:
+  marker-color:
+    fallback: --t-on-surface-muted
+    desc: Color of the list marker (bullet or numeral).
+  spacing-item:
+    fallback: --t-space-2
+    desc: Vertical gap between adjacent `<li>` children. Snapped to the grid-rhythm scale.
+  spacing-block:
+    fallback: --t-space-4
+    desc: Vertical rhythm above and below the list in prose context.
+  indent:
+    fallback: --t-space-5
+    desc: Inline padding reserved for the marker glyph.
+
+privateTokens:
+  - --_marker-color
+  - --_spacing-item
+  - --_spacing-block
+  - --_indent
+  - --_spacing-item-compact
+  - --_spacing-item-comfortable
+
+examples:
+  - id: default
+    props: {}
+  - id: ordered
+    props: { ordered: "true" }
+  - id: compact
+    props: { spacing: compact }
+  - id: comfortable
+    props: { spacing: comfortable }
