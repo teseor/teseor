@@ -81,6 +81,10 @@
     "path": "packages/css/dist/components/pagination.css"
   },
   {
+    "name": "@teseor/css/components/radio.css",
+    "path": "packages/css/dist/components/radio.css"
+  },
+  {
     "name": "@teseor/css/components/stack.css",
     "path": "packages/css/dist/components/stack.css"
   },

@@ -137,6 +137,12 @@ component:pagination:
           - packages/css/src/components/pagination/**
           - specs/pagination.yaml
 
+component:radio:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/css/src/components/radio/**
+          - specs/radio.yaml
+
 component:stack:
   - changed-files:
       - any-glob-to-any-file:

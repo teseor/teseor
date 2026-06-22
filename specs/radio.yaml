@@ -1,0 +1,95 @@
+name: radio
+description: 'Single radio button. Styled `<input type="radio">` with a painted dot and three sizes. Group exclusivity is consumer-owned via shared `name` (browsers handle it natively). Native `checked` / `defaultChecked` / `onChange` pass through `ComponentProps<"input">`. Form-association attributes (`name`, `form`, `required`, `disabled`) come from the formControl shared contract; HTML ignores `readOnly` on radio inputs.'
+kind: atomic
+formControl: true
+dependencies: []
+element: input
+rootClass: t-radio
+cssFile: components/radio/radio.css
+
+htmlAttrs:
+  type: radio
+
+sizes:
+  sm:
+    description: Compact density; pairs with `Input size="sm"` in dense forms.
+  md:
+    description: Default size.
+  lg:
+    description: Emphatic; for prominent toggles or touch-first layouts.
+
+visualStates:
+  hover:
+    description: Pointer is over the radio.
+  focus:
+    description: Keyboard focus is on the radio; the focus ring is visible.
+  checked:
+    description: The radio is selected (`checked`).
+  disabled:
+    description: Interaction is suppressed; the disabled visual state is applied.
+
+tokens:
+  bg:
+    fallback: --t-surface
+    desc: Background color in the unchecked state.
+  bg-checked:
+    fallback: --t-surface
+    desc: Background color in the checked state (the painted dot uses `fg`).
+  fg:
+    fallback: --t-accent
+    desc: Color of the painted center dot when checked.
+  border:
+    fallback: --t-border-strong
+    desc: Border color in the unchecked state.
+  border-checked:
+    fallback: --t-accent
+    desc: Border color in the checked state.
+  focus-ring:
+    fallback: --t-focus-ring
+    desc: Color of the focus outline.
+
+privateTokens:
+  - --_size
+  - --_size-sm
+  - --_size-md
+  - --_size-lg
+  - --_dot-size
+  - --_bg
+  - --_bg-unchecked
+  - --_bg-checked
+  - --_fg
+  - --_border
+  - --_border-unchecked
+  - --_border-checked
+  - --_focus-ring
+  - --_opacity
+  - --_cursor
+  - --_dur
+  - --_ease
+  - --_motion-scale
+
+a11y:
+  keyboard:
+    Space: select
+    Arrow keys: native group navigation (move + select within the same `name`)
+
+examples:
+  - id: default
+    props: {}
+  - id: checked
+    props: { defaultChecked: true }
+  - id: size-sm
+    props: { size: sm }
+  - id: size-lg
+    props: { size: lg }
+  - id: size-lg-checked
+    props: { size: lg, defaultChecked: true }
+  - id: disabled
+    props: { disabled: true }
+  - id: disabled-checked
+    props: { disabled: true, defaultChecked: true }
+  - id: form-control
+    props:
+      name: plan
+      form: signup
+      required: true
