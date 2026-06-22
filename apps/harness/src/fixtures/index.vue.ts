@@ -15,6 +15,7 @@ import { fixtures as kbdFixtures } from "./Kbd.vue.ts";
 import { fixtures as linkFixtures } from "./Link.vue.ts";
 import { fixtures as listFixtures } from "./List.vue.ts";
 import { fixtures as radioFixtures } from "./Radio.vue.ts";
+import { fixtures as selectFixtures } from "./Select.vue.ts";
 import { fixtures as stackFixtures } from "./Stack.vue.ts";
 import { fixtures as switchFixtures } from "./Switch.vue.ts";
 import { fixtures as textFixtures } from "./Text.vue.ts";
@@ -35,6 +36,7 @@ export const vueFixtures: Record<string, Record<string, () => VNode>> = {
   link: linkFixtures,
   list: listFixtures,
   radio: radioFixtures,
+  select: selectFixtures,
   stack: stackFixtures,
   switch: switchFixtures,
   text: textFixtures,

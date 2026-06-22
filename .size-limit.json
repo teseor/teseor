@@ -85,6 +85,10 @@
     "path": "packages/css/dist/components/radio.css"
   },
   {
+    "name": "@teseor/css/components/select.css",
+    "path": "packages/css/dist/components/select.css"
+  },
+  {
     "name": "@teseor/css/components/stack.css",
     "path": "packages/css/dist/components/stack.css"
   },

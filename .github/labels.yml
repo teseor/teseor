@@ -90,6 +90,9 @@
 - name: component:radio
   color: d4c5f9
   description: radio component
+- name: component:select
+  color: d4c5f9
+  description: select component
 - name: component:stack
   color: d4c5f9
   description: stack component

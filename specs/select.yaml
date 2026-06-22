@@ -1,0 +1,147 @@
+name: select
+description: 'Native dropdown. Styled `<select>` with token-driven defaults and outline / subtle / plain visual variants. Children are consumer-supplied `<option>` and `<optgroup>` elements. The `multiple` HTML attribute renders the native listbox view and reaches the DOM via `ComponentProps<"select">` pass-through. Form-association attributes (`name`, `form`, `required`, `disabled`) come from the formControl shared contract; HTML ignores `readOnly` on select inputs.'
+kind: atomic
+formControl: true
+dependencies: []
+element: select
+rootClass: t-select
+cssFile: components/select/select.css
+
+variants:
+  outline:
+    description: Bordered box on the surface; default select chrome.
+  subtle:
+    description: Soft-fill background, no border; for dense forms where the select chrome should recede.
+  plain:
+    description: Borderless; only the focus ring chromes the field. For inline editing or minimal forms.
+
+sizes:
+  sm:
+    description: Compact density; matches `Input size="sm"`.
+    tokens:
+      height: --t-row-2
+      pad-x: --t-space-2
+      font-size: --t-text-xs
+  md:
+    description: Default size.
+    tokens:
+      height: --t-row-3
+      pad-x: --t-space-3
+      font-size: --t-text-sm
+  lg:
+    description: Emphatic; for hero forms and mobile-first layouts.
+    tokens:
+      height: --t-row-4
+      pad-x: --t-space-4
+      font-size: --t-text-base
+
+visualStates:
+  hover:
+    description: Pointer is over the select.
+  focus:
+    description: Keyboard focus is on the select; the focus ring is visible.
+  disabled:
+    description: Interaction is suppressed; the disabled visual state is applied.
+  invalid:
+    description: The `invalid` prop is set; the field carries the error visual state.
+
+props:
+  invalid:
+    type: boolean
+    responsive: false
+    description: 'Marks the field as invalid for styling. Emits `data-invalid="true"` on the root. ARIA wiring (`aria-invalid`) is consumer-supplied or comes from the Field composite (tracked under #692).'
+
+tokens:
+  bg:
+    fallback: --t-surface
+    desc: Background color of the select box; the `subtle` variant overrides this.
+  fg:
+    fallback: --t-on-surface
+    desc: Foreground (text) color of the selected option label.
+  border-color:
+    fallback: --t-border
+    desc: Border color in the `outline` variant.
+  border-color-invalid:
+    fallback: --t-danger
+    desc: Border color when the select is invalid.
+  radius:
+    fallback: --t-radius-md
+    desc: Corner rounding of the select box.
+  height:
+    fallback: --t-row-3
+    desc: Block-size of the select box; the size variant overrides this.
+  pad-x:
+    fallback: --t-space-3
+    desc: Inline padding; the size variant overrides this.
+  font:
+    fallback: --t-font-sans
+    desc: Font stack.
+  font-size:
+    fallback: --t-text-sm
+    desc: Font size; the size variant overrides this.
+  focus-ring:
+    fallback: --t-focus-ring
+    desc: Color of the focus outline.
+  chevron-color:
+    fallback: --t-on-surface-muted
+    desc: Color of the dropdown chevron glyph.
+  chevron-size:
+    fallback: --t-space-3
+    desc: Size of the dropdown chevron glyph.
+
+privateTokens:
+  - --_bg
+  - --_fg
+  - --_border-color
+  - --_border-color-invalid
+  - --_radius
+  - --_h
+  - --_pad-x
+  - --_pad-end
+  - --_font
+  - --_font-size
+  - --_focus-ring
+  - --_border-thickness
+  - --_opacity
+  - --_cursor
+  - --_bg-outline
+  - --_border-color-outline
+  - --_bg-subtle
+  - --_bg-readonly
+  - --_h-sm
+  - --_pad-x-sm
+  - --_font-size-sm
+  - --_h-md
+  - --_pad-x-md
+  - --_font-size-md
+  - --_h-lg
+  - --_pad-x-lg
+  - --_font-size-lg
+  - --_chevron-color
+  - --_chevron-size
+  - --_chevron-gap
+
+examples:
+  - id: default
+    props: {}
+  - id: variant-outline
+    props: { variant: outline }
+  - id: variant-subtle
+    props: { variant: subtle }
+  - id: variant-plain
+    props: { variant: plain }
+  - id: size-sm
+    props: { size: sm }
+  - id: size-lg
+    props: { size: lg }
+  - id: multiple
+    props: { multiple: true }
+  - id: invalid
+    props: { invalid: true }
+  - id: disabled
+    props: { disabled: true }
+  - id: form-control
+    props:
+      name: country
+      form: contact
+      required: true

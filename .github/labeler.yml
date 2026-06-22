@@ -143,6 +143,12 @@ component:radio:
           - packages/css/src/components/radio/**
           - specs/radio.yaml
 
+component:select:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/css/src/components/select/**
+          - specs/select.yaml
+
 component:stack:
   - changed-files:
       - any-glob-to-any-file:
