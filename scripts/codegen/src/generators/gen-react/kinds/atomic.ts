@@ -203,8 +203,13 @@ export function renderAtomicReactWrapper(
     `      ref={${refExpr}}`,
     `      className={mergedClassName}`,
     htmlAttrLines || null,
-    renderA11yAttrs(a11y?.role, a11y?.ariaProps ?? [], a11y?.decorativeProp, roleBiomeIgnore) ||
-      null,
+    renderA11yAttrs(
+      a11y?.role,
+      a11y?.ariaProps ?? [],
+      a11y?.decorativeProp,
+      a11y?.labelProp,
+      roleBiomeIgnore,
+    ) || null,
     renderDataAttrs(spec, responsiveProps, hasLoading, booleanStateProps, stringEnumStateProps) ||
       null,
     renderStateAttrs(hasAs, hasDisabled, hasLoading) || null,

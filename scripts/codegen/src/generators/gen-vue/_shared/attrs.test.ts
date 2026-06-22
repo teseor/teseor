@@ -116,4 +116,18 @@ describe("renderA11yAttrEntries", () => {
   test("renders an empty string when nothing is declared", () => {
     expect(renderA11yAttrEntries(undefined, [], undefined)).toBe("");
   });
+
+  test("with labelProp set, emits aria-label entry and conditional aria-hidden", () => {
+    const out = renderA11yAttrEntries(undefined, [], undefined, "label");
+    expect(out).toContain(`"aria-label": label,`);
+    expect(out).toContain(`"aria-hidden": label === undefined ? "true" : undefined,`);
+    expect(out).not.toContain(`role:`);
+  });
+
+  test("with labelProp + base role, role toggles to none when label is unset", () => {
+    const out = renderA11yAttrEntries("img", [], undefined, "label");
+    expect(out).toContain(`role: label === undefined ? "none" : "img",`);
+    expect(out).toContain(`"aria-label": label,`);
+    expect(out).toContain(`"aria-hidden": label === undefined ? "true" : undefined,`);
+  });
 });

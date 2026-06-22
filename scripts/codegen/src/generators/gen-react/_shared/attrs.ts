@@ -31,24 +31,28 @@ export function renderDataAttrs(
 }
 
 /** Emit the JSX-attribute lines for the spec's a11y block: a static `role`
- *  (overridden to `"none"` when `decorativeProp` is true), an `aria-{name}`
- *  per entry in `ariaProps`, and `aria-hidden` when `decorativeProp` is
- *  declared and true. Static-empty when no a11y block is set. The optional
- *  `roleBiomeIgnore` injects a `// biome-ignore` line directly above `role=`
- *  for combinations Biome can't see across (e.g. `aria-checked` implicit on
- *  `<input type="checkbox" role="switch">`). */
+ *  (overridden to `"none"` when `decorativeProp` is true, or when `labelProp`
+ *  is unset), an `aria-{name}` per entry in `ariaProps`, `aria-label` from
+ *  `labelProp` when set, and `aria-hidden` driven by either `decorativeProp`
+ *  (true) or `labelProp` (undefined). Static-empty when no a11y block is
+ *  set. The optional `roleBiomeIgnore` injects a `// biome-ignore` line
+ *  directly above `role=` for combinations Biome can't see across (e.g.
+ *  `aria-checked` implicit on `<input type="checkbox" role="switch">`). */
 export function renderA11yAttrs(
   role: string | undefined,
   ariaProps: readonly string[],
   decorativeProp: string | undefined,
+  labelProp?: string,
   roleBiomeIgnore?: string,
 ): string {
   const roleLine =
     role !== undefined && decorativeProp !== undefined
       ? `      role={${decorativeProp} === true ? "none" : ${quote(role)}}`
-      : role !== undefined
-        ? `      role=${quote(role)}`
-        : null;
+      : role !== undefined && labelProp !== undefined
+        ? `      role={${labelProp} === undefined ? "none" : ${quote(role)}}`
+        : role !== undefined
+          ? `      role=${quote(role)}`
+          : null;
   const roleWithIgnore =
     roleLine !== null && roleBiomeIgnore
       ? `      // biome-ignore ${roleBiomeIgnore}\n${roleLine}`
@@ -56,8 +60,12 @@ export function renderA11yAttrs(
   return [
     roleWithIgnore,
     ...ariaProps.map((name) => `      aria-${name}={${name}}`),
+    labelProp !== undefined ? `      aria-label={${labelProp}}` : null,
     decorativeProp !== undefined
       ? `      aria-hidden={${decorativeProp} === true ? "true" : undefined}`
+      : null,
+    labelProp !== undefined
+      ? `      aria-hidden={${labelProp} === undefined ? "true" : undefined}`
       : null,
   ]
     .filter((line): line is string => line !== null)

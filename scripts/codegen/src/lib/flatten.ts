@@ -59,6 +59,7 @@ export type FlatA11y = {
   states?: Record<string, string>;
   ariaProps?: string[];
   decorativeProp?: string;
+  labelProp?: string;
 };
 
 export type FlatMotion = {

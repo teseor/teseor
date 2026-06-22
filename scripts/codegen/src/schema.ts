@@ -60,6 +60,12 @@ const a11yBlock = z.strictObject({
    *  runtime the root emits `role="none"` (overriding any static `role`) and
    *  `aria-hidden="true"`, removing the element from the accessibility tree. */
   decorativeProp: z.string().min(1).optional(),
+  /** Names a declared `type: string`, non-responsive prop. The root is
+   *  decorative by default (`aria-hidden="true"` and, if `role` is set,
+   *  role overridden to `"none"`). When the prop has a value at runtime
+   *  the root emits `aria-label={prop}` and the decorative attrs drop.
+   *  Mutually exclusive with `decorativeProp`. */
+  labelProp: z.string().min(1).optional(),
 });
 
 const constraintEntry = z.strictObject({
@@ -181,6 +187,7 @@ type ComponentPart = {
     states?: Record<string, string>;
     ariaProps?: string[];
     decorativeProp?: string;
+    labelProp?: string;
   };
   constraints?: Array<{
     when: Record<string, unknown>;
