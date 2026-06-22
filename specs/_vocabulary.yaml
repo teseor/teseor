@@ -19,6 +19,7 @@ components:
   - Code
   - Codeblock
   - Heading
+  - List
   - Text
 
   # Surfaces and feedback

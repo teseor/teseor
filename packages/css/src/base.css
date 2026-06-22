@@ -69,6 +69,22 @@
     border-radius: var(--t-radius-md);
   }
 
+  ul,
+  ol {
+    margin-block: var(--t-space-4);
+    padding-inline-start: var(--t-space-5);
+  }
+
+  ul > li::marker,
+  ol > li::marker {
+    color: var(--t-on-surface-muted);
+  }
+
+  ul > li + li,
+  ol > li + li {
+    margin-block-start: var(--t-space-2);
+  }
+
   hr {
     border: 0;
     border-block-start: var(--t-border-thin) solid var(--t-border);

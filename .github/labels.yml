@@ -57,6 +57,9 @@
 - name: component:heading
   color: d4c5f9
   description: heading component
+- name: component:list
+  color: d4c5f9
+  description: list component
 - name: component:modal
   color: d4c5f9
   description: modal component

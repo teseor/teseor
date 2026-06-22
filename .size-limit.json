@@ -41,6 +41,10 @@
     "path": "packages/css/dist/components/heading.css"
   },
   {
+    "name": "@teseor/css/components/list.css",
+    "path": "packages/css/dist/components/list.css"
+  },
+  {
     "name": "@teseor/css/components/modal.css",
     "path": "packages/css/dist/components/modal.css"
   },
