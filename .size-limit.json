@@ -41,6 +41,10 @@
     "path": "packages/css/dist/components/codeblock.css"
   },
   {
+    "name": "@teseor/css/components/divider.css",
+    "path": "packages/css/dist/components/divider.css"
+  },
+  {
     "name": "@teseor/css/components/heading.css",
     "path": "packages/css/dist/components/heading.css"
   },

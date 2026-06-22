@@ -1,0 +1,56 @@
+name: divider
+description: Horizontal-or-vertical visual rule. Renders `<hr>` for the horizontal orientation (native `role="separator"`) and `<div role="separator" aria-orientation="vertical">` for the vertical one. The `decorative` prop hides the element from the accessibility tree (`role="none"` + `aria-hidden="true"`).
+kind: atomic
+dependencies: []
+elementByProp:
+  prop: orientation
+  map:
+    horizontal: hr
+    vertical: div
+rootClass: t-divider
+cssFile: components/divider/divider.css
+polymorphic: asChild
+
+props:
+  orientation:
+    type: string
+    values: [horizontal, vertical]
+    responsive: false
+    description: Axis of the rule. Absence-of-attr selects `horizontal` — codegen falls back to the first map key and the `<hr>` carries the native horizontal orientation. Pass `vertical` to render a `<div>` with explicit `role="separator"` + `aria-orientation="vertical"`.
+  decorative:
+    type: boolean
+    responsive: false
+    description: Removes the divider from the accessibility tree (`role="none"` + `aria-hidden="true"`). Use when the rule is purely visual and not announcing a structural boundary.
+
+tokens:
+  fg:
+    fallback: --t-border
+    desc: Color of the rule line.
+  thickness:
+    fallback: --t-border-thin
+    desc: Stroke width of the rule line.
+  style:
+    fallback: solid
+    desc: CSS `border-style` keyword — `solid`, `dashed`, or `dotted`.
+  spacing-block:
+    fallback: --t-space-4
+    desc: Vertical rhythm above and below a horizontal divider in prose context.
+
+privateTokens:
+  - --_fg
+  - --_thickness
+  - --_style
+  - --_spacing-block
+
+a11y:
+  role: separator
+  ariaProps: [orientation]
+  decorativeProp: decorative
+
+examples:
+  - id: default
+    props: {}
+  - id: vertical
+    props: { orientation: vertical }
+  - id: decorative
+    props: { decorative: true }

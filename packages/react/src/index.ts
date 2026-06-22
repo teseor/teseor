@@ -5,6 +5,7 @@ export { Button, type ButtonProps } from "./Button.tsx";
 export { Cluster, type ClusterProps } from "./Cluster.tsx";
 export { Code, type CodeProps } from "./Code.tsx";
 export { Codeblock, type CodeblockProps } from "./Codeblock.tsx";
+export { Divider, type DividerProps } from "./Divider.tsx";
 export { Heading, type HeadingProps } from "./Heading.tsx";
 export { Image, type ImageProps } from "./Image.tsx";
 export { Kbd, type KbdProps } from "./Kbd.tsx";
