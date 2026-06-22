@@ -1,0 +1,40 @@
+@layer components.tokens {
+  .t-image {
+    --_radius: var(--t-image-radius, var(--t-radius-md));
+    --_bg: var(--t-image-bg, var(--t-surface-muted));
+    --_object-fit: initial;
+  }
+}
+
+@layer components.styles {
+  .t-image {
+    box-sizing: border-box;
+    margin: 0;
+    display: block;
+    max-width: 100%;
+    height: auto;
+    background-color: var(--_bg);
+    border-radius: var(--_radius);
+    object-fit: var(--_object-fit);
+
+    &:where([data-fit="cover"]) {
+      --_object-fit: cover;
+    }
+
+    &:where([data-fit="contain"]) {
+      --_object-fit: contain;
+    }
+
+    &:where([data-fit="fill"]) {
+      --_object-fit: fill;
+    }
+
+    &:where([data-fit="none"]) {
+      --_object-fit: none;
+    }
+
+    &:where([data-fit="scale-down"]) {
+      --_object-fit: scale-down;
+    }
+  }
+}
