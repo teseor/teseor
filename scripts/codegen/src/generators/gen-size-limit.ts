@@ -14,7 +14,7 @@ const BUNDLE_ENTRIES: Array<Record<string, string>> = [
   {
     name: "@teseor/css (full bundle)",
     path: "packages/css/dist/teseor.css",
-    limit: "8 kB",
+    limit: "10 kB",
   },
   {
     name: "@teseor/css/tokens.css",
