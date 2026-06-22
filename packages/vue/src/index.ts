@@ -3,6 +3,7 @@
 export { default as Badge } from "./Badge.vue";
 export { default as Blockquote } from "./Blockquote.vue";
 export { default as Button } from "./Button.vue";
+export { default as Center } from "./Center.vue";
 export { default as Checkbox } from "./Checkbox.vue";
 export { default as Cluster } from "./Cluster.vue";
 export { default as Code } from "./Code.vue";

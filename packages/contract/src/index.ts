@@ -3,6 +3,7 @@
 export type { BadgeProps } from "./Badge.ts";
 export type { BlockquoteProps } from "./Blockquote.ts";
 export type { ButtonProps } from "./Button.ts";
+export type { CenterProps } from "./Center.ts";
 export type { CheckboxProps } from "./Checkbox.ts";
 export type { ClusterProps } from "./Cluster.ts";
 export type { CodeProps } from "./Code.ts";

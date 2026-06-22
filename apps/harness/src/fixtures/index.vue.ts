@@ -4,6 +4,7 @@ import type { VNode } from "vue";
 import { fixtures as badgeFixtures } from "./Badge.vue.ts";
 import { fixtures as blockquoteFixtures } from "./Blockquote.vue.ts";
 import { fixtures as buttonFixtures } from "./Button.vue.ts";
+import { fixtures as centerFixtures } from "./Center.vue.ts";
 import { fixtures as checkboxFixtures } from "./Checkbox.vue.ts";
 import { fixtures as clusterFixtures } from "./Cluster.vue.ts";
 import { fixtures as codeFixtures } from "./Code.vue.ts";
@@ -26,6 +27,7 @@ export const vueFixtures: Record<string, Record<string, () => VNode>> = {
   badge: badgeFixtures,
   blockquote: blockquoteFixtures,
   button: buttonFixtures,
+  center: centerFixtures,
   checkbox: checkboxFixtures,
   cluster: clusterFixtures,
   code: codeFixtures,

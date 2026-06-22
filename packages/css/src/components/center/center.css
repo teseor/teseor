@@ -1,0 +1,29 @@
+@layer components.tokens {
+  .t-center {
+    --_min-height: var(--t-center-min-height, auto);
+    --_min-height-screen: 100dvh;
+  }
+}
+
+@layer components.styles {
+  .t-center {
+    box-sizing: border-box;
+    margin: 0;
+    display: grid;
+    place-items: center;
+    min-block-size: var(--_min-height);
+
+    &:where([data-min-height="screen"]) {
+      --_min-height: var(--_min-height-screen);
+    }
+
+    @each $bp in md, lg, xl, 2xl {
+      /* stylelint-disable-next-line media-query-no-invalid */
+      @media (--$(bp)) {
+        &:where([data-min-height-$(bp)="screen"]) {
+          --_min-height: var(--_min-height-screen);
+        }
+      }
+    }
+  }
+}

@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { fixtures as badgeFixtures } from "./Badge.react.tsx";
 import { fixtures as blockquoteFixtures } from "./Blockquote.react.tsx";
 import { fixtures as buttonFixtures } from "./Button.react.tsx";
+import { fixtures as centerFixtures } from "./Center.react.tsx";
 import { fixtures as checkboxFixtures } from "./Checkbox.react.tsx";
 import { fixtures as clusterFixtures } from "./Cluster.react.tsx";
 import { fixtures as codeFixtures } from "./Code.react.tsx";
@@ -26,6 +27,7 @@ export const reactFixtures: Record<string, Record<string, () => ReactNode>> = {
   badge: badgeFixtures,
   blockquote: blockquoteFixtures,
   button: buttonFixtures,
+  center: centerFixtures,
   checkbox: checkboxFixtures,
   cluster: clusterFixtures,
   code: codeFixtures,

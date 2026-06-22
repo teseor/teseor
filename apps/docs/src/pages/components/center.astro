@@ -1,0 +1,63 @@
+---
+import { Center, Code, Codeblock } from "@teseor/react";
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Center — Teseor">
+  <main class="t-stack" data-gap="6">
+    <h1>Center</h1>
+    <p>A layout primitive that centers a single child on both axes. Pure CSS, no children styling. `minHeight` is unset by default — the centered box hugs its child; pass `screen` for splash-screen / hero patterns or override `--t-center-min-height` for custom values.</p>
+    <section class="t-stack" data-gap="3">
+      <h2>Examples</h2>
+      <div class="t-stack" data-gap="2">
+        <h3>default</h3>
+        <div class="t-cluster" data-gap="3">
+          <Center>Center</Center>
+        </div>
+        <Codeblock>&lt;Center&gt;Center&lt;/Center&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>screen</h3>
+        <div class="t-cluster" data-gap="3">
+          <Center minHeight="screen">Center</Center>
+        </div>
+        <Codeblock>&lt;Center minHeight="screen"&gt;Center&lt;/Center&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>responsive</h3>
+        <div class="t-cluster" data-gap="3">
+          <Center minHeight={{ md: "screen" }}>Center</Center>
+        </div>
+        <Codeblock>&lt;Center minHeight=&lbrace;&lbrace; md: "screen" &rbrace;&rbrace;&gt;Center&lt;/Center&gt;</Codeblock>
+      </div>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Props</h2>
+      <table>
+        <thead><tr><th>Prop</th><th>Type</th><th>Responsive</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>minHeight</Code></td><td><Code>string</Code></td><td>✓</td><td><Code>null</Code></td><td>Minimum block size. `screen` maps to 100dvh (splash-screen / hero pattern). Leave unset to center inside the parent's flow. Custom values: override `--t-center-min-height` on the element.</td></tr>
+        <tr><td><Code>asChild</Code></td><td><Code>boolean</Code></td><td></td><td><Code>false</Code></td><td>Render the trigger directly on the consumer's child element (cloneElement) instead of wrapping in a &lt;span&gt;. Single-child invariant; the child receives the wrapper's &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;data-state&lt;/code&gt;, event handlers, and any ARIA attributes the component applies (component-specific). Not compatible with Astro slots — use the default wrapper there.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Tokens</h2>
+      <table>
+        <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-center-min-height</Code></td><td><Code>auto</Code></td><td>Resolved minimum block size when no `minHeight` prop is set. `auto` lets the child determine the box height; override via `--t-center-min-height` for custom values.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Bundle size</h2>
+      <table>
+        <thead><tr><th>Artifact</th><th>Raw</th><th>Gzip</th><th>Brotli</th></tr></thead>
+        <tbody>
+        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/center/center.css"><Code>@teseor/css/components/center.css</Code></a></td><td>0.80 KB</td><td>0.29 KB</td><td>0.24 KB</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</Base>
