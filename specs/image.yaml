@@ -1,0 +1,54 @@
+name: image
+description: Image primitive — styled `<img>` with token-driven defaults (rounded corners, loading-state background, optional `object-fit`). Native HTML attrs (`src`, `alt`, `width`, `height`, `loading`, `decoding`, `srcset`, `sizes`) pass through the inherited type.
+kind: atomic
+dependencies: []
+element: img
+rootClass: t-image
+cssFile: components/image/image.css
+
+props:
+  fit:
+    type: string
+    values: [cover, contain, fill, none, scale-down]
+    responsive: true
+    description: Maps to `object-fit`. Absence-of-attr leaves the default (`fill`). Responsive form (`{ base, sm, md, … }`) emits per-breakpoint `data-fit-{bp}` attrs for art-direction without `<picture>`.
+
+tokens:
+  radius:
+    fallback: --t-radius-md
+    desc: Corner rounding of the image box.
+  bg:
+    fallback: --t-surface-muted
+    desc: Background color shown while the image loads or for transparent images.
+
+privateTokens:
+  - --_radius
+  - --_bg
+  - --_object-fit
+
+examples:
+  - id: default
+    props:
+      src: "/img/sample-landscape.jpg"
+      alt: "Minimalist landscape of layered hills under a warm sky"
+  - id: fit-cover
+    props:
+      src: "/img/sample-landscape.jpg"
+      alt: "Minimalist landscape of layered hills under a warm sky"
+      fit: cover
+      width: 320
+      height: 180
+  - id: fit-contain
+    props:
+      src: "/img/sample-landscape.jpg"
+      alt: "Minimalist landscape of layered hills under a warm sky"
+      fit: contain
+      width: 320
+      height: 180
+  - id: responsive-fit
+    props:
+      src: "/img/sample-portrait.jpg"
+      alt: "Stylized portrait of tall grass against a warm sky"
+      fit: { base: contain, md: cover }
+      width: 320
+      height: 180

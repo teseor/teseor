@@ -14,6 +14,7 @@ components:
   - Blockquote
   - Avatar
   - Icon
+  - Image
   - Kbd
   - Divider
   - Dot
