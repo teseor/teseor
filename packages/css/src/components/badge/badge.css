@@ -1,0 +1,130 @@
+@layer components.tokens {
+  .t-badge {
+    --_bg: var(--t-badge-bg, var(--t-surface-muted));
+    --_fg: var(--t-badge-fg, var(--t-on-surface));
+    --_border-color: var(--t-badge-border-color, var(--t-border));
+    --_radius: var(--t-badge-radius, var(--t-radius-sm));
+    --_radius-pill: var(--t-radius-full);
+    --_pad-x: var(--t-badge-pad-x, var(--t-space-2));
+    --_pad-y: var(--t-badge-pad-y, var(--t-space-1));
+    --_gap: var(--t-badge-gap, var(--t-space-1));
+    --_accent: var(--_bg);
+    --_font-size: var(--t-text-sm);
+    --_font-size-sm: var(--t-text-xs);
+    --_font-size-md: var(--t-text-sm);
+    --_font-size-lg: var(--t-text-base);
+    --_border-thickness: var(--t-border-thin);
+    --_intent-neutral-bg: var(--t-surface-muted);
+    --_intent-neutral-fg: var(--t-on-surface);
+    --_intent-primary-bg: var(--t-accent);
+    --_intent-primary-fg: var(--t-on-accent);
+    --_intent-success-bg: var(--t-success);
+    --_intent-success-fg: var(--t-on-success);
+    --_intent-warning-bg: var(--t-warning);
+    --_intent-warning-fg: var(--t-on-warning);
+    --_intent-danger-bg: var(--t-danger);
+    --_intent-danger-fg: var(--t-on-danger);
+    --_intent-info-bg: var(--t-info);
+    --_intent-info-fg: var(--t-on-info);
+  }
+}
+
+@layer components.styles {
+  .t-badge {
+    box-sizing: border-box;
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--_gap);
+    padding: var(--_pad-y) var(--_pad-x);
+    color: var(--_fg);
+    background: var(--_bg);
+    border: var(--_border-thickness) solid var(--_border-color);
+    border-radius: var(--_radius);
+    font-size: var(--_font-size);
+    line-height: 1;
+    vertical-align: baseline;
+    white-space: nowrap;
+
+    & > [data-badge-icon] {
+      box-sizing: border-box;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      inline-size: 1em;
+      block-size: 1em;
+    }
+
+    &:where([data-size="sm"]) {
+      --_font-size: var(--_font-size-sm);
+    }
+
+    &:where([data-size="md"]) {
+      --_font-size: var(--_font-size-md);
+    }
+
+    &:where([data-size="lg"]) {
+      --_font-size: var(--_font-size-lg);
+    }
+
+    &:where([data-intent="neutral"]) {
+      --_accent: var(--_intent-neutral-bg);
+      --_bg: var(--_intent-neutral-bg);
+      --_fg: var(--_intent-neutral-fg);
+    }
+
+    &:where([data-intent="primary"]) {
+      --_accent: var(--_intent-primary-bg);
+      --_bg: var(--_intent-primary-bg);
+      --_fg: var(--_intent-primary-fg);
+    }
+
+    &:where([data-intent="success"]) {
+      --_accent: var(--_intent-success-bg);
+      --_bg: var(--_intent-success-bg);
+      --_fg: var(--_intent-success-fg);
+    }
+
+    &:where([data-intent="warning"]) {
+      --_accent: var(--_intent-warning-bg);
+      --_bg: var(--_intent-warning-bg);
+      --_fg: var(--_intent-warning-fg);
+    }
+
+    &:where([data-intent="danger"]) {
+      --_accent: var(--_intent-danger-bg);
+      --_bg: var(--_intent-danger-bg);
+      --_fg: var(--_intent-danger-fg);
+    }
+
+    &:where([data-intent="info"]) {
+      --_accent: var(--_intent-info-bg);
+      --_bg: var(--_intent-info-bg);
+      --_fg: var(--_intent-info-fg);
+    }
+
+    &:where([data-variant="solid"]) {
+      --_border-color: transparent;
+    }
+
+    &:where(:not([data-variant])) {
+      --_border-color: transparent;
+    }
+
+    &:where([data-variant="outline"]) {
+      --_bg: transparent;
+      --_fg: var(--_accent);
+      --_border-color: var(--_accent);
+    }
+
+    &:where([data-variant="ghost"]) {
+      --_bg: transparent;
+      --_fg: var(--_accent);
+      --_border-color: transparent;
+    }
+
+    &:where([data-shape="pill"]) {
+      --_radius: var(--_radius-pill);
+    }
+  }
+}

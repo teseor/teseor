@@ -20,6 +20,10 @@
     "limit": "6 kB"
   },
   {
+    "name": "@teseor/css/components/badge.css",
+    "path": "packages/css/dist/components/badge.css"
+  },
+  {
     "name": "@teseor/css/components/blockquote.css",
     "path": "packages/css/dist/components/blockquote.css"
   },
