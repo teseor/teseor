@@ -6,8 +6,8 @@ import type { ReactNode } from "react";
 
 
 export const fixtures: Record<string, () => ReactNode> = {
-  "default": () => <Image src="/img/sample-landscape.jpg" alt="Minimalist landscape of layered hills under a warm sky" />,
-  "fit-cover": () => <Image src="/img/sample-landscape.jpg" alt="Minimalist landscape of layered hills under a warm sky" fit="cover" width={320} height={180} />,
-  "fit-contain": () => <Image src="/img/sample-landscape.jpg" alt="Minimalist landscape of layered hills under a warm sky" fit="contain" width={320} height={180} />,
-  "responsive-fit": () => <Image src="/img/sample-portrait.jpg" alt="Stylized portrait of tall grass against a warm sky" fit={{ "base": "contain", "md": "cover" }} width={320} height={180} />,
+  "default": () => <Image src="/img/sample-landscape.jpg" alt="Minimalist landscape of layered hills under a warm sky" width={600} height={448} />,
+  "fit-cover": () => <Image src="/img/sample-landscape.jpg" alt="Minimalist landscape of layered hills under a warm sky" fit="cover" width={300} height={224} />,
+  "fit-contain": () => <Image src="/img/sample-landscape.jpg" alt="Minimalist landscape of layered hills under a warm sky" fit="contain" width={300} height={224} />,
+  "responsive-fit": () => <Image src="/img/sample-portrait.jpg" alt="Stylized portrait of tall grass against a warm sky" fit={{ "base": "contain", "md": "cover" }} width={212} height={316} />,
 };

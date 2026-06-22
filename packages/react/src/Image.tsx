@@ -23,17 +23,17 @@ export type ImageProps = Readonly<ImageOwnProps & Omit<ComponentProps<"img">, ke
  *
  * @example Default
  * ```tsx
- * <Image src="/img/sample-landscape.jpg" alt="Minimalist landscape of layered hills under a warm sky" />
+ * <Image src="/img/sample-landscape.jpg" alt="Minimalist landscape of layered hills under a warm sky" width={600} height={448} />
  * ```
  *
  * @example Fit Cover
  * ```tsx
- * <Image src="/img/sample-landscape.jpg" alt="Minimalist landscape of layered hills under a warm sky" fit="cover" width={320} height={180} />
+ * <Image src="/img/sample-landscape.jpg" alt="Minimalist landscape of layered hills under a warm sky" fit="cover" width={300} height={224} />
  * ```
  *
  * @example Fit Contain
  * ```tsx
- * <Image src="/img/sample-landscape.jpg" alt="Minimalist landscape of layered hills under a warm sky" fit="contain" width={320} height={180} />
+ * <Image src="/img/sample-landscape.jpg" alt="Minimalist landscape of layered hills under a warm sky" fit="contain" width={300} height={224} />
  * ```
  */
 export function Image(props: ImageProps) {

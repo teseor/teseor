@@ -6,8 +6,8 @@ import { Image } from "@teseor/vue";
 
 
 export const fixtures: Record<string, () => VNode> = {
-  "default": () => h(Image, { "src": "/img/sample-landscape.jpg", "alt": "Minimalist landscape of layered hills under a warm sky" }),
-  "fit-cover": () => h(Image, { "src": "/img/sample-landscape.jpg", "alt": "Minimalist landscape of layered hills under a warm sky", "fit": "cover", "width": 320, "height": 180 }),
-  "fit-contain": () => h(Image, { "src": "/img/sample-landscape.jpg", "alt": "Minimalist landscape of layered hills under a warm sky", "fit": "contain", "width": 320, "height": 180 }),
-  "responsive-fit": () => h(Image, { "src": "/img/sample-portrait.jpg", "alt": "Stylized portrait of tall grass against a warm sky", "fit": { "base": "contain", "md": "cover" }, "width": 320, "height": 180 }),
+  "default": () => h(Image, { "src": "/img/sample-landscape.jpg", "alt": "Minimalist landscape of layered hills under a warm sky", "width": 600, "height": 448 }),
+  "fit-cover": () => h(Image, { "src": "/img/sample-landscape.jpg", "alt": "Minimalist landscape of layered hills under a warm sky", "fit": "cover", "width": 300, "height": 224 }),
+  "fit-contain": () => h(Image, { "src": "/img/sample-landscape.jpg", "alt": "Minimalist landscape of layered hills under a warm sky", "fit": "contain", "width": 300, "height": 224 }),
+  "responsive-fit": () => h(Image, { "src": "/img/sample-portrait.jpg", "alt": "Stylized portrait of tall grass against a warm sky", "fit": { "base": "contain", "md": "cover" }, "width": 212, "height": 316 }),
 };
