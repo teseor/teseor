@@ -49,6 +49,13 @@ describe("renderDataAttrs", () => {
   test("renders an empty string when no attrs are needed", () => {
     expect(renderDataAttrs(atomicSpec(), [], false, [], [])).toBe("");
   });
+
+  test("kebab-cases multi-word prop names in the emitted data-attr name", () => {
+    const out = renderDataAttrs(atomicSpec(), ["minHeight"], false, ["isPrimary"], ["maxWidth"]);
+    expect(out).toContain(`{...responsiveDataAttrs("min-height", minHeight)}`);
+    expect(out).toContain(`data-max-width={maxWidth}`);
+    expect(out).toContain(`data-is-primary={isPrimary === true ? "true" : undefined}`);
+  });
 });
 
 describe("renderStateAttrs", () => {

@@ -63,17 +63,19 @@ export function renderExamples(spec: Spec, Name: string, opts: { isComposite: bo
     const sourceOpenTag = [Name, ...sourceAttrs].join(" ");
     const defaults = specDefaultChildren(spec);
     const defaultChildrenMarkup =
-      defaults && defaults.length > 0 ? defaults.map(renderChildElement).join("") : null;
+      defaults !== undefined && defaults.length > 0
+        ? defaults.map(renderChildElement).join("")
+        : null;
     const sourceLines = isList
       ? [`<${sourceOpenTag} />`]
       : isComposite && trigger
         ? [`<${sourceOpenTag}>`, `  ${trigger}`, `</${Name}>`]
         : isVoidAtomic
           ? [`<${sourceOpenTag} />`]
-          : defaultChildrenMarkup
+          : defaults !== undefined && defaults.length > 0
             ? [
                 `<${sourceOpenTag}>`,
-                ...defaults!.map((c) => `  ${renderChildElement(c)}`),
+                ...defaults.map((c) => `  ${renderChildElement(c)}`),
                 `</${Name}>`,
               ]
             : [`<${sourceOpenTag}>${Name}</${Name}>`];
