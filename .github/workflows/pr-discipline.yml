@@ -95,6 +95,31 @@ jobs:
           rm -f "$body_file"
           exit "$fail"
 
+  head-branch-not-base-of-open-pr:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    steps:
+      - name: Fail if another open PR is based on this PR's head branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -e
+          dependents="$(gh pr list --base "$HEAD_REF" --state open --json number,title)"
+          count="$(echo "$dependents" | jq 'length')"
+          if [ "$count" -eq 0 ]; then
+            echo "No open PRs are based on '$HEAD_REF'. OK."
+            exit 0
+          fi
+          echo "Merging #$PR_NUMBER with --delete-branch would auto-close the following open PR(s) based on '$HEAD_REF':"
+          echo "$dependents" | jq -r '.[] | "  - #\(.number) \(.title)"'
+          echo ""
+          echo "Retarget the dependent PR(s) to a different base (usually 'main') before merging this one."
+          exit 1
+
   labeler:
     runs-on: ubuntu-latest
     permissions:
