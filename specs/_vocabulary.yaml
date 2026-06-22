@@ -85,12 +85,18 @@ propDescriptions:
   loading: Shows loading; disables interaction.
   error: Error state.
 
-# Variant values (visual hierarchy).
+# Variant values. Canonical superset: visual hierarchy (solid|outline|ghost|link)
+# plus semantic-color (default|muted|highlight). Each spec declares its own
+# subset in `spec.variants` — Button uses the hierarchy values, Text uses the
+# semantic-color values.
 variants:
   - solid
   - outline
   - ghost
   - link
+  - default
+  - muted
+  - highlight
 
 # Intent values (semantic color role).
 intents:
