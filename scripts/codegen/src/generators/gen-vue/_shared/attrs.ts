@@ -1,3 +1,4 @@
+import { kebabCase } from "../../../lib/kebab-case.ts";
 import type { Spec } from "../../gen-contract.ts";
 import { quote } from "./type-printer.ts";
 
@@ -43,10 +44,14 @@ export function renderAttrEntries(
   return [
     spec.variants ? `  "data-variant": variant,` : null,
     spec.intents ? `  "data-intent": intent,` : null,
-    ...responsiveProps.map((name) => `  ...responsiveDataAttrs(${quote(name)}, ${name}),`),
-    ...stringEnumStateProps.map((name) => `  "data-${name}": ${name},`),
+    ...responsiveProps.map(
+      (name) => `  ...responsiveDataAttrs(${quote(kebabCase(name))}, ${name}),`,
+    ),
+    ...stringEnumStateProps.map((name) => `  "data-${kebabCase(name)}": ${name},`),
     hasLoading ? `  "data-loading": loading ? "true" : undefined,` : null,
-    ...booleanStateProps.map((name) => `  "data-${name}": ${name} ? "true" : undefined,`),
+    ...booleanStateProps.map(
+      (name) => `  "data-${kebabCase(name)}": ${name} ? "true" : undefined,`,
+    ),
     hasDisabled && hasAs ? `  disabled: isButton.value ? inactive.value : undefined,` : null,
     hasDisabled && hasAs
       ? `  "aria-disabled": !isButton.value && inactive.value ? "true" : undefined,`

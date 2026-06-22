@@ -74,6 +74,21 @@ describe("renderAttrEntries", () => {
     expect(out).toContain(`"data-resize": resize,`);
     expect(out).toContain(`"data-appearance": appearance,`);
   });
+
+  test("kebab-cases multi-word prop names in the emitted data-attr name", () => {
+    const out = renderAttrEntries(
+      atomicSpec(),
+      ["minHeight"],
+      false,
+      false,
+      false,
+      ["isPrimary"],
+      ["maxWidth"],
+    );
+    expect(out).toContain(`...responsiveDataAttrs("min-height", minHeight),`);
+    expect(out).toContain(`"data-max-width": maxWidth,`);
+    expect(out).toContain(`"data-is-primary": isPrimary ? "true" : undefined,`);
+  });
 });
 
 describe("renderA11yAttrEntries", () => {
