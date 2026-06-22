@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 import type { Spec } from "../../gen-contract.ts";
-import { renderAttrEntries } from "./attrs.ts";
+import { renderA11yAttrEntries, renderAttrEntries } from "./attrs.ts";
 
 function atomicSpec(overrides: Partial<Spec> = {}): Spec {
   return {
@@ -51,5 +51,32 @@ describe("renderAttrEntries", () => {
     const out = renderAttrEntries(atomicSpec(), [], false, false, false, ["decorative", "compact"]);
     expect(out).toContain(`"data-decorative": decorative ? "true" : undefined,`);
     expect(out).toContain(`"data-compact": compact ? "true" : undefined,`);
+  });
+});
+
+describe("renderA11yAttrEntries", () => {
+  test("emits a static role when only role is set", () => {
+    expect(renderA11yAttrEntries("separator", [], undefined)).toBe(`  role: "separator",`);
+  });
+
+  test('emits "aria-{prop}": prop per entry in ariaProps', () => {
+    const out = renderA11yAttrEntries("separator", ["orientation"], undefined);
+    expect(out).toContain(`"aria-orientation": orientation,`);
+  });
+
+  test("toggles role to none and adds aria-hidden when decorativeProp is set", () => {
+    const out = renderA11yAttrEntries("separator", [], "decorative");
+    expect(out).toContain(`role: decorative ? "none" : "separator",`);
+    expect(out).toContain(`"aria-hidden": decorative ? "true" : undefined,`);
+  });
+
+  test("emits only aria-hidden when decorativeProp is set without a role", () => {
+    const out = renderA11yAttrEntries(undefined, [], "decorative");
+    expect(out).not.toContain(`role:`);
+    expect(out).toContain(`"aria-hidden": decorative ? "true" : undefined,`);
+  });
+
+  test("renders an empty string when nothing is declared", () => {
+    expect(renderA11yAttrEntries(undefined, [], undefined)).toBe("");
   });
 });

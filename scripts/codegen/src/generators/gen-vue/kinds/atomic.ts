@@ -4,7 +4,7 @@ import { specVoidStatus, voidTagsInMap } from "../../../lib/html-void-elements.t
 import { renderComponentJsDoc, vueJsDocFlavor } from "../../../lib/jsdoc-shape.ts";
 import { pascalCase } from "../../../lib/pascal-case.ts";
 import type { Spec } from "../../gen-contract.ts";
-import { renderAttrEntries } from "../_shared/attrs.ts";
+import { renderA11yAttrEntries, renderAttrEntries } from "../_shared/attrs.ts";
 import { renderPropsBlock, renderPropsType } from "../_shared/props.ts";
 import { renderBody, renderSlotsType } from "../_shared/slots.ts";
 
@@ -126,14 +126,19 @@ export function renderAtomicVueWrapper(
     .filter((l): l is string => l !== null)
     .join("\n");
 
-  const attrEntries = renderAttrEntries(
-    spec,
-    responsiveProps,
-    hasLoading,
-    hasDisabled,
-    hasAs,
-    booleanStateProps,
+  const a11y = spec.kind === "atomic" ? spec.a11y : undefined;
+  const a11yEntries = renderA11yAttrEntries(
+    a11y?.role,
+    a11y?.ariaProps ?? [],
+    a11y?.decorativeProp,
   );
+  const attrEntries = [
+    a11yEntries || null,
+    renderAttrEntries(spec, responsiveProps, hasLoading, hasDisabled, hasAs, booleanStateProps) ||
+      null,
+  ]
+    .filter((l): l is string => l !== null && l !== "")
+    .join("\n");
 
   const propEnumTypes = Object.entries(spec.props ?? {})
     .filter(([, d]) => Array.isArray(d.values) && d.values.length > 0)

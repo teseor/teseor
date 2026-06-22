@@ -320,5 +320,47 @@ describe("renderAtomicReactWrapper", () => {
         expect(out).not.toContain(`data-compact={compact === true ?`);
       });
     });
+
+    describe("a11y emission", () => {
+      test("emits a static role on the root from spec.a11y.role", () => {
+        const out = renderAtomicReactWrapper(
+          atomicSpec({ element: "div", a11y: { role: "separator" } }),
+          {},
+        );
+        expect(out).toContain(`role="separator"`);
+      });
+
+      test("forwards each ariaProps entry as `aria-{prop}={prop}`", () => {
+        const out = renderAtomicReactWrapper(
+          atomicSpec({
+            element: "div",
+            props: {
+              orientation: prop({
+                type: "string",
+                values: ["horizontal", "vertical"],
+                responsive: false,
+                description: "",
+              }),
+            },
+            a11y: { ariaProps: ["orientation"] },
+          }),
+          {},
+        );
+        expect(out).toContain(`aria-orientation={orientation}`);
+      });
+
+      test("toggles role to none and adds aria-hidden when decorativeProp is set", () => {
+        const out = renderAtomicReactWrapper(
+          atomicSpec({
+            element: "div",
+            props: { decorative: prop({ type: "boolean", description: "" }) },
+            a11y: { role: "separator", decorativeProp: "decorative" },
+          }),
+          {},
+        );
+        expect(out).toContain(`role={decorative === true ? "none" : "separator"}`);
+        expect(out).toContain(`aria-hidden={decorative === true ? "true" : undefined}`);
+      });
+    });
   });
 });

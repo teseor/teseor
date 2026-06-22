@@ -1,6 +1,30 @@
 import type { Spec } from "../../gen-contract.ts";
 import { quote } from "./type-printer.ts";
 
+/** Emit the entries of the `attrs` computed object for the spec's a11y
+ *  block: a static `role` (overridden to `"none"` when `decorativeProp` is
+ *  true), an `aria-{name}` per entry in `ariaProps`, and `aria-hidden` when
+ *  `decorativeProp` is declared and true. */
+export function renderA11yAttrEntries(
+  role: string | undefined,
+  ariaProps: readonly string[],
+  decorativeProp: string | undefined,
+): string {
+  return [
+    role !== undefined && decorativeProp !== undefined
+      ? `  role: ${decorativeProp} ? "none" : ${quote(role)},`
+      : role !== undefined
+        ? `  role: ${quote(role)},`
+        : null,
+    ...ariaProps.map((name) => `  "aria-${name}": ${name},`),
+    decorativeProp !== undefined
+      ? `  "aria-hidden": ${decorativeProp} ? "true" : undefined,`
+      : null,
+  ]
+    .filter((line): line is string => line !== null)
+    .join("\n");
+}
+
 /** Emit the entries of the `attrs` computed object for an atomic wrapper.
  *  Combines variant/intent data-attrs, responsive data-attr spreads, the
  *  loading flag, per-prop `data-*` flags for boolean state props, and the

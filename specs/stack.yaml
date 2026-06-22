@@ -40,9 +40,6 @@ privateTokens:
   - --_gap-7
   - --_gap-8
 
-a11y:
-  role: generic
-
 examples:
   - id: gap-3
     props: { gap: "3" }

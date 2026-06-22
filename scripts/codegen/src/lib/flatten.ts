@@ -57,6 +57,8 @@ export type FlatA11y = {
   role?: string;
   keyboard?: Record<string, string>;
   states?: Record<string, string>;
+  ariaProps?: string[];
+  decorativeProp?: string;
 };
 
 export type FlatMotion = {
