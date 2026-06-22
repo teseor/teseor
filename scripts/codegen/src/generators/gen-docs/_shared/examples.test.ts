@@ -73,4 +73,16 @@ describe("renderExamples", () => {
     const rendered = renderExamples(spec, "Widget", { isComposite: false });
     expect(rendered).toContain("<h3>named</h3>");
   });
+
+  test("renders a self-closing tag for atomic void elements in both preview and source", () => {
+    const spec = atomicSpec({
+      name: "image",
+      element: "img",
+      examples: [{ id: "cover", props: { src: "/x.jpg", alt: "x" } }],
+    });
+    const rendered = renderExamples(spec, "Image", { isComposite: false });
+    expect(rendered).toContain('<Image src="/x.jpg" alt="x" />');
+    expect(rendered).toContain('&lt;Image src="/x.jpg" alt="x" /&gt;');
+    expect(rendered).not.toContain('<Image src="/x.jpg" alt="x">Image</Image>');
+  });
 });

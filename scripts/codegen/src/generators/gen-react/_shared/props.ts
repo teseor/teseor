@@ -1,3 +1,4 @@
+import { isVoidElement } from "../../../lib/html-void-elements.ts";
 import { pascalCase } from "../../../lib/pascal-case.ts";
 import type { Spec, SpecProp } from "../../gen-contract.ts";
 import { quote, reactPropType, responsiveType } from "./type-printer.ts";
@@ -90,6 +91,13 @@ export function renderOwnProps(
         `  asChild?: boolean;`,
       ]
     : [];
+  // Void HTML elements (img, hr, input, …) cannot have children. Declaring
+  // `children?: never` (instead of `ReactNode`) forbids consumers from passing
+  // any children at the type layer — and the Omit on the inherited
+  // `ComponentProps<element>` strips its own `children` via `keyof OwnProps`,
+  // so the published surface mirrors HTML semantics.
+  const isVoid = spec.element ? isVoidElement(spec.element) : false;
+  const childrenLine = isVoid ? `  children?: never;` : `  children?: ReactNode;`;
   return [
     `type ${Name}OwnProps = {`,
     ...variantLines,
@@ -97,7 +105,7 @@ export function renderOwnProps(
     ...sizeLines,
     ...propLines,
     ...asChildLines,
-    `  children?: ReactNode;`,
+    childrenLine,
     `  ref?: ${refType};`,
     `};`,
   ].join("\n");
@@ -107,13 +115,19 @@ export function renderOwnProps(
  *  Collapses to a one-liner under the 100-col line width, breaks to a
  *  multi-line block otherwise. */
 export function renderDestructure(spec: Spec): string {
+  // Void elements never render children — the inherited type forbids them,
+  // but a consumer type-cast could still pass one. Renaming to `_children`
+  // strips it from `...rest` (so it never reaches `<img children=…>`) while
+  // satisfying biome's `noUnusedVariables`.
+  const isVoid = spec.element ? isVoidElement(spec.element) : false;
+  const childrenName = isVoid ? "children: _children" : "children";
   const names = [
     spec.variants ? "variant" : null,
     spec.intents ? "intent" : null,
     spec.sizes ? "size" : null,
     ...Object.keys(spec.props ?? {}),
     spec.polymorphic === "asChild" ? "asChild" : null,
-    "children",
+    childrenName,
     "ref",
     "className",
     "...rest",

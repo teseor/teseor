@@ -195,5 +195,28 @@ describe("renderAtomicReactWrapper", () => {
       const out = renderAtomicReactWrapper(atomicSpec({ element: "div" }), {});
       expect(out).not.toContain("biome-ignore");
     });
+
+    test("declares children as `never` for void elements", () => {
+      const out = renderAtomicReactWrapper(atomicSpec({ name: "image", element: "img" }), {});
+      expect(out).toContain("children?: never;");
+      expect(out).not.toContain("children?: ReactNode;");
+    });
+
+    test("declares children as ReactNode for non-void elements", () => {
+      const out = renderAtomicReactWrapper(atomicSpec({ element: "div" }), {});
+      expect(out).toContain("children?: ReactNode;");
+      expect(out).not.toContain("children?: never;");
+    });
+
+    test("omits the ReactNode import for void elements", () => {
+      const out = renderAtomicReactWrapper(atomicSpec({ name: "image", element: "img" }), {});
+      expect(out).toContain(`import type { ComponentProps, Ref } from "react";`);
+      expect(out).not.toContain("ReactNode");
+    });
+
+    test("destructures children with a `_children` alias for void elements (strips from rest)", () => {
+      const out = renderAtomicReactWrapper(atomicSpec({ name: "image", element: "img" }), {});
+      expect(out).toContain("children: _children");
+    });
   });
 });

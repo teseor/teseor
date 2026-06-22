@@ -15,7 +15,7 @@ function atomicSpec(overrides: Partial<Spec> = {}): Spec {
 }
 
 describe("renderSlotsType", () => {
-  test("always includes the `default` slot first", () => {
+  test("includes the `default` slot for non-void elements by default", () => {
     const out = renderSlotsType([]);
     expect(out).toBe(["defineSlots<{", "  default?(): VNode[];", "}>();"].join("\n"));
   });
@@ -28,6 +28,18 @@ describe("renderSlotsType", () => {
     const out = renderSlotsType(slots);
     expect(out).toContain("  iconStart?(): VNode[];");
     expect(out).toContain("  iconEnd?(): VNode[];");
+  });
+
+  test("omits the `default` slot when isVoid is true", () => {
+    const out = renderSlotsType([], { isVoid: true });
+    expect(out).toBe(["defineSlots<{", "}>();"].join("\n"));
+  });
+
+  test("still emits named slots when isVoid is true (void atomic specs don't have named slots, but the type stays composable)", () => {
+    const slots: SlotInfo[] = [{ propName: "icon", part: "icon" }];
+    const out = renderSlotsType(slots, { isVoid: true });
+    expect(out).not.toContain("default?(): VNode[];");
+    expect(out).toContain("icon?(): VNode[];");
   });
 });
 

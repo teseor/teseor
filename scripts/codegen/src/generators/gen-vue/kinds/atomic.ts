@@ -134,7 +134,7 @@ ${renderPropsType(spec, Name, sizeIsResponsive, propDescriptions)}
 
 ${renderPropsBlock(spec, Name)}
 
-${renderSlotsType(slots)}
+${renderSlotsType(slots, { isVoid })}
 
 ${helperLines}
 

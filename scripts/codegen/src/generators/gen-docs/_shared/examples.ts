@@ -1,3 +1,4 @@
+import { isVoidElement } from "../../../lib/html-void-elements.ts";
 import { esc } from "../../../lib/text-escape.ts";
 import type { Spec } from "../../gen-contract.ts";
 import { attr } from "./jsx-printer.ts";
@@ -11,6 +12,10 @@ export function renderExamples(spec: Spec, Name: string, opts: { isComposite: bo
   // array prop populated — no fromChildren, no Button trigger.
   const isList =
     spec.kind === "composite" && Array.isArray(spec.repeating) && spec.repeating.length > 0;
+  // Atomic specs wrapping a void HTML element (img, hr, …) can't carry
+  // children; render the example tag self-closing in both the preview and
+  // the source snippet.
+  const isVoidAtomic = spec.kind === "atomic" && !!spec.element && isVoidElement(spec.element);
   // Composite components with a `fromChildren` part don't render an element
   // themselves; the docs example wraps a Button as the trigger so the
   // composite has a real child to decorate (Tooltip + Popover pattern).
@@ -44,7 +49,9 @@ export function renderExamples(spec: Spec, Name: string, opts: { isComposite: bo
       ? [`<${sourceOpenTag} />`]
       : isComposite && trigger
         ? [`<${sourceOpenTag}>`, `  ${trigger}`, `</${Name}>`]
-        : [`<${sourceOpenTag}>${Name}</${Name}>`];
+        : isVoidAtomic
+          ? [`<${sourceOpenTag} />`]
+          : [`<${sourceOpenTag}>${Name}</${Name}>`];
     const source = sourceLines.join("\n");
     if (isList) {
       return [
@@ -74,11 +81,14 @@ export function renderExamples(spec: Spec, Name: string, opts: { isComposite: bo
         `      </div>`,
       ].join("\n");
     }
+    const renderedTag = isVoidAtomic
+      ? `<${renderedOpenTag} />`
+      : `<${renderedOpenTag}>${Name}</${Name}>`;
     return [
       `      <div class="t-stack" data-gap="2">`,
       `        <h3>${esc(example.id ?? "example")}</h3>`,
       `        <div class="t-cluster" data-gap="3">`,
-      `          <${renderedOpenTag}>${Name}</${Name}>`,
+      `          ${renderedTag}`,
       `        </div>`,
       `        <Codeblock>${esc(source)}</Codeblock>`,
       `      </div>`,

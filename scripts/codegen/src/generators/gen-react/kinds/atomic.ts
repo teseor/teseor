@@ -149,9 +149,10 @@ export function renderAtomicReactWrapper(
   // an intrinsic tag literal — without it the JSX ref slot pins to that one
   // intrinsic's HTMLElement subtype and rejects the widened consumer ref.
   const usesAsElement = hasAs || Boolean(elementByProp) || isPolymorphic;
+  const reactTypeImports = ["ComponentProps", ...(isVoid ? [] : ["ReactNode"]), "Ref"];
   const imports = [
     `import "@teseor/css/components/${spec.name}.css";`,
-    `import type { ComponentProps, ReactNode, Ref } from "react";`,
+    `import type { ${reactTypeImports.join(", ")} } from "react";`,
     usesAsElement && responsiveProps.length > 0
       ? `import { asElement, mergeClass, type Responsive, responsiveDataAttrs } from "./_runtime.ts";`
       : usesAsElement
