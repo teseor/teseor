@@ -39,6 +39,7 @@ import { Blockquote } from "@teseor/react";
 - `Code` — Inline monospace fragment for short code spans in prose.
 - `Codeblock` — Block container for multi-line code with monospace font and horizontal overflow scroll.
 - `Heading` — Semantic prose heading. The rendered tag switches with `level` so outline tools and screen readers read native `<h1>`–`<h6>` structure.
+- `Image` — Image primitive — styled `<img>` with token-driven defaults (rounded corners, loading-state background, optional `object-fit`). Native HTML attrs (`src`, `alt`, `width`, `height`, `loading`, `decoding`, `srcset`, `sizes`) pass through the inherited type.
 - `Kbd` — Keyboard-key primitive — styled `<kbd>` with token-driven monospace, raised-key visual, and subtle border. Single key per element; combos compose via children (`<Kbd>Cmd</Kbd>+<Kbd>K</Kbd>`).
 - `Link` — Anchor primitive — styled `<a>` with token-driven color, hover, and visited treatment. Composes with native HTML attrs (`href`, `target`, `rel`, …) via the inherited type.
 - `List` — Ordered / unordered list primitive. Renders `<ul>` or `<ol>` based on `ordered`; styles bare `<li>` children with grid-rhythm spacing and prose-friendly markers.

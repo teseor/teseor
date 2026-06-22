@@ -45,6 +45,10 @@
     "path": "packages/css/dist/components/heading.css"
   },
   {
+    "name": "@teseor/css/components/image.css",
+    "path": "packages/css/dist/components/image.css"
+  },
+  {
     "name": "@teseor/css/components/kbd.css",
     "path": "packages/css/dist/components/kbd.css"
   },
