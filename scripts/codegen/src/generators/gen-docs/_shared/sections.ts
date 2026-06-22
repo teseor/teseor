@@ -358,6 +358,8 @@ export function renderTokens(spec: DocsSpec): string {
 
 export function renderA11y(spec: DocsSpec): string {
   const role = spec.a11y?.role;
+  const ariaProps = spec.a11y?.ariaProps ?? [];
+  const decorativeProp = spec.a11y?.decorativeProp;
   const declaredKeyboard: Array<[string, string]> = Object.entries(spec.a11y?.keyboard ?? {});
   // Spec-declared rows win when the key collides — a spec that goes out of its
   // way to redeclare `Escape` or `Outside pointer-down` keeps its wording, and
@@ -367,10 +369,20 @@ export function renderA11y(spec: DocsSpec): string {
     ? OVERLAY_KEYBOARD_ROWS.filter(([key]) => !declaredKeys.has(key))
     : [];
   const keyboard = [...declaredKeyboard, ...overlayKeyboard];
-  if (!role && keyboard.length === 0) return "";
+  if (!role && keyboard.length === 0 && ariaProps.length === 0 && !decorativeProp) return "";
   const lines: string[] = [];
   if (role) {
     lines.push(`      <p>Role: <Code>${esc(role)}</Code></p>`);
+  }
+  for (const propName of ariaProps) {
+    lines.push(
+      `      <p>Forwards <Code>aria-${esc(propName)}</Code> from the <Code>${esc(propName)}</Code> prop.</p>`,
+    );
+  }
+  if (decorativeProp) {
+    lines.push(
+      `      <p>Set <Code>${esc(decorativeProp)}</Code> to remove the element from the accessibility tree (<Code>role="none"</Code> + <Code>aria-hidden="true"</Code>).</p>`,
+    );
   }
   if (keyboard.length > 0) {
     // Header is `Interaction`, not `Key` — overlay specs inject a

@@ -4,7 +4,7 @@ import { specVoidStatus, voidTagsInMap } from "../../../lib/html-void-elements.t
 import { reactJsDocFlavor, renderComponentJsDoc } from "../../../lib/jsdoc-shape.ts";
 import { pascalCase } from "../../../lib/pascal-case.ts";
 import type { Spec } from "../../gen-contract.ts";
-import { renderDataAttrs, renderStateAttrs } from "../_shared/attrs.ts";
+import { renderA11yAttrs, renderDataAttrs, renderStateAttrs } from "../_shared/attrs.ts";
 import {
   renderDestructure,
   renderOwnProps,
@@ -143,10 +143,12 @@ export function renderAtomicReactWrapper(
     .filter((l): l is string => l !== null)
     .join("\n");
 
+  const a11y = spec.kind === "atomic" ? spec.a11y : undefined;
   const attrBlock = [
     `      {...rest}`,
     `      ref={ref}`,
     `      className={mergedClassName}`,
+    renderA11yAttrs(a11y?.role, a11y?.ariaProps ?? [], a11y?.decorativeProp) || null,
     renderDataAttrs(spec, responsiveProps, hasLoading, booleanStateProps) || null,
     renderStateAttrs(hasAs, hasDisabled, hasLoading) || null,
   ]

@@ -68,6 +68,7 @@ const isButton = computed(() => as === "button");
 const inactive = computed(() => disabled || loading);
 
 const attrs = computed(() => ({
+  role: "button",
   "data-variant": variant,
   "data-intent": intent,
   ...responsiveDataAttrs("size", size),

@@ -24,6 +24,30 @@ export function renderDataAttrs(
     .join("\n");
 }
 
+/** Emit the JSX-attribute lines for the spec's a11y block: a static `role`
+ *  (overridden to `"none"` when `decorativeProp` is true), an `aria-{name}`
+ *  per entry in `ariaProps`, and `aria-hidden` when `decorativeProp` is
+ *  declared and true. Static-empty when no a11y block is set. */
+export function renderA11yAttrs(
+  role: string | undefined,
+  ariaProps: readonly string[],
+  decorativeProp: string | undefined,
+): string {
+  return [
+    role !== undefined && decorativeProp !== undefined
+      ? `      role={${decorativeProp} === true ? "none" : ${quote(role)}}`
+      : role !== undefined
+        ? `      role=${quote(role)}`
+        : null,
+    ...ariaProps.map((name) => `      aria-${name}={${name}}`),
+    decorativeProp !== undefined
+      ? `      aria-hidden={${decorativeProp} === true ? "true" : undefined}`
+      : null,
+  ]
+    .filter((line): line is string => line !== null)
+    .join("\n");
+}
+
 /** Emit the JSX-attribute lines for the disabled / aria-disabled / aria-busy
  *  state attrs. The disabled pair branches on whether the element is
  *  polymorphic via `as` — buttons get `disabled`, anything else gets

@@ -87,6 +87,7 @@ export function Button(props: ButtonProps) {
       {...rest}
       ref={ref}
       className={mergedClassName}
+      role="button"
       data-variant={variant}
       data-intent={intent}
       {...responsiveDataAttrs("size", size)}

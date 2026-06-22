@@ -51,6 +51,15 @@ const a11yBlock = z.strictObject({
   role: z.string().optional(),
   keyboard: a11yKeyboard.optional(),
   states: z.record(z.string(), z.string()).optional(),
+  /** Forwards a declared prop's runtime value as an `aria-{prop}` attribute on
+   *  the root element. Names are bare prop names (e.g. `orientation`);
+   *  generators emit `aria-orientation={orientation}`. The prop must be
+   *  declared, `type: string`, and `responsive: false`. */
+  ariaProps: z.array(z.string().min(1)).optional(),
+  /** Names a declared `type: boolean` prop. When that prop is `true` at
+   *  runtime the root emits `role="none"` (overriding any static `role`) and
+   *  `aria-hidden="true"`, removing the element from the accessibility tree. */
+  decorativeProp: z.string().min(1).optional(),
 });
 
 const constraintEntry = z.strictObject({
@@ -170,6 +179,8 @@ type ComponentPart = {
     role?: string;
     keyboard?: Record<string, string>;
     states?: Record<string, string>;
+    ariaProps?: string[];
+    decorativeProp?: string;
   };
   constraints?: Array<{
     when: Record<string, unknown>;
