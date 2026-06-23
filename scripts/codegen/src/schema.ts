@@ -9,6 +9,7 @@ import { a11yBlock } from "./plugins/a11y/schema.ts";
 import { branchEntry } from "./plugins/branches/schema.ts";
 import { coverageBlock } from "./plugins/coverage/schema.ts";
 import { childSpec } from "./plugins/defaultChildren/schema.ts";
+import { elementByPropBlock } from "./plugins/elementByProp/schema.ts";
 import { exampleEntry } from "./plugins/examples/schema.ts";
 import { stateEntry } from "./plugins/latch/schema.ts";
 import { motionFragment } from "./plugins/motion/schema.ts";
@@ -25,11 +26,6 @@ const constraintEntry = z.strictObject({
   when: z.record(z.string(), z.unknown()),
   forbid: z.record(z.string(), z.unknown()),
   reason: z.string().min(1),
-});
-
-const elementByPropBlock = z.strictObject({
-  prop: z.string().min(1),
-  map: z.record(z.string().min(1), z.string().min(1)),
 });
 
 const componentNodeFields = {
