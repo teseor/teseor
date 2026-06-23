@@ -1,0 +1,96 @@
+@layer components.tokens {
+  .t-avatar {
+    --_fg: var(--t-avatar-fg, var(--t-on-surface));
+    --_bg: var(--t-avatar-bg, var(--t-surface-muted));
+    --_radius: var(--t-avatar-radius, var(--t-radius-full));
+    --_radius-square: var(--t-radius-md);
+    --_size: var(--_size-md);
+    --_size-sm: var(--t-avatar-size-sm, var(--t-space-5));
+    --_size-md: var(--t-avatar-size-md, var(--t-space-6));
+    --_size-lg: var(--t-avatar-size-lg, var(--t-space-7));
+    --_color-neutral-bg: var(--t-surface-muted);
+    --_color-neutral-fg: var(--t-on-surface);
+    --_color-primary-bg: var(--t-accent);
+    --_color-primary-fg: var(--t-on-accent);
+    --_color-success-bg: var(--t-success);
+    --_color-success-fg: var(--t-on-success);
+    --_color-warning-bg: var(--t-warning);
+    --_color-warning-fg: var(--t-on-warning);
+    --_color-danger-bg: var(--t-danger);
+    --_color-danger-fg: var(--t-on-danger);
+    --_color-info-bg: var(--t-info);
+    --_color-info-fg: var(--t-on-info);
+  }
+}
+
+@layer components.styles {
+  .t-avatar {
+    box-sizing: border-box;
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: var(--_size);
+    block-size: var(--_size);
+    overflow: hidden;
+    background: var(--_bg);
+    color: var(--_fg);
+    border-radius: var(--_radius);
+    font-size: calc(var(--_size) * 0.4);
+    line-height: 1;
+    user-select: none;
+    vertical-align: middle;
+
+    & > img {
+      inline-size: 100%;
+      block-size: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    &:where([data-size="sm"]) {
+      --_size: var(--_size-sm);
+    }
+
+    &:where([data-size="md"]) {
+      --_size: var(--_size-md);
+    }
+
+    &:where([data-size="lg"]) {
+      --_size: var(--_size-lg);
+    }
+
+    &:where([data-shape="square"]) {
+      --_radius: var(--_radius-square);
+    }
+
+    &:where([data-color="neutral"]) {
+      --_bg: var(--_color-neutral-bg);
+    }
+
+    &:where([data-color="primary"]) {
+      --_bg: var(--_color-primary-bg);
+      --_fg: var(--_color-primary-fg);
+    }
+
+    &:where([data-color="success"]) {
+      --_bg: var(--_color-success-bg);
+      --_fg: var(--_color-success-fg);
+    }
+
+    &:where([data-color="warning"]) {
+      --_bg: var(--_color-warning-bg);
+      --_fg: var(--_color-warning-fg);
+    }
+
+    &:where([data-color="danger"]) {
+      --_bg: var(--_color-danger-bg);
+      --_fg: var(--_color-danger-fg);
+    }
+
+    &:where([data-color="info"]) {
+      --_bg: var(--_color-info-bg);
+      --_fg: var(--_color-info-fg);
+    }
+  }
+}

@@ -20,6 +20,10 @@
     "limit": "6 kB"
   },
   {
+    "name": "@teseor/css/components/avatar.css",
+    "path": "packages/css/dist/components/avatar.css"
+  },
+  {
     "name": "@teseor/css/components/badge.css",
     "path": "packages/css/dist/components/badge.css"
   },
