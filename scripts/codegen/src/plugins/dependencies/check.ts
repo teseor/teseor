@@ -1,13 +1,10 @@
-import type { Issue } from "../../semantic-checks.ts";
+import type { Issue } from "../../core/check-utils.ts";
+import { issue } from "../../core/check-utils.ts";
 
 export type DependencyIndex = {
   /** Spec basename to the declared `dependencies:`. */
   depsByName: Map<string, string[]>;
 };
-
-function issue(spec: string, path: string, message: string): Issue {
-  return { spec, path, message };
-}
 
 /** Detects `dependencies:` cycles across the whole spec set. */
 export function checkDependencyCycles(deps: DependencyIndex): Issue[] {

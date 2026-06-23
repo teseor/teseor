@@ -1,42 +1,6 @@
-import type { AtomicSpec, Spec, SpecPart } from "../../schema.ts";
-import type { Issue } from "../../semantic-checks.ts";
-
-type CompositeSpec = Spec & { kind: "composite" };
-
-function isAtomic(spec: Spec): spec is AtomicSpec {
-  return spec.kind === "atomic";
-}
-
-function isComposite(spec: Spec): spec is CompositeSpec {
-  return spec.kind === "composite";
-}
-
-function issue(spec: string, path: string, message: string): Issue {
-  return { spec, path, message };
-}
-
-function visitPart(
-  part: SpecPart,
-  path: string,
-  visit: (node: AtomicSpec | SpecPart, path: string) => void,
-): void {
-  visit(part, path);
-  for (const [childName, child] of Object.entries(part.parts ?? {})) {
-    visitPart(child, `${path}.parts.${childName}`, visit);
-  }
-}
-
-function visitNodes(spec: Spec, visit: (node: AtomicSpec | SpecPart, path: string) => void): void {
-  if (isAtomic(spec)) {
-    visit(spec, "");
-    return;
-  }
-  if (isComposite(spec)) {
-    for (const [partName, part] of Object.entries(spec.parts)) {
-      visitPart(part, `parts.${partName}`, visit);
-    }
-  }
-}
+import type { Issue } from "../../core/check-utils.ts";
+import { issue, visitNodes } from "../../core/check-utils.ts";
+import type { Spec } from "../../schema.ts";
 
 /**
  * Every non-slot prop must declare `responsive:` explicitly (`true` or

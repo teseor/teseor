@@ -35,59 +35,15 @@ import { checkVocabulary } from "./plugins/vocabulary/check.ts";
 import { checkVoidElementConstraints } from "./plugins/voidElements/check.ts";
 import type { Spec } from "./schema.ts";
 
-type TokensCss = ReadonlySet<string>;
+export type { Issue } from "./core/check-utils.ts";
+export { levenshtein, suggest } from "./core/check-utils.ts";
 
-export type Issue = {
-  /** Spec file basename (e.g. `button`). */
-  spec: string;
-  /** Dotted path inside the spec. Empty string means the spec root. */
-  path: string;
-  /** Human-readable failure message. */
-  message: string;
-};
+type TokensCss = ReadonlySet<string>;
 
 type CssIndex = {
   /** Spec basename to the CSS source string. */
   cssByName: Map<string, string>;
 };
-
-// ── Levenshtein ─────────────────────────────────────────────────────────────
-
-export function levenshtein(a: string, b: string): number {
-  if (a === b) return 0;
-  if (a.length === 0) return b.length;
-  if (b.length === 0) return a.length;
-  const prev = new Array<number>(b.length + 1);
-  const curr = new Array<number>(b.length + 1);
-  for (let j = 0; j <= b.length; j++) prev[j] = j;
-  for (let i = 1; i <= a.length; i++) {
-    curr[0] = i;
-    for (let j = 1; j <= b.length; j++) {
-      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
-      const del = (prev[j] ?? 0) + 1;
-      const ins = (curr[j - 1] ?? 0) + 1;
-      const sub = (prev[j - 1] ?? 0) + cost;
-      curr[j] = Math.min(del, ins, sub);
-    }
-    for (let j = 0; j <= b.length; j++) prev[j] = curr[j] ?? 0;
-  }
-  return prev[b.length] ?? 0;
-}
-
-/** Closest match within `maxDistance`, or undefined. */
-export function suggest(
-  candidate: string,
-  options: readonly string[],
-  maxDistance = 3,
-): string | undefined {
-  let best: { name: string; distance: number } | undefined;
-  for (const option of options) {
-    const distance = levenshtein(candidate.toLowerCase(), option.toLowerCase());
-    if (distance > maxDistance) continue;
-    if (best === undefined || distance < best.distance) best = { name: option, distance };
-  }
-  return best?.name;
-}
 
 export { checkA11yRefs };
 

@@ -1,4 +1,5 @@
 import type { SpecAnalysis } from "../../core/analysis.ts";
+import { visitAllNodes } from "../../core/check-utils.ts";
 import type { Spec, SpecPart } from "../../schema.ts";
 
 type PropMap = NonNullable<SpecPart["props"]>;
@@ -23,18 +24,9 @@ export function analyzeProps(spec: Spec): Partial<SpecAnalysis> {
     }
   };
 
-  if (spec.kind === "atomic") {
-    visit(spec.props);
-  }
-  if (spec.kind === "composite") {
-    const walk = (parts: Record<string, SpecPart>): void => {
-      for (const part of Object.values(parts)) {
-        visit(part.props);
-        if (part.parts) walk(part.parts);
-      }
-    };
-    walk(spec.parts);
-  }
+  visitAllNodes(spec, (node) => {
+    visit(node.props);
+  });
 
   return {
     responsivePropNames: responsive,

@@ -1,9 +1,6 @@
+import type { Issue } from "../../core/check-utils.ts";
+import { issue } from "../../core/check-utils.ts";
 import type { Spec } from "../../schema.ts";
-import type { Issue } from "../../semantic-checks.ts";
-
-function issue(spec: string, path: string, message: string): Issue {
-  return { spec, path, message };
-}
 
 /** Registry of compute-helper names allowed in `branches[*].text.compute`. New
  *  helpers land alongside their definition in both `_runtime.ts` templates. */

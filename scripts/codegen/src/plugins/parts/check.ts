@@ -1,15 +1,6 @@
+import type { Issue } from "../../core/check-utils.ts";
+import { isComposite, issue } from "../../core/check-utils.ts";
 import type { Spec, SpecPart } from "../../schema.ts";
-import type { Issue } from "../../semantic-checks.ts";
-
-type CompositeSpec = Spec & { kind: "composite" };
-
-function isComposite(spec: Spec): spec is CompositeSpec {
-  return spec.kind === "composite";
-}
-
-function issue(spec: string, path: string, message: string): Issue {
-  return { spec, path, message };
-}
 
 // Valid JS identifier: starts with letter/underscore/$, followed by alphanumerics/_/$.
 const JS_IDENTIFIER_RE = /^[A-Za-z_$][A-Za-z0-9_$]*$/;

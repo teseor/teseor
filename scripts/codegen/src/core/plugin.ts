@@ -1,7 +1,7 @@
 import type { ZodType } from "zod";
 import type { Spec } from "../schema.ts";
-import type { Issue } from "../semantic-checks.ts";
 import type { SpecAnalysis } from "./analysis.ts";
+import type { Issue } from "./check-utils.ts";
 import type { EmitSlot } from "./slots.ts";
 
 export type EmitTarget = "react" | "vue" | "contract" | "docs" | "tests";

@@ -1,17 +1,8 @@
+import type { AtomicSpec, Issue } from "../../core/check-utils.ts";
+import { collectDimensionValues, isAtomic, issue } from "../../core/check-utils.ts";
 import type { Spec } from "../../schema.ts";
-import type { Issue } from "../../semantic-checks.ts";
-
-type AtomicSpec = Spec & { kind: "atomic" };
 
 type Constraint = NonNullable<AtomicSpec["constraints"]>[number];
-
-function isAtomic(spec: Spec): spec is AtomicSpec {
-  return spec.kind === "atomic";
-}
-
-function issue(spec: string, path: string, message: string): Issue {
-  return { spec, path, message };
-}
 
 /**
  * Apply a constraint to a candidate cell. Returns the matched forbid key/value
@@ -92,24 +83,6 @@ function expandCoverage(spec: AtomicSpec): Record<string, unknown>[] {
     cells = next;
   }
   return cells;
-}
-
-function collectDimensionValues(spec: AtomicSpec, dim: string): string[] {
-  switch (dim) {
-    case "variant":
-      return Object.keys(spec.variants ?? {});
-    case "intent":
-      return Object.keys(spec.intents ?? {});
-    case "size":
-      return Object.keys(spec.sizes ?? {});
-    case "visualStates":
-      return Object.keys(spec.visualStates ?? {});
-    default: {
-      const propDef = spec.props?.[dim];
-      if (propDef?.values) return propDef.values;
-      return [];
-    }
-  }
 }
 
 /**

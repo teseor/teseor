@@ -1,45 +1,15 @@
+import type { Issue } from "../../core/check-utils.ts";
+import {
+  isAtomic,
+  isComposite,
+  issue,
+  suggestionFragment,
+  visitNodes,
+} from "../../core/check-utils.ts";
 import { pascalCase } from "../../lib/pascal-case.ts";
 import type { Vocabulary } from "../../lib/vocabulary.ts";
-import type { AtomicSpec, Spec, SpecPart } from "../../schema.ts";
-import type { Issue } from "../../semantic-checks.ts";
+import type { Spec, SpecPart } from "../../schema.ts";
 import type { PayloadEntry } from "./schema.ts";
-
-type CompositeSpec = Spec & { kind: "composite" };
-
-function isAtomic(spec: Spec): spec is AtomicSpec {
-  return spec.kind === "atomic";
-}
-
-function isComposite(spec: Spec): spec is CompositeSpec {
-  return spec.kind === "composite";
-}
-
-function issue(spec: string, path: string, message: string): Issue {
-  return { spec, path, message };
-}
-
-function visitNodes(spec: Spec, visit: (node: AtomicSpec | SpecPart, path: string) => void): void {
-  if (isAtomic(spec)) {
-    visit(spec, "");
-    return;
-  }
-  if (isComposite(spec)) {
-    for (const [partName, part] of Object.entries(spec.parts)) {
-      visitPart(part, `parts.${partName}`, visit);
-    }
-  }
-}
-
-function visitPart(
-  part: SpecPart,
-  path: string,
-  visit: (node: AtomicSpec | SpecPart, path: string) => void,
-): void {
-  visit(part, path);
-  for (const [childName, child] of Object.entries(part.parts ?? {})) {
-    visitPart(child, `${path}.parts.${childName}`, visit);
-  }
-}
 
 // Valid JS identifier: starts with letter/underscore/$, followed by alphanumerics/_/$.
 const JS_IDENTIFIER_RE = /^[A-Za-z_$][A-Za-z0-9_$]*$/;
@@ -467,44 +437,4 @@ export function checkEventsRuntimeSupport(spec: Spec): Issue[] {
     }
   }
   return issues;
-}
-
-function suggest(
-  candidate: string,
-  options: readonly string[],
-  maxDistance = 3,
-): string | undefined {
-  let best: { name: string; distance: number } | undefined;
-  for (const option of options) {
-    const distance = levenshtein(candidate.toLowerCase(), option.toLowerCase());
-    if (distance > maxDistance) continue;
-    if (best === undefined || distance < best.distance) best = { name: option, distance };
-  }
-  return best?.name;
-}
-
-function suggestionFragment(name: string, options: readonly string[]): string {
-  const hint = suggest(name, options);
-  return hint ? ` Did you mean '${hint}'?` : "";
-}
-
-function levenshtein(a: string, b: string): number {
-  if (a === b) return 0;
-  if (a.length === 0) return b.length;
-  if (b.length === 0) return a.length;
-  const prev = new Array<number>(b.length + 1);
-  const curr = new Array<number>(b.length + 1);
-  for (let j = 0; j <= b.length; j++) prev[j] = j;
-  for (let i = 1; i <= a.length; i++) {
-    curr[0] = i;
-    for (let j = 1; j <= b.length; j++) {
-      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
-      const del = (prev[j] ?? 0) + 1;
-      const ins = (curr[j - 1] ?? 0) + 1;
-      const sub = (prev[j - 1] ?? 0) + cost;
-      curr[j] = Math.min(del, ins, sub);
-    }
-    for (let j = 0; j <= b.length; j++) prev[j] = curr[j] ?? 0;
-  }
-  return prev[b.length] ?? 0;
 }

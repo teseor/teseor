@@ -1,14 +1,7 @@
+import type { Issue } from "../../core/check-utils.ts";
+import { isAtomic, issue } from "../../core/check-utils.ts";
 import type { Vocabulary } from "../../lib/vocabulary.ts";
-import type { AtomicSpec, Spec } from "../../schema.ts";
-import type { Issue } from "../../semantic-checks.ts";
-
-function isAtomic(spec: Spec): spec is AtomicSpec {
-  return spec.kind === "atomic";
-}
-
-function issue(spec: string, path: string, message: string): Issue {
-  return { spec, path, message };
-}
+import type { Spec } from "../../schema.ts";
 
 /**
  * Form-control atoms (Input / Textarea / Select / Switch / Checkbox / Radio)
