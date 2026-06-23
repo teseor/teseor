@@ -7,7 +7,7 @@ import type { coverageBlock } from "../plugins/coverage/schema.ts";
 import type { childSpec } from "../plugins/defaultChildren/schema.ts";
 import type { eventEntry, genericEntry, PayloadEntry } from "../plugins/events/schema.ts";
 import type { exampleEntry } from "../plugins/examples/schema.ts";
-import type { stateEntry } from "../plugins/latch/schema.ts";
+import type { latchEntry } from "../plugins/latch/schema.ts";
 import type { motionFragment } from "../plugins/motion/schema.ts";
 import type { overlayBlock } from "../plugins/overlay/schema.ts";
 import type { propEntry } from "../plugins/props/schema.ts";
@@ -160,8 +160,8 @@ export type AtomicSpec = {
   imperativeProps?: Record<string, { type: "boolean"; description?: string }>;
   // defaultChildren plugin
   defaultChildren?: Array<z.infer<typeof childSpec>>;
-  // latch plugin (field name `state`; rename to `latch` is Task 37)
-  state?: Record<string, z.infer<typeof stateEntry>>;
+  // latch plugin
+  latch?: Record<string, z.infer<typeof latchEntry>>;
   // branches plugin
   branches?: Array<z.infer<typeof branchEntry>>;
 };
