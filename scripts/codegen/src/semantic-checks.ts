@@ -35,11 +35,6 @@ type CssIndex = {
   cssByName: Map<string, string>;
 };
 
-type DependencyIndex = {
-  /** Spec basename to the declared `dependencies:`. */
-  depsByName: Map<string, string[]>;
-};
-
 type AtomicSpec = Spec & { kind: "atomic" };
 type CompositeSpec = Spec & { kind: "composite" };
 
@@ -379,39 +374,6 @@ function visitPart(
   for (const [childName, child] of Object.entries(part.parts ?? {})) {
     visitPart(child, `${path}.parts.${childName}`, visit);
   }
-}
-
-// ── Dependency cycles + `@import` allowlist ─────────────────────────────────
-
-/** Detects `dependencies:` cycles across the whole spec set. */
-export function checkDependencyCycles(deps: DependencyIndex): Issue[] {
-  const issues: Issue[] = [];
-  const WHITE = 0;
-  const GREY = 1;
-  const BLACK = 2;
-  const color = new Map<string, number>();
-  for (const name of deps.depsByName.keys()) color.set(name, WHITE);
-
-  const visit = (node: string, stack: string[]): void => {
-    color.set(node, GREY);
-    for (const child of deps.depsByName.get(node) ?? []) {
-      const childColor = color.get(child) ?? WHITE;
-      if (childColor === GREY) {
-        const cycle = [...stack.slice(stack.indexOf(child)), child].join(" -> ");
-        issues.push(issue(node, "dependencies", `cycle detected: ${cycle}`));
-        continue;
-      }
-      if (childColor === WHITE && deps.depsByName.has(child)) {
-        visit(child, [...stack, child]);
-      }
-    }
-    color.set(node, BLACK);
-  };
-
-  for (const name of [...deps.depsByName.keys()].sort()) {
-    if ((color.get(name) ?? WHITE) === WHITE) visit(name, [name]);
-  }
-  return issues;
 }
 
 // ── `as:` must be a closed string-union ─────────────────────────────────────
@@ -2390,6 +2352,8 @@ export function runSemanticChecks(
   ];
 }
 
+export type { DependencyIndex } from "./plugins/dependencies/check.ts";
+export { checkDependencyCycles } from "./plugins/dependencies/check.ts";
 export {
   checkCssImportAllowlist,
   checkPrivateTokens,
@@ -2397,10 +2361,9 @@ export {
   checkTokenFallbacks,
   checkTokenNames,
 } from "./plugins/tokens/check.ts";
-
 export {
   checkExamplesReferences,
   checkVariantChoiceKeys,
 } from "./plugins/variants/check.ts";
 
-export type { CssIndex, DependencyIndex };
+export type { CssIndex };
