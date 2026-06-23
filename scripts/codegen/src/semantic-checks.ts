@@ -9,6 +9,7 @@ import { pascalCase } from "./lib/pascal-case.ts";
 import type { TokenDictionary } from "./lib/token-dictionary.ts";
 import type { Vocabulary } from "./lib/vocabulary.ts";
 import { checkCoverageShape } from "./plugins/coverage/check.ts";
+import { checkExamplesPresent } from "./plugins/examples/check.ts";
 import { checkMotion } from "./plugins/motion/check.ts";
 import {
   checkCssImportAllowlist,
@@ -1877,26 +1878,6 @@ export function checkRepeatingParts(spec: Spec): Issue[] {
   return issues;
 }
 
-// ── Examples presence ───────────────────────────────────────────────────────
-
-/**
- * Every spec must declare at least one entry in `examples:`. A spec without
- * examples produces a docs page that lists props and types but renders no
- * actual component — consumers can't see the thing they're documenting.
- * The empty case has no positive value and is almost always a forgotten
- * authoring step.
- */
-export function checkExamplesPresent(spec: Spec): Issue[] {
-  if (spec.examples && spec.examples.length > 0) return [];
-  return [
-    issue(
-      spec.name,
-      "examples",
-      `spec must declare at least one entry in \`examples:\` — components without examples produce empty docs pages.`,
-    ),
-  ];
-}
-
 // ── State machines ──────────────────────────────────────────────────────────
 
 /**
@@ -2322,6 +2303,7 @@ export function runSemanticChecks(
 export { checkCoverageShape } from "./plugins/coverage/check.ts";
 export type { DependencyIndex } from "./plugins/dependencies/check.ts";
 export { checkDependencyCycles } from "./plugins/dependencies/check.ts";
+export { checkExamplesPresent } from "./plugins/examples/check.ts";
 export {
   checkCssImportAllowlist,
   checkPrivateTokens,

@@ -6,6 +6,7 @@
 // itself carry `parts:`. Every object is strict — unknown keys fail validation.
 import { z } from "zod";
 import { coverageBlock } from "./plugins/coverage/schema.ts";
+import { exampleEntry } from "./plugins/examples/schema.ts";
 import { motionFragment } from "./plugins/motion/schema.ts";
 import { tokenEntry } from "./plugins/tokens/schema.ts";
 import {
@@ -291,11 +292,6 @@ const guidanceBlock = z.strictObject({
   commonMistakes: z
     .array(z.strictObject({ mistake: z.string().min(1), fix: z.string().min(1) }))
     .optional(),
-});
-
-const exampleEntry = z.strictObject({
-  id: z.string().min(1),
-  props: z.record(z.string(), z.unknown()).optional(),
 });
 
 const childSpec = z.strictObject({
