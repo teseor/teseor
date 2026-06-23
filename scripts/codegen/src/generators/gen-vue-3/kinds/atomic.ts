@@ -192,7 +192,7 @@ export function renderAtomicVueWrapper(
     )
     .join("\n");
 
-  const stateInitsBlock = spec.kind === "atomic" ? renderVueStateInits(spec.state) : "";
+  const stateInitsBlock = spec.kind === "atomic" ? renderVueStateInits(spec.latch) : "";
   const helperLines = [
     tagMapLine,
     resolvedTagComputed,
@@ -293,7 +293,7 @@ export function renderAtomicVueWrapper(
       : `<${componentTag} class="${rootClass}" v-bind="attrs"${refAttr}>`;
   const rootClose = isVoid ? "" : isExpr ? `</component>` : `</${componentTag}>`;
 
-  const stateEntries = spec.kind === "atomic" ? Object.entries(spec.state ?? {}) : [];
+  const stateEntries = spec.kind === "atomic" ? Object.entries(spec.latch ?? {}) : [];
   const hasState = stateEntries.length > 0;
   const branchComputes = Array.from(resolved.branchComputes);
   const vueValueImports = [

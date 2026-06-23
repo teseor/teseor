@@ -226,7 +226,7 @@ export function renderAtomicReactWrapper(
     .join("\n");
   const refExpr = hasImperativeProps ? `mergeRefs(innerRef, ref)` : "ref";
 
-  const stateInitsBlock = spec.kind === "atomic" ? renderReactStateInits(spec.state) : "";
+  const stateInitsBlock = spec.kind === "atomic" ? renderReactStateInits(spec.latch) : "";
   const helperBlock = [
     tagMapLine,
     resolvedTagLine,
@@ -309,7 +309,7 @@ export function renderAtomicReactWrapper(
   // an intrinsic tag literal — without it the JSX ref slot pins to that one
   // intrinsic's HTMLElement subtype and rejects the widened consumer ref.
   const usesAsElement = hasAs || Boolean(elementByProp) || isPolymorphic;
-  const stateEntries = spec.kind === "atomic" ? Object.entries(spec.state ?? {}) : [];
+  const stateEntries = spec.kind === "atomic" ? Object.entries(spec.latch ?? {}) : [];
   const hasState = stateEntries.length > 0;
   const branchComputes = Array.from(resolved.branchComputes);
   const reactValueImports = [

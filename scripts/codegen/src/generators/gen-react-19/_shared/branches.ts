@@ -81,7 +81,7 @@ export function renderReactBranches(branches: Branch[], indent: string): string 
 }
 
 /** Emit React `useState` lines for declared internal state. */
-export function renderReactStateInits(state: FlatSpec["state"] | undefined): string {
+export function renderReactStateInits(state: FlatSpec["latch"] | undefined): string {
   if (!state) return "";
   return Object.entries(state)
     .map(

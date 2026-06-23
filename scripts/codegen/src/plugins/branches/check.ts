@@ -41,7 +41,7 @@ export function checkBranches(spec: Spec): Issue[] {
   if (spec.kind !== "atomic") return [];
   const issues: Issue[] = [];
   const branches = spec.branches;
-  const state = spec.state ?? {};
+  const state = spec.latch ?? {};
   const props = spec.props ?? {};
   if (!branches || branches.length === 0) return issues;
   const lastIdx = branches.length - 1;

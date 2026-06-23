@@ -80,7 +80,7 @@ export function renderVueBranches(branches: Branch[], indent: string): string {
 }
 
 /** Emit Vue `ref()` lines for declared internal state. */
-export function renderVueStateInits(state: FlatSpec["state"] | undefined): string {
+export function renderVueStateInits(state: FlatSpec["latch"] | undefined): string {
   if (!state) return "";
   return Object.entries(state)
     .map(([name, def]) => `const ${name} = ref<boolean>(${def.initial});`)

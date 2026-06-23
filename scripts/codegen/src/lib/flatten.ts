@@ -97,9 +97,9 @@ export type FlatSpec = {
   /** Atomic-only: JS-only DOM properties the wrapper sets imperatively after
    *  mount (Checkbox's `indeterminate`, `<details>.open`, …). */
   imperativeProps?: Record<string, { type: "boolean"; description?: string }>;
-  /** Atomic-only: internal reactive state. v0 is boolean-only; emitted as
-   *  `useState` (React) / `ref` (Vue) at the top of the wrapper. */
-  state?: Record<string, { type: "boolean"; initial: boolean }>;
+  /** Atomic-only: internal reactive state declarations — generators emit one
+   *  `useState`/`ref` per entry. v0 is boolean-only. */
+  latch?: Record<string, { type: "boolean"; initial: boolean }>;
   /** Atomic-only: ordered conditional subtrees rendered inside the root. */
   branches?: Extract<Spec, { kind: "atomic" }>["branches"];
   /** Atomic-only: default children rendered inside every example when the root
@@ -176,7 +176,7 @@ export function flattenSpec(spec: Spec): FlatSpec {
       htmlAttrs: spec.htmlAttrs,
       imperativeProps: spec.imperativeProps,
       defaultChildren: spec.defaultChildren,
-      state: spec.state,
+      latch: spec.latch,
       branches: spec.branches,
       elementByProp: spec.elementByProp,
       rootClass: spec.rootClass,

@@ -122,7 +122,7 @@ describe("composed atomicSpec parses real specs", () => {
       kind: "atomic",
       element: "input",
       rootClass: "t-checkbox",
-      state: { checked: { type: "boolean", initial: false } },
+      latch: { checked: { type: "boolean", initial: false } },
       branches: [
         {
           element: "input",

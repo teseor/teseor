@@ -87,7 +87,7 @@ privateTokens:
   - --_color-info-bg
   - --_color-info-fg
 
-state:
+latch:
   imgErrored:
     type: boolean
     initial: false
