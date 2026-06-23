@@ -15,6 +15,7 @@ import { eventEntry, genericEntry } from "./plugins/events/schema.ts";
 import { exampleEntry } from "./plugins/examples/schema.ts";
 import { stateEntry } from "./plugins/latch/schema.ts";
 import { motionFragment } from "./plugins/motion/schema.ts";
+import { overlayBlock } from "./plugins/overlay/schema.ts";
 import { propEntry } from "./plugins/props/schema.ts";
 import { stateDef } from "./plugins/states/schema.ts";
 import { tokenEntry } from "./plugins/tokens/schema.ts";
@@ -44,15 +45,6 @@ const componentNodeFields = {
   constraints: z.array(constraintEntry).optional(),
   motion: motionFragment.optional(),
 } as const;
-
-// The part declaring `overlay:` is the floating element by definition;
-// `anchor:` names a sibling part that wraps the consumer's children.
-const overlayBlock = z.strictObject({
-  anchor: z.string().min(1),
-  anchorVar: z.string().regex(/^--[A-Za-z0-9_-]+$/),
-  mode: z.enum(["auto", "manual", "hint"]).default("manual"),
-  modal: z.boolean().default(false),
-});
 
 // `fromChildren: true` makes the generator wrap the consumer's children in
 // a thin element rather than `cloneElement`; the wrapper survives Astro
