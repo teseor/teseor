@@ -17,7 +17,6 @@ import {
   checkExamplesReferences,
   checkFormControl,
   checkImperativeProps,
-  checkMotionSymmetry,
   checkPolymorphicAtomic,
   checkPrivateTokens,
   checkRepeatingParts,
@@ -562,34 +561,6 @@ describe("checkVocabulary", () => {
     });
     const issues = checkVocabulary(spec, vocabulary);
     expect(issues[0]?.message).toMatch(/typo of the canonical prop 'loading'/);
-  });
-});
-
-describe("checkMotionSymmetry", () => {
-  test("flags `enters` without `exits` on the atomic root", () => {
-    const spec = makeButton({ motion: { enters: ["open"] } });
-    const issues = checkMotionSymmetry(spec);
-    expect(issues).toHaveLength(1);
-    expect(issues[0]?.message).toMatch(/enters is declared without motion.exits/);
-  });
-
-  test("walks into composite parts", () => {
-    const spec = makeSpec({
-      name: "popover",
-      kind: "composite",
-      parts: {
-        root: {},
-        content: { motion: { exits: ["close"] } },
-      },
-    });
-    const issues = checkMotionSymmetry(spec);
-    expect(issues).toHaveLength(1);
-    expect(issues[0]?.path).toBe("parts.content.motion");
-  });
-
-  test("accepts a symmetric declaration", () => {
-    const spec = makeButton({ motion: { enters: ["open"], exits: ["close"] } });
-    expect(checkMotionSymmetry(spec)).toEqual([]);
   });
 });
 

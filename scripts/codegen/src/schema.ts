@@ -5,6 +5,7 @@
 // composite specs carry a `parts:` map of ComponentNodes, each of which may
 // itself carry `parts:`. Every object is strict — unknown keys fail validation.
 import { z } from "zod";
+import { motionFragment } from "./plugins/motion/schema.ts";
 
 const tokenName = z.string().regex(/^--[A-Za-z0-9_-]+$/);
 
@@ -72,12 +73,6 @@ const constraintEntry = z.strictObject({
   when: z.record(z.string(), z.unknown()),
   forbid: z.record(z.string(), z.unknown()),
   reason: z.string().min(1),
-});
-
-const motionBlock = z.strictObject({
-  transitions: z.array(z.string()).optional(),
-  enters: z.array(z.string()).optional(),
-  exits: z.array(z.string()).optional(),
 });
 
 const elementByPropBlock = z.strictObject({
@@ -150,7 +145,7 @@ const componentNodeFields = {
   visualStates: z.record(z.string(), visualStateEntry).optional(),
   a11y: a11yBlock.optional(),
   constraints: z.array(constraintEntry).optional(),
-  motion: motionBlock.optional(),
+  motion: motionFragment.optional(),
 } as const;
 
 // The part declaring `overlay:` is the floating element by definition;

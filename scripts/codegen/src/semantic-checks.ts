@@ -10,6 +10,7 @@ import { isVoidElement } from "./lib/html-void-elements.ts";
 import { pascalCase } from "./lib/pascal-case.ts";
 import type { TokenDictionary } from "./lib/token-dictionary.ts";
 import type { Vocabulary } from "./lib/vocabulary.ts";
+import { checkMotion } from "./plugins/motion/check.ts";
 import type { PayloadEntry, Spec, SpecPart } from "./schema.ts";
 
 type TokensCss = ReadonlySet<string>;
@@ -758,39 +759,6 @@ export function checkTokenNames(spec: Spec, dictionary: TokenDictionary): Issue[
     };
     walk(spec.parts, "parts");
   }
-  return issues;
-}
-
-// ── Motion in/out symmetry (rules/motion.md rule 5) ─────────────────────────
-
-/** Walks every ComponentNode (root and parts) and asserts `enters`/`exits`
- * are declared symmetrically. Symmetry of existence, not duration. */
-export function checkMotionSymmetry(spec: Spec): Issue[] {
-  const issues: Issue[] = [];
-  visitNodes(spec, (node, path) => {
-    const motion = node.motion;
-    if (!motion) return;
-    const hasEnters = (motion.enters?.length ?? 0) > 0;
-    const hasExits = (motion.exits?.length ?? 0) > 0;
-    if (hasEnters && !hasExits) {
-      issues.push(
-        issue(
-          spec.name,
-          path === "" ? "motion" : `${path}.motion`,
-          "motion.enters is declared without motion.exits (rules/motion.md rule 5)",
-        ),
-      );
-    }
-    if (hasExits && !hasEnters) {
-      issues.push(
-        issue(
-          spec.name,
-          path === "" ? "motion" : `${path}.motion`,
-          "motion.exits is declared without motion.enters (rules/motion.md rule 5)",
-        ),
-      );
-    }
-  });
   return issues;
 }
 
@@ -2859,7 +2827,7 @@ export function runSemanticChecks(
     ...checkCoverageShape(spec),
     ...checkConstraintsAgainstCoverage(spec),
     ...checkVocabulary(spec, ctx.vocabulary),
-    ...checkMotionSymmetry(spec),
+    ...checkMotion(spec),
     ...checkCssImportAllowlist(spec, ctx.css),
     ...checkVariantChoiceKeys(spec),
     ...checkResponsiveExplicit(spec),
