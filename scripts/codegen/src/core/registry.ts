@@ -12,6 +12,7 @@ import { latchPlugin } from "../plugins/latch/index.ts";
 import { motionPlugin } from "../plugins/motion/index.ts";
 import { polymorphicPlugin } from "../plugins/polymorphic/index.ts";
 import { propsPlugin } from "../plugins/props/index.ts";
+import { rootElementStaticPlugin } from "../plugins/rootElementStatic/index.ts";
 import { tokensPlugin } from "../plugins/tokens/index.ts";
 import { variantsPlugin } from "../plugins/variants/index.ts";
 import { voidElementsPlugin } from "../plugins/voidElements/index.ts";
@@ -40,4 +41,5 @@ export const PLUGINS: readonly SubstratePlugin[] = [
   defaultChildrenPlugin,
   polymorphicPlugin,
   elementByPropPlugin,
+  rootElementStaticPlugin,
 ];
