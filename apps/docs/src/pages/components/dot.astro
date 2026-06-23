@@ -1,0 +1,134 @@
+---
+import { Dot, Code, Codeblock } from "@teseor/react";
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Dot — Teseor">
+  <main class="t-stack" data-gap="6">
+    <h1>Dot</h1>
+    <p>Single-color presence indicator. Decorative by default — emits `role="none"` and `aria-hidden="true"`. Supply `label` to make the dot meaningful (`role="img"` + `aria-label`). Pair with adjacent text or an Avatar for status overlays.</p>
+    <section class="t-stack" data-gap="3">
+      <h2>Examples</h2>
+      <div class="t-stack" data-gap="2">
+        <h3>default</h3>
+        <div class="t-cluster" data-gap="3">
+          <Dot>Dot</Dot>
+        </div>
+        <Codeblock>&lt;Dot&gt;Dot&lt;/Dot&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>success</h3>
+        <div class="t-cluster" data-gap="3">
+          <Dot color="success">Dot</Dot>
+        </div>
+        <Codeblock>&lt;Dot color="success"&gt;Dot&lt;/Dot&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>small</h3>
+        <div class="t-cluster" data-gap="3">
+          <Dot size="sm">Dot</Dot>
+        </div>
+        <Codeblock>&lt;Dot size="sm"&gt;Dot&lt;/Dot&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>status-online</h3>
+        <div class="t-cluster" data-gap="3">
+          <Dot status="online">Dot</Dot>
+        </div>
+        <Codeblock>&lt;Dot status="online"&gt;Dot&lt;/Dot&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>status-busy</h3>
+        <div class="t-cluster" data-gap="3">
+          <Dot status="busy">Dot</Dot>
+        </div>
+        <Codeblock>&lt;Dot status="busy"&gt;Dot&lt;/Dot&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>labeled</h3>
+        <div class="t-cluster" data-gap="3">
+          <Dot label="Online">Dot</Dot>
+        </div>
+        <Codeblock>&lt;Dot label="Online"&gt;Dot&lt;/Dot&gt;</Codeblock>
+      </div>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Props</h2>
+      <table>
+        <thead><tr><th>Prop</th><th>Type</th><th>Responsive</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>size</Code></td><td><Code>"sm" | "md"</Code></td><td>✓</td><td><Code>null</Code></td><td>Size scale. See the Sizes section for per-value descriptions.</td></tr>
+        <tr><td><Code>color</Code></td><td><Code>string</Code></td><td></td><td><Code>null</Code></td><td>Semantic color. Absence-of-attr renders the neutral base styling.</td></tr>
+        <tr><td><Code>status</Code></td><td><Code>string</Code></td><td></td><td><Code>null</Code></td><td>Sugar prop for common presence states. Emits `data-status` so status-driven styling can override `color`. Independent of `color` — the two compose.</td></tr>
+        <tr><td><Code>label</Code></td><td><Code>string</Code></td><td></td><td><Code>null</Code></td><td>Accessible label. When set, the dot becomes meaningful (`role="img"` + `aria-label=&lbrace;label&rbrace;`); when unset, the dot is decorative (`role="none"` + `aria-hidden="true"`).</td></tr>
+        <tr><td><Code>asChild</Code></td><td><Code>boolean</Code></td><td></td><td><Code>false</Code></td><td>Render the trigger directly on the consumer's child element (cloneElement) instead of wrapping in a &lt;span&gt;. Single-child invariant; the child receives the wrapper's &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;data-state&lt;/code&gt;, event handlers, and any ARIA attributes the component applies (component-specific). Not compatible with Astro slots — use the default wrapper there.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Sizes</h2>
+      <table>
+        <thead><tr><th>Name</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>sm</Code></td><td>Compact; inline next to small prose or in dense lists.</td></tr>
+        <tr><td><Code>md</Code></td><td>Default; inline next to body text or overlaid on Avatar.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Tokens</h2>
+      <table>
+        <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-dot-bg</Code></td><td><Code>--t-on-surface-muted</Code></td><td>Background color of the dot. Color and status modifiers override this via `--_color-*` / `--_status-*` tokens.</td></tr>
+        <tr><td><Code>--t-dot-size-sm</Code></td><td><Code>--t-space-2</Code></td><td>Diameter for the `sm` size.</td></tr>
+        <tr><td><Code>--t-dot-size-md</Code></td><td><Code>--t-space-3</Code></td><td>Diameter for the `md` size.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Accessibility</h2>
+      <p>Role: <Code>img</Code></p>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Forced colors</h2>
+      <p>In Windows High Contrast mode, the component remaps these semantic tokens to CSS system colors. Custom-property inheritance carries the values to every reference in the subtree.</p>
+      <table>
+        <thead><tr><th>Token</th><th>Default</th><th>Forced-colors</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-accent</Code></td><td><Code>oklch(from oklch(58% 0.2 268deg) 55% c h)</Code></td><td><Code>ButtonText</Code></td></tr>
+        <tr><td><Code>--t-danger</Code></td><td><Code>color-mix(
+      in oklch,
+      oklch(from oklch(58% 0.2 268deg) 48% c 25deg),
+      oklch(from oklch(58% 0.2 268deg) 48% c h) calc(0 * 100%)
+    )</Code></td><td><Code>ButtonText</Code></td></tr>
+        <tr><td><Code>--t-info</Code></td><td><Code>color-mix(
+      in oklch,
+      oklch(from oklch(58% 0.2 268deg) 50% c 210deg),
+      oklch(from oklch(58% 0.2 268deg) 50% c h) calc(0 * 100%)
+    )</Code></td><td><Code>ButtonText</Code></td></tr>
+        <tr><td><Code>--t-on-surface-muted</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 50% calc(c * 0.025) h) 18% c h)</Code></td><td><Code>CanvasText</Code></td></tr>
+        <tr><td><Code>--t-success</Code></td><td><Code>color-mix(
+      in oklch,
+      oklch(from oklch(58% 0.2 268deg) 52% c 155deg),
+      oklch(from oklch(58% 0.2 268deg) 52% c h) calc(0 * 100%)
+    )</Code></td><td><Code>ButtonText</Code></td></tr>
+        <tr><td><Code>--t-warning</Code></td><td><Code>color-mix(
+      in oklch,
+      oklch(from oklch(58% 0.2 268deg) 80% c 85deg),
+      oklch(from oklch(58% 0.2 268deg) 80% c h) calc(0 * 100%)
+    )</Code></td><td><Code>ButtonText</Code></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Bundle size</h2>
+      <table>
+        <thead><tr><th>Artifact</th><th>Raw</th><th>Gzip</th><th>Brotli</th></tr></thead>
+        <tbody>
+        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/dot/dot.css"><Code>@teseor/css/components/dot.css</Code></a></td><td>3.29 KB</td><td>0.74 KB</td><td>0.62 KB</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</Base>

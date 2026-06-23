@@ -1,0 +1,85 @@
+@layer components.tokens {
+  .t-dot {
+    --_bg: var(--t-dot-bg, var(--t-on-surface-muted));
+    --_size-sm: var(--t-dot-size-sm, var(--t-space-2));
+    --_size-md: var(--t-dot-size-md, var(--t-space-3));
+    --_size: var(--_size-md);
+    --_color-neutral: var(--t-on-surface-muted);
+    --_color-primary: var(--t-accent);
+    --_color-success: var(--t-success);
+    --_color-warning: var(--t-warning);
+    --_color-danger: var(--t-danger);
+    --_color-info: var(--t-info);
+    --_status-online: var(--t-success);
+    --_status-offline: var(--t-on-surface-muted);
+    --_status-away: var(--t-warning);
+    --_status-busy: var(--t-danger);
+    --_status-idle: var(--t-info);
+  }
+}
+
+@layer components.styles {
+  .t-dot {
+    box-sizing: border-box;
+    margin: 0;
+    display: inline-block;
+    flex-shrink: 0;
+    inline-size: var(--_size);
+    block-size: var(--_size);
+    background: var(--_bg);
+    border-radius: 50%;
+    vertical-align: baseline;
+
+    &:where([data-size="sm"]) {
+      --_size: var(--_size-sm);
+    }
+
+    &:where([data-size="md"]) {
+      --_size: var(--_size-md);
+    }
+
+    &:where([data-color="neutral"]) {
+      --_bg: var(--_color-neutral);
+    }
+
+    &:where([data-color="primary"]) {
+      --_bg: var(--_color-primary);
+    }
+
+    &:where([data-color="success"]) {
+      --_bg: var(--_color-success);
+    }
+
+    &:where([data-color="warning"]) {
+      --_bg: var(--_color-warning);
+    }
+
+    &:where([data-color="danger"]) {
+      --_bg: var(--_color-danger);
+    }
+
+    &:where([data-color="info"]) {
+      --_bg: var(--_color-info);
+    }
+
+    &:where([data-status="online"]) {
+      --_bg: var(--_status-online);
+    }
+
+    &:where([data-status="offline"]) {
+      --_bg: var(--_status-offline);
+    }
+
+    &:where([data-status="away"]) {
+      --_bg: var(--_status-away);
+    }
+
+    &:where([data-status="busy"]) {
+      --_bg: var(--_status-busy);
+    }
+
+    &:where([data-status="idle"]) {
+      --_bg: var(--_status-idle);
+    }
+  }
+}

@@ -10,6 +10,7 @@ import { fixtures as clusterFixtures } from "./Cluster.vue.ts";
 import { fixtures as codeFixtures } from "./Code.vue.ts";
 import { fixtures as codeblockFixtures } from "./Codeblock.vue.ts";
 import { fixtures as dividerFixtures } from "./Divider.vue.ts";
+import { fixtures as dotFixtures } from "./Dot.vue.ts";
 import { fixtures as headingFixtures } from "./Heading.vue.ts";
 import { fixtures as iconFixtures } from "./Icon.vue.ts";
 import { fixtures as imageFixtures } from "./Image.vue.ts";
@@ -34,6 +35,7 @@ export const vueFixtures: Record<string, Record<string, () => VNode>> = {
   code: codeFixtures,
   codeblock: codeblockFixtures,
   divider: dividerFixtures,
+  dot: dotFixtures,
   heading: headingFixtures,
   icon: iconFixtures,
   image: imageFixtures,

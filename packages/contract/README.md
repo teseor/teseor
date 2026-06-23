@@ -33,6 +33,7 @@ function buildAttrs(props: BadgeProps): Record<string, string | undefined> {
 - `Code` — `CodeProps`
 - `Codeblock` — `CodeblockProps`
 - `Divider` — `DividerProps`
+- `Dot` — `DotSize`, `DotProps`
 - `Heading` — `HeadingSize`, `HeadingProps`
 - `Icon` — `IconSize`, `IconProps`
 - `Image` — `ImageProps`

@@ -10,6 +10,7 @@ import { fixtures as clusterFixtures } from "./Cluster.react.tsx";
 import { fixtures as codeFixtures } from "./Code.react.tsx";
 import { fixtures as codeblockFixtures } from "./Codeblock.react.tsx";
 import { fixtures as dividerFixtures } from "./Divider.react.tsx";
+import { fixtures as dotFixtures } from "./Dot.react.tsx";
 import { fixtures as headingFixtures } from "./Heading.react.tsx";
 import { fixtures as iconFixtures } from "./Icon.react.tsx";
 import { fixtures as imageFixtures } from "./Image.react.tsx";
@@ -34,6 +35,7 @@ export const reactFixtures: Record<string, Record<string, () => ReactNode>> = {
   code: codeFixtures,
   codeblock: codeblockFixtures,
   divider: dividerFixtures,
+  dot: dotFixtures,
   heading: headingFixtures,
   icon: iconFixtures,
   image: imageFixtures,

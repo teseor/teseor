@@ -42,6 +42,7 @@ import { Badge } from "@teseor/react";
 - `Code` — Inline monospace fragment for short code spans in prose.
 - `Codeblock` — Block container for multi-line code with monospace font and horizontal overflow scroll.
 - `Divider` — Horizontal-or-vertical visual rule. Renders `<hr>` for the horizontal orientation (native `role="separator"`) and `<div role="separator" aria-orientation="vertical">` for the vertical one. The `decorative` prop hides the element from the accessibility tree (`role="none"` + `aria-hidden="true"`).
+- `Dot` — Single-color presence indicator. Decorative by default — emits `role="none"` and `aria-hidden="true"`. Supply `label` to make the dot meaningful (`role="img"` + `aria-label`). Pair with adjacent text or an Avatar for status overlays.
 - `Heading` — Semantic prose heading. The rendered tag switches with `level` so outline tools and screen readers read native `<h1>`–`<h6>` structure.
 - `Icon` — Wrapper for caller-supplied SVG glyphs. Sizes the box and lets the SVG inherit color via `currentColor`. Decorative by default — supply `label` to make the icon meaningful. Does not ship an icon set; the consumer chooses their library (Lucide, Tabler, Heroicons, custom).
 - `Image` — Image primitive — styled `<img>` with token-driven defaults (rounded corners, loading-state background, optional `object-fit`). Native HTML attrs (`src`, `alt`, `width`, `height`, `loading`, `decoding`, `srcset`, `sizes`) pass through the inherited type.
