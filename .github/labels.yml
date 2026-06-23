@@ -51,6 +51,9 @@
 - name: component:button
   color: d4c5f9
   description: button component
+- name: component:center
+  color: d4c5f9
+  description: center component
 - name: component:checkbox
   color: d4c5f9
   description: checkbox component

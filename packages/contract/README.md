@@ -27,6 +27,7 @@ function buildAttrs(props: BadgeProps): Record<string, string | undefined> {
 - `Badge` — `BadgeVariant`, `BadgeIntent`, `BadgeSize`, `BadgeProps`
 - `Blockquote` — `BlockquoteVariant`, `BlockquoteProps`
 - `Button` — `ButtonVariant`, `ButtonIntent`, `ButtonSize`, `ButtonProps`
+- `Center` — `CenterProps`
 - `Checkbox` — `CheckboxSize`, `CheckboxProps`
 - `Cluster` — `ClusterProps`
 - `Code` — `CodeProps`

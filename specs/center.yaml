@@ -1,0 +1,33 @@
+name: center
+description: A layout primitive that centers a single child on both axes. Pure CSS, no children styling. `minHeight` is unset by default — the centered box hugs its child; pass `screen` for splash-screen / hero patterns or override `--t-center-min-height` for custom values.
+kind: atomic
+dependencies: []
+element: div
+rootClass: t-center
+cssFile: components/center/center.css
+polymorphic: asChild
+
+props:
+  minHeight:
+    type: string
+    values: [screen]
+    default: null
+    responsive: true
+    description: "Minimum block size. `screen` maps to 100dvh (splash-screen / hero pattern). Leave unset to center inside the parent's flow. Custom values: override `--t-center-min-height` on the element."
+
+tokens:
+  min-height:
+    fallback: auto
+    desc: Resolved minimum block size when no `minHeight` prop is set. `auto` lets the child determine the box height; override via `--t-center-min-height` for custom values.
+
+privateTokens:
+  - --_min-height
+  - --_min-height-screen
+
+examples:
+  - id: default
+    props: {}
+  - id: screen
+    props: { minHeight: screen }
+  - id: responsive
+    props: { minHeight: { md: screen } }
