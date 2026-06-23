@@ -6,8 +6,7 @@
 // itself carry `parts:`. Every object is strict — unknown keys fail validation.
 import { z } from "zod";
 import { motionFragment } from "./plugins/motion/schema.ts";
-
-const tokenName = z.string().regex(/^--[A-Za-z0-9_-]+$/);
+import { tokenEntry, tokenName } from "./plugins/tokens/schema.ts";
 
 const variantEntry = z.strictObject({
   description: z.string().min(1),
@@ -35,15 +34,6 @@ const propEntry = z.strictObject({
   slot: z.boolean().optional(),
   values: z.array(z.string()).optional(),
   pattern: z.literal("controllable").optional(),
-});
-
-// Permissive: token-shape resolution is a semantic check, not a schema gate —
-// some fallbacks are literal CSS values (`stretch`, `flex-start`, `none`).
-const fallbackValue = z.string().min(1);
-
-const tokenEntry = z.strictObject({
-  fallback: fallbackValue,
-  desc: z.string().min(1),
 });
 
 const a11yKeyboard = z.record(z.string(), z.string());
