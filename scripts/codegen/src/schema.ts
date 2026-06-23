@@ -6,8 +6,10 @@
 // itself carry `parts:`. Every object is strict — unknown keys fail validation.
 import { z } from "zod";
 import { a11yBlock } from "./plugins/a11y/schema.ts";
+import { branchEntry } from "./plugins/branches/schema.ts";
 import { coverageBlock } from "./plugins/coverage/schema.ts";
 import { exampleEntry } from "./plugins/examples/schema.ts";
+import { stateEntry } from "./plugins/latch/schema.ts";
 import { motionFragment } from "./plugins/motion/schema.ts";
 import { propEntry } from "./plugins/props/schema.ts";
 import { tokenEntry } from "./plugins/tokens/schema.ts";
@@ -27,54 +29,6 @@ const constraintEntry = z.strictObject({
 const elementByPropBlock = z.strictObject({
   prop: z.string().min(1),
   map: z.record(z.string().min(1), z.string().min(1)),
-});
-
-// ── Conditional-render substrate: `state:` + `branches:` ────────────────────
-
-const stateEntry = z.strictObject({
-  type: z.literal("boolean"),
-  initial: z.boolean(),
-});
-
-type WhenClause =
-  | { propTruthy: string }
-  | { propFalsy: string }
-  | { stateTruthy: string }
-  | { stateFalsy: string }
-  | { all: WhenClause[] }
-  | { any: WhenClause[] };
-
-const whenClause: z.ZodType<WhenClause> = z.lazy(() =>
-  z.union([
-    z.strictObject({ propTruthy: z.string().min(1) }),
-    z.strictObject({ propFalsy: z.string().min(1) }),
-    z.strictObject({ stateTruthy: z.string().min(1) }),
-    z.strictObject({ stateFalsy: z.string().min(1) }),
-    z.strictObject({ all: z.array(whenClause).min(1) }),
-    z.strictObject({ any: z.array(whenClause).min(1) }),
-  ]),
-);
-
-const branchAttrValue = z.union([
-  z.strictObject({ prop: z.string().min(1) }),
-  z.strictObject({
-    setState: z.strictObject({ name: z.string().min(1), to: z.boolean() }),
-  }),
-]);
-
-const branchTextClause = z.union([
-  z.strictObject({ prop: z.string().min(1) }),
-  z.strictObject({
-    compute: z.string().min(1),
-    from: z.array(z.string().min(1)).min(1),
-  }),
-]);
-
-const branchEntry = z.strictObject({
-  when: whenClause.optional(),
-  element: z.string().min(1),
-  attrs: z.record(z.string().min(1), branchAttrValue).optional(),
-  text: branchTextClause.optional(),
 });
 
 const componentNodeFields = {
