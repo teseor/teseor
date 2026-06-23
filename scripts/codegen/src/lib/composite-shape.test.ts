@@ -38,7 +38,7 @@ describe("extractCompositeShape", () => {
     const spec = makeCompositeSpec({
       trigger: { fromChildren: true },
       content: {
-        element: "div",
+        root: { kind: "static", tag: "div" },
         rootClass: "my-content",
         a11y: { role: "tooltip" },
         overlay: OVERLAY_BLOCK,

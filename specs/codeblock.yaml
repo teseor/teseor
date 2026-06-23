@@ -2,7 +2,9 @@ name: codeblock
 description: Block container for multi-line code with monospace font and horizontal overflow scroll.
 kind: atomic
 dependencies: []
-element: pre
+root:
+  kind: static
+  tag: pre
 slotElement: code
 rootClass: t-codeblock
 cssFile: components/codeblock/codeblock.css

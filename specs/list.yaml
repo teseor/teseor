@@ -2,14 +2,15 @@ name: list
 description: Ordered / unordered list primitive. Renders `<ul>` or `<ol>` based on `ordered`; styles bare `<li>` children with grid-rhythm spacing and prose-friendly markers.
 kind: atomic
 dependencies: []
-elementByProp:
+root:
+  kind: byProp
   prop: ordered
   map:
     "false": ul
     "true": ol
+  polymorphic: asChild
 rootClass: t-list
 cssFile: components/list/list.css
-polymorphic: asChild
 
 props:
   ordered:

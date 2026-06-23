@@ -6,11 +6,11 @@ function makeSpec(s: unknown): Spec {
   return Spec.parse(s);
 }
 
-function makeVoid(element: string, props: Record<string, unknown> = {}): Spec {
+function makeVoid(tag: string, props: Record<string, unknown> = {}): Spec {
   return makeSpec({
     name: "divider",
     kind: "atomic",
-    element,
+    root: { kind: "static", tag },
     rootClass: "t-divider",
     props,
   });
@@ -83,15 +83,19 @@ describe("checkVoidElementConstraints", () => {
     expect(checkVoidElementConstraints(spec)).toEqual([]);
   });
 
-  test("accepts `disabled` on case-variant form-control voids (`INPUT`, `Input`)", () => {
-    // `isVoidElement` lowercases its input; the FORM_CONTROL_VOIDS membership
-    // check must do the same so an upper/mixed-case spec doesn't get the
-    // `<INPUT> ignores disabled` false positive.
-    for (const element of ["INPUT", "Input"]) {
-      const spec = makeVoid(element, {
-        disabled: { type: "boolean", responsive: false, description: "Disabled." },
+  test("the schema rejects upper/mixed-case root tags (`INPUT`, `Input`)", () => {
+    // The `root.tag` regex (`^[a-z][a-z0-9-]*$`) enforces lowercase at the
+    // schema layer, so the void-element check never sees a case-variant tag.
+    // `checkVoidElementConstraints` still lowercases defensively, but a spec
+    // can no longer construct an uppercase tag to exercise it.
+    for (const tag of ["INPUT", "Input"]) {
+      const result = Spec.safeParse({
+        name: "divider",
+        kind: "atomic",
+        root: { kind: "static", tag },
+        rootClass: "t-divider",
       });
-      expect(checkVoidElementConstraints(spec)).toEqual([]);
+      expect(result.success).toBe(false);
     }
   });
 
@@ -101,7 +105,7 @@ describe("checkVoidElementConstraints", () => {
       kind: "composite",
       parts: {
         separator: {
-          element: "hr",
+          root: { kind: "static", tag: "hr" },
           props: {
             loading: { type: "boolean", description: "Loading." },
           },

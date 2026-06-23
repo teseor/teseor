@@ -2,7 +2,9 @@ name: avatar
 description: Image container with name/initials/icon fallback chain. Renders `<img>` when `src` is set and loads successfully; falls back to initials (when `name` is provided) or an empty muted box when nothing else fits. Atomic primitive.
 kind: atomic
 dependencies: []
-element: span
+root:
+  kind: static
+  tag: span
 rootClass: t-avatar
 cssFile: components/avatar/avatar.css
 

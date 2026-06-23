@@ -121,7 +121,7 @@ describe("gen-react", () => {
             },
           },
           content: {
-            element: "div",
+            root: { kind: "static", tag: "div" },
             overlay: {
               anchor: "trigger",
               mode: "manual",

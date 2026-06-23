@@ -40,10 +40,11 @@ export function renderPropsType(
     ? renderCanonicalProp("intent", `${Name}Intent`, propDescriptions)
     : [];
   const sizeLines = spec.sizes ? renderCanonicalProp("size", sizeType, propDescriptions) : [];
+  const rootTag = spec.root?.kind === "static" ? spec.root.tag : "div";
   const asChildLines =
-    spec.polymorphic === "asChild"
+    spec.root?.polymorphic === "asChild"
       ? [
-          `  /** Render directly on the consumer's child VNode via Slot (cloneVNode) instead of wrapping in a \`<${spec.element ?? "div"}>\`. Single-child invariant. */`,
+          `  /** Render directly on the consumer's child VNode via Slot (cloneVNode) instead of wrapping in a \`<${rootTag}>\`. Single-child invariant. */`,
           `  asChild?: boolean;`,
         ]
       : [];
@@ -78,7 +79,7 @@ export function renderPropsBlock(spec: Spec, Name: string): string {
     enumPropNames.length === 0 &&
     nonSlotProps.length === 0 &&
     imperativePropNames.length === 0 &&
-    spec.polymorphic !== "asChild"
+    spec.root?.polymorphic !== "asChild"
   ) {
     return `defineProps<${Name}Props>();`;
   }
@@ -93,7 +94,7 @@ export function renderPropsBlock(spec: Spec, Name: string): string {
       return `  ${name},`;
     }),
     ...imperativePropNames.map((n) => `  ${n},`),
-    ...(spec.polymorphic === "asChild" ? ["  asChild,"] : []),
+    ...(spec.root?.polymorphic === "asChild" ? ["  asChild,"] : []),
   ];
   return `const {
 ${lines.join("\n")}

@@ -27,11 +27,9 @@ export function checkFormControl(spec: Spec, vocabulary: Vocabulary): Issue[] {
   const issues: Issue[] = [];
   const allowedElements = vocabulary.formControl.elements;
   const sharedPropNames = Object.keys(vocabulary.formControl.props);
-  const rootTags = spec.elementByProp
-    ? Object.values(spec.elementByProp.map)
-    : spec.element
-      ? [spec.element]
-      : [];
+  const root = spec.root;
+  const rootTags =
+    root?.kind === "byProp" ? Object.values(root.map) : root?.kind === "static" ? [root.tag] : [];
   if (rootTags.length === 0) {
     issues.push(
       issue(
@@ -46,7 +44,7 @@ export function checkFormControl(spec: Spec, vocabulary: Vocabulary): Issue[] {
       issues.push(
         issue(
           spec.name,
-          spec.elementByProp ? `elementByProp.map` : "element",
+          root?.kind === "byProp" ? "root.map" : "root.tag",
           `\`formControl: true\` requires <${tag}> to be one of {${allowedElements.join(", ")}}`,
         ),
       );

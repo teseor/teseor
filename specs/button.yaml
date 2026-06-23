@@ -2,7 +2,9 @@ name: button
 description: A trigger that performs an action when activated.
 kind: atomic
 dependencies: []
-element: button
+root:
+  kind: static
+  tag: button
 rootClass: t-button
 cssFile: components/button/button.css
 

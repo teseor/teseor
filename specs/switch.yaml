@@ -3,7 +3,9 @@ description: 'On/off toggle. Styled `<input type="checkbox" role="switch">` with
 kind: atomic
 formControl: true
 dependencies: []
-element: input
+root:
+  kind: static
+  tag: input
 rootClass: t-switch
 cssFile: components/switch/switch.css
 

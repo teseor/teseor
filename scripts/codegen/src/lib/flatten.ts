@@ -32,8 +32,8 @@ export type FlatRepeatingPart = {
   /** Final array prop name on the parent (e.g. `pages`). When `groupKey:` is
    *  set, propName derives from groupKey and is shared across siblings. */
   propName: string;
-  /** Per-item DOM emission. */
-  element?: string;
+  /** Per-item DOM emission, resolved from the part's `root:`. */
+  root?: SpecPart["root"];
   rootClass?: string;
   /** Per-item prop shape. Codegen synthesizes a required `id: string` on top. */
   itemProps: Record<string, FlatItemProp>;
@@ -81,11 +81,12 @@ export type FlatSpec = {
    *  rendering (gen-react / gen-vue) walk them directly for state machines
    *  and per-part overlay blocks. */
   parts?: Record<string, SpecPart>;
-  element?: string;
+  /** Atomic root descriptor: a static tag, or a runtime tag resolved from a
+   *  controlling prop (`byProp`). Either branch may carry `polymorphic: asChild`,
+   *  which makes the wrapper accept an `asChild?: boolean` prop and render via
+   *  the shared Slot helper instead of the root element. */
+  root?: Extract<Spec, { kind: "atomic" }>["root"];
   slotElement?: string;
-  /** Atomic-only: when `'asChild'`, the wrapper accepts an `asChild?: boolean`
-   *  prop and renders via the shared Slot helper instead of the root element. */
-  polymorphic?: "asChild";
   /** Atomic-only: when `true`, the spec is a form-control atom. The shared
    *  contract (props + valid root elements) lives in
    *  `specs/_vocabulary.yaml#formControl` and is enforced by `pnpm lint:spec`. */
@@ -111,9 +112,6 @@ export type FlatSpec = {
     attrs?: Record<string, string | number | boolean>;
     text?: string;
   }>;
-  /** Atomic-only: when set, the rendered tag is resolved at runtime from the
-   *  named prop's value via `map`. Mutually exclusive with `element`. */
-  elementByProp?: { prop: string; map: Record<string, string> };
   rootClass?: string;
   variants?: Record<string, { description: string }>;
   intents?: Record<string, { description: string; tokens?: Record<string, string> }>;
@@ -169,16 +167,14 @@ export function flattenSpec(spec: Spec): FlatSpec {
       dependencies: spec.dependencies,
       examples: spec.examples,
       coverage: spec.coverage,
-      element: spec.element,
+      root: spec.root,
       slotElement: spec.slotElement,
-      polymorphic: spec.polymorphic,
       formControl: spec.formControl,
       htmlAttrs: spec.htmlAttrs,
       imperativeProps: spec.imperativeProps,
       defaultChildren: spec.defaultChildren,
       latch: spec.latch,
       branches: spec.branches,
-      elementByProp: spec.elementByProp,
       rootClass: spec.rootClass,
       variants: spec.variants,
       intents: spec.intents,
@@ -227,7 +223,7 @@ export function flattenSpec(spec: Spec): FlatSpec {
       repeating.push({
         partName,
         propName: effectivePropName,
-        element: part.element,
+        root: part.root,
         rootClass: part.rootClass,
         itemProps,
         groupKey: part.groupKey,

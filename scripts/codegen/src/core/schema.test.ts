@@ -35,9 +35,9 @@ describe("composeFragments collision detection", () => {
 // ---------------------------------------------------------------------------
 
 describe("composeFragments field sets", () => {
-  it("includes element from rootElementStatic in atomic scope", () => {
+  it("includes root from the root plugin in atomic scope", () => {
     const fields = composeFragments("atomic");
-    expect(Object.hasOwn(fields, "element")).toBe(true);
+    expect(Object.hasOwn(fields, "root")).toBe(true);
   });
 
   it("includes motion in composite scope", () => {
@@ -65,13 +65,14 @@ describe("composed atomicSpec parses real specs", () => {
     const result = SpecSchema.safeParse({
       name: "heading",
       kind: "atomic",
-      elementByProp: {
+      root: {
+        kind: "byProp",
         prop: "level",
         map: { "1": "h1", "2": "h2", "3": "h3" },
+        polymorphic: "asChild",
       },
       rootClass: "t-heading",
       cssFile: "components/heading/heading.css",
-      polymorphic: "asChild",
     });
     expect(result.success).toBe(true);
     if (result.success) {
@@ -84,7 +85,7 @@ describe("composed atomicSpec parses real specs", () => {
     const result = SpecSchema.safeParse({
       name: "button",
       kind: "atomic",
-      element: "button",
+      root: { kind: "static", tag: "button" },
       rootClass: "t-button",
       cssFile: "components/button/button.css",
       variants: {
@@ -120,7 +121,7 @@ describe("composed atomicSpec parses real specs", () => {
     const result = SpecSchema.safeParse({
       name: "checkbox",
       kind: "atomic",
-      element: "input",
+      root: { kind: "static", tag: "input" },
       rootClass: "t-checkbox",
       latch: { checked: { type: "boolean", initial: false } },
       branches: [
@@ -146,7 +147,7 @@ describe("composed compositeSpec parses real specs", () => {
       cssFile: "components/modal/modal.css",
       parts: {
         trigger: { fromChildren: true, rootClass: "t-modal-trigger" },
-        content: { element: "div", rootClass: "t-modal" },
+        content: { root: { kind: "static", tag: "div" }, rootClass: "t-modal" },
       },
     });
     expect(result.success).toBe(true);
@@ -163,10 +164,10 @@ describe("composed compositeSpec parses real specs", () => {
       cssFile: "components/tablist/tablist.css",
       parts: {
         root: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           rootClass: "t-tablist",
           parts: {
-            tab: { element: "button", rootClass: "t-tab" },
+            tab: { root: { kind: "static", tag: "button" }, rootClass: "t-tab" },
           },
         },
       },
@@ -182,7 +183,7 @@ describe("composed compositeSpec parses real specs", () => {
       parts: {
         trigger: { fromChildren: true, rootClass: "t-tooltip-trigger" },
         content: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           rootClass: "t-tooltip",
           motion: { transitions: ["opacity", "transform"] },
         },
@@ -222,7 +223,7 @@ describe("strict-object behavior", () => {
       kind: "composite",
       parts: {
         content: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           unknownPartField: "should-fail",
         },
       },
@@ -231,7 +232,10 @@ describe("strict-object behavior", () => {
   });
 
   it("rejects a spec with no kind field", () => {
-    const result = SpecSchema.safeParse({ name: "button", element: "button" });
+    const result = SpecSchema.safeParse({
+      name: "button",
+      root: { kind: "static", tag: "button" },
+    });
     expect(result.success).toBe(false);
   });
 });

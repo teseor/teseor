@@ -2,10 +2,12 @@ name: link
 description: Anchor primitive — styled `<a>` with token-driven color, hover, and visited treatment. Composes with native HTML attrs (`href`, `target`, `rel`, …) via the inherited type.
 kind: atomic
 dependencies: []
-element: a
+root:
+  kind: static
+  tag: a
+  polymorphic: asChild
 rootClass: t-link
 cssFile: components/link/link.css
-polymorphic: asChild
 
 variants:
   default:

@@ -18,7 +18,7 @@ describe("checkRepeatingParts", () => {
       kind: "composite",
       parts: {
         trigger: { fromChildren: true, rootClass: "t-tooltip-trigger" },
-        content: { element: "div", rootClass: "t-tooltip" },
+        content: { root: { kind: "static", tag: "div" }, rootClass: "t-tooltip" },
       },
     });
     expect(checkRepeatingParts(spec)).toEqual([]);
@@ -29,10 +29,10 @@ describe("checkRepeatingParts", () => {
       name: "pagination",
       kind: "composite",
       parts: {
-        root: { element: "nav", rootClass: "t-pagination" },
+        root: { root: { kind: "static", tag: "nav" }, rootClass: "t-pagination" },
         page: {
           repeating: true,
-          element: "a",
+          root: { kind: "static", tag: "a" },
           props: { label: { type: "string", description: "Label." } },
         },
       },
@@ -45,7 +45,7 @@ describe("checkRepeatingParts", () => {
       name: "pagination",
       kind: "composite",
       parts: {
-        root: { element: "nav" },
+        root: { root: { kind: "static", tag: "nav" } },
         page: {
           repeating: true,
           fromChildren: true,
@@ -63,8 +63,8 @@ describe("checkRepeatingParts", () => {
       name: "pagination",
       kind: "composite",
       parts: {
-        root: { element: "nav" },
-        page: { repeating: true, element: "a" },
+        root: { root: { kind: "static", tag: "nav" } },
+        page: { repeating: true, root: { kind: "static", tag: "a" } },
       },
     });
     const issues = checkRepeatingParts(spec);
@@ -77,8 +77,8 @@ describe("checkRepeatingParts", () => {
       name: "pagination",
       kind: "composite",
       parts: {
-        root: { element: "nav" },
-        page: { repeating: true, element: "a", props: {} },
+        root: { root: { kind: "static", tag: "nav" } },
+        page: { repeating: true, root: { kind: "static", tag: "a" }, props: {} },
       },
     });
     const issues = checkRepeatingParts(spec);
@@ -90,13 +90,13 @@ describe("checkRepeatingParts", () => {
       name: "stepper",
       kind: "composite",
       parts: {
-        root: { element: "ol" },
+        root: { root: { kind: "static", tag: "ol" } },
         step: {
           repeating: true,
-          element: "li",
+          root: { kind: "static", tag: "li" },
           props: { label: { type: "string", description: "Label." } },
           parts: {
-            header: { element: "h3", rootClass: "t-stepper-header" },
+            header: { root: { kind: "static", tag: "h3" }, rootClass: "t-stepper-header" },
           },
         },
       },
@@ -111,15 +111,15 @@ describe("checkRepeatingParts", () => {
       name: "tree",
       kind: "composite",
       parts: {
-        root: { element: "ul" },
+        root: { root: { kind: "static", tag: "ul" } },
         node: {
           repeating: true,
-          element: "li",
+          root: { kind: "static", tag: "li" },
           props: { label: { type: "string", description: "Label." } },
           parts: {
             child: {
               repeating: true,
-              element: "li",
+              root: { kind: "static", tag: "li" },
               props: { label: { type: "string", description: "Child label." } },
             },
           },
@@ -140,17 +140,17 @@ describe("checkRepeatingParts", () => {
       name: "split",
       kind: "composite",
       parts: {
-        root: { element: "div" },
+        root: { root: { kind: "static", tag: "div" } },
         item: {
           repeating: true,
-          element: "a",
+          root: { kind: "static", tag: "a" },
           props: { label: { type: "string", description: "Label." } },
         },
         // Both default to `items` by pluralizing.
         item2: {
           repeating: true,
           propName: "items",
-          element: "a",
+          root: { kind: "static", tag: "a" },
           props: { label: { type: "string", description: "Label." } },
         },
       },
@@ -164,15 +164,15 @@ describe("checkRepeatingParts", () => {
       name: "split",
       kind: "composite",
       parts: {
-        root: { element: "div" },
+        root: { root: { kind: "static", tag: "div" } },
         primary: {
           repeating: true,
-          element: "a",
+          root: { kind: "static", tag: "a" },
           props: { label: { type: "string", description: "Label." } },
         },
         secondary: {
           repeating: true,
-          element: "a",
+          root: { kind: "static", tag: "a" },
           props: { label: { type: "string", description: "Label." } },
         },
       },
@@ -185,11 +185,11 @@ describe("checkRepeatingParts", () => {
       name: "pagination",
       kind: "composite",
       parts: {
-        root: { element: "nav", rootClass: "t-pagination" },
+        root: { root: { kind: "static", tag: "nav" }, rootClass: "t-pagination" },
         page: {
           repeating: true,
           propName: "page-items",
-          element: "span",
+          root: { kind: "static", tag: "span" },
           props: { label: { type: "string", description: "Label." } },
         },
       },
@@ -226,11 +226,11 @@ describe("checkRepeatingParts", () => {
         name: "x",
         kind: "composite",
         parts: {
-          root: { element: "div" },
+          root: { root: { kind: "static", tag: "div" } },
           item: {
             repeating: true,
             propName: name,
-            element: "span",
+            root: { kind: "static", tag: "span" },
             props: { label: { type: "string", description: "Label." } },
           },
         },
@@ -248,11 +248,11 @@ describe("checkRepeatingParts", () => {
       name: "pagination",
       kind: "composite",
       parts: {
-        root: { element: "nav", rootClass: "t-pagination" },
+        root: { root: { kind: "static", tag: "nav" }, rootClass: "t-pagination" },
         page: {
           repeating: true,
           propName: "pageItems",
-          element: "span",
+          root: { kind: "static", tag: "span" },
           props: { label: { type: "string", description: "Label." } },
         },
       },
@@ -266,13 +266,13 @@ describe("checkRepeatingParts", () => {
       kind: "composite",
       parts: {
         group: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           rootClass: "t-radio",
           props: { name: { type: "string", responsive: false, description: "HTML form name." } },
         },
         option: {
           repeating: true,
-          element: "input",
+          root: { kind: "static", tag: "input" },
           props: { value: { type: "string", description: "Option value." } },
         },
       },
@@ -285,10 +285,10 @@ describe("checkRepeatingParts", () => {
       name: "pagination",
       kind: "composite",
       parts: {
-        root: { element: "nav" },
+        root: { root: { kind: "static", tag: "nav" } },
         page: {
           repeating: true,
-          element: "span",
+          root: { kind: "static", tag: "span" },
           props: {
             label: {
               type: "string",
@@ -312,11 +312,11 @@ describe("checkRepeatingParts", () => {
       name: "pagination",
       kind: "composite",
       parts: {
-        root: { element: "nav" },
-        header: { element: "header" },
+        root: { root: { kind: "static", tag: "nav" } },
+        header: { root: { kind: "static", tag: "header" } },
         page: {
           repeating: true,
-          element: "span",
+          root: { kind: "static", tag: "span" },
           props: { label: { type: "string", description: "Label." } },
         },
       },
@@ -335,12 +335,14 @@ describe("checkRepeatingParts", () => {
       kind: "composite",
       parts: {
         root: {
-          element: "nav",
-          parts: { header: { element: "header", rootClass: "t-pagination-header" } },
+          root: { kind: "static", tag: "nav" },
+          parts: {
+            header: { root: { kind: "static", tag: "header" }, rootClass: "t-pagination-header" },
+          },
         },
         page: {
           repeating: true,
-          element: "span",
+          root: { kind: "static", tag: "span" },
           props: { label: { type: "string", description: "Label." } },
         },
       },
@@ -354,18 +356,18 @@ describe("checkRepeatingParts", () => {
       name: "tabs",
       kind: "composite",
       parts: {
-        list: { element: "div" },
+        list: { root: { kind: "static", tag: "div" } },
         tab: {
           repeating: true,
           propName: "override",
           groupKey: "items",
-          element: "button",
+          root: { kind: "static", tag: "button" },
           props: { label: { type: "string", slot: true, description: "Label." } },
         },
         icon: {
           repeating: true,
           groupKey: "items",
-          element: "span",
+          root: { kind: "static", tag: "span" },
           props: { icon: { type: "string", slot: true, description: "Icon." } },
         },
       },
@@ -379,17 +381,17 @@ describe("checkRepeatingParts", () => {
       name: "tabs",
       kind: "composite",
       parts: {
-        list: { element: "div" },
+        list: { root: { kind: "static", tag: "div" } },
         tab: {
           repeating: true,
           groupKey: "items",
-          element: "button",
+          root: { kind: "static", tag: "button" },
           props: { label: { type: "string", slot: true, description: "Label." } },
         },
         icon: {
           repeating: true,
           groupKey: "items",
-          element: "span",
+          root: { kind: "static", tag: "span" },
           props: { label: { type: "string", slot: true, description: "Same name." } },
         },
       },
@@ -403,11 +405,11 @@ describe("checkRepeatingParts", () => {
       name: "tabs",
       kind: "composite",
       parts: {
-        list: { element: "div" },
+        list: { root: { kind: "static", tag: "div" } },
         tab: {
           repeating: true,
           groupKey: "items",
-          element: "button",
+          root: { kind: "static", tag: "button" },
           props: { label: { type: "string", slot: true, description: "Label." } },
         },
       },
@@ -423,17 +425,17 @@ describe("checkRepeatingParts", () => {
       name: "tabs",
       kind: "composite",
       parts: {
-        list: { element: "div" },
+        list: { root: { kind: "static", tag: "div" } },
         tab: {
           repeating: true,
           groupKey: "items",
-          element: "button",
+          root: { kind: "static", tag: "button" },
           props: { label: { type: "string", slot: true, description: "Label." } },
         },
         icon: {
           repeating: true,
           groupKey: "items",
-          element: "span",
+          root: { kind: "static", tag: "span" },
           props: { icon: { type: "string", slot: true, description: "Icon." } },
         },
       },
@@ -447,17 +449,17 @@ describe("checkRepeatingParts", () => {
       name: "tabs",
       kind: "composite",
       parts: {
-        list: { element: "div", groupKey: "items" },
+        list: { root: { kind: "static", tag: "div" }, groupKey: "items" },
         tab: {
           repeating: true,
           groupKey: "items",
-          element: "button",
+          root: { kind: "static", tag: "button" },
           props: { label: { type: "string", slot: true, description: "Label." } },
         },
         icon: {
           repeating: true,
           groupKey: "items",
-          element: "span",
+          root: { kind: "static", tag: "span" },
           props: { icon: { type: "string", slot: true, description: "Icon." } },
         },
       },
@@ -473,17 +475,17 @@ describe("checkRepeatingParts", () => {
       name: "tabs",
       kind: "composite",
       parts: {
-        list: { element: "div" },
+        list: { root: { kind: "static", tag: "div" } },
         tab: {
           repeating: true,
           groupKey: "tab-items",
-          element: "button",
+          root: { kind: "static", tag: "button" },
           props: { label: { type: "string", slot: true, description: "Label." } },
         },
         icon: {
           repeating: true,
           groupKey: "tab-items",
-          element: "span",
+          root: { kind: "static", tag: "span" },
           props: { icon: { type: "string", slot: true, description: "Icon." } },
         },
       },
@@ -502,7 +504,7 @@ describe("checkRepeatingParts", () => {
       kind: "composite",
       parts: {
         list: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           props: {
             label: {
               type: "string",
@@ -515,13 +517,13 @@ describe("checkRepeatingParts", () => {
         tab: {
           repeating: true,
           groupKey: "items",
-          element: "button",
+          root: { kind: "static", tag: "button" },
           props: { label: { type: "string", slot: true, description: "Tab label." } },
         },
         "tab-icon": {
           repeating: true,
           groupKey: "items",
-          element: "span",
+          root: { kind: "static", tag: "span" },
           props: { icon: { type: "string", slot: true, description: "Icon." } },
         },
       },
@@ -541,7 +543,7 @@ describe("checkRepeatingParts", () => {
       kind: "composite",
       parts: {
         list: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           props: {
             label: {
               type: "string",
@@ -553,13 +555,13 @@ describe("checkRepeatingParts", () => {
         tab: {
           repeating: true,
           groupKey: "items",
-          element: "button",
+          root: { kind: "static", tag: "button" },
           props: { label: { type: "string", slot: true, description: "Tab label." } },
         },
         "tab-icon": {
           repeating: true,
           groupKey: "items",
-          element: "span",
+          root: { kind: "static", tag: "span" },
           props: { icon: { type: "string", slot: true, description: "Icon." } },
         },
       },
@@ -576,7 +578,7 @@ describe("checkRepeatingParts", () => {
       kind: "composite",
       parts: {
         list: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           props: {
             value: {
               type: "boolean",
@@ -588,13 +590,13 @@ describe("checkRepeatingParts", () => {
         tab: {
           repeating: true,
           groupKey: "items",
-          element: "button",
+          root: { kind: "static", tag: "button" },
           props: { label: { type: "string", slot: true, description: "Tab label." } },
         },
         "tab-icon": {
           repeating: true,
           groupKey: "items",
-          element: "span",
+          root: { kind: "static", tag: "span" },
           props: { icon: { type: "string", slot: true, description: "Icon." } },
         },
       },
@@ -609,7 +611,7 @@ describe("checkRepeatingParts", () => {
       kind: "composite",
       parts: {
         list: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           props: {
             label: {
               type: "string",
@@ -621,13 +623,13 @@ describe("checkRepeatingParts", () => {
         tab: {
           repeating: true,
           groupKey: "items",
-          element: "button",
+          root: { kind: "static", tag: "button" },
           props: { label: { type: "string", slot: true, description: "Tab label." } },
         },
         "tab-icon": {
           repeating: true,
           groupKey: "items",
-          element: "span",
+          root: { kind: "static", tag: "span" },
           props: { icon: { type: "string", slot: true, description: "Icon." } },
         },
       },
@@ -644,10 +646,10 @@ describe("checkRepeatingParts", () => {
       name: "pagination",
       kind: "composite",
       parts: {
-        root: { element: "nav", propName: "navs" },
+        root: { root: { kind: "static", tag: "nav" }, propName: "navs" },
         page: {
           repeating: true,
-          element: "span",
+          root: { kind: "static", tag: "span" },
           props: { label: { type: "string", description: "Label." } },
         },
       },
@@ -664,10 +666,10 @@ describe("checkRepeatingParts", () => {
       name: "pagination",
       kind: "composite",
       parts: {
-        root: { element: "nav" },
+        root: { root: { kind: "static", tag: "nav" } },
         page: {
           repeating: true,
-          element: "span",
+          root: { kind: "static", tag: "span" },
           props: {
             "aria-label": { type: "string", description: "Aria label (forbidden — hyphen)." },
           },
@@ -686,7 +688,7 @@ describe("checkRepeatingParts", () => {
       parts: {
         item: {
           repeating: true,
-          element: "span",
+          root: { kind: "static", tag: "span" },
           props: { label: { type: "string", description: "Label." } },
         },
       },
@@ -701,14 +703,14 @@ describe("checkRepeatingParts", () => {
       kind: "composite",
       parts: {
         root: {
-          element: "nav",
+          root: { kind: "static", tag: "nav" },
           rootClass: "t-pagination",
           a11y: { role: "navigation" },
           tokens: { gap: { fallback: "--t-space-2", desc: "Gap." } },
         },
         page: {
           repeating: true,
-          element: "span",
+          root: { kind: "static", tag: "span" },
           props: { label: { type: "string", description: "Label." } },
         },
       },
@@ -721,10 +723,10 @@ describe("checkRepeatingParts", () => {
       name: "pagination",
       kind: "composite",
       parts: {
-        root: { element: "nav" },
+        root: { root: { kind: "static", tag: "nav" } },
         page: {
           repeating: true,
-          element: "a",
+          root: { kind: "static", tag: "a" },
           props: {
             id: { type: "string", description: "Author id (forbidden — reserved)." },
             label: { type: "string", description: "Label." },

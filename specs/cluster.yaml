@@ -2,7 +2,9 @@ name: cluster
 description: A horizontal layout primitive. Wraps children on the inline axis with consistent spacing.
 kind: atomic
 dependencies: []
-element: div
+root:
+  kind: static
+  tag: div
 rootClass: t-cluster
 cssFile: components/cluster/cluster.css
 

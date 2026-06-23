@@ -3,7 +3,9 @@ description: 'Single radio button. Styled `<input type="radio">` with a painted 
 kind: atomic
 formControl: true
 dependencies: []
-element: input
+root:
+  kind: static
+  tag: input
 rootClass: t-radio
 cssFile: components/radio/radio.css
 

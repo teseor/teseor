@@ -190,7 +190,7 @@ describe("renderComponentJsDoc", () => {
   it("emits self-closing examples for atomic specs whose root is a void element", () => {
     const spec = makeSpec({
       name: "image",
-      element: "img",
+      root: { kind: "static", tag: "img" },
       examples: [{ id: "default", props: { src: "/x.jpg", alt: "x" } }],
     });
     const out = renderComponentJsDoc(spec, "Image", reactJsDocFlavor);
@@ -200,7 +200,7 @@ describe("renderComponentJsDoc", () => {
 
   it("emits children-bearing examples for atomic specs on a non-void element", () => {
     const spec = makeSpec({
-      element: "div",
+      root: { kind: "static", tag: "div" },
       examples: [{ id: "default", props: { variant: "solid" } }],
     });
     const out = renderComponentJsDoc(spec, "Card", reactJsDocFlavor);

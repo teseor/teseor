@@ -12,7 +12,7 @@ describe("checkA11yRefs", () => {
       name: "divider",
       kind: "atomic",
       rootClass: "t-divider",
-      element: "div",
+      root: { kind: "static", tag: "div" },
       props: {
         orientation: {
           type: "string",
@@ -102,7 +102,7 @@ describe("checkA11yRefs", () => {
       name: "dot",
       kind: "atomic",
       rootClass: "t-dot",
-      element: "span",
+      root: { kind: "static", tag: "span" },
       props: {
         label: {
           type: "string",

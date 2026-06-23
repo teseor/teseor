@@ -10,10 +10,10 @@ function paginationFixture(): Spec {
     tokens: {},
     visualStates: {},
     parts: {
-      root: { element: "nav", rootClass: "t-pagination" },
+      root: { root: { kind: "static", tag: "nav" }, rootClass: "t-pagination" },
       page: {
         repeating: true,
-        element: "a",
+        root: { kind: "static", tag: "a" },
         rootClass: "t-pagination-page",
         props: {
           label: { type: "string", slot: true, description: "Page label." },
@@ -26,7 +26,7 @@ function paginationFixture(): Spec {
       {
         partName: "page",
         propName: "pages",
-        element: "a",
+        root: { kind: "static", tag: "a" },
         rootClass: "t-pagination-page",
         itemProps: {
           label: { type: "string", slot: true, description: "Page label." },
@@ -116,11 +116,11 @@ describe("renderCompositeListVueWrapper", () => {
       tokens: {},
       visualStates: {},
       parts: {
-        list: { element: "div", rootClass: "t-tabs-list" },
+        list: { root: { kind: "static", tag: "div" }, rootClass: "t-tabs-list" },
         tab: {
           repeating: true,
           groupKey: "items",
-          element: "button",
+          root: { kind: "static", tag: "button" },
           rootClass: "t-tabs-list-tab",
           props: {
             label: { type: "string", slot: true, description: "Tab label." },
@@ -130,7 +130,7 @@ describe("renderCompositeListVueWrapper", () => {
         "tab-icon": {
           repeating: true,
           groupKey: "items",
-          element: "span",
+          root: { kind: "static", tag: "span" },
           rootClass: "t-tabs-list-icon",
           props: {
             icon: { type: "string", slot: true, description: "Tab icon." },
@@ -141,7 +141,7 @@ describe("renderCompositeListVueWrapper", () => {
         {
           partName: "tab",
           propName: "items",
-          element: "button",
+          root: { kind: "static", tag: "button" },
           rootClass: "t-tabs-list-tab",
           groupKey: "items",
           itemProps: {
@@ -152,7 +152,7 @@ describe("renderCompositeListVueWrapper", () => {
         {
           partName: "tab-icon",
           propName: "items",
-          element: "span",
+          root: { kind: "static", tag: "span" },
           rootClass: "t-tabs-list-icon",
           groupKey: "items",
           itemProps: {

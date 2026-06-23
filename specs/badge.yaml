@@ -2,10 +2,12 @@ name: badge
 description: Small inline label for status, notification, or metadata. Renders `<span>` with token-driven color, variant, size, and shape. Decorative by default — consumers supply `aria-label` when the badge carries standalone meaning.
 kind: atomic
 dependencies: []
-element: span
+root:
+  kind: static
+  tag: span
+  polymorphic: asChild
 rootClass: t-badge
 cssFile: components/badge/badge.css
-polymorphic: asChild
 
 variants:
   solid:

@@ -69,11 +69,12 @@ function deriveAnalysis(spec: Spec): SpecAnalysis {
     hasAs,
     hasDisabled,
     hasLoading,
-    hasPolymorphic: spec.kind === "atomic" && spec.polymorphic === "asChild",
+    hasPolymorphic: spec.kind === "atomic" && spec.root?.polymorphic === "asChild",
     ariaPropNames,
     branchComputes,
     voidStatus: specVoidStatus(spec),
-    elementByPropControllingProp: spec.kind === "atomic" ? spec.elementByProp?.prop : undefined,
+    elementByPropControllingProp:
+      spec.kind === "atomic" && spec.root?.kind === "byProp" ? spec.root.prop : undefined,
   };
 }
 
@@ -89,7 +90,15 @@ export function renderAtomicReactWrapper(
   const Name = pascalCase(spec.name);
   const rootClass = spec.rootClass ?? `t-${spec.name}`;
   const propMap = spec.props ?? {};
-  const elementByProp = spec.elementByProp;
+  // The fallback root tag — `root.tag` for a static kind, else `div` (a byProp
+  // root resolves its tag at runtime via `tagFromProp`).
+  const rootTag = spec.root?.kind === "static" ? spec.root.tag : "div";
+  // The static root tag name, or undefined for a byProp / absent root. Used for
+  // the per-element biome-ignore lookups (role / void), which only ever target
+  // a known static element.
+  const staticTag = spec.root?.kind === "static" ? spec.root.tag : undefined;
+  const elementByProp =
+    spec.root?.kind === "byProp" ? { prop: spec.root.prop, map: spec.root.map } : undefined;
   // Plugin's hasAs does not guard against elementByProp: when a spec has both
   // `props: { as: ... }` and `elementByProp:`, the plugin returns true but
   // inline behavior returns false (elementByProp branch wins). Apply the guard
@@ -153,9 +162,8 @@ export function renderAtomicReactWrapper(
     .filter((p): p is string => p !== null)
     .join(" || ");
 
-  const rootExpr = hasAs ? `as ?? ${quote(spec.element ?? "div")}` : quote(spec.element ?? "div");
-  const componentTag =
-    hasAs || isPolymorphic || elementByProp ? "Component" : (spec.element ?? "div");
+  const rootExpr = hasAs ? `as ?? ${quote(rootTag)}` : quote(rootTag);
+  const componentTag = hasAs || isPolymorphic || elementByProp ? "Component" : rootTag;
 
   const isVoid = resolved.voidStatus === "all";
   const isMixedVoid = resolved.voidStatus === "mixed";
@@ -200,7 +208,7 @@ export function renderAtomicReactWrapper(
       ? `  const Component = asChild && !isVoidResolved ? Slot : asElement(resolvedTag);`
       : tagExpr
         ? `  const Component = asChild ? Slot : asElement(${tagExpr});`
-        : `  const Component = asChild ? Slot : asElement(${quote(spec.element ?? "div")});`
+        : `  const Component = asChild ? Slot : asElement(${quote(rootTag)});`
     : hasAs
       ? `  const Component = asElement(${rootExpr});`
       : tagExpr
@@ -214,7 +222,7 @@ export function renderAtomicReactWrapper(
   const imperativePropEntries =
     spec.kind === "atomic" ? Object.entries(spec.imperativeProps ?? {}) : [];
   const hasImperativeProps = imperativePropEntries.length > 0;
-  const imperativeRefElement = spec.element ?? "div";
+  const imperativeRefElement = rootTag;
   const imperativeRefLine = hasImperativeProps
     ? `  const innerRef = useRef<HTMLElementTagNameMap[${quote(imperativeRefElement)}]>(null);`
     : null;
@@ -250,7 +258,7 @@ export function renderAtomicReactWrapper(
     .map(([k, v]) => `      ${k}=${JSON.stringify(v)}`)
     .join("\n");
   const roleBiomeIgnore =
-    spec.element && a11y?.role ? ROLE_BIOME_IGNORES[spec.element]?.[a11y.role] : undefined;
+    staticTag && a11y?.role ? ROLE_BIOME_IGNORES[staticTag]?.[a11y.role] : undefined;
   const attrBlock = [
     `      {...rest}`,
     `      ref={${refExpr}}`,
@@ -301,7 +309,7 @@ export function renderAtomicReactWrapper(
   // elements; intersect against `div` for the consumer's pass-through props
   // (the common HTMLAttributes surface). Refs widen to HTMLElement separately
   // via renderOwnProps.
-  const propsTypeLine = renderPropsTypeIntersection(Name, spec.element ?? "div");
+  const propsTypeLine = renderPropsTypeIntersection(Name, rootTag);
 
   // `asElement` is the runtime widener for any spec that resolves its root
   // tag from a value (free `as` polymorphism or `elementByProp` map) AND for
@@ -338,8 +346,7 @@ export function renderAtomicReactWrapper(
     .filter((l): l is string => l !== null)
     .join("\n");
 
-  const voidBiomeIgnore =
-    isVoid && spec.element ? VOID_ELEMENT_BIOME_IGNORES[spec.element] : undefined;
+  const voidBiomeIgnore = isVoid && staticTag ? VOID_ELEMENT_BIOME_IGNORES[staticTag] : undefined;
   const biomeIgnoreLine = voidBiomeIgnore ? `    // biome-ignore ${voidBiomeIgnore}\n` : "";
 
   const indent = (text: string, prefix: string): string =>

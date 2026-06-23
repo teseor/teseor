@@ -32,7 +32,7 @@ function makeFormControl(overrides: Partial<Record<string, unknown>> = {}): Spec
   return Spec.parse({
     name: "input",
     kind: "atomic",
-    element: "input",
+    root: { kind: "static", tag: "input" },
     rootClass: "t-input",
     formControl: true,
     examples: [{ id: "default" }],
@@ -46,12 +46,18 @@ describe("checkFormControl", () => {
   });
 
   test("accepts a form-control on <textarea>", () => {
-    const spec = makeFormControl({ element: "textarea", rootClass: "t-textarea" });
+    const spec = makeFormControl({
+      root: { kind: "static", tag: "textarea" },
+      rootClass: "t-textarea",
+    });
     expect(checkFormControl(spec, vocabulary)).toEqual([]);
   });
 
   test("accepts a form-control on <select>", () => {
-    const spec = makeFormControl({ element: "select", rootClass: "t-select" });
+    const spec = makeFormControl({
+      root: { kind: "static", tag: "select" },
+      rootClass: "t-select",
+    });
     expect(checkFormControl(spec, vocabulary)).toEqual([]);
   });
 
@@ -59,7 +65,7 @@ describe("checkFormControl", () => {
     const spec = Spec.parse({
       name: "button",
       kind: "atomic",
-      element: "button",
+      root: { kind: "static", tag: "button" },
       rootClass: "t-button",
       examples: [{ id: "default" }],
     });
@@ -67,10 +73,10 @@ describe("checkFormControl", () => {
   });
 
   test("flags a form-control whose root is not in the allowed elements set", () => {
-    const spec = makeFormControl({ element: "div", rootClass: "t-input" });
+    const spec = makeFormControl({ root: { kind: "static", tag: "div" }, rootClass: "t-input" });
     const issues = checkFormControl(spec, vocabulary);
     expect(issues).toHaveLength(1);
-    expect(issues[0]?.path).toBe("element");
+    expect(issues[0]?.path).toBe("root.tag");
     expect(issues[0]?.message).toMatch(/requires <div> to be one of/);
   });
 
@@ -89,14 +95,15 @@ describe("checkFormControl", () => {
     }
   });
 
-  test("flags a form-control whose elementByProp map mixes non-allowed tags", () => {
+  test("flags a form-control whose byProp map mixes non-allowed tags", () => {
     const spec = Spec.parse({
       name: "input",
       kind: "atomic",
       formControl: true,
       rootClass: "t-input",
       examples: [{ id: "default" }],
-      elementByProp: {
+      root: {
+        kind: "byProp",
         prop: "as",
         map: { single: "input", multi: "div" },
       },
@@ -111,7 +118,7 @@ describe("checkFormControl", () => {
     });
     const issues = checkFormControl(spec, vocabulary);
     expect(issues).toHaveLength(1);
-    expect(issues[0]?.path).toBe("elementByProp.map");
+    expect(issues[0]?.path).toBe("root.map");
     expect(issues[0]?.message).toMatch(/requires <div> to be one of/);
   });
 

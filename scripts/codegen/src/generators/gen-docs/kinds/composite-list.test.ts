@@ -13,7 +13,7 @@ function paginationSpec(overrides: Partial<DocsSpec> = {}): DocsSpec {
       {
         partName: "page",
         propName: "pages",
-        element: "span",
+        root: { kind: "static", tag: "span" },
         rootClass: "t-pagination-page",
         itemProps: {
           label: { type: "string", slot: true, description: "Page label." },

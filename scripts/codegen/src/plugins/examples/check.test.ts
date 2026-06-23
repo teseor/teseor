@@ -6,7 +6,7 @@ function makeButton(overrides: Partial<Spec> = {}): Spec {
   return Spec.parse({
     name: "button",
     kind: "atomic",
-    element: "button",
+    root: { kind: "static", tag: "button" },
     rootClass: "t-button",
     tokens: {
       bg: { fallback: "--t-accent", desc: "Background." },

@@ -27,7 +27,9 @@ parts:
       - --_anchor
 
   content:
-    element: div
+    root:
+      kind: static
+      tag: div
     rootClass: t-modal
     a11y:
       role: dialog

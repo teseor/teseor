@@ -41,11 +41,12 @@ function deriveAnalysis(spec: Spec): SpecAnalysis {
     hasAs,
     hasDisabled,
     hasLoading,
-    hasPolymorphic: spec.kind === "atomic" && spec.polymorphic === "asChild",
+    hasPolymorphic: spec.kind === "atomic" && spec.root?.polymorphic === "asChild",
     ariaPropNames,
     branchComputes,
     voidStatus: specVoidStatus(spec),
-    elementByPropControllingProp: spec.kind === "atomic" ? spec.elementByProp?.prop : undefined,
+    elementByPropControllingProp:
+      spec.kind === "atomic" && spec.root?.kind === "byProp" ? spec.root.prop : undefined,
   };
 }
 
@@ -61,7 +62,11 @@ export function renderAtomicVueWrapper(
   const Name = pascalCase(spec.name);
   const rootClass = spec.rootClass ?? `t-${spec.name}`;
   const propMap = spec.props ?? {};
-  const elementByProp = spec.elementByProp;
+  // The fallback root tag — `root.tag` for a static kind, else `div` (a byProp
+  // root resolves its tag at runtime via `tagFromProp`).
+  const rootTag = spec.root?.kind === "static" ? spec.root.tag : "div";
+  const elementByProp =
+    spec.root?.kind === "byProp" ? { prop: spec.root.prop, map: spec.root.map } : undefined;
   // When `as` is the `elementByProp` control it indexes a closed tag map at
   // runtime — the free `<component :is="as">` polymorphism path is the wrong
   // one. Suppress so the elementByProp branch wins.
@@ -121,8 +126,7 @@ export function renderAtomicVueWrapper(
     .filter((p): p is string => p !== null)
     .join(" || ");
 
-  const componentTag =
-    hasAs || isPolymorphic || elementByProp ? "component" : (spec.element ?? "div");
+  const componentTag = hasAs || isPolymorphic || elementByProp ? "component" : rootTag;
   const elementByPropDefault =
     (elementByProp && (spec.props?.[elementByProp.prop]?.default as string | undefined)) ||
     (elementByProp && Object.keys(elementByProp.map)[0]) ||
@@ -151,8 +155,8 @@ export function renderAtomicVueWrapper(
   // which collides with the surrounding double quotes.
   const polymorphicIsExpr = isPolymorphic
     ? isMixedVoid
-      ? `asChild && !isVoidResolved ? Slot : ${tagBindExpr ?? `'${spec.element ?? "div"}'`}`
-      : `asChild ? Slot : ${tagBindExpr ?? `'${spec.element ?? "div"}'`}`
+      ? `asChild && !isVoidResolved ? Slot : ${tagBindExpr ?? `'${rootTag}'`}`
+      : `asChild ? Slot : ${tagBindExpr ?? `'${rootTag}'`}`
     : (tagBindExpr ?? null);
 
   const tagMapLine = elementByProp
@@ -183,7 +187,7 @@ export function renderAtomicVueWrapper(
     spec.kind === "atomic" ? Object.entries(spec.imperativeProps ?? {}) : [];
   const hasImperativeProps = imperativePropEntries.length > 0;
   const imperativeRefLine = hasImperativeProps
-    ? `const rootRef = useTemplateRef<HTMLElementTagNameMap['${spec.element ?? "div"}']>("rootRef");`
+    ? `const rootRef = useTemplateRef<HTMLElementTagNameMap['${rootTag}']>("rootRef");`
     : null;
   const imperativeWatchLines = imperativePropEntries
     .map(

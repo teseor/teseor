@@ -23,7 +23,7 @@ function makeButton(overrides: Partial<Spec> = {}): Spec {
   return Spec.parse({
     name: "button",
     kind: "atomic",
-    element: "button",
+    root: { kind: "static", tag: "button" },
     rootClass: "t-button",
     variants: { solid: { description: "Filled." }, outline: { description: "Outlined." } },
     intents: {
@@ -176,7 +176,7 @@ describe("checkTokenFallbacks", () => {
       kind: "composite",
       parts: {
         content: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           rootClass: "t-tooltip",
           tokens: {
             bg: { fallback: "--t-acent", desc: "Bad ref." },
@@ -227,7 +227,7 @@ describe("checkPrivateTokens", () => {
           privateTokens: ["--_anchor"],
         },
         content: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           rootClass: "t-tooltip",
           privateTokens: ["--_bg", "--_fg"],
         },
@@ -309,7 +309,7 @@ describe("checkTokenNames", () => {
       kind: "composite",
       parts: {
         content: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           rootClass: "t-tooltip",
           tokens: {
             background: { fallback: "--t-neutral-90", desc: "Bad longhand." },

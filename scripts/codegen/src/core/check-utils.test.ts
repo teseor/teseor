@@ -20,7 +20,7 @@ function makeAtomicSpec(overrides: Partial<Spec> = {}): Spec {
   return SpecSchema.parse({
     name: "button",
     kind: "atomic",
-    element: "button",
+    root: { kind: "static", tag: "button" },
     rootClass: "t-button",
     ...overrides,
   });
@@ -31,15 +31,15 @@ function makeCompositeSpec(overrides: Partial<Spec> = {}): Spec {
     name: "dialog",
     kind: "composite",
     parts: {
-      trigger: { element: "button" },
-      panel: { element: "div" },
+      trigger: { root: { kind: "static", tag: "button" } },
+      panel: { root: { kind: "static", tag: "div" } },
     },
     ...overrides,
   });
 }
 
 function makePart(overrides: Partial<SpecPart> = {}): SpecPart {
-  return { element: "div", ...overrides };
+  return { root: { kind: "static", tag: "div" }, ...overrides };
 }
 
 describe("levenshtein", () => {
@@ -175,8 +175,11 @@ describe("visitNodes", () => {
   it("visits composite parts recursively", () => {
     const spec = makeCompositeSpec({
       parts: {
-        trigger: { element: "button" },
-        panel: { element: "div", parts: { header: { element: "div" } } },
+        trigger: { root: { kind: "static", tag: "button" } },
+        panel: {
+          root: { kind: "static", tag: "div" },
+          parts: { header: { root: { kind: "static", tag: "div" } } },
+        },
       },
     });
     const visited: string[] = [];
@@ -226,8 +229,11 @@ describe("visitAllNodes", () => {
   it("invokes fn for all nested parts in a composite spec", () => {
     const spec = makeCompositeSpec({
       parts: {
-        trigger: { element: "button" },
-        panel: { element: "div", parts: { header: { element: "div" } } },
+        trigger: { root: { kind: "static", tag: "button" } },
+        panel: {
+          root: { kind: "static", tag: "div" },
+          parts: { header: { root: { kind: "static", tag: "div" } } },
+        },
       },
     });
     const visited: Array<AtomicSpec | SpecPart> = [];
@@ -240,7 +246,7 @@ describe("visitAllNodes", () => {
     const visited: Array<AtomicSpec | SpecPart> = [];
     visitAllNodes(spec, (node) => visited.push(node));
     for (const node of visited) {
-      expect("element" in node).toBe(true);
+      expect("root" in node).toBe(true);
     }
   });
 });

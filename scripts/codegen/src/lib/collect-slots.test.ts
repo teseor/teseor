@@ -31,7 +31,7 @@ function makeSpec(props: Record<string, FlatProp>): FlatSpec {
   return {
     name: "demo",
     kind: "atomic",
-    element: "div",
+    root: { kind: "static", tag: "div" },
     props,
     tokens: {},
     visualStates: {},

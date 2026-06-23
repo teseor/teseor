@@ -32,7 +32,7 @@ function makeCheckbox(overrides: Partial<Record<string, unknown>> = {}): Spec {
   return Spec.parse({
     name: "checkbox",
     kind: "atomic",
-    element: "input",
+    root: { kind: "static", tag: "input" },
     rootClass: "t-checkbox",
     formControl: true,
     htmlAttrs: { type: "checkbox" },
@@ -51,7 +51,7 @@ describe("checkImperativeProps", () => {
     const spec = Spec.parse({
       name: "switch",
       kind: "atomic",
-      element: "input",
+      root: { kind: "static", tag: "input" },
       rootClass: "t-switch",
       formControl: true,
       htmlAttrs: { type: "checkbox" },

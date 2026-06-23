@@ -33,41 +33,41 @@ describe("HTML_VOID_ELEMENTS", () => {
 });
 
 describe("specVoidStatus", () => {
-  it("returns 'never' when no element or elementByProp is set", () => {
+  it("returns 'never' when no root is set", () => {
     expect(specVoidStatus({})).toBe("never");
   });
 
-  it("returns 'all' when spec.element is void", () => {
-    expect(specVoidStatus({ element: "hr" })).toBe("all");
-    expect(specVoidStatus({ element: "img" })).toBe("all");
+  it("returns 'all' when the static root tag is void", () => {
+    expect(specVoidStatus({ root: { kind: "static", tag: "hr" } })).toBe("all");
+    expect(specVoidStatus({ root: { kind: "static", tag: "img" } })).toBe("all");
   });
 
-  it("returns 'never' when spec.element is non-void", () => {
-    expect(specVoidStatus({ element: "div" })).toBe("never");
+  it("returns 'never' when the static root tag is non-void", () => {
+    expect(specVoidStatus({ root: { kind: "static", tag: "div" } })).toBe("never");
   });
 
-  it("returns 'all' when every elementByProp.map value is void", () => {
-    expect(specVoidStatus({ elementByProp: { prop: "kind", map: { a: "hr", b: "br" } } })).toBe(
-      "all",
-    );
-  });
-
-  it("returns 'never' when every elementByProp.map value is non-void", () => {
+  it("returns 'all' when every byProp map value is void", () => {
     expect(
-      specVoidStatus({ elementByProp: { prop: "level", map: { "1": "h1", "2": "h2" } } }),
+      specVoidStatus({ root: { kind: "byProp", prop: "kind", map: { a: "hr", b: "br" } } }),
+    ).toBe("all");
+  });
+
+  it("returns 'never' when every byProp map value is non-void", () => {
+    expect(
+      specVoidStatus({ root: { kind: "byProp", prop: "level", map: { "1": "h1", "2": "h2" } } }),
     ).toBe("never");
   });
 
-  it("returns 'mixed' when elementByProp.map has both void and non-void values", () => {
+  it("returns 'mixed' when a byProp map has both void and non-void values", () => {
     expect(
       specVoidStatus({
-        elementByProp: { prop: "orientation", map: { horizontal: "hr", vertical: "div" } },
+        root: { kind: "byProp", prop: "orientation", map: { horizontal: "hr", vertical: "div" } },
       }),
     ).toBe("mixed");
   });
 
-  it("returns 'never' on an empty elementByProp.map", () => {
-    expect(specVoidStatus({ elementByProp: { prop: "x", map: {} } })).toBe("never");
+  it("returns 'never' on an empty byProp map", () => {
+    expect(specVoidStatus({ root: { kind: "byProp", prop: "x", map: {} } })).toBe("never");
   });
 });
 

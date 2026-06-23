@@ -2,7 +2,9 @@ name: image
 description: Image primitive — styled `<img>` with token-driven defaults (rounded corners, loading-state background, optional `object-fit`). Native HTML attrs (`src`, `alt`, `width`, `height`, `loading`, `decoding`, `srcset`, `sizes`) pass through the inherited type.
 kind: atomic
 dependencies: []
-element: img
+root:
+  kind: static
+  tag: img
 rootClass: t-image
 cssFile: components/image/image.css
 

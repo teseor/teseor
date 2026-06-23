@@ -83,8 +83,13 @@ describe("renderOwnProps", () => {
     expect(out).toContain("  ref?: Ref<HTMLElement>;");
   });
 
-  test("uses the spec's `element` for the typed ref slot", () => {
-    const out = renderOwnProps(atomicSpec({ element: "button" }), "Button", false, {});
+  test("uses the spec's `root` tag for the typed ref slot", () => {
+    const out = renderOwnProps(
+      atomicSpec({ root: { kind: "static", tag: "button" } }),
+      "Button",
+      false,
+      {},
+    );
     expect(out).toContain(`  ref?: Ref<HTMLElementTagNameMap["button"]>;`);
   });
 

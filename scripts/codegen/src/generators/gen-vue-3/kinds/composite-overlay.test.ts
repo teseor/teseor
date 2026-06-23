@@ -20,7 +20,11 @@ function tooltipSpec(overrides: Partial<Spec> = {}): Spec {
     description: "Floating panel.",
     parts: {
       trigger: { fromChildren: true },
-      content: { element: "div", a11y: { role: "tooltip" }, overlay: OVERLAY },
+      content: {
+        root: { kind: "static", tag: "div" },
+        a11y: { role: "tooltip" },
+        overlay: OVERLAY,
+      },
     },
     props: {
       open: prop({ type: "boolean", pattern: "controllable" }),
@@ -58,7 +62,11 @@ describe("renderCompositeOverlayVueWrapper", () => {
     const spec = tooltipSpec({
       parts: {
         trigger: { fromChildren: true, rootClass: "custom-trigger" },
-        content: { element: "div", a11y: { role: "tooltip" }, overlay: OVERLAY },
+        content: {
+          root: { kind: "static", tag: "div" },
+          a11y: { role: "tooltip" },
+          overlay: OVERLAY,
+        },
       },
     });
     const out = renderCompositeOverlayVueWrapper(spec, {});
@@ -76,7 +84,7 @@ describe("renderCompositeOverlayVueWrapper", () => {
       parts: {
         trigger: { fromChildren: true },
         content: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           a11y: { role: "dialog" },
           overlay: { ...OVERLAY, modal: true },
         },

@@ -100,7 +100,7 @@ describe("checkStateMachines (RFC-0007)", () => {
           },
         },
         content: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           overlay: baseOverlay,
           ...contentExtras,
         },
@@ -164,15 +164,15 @@ describe("checkStateMachines (RFC-0007)", () => {
       kind: "composite",
       parts: {
         header: {
-          element: "header",
+          root: { kind: "static", tag: "header" },
           parts: {
-            inner: { element: "div" },
+            inner: { root: { kind: "static", tag: "div" } },
           },
         },
         body: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           parts: {
-            inner: { element: "div" },
+            inner: { root: { kind: "static", tag: "div" } },
           },
         },
       },
@@ -219,7 +219,7 @@ describe("checkStateMachines (RFC-0007)", () => {
       kind: "composite",
       parts: {
         trigger: {},
-        content: { element: "div", overlay: baseOverlay },
+        content: { root: { kind: "static", tag: "div" }, overlay: baseOverlay },
       },
     });
     const issues = checkStateMachines(spec, vocabulary);
@@ -235,7 +235,7 @@ describe("checkStateMachines (RFC-0007)", () => {
       name: "modal",
       kind: "composite",
       parts: {
-        content: { element: "div", overlay: baseOverlay },
+        content: { root: { kind: "static", tag: "div" }, overlay: baseOverlay },
       },
     });
     const issues = checkStateMachines(spec, vocabulary);
@@ -254,7 +254,7 @@ describe("checkStateMachines (RFC-0007)", () => {
             open: {},
           },
         },
-        content: { element: "div", overlay: baseOverlay },
+        content: { root: { kind: "static", tag: "div" }, overlay: baseOverlay },
       },
     });
     const issues = checkStateMachines(spec, vocabulary);
@@ -343,7 +343,7 @@ describe("checkStateMachines (RFC-0007)", () => {
           },
         },
         content: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           overlay: { ...baseOverlay, modal: true },
           states: {
             closed: { on: { "trigger.click": "open" } },

@@ -24,7 +24,7 @@ export function renderCompositeListVueWrapper(spec: Spec): string {
     );
   }
   const [, wrapperPart] = wrapperEntry;
-  const wrapperElement = wrapperPart.element ?? "div";
+  const wrapperElement = wrapperPart.root?.kind === "static" ? wrapperPart.root.tag : "div";
   const wrapperClass = wrapperPart.rootClass ?? `t-${spec.name}`;
   const repeating = spec.repeating ?? [];
 
@@ -191,7 +191,7 @@ ${inner}
 }
 
 function renderSinglePartLoop(specName: string, propName: string, part: FlatRepeatingPart): string {
-  const itemElement = part.element ?? "div";
+  const itemElement = part.root?.kind === "static" ? part.root.tag : "div";
   // Scope the default itemClass to the component to avoid cross-component
   // collisions. Matches the wrapper's `t-${spec.name}` default + existing
   // conventions like `t-pagination-page`, `t-tablist-tab`.
@@ -230,7 +230,7 @@ function renderSinglePartLoop(specName: string, propName: string, part: FlatRepe
 }
 
 function renderItemElement(specName: string, part: FlatRepeatingPart, includeKey: boolean): string {
-  const itemElement = part.element ?? "div";
+  const itemElement = part.root?.kind === "static" ? part.root.tag : "div";
   const itemClass = part.rootClass ?? `t-${specName}-${part.partName}`;
   const slotEntries = Object.entries(part.itemProps).filter(([, d]) => d.slot === true);
   const indent = "      ";

@@ -19,8 +19,9 @@ const FORM_CONTROL_VOIDS = new Set(["input"]);
 export function checkVoidElementConstraints(spec: Spec): Issue[] {
   const issues: Issue[] = [];
   visitNodes(spec, (node, path) => {
-    if (!node.element || !isVoidElement(node.element)) return;
-    const tag = node.element;
+    const staticTag = node.root?.kind === "static" ? node.root.tag : undefined;
+    if (!staticTag || !isVoidElement(staticTag)) return;
+    const tag = staticTag;
     // `isVoidElement` lowercases its input; compare the FORM_CONTROL_VOIDS
     // membership the same way so `element: INPUT` is treated as `element: input`.
     const tagLower = tag.toLowerCase();

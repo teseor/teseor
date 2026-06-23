@@ -2,10 +2,12 @@ name: blockquote
 description: Quoted-text primitive — styled `<blockquote>` with accent border and prose spacing. Source attribution composes via a `<cite>` child; native `cite` HTML attr (URL) passes through the inherited type.
 kind: atomic
 dependencies: []
-element: blockquote
+root:
+  kind: static
+  tag: blockquote
+  polymorphic: asChild
 rootClass: t-blockquote
 cssFile: components/blockquote/blockquote.css
-polymorphic: asChild
 
 variants:
   default:

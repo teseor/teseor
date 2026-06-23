@@ -15,15 +15,14 @@ import {
   checkConstraintsAgainstExamples,
 } from "./plugins/constraints/check.ts";
 import { checkCoverageShape } from "./plugins/coverage/check.ts";
-import { checkElementByProp } from "./plugins/elementByProp/check.ts";
 import { checkEvents, checkEventsRuntimeSupport } from "./plugins/events/check.ts";
 import { checkExamplesPresent } from "./plugins/examples/check.ts";
 import { checkFormControl } from "./plugins/formControl/check.ts";
 import { checkImperativeProps } from "./plugins/imperativeProps/check.ts";
 import { checkMotion } from "./plugins/motion/check.ts";
 import { checkRepeatingParts } from "./plugins/parts/check.ts";
-import { checkAsIsConstrained, checkPolymorphicAtomic } from "./plugins/polymorphic/check.ts";
 import { checkResponsiveExplicit } from "./plugins/props/check.ts";
+import { checkRoot } from "./plugins/root/check.ts";
 import { checkStateMachines } from "./plugins/states/check.ts";
 import {
   checkCssImportAllowlist,
@@ -74,10 +73,8 @@ export function runSemanticChecks(
     ...checkCssImportAllowlist(spec, ctx.css),
     ...checkVariantChoiceKeys(spec),
     ...checkResponsiveExplicit(spec),
-    ...checkAsIsConstrained(spec),
-    ...checkElementByProp(spec),
+    ...checkRoot(spec),
     ...checkA11yRefs(spec),
-    ...checkPolymorphicAtomic(spec),
     ...checkFormControl(spec, ctx.vocabulary),
     ...checkImperativeProps(spec, ctx.vocabulary),
     ...checkVoidElementConstraints(spec),
@@ -98,14 +95,13 @@ export {
 export { checkCoverageShape } from "./plugins/coverage/check.ts";
 export type { DependencyIndex } from "./plugins/dependencies/check.ts";
 export { checkDependencyCycles } from "./plugins/dependencies/check.ts";
-export { checkElementByProp } from "./plugins/elementByProp/check.ts";
 export { checkEvents, checkEventsRuntimeSupport } from "./plugins/events/check.ts";
 export { checkExamplesPresent } from "./plugins/examples/check.ts";
 export { checkFormControl } from "./plugins/formControl/check.ts";
 export { checkImperativeProps } from "./plugins/imperativeProps/check.ts";
 export { checkRepeatingParts } from "./plugins/parts/check.ts";
-export { checkAsIsConstrained, checkPolymorphicAtomic } from "./plugins/polymorphic/check.ts";
 export { checkResponsiveExplicit } from "./plugins/props/check.ts";
+export { checkRoot } from "./plugins/root/check.ts";
 export { checkStateMachines } from "./plugins/states/check.ts";
 export {
   checkCssImportAllowlist,

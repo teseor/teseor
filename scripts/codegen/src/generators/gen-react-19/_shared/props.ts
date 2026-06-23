@@ -68,26 +68,27 @@ export function renderOwnProps(
     ? renderCanonicalProp("intent", `${Name}Intent`, propDescriptions)
     : [];
   const sizeLines = spec.sizes ? renderCanonicalProp("size", sizeType, propDescriptions) : [];
-  const isElementByProp = Boolean(spec.elementByProp);
+  const byPropRoot = spec.root?.kind === "byProp" ? spec.root : undefined;
+  const rootTag = spec.root?.kind === "static" ? spec.root.tag : "div";
   // `as` as a free polymorphism root widens the ref to HTMLElement. When `as`
-  // is the `elementByProp` control, the closed map drives the ref type below.
-  const hasAs = "as" in (spec.props ?? {}) && !isElementByProp;
-  const isPolymorphic = spec.polymorphic === "asChild";
+  // is the `byProp` control, the closed map drives the ref type below.
+  const hasAs = "as" in (spec.props ?? {}) && !byPropRoot;
+  const isPolymorphic = spec.root?.polymorphic === "asChild";
   // `asChild` accepts ANY consumer element; the ref must widen to
-  // `HTMLElement` even when an elementByProp map narrows the default tag
+  // `HTMLElement` even when a byProp map narrows the default tag
   // set — a narrow union (e.g. `HTMLSpanElement | HTMLParagraphElement`)
   // rejects a consumer `<a ref={…}>` at the `<Component ref={ref}>` site.
   const refType =
     hasAs || isPolymorphic
       ? "Ref<HTMLElement>"
-      : isElementByProp && spec.elementByProp
-        ? `Ref<HTMLElementTagNameMap[${[...new Set(Object.values(spec.elementByProp.map))]
+      : byPropRoot
+        ? `Ref<HTMLElementTagNameMap[${[...new Set(Object.values(byPropRoot.map))]
             .map((tag) => quote(tag))
             .join(" | ")}]>`
-        : `Ref<HTMLElementTagNameMap[${quote(spec.element ?? "div")}]>`;
+        : `Ref<HTMLElementTagNameMap[${quote(rootTag)}]>`;
   const asChildLines = isPolymorphic
     ? [
-        `  /** Render directly on the consumer's child element via Slot (cloneElement) instead of wrapping in a \`<${spec.element ?? "div"}>\`. Single-child invariant. */`,
+        `  /** Render directly on the consumer's child element via Slot (cloneElement) instead of wrapping in a \`<${rootTag}>\`. Single-child invariant. */`,
         `  asChild?: boolean;`,
       ]
     : [];
@@ -137,7 +138,7 @@ export function renderDestructure(spec: Spec): string {
     spec.sizes ? "size" : null,
     ...Object.keys(spec.props ?? {}),
     ...imperativePropNames,
-    spec.polymorphic === "asChild" ? "asChild" : null,
+    spec.root?.polymorphic === "asChild" ? "asChild" : null,
     childrenName,
     "ref",
     "className",

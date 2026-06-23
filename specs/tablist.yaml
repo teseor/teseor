@@ -6,7 +6,9 @@ cssFile: components/tablist/tablist.css
 
 parts:
   list:
-    element: div
+    root:
+      kind: static
+      tag: div
     rootClass: t-tablist
     tokens:
       gap:
@@ -23,7 +25,9 @@ parts:
   tab:
     repeating: true
     groupKey: items
-    element: button
+    root:
+      kind: static
+      tag: button
     rootClass: t-tablist-tab
     props:
       label:
@@ -55,7 +59,9 @@ parts:
   tab-icon:
     repeating: true
     groupKey: items
-    element: span
+    root:
+      kind: static
+      tag: span
     rootClass: t-tablist-icon
     props:
       icon:

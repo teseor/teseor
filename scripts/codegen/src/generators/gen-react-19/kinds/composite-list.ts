@@ -26,7 +26,7 @@ export function renderCompositeListReactWrapper(spec: Spec): string {
     );
   }
   const [, wrapperPart] = wrapperEntry;
-  const wrapperElement = wrapperPart.element ?? "div";
+  const wrapperElement = wrapperPart.root?.kind === "static" ? wrapperPart.root.tag : "div";
   const wrapperClass = wrapperPart.rootClass ?? `t-${spec.name}`;
   const repeating = spec.repeating ?? [];
 
@@ -167,7 +167,7 @@ function renderIterationBlock(
 }
 
 function renderItemElement(specName: string, part: FlatRepeatingPart, includeKey: boolean): string {
-  const itemElement = part.element ?? "div";
+  const itemElement = part.root?.kind === "static" ? part.root.tag : "div";
   // Scope the default itemClass to the component to avoid cross-component
   // collisions (e.g. two specs both with `partName: "item"`). Matches the
   // wrapper's `t-${spec.name}` default + existing conventions like

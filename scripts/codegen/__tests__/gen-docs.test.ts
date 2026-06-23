@@ -59,7 +59,7 @@ describe("gen-docs", () => {
       parts: {
         trigger: { fromChildren: true },
         content: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           overlay: {
             anchor: "trigger",
             mode: "manual",

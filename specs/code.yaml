@@ -2,7 +2,9 @@ name: code
 description: Inline monospace fragment for short code spans in prose.
 kind: atomic
 dependencies: []
-element: code
+root:
+  kind: static
+  tag: code
 rootClass: t-code
 cssFile: components/code/code.css
 

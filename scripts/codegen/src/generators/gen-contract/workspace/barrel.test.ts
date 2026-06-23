@@ -53,7 +53,7 @@ describe("renderBarrel", () => {
       entry("modal", undefined, {
         trigger: { fromChildren: true },
         content: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           states: {
             closed: { on: { "trigger.click": "open" } },
             open: { on: { "key.escape": "closed" } },
@@ -75,7 +75,7 @@ describe("renderBarrel", () => {
           },
         },
         content: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           states: {
             closed: { on: { "trigger.click": "open" } },
             open: { on: { "key.escape": "closed" } },

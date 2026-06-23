@@ -23,7 +23,7 @@ function makeButton(overrides: Partial<Spec> = {}): Spec {
   return Spec.parse({
     name: "button",
     kind: "atomic",
-    element: "button",
+    root: { kind: "static", tag: "button" },
     rootClass: "t-button",
     variants: { solid: { description: "Filled." }, outline: { description: "Outlined." } },
     intents: {

@@ -62,7 +62,7 @@ function makeButton(overrides: Partial<Spec> = {}): Spec {
   return Spec.parse({
     name: "button",
     kind: "atomic",
-    element: "button",
+    root: { kind: "static", tag: "button" },
     rootClass: "t-button",
     variants: { solid: { description: "Filled." }, outline: { description: "Outlined." } },
     intents: {
@@ -246,7 +246,7 @@ describe("checkEvents", () => {
       events: { openChange: { description: "x", payload: {} } },
       parts: {
         root: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           props: {
             open: {
               type: "boolean",
@@ -410,7 +410,7 @@ describe("checkEvents", () => {
       events: { dismiss: { description: "x", payload: {} } },
       parts: {
         root: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           props: {
             onDismiss: { type: "string", description: "x" },
           },
@@ -429,9 +429,9 @@ describe("checkEvents", () => {
       kind: "composite",
       events: { dismiss: { description: "x", payload: {} } },
       parts: {
-        root: { element: "div" },
+        root: { root: { kind: "static", tag: "div" } },
         row: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           repeating: true,
           props: {
             onDismiss: { type: "string", description: "Item-level prop." },
@@ -473,9 +473,9 @@ describe("checkEvents", () => {
       kind: "composite",
       generics: [{ name: "TablistDirection", description: "x" }],
       parts: {
-        root: { element: "div" },
+        root: { root: { kind: "static", tag: "div" } },
         tab: {
-          element: "button",
+          root: { kind: "static", tag: "button" },
           repeating: true,
           props: {
             direction: {
@@ -496,9 +496,9 @@ describe("checkEvents", () => {
       kind: "composite",
       generics: [{ name: "TablistItem", description: "x" }],
       parts: {
-        root: { element: "div" },
+        root: { root: { kind: "static", tag: "div" } },
         tab: {
-          element: "button",
+          root: { kind: "static", tag: "button" },
           repeating: true,
           groupKey: "items",
           props: { label: { type: "string", slot: true, description: "Tab label." } },
@@ -519,7 +519,7 @@ describe("checkEventsRuntimeSupport", () => {
   };
   const overlayParts = (anchorVar = "--t-modal-anchor") => ({
     trigger: { fromChildren: true },
-    content: { element: "div", overlay: { ...overlayPart, anchorVar } },
+    content: { root: { kind: "static", tag: "div" }, overlay: { ...overlayPart, anchorVar } },
   });
 
   test("returns no issues when events: is absent", () => {
@@ -571,9 +571,9 @@ describe("checkEventsRuntimeSupport", () => {
       name: "pagination",
       kind: "composite",
       parts: {
-        nav: { element: "nav" },
+        nav: { root: { kind: "static", tag: "nav" } },
         page: {
-          element: "a",
+          root: { kind: "static", tag: "a" },
           repeating: true,
           props: { label: { type: "string", slot: true, description: "Page label." } },
         },

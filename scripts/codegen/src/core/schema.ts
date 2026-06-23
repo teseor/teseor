@@ -5,13 +5,13 @@ import type { branchEntry } from "../plugins/branches/schema.ts";
 import type { constraintEntry } from "../plugins/constraints/schema.ts";
 import type { coverageBlock } from "../plugins/coverage/schema.ts";
 import type { childSpec } from "../plugins/defaultChildren/schema.ts";
-import type { elementByPropBlock } from "../plugins/elementByProp/schema.ts";
 import type { eventEntry, genericEntry, PayloadEntry } from "../plugins/events/schema.ts";
 import type { exampleEntry } from "../plugins/examples/schema.ts";
 import type { stateEntry } from "../plugins/latch/schema.ts";
 import type { motionFragment } from "../plugins/motion/schema.ts";
 import type { overlayBlock } from "../plugins/overlay/schema.ts";
 import type { propEntry } from "../plugins/props/schema.ts";
+import type { rootFragment } from "../plugins/root/schema.ts";
 import type { stateDef } from "../plugins/states/schema.ts";
 import type { tokenEntry } from "../plugins/tokens/schema.ts";
 import type {
@@ -76,8 +76,7 @@ const identityFields = {
 // a thin element rather than `cloneElement`; the wrapper survives Astro
 // slots, where `cloneElement` fails silently.
 export type SpecPart = {
-  element?: string;
-  elementByProp?: z.infer<typeof elementByPropBlock>;
+  root?: z.infer<typeof rootFragment>;
   rootClass?: string;
   fromChildren?: boolean;
   repeating?: boolean;
@@ -131,12 +130,10 @@ export type AtomicSpec = {
   // events plugin
   generics?: Array<z.infer<typeof genericEntry>>;
   events?: Record<string, z.infer<typeof eventEntry>>;
-  // rootElementStatic plugin
-  element?: string;
+  // root plugin
+  root?: z.infer<typeof rootFragment>;
   // rootClass — no plugin owns this; stays inline
   rootClass?: string;
-  // elementByProp plugin
-  elementByProp?: z.infer<typeof elementByPropBlock>;
   // variants plugin
   variants?: Record<string, z.infer<typeof variantEntry>>;
   intents?: Record<string, z.infer<typeof intentEntry>>;
@@ -155,8 +152,6 @@ export type AtomicSpec = {
   motion?: z.infer<typeof motionFragment>;
   // slotElement — no plugin owns this; stays inline
   slotElement?: string;
-  // polymorphic plugin
-  polymorphic?: "asChild";
   // formControl plugin
   formControl?: boolean;
   // htmlAttrs plugin

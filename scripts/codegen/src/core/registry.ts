@@ -4,7 +4,6 @@ import { constraintsPlugin } from "../plugins/constraints/index.ts";
 import { coveragePlugin } from "../plugins/coverage/index.ts";
 import { defaultChildrenPlugin } from "../plugins/defaultChildren/index.ts";
 import { dependenciesPlugin } from "../plugins/dependencies/index.ts";
-import { elementByPropPlugin } from "../plugins/elementByProp/index.ts";
 import { eventsPlugin } from "../plugins/events/index.ts";
 import { examplesPlugin } from "../plugins/examples/index.ts";
 import { formControlPlugin } from "../plugins/formControl/index.ts";
@@ -14,9 +13,8 @@ import { latchPlugin } from "../plugins/latch/index.ts";
 import { motionPlugin } from "../plugins/motion/index.ts";
 import { overlayPlugin } from "../plugins/overlay/index.ts";
 import { partsPlugin } from "../plugins/parts/index.ts";
-import { polymorphicPlugin } from "../plugins/polymorphic/index.ts";
 import { propsPlugin } from "../plugins/props/index.ts";
-import { rootElementStaticPlugin } from "../plugins/rootElementStatic/index.ts";
+import { rootPlugin } from "../plugins/root/index.ts";
 import { statesPlugin } from "../plugins/states/index.ts";
 import { tokensPlugin } from "../plugins/tokens/index.ts";
 import { variantsPlugin } from "../plugins/variants/index.ts";
@@ -45,9 +43,7 @@ export const PLUGINS: readonly SubstratePlugin[] = [
   latchPlugin,
   htmlAttrsPlugin,
   defaultChildrenPlugin,
-  polymorphicPlugin,
-  elementByPropPlugin,
-  rootElementStaticPlugin,
+  rootPlugin,
   eventsPlugin,
   vocabularyPlugin,
   constraintsPlugin,

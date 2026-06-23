@@ -3,7 +3,9 @@ description: 'Single-line text input. Styled `<input>` with token-driven default
 kind: atomic
 formControl: true
 dependencies: []
-element: input
+root:
+  kind: static
+  tag: input
 rootClass: t-input
 cssFile: components/input/input.css
 

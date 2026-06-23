@@ -2,10 +2,12 @@ name: icon
 description: Wrapper for caller-supplied SVG glyphs. Sizes the box and lets the SVG inherit color via `currentColor`. Decorative by default — supply `label` to make the icon meaningful. Does not ship an icon set; the consumer chooses their library (Lucide, Tabler, Heroicons, custom).
 kind: atomic
 dependencies: []
-element: span
+root:
+  kind: static
+  tag: span
+  polymorphic: asChild
 rootClass: t-icon
 cssFile: components/icon/icon.css
-polymorphic: asChild
 
 sizes:
   sm:
