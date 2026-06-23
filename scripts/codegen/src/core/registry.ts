@@ -1,3 +1,4 @@
+import { a11yPlugin } from "../plugins/a11y/index.ts";
 import { coveragePlugin } from "../plugins/coverage/index.ts";
 import { dependenciesPlugin } from "../plugins/dependencies/index.ts";
 import { examplesPlugin } from "../plugins/examples/index.ts";
@@ -20,4 +21,5 @@ export const PLUGINS: readonly SubstratePlugin[] = [
   coveragePlugin,
   examplesPlugin,
   voidElementsPlugin,
+  a11yPlugin,
 ];

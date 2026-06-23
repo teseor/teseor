@@ -5,6 +5,7 @@
 // composite specs carry a `parts:` map of ComponentNodes, each of which may
 // itself carry `parts:`. Every object is strict — unknown keys fail validation.
 import { z } from "zod";
+import { a11yBlock } from "./plugins/a11y/schema.ts";
 import { coverageBlock } from "./plugins/coverage/schema.ts";
 import { exampleEntry } from "./plugins/examples/schema.ts";
 import { motionFragment } from "./plugins/motion/schema.ts";
@@ -24,29 +25,6 @@ const propEntry = z.strictObject({
   slot: z.boolean().optional(),
   values: z.array(z.string()).optional(),
   pattern: z.literal("controllable").optional(),
-});
-
-const a11yKeyboard = z.record(z.string(), z.string());
-
-const a11yBlock = z.strictObject({
-  role: z.string().optional(),
-  keyboard: a11yKeyboard.optional(),
-  states: z.record(z.string(), z.string()).optional(),
-  /** Forwards a declared prop's runtime value as an `aria-{prop}` attribute on
-   *  the root element. Names are bare prop names (e.g. `orientation`);
-   *  generators emit `aria-orientation={orientation}`. The prop must be
-   *  declared, `type: string`, and `responsive: false`. */
-  ariaProps: z.array(z.string().min(1)).optional(),
-  /** Names a declared `type: boolean` prop. When that prop is `true` at
-   *  runtime the root emits `role="none"` (overriding any static `role`) and
-   *  `aria-hidden="true"`, removing the element from the accessibility tree. */
-  decorativeProp: z.string().min(1).optional(),
-  /** Names a declared `type: string`, non-responsive prop. The root is
-   *  decorative by default (`aria-hidden="true"` and, if `role` is set,
-   *  role overridden to `"none"`). When the prop has a value at runtime
-   *  the root emits `aria-label={prop}` and the decorative attrs drop.
-   *  Mutually exclusive with `decorativeProp`. */
-  labelProp: z.string().min(1).optional(),
 });
 
 const constraintEntry = z.strictObject({
