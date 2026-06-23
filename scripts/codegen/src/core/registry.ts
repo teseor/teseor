@@ -4,6 +4,7 @@ import { examplesPlugin } from "../plugins/examples/index.ts";
 import { motionPlugin } from "../plugins/motion/index.ts";
 import { tokensPlugin } from "../plugins/tokens/index.ts";
 import { variantsPlugin } from "../plugins/variants/index.ts";
+import { voidElementsPlugin } from "../plugins/voidElements/index.ts";
 import type { SubstratePlugin } from "./plugin.ts";
 
 /**
@@ -18,4 +19,5 @@ export const PLUGINS: readonly SubstratePlugin[] = [
   dependenciesPlugin,
   coveragePlugin,
   examplesPlugin,
+  voidElementsPlugin,
 ];
