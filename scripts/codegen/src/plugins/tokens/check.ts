@@ -5,6 +5,8 @@ import { isAtomic, isComposite, issue, suggest } from "../../core/check-utils.ts
 import type { TokenDictionary } from "../../lib/token-dictionary.ts";
 import type { AtomicSpec, Spec, SpecPart } from "../../schema.ts";
 
+type TokensCss = ReadonlySet<string>;
+
 // ── Token contract (spec ↔ CSS) ─────────────────────────────────────────────
 
 function extractPublicSlots(css: string, specName: string): Set<string> {

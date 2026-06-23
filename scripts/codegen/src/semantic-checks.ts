@@ -4,6 +4,8 @@
 // drift with Levenshtein suggestions, motion in/out symmetry, dependency
 // cycles, the `@import` allowlist driven by `dependencies:`, and
 // `guidance.variantChoice` key equality with `spec.variants`.
+
+import type { Issue } from "./core/check-utils.ts";
 import type { TokenDictionary } from "./lib/token-dictionary.ts";
 import type { Vocabulary } from "./lib/vocabulary.ts";
 import { checkA11yRefs } from "./plugins/a11y/check.ts";
