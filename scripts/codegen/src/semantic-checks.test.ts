@@ -12,14 +12,12 @@ import {
   checkEvents,
   checkEventsRuntimeSupport,
   checkExamplesPresent,
-  checkExamplesReferences,
   checkFormControl,
   checkImperativeProps,
   checkPolymorphicAtomic,
   checkRepeatingParts,
   checkResponsiveExplicit,
   checkStateMachines,
-  checkVariantChoiceKeys,
   checkVocabulary,
   checkVoidElementConstraints,
   levenshtein,
@@ -122,24 +120,6 @@ describe("levenshtein + suggest", () => {
 
   test("suggest returns undefined when nothing is within range", () => {
     expect(suggest("destructive", ["danger", "success"], 3)).toBeUndefined();
-  });
-});
-
-describe("checkExamplesReferences", () => {
-  test("accepts examples that reference declared values", () => {
-    const spec = makeButton({
-      examples: [{ id: "solid-primary", props: { variant: "solid", intent: "primary" } }],
-    });
-    expect(checkExamplesReferences(spec)).toEqual([]);
-  });
-
-  test("flags an example using an unknown variant", () => {
-    const spec = makeButton({
-      examples: [{ id: "ghost-primary", props: { variant: "ghost", intent: "primary" } }],
-    });
-    const issues = checkExamplesReferences(spec);
-    expect(issues).toHaveLength(1);
-    expect(issues[0]?.message).toMatch(/'ghost' is not a declared variant/);
   });
 });
 
@@ -875,44 +855,6 @@ describe("checkPolymorphicAtomic", () => {
       },
     });
     expect(checkPolymorphicAtomic(spec)).toEqual([]);
-  });
-});
-
-describe("checkVariantChoiceKeys", () => {
-  test("passes when keys are equal", () => {
-    const spec = makeButton({
-      guidance: {
-        variantChoice: {
-          solid: "The default.",
-          outline: "Secondary.",
-        },
-      },
-    });
-    expect(checkVariantChoiceKeys(spec)).toEqual([]);
-  });
-
-  test("flags a missing variant", () => {
-    const spec = makeButton({
-      guidance: { variantChoice: { solid: "The default." } },
-    });
-    const issues = checkVariantChoiceKeys(spec);
-    expect(issues).toHaveLength(1);
-    expect(issues[0]?.message).toMatch(/variant 'outline' has no entry/);
-  });
-
-  test("flags an orphan guidance key", () => {
-    const spec = makeButton({
-      guidance: {
-        variantChoice: {
-          solid: "The default.",
-          outline: "Secondary.",
-          extra: "Bogus.",
-        },
-      },
-    });
-    const issues = checkVariantChoiceKeys(spec);
-    expect(issues).toHaveLength(1);
-    expect(issues[0]?.path).toBe("guidance.variantChoice.extra");
   });
 });
 

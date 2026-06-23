@@ -6,25 +6,13 @@
 // itself carry `parts:`. Every object is strict — unknown keys fail validation.
 import { z } from "zod";
 import { motionFragment } from "./plugins/motion/schema.ts";
-import { tokenEntry, tokenName } from "./plugins/tokens/schema.ts";
-
-const variantEntry = z.strictObject({
-  description: z.string().min(1),
-});
-
-const intentEntry = z.strictObject({
-  description: z.string().min(1),
-  tokens: z.record(z.string(), tokenName).optional(),
-});
-
-const sizeEntry = z.strictObject({
-  description: z.string().min(1),
-  tokens: z.record(z.string(), tokenName).optional(),
-});
-
-const visualStateEntry = z.strictObject({
-  description: z.string().min(1),
-});
+import { tokenEntry } from "./plugins/tokens/schema.ts";
+import {
+  intentEntry,
+  sizeEntry,
+  variantEntry,
+  visualStateEntry,
+} from "./plugins/variants/schema.ts";
 
 const propEntry = z.strictObject({
   type: z.enum(["string", "boolean", "number"]),

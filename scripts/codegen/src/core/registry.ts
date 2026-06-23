@@ -1,5 +1,6 @@
 import { motionPlugin } from "../plugins/motion/index.ts";
 import { tokensPlugin } from "../plugins/tokens/index.ts";
+import { variantsPlugin } from "../plugins/variants/index.ts";
 import type { SubstratePlugin } from "./plugin.ts";
 
 /**
@@ -7,4 +8,4 @@ import type { SubstratePlugin } from "./plugin.ts";
  * contributions are visible to later plugins' analyze() AND to every
  * plugin's emit(). Plugins never import one another.
  */
-export const PLUGINS: readonly SubstratePlugin[] = [motionPlugin, tokensPlugin];
+export const PLUGINS: readonly SubstratePlugin[] = [motionPlugin, tokensPlugin, variantsPlugin];
