@@ -12,6 +12,7 @@ import { checkA11yRefs } from "./plugins/a11y/check.ts";
 import { checkCoverageShape } from "./plugins/coverage/check.ts";
 import { checkExamplesPresent } from "./plugins/examples/check.ts";
 import { checkFormControl } from "./plugins/formControl/check.ts";
+import { checkImperativeProps } from "./plugins/imperativeProps/check.ts";
 import { checkMotion } from "./plugins/motion/check.ts";
 import { checkResponsiveExplicit } from "./plugins/props/check.ts";
 import {
@@ -531,62 +532,6 @@ export function checkPolymorphicAtomic(spec: Spec): Issue[] {
         `\`polymorphic: 'asChild'\` requires a child-bearing root element; '${spec.element}' is a void element`,
       ),
     );
-  }
-  return issues;
-}
-
-/**
- * Imperative props (DOM-property setters like `<input>.indeterminate`) must
- * not collide with declared spec props or the formControl shared contract —
- * either would silently overwrite the other at the wrapper level.
- */
-const IMPERATIVE_RESERVED_NAMES = new Set([
-  "as",
-  "asChild",
-  "children",
-  "class",
-  "className",
-  "key",
-  "ref",
-  "style",
-]);
-
-export function checkImperativeProps(spec: Spec, vocabulary: Vocabulary): Issue[] {
-  if (!isAtomic(spec)) return [];
-  const imperative = spec.imperativeProps;
-  if (!imperative) return [];
-  const issues: Issue[] = [];
-  const specPropNames = new Set(Object.keys(spec.props ?? {}));
-  const sharedFormControlNames =
-    spec.formControl === true ? new Set(Object.keys(vocabulary.formControl.props)) : new Set();
-  for (const name of Object.keys(imperative)) {
-    if (specPropNames.has(name)) {
-      issues.push(
-        issue(
-          spec.name,
-          `imperativeProps.${name}`,
-          `'${name}' is already declared in props — remove one; imperative props and spec props can't share a name`,
-        ),
-      );
-    }
-    if (sharedFormControlNames.has(name)) {
-      issues.push(
-        issue(
-          spec.name,
-          `imperativeProps.${name}`,
-          `'${name}' is part of the formControl shared contract — pick a different name for the imperative DOM-property setter`,
-        ),
-      );
-    }
-    if (IMPERATIVE_RESERVED_NAMES.has(name)) {
-      issues.push(
-        issue(
-          spec.name,
-          `imperativeProps.${name}`,
-          `'${name}' is reserved by the wrapper template (React/Vue intrinsics) — pick a different name`,
-        ),
-      );
-    }
   }
   return issues;
 }
@@ -2044,6 +1989,7 @@ export type { DependencyIndex } from "./plugins/dependencies/check.ts";
 export { checkDependencyCycles } from "./plugins/dependencies/check.ts";
 export { checkExamplesPresent } from "./plugins/examples/check.ts";
 export { checkFormControl } from "./plugins/formControl/check.ts";
+export { checkImperativeProps } from "./plugins/imperativeProps/check.ts";
 export { checkResponsiveExplicit } from "./plugins/props/check.ts";
 export {
   checkCssImportAllowlist,

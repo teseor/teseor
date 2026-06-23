@@ -3,6 +3,7 @@ import { coveragePlugin } from "../plugins/coverage/index.ts";
 import { dependenciesPlugin } from "../plugins/dependencies/index.ts";
 import { examplesPlugin } from "../plugins/examples/index.ts";
 import { formControlPlugin } from "../plugins/formControl/index.ts";
+import { imperativePropsPlugin } from "../plugins/imperativeProps/index.ts";
 import { motionPlugin } from "../plugins/motion/index.ts";
 import { propsPlugin } from "../plugins/props/index.ts";
 import { tokensPlugin } from "../plugins/tokens/index.ts";
@@ -26,4 +27,5 @@ export const PLUGINS: readonly SubstratePlugin[] = [
   a11yPlugin,
   propsPlugin,
   formControlPlugin,
+  imperativePropsPlugin,
 ];
