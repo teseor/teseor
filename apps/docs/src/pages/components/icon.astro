@@ -1,0 +1,124 @@
+---
+import { Icon, Code, Codeblock } from "@teseor/react";
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Icon — Teseor">
+  <main class="t-stack" data-gap="6">
+    <h1>Icon</h1>
+    <p>Wrapper for caller-supplied SVG glyphs. Sizes the box and lets the SVG inherit color via `currentColor`. Decorative by default — supply `label` to make the icon meaningful. Does not ship an icon set; the consumer chooses their library (Lucide, Tabler, Heroicons, custom).</p>
+    <section class="t-stack" data-gap="3">
+      <h2>Examples</h2>
+      <div class="t-stack" data-gap="2">
+        <h3>default</h3>
+        <div class="t-cluster" data-gap="3">
+          <Icon>Icon</Icon>
+        </div>
+        <Codeblock>&lt;Icon&gt;Icon&lt;/Icon&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>small</h3>
+        <div class="t-cluster" data-gap="3">
+          <Icon size="sm">Icon</Icon>
+        </div>
+        <Codeblock>&lt;Icon size="sm"&gt;Icon&lt;/Icon&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>large</h3>
+        <div class="t-cluster" data-gap="3">
+          <Icon size="lg">Icon</Icon>
+        </div>
+        <Codeblock>&lt;Icon size="lg"&gt;Icon&lt;/Icon&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>colored-success</h3>
+        <div class="t-cluster" data-gap="3">
+          <Icon color="success">Icon</Icon>
+        </div>
+        <Codeblock>&lt;Icon color="success"&gt;Icon&lt;/Icon&gt;</Codeblock>
+      </div>
+      <div class="t-stack" data-gap="2">
+        <h3>labeled</h3>
+        <div class="t-cluster" data-gap="3">
+          <Icon label="Settings">Icon</Icon>
+        </div>
+        <Codeblock>&lt;Icon label="Settings"&gt;Icon&lt;/Icon&gt;</Codeblock>
+      </div>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Props</h2>
+      <table>
+        <thead><tr><th>Prop</th><th>Type</th><th>Responsive</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>size</Code></td><td><Code>"sm" | "md" | "lg"</Code></td><td>✓</td><td><Code>null</Code></td><td>Size scale. See the Sizes section for per-value descriptions.</td></tr>
+        <tr><td><Code>color</Code></td><td><Code>string</Code></td><td></td><td><Code>null</Code></td><td>Semantic color override. Absence-of-attr keeps the SVG on `currentColor` (inherits from the parent's text color); setting a value swaps the `--t-icon-fg` slot to the matching semantic token.</td></tr>
+        <tr><td><Code>label</Code></td><td><Code>string</Code></td><td></td><td><Code>null</Code></td><td>Accessible name. When set, the wrapper carries `aria-label=&lbrace;label&rbrace;` and drops `aria-hidden`. When unset, the wrapper carries `aria-hidden="true"` and is invisible to assistive tech — the common case for icons inside a labeled `&lt;button&gt;`.</td></tr>
+        <tr><td><Code>asChild</Code></td><td><Code>boolean</Code></td><td></td><td><Code>false</Code></td><td>Render the trigger directly on the consumer's child element (cloneElement) instead of wrapping in a &lt;span&gt;. Single-child invariant; the child receives the wrapper's &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;data-state&lt;/code&gt;, event handlers, and any ARIA attributes the component applies (component-specific). Not compatible with Astro slots — use the default wrapper there.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Sizes</h2>
+      <table>
+        <thead><tr><th>Name</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>sm</Code></td><td>Inline-text usage; pairs with small prose and dense buttons.</td></tr>
+        <tr><td><Code>md</Code></td><td>Default size; matches body text and standard buttons.</td></tr>
+        <tr><td><Code>lg</Code></td><td>Hero-callout usage; for prominent affordances and feature surfaces.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Tokens</h2>
+      <table>
+        <thead><tr><th>Token</th><th>Fallback</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-icon-fg</Code></td><td><Code>currentColor</Code></td><td>Color applied to the icon. Inherits from the parent's text color by default; the caller's SVG must use `fill="currentColor"` or `stroke="currentColor"` for the value to flow through.</td></tr>
+        <tr><td><Code>--t-icon-size-sm</Code></td><td><Code>--t-space-4</Code></td><td>Box dimension for the small size.</td></tr>
+        <tr><td><Code>--t-icon-size-md</Code></td><td><Code>--t-space-5</Code></td><td>Box dimension for the medium size (default).</td></tr>
+        <tr><td><Code>--t-icon-size-lg</Code></td><td><Code>--t-space-6</Code></td><td>Box dimension for the large size.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Forced colors</h2>
+      <p>In Windows High Contrast mode, the component remaps these semantic tokens to CSS system colors. Custom-property inheritance carries the values to every reference in the subtree.</p>
+      <table>
+        <thead><tr><th>Token</th><th>Default</th><th>Forced-colors</th></tr></thead>
+        <tbody>
+        <tr><td><Code>--t-accent</Code></td><td><Code>oklch(from oklch(58% 0.2 268deg) 55% c h)</Code></td><td><Code>ButtonText</Code></td></tr>
+        <tr><td><Code>--t-danger</Code></td><td><Code>color-mix(
+      in oklch,
+      oklch(from oklch(58% 0.2 268deg) 48% c 25deg),
+      oklch(from oklch(58% 0.2 268deg) 48% c h) calc(0 * 100%)
+    )</Code></td><td><Code>ButtonText</Code></td></tr>
+        <tr><td><Code>--t-info</Code></td><td><Code>color-mix(
+      in oklch,
+      oklch(from oklch(58% 0.2 268deg) 50% c 210deg),
+      oklch(from oklch(58% 0.2 268deg) 50% c h) calc(0 * 100%)
+    )</Code></td><td><Code>ButtonText</Code></td></tr>
+        <tr><td><Code>--t-on-surface</Code></td><td><Code>oklch(from oklch(from oklch(58% 0.2 268deg) 50% calc(c * 0.025) h) 18% c h)</Code></td><td><Code>CanvasText</Code></td></tr>
+        <tr><td><Code>--t-success</Code></td><td><Code>color-mix(
+      in oklch,
+      oklch(from oklch(58% 0.2 268deg) 52% c 155deg),
+      oklch(from oklch(58% 0.2 268deg) 52% c h) calc(0 * 100%)
+    )</Code></td><td><Code>ButtonText</Code></td></tr>
+        <tr><td><Code>--t-warning</Code></td><td><Code>color-mix(
+      in oklch,
+      oklch(from oklch(58% 0.2 268deg) 80% c 85deg),
+      oklch(from oklch(58% 0.2 268deg) 80% c h) calc(0 * 100%)
+    )</Code></td><td><Code>ButtonText</Code></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="t-stack" data-gap="3">
+      <h2>Bundle size</h2>
+      <table>
+        <thead><tr><th>Artifact</th><th>Raw</th><th>Gzip</th><th>Brotli</th></tr></thead>
+        <tbody>
+        <tr><td><a href="https://github.com/teseor/teseor/blob/main/packages/css/src/components/icon/icon.css"><Code>@teseor/css/components/icon.css</Code></a></td><td>2.27 KB</td><td>0.69 KB</td><td>0.58 KB</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</Base>

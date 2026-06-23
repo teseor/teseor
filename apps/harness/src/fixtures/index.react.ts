@@ -11,6 +11,7 @@ import { fixtures as codeFixtures } from "./Code.react.tsx";
 import { fixtures as codeblockFixtures } from "./Codeblock.react.tsx";
 import { fixtures as dividerFixtures } from "./Divider.react.tsx";
 import { fixtures as headingFixtures } from "./Heading.react.tsx";
+import { fixtures as iconFixtures } from "./Icon.react.tsx";
 import { fixtures as imageFixtures } from "./Image.react.tsx";
 import { fixtures as inputFixtures } from "./Input.react.tsx";
 import { fixtures as kbdFixtures } from "./Kbd.react.tsx";
@@ -34,6 +35,7 @@ export const reactFixtures: Record<string, Record<string, () => ReactNode>> = {
   codeblock: codeblockFixtures,
   divider: dividerFixtures,
   heading: headingFixtures,
+  icon: iconFixtures,
   image: imageFixtures,
   input: inputFixtures,
   kbd: kbdFixtures,

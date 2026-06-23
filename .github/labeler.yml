@@ -107,6 +107,12 @@ component:heading:
           - packages/css/src/components/heading/**
           - specs/heading.yaml
 
+component:icon:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/css/src/components/icon/**
+          - specs/icon.yaml
+
 component:image:
   - changed-files:
       - any-glob-to-any-file:

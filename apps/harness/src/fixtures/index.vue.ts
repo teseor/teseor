@@ -11,6 +11,7 @@ import { fixtures as codeFixtures } from "./Code.vue.ts";
 import { fixtures as codeblockFixtures } from "./Codeblock.vue.ts";
 import { fixtures as dividerFixtures } from "./Divider.vue.ts";
 import { fixtures as headingFixtures } from "./Heading.vue.ts";
+import { fixtures as iconFixtures } from "./Icon.vue.ts";
 import { fixtures as imageFixtures } from "./Image.vue.ts";
 import { fixtures as inputFixtures } from "./Input.vue.ts";
 import { fixtures as kbdFixtures } from "./Kbd.vue.ts";
@@ -34,6 +35,7 @@ export const vueFixtures: Record<string, Record<string, () => VNode>> = {
   codeblock: codeblockFixtures,
   divider: dividerFixtures,
   heading: headingFixtures,
+  icon: iconFixtures,
   image: imageFixtures,
   input: inputFixtures,
   kbd: kbdFixtures,

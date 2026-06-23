@@ -72,6 +72,9 @@
 - name: component:heading
   color: d4c5f9
   description: heading component
+- name: component:icon
+  color: d4c5f9
+  description: icon component
 - name: component:image
   color: d4c5f9
   description: image component
