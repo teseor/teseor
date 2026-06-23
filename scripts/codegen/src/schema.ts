@@ -7,6 +7,7 @@
 import { z } from "zod";
 import { a11yBlock } from "./plugins/a11y/schema.ts";
 import { branchEntry } from "./plugins/branches/schema.ts";
+import { constraintEntry } from "./plugins/constraints/schema.ts";
 import { coverageBlock } from "./plugins/coverage/schema.ts";
 import { childSpec } from "./plugins/defaultChildren/schema.ts";
 import { elementByPropBlock } from "./plugins/elementByProp/schema.ts";
@@ -22,12 +23,6 @@ import {
   variantEntry,
   visualStateEntry,
 } from "./plugins/variants/schema.ts";
-
-const constraintEntry = z.strictObject({
-  when: z.record(z.string(), z.unknown()),
-  forbid: z.record(z.string(), z.unknown()),
-  reason: z.string().min(1),
-});
 
 const componentNodeFields = {
   element: z.string().optional(),
