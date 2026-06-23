@@ -6,7 +6,7 @@ describe("SpecAnalysis", () => {
     const a = emptyAnalysis();
     expect(a.ariaPropNames.size).toBe(0);
     expect(a.hasAs).toBe(false);
-    expect(a.voidStatus).toBe("none");
+    expect(a.voidStatus).toBe("never");
   });
 
   it("merging empty fragment is identity", () => {

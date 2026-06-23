@@ -9,7 +9,7 @@ export type SpecAnalysis = {
   hasPolymorphic: boolean;
   hasDisabled: boolean;
   hasLoading: boolean;
-  voidStatus: "all" | "none" | "mixed";
+  voidStatus: "all" | "never" | "mixed";
 };
 
 export function emptyAnalysis(): SpecAnalysis {
@@ -24,7 +24,7 @@ export function emptyAnalysis(): SpecAnalysis {
     hasPolymorphic: false,
     hasDisabled: false,
     hasLoading: false,
-    voidStatus: "none",
+    voidStatus: "never",
   };
 }
 
