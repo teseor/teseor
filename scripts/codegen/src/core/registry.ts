@@ -16,6 +16,7 @@ import { partsPlugin } from "../plugins/parts/index.ts";
 import { polymorphicPlugin } from "../plugins/polymorphic/index.ts";
 import { propsPlugin } from "../plugins/props/index.ts";
 import { rootElementStaticPlugin } from "../plugins/rootElementStatic/index.ts";
+import { statesPlugin } from "../plugins/states/index.ts";
 import { tokensPlugin } from "../plugins/tokens/index.ts";
 import { variantsPlugin } from "../plugins/variants/index.ts";
 import { vocabularyPlugin } from "../plugins/vocabulary/index.ts";
@@ -50,4 +51,5 @@ export const PLUGINS: readonly SubstratePlugin[] = [
   vocabularyPlugin,
   constraintsPlugin,
   partsPlugin,
+  statesPlugin,
 ];
