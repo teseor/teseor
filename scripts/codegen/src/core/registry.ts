@@ -9,6 +9,7 @@ import { htmlAttrsPlugin } from "../plugins/htmlAttrs/index.ts";
 import { imperativePropsPlugin } from "../plugins/imperativeProps/index.ts";
 import { latchPlugin } from "../plugins/latch/index.ts";
 import { motionPlugin } from "../plugins/motion/index.ts";
+import { polymorphicPlugin } from "../plugins/polymorphic/index.ts";
 import { propsPlugin } from "../plugins/props/index.ts";
 import { tokensPlugin } from "../plugins/tokens/index.ts";
 import { variantsPlugin } from "../plugins/variants/index.ts";
@@ -36,4 +37,5 @@ export const PLUGINS: readonly SubstratePlugin[] = [
   latchPlugin,
   htmlAttrsPlugin,
   defaultChildrenPlugin,
+  polymorphicPlugin,
 ];
