@@ -46,3 +46,9 @@ apps/showcase-
 
 # Future scripts (planned at later milestones, not yet authored)
 scripts/benchmark.ts
+
+# ADR-0025 — substrate plugin architecture (Proposed). Planned files; land
+# in the implementation PR. Remove these prefixes when ADR-0025 is Accepted.
+scripts/codegen/src/core/
+scripts/codegen/src/plugins/
+scripts/repo/migrate-substrate-consolidation.ts
