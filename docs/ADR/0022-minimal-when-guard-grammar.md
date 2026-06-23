@@ -55,7 +55,7 @@ fits inside `[!]<part>.<bool-prop>`.
 
 - `tooltip.yaml` carries `when: '!trigger.disabled'` on the two
   pointer/focus open transitions. The hardcoded special case in
-  `scripts/codegen/src/generators/gen-react/kinds/composite-overlay.ts`
+  `scripts/codegen/src/generators/gen-react-19/kinds/composite-overlay.ts`
   is gone.
 - The validator gains a guard-expression parser inside
   `checkStateMachines`. It rejects unknown grammar productions and

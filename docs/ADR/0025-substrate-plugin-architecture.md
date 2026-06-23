@@ -1,6 +1,6 @@
 # ADR-0025 — Substrate plugin architecture
 
-- **Status:** Proposed (2026-06-23). Amended 2026-06-23 — see **Amendment** below.
+- **Status:** Accepted (2026-06-24). Amended 2026-06-23 — see **Amendment** below.
 
 ## Amendment 2026-06-23 — emit code lives in per-target generators, not plugins; slot model dropped
 
@@ -10,7 +10,7 @@ The pivot:
 
 1. **Plugins keep schema + check + analyze only.** They do NOT contain emit code. The `emit` field on `SubstratePlugin` is removed; the `runtime` field is removed.
 2. **Per-target generators own all emit code for that target+version.** Folder naming carries the version: `scripts/codegen/src/generators/gen-react-19/`, `scripts/codegen/src/generators/gen-vue-3/`. Framework-agnostic generators (`scripts/codegen/src/generators/gen-contract/`, `scripts/codegen/src/generators/gen-docs/`, `scripts/codegen/src/generators/gen-tests/`) stay un-versioned.
-3. **The slot model is dropped.** `scripts/codegen/src/core/slots.ts`, `EmitSlot`, `EmitContribution`, `EmitTarget`, `EmitContext`, and `emitSlot()` in the orchestrator are deleted. Per-target generators write strings procedurally — they read `SpecAnalysis` + `Spec` and assemble output directly.
+3. **The slot model is dropped.** The `slots.ts` module (deleted), `EmitSlot`, `EmitContribution`, `EmitTarget`, `EmitContext`, and `emitSlot()` in the orchestrator are all gone. Per-target generators write strings procedurally — they read `SpecAnalysis` + `Spec` and assemble output directly.
 4. **Forking events become trivial.** Cloning `scripts/codegen/src/generators/gen-react-19/` → `scripts/codegen/src/generators/gen-react-20/` and mutating procedural code is the workflow when React 20 ships. The plugins (substrate semantics) are the stable invariant.
 5. **SpecAnalysis stays load-bearing.** Cross-plugin facts (e.g. `responsivePropNames`, `branchComputes`, `hasAs`) are still contributed by plugins' `analyze` functions and merged by the orchestrator. Generators consume the merged analysis as inert input.
 
@@ -85,7 +85,7 @@ scripts/codegen/src/
 └── lib/                   # pure utilities
 ```
 
-Deleted vs the original ADR: `scripts/codegen/src/core/slots.ts`.
+Deleted vs the original ADR: the `slots.ts` module.
 
 ### Why this pivot
 
@@ -93,7 +93,7 @@ Deleted vs the original ADR: `scripts/codegen/src/core/slots.ts`.
 - **Cleaner separation.** Plugins are pure substrate semantics — testable in isolation, reusable across any future target. Generators are pure string assembly. The boundary is enforced by the type system (plugin returns `Partial<SpecAnalysis>`; generator receives readonly `SpecAnalysis` + `Spec`).
 - **Removed indirection.** The slot abstraction's only structural value was "many plugins → one output position." That coordination problem dissolves when one file owns assembly. The append/exclusive/decorate union, the `slots.ts` enumeration, and the orchestrator's `emitSlot()` dispatch all go away. ~150 LOC of scaffolding deleted.
 - **DX win.** A substrate author edits ONE plugin folder for declarative work. A generator author reads ONE folder to understand a target's output end-to-end. New contributors learn two concepts (declarative plugins, imperative generators) instead of three (plugins, slots, generators).
-- **Honest about today's structure.** Today's `scripts/codegen/src/generators/gen-react/kinds/atomic.ts` is procedural — that's the shape generators already have. The original ADR proposed replacing it with slot dispatch; this amendment keeps it procedural, just leaner (compute-once analysis as input).
+- **Honest about today's structure.** Today's `scripts/codegen/src/generators/gen-react-19/kinds/atomic.ts` is procedural — that's the shape generators already have. The original ADR proposed replacing it with slot dispatch; this amendment keeps it procedural, just leaner (compute-once analysis as input).
 
 ### Trade-offs accepted
 
@@ -194,7 +194,7 @@ type SpecAnalysis = {
 ```
 
 The field set is the closed catalogue of cross-plugin reads observed in
-the procedural `scripts/codegen/src/generators/gen-react/kinds/atomic.ts` today. Plugins contribute fragments via
+the procedural `scripts/codegen/src/generators/gen-react-19/kinds/atomic.ts` today. Plugins contribute fragments via
 `analyze`; the orchestrator merges; each plugin's `emit` receives the
 merged analysis. Plugins never import one another.
 
@@ -209,9 +209,9 @@ merged analysis. Plugins never import one another.
 - **Decorate slot** — wraps an inner contribution; used by
   `slotElement` to wrap the body.
 
-The slot enumeration is fixed in `scripts/codegen/src/core/slots.ts`. Adding a new slot is a
+The slot enumeration was fixed in the (since-deleted) `slots.ts` module. Adding a new slot was a
 core change touching the registry of every plugin that should contribute;
-that cost is deliberate — slot stability is the contract.
+that cost was deliberate — slot stability was the contract.
 
 ### File layout
 
@@ -287,12 +287,10 @@ scripts/codegen/src/
 ## Consequences
 
 - One PR delivers: the `scripts/codegen/src/core/` scaffolding, the ~20 plugin folders, the
-  `scripts/codegen/src/generators/gen-{react,vue}/kinds/atomic.ts` and `kinds/composite-*.ts` rewrites in both
+  `scripts/codegen/src/generators/gen-react-19/kinds/atomic.ts` and `kinds/composite-*.ts` rewrites
+  (plus the matching `scripts/codegen/src/generators/gen-vue-3/` rewrites) in both
   framework generators, the `semantic-checks.ts` decomposition, the
-  `schema.ts` decomposition, a one-shot migration script
-  (`scripts/repo/migrate-substrate-consolidation.ts`) that rewrites
-  every spec for the four consolidations, the rewritten specs
-  themselves, and a changeset.
+  `schema.ts` decomposition, the rewritten specs (hand-edited per Phase 4 — the original codemod plan was dropped pre-1.0), and a changeset.
 - The existing snapshot tests (`generators/__tests__/__snapshots__/*.snap`)
   gate output equivalence — every generated file's content stays
   byte-identical for the architectural move; only the four

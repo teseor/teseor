@@ -15,8 +15,8 @@ wrappers, docs pages). This audit covers every shape-gating branch in:
 - `scripts/codegen/src/semantic-checks.ts`
 - `scripts/codegen/src/lib/flatten.ts`
 - `scripts/codegen/src/generators/gen-contract/`
-- `scripts/codegen/src/generators/gen-react/`
-- `scripts/codegen/src/generators/gen-vue/`
+- `scripts/codegen/src/generators/gen-react-19/`
+- `scripts/codegen/src/generators/gen-vue-3/`
 - `scripts/codegen/src/generators/gen-docs/`
 
 "Shape-gating branch" = code path the spec's declared shape selects (e.g.
@@ -136,7 +136,7 @@ proposals, recommendation in this doc are the main-session synthesis.
 | gen-contract/per-spec.ts:171 | `def.pattern === "controllable" && def.type === "boolean"` | Pick controllable booleans to add channel-union arms. |
 | gen-contract/workspace/barrel.ts:16 | `entry.events && length > 0` | Re-export `<Name>Event` in the barrel only when events declared. |
 
-### `scripts/codegen/src/generators/gen-react/`
+### `scripts/codegen/src/generators/gen-react-19/`
 
 | File:line | Gates on | What changes |
 | --- | --- | --- |
@@ -160,7 +160,7 @@ proposals, recommendation in this doc are the main-session synthesis.
 | gen-react/kinds/composite-list.ts:80 | `g.length > 1` (multi-part group) | Adds `Fragment` import and wraps each item. |
 | gen-react/kinds/composite-list.ts:176, 189 | `d.slot === true` | Item slot props render as children; non-slot props render as `data-*` attrs. |
 
-### `scripts/codegen/src/generators/gen-vue/`
+### `scripts/codegen/src/generators/gen-vue-3/`
 
 | File:line | Gates on | What changes |
 | --- | --- | --- |
@@ -265,7 +265,7 @@ Per-row tags (E = essential, A = accidental, U = unsure) with one-line reason.
 - per-spec.ts:159-160, 165-207, 171 — **E**.
 - workspace/barrel.ts:16 — **E**.
 
-### Classification — `scripts/codegen/src/generators/gen-react/` and `scripts/codegen/src/generators/gen-vue/`
+### Classification — `scripts/codegen/src/generators/gen-react-19/` and `scripts/codegen/src/generators/gen-vue-3/`
 
 - Top-level dispatch — **E** — three distinct emitter shapes.
 - shared events.ts event gating, dismiss specialization — **E** today; **U** as events expand beyond dismiss.
