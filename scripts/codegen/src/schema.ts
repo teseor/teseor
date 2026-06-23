@@ -5,6 +5,7 @@
 // composite specs carry a `parts:` map of ComponentNodes, each of which may
 // itself carry `parts:`. Every object is strict — unknown keys fail validation.
 import { z } from "zod";
+import { coverageBlock } from "./plugins/coverage/schema.ts";
 import { motionFragment } from "./plugins/motion/schema.ts";
 import { tokenEntry } from "./plugins/tokens/schema.ts";
 import {
@@ -291,10 +292,6 @@ const guidanceBlock = z.strictObject({
     .array(z.strictObject({ mistake: z.string().min(1), fix: z.string().min(1) }))
     .optional(),
 });
-
-const coverageDimension = z.union([z.boolean(), z.array(z.string())]);
-
-const coverageBlock = z.record(z.string(), coverageDimension);
 
 const exampleEntry = z.strictObject({
   id: z.string().min(1),

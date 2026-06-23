@@ -6,7 +6,6 @@ import {
   checkAsIsConstrained,
   checkConstraintsAgainstCoverage,
   checkConstraintsAgainstExamples,
-  checkCoverageShape,
   checkElementByProp,
   checkEvents,
   checkEventsRuntimeSupport,
@@ -151,30 +150,6 @@ describe("checkConstraintsAgainstExamples", () => {
       examples: [{ id: "solid-danger", props: { variant: "solid", intent: "danger" } }],
     });
     expect(checkConstraintsAgainstExamples(spec)).toEqual([]);
-  });
-});
-
-describe("checkCoverageShape", () => {
-  test("flags a coverage dimension the spec does not declare", () => {
-    const spec = makeButton({ coverage: { density: true } });
-    const issues = checkCoverageShape(spec);
-    expect(issues).toHaveLength(1);
-    expect(issues[0]?.message).toMatch(/not declared on the spec/);
-  });
-
-  test("flags a list dimension referencing an unknown value", () => {
-    const spec = makeButton({
-      visualStates: { disabled: { description: "Disabled." } },
-      coverage: { visualStates: ["disabled", "loading"] },
-    });
-    const issues = checkCoverageShape(spec);
-    expect(issues).toHaveLength(1);
-    expect(issues[0]?.message).toMatch(/'loading' is not a declared value of 'visualStates'/);
-  });
-
-  test("passes a `true` dimension that exists on the spec", () => {
-    const spec = makeButton({ coverage: { variant: true, intent: true } });
-    expect(checkCoverageShape(spec)).toEqual([]);
   });
 });
 

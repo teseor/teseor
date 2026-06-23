@@ -8,6 +8,7 @@ import { isVoidElement } from "./lib/html-void-elements.ts";
 import { pascalCase } from "./lib/pascal-case.ts";
 import type { TokenDictionary } from "./lib/token-dictionary.ts";
 import type { Vocabulary } from "./lib/vocabulary.ts";
+import { checkCoverageShape } from "./plugins/coverage/check.ts";
 import { checkMotion } from "./plugins/motion/check.ts";
 import {
   checkCssImportAllowlist,
@@ -194,40 +195,6 @@ function collectDimensionValues(spec: AtomicSpec, dim: string): string[] {
       return [];
     }
   }
-}
-
-export function checkCoverageShape(spec: Spec): Issue[] {
-  const issues: Issue[] = [];
-  if (!isAtomic(spec)) return issues;
-  const coverage = spec.coverage;
-  if (!coverage) return issues;
-  for (const [dimName, declaration] of Object.entries(coverage)) {
-    const declared = collectDimensionValues(spec, dimName);
-    if (declared.length === 0) {
-      issues.push(
-        issue(
-          spec.name,
-          `coverage.${dimName}`,
-          `dimension '${dimName}' is not declared on the spec (no variants/intents/sizes/states/props entry)`,
-        ),
-      );
-      continue;
-    }
-    if (Array.isArray(declaration)) {
-      for (const value of declaration) {
-        if (!declared.includes(value)) {
-          issues.push(
-            issue(
-              spec.name,
-              `coverage.${dimName}`,
-              `'${value}' is not a declared value of '${dimName}'.${suggestionFragment(value, declared)}`,
-            ),
-          );
-        }
-      }
-    }
-  }
-  return issues;
 }
 
 /**
@@ -2352,6 +2319,7 @@ export function runSemanticChecks(
   ];
 }
 
+export { checkCoverageShape } from "./plugins/coverage/check.ts";
 export type { DependencyIndex } from "./plugins/dependencies/check.ts";
 export { checkDependencyCycles } from "./plugins/dependencies/check.ts";
 export {

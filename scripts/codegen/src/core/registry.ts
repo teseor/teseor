@@ -1,3 +1,4 @@
+import { coveragePlugin } from "../plugins/coverage/index.ts";
 import { dependenciesPlugin } from "../plugins/dependencies/index.ts";
 import { motionPlugin } from "../plugins/motion/index.ts";
 import { tokensPlugin } from "../plugins/tokens/index.ts";
@@ -14,4 +15,5 @@ export const PLUGINS: readonly SubstratePlugin[] = [
   tokensPlugin,
   variantsPlugin,
   dependenciesPlugin,
+  coveragePlugin,
 ];
