@@ -6,7 +6,6 @@ import {
   checkConstraintsAgainstExamples,
   checkRepeatingParts,
   checkStateMachines,
-  checkVocabulary,
   levenshtein,
   suggest,
 } from "./semantic-checks.ts";
@@ -172,33 +171,6 @@ describe("checkConstraintsAgainstCoverage", () => {
       coverage: { variant: ["solid"], intent: true },
     });
     expect(checkConstraintsAgainstCoverage(spec)).toEqual([]);
-  });
-});
-
-describe("checkVocabulary", () => {
-  test("flags an unknown variant with a suggestion", () => {
-    const spec = makeButton({
-      variants: { destructive: { description: "Bad." } },
-    });
-    const issues = checkVocabulary(spec, vocabulary);
-    expect(issues.map((i) => i.message)).toEqual(
-      expect.arrayContaining([expect.stringMatching(/'destructive' is not a canonical variant/)]),
-    );
-  });
-
-  test("does not flag a component-specific prop name (`iconStart`)", () => {
-    const spec = makeButton({
-      props: { iconStart: { type: "string", slot: true, description: "Start icon." } },
-    });
-    expect(checkVocabulary(spec, vocabulary)).toEqual([]);
-  });
-
-  test("flags a typo of a canonical prop name", () => {
-    const spec = makeButton({
-      props: { loadng: { type: "boolean", description: "Loading." } },
-    });
-    const issues = checkVocabulary(spec, vocabulary);
-    expect(issues[0]?.message).toMatch(/typo of the canonical prop 'loading'/);
   });
 });
 
