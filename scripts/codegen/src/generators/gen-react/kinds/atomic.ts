@@ -1,3 +1,4 @@
+import { emptyAnalysis, type SpecAnalysis } from "../../../core/analysis.ts";
 import { collectSlots } from "../../../lib/collect-slots.ts";
 import { renderEnumType } from "../../../lib/enum-primitives.ts";
 import { specVoidStatus, voidTagsInMap } from "../../../lib/html-void-elements.ts";
@@ -6,11 +7,7 @@ import { pascalCase } from "../../../lib/pascal-case.ts";
 import { RESPONSIVE_BLOCK_PROPS } from "../../../lib/responsive-blocks.ts";
 import type { Spec } from "../../gen-contract.ts";
 import { renderA11yAttrs, renderDataAttrs, renderStateAttrs } from "../_shared/attrs.ts";
-import {
-  collectBranchComputes,
-  renderReactBranches,
-  renderReactStateInits,
-} from "../_shared/branches.ts";
+import { renderReactBranches, renderReactStateInits } from "../_shared/branches.ts";
 import {
   renderDestructure,
   renderOwnProps,
@@ -36,32 +33,79 @@ const ROLE_BIOME_IGNORES: Partial<Record<string, Partial<Record<string, string>>
   },
 };
 
+/** Derive SpecAnalysis facts directly from a FlatSpec (atomic). Called only
+ *  when no pre-computed analysis is threaded from the outer generator; in
+ *  production, the generator computes analysis from the raw schema spec before
+ *  flattening and threads it in as the `analysis` parameter. */
+function deriveAnalysis(spec: Spec): SpecAnalysis {
+  const propMap = spec.props ?? {};
+  const responsive = new Set<string>();
+  const slot = new Set<string>();
+  const controllable = new Set<string>();
+  let hasAs = false;
+  let hasDisabled = false;
+  let hasLoading = false;
+  for (const [name, def] of Object.entries(propMap)) {
+    if (def.responsive === true) responsive.add(name);
+    if (def.slot === true) slot.add(name);
+    if (def.pattern === "controllable") controllable.add(name);
+    if (name === "as") hasAs = true;
+    if (name === "disabled") hasDisabled = true;
+    if (name === "loading") hasLoading = true;
+  }
+  const ariaPropNames = new Set<string>(spec.kind === "atomic" ? (spec.a11y?.ariaProps ?? []) : []);
+  const branchComputes = new Set<string>();
+  if (spec.kind === "atomic") {
+    for (const branch of spec.branches ?? []) {
+      const text = branch.text;
+      if (text && "compute" in text) branchComputes.add(text.compute);
+    }
+  }
+  return {
+    ...emptyAnalysis(),
+    responsivePropNames: responsive,
+    slotPropNames: slot,
+    controllablePropNames: controllable,
+    hasAs,
+    hasDisabled,
+    hasLoading,
+    hasPolymorphic: spec.kind === "atomic" && spec.polymorphic === "asChild",
+    ariaPropNames,
+    branchComputes,
+    voidStatus: specVoidStatus(spec),
+    elementByPropControllingProp: spec.kind === "atomic" ? spec.elementByProp?.prop : undefined,
+  };
+}
+
 /** Emit a React wrapper for an atomic spec — a single root element wrapping
  *  `{children}` plus optional positioned slots and the `data-*` attribute
  *  surface (variant / intent / size / responsive). */
 export function renderAtomicReactWrapper(
   spec: Spec,
   propDescriptions: Record<string, string>,
+  analysis?: SpecAnalysis,
 ): string {
+  const resolved = analysis ?? deriveAnalysis(spec);
   const Name = pascalCase(spec.name);
   const rootClass = spec.rootClass ?? `t-${spec.name}`;
   const propMap = spec.props ?? {};
   const elementByProp = spec.elementByProp;
-  // When `as` is the `elementByProp` control it indexes a closed tag map at
-  // runtime — `asElement(as ?? "div")` is the wrong path. Suppress the free
-  // polymorphism branch so the elementByProp branch wins.
-  const hasAs = "as" in propMap && !elementByProp;
-  const hasDisabled = "disabled" in propMap;
-  const hasLoading = "loading" in propMap;
-  const isPolymorphic = spec.polymorphic === "asChild";
+  // Plugin's hasAs does not guard against elementByProp: when a spec has both
+  // `props: { as: ... }` and `elementByProp:`, the plugin returns true but
+  // inline behavior returns false (elementByProp branch wins). Apply the guard
+  // at the consumer site to preserve byte-identical output.
+  const hasAs = resolved.hasAs && !elementByProp;
+  const hasDisabled = resolved.hasDisabled;
+  const hasLoading = resolved.hasLoading;
+  const isPolymorphic = resolved.hasPolymorphic;
   const slots = collectSlots(spec);
 
+  // Plugin's responsivePropNames does not include "size" when spec.sizes is
+  // set (that name is synthesised here, not declared in props). Merge inline.
   const sizeIsResponsive = Boolean(spec.sizes) && RESPONSIVE_BLOCK_PROPS.has("size");
   const responsiveProps: string[] = [
     ...(sizeIsResponsive ? ["size"] : []),
-    ...Object.entries(propMap)
-      .filter(([, d]) => d.responsive === true)
-      .map(([n]) => n),
+    ...Array.from(resolved.responsivePropNames),
   ];
 
   // Boolean spec props become `data-{name}` flags on the root element. The
@@ -84,7 +128,10 @@ export function renderAtomicReactWrapper(
   // the root. Responsive enums go through `responsiveDataAttrs`; the
   // polymorphic `as` prop, the `elementByProp` controlling prop, ariaProps
   // (emitted as `aria-{name}`), and slot props are excluded.
-  const ariaPropNames = new Set(spec.kind === "atomic" ? (spec.a11y?.ariaProps ?? []) : []);
+  // For atomic specs, plugin's ariaPropNames (via visitAllNodes) is equivalent
+  // to the inline read of spec.a11y?.ariaProps — visitAllNodes on atomic calls
+  // fn(spec) exactly once.
+  const ariaPropNames = resolved.ariaPropNames;
   const stringEnumStateProps: string[] = Object.entries(propMap)
     .filter(
       ([name, d]) =>
@@ -110,9 +157,8 @@ export function renderAtomicReactWrapper(
   const componentTag =
     hasAs || isPolymorphic || elementByProp ? "Component" : (spec.element ?? "div");
 
-  const voidStatus = specVoidStatus(spec);
-  const isVoid = voidStatus === "all";
-  const isMixedVoid = voidStatus === "mixed";
+  const isVoid = resolved.voidStatus === "all";
+  const isMixedVoid = resolved.voidStatus === "mixed";
 
   const tagMapLine = elementByProp
     ? `  const tagMap = { ${Object.entries(elementByProp.map)
@@ -265,7 +311,7 @@ export function renderAtomicReactWrapper(
   const usesAsElement = hasAs || Boolean(elementByProp) || isPolymorphic;
   const stateEntries = spec.kind === "atomic" ? Object.entries(spec.state ?? {}) : [];
   const hasState = stateEntries.length > 0;
-  const branchComputes = collectBranchComputes(branches);
+  const branchComputes = Array.from(resolved.branchComputes);
   const reactValueImports = [
     hasImperativeProps ? "useEffect" : null,
     hasImperativeProps ? "useRef" : null,

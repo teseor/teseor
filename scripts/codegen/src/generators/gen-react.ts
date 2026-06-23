@@ -2,6 +2,7 @@ import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse as parseYaml } from "yaml";
+import { computeAnalysis } from "../core/orchestrator.ts";
 import { type Breakpoint, loadBreakpoints } from "../lib/breakpoints.ts";
 import { flattenSpec } from "../lib/flatten.ts";
 import { pascalCase } from "../lib/pascal-case.ts";
@@ -24,16 +25,23 @@ const REACT_SRC_DIR = resolve(REPO_ROOT, "packages", "react", "src");
 
 /** Dispatch to the kind-specific renderer for the spec's `kind:` field.
  *  Composite specs split by shape: overlay-anchor (Tooltip / Modal) vs
- *  repeating-list. */
-function renderWrapper(spec: Spec, propDescriptions: Record<string, string>): string {
+ *  repeating-list. Analysis is pre-computed from the raw schema spec (before
+ *  flattening) and threaded in so the atomic kind generator avoids re-deriving it. */
+function renderWrapper(
+  spec: Spec,
+  propDescriptions: Record<string, string>,
+  analysis?: ReturnType<typeof computeAnalysis>,
+): string {
   if (spec.kind === "composite") {
     if (spec.repeating && spec.repeating.length > 0) return renderCompositeListReactWrapper(spec);
     return renderCompositeOverlayReactWrapper(spec, propDescriptions);
   }
-  return renderAtomicReactWrapper(spec, propDescriptions);
+  return renderAtomicReactWrapper(spec, propDescriptions, analysis);
 }
 
-async function loadSpec(name: string): Promise<Spec> {
+async function loadSpec(
+  name: string,
+): Promise<{ flat: Spec; analysis: ReturnType<typeof computeAnalysis> }> {
   const path = resolve(SPECS_DIR, `${name}.yaml`);
   const raw = await readFile(path, "utf8");
   const parsed = parseYaml(raw);
@@ -47,7 +55,8 @@ async function loadSpec(name: string): Promise<Spec> {
   if (result.data.name !== name) {
     throw new Error(`spec name "${result.data.name}" in ${name}.yaml does not match file basename`);
   }
-  return flattenSpec(result.data);
+  const analysis = computeAnalysis(result.data);
+  return { flat: flattenSpec(result.data), analysis };
 }
 
 async function listSpecNames(): Promise<string[]> {
@@ -62,8 +71,8 @@ async function emitWrapper(
   name: string,
   propDescriptions: Record<string, string>,
 ): Promise<string> {
-  const spec = await loadSpec(name);
-  const content = renderWrapper(spec, propDescriptions);
+  const { flat, analysis } = await loadSpec(name);
+  const content = renderWrapper(flat, propDescriptions, analysis);
   const outPath = resolve(REACT_SRC_DIR, `${pascalCase(name)}.tsx`);
   await mkdir(REACT_SRC_DIR, { recursive: true });
   await writeFile(outPath, content, "utf8");
@@ -129,8 +138,8 @@ async function reactGenerator(ctx: GeneratorContext): Promise<GeneratorReport> {
   filesWritten.push(barrelPath);
   notes.push(`react: barrel -> ${barrelPath.replace(`${REPO_ROOT}/`, "")}`);
 
-  const allSpecs = await Promise.all(allNames.map(loadSpec));
-  const readmePath = await emitReadme(allSpecs);
+  const allSpecResults = await Promise.all(allNames.map(loadSpec));
+  const readmePath = await emitReadme(allSpecResults.map((r) => r.flat));
   filesWritten.push(readmePath);
   notes.push(`react: readme -> ${readmePath.replace(`${REPO_ROOT}/`, "")}`);
 
