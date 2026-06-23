@@ -10,6 +10,7 @@ import { branchEntry } from "./plugins/branches/schema.ts";
 import { coverageBlock } from "./plugins/coverage/schema.ts";
 import { childSpec } from "./plugins/defaultChildren/schema.ts";
 import { elementByPropBlock } from "./plugins/elementByProp/schema.ts";
+import { eventEntry, genericEntry } from "./plugins/events/schema.ts";
 import { exampleEntry } from "./plugins/examples/schema.ts";
 import { stateEntry } from "./plugins/latch/schema.ts";
 import { motionFragment } from "./plugins/motion/schema.ts";
@@ -154,55 +155,6 @@ const componentPart: z.ZodType<ComponentPart> = z.lazy(() =>
   }),
 );
 
-// Closed payload vocabulary — no raw TS fragments, no `unknown`/`any`, so the
-// generated contract can't be widened past the schema's reach.
-export type PayloadEntry =
-  | { type: "string"; nullable?: boolean }
-  | { type: "number"; nullable?: boolean }
-  | { type: "boolean"; nullable?: boolean }
-  | { type: "enum"; values: string[]; nullable?: boolean }
-  | { type: "generic"; ref: string; nullable?: boolean }
-  | { type: "builtin"; name: string; nullable?: boolean }
-  | { type: "array"; of: PayloadEntry; nullable?: boolean };
-
-const payloadEntry: z.ZodType<PayloadEntry> = z.lazy(() =>
-  z.discriminatedUnion("type", [
-    z.strictObject({ type: z.literal("string"), nullable: z.boolean().optional() }),
-    z.strictObject({ type: z.literal("number"), nullable: z.boolean().optional() }),
-    z.strictObject({ type: z.literal("boolean"), nullable: z.boolean().optional() }),
-    z.strictObject({
-      type: z.literal("enum"),
-      values: z.array(z.string()).min(1),
-      nullable: z.boolean().optional(),
-    }),
-    z.strictObject({
-      type: z.literal("generic"),
-      ref: z.string().min(1),
-      nullable: z.boolean().optional(),
-    }),
-    z.strictObject({
-      type: z.literal("builtin"),
-      name: z.string().min(1),
-      nullable: z.boolean().optional(),
-    }),
-    z.strictObject({
-      type: z.literal("array"),
-      of: payloadEntry,
-      nullable: z.boolean().optional(),
-    }),
-  ]),
-);
-
-const eventEntry = z.strictObject({
-  description: z.string().min(1),
-  payload: z.record(z.string(), payloadEntry).default({}),
-});
-
-const genericEntry = z.strictObject({
-  name: z.string().regex(/^[A-Z][A-Za-z0-9]*$/),
-  description: z.string().min(1),
-});
-
 // Identity-layer fields — only at the root, never on a sub-part.
 const guidanceBlock = z.strictObject({
   when: z.array(z.string()).optional(),
@@ -297,3 +249,5 @@ export type Spec = z.infer<typeof Spec>;
 export type AtomicSpec = z.infer<typeof atomicSpec>;
 export type CompositeSpec = z.infer<typeof compositeSpec>;
 export type SpecPart = ComponentPart;
+
+export type { PayloadEntry } from "./plugins/events/schema.ts";
