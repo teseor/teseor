@@ -3,6 +3,7 @@ import { coveragePlugin } from "../plugins/coverage/index.ts";
 import { dependenciesPlugin } from "../plugins/dependencies/index.ts";
 import { examplesPlugin } from "../plugins/examples/index.ts";
 import { motionPlugin } from "../plugins/motion/index.ts";
+import { propsPlugin } from "../plugins/props/index.ts";
 import { tokensPlugin } from "../plugins/tokens/index.ts";
 import { variantsPlugin } from "../plugins/variants/index.ts";
 import { voidElementsPlugin } from "../plugins/voidElements/index.ts";
@@ -22,4 +23,5 @@ export const PLUGINS: readonly SubstratePlugin[] = [
   examplesPlugin,
   voidElementsPlugin,
   a11yPlugin,
+  propsPlugin,
 ];

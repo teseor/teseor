@@ -12,6 +12,7 @@ import { checkA11yRefs } from "./plugins/a11y/check.ts";
 import { checkCoverageShape } from "./plugins/coverage/check.ts";
 import { checkExamplesPresent } from "./plugins/examples/check.ts";
 import { checkMotion } from "./plugins/motion/check.ts";
+import { checkResponsiveExplicit } from "./plugins/props/check.ts";
 import {
   checkCssImportAllowlist,
   checkPrivateTokens,
@@ -779,36 +780,6 @@ export function checkBranches(spec: Spec): Issue[] {
             );
           }
         }
-      }
-    }
-  });
-  return issues;
-}
-
-// ── Responsive: explicit per-prop decision (#594) ───────────────────────────
-
-/**
- * Every non-slot prop must declare `responsive:` explicitly (`true` or
- * `false`). Omission silently defaults to non-responsive — making the
- * decision invisible in review. Slot props are exempt: they pass through
- * children / VNodes and have no breakpoint-variant rendering surface.
- * Walks composite parts so `parts.<name>.props.<prop>` is covered too.
- */
-export function checkResponsiveExplicit(spec: Spec): Issue[] {
-  const issues: Issue[] = [];
-  visitNodes(spec, (node, path) => {
-    for (const [propName, propDef] of Object.entries(node.props ?? {})) {
-      if (propDef.slot === true) continue;
-      if (propDef.responsive === undefined) {
-        const propPath =
-          path === "" ? `props.${propName}.responsive` : `${path}.props.${propName}.responsive`;
-        issues.push(
-          issue(
-            spec.name,
-            propPath,
-            "non-slot prop must declare `responsive:` explicitly (`true` or `false`)",
-          ),
-        );
       }
     }
   });
@@ -2136,6 +2107,7 @@ export { checkCoverageShape } from "./plugins/coverage/check.ts";
 export type { DependencyIndex } from "./plugins/dependencies/check.ts";
 export { checkDependencyCycles } from "./plugins/dependencies/check.ts";
 export { checkExamplesPresent } from "./plugins/examples/check.ts";
+export { checkResponsiveExplicit } from "./plugins/props/check.ts";
 export {
   checkCssImportAllowlist,
   checkPrivateTokens,

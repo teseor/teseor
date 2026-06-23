@@ -9,6 +9,7 @@ import { a11yBlock } from "./plugins/a11y/schema.ts";
 import { coverageBlock } from "./plugins/coverage/schema.ts";
 import { exampleEntry } from "./plugins/examples/schema.ts";
 import { motionFragment } from "./plugins/motion/schema.ts";
+import { propEntry } from "./plugins/props/schema.ts";
 import { tokenEntry } from "./plugins/tokens/schema.ts";
 import {
   intentEntry,
@@ -16,16 +17,6 @@ import {
   variantEntry,
   visualStateEntry,
 } from "./plugins/variants/schema.ts";
-
-const propEntry = z.strictObject({
-  type: z.enum(["string", "boolean", "number"]),
-  default: z.unknown().optional(),
-  description: z.string().min(1),
-  responsive: z.boolean().optional(),
-  slot: z.boolean().optional(),
-  values: z.array(z.string()).optional(),
-  pattern: z.literal("controllable").optional(),
-});
 
 const constraintEntry = z.strictObject({
   when: z.record(z.string(), z.unknown()),
