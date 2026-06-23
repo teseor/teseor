@@ -14,9 +14,11 @@ name: button
 description: A trigger that performs an action when activated.
 kind: atomic           # atomic | composite
 dependencies: []       # ["icon"] for composites
-element: button        # default semantic tag
+root:                  # root-tag descriptor (kind: static | byProp, polymorphic optional)
+  kind: static
+  tag: button
 rootClass: t-button
-file: components/button/button.css
+cssFile: components/button/button.css
 
 variants:
   solid:   { description: Filled background with intent color. }
