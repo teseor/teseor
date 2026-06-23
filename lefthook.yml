@@ -64,3 +64,15 @@ pre-push:
       run: pnpm -r --if-present run build && node scripts/hooks/verify-no-dev-leak.js
     measure:
       run: pnpm build:css && pnpm size
+
+# `packages/css/dist/**` is gitignored, so pulling/merging new CSS sources
+# leaves it stale relative to `packages/css/src/**`. Consumers that import
+# `@teseor/css/components/<name>.css` (the wrappers, the docs, the harness)
+# then fail to resolve. This hook rebuilds dist whenever the merged range
+# changed CSS sources — runs ~1s and only when the glob matches.
+post-merge:
+  files: git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD
+  commands:
+    rebuild-css:
+      glob: "packages/css/src/**"
+      run: pnpm build:css
