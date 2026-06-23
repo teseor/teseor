@@ -6,5 +6,4 @@ export const overlayPlugin: SubstratePlugin = {
   schema: {
     part: { overlay: overlayBlock.optional() },
   },
-  emit: {},
 };

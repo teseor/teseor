@@ -2,8 +2,8 @@ import { describe, expectTypeOf, it } from "vitest";
 import type { SubstratePlugin } from "./plugin.ts";
 
 describe("SubstratePlugin", () => {
-  it("requires name and emit", () => {
+  it("requires name and schema", () => {
     expectTypeOf<SubstratePlugin>().toHaveProperty("name");
-    expectTypeOf<SubstratePlugin>().toHaveProperty("emit");
+    expectTypeOf<SubstratePlugin>().toHaveProperty("schema");
   });
 });

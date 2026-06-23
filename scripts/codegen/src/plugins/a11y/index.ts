@@ -11,5 +11,4 @@ export const a11yPlugin: SubstratePlugin = {
   },
   analyze: (spec) => analyzeA11y(spec),
   check: (spec) => checkA11yRefs(spec),
-  emit: {},
 };

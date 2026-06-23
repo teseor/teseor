@@ -14,5 +14,4 @@ export const tokensPlugin: SubstratePlugin = {
       privateTokens: z.array(z.string()).optional(),
     },
   },
-  emit: {},
 };

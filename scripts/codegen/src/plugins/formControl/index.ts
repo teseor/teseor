@@ -6,5 +6,4 @@ export const formControlPlugin: SubstratePlugin = {
   schema: {
     atomic: { formControl: z.boolean().optional() },
   },
-  emit: {},
 };

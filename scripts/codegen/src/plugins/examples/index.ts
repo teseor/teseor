@@ -10,5 +10,4 @@ export const examplesPlugin: SubstratePlugin = {
     composite: { examples: z.array(exampleEntry).optional() },
   },
   check: (spec) => checkExamplesPresent(spec),
-  emit: {},
 };

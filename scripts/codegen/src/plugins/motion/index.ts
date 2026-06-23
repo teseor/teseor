@@ -10,5 +10,4 @@ export const motionPlugin: SubstratePlugin = {
     part: { motion: motionFragment.optional() },
   },
   check: (spec) => checkMotion(spec),
-  emit: {},
 };

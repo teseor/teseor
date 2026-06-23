@@ -11,5 +11,4 @@ export const elementByPropPlugin: SubstratePlugin = {
   },
   analyze: (spec) => analyzeElementByProp(spec),
   check: (spec) => checkElementByProp(spec),
-  emit: {},
 };

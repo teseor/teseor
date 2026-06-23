@@ -7,5 +7,4 @@ export const rootElementStaticPlugin: SubstratePlugin = {
     atomic: { element: z.string().optional() },
     part: { element: z.string().optional() },
   },
-  emit: {},
 };

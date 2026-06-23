@@ -7,5 +7,4 @@ export const statesPlugin: SubstratePlugin = {
   schema: {
     part: { states: z.record(z.string(), stateDef).optional() },
   },
-  emit: {},
 };

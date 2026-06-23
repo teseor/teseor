@@ -5,5 +5,4 @@ export const partsPlugin: SubstratePlugin = {
   name: "parts",
   schema: {},
   check: (spec) => checkRepeatingParts(spec),
-  emit: {},
 };

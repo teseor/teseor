@@ -7,5 +7,4 @@ export const voidElementsPlugin: SubstratePlugin = {
   schema: {},
   analyze: (spec) => analyzeVoidElements(spec),
   check: (spec) => checkVoidElementConstraints(spec),
-  emit: {},
 };

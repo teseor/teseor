@@ -14,5 +14,4 @@ export const propsPlugin: SubstratePlugin = {
   },
   analyze: (spec) => analyzeProps(spec),
   check: (spec) => checkResponsiveExplicit(spec),
-  emit: {},
 };

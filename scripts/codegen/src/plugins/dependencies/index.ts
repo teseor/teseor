@@ -7,5 +7,4 @@ export const dependenciesPlugin: SubstratePlugin = {
     atomic: { dependencies: z.array(z.string()).optional() },
     composite: { dependencies: z.array(z.string()).optional() },
   },
-  emit: {},
 };

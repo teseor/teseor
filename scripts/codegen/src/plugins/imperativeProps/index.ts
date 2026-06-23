@@ -6,5 +6,4 @@ export const imperativePropsPlugin: SubstratePlugin = {
   schema: {
     atomic: { imperativeProps: imperativePropsRecord },
   },
-  emit: {},
 };

@@ -19,12 +19,10 @@ describe("composeFragments collision detection", () => {
     const pluginA: SubstratePlugin = {
       name: "pluginA",
       schema: { atomic: { foo: z.string() } },
-      emit: {},
     };
     const pluginB: SubstratePlugin = {
       name: "pluginB",
       schema: { atomic: { foo: z.number() } },
-      emit: {},
     };
     expect(() => composeFragments("atomic", [pluginA, pluginB])).toThrow(
       /Schema collision.*pluginB.*foo.*atomic/,

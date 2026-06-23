@@ -7,5 +7,4 @@ export const defaultChildrenPlugin: SubstratePlugin = {
   schema: {
     atomic: { defaultChildren: z.array(childSpec).optional() },
   },
-  emit: {},
 };

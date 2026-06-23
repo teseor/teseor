@@ -20,5 +20,4 @@ export const variantsPlugin: SubstratePlugin = {
     },
   },
   check: (spec) => [...checkExamplesReferences(spec), ...checkVariantChoiceKeys(spec)],
-  emit: {},
 };

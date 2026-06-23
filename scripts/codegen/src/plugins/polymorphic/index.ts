@@ -10,5 +10,4 @@ export const polymorphicPlugin: SubstratePlugin = {
   },
   analyze: (spec) => analyzePolymorphic(spec),
   check: (spec) => [...checkAsIsConstrained(spec), ...checkPolymorphicAtomic(spec)],
-  emit: {},
 };

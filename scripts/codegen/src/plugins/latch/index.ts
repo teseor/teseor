@@ -7,5 +7,4 @@ export const latchPlugin: SubstratePlugin = {
   schema: {
     atomic: { state: z.record(z.string().min(1), stateEntry).optional() },
   },
-  emit: {},
 };

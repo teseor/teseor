@@ -6,5 +6,4 @@ export const htmlAttrsPlugin: SubstratePlugin = {
   schema: {
     atomic: { htmlAttrs: z.record(z.string().min(1), z.string()).optional() },
   },
-  emit: {},
 };

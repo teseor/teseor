@@ -14,5 +14,4 @@ export const eventsPlugin: SubstratePlugin = {
       generics: z.array(genericEntry).optional(),
     },
   },
-  emit: {},
 };

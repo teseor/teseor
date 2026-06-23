@@ -15,5 +15,4 @@ export const constraintsPlugin: SubstratePlugin = {
     ...checkConstraintsAgainstExamples(spec),
     ...checkConstraintsAgainstCoverage(spec),
   ],
-  emit: {},
 };

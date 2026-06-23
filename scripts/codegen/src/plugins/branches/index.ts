@@ -11,5 +11,4 @@ export const branchesPlugin: SubstratePlugin = {
   },
   analyze: (spec) => analyzeBranches(spec),
   check: (spec) => checkBranches(spec),
-  emit: {},
 };

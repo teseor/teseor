@@ -9,5 +9,4 @@ export const coveragePlugin: SubstratePlugin = {
     composite: { coverage: coverageBlock.optional() },
   },
   check: (spec) => checkCoverageShape(spec),
-  emit: {},
 };
