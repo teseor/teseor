@@ -1,6 +1,7 @@
 import { a11yPlugin } from "../plugins/a11y/index.ts";
 import { branchesPlugin } from "../plugins/branches/index.ts";
 import { coveragePlugin } from "../plugins/coverage/index.ts";
+import { defaultChildrenPlugin } from "../plugins/defaultChildren/index.ts";
 import { dependenciesPlugin } from "../plugins/dependencies/index.ts";
 import { examplesPlugin } from "../plugins/examples/index.ts";
 import { formControlPlugin } from "../plugins/formControl/index.ts";
@@ -34,4 +35,5 @@ export const PLUGINS: readonly SubstratePlugin[] = [
   branchesPlugin,
   latchPlugin,
   htmlAttrsPlugin,
+  defaultChildrenPlugin,
 ];

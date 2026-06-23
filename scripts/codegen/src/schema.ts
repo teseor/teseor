@@ -8,6 +8,7 @@ import { z } from "zod";
 import { a11yBlock } from "./plugins/a11y/schema.ts";
 import { branchEntry } from "./plugins/branches/schema.ts";
 import { coverageBlock } from "./plugins/coverage/schema.ts";
+import { childSpec } from "./plugins/defaultChildren/schema.ts";
 import { exampleEntry } from "./plugins/examples/schema.ts";
 import { stateEntry } from "./plugins/latch/schema.ts";
 import { motionFragment } from "./plugins/motion/schema.ts";
@@ -215,12 +216,6 @@ const guidanceBlock = z.strictObject({
   commonMistakes: z
     .array(z.strictObject({ mistake: z.string().min(1), fix: z.string().min(1) }))
     .optional(),
-});
-
-const childSpec = z.strictObject({
-  tag: z.string().regex(/^[a-z][a-z0-9-]*$/, "must be a lowercase HTML tag name"),
-  attrs: z.record(z.string().min(1), z.union([z.string(), z.number(), z.boolean()])).optional(),
-  text: z.string().optional(),
 });
 
 const identityFields = {
