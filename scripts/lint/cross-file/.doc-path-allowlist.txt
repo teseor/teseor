@@ -52,3 +52,13 @@ scripts/benchmark.ts
 scripts/codegen/src/core/
 scripts/codegen/src/plugins/
 scripts/repo/migrate-substrate-consolidation.ts
+
+# ADR-0025 amendment 2026-06-23 — emit in per-target generators, Option B'.
+# Phase 3 Task 36r renames gen-react -> gen-react-19, gen-vue -> gen-vue-3.
+# gen-react-20 / gen-vue-4 / gen-react-shared are hypothetical future forks
+# referenced in the ADR amendment's prose. Remove when the renames land.
+scripts/codegen/src/generators/gen-react-19/
+scripts/codegen/src/generators/gen-react-20/
+scripts/codegen/src/generators/gen-vue-3/
+scripts/codegen/src/generators/gen-vue-4/
+scripts/codegen/src/generators/gen-react-shared/
