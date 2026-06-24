@@ -15,7 +15,7 @@ import {
   checkConstraintsAgainstExamples,
 } from "./plugins/constraints/check.ts";
 import { checkCoverageShape } from "./plugins/coverage/check.ts";
-import { checkEvents, checkEventsRuntimeSupport } from "./plugins/events/check.ts";
+import { checkEvents, checkEventsRuntimeSupport } from "./plugins/events/check/index.ts";
 import { checkExamplesPresent } from "./plugins/examples/check.ts";
 import { checkFormControl } from "./plugins/formControl/check.ts";
 import { checkImperativeProps } from "./plugins/imperativeProps/check.ts";
@@ -95,7 +95,7 @@ export {
 export { checkCoverageShape } from "./plugins/coverage/check.ts";
 export type { DependencyIndex } from "./plugins/dependencies/check.ts";
 export { checkDependencyCycles } from "./plugins/dependencies/check.ts";
-export { checkEvents, checkEventsRuntimeSupport } from "./plugins/events/check.ts";
+export { checkEvents, checkEventsRuntimeSupport } from "./plugins/events/check/index.ts";
 export { checkExamplesPresent } from "./plugins/examples/check.ts";
 export { checkFormControl } from "./plugins/formControl/check.ts";
 export { checkImperativeProps } from "./plugins/imperativeProps/check.ts";
