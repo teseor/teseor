@@ -4,7 +4,7 @@ import type { a11yBlock } from "../plugins/a11y/schema.ts";
 import type { branchEntry } from "../plugins/branches/schema.ts";
 import type { constraintEntry } from "../plugins/constraints/schema.ts";
 import type { coverageBlock } from "../plugins/coverage/schema.ts";
-import type { childSpec } from "../plugins/defaultChildren/schema.ts";
+import type { childSpec } from "../plugins/default-children/schema.ts";
 import type { eventEntry, genericEntry, PayloadEntry } from "../plugins/events/schema.ts";
 import type { exampleEntry } from "../plugins/examples/schema.ts";
 import type { latchEntry } from "../plugins/latch/schema.ts";

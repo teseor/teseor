@@ -17,8 +17,8 @@ import {
 import { checkCoverageShape } from "./plugins/coverage/check.ts";
 import { checkEvents, checkEventsRuntimeSupport } from "./plugins/events/check/index.ts";
 import { checkExamplesPresent } from "./plugins/examples/check.ts";
-import { checkFormControl } from "./plugins/formControl/check.ts";
-import { checkImperativeProps } from "./plugins/imperativeProps/check.ts";
+import { checkFormControl } from "./plugins/form-control/check.ts";
+import { checkImperativeProps } from "./plugins/imperative-props/check.ts";
 import { checkMotion } from "./plugins/motion/check.ts";
 import { checkRepeatingParts } from "./plugins/parts/check/index.ts";
 import { checkResponsiveExplicit } from "./plugins/props/check.ts";
@@ -33,7 +33,7 @@ import {
 } from "./plugins/tokens/check.ts";
 import { checkExamplesReferences, checkVariantChoiceKeys } from "./plugins/variants/check.ts";
 import { checkVocabulary } from "./plugins/vocabulary/check.ts";
-import { checkVoidElementConstraints } from "./plugins/voidElements/check.ts";
+import { checkVoidElementConstraints } from "./plugins/void-elements/check.ts";
 import type { Spec } from "./schema.ts";
 
 export type { Issue } from "./core/check-utils.ts";
@@ -97,8 +97,8 @@ export type { DependencyIndex } from "./plugins/dependencies/check.ts";
 export { checkDependencyCycles } from "./plugins/dependencies/check.ts";
 export { checkEvents, checkEventsRuntimeSupport } from "./plugins/events/check/index.ts";
 export { checkExamplesPresent } from "./plugins/examples/check.ts";
-export { checkFormControl } from "./plugins/formControl/check.ts";
-export { checkImperativeProps } from "./plugins/imperativeProps/check.ts";
+export { checkFormControl } from "./plugins/form-control/check.ts";
+export { checkImperativeProps } from "./plugins/imperative-props/check.ts";
 export { checkRepeatingParts } from "./plugins/parts/check/index.ts";
 export { checkResponsiveExplicit } from "./plugins/props/check.ts";
 export { checkRoot } from "./plugins/root/check.ts";
@@ -115,6 +115,6 @@ export {
   checkVariantChoiceKeys,
 } from "./plugins/variants/check.ts";
 export { checkVocabulary } from "./plugins/vocabulary/check.ts";
-export { checkVoidElementConstraints } from "./plugins/voidElements/check.ts";
+export { checkVoidElementConstraints } from "./plugins/void-elements/check.ts";
 
 export type { CssIndex };
