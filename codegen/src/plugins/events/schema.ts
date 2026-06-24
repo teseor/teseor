@@ -11,7 +11,7 @@ export type PayloadEntry =
   | { type: "builtin"; name: string; nullable?: boolean }
   | { type: "array"; of: PayloadEntry; nullable?: boolean };
 
-export const payloadEntry: z.ZodType<PayloadEntry> = z.lazy(() =>
+const payloadEntry: z.ZodType<PayloadEntry> = z.lazy(() =>
   z.discriminatedUnion("type", [
     z.strictObject({ type: z.literal("string"), nullable: z.boolean().optional() }),
     z.strictObject({ type: z.literal("number"), nullable: z.boolean().optional() }),

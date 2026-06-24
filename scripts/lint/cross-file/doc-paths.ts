@@ -123,7 +123,7 @@ function isPathShaped(candidate: string): boolean {
 /** Allowlist of forward-reference path prefixes — paths the docs name but
  * the tree doesn't carry yet (build artifacts, future packages, future
  * components). One prefix per line in `.doc-path-allowlist.txt`. */
-export function loadAllowlist(): string[] {
+function loadAllowlist(): string[] {
   try {
     return readFileSync(ALLOWLIST_FILE, "utf8")
       .split("\n")

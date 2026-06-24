@@ -3,7 +3,7 @@ import { z } from "zod";
 // Shorthand `"open"` sugars to `{ to: "open" }`; long form unlocks `after:`,
 // `when:`, and `emits:`. Semantic checks reject shorthand when any of those
 // are needed.
-export const transitionTarget = z.union([
+const transitionTarget = z.union([
   z.string().min(1),
   z.strictObject({
     to: z.string().min(1),

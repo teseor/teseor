@@ -148,4 +148,4 @@ async function reactGenerator(ctx: GeneratorContext): Promise<GeneratorReport> {
 
 registerGenerator("react", reactGenerator);
 
-export { renderBarrel, renderCssShim, renderReadme, renderRuntime, renderWrapper };
+export { renderBarrel, renderCssShim, renderRuntime, renderWrapper };

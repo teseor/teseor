@@ -1,0 +1,19 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "ignoreBinaries": ["gh"],
+  "workspaces": {
+    ".": {
+      "entry": [
+        "scripts/lint/file-rules/*.js",
+        "scripts/maintenance/*.ts",
+        "scripts/maintenance/*.sh",
+        "scripts/hooks/*.js",
+        "docs/research/_component-survey/*.mjs",
+        ".claude/*.mjs"
+      ]
+    },
+    "codegen": {
+      "entry": ["src/validate-spec.ts"]
+    }
+  }
+}

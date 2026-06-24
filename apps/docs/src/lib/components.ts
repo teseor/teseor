@@ -79,5 +79,4 @@ function loadComponents(): ComponentNavEntry[] {
 
 const components = loadComponents();
 
-export type { ComponentNavEntry };
 export { components };

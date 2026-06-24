@@ -52,7 +52,7 @@ export function collectSpecLocalAliases(spec: Spec): Set<string> {
   return aliases;
 }
 
-export function addNodeAliases(
+function addNodeAliases(
   node: {
     variants?: object;
     intents?: object;
@@ -72,11 +72,7 @@ export function addNodeAliases(
   }
 }
 
-export function repeatingItemTypeName(
-  componentName: string,
-  part: SpecPart,
-  partName: string,
-): string {
+function repeatingItemTypeName(componentName: string, part: SpecPart, partName: string): string {
   if (typeof part.groupKey === "string") {
     if (part.groupKey.toLowerCase() === "items") return `${componentName}Item`;
     return `${componentName}${pascalCase(part.groupKey)}Item`;

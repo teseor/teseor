@@ -76,7 +76,7 @@ export function hasFromChildrenPart(spec: DocsSpec): boolean {
 }
 
 /** True when any part of the composite declares an `overlay:` block. */
-export function hasOverlayPart(spec: DocsSpec): boolean {
+function hasOverlayPart(spec: DocsSpec): boolean {
   if (spec.kind !== "composite") return false;
   const visit = (
     parts: Record<string, { overlay?: unknown; parts?: typeof parts }> | undefined,

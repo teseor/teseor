@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export type WhenClause =
+type WhenClause =
   | { propTruthy: string }
   | { propFalsy: string }
   | { stateTruthy: string }
@@ -8,7 +8,7 @@ export type WhenClause =
   | { all: WhenClause[] }
   | { any: WhenClause[] };
 
-export const whenClause: z.ZodType<WhenClause> = z.lazy(() =>
+const whenClause: z.ZodType<WhenClause> = z.lazy(() =>
   z.union([
     z.strictObject({ propTruthy: z.string().min(1) }),
     z.strictObject({ propFalsy: z.string().min(1) }),
@@ -19,14 +19,14 @@ export const whenClause: z.ZodType<WhenClause> = z.lazy(() =>
   ]),
 );
 
-export const branchAttrValue = z.union([
+const branchAttrValue = z.union([
   z.strictObject({ prop: z.string().min(1) }),
   z.strictObject({
     setState: z.strictObject({ name: z.string().min(1), to: z.boolean() }),
   }),
 ]);
 
-export const branchTextClause = z.union([
+const branchTextClause = z.union([
   z.strictObject({ prop: z.string().min(1) }),
   z.strictObject({
     compute: z.string().min(1),

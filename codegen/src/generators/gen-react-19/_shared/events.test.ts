@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 import type { Spec } from "../../gen-contract.ts";
-import { renderEventHandlerBodies } from "./events.ts";
+import { consumerHandlerPropNames, hasEventsBlock, renderEventHandlerBodies } from "./events.ts";
 
 function specWith(events: Spec["events"]): Spec {
   return {
@@ -49,5 +49,35 @@ describe("renderEventHandlerBodies", () => {
         [],
       ),
     ).toThrow(/events\.dismiss must declare a payload field 'reason' of type enum/);
+  });
+});
+
+describe("hasEventsBlock", () => {
+  test("is false when events is undefined", () => {
+    expect(hasEventsBlock(specWith(undefined))).toBe(false);
+  });
+
+  test("is false when events is empty", () => {
+    expect(hasEventsBlock(specWith({}))).toBe(false);
+  });
+
+  test("is true when at least one event is declared", () => {
+    expect(hasEventsBlock(specWith({ select: { description: "Selected.", payload: {} } }))).toBe(
+      true,
+    );
+  });
+});
+
+describe("consumerHandlerPropNames", () => {
+  test("maps each declared event to its `on<Pascal>` prop name", () => {
+    const spec = specWith({
+      select: { description: "Selected.", payload: {} },
+      "input-change": { description: "Input changed.", payload: {} },
+    });
+    expect(consumerHandlerPropNames(spec)).toEqual(["onSelect", "onInputChange"]);
+  });
+
+  test("returns an empty array when the spec declares no events", () => {
+    expect(consumerHandlerPropNames(specWith(undefined))).toEqual([]);
   });
 });

@@ -42,18 +42,18 @@ export type FlatRepeatingPart = {
   groupKey?: string;
 };
 
-export type FlatToken = {
+type FlatToken = {
   fallback: string;
   desc: string;
   __part: string;
 };
 
-export type FlatVisualState = {
+type FlatVisualState = {
   description: string;
   __part: string;
 };
 
-export type FlatA11y = {
+type FlatA11y = {
   role?: string;
   keyboard?: Record<string, string>;
   states?: Record<string, string>;
@@ -62,7 +62,7 @@ export type FlatA11y = {
   labelProp?: string;
 };
 
-export type FlatMotion = {
+type FlatMotion = {
   transitions?: string[];
   enters?: string[];
   exits?: string[];
