@@ -378,7 +378,7 @@ A failed `gen-drift` means somebody edited a generated file by hand. The fix is 
 (in the `lint` chain) and on pre-commit when a spec file is staged. Two layers
 per ADR-0009:
 
-**Shape (Zod).** Each spec parses against `scripts/codegen/src/schema.ts` — an
+**Shape (Zod).** Each spec parses against `scripts/codegen/src/core/schema.ts` — an
 identity layer (`name`, `kind`, `description`, `dependencies`, `file`,
 `behavior`, `primitives`, `guidance`, `examples`, `coverage`) plus a recursive
 `ComponentNode` (`element`, `rootClass`, `variants`, `intents`, `sizes`,
