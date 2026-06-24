@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const a11yKeyboard = z.record(z.string(), z.string());
+const a11yKeyboard = z.record(z.string(), z.string());
 
 export const a11yBlock = z.strictObject({
   role: z.string().optional(),

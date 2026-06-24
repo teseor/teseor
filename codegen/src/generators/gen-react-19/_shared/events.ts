@@ -24,7 +24,7 @@ import { renderPayloadFields } from "../../gen-contract/_shared/payload-printer.
 import type { Spec } from "../../gen-contract.ts";
 
 /** Names of declared events on a spec, in declaration order. */
-export function declaredEventNames(spec: Spec): string[] {
+function declaredEventNames(spec: Spec): string[] {
   return Object.keys(spec.events ?? {});
 }
 
@@ -156,10 +156,4 @@ export function renderEventHandlerBodies(
  *  the wrapper template to destructure from props. */
 export function consumerHandlerPropNames(spec: Spec): string[] {
   return declaredEventNames(spec).map((n) => `on${pascalCase(n)}`);
-}
-
-/** Wrapped handler names (`handleDismiss`, `handleSelect`, …) — used by the
- *  wrapper template to reference the local `useCallback` blocks. */
-export function wrappedHandlerNames(spec: Spec): string[] {
-  return declaredEventNames(spec).map((n) => `handle${pascalCase(n)}`);
 }

@@ -7,7 +7,7 @@ export type CompositeShapeOptions = {
   forbidContentFromChildren: boolean;
 };
 
-export type OverlayShape = {
+type OverlayShape = {
   anchor: string;
   anchorVar: string;
   mode: "auto" | "manual" | "hint";

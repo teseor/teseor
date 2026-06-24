@@ -105,12 +105,17 @@ export const REGISTRY: Readonly<Record<string, Check>> = {
   markdown: {
     kind: "external",
     triggers: ["**/*.md"],
-    command: "pnpm exec markdownlint-cli2",
+    command: "pnpm lint:md",
   },
   spec: {
     kind: "external",
     triggers: ["specs/*.yaml"],
     command: "node codegen/src/validate-spec.ts",
+  },
+  knip: {
+    kind: "external",
+    triggers: ["**/*.{ts,tsx,js,mjs,cjs}", "**/package.json", "knip.json"],
+    command: "pnpm lint:knip",
   },
   "logical-naming": {
     kind: "external",

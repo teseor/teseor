@@ -147,4 +147,4 @@ async function vueGenerator(ctx: GeneratorContext): Promise<GeneratorReport> {
 
 registerGenerator("vue", vueGenerator);
 
-export { renderBarrel, renderCssShim, renderReadme, renderRuntime, renderWrapper };
+export { renderBarrel, renderCssShim, renderRuntime, renderWrapper };

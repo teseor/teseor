@@ -22,6 +22,8 @@ The bare-verb defaults are the verbs you reach for daily: `dev`, `build`, `test`
 | `pnpm test:visual` | Placeholder — the pixel-diff suite lands with the visual gate | When visuals changed | Developer + CI |
 | `pnpm test:a11y` | Placeholder — the axe-core suite lands with the a11y gate | When ARIA / keyboard map changed | Developer |
 | `pnpm lint` | Dispatches every check registered in `scripts/lint/registry.ts` (biome, stylelint, markdownlint, spec validator, logical-naming, comments, plus the project-specific TypeScript rules). `node scripts/lint/run.ts --list` shows the catalog; `--<rulename>` runs one | Before push; in CI; via lefthook | Developer + CI + lefthook |
+| `pnpm lint:knip` | Knip — unused exports/types/files/devDeps. Invoked by the `knip` rule in the lint registry; the script form keeps the binary discoverable | Same path as `lint` | Registry-only |
+| `pnpm lint:md` | markdownlint-cli2 — invoked by the `markdown` rule in the lint registry; the script form keeps the binary discoverable | Same path as `lint` | Registry-only |
 | `pnpm typecheck` | `tsc --noEmit` at the root plus recursive `typecheck` across packages | Before push; in CI; via lefthook | Developer + CI + lefthook |
 | `pnpm size` | `size-limit` — per-entry CSS bundle budgets | When bundle size may have moved | Developer + CI |
 | `pnpm migrate:specs` | One-off spec migration (`scripts/maintenance/migrate-specs.ts`) | Rare — bulk spec-format changes | Maintainer |

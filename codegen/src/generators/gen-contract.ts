@@ -111,4 +111,4 @@ async function contractGenerator(ctx: GeneratorContext): Promise<GeneratorReport
 
 registerGenerator("contract", contractGenerator);
 
-export { loadFlatSpec, renderBarrel, renderContract, renderResponsiveModule };
+export { renderContract, renderResponsiveModule };

@@ -6,14 +6,14 @@ import { parse as parseYaml } from "yaml";
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..", "..");
 const VOCABULARY_PATH = resolve(REPO_ROOT, "specs", "_vocabulary.yaml");
 
-export type EventVocabulary = {
+type EventVocabulary = {
   verbs: Record<string, string>;
   synonyms: Record<string, string>;
   pattern: string;
   builtins: Record<string, string>;
 };
 
-export type FormControlPropEntry = {
+type FormControlPropEntry = {
   type: "string" | "boolean" | "number";
   description: string;
 };

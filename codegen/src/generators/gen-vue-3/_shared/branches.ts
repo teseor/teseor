@@ -86,13 +86,3 @@ export function renderVueStateInits(state: FlatSpec["latch"] | undefined): strin
     .map(([name, def]) => `const ${name} = ref<boolean>(${def.initial});`)
     .join("\n");
 }
-
-/** Extract the unique set of `compute:` helper names referenced by branches. */
-export function collectVueBranchComputes(branches: Branch[] | undefined): string[] {
-  if (!branches) return [];
-  const found = new Set<string>();
-  for (const b of branches) {
-    if (b.text && "compute" in b.text) found.add(b.text.compute);
-  }
-  return Array.from(found);
-}

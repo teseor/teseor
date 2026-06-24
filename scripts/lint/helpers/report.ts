@@ -1,6 +1,6 @@
 // Uniform success/violation output for every check.
 
-export type Location = { file: string; line?: number };
+type Location = { file: string; line?: number };
 
 export type Violation = Location & { message: string };
 

@@ -3,7 +3,7 @@ import type { SpecAnalysis } from "./analysis.ts";
 import type { Issue } from "./check-utils.ts";
 import type { Spec } from "./schema.ts";
 
-export type CheckContext = {
+type CheckContext = {
   vocabulary: Readonly<Record<string, unknown>>;
   tokensCss: string | undefined;
   componentCss: string | undefined;

@@ -90,13 +90,3 @@ export function renderReactStateInits(state: FlatSpec["latch"] | undefined): str
     )
     .join("\n");
 }
-
-/** Extract the unique set of `compute:` helper names referenced by branches. */
-export function collectBranchComputes(branches: Branch[] | undefined): string[] {
-  if (!branches) return [];
-  const found = new Set<string>();
-  for (const b of branches) {
-    if (b.text && "compute" in b.text) found.add(b.text.compute);
-  }
-  return Array.from(found);
-}

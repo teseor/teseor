@@ -27,5 +27,5 @@ function listGenerators(): string[] {
   return [...REGISTRY.keys()].sort();
 }
 
-export type { GeneratorContext, GeneratorFn, GeneratorReport };
+export type { GeneratorContext, GeneratorReport };
 export { getGenerator, listGenerators, registerGenerator };
