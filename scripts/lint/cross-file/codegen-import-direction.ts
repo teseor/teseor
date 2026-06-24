@@ -3,7 +3,7 @@
 // substrate invariant — plugins compose via `core/registry.ts`, not via
 // direct symbol references.
 //
-// Allowed cross-folder imports from `scripts/codegen/src/plugins/<name>/`:
+// Allowed cross-folder imports from `codegen/src/plugins/<name>/`:
 //   - own folder (`./`, `./<sub>/`)
 //   - core/ (`../../core/`, `../../../core/` from nested files)
 //   - lib/ (`../../lib/`, `../../../lib/` from nested files)
@@ -13,17 +13,17 @@
 //   - `../../../<other-plugin>/...` (from nested files)
 import { readFileSync } from "node:fs";
 import { dirname, normalize, relative, resolve } from "node:path";
-import { lsFiles } from "../../lib/enumerate.ts";
-import { REPO_ROOT } from "../../lib/paths.ts";
+import { lsFiles } from "../helpers/enumerate.ts";
+import { REPO_ROOT } from "../helpers/paths.ts";
 import type { ViolationDetail, WorkspaceCheck } from "../registry.ts";
 
-const PLUGIN_ROOT = "scripts/codegen/src/plugins";
+const PLUGIN_ROOT = "codegen/src/plugins";
 const TRIGGERS = [`${PLUGIN_ROOT}/**/*.ts`] as const;
 
 const IMPORT_RE = /\bfrom\s+["']([^"']+)["']/g;
 
 /** The plugin folder name a file lives in, e.g. `events` for
- *  `scripts/codegen/src/plugins/events/check/index.ts`. */
+ *  `codegen/src/plugins/events/check/index.ts`. */
 export function pluginOf(relPath: string): string | undefined {
   const parts = relPath.split("/");
   const idx = parts.indexOf("plugins");
@@ -43,7 +43,7 @@ export function resolveImport(fromFile: string, specifier: string): string | und
 
 /** Returns the import specifiers extracted from a TS source. Comments and
  *  string literals embedded in code can produce false positives in pathological
- *  cases; for `scripts/codegen/src/plugins/**` the trade-off is acceptable
+ *  cases; for `codegen/src/plugins/**` the trade-off is acceptable
  *  (the directory is curated, no exotic string content). */
 export function extractImports(source: string): string[] {
   const out: string[] = [];
@@ -86,6 +86,6 @@ export const rule: WorkspaceCheck = {
   run: checkPluginImportDirection,
   hint:
     "Plugin isolation is the substrate architecture's invariant (ADR-0025).\n" +
-    "If two plugins need shared logic, lift it to scripts/codegen/src/core/ or scripts/codegen/src/lib/.\n" +
+    "If two plugins need shared logic, lift it to codegen/src/core/ or codegen/src/lib/.\n" +
     "If they need shared schema fragments, register them under their respective scopes — composeFragments merges them.",
 };
