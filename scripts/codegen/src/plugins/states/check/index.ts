@@ -1,7 +1,7 @@
 import type { Issue } from "../../../core/check-utils.ts";
 import { isComposite } from "../../../core/check-utils.ts";
+import type { Spec, SpecPart } from "../../../core/schema.ts";
 import type { Vocabulary } from "../../../lib/vocabulary.ts";
-import type { Spec, SpecPart } from "../../../schema.ts";
 import { visitOverlay } from "./overlay.ts";
 import { buildPartIndex } from "./part-names.ts";
 import { checkPartStates } from "./transitions.ts";

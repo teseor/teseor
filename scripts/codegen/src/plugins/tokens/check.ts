@@ -2,8 +2,8 @@ import postcss from "postcss";
 import postcssEach from "postcss-each";
 import type { Issue } from "../../core/check-utils.ts";
 import { isAtomic, isComposite, issue, suggest } from "../../core/check-utils.ts";
+import type { AtomicSpec, Spec, SpecPart } from "../../core/schema.ts";
 import type { TokenDictionary } from "../../lib/token-dictionary.ts";
-import type { AtomicSpec, Spec, SpecPart } from "../../schema.ts";
 
 type TokensCss = ReadonlySet<string>;
 

@@ -1,7 +1,7 @@
 import type { Issue } from "../../core/check-utils.ts";
 import { isAtomic, issue, suggest, suggestionFragment } from "../../core/check-utils.ts";
+import type { Spec } from "../../core/schema.ts";
 import type { Vocabulary } from "../../lib/vocabulary.ts";
-import type { Spec } from "../../schema.ts";
 
 /**
  * Walks the spec's value-bearing names (component, variant names, intent

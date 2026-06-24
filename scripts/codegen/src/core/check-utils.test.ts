@@ -1,6 +1,4 @@
 import { describe, expect, it } from "vitest";
-import type { Spec, SpecPart } from "../schema.ts";
-import { Spec as SpecSchema } from "../schema.ts";
 import type { AtomicSpec, Issue } from "./check-utils.ts";
 import {
   collectDimensionValues,
@@ -15,6 +13,8 @@ import {
   visitNodes,
   visitPart,
 } from "./check-utils.ts";
+import type { Spec, SpecPart } from "./schema.ts";
+import { Spec as SpecSchema } from "./schema.ts";
 
 function makeAtomicSpec(overrides: Partial<Spec> = {}): Spec {
   return SpecSchema.parse({

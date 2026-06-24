@@ -1,6 +1,6 @@
 import type { Issue } from "../../core/check-utils.ts";
 import { issue, visitNodes } from "../../core/check-utils.ts";
-import type { Spec } from "../../schema.ts";
+import type { Spec } from "../../core/schema.ts";
 
 /**
  * `a11y.ariaProps[i]` must reference a declared `type: 'string'`, non-

@@ -1,6 +1,6 @@
 import type { Issue } from "../../../core/check-utils.ts";
 import { issue } from "../../../core/check-utils.ts";
-import type { SpecPart } from "../../../schema.ts";
+import type { SpecPart } from "../../../core/schema.ts";
 import { JS_IDENTIFIER_RE, RESERVED_PROP_NAMES } from "./constants.ts";
 
 // Rules 1, 2, 4, 6, 8, 9, 10, 12, 14 — checks for a single repeating part.

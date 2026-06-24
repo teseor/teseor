@@ -1,7 +1,7 @@
 // Normalize an atomic-or-composite spec into one flat shape. `__part` markers
 // route attributes/handlers back to the originating part when generators
 // emit per-part DOM (gen-react, gen-vue).
-import type { Spec, SpecPart } from "../schema.ts";
+import type { Spec, SpecPart } from "../core/schema.ts";
 
 export type FlatProp = {
   type: "string" | "boolean" | "number";

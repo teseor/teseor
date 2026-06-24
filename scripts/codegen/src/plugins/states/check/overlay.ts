@@ -1,6 +1,6 @@
 import type { Issue } from "../../../core/check-utils.ts";
 import { issue } from "../../../core/check-utils.ts";
-import type { SpecPart } from "../../../schema.ts";
+import type { SpecPart } from "../../../core/schema.ts";
 
 // Rule 6 — overlay.anchor must point at a sibling part that declares
 // `fromChildren: true`. Fires whether or not the part declares `states:`.

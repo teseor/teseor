@@ -1,6 +1,6 @@
 import type { Issue } from "../../../core/check-utils.ts";
 import { isComposite, issue } from "../../../core/check-utils.ts";
-import type { Spec, SpecPart } from "../../../schema.ts";
+import type { Spec, SpecPart } from "../../../core/schema.ts";
 import { checkNonRepeatingPart } from "./non-repeating-part.ts";
 import { checkRepeatingPart } from "./repeating-part.ts";
 import { checkGroupKeyPropCollisions, checkSiblingPropNameCollisions } from "./sibling-checks.ts";

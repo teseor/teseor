@@ -1,6 +1,6 @@
 import type { Issue } from "../../../core/check-utils.ts";
 import { issue, suggestionFragment } from "../../../core/check-utils.ts";
-import type { PayloadEntry, SpecPart } from "../../../schema.ts";
+import type { PayloadEntry, SpecPart } from "../../../core/schema.ts";
 import type { PartRef } from "./part-names.ts";
 
 export function checkPartStates(

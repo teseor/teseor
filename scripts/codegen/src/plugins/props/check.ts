@@ -1,6 +1,6 @@
 import type { Issue } from "../../core/check-utils.ts";
 import { issue, visitNodes } from "../../core/check-utils.ts";
-import type { Spec } from "../../schema.ts";
+import type { Spec } from "../../core/schema.ts";
 
 /**
  * Every non-slot prop must declare `responsive:` explicitly (`true` or

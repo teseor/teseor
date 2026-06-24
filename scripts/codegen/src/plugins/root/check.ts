@@ -1,7 +1,7 @@
 import type { Issue } from "../../core/check-utils.ts";
 import { isAtomic, issue, visitNodes } from "../../core/check-utils.ts";
+import type { Spec } from "../../core/schema.ts";
 import { isVoidElement } from "../../lib/html-void-elements.ts";
-import type { Spec } from "../../schema.ts";
 
 /**
  * `root.kind: byProp` resolves the rendered tag at runtime from a controlling

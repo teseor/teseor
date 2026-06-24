@@ -1,6 +1,6 @@
 import type { Issue } from "../../../core/check-utils.ts";
 import { issue } from "../../../core/check-utils.ts";
-import type { SpecPart } from "../../../schema.ts";
+import type { SpecPart } from "../../../core/schema.ts";
 
 // Rules 15 and 16 — checks for a single non-repeating part.
 export function checkNonRepeatingPart(

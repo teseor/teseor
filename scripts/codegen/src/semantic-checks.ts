@@ -6,6 +6,7 @@
 // `guidance.variantChoice` key equality with `spec.variants`.
 
 import type { Issue } from "./core/check-utils.ts";
+import type { Spec } from "./core/schema.ts";
 import type { TokenDictionary } from "./lib/token-dictionary.ts";
 import type { Vocabulary } from "./lib/vocabulary.ts";
 import { checkA11yRefs } from "./plugins/a11y/check.ts";
@@ -34,7 +35,6 @@ import {
 import { checkExamplesReferences, checkVariantChoiceKeys } from "./plugins/variants/check.ts";
 import { checkVocabulary } from "./plugins/vocabulary/check.ts";
 import { checkVoidElementConstraints } from "./plugins/void-elements/check.ts";
-import type { Spec } from "./schema.ts";
 
 export type { Issue } from "./core/check-utils.ts";
 export { checkDependencyCycles } from "./plugins/dependencies/check.ts";

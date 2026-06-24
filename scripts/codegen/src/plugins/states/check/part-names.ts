@@ -1,6 +1,6 @@
 import type { Issue } from "../../../core/check-utils.ts";
 import { issue } from "../../../core/check-utils.ts";
-import type { SpecPart } from "../../../schema.ts";
+import type { SpecPart } from "../../../core/schema.ts";
 
 export type PartRef = { part: SpecPart; path: string };
 

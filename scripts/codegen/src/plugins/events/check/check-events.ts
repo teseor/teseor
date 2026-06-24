@@ -1,7 +1,7 @@
 import type { Issue } from "../../../core/check-utils.ts";
 import { isAtomic, isComposite, issue, suggestionFragment } from "../../../core/check-utils.ts";
+import type { Spec, SpecPart } from "../../../core/schema.ts";
 import type { Vocabulary } from "../../../lib/vocabulary.ts";
-import type { Spec, SpecPart } from "../../../schema.ts";
 import {
   collectControllableProps,
   eventVerb,

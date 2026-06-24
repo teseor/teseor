@@ -1,6 +1,6 @@
 import type { Issue } from "../../core/check-utils.ts";
 import { isAtomic, issue, suggestionFragment } from "../../core/check-utils.ts";
-import type { Spec } from "../../schema.ts";
+import type { Spec } from "../../core/schema.ts";
 
 // ── Examples reference real variant / intent / size ─────────────────────────
 

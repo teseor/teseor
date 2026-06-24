@@ -1,5 +1,5 @@
 import { visitNodes } from "../../../core/check-utils.ts";
-import type { Spec } from "../../../schema.ts";
+import type { Spec } from "../../../core/schema.ts";
 import type { PayloadEntry } from "../schema.ts";
 
 // Valid JS identifier: starts with letter/underscore/$, followed by alphanumerics/_/$.

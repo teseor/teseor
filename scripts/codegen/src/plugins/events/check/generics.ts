@@ -1,6 +1,6 @@
 import { isAtomic, isComposite } from "../../../core/check-utils.ts";
+import type { Spec, SpecPart } from "../../../core/schema.ts";
 import { pascalCase } from "../../../lib/pascal-case.ts";
-import type { Spec, SpecPart } from "../../../schema.ts";
 
 // Generic names that would shadow codegen-emitted globals when used as a
 // type parameter. Two sources:

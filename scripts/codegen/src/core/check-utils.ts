@@ -1,4 +1,4 @@
-import type { AtomicSpec, CompositeSpec, Spec, SpecPart } from "../schema.ts";
+import type { AtomicSpec, CompositeSpec, Spec, SpecPart } from "./schema.ts";
 
 export type { AtomicSpec, CompositeSpec };
 

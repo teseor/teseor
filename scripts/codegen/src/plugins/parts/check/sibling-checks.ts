@@ -1,6 +1,6 @@
 import type { Issue } from "../../../core/check-utils.ts";
 import { issue } from "../../../core/check-utils.ts";
-import type { SpecPart } from "../../../schema.ts";
+import type { SpecPart } from "../../../core/schema.ts";
 
 // Rule 5: sibling propName collision within a parts map. Parts that
 // legitimately share via `groupKey:` are excluded — they're meant to

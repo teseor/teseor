@@ -1,5 +1,5 @@
 import type { SpecAnalysis } from "../../core/analysis.ts";
-import type { Spec } from "../../schema.ts";
+import type { Spec } from "../../core/schema.ts";
 
 export function analyzeBranches(spec: Spec): Partial<SpecAnalysis> {
   const computes = new Set<string>();

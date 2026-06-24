@@ -1,7 +1,7 @@
-import type { Spec } from "../schema.ts";
 import { emptyAnalysis, mergeAnalysis, type SpecAnalysis } from "./analysis.ts";
 import type { SubstratePlugin } from "./plugin.ts";
 import { PLUGINS } from "./registry.ts";
+import type { Spec } from "./schema.ts";
 
 export function computeAnalysis(
   spec: Spec,
