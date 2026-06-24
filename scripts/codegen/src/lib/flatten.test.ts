@@ -19,7 +19,7 @@ describe("flattenSpec — composite token namespacing (#694)", () => {
       parts: {
         trigger: { fromChildren: true, rootClass: "t-tooltip-trigger" },
         content: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           rootClass: "t-tooltip",
           tokens: {
             bg: { fallback: "--t-neutral-90", desc: "Background." },
@@ -40,14 +40,14 @@ describe("flattenSpec — composite token namespacing (#694)", () => {
       kind: "composite",
       parts: {
         header: {
-          element: "header",
+          root: { kind: "static", tag: "header" },
           rootClass: "t-modal-header",
           tokens: {
             bg: { fallback: "--t-bg", desc: "Header fill." },
           },
         },
         body: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           rootClass: "t-modal-body",
           tokens: {
             bg: { fallback: "--t-surface", desc: "Body fill." },
@@ -70,22 +70,22 @@ describe("flattenSpec — composite token namespacing (#694)", () => {
       kind: "composite",
       parts: {
         header: {
-          element: "header",
+          root: { kind: "static", tag: "header" },
           rootClass: "t-card-header",
           parts: {
             inner: {
-              element: "div",
+              root: { kind: "static", tag: "div" },
               rootClass: "t-card-header-inner",
               tokens: { bg: { fallback: "--t-bg", desc: "Header inner fill." } },
             },
           },
         },
         body: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           rootClass: "t-card-body",
           parts: {
             inner: {
-              element: "div",
+              root: { kind: "static", tag: "div" },
               rootClass: "t-card-body-inner",
               tokens: { bg: { fallback: "--t-surface", desc: "Body inner fill." } },
             },
@@ -103,7 +103,7 @@ describe("flattenSpec — composite token namespacing (#694)", () => {
       kind: "composite",
       parts: {
         header: {
-          element: "header",
+          root: { kind: "static", tag: "header" },
           rootClass: "t-card-header",
           tokens: {
             bg: { fallback: "--t-bg", desc: "Header fill." },
@@ -111,7 +111,7 @@ describe("flattenSpec — composite token namespacing (#694)", () => {
           },
         },
         body: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           rootClass: "t-card-body",
           tokens: {
             bg: { fallback: "--t-surface", desc: "Body fill." },
@@ -131,10 +131,10 @@ describe("flattenSpec — repeating parts (#687, RFC-0005)", () => {
       name: "pagination",
       kind: "composite",
       parts: {
-        root: { element: "nav", rootClass: "t-pagination" },
+        root: { root: { kind: "static", tag: "nav" }, rootClass: "t-pagination" },
         page: {
           repeating: true,
-          element: "a",
+          root: { kind: "static", tag: "a" },
           rootClass: "t-pagination-page",
           props: {
             label: { type: "string", description: "Label." },
@@ -148,7 +148,7 @@ describe("flattenSpec — repeating parts (#687, RFC-0005)", () => {
     expect(flat.repeating?.[0]).toMatchObject({
       partName: "page",
       propName: "pages",
-      element: "a",
+      root: { kind: "static", tag: "a" },
       rootClass: "t-pagination-page",
     });
     expect(Object.keys(flat.repeating?.[0]?.itemProps ?? {}).sort()).toEqual(["current", "label"]);
@@ -159,11 +159,11 @@ describe("flattenSpec — repeating parts (#687, RFC-0005)", () => {
       name: "menu",
       kind: "composite",
       parts: {
-        root: { element: "ul", rootClass: "t-menu" },
+        root: { root: { kind: "static", tag: "ul" }, rootClass: "t-menu" },
         item: {
           repeating: true,
           propName: "entries",
-          element: "li",
+          root: { kind: "static", tag: "li" },
           props: { label: { type: "string", description: "Label." } },
         },
       },
@@ -177,10 +177,10 @@ describe("flattenSpec — repeating parts (#687, RFC-0005)", () => {
       name: "pagination",
       kind: "composite",
       parts: {
-        root: { element: "nav", rootClass: "t-pagination" },
+        root: { root: { kind: "static", tag: "nav" }, rootClass: "t-pagination" },
         page: {
           repeating: true,
-          element: "a",
+          root: { kind: "static", tag: "a" },
           props: { label: { type: "string", description: "Label." } },
         },
       },
@@ -195,13 +195,13 @@ describe("flattenSpec — repeating parts (#687, RFC-0005)", () => {
       kind: "composite",
       parts: {
         root: {
-          element: "nav",
+          root: { kind: "static", tag: "nav" },
           rootClass: "t-pagination",
           props: { ariaLabel: { type: "string", description: "Group label." } },
         },
         page: {
           repeating: true,
-          element: "a",
+          root: { kind: "static", tag: "a" },
           props: { label: { type: "string", description: "Label." } },
         },
       },
@@ -215,15 +215,15 @@ describe("flattenSpec — repeating parts (#687, RFC-0005)", () => {
       name: "split",
       kind: "composite",
       parts: {
-        root: { element: "div" },
+        root: { root: { kind: "static", tag: "div" } },
         primary: {
           repeating: true,
-          element: "a",
+          root: { kind: "static", tag: "a" },
           props: { label: { type: "string", description: "Primary label." } },
         },
         secondary: {
           repeating: true,
-          element: "a",
+          root: { kind: "static", tag: "a" },
           props: { label: { type: "string", description: "Secondary label." } },
         },
       },
@@ -237,17 +237,17 @@ describe("flattenSpec — repeating parts (#687, RFC-0005)", () => {
       name: "tabs",
       kind: "composite",
       parts: {
-        list: { element: "div" },
+        list: { root: { kind: "static", tag: "div" } },
         tab: {
           repeating: true,
           groupKey: "items",
-          element: "button",
+          root: { kind: "static", tag: "button" },
           props: { label: { type: "string", slot: true, description: "Label." } },
         },
         "tab-icon": {
           repeating: true,
           groupKey: "items",
-          element: "span",
+          root: { kind: "static", tag: "span" },
           props: { icon: { type: "string", slot: true, description: "Icon." } },
         },
       },
@@ -268,12 +268,12 @@ describe("flattenSpec — repeating parts (#687, RFC-0005)", () => {
       name: "tabs",
       kind: "composite",
       parts: {
-        list: { element: "div" },
+        list: { root: { kind: "static", tag: "div" } },
         tab: {
           repeating: true,
           propName: "override",
           groupKey: "items",
-          element: "button",
+          root: { kind: "static", tag: "button" },
           props: { label: { type: "string", slot: true, description: "Label." } },
         },
       },
@@ -287,10 +287,10 @@ describe("flattenSpec — repeating parts (#687, RFC-0005)", () => {
       name: "pagination",
       kind: "composite",
       parts: {
-        root: { element: "nav" },
+        root: { root: { kind: "static", tag: "nav" } },
         page: {
           repeating: true,
-          element: "span",
+          root: { kind: "static", tag: "span" },
           props: { label: { type: "string", slot: true, description: "Label." } },
         },
       },
@@ -305,7 +305,7 @@ describe("flattenSpec — repeating parts (#687, RFC-0005)", () => {
       kind: "composite",
       parts: {
         trigger: { fromChildren: true, rootClass: "t-tooltip-trigger" },
-        content: { element: "div", rootClass: "t-tooltip" },
+        content: { root: { kind: "static", tag: "div" }, rootClass: "t-tooltip" },
       },
     });
     const flat = flattenSpec(spec);
@@ -318,7 +318,7 @@ describe("flattenSpec — formControl flag (#693)", () => {
     const spec = makeSpec({
       name: "input",
       kind: "atomic",
-      element: "input",
+      root: { kind: "static", tag: "input" },
       rootClass: "t-input",
       formControl: true,
       examples: [{ id: "default" }],
@@ -331,7 +331,7 @@ describe("flattenSpec — formControl flag (#693)", () => {
     const spec = makeSpec({
       name: "button",
       kind: "atomic",
-      element: "button",
+      root: { kind: "static", tag: "button" },
       rootClass: "t-button",
       examples: [{ id: "default" }],
     });

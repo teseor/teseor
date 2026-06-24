@@ -162,8 +162,7 @@ describe("renderProps", () => {
     const spec: DocsSpec = {
       name: "divider",
       kind: "atomic",
-      element: "div",
-      polymorphic: "asChild",
+      root: { kind: "static", tag: "div", polymorphic: "asChild" },
       props: {},
       tokens: {},
       visualStates: {},
@@ -176,7 +175,7 @@ describe("renderProps", () => {
     const spec: DocsSpec = {
       name: "divider",
       kind: "atomic",
-      element: "div",
+      root: { kind: "static", tag: "div" },
       props: {},
       tokens: {},
       visualStates: {},
@@ -185,11 +184,11 @@ describe("renderProps", () => {
     expect(out).not.toContain("<Code>asChild</Code>");
   });
 
-  test("appends the tag map to the controlling prop's description for elementByProp", () => {
+  test("appends the tag map to the controlling prop's description for a byProp root", () => {
     const spec: DocsSpec = {
       name: "heading",
       kind: "atomic",
-      elementByProp: { prop: "level", map: { "1": "h1", "2": "h2" } },
+      root: { kind: "byProp", prop: "level", map: { "1": "h1", "2": "h2" } },
       props: {
         level: {
           type: "string",
@@ -233,7 +232,7 @@ describe("hasFromChildrenPart", () => {
       props: {},
       tokens: {},
       visualStates: {},
-      parts: { content: { element: "div" } },
+      parts: { content: { root: { kind: "static", tag: "div" } } },
     };
     expect(hasFromChildrenPart(spec)).toBe(false);
   });
@@ -464,7 +463,7 @@ describe("renderRepeatingItems", () => {
         {
           partName: "page",
           propName: "pages",
-          element: "a",
+          root: { kind: "static", tag: "a" },
           itemProps: {
             label: { type: "string", slot: true, description: "Page label." },
             current: { type: "boolean", description: "Active page." },
@@ -490,7 +489,7 @@ describe("renderRepeatingItems", () => {
         {
           partName: "page",
           propName: "pages",
-          element: "a",
+          root: { kind: "static", tag: "a" },
           itemProps: { label: { type: "string", slot: true, description: "Label." } },
         },
       ],
@@ -513,7 +512,7 @@ describe("renderStateMachineDiagrams", () => {
       props: {},
       tokens: {},
       visualStates: {},
-      parts: { root: { element: "div" } },
+      parts: { root: { root: { kind: "static", tag: "div" } } },
     };
     expect(renderStateMachineDiagrams(spec)).toBe("");
   });
@@ -528,7 +527,7 @@ describe("renderStateMachineDiagrams", () => {
       parts: {
         trigger: { fromChildren: true },
         content: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           states: {
             closed: { on: { "trigger.click": "open" } },
             open: {
@@ -566,7 +565,7 @@ describe("renderStateMachineDiagrams", () => {
           },
         },
         content: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           states: {
             closed: {
               on: {
@@ -596,10 +595,10 @@ describe("renderStateMachineDiagrams", () => {
       visualStates: {},
       parts: {
         root: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           parts: {
             inner: {
-              element: "div",
+              root: { kind: "static", tag: "div" },
               states: {
                 closed: { on: { "root.click": "open" } },
                 open: { on: { "root.click": "closed" } },

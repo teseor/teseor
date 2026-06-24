@@ -99,7 +99,7 @@ export function renderProps(spec: DocsSpec): string {
     spec.kind === "composite" && Array.isArray(spec.repeating) && spec.repeating.length > 0;
   const exposesAsChildOnly =
     (spec.kind === "composite" && hasFromChildrenPart(spec)) ||
-    (spec.kind === "atomic" && spec.polymorphic === "asChild");
+    (spec.kind === "atomic" && spec.root?.polymorphic === "asChild");
   const hasBlockDerivedProps = Boolean(spec.variants || spec.intents || spec.sizes);
   const imperativePropEntries =
     spec.kind === "atomic" ? Object.entries(spec.imperativeProps ?? {}) : [];
@@ -183,9 +183,11 @@ export function renderProps(spec: DocsSpec): string {
     // When this prop controls the root tag via `elementByProp`, append the
     // value→tag mapping to its description so the docs page documents the
     // runtime tag switch.
-    const isElementByPropControl = spec.kind === "atomic" && spec.elementByProp?.prop === name;
+    const byPropRoot =
+      spec.kind === "atomic" && spec.root?.kind === "byProp" ? spec.root : undefined;
+    const isElementByPropControl = byPropRoot?.prop === name;
     const tagMapHint = isElementByPropControl
-      ? ` Renders as ${Object.entries(spec.elementByProp?.map ?? {})
+      ? ` Renders as ${Object.entries(byPropRoot?.map ?? {})
           .map(([v, tag]) => `<Code>&lt;${esc(tag)}&gt;</Code> for <Code>${esc(v)}</Code>`)
           .join(", ")}.`
       : "";
@@ -215,7 +217,7 @@ export function renderProps(spec: DocsSpec): string {
   // generator-emitted, so the docs append it here.
   const exposesAsChild =
     (spec.kind === "composite" && hasFromChildrenPart(spec)) ||
-    (spec.kind === "atomic" && spec.polymorphic === "asChild");
+    (spec.kind === "atomic" && spec.root?.polymorphic === "asChild");
   if (exposesAsChild) {
     rows.push([
       `<Code>asChild</Code>`,

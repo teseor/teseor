@@ -5,7 +5,7 @@ function minimalAtomic() {
   return {
     name: "button",
     kind: "atomic" as const,
-    element: "button",
+    root: { kind: "static" as const, tag: "button" },
     rootClass: "t-button",
     props: { loading: { type: "boolean", description: "Loading." } },
   };
@@ -59,7 +59,7 @@ describe("Spec schema — shape layer", () => {
   test("rejects `parts:` on an atomic spec", () => {
     const result = Spec.safeParse({
       ...minimalAtomic(),
-      parts: { root: { element: "div" } },
+      parts: { root: { root: { kind: "static", tag: "div" } } },
     });
     expect(result.success).toBe(false);
   });
@@ -79,11 +79,11 @@ describe("Spec schema — shape layer", () => {
       parts: {
         root: {
           parts: {
-            inner: { element: "div", rootClass: "t-popover__inner" },
+            inner: { root: { kind: "static", tag: "div" }, rootClass: "t-popover__inner" },
           },
         },
         content: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           rootClass: "t-popover__content",
           motion: { enters: ["open"], exits: ["close"] },
         },
@@ -125,7 +125,7 @@ describe("Spec schema — shape layer", () => {
       parts: {
         trigger: { fromChildren: true },
         content: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           overlay: { anchor: "trigger", mode: "manual", anchorVar: "--t-tooltip-anchor" },
         },
       },
@@ -142,7 +142,7 @@ describe("Spec schema — shape layer", () => {
       parts: {
         trigger: { fromChildren: true },
         content: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           overlay: {
             anchor: "trigger",
             mode: "manual",
@@ -164,7 +164,7 @@ describe("Spec schema — shape layer", () => {
       parts: {
         trigger: { fromChildren: true },
         content: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           overlay: {
             anchor: "trigger",
             mode: "manual",
@@ -184,7 +184,7 @@ describe("Spec schema — shape layer", () => {
       parts: {
         page: {
           repeating: true,
-          element: "a",
+          root: { kind: "static", tag: "a" },
           props: { label: { type: "string", description: "Label." } },
         },
       },
@@ -200,7 +200,7 @@ describe("Spec schema — shape layer", () => {
         page: {
           repeating: true,
           propName: "pages",
-          element: "a",
+          root: { kind: "static", tag: "a" },
           props: { label: { type: "string", description: "Label." } },
         },
       },
@@ -215,7 +215,7 @@ describe("Spec schema — shape layer", () => {
       parts: {
         page: {
           repeating: "yes",
-          element: "a",
+          root: { kind: "static", tag: "a" },
           props: { label: { type: "string", description: "Label." } },
         },
       },
@@ -231,7 +231,7 @@ describe("Spec schema — shape layer", () => {
         page: {
           repeating: true,
           propName: 42,
-          element: "a",
+          root: { kind: "static", tag: "a" },
           props: { label: { type: "string", description: "Label." } },
         },
       },
@@ -244,17 +244,17 @@ describe("Spec schema — shape layer", () => {
       name: "tabs",
       kind: "composite",
       parts: {
-        list: { element: "div" },
+        list: { root: { kind: "static", tag: "div" } },
         tab: {
           repeating: true,
           groupKey: "items",
-          element: "button",
+          root: { kind: "static", tag: "button" },
           props: { label: { type: "string", slot: true, description: "Label." } },
         },
         "tab-icon": {
           repeating: true,
           groupKey: "items",
-          element: "span",
+          root: { kind: "static", tag: "span" },
           props: { icon: { type: "string", slot: true, description: "Icon." } },
         },
       },
@@ -270,7 +270,7 @@ describe("Spec schema — shape layer", () => {
         tab: {
           repeating: true,
           groupKey: 42,
-          element: "button",
+          root: { kind: "static", tag: "button" },
           props: { label: { type: "string", description: "Label." } },
         },
       },
@@ -286,7 +286,7 @@ describe("Spec schema — shape layer", () => {
         tab: {
           repeating: true,
           groupKey: "",
-          element: "button",
+          root: { kind: "static", tag: "button" },
           props: { label: { type: "string", description: "Label." } },
         },
       },
@@ -349,7 +349,7 @@ describe("Spec schema — shape layer", () => {
       kind: "composite",
       parts: {
         root: {
-          element: "div",
+          root: { kind: "static", tag: "div" },
           events: { dismiss: { description: "x" } },
         },
       },
@@ -378,32 +378,39 @@ describe("Spec schema — shape layer", () => {
     expect(result.success).toBe(false);
   });
 
-  test("accepts `polymorphic: 'asChild'` on an atomic spec", () => {
-    const result = Spec.safeParse({ ...minimalAtomic(), polymorphic: "asChild" });
+  test("accepts `root.polymorphic: 'asChild'` on a static root", () => {
+    const result = Spec.safeParse({
+      ...minimalAtomic(),
+      root: { kind: "static", tag: "button", polymorphic: "asChild" },
+    });
     expect(result.success).toBe(true);
   });
 
-  test("rejects an unknown `polymorphic` value", () => {
-    const result = Spec.safeParse({ ...minimalAtomic(), polymorphic: "asProp" });
-    expect(result.success).toBe(false);
-  });
-
-  test("rejects `polymorphic:` on a composite spec", () => {
+  test("rejects an unknown `root.polymorphic` value", () => {
     const result = Spec.safeParse({
-      name: "tooltip",
-      kind: "composite",
-      polymorphic: "asChild",
-      parts: { trigger: { element: "span" } },
+      ...minimalAtomic(),
+      root: { kind: "static", tag: "button", polymorphic: "asProp" },
     });
     expect(result.success).toBe(false);
   });
 
-  test("accepts `elementByProp` with a prop + map on an atomic spec", () => {
+  test("rejects `root:` on a composite spec", () => {
+    const result = Spec.safeParse({
+      name: "tooltip",
+      kind: "composite",
+      root: { kind: "static", tag: "span" },
+      parts: { trigger: { root: { kind: "static", tag: "span" } } },
+    });
+    expect(result.success).toBe(false);
+  });
+
+  test("accepts a `byProp` root with a prop + map on an atomic spec", () => {
     const result = Spec.safeParse({
       name: "heading",
       kind: "atomic",
       rootClass: "t-heading",
-      elementByProp: {
+      root: {
+        kind: "byProp",
         prop: "level",
         map: { "1": "h1", "2": "h2", "3": "h3", "4": "h4", "5": "h5", "6": "h6" },
       },
@@ -418,18 +425,34 @@ describe("Spec schema — shape layer", () => {
     expect(result.success).toBe(true);
   });
 
-  test("rejects `elementByProp` without `prop`", () => {
+  test("rejects a `byProp` root without `prop`", () => {
     const result = Spec.safeParse({
       ...minimalAtomic(),
-      elementByProp: { map: { "1": "h1" } },
+      root: { kind: "byProp", map: { "1": "h1" } },
     });
     expect(result.success).toBe(false);
   });
 
-  test("rejects `elementByProp` with an unknown nested field", () => {
+  test("rejects a `root:` with an unknown nested field", () => {
     const result = Spec.safeParse({
       ...minimalAtomic(),
-      elementByProp: { prop: "level", map: { "1": "h1" }, typo: true },
+      root: { kind: "byProp", prop: "level", map: { "1": "h1" }, typo: true },
+    });
+    expect(result.success).toBe(false);
+  });
+
+  test("rejects a `root:` with an unknown kind discriminator", () => {
+    const result = Spec.safeParse({
+      ...minimalAtomic(),
+      root: { kind: "polymorphic", tag: "button" },
+    });
+    expect(result.success).toBe(false);
+  });
+
+  test("rejects a static root tag that is not lowercase", () => {
+    const result = Spec.safeParse({
+      ...minimalAtomic(),
+      root: { kind: "static", tag: "Button" },
     });
     expect(result.success).toBe(false);
   });
@@ -438,7 +461,7 @@ describe("Spec schema — shape layer", () => {
     const result = Spec.safeParse({
       ...minimalAtomic(),
       name: "input",
-      element: "input",
+      root: { kind: "static", tag: "input" },
       rootClass: "t-input",
       formControl: true,
     });
@@ -451,7 +474,7 @@ describe("Spec schema — shape layer", () => {
       kind: "composite",
       formControl: true,
       parts: {
-        root: { element: "div", rootClass: "t-combobox" },
+        root: { root: { kind: "static", tag: "div" }, rootClass: "t-combobox" },
       },
     });
     expect(result.success).toBe(false);

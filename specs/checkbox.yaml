@@ -3,7 +3,9 @@ description: 'Binary toggle (or tri-state via `indeterminate`). Styled `<input t
 kind: atomic
 formControl: true
 dependencies: []
-element: input
+root:
+  kind: static
+  tag: input
 rootClass: t-checkbox
 cssFile: components/checkbox/checkbox.css
 

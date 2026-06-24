@@ -2,14 +2,15 @@ name: list
 description: Ordered / unordered list primitive. Renders `<ul>` or `<ol>` based on `ordered`; styles bare `<li>` children with grid-rhythm spacing and prose-friendly markers.
 kind: atomic
 dependencies: []
-elementByProp:
+root:
+  kind: byProp
   prop: ordered
   map:
     "false": ul
     "true": ol
+  polymorphic: asChild
 rootClass: t-list
 cssFile: components/list/list.css
-polymorphic: asChild
 
 props:
   ordered:
@@ -17,7 +18,7 @@ props:
     values: ["false", "true"]
     default: "false"
     responsive: false
-    description: Switches the rendered tag between `<ul>` (`false`) and `<ol>` (`true`). String-typed because `elementByProp` v1 accepts string-valued controlling props only.
+    description: 'Switches the rendered tag between `<ul>` (`false`) and `<ol>` (`true`). String-typed because the byProp root descriptor (`root: { kind: byProp, ... }`) accepts string-valued controlling props only.'
   spacing:
     type: string
     values: [compact, comfortable]

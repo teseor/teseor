@@ -2,7 +2,9 @@ name: stack
 description: A vertical layout primitive. Stacks children on the block axis with consistent spacing.
 kind: atomic
 dependencies: []
-element: div
+root:
+  kind: static
+  tag: div
 rootClass: t-stack
 cssFile: components/stack/stack.css
 

@@ -75,7 +75,7 @@ export function extractCompositeShape(spec: FlatSpec, opts: CompositeShapeOption
 
   const triggerClass = triggerPart.rootClass ?? `t-${spec.name}-trigger`;
   const contentClass = contentPart.rootClass ?? `t-${spec.name}`;
-  const contentElement = contentPart.element ?? "div";
+  const contentElement = contentPart.root?.kind === "static" ? contentPart.root.tag : "div";
   const contentRole = contentPart.a11y?.role;
 
   return {

@@ -47,8 +47,8 @@ apps/showcase-
 # Future scripts (planned at later milestones, not yet authored)
 scripts/benchmark.ts
 
-# ADR-0025 — substrate plugin architecture (Proposed). Planned files; land
-# in the implementation PR. Remove these prefixes when ADR-0025 is Accepted.
-scripts/codegen/src/core/
-scripts/codegen/src/plugins/
-scripts/repo/migrate-substrate-consolidation.ts
+# ADR-0025 amendment 2026-06-23 — future generator forks referenced in the
+# ADR's "Forking events" prose; the listed folders do not exist yet.
+scripts/codegen/src/generators/gen-react-20/
+scripts/codegen/src/generators/gen-vue-4/
+scripts/codegen/src/generators/gen-react-shared/

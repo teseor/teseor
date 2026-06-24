@@ -3,7 +3,9 @@ description: 'Native dropdown. Styled `<select>` with token-driven defaults and 
 kind: atomic
 formControl: true
 dependencies: []
-element: select
+root:
+  kind: static
+  tag: select
 rootClass: t-select
 cssFile: components/select/select.css
 

@@ -126,7 +126,7 @@ describe("renderContract", () => {
           {
             partName: "tab",
             propName: "items",
-            element: "button",
+            root: { kind: "static", tag: "button" },
             rootClass: "t-tabs-list-tab",
             groupKey: "items",
             itemProps: {
@@ -137,7 +137,7 @@ describe("renderContract", () => {
           {
             partName: "tab-icon",
             propName: "items",
-            element: "span",
+            root: { kind: "static", tag: "span" },
             rootClass: "t-tabs-list-icon",
             groupKey: "items",
             itemProps: {
@@ -169,7 +169,7 @@ describe("renderContract", () => {
           {
             partName: "page",
             propName: "pages",
-            element: "a",
+            root: { kind: "static", tag: "a" },
             rootClass: "t-pagination-page",
             itemProps: {
               label: { type: "string", description: "Label." },
@@ -319,7 +319,7 @@ describe("renderContract", () => {
         parts: {
           trigger: { fromChildren: true },
           content: {
-            element: "div",
+            root: { kind: "static", tag: "div" },
             states: {
               closed: { on: { "trigger.click": "open" } },
               open: { on: { "key.escape": "closed" } },
@@ -345,7 +345,7 @@ describe("renderContract", () => {
             },
           },
           content: {
-            element: "div",
+            root: { kind: "static", tag: "div" },
             states: {
               closed: { on: { "trigger.click": "open" } },
               open: { on: { "key.escape": "closed" } },

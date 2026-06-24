@@ -2,6 +2,8 @@ import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse as parseYaml } from "yaml";
+import type { SpecAnalysis } from "../core/analysis.ts";
+import { computeAnalysis } from "../core/orchestrator.ts";
 import { type Breakpoint, loadBreakpoints } from "../lib/breakpoints.ts";
 import { flattenSpec } from "../lib/flatten.ts";
 import { pascalCase } from "../lib/pascal-case.ts";
@@ -10,13 +12,13 @@ import type { GeneratorContext, GeneratorReport } from "../registry.ts";
 import { registerGenerator } from "../registry.ts";
 import { Spec as SpecSchema } from "../schema.ts";
 import type { Spec } from "./gen-contract.ts";
-import { renderCssShim } from "./gen-vue/_shared/css-shim.ts";
-import { renderAtomicVueWrapper } from "./gen-vue/kinds/atomic.ts";
-import { renderCompositeListVueWrapper } from "./gen-vue/kinds/composite-list.ts";
-import { renderCompositeOverlayVueWrapper } from "./gen-vue/kinds/composite-overlay.ts";
-import { renderBarrel } from "./gen-vue/workspace/barrel.ts";
-import { renderReadme } from "./gen-vue/workspace/readme.ts";
-import { renderRuntime } from "./gen-vue/workspace/runtime.ts";
+import { renderCssShim } from "./gen-vue-3/_shared/css-shim.ts";
+import { renderAtomicVueWrapper } from "./gen-vue-3/kinds/atomic.ts";
+import { renderCompositeListVueWrapper } from "./gen-vue-3/kinds/composite-list.ts";
+import { renderCompositeOverlayVueWrapper } from "./gen-vue-3/kinds/composite-overlay.ts";
+import { renderBarrel } from "./gen-vue-3/workspace/barrel.ts";
+import { renderReadme } from "./gen-vue-3/workspace/readme.ts";
+import { renderRuntime } from "./gen-vue-3/workspace/runtime.ts";
 
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..", "..", "..");
 const SPECS_DIR = resolve(REPO_ROOT, "specs");
@@ -24,16 +26,21 @@ const VUE_SRC_DIR = resolve(REPO_ROOT, "packages", "vue", "src");
 
 /** Dispatch to the kind-specific renderer for the spec's `kind:` field.
  *  Composite specs split by shape: overlay-anchor (Tooltip / Modal) vs
- *  repeating-list. */
-function renderWrapper(spec: Spec, propDescriptions: Record<string, string>): string {
+ *  repeating-list. Analysis is pre-computed from the raw schema spec (before
+ *  flattening) and threaded in so the atomic kind generator avoids re-deriving it. */
+function renderWrapper(
+  spec: Spec,
+  propDescriptions: Record<string, string>,
+  analysis?: SpecAnalysis,
+): string {
   if (spec.kind === "composite") {
     if (spec.repeating && spec.repeating.length > 0) return renderCompositeListVueWrapper(spec);
     return renderCompositeOverlayVueWrapper(spec, propDescriptions);
   }
-  return renderAtomicVueWrapper(spec, propDescriptions);
+  return renderAtomicVueWrapper(spec, propDescriptions, analysis);
 }
 
-async function loadSpec(name: string): Promise<Spec> {
+async function loadSpec(name: string): Promise<{ flat: Spec; analysis: SpecAnalysis }> {
   const path = resolve(SPECS_DIR, `${name}.yaml`);
   const raw = await readFile(path, "utf8");
   const parsed = parseYaml(raw);
@@ -47,7 +54,8 @@ async function loadSpec(name: string): Promise<Spec> {
   if (result.data.name !== name) {
     throw new Error(`spec name "${result.data.name}" in ${name}.yaml does not match file basename`);
   }
-  return flattenSpec(result.data);
+  const analysis = computeAnalysis(result.data);
+  return { flat: flattenSpec(result.data), analysis };
 }
 
 async function listSpecNames(): Promise<string[]> {
@@ -62,8 +70,8 @@ async function emitWrapper(
   name: string,
   propDescriptions: Record<string, string>,
 ): Promise<string> {
-  const spec = await loadSpec(name);
-  const content = renderWrapper(spec, propDescriptions);
+  const { flat, analysis } = await loadSpec(name);
+  const content = renderWrapper(flat, propDescriptions, analysis);
   const outPath = resolve(VUE_SRC_DIR, `${pascalCase(name)}.vue`);
   await mkdir(VUE_SRC_DIR, { recursive: true });
   await writeFile(outPath, content, "utf8");
@@ -129,8 +137,8 @@ async function vueGenerator(ctx: GeneratorContext): Promise<GeneratorReport> {
   filesWritten.push(barrelPath);
   notes.push(`vue: barrel -> ${barrelPath.replace(`${REPO_ROOT}/`, "")}`);
 
-  const allSpecs = await Promise.all(allNames.map(loadSpec));
-  const readmePath = await emitReadme(allSpecs);
+  const allSpecResults = await Promise.all(allNames.map(loadSpec));
+  const readmePath = await emitReadme(allSpecResults.map((r) => r.flat));
   filesWritten.push(readmePath);
   notes.push(`vue: readme -> ${readmePath.replace(`${REPO_ROOT}/`, "")}`);
 

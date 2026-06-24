@@ -2,7 +2,8 @@ name: text
 description: Typography primitive for non-heading prose. Folds the legacy `Paragraph` — one component covers both inline (`<span>`) and block (`<p>`) cases via the `as` prop.
 kind: atomic
 dependencies: []
-elementByProp:
+root:
+  kind: byProp
   prop: as
   map:
     span: span
@@ -10,9 +11,9 @@ elementByProp:
     em: em
     strong: strong
     small: small
+  polymorphic: asChild
 rootClass: t-text
 cssFile: components/text/text.css
-polymorphic: asChild
 
 sizes:
   xs:

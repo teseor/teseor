@@ -2,10 +2,12 @@ name: center
 description: A layout primitive that centers a single child on both axes. Pure CSS, no children styling. `minHeight` is unset by default — the centered box hugs its child; pass `screen` for splash-screen / hero patterns or override `--t-center-min-height` for custom values.
 kind: atomic
 dependencies: []
-element: div
+root:
+  kind: static
+  tag: div
+  polymorphic: asChild
 rootClass: t-center
 cssFile: components/center/center.css
-polymorphic: asChild
 
 props:
   minHeight:

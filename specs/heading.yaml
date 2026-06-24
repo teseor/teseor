@@ -2,7 +2,8 @@ name: heading
 description: Semantic prose heading. The rendered tag switches with `level` so outline tools and screen readers read native `<h1>`–`<h6>` structure.
 kind: atomic
 dependencies: []
-elementByProp:
+root:
+  kind: byProp
   prop: level
   map:
     "1": h1
@@ -11,9 +12,9 @@ elementByProp:
     "4": h4
     "5": h5
     "6": h6
+  polymorphic: asChild
 rootClass: t-heading
 cssFile: components/heading/heading.css
-polymorphic: asChild
 
 sizes:
   xs:

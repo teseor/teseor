@@ -57,7 +57,7 @@ describe("defaultChildren", () => {
   const select: FlatSpec = {
     name: "select",
     kind: "atomic",
-    element: "select",
+    root: { kind: "static", tag: "select" },
     rootClass: "t-select",
     defaultChildren: [
       { tag: "option", attrs: { value: "us" }, text: "United States" },
@@ -85,7 +85,7 @@ describe("void atomic specs", () => {
   const image: FlatSpec = {
     name: "image",
     kind: "atomic",
-    element: "img",
+    root: { kind: "static", tag: "img" },
     rootClass: "t-image",
     props: {},
     tokens: {},

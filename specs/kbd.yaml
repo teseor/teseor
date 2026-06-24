@@ -2,10 +2,12 @@ name: kbd
 description: Keyboard-key primitive — styled `<kbd>` with token-driven monospace, raised-key visual, and subtle border. Single key per element; combos compose via children (`<Kbd>Cmd</Kbd>+<Kbd>K</Kbd>`).
 kind: atomic
 dependencies: []
-element: kbd
+root:
+  kind: static
+  tag: kbd
+  polymorphic: asChild
 rootClass: t-kbd
 cssFile: components/kbd/kbd.css
-polymorphic: asChild
 
 sizes:
   sm:

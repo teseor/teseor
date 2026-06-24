@@ -2,14 +2,15 @@ name: divider
 description: Horizontal-or-vertical visual rule. Renders `<hr>` for the horizontal orientation (native `role="separator"`) and `<div role="separator" aria-orientation="vertical">` for the vertical one. The `decorative` prop hides the element from the accessibility tree (`role="none"` + `aria-hidden="true"`).
 kind: atomic
 dependencies: []
-elementByProp:
+root:
+  kind: byProp
   prop: orientation
   map:
     horizontal: hr
     vertical: div
+  polymorphic: asChild
 rootClass: t-divider
 cssFile: components/divider/divider.css
-polymorphic: asChild
 
 props:
   orientation:

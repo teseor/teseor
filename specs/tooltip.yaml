@@ -24,7 +24,9 @@ parts:
       - --_anchor
 
   content:
-    element: div
+    root:
+      kind: static
+      tag: div
     rootClass: t-tooltip
     a11y:
       role: tooltip

@@ -2,10 +2,12 @@ name: dot
 description: Single-color presence indicator. Decorative by default — emits `role="none"` and `aria-hidden="true"`. Supply `label` to make the dot meaningful (`role="img"` + `aria-label`). Pair with adjacent text or an Avatar for status overlays.
 kind: atomic
 dependencies: []
-element: span
+root:
+  kind: static
+  tag: span
+  polymorphic: asChild
 rootClass: t-dot
 cssFile: components/dot/dot.css
-polymorphic: asChild
 
 sizes:
   sm:

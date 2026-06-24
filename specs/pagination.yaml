@@ -6,7 +6,9 @@ cssFile: components/pagination/pagination.css
 
 parts:
   root:
-    element: nav
+    root:
+      kind: static
+      tag: nav
     rootClass: t-pagination
     a11y:
       role: navigation
@@ -18,7 +20,9 @@ parts:
       - --_gap
   page:
     repeating: true
-    element: span
+    root:
+      kind: static
+      tag: span
     rootClass: t-pagination-page
     props:
       label:

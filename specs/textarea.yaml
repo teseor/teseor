@@ -3,7 +3,9 @@ description: 'Multi-line text input. Styled `<textarea>` with token-driven defau
 kind: atomic
 formControl: true
 dependencies: []
-element: textarea
+root:
+  kind: static
+  tag: textarea
 rootClass: t-textarea
 cssFile: components/textarea/textarea.css
 

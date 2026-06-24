@@ -77,7 +77,7 @@ describe("renderExamples", () => {
   test("renders a self-closing tag for atomic void elements in both preview and source", () => {
     const spec = atomicSpec({
       name: "image",
-      element: "img",
+      root: { kind: "static", tag: "img" },
       examples: [{ id: "cover", props: { src: "/x.jpg", alt: "x" } }],
     });
     const rendered = renderExamples(spec, "Image", { isComposite: false });
@@ -89,7 +89,7 @@ describe("renderExamples", () => {
   test("renders defaultChildren in both the rendered tag and the source code", () => {
     const spec = atomicSpec({
       name: "select",
-      element: "select",
+      root: { kind: "static", tag: "select" },
       defaultChildren: [
         { tag: "option", attrs: { value: "us" }, text: "United States" },
         { tag: "option", attrs: { value: "br" }, text: "Brazil" },

@@ -38,27 +38,30 @@ export function isVoidElement(tag: string): boolean {
   return HTML_VOID_ELEMENTS.has(tag.toLowerCase());
 }
 
-/** Subset of a spec the void-status check inspects. */
+/** Subset of a spec the void-status check inspects — the unified `root:`
+ *  descriptor, in either the static or byProp branch. */
 type SpecRootTag = {
-  element?: string;
-  elementByProp?: { prop: string; map: Record<string, string> };
+  root?:
+    | { kind: "static"; tag: string; polymorphic?: "asChild" }
+    | { kind: "byProp"; prop: string; map: Record<string, string>; polymorphic?: "asChild" };
 };
 
 /**
  * Classify an atomic spec's root tag by codegen child-ness:
  * - `never`: root accepts children (renders with `{children}`)
  * - `all`: no codegen children allowed — emit `children?: never` + self-closing
- * - `mixed`: `elementByProp.map` has both child-bearing and childless branches
+ * - `mixed`: a byProp `map` has both child-bearing and childless branches
  *
  * The childless set is HTML void elements ∪ `{textarea}`. See
  * `CHILDLESS_FOR_CODEGEN` for rationale.
  */
 export function specVoidStatus(spec: SpecRootTag): "never" | "all" | "mixed" {
-  if (spec.element) {
-    return CHILDLESS_FOR_CODEGEN.has(spec.element.toLowerCase()) ? "all" : "never";
+  const root = spec.root;
+  if (root?.kind === "static") {
+    return CHILDLESS_FOR_CODEGEN.has(root.tag.toLowerCase()) ? "all" : "never";
   }
-  if (spec.elementByProp) {
-    const tags = Object.values(spec.elementByProp.map);
+  if (root?.kind === "byProp") {
+    const tags = Object.values(root.map);
     if (tags.length === 0) return "never";
     const childlessCount = tags.filter((t) => CHILDLESS_FOR_CODEGEN.has(t.toLowerCase())).length;
     if (childlessCount === 0) return "never";
