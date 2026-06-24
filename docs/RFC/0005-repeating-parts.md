@@ -40,7 +40,7 @@ The umbrella is [#679]; the originating issue is [#687].
 
 A third field, `groupKey?: string`, lands in **phase 2** alongside the interleave codegen rule. Phase 1 does not declare `groupKey:` in the schema — Zod's `strictObject` rejects an unknown key cleanly, so authors who reach for `groupKey:` early get a schema-validation error pointing at the offending part path. Phase 2 adds the field declaration plus the three groupKey-specific semantic checks at the same time.
 
-`scripts/codegen/src/core/schema.ts` adds the two fields to both the `ComponentPart` TypeScript type and the `componentPart` Zod object. The rest of the schema is unchanged.
+`codegen/src/core/schema.ts` adds the two fields to both the `ComponentPart` TypeScript type and the `componentPart` Zod object. The rest of the schema is unchanged.
 
 ### Semantics
 

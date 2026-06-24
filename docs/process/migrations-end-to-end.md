@@ -45,7 +45,7 @@ sync until step 2.
 
 For trivial renames the spec edit + a search-replace in the component CSS
 is enough. For non-trivial schema shifts (a prop changes shape, a variant
-splits into two) the repo ships `scripts/repo/migrate-specs.ts` as a
+splits into two) the repo ships `scripts/maintenance/migrate-specs.ts` as a
 registry-driven runner: a migrator is a `{ id, description, run }` object
 registered via `registerMigrator()`. The migrator that implements the
 breaking change lands in the same PR — usually as a new `migrations/<id>.ts`

@@ -1,7 +1,7 @@
 packages:
   - 'packages/*'
   - 'apps/*'
-  - 'scripts/codegen'
+  - 'codegen'
 overrides:
   # Lifts every `yaml` past the < 2.8.3 stack-overflow advisory — see #625.
   # Drop this once no transitive dependency resolves `yaml` below 2.8.3.

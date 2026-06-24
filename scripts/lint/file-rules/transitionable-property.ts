@@ -5,7 +5,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { relative, resolve } from "node:path";
 import postcss from "postcss";
-import { REPO_ROOT } from "../../lib/paths.ts";
+import { REPO_ROOT } from "../helpers/paths.ts";
 import type { ViolationDetail, WorkspaceCheck } from "../registry.ts";
 
 const ALLOW = new Set([

@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 // Resolves every backtick-wrapped path-shaped reference in the docs and fails
 // on a miss. The docs cross-reference each other through prose backticks
-// (`rules/motion.md`, `scripts/codegen/`), not Markdown links, so a renamed
+// (`rules/motion.md`, `codegen/`), not Markdown links, so a renamed
 // file leaves dangling text that markdown-link checkers do not see.
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, relative, resolve } from "node:path";
-import { REPO_ROOT } from "../../lib/paths.ts";
+import { REPO_ROOT } from "../helpers/paths.ts";
 import type { ViolationDetail, WorkspaceCheck } from "../registry.ts";
 
 const DOCS_DIR = resolve(REPO_ROOT, "docs");

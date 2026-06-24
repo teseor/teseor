@@ -6,14 +6,15 @@ Repository-level tooling. Layout is role-based: the folder tells you who calls t
 
 | Folder | Role | Entry point |
 | --- | --- | --- |
-| `lib/` | Shared helpers (git diff, file enumeration, repo root, reporter) imported by every check. | None — library code. |
 | `lint/` | Every project lint check. The registry (`lint/registry.ts`) catalogues all of them; the runner (`lint/run.ts`) dispatches. | `node scripts/lint/run.ts --all` (or `pnpm lint`) |
 | `lint/file-rules/` | Per-file scanners — `(file, source) -> ViolationDetail[]`. | Registered in `lint/registry.ts`. |
 | `lint/cross-file/` | Workspace invariants (multiple package.jsons, doc tree, contract snapshots). | Registered in `lint/registry.ts`. |
 | `lint/diff-aware/` | Reasons over the changed-file set vs the PR base. | Registered in `lint/registry.ts`. |
+| `lint/helpers/` | Shared helpers (git diff, file enumeration, repo root, reporter) imported by every check. | None — library code. |
 | `hooks/` | Git-hook helpers called directly by lefthook. | `lefthook.yml`. |
-| `repo/` | One-shot maintainer ops (sync labels, migrate specs, branch protection, pre-flight review). | Direct invocation. |
-| `codegen/` | Workspace package — spec-to-artifact generators. Its own README. | `pnpm gen`. |
+| `maintenance/` | One-shot maintainer ops (sync labels, migrate specs, branch protection, pre-flight review). | Direct invocation. |
+
+The `codegen/` workspace package (spec-to-artifact generators) lives at the repo root, not under `scripts/`. See `codegen/` for its own README.
 
 ## Adding a new lint check
 
@@ -24,7 +25,7 @@ Repository-level tooling. Layout is role-based: the folder tells you who calls t
 
 ## Adding a maintainer one-shot
 
-`scripts/repo/<verb-or-noun>.ts` (or `.sh` / `.md` for a prompt). No registry, no lefthook entry — these are invoked directly.
+`scripts/maintenance/<verb-or-noun>.ts` (or `.sh` / `.md` for a prompt). No registry, no lefthook entry — these are invoked directly.
 
 ## Naming convention
 

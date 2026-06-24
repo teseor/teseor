@@ -1,6 +1,6 @@
 // Two pairings — both fail loud pre-push and in CI:
 //
-//   1. `scripts/codegen/src/**` ↔ codegen test
+//   1. `codegen/src/**` ↔ codegen test
 //      Change a generator → touch a snapshot or a `__tests__/` file.
 //      Snapshots count: auto-updating them confirms the diff is intentional.
 //
@@ -12,7 +12,7 @@ import type { DiffAwareCheck, ViolationDetail } from "../registry.ts";
 
 /** Files that, when changed, demand a corresponding codegen test-side change. */
 function isProductionCodegen(path: string): boolean {
-  if (!path.startsWith("scripts/codegen/src/")) return false;
+  if (!path.startsWith("codegen/src/")) return false;
   if (path.endsWith(".test.ts")) return false;
   if (path.endsWith(".test.tsx")) return false;
   return path.endsWith(".ts") || path.endsWith(".tsx");
@@ -20,9 +20,9 @@ function isProductionCodegen(path: string): boolean {
 
 /** Files that count as a codegen test-side change. */
 function isTestChange(path: string): boolean {
-  if (path.startsWith("scripts/codegen/__tests__/")) return true;
-  if (path.startsWith("scripts/codegen/src/") && path.endsWith(".test.ts")) return true;
-  if (path.startsWith("scripts/codegen/src/") && path.endsWith(".test.tsx")) return true;
+  if (path.startsWith("codegen/__tests__/")) return true;
+  if (path.startsWith("codegen/src/") && path.endsWith(".test.ts")) return true;
+  if (path.startsWith("codegen/src/") && path.endsWith(".test.tsx")) return true;
   return false;
 }
 
@@ -54,7 +54,7 @@ function checkCodegenTests(changed: readonly string[]): ViolationDetail[] {
       out.push({
         file: path,
         message:
-          "codegen source changed without a `scripts/codegen/__tests__/` or colocated `*.test.ts` change",
+          "codegen source changed without a `codegen/__tests__/` or colocated `*.test.ts` change",
       });
     }
   }
@@ -76,11 +76,7 @@ function checkCodegenTests(changed: readonly string[]): ViolationDetail[] {
 
 export const rule: DiffAwareCheck = {
   kind: "diff-aware",
-  triggers: [
-    "scripts/codegen/src/**",
-    "packages/react/src/_runtime.ts",
-    "packages/vue/src/_runtime.ts",
-  ],
+  triggers: ["codegen/src/**", "packages/react/src/_runtime.ts", "packages/vue/src/_runtime.ts"],
   run: checkCodegenTests,
   hint:
     "Snapshots count as a test-side change — auto-updating them confirms the diff is intentional.\n" +

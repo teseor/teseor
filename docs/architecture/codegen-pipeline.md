@@ -232,13 +232,13 @@ Codegen emits one wrapper module with sub-components attached: `Accordion.Item`,
 ## Generator layout
 
 Each generator is a thin dispatcher (~130 LOC) at
-`scripts/codegen/src/generators/gen-<target>.ts`. The dispatcher registers
+`codegen/src/generators/gen-<target>.ts`. The dispatcher registers
 with the generator registry, branches on `spec.kind` (or routes to a named
 component file), and orchestrates the spec walk + emit writes. The rendering
 logic lives in a sibling directory.
 
 ```text
-scripts/codegen/src/
+codegen/src/
 ├── cli.ts
 ├── registry.ts                           # one entry per generator
 ├── generators/
@@ -266,7 +266,7 @@ The five buckets are described in detail in ADR-0015. In summary:
 | `gen-<target>/components/<name>.ts` | Full per-component emitter for unique components | The named spec only |
 | `gen-<target>/workspace/<file>.ts` | Aggregate emitters that take the full spec corpus | Once per `pnpm gen` |
 | `gen-<target>/_shared/` | Framework-specific helpers used by ≥2 files in the same target | Imported within the same target |
-| `scripts/codegen/src/lib/` | Cross-target helpers used by ≥2 generators (pascal-case, text-escape, collect-slots, enum-primitives, jsdoc-shape, composite-shape, flatten) | Imported anywhere |
+| `codegen/src/lib/` | Cross-target helpers used by ≥2 generators (pascal-case, text-escape, collect-slots, enum-primitives, jsdoc-shape, composite-shape, flatten) | Imported anywhere |
 
 lib/ does not depend on generators/. Per-target \_shared/ does not depend on
 other targets' \_shared/. Adding a new target (`gen-astro`, `gen-webc`, etc.)
@@ -274,7 +274,7 @@ is a new `gen-<target>/` directory with the same kinds/components/workspace/
 shape; existing generators are not touched.
 
 The contract-emitter case (`gen-contract`) skips the kinds/ axis because it
-operates on the flattened spec (post-`scripts/codegen/src/lib/flatten.ts`)
+operates on the flattened spec (post-`codegen/src/lib/flatten.ts`)
 which collapses the atomic/composite distinction at the type layer. The
 test-emitter case (`gen-tests`) skips kinds/ because composites are filtered
 upstream — fixtures only ever see atomic shapes today. Both use a single
@@ -300,7 +300,7 @@ Per-framework idioms the generators honor:
 | React | `ComponentProps<E>` for native-attribute passthrough; `Readonly<>` prop objects; explicit `Ref` typing; `"use client"` pragma |
 | Vue | `<script setup lang="ts">`; the 3.5 reactive-props destructure (`const { variant } = defineProps(...)`) with no `props.` prefix; slots typed as `VNode[]` |
 
-The bar has no dedicated CI gate — `lint` and `typecheck` cover correctness and `gen-drift` catches hand-edits, but readability is reviewed by eye on every spec change. Clumsy output is a generator bug, fixed in `scripts/codegen/`, never patched in the output file.
+The bar has no dedicated CI gate — `lint` and `typecheck` cover correctness and `gen-drift` catches hand-edits, but readability is reviewed by eye on every spec change. Clumsy output is a generator bug, fixed in `codegen/`, never patched in the output file.
 
 ## Invocation
 
@@ -311,7 +311,7 @@ pnpm gen --target=react        # one wrapper across all components
 pnpm build:css                 # PostCSS pipeline → packages/css/dist/teseor.css
 ```
 
-Scripts live in `scripts/codegen/` and are plain TypeScript run with `tsx`. The CSS build pipeline lives at `packages/css/build.mjs` and runs PostCSS with the plugin set defined in ADR-0003.
+Scripts live in `codegen/` and are plain TypeScript run with `tsx`. The CSS build pipeline lives at `packages/css/build.mjs` and runs PostCSS with the plugin set defined in ADR-0003.
 
 ## Workspace tooling
 
@@ -374,11 +374,11 @@ A failed `gen-drift` means somebody edited a generated file by hand. The fix is 
 
 ## Spec validation
 
-`scripts/codegen/src/validate-spec.ts` runs on every PR via the `lint:spec` job
+`codegen/src/validate-spec.ts` runs on every PR via the `lint:spec` job
 (in the `lint` chain) and on pre-commit when a spec file is staged. Two layers
 per ADR-0009:
 
-**Shape (Zod).** Each spec parses against `scripts/codegen/src/core/schema.ts` — an
+**Shape (Zod).** Each spec parses against `codegen/src/core/schema.ts` — an
 identity layer (`name`, `kind`, `description`, `dependencies`, `file`,
 `behavior`, `primitives`, `guidance`, `examples`, `coverage`) plus a recursive
 `ComponentNode` (`element`, `rootClass`, `variants`, `intents`, `sizes`,
@@ -387,7 +387,7 @@ optional `parts:` map of nested `ComponentNode`s). `kind:` is a discriminated
 union over an open set: `atomic` inlines the node flat; `composite` carries
 the `parts:` map. Strict objects reject unknown keys at every depth.
 
-**Semantic cross-checks (`scripts/codegen/src/semantic-checks.ts`).** What the
+**Semantic cross-checks (`codegen/src/semantic-checks.ts`).** What the
 schema cannot express:
 
 - every `tokens:` entry has a `--t-<name>-<key>` reference in the component

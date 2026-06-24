@@ -160,7 +160,7 @@ Wall-clock target: ~5 min on a typical PR (small CSS change, no visual baseline 
 
 ## Branch protection
 
-All 12 gates are **required** on `main`. No optional checks, no warn-only. Configured via `scripts/repo/protect-main.sh` (a `gh api` script committed to the repo) rather than the GitHub UI — required-checks list lives in version control and survives repo migration.
+All 12 gates are **required** on `main`. No optional checks, no warn-only. Configured via `scripts/maintenance/protect-main.sh` (a `gh api` script committed to the repo) rather than the GitHub UI — required-checks list lives in version control and survives repo migration.
 
 Emergency override: maintainers can merge with a failing check (auditable in GitHub's audit log). The override path is for genuine emergencies (CI infra down, urgent security patch), not "the visual gate is flaky."
 

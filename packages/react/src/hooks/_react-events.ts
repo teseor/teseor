@@ -6,7 +6,7 @@
 // `focusout` are deliberately mapped to React's unified `onFocus` /
 // `onBlur` synthetic handlers.
 //
-// The spec-validator (`scripts/codegen/src/lib/react-events.ts`)
+// The spec-validator (`codegen/src/lib/react-events.ts`)
 // re-exports `REACT_EVENT_VOCABULARY` from here. Adding an event is one
 // edit; the validator picks it up automatically.
 

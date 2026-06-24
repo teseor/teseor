@@ -109,7 +109,7 @@ export const REGISTRY: Readonly<Record<string, Check>> = {
   spec: {
     kind: "external",
     triggers: ["specs/*.yaml"],
-    command: "node scripts/codegen/src/validate-spec.ts",
+    command: "node codegen/src/validate-spec.ts",
   },
   "logical-naming": {
     kind: "external",

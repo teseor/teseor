@@ -13,7 +13,7 @@ import { expect, test } from "@playwright/test";
 const SPECS_DIR = resolve(fileURLToPath(import.meta.url), "..", "..", "..", "specs");
 
 // Derived from `specs/*.yaml` so new components are covered automatically.
-// Mirrors `listSpecNames()` in `scripts/codegen/src/generators/*` — underscore-
+// Mirrors `listSpecNames()` in `codegen/src/generators/*` — underscore-
 // prefixed specs (`_breakpoints.yaml`, `_vocabulary.yaml`) are config, not
 // components.
 const PAGES = readdirSync(SPECS_DIR)

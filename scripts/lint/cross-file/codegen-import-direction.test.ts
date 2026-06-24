@@ -3,19 +3,19 @@ import { extractImports, pluginOf, resolveImport } from "./codegen-import-direct
 
 describe("pluginOf", () => {
   it("returns the plugin folder name for a file under plugins/<name>/", () => {
-    expect(pluginOf("scripts/codegen/src/plugins/events/check.ts")).toBe("events");
+    expect(pluginOf("codegen/src/plugins/events/check.ts")).toBe("events");
   });
 
   it("returns the plugin folder name for a nested file", () => {
-    expect(pluginOf("scripts/codegen/src/plugins/events/check/runtime-support.ts")).toBe("events");
+    expect(pluginOf("codegen/src/plugins/events/check/runtime-support.ts")).toBe("events");
   });
 
   it("returns undefined for non-plugin paths", () => {
-    expect(pluginOf("scripts/codegen/src/core/registry.ts")).toBeUndefined();
+    expect(pluginOf("codegen/src/core/registry.ts")).toBeUndefined();
   });
 
   it("returns undefined for the plugins root itself", () => {
-    expect(pluginOf("scripts/codegen/src/plugins")).toBeUndefined();
+    expect(pluginOf("codegen/src/plugins")).toBeUndefined();
   });
 });
 
@@ -46,35 +46,29 @@ describe("extractImports", () => {
 
 describe("resolveImport", () => {
   it("resolves a sibling import", () => {
-    const target = resolveImport("scripts/codegen/src/plugins/events/check.ts", "./schema.ts");
-    expect(target).toBe("scripts/codegen/src/plugins/events/schema.ts");
+    const target = resolveImport("codegen/src/plugins/events/check.ts", "./schema.ts");
+    expect(target).toBe("codegen/src/plugins/events/schema.ts");
   });
 
   it("resolves a parent-folder import", () => {
-    const target = resolveImport(
-      "scripts/codegen/src/plugins/events/check.ts",
-      "../../core/schema.ts",
-    );
-    expect(target).toBe("scripts/codegen/src/core/schema.ts");
+    const target = resolveImport("codegen/src/plugins/events/check.ts", "../../core/schema.ts");
+    expect(target).toBe("codegen/src/core/schema.ts");
   });
 
   it("resolves a nested-file parent-folder import", () => {
     const target = resolveImport(
-      "scripts/codegen/src/plugins/events/check/index.ts",
+      "codegen/src/plugins/events/check/index.ts",
       "../../../core/schema.ts",
     );
-    expect(target).toBe("scripts/codegen/src/core/schema.ts");
+    expect(target).toBe("codegen/src/core/schema.ts");
   });
 
   it("returns undefined for npm-package imports", () => {
-    expect(resolveImport("scripts/codegen/src/plugins/events/check.ts", "zod")).toBeUndefined();
+    expect(resolveImport("codegen/src/plugins/events/check.ts", "zod")).toBeUndefined();
   });
 
   it("flags a sibling-plugin path when resolving plugin → plugin", () => {
-    const target = resolveImport(
-      "scripts/codegen/src/plugins/events/check.ts",
-      "../parts/check.ts",
-    );
-    expect(target).toBe("scripts/codegen/src/plugins/parts/check.ts");
+    const target = resolveImport("codegen/src/plugins/events/check.ts", "../parts/check.ts");
+    expect(target).toBe("codegen/src/plugins/parts/check.ts");
   });
 });

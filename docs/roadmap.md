@@ -8,7 +8,7 @@ Five phases, numbered fresh. Each phase ships when its CI gates are all green fo
 
 The system has to be real before any component matters.
 
-- `pnpm` monorepo scaffold: `packages/`, `apps/`, `specs/`, `scripts/codegen/`, `tests/`.
+- `pnpm` monorepo scaffold: `packages/`, `apps/`, `specs/`, `codegen/`, `tests/`.
 - Tooling: Biome, Stylelint, Vitest, Playwright, size-limit, changesets.
 - CI: lint, typecheck, test, visual, a11y, bundle, gen-drift, changeset, lighthouse.
 - `tokens.css`: full Tier 1 scale + Tier 2 semantic aliases.

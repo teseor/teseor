@@ -11,13 +11,13 @@ The codegen pipeline reads `specs/*.yaml`, runs Zod + semantic-checks, flattens
 to `FlatSpec`, and emits four artifacts (contract types, React wrappers, Vue
 wrappers, docs pages). This audit covers every shape-gating branch in:
 
-- `scripts/codegen/src/core/schema.ts`
-- `scripts/codegen/src/semantic-checks.ts`
-- `scripts/codegen/src/lib/flatten.ts`
-- `scripts/codegen/src/generators/gen-contract/`
-- `scripts/codegen/src/generators/gen-react-19/`
-- `scripts/codegen/src/generators/gen-vue-3/`
-- `scripts/codegen/src/generators/gen-docs/`
+- `codegen/src/core/schema.ts`
+- `codegen/src/semantic-checks.ts`
+- `codegen/src/lib/flatten.ts`
+- `codegen/src/generators/gen-contract/`
+- `codegen/src/generators/gen-react-19/`
+- `codegen/src/generators/gen-vue-3/`
+- `codegen/src/generators/gen-docs/`
 
 "Shape-gating branch" = code path the spec's declared shape selects (e.g.
 `kind === 'atomic'`, `prop.slot === true`, `part.repeating === true`,
@@ -26,8 +26,8 @@ wrappers, docs pages). This audit covers every shape-gating branch in:
 
 Out of scope for this pass:
 
-- `scripts/codegen/src/generators/gen-tests/` and
-  `scripts/codegen/src/generators/gen-size-limit.ts` — secondary surface;
+- `codegen/src/generators/gen-tests/` and
+  `codegen/src/generators/gen-size-limit.ts` — secondary surface;
   likely repeat the same kind-dispatch pattern but not enumerated here.
 - Backwards-compat (no published consumers).
 - ADR rewrites — each advanced proposal carries its own ADR work.
@@ -48,7 +48,7 @@ proposals, recommendation in this doc are the main-session synthesis.
 
 ## Inventory
 
-### `scripts/codegen/src/core/schema.ts`
+### `codegen/src/core/schema.ts`
 
 | File:line | Gates on | What changes |
 | --- | --- | --- |
@@ -59,7 +59,7 @@ proposals, recommendation in this doc are the main-session synthesis.
 | schema.ts:36, 115 | `pattern: "controllable"` literal | Single-value enum; only meaningful for boolean props (semantic-checks tightens further). |
 | schema.ts:71-84 | Shared node fields (`variants`, `intents`, `sizes`, `props`, `tokens`, `states`, `a11y`, `constraints`, `motion`) | Inlined at root on atomic; nested per-part on composite. Same shape, different placement. |
 
-### `scripts/codegen/src/lib/flatten.ts`
+### `codegen/src/lib/flatten.ts`
 
 | File:line | Gates on | What changes |
 | --- | --- | --- |
@@ -70,7 +70,7 @@ proposals, recommendation in this doc are the main-session synthesis.
 | flatten.ts:215 | `part.groupKey` | Forwarded to FlatRepeatingPart so downstream generators can interleave loops. |
 | flatten.ts:255-256, 270-271 | Composite branch carries `overlay`/`interactions` (atomic branch doesn't) | All four root-only optional blocks (`overlay`, `interactions`, `events`, `generics`) sit in `identityFields` and are schema-allowed on both kinds; the atomic branch of flatten propagates only `events`/`generics`, dropping `overlay`/`interactions` even when present. |
 
-### `scripts/codegen/src/semantic-checks.ts`
+### `codegen/src/semantic-checks.ts`
 
 | File:line | Gates on | What changes |
 | --- | --- | --- |
@@ -122,7 +122,7 @@ proposals, recommendation in this doc are the main-session synthesis.
 | semantic-checks.ts:2040 | `def.pattern === "controllable"` | Rule 16c: group-level controllable prop on non-repeating part rejected. |
 | semantic-checks.ts:2054 | `parentIsRepeating \|\| part.repeating === true` | Tracked through recursion for Rule 4 (no nested repeating). |
 
-### `scripts/codegen/src/generators/gen-contract/`
+### `codegen/src/generators/gen-contract/`
 
 | File:line | Gates on | What changes |
 | --- | --- | --- |
@@ -136,7 +136,7 @@ proposals, recommendation in this doc are the main-session synthesis.
 | gen-contract/per-spec.ts:171 | `def.pattern === "controllable" && def.type === "boolean"` | Pick controllable booleans to add channel-union arms. |
 | gen-contract/workspace/barrel.ts:16 | `entry.events && length > 0` | Re-export `<Name>Event` in the barrel only when events declared. |
 
-### `scripts/codegen/src/generators/gen-react-19/`
+### `codegen/src/generators/gen-react-19/`
 
 | File:line | Gates on | What changes |
 | --- | --- | --- |
@@ -160,7 +160,7 @@ proposals, recommendation in this doc are the main-session synthesis.
 | gen-react/kinds/composite-list.ts:80 | `g.length > 1` (multi-part group) | Adds `Fragment` import and wraps each item. |
 | gen-react/kinds/composite-list.ts:176, 189 | `d.slot === true` | Item slot props render as children; non-slot props render as `data-*` attrs. |
 
-### `scripts/codegen/src/generators/gen-vue-3/`
+### `codegen/src/generators/gen-vue-3/`
 
 | File:line | Gates on | What changes |
 | --- | --- | --- |
@@ -182,7 +182,7 @@ proposals, recommendation in this doc are the main-session synthesis.
 | gen-vue/kinds/composite-list.ts:29 | `spec.repeating ?? []` group-by-propName | Same grouping. |
 | gen-vue/kinds/composite-list.ts:199, 208, 235, 244 | `d.slot === true` | Item slot props as inline content; non-slot as data-attrs. |
 
-### `scripts/codegen/src/generators/gen-docs/`
+### `codegen/src/generators/gen-docs/`
 
 | File:line | Gates on | What changes |
 | --- | --- | --- |
@@ -255,7 +255,7 @@ Per-row tags (E = essential, A = accidental, U = unsure) with one-line reason.
 - 1865-1989 (the per-rule fork): Rules 1, 2, 4, 5, 7, 8, 10, 13, 14 — **E**. Rules 6, 9, 15 — **A** — they exist purely because `propName` and `groupKey` express overlapping intent. Rule 12 — **U** — codified as "generators don't support it yet". Rules 16a/b/c — **U** — same.
 - 1990-2050 — see Rule 16 above.
 
-### Classification — `scripts/codegen/src/generators/gen-contract/`
+### Classification — `codegen/src/generators/gen-contract/`
 
 - per-spec.ts:19 — **E** — code-gen optimization.
 - per-spec.ts:71-80 (controllable triple) — **A** — appears verbatim in 4 places (gen-contract, gen-react/_shared/props, gen-vue/composite-overlay, gen-docs/sections).
@@ -265,7 +265,7 @@ Per-row tags (E = essential, A = accidental, U = unsure) with one-line reason.
 - per-spec.ts:159-160, 165-207, 171 — **E**.
 - workspace/barrel.ts:16 — **E**.
 
-### Classification — `scripts/codegen/src/generators/gen-react-19/` and `scripts/codegen/src/generators/gen-vue-3/`
+### Classification — `codegen/src/generators/gen-react-19/` and `codegen/src/generators/gen-vue-3/`
 
 - Top-level dispatch — **E** — three distinct emitter shapes.
 - shared events.ts event gating, dismiss specialization — **E** today; **U** as events expand beyond dismiss.
@@ -281,7 +281,7 @@ Per-row tags (E = essential, A = accidental, U = unsure) with one-line reason.
 `_shared` and `kinds` sub-dirs of each generator dir in the heading;
 full paths appear in the inventory tables.)
 
-### Classification — `scripts/codegen/src/generators/gen-docs/`
+### Classification — `codegen/src/generators/gen-docs/`
 
 - gen-docs.ts:74-78 — **E**.
 - shared examples.ts `isComposite` + `isList` dispatch — **E** for the rendering distinction. **A** for the implementation (boolean-flag style; three explicit example-shape templates would be clearer).
@@ -395,9 +395,9 @@ order-of-magnitude estimates against the current codebase.
 ### P1 — Shared visitor helpers (`visitProps` / `visitTokens` / `visitNodes`)
 
 **What:** Add three shared traversal helpers to a new file under
-`scripts/codegen/src/lib/` (e.g. `visit.ts`). Each takes a `Spec` and a
+`codegen/src/lib/` (e.g. `visit.ts`). Each takes a `Spec` and a
 per-node callback. Refactor the 8 walk-duplication sites in
-`scripts/codegen/src/semantic-checks.ts` to use them.
+`codegen/src/semantic-checks.ts` to use them.
 
 **Cost:** ~150 LOC new helper file (tested). ~80 LOC removed from
 `semantic-checks.ts`. No spec migration. Zero behavior change in the
@@ -461,7 +461,7 @@ one prop name" instead of "one field that might be both."
 
 **What:** Move `SUPPORTED_BY_SHAPE` (semantic-checks.ts:1508) and
 `REQUIRED_REASON_VALUES` (1564-1590) into a single data table under
-`scripts/codegen/src/lib/` (e.g. `event-runtime-matrix.ts`). The table maps
+`codegen/src/lib/` (e.g. `event-runtime-matrix.ts`). The table maps
 `spec shape → { allowedEvents, payloadContracts, supportsGenerics }`.
 Both semantic-checks (validation) and the per-framework event emitters
 (gen-react/_shared/events.ts:118 and Vue equivalent) consume it.
@@ -476,7 +476,7 @@ Required before the events surface scales beyond `dismiss`.
 ### P5 — Discriminated `slotKind` on FlatProp
 
 **What:** Add `slotKind: "atomic-root" | "composite-part"` to FlatProp
-(`scripts/codegen/src/lib/flatten.ts`). Populate it in flatten based on
+(`codegen/src/lib/flatten.ts`). Populate it in flatten based on
 where the slot prop was authored. Drop the `__part: ""` sentinel
 convention in favor of the discriminator.
 
@@ -494,7 +494,7 @@ this proposal as a fallback if P2 is deferred.
 ### P6 — Shared controllable-triple helper
 
 **What:** Add `expandControllableTriple(propName, def)` to a new file
-under `scripts/codegen/src/lib/` (e.g. `controllable.ts`). Call it from
+under `codegen/src/lib/` (e.g. `controllable.ts`). Call it from
 gen-contract, gen-react/_shared/props.ts, gen-vue/kinds/composite-overlay.ts,
 and gen-docs/_shared/sections.ts.
 
@@ -505,7 +505,7 @@ refactor; no spec migration.
 
 ### P7 — Generator-contributed props registry
 
-**What:** Add a registry under `scripts/codegen/src/lib/` (e.g.
+**What:** Add a registry under `codegen/src/lib/` (e.g.
 `synthetic-props.ts`) listing the props that wrappers emit on top of the spec's declared
 surface — today `asChild` (when any part declares `fromChildren: true`)
 and `ref` (when the spec declares `overlay:`). Both gen-contract and
@@ -552,7 +552,7 @@ P3 forces redundancy in every interleaved-repeating spec.
 ### Advance (file one follow-up issue)
 
 - **P1 — shared visitor helpers.** Pure internal refactor. ~80 LOC
-  removed from `scripts/codegen/src/semantic-checks.ts`. No spec
+  removed from `codegen/src/semantic-checks.ts`. No spec
   change, no behavior change. The visitor PR may also opportunistically
   drop the `"items"` lowercase special case at
   semantic-checks.ts:1284-1288, since it's a tiny touch in adjacent
@@ -604,10 +604,10 @@ P3 forces redundancy in every interleaved-repeating spec.
 
 ## What this audit did not examine
 
-- `scripts/codegen/src/generators/gen-tests/` and `gen-size-limit.ts` —
+- `codegen/src/generators/gen-tests/` and `gen-size-limit.ts` —
   secondary surface; likely repeat the kind-dispatch pattern but not
   inventoried here.
-- `scripts/codegen/src/lib/composite-shape.ts` — called from gen-react
+- `codegen/src/lib/composite-shape.ts` — called from gen-react
   and gen-vue composite-overlay emitters. Centralizes the
   overlay-anchor / `fromChildren: true` invariant; generators correctly
   delegate. No changes proposed.

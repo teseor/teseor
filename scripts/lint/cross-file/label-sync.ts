@@ -2,7 +2,7 @@
 // does not define. The two files drift independently; this is the gate.
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { REPO_ROOT } from "../../lib/paths.ts";
+import { REPO_ROOT } from "../helpers/paths.ts";
 import type { ViolationDetail, WorkspaceCheck } from "../registry.ts";
 
 function labelerReferences(): string[] {
@@ -45,5 +45,5 @@ export const rule: WorkspaceCheck = {
   run: checkLabelSync,
   hint:
     "Add the missing label(s) to `.github/labels.yml`.\n" +
-    "Component-scoped entries regenerate via `scripts/repo/sync-labels.ts --mode=generate`.",
+    "Component-scoped entries regenerate via `scripts/maintenance/sync-labels.ts --mode=generate`.",
 };

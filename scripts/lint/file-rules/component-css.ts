@@ -11,7 +11,7 @@ import postcss from "postcss";
 import postcssEach from "postcss-each";
 import selectorParser from "postcss-selector-parser";
 import { buildTokenMap } from "../../../packages/css/postcss-teseor-floor.ts";
-import { REPO_ROOT } from "../../lib/paths.ts";
+import { REPO_ROOT } from "../helpers/paths.ts";
 import type { ViolationDetail, WorkspaceCheck } from "../registry.ts";
 
 const STATE_PSEUDOS = new Set([

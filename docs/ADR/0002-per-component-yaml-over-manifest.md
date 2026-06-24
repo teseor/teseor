@@ -30,7 +30,7 @@ specs/
 └── ...
 ```
 
-The CSS file stays at `packages/css/src/components/<name>/<name>.css`. The spec is the API description; the CSS is the visual implementation. The codegen pipeline (`scripts/codegen/`) reads `specs/*.yaml`, walks `packages/css/src/components/`, and emits everything else.
+The CSS file stays at `packages/css/src/components/<name>/<name>.css`. The spec is the API description; the CSS is the visual implementation. The codegen pipeline (`codegen/`) reads `specs/*.yaml`, walks `packages/css/src/components/`, and emits everything else.
 
 ## Why YAML, not JSON
 

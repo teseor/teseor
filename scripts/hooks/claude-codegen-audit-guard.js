@@ -13,9 +13,9 @@ import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const CODEGEN_PATTERNS = [
-  /^scripts\/codegen\/src\/generators\//,
-  /^scripts\/codegen\/src\/schema\.ts$/,
-  /^scripts\/codegen\/src\/lib\/flatten\.ts$/,
+  /^codegen\/src\/generators\//,
+  /^codegen\/src\/core\/schema\.ts$/,
+  /^codegen\/src\/lib\/flatten\.ts$/,
 ];
 
 const AUDIT_TOKEN = "audit: codegen-surface";

@@ -14,11 +14,11 @@ import { spawnSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { lsFiles } from "../lib/enumerate.ts";
-import { getChangedFiles } from "../lib/git.ts";
-import { globMatch } from "../lib/glob.ts";
-import { REPO_ROOT } from "../lib/paths.ts";
-import { reportResult, type Violation } from "../lib/report.ts";
+import { lsFiles } from "./helpers/enumerate.ts";
+import { getChangedFiles } from "./helpers/git.ts";
+import { globMatch } from "./helpers/glob.ts";
+import { REPO_ROOT } from "./helpers/paths.ts";
+import { reportResult, type Violation } from "./helpers/report.ts";
 import { type Check, type ExternalCheck, type FileRule, REGISTRY } from "./registry.ts";
 
 type ParsedArgs = {
