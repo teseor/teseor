@@ -20,7 +20,7 @@ import { checkExamplesPresent } from "./plugins/examples/check.ts";
 import { checkFormControl } from "./plugins/formControl/check.ts";
 import { checkImperativeProps } from "./plugins/imperativeProps/check.ts";
 import { checkMotion } from "./plugins/motion/check.ts";
-import { checkRepeatingParts } from "./plugins/parts/check.ts";
+import { checkRepeatingParts } from "./plugins/parts/check/index.ts";
 import { checkResponsiveExplicit } from "./plugins/props/check.ts";
 import { checkRoot } from "./plugins/root/check.ts";
 import { checkStateMachines } from "./plugins/states/check.ts";
@@ -99,7 +99,7 @@ export { checkEvents, checkEventsRuntimeSupport } from "./plugins/events/check/i
 export { checkExamplesPresent } from "./plugins/examples/check.ts";
 export { checkFormControl } from "./plugins/formControl/check.ts";
 export { checkImperativeProps } from "./plugins/imperativeProps/check.ts";
-export { checkRepeatingParts } from "./plugins/parts/check.ts";
+export { checkRepeatingParts } from "./plugins/parts/check/index.ts";
 export { checkResponsiveExplicit } from "./plugins/props/check.ts";
 export { checkRoot } from "./plugins/root/check.ts";
 export { checkStateMachines } from "./plugins/states/check.ts";
