@@ -6,7 +6,7 @@ on:
       - .github/labels.yml
       - .github/labeler.yml
       - specs/**
-      - scripts/repo/sync-labels.ts
+      - scripts/maintenance/sync-labels.ts
       - scripts/lint/cross-file/label-sync.ts
   push:
     branches: [main]
@@ -14,7 +14,7 @@ on:
       - .github/labels.yml
       - .github/labeler.yml
       - specs/**
-      - scripts/repo/sync-labels.ts
+      - scripts/maintenance/sync-labels.ts
       - scripts/lint/cross-file/label-sync.ts
   workflow_dispatch:
 
@@ -28,11 +28,11 @@ jobs:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/setup
       - name: Regenerate AUTO regions from specs
-        run: node scripts/repo/sync-labels.ts --mode=generate
+        run: node scripts/maintenance/sync-labels.ts --mode=generate
       - name: Fail if labeler.yml or labels.yml drifted from specs
         run: |
           if ! git diff --quiet -- .github/labeler.yml .github/labels.yml; then
-            echo "AUTO regions are out of date. Run: node scripts/repo/sync-labels.ts --mode=generate"
+            echo "AUTO regions are out of date. Run: node scripts/maintenance/sync-labels.ts --mode=generate"
             git --no-pager diff -- .github/labeler.yml .github/labels.yml
             exit 1
           fi
@@ -54,4 +54,4 @@ jobs:
       - name: Upsert labels from labels.yml
         env:
           GH_TOKEN: ${{ github.token }}
-        run: node scripts/repo/sync-labels.ts --mode=upsert
+        run: node scripts/maintenance/sync-labels.ts --mode=upsert

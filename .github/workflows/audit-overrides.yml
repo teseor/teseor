@@ -18,7 +18,7 @@ jobs:
       - name: Run audit
         id: audit
         run: |
-          OUTPUT=$(node scripts/repo/audit-overrides.ts)
+          OUTPUT=$(node scripts/maintenance/audit-overrides.ts)
           echo "$OUTPUT"
           {
             echo "result<<AUDIT_EOF"

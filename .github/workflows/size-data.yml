@@ -39,7 +39,7 @@ jobs:
         run: pnpm exec size-limit --json > size-current.json
       - if: steps.dist.outputs.have_dist == 'true'
         name: Measure per-component breakpoint share
-        run: node scripts/repo/measure-bp-cost.ts > bp-share.json
+        run: node scripts/maintenance/measure-bp-cost.ts > bp-share.json
       - if: steps.dist.outputs.have_dist == 'true'
         name: Record PR number for the report job
         env:

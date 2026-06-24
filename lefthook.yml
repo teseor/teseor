@@ -30,7 +30,7 @@ pre-push:
       skip_empty: false
       run: |
         if [ ! -f .claude/preflight-review.enabled ]; then exit 0; fi
-        bash scripts/repo/review.sh || true
+        bash scripts/maintenance/review.sh || true
     lint:
       run: pnpm lint
     typecheck:
@@ -49,7 +49,7 @@ pre-push:
         fi
     sync-labels-drift:
       glob: "specs/*.yaml"
-      run: node scripts/repo/sync-labels.ts --check
+      run: node scripts/maintenance/sync-labels.ts --check
     contract-snapshots:
       glob:
         - "specs/**/*.yaml"

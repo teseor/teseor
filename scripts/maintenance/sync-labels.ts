@@ -105,7 +105,7 @@ function checkDrift(): boolean {
   if (drifted.length === 0) return false;
   console.error(
     `sync-labels drift detected in: ${drifted.join(", ")}\n` +
-      `Run: node scripts/repo/sync-labels.ts --mode=generate\n` +
+      `Run: node scripts/maintenance/sync-labels.ts --mode=generate\n` +
       `Then commit the regenerated files.`,
   );
   return true;

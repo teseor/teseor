@@ -24,7 +24,7 @@ Repository-level tooling. Layout is role-based: the folder tells you who calls t
 
 ## Adding a maintainer one-shot
 
-`scripts/repo/<verb-or-noun>.ts` (or `.sh` / `.md` for a prompt). No registry, no lefthook entry — these are invoked directly.
+`scripts/maintenance/<verb-or-noun>.ts` (or `.sh` / `.md` for a prompt). No registry, no lefthook entry — these are invoked directly.
 
 ## Naming convention
 

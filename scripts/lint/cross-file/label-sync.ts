@@ -45,5 +45,5 @@ export const rule: WorkspaceCheck = {
   run: checkLabelSync,
   hint:
     "Add the missing label(s) to `.github/labels.yml`.\n" +
-    "Component-scoped entries regenerate via `scripts/repo/sync-labels.ts --mode=generate`.",
+    "Component-scoped entries regenerate via `scripts/maintenance/sync-labels.ts --mode=generate`.",
 };

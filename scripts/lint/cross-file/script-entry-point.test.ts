@@ -3,8 +3,8 @@ import { extractInvocations, isImportOnly } from "./script-entry-point.ts";
 
 describe("extractInvocations", () => {
   it("extracts a plain `node scripts/<path>` invocation", () => {
-    expect(extractInvocations("run: node scripts/repo/audit-overrides.ts")).toEqual([
-      "scripts/repo/audit-overrides.ts",
+    expect(extractInvocations("run: node scripts/maintenance/audit-overrides.ts")).toEqual([
+      "scripts/maintenance/audit-overrides.ts",
     ]);
   });
 
