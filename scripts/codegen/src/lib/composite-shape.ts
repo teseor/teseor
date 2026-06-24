@@ -1,4 +1,4 @@
-import type { SpecPart } from "../schema.ts";
+import type { SpecPart } from "../core/schema.ts";
 import type { FlatSpec } from "./flatten.ts";
 
 export type CompositeShapeOptions = {

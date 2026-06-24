@@ -1,6 +1,6 @@
 import { collectDimensionValues, isAtomic, issue, suggestionFragment } from "../../core/check-utils.ts";
 import type { Issue } from "../../core/check-utils.ts";
-import type { Spec } from "../../schema.ts";
+import type { Spec } from "../../core/schema.ts";
 
 export function checkCoverageShape(spec: Spec): Issue[] {
   const issues: Issue[] = [];

@@ -1,6 +1,6 @@
 import type { SpecAnalysis } from "../../core/analysis.ts";
 import { visitAllNodes } from "../../core/check-utils.ts";
-import type { Spec, SpecPart } from "../../schema.ts";
+import type { Spec, SpecPart } from "../../core/schema.ts";
 
 type PropMap = NonNullable<SpecPart["props"]>;
 

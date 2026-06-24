@@ -240,7 +240,7 @@ scripts/codegen/src/
 └── lib/                        # pure utilities
 ```
 
-`scripts/codegen/src/schema.ts` (419 LOC) → `scripts/codegen/src/core/schema.ts` (~40 LOC composer).
+`scripts/codegen/src/core/schema.ts` (419 LOC) → `scripts/codegen/src/core/schema.ts` (~40 LOC composer).
 `scripts/codegen/src/semantic-checks.ts` (2882 LOC) → 23 plugin-local checks + `scripts/codegen/src/plugins/constraints/check.ts` (the two cross-plugin rules both involve `constraints`).
 `scripts/codegen/src/generators/gen-{react,vue}/kinds/atomic.ts` (335 + 314 LOC) → `scripts/codegen/src/core/orchestrator.ts` (~50 LOC) + per-plugin `emit/{react,vue}.ts` modules.
 
@@ -254,7 +254,7 @@ scripts/codegen/src/
   the substrate concepts it packages are themselves clean.
 - **Not field consolidations without the plugin architecture.** The
   current monolith makes every consolidation a multi-file edit through
-  `scripts/codegen/src/schema.ts`, `scripts/codegen/src/semantic-checks.ts`, `scripts/codegen/src/generators/gen-{react,vue}/kinds/atomic.ts` (both React and
+  `scripts/codegen/src/core/schema.ts`, `scripts/codegen/src/semantic-checks.ts`, `scripts/codegen/src/generators/gen-{react,vue}/kinds/atomic.ts` (both React and
   Vue), `gen-contract`, `gen-docs`, `gen-tests`. The point of going
   through this work is that the *next* substrate change touches one
   folder; renaming a field today still touches the same five-to-eight

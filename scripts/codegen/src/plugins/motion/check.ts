@@ -1,6 +1,6 @@
 import type { Issue } from "../../core/check-utils.ts";
 import { issue, visitNodes } from "../../core/check-utils.ts";
-import type { Spec } from "../../schema.ts";
+import type { Spec } from "../../core/schema.ts";
 
 /** Walks every ComponentNode (root and parts) and asserts `enters`/`exits`
  * are declared symmetrically. Symmetry of existence, not duration. */

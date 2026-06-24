@@ -4,7 +4,7 @@ import {
   type Dimension,
   expandPairwise,
   type Constraint as PairwiseConstraint,
-} from "../../../pairwise.ts";
+} from "../../../lib/pairwise.ts";
 import type { Spec } from "../../gen-contract.ts";
 
 /** Spec fields gen-tests reads beyond gen-contract's loose Spec type. */

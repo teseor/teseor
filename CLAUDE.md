@@ -28,7 +28,7 @@ configs (`biome.json`, `.stylelintrc.cjs`, `tsconfig.json`, `lefthook.yml`,
   `Settled — do not re-decide` / `Next`). Refresh it after each chunk of work;
   read it before starting one. The file is gitignored — maintainer-only.
 - Before pushing changes that touch the codegen surface (`scripts/codegen/src/generators/**`,
-  `scripts/codegen/src/schema.ts`, `scripts/codegen/src/lib/flatten.ts`), run the
+  `scripts/codegen/src/core/schema.ts`, `scripts/codegen/src/lib/flatten.ts`), run the
   four-category audit from memory `project_codegen_surface_audit` and acknowledge
   it either via `audit: codegen-surface` in the latest commit subject, or by
   writing a current timestamp (ISO 8601, or Unix seconds / milliseconds) as the

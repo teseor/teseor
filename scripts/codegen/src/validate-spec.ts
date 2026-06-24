@@ -7,10 +7,10 @@ import { readdir, readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse as parseYaml } from "yaml";
+import { Spec } from "./core/schema.ts";
 import { loadTokenDictionary } from "./lib/token-dictionary.ts";
 import { loadTokensCss } from "./lib/tokens-css.ts";
 import { loadVocabulary } from "./lib/vocabulary.ts";
-import { Spec } from "./schema.ts";
 import { checkDependencyCycles, type Issue, runSemanticChecks } from "./semantic-checks.ts";
 
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..", "..");

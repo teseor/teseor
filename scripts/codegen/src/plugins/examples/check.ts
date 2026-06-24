@@ -1,6 +1,6 @@
 import type { Issue } from "../../core/check-utils.ts";
 import { issue } from "../../core/check-utils.ts";
-import type { Spec } from "../../schema.ts";
+import type { Spec } from "../../core/schema.ts";
 
 /**
  * Every spec must declare at least one entry in `examples:`. A spec without

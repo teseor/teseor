@@ -48,7 +48,13 @@
       "style": {
         "useImportType": "error",
         "useExportType": "error",
-        "noDefaultExport": "error"
+        "noDefaultExport": "error",
+        "useFilenamingConvention": {
+          "level": "error",
+          "options": {
+            "filenameCases": ["kebab-case", "camelCase", "PascalCase"]
+          }
+        }
       }
     }
   },

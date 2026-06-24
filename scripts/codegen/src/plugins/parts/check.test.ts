@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
-import { Spec } from "../../schema.ts";
-import { checkRepeatingParts } from "./check.ts";
+import { Spec } from "../../core/schema.ts";
+import { checkRepeatingParts } from "./check/index.ts";
 
 /** Validates the literal at runtime via Zod. The lint rule
  *  `no-as-unknown-cast` forbids the bare schema-cast in test files (it

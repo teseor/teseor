@@ -11,7 +11,7 @@ The codegen pipeline reads `specs/*.yaml`, runs Zod + semantic-checks, flattens
 to `FlatSpec`, and emits four artifacts (contract types, React wrappers, Vue
 wrappers, docs pages). This audit covers every shape-gating branch in:
 
-- `scripts/codegen/src/schema.ts`
+- `scripts/codegen/src/core/schema.ts`
 - `scripts/codegen/src/semantic-checks.ts`
 - `scripts/codegen/src/lib/flatten.ts`
 - `scripts/codegen/src/generators/gen-contract/`
@@ -48,7 +48,7 @@ proposals, recommendation in this doc are the main-session synthesis.
 
 ## Inventory
 
-### `scripts/codegen/src/schema.ts`
+### `scripts/codegen/src/core/schema.ts`
 
 | File:line | Gates on | What changes |
 | --- | --- | --- |

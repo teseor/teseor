@@ -2,10 +2,10 @@ import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { describe, expect, test } from "vitest";
 import { parse as parseYaml } from "yaml";
+import { Spec as SpecSchema } from "../src/core/schema.ts";
 import type { DocsSpec } from "../src/generators/gen-docs.ts";
 import { renderDocsPage } from "../src/generators/gen-docs.ts";
 import { flattenSpec } from "../src/lib/flatten.ts";
-import { Spec as SpecSchema } from "../src/schema.ts";
 
 const REPO_ROOT = resolve(import.meta.dirname, "..", "..", "..");
 

@@ -1,5 +1,5 @@
 import type { SpecAnalysis } from "../../core/analysis.ts";
-import type { Spec } from "../../schema.ts";
+import type { Spec } from "../../core/schema.ts";
 
 export function analyzeRoot(spec: Spec): Partial<SpecAnalysis> {
   if (spec.kind !== "atomic") return {};

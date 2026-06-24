@@ -1,5 +1,5 @@
 import type { SubstratePlugin } from "../../core/plugin.ts";
-import { checkRepeatingParts } from "./check.ts";
+import { checkRepeatingParts } from "./check/index.ts";
 
 export const partsPlugin: SubstratePlugin = {
   name: "parts",

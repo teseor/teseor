@@ -6,6 +6,7 @@
 // `guidance.variantChoice` key equality with `spec.variants`.
 
 import type { Issue } from "./core/check-utils.ts";
+import type { Spec } from "./core/schema.ts";
 import type { TokenDictionary } from "./lib/token-dictionary.ts";
 import type { Vocabulary } from "./lib/vocabulary.ts";
 import { checkA11yRefs } from "./plugins/a11y/check.ts";
@@ -15,15 +16,15 @@ import {
   checkConstraintsAgainstExamples,
 } from "./plugins/constraints/check.ts";
 import { checkCoverageShape } from "./plugins/coverage/check.ts";
-import { checkEvents, checkEventsRuntimeSupport } from "./plugins/events/check.ts";
+import { checkEvents, checkEventsRuntimeSupport } from "./plugins/events/check/index.ts";
 import { checkExamplesPresent } from "./plugins/examples/check.ts";
-import { checkFormControl } from "./plugins/formControl/check.ts";
-import { checkImperativeProps } from "./plugins/imperativeProps/check.ts";
+import { checkFormControl } from "./plugins/form-control/check.ts";
+import { checkImperativeProps } from "./plugins/imperative-props/check.ts";
 import { checkMotion } from "./plugins/motion/check.ts";
-import { checkRepeatingParts } from "./plugins/parts/check.ts";
+import { checkRepeatingParts } from "./plugins/parts/check/index.ts";
 import { checkResponsiveExplicit } from "./plugins/props/check.ts";
 import { checkRoot } from "./plugins/root/check.ts";
-import { checkStateMachines } from "./plugins/states/check.ts";
+import { checkStateMachines } from "./plugins/states/check/index.ts";
 import {
   checkCssImportAllowlist,
   checkPrivateTokens,
@@ -33,22 +34,12 @@ import {
 } from "./plugins/tokens/check.ts";
 import { checkExamplesReferences, checkVariantChoiceKeys } from "./plugins/variants/check.ts";
 import { checkVocabulary } from "./plugins/vocabulary/check.ts";
-import { checkVoidElementConstraints } from "./plugins/voidElements/check.ts";
-import type { Spec } from "./schema.ts";
+import { checkVoidElementConstraints } from "./plugins/void-elements/check.ts";
 
 export type { Issue } from "./core/check-utils.ts";
-export { levenshtein, suggest } from "./core/check-utils.ts";
+export { checkDependencyCycles } from "./plugins/dependencies/check.ts";
 
 type TokensCss = ReadonlySet<string>;
-
-type CssIndex = {
-  /** Spec basename to the CSS source string. */
-  cssByName: Map<string, string>;
-};
-
-export { checkA11yRefs };
-
-// ── Aggregate ───────────────────────────────────────────────────────────────
 
 export function runSemanticChecks(
   spec: Spec,
@@ -86,35 +77,3 @@ export function runSemanticChecks(
     ...checkStateMachines(spec, ctx.vocabulary),
   ];
 }
-
-export { checkBranches } from "./plugins/branches/check.ts";
-export {
-  checkConstraintsAgainstCoverage,
-  checkConstraintsAgainstExamples,
-} from "./plugins/constraints/check.ts";
-export { checkCoverageShape } from "./plugins/coverage/check.ts";
-export type { DependencyIndex } from "./plugins/dependencies/check.ts";
-export { checkDependencyCycles } from "./plugins/dependencies/check.ts";
-export { checkEvents, checkEventsRuntimeSupport } from "./plugins/events/check.ts";
-export { checkExamplesPresent } from "./plugins/examples/check.ts";
-export { checkFormControl } from "./plugins/formControl/check.ts";
-export { checkImperativeProps } from "./plugins/imperativeProps/check.ts";
-export { checkRepeatingParts } from "./plugins/parts/check.ts";
-export { checkResponsiveExplicit } from "./plugins/props/check.ts";
-export { checkRoot } from "./plugins/root/check.ts";
-export { checkStateMachines } from "./plugins/states/check.ts";
-export {
-  checkCssImportAllowlist,
-  checkPrivateTokens,
-  checkTokenContract,
-  checkTokenFallbacks,
-  checkTokenNames,
-} from "./plugins/tokens/check.ts";
-export {
-  checkExamplesReferences,
-  checkVariantChoiceKeys,
-} from "./plugins/variants/check.ts";
-export { checkVocabulary } from "./plugins/vocabulary/check.ts";
-export { checkVoidElementConstraints } from "./plugins/voidElements/check.ts";
-
-export type { CssIndex };

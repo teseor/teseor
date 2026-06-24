@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
+import { Spec } from "../../core/schema.ts";
 import type { TokenDictionary } from "../../lib/token-dictionary.ts";
-import { Spec } from "../../schema.ts";
 import {
   checkCssImportAllowlist,
   checkPrivateTokens,

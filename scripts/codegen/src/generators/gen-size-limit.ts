@@ -1,8 +1,8 @@
 import { readdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import type { GeneratorContext, GeneratorReport } from "../registry.ts";
-import { registerGenerator } from "../registry.ts";
+import type { GeneratorContext, GeneratorReport } from "../generator-registry.ts";
+import { registerGenerator } from "../generator-registry.ts";
 
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..", "..", "..");
 const SPECS_DIR = resolve(REPO_ROOT, "specs");

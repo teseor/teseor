@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { Spec } from "../../schema.ts";
+import { Spec } from "../../core/schema.ts";
 import { checkVoidElementConstraints } from "./check.ts";
 
 function makeSpec(s: unknown): Spec {

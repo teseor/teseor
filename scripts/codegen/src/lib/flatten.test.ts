@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { Spec } from "../schema.ts";
+import { Spec } from "../core/schema.ts";
 import { flattenSpec } from "./flatten.ts";
 
 /** Validates the literal at runtime via Zod. The lint rule

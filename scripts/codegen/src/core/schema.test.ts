@@ -1,8 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { z } from "zod";
-import { Spec as SpecSchema } from "../schema.ts";
 import type { SubstratePlugin } from "./plugin.ts";
-import { composeFragments } from "./schema.ts";
+import { composeFragments, Spec as SpecSchema } from "./schema.ts";
 
 // ---------------------------------------------------------------------------
 // composeFragments — collision detection
