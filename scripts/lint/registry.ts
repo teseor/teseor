@@ -11,6 +11,7 @@
 //
 // No package.json edit, no lefthook edit, no new top-level script.
 
+import { rule as codegenImportDirection } from "./cross-file/codegen-import-direction.ts";
 import { rule as configPaths } from "./cross-file/config-paths.ts";
 import { rule as contractSnapshots } from "./cross-file/contract-snapshots.ts";
 import { rule as docPaths } from "./cross-file/doc-paths.ts";
@@ -139,5 +140,6 @@ export const REGISTRY: Readonly<Record<string, Check>> = {
   "config-paths": configPaths,
   "label-sync": labelSync,
   "codegen-tests": codegenTests,
+  "codegen-import-direction": codegenImportDirection,
   changeset: changeset,
 };
