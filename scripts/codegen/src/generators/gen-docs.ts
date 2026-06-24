@@ -7,10 +7,10 @@ import {
   buildForcedColorsTokenMap,
   buildTokenMap,
 } from "../../../../packages/css/postcss-teseor-floor.ts";
+import type { GeneratorContext, GeneratorReport } from "../generator-registry.ts";
+import { registerGenerator } from "../generator-registry.ts";
 import { flattenSpec } from "../lib/flatten.ts";
 import { loadVocabulary } from "../lib/vocabulary.ts";
-import type { GeneratorContext, GeneratorReport } from "../registry.ts";
-import { registerGenerator } from "../registry.ts";
 import { Spec as SpecSchema } from "../schema.ts";
 import type { DocsSpec } from "./gen-docs/_shared/sections.ts";
 import { renderAtomicDocsPage } from "./gen-docs/kinds/atomic.ts";

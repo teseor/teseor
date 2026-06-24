@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 import { parseArgs } from "node:util";
 import "./generators/index.ts";
-import type { GeneratorContext, GeneratorReport } from "./registry.ts";
-import { getGenerator, listGenerators } from "./registry.ts";
+import type { GeneratorContext, GeneratorReport } from "./generator-registry.ts";
+import { getGenerator, listGenerators } from "./generator-registry.ts";
 
 function formatGeneratorList(): string {
   const registered = listGenerators();
