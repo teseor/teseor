@@ -53,7 +53,7 @@ pre-push:
     contract-snapshots:
       glob:
         - "specs/**/*.yaml"
-        - "scripts/codegen/**"
+        - "codegen/**"
         - "apps/harness/src/fixtures/**"
         - "packages/primitives/src/**"
         - "packages/react/src/**/*.tsx"

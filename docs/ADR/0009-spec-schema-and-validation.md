@@ -59,7 +59,7 @@ The full design and its alternatives are recorded in
 - One spec migration: `button.yaml` `states:` from a list to a map. No
   consumer impact (the spec is repo-internal).
 - One new dependency (Zod). The semantic-check pass adds a new TypeScript
-  file under `scripts/codegen/src/`.
+  file under `codegen/src/`.
 - The recursive shape commits to a structure now; depth-2+ codegen is
   unverified until `Table` lands (v0.5). The schema is closed under
   composition by construction, so no schema change is foreseen — but the

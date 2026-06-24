@@ -21,7 +21,7 @@ Walk the diff with this checklist. Skip anything that doesn't apply.
 
 ### 3. Codegen
 - Generator changes that don't re-run `pnpm gen`. The generated `.tsx` / `.vue` / `.astro` / contract files must be committed alongside generator changes. CI's `gen-drift` will catch this — flag it locally first.
-- New spec fields without a Zod entry in `scripts/codegen/src/schema.ts`.
+- New spec fields without a Zod entry in `codegen/src/schema.ts`.
 - Generator output that imports symbols that aren't yet exported.
 
 ### 4. Accessibility

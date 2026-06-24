@@ -124,7 +124,7 @@ everything else → Configuration). No new spec field is introduced.
 - The ordering rule is a runtime contract, not just a docs note.
   Cross-framework DOM-parity testing (#841) will eventually assert
   the order on both React and Vue outputs.
-- `scripts/codegen/src/generators/gen-docs/_shared/sections.ts`
+- `codegen/src/generators/gen-docs/_shared/sections.ts`
   splits `renderProps` into `renderConfiguration` / `renderContent`
   / `renderState` / `renderEvents`. The shared row-rendering helper
   stays one function; only the partitioning is new. Every existing
@@ -136,7 +136,7 @@ everything else → Configuration). No new spec field is introduced.
   lands at the Astro level.
 - Hardcoded composite-emitted props (`asChild`, `ref`) keep needing
   explicit rows in
-  `scripts/codegen/src/generators/gen-docs/_shared/sections.ts` — the
+  `codegen/src/generators/gen-docs/_shared/sections.ts` — the
   generator does not infer them from a spec field because no field
   declares them. After the split, those explicit rows live under
   whichever per-section helper matches their role.

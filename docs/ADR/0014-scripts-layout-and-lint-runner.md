@@ -56,7 +56,7 @@ Adding a check is one file under the appropriate subdirectory plus one entry in 
 - **The commit-msg lefthook helper renames** from `verify-commit.js` to `scripts/hooks/commit-msg.js` so the file name matches the git-hook name.
 - **Two `.js` lints stay JS.** `comments.js` and `logical-naming.js` are registered as `external` Checks rather than rewritten in TypeScript. Conversion is a separate concern.
 - **History follows.** All moves use `git mv`; `git log --follow` resolves each file's history through the rename.
-- **`scripts/codegen/` is unchanged.** It's a workspace package with its own surface and test layout. The reorg deliberately stops at its boundary.
+- **`codegen/` is unchanged.** It's a workspace package with its own surface and test layout. The reorg deliberately stops at its boundary.
 
 ## When this gets revisited
 

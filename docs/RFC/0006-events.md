@@ -211,7 +211,7 @@ Two cross-cutting properties of this file:
    string lives in two places: every consumer of the vocab (validator,
    codegen, gen-docs) imports a generated TS module.
 2. **Generated TS mirror.** `pnpm gen` produces
-   `scripts/codegen/src/lib/vocabulary.ts` with typed exports:
+   `codegen/src/lib/vocabulary.ts` with typed exports:
 
    ```ts
    export const eventVerbs = ["activate", "select", ...] as const;
@@ -578,7 +578,7 @@ Configuration.
 | `## Events` | Declared events + the `onEvent` channel. |
 
 Touches the `renderProps` function in
-`scripts/codegen/src/generators/gen-docs/_shared/sections.ts` — split into
+`codegen/src/generators/gen-docs/_shared/sections.ts` — split into
 `renderConfiguration` / `renderContent` / `renderState` / `renderEvents`.
 Hardcoded composite-emitted props (`asChild`, `ref`) keep needing explicit
 rows per the existing pattern; they're routed to whichever section matches
@@ -642,7 +642,7 @@ we don't add bypasses.**
   per-event `@dismiss`-style emits; the literal `event` channel reads as a
   meta-emit. Documented; not deep cost.
 - **Doc rendering rewrite.** `renderProps` becomes four functions. Small
-  churn in `scripts/codegen/src/generators/gen-docs/_shared/sections.ts`.
+  churn in `codegen/src/generators/gen-docs/_shared/sections.ts`.
 - **No state-machine generalization.** Today's narrow `interactions:` block
   stays as-is; the events RFC parks the state-machine question. Risk:
   later, if we generalize `interactions:` to a real machine, some events
@@ -807,13 +807,13 @@ channel automatically.
 The RFC ships across small PRs, each independently reviewable:
 
 1. **Vocabulary infrastructure.** `_vocabulary.yaml` extension + generated
-   TS mirror at `scripts/codegen/src/lib/vocabulary.ts`. No spec changes.
+   TS mirror at `codegen/src/lib/vocabulary.ts`. No spec changes.
 2. **Schema + validator.** `events:` and `generics:` blocks on the Zod
    schema; eight semantic-check rules. No codegen wiring yet.
 3. **Codegen — single tracer-bullet spec.** Modal adopts `events: dismiss`;
    `gen-contract` + `gen-react` + `gen-vue` emit the per-event prop and
    the channel. Verifies the full pipeline on one spec.
-4. **Docs four-section split.** `scripts/codegen/src/generators/gen-docs/_shared/sections.ts` rewrite;
+4. **Docs four-section split.** `codegen/src/generators/gen-docs/_shared/sections.ts` rewrite;
    re-renders every existing spec into the new layout.
 5. **Rollout per spec.** Tooltip, then Tabs (once events lands), then
    composite list components (#690 cluster).

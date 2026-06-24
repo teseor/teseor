@@ -5,7 +5,7 @@
 
 Flips to Accepted when the vocabulary infrastructure PR has merged
 (`specs/_vocabulary.yaml` carrying the structured `events:` block
-and `scripts/codegen/src/lib/vocabulary.ts` rebuilt as the generated
+and `codegen/src/lib/vocabulary.ts` rebuilt as the generated
 TS mirror).
 
 ## Decision
@@ -17,7 +17,7 @@ string list; the implementation PR extends it into four keys —
 `events.verbs`, `events.synonyms`, `events.builtins`, and the
 name `pattern` — whose roles are described in the two sub-headings
 ("Event names" and "Payload types") that follow. A generated
-TypeScript mirror at `scripts/codegen/src/lib/vocabulary.ts` (today
+TypeScript mirror at `codegen/src/lib/vocabulary.ts` (today
 a runtime YAML loader, rebuilt as a generated artifact in the same
 PR) is the single source every consumer of the vocab (validator,
 codegen, gen-docs) imports.
@@ -103,7 +103,7 @@ the vocab, extend the schema) — they don't open bypasses.
   gen-contract, gen-react, gen-vue, gen-docs) reads from the
   generated TS mirror. No string lives in two places.
 - **Eight new semantic-check rules** in
-  `scripts/codegen/src/semantic-checks.ts` (the rules file invoked
+  `codegen/src/semantic-checks.ts` (the rules file invoked
   by `validate-spec.ts` via `runSemanticChecks`, per RFC-0006 §
   Validator rules): event-name pattern, verb-registered, synonym
   rejection (with `open` routed to `pattern: "controllable"`),

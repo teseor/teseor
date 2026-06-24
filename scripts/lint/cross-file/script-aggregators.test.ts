@@ -40,7 +40,7 @@ describe("findDeadAggregators", () => {
 describe("workspacePatterns", () => {
   it("reads the packages globs and stops at the next top-level key", () => {
     const yaml =
-      "packages:\n  - 'packages/*'\n  - 'apps/*'\n  - 'scripts/codegen'\nallowBuilds:\n  esbuild: false\n";
-    expect(workspacePatterns(yaml)).toEqual(["packages/*", "apps/*", "scripts/codegen"]);
+      "packages:\n  - 'packages/*'\n  - 'apps/*'\n  - 'codegen'\nallowBuilds:\n  esbuild: false\n";
+    expect(workspacePatterns(yaml)).toEqual(["packages/*", "apps/*", "codegen"]);
   });
 });

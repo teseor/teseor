@@ -61,7 +61,7 @@ Any other usage is rejected at validation time.
 - The validator gains rules for source-prefix resolution: part name
   exists, DOM event in the registered vocabulary, key in the registered
   vocabulary, `outside.*` only on overlay parts. All landed in
-  `checkStateMachines` (`scripts/codegen/src/semantic-checks.ts`),
+  `checkStateMachines` (`codegen/src/semantic-checks.ts`),
   replacing the deleted `checkInteractionEventVocabulary` rule.
 - Authors get suggestion-on-miss for every source: `clik` →
   "did you mean click?", `key.scape` → "did you mean key.escape?"

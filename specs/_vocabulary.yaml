@@ -195,7 +195,7 @@ parts:
 
 # Event vocabulary (spec form).
 # Consumed by codegen, the validator, and gen-docs via
-# scripts/codegen/src/lib/vocabulary.ts.
+# codegen/src/lib/vocabulary.ts.
 events:
   # Verb registry — last camelCase token of every event name must
   # be a key here. Values are the canonical description surfaced in

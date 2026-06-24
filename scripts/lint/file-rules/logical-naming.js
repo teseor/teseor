@@ -6,7 +6,7 @@ import { argv, cwd, exit } from "node:process";
 const SPEC_KEY_RE = /^\s+([a-z][A-Za-z0-9]*?(Left|Right|Top|Bottom)):/;
 const DATA_POSITION_RE = /data-position\s*=\s*"(left|right|top|bottom)"/;
 
-const DEFAULT_SCAN_DIRS = ["specs", "scripts/codegen/src"];
+const DEFAULT_SCAN_DIRS = ["specs", "codegen/src"];
 const SCAN_EXTS = [".yaml", ".yml", ".ts", ".tsx", ".js"];
 
 function walk(dir, out) {

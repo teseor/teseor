@@ -5,15 +5,15 @@
 
 ## Decision
 
-Reorganize `scripts/codegen/src/generators/` from one monolithic file per
+Reorganize `codegen/src/generators/` from one monolithic file per
 generator into a target-first directory structure. Each generator
 (`gen-react`, `gen-vue`, `gen-contract`, `gen-docs`, `gen-tests`) keeps its
 top-level dispatcher file (`gen-<target>.ts`) and grows a sibling directory
 (`gen-<target>/`) containing its split internals. Framework-agnostic helpers
-shared across two or more generators move to `scripts/codegen/src/lib/`.
+shared across two or more generators move to `codegen/src/lib/`.
 
 ```text
-scripts/codegen/src/
+codegen/src/
 ├── cli.ts                                # unchanged
 ├── registry.ts                           # unchanged — one entry per generator
 ├── generators/
@@ -49,7 +49,7 @@ siblings) is preserved unchanged. No per-emitter registry layer is introduced.
 | `gen-<target>/components/<name>.ts` | Full per-component emitter for genuinely unique components (DatePicker, DataGrid, Tree, ColorPicker) that don't slice into shared kinds | The named spec only |
 | `gen-<target>/workspace/<file>.ts` | Aggregate emitters that take the full spec corpus (barrels, READMEs, framework-wide runtime files) | Once per `pnpm gen` invocation |
 | `gen-<target>/\_shared/` | Framework-specific helpers used by ≥2 files inside the same target dir (JSX printer, SFC printer, hook-config) | Imported by the per-target files that need them |
-| `scripts/codegen/src/lib/` | Cross-target helpers used by ≥2 generators (pascal-case, text-escape, collect-slots, enum-primitives, jsdoc-shape, composite-shape, flatten) | Imported anywhere across `scripts/codegen/` |
+| `codegen/src/lib/` | Cross-target helpers used by ≥2 generators (pascal-case, text-escape, collect-slots, enum-primitives, jsdoc-shape, composite-shape, flatten) | Imported anywhere across `codegen/` |
 
 lib/ does not depend on generators/. Per-target \_shared/ does not depend
 on other targets' \_shared/. Generator dispatchers depend on lib/, their own
@@ -125,7 +125,7 @@ on other targets' \_shared/. Generator dispatchers depend on lib/, their own
 - **The five generator files (`gen-<target>.ts`) shrink from 300–1000 LOC each
   to ~50 LOC.** They become thin orchestrators: import the kind/component
   emitters, dispatch on `spec.kind`, register with the generator registry.
-- **`scripts/codegen/src/lib/` has six new modules** with colocated unit
+- **`codegen/src/lib/` has six new modules** with colocated unit
   tests: `pascal-case.ts`, `text-escape.ts`, `collect-slots.ts`,
   `enum-primitives.ts`, `jsdoc-shape.ts`, `composite-shape.ts`. Each is a
   pure framework-agnostic primitive imported by multiple generators.
@@ -156,7 +156,7 @@ on other targets' \_shared/. Generator dispatchers depend on lib/, their own
 - **Per-target \_shared/ becomes a duplicate of another target's \_shared/.**
   If gen-react's framework-specific jsx printer and an analogous gen-astro file
   end up with substantially shared logic, promote to a framework-aware module
-  under `scripts/codegen/src/lib/` (e.g. a per-target subdirectory). The threshold is "≥2 targets actually share this code,"
+  under `codegen/src/lib/` (e.g. a per-target subdirectory). The threshold is "≥2 targets actually share this code,"
   not speculation.
 
 ## References
@@ -165,7 +165,7 @@ on other targets' \_shared/. Generator dispatchers depend on lib/, their own
   PR closes it)
 - [ADR-0014](0014-scripts-layout-and-lint-runner.md) — direct precedent for
   scripts-subsystem reorg via role-based subdirectories; ADR-0015 follows the
-  same shape inside `scripts/codegen/`
+  same shape inside `codegen/`
 - [ADR-0002](0002-per-component-yaml-over-manifest.md) — per-component spec as
   the source of truth that codegen consumes
 - [ADR-0009](0009-spec-schema-and-validation.md) — the spec schema that

@@ -132,7 +132,7 @@ distinguishes:
 - File primitive issues: floating-positioning, roving-tabindex, type-ahead. Each
   blocks ≥4 downstream components from shipping cleanly.
 - Codegen patterns (asChild Slot, controlled/uncontrolled hook, data-state
-  reflection) are template work in `scripts/codegen/` — track separately from
+  reflection) are template work in `codegen/` — track separately from
   primitive issues; they ride along with the first component that needs them.
 
 These three missing primitives are the only base-code work that the survey
