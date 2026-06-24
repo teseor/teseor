@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { levenshtein, suggest } from "./semantic-checks.ts";
+import { levenshtein, suggest } from "./core/check-utils.ts";
 
 describe("levenshtein + suggest", () => {
   test("levenshtein is symmetric and zero for equal strings", () => {

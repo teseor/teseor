@@ -37,18 +37,9 @@ import { checkVoidElementConstraints } from "./plugins/void-elements/check.ts";
 import type { Spec } from "./schema.ts";
 
 export type { Issue } from "./core/check-utils.ts";
-export { levenshtein, suggest } from "./core/check-utils.ts";
+export { checkDependencyCycles } from "./plugins/dependencies/check.ts";
 
 type TokensCss = ReadonlySet<string>;
-
-type CssIndex = {
-  /** Spec basename to the CSS source string. */
-  cssByName: Map<string, string>;
-};
-
-export { checkA11yRefs };
-
-// ── Aggregate ───────────────────────────────────────────────────────────────
 
 export function runSemanticChecks(
   spec: Spec,
@@ -86,35 +77,3 @@ export function runSemanticChecks(
     ...checkStateMachines(spec, ctx.vocabulary),
   ];
 }
-
-export { checkBranches } from "./plugins/branches/check.ts";
-export {
-  checkConstraintsAgainstCoverage,
-  checkConstraintsAgainstExamples,
-} from "./plugins/constraints/check.ts";
-export { checkCoverageShape } from "./plugins/coverage/check.ts";
-export type { DependencyIndex } from "./plugins/dependencies/check.ts";
-export { checkDependencyCycles } from "./plugins/dependencies/check.ts";
-export { checkEvents, checkEventsRuntimeSupport } from "./plugins/events/check/index.ts";
-export { checkExamplesPresent } from "./plugins/examples/check.ts";
-export { checkFormControl } from "./plugins/form-control/check.ts";
-export { checkImperativeProps } from "./plugins/imperative-props/check.ts";
-export { checkRepeatingParts } from "./plugins/parts/check/index.ts";
-export { checkResponsiveExplicit } from "./plugins/props/check.ts";
-export { checkRoot } from "./plugins/root/check.ts";
-export { checkStateMachines } from "./plugins/states/check/index.ts";
-export {
-  checkCssImportAllowlist,
-  checkPrivateTokens,
-  checkTokenContract,
-  checkTokenFallbacks,
-  checkTokenNames,
-} from "./plugins/tokens/check.ts";
-export {
-  checkExamplesReferences,
-  checkVariantChoiceKeys,
-} from "./plugins/variants/check.ts";
-export { checkVocabulary } from "./plugins/vocabulary/check.ts";
-export { checkVoidElementConstraints } from "./plugins/void-elements/check.ts";
-
-export type { CssIndex };
