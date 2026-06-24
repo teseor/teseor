@@ -1,3 +1,5 @@
+import { visitNodes } from "../../../core/check-utils.ts";
+import type { Spec } from "../../../schema.ts";
 import type { PayloadEntry } from "../schema.ts";
 
 // Valid JS identifier: starts with letter/underscore/$, followed by alphanumerics/_/$.
@@ -18,9 +20,6 @@ export function visitPayload(
   visit(entry, path);
   if (entry.type === "array") visitPayload(entry.of, `${path}.of`, visit);
 }
-
-import { visitNodes } from "../../../core/check-utils.ts";
-import type { Spec } from "../../../schema.ts";
 
 export function collectControllableProps(spec: Spec): string[] {
   const names: string[] = [];
