@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import type { Vocabulary } from "../../lib/vocabulary.ts";
 import { Spec } from "../../schema.ts";
-import { checkStateMachines } from "./check.ts";
+import { checkStateMachines } from "./check/index.ts";
 
 const vocabulary: Vocabulary = {
   components: ["Button", "Stack"],
