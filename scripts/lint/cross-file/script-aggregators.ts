@@ -3,7 +3,7 @@
 // turns such a dead aggregator into a silent success, so nothing else catches it.
 import { globSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { REPO_ROOT } from "../../lib/paths.ts";
+import { REPO_ROOT } from "../helpers/paths.ts";
 import type { ViolationDetail, WorkspaceCheck } from "../registry.ts";
 
 type PackageJson = { scripts?: Record<string, string> };

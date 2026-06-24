@@ -3,7 +3,7 @@
 // the dev-scripts.md catalog — every script has a row, every row a real script.
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { REPO_ROOT } from "../../lib/paths.ts";
+import { REPO_ROOT } from "../helpers/paths.ts";
 import type { ViolationDetail, WorkspaceCheck } from "../registry.ts";
 
 const NAME_PATTERN = /^[a-z][a-z0-9]*(?::[a-z][a-z0-9-]*)*$/;

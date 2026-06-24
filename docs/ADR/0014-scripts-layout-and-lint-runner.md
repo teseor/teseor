@@ -52,7 +52,7 @@ Adding a check is one file under the appropriate subdirectory plus one entry in 
 - **One npm alias for linting.** `pnpm lint` is the only `lint:*` script. Per-rule debug uses `node scripts/lint/run.ts --<rulename>` directly.
 - **One lefthook pre-commit command.** `project` dispatches via `node scripts/lint/run.ts --all {staged_files}`. The runner gates each check on its own trigger pathspecs against the staged list.
 - **`commit-msg` and `verify-no-dev-leak` are lefthook-only.** They run outside the lint suite (different lifecycle: commit-msg fires per commit; verify-no-dev-leak runs post-build during pre-push). Called by path from `lefthook.yml`, no npm-script alias.
-- **The PostCSS type-augmentation file moves to `scripts/lib/postcss-each.d.ts`** with the other build helpers.
+- **The PostCSS type-augmentation file moves to `scripts/lint/helpers/postcss-each.d.ts`** with the other build helpers.
 - **The commit-msg lefthook helper renames** from `verify-commit.js` to `scripts/hooks/commit-msg.js` so the file name matches the git-hook name.
 - **Two `.js` lints stay JS.** `comments.js` and `logical-naming.js` are registered as `external` Checks rather than rewritten in TypeScript. Conversion is a separate concern.
 - **History follows.** All moves use `git mv`; `git log --follow` resolves each file's history through the rename.

@@ -4,8 +4,8 @@
 // lines, npm scripts, and permission patterns.
 import { existsSync, readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
-import { lsFiles } from "../../lib/enumerate.ts";
-import { REPO_ROOT } from "../../lib/paths.ts";
+import { lsFiles } from "../helpers/enumerate.ts";
+import { REPO_ROOT } from "../helpers/paths.ts";
 import type { ViolationDetail, WorkspaceCheck } from "../registry.ts";
 
 const CONFIG_FILES = [".claude/settings.json", "package.json", "lefthook.yml"] as const;

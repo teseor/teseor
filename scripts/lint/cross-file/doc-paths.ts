@@ -5,7 +5,7 @@
 // file leaves dangling text that markdown-link checkers do not see.
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, relative, resolve } from "node:path";
-import { REPO_ROOT } from "../../lib/paths.ts";
+import { REPO_ROOT } from "../helpers/paths.ts";
 import type { ViolationDetail, WorkspaceCheck } from "../registry.ts";
 
 const DOCS_DIR = resolve(REPO_ROOT, "docs");
