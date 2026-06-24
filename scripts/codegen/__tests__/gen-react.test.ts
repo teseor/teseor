@@ -2,6 +2,7 @@ import { readdir, readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { describe, expect, test } from "vitest";
 import { parse as parseYaml } from "yaml";
+import { Spec as SpecSchema } from "../src/core/schema.ts";
 import type { Spec } from "../src/generators/gen-contract.ts";
 import {
   renderBarrel,
@@ -11,7 +12,6 @@ import {
 } from "../src/generators/gen-react.ts";
 import { flattenSpec } from "../src/lib/flatten.ts";
 import { loadVocabulary } from "../src/lib/vocabulary.ts";
-import { Spec as SpecSchema } from "../src/schema.ts";
 import { BREAKPOINTS } from "./_fixtures.ts";
 
 const REPO_ROOT = resolve(import.meta.dirname, "..", "..", "..");

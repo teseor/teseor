@@ -1,5 +1,5 @@
+import type { SpecPart } from "../../../core/schema.ts";
 import { pascalCase } from "../../../lib/pascal-case.ts";
-import type { SpecPart } from "../../../schema.ts";
 
 export type StatefulPart = {
   partName: string;

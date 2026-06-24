@@ -1,4 +1,4 @@
-import type { PayloadEntry } from "../../../schema.ts";
+import type { PayloadEntry } from "../../../core/schema.ts";
 import { quote } from "./type-printer.ts";
 
 /**
