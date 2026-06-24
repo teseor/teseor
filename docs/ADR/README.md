@@ -32,6 +32,8 @@ a numbered, durable file.
 | [0022](0022-minimal-when-guard-grammar.md) | Minimal `when:` guard grammar | Accepted |
 | [0023](0023-state-machine-runtime-in-primitives.md) | State-machine runtime lives in `@teseor/primitives` | Accepted |
 | [0024](0024-part-name-uniqueness.md) | Part names are unique across the parts tree | Accepted |
+| [0025](0025-substrate-plugin-architecture.md) | Substrate plugin architecture | Accepted |
+| [0026](0026-props-record-values.md) | Top-level variants/intents/sizes consolidate into `props:` | Proposed |
 
 ## When to write one
 
