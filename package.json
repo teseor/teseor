@@ -40,7 +40,7 @@
     "knip": "^6.18.0",
     "lefthook": "^2.1.9",
     "markdownlint-cli2": "^0.22.1",
-    "postcss": "^8.5.15",
+    "postcss": "^8.5.23",
     "postcss-each": "^1.1.0",
     "postcss-selector-parser": "^7.1.4",
     "size-limit": "^12.1.0",
